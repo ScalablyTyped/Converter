@@ -1,0 +1,7 @@
+{
+  "name": "aws-sdk",
+  "description": "AWS SDK for JavaScript",
+  "version": "2.247.1",
+  "types": "index.d.ts",
+  "typings": "index.d.ts"
+}

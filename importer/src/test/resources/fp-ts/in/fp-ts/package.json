@@ -1,0 +1,51 @@
+{
+  "name": "fp-ts",
+  "version": "1.2.0",
+  "description": "Functional programming in TypeScript",
+  "files": ["lib"],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "lint": "tslint src/**/*.ts test/**/*.ts examples/**/*.ts exercises/**/*.ts",
+    "mocha": "TS_NODE_CACHE=false mocha -r ts-node/register test/*.ts",
+    "prettier":
+      "prettier --no-semi --single-quote --print-width 120 --parser typescript --list-different \"{src,test,examples,exercises}/**/*.ts\"",
+    "fix-prettier":
+      "prettier --no-semi --single-quote --print-width 120 --parser typescript --write \"{src,test,examples,exercises}/**/*.ts\"",
+    "typings": "typings-checker --project ./typings-checker/tsconfig.json ./typings-checker/index.ts",
+    "test": "npm run lint && npm run prettier && npm run typings && npm run mocha",
+    "clean": "rm -rf lib/*",
+    "build": "npm run clean && tsc",
+    "docs": "rm -rf docs/api/md/* && ts-node docs/api/main.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gcanti/fp-ts.git"
+  },
+  "author": "Giulio Canti <giulio.canti@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gcanti/fp-ts/issues"
+  },
+  "homepage": "https://github.com/gcanti/fp-ts",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/doctrine": "0.0.3",
+    "@types/mocha": "2.2.38",
+    "@types/node": "7.0.4",
+    "@types/prettier": "^1.10.0",
+    "benchmark": "2.1.4",
+    "chalk": "2.2.0",
+    "doctrine": "2.0.0",
+    "mocha": "3.2.0",
+    "prettier": "^1.11.0",
+    "ts-node": "3.1.0",
+    "ts-simple-ast": "0.74.0",
+    "tslint": "4.4.2",
+    "tslint-config-standard": "4.0.0",
+    "typescript": "^2.7.2",
+    "typings-checker": "^2.0.0"
+  },
+  "tags": ["typescript", "algebraic-data-types", "functional-programming"],
+  "keywords": ["typescript", "algebraic-data-types", "functional-programming"]
+}

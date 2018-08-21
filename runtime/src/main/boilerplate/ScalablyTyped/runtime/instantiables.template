@@ -1,0 +1,23 @@
+package ScalablyTyped.runtime
+
+import scala.scalajs.js
+
+trait Instantiable0[R] extends js.Object
+
+object Instantiable0 {
+  @inline implicit final class Instantiable0Opts[R](private val ctor: Instantiable0[R]) extends AnyVal {
+    @inline def newInstance0(): R =
+      js.Dynamic.newInstance(ctor.asInstanceOf[js.Dynamic])().asInstanceOf[R]
+  }
+}
+
+[#
+trait Instantiable1[[#T1#], R] extends js.Object
+
+object Instantiable1 {
+  @inline implicit final class Instantiable1Opts[[#T1#], R](private val ctor: Instantiable1[[#T1#], R]) extends AnyVal {
+    @inline def newInstance1([#t1: T1#]): R =
+      js.Dynamic.newInstance(ctor.asInstanceOf[js.Dynamic])([#t1.asInstanceOf[js.Any]#]).asInstanceOf[R]
+  }
+}#
+]
