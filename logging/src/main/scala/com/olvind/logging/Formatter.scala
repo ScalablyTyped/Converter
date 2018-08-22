@@ -36,7 +36,7 @@ object Formatter {
         arr(idx) = "["
         idx += 1
         ts.foreach { t =>
-          arr(idx)     = Formatter(t)
+          arr(idx) = Formatter(t)
           arr(idx + 1) = ", "
           idx += 2
         }
@@ -54,7 +54,7 @@ object Formatter {
         arr(idx) = "["
         idx += 1
         ts.foreach { t =>
-          arr(idx)     = Formatter(t)
+          arr(idx) = Formatter(t)
           arr(idx + 1) = ", "
           idx += 2
         }

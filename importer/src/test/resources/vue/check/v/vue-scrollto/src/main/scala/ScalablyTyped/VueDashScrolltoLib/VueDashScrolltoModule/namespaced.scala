@@ -15,6 +15,6 @@ class namespaced () extends VueScrollTo {
 @JSImport("vue-scrollto", JSImport.Namespace)
 @js.native
 object namespaced extends js.Object {
-  var install: VueLib.VueModule.PluginFunction[scala.Nothing] = js.native
+  var install: VueLib.VueTypesPluginModule.PluginFunction[scala.Nothing] = js.native
 }
 

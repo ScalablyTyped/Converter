@@ -118,7 +118,7 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
         types flatMap (tpe => mpsFromType(scope, tpe))
 
       case other =>
-        scope.logger.fatalMaybe(s"Doesnt know how to handle $other", constants.Pedantic)
+        scope.logger.warn(s"Doesnt know how to handle $other")
         Nil
     }
 }

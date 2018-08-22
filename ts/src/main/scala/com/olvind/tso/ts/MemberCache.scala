@@ -3,6 +3,8 @@ package ts
 
 import com.olvind.tso.seqs.TraversableOps
 
+import scala.collection.mutable
+
 trait MemberCache {
 
   def members: Seq[TsContainerOrDecl]
@@ -22,31 +24,32 @@ trait MemberCache {
 
   @deprecated("kill with fire")
   lazy val membersByNameMeh: Map[TsIdent, Seq[TsNamedDecl]] = {
-    val fromExports = exports collect {
-      case TsExport(_, _, TsExporteeTree(x: TsNamedDecl)) => x
-    }
+    val ret = mutable.Map.empty[TsIdent, List[TsNamedDecl]]
 
-    val ret = (nameds ++ fromExports).groupBy(_.name)
+    members.foreach {
+      case mod: TsDeclModule =>
+        ret(mod.name) = mod :: ret.getOrElseUpdate(mod.name, Nil)
 
-    val modulesAsNamespace =
-      modules.flatMap {
-        case (_, m) =>
-          m.unnamed.flatMap {
-            case TsExportAsNamespace(ident) => Map(ident -> m)
-            case TsGlobal(_, _, ms, _)      => ms.collect { case x: TsNamedDecl => x.name -> x }
-            case _                          => Nil
-          }
-      }
+        mod.members foreach {
+          case TsExportAsNamespace(ident) =>
+            ret(ident) = mod :: ret.getOrElseUpdate(ident, Nil)
+          case TsGlobal(_, _, ms, _) =>
+            ms.foreach {
+              case x: TsNamedDecl =>
+                ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
 
-    //todo: optimize this
-    modulesAsNamespace.foldLeft(ret) {
-      case (ret, (ident, mod)) =>
-        val v = ret.get(ident) match {
-          case Some(found) => found :+ mod
-          case None        => Seq(mod)
+              case _ => ()
+            }
+          case _ => ()
         }
-        ret.updated(ident, v)
+      case x: TsNamedDecl =>
+        ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
+      case TsExport(_, _, TsExporteeTree(x: TsNamedDecl)) =>
+        ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
+      case _ => ()
     }
+
+    ret.toMap
   }
 
   lazy val membersByName: Map[TsIdent, Seq[TsNamedDecl]] =

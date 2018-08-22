@@ -21,26 +21,26 @@ final class ParserTests extends FunSuite {
             TsDeclModule(
               NoComments,
               declared = true,
-              name     = TsIdentModule.simple("path-case"),
+              name = TsIdentModule.simple("path-case"),
               members = List(
                 TsDeclFunction(
                   NoComments,
                   declared = false,
-                  name     = TsIdent("pathCase"),
+                  name = TsIdent("pathCase"),
                   signature = TsFunSig(
                     NoComments,
                     Nil,
                     List(
                       TsFunParam(
                         NoComments,
-                        name       = TsIdent("string"),
-                        tpe        = Some(TsTypeRef.string),
+                        name = TsIdent("string"),
+                        tpe = Some(TsTypeRef.string),
                         isOptional = false
                       ),
                       TsFunParam(
                         NoComments,
-                        name       = TsIdent("locale"),
-                        tpe        = Some(TsTypeRef.string),
+                        name = TsIdent("locale"),
+                        tpe = Some(TsTypeRef.string),
                         isOptional = true
                       )
                     ),
@@ -102,35 +102,35 @@ final class ParserTests extends FunSuite {
     val expected: TsDeclInterface =
       TsDeclInterface(
         NoComments,
-        declared    = false,
-        name        = TsIdent("Options"),
-        tparams     = Nil,
+        declared = false,
+        name = TsIdent("Options"),
+        tparams = Nil,
         inheritance = Nil,
         members = List(
           TsMemberProperty(
             NoComments,
-            level      = Default,
-            name       = TsIdent("algorithm"),
-            tpe        = Some(TsTypeRef.string),
-            isStatic   = false,
+            level = Default,
+            name = TsIdent("algorithm"),
+            tpe = Some(TsTypeRef.string),
+            isStatic = false,
             isReadOnly = false,
             isOptional = true
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
-            name       = TsIdent("saltLength"),
-            tpe        = Some(TsTypeRef.number),
-            isStatic   = false,
+            level = Default,
+            name = TsIdent("saltLength"),
+            tpe = Some(TsTypeRef.number),
+            isStatic = false,
             isReadOnly = false,
             isOptional = true
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
-            name       = TsIdent("iterations"),
-            tpe        = Some(TsTypeRef.number),
-            isStatic   = false,
+            level = Default,
+            name = TsIdent("iterations"),
+            tpe = Some(TsTypeRef.number),
+            isStatic = false,
             isReadOnly = false,
             isOptional = true
           )
@@ -152,17 +152,17 @@ final class ParserTests extends FunSuite {
     val expected: TsDeclClass =
       TsDeclClass(
         NoComments,
-        declared   = false,
+        declared = false,
         isAbstract = false,
-        name       = TsIdent("Base"),
-        tparams    = Nil,
-        parent     = None,
+        name = TsIdent("Base"),
+        tparams = Nil,
+        parent = None,
         implements = Nil,
         members = List(
           TsMemberFunction(
             NoComments,
             level = Default,
-            name  = TsIdent.constructor,
+            name = TsIdent.constructor,
             signature = TsFunSig(
               NoComments,
               Nil,
@@ -176,9 +176,9 @@ final class ParserTests extends FunSuite {
                         TsMemberIndex(
                           NoComments,
                           isReadOnly = false,
-                          level      = Default,
-                          indexing   = IndexingDict(TsIdent("key"), TsTypeRef.string),
-                          valueType  = TsTypeRef.any,
+                          level = Default,
+                          indexing = IndexingDict(TsIdent("key"), TsTypeRef.string),
+                          valueType = TsTypeRef.any,
                           isOptional = false
                         )
                       )
@@ -189,21 +189,21 @@ final class ParserTests extends FunSuite {
               ),
               None
             ),
-            isStatic   = false,
+            isStatic = false,
             isReadOnly = false,
             isOptional = false
           ),
           TsMemberFunction(
             NoComments,
             level = Default,
-            name  = TsIdent("destroy"),
+            name = TsIdent("destroy"),
             signature = TsFunSig(
               NoComments,
-              tparams    = Nil,
-              params     = Nil,
+              tparams = Nil,
+              params = Nil,
               resultType = Some(TsTypeRef(name = TsQIdent.void, tparams = Nil))
             ),
-            isStatic   = false,
+            isStatic = false,
             isReadOnly = false,
             isOptional = false
           )
@@ -437,10 +437,10 @@ final class ParserTests extends FunSuite {
                         TsMemberFunction(
                           NoComments,
                           level = Default,
-                          name  = TsIdent("toString"),
+                          name = TsIdent("toString"),
                           signature =
                             TsFunSig(NoComments, tparams = Nil, params = Nil, resultType = Some(TsTypeRef.string)),
-                          isStatic   = false,
+                          isStatic = false,
                           isReadOnly = false,
                           isOptional = false
                         )
@@ -454,7 +454,7 @@ final class ParserTests extends FunSuite {
               params = Nil,
               resultType = Some(
                 TsTypeRef(
-                  name    = TsQIdent.of("Ordinal"),
+                  name = TsQIdent.of("Ordinal"),
                   tparams = List(TsTypeRef(TsQIdent.of("Domain"), Nil), TsTypeRef(TsQIdent.of("Range"), Nil))
                 )
               )
@@ -508,14 +508,14 @@ final class ParserTests extends FunSuite {
                     TsMemberProperty(
                       NoComments,
                       level = Default,
-                      name  = TsIdent("errors"),
+                      name = TsIdent("errors"),
                       tpe = Some(
                         TsTypeRef(
-                          name    = TsQIdent.Array,
+                          name = TsQIdent.Array,
                           tparams = List(TsTypeRef(TsQIdent.of("ValidationError"), Nil))
                         )
                       ),
-                      isStatic   = false,
+                      isStatic = false,
                       isReadOnly = false,
                       isOptional = false
                     )
@@ -536,7 +536,7 @@ final class ParserTests extends FunSuite {
       TsMemberProperty(
         NoComments,
         level = Default,
-        name  = TsIdent("toolbarPlacement"),
+        name = TsIdent("toolbarPlacement"),
         tpe = Some(
           TsTypeUnion(
             Seq(
@@ -546,7 +546,7 @@ final class ParserTests extends FunSuite {
             )
           )
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = true
       )
@@ -558,7 +558,7 @@ final class ParserTests extends FunSuite {
       TsMemberProperty(
         NoComments,
         level = Default,
-        name  = TsIdent("primary_key"),
+        name = TsIdent("primary_key"),
         tpe = Some(
           TsTypeUnion(
             Seq(
@@ -568,7 +568,7 @@ final class ParserTests extends FunSuite {
             )
           )
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = true
       )
@@ -595,7 +595,7 @@ final class ParserTests extends FunSuite {
           ),
           Some(TsTypeThis())
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -608,7 +608,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("static"),
                        Some(TsTypeRef(TsQIdent.boolean, Nil)),
-                       isStatic   = false,
+                       isStatic = false,
                        isReadOnly = false,
                        isOptional = false)
     )
@@ -617,10 +617,10 @@ final class ParserTests extends FunSuite {
   test("numeric identifier") {
     shouldParseAs("0?: string", TsParser.tsMemberNamed)(
       TsMemberProperty(NoComments,
-                       level      = Default,
-                       name       = TsIdent("0"),
-                       tpe        = Some(TsTypeRef.string),
-                       isStatic   = false,
+                       level = Default,
+                       name = TsIdent("0"),
+                       tpe = Some(TsTypeRef.string),
+                       isStatic = false,
                        isReadOnly = false,
                        isOptional = true)
     )
@@ -714,7 +714,7 @@ final class ParserTests extends FunSuite {
           ),
           Some(TsTypeRef(TsQIdent.of("JQueryPromise"), List(TsTypeRef(TsQIdent.of("T"), Nil))))
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -779,7 +779,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("public"),
                        Some(TsTypeRef(TsQIdent.boolean, Nil)),
-                       isStatic   = false,
+                       isStatic = false,
                        isReadOnly = false,
                        isOptional = false)
     )
@@ -789,7 +789,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("public"),
                        Some(TsTypeRef(TsQIdent.of("private"), Nil)),
-                       isStatic   = true,
+                       isStatic = true,
                        isReadOnly = false,
                        isOptional = true)
     )
@@ -816,7 +816,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("i"),
                        Some(TsTypeRef(TsQIdent.number, Nil)),
-                       isStatic   = false,
+                       isStatic = false,
                        isReadOnly = false,
                        isOptional = false)
     )
@@ -896,24 +896,24 @@ final class ParserTests extends FunSuite {
         Nil,
         List(
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("name"),
-                           tpe        = Some(TsTypeRef.string),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("name"),
+                           tpe = Some(TsTypeRef.string),
+                           isStatic = false,
                            isReadOnly = true,
                            isOptional = false),
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("size"),
-                           tpe        = Some(TsTypeRef.number),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("size"),
+                           tpe = Some(TsTypeRef.number),
+                           isStatic = false,
                            isReadOnly = true,
                            isOptional = false),
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("type"),
-                           tpe        = Some(TsTypeRef.number),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("type"),
+                           tpe = Some(TsTypeRef.number),
+                           isStatic = false,
                            isReadOnly = true,
                            isOptional = false)
         ),
@@ -941,31 +941,31 @@ final class ParserTests extends FunSuite {
         Nil,
         List(
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("default"),
-                           tpe        = Some(TsTypeRef.string),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("default"),
+                           tpe = Some(TsTypeRef.string),
+                           isStatic = false,
                            isReadOnly = false,
                            isOptional = true),
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("hue-1"),
-                           tpe        = Some(TsTypeRef.string),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("hue-1"),
+                           tpe = Some(TsTypeRef.string),
+                           isStatic = false,
                            isReadOnly = false,
                            isOptional = true),
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("hue-2"),
-                           tpe        = Some(TsTypeRef.string),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("hue-2"),
+                           tpe = Some(TsTypeRef.string),
+                           isStatic = false,
                            isReadOnly = false,
                            isOptional = true),
           TsMemberProperty(NoComments,
-                           level      = Default,
-                           name       = TsIdent("hue-3"),
-                           tpe        = Some(TsTypeRef.string),
-                           isStatic   = false,
+                           level = Default,
+                           name = TsIdent("hue-3"),
+                           tpe = Some(TsTypeRef.string),
+                           isStatic = false,
                            isReadOnly = false,
                            isOptional = true)
         ),
@@ -979,11 +979,11 @@ final class ParserTests extends FunSuite {
     shouldParseAs(content, TsParser.tsMembers)(
       List(
         TsMemberIndex(
-          comments   = NoComments,
+          comments = NoComments,
           isReadOnly = true,
-          level      = Default,
-          indexing   = IndexingDict(TsIdent("index"), TsTypeRef(TsQIdent.number, Nil)),
-          valueType  = TsTypeRef.string,
+          level = Default,
+          indexing = IndexingDict(TsIdent("index"), TsTypeRef(TsQIdent.number, Nil)),
+          valueType = TsTypeRef.string,
           isOptional = false
         )
       )
@@ -1040,7 +1040,7 @@ final class ParserTests extends FunSuite {
           ),
           Some(TsTypeRef(TsQIdent.void, Nil))
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -1061,12 +1061,12 @@ final class ParserTests extends FunSuite {
           List(
             TsMemberTypeMapped(
               NoComments,
-              level       = Default,
-              isReadOnly  = false,
-              key         = TsIdent("P"),
-              from        = TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil)),
+              level = Default,
+              isReadOnly = false,
+              key = TsIdent("P"),
+              from = TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil)),
               optionalize = OptionalModifier.Optionalize,
-              to          = TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))
+              to = TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))
             )
           )
         ),
@@ -1120,24 +1120,24 @@ final class ParserTests extends FunSuite {
           List(
             TsMemberTypeMapped(
               NoComments,
-              level       = Default,
-              isReadOnly  = false,
-              key         = TsIdent("P"),
-              from        = TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil)),
+              level = Default,
+              isReadOnly = false,
+              key = TsIdent("P"),
+              from = TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil)),
               optionalize = OptionalModifier.Noop,
               to = TsTypeObject(
                 List(
                   TsMemberFunction(
                     NoComments,
                     level = Default,
-                    name  = TsIdent("get"),
+                    name = TsIdent("get"),
                     signature = TsFunSig(
                       NoComments,
                       Nil,
                       Nil,
                       Some(TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P"))))
                     ),
-                    isStatic   = false,
+                    isStatic = false,
                     isReadOnly = false,
                     isOptional = false
                   ),
@@ -1158,7 +1158,7 @@ final class ParserTests extends FunSuite {
                       ),
                       Some(TsTypeRef(TsQIdent.void, Nil))
                     ),
-                    isStatic   = false,
+                    isStatic = false,
                     isReadOnly = false,
                     isOptional = false
                   )
@@ -1188,12 +1188,12 @@ final class ParserTests extends FunSuite {
         Nil,
         List(
           ts.TsMemberIndex(
-            comments   = NoComments,
+            comments = NoComments,
             isReadOnly = true,
-            level      = Default,
-            indexing   = IndexingSingle(TsQIdent(List(TsIdent("Symbol"), TsIdent("toStringTag")))),
+            level = Default,
+            indexing = IndexingSingle(TsQIdent(List(TsIdent("Symbol"), TsIdent("toStringTag")))),
             isOptional = false,
-            valueType  = TsTypeLiteral(TsLiteralString("Symbol"))
+            valueType = TsTypeLiteral(TsLiteralString("Symbol"))
           )
         ),
         CodePath.NoPath
@@ -1204,10 +1204,10 @@ final class ParserTests extends FunSuite {
   test("literal symbols") {
     shouldParseAs("""["@@transducer/init"](): TResult | void""", TsParser.tsMember)(
       TsMemberIndex(
-        comments   = NoComments,
+        comments = NoComments,
         isReadOnly = false,
-        level      = Default,
-        indexing   = IndexingSingle(TsQIdent(List(TsIdentSimple("@@transducer/init")))),
+        level = Default,
+        indexing = IndexingSingle(TsQIdent(List(TsIdentSimple("@@transducer/init")))),
         isOptional = false,
         valueType = TsTypeFunction(
           TsFunSig(
@@ -1284,7 +1284,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("trueSpeed"),
                        Some(TsTypeRef(TsQIdent(List(TsIdent("boolean"))), List())),
-                       isStatic   = false,
+                       isStatic = false,
                        isReadOnly = false,
                        isOptional = false)
     )
@@ -1307,7 +1307,7 @@ final class ParserTests extends FunSuite {
           ),
           Some(TsTypeRef(TsQIdent(List(TsIdent("TokenHandshake"))), List()))
         ),
-        isStatic   = true,
+        isStatic = true,
         isReadOnly = false,
         isOptional = false
       )
@@ -1350,7 +1350,7 @@ final class ParserTests extends FunSuite {
           ),
           Some(TsTypeIs(TsIdent("obj"), TsTypeObject(List())))
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -1431,7 +1431,7 @@ final class ParserTests extends FunSuite {
             )
           )
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -1463,7 +1463,7 @@ final class ParserTests extends FunSuite {
         Default,
         TsIdentSimple("swipeVelocityThreshold"),
         Some(TsTypeLiteral(TsLiteralNumber("0.25"))),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -1557,7 +1557,7 @@ final class ParserTests extends FunSuite {
                           Default,
                           TsIdentSimple("facetName"),
                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
-                          isStatic   = false,
+                          isStatic = false,
                           isReadOnly = false,
                           isOptional = false
                         ),
@@ -1566,7 +1566,7 @@ final class ParserTests extends FunSuite {
                           Default,
                           TsIdentSimple("facetQuery"),
                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
-                          isStatic   = false,
+                          isStatic = false,
                           isReadOnly = false,
                           isOptional = false
                         )
@@ -1583,7 +1583,7 @@ final class ParserTests extends FunSuite {
             TsTypeRef(TsQIdent(List(TsIdentSimple("Promise"))), List(TsTypeRef.any))
           )
         ),
-        isStatic   = false,
+        isStatic = false,
         isReadOnly = false,
         isOptional = false
       )
@@ -1599,7 +1599,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs(content, TsParser.tsDeclClass)(
       TsDeclClass(
         NoComments,
-        declared   = false,
+        declared = false,
         isAbstract = false,
         TsIdentSimple("PartialValueApplicator"),
         List(),
@@ -1621,7 +1621,7 @@ final class ParserTests extends FunSuite {
               ),
               Some(TsTypeRef.any)
             ),
-            isStatic   = false,
+            isStatic = false,
             isReadOnly = false,
             isOptional = false
           )
@@ -1669,7 +1669,7 @@ final class ParserTests extends FunSuite {
                   ),
                   Some(TsTypeRef(TsQIdent(List(TsIdentSimple("void"))), List()))
                 ),
-                isStatic   = false,
+                isStatic = false,
                 isReadOnly = false,
                 isOptional = false
               )
@@ -2015,11 +2015,11 @@ final class ParserTests extends FunSuite {
         List(),
         List(
           ts.TsMemberIndex(
-            comments   = NoComments,
+            comments = NoComments,
             isReadOnly = false,
-            level      = Default,
-            indexing   = IndexingSingle(TsQIdent(List(TsIdentSimple("nominalTypeHack")))),
-            valueType  = TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
+            level = Default,
+            indexing = IndexingSingle(TsQIdent(List(TsIdentSimple("nominalTypeHack")))),
+            valueType = TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
             isOptional = true
           )
         ),

@@ -34,11 +34,11 @@ object Printer {
     val reg = new Registry()
 
     apply(
-      reg          = reg,
-      mainPkg      = mainPkg,
-      scalaPrefix  = List(lib.packageSymbol.name),
+      reg = reg,
+      mainPkg = mainPkg,
+      scalaPrefix = List(lib.packageSymbol.name),
       targetFolder = sourcesDir / mainPkg.value / lib.packageSymbol.name.value,
-      sym          = lib.packageSymbol
+      sym = lib.packageSymbol
     )
 
     OutRelFiles(reg.result)
@@ -49,9 +49,17 @@ object Printer {
        |import scala.scalajs.js.`|`
        |import scala.scalajs.js.annotation._""".stripMargin
 
-  def apply(reg: Registry, mainPkg: Name, scalaPrefix: List[Name], targetFolder: RelPath, sym: ContainerSymbol): Unit =
-    //
-    sym.members groupBy ScalaOutput.outputAs foreach {
+  def apply(reg:          Registry,
+            mainPkg:      Name,
+            scalaPrefix:  List[Name],
+            targetFolder: RelPath,
+            sym:          ContainerSymbol): Unit = {
+    val files: Map[ScalaOutput, Seq[Symbol]] = sym match {
+      case _: PackageSymbol => sym.members groupBy ScalaOutput.outputAs
+      case other => Map(ScalaOutput.File(other.name) -> Seq(other))
+    }
+
+    files foreach {
       case (ScalaOutput.File(name), members: Seq[Symbol]) =>
         reg.write(OutRelFile(targetFolder / RelPath(s"${name.unescaped}.scala"))) { writer =>
           writer println s"package ${formatName(mainPkg)}"
@@ -90,7 +98,7 @@ object Printer {
       case (ScalaOutput.StaticsObject, _) =>
         sys.error("This codepath should no longer be reached, still missing some refactoring")
     }
-
+  }
   private final case class Indenter(a: Appendable) {
     private var hasIndented: Boolean = false
 

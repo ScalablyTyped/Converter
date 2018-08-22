@@ -84,9 +84,9 @@ final case class FieldSymbol(
 
   def renamed(newName: Name): FieldSymbol =
     copy(
-      name        = newName,
+      name = newName,
       annotations = Annotations.renamedFrom(name)(annotations),
-      isOverride  = false
+      isOverride = false
     )
 }
 
@@ -106,9 +106,9 @@ final case class MethodSymbol(
 
   def renamed(newName: Name): MethodSymbol =
     copy(
-      name        = newName,
+      name = newName,
       annotations = Annotations.renamedFrom(name)(annotations),
-      isOverride  = false
+      isOverride = false
     )
 }
 
@@ -205,12 +205,15 @@ object TypeRef {
         case other               => List(other)
       }
 
-    def apply(types: Seq[TypeRef]): TypeRef =
-      flattened(types.to[List]).distinct match {
+    def apply(types: Seq[TypeRef]): TypeRef = {
+      val base = flattened(types.to[List]).distinct
+
+      base match {
         case Nil        => TypeRef.Nothing
         case one :: Nil => one
         case more       => TypeRef(QualifiedName.INTERSECTION, more, NoComments)
       }
+    }
 
     def unapply(typeRef: TypeRef): Option[Seq[TypeRef]] =
       typeRef match {

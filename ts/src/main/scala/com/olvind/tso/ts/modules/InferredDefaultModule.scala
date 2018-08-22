@@ -14,21 +14,28 @@ object InferredDefaultModule {
       case _ => false
     }
 
+  private def alreadyExists(file: TsParsedFile, moduleName: TsIdentModule) =
+    file.members.exists {
+      case x: TsDeclModule if x.name === moduleName => true
+      case _ => false
+    }
+
   def apply(in: TsParsedFile, moduleName: TsIdentModule, logger: Logger[Unit]): TsParsedFile =
     in match {
-      case file if file.isModule && file.modules.isEmpty && !onlyAugments(in) =>
+      case file if file.isModule && !onlyAugments(in) && !alreadyExists(file, moduleName) =>
         val module = TsDeclModule(
-          comments   = NoComments,
-          declared   = true,
-          name       = moduleName,
-          members    = file.members,
-          codePath   = CodePath.NoPath,
+          comments = NoComments,
+          declared = true,
+          name = moduleName,
+          members = file.members,
+          codePath = CodePath.NoPath,
           jsLocation = JsLocation.Module(moduleName, ModuleSpec.Defaulted)
         )
 
         logger.info(s"Inferred module $moduleName")
-        val a = file.copy(members = Seq(module))
-        a
+        file.copy(members = Seq(module))
+
       case other => other
     }
+
 }

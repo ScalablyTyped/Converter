@@ -22,19 +22,19 @@ class SymbolTransformerTest extends FunSuite with Matchers {
               Nil,
               Name("field"),
               TypeRef(QualifiedName(Name("String") :: Nil), Nil, NoComments),
-              fieldType  = FieldTypeNative,
+              fieldType = FieldTypeNative,
               isOverride = false,
               isReadOnly = false,
-              comments   = NoComments
+              comments = NoComments
             ),
             FieldSymbol(
               Nil,
               Name("field"),
               TypeRef(QualifiedName(Name("Int") :: Nil), Nil, NoComments),
-              fieldType  = FieldTypeNative,
+              fieldType = FieldTypeNative,
               isOverride = false,
               isReadOnly = false,
-              comments   = NoComments
+              comments = NoComments
             )
           ),
           ClassType.Class,
@@ -84,10 +84,10 @@ class SymbolTransformerTest extends FunSuite with Matchers {
               Nil,
               Name("FIELD"),
               TypeRef(QualifiedName(Name("String") :: Nil), Nil, NoComments),
-              fieldType  = FieldTypeNative,
+              fieldType = FieldTypeNative,
               isOverride = false,
               isReadOnly = false,
-              comments   = NoComments
+              comments = NoComments
             )
           ),
           ClassType.Class,

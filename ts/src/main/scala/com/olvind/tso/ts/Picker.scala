@@ -17,39 +17,21 @@ object Picker {
       }
   }
 
-  object NotModules extends Picker[Renameable] {
-    override def unapply(t: TsNamedDecl): Option[Renameable] =
+  object NamedValues extends Picker[TsNamedValueDecl] {
+    override def unapply(t: TsNamedDecl): Option[TsNamedValueDecl] =
+      t match {
+        case other: TsNamedValueDecl => Some(other)
+        case _ => None
+      }
+  }
+
+  object NotModules extends Picker[TsNamedDecl] {
+    override def unapply(t: TsNamedDecl): Option[TsNamedDecl] =
       t match {
         case _:     TsDeclModule => None
-        case other: Renameable   => Some(other)
+        case other: TsNamedDecl  => Some(other)
         case _ => None
       }
-  }
-
-  object NotOrNamespaceModules extends Picker[Renameable] {
-    override def unapply(t: TsNamedDecl): Option[Renameable] =
-      t match {
-        case _:     TsDeclModule    => None
-        case _:     TsDeclNamespace => None
-        case other: Renameable      => Some(other)
-        case _ => None
-      }
-  }
-
-  object NamedValues extends Picker[TsNamedDecl with Renameable] {
-    override def unapply(t: TsNamedDecl): Option[TsNamedDecl with Renameable] =
-      t match {
-        case other: TsNamedValueDecl with Renameable                             => Some(other)
-        case x:     TsNamedDecl with Renameable if x.name === TsIdent.namespaced => Some(x)
-        case _ => None
-      }
-  }
-
-  object Modules extends Picker[TsDeclModule] {
-    override def unapply(t: TsNamedDecl): Option[TsDeclModule] = t match {
-      case x: TsDeclModule => Some(x)
-      case _ => None
-    }
   }
 
   object HasClassMemberss extends Picker[TsNamedDecl with HasClassMembers] {

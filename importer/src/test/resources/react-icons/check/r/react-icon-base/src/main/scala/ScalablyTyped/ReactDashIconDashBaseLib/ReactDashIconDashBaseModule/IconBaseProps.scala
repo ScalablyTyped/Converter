@@ -5,8 +5,8 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultStuff */
-trait IconBaseProps extends ReactLib.ReactModule.ReactNamespace.ClassAttributes[ReactLib.ReactModule.ReactSVGElement] {
+
+trait IconBaseProps extends ReactLib.ReactModule.ReactNamespace.ClassAttributes[ReactLib.ReactModule.ReactNamespace.ReactSVGElement] {
   val size: js.UndefOr[java.lang.String | scala.Double] = js.undefined
 }
 

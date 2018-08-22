@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "stylis"
-version := "0.0-unknown-0999f0"
+version := "0.0-unknown-bd5f70"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

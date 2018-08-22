@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSImport("events", JSImport.Namespace)
+/* RemoveDifficultInheritance */@JSImport("events", JSImport.Namespace)
 @js.native
-class namespaced () extends internal
+class namespaced () extends NodeLib.NodeJSNamespace.EventEmitter
 

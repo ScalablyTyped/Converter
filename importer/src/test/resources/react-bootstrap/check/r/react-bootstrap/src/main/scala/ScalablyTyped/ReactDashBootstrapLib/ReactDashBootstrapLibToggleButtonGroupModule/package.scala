@@ -1,0 +1,13 @@
+package ScalablyTyped
+package ReactDashBootstrapLib
+
+import scala.scalajs.js
+import scala.scalajs.js.`|`
+import scala.scalajs.js.annotation._
+
+package object ReactDashBootstrapLibToggleButtonGroupModule {
+  type BaseProps = ReactDashBootstrapLib.ReactDashBootstrapLibToggleButtonGroupModule.ToggleButtonGroupNamespace.BaseProps
+  type CheckboxProps = ReactDashBootstrapLib.ReactDashBootstrapLibToggleButtonGroupModule.ToggleButtonGroupNamespace.CheckboxProps
+  type RadioProps = ReactDashBootstrapLib.ReactDashBootstrapLibToggleButtonGroupModule.ToggleButtonGroupNamespace.RadioProps
+  type ToggleButtonGroupProps = ReactDashBootstrapLib.ReactDashBootstrapLibToggleButtonGroupModule.ToggleButtonGroupNamespace.ToggleButtonGroupProps
+}

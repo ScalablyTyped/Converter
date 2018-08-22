@@ -18,7 +18,7 @@ trait Vue extends js.Object {
   @JSName("$delete")
   val $delete: js.Function2[/* object */ js.Object, /* key */ java.lang.String, scala.Unit] = js.native
   @JSName("$el")
-  val $el: StdLib.HTMLElement = js.native
+  val $el: StdLib.Node = js.native
   @JSName("$isServer")
   val $isServer: scala.Boolean = js.native
   @JSName("$listeners")
@@ -30,7 +30,7 @@ trait Vue extends js.Object {
   @JSName("$props")
   val $props: StdLib.Record[java.lang.String, _] = js.native
   @JSName("$refs")
-  val $refs: ScalablyTyped.runtime.StringDictionary[Vue | StdLib.Element | StdLib.Array[Vue] | StdLib.Array[StdLib.Element]] = js.native
+  val $refs: ScalablyTyped.runtime.StringDictionary[Vue | StdLib.Node | StdLib.Array[Vue] | StdLib.Array[StdLib.Node]] = js.native
   @JSName("$root")
   val $root: Vue = js.native
   @JSName("$scopedSlots")
@@ -52,9 +52,9 @@ trait Vue extends js.Object {
   @JSName("$mount")
   def $mount(): this.type = js.native
   @JSName("$mount")
-  def $mount(elementOrSelector: StdLib.Element): this.type = js.native
+  def $mount(elementOrSelector: StdLib.Node): this.type = js.native
   @JSName("$mount")
-  def $mount(elementOrSelector: StdLib.Element, hydrating: scala.Boolean): this.type = js.native
+  def $mount(elementOrSelector: StdLib.Node, hydrating: scala.Boolean): this.type = js.native
   @JSName("$mount")
   def $mount(elementOrSelector: java.lang.String): this.type = js.native
   @JSName("$mount")

@@ -143,7 +143,6 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
                 libParts map {
                   case (thisSource, file) =>
                     val PreProcessAll = (Pipe[TsParsedFile]
-                      >> VisitorFlattenNamespaceExports.visitTsParsedFile(())
                       >> TS.SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty)))
 
                     logger.info(s"Preprocessing $thisSource")
@@ -160,27 +159,27 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
                 >> TS.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent(Nil)))
                 >> (
                   TS.SimplifyParents >>
-                    TS.NormalizeFunctions >> // run before FlattenTrees
-                    TS.PreferTypeAlias
+                    TS.NormalizeFunctions // run before FlattenTrees
                 ).visitTsParsedFile(scope)
                 >> TS.QualifyReferences.visitTsParsedFile(scope.caching)
                 >> AugmentModules(scope)
+                >> TS.ResolveTypeQueries.visitTsParsedFile(scope)
                 >> new ReplaceExports(new LoopDetector()).visitTsParsedFile(scope.caching)
                 >> (f => FlattenTrees(f :: Nil))
-                >> TS.SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty))
                 >> (
-                  TS.ExpandKeyOfTypeParams >>
+                  TS.PreferTypeAlias >>
+                    TS.ExpandKeyOfTypeParams >>
                     TS.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     TS.RemoveBivarianceHacks >>
                     TS.UnionTypesFromKeyOf >>
                     TS.DropPrototypes >>
                     TS.DefaultedTParams >>
+                    TS.InlineTrivialTypeAlias >>
                     TS.InferTypes >>
                     TS.RewriteTypeThis //
-                ).visitTsParsedFile(scope)
+                ).visitTsParsedFile(scope.caching)
                 >> (TS.SplitMethodsOnUnionTypes >> TS.RemoveDifficultInheritance).visitTsParsedFile(scope)
                 >> TS.SplitMethodsOnOptionalParams.visitTsParsedFile(scope)
-                >> TS.ResolveTypeQueries.visitTsParsedFile(scope)
                 >> TS.ExtractInterfaces(libName, scope) //
               )
 

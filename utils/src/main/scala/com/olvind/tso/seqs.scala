@@ -101,14 +101,6 @@ object seqs {
     }
   }
 
-  def assertNonEmpty[T](_ts: => Seq[T]): Seq[T] = {
-    val ts = _ts
-    if (ts.isEmpty && constants.Pedantic) {
-      _ts
-      sys.error("Expected non-empty seq")
-    } else ts
-  }
-
   object Head {
     def unapply[T](ts: Seq[T]): Option[T] = ts.headOption
   }

@@ -1,7 +1,9 @@
 package com.olvind.tso.importer
+
 import ammonite.ops.{%%, Path}
 import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts.TsSource
+
 /* calculate difference from last run (if any) and commit new changes */
 object CommitRun {
   def apply(summary: Summary)(implicit wd: Path): Unit = {

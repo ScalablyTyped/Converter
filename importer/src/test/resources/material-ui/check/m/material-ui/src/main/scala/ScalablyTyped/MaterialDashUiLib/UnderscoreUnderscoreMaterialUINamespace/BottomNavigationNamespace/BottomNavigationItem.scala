@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultInheritance */@JSGlobal("__MaterialUI.BottomNavigation.BottomNavigationItem")
+@JSGlobal("__MaterialUI.BottomNavigation.BottomNavigationItem")
 @js.native
 class BottomNavigationItem () extends ReactLib.ReactModule.ReactNamespace.Component[BottomNavigationItemProps, js.Object]
 

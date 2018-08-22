@@ -14,6 +14,7 @@ declare namespace DynamoDB {
   export import Types = DynamoDB;
   export type ClientConfiguration = any
   export type AttributeValue = any;
+  export type apiVersion = "latest";
 }
 
 export = DynamoDB;

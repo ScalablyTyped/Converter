@@ -17,7 +17,7 @@ object InferredDependency {
     Set.empty[TsIdentLibrary] ++ inferNode(nonResolvedModules) ++ inferFromPrefixes(file) - libName match {
       case e @ EmptySet() => e
       case inferred =>
-        logger.warn(s"Inferred dependencies $inferred for $libName")
+        logger.info(s"Inferred dependencies $inferred for $libName")
         inferred
     }
 

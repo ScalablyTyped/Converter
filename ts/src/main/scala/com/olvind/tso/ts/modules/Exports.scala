@@ -8,56 +8,45 @@ import com.olvind.tso.ts.transforms.SetCodePath
 object Exports {
   def expandExport(scope:        TreeScope,
                    jsLocation:   ModuleSpec => JsLocation,
-                   codePath:     CodePath.HasPath,
                    e:            TsExport,
-                   loopDetector: LoopDetector): Seq[TsNamedDecl] = {
+                   loopDetector: LoopDetector,
+                   owner:        TsDeclNamespaceOrModule): Seq[TsNamedDecl] = {
 
-    val ret = e match {
+    lazy val key = (scope.toString, e)
+
+    if (scope.root.cache.isDefined && scope.root.cache.get.expandExport.contains(key)) {
+      return scope.root.cache.get.expandExport(key)
+    }
+
+    val codePath = owner.codePath.forceHasPath
+
+    val ret: Seq[TsNamedDecl] = e match {
       case TsExport(_, exportType, TsExporteeTree(exported)) =>
         exported match {
-          case namedExport: TsNamedDecl =>
-            export(loc(exportType, jsLocation, namedExport.name),
-                   scope,
-                   exportType,
-                   namedExport,
-                   None,
-                   loopDetector,
-                   generateInterface = true)
+          case decl: TsNamedDecl =>
+            export(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
 
-          /* todo: Only seen this shape for now. Double check and update tree */
-          case TsImport(Seq(TsImportedIdent(ident)), from) if exportType === ExportType.Named =>
-            val founds: Seq[(TsNamedDecl, TreeScope)] = from match {
-              case TsImporteeRequired(newFrom) =>
-                scope
-                  .moduleScopes(newFrom)
-                  .lookupInternal(Picker.NotModules, TsIdent.namespaced :: Nil, loopDetector)
-                  .map {
-                    case (d, s) => (d.withName(ident), s)
-                  }
-              case TsImporteeFrom(newFrom) =>
-                scope
-                  .moduleScopes(newFrom)
-                  .lookupInternal(Picker.NotModules, TsIdent.default :: Nil, loopDetector)
-                  .map {
-                    case (d, s) => (d.withName(ident), s)
-                  }
-
-              case TsImporteeLocal(qident) =>
-                val ret = scope.lookupInternal(Picker.NotOrNamespaceModules, qident.parts, loopDetector)
-                ret.map {
-                  case (d, s) => (d.withName(ident), s)
+          case i @ TsImport(Seq(TsImportedIdent(ident)), _) =>
+            Imports.expandImportee(i.from, scope, loopDetector) match {
+              case founds if founds.nonEmpty =>
+                founds match {
+                  case ExpandedMod.Picked(things) =>
+                    things.flatMap {
+                      case (m: TsNamedDecl, newScope) =>
+                        export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
+                      case _ => Nil
+                    }
+                  case ExpandedMod.Whole(defaults, namespaceds, _, newScope) =>
+                    (defaults ++ namespaceds).flatMap(
+                      m => export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
+                    )
                 }
-            }
 
-            founds flatMap {
-              case (found, newScope) =>
-                export(loc(exportType, jsLocation, found.name),
-                       newScope,
-                       exportType,
-                       found,
-                       if (ident =/= found.name) Some(ident) else None,
-                       loopDetector,
-                       generateInterface = false)
+              case _ =>
+                Imports.expandImportee(i.from, scope, loopDetector)
+                scope.logger.fatalMaybe(s"Could not resolve import $i", constants.Pedantic)
+                Nil
+
             }
         }
 
@@ -69,243 +58,168 @@ object Exports {
               case None       => scope
             }
 
-            newScope.lookupInternal(Picker.NotModules, qIdent.parts, loopDetector) flatMap {
-              case (m, newNewScope) =>
-                val withLocation = loc(exportType, jsLocation, m.name)
-                export(withLocation, newNewScope, exportType, m, asNameOpt, loopDetector, generateInterface = false)
+            newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector) flatMap {
+              case (found, newNewScope) =>
+                export(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
             }
         }
 
       case TsExport(_, exportType, TsExporteeStar(from, None /* todo*/ )) =>
-        scope.moduleScopes(from) match {
+        scope moduleScopes from match {
           case TreeScope.Scoped(newScope, mod: TsDeclModule) =>
             val resolvedModule: TsDeclModule =
-              if (mod.exports.isEmpty) mod
-              else
-                new ReplaceExports(loopDetector)
-                  .visitTsDeclModule(newScope)(mod)
+              if (scope.stack contains mod) mod
+              else CachedReplaceExports(newScope, loopDetector, mod)
 
             resolvedModule.nameds.flatMap { n =>
-              export(jsLocation(ModuleSpec.Specified(Seq(n.name))),
-                     newScope,
-                     exportType,
-                     n,
-                     None,
-                     loopDetector,
-                     generateInterface = false)
+              export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
             }
         }
     }
 
-    ret.map(SetCodePath.visitTsNamedDecl(codePath))
+    val ret2 = ret.map(SetCodePath.visitTsNamedDecl(codePath))
+
+    if (scope.root.cache.isDefined && ret2.nonEmpty) {
+      scope.root.cache.get.expandExport.put(key, ret2)
+    }
+    ret2
   }
 
-  def export(jsLocation:        JsLocation,
-             scope:             TreeScope,
-             exportType:        ExportType,
-             namedDecl:         TsNamedDecl,
-             renamedOpt:        Option[TsIdent],
-             loopDetector:      LoopDetector,
-             generateInterface: Boolean,
-  ): Seq[TsNamedDecl] = {
-    val newName = effectiveName(exportType, renamedOpt)
-
-    def shouldDerive: Boolean = {
-      if (newName.isDefined) return true
-
-      scope.surroundingTsContainer match {
-        case Some(x: HasCodePath) =>
-          val moduleParts = x.codePath.forceHasPath.codePath.parts
-          val thisParts   = namedDecl.codePath.forceHasPath.codePath.parts
-          thisParts =/= moduleParts && thisParts.dropRight(1) =/= moduleParts
-        case _ => true
-      }
+  def export(ownerCp:      CodePath.HasPath,
+             jsLocation:   ModuleSpec => JsLocation,
+             scope:        TreeScope,
+             exportType:   ExportType,
+             _namedDecl:   TsNamedDecl,
+             renamedOpt:   Option[TsIdent],
+             loopDetector: LoopDetector): Seq[TsNamedDecl] = {
+    val rewritten = _namedDecl match {
+      case x: TsDeclModule if x.exports.nonEmpty    => CachedReplaceExports(scope.`..`, loopDetector, x)
+      case x: TsDeclNamespace if x.exports.nonEmpty => new ReplaceExports(loopDetector).visitTsNamedDecl(scope.`..`)(x)
+      case other => other
     }
 
-    namedDecl match {
-      case x: TsDeclNamespace if ExportType.Types.LocalNamed(exportType) =>
-        val fromExports =
-          x.exports.flatMap(e => expandExport(scope, _ => JsLocation.Zero, x.codePath.forceHasPath, e, loopDetector))
-
-        val ret = (x.nameds ++ fromExports)
-          .flatMap {
-            case x: TsDeclNamespace => Seq(x.copy(members = x.members.flatMap(DeriveCopy.downgrade)))
-            case other => DeriveCopy(other, None, generateInterface)
-          }
-          .map(decl => withJsLocation(decl, jsLocation / decl))
-
-        ret
-
-      case x: TsNamedDecl with Renameable =>
-        val base =
-          if (shouldDerive) DeriveCopy(x, newName, generateInterface)
-          else Seq(withRename(newName)(x))
-        base
-          .map(x => withJsLocation(x, jsLocation))
-
-      case x: TsAugmentedModule =>
-        DeriveCopy(x, newName, generateInterface).map(x => withJsLocation(x, jsLocation))
-    }
-  }
-
-  def loc(exportType: ExportType, jsLocation: ModuleSpec => JsLocation, name: TsIdent): JsLocation =
     exportType match {
-      case ExportType.Named      => jsLocation(ModuleSpec.Specified(Seq(name)))
-      case ExportType.Namespaced => jsLocation(ModuleSpec.Namespaced)
-      case ExportType.Defaulted  => jsLocation(ModuleSpec.Defaulted)
-    }
+      case ExportType.Namespaced =>
+        val members = rewritten match {
+          case x: TsDeclModule =>
+            val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
 
-  def withJsLocation[T <: TsTree](tree: T, jsLocation: JsLocation): T =
-    tree match {
-      case x: HasJsLocation => x.withJsLocation(jsLocation).asInstanceOf[T]
-      case _ => tree
-    }
+            xx.members flatMap {
+              case xxx: TsNamedDecl =>
+                DeriveCopy(xxx, None)
+              case _ => Nil
+            }
 
-  def withRename[T <: TsNamedDecl with Renameable](renamedOpt: Option[TsIdent])(tree: T): T =
+          case x: TsDeclNamespace =>
+            val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
+            xx.members flatMap {
+              case xxx: TsNamedDecl =>
+                DeriveCopy(xxx, None)
+              case _ => Nil
+            }
+
+          case v @ TsDeclVar(_, _, _, _, Some(tpe: TsTypeRef), _, _, _, _) =>
+            Hoisting.hoistedMembersFrom(scope, ownerCp, loopDetector)(tpe) match {
+              case Nil     => v.withName(TsIdent.namespaced) :: Nil
+              case hoisted => hoisted
+            }
+
+          case x =>
+            val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
+            DeriveCopy(xx, Some(TsIdent.namespaced))
+        }
+        members.map(SetCodePath.visitTsNamedDecl(ownerCp))
+
+      case ExportType.Named =>
+        val shouldDerive: Boolean =
+          if (renamedOpt.isDefined) true
+          else if (rewritten.codePath === CodePath.NoPath) true
+          else {
+            val moduleParts = ownerCp.codePath.parts
+            val thisParts   = rewritten.codePath.forceHasPath.codePath.parts
+            thisParts =/= moduleParts && thisParts.dropRight(1) =/= moduleParts
+          }
+
+        val base =
+          if (shouldDerive) DeriveCopy(rewritten, renamedOpt)
+          else Seq(withRename(renamedOpt)(rewritten))
+
+        base
+          .map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec.Specified(x.name :: Nil))))
+          .map(SetCodePath.visitTsNamedDecl(ownerCp))
+
+      case ExportType.Defaulted =>
+        DeriveCopy(rewritten, Some(TsIdent.default))
+          .map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec.Defaulted)))
+          .map(SetCodePath.visitTsNamedDecl(ownerCp))
+    }
+  }
+
+  def withRename[T <: TsNamedDecl](renamedOpt: Option[TsIdent])(tree: T): T =
     renamedOpt match {
       case None          => tree
       case Some(newName) => tree.withName(newName).asInstanceOf[T]
     }
 
-  def effectiveName[T <: TsNamedDecl](exportType: ExportType, renamedOpt: Option[TsIdent]): Option[TsIdent] =
-    exportType match {
-      case ExportType.Defaulted  => Some(TsIdent.default)
-      case ExportType.Namespaced => Some(TsIdent.namespaced)
-      case _                     => renamedOpt
-    }
-
-  case class Res(export: TsExport, newWanted: List[List[TsIdent]])
+  case class PickedExport(export: TsExport, newWanted: List[TsIdent])
 
   /**
     * This is used when resolving. If we have an import in current scope which points
     * to a module, this finds the matching export in the pointee.
     */
-  def pickExports(exports: Seq[TsExport], wanted: List[TsIdent]): Seq[Res] =
+  def pickExports(exports: Seq[TsExport], wanted: List[TsIdent]): Seq[PickedExport] =
     exports.flatMap {
       case e @ TsExport(_, ExportType.Namespaced, _) =>
-        if (wanted.headOption.contains(TsIdent.namespaced)) Some(Res(e, wanted.tail :: Nil)) else None
+        Some(PickedExport(e, wanted))
 
       case e @ TsExport(_, ExportType.Defaulted, _) =>
-        if (wanted.headOption.contains(TsIdent.default)) Some(Res(e, wanted.tail :: Nil)) else None
+        if (wanted.headOption.contains(TsIdent.default)) Some(PickedExport(e, wanted.tail))
+        else None
 
       case e @ TsExport(_, ExportType.Named, exported) =>
         exported match {
           case exported @ TsExporteeNames(idents, _) => //
             idents.collectFirst {
               case tuple @ (TsQIdent(parts), None) if wanted.startsWith(parts) =>
-                Res(e.copy(exported = exported.copy(idents = List(tuple))), wanted.drop(parts.length) :: Nil)
+                PickedExport(e.copy(exported = exported.copy(idents = List(tuple))), wanted.drop(parts.length))
             }
 
-          case TsExporteeTree(im: TsImport) =>
-            Imports.validImport(wanted)(im) map {
-              case (newWanteds, i) => Res(e.copy(exported = TsExporteeTree(i)), newWanteds)
-            }
+          case TsExporteeTree(i: TsImport) =>
+            Imports.validImport(wanted)(i) map (ii => PickedExport(e.copy(exported = TsExporteeTree(ii)), wanted))
 
           case TsExporteeTree(x: TsNamedDecl) =>
-            if (wanted.headOption.contains(x.name)) Some(Res(e, wanted.tail :: Nil)) else None
+            if (wanted.headOption.contains(x.name)) Some(PickedExport(e, wanted)) else None
 
           case TsExporteeStar(_, Some(renamed)) =>
             if (wanted.headOption.contains(renamed)) {
-              Some(Res(e, (TsIdent.All :: wanted.tail) :: Nil))
+              Some(PickedExport(e, wanted.tail))
             } else None
 
           case TsExporteeStar(_, None) =>
-            Some(Res(e, wanted :: Nil))
+            Some(PickedExport(e, wanted))
         }
     }
+
+  /**
+    * Structures which come from an `import` do not have a fixed javascript location, that can
+    *  only be determined once they are exported
+    */
+  def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation = (jsLocation, ms) match {
+    case (m: JsLocation.Module, spec) => m.copy(spec = spec)
+    case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
+    case (JsLocation.Zero, _)                                      => JsLocation.Zero
+  }
 
   def lookupExportFrom[T <: TsNamedDecl](scope:        TreeScope.Scoped,
                                          Pick:         Picker[T],
                                          wanted:       List[TsIdent],
-                                         loopDetector: LoopDetector): Seq[(T, TreeScope)] = {
-
-    lazy val key: (String, Picker[_], List[TsIdent]) = (scope.toString, Pick, wanted)
-
-    if (scope.root.cache.isDefined && scope.root.cache.get.contains(key)) {
-      return scope.root.cache.get(key).asInstanceOf[Seq[(T, TreeScope)]]
-    }
-    require(wanted.count(x => x === TsIdent.default || x === TsIdent.namespaced) < 2)
-
-    val outer: Seq[(T, TreeScope)] = wanted match {
-      case Nil =>
-//        scope.current match {
-//          case Pick(x) => Seq((x, scope))
-//          case _       => Nil
-//        }
-
-        Nil
-
-      case TsIdent.All :: Nil =>
-        scope.current match {
-          case mod: TsDeclModule =>
-            val rewrittenMod: TsDeclModule =
-              if (mod.exports.isEmpty) mod
-              else new ReplaceExports(loopDetector).visitTsDeclModule(scope)(mod)
-
-//            Lower.mod(rewrittenMod) match {
-//              case Pick(x) => (x, scope) :: Nil
-//              case _       => Nil
-//            }
-
-            rewrittenMod.members collect { case Pick(x) => (x, scope) }
-
-          case other => scope.logger.fatal(s"Unexpected ${other.asString} at $scope")
+                                         loopDetector: LoopDetector,
+                                         owner:        TsDeclNamespaceOrModule): Seq[(T, TreeScope)] =
+    pickExports(scope.exports, wanted).flatMap {
+      case PickedExport(e, newWanteds) =>
+        expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner) match {
+          case Nil       => Nil
+          case expandeds => Utils.searchAmong(scope, Pick, newWanteds, expandeds, loopDetector)
         }
-
-      case _ =>
-        val ret = pickExports(scope.exports, wanted).flatMap {
-          case Res(e, newWanteds) =>
-            val found: Seq[TsNamedDecl] =
-              expandExport(scope,
-                           _ => JsLocation.Zero,
-                           scope.surroundingTsContainer.get.codePath.forceHasPath,
-                           e,
-                           loopDetector)
-
-            FirstNonEmpty
-              .ofLists(newWanteds) {
-                case Nil =>
-                  val foo: Seq[(T, TreeScope.Scoped)] = for {
-                    Pick(f) <- found
-                    Pick(d) <- DeriveCopy(f, None, generateInterface = false)
-                  } yield (d, scope)
-                  foo
-
-                case lookFurther if found.nonEmpty =>
-                  val inContainer: Seq[(T, TreeScope)] =
-                    found.flatMap {
-                      case x: TsContainer => TreeScope.search(scope, Pick, x, lookFurther, loopDetector)
-                      case _ => Nil
-                    }
-
-                  if (inContainer.isEmpty) {
-                    val extraOpt: Option[Seq[TsNamedValueDecl]] = found.collectFirst {
-                      case TsDeclVar(_, _, _, TsIdent.namespaced, Some(tr: TsTypeRef), _, _, codePath, _) =>
-                        Hoisting.hoistedMembersFrom(scope, codePath.forceHasPath, loopDetector)(tr)
-                    }
-
-                    TreeScope.search(
-                      scope,
-                      Pick,
-                      TsParsedFile(NoComments, Nil, extraOpt.foldLeft(found)(_ ++ _), CodePath.NoPath),
-                      lookFurther,
-                      loopDetector
-                    )
-
-                  } else inContainer
-
-                case _ => Nil
-              }
-              .getOrElse(Nil)
-        }
-
-        if (ret.nonEmpty) ret else scope.lookupInternal(Pick, wanted, loopDetector)
     }
-
-    if (scope.root.cache.isDefined && outer.nonEmpty) {
-      scope.root.cache.get.put(key, outer)
-    }
-
-    outer
-  }
 }

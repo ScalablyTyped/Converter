@@ -18,7 +18,7 @@ object TsImporterDecl {
     ContainerSymbol.container(isWithinScalaModule = false,
                               scope,
                               lib.parsed.comments,
-                              AsName(lib.name),
+                              lib.name,
                               JsLocation.Zero,
                               lib.parsed.members)
   }
@@ -38,6 +38,7 @@ object TsImporterDecl {
         case _: TsImport        => true
         case _: TsDeclInterface => true
         case _: TsDeclTypeAlias => true
+        case x: TsDeclNamespace => allTypes(x.members)
         case _ => false
       }
 
@@ -80,23 +81,29 @@ object TsImporterDecl {
     def container(isWithinScalaModule: Boolean,
                   scope:               TreeScope,
                   cs:                  Comments,
-                  name:                Name,
+                  name:                TsIdent,
                   jsLocation:          JsLocation,
                   members:             Seq[TsContainerOrDecl]): ContainerSymbol = {
 
       val anns                               = JsLocationAnnotation(jsLocation, isWithinScalaModule)
       val inModule                           = isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope)
       val (inheritance, liftedMembers, rest) = avoidPackageObject(members flatMap decl(scope, inModule))
+      val scalaName                          = AsName(name)
 
       if (inModule) {
-        ModuleSymbol(anns, name, ModuleTypeNative, inheritance, liftedMembers ++ rest, cs)
+        val nameAnns: Option[JsName] =
+          name match {
+            case x: TsIdentNamespace if isWithinScalaModule => Option(JsName(Name(x.value)))
+            case _ => None
+          }
+        ModuleSymbol(anns ++ nameAnns, scalaName, ModuleTypeNative, inheritance, liftedMembers ++ rest, cs)
       } else {
         val membersModule =
           if (liftedMembers.nonEmpty || inheritance.nonEmpty)
             Some(
               ModuleSymbol(
                 anns,
-                Name(name.unescaped + "Members"),
+                Name(scalaName.unescaped + "Members"),
                 ModuleTypeNative,
                 inheritance,
                 liftedMembers,
@@ -105,7 +112,7 @@ object TsImporterDecl {
             )
           else None
 
-        PackageSymbol(anns, name, rest ++ membersModule, cs)
+        PackageSymbol(anns, scalaName, rest ++ membersModule, cs)
       }
     }
   }
@@ -114,19 +121,19 @@ object TsImporterDecl {
     val scope: TreeScope = _scope / t1
 
     t1 match {
-      case TsDeclModule(cs, _, AsName(name), innerDecls, _, jsLocation) =>
+      case TsDeclModule(cs, _, name, innerDecls, _, jsLocation) =>
         Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, name, jsLocation, innerDecls))
 
-      case TsAugmentedModule(AsName(name), innerDecls, _, jsLocation) =>
+      case TsAugmentedModule(name, innerDecls, _, jsLocation) =>
         Seq(ContainerSymbol.container(isWithinScalaModule, scope, NoComments, name, jsLocation, innerDecls))
 
-      case TsDeclNamespace(cs, _, AsName(name), innerDecls, _, jsLocation) =>
+      case TsDeclNamespace(cs, _, name, innerDecls, _, jsLocation) =>
         if (innerDecls.nonEmpty) {
           Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, name, jsLocation, innerDecls))
         } else Nil
 
       case TsGlobal(cs, _, ms, _) =>
-        Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, AsName(TsIdent.Global), JsLocation.Zero, ms))
+        Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, TsIdent.Global, JsLocation.Zero, ms))
 
       case TsDeclVar(cs, _, _, AsName(name), Some(TsTypeObject(members)), None, location, _, false) =>
         val MemberRet(ctors, ms, inheritance, Nil) = members flatMap tsMember(scope, scalaJsDefined = false)
@@ -153,23 +160,23 @@ object TsImporterDecl {
           Seq(
             ModuleSymbol(
               annotations = JsLocationAnnotation(jsLocation, isWithinScalaModule),
-              name        = name,
-              moduleType  = ModuleTypeNative,
-              parents     = Seq(base.withOptional(isOptional)),
-              members     = Nil,
-              comments    = cs
+              name = name,
+              moduleType = ModuleTypeNative,
+              parents = Seq(base.withOptional(isOptional)),
+              members = Nil,
+              comments = cs
             )
           )
         } else
           Seq(
             FieldSymbol(
-              annotations = Nil,
-              name        = name,
-              tpe         = base.withOptional(isOptional),
-              fieldType   = FieldTypeNative,
-              isReadOnly  = readOnly,
-              isOverride  = false,
-              comments    = cs
+              annotations = Annotations.jsName(name),
+              name = name,
+              tpe = base.withOptional(isOptional),
+              fieldType = FieldTypeNative,
+              isReadOnly = readOnly,
+              isOverride = false,
+              comments = cs
             )
           )
 
@@ -187,14 +194,14 @@ object TsImporterDecl {
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassSymbol(
           annotations = anns,
-          name        = name,
-          tparams     = tparams map typeParam(scope),
-          parents     = parents ++ extraInheritance,
-          ctors       = ctors,
-          members     = ms,
-          classType   = classType,
-          isSealed    = false,
-          comments    = cs
+          name = name,
+          tparams = tparams map typeParam(scope),
+          parents = parents ++ extraInheritance,
+          ctors = ctors,
+          members = ms,
+          classType = classType,
+          isSealed = false,
+          comments = cs
         )
 
         val module: Option[ModuleSymbol] =
@@ -212,23 +219,23 @@ object TsImporterDecl {
         Seq(
           ClassSymbol(
             annotations = Seq(if (scalaJsDefined) ScalaJSDefined else JsNative),
-            name        = name,
-            tparams     = tparams map typeParam(scope),
-            parents     = parents ++ extraInheritance,
-            ctors       = ctors,
-            members     = ms,
-            classType   = ClassType.Trait,
-            isSealed    = false,
-            comments    = cs
+            name = name,
+            tparams = tparams map typeParam(scope),
+            parents = parents ++ extraInheritance,
+            ctors = ctors,
+            members = ms,
+            classType = ClassType.Trait,
+            isSealed = false,
+            comments = cs
           )
         )
 
       case TsDeclTypeAlias(cs, _, AsName(name), tparams, alias, _) =>
         Seq(
           TypeAliasSymbol(
-            name     = name,
-            tparams  = tparams map typeParam(scope),
-            alias    = TsImporterTypes(Wildcards.Prohibit, scope)(alias),
+            name = name,
+            tparams = tparams map typeParam(scope),
+            alias = TsImporterTypes(Wildcards.Prohibit, scope)(alias),
             comments = cs
           )
         )
@@ -236,16 +243,16 @@ object TsImporterDecl {
       case TsDeclFunction(cs, _, AsName(name), sig, _, _) =>
         Seq(
           tsMethod(
-            scope          = scope,
-            level          = Default,
-            name           = name,
-            cs             = cs,
-            sig            = sig,
+            scope = scope,
+            level = Default,
+            name = name,
+            cs = cs,
+            sig = sig,
             scalaJsDefined = false,
           )
         )
       case _: TsExportAsNamespace => Nil
-      case _: TsImport            => Nil
+//      case _: TsImport            => Nil
 
       case other =>
         scope.logger.fatalMaybe(s"Unexpected: $other", constants.Pedantic)
@@ -263,31 +270,31 @@ object TsImporterDecl {
     val classSymbol =
       ClassSymbol(
         annotations = Seq(JsNative),
-        name        = name,
-        tparams     = Nil,
-        parents     = Nil,
-        ctors       = Nil,
-        members     = Nil,
-        classType   = ClassType.Trait,
-        isSealed    = true,
-        comments    = NoComments
+        name = name,
+        tparams = Nil,
+        parents = Nil,
+        ctors = Nil,
+        members = Nil,
+        classType = ClassType.Trait,
+        isSealed = true,
+        comments = NoComments
       )
 
     val moduleSymbol: ModuleSymbol = {
       val applyMethod = MethodSymbol(
         annotations = Annotations.method(name, isBracketAccess = true),
-        level       = Default,
-        name        = Name.APPLY,
-        tparams     = Nil,
+        level = Default,
+        name = Name.APPLY,
+        tparams = Nil,
         params = Seq(
           Seq(
             ParamSymbol(Name.value, TypeRef(QualifiedName(name :: Nil), Nil, NoComments), NoComments)
           )
         ),
-        fieldType  = FieldTypeNative,
+        fieldType = FieldTypeNative,
         resultType = TypeRef(QualifiedName.String, Nil, NoComments),
         isOverride = false,
-        comments   = NoComments
+        comments = NoComments
       )
 
       val membersSyms: Seq[ContainerSymbol] =
@@ -307,21 +314,21 @@ object TsImporterDecl {
             Seq(
               ClassSymbol(
                 annotations = Seq(JsNative),
-                name        = memberName,
-                tparams     = Nil,
-                parents     = Seq(TypeRef(QualifiedName(name :: Nil), Nil, NoComments)),
-                ctors       = Nil,
-                members     = Nil,
-                classType   = ClassType.Trait,
-                isSealed    = true,
-                comments    = memberCs
+                name = memberName,
+                tparams = Nil,
+                parents = Seq(TypeRef(QualifiedName(name :: Nil), Nil, NoComments)),
+                ctors = Nil,
+                members = Nil,
+                classType = ClassType.Trait,
+                isSealed = true,
+                comments = memberCs
               ),
               ModuleSymbol(
                 annotations = _annotations,
-                name        = _memberName,
-                moduleType  = ModuleTypeNative,
-                parents     = Seq(TypeRef(QualifiedName(memberName :: Nil), Nil, NoComments)),
-                members     = Nil,
+                name = _memberName,
+                moduleType = ModuleTypeNative,
+                parents = Seq(TypeRef(QualifiedName(memberName :: Nil), Nil, NoComments)),
+                members = Nil,
                 comments = Comments(literalOpt map {
                   case Left(x)  => literalComment(x)
                   case Right(x) => Comment(s"/* ${x.value} */")
@@ -464,12 +471,12 @@ object TsImporterDecl {
                   MemberRet(
                     FieldSymbol(
                       annotations = Seq(a),
-                      name        = AsName(symName),
-                      tpe         = TsImporterTypes(Wildcards.No, scope / m)(m.valueType).withOptional(m.isOptional),
-                      fieldType   = fieldType,
-                      isReadOnly  = m.isReadOnly,
-                      isOverride  = false,
-                      comments    = m.comments
+                      name = AsName(symName),
+                      tpe = TsImporterTypes(Wildcards.No, scope)(m.valueType).withOptional(m.isOptional),
+                      fieldType = fieldType,
+                      isReadOnly = m.isReadOnly,
+                      isOverride = false,
+                      comments = m.comments
                     ),
                     isStatic = false
                   )
@@ -512,12 +519,12 @@ object TsImporterDecl {
           MemberRet(
             FieldSymbol(
               annotations = Annotations.jsName(name),
-              name        = name,
-              tpe         = TsImporterTypes.orAny(Wildcards.No, scope / m)(tpe).withOptional(m.isOptional),
-              fieldType   = fieldType,
-              isReadOnly  = m.isReadOnly,
-              isOverride  = false,
-              comments    = m.comments
+              name = name,
+              tpe = TsImporterTypes.orAny(Wildcards.No, scope)(tpe).withOptional(m.isOptional),
+              fieldType = fieldType,
+              isReadOnly = m.isReadOnly,
+              isOverride = false,
+              comments = m.comments
             ),
             m.isStatic
           )
@@ -529,9 +536,9 @@ object TsImporterDecl {
 
   def typeParam(scope: TreeScope)(tp: TsTypeParam): TypeParamSymbol =
     TypeParamSymbol(
-      name       = AsName(tp.name),
+      name = AsName(tp.name),
       upperBound = tp.upperBound map TsImporterTypes(Wildcards.No, scope / tp),
-      comments   = tp.comments
+      comments = tp.comments
     )
 
   def tsFunParams(scope: TreeScope, params: Seq[TsFunParam]): Seq[ParamSymbol] =
@@ -564,14 +571,14 @@ object TsImporterDecl {
 
     val ret = MethodSymbol(
       as,
-      level      = level,
-      name       = name,
-      tparams    = sig.tparams map typeParam(scope),
-      params     = Seq(tsFunParams(scope, sig.params)),
-      fieldType  = fieldType,
+      level = level,
+      name = name,
+      tparams = sig.tparams map typeParam(scope),
+      params = Seq(tsFunParams(scope, sig.params)),
+      fieldType = fieldType,
       resultType = resultType,
       isOverride = false,
-      comments   = cs ++ sig.comments
+      comments = cs ++ sig.comments
     )
 
     containedLiterals.distinct.toList match {

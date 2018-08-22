@@ -94,7 +94,7 @@ case class PhaseCompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, main
 
                 implicit val line = sourcecode.Line(p.position.line().orElse(-1))
                 implicit val file = sourcecode.File(p.position.sourcePath.orElse("unknown file"))
-                logger.apply(logLevel, (p.message, Back.LightGray(p.position.lineContent)))
+                logger(logLevel, (p.message, Back.LightGray(p.position.lineContent)))
               }
               PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
 

@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSImport("stream", "Stream")
+/* RemoveDifficultInheritance */@JSImport("stream", "Stream")
 @js.native
-class Stream () extends NodeLib.StreamModule.internalNamespace.Stream
+class Stream () extends internal
 

@@ -13,5 +13,5 @@ package object LodashModule {
   type Many[T] = LodashLib.LodashModule.UnderscoreNamespace.Many[T]
   type PartialObject[T] = LodashLib.LodashModule.UnderscoreNamespace.PartialObject[T]
   type PropertyName = LodashLib.LodashModule.UnderscoreNamespace.PropertyName
-  type PropertyPath = LodashLib.LodashModule.UnderscoreNamespace.PropertyPath
+  type PropertyPath = LodashLib.LodashModule.UnderscoreNamespace.Many[PropertyName]
 }

@@ -23,11 +23,11 @@ trait LoDashStatic extends js.Object {
   /**
        * @see _.at
        */
-  def at[T /* <: js.Object */](`object`: T, props: LodashLib.LodashModule.Many[java.lang.String]*): StdLib.Array[/* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any] = js.native
+  def at[T /* <: js.Object */](`object`: T, props: Many[java.lang.String]*): StdLib.Array[/* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any] = js.native
   /**
        * @see _.at
        */
-  def at[T /* <: js.Object */](props: LodashLib.LodashModule.Many[java.lang.String]*): StdLib.Array[/* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any] = js.native
+  def at[T /* <: js.Object */](props: Many[java.lang.String]*): StdLib.Array[/* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any] = js.native
   /**
        * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
        * specified as individual arguments or as arrays of keys.
@@ -37,7 +37,7 @@ trait LoDashStatic extends js.Object {
        * @return Returns the new array of picked elements.
        */
   @JSName("at")
-  def at_T[T](`object`: LodashLib.LodashModule.List[T], props: LodashLib.LodashModule.PropertyPath*): StdLib.Array[T] = js.native
+  def at_T[T](`object`: LodashLib.LodashModule.List[T], props: Many[LodashLib.LodashModule.PropertyName]*): StdLib.Array[T] = js.native
   /**
        * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
        * specified as individual arguments or as arrays of keys.
@@ -47,6 +47,6 @@ trait LoDashStatic extends js.Object {
        * @return Returns the new array of picked elements.
        */
   @JSName("at")
-  def at_T[T](props: LodashLib.LodashModule.PropertyPath*): StdLib.Array[T] = js.native
+  def at_T[T](props: Many[LodashLib.LodashModule.PropertyName]*): StdLib.Array[T] = js.native
 }
 

@@ -392,10 +392,9 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberIndex(_1, _2, _3, _4, _5, _6) =>
-        val ttt = withTree(tt, xx)
         val indexed = _4 match {
-          case IndexingDict(name, tpe) => IndexingDict(visitTsIdent(ttt)(name), visitTsType(ttt)(tpe))
-          case IndexingSingle(name)    => IndexingSingle(visitTsQIdent(ttt)(name))
+          case IndexingDict(name, tpe) => IndexingDict(visitTsIdent(tt)(name), visitTsType(tt)(tpe))
+          case IndexingSingle(name)    => IndexingSingle(visitTsQIdent(tt)(name))
         }
         TsMemberIndex(_1, _2, _3, indexed, _5, visitTsType(tt)(_6))
     }

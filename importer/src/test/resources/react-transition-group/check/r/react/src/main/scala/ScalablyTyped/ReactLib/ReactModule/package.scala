@@ -7,7 +7,6 @@ import scala.scalajs.js.annotation._
 
 package object ReactModule {
   type AllHTMLAttributes[T] = ReactLib.ReactModule.ReactNamespace.AllHTMLAttributes[T]
-  type AnimationEvent[T] = ReactLib.ReactModule.ReactNamespace.AnimationEvent[T]
   type Attributes = ReactLib.ReactModule.ReactNamespace.Attributes
   type ClassAttributes[T] = ReactLib.ReactModule.ReactNamespace.ClassAttributes[T]
   type Component[P, S] = ReactLib.ReactModule.ReactNamespace.Component[P, S]
@@ -19,13 +18,12 @@ package object ReactModule {
   type HTMLAttributes[T] = ReactLib.ReactModule.ReactNamespace.HTMLAttributes[T]
   type HTMLProps[T] = ReactLib.ReactModule.ReactNamespace.HTMLProps[T]
   type Key = ReactLib.ReactModule.ReactNamespace.Key
-  type NativeAnimationEvent = ReactLib.ReactModule.ReactNamespace.AnimationEvent[js.Object]
+  type NativeAnimationEvent = ReactLib.AnimationEvent
   type ReactElement[P] = ReactLib.ReactModule.ReactNamespace.ReactElement[P]
   type ReactNode = ReactLib.ReactModule.ReactNamespace.ReactNode
   type ReactType[P] = ReactLib.ReactModule.ReactNamespace.ReactType[P]
   type Ref[T] = ReactLib.ReactModule.ReactNamespace.Ref[T]
-  type SFC[P] = ReactLib.ReactModule.ReactNamespace.SFC[P]
+  type SFC[P] = ReactLib.ReactModule.ReactNamespace.StatelessComponent[P]
   type SVGProps[T] = ReactLib.ReactModule.ReactNamespace.SVGProps[T]
   type StatelessComponent[P] = ReactLib.ReactModule.ReactNamespace.StatelessComponent[P]
-  type SyntheticEvent[T] = ReactLib.ReactModule.ReactNamespace.SyntheticEvent[T]
 }

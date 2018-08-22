@@ -7,16 +7,7 @@ import com.olvind.tso.ts.TreeScope.LoopDetector
 object ResolveTypeQueries extends TreeVisitorScopedChanges {
   override def leaveTsType(t: TreeScope)(x: TsType): TsType =
     x match {
-      case xx: TsTypeQuery =>
-        resolve(t, xx, new LoopDetector()) match {
-          case Some(found) =>
-            t.logger.info(s"Resolved $xx")
-            found
-          case None =>
-            resolve(t, xx, new LoopDetector())
-            t.logger.warn(s"Could not resolve $xx")
-            TsTypeRef.any
-        }
+      case xx: TsTypeQuery => resolve(t, xx, new LoopDetector())
       case other => other
     }
 
@@ -34,7 +25,7 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
                    TsTypeFunction(
                      sig.copy(
                        comments = sig.comments ++ cs,
-                       tparams  = cls.tparams ++ sig.tparams,
+                       tparams = cls.tparams ++ sig.tparams,
                        resultType =
                          Some(TsTypeRef(cls.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(sig.tparams)))
                      )
@@ -67,35 +58,48 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
                   CodePath.NoPath,
                   isOptional = false)
       )
+
     def unapply(t: TsNamedDecl): Option[TsDeclVar] =
       t match {
         case RewrittenClass((_, typeConstructor)) => pack(typeConstructor)
-        case TsDeclVar(_, _, _, _, tpe, _, _, _, _) =>
+        case TsDeclVar(_, _, _, _, tpe, literal, _, _, _) =>
           tpe match {
             case Some(TsTypeQuery(nested)) => None
             case Some(other)               => pack(other)
-            case None                      => None
+            case None =>
+              literal flatMap { lit =>
+                pack(TsTypeLiteral(lit))
+              }
           }
         case TsDeclFunction(_, _, _, sig, _, _) =>
           pack(TsTypeFunction(sig))
         case TsDeclNamespace(_, _, _, members, _, _) =>
           pack(typeObject(members))
-        case m @ TsDeclModule(_, _, _, members, _, _) if m.membersByName.get(TsIdent.namespaced).isEmpty =>
+        case m @ TsDeclModule(_, _, _, members, _, _) if false =>
           pack(typeObject(members))
         case _ => None
       }
   }
 
-  private def resolve(t: TreeScope, target: TsTypeQuery, loopDetector: LoopDetector): Option[TsType] =
+  private def resolve(t: TreeScope, target: TsTypeQuery, loopDetector: LoopDetector): TsType =
     target.expr match {
-      case wanted if TsQIdent.BuiltIn(wanted) => Some(TsTypeRef(wanted, Nil))
+      case wanted if TsQIdent.BuiltIn(wanted) || TsQIdent.Primitive(wanted) => TsTypeRef(wanted, Nil)
       case wanted =>
-        t.lookupInternal(P, wanted.parts, loopDetector).collectFirst {
-          case (TsDeclVar(_, _, _, TsIdent.dummy, Some(tpe), _, _, _, _), _) => tpe
+        val found = t.`..`.lookupBase(P, wanted)
+        val mappedOpt = found.collectFirst {
+          case (TsDeclVar(_, _, _, _, Some(tpe), _, _, _, _), _) => tpe
+        }
+        mappedOpt match {
+          case Some(mapped) =>
+            t.logger.info(s"Resolved $target")
+            mapped
+          case None =>
+            t.lookupBase(Picker.All, wanted)
+            t.logger.warn(s"Couldn't resolve $target")
+            TsTypeRef.any
         }
     }
-
-  private def typeObject(members: Seq[TsContainerOrDecl]) =
+  private def typeObject(members: Seq[TsContainerOrDecl]): TsTypeObject =
     TsTypeObject(members collect {
       case TsDeclFunction(cs, _, name, sig: TsFunSig, _, _) =>
         TsMemberFunction(cs, Default, name, sig, isStatic = false, isReadOnly = true, isOptional = false)
@@ -106,7 +110,7 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
                          Default,
                          cls.name,
                          Some(typeConstructor),
-                         isStatic   = false,
+                         isStatic = false,
                          isReadOnly = false,
                          isOptional = false)
     })

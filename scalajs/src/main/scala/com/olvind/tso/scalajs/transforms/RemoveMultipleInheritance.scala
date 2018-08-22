@@ -18,7 +18,9 @@ object RemoveMultipleInheritance extends SymbolVisitor {
       parents.directParents
         .groupBy { p: ParentsResolver.NotRoot =>
           p.transitiveParents
-            .collect { case (ref, cs) if cs.classType === ClassType.Class => ref }
+            .collect {
+              case (ref, cs) if cs.classType === ClassType.Class || cs.classType === ClassType.AbstractClass => ref
+            }
             .to[Set]
         }
 

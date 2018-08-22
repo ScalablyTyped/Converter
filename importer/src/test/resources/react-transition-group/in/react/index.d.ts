@@ -39,13 +39,13 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface SyntheticEvent<T> {
-        currentTarget: EventTarget & T;
-    }
+    // interface SyntheticEvent<T> {
+    //     currentTarget: EventTarget & T;
+    // }
 
-    interface AnimationEvent<T> extends SyntheticEvent<T> {
-        nativeEvent: NativeAnimationEvent;
-    }
+    // interface AnimationEvent<T> extends SyntheticEvent<T> {
+    //     nativeEvent: NativeAnimationEvent;
+    // }
 
     interface Attributes {
         key?: Key;

@@ -18,6 +18,7 @@ object RewriteTypeThis extends TreeVisitorScopedChanges {
 
   def isReferencedInConstructor(stack: List[TsTree]): Boolean =
     stack.exists {
+      case _:     TsTypeConstructor                                      => true
       case owner: TsMemberFunction if owner.name === TsIdent.constructor => true
       case _:     TsMemberCtor                                           => true
       case _ => false

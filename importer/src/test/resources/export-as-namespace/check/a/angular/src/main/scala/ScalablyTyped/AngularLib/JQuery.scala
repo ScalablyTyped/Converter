@@ -14,6 +14,6 @@ trait JQuery extends js.Object {
        * @see {@link https://api.jquery.com/addClass/#addClass-className}
        */
   def addClass(className: java.lang.String): this.type
-  def injector(): AngularLib.AngularModule.autoNamespace.IInjectorService
+  def injector(): AngularLib.AngularModule.angularNamespace.autoNamespace.IInjectorService
 }
 

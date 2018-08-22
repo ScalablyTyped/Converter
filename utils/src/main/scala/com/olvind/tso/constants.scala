@@ -11,7 +11,7 @@ import scala.io.Codec
 object constants {
   val ScalablyTypedRepo   = "git@github.com:oyvindberg/ScalablyTyped.git"
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
-  val Pedantic            = true
+  val Pedantic            = false
   val pkg                 = "ScalablyTyped"
   val offline             = false
   val freshRepo           = false
@@ -37,6 +37,7 @@ object constants {
     "auto-loader",
     "@babel/runtime",
     "@babel/types",
+    "downshift",
     "dva-core",
     "emotion",
     "emotion-theming",
@@ -129,9 +130,9 @@ object constants {
       "chromecast-caf-receiver",
       "snoowrap",
       // these are just slow
-      "dojo",
-      "react-icons",
-      "aws-sdk",
-      "winrt-uwp",
+//      "dojo",
+//      "react-icons",
+//      "aws-sdk",
+//      "winrt-uwp",
     )
 }
