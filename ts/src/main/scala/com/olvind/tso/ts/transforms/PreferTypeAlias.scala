@@ -84,13 +84,17 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
     }
 
   override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl = x match {
-    case i @ TsDeclInterface(comments, declared, name, tparams, inheritance, Nil, codePath) if inheritance.nonEmpty =>
-      val intersect = TsTypeIntersect(inheritance)
-      if (hasCircularReference(i.name, mutable.Set(), t, intersect))
+    /**
+      * We rewrite interfaces which extends one type, not more. The reason is that scala doesn't let you
+      *  `new` an intersection type
+      */
+    case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
+
+      if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance))
         i
       else {
         t.logger.info("Simplified to type alias")
-        TsDeclTypeAlias(comments, declared, name, tparams, intersect, codePath)
+        TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
       }
     case IsFunction(typeAlias) =>
       if (hasCircularReference(typeAlias.name, mutable.Set(), t, typeAlias.alias)) x

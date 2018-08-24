@@ -8,7 +8,7 @@ import scala.io.Codec
 object constants {
   val ScalablyTypedRepo   = "git@github.com:oyvindberg/ScalablyTyped.git"
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
-  val Pedantic            = true
+  val Pedantic            = true  
   val pkg                 = "ScalablyTyped"
   val offline             = false
   val freshRepo           = false
