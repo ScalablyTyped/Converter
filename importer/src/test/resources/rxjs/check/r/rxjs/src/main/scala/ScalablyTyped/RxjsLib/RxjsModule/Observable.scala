@@ -1,6 +1,5 @@
 package ScalablyTyped
-package RxjsLib
-package RxjsModule
+package RxjsLib.RxjsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

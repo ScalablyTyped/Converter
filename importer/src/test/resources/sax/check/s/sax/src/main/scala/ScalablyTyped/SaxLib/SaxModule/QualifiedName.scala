@@ -1,6 +1,5 @@
 package ScalablyTyped
-package SaxLib
-package SaxModule
+package SaxLib.SaxModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,14 +1,12 @@
 package ScalablyTyped
-package ReactLib
-package ReactModule
-package ReactNamespace
+package ReactLib.ReactModule.ReactNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait HTMLAttributes[T] extends ReactLib.ReactModule.ReactNamespace.DOMAttributes[T] {
+trait HTMLAttributes[T] extends DOMAttributes[T] {
   val defaultChecked: js.UndefOr[scala.Boolean] = js.undefined
 }
 

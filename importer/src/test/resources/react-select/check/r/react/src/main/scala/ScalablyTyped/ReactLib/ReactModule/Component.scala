@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ReactLib
-package ReactModule
+package ReactLib.ReactModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

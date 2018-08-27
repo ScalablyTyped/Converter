@@ -1,7 +1,5 @@
 package ScalablyTyped
-package LodashLib
-package LodashFpModule
-package Global
+package LodashLib.LodashFpModule.Global
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

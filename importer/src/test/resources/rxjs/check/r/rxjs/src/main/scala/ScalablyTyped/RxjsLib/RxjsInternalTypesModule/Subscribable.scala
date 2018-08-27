@@ -1,6 +1,5 @@
 package ScalablyTyped
-package RxjsLib
-package RxjsInternalTypesModule
+package RxjsLib.RxjsInternalTypesModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,12 +7,12 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Subscribable[T] extends js.Object {
-  def subscribe(): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
-  def subscribe(observerOrNext: RxjsLib.RxjsInternalTypesModule.PartialObserver[T]): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
-  def subscribe(observerOrNext: RxjsLib.RxjsInternalTypesModule.PartialObserver[T], error: js.Function1[/* error */ js.Any, scala.Unit]): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
-  def subscribe(observerOrNext: RxjsLib.RxjsInternalTypesModule.PartialObserver[T], error: js.Function1[/* error */ js.Any, scala.Unit], complete: js.Function0[scala.Unit]): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
-  def subscribe(observerOrNext: js.Function1[/* value */ T, scala.Unit]): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
-  def subscribe(observerOrNext: js.Function1[/* value */ T, scala.Unit], error: js.Function1[/* error */ js.Any, scala.Unit]): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
-  def subscribe(observerOrNext: js.Function1[/* value */ T, scala.Unit], error: js.Function1[/* error */ js.Any, scala.Unit], complete: js.Function0[scala.Unit]): RxjsLib.RxjsInternalTypesModule.Unsubscribable = js.native
+  def subscribe(): Unsubscribable = js.native
+  def subscribe(observerOrNext: PartialObserver[T]): Unsubscribable = js.native
+  def subscribe(observerOrNext: PartialObserver[T], error: js.Function1[/* error */ js.Any, scala.Unit]): Unsubscribable = js.native
+  def subscribe(observerOrNext: PartialObserver[T], error: js.Function1[/* error */ js.Any, scala.Unit], complete: js.Function0[scala.Unit]): Unsubscribable = js.native
+  def subscribe(observerOrNext: js.Function1[/* value */ T, scala.Unit]): Unsubscribable = js.native
+  def subscribe(observerOrNext: js.Function1[/* value */ T, scala.Unit], error: js.Function1[/* error */ js.Any, scala.Unit]): Unsubscribable = js.native
+  def subscribe(observerOrNext: js.Function1[/* value */ T, scala.Unit], error: js.Function1[/* error */ js.Any, scala.Unit], complete: js.Function0[scala.Unit]): Unsubscribable = js.native
 }
 

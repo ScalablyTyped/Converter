@@ -1,8 +1,5 @@
 package ScalablyTyped
-package ReactLib
-package ReactModule
-package Global
-package JSXNamespace
+package ReactLib.ReactModule.Global.JSXNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

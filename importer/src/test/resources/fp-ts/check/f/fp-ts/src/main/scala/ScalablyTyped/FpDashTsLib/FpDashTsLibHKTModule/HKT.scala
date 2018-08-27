@@ -1,6 +1,5 @@
 package ScalablyTyped
-package FpDashTsLib
-package FpDashTsLibHKTModule
+package FpDashTsLib.FpDashTsLibHKTModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

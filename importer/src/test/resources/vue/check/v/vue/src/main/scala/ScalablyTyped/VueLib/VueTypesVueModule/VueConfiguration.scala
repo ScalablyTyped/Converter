@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueLib
-package VueTypesVueModule
+package VueLib.VueTypesVueModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,7 +14,7 @@ trait VueConfiguration extends js.Object {
   val performance: scala.Boolean
   val productionTip: scala.Boolean
   val silent: scala.Boolean
-  def errorHandler(err: StdLib.Error, vm: VueLib.VueTypesVueModule.Vue, info: java.lang.String): scala.Unit
-  def warnHandler(msg: java.lang.String, vm: VueLib.VueTypesVueModule.Vue, trace: java.lang.String): scala.Unit
+  def errorHandler(err: StdLib.Error, vm: Vue, info: java.lang.String): scala.Unit
+  def warnHandler(msg: java.lang.String, vm: Vue, trace: java.lang.String): scala.Unit
 }
 

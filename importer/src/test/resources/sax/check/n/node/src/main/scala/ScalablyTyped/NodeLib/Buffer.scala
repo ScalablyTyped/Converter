@@ -18,7 +18,7 @@ object Buffer extends /**
      * @param str String to store in buffer.
      * @param encoding encoding to use, optional.  Default is 'utf8'
      */
-ScalablyTyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ java.lang.String, NodeLib.Buffer] with /**
+ScalablyTyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ java.lang.String, Buffer] with /**
      * Allocates a new buffer containing the given {str}.
      *
      * @param str String to store in buffer.
@@ -46,10 +46,10 @@ ScalablyTyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ j
      *
      * @param buffer The buffer to copy.
      */
-ScalablyTyped.runtime.Instantiable1[(/* str */ java.lang.String) | (/* size */ scala.Double) | (/* array */ StdLib.Uint8Array[js.Object]) | (/* arrayBuffer */ StdLib.ArrayBuffer) | (/* array */ StdLib.Array[js.Any]) | (/* buffer */ NodeLib.Buffer), NodeLib.Buffer] {
+ScalablyTyped.runtime.Instantiable1[(/* str */ java.lang.String) | (/* size */ scala.Double) | (/* array */ StdLib.Uint8Array[js.Object]) | (/* arrayBuffer */ StdLib.ArrayBuffer) | (/* array */ StdLib.Array[js.Any]) | (/* buffer */ Buffer), Buffer] {
   /**
        * Allocates a new Buffer using an {array} of octets.
        */
-  def from(array: StdLib.Array[_]): NodeLib.Buffer = js.native
+  def from(array: StdLib.Array[_]): Buffer = js.native
 }
 

@@ -9,6 +9,6 @@ object VueDashScrolltoLibNumbers {
   @js.native
   sealed trait `false` extends js.Object
   
-  val `false`: `false` = false.asInstanceOf[`false`]
+  def `false`: `false` = false.asInstanceOf[`false`]
 }
 

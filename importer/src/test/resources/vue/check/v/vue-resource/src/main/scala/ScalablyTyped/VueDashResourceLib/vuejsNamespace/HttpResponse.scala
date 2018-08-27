@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueDashResourceLib
-package vuejsNamespace
+package VueDashResourceLib.vuejsNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

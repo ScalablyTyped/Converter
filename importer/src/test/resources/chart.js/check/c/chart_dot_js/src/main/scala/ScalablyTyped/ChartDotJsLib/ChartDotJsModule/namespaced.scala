@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ChartDotJsLib
-package ChartDotJsModule
+package ChartDotJsLib.ChartDotJsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
-class namespaced protected () extends ChartDotJsLib.ChartDotJsModule.Chart {
+class namespaced protected () extends Chart {
   def this(context: StdLib.ArrayLike[StdLib.CanvasRenderingContext2D | StdLib.HTMLCanvasElement], options: js.Any) = this()
   def this(context: StdLib.CanvasRenderingContext2D, options: js.Any) = this()
   def this(context: StdLib.HTMLCanvasElement, options: js.Any) = this()

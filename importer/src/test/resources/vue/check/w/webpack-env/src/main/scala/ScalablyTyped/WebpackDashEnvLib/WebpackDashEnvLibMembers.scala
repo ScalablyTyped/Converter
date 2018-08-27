@@ -47,8 +47,8 @@ object WebpackDashEnvLibMembers extends js.Object {
    * The raw require function. This expression isn’t parsed by the Parser for dependencies.
    */
   var `__webpack_require__`: js.Any = js.native
-  var module: WebpackDashEnvLib.NodeModule = js.native
+  var module: NodeModule = js.native
   var process: WebpackDashEnvLib.NodeJSNamespace.Process = js.native
-  var require: WebpackDashEnvLib.NodeRequire = js.native
+  var require: NodeRequire = js.native
 }
 

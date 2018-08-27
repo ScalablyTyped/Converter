@@ -1,7 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package StreamModule
-package internalNamespace
+package NodeLib.StreamModule.internalNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

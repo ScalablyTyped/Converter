@@ -1,14 +1,12 @@
 package ScalablyTyped
-package NodeLib
-package StreamModule
-package internalNamespace
+package NodeLib.StreamModule.internalNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait Writable extends NodeLib.StreamModule.internalNamespace.Stream with NodeLib.NodeJSNamespace.WritableStream {
+trait Writable extends Stream with NodeLib.NodeJSNamespace.WritableStream {
   def end(): scala.Unit = js.native
   def end(cb: js.Function): scala.Unit = js.native
   def end(chunk: js.Any): scala.Unit = js.native

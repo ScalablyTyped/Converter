@@ -1,7 +1,5 @@
 package ScalablyTyped
-package CommanderLib
-package CommanderModule
-package commanderNamespace
+package CommanderLib.CommanderModule.commanderNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

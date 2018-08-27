@@ -1,6 +1,5 @@
 package ScalablyTyped
-package WebpackDashEnvLib
-package UnderscoreUnderscoreWebpackModuleApiNamespace
+package WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

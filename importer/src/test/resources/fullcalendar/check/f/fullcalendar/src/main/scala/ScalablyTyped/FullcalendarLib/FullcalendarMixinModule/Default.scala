@@ -1,6 +1,5 @@
 package ScalablyTyped
-package FullcalendarLib
-package FullcalendarMixinModule
+package FullcalendarLib.FullcalendarMixinModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -12,7 +11,7 @@ class Default () extends js.Object
 
 @JSImport("fullcalendar/Mixin", JSImport.Default)
 @js.native
-class default () extends FullcalendarLib.FullcalendarMixinModule.Default
+class default () extends Default
 
 @JSImport("fullcalendar/Mixin", "Default")
 @js.native

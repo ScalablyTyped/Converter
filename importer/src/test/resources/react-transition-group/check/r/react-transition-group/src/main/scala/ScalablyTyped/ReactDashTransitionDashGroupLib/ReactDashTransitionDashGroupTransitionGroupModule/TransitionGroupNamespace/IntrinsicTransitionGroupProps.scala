@@ -1,7 +1,5 @@
 package ScalablyTyped
-package ReactDashTransitionDashGroupLib
-package ReactDashTransitionDashGroupTransitionGroupModule
-package TransitionGroupNamespace
+package ReactDashTransitionDashGroupLib.ReactDashTransitionDashGroupTransitionGroupModule.TransitionGroupNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

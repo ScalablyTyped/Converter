@@ -1,15 +1,13 @@
 package ScalablyTyped
-package LodashLib
-package LodashModule
-package UnderscoreNamespace
+package LodashLib.LodashModule.UnderscoreNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 // tslint:disable-next-line no-empty-interface (This will be augmented)
-// add
 // assign
+// add
 // assign
 // add
 @js.native

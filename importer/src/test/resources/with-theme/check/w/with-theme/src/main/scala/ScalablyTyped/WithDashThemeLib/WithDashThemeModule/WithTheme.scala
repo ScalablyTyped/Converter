@@ -1,6 +1,5 @@
 package ScalablyTyped
-package WithDashThemeLib
-package WithDashThemeModule
+package WithDashThemeLib.WithDashThemeModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

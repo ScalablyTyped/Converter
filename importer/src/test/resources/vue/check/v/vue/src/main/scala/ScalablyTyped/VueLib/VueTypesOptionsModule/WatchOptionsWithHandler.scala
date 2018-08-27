@@ -1,13 +1,12 @@
 package ScalablyTyped
-package VueLib
-package VueTypesOptionsModule
+package VueLib.VueTypesOptionsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait WatchOptionsWithHandler[T] extends VueLib.VueTypesOptionsModule.WatchOptions {
-  val handler: VueLib.VueTypesOptionsModule.WatchHandler[T]
+trait WatchOptionsWithHandler[T] extends WatchOptions {
+  val handler: WatchHandler[T]
 }
 

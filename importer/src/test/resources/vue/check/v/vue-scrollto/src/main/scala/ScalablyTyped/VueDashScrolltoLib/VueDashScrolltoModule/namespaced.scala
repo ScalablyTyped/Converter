@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueDashScrolltoLib
-package VueDashScrolltoModule
+package VueDashScrolltoLib.VueDashScrolltoModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("vue-scrollto", JSImport.Namespace)
 @js.native
-class namespaced () extends VueDashScrolltoLib.VueDashScrolltoModule.VueScrollTo {
+class namespaced () extends VueScrollTo {
   /* CompleteClass */
   override val scrollTo: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.VueStatic = js.native
 }

@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueLib
-package VueTypesVueModule
+package VueLib.VueTypesVueModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -11,9 +10,9 @@ trait Vue extends js.Object {
   @JSName("$attrs")
   val $attrs: StdLib.Record[java.lang.String, java.lang.String] = js.native
   @JSName("$children")
-  val $children: StdLib.Array[VueLib.VueTypesVueModule.Vue] = js.native
+  val $children: StdLib.Array[Vue] = js.native
   @JSName("$createElement")
-  val $createElement: VueLib.VueTypesVueModule.CreateElement = js.native
+  val $createElement: CreateElement = js.native
   @JSName("$data")
   val $data: StdLib.Record[java.lang.String, _] = js.native
   @JSName("$delete")
@@ -25,15 +24,15 @@ trait Vue extends js.Object {
   @JSName("$listeners")
   val $listeners: StdLib.Record[java.lang.String, js.Function | StdLib.Array[js.Function]] = js.native
   @JSName("$options")
-  val $options: VueLib.VueTypesOptionsModule.ComponentOptions[VueLib.VueTypesVueModule.Vue, VueLib.VueTypesOptionsModule.DefaultData[VueLib.VueTypesVueModule.Vue], VueLib.VueTypesOptionsModule.DefaultMethods[VueLib.VueTypesVueModule.Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]] = js.native
+  val $options: VueLib.VueTypesOptionsModule.ComponentOptions[Vue, VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]] = js.native
   @JSName("$parent")
-  val $parent: VueLib.VueTypesVueModule.Vue = js.native
+  val $parent: Vue = js.native
   @JSName("$props")
   val $props: StdLib.Record[java.lang.String, _] = js.native
   @JSName("$refs")
-  val $refs: ScalablyTyped.runtime.StringDictionary[VueLib.VueTypesVueModule.Vue | StdLib.Element | StdLib.Array[VueLib.VueTypesVueModule.Vue] | StdLib.Array[StdLib.Element]] = js.native
+  val $refs: ScalablyTyped.runtime.StringDictionary[Vue | StdLib.Element | StdLib.Array[Vue] | StdLib.Array[StdLib.Element]] = js.native
   @JSName("$root")
-  val $root: VueLib.VueTypesVueModule.Vue = js.native
+  val $root: Vue = js.native
   @JSName("$scopedSlots")
   val $scopedSlots: ScalablyTyped.runtime.StringDictionary[VueLib.VueTypesVnodeModule.ScopedSlot] = js.native
   @JSName("$set")

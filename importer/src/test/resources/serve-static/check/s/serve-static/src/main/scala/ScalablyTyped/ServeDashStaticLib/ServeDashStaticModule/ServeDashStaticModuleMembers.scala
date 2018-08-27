@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ServeDashStaticLib
-package ServeDashStaticModule
+package ServeDashStaticLib.ServeDashStaticModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

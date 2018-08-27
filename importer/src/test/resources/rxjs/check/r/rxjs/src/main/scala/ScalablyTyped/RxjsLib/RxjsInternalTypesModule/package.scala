@@ -6,6 +6,6 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object RxjsInternalTypesModule {
-  type PartialObserver[T] = RxjsLib.RxjsInternalTypesModule.NextObserver[T] | RxjsLib.RxjsInternalTypesModule.ErrorObserver[T] | RxjsLib.RxjsInternalTypesModule.CompletionObserver[T]
+  type PartialObserver[T] = NextObserver[T] | ErrorObserver[T] | CompletionObserver[T]
   type UnaryFunction[T, R] = js.Function1[/* source */ T, R]
 }

@@ -1,6 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package StreamModule
+package NodeLib.StreamModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

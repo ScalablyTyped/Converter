@@ -1,13 +1,12 @@
 package ScalablyTyped
-package SaxLib
-package SaxModule
+package SaxLib.SaxModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait QualifiedAttribute extends SaxLib.SaxModule.QualifiedName {
+trait QualifiedAttribute extends QualifiedName {
   val value: java.lang.String
 }
 

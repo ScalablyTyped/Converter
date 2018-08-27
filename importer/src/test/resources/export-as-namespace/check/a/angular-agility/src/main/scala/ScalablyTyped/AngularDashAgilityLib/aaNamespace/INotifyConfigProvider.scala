@@ -1,6 +1,5 @@
 package ScalablyTyped
-package AngularDashAgilityLib
-package aaNamespace
+package AngularDashAgilityLib.aaNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

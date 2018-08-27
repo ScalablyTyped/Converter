@@ -1,13 +1,12 @@
 package ScalablyTyped
-package ElectronLib
-package ElectronNamespace
+package ElectronLib.ElectronNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait MainInterface extends ElectronLib.ElectronNamespace.CommonInterface {
-  val app: ElectronLib.ElectronNamespace.App
+trait MainInterface extends CommonInterface {
+  val app: App
 }
 

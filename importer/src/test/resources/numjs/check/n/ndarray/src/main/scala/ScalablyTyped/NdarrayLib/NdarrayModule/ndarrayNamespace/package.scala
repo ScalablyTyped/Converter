@@ -1,6 +1,5 @@
 package ScalablyTyped
-package NdarrayLib
-package NdarrayModule
+package NdarrayLib.NdarrayModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

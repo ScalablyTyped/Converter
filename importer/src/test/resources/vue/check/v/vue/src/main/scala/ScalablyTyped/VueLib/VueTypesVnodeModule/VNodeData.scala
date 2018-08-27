@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueLib
-package VueTypesVnodeModule
+package VueLib.VueTypesVnodeModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,7 +9,7 @@ import scala.scalajs.js.annotation._
 trait VNodeData extends js.Object {
   val attrs: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any]] = js.undefined
   val `class`: js.UndefOr[js.Any] = js.undefined
-  val directives: js.UndefOr[StdLib.Array[VueLib.VueTypesVnodeModule.VNodeDirective]] = js.undefined
+  val directives: js.UndefOr[StdLib.Array[VNodeDirective]] = js.undefined
   val domProps: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any]] = js.undefined
   val hook: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Function]] = js.undefined
   val inlineTemplate: js.UndefOr[VueLib.Anon_StaticRenderFns] = js.undefined
@@ -20,7 +19,7 @@ trait VNodeData extends js.Object {
   val on: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Function | StdLib.Array[js.Function]]] = js.undefined
   val props: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any]] = js.undefined
   val ref: js.UndefOr[java.lang.String] = js.undefined
-  val scopedSlots: js.UndefOr[ScalablyTyped.runtime.StringDictionary[VueLib.VueTypesVnodeModule.ScopedSlot]] = js.undefined
+  val scopedSlots: js.UndefOr[ScalablyTyped.runtime.StringDictionary[ScopedSlot]] = js.undefined
   val show: js.UndefOr[scala.Boolean] = js.undefined
   val slot: js.UndefOr[java.lang.String] = js.undefined
   val staticClass: js.UndefOr[java.lang.String] = js.undefined

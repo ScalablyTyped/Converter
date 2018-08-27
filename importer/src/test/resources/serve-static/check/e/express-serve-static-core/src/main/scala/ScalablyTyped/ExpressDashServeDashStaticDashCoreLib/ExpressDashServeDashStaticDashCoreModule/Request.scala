@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ExpressDashServeDashStaticDashCoreLib
-package ExpressDashServeDashStaticDashCoreModule
+package ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

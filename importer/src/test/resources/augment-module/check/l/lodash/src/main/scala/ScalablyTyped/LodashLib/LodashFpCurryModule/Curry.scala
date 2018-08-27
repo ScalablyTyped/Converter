@@ -1,6 +1,5 @@
 package ScalablyTyped
-package LodashLib
-package LodashFpCurryModule
+package LodashLib.LodashFpCurryModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,6 +1,5 @@
 package ScalablyTyped
-package StylisLib
-package StylisStylisModule
+package StylisLib.StylisStylisModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

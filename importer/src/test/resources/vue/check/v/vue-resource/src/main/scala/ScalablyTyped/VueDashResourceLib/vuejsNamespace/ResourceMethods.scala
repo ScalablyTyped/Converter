@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueDashResourceLib
-package vuejsNamespace
+package VueDashResourceLib.vuejsNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,11 +7,11 @@ import scala.scalajs.js.annotation._
 
 
 trait ResourceMethods extends js.Object {
-  val delete: VueDashResourceLib.vuejsNamespace.ResourceMethod
-  val get: VueDashResourceLib.vuejsNamespace.ResourceMethod
-  val query: VueDashResourceLib.vuejsNamespace.ResourceMethod
-  val remove: VueDashResourceLib.vuejsNamespace.ResourceMethod
-  val save: VueDashResourceLib.vuejsNamespace.ResourceMethod
-  val update: VueDashResourceLib.vuejsNamespace.ResourceMethod
+  val delete: ResourceMethod
+  val get: ResourceMethod
+  val query: ResourceMethod
+  val remove: ResourceMethod
+  val save: ResourceMethod
+  val update: ResourceMethod
 }
 

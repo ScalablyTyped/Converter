@@ -1,7 +1,5 @@
 package ScalablyTyped
-package AngularLib
-package AngularModule
-package autoNamespace
+package AngularLib.AngularModule.autoNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

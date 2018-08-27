@@ -1,6 +1,5 @@
 package ScalablyTyped
-package MimeLib
-package MimeModule
+package MimeLib.MimeModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

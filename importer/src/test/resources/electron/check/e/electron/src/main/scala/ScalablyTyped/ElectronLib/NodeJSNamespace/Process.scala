@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ElectronLib
-package NodeJSNamespace
+package ElectronLib.NodeJSNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

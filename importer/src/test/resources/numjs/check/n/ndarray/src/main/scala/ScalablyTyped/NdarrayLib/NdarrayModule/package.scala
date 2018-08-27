@@ -8,5 +8,5 @@ import scala.scalajs.js.annotation._
 package object NdarrayModule {
   type Data[T] = NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T]
   type DataType = NdarrayLib.NdarrayModule.ndarrayNamespace.DataType
-  type namespaced[T] = NdarrayLib.NdarrayModule.ndarray[T]
+  type namespaced[T] = ndarray[T]
 }

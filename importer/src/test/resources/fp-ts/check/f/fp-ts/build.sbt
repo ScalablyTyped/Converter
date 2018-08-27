@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "fp-ts"
-version := "1.2.0-753832"
+version := "1.2.0-056555"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

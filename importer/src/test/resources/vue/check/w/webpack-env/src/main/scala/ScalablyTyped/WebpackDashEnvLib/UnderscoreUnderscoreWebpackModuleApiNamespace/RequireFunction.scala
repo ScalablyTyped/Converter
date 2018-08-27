@@ -1,6 +1,5 @@
 package ScalablyTyped
-package WebpackDashEnvLib
-package UnderscoreUnderscoreWebpackModuleApiNamespace
+package WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -20,9 +19,9 @@ trait RequireFunction extends js.Object {
            * Behaves similar to require.ensure, but the callback is called with the exports of each dependency in the paths array. There is no option to provide a chunk name.
            */
   def apply(paths: StdLib.Array[java.lang.String], callback: js.Function1[/* repeated */js.Any, scala.Unit]): scala.Unit = js.native
-  def context(path: java.lang.String): WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.RequireContext = js.native
-  def context(path: java.lang.String, deep: scala.Boolean): WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.RequireContext = js.native
-  def context(path: java.lang.String, deep: scala.Boolean, filter: StdLib.RegExp): WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.RequireContext = js.native
+  def context(path: java.lang.String): RequireContext = js.native
+  def context(path: java.lang.String, deep: scala.Boolean): RequireContext = js.native
+  def context(path: java.lang.String, deep: scala.Boolean, filter: StdLib.RegExp): RequireContext = js.native
   /**
            * Download additional dependencies on demand. The paths array lists modules that should be available. When they are, callback is called. If the callback is a function expression, dependencies in that source part are extracted and also loaded on demand. A single request is fired to the server, except if all modules are already available.
            *

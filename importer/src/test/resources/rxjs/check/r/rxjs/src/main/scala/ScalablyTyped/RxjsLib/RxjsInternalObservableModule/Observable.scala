@@ -1,6 +1,5 @@
 package ScalablyTyped
-package RxjsLib
-package RxjsInternalObservableModule
+package RxjsLib.RxjsInternalObservableModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -13,7 +12,7 @@ class Observable[T] () extends RxjsLib.RxjsInternalTypesModule.Subscribable[T] {
   var _isScalar: scala.Boolean = js.native
   var foo: RxjsLib.RxjsInternalTypesModule.OperatorFunction[scala.Double, java.lang.String] = js.native
   /** @deprecated This is an internal implementation detail, do not use. */
-  var source: RxjsLib.RxjsInternalObservableModule.Observable[_] = js.native
-  def pipe(): RxjsLib.RxjsInternalObservableModule.Observable[T] = js.native
+  var source: Observable[_] = js.native
+  def pipe(): Observable[T] = js.native
 }
 

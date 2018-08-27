@@ -15,8 +15,8 @@ object ReactLibStrings {
   @js.native
   sealed trait clipPath extends js.Object
   
-  val animate: animate = "animate".asInstanceOf[animate]
-  val circle: circle = "circle".asInstanceOf[circle]
-  val clipPath: clipPath = "clipPath".asInstanceOf[clipPath]
+  def animate: animate = "animate".asInstanceOf[animate]
+  def circle: circle = "circle".asInstanceOf[circle]
+  def clipPath: clipPath = "clipPath".asInstanceOf[clipPath]
 }
 

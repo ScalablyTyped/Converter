@@ -5,8 +5,8 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{root, Path}
-import com.olvind.logging.{LogLevel, LogRegistry}
+import ammonite.ops.{%, cp, rm, root, Path}
+import com.olvind.logging.LogRegistry
 import com.olvind.tso.importer.build.BloopCompiler
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs._

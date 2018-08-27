@@ -1,8 +1,5 @@
 package ScalablyTyped
-package ExpressDashServeDashStaticDashCoreLib
-package ExpressDashServeDashStaticDashCoreModule
-package Global
-package ExpressNamespace
+package ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.Global.ExpressNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

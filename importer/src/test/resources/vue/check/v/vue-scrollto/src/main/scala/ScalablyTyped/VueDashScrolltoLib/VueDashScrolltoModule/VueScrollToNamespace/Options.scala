@@ -1,7 +1,5 @@
 package ScalablyTyped
-package VueDashScrolltoLib
-package VueDashScrolltoModule
-package VueScrollToNamespace
+package VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

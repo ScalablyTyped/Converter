@@ -1,7 +1,5 @@
 package ScalablyTyped
-package LodashLib
-package LodashFpModule
-package UnderscoreNamespace
+package LodashLib.LodashFpModule.UnderscoreNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

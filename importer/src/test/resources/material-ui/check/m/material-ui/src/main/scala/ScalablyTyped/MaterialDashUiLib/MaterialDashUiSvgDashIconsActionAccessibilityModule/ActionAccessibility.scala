@@ -1,6 +1,5 @@
 package ScalablyTyped
-package MaterialDashUiLib
-package MaterialDashUiSvgDashIconsActionAccessibilityModule
+package MaterialDashUiLib.MaterialDashUiSvgDashIconsActionAccessibilityModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

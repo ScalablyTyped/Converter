@@ -9,6 +9,6 @@ object WinstonLibStrings {
   @js.native
   sealed trait bar extends js.Object
   
-  val bar: bar = "bar".asInstanceOf[bar]
+  def bar: bar = "bar".asInstanceOf[bar]
 }
 

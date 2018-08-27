@@ -1,7 +1,5 @@
 package ScalablyTyped
-package MaterialDashUiLib
-package UnderscoreUnderscoreMaterialUINamespace
-package BottomNavigationNamespace
+package MaterialDashUiLib.UnderscoreUnderscoreMaterialUINamespace.BottomNavigationNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

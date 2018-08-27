@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueLib
-package VueTypesOptionsModule
+package VueLib.VueTypesOptionsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

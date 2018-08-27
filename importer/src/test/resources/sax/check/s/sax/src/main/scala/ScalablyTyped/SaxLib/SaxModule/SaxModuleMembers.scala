@@ -1,6 +1,5 @@
 package ScalablyTyped
-package SaxLib
-package SaxModule
+package SaxLib.SaxModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,7 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 object SaxModuleMembers extends js.Object {
   var EVENTS: StdLib.Array[java.lang.String] = js.native
-  def createStream(strict: scala.Boolean, opt: SaxLib.SaxModule.SAXOptions): SaxLib.SaxModule.SAXStream = js.native
-  def parser(strict: scala.Boolean, opt: SaxLib.SaxModule.SAXOptions): SaxLib.SaxModule.SAXParser = js.native
+  def createStream(strict: scala.Boolean, opt: SAXOptions): SAXStream = js.native
+  def parser(strict: scala.Boolean, opt: SAXOptions): SAXParser = js.native
 }
 

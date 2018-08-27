@@ -6,6 +6,9 @@ import scala.annotation.switch
 
 object Sorter extends SymbolVisitor {
   private object SymbolOrdering extends Ordering[Symbol] {
+    // todo: should consider prefix (see Printer)
+    val NoPrefix = Nil
+
     override def compare(x: Symbol, y: Symbol): Int =
       (x, y) match {
         case (m1: MethodSymbol, m2: MethodSymbol) =>
@@ -18,11 +21,11 @@ object Sorter extends SymbolVisitor {
                       // well, the rest was fast enough, so... :)
                       val p1: String =
                         m1.params.flatten
-                          .map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName))
+                          .map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName))
                           .mkString
                       val p2: String =
                         m2.params.flatten
-                          .map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName))
+                          .map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName))
                           .mkString
                       p1.compareTo(p2)
                     case other => other
@@ -36,9 +39,9 @@ object Sorter extends SymbolVisitor {
           (c1.params.size.compareTo(c2.params.size): @switch) match {
             case 0 =>
               val p1: String =
-                c1.params.map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName)).mkString
+                c1.params.map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName)).mkString
               val p2: String =
-                c2.params.map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName)).mkString
+                c2.params.map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName)).mkString
 
               p1.compareTo(p2)
             case other => other

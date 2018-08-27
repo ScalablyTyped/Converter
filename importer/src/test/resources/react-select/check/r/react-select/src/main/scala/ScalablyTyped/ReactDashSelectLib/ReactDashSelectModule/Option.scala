@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ReactDashSelectLib
-package ReactDashSelectModule
+package ReactDashSelectLib.ReactDashSelectModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

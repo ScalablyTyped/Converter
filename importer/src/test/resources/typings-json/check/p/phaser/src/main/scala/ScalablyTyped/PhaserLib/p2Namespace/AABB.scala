@@ -1,6 +1,5 @@
 package ScalablyTyped
-package PhaserLib
-package p2Namespace
+package PhaserLib.p2Namespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,6 +9,6 @@ import scala.scalajs.js.annotation._
 @js.native
 class AABB () extends js.Object {
   def this(options: PhaserLib.Anon_UpperBound) = this()
-  def copy(aabb: PhaserLib.p2Namespace.AABB): scala.Unit = js.native
+  def copy(aabb: AABB): scala.Unit = js.native
 }
 

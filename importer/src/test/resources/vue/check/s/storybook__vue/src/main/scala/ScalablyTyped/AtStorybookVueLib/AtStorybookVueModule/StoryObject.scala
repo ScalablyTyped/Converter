@@ -1,6 +1,5 @@
 package ScalablyTyped
-package AtStorybookVueLib
-package AtStorybookVueModule
+package AtStorybookVueLib.AtStorybookVueModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -9,6 +8,6 @@ import scala.scalajs.js.annotation._
 
 trait StoryObject extends js.Object {
   val name: java.lang.String
-  val render: AtStorybookVueLib.AtStorybookVueModule.StoryFunction
+  val render: StoryFunction
 }
 

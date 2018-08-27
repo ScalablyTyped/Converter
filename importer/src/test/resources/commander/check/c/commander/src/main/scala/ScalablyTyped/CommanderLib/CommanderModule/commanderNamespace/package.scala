@@ -1,6 +1,5 @@
 package ScalablyTyped
-package CommanderLib
-package CommanderModule
+package CommanderLib.CommanderModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

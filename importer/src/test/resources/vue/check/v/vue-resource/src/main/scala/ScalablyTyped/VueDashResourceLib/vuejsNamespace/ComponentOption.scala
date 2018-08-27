@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueDashResourceLib
-package vuejsNamespace
+package VueDashResourceLib.vuejsNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait ComponentOption extends js.Object {
-  val http: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any] with VueDashResourceLib.Anon_Headers with VueDashResourceLib.vuejsNamespace.HttpOptions] = js.undefined
+  val http: js.UndefOr[HttpOptions with ScalablyTyped.runtime.StringDictionary[js.Any] with VueDashResourceLib.Anon_Headers] = js.undefined
 }
 

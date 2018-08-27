@@ -1,7 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package EventsModule
-package internalNamespace
+package NodeLib.EventsModule.internalNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

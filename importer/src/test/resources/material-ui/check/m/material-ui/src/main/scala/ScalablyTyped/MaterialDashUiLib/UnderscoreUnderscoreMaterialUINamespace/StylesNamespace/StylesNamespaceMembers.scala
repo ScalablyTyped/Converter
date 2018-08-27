@@ -1,7 +1,5 @@
 package ScalablyTyped
-package MaterialDashUiLib
-package UnderscoreUnderscoreMaterialUINamespace
-package StylesNamespace
+package MaterialDashUiLib.UnderscoreUnderscoreMaterialUINamespace.StylesNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -14,6 +12,6 @@ object StylesNamespaceMembers extends js.Object {
   var Typography: js.Any = js.native
   var a: js.Any = js.native
   var zIndex: js.Any = js.native
-  def getMuiTheme(muiTheme: MaterialDashUiLib.UnderscoreUnderscoreMaterialUINamespace.StylesNamespace.MuiTheme*): MaterialDashUiLib.UnderscoreUnderscoreMaterialUINamespace.StylesNamespace.MuiTheme = js.native
+  def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = js.native
 }
 

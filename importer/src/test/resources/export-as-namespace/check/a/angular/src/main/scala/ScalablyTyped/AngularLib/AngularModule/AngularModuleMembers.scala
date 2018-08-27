@@ -1,6 +1,5 @@
 package ScalablyTyped
-package AngularLib
-package AngularModule
+package AngularLib.AngularModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

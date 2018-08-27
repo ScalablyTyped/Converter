@@ -1,6 +1,5 @@
 package ScalablyTyped
-package WebpackDashEnvLib
-package UnderscoreUnderscoreWebpackModuleApiNamespace
+package WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -22,7 +21,7 @@ trait Hot extends js.Object {
            * @param dependencies
            * @param callback
            */
-  def accept(dependencies: StdLib.Array[java.lang.String], callback: js.Function1[/* updatedDependencies */ StdLib.Array[WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.ModuleId], scala.Unit]): scala.Unit = js.native
+  def accept(dependencies: StdLib.Array[java.lang.String], callback: js.Function1[/* updatedDependencies */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
   /**
            * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
            * @param dependency
@@ -54,7 +53,7 @@ trait Hot extends js.Object {
            * @param callback
            */
   @JSName("apply")
-  def apply(callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.ModuleId], scala.Unit]): scala.Unit = js.native
+  def apply(callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
   /**
            * If status() != "ready" it throws an error.
            * Continue the update process.
@@ -62,7 +61,7 @@ trait Hot extends js.Object {
            * @param callback
            */
   @JSName("apply")
-  def apply(options: WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.AcceptOptions, callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.ModuleId], scala.Unit]): scala.Unit = js.native
+  def apply(options: AcceptOptions, callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
   /**
            * Throws an exceptions if status() is not idle.
            * Check all currently loaded modules for updates and apply updates if found.
@@ -73,7 +72,7 @@ trait Hot extends js.Object {
            * @param autoApply
            * @param callback
            */
-  def check(autoApply: scala.Boolean, callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.ModuleId], scala.Unit]): scala.Unit = js.native
+  def check(autoApply: scala.Boolean, callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
   /**
            * Throws an exceptions if status() is not idle.
            * Check all currently loaded modules for updates and apply updates if found.
@@ -81,7 +80,7 @@ trait Hot extends js.Object {
            * The callback will be called with all modules that will be disposed on apply().
            * @param callback
            */
-  def check(callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.ModuleId], scala.Unit]): scala.Unit = js.native
+  def check(callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
   /**
            * Flag the current module as not update-able. If updated the update code would fail with code "decline".
            */

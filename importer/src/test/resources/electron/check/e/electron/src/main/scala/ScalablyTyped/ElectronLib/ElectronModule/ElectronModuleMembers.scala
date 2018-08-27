@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ElectronLib
-package ElectronModule
+package ElectronLib.ElectronModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

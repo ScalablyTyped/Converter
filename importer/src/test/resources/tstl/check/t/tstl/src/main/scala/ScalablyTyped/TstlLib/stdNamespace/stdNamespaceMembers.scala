@@ -1,6 +1,5 @@
 package ScalablyTyped
-package TstlLib
-package stdNamespace
+package TstlLib.stdNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

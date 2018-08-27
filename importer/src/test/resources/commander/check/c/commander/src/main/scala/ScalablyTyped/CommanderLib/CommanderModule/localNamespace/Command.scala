@@ -1,7 +1,5 @@
 package ScalablyTyped
-package CommanderLib
-package CommanderModule
-package localNamespace
+package CommanderLib.CommanderModule.localNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -24,7 +22,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {(...args: any[]) => void} fn
            * @returns {Command} for chaining
            */
-  def action(fn: js.Function1[/* repeated */js.Any, scala.Unit]): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def action(fn: js.Function1[/* repeated */js.Any, scala.Unit]): Command = js.native
   def alias(): java.lang.String = js.native
   /**
            * Set an alias for the command.
@@ -32,28 +30,28 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string} alias
            * @return {(Command | string)}
            */
-  def alias(alias: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def alias(alias: java.lang.String): Command = js.native
   /**
            * Allow unknown options on the command line.
            *
            * @param {boolean} [arg] if `true` or omitted, no error will be thrown for unknown options.
            * @returns {Command} for chaining
            */
-  def allowUnknownOption(): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def allowUnknownOption(): Command = js.native
   /**
            * Allow unknown options on the command line.
            *
            * @param {boolean} [arg] if `true` or omitted, no error will be thrown for unknown options.
            * @returns {Command} for chaining
            */
-  def allowUnknownOption(arg: scala.Boolean): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def allowUnknownOption(arg: scala.Boolean): Command = js.native
   /**
            * Define argument syntax for the top-level command.
            *
            * @param {string} desc
            * @returns {Command} for chaining
            */
-  def arguments(desc: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def arguments(desc: java.lang.String): Command = js.native
   /**
            * Add command `name`.
            *
@@ -113,7 +111,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {CommandOptions} [opts] command options
            * @returns {Command} the new command
            */
-  def command(name: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def command(name: java.lang.String): Command = js.native
   /**
            * Add command `name`.
            *
@@ -173,7 +171,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {CommandOptions} [opts] command options
            * @returns {Command} the new command
            */
-  def command(name: java.lang.String, desc: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def command(name: java.lang.String, desc: java.lang.String): Command = js.native
   /**
            * Add command `name`.
            *
@@ -233,7 +231,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {CommandOptions} [opts] command options
            * @returns {Command} the new command
            */
-  def command(name: java.lang.String, desc: java.lang.String, opts: CommanderLib.CommanderModule.commanderNamespace.CommandOptions): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def command(name: java.lang.String, desc: java.lang.String, opts: CommanderLib.CommanderModule.commanderNamespace.CommandOptions): Command = js.native
   def description(): java.lang.String = js.native
   /**
            * Set the description to `str`.
@@ -241,7 +239,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string} str
            * @return {(Command | string)}
            */
-  def description(str: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def description(str: java.lang.String): Command = js.native
   /** Output help information and exit.
            *
            * @param {(str: string) => string} [cb]
@@ -264,7 +262,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string} str
            * @return {Command}
            */
-  def name(str: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def name(str: java.lang.String): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -311,7 +309,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def option(flags: java.lang.String): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -358,8 +356,8 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
-  def option(flags: java.lang.String, description: java.lang.String, defaultValue: js.Any): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def option(flags: java.lang.String, description: java.lang.String): Command = js.native
+  def option(flags: java.lang.String, description: java.lang.String, defaultValue: js.Any): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -406,7 +404,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String, fn: StdLib.RegExp): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def option(flags: java.lang.String, description: java.lang.String, fn: StdLib.RegExp): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -453,7 +451,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String, fn: StdLib.RegExp, defaultValue: js.Any): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def option(flags: java.lang.String, description: java.lang.String, fn: StdLib.RegExp, defaultValue: js.Any): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -500,7 +498,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit]): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def option(flags: java.lang.String, description: java.lang.String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit]): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -547,7 +545,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit], defaultValue: js.Any): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def option(flags: java.lang.String, description: java.lang.String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit], defaultValue: js.Any): Command = js.native
   /**
            * Return an object containing options as key-value pairs
            *
@@ -572,7 +570,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string[]} argv
            * @returns {Command} for chaining
            */
-  def parse(argv: StdLib.Array[java.lang.String]): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def parse(argv: StdLib.Array[java.lang.String]): Command = js.native
   /**
            * Parse expected `args`.
            *
@@ -581,7 +579,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string[]} args
            * @returns {Command} for chaining
            */
-  def parseExpectedArgs(args: StdLib.Array[java.lang.String]): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def parseExpectedArgs(args: StdLib.Array[java.lang.String]): Command = js.native
   /**
            * Parse options from `argv` returning `argv` void of these options.
            *
@@ -596,7 +594,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string} str
            * @return {(Command | string)}
            */
-  def usage(str: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def usage(str: java.lang.String): Command = js.native
   /**
            * Set the program version to `str`.
            *
@@ -607,7 +605,7 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string} [flags]
            * @returns {Command} for chaining
            */
-  def version(str: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def version(str: java.lang.String): Command = js.native
   /**
            * Set the program version to `str`.
            *
@@ -618,6 +616,6 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {string} [flags]
            * @returns {Command} for chaining
            */
-  def version(str: java.lang.String, flags: java.lang.String): CommanderLib.CommanderModule.localNamespace.Command = js.native
+  def version(str: java.lang.String, flags: java.lang.String): Command = js.native
 }
 

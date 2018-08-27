@@ -1,6 +1,5 @@
 package ScalablyTyped
-package MongooseDashSimpleDashRandomLib
-package MongooseDashSimpleDashRandomModule
+package MongooseDashSimpleDashRandomLib.MongooseDashSimpleDashRandomModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

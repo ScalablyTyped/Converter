@@ -1,6 +1,5 @@
 package ScalablyTyped
-package FullcalendarLib
-package FullcalendarEmitterMixinModule
+package FullcalendarLib.FullcalendarEmitterMixinModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

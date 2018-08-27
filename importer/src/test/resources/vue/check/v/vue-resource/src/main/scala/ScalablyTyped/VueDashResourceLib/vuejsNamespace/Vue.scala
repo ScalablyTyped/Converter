@@ -1,6 +1,5 @@
 package ScalablyTyped
-package VueDashResourceLib
-package vuejsNamespace
+package VueDashResourceLib.vuejsNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -11,6 +10,6 @@ trait Vue extends js.Object {
   @JSName("$http")
   val $http: VueDashResourceLib.Anon_Options
   @JSName("$resource")
-  val $resource: VueDashResourceLib.vuejsNamespace.$resource
+  val $resource: $resource
 }
 

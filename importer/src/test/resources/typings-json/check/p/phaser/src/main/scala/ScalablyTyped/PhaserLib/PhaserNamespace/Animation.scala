@@ -1,6 +1,5 @@
 package ScalablyTyped
-package PhaserLib
-package PhaserNamespace
+package PhaserLib.PhaserNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

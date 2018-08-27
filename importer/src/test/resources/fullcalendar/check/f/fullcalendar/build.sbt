@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "fullcalendar"
-version := "0.0-unknown-d04f4d"
+version := "0.0-unknown-ece309"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

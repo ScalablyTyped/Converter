@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ReactDashIconsLib
-package ReactDashIconsFaAdnModule
+package ReactDashIconsLib.ReactDashIconsFaAdnModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,6 +1,5 @@
 package ScalablyTyped
-package MaterialDashUiLib
-package MaterialDashUiBottomNavigationBottomNavigationItemModule
+package MaterialDashUiLib.MaterialDashUiBottomNavigationBottomNavigationItemModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

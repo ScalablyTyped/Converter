@@ -1,6 +1,5 @@
 package ScalablyTyped
-package RxjsLib
-package RxjsInternalSubscriptionModule
+package RxjsLib.RxjsInternalSubscriptionModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -26,6 +25,6 @@ class Subscription () extends RxjsLib.RxjsInternalTypesModule.SubscriptionLike {
 @js.native
 object Subscription extends js.Object {
   /** @nocollapse */
-  var EMPTY: RxjsLib.RxjsInternalSubscriptionModule.Subscription = js.native
+  var EMPTY: Subscription = js.native
 }
 

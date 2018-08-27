@@ -1,6 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package NodeJSNamespace
+package NodeLib.NodeJSNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

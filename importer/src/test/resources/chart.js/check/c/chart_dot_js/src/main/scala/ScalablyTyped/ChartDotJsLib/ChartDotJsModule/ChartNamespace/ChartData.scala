@@ -1,7 +1,5 @@
 package ScalablyTyped
-package ChartDotJsLib
-package ChartDotJsModule
-package ChartNamespace
+package ChartDotJsLib.ChartDotJsModule.ChartNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

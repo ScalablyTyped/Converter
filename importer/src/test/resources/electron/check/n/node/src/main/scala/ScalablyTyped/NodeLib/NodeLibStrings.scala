@@ -9,6 +9,6 @@ object NodeLibStrings {
   @js.native
   sealed trait foo extends js.Object
   
-  val foo: foo = "foo".asInstanceOf[foo]
+  def foo: foo = "foo".asInstanceOf[foo]
 }
 

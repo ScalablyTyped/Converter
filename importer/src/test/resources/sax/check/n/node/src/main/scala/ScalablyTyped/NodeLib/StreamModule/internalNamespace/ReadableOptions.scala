@@ -1,7 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package StreamModule
-package internalNamespace
+package NodeLib.StreamModule.internalNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -13,6 +11,6 @@ trait ReadableOptions extends js.Object {
   val encoding: js.UndefOr[java.lang.String] = js.undefined
   val highWaterMark: js.UndefOr[scala.Double] = js.undefined
   val objectMode: js.UndefOr[scala.Boolean] = js.undefined
-  val read: js.UndefOr[js.Function2[/* this */ NodeLib.StreamModule.internalNamespace.Readable, /* size */ js.UndefOr[scala.Double], _]] = js.undefined
+  val read: js.UndefOr[js.Function2[/* this */ Readable, /* size */ js.UndefOr[scala.Double], _]] = js.undefined
 }
 

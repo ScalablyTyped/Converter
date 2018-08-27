@@ -1,6 +1,5 @@
 package ScalablyTyped
-package MongooseLib
-package MongooseModule
+package MongooseLib.MongooseModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

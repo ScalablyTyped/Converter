@@ -1,6 +1,5 @@
 package ScalablyTyped
-package PhaserLib
-package PhaserModule
+package PhaserLib.PhaserModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

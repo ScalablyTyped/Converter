@@ -1,6 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package FsModule
+package NodeLib.FsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

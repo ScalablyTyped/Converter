@@ -12,7 +12,7 @@ object ReactDashTransitionDashGroupLibStrings {
   @js.native
   sealed trait animate extends js.Object
   
-  val abbr: abbr = "abbr".asInstanceOf[abbr]
-  val animate: animate = "animate".asInstanceOf[animate]
+  def abbr: abbr = "abbr".asInstanceOf[abbr]
+  def animate: animate = "animate".asInstanceOf[animate]
 }
 

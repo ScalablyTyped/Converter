@@ -1,6 +1,5 @@
 package ScalablyTyped
-package WinstonLib
-package WinstonModule
+package WinstonLib.WinstonModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

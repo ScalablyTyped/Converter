@@ -1,13 +1,12 @@
 package ScalablyTyped
-package ElectronLib
-package ElectronNamespace
+package ElectronLib.ElectronNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait App extends ElectronLib.ElectronNamespace.EventEmitter {
+trait App extends EventEmitter {
   // Docs: http://electron.atom.io/docs/api/app
   /**
        * Emitted when Chrome's accessibility support changes. This event fires when

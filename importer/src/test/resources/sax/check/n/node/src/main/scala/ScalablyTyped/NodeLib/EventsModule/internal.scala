@@ -1,6 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package EventsModule
+package NodeLib.EventsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

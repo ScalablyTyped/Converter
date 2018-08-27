@@ -1,6 +1,5 @@
 package ScalablyTyped
-package NodeLib
-package StreamModule
+package NodeLib.StreamModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,5 +7,5 @@ import scala.scalajs.js.annotation._
 
 @JSImport("stream", JSImport.Namespace)
 @js.native
-class namespaced () extends NodeLib.StreamModule.internal
+class namespaced () extends internal
 

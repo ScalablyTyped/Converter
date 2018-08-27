@@ -35,7 +35,8 @@ object Printer {
 
     apply(
       reg          = reg,
-      scalaPrefix  = List(mainPkg, lib.packageSymbol.name),
+      mainPkg      = mainPkg,
+      scalaPrefix  = List(lib.packageSymbol.name),
       targetFolder = sourcesDir / mainPkg.value / lib.packageSymbol.name.value,
       sym          = lib.packageSymbol
     )
@@ -48,34 +49,41 @@ object Printer {
        |import scala.scalajs.js.`|`
        |import scala.scalajs.js.annotation._""".stripMargin
 
-  def apply(reg: Registry, scalaPrefix: List[Name], targetFolder: RelPath, sym: ContainerSymbol): Unit =
+  def apply(reg: Registry, mainPkg: Name, scalaPrefix: List[Name], targetFolder: RelPath, sym: ContainerSymbol): Unit =
     //
     sym.members groupBy ScalaOutput.outputAs foreach {
       case (ScalaOutput.File(name), members: Seq[Symbol]) =>
         reg.write(OutRelFile(targetFolder / RelPath(s"${name.unescaped}.scala"))) { writer =>
-          scalaPrefix foreach (name => writer println s"package ${formatName(name)}")
+          writer println s"package ${formatName(mainPkg)}"
+          writer println s"package ${formatQN(Nil, QualifiedName(scalaPrefix))}"
           writer.println("")
           writer.println(Imports)
           writer.println("")
-          members foreach printSymbol(reg, Indenter(writer), scalaPrefix, targetFolder, 0)
+          members foreach printSymbol(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 0)
         }
 
       case (ScalaOutput.Package(name), pkgs) =>
         pkgs foreach {
           case pkg: PackageSymbol =>
-            apply(reg, scalaPrefix :+ name, targetFolder / RelPath(name.unescaped), pkg)
+            apply(reg, mainPkg, scalaPrefix :+ name, targetFolder / RelPath(name.unescaped), pkg)
           case _ => sys.error("i was too lazy to prove this with types")
         }
 
       case (ScalaOutput.PackageObject, members) =>
         reg.write(OutRelFile(targetFolder / "package.scala")) { writer =>
-          scalaPrefix dropRight 1 foreach (name => writer println s"package ${formatName(name)}")
+          writer println s"package ${formatName(mainPkg)}"
+          scalaPrefix.dropRight(1) match {
+            case Nil => ()
+            case remaining =>
+              writer println s"package ${formatQN(Nil, QualifiedName(remaining))}"
+          }
+
           writer.println("")
           writer.println(Imports)
           writer.println("")
           writer.println("package object " + formatName(sym.name) + " {")
 
-          members foreach printSymbol(reg, Indenter(writer), scalaPrefix, targetFolder, 2)
+          members foreach printSymbol(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 2)
           writer.println("}")
         }
 
@@ -110,10 +118,12 @@ object Printer {
     }
   }
 
-  def printSymbol(reg: Registry, w: Indenter, prefix: List[Name], folder: RelPath, indent: Int)(sym: Symbol): Unit = {
+  def printSymbol(reg: Registry, w: Indenter, mainPkg: Name, prefix: List[Name], folder: RelPath, indent: Int)(
+      sym:             Symbol
+  ): Unit = {
 
     val printSym: Symbol => Unit =
-      printSymbol(reg, w, prefix, folder, indent + 2)
+      printSymbol(reg, w, mainPkg, prefix, folder, indent + 2)
 
     def print(ss: String*): Unit =
       ss foreach w.print(indent)
@@ -125,11 +135,11 @@ object Printer {
 
     sym match {
       case sym: PackageSymbol =>
-        apply(reg, prefix :+ sym.name, folder / RelPath(sym.name.value), sym)
+        apply(reg, mainPkg, prefix :+ sym.name, folder / RelPath(sym.name.value), sym)
 
       case ClassSymbol(anns, name, tparams, parents, ctors, members, classType, isSealed, comments) =>
         print(formatComments(comments))
-        print(formatAnns(anns))
+        print(formatAnns(prefix, anns))
 
         val sealedKw = if (isSealed) "sealed " else ""
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
@@ -141,15 +151,15 @@ object Printer {
         print(sealedKw, classType.asString, " ", formatName(name))
 
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol mkString ", ", "]")
+          print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
 
         if (classType =/= ClassType.Trait) {
           print(" ")
           print(formatProtectionLevel(defaultCtor.level, true))
-          print((defaultCtor.params map formatParamSymbol).mkString("(", ", ", ")"))
+          print((defaultCtor.params map formatParamSymbol(prefix)).mkString("(", ", ", ")"))
         }
 
-        print(extendsClause(parents, isNative = true))
+        print(extendsClause(prefix, parents, isNative = true))
 
         if (members.nonEmpty || restCtors.nonEmpty) {
           println(" {")
@@ -166,14 +176,14 @@ object Printer {
 
       case ModuleSymbol(anns, name, moduleType, parents, members, comments) =>
         print(formatComments(comments))
-        print(formatAnns(anns))
+        print(formatAnns(prefix, anns))
 
         val isNative = moduleType match {
           case ModuleTypeNative => true
           case ModuleTypeScala  => false
         }
 
-        print("object ", formatName(name), extendsClause(parents, isNative))
+        print("object ", formatName(name), extendsClause(prefix, parents, isNative))
 
         if (members.nonEmpty) {
           println(" {")
@@ -187,12 +197,12 @@ object Printer {
         print(formatComments(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol mkString ", ", "]")
-        println(s" = ", formatTypeRef(alias))
+          print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
+        println(s" = ", formatTypeRef(prefix)(alias))
 
       case FieldSymbol(anns, name, tpe, fieldType, isReadOnly, isOverride, comments) =>
         print(formatComments(comments))
-        print(formatAnns(anns))
+        print(formatAnns(prefix, anns))
 
         print(
           "",
@@ -201,7 +211,7 @@ object Printer {
           " ",
           formatName(name),
           ": ",
-          formatTypeRef(tpe)
+          formatTypeRef(prefix)(tpe)
         )
 
         fieldType match {
@@ -212,15 +222,15 @@ object Printer {
 
       case MethodSymbol(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments) =>
         print(formatComments(comments))
-        print(formatAnns(anns))
+        print(formatAnns(prefix, anns))
 
         print(formatProtectionLevel(level, false))
         print(s"${if (isOverride) "override " else ""}def ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol mkString ", ", "]")
+          print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
 
-        print(params.map(_.map(formatParamSymbol).mkString("(", ", ", ")")).mkString, ": ")
-        print(formatTypeRef(resultType))
+        print(params.map(_.map(formatParamSymbol(prefix)).mkString("(", ", ", ")")).mkString, ": ")
+        print(formatTypeRef(prefix)(resultType))
         fieldType match {
           case FieldTypeNotImplemented => println()
           case FieldTypeNative         => println(" = js.native")
@@ -232,49 +242,50 @@ object Printer {
         println("",
                 formatProtectionLevel(level, true),
                 "def this(",
-                (params map formatParamSymbol) mkString ", ",
+                (params map formatParamSymbol(prefix)) mkString ", ",
                 ") = this()")
 
       case sym @ ParamSymbol(_, _, comments) =>
         print(formatComments(comments))
-        println(formatParamSymbol(sym))
+        println(formatParamSymbol(prefix)(sym))
 
       case sym @ TypeParamSymbol(_, _, comments) =>
         print(formatComments(comments))
-        print(formatTypeParamSymbol(sym))
+        print(formatTypeParamSymbol(prefix)(sym))
 
       case sym @ TypeRef(_, _, comments) =>
         print(formatComments(comments))
-        print(formatTypeRef(sym))
+        print(formatTypeRef(prefix)(sym))
     }
   }
 
-  def extendsClause(parents: Seq[TypeRef], isNative: Boolean): String =
-    parents.toList.map(parent => formatTypeRef(parent)) match {
+  def extendsClause(prefix: List[Name], parents: Seq[TypeRef], isNative: Boolean): String =
+    parents.toList.map(parent => formatTypeRef(prefix)(parent)) match {
       case Nil if isNative => " extends js.Object"
       case Nil             => ""
       case head :: Nil     => " extends " + head
       case head :: tail    => " extends " + head + tail.mkString(" with ", " with ", "")
     }
 
-  def formatTypeParamSymbol(sym: TypeParamSymbol): String =
+  def formatTypeParamSymbol(prefix: List[Name])(sym: TypeParamSymbol): String =
     formatComments(sym.comments) |+|
       formatName(sym.name) |+|
-      sym.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(bound) |+| " */")
+      sym.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(prefix)(bound) |+| " */")
 
-  def formatParamSymbol(sym: ParamSymbol): String =
+  def formatParamSymbol(prefix: List[Name])(sym: ParamSymbol): String =
     Seq(
       formatComments(sym.comments),
       formatName(sym.name),
       ": ",
-      formatTypeRef(sym.tpe)
+      formatTypeRef(prefix)(sym.tpe)
     ).foldLeft("")(_ |+| _)
 
-  def formatQN(q: QualifiedName): String = q match {
-    case QualifiedName(Name.scala :: Name.scalajs :: Name.js :: name :: Nil) =>
-      "js." + formatName(name)
-    case other => other.parts.map(formatName).mkString(".")
-  }
+  def formatQN(prefix: List[Name], q: QualifiedName): String =
+    q.parts match {
+      case Name.scala :: Name.scalajs :: Name.js :: name :: Nil => "js." + formatName(name)
+      case `prefix` :+ name                                     => formatName(name)
+      case other                                                => other.map(formatName).mkString(".")
+    }
 
   private def formatName(name: Name) = name match {
     case Name.APPLY => "apply"
@@ -283,31 +294,31 @@ object Printer {
 
   val StringOrdering: Ordering[String] = Ordering[String]
 
-  def formatTypeRef(t1: TypeRef): String = {
+  def formatTypeRef(prefix: List[Name])(t1: TypeRef): String = {
     val ret: String =
       t1 match {
         case TypeRef.ThisType(_)       => "this.type"
         case TypeRef.Ignored           => "_"
-        case TypeRef(typeName, Nil, _) => formatQN(typeName)
+        case TypeRef(typeName, Nil, _) => formatQN(prefix, typeName)
 
         case TypeRef.Intersection(types) =>
           /*
             hack: for instance `Boolean with js.UndefOr[Boolean]` trips up the scalac because of a more specific `getClass` in `Boolean`.
             Take advantage of the fact that `scala.Boolean` sorts after `js.Undefined` to sort that out.
            */
-          types map formatTypeRef sorted StringOrdering map paramsIfNeeded mkString " with "
+          types map formatTypeRef(prefix) sorted StringOrdering map paramsIfNeeded mkString " with "
 
         case TypeRef.Union(types) =>
-          types map formatTypeRef map paramsIfNeeded mkString " | "
+          types map formatTypeRef(prefix) map paramsIfNeeded mkString " | "
 
         case TypeRef.Literal(literal: String) =>
           literal |+| ".type"
 
         case TypeRef.Repeated(underlying: TypeRef, _) =>
-          paramsIfNeeded(formatTypeRef(underlying)) |+| "*"
+          paramsIfNeeded(formatTypeRef(prefix)(underlying)) |+| "*"
 
         case TypeRef(typeName, targs, _) =>
-          formatQN(typeName) |+| "[" |+| (targs map formatTypeRef mkString ", ") |+| "]"
+          formatQN(prefix, typeName) |+| "[" |+| (targs map formatTypeRef(prefix) mkString ", ") |+| "]"
       }
 
     formatComments(t1.comments) |+| ret
@@ -325,7 +336,7 @@ object Printer {
       case Protected           => "/* protected */ "
     }
 
-  def formatAnn(a: Annotation): String =
+  def formatAnn(prefix: List[Name])(a: Annotation): String =
     a match {
       case JsBracketAccess =>
         "@JSBracketAccess"
@@ -336,7 +347,7 @@ object Printer {
       case JsName(name: Name) =>
         s"@JSName(${quote(name.unescaped)})"
       case JsNameSymbol(name) =>
-        s"@JSName(${formatQN(name)})"
+        s"@JSName(${formatQN(prefix, name)})"
       case JsImport(module, imported) =>
         val importedString = imported match {
           case Imported.Namespace   => "JSImport.Namespace"
@@ -352,8 +363,8 @@ object Printer {
         s"@JSGlobalScope"
     }
 
-  def formatAnns(anns: Seq[Annotation]): String =
-    if (anns.isEmpty) "" else (anns map formatAnn).sorted.mkString("", "\n", "\n")
+  def formatAnns(prefix: List[Name], anns: Seq[Annotation]): String =
+    if (anns.isEmpty) "" else (anns map formatAnn(prefix)).sorted.mkString("", "\n", "\n")
 
   def formatComments(comments: Comments): String =
     comments.cs

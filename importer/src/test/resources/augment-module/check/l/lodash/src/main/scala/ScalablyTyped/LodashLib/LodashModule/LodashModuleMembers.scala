@@ -1,6 +1,5 @@
 package ScalablyTyped
-package LodashLib
-package LodashModule
+package LodashLib.LodashModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

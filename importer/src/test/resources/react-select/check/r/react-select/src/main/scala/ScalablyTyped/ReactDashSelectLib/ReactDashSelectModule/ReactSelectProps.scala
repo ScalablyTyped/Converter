@@ -1,13 +1,12 @@
 package ScalablyTyped
-package ReactDashSelectLib
-package ReactDashSelectModule
+package ReactDashSelectLib.ReactDashSelectModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* RemoveDifficultStuff */
-trait ReactSelectProps[TValue] extends ReactLib.ReactModule.ReactNamespace.Props[ReactDashSelectLib.ReactDashSelectModule.ReactSelectClass[TValue]] {
+trait ReactSelectProps[TValue] extends ReactLib.ReactModule.ReactNamespace.Props[ReactSelectClass[TValue]] {
   /**
        * text to display when `allowCreate` is true.
        * @default 'Add "{label}"?'

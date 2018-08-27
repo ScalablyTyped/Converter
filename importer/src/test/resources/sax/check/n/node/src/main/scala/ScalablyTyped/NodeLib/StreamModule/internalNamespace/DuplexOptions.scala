@@ -1,14 +1,12 @@
 package ScalablyTyped
-package NodeLib
-package StreamModule
-package internalNamespace
+package NodeLib.StreamModule.internalNamespace
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait DuplexOptions extends NodeLib.StreamModule.internalNamespace.ReadableOptions with NodeLib.StreamModule.internalNamespace.WritableOptions {
+trait DuplexOptions extends ReadableOptions with WritableOptions {
   val allowHalfOpen: js.UndefOr[scala.Boolean] = js.undefined
 }
 

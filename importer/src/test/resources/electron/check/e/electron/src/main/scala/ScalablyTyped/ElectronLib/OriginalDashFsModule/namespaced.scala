@@ -1,6 +1,5 @@
 package ScalablyTyped
-package ElectronLib
-package OriginalDashFsModule
+package ElectronLib.OriginalDashFsModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,6 +1,5 @@
 package ScalablyTyped
-package FullcalendarLib
-package FullcalendarEventPeriodModule
+package FullcalendarLib.FullcalendarEventPeriodModule
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -21,7 +20,7 @@ class Default protected () extends js.Object {
 
 @JSImport("fullcalendar/EventPeriod", JSImport.Default)
 @js.native
-class default protected () extends FullcalendarLib.FullcalendarEventPeriodModule.Default {
+class default protected () extends Default {
   def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
 }
 
