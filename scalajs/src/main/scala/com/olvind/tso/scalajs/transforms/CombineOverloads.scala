@@ -89,24 +89,15 @@ object CombineOverloads extends SymbolVisitor {
         )
     }
 
-  def combineOverloads(scope: SymbolScope, ms: Seq[MemberSymbol]): Seq[MemberSymbol] = {
-
-    val methods: Seq[MethodSymbol] =
-      ms collect {
-        case c: MethodSymbol => c
-      }
-
-    val fields: Seq[MemberSymbol] =
-      ms.filterNot(methods.contains)
+  def combineOverloads(scope: SymbolScope, methods: Seq[MethodSymbol]): Seq[MethodSymbol] = {
 
     val methodsByBase = methods.groupBy(Erasure.base(scope))
-    val newMethods: Iterable[MethodSymbol] =
+
+    val newMethods: Seq[MethodSymbol] =
       methodsByBase.flatMap {
         case (_, Seq(one))    => Seq(one)
         case (_, sameErasure) => combineSameErasure(sameErasure, scope)
-      }
-
-    val ret = fields ++ newMethods
+      }(collection.breakOut)
 
     /* This is being a lazy coder:
      * Given:
@@ -125,7 +116,7 @@ object CombineOverloads extends SymbolVisitor {
      *
      * Yey
      * */
-    if (ret.size =/= ms.size) combineOverloads(scope, ret) else ret
+    if (newMethods.size =/= methods.size) combineOverloads(scope, newMethods) else newMethods
   }
 
   /**
@@ -152,24 +143,28 @@ object CombineOverloads extends SymbolVisitor {
     }
   }
 
-  override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
+  override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol = {
+    val (methods, rest) = s.members.partitionCollect {
+      case m: MethodSymbol => m
+    }
     s.copy(
       ctors   = ctorHack(scope, s.ctors),
-      members = combineOverloads(scope, s.members)
+      members = rest ++ combineOverloads(scope, methods)
     )
+  }
 
   override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol = {
-    val (mss, ss) = s.members.partitionCollect {
-      case ms: MemberSymbol => ms
+    val (methods, rest) = s.members.partitionCollect {
+      case m: MethodSymbol => m
     }
 
-    s.copy(members = ss ++ combineOverloads(scope, mss))
+    s.copy(members = rest ++ combineOverloads(scope, methods))
   }
 
   override def enterPackageSymbol(scope: SymbolScope)(s: PackageSymbol): PackageSymbol = {
-    val (mss, ss) = s.members.partitionCollect {
-      case ms: MemberSymbol => ms
+    val (methods, rest) = s.members.partitionCollect {
+      case m: MethodSymbol => m
     }
-    s.copy(members = ss ++ combineOverloads(scope, mss))
+    s.copy(members = rest ++ combineOverloads(scope, methods))
   }
 }

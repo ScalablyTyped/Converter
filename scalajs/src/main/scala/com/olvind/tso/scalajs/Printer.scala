@@ -302,11 +302,7 @@ object Printer {
         case TypeRef(typeName, Nil, _) => formatQN(prefix, typeName)
 
         case TypeRef.Intersection(types) =>
-          /*
-            hack: for instance `Boolean with js.UndefOr[Boolean]` trips up the scalac because of a more specific `getClass` in `Boolean`.
-            Take advantage of the fact that `scala.Boolean` sorts after `js.Undefined` to sort that out.
-           */
-          types map formatTypeRef(prefix) sorted StringOrdering map paramsIfNeeded mkString " with "
+          types map formatTypeRef(prefix) map paramsIfNeeded mkString " with "
 
         case TypeRef.Union(types) =>
           types map formatTypeRef(prefix) map paramsIfNeeded mkString " | "
