@@ -232,7 +232,7 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
 
   lazy val tsDeclVar: Parser[TsDeclVar] = {
     val variable = ("var" | "let") ^^ (_ => false)
-    val constant = "const" ^^ (_ => true)
+    val constant = "const" ^^ (_         => true)
     comments ~ isDeclared ~ (variable | constant) ~ tsIdent ~ typeAnnotationOpt ~ ("=" ~> tsLiteral).? ~ zeroLocation ~ zeroCodePath ~ success(
       false
     ) ^^ TsDeclVar

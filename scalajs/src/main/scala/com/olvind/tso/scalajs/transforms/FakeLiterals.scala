@@ -44,17 +44,19 @@ object FakeLiterals {
               val `trait` =
                 ClassSymbol(Seq(JsNative), name, Nil, Nil, Nil, Nil, ClassType.Trait, isSealed = true, NoComments)
               val impl = s"$underlying.asInstanceOf[${name.value}]"
-              val `val` =
-                FieldSymbol(
+              val `def` =
+                MethodSymbol(
                   Annotations.jsName(name),
+                  Default,
                   name,
-                  TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
+                  Nil,
+                  Nil,
                   FieldTypeScala(impl),
-                  isReadOnly = true,
+                  TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
                   isOverride = false,
                   comments   = NoComments
                 )
-              Seq(`trait`, `val`)
+              Seq(`trait`, `def`)
             }
 
           Some(ModuleSymbol(Nil, moduleName, ModuleTypeScala, Nil, members.to[Seq], NoComments))

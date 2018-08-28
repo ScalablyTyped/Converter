@@ -84,8 +84,8 @@ object InferMemberOverrides extends SymbolVisitor {
 
   private def updatedFieldType(original: FieldType, `override`: FieldType, newType: Option[TypeRef]): FieldType =
     original match {
-      case FieldTypeNative | FieldTypeNotImplemented                                      => `override`
+      case FieldTypeNative | FieldTypeNotImplemented => `override`
       case FieldTypeScala("js.undefined") if newType.fold(false)(x => !canBeUndefined(x)) => `override`
-      case other                                                                          => other
+      case other => other
     }
 }

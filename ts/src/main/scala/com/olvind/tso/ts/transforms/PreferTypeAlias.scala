@@ -84,12 +84,12 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
     }
 
   override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl = x match {
+
     /**
       * We rewrite interfaces which extends one type, not more. The reason is that scala doesn't let you
       *  `new` an intersection type
       */
     case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
-
       if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance))
         i
       else {

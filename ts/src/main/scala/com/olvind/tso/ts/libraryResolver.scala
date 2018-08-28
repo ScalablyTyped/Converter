@@ -23,7 +23,7 @@ object libraryResolver {
       source =>
         (resolveFolder(source, libName.value) orElse
           resolveFolder(source, libName.`__value`)).map(folder => TsSource.FromFolder(folder, libName)) orElse
-          resolveFile(source, libName.value).map(file => TsSource.FromFile(file, libName))
+          resolveFile(source, libName.value).map(file          => TsSource.FromFile(file, libName))
     )
 
   def resolveFile(folder: InFolder, fragment: String): Option[InFile] =

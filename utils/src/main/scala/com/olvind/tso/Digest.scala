@@ -16,7 +16,7 @@ object Digest {
   object Digestable {
     def apply[T: Digestable]: Digestable[T] = implicitly
 
-    implicit val StringDigestable:    Digestable[String]      = (t:  String) => t.getBytes(constants.Utf8)
+    implicit val StringDigestable:    Digestable[String]      = (t:  String)      => t.getBytes(constants.Utf8)
     implicit val ByteArrayDigestable: Digestable[Array[Byte]] = (bs: Array[Byte]) => bs
   }
 
