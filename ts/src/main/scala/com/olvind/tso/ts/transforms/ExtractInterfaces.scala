@@ -14,7 +14,7 @@ object ExtractInterfaces {
                      members:   Seq[TsTree],
                      construct: TsIdent => TsDeclInterface): CodePath.HasPath = {
       val interface = DeriveNonConflictingName(prefix, members) { name =>
-        val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent(List(name)))
+        val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent.of(name))
 
         interfaces get name match {
           case Some(existing)
@@ -43,7 +43,7 @@ object ExtractInterfaces {
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeVisitorScopedChanges {
     override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl =
       x match {
-        case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeObject(members), cp) =>
+        case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeObject(members), cp) if !isTypeMapping(members) =>
           TsDeclInterface(cs, dec, name, tparams, Nil, members, cp)
         case other => other
       }
@@ -55,7 +55,7 @@ object ExtractInterfaces {
       }
 
     def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
-      stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || obj.members.exists(_.isInstanceOf[TsMemberTypeMapped])
+      stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || obj.members.forall(_.isInstanceOf[TsMemberTypeMapped])
 
     override def leaveTsType(t: TreeScope)(x: TsType): TsType =
       x match {
@@ -86,11 +86,17 @@ object ExtractInterfaces {
 
         case _ => x
       }
-
-    def shouldBeExtracted(t: TreeScope): Boolean =
-      t.stack match {
-        case List(_, _: TsDeclVar, _: TsParsedFile) => false
-        case _ => true
-      }
   }
+
+  def shouldBeExtracted(t: TreeScope): Boolean =
+    t.stack match {
+      case List(_, _: TsDeclVar, _: TsParsedFile) => false
+      case _ => true
+    }
+
+  def isTypeMapping(members: Seq[TsMember]): Boolean =
+    members.exists {
+      case _: TsMemberTypeMapped => true
+      case _ => false
+    }
 }

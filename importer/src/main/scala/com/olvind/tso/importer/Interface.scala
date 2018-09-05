@@ -64,7 +64,6 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
         render()
         Try(Thread.sleep(1000))
       }
-      render()
     }
 
   def render(): Unit =

@@ -12,7 +12,7 @@ class Converter () extends AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoD
 @JSImport("aws-sdk/clients/dynamodb", "Converter")
 @js.native
 object Converter extends js.Object {
-  def input(data: js.Any): AttributeValue = js.native
-  def input(data: js.Any, options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions): AttributeValue = js.native
+  def input(data: js.Any): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
+  def input(data: js.Any, options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
 }
 

@@ -23,10 +23,10 @@ import com.olvind.tso.scalajs._
 object FixVars extends SymbolVisitor {
 
   override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
-    if (s.classType === ClassType.Class) s
-    else
-      s.copy(members = s.members.map {
-        case x: FieldSymbol if !x.isReadOnly => x.copy(isReadOnly = true)
-        case other => other
-      })
+//    if (s.classType === ClassType.Class) s
+//    else
+    s.copy(members = s.members.map {
+      case x: FieldSymbol if !x.isReadOnly => x.copy(isReadOnly = true)
+      case other => other
+    })
 }

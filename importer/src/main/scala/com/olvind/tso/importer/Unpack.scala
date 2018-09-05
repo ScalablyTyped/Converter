@@ -8,6 +8,23 @@ import scala.collection.mutable
 /**
   * todo: the handling of recursive types in the entire app is terrible
   */
+case class FileAndRefsRec(
+    file:         TsParsedFile,
+    pathRefFiles: Seq[FileAndRefsRec]
+)
+
+case class FileAndRefs(
+    file:         TsParsedFile,
+    pathRefFiles: Seq[TsParsedFile]
+) {
+  def toSeq: Seq[TsParsedFile] = file +: pathRefFiles
+}
+
+case class LibraryPart(
+    file:  FileAndRefsRec,
+    parts: Map[TsSource, Either[LibraryPart, LibTs]]
+)
+
 object Unpack {
   object Libs {
     def unapply(_m: Map[TsSource, LibTs]): Some[Map[TsSource, LibTs]] =

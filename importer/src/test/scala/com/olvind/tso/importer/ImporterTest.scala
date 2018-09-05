@@ -38,4 +38,5 @@ class ImporterTest extends FunSuite with ImporterHarness {
   test("insight")(assertImportsOk("insight", update))
   test("cldrjs")(assertImportsOk("cldrjs", update))
   test("void-elements")(assertImportsOk("void-elements", update))
+  test("type-mappings")(assertImportsOk("type-mappings", update))
 }

@@ -25,7 +25,7 @@ object CompleteClass extends SymbolVisitor {
     val parents = ParentsResolver(scope, cls)
 
     val newImplementations: Iterable[MemberSymbol] =
-      if (cls.classType =/= ClassType.Class) Nil else implementations(scope, cls, parents)
+      if (cls.classType === ClassType.Trait) Nil else implementations(scope, cls, parents)
 
     cls.copy(members = cls.members ++ newImplementations)
   }
@@ -35,26 +35,25 @@ object CompleteClass extends SymbolVisitor {
       case None => false
       case Some(existings) =>
         existings.exists {
-          case xx: MethodSymbol => xx.params === x.params && xx.tparams === x.tparams && xx.resultType === x.resultType
+          case xx: MethodSymbol =>
+            xx.params.flatten.map(_.tpe) === x.params.flatten.map(_.tpe) && xx.tparams === x.tparams
           case _ => false
         }
     }
   private def implementations(scope:   SymbolScope,
                               c:       ContainerSymbol,
-                              parents: ParentsResolver.Root): Iterable[MemberSymbol] = {
+                              parents: ParentsResolver.Parents): Seq[MemberSymbol] = {
+
     val ret = parents.pruneClasses.transitiveParents
       .flatMap(_._2.members)
       .collect {
-        case x: FieldSymbol if x.fieldType === FieldTypeNotImplemented && !c.index.contains(x.name) =>
-          x.copy(isOverride = true,
-                 fieldType = FieldTypeNative,
-                 comments = x.comments + Comment("/* CompleteClass */\n"))
-        case x: MethodSymbol
-            if x.fieldType === FieldTypeNotImplemented && !isAlreadyImplemented(x, c.index.get(x.name)) =>
-          x.copy(isOverride = true,
-                 fieldType = FieldTypeNative,
-                 comments = x.comments + Comment("/* CompleteClass */\n"))
+        case x: FieldSymbol if x.impl === MemberImplNotImplemented && !c.index.contains(x.name) =>
+          x.copy(isOverride = true, impl = MemberImplNative, comments = x.comments + Comment("/* CompleteClass */\n"))
+        case x: MethodSymbol if x.impl === MemberImplNotImplemented && !isAlreadyImplemented(x, c.index.get(x.name)) =>
+          x.copy(isOverride = true, impl = MemberImplNative, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
+      .to[Seq]
+      .distinct
 
     if (ret.nonEmpty)
       scope.logger.info(s"Completed implementations ${ret.map(_.name.value)}")

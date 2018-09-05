@@ -1,6 +1,8 @@
 package com.olvind.tso
 package scalajs
 
+import seqs._
+
 /**
   * @deprecated This doesn't handle any of `Name.Internal`.
   *
@@ -9,37 +11,47 @@ package scalajs
 object ParentsResolver {
 
   sealed trait ParentTree {
-    def transitiveParents: Map[TypeRef, ClassSymbol] =
+    lazy val transitiveParents: Map[TypeRef, ClassSymbol] =
       this match {
-        case Root(ps) => ps.flatMap(_.transitiveParents).toMap
-        case x: NotRoot => Map(x.ref -> x.classSymbol) ++ x.parents.flatMap(_.transitiveParents)
+        case Parents(ps, _) => ps.flatMap(_.transitiveParents).toMap
+        case x: Parent => Map(x.refs.map(_ -> x.classSymbol): _*) ++ x.parents.flatMap(_.transitiveParents)
+      }
+
+    lazy val transitiveUnresolved: Seq[TypeRef] =
+      this match {
+        case Parents(ps, us) => us ++ ps.flatMap(_.transitiveUnresolved)
+        case x: Parent => x.unresolved ++ x.parents.flatMap(_.transitiveUnresolved)
       }
   }
 
-  case class NotRoot(ref: TypeRef, classSymbol: ClassSymbol, foundIn: SymbolScope, parents: Seq[NotRoot])
-      extends ParentTree {
+  case class Parent(refs:        Seq[TypeRef],
+                    classSymbol: ClassSymbol,
+                    foundIn:     SymbolScope,
+                    parents:     Seq[Parent],
+                    unresolved:  Seq[TypeRef])
+      extends ParentTree
 
-    def map(f: (SymbolScope, ClassSymbol) => ClassSymbol): NotRoot =
-      NotRoot(ref, f(foundIn, classSymbol), foundIn, parents)
-  }
-
-  case class Root(directParents: Seq[NotRoot]) extends ParentTree {
-    def map(f: (SymbolScope, ClassSymbol) => ClassSymbol): Root =
-      Root(directParents.map(_.map(f)))
-
-    def pruneClasses: Root = {
-      def maybe(it: NotRoot): Option[NotRoot] =
+  case class Parents(directParents: Seq[Parent], unresolved: Seq[TypeRef]) extends ParentTree {
+    def pruneClasses: Parents = {
+      def go(it: Parent): Option[Parent] =
         it match {
-          case NotRoot(_, ClassSymbol(_, _, _, _, _, _, ClassType.Class, _, _), _, _) => None
-          case NotRoot(ref, cls, scope, ps)                                           => Some(NotRoot(ref, cls, scope, ps.flatMap(maybe)))
+          case Parent(_, ClassSymbol(_, _, _, _, _, _, ClassType.Class | ClassType.AbstractClass, _, _), _, _, _) =>
+            None
+          case Parent(refs, cls, scope, ps, us) =>
+            Some(Parent(refs, cls, scope, ps.flatMap(go), us))
         }
-      copy(directParents = directParents.flatMap(maybe))
+      copy(directParents = directParents.flatMap(go))
     }
   }
 
-  def apply(scope: SymbolScope, symbol: ContainerSymbol): Root = {
+  def apply(scope: SymbolScope, symbol: ContainerSymbol): Parents = {
     val ld = new LoopDetector
-    Root(parentRefs(symbol).flatMap(tr => recurse(scope, tr, tr, ld)))
+    val (roots, unresolved, _) =
+      parentRefs(symbol)
+        .map(tr => recurse(scope, tr :: Nil, ld))
+        .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
+
+    Parents(roots.map(_.nr), unresolved.flatMap(_.tr))
   }
 
   private def parentRefs(symbol: ContainerSymbol): Seq[TypeRef] =
@@ -49,29 +61,47 @@ object ParentsResolver {
       case _ => Nil
     }
 
-  private def recurse(scope: SymbolScope, typeRef: TypeRef, retainTypeRef: TypeRef, ld: LoopDetector): Option[NotRoot] =
-    ld.including(typeRef.typeName.parts, scope) match {
+  sealed trait Res
+
+  /**
+    * Result of conversion error.
+    * We handle it since it's not necessary to fail a whole library if one exists
+    */
+  case object Circular extends Res
+  case class Resolved(nr: Parent) extends Res
+  /* A primitive doesn't resolve to a `ClassSymbol`, for instance */
+  case class Unresolved(tr: Seq[TypeRef]) extends Res
+
+  private def recurse(scope: SymbolScope, typeRefs: List[TypeRef], ld: LoopDetector): Res =
+    ld.including(typeRefs.head.typeName.parts, scope) match {
       case Left(()) =>
-        scope.logger.warn(s"Circular inheritance?")
-        None
+        Circular
       case Right(newLd) =>
-        (scope lookup typeRef.typeName).headOption match {
+        (scope lookup typeRefs.head.typeName).headOption match {
           case Some((cls: ClassSymbol, foundInScope)) =>
-            val rewritten = FillInTParams(cls, scope, typeRef.targs)
-            Some(
-              NotRoot(
-                retainTypeRef,
-                rewritten,
-                foundInScope,
-                parentRefs(rewritten).flatMap(tr => recurse(foundInScope, tr, tr, newLd))
+            val rewritten = FillInTParams(cls, scope, typeRefs.head.targs)
+            val (parents, unresolved, circular) =
+              parentRefs(rewritten)
+                .map(tr => recurse(foundInScope, tr :: Nil, newLd))
+                .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
+
+            if (circular.nonEmpty) Circular
+            else
+              Resolved(
+                Parent(
+                  typeRefs,
+                  rewritten,
+                  foundInScope,
+                  parents.map(_.nr),
+                  unresolved.flatMap(_.tr)
+                )
               )
-            )
 
           case Some((ta: TypeAliasSymbol, foundInScope)) =>
-            val rewritten = FillInTParams(ta, scope, typeRef.targs)
-            recurse(foundInScope, rewritten.alias, typeRef, newLd)
+            val rewritten = FillInTParams(ta, scope, typeRefs.head.targs)
+            recurse(foundInScope, rewritten.alias :: typeRefs, newLd)
 
-          case _ => None
+          case _ => Unresolved(typeRefs)
         }
 
     }

@@ -23,7 +23,7 @@ package object ReactModule {
   type ReactNode = ReactLib.ReactModule.ReactNamespace.ReactNode
   type ReactType[P] = ReactLib.ReactModule.ReactNamespace.ReactType[P]
   type Ref[T] = ReactLib.ReactModule.ReactNamespace.Ref[T]
-  type SFC[P] = ReactLib.ReactModule.ReactNamespace.StatelessComponent[P]
+  type SFC[P] = ReactLib.ReactModule.ReactNamespace.SFC[P]
   type SVGProps[T] = ReactLib.ReactModule.ReactNamespace.SVGProps[T]
   type StatelessComponent[P] = ReactLib.ReactModule.ReactNamespace.StatelessComponent[P]
 }

@@ -81,6 +81,8 @@ trait TreeVisitor[T] { self =>
   //lazy
   def leaveTsParsedFile(t:      T)(x: TsParsedFile):      TsParsedFile      = x
   def leaveTsDeclModule(t:      T)(x: TsDeclModule):      TsDeclModule      = x
+  def leaveTsDeclClass(t:       T)(x: TsDeclClass):       TsDeclClass       = x
+  def leaveTsDeclInterface(t:   T)(x: TsDeclInterface):   TsDeclInterface   = x
   def leaveTsAugmentedModule(t: T)(x: TsAugmentedModule): TsAugmentedModule = x
   def leaveTsDeclNamespace(t:   T)(x: TsDeclNamespace):   TsDeclNamespace   = x
   def leaveTsType(t:            T)(x: TsType):            TsType            = x
@@ -89,7 +91,7 @@ trait TreeVisitor[T] { self =>
   final def visitTsDeclClass(t: T)(x: TsDeclClass): TsDeclClass = {
     val xx = enterTsDeclClass(withTree(t, x))(x)
     val tt = withTree(t, xx)
-    xx match {
+    val xxx = xx match {
       case TsDeclClass(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) =>
         TsDeclClass(_1,
                     _2,
@@ -102,6 +104,7 @@ trait TreeVisitor[T] { self =>
                     _9,
                     _10)
     }
+    leaveTsDeclClass(tt)(xxx)
   }
 
   final def visitTsDeclEnum(t: T)(x: TsDeclEnum): TsDeclEnum = {
@@ -130,7 +133,7 @@ trait TreeVisitor[T] { self =>
   final def visitTsDeclInterface(t: T)(x: TsDeclInterface): TsDeclInterface = {
     val xx = enterTsDeclInterface(withTree(t, x))(x)
     val tt = withTree(t, xx)
-    xx match {
+    val xxx = xx match {
       case TsDeclInterface(_1, _2, _3, _4, _5, _6, _7) =>
         TsDeclInterface(_1,
                         _2,
@@ -140,6 +143,7 @@ trait TreeVisitor[T] { self =>
                         _6 map visitTsMember(tt),
                         _7)
     }
+    leaveTsDeclInterface(tt)(xxx)
   }
   final def visitTsDeclModule(t: T)(x: TsDeclModule): TsDeclModule = {
     val xx = enterTsDeclModule(withTree(t, x))(x)
@@ -148,7 +152,7 @@ trait TreeVisitor[T] { self =>
       case TsDeclModule(_1, _2, _3, _4, _5, _6) =>
         TsDeclModule(_1, _2, visitTsIdentModule(tt)(_3), _4 map visitTsContainerOrDecl(tt), _5, _6)
     }
-    leaveTsDeclModule(t)(xxx)
+    leaveTsDeclModule(tt)(xxx)
   }
 
   final def visitTsAugmentedModule(t: T)(x: TsAugmentedModule): TsAugmentedModule = {
@@ -158,7 +162,7 @@ trait TreeVisitor[T] { self =>
       case TsAugmentedModule(_1, _2, _3, _4) =>
         TsAugmentedModule(visitTsIdentModule(tt)(_1), _2.map(visitTsContainerOrDecl(tt)), _3, _4)
     }
-    leaveTsAugmentedModule(t)(xxx)
+    leaveTsAugmentedModule(tt)(xxx)
   }
 
   final def visitTsDeclNamespace(t: T)(x: TsDeclNamespace): TsDeclNamespace = {
@@ -168,7 +172,7 @@ trait TreeVisitor[T] { self =>
       case TsDeclNamespace(_1, _2, _3, _4, _5, _6) =>
         TsDeclNamespace(_1, _2, visitTsIdentNamespace(tt)(_3), _4 map visitTsContainerOrDecl(tt), _5, _6)
     }
-    leaveTsDeclNamespace(t)(xxx)
+    leaveTsDeclNamespace(tt)(xxx)
   }
   final def visitTsDeclTypeAlias(t: T)(x: TsDeclTypeAlias): TsDeclTypeAlias = {
     val xx = enterTsDeclTypeAlias(withTree(t, x))(x)
@@ -421,7 +425,7 @@ trait TreeVisitor[T] { self =>
     val xxx = xx match {
       case TsParsedFile(_1, _2, _3, _4) => TsParsedFile(_1, _2, _3 map visitTsContainerOrDecl(tt), _4)
     }
-    leaveTsParsedFile(t)(xxx)
+    leaveTsParsedFile(tt)(xxx)
   }
 
   final def visitTsQIdent(t: T)(x: TsQIdent): TsQIdent = {
@@ -838,6 +842,10 @@ trait TreeVisitor[T] { self =>
         self.leaveTsParsedFile(t)(that.leaveTsParsedFile(t)(x))
       override def leaveTsDeclModule(t: T)(x: TsDeclModule): TsDeclModule =
         self.leaveTsDeclModule(t)(that.leaveTsDeclModule(t)(x))
+      override def leaveTsDeclClass(t: T)(x: TsDeclClass): TsDeclClass =
+        self.leaveTsDeclClass(t)(that.leaveTsDeclClass(t)(x))
+      override def leaveTsDeclInterface(t: T)(x: TsDeclInterface): TsDeclInterface =
+        self.leaveTsDeclInterface(t)(that.leaveTsDeclInterface(t)(x))
       override def leaveTsDeclNamespace(t: T)(x: TsDeclNamespace): TsDeclNamespace =
         self.leaveTsDeclNamespace(t)(that.leaveTsDeclNamespace(t)(x))
       override def leaveTsType(t: T)(x: TsType): TsType =

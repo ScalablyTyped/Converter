@@ -32,6 +32,10 @@ object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
                       && trNext.name.parts.last === target.parts.last // keep renames, as they may add semantic value
                     =>
                   simplify(newScope, originalTParams)(trNext)
+
+                case isIdentity: TsTypeRef if providedTparams.size === 1 && providedTparams.head === isIdentity =>
+                  Some(isIdentity)
+
                 case _ => Some(tr)
               }
             case _ => Some(tr)
@@ -42,11 +46,12 @@ object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
     }
 
   override def leaveTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef = {
-    val tparams = x.tparams
+    val targs = x.tparams
       .collect {
-        case TsTypeRef(target, _) => target
+        case TsTypeRef(targName, _) => targName
       }
       .to[Set]
-    simplify(scope, tparams)(x).getOrElse(x)
+
+    simplify(scope, targs)(x).getOrElse(x)
   }
 }

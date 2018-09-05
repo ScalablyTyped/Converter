@@ -283,7 +283,7 @@ final case class TsTypeParam(comments: Comments, name: TsIdent, upperBound: Opti
 
 object TsTypeParam {
   def asTypeArgs(tps: Seq[TsTypeParam]): Seq[TsTypeRef] =
-    tps.map(tp => TsTypeRef(TsQIdent(List(tp.name)), Nil))
+    tps.map(tp => TsTypeRef.of(tp.name))
 }
 // terms
 
@@ -376,16 +376,16 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val Apply:       TsIdent          = TsIdent("<apply>")
-  val update:      TsIdent          = TsIdent("update")
-  val prototype:   TsIdent          = TsIdent("prototype")
-  val constructor: TsIdent          = TsIdent("constructor")
-  val default:     TsIdent          = TsIdent("default")
-  val namespaced:  TsIdent          = TsIdent("namespaced")
-  val All:         TsIdentNamespace = TsIdentNamespace("<All>")
-  val dummy:       TsIdentLibrary   = TsIdentLibrarySimple("dummy")
-  val Symbol:      TsIdent          = TsIdent("Symbol")
-  val Global:      TsIdent          = TsIdent("Global")
+  val `this`:      TsIdent        = TsIdent("this")
+  val Apply:       TsIdent        = TsIdent("<apply>")
+  val update:      TsIdent        = TsIdent("update")
+  val prototype:   TsIdent        = TsIdent("prototype")
+  val constructor: TsIdent        = TsIdent("constructor")
+  val default:     TsIdent        = TsIdent("default")
+  val namespaced:  TsIdent        = TsIdent("namespaced")
+  val dummy:       TsIdentLibrary = TsIdentLibrarySimple("dummy")
+  val Symbol:      TsIdent        = TsIdent("Symbol")
+  val Global:      TsIdent        = TsIdent("Global")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 
@@ -398,20 +398,12 @@ final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
   def ++(tsIdents: Seq[TsIdent]): TsQIdent =
     TsQIdent(parts ++ tsIdents)
 
-  def startsWith(that: TsQIdent): Boolean =
-    parts.startsWith(that.parts)
-
-  def `renamed?`(renamedOpt: Option[TsIdent]): TsQIdent =
-    renamedOpt match {
-      case Some(renamed) => TsQIdent(renamed +: parts.tail)
-      case None          => this
-    }
-
   override lazy val hashCode: Int = parts.hashCode
 }
 
 object TsQIdent {
-  def of(ss: String*) = TsQIdent(ss.toList.map(TsIdent.apply))
+  def of(ss:      String*) = TsQIdent(ss.toList.map(TsIdent.apply))
+  def of(tsIdent: TsIdent) = TsQIdent(tsIdent :: Nil)
 
   val empty: TsQIdent = TsQIdent(Nil)
 
@@ -444,10 +436,15 @@ sealed abstract class TsType extends TsTree
 final case class TsTypeRef(name: TsQIdent, tparams: Seq[TsType]) extends TsType
 
 object TsTypeRef {
+  def of(tsIdent: TsIdent): TsTypeRef =
+    TsTypeRef(TsQIdent.of(tsIdent), Nil)
+
   val any       = TsTypeRef(TsQIdent.any, Nil)
   val boolean   = TsTypeRef(TsQIdent.boolean, Nil)
   val Boolean   = TsTypeRef(TsQIdent.Boolean, Nil)
+  val Symbol    = TsTypeRef(TsQIdent.symbol, Nil)
   val `object`  = TsTypeRef(TsQIdent.`object`, Nil)
+  val Object    = TsTypeRef(TsQIdent.Object, Nil)
   val string    = TsTypeRef(TsQIdent.string, Nil)
   val String    = TsTypeRef(TsQIdent.String, Nil)
   val never     = TsTypeRef(TsQIdent.never, Nil)
@@ -565,13 +562,9 @@ sealed trait OptionalModifier {
 }
 
 object OptionalModifier {
-
-  case object Noop extends OptionalModifier
-
-  case object Optionalize extends OptionalModifier
-
+  case object Noop          extends OptionalModifier
+  case object Optionalize   extends OptionalModifier
   case object Deoptionalize extends OptionalModifier
-
 }
 
 final case class TsMemberTypeMapped(
@@ -628,19 +621,13 @@ final case class TsExporteeStar(from: TsIdentModule, renamedOpt: Option[TsIdent]
 sealed trait ExportType
 
 object ExportType {
-
-  object Types {
-    val Namedspaced:  Set[ExportType] = Set(ExportType.Namespaced)
-    val LocalNamed:   Set[ExportType] = Set(ExportType.Namespaced, ExportType.Defaulted)
-    val ImportedName: Set[ExportType] = Set(ExportType.Named)
-  }
+  val NotNamed: Set[ExportType] = Set(ExportType.Namespaced, ExportType.Defaulted)
 
   case object Named extends ExportType
 
   case object Defaulted extends ExportType
 
   case object Namespaced extends ExportType
-
 }
 
 final case class TsExport(comments: Comments, tpe: ExportType, exported: TsExportee) extends TsDecl

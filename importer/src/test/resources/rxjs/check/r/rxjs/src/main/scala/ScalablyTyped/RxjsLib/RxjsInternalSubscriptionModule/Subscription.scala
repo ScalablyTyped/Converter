@@ -14,7 +14,7 @@ class Subscription () extends RxjsLib.RxjsInternalTypesModule.SubscriptionLike {
        */
   def this(unsubscribe: js.Function0[scala.Unit]) = this()
   /** @internal */
-  var _subscriptions: js.Any = js.native
+  val _subscriptions: js.Any = js.native
   /* CompleteClass */
   override val closed: scala.Boolean = js.native
   /* CompleteClass */

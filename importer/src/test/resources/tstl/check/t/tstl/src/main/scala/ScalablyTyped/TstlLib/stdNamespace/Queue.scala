@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 class Queue[T] () extends js.Object {
   def this(container: Queue[T]) = this()
-  var `container_`: js.Any = js.native
+  val `container_`: js.Any = js.native
   def empty(): scala.Boolean = js.native
 }
 

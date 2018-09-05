@@ -46,7 +46,7 @@ object BoundsAddAtUseSite extends TreeVisitorScopedChanges {
                 expectedTparams zip providedTparams
 
               val rewrites: Map[TsType, TsType] = tuples.map {
-                case (TsTypeParam(_, name, _, _), applied) => TsTypeRef(TsQIdent(List(name)), Nil) -> applied
+                case (TsTypeParam(_, name, _, _), applied) => TsTypeRef.of(name) -> applied
               }.toMap
 
               val newTparams: Seq[TsType] =

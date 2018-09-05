@@ -121,7 +121,7 @@ object DeriveCopy {
   }
 
   def downgrade(x: TsContainerOrDecl): Option[TsContainerOrDecl] = x match {
-    case e@TsExport(_, _, TsExporteeTree(decl)) =>
+    case e @ TsExport(_, _, TsExporteeTree(decl)) =>
       downgrade(decl) flatMap {
         case d: TsNamedDecl => Some(e.copy(exported = TsExporteeTree(d)))
         case _ => Some(e)

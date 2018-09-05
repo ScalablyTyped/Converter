@@ -1,77 +1,107 @@
 package com.olvind.tso
 package ts
 package transforms
+import com.olvind.tso.maps.EmptyMap
 
-/* Type mappings, inheritance from sealed types, etc.
- *
- * Naturally, this begs for a proper implementation of type mappings. We'll get there... soon.
- */
+/**
+  * In typescript we can inherit from type references pointing to a pretty much arbitrary shape.
+  *
+  * Scala naturally is much more constrained here, so we... drop all the difficult things.
+  * Some information (like from intersections of type objects, for instance) is retrieved
+  * ("lifted", in this code)
+  *
+  * We'll do better eventually, this is the fallback to make things compile
+  */
 object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
-  private val Unary       = Set[TsIdent](TsIdent("Partial"), TsIdent("ReadOnly"), TsIdent("Required"), TsIdent("NonNullable"))
-  private val Binary      = Set[TsIdent](TsIdent("Pick"), TsIdent("Omit"))
-  private val isDifficult = Set[TsIdent](TsIdent("Record"))
+  final case class Res(keep: List[TsTypeRef], drop: List[TsType], lift: Map[TsTypeRef, Seq[TsMember]])
 
-  private def cleanType(scope: TreeScope)(tpe: TsType): Option[Seq[TsTypeRef]] =
+  object Res {
+    val Empty = Res(Nil, Nil, Map.empty)
+
+    def combine(rs: Seq[Res]): Res =
+      rs.foldLeft(Empty) {
+        case (Res(keep1, drop1, lift1), Res(keep2, drop2, lift2)) =>
+          Res(keep1 ++ keep2, drop1 ++ drop2, lift1 ++ lift2)
+      }
+  }
+
+  private def cleanParentRef(scope: TreeScope)(tpe: TsTypeRef): Res =
     tpe match {
-      case tr: TsTypeRef => Some(cleanTypeRef(scope)(tr))
-      case TsTypeIntersect(types) =>
-        Some(types flatMap {
-          case tr: TsTypeRef => cleanTypeRef(scope)(tr)
-          case _ => Nil
-        })
-      case TsTypeUnion(_)    => Some(Nil)
-      case TsTypeFunction(_) => None
-      case _                 => Some(Nil)
-    }
-
-  private def cleanTypeRef(scope: TreeScope)(tpe: TsTypeRef): Seq[TsTypeRef] =
-    tpe match {
-      case TsTypeRef(x, Seq(one)) if Unary(x.parts.last)     => cleanType(scope)(one) getOrElse Nil
-      case TsTypeRef(x, Seq(one, _)) if Binary(x.parts.last) => cleanType(scope)(one) getOrElse Nil
-      case TsTypeRef(x, _) if isDifficult(x.parts.last)      => Nil
-
       /* We could solve this by using the types in the generated stdlib instead of scala.js types, but we don't for now */
-      case TsTypeRef.string              => Nil
-      case TsTypeRef.String              => Nil
-      case TsTypeRef.number              => Nil
-      case TsTypeRef.boolean             => Nil
-      case TsTypeRef.Boolean             => Nil
-      case TsTypeRef(TsQIdent.symbol, _) => Nil
+      case drop @ (TsTypeRef.string | TsTypeRef.String | TsTypeRef.number | TsTypeRef.boolean | TsTypeRef.Boolean |
+          TsTypeRef.Symbol) =>
+        Res(Nil, drop :: Nil, Map.empty)
 
-      /* this causes issues since it's a class*/
-      case TsTypeRef.`object` => Nil
-      case TsTypeRef.any      => Nil
+      /* this causes issues since they are classes in scala */
+      case drop @ (TsTypeRef.`object` | TsTypeRef.Object | TsTypeRef.any) => Res(Nil, drop :: Nil, Map.empty)
 
       /* inline type aliases just to make things simpler */
       case tr: TsTypeRef =>
         scope.lookupTypeIncludeScope(tr.name).collectFirst {
           case (found: TsDeclTypeAlias, newScope) =>
-            cleanType(newScope)(FillInTParams(found, tr.tparams).alias) getOrElse Seq(tr)
-        } getOrElse (tr :: Nil)
-      case _ =>
-        Nil
+            val rewritten = FillInTParams(found, tr.tparams)
+
+            rewritten.alias match {
+              case next: TsTypeRef => cleanParentRef(newScope)(next)
+              /* Flatten intersection types references by type alias, since it's not possible to extend them in scala */
+              case TsTypeIntersect(types) =>
+                Res.combine(types map {
+                  case next: TsTypeRef => cleanParentRef(newScope)(next)
+                  case TsTypeObject(members) => Res(Nil, Nil, Map(tr -> members))
+                  case other                 => Res(Nil, other :: Nil, Map.empty)
+                })
+              case x: TsTypeUnion    => Res(Nil, x :: Nil, Map.empty)
+              case _: TsTypeFunction => Res(tr :: Nil, Nil, Map.empty)
+              case TsTypeObject(members) => Res(Nil, Nil, Map(tr -> members))
+              case dropUnknown           => Res(Nil, dropUnknown :: Nil, Map.empty)
+            }
+        } getOrElse Res(tr :: Nil, Nil, Map.empty)
     }
 
-  override def enterTsDeclClass(scope: TreeScope)(s: TsDeclClass): TsDeclClass = {
-    val original   = s.parent.to[Seq] ++ s.implements
-    val newParents = (original flatMap cleanTypeRef(scope)).distinct
+  def format(tpe: TsType): String =
+    tpe match {
+      case ref: TsTypeRef => ref.name.parts.map(_.value).mkString(".")
+      case TsTypeUnion(types)     => types map format mkString " | "
+      case TsTypeIntersect(types) => types map format mkString " with "
+      case other                  => other.toString
+    }
 
-    val diff = original.filterNot(newParents.contains)
-    if (diff.nonEmpty) {
-      s.copy(parent = newParents.headOption,
-             implements = newParents.drop(1),
-             comments = s.comments + Comment(s"/* RemoveDifficultInheritance */"))
-    } else {
-      s
+  override def enterTsDeclClass(scope: TreeScope)(s: TsDeclClass): TsDeclClass =
+    Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
+      case Res(_, Nil, EmptyMap()) => s
+      case Res(keep, drop, lifted) =>
+        val c = Comment(
+          s"/* RemoveDifficultInheritance: Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys
+            .map(format)
+            .mkString(", ")}. Dropped Inheritance: \n${drop map format mkString "\n"} */"
+        )
+
+        s.copy(parent = keep.headOption,
+               implements = keep.drop(1),
+               comments = s.comments + c,
+               members = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
-  }
-  override def enterTsDeclInterface(scope: TreeScope)(s: TsDeclInterface): TsDeclInterface = {
-    val newParents = (s.inheritance flatMap cleanTypeRef(scope)).distinct
-    val diff       = s.inheritance filterNot newParents.contains
-    if (diff.nonEmpty) {
-      s.copy(inheritance = newParents, comments = s.comments + Comment(s"/* RemoveDifficultStuff */"))
-    } else {
-      s
+
+  override def enterTsDeclInterface(scope: TreeScope)(s: TsDeclInterface): TsDeclInterface =
+    Res.combine(s.inheritance map cleanParentRef(scope)) match {
+      case Res(keep, _, _) if s.inheritance === keep => s
+      case Res(keep, drop, lifted) =>
+        val droppedMessages: Seq[String] =
+          drop map (d => s"- Dropped ${format(d)}")
+
+        val liftedMessage: Option[String] =
+          if (lifted.isEmpty) None
+          else Some(s"- Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys.map(format)}")
+
+        val newComments = droppedMessages ++ liftedMessage match {
+          case Nil => s.comments
+          case messages =>
+            val c = Comment(s"/* RemoveDifficultInheritance: ${messages.mkString("\n", "\n", "")} */ ")
+            s.comments + c
+        }
+
+        s.copy(inheritance = keep,
+               comments = newComments,
+               members = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
-  }
 }

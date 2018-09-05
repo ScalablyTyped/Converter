@@ -11,6 +11,6 @@ class DocumentClient () extends AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.Dy
   /**
        * Creates a DynamoDB document client with a set of configuration options.
        */
-  def this(options: AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.DocumentClientOptions with ClientConfiguration) = this()
+  def this(options: AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.DocumentClientOptions with AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration) = this()
 }
 

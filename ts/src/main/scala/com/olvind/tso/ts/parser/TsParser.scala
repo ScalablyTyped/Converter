@@ -232,7 +232,7 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
 
   lazy val tsDeclVar: Parser[TsDeclVar] = {
     val variable = ("var" | "let") ^^ (_ => false)
-    val constant = "const" ^^ (_ => true)
+    val constant = "const" ^^ (_         => true)
     comments ~ isDeclared ~ (variable | constant) ~ tsIdent ~ typeAnnotationOpt ~ ("=" ~> tsLiteral).? ~ zeroLocation ~ zeroCodePath ~ success(
       false
     ) ^^ TsDeclVar
@@ -466,7 +466,7 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
     val tsMemberIndex: Parser[TsMemberIndex] =
       comments ~ "readonly".isDefined ~ protectionLevel ~ indexing ~ "?".isDefined ~ indexedType ^^ TsMemberIndex
 
-    tsMemberCall | tsMemberCtor | tsMemberIndex | tsMemberNamed | tsMemberTypeMapped
+    tsMemberTypeMapped | tsMemberCall | tsMemberCtor | tsMemberIndex | tsMemberNamed
   }
 
   lazy val protectionLevel: Parser[ProtectionLevel] =

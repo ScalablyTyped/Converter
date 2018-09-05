@@ -129,14 +129,14 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeVisitorScopedChange
           ms map {
             case x: TsNamedDecl => x
             case TsExport(_, _, TsExporteeTree(x: TsNamedDecl)) => x
-          } map (x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent(List(x.name)))))
+          } map (x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))
 
         Seq(g.copy(members = ret))
 
       case x: TsDeclModule      => Seq(x)
       case x: TsAugmentedModule => Seq(x)
-      case x: TsNamedValueDecl  => DeriveCopy.downgrade(x).to[List]
-      case _: TsImport          => Nil
+      case x: TsNamedValueDecl  => if (owner.exports.nonEmpty) DeriveCopy.downgrade(x).to[List] else Seq(x)
+//      case _: TsImport          => Nil
       case x => Seq(x)
     }
 }

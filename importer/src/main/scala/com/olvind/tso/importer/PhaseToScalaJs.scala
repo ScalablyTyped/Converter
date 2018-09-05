@@ -13,12 +13,12 @@ object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibSca
     S.RemoveDuplicateInheritance >>
       S.CleanIllegalNames >>
       S.FixVars >>
+      S.InlineNestedIdentityAlias >>
       S.LimitUnionLength >>
       S.Deduplicator
 
   val PhaseTwo =
-    S.RemoveMultipleInheritance >>
-      S.CombineOverloads >> //must have stable types, so FakeLiterals run before
+    S.CombineOverloads >> //must have stable types, so FakeLiterals run before
       S.FilterMemberOverrides
 
   val PhaseThree =
@@ -39,17 +39,19 @@ object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibSca
 
       case Right(lib: LibTs) =>
         getDeps(lib.dependencies.keys.to[Set]).map { scalaDeps =>
-          val scope = new SymbolScope.Root(AsName(lib.name), scalaDeps.values.to[Set], logger)
+          val scope = new SymbolScope.Root(ImportName(lib.name), scalaDeps.values.to[Set], logger)
+          logger.warn(s"Processing ${lib.name}")
 
           val ScalaTransforms = (Pipe[ContainerSymbol]
             >> PhaseOne.visitContainerSymbol(scope)
             >> FakeLiterals(scope)
+            >> S.RemoveMultipleInheritance.visitContainerSymbol(scope)
             >> PhaseTwo.visitContainerSymbol(scope)   //
             >> PhaseThree.visitContainerSymbol(scope) //runs in phase after FilterMemberOverrides
             >> PhaseFour.visitContainerSymbol(scope)  //
           )
 
-          val rewrittenTree = ScalaTransforms.run(TsImporterDecl(lib, logger))
+          val rewrittenTree = ScalaTransforms.run(ImportTree(lib, logger))
 
           LibScalaJs(
             source = lib.source,

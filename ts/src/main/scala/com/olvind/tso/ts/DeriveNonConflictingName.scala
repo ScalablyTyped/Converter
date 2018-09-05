@@ -24,6 +24,7 @@ object DeriveNonConflictingName {
     case x: TsMemberProperty => pretty(x.name.value)
     case x: TsMemberFunction => pretty(x.name.value)
     case x: TsFunParam       => pretty(x.name.value)
+    case x: TsLiteral        => pretty(x.literal)
     case TsMemberIndex(_, _, _, IndexingDict(name, _), _, _) => pretty(name.value)
     case TsMemberIndex(_, _, _, IndexingSingle(name), _, _)  => pretty(name.parts.head.value)
   }
@@ -34,7 +35,7 @@ object DeriveNonConflictingName {
   }
 
   val ExtractNamePartsTertiary: PartialFunction[TsTree, String] = {
-    case x: TsIdent => pretty(x.value)
+    case x: TsQIdent => pretty(x.parts.last.value)
   }
 
   def apply[T](prefix: String, members: Seq[TsTree])(tryCreate: TsIdent => Option[T]): T = {

@@ -24,13 +24,13 @@ package transforms
   */
 object NormalizeFunctions extends TreeVisitorScopedChanges {
 
-  override def enterTsDeclClass(t: TreeScope)(x: TsDeclClass): TsDeclClass =
+  override def enterTsDeclClass(scope: TreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(members = newMembers(x.members))
 
-  override def enterTsDeclInterface(t: TreeScope)(x: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(scope: TreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(members = newMembers(x.members))
 
-  private def newMembers(members: Seq[TsMember]) =
+  private def newMembers(members: Seq[TsMember]): Seq[TsMember] =
     members.map {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
         TsMemberProperty(comments, level, name, Some(TsTypeFunction(signature)), isStatic, m.isReadOnly, m.isOptional)

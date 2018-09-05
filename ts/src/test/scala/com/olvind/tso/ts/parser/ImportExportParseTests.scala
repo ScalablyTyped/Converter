@@ -154,7 +154,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import { default as SidebarPushable } from './SidebarPushable'""", TsParser.tsImport)(
       TsImport(
         List(TsImportedDestructured(List((TsIdent("default"), Some(TsIdent("SidebarPushable")))))),
-        TsImporteeFrom(TsIdentModule.simple("./SidebarPushable"))
+        TsImporteeFrom(TsIdentModule(None, "." :: "SidebarPushable" :: Nil))
       )
     )
   }
@@ -232,7 +232,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
       TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("jquery")))
     )
     shouldParseAs("""import "../index"""", TsParser.tsImport)(
-      TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("../index")))
+      TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule(None, ".." :: "index" :: Nil)))
     )
   }
 

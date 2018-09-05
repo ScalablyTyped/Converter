@@ -164,7 +164,7 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
                 }
 
               val ProcessAll = (Pipe[TsParsedFile]
-                >> TS.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent(Nil)))
+                >> TS.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty))
                 >> (
                   TS.SimplifyParents >>
                     TS.NormalizeFunctions // run before FlattenTrees
@@ -175,18 +175,22 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
                 >> new ReplaceExports(new LoopDetector()).visitTsParsedFile(scope.caching)
                 >> (f => FlattenTrees(f :: Nil))
                 >> (
-                  TS.PreferTypeAlias >>
+                  TS.SimplifyTypes >> //before ExpandCallables
+                    TS.PreferTypeAlias >>
+                    TS.ExpandCallables >>
                     TS.ExpandKeyOfTypeParams >>
                     TS.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
-                    TS.RemoveBivarianceHacks >>
                     TS.UnionTypesFromKeyOf >>
                     TS.DropPrototypes >>
                     TS.DefaultedTParams >>
                     TS.InlineTrivialTypeAlias >>
-                    TS.InferTypes >>
+                    TS.InferReturnTypes >>
                     TS.RewriteTypeThis //
                 ).visitTsParsedFile(scope.caching)
-                >> (TS.SplitMethodsOnUnionTypes >> TS.RemoveDifficultInheritance).visitTsParsedFile(scope)
+                >> (
+                  TS.SplitMethodsOnUnionTypes
+                    >> TS.RemoveDifficultInheritance
+                ).visitTsParsedFile(scope)
                 >> TS.SplitMethodsOnOptionalParams.visitTsParsedFile(scope)
                 >> TS.ExtractInterfaces(libName, scope) //
               )

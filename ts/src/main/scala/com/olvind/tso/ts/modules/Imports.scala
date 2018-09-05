@@ -117,9 +117,8 @@ object Imports {
 
     val ret: ExpandedMod = from match {
       case TsImporteeRequired(fromModule) =>
-        val modScope = scope moduleScopes fromModule
-        modScope.current match {
-          case mod: TsDeclModule =>
+        scope.moduleScopes get fromModule match {
+          case Some(modScope @ TreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod: TsDeclModule = CachedReplaceExports(modScope.`..`, loopDetector, mod)
 
             val withAugmented: TsDeclModule =
@@ -138,12 +137,14 @@ object Imports {
             }
 
             ExpandedMod.Whole(Nil, namespaceds, rest, modScope)
+          case _ =>
+            scope.logger.fatalMaybe(s"Couldn't find expected module $fromModule", constants.Pedantic)
+            ExpandedMod.Picked(Nil)
         }
 
       case TsImporteeFrom(fromModule) =>
-        val modScope = scope moduleScopes fromModule
-        modScope.current match {
-          case mod: TsDeclModule =>
+        scope.moduleScopes get fromModule match {
+          case Some(modScope @ TreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod = CachedReplaceExports(modScope.`..`, loopDetector, mod)
 
             val withAugmented: TsDeclModule =
@@ -163,6 +164,9 @@ object Imports {
             )
 
             ExpandedMod.Whole(defaults, namespaceds, rest, modScope)
+          case _ =>
+            scope.logger.fatalMaybe(s"Couldn't find expected module $fromModule", constants.Pedantic)
+            ExpandedMod.Picked(Nil)
         }
 
       case TsImporteeLocal(qident) =>

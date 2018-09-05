@@ -38,7 +38,7 @@ object DefaultedTParams extends TreeVisitorScopedChanges {
             val replacements: Seq[(TsType, TsType)] =
               expectedTparams zip newTparams map {
                 case (TsTypeParam(_, tparamName, _, _), actual) =>
-                  TsTypeRef(TsQIdent(List(tparamName)), Nil) -> actual
+                  TsTypeRef.of(tparamName) -> actual
               }
 
             x.copy(tparams = newTparams.map(tp => new TypeRewriter(tp).visitTsType(replacements.toMap)(tp)))

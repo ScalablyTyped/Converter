@@ -174,6 +174,6 @@ object Logger {
     }
 
     @inline def fatalMaybe[T: Formatter](t: Text[T], maybe: Boolean)(implicit l: Line, f: File, e: Enclosing): Unit =
-      if (maybe) fatal(t) else error(t)
+      if (maybe) fatal(t) else warn(t)
   }
 }
