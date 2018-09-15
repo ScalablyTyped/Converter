@@ -7,8 +7,8 @@ import com.olvind.tso.ts.TsSource.TsLibSource
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder}
 
-case class Summary(successes:        Set[TsLibSource], failures:    Set[TsLibSource])
-case class SummaryDiff(newSuccesses: Set[TsLibSource], newFailures: Set[TsLibSource], oldFailures: Set[TsLibSource])
+case class Summary(successes:        Set[TsIdentLibrary], failures:    Set[TsIdentLibrary])
+case class SummaryDiff(newSuccesses: Set[TsIdentLibrary], newFailures: Set[TsIdentLibrary], oldFailures: Set[TsIdentLibrary])
 
 object Summary {
 
@@ -47,12 +47,12 @@ object Summary {
     s"""|${diff.newSuccesses.size} new successes, ${diff.newFailures.size} new failures
         |
         |New successes:
-        |${diff.newSuccesses.map[String, Seq[String]](x => x.libName.value)(collection.breakOut).sorted.mkString("\n")}
+        |${diff.newSuccesses.map[String, Seq[String]](x => x.value)(collection.breakOut).sorted.mkString("\n")}
         |
         |New failures:
-        |${diff.newFailures.map[String, Seq[String]](x => x.libName.value)(collection.breakOut).sorted.mkString("\n")}
+        |${diff.newFailures.map[String, Seq[String]](x => x.value)(collection.breakOut).sorted.mkString("\n")}
         |
         |Old failures
-        |${diff.oldFailures.map[String, Seq[String]](x => x.libName.value)(collection.breakOut).sorted.mkString("\n")}
+        |${diff.oldFailures.map[String, Seq[String]](x => x.value)(collection.breakOut).sorted.mkString("\n")}
         |""".stripMargin
 }

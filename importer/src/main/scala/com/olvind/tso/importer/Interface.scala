@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.logging.Logger
 import com.olvind.tso.phases.PhaseListener
-import com.olvind.tso.ts.TsSource
+import com.olvind.tso.ts.{TsIdentLibrary, TsSource}
 import fansi.{Color, Str}
 import monix.execution.atomic.AtomicBoolean
 
@@ -15,11 +15,11 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
     with PhaseListener[TsSource] {
   private val t0        = System.currentTimeMillis
   private val files     = mutable.Set.empty[InFile]
-  private val succeeded = mutable.Map.empty[TsSource.TsLibSource, String]
-  private val failed    = mutable.Map.empty[TsSource.TsLibSource, String]
-  private val ignored   = mutable.Set.empty[TsSource.TsLibSource]
-  private val active    = mutable.Map.empty[TsSource.TsLibSource, String]
-  private val blocked   = mutable.Map.empty[TsSource.TsLibSource, (String, Set[Str])]
+  private val succeeded = mutable.Map.empty[TsIdentLibrary, String]
+  private val failed    = mutable.Map.empty[TsIdentLibrary, String]
+  private val ignored   = mutable.Set.empty[TsIdentLibrary]
+  private val active    = mutable.Map.empty[TsIdentLibrary, String]
+  private val blocked   = mutable.Map.empty[TsIdentLibrary, (String, Set[Str])]
   private val hasExited = AtomicBoolean(false)
 
   def finish(): Summary = {
@@ -35,23 +35,24 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
         case TsSource.HelperFile(file, _, _) =>
           files += file
         case x: TsSource.TsLibSource =>
+          val name = x.libName
           event match {
             case PhaseListener.Failure(phase) =>
-              active -= x
-              succeeded -= x //retardo design, but fix later. earlier stages count as "successful"
-              failed += (x -> phase)
+              active -= name
+              succeeded -= name //retardo design, but fix later. earlier stages count as "successful"
+              failed += (name -> phase)
             case PhaseListener.Success(phase) =>
-              active -= x
-              succeeded += (x -> phase)
+              active -= name
+              succeeded += (name -> phase)
             case PhaseListener.Ignored =>
-              active -= x
-              ignored += x
+              active -= name
+              ignored += name
             case PhaseListener.Started(phase) =>
-              blocked -= x
-              active += (x -> phase)
+              blocked -= name
+              active += (name -> phase)
             case PhaseListener.Blocked(phase, on) =>
-              active -= x
-              blocked += (x -> (phase -> on))
+              active -= name
+              blocked += (name -> (phase -> on))
           }
       }
       ()
@@ -91,12 +92,12 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
       row("Seconds per library", processedPerSecond)
 
       println("Active:")
-      active.to[Seq].map(x => (Color.Green(x._1.libName.value).render, x._2)).sorted.foreach(println)
+      active.to[Seq].map(x => (Color.Green(x._1.value).render, x._2)).sorted.foreach(println)
 
       println("Blocked:")
       blocked
         .to[Seq]
-        .map { case (name, (phase, on)) => s"${Color.LightGray(name.libName.value).render} ($phase) blocked on $on" }
+        .map { case (name, (phase, on)) => s"${Color.LightGray(name.value).render} ($phase) blocked on $on" }
         .sorted
         .foreach(println)
 
