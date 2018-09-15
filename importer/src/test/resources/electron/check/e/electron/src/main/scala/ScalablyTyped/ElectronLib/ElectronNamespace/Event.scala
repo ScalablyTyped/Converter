@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultStuff */
+
 trait Event extends StdLib.Event {
   val altKey: js.UndefOr[scala.Boolean] = js.undefined
   val ctrlKey: js.UndefOr[scala.Boolean] = js.undefined

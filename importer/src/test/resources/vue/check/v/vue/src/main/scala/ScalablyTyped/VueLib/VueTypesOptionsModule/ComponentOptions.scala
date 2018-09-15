@@ -21,7 +21,7 @@ trait ComponentOptions[V /* <: VueLib.VueTypesVueModule.Vue */, Data, Methods, C
   val delimiters: js.UndefOr[js.Tuple2[java.lang.String, java.lang.String]] = js.undefined
   val destroyed: js.UndefOr[js.Function0[scala.Unit]] = js.undefined
   val directives: js.UndefOr[ScalablyTyped.runtime.StringDictionary[DirectiveFunction | DirectiveOptions]] = js.undefined
-  val el: js.UndefOr[StdLib.Element | java.lang.String] = js.undefined
+  val el: js.UndefOr[StdLib.Node | java.lang.String] = js.undefined
   val errorCaptured: js.UndefOr[js.Function0[scala.Boolean | scala.Unit]] = js.undefined
   // TODO: support properly inferred 'extends'
   val `extends`: js.UndefOr[(ComponentOptions[VueLib.VueTypesVueModule.Vue, DefaultData[VueLib.VueTypesVueModule.Vue], DefaultMethods[VueLib.VueTypesVueModule.Vue], DefaultComputed, PropsDefinition[DefaultProps]]) | VueLib.VueTypesVueModule.VueConstructor[VueLib.VueTypesVueModule.Vue]] = js.undefined

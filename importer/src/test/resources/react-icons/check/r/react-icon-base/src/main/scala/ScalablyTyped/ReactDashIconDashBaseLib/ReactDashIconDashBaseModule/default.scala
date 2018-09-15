@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSImport("react-icon-base", JSImport.Default)
+/* RemoveDifficultInheritance */@JSImport("react-icon-base", JSImport.Default)
 @js.native
-class default () extends IconBaseClass
+class default () extends ReactLib.ReactModule.ReactNamespace.Component[IconBaseProps, js.Object]
 

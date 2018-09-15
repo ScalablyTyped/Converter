@@ -33,9 +33,9 @@ class ImporterTest extends FunSuite with ImporterHarness {
   test("winston")(assertImportsOk("winston", update))
   test("commander")(assertImportsOk("commander", update))
   test("with-theme")(assertImportsOk("with-theme", update))
-
-  test("create-error") {
-    pending
-    assertImportsOk("create-error", update)
-  }
+  test("create-error") { assertImportsOk("create-error", update) }
+  test("react-bootstrap")(assertImportsOk("react-bootstrap", update))
+  test("insight")(assertImportsOk("insight", update))
+  test("cldrjs")(assertImportsOk("cldrjs", update))
+  test("void-elements")(assertImportsOk("void-elements", update))
 }

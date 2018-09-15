@@ -19,7 +19,6 @@ import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
 
 import scala.collection.parallel.ForkJoinTaskSupport
-import scala.util.Try
 
 object Main extends App {
   val debugMode    = args.nonEmpty
@@ -114,7 +113,8 @@ object Main extends App {
 
   /* todo: parallel collections suck, but are super easy to use. We'll settle with that for now */
   val par  = tsSources.par
-  val pool = new ForkJoinPool(4)
+  val pool = new ForkJoinPool(3)
+
   par.tasksupport = new ForkJoinTaskSupport(pool)
   par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
   pool.shutdown()

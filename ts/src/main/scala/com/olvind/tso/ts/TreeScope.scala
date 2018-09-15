@@ -3,7 +3,7 @@ package ts
 
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.ts.TreeScope.LoopDetector
-import com.olvind.tso.ts.modules.{Exports, Imports}
+import com.olvind.tso.ts.modules.{ExpandedMod, Exports, Imports}
 
 import scala.collection.mutable
 
@@ -75,17 +75,10 @@ sealed trait TreeScope {
                                              wanted:       List[TsIdent],
                                              loopDetector: LoopDetector): Seq[(T, TreeScope)] =
     loopDetector.including(wanted, this) match {
-      case Left(_) => Nil
+      case Left(_) =>
+        Nil
       case Right(newLoopDetector) =>
-        def withinModule(name: TsIdentModule): Boolean =
-          stack.exists {
-            case x: TsAugmentedModule => x.name === name
-            case x: TsDeclModule      => x.name === name
-            case _ => false
-          }
         wanted match {
-          case (_: TsIdentLibrary) :: (mod: TsIdentModule) :: rest if !withinModule(mod) =>
-            moduleScopes(mod).lookupImpl(picker, rest, newLoopDetector)
           case root.libName :: rest => lookupImpl(picker, rest, newLoopDetector)
           case other                => lookupImpl(picker, other, newLoopDetector)
         }
@@ -104,12 +97,17 @@ sealed trait TreeScope {
       case _: TsAugmentedModule => true
       case _ => false
     }
-
 }
 
 object TreeScope {
-  type Cache = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TreeScope)]]
-
+  type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TreeScope)]]
+  case class Cache(
+      lookupExportFrom:  C = mutable.Map.empty,
+      lookupFromImports: C = mutable.Map.empty,
+      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule] = mutable.Map.empty,
+      expandExport:      mutable.Map[(String, TsExport), Seq[TsNamedDecl]] = mutable.Map.empty,
+      expandImportee:    mutable.Map[(String, TsImportee), ExpandedMod] = mutable.Map.empty,
+  )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
   def apply(libName: TsIdentLibrary, deps: Map[TsIdentLibrary, TsParsedFile], logger: Logger[Unit]): TreeScope.Root =
@@ -125,12 +123,6 @@ object TreeScope {
     }
   }
 
-  def isFullyQualified(wanted: List[TsIdent]): Boolean =
-    wanted.headOption match {
-      case Some(_: TsIdentLibrary) => true
-      case _ => false
-    }
-
   final class Root private[TreeScope] (val libName: TsIdentLibrary,
                                        _deps:       Map[TsIdentLibrary, TsParsedFile],
                                        val logger:  Logger[Unit],
@@ -144,7 +136,7 @@ object TreeScope {
     override def exports       = Nil
     private lazy val depScopes = _deps mapValues (f => (f, this / f))
 
-    def caching: Root = new Root(libName, _deps, logger, Some(mutable.Map.empty))
+    def caching: Root = new Root(libName, _deps, logger, Some(Cache()))
 
     override lazy val moduleScopes: Map[TsIdentModule, TreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TreeScope.Scoped]
@@ -203,11 +195,15 @@ object TreeScope {
         case _ => outer.tkeys
       }
 
+    if (stack.drop(1).contains(current)) {
+      logger.fatal(s"Circular tree detected")
+    }
+
     lazy val exports: Seq[TsExport] =
-      outer.exports ++ (current match {
+      current match {
         case x: TsContainer => x.exports
         case _ => Seq.empty
-      })
+      }
 
     override lazy val moduleScopes: Map[TsIdentModule, TreeScope.Scoped] = {
       val ret = outer.moduleScopes ++ (current match {
@@ -238,21 +234,19 @@ object TreeScope {
           case (h :: Nil, Pick(x)) if x.name === h => Seq((x, this))
           case (frags, x: TsContainer) =>
             search(this, Pick, x, frags, loopDetector)
-
           case _ => Nil
         }
 
       def exportedFromModule: Seq[(T, TreeScope)] =
         current match {
-          case _: TsDeclModule =>
-            FirstNonEmpty(
-              () => Exports.lookupExportFrom(this, Pick, wanted, loopDetector),
-              () =>
-                if (!wanted.contains(TsIdent.namespaced) && !wanted.contains(TsIdent.default))
-                  Exports.lookupExportFrom(this, Pick, TsIdent.namespaced +: wanted, loopDetector)
-                else Nil
-            ).getOrElse(Nil)
+          case x: TsDeclNamespaceOrModule => Exports.lookupExportFrom(this, Pick, wanted, loopDetector, x)
+          case _ => Nil
+        }
 
+      def importedFromModule: Seq[(T, TreeScope)] =
+        current match {
+          case x: TsContainer =>
+            Imports.lookupFromImports(this, Pick, wanted, loopDetector, x.imports)
           case _ => Nil
         }
 
@@ -260,14 +254,14 @@ object TreeScope {
         current match {
           case x: TsAugmentedModule =>
             moduleScopes.get(x.name) match {
-              case Some(x) => x.lookupInternal(Pick, wanted, loopDetector)
-              case None    => Nil
+              case Some(xx) => xx.lookupInternal(Pick, wanted, loopDetector)
+              case None     => Nil
             }
 
           case x: TsDeclModule =>
             moduleAuxScopes.get(x.name) match {
-              case Some(x) => x lookupInternal (Pick, wanted, loopDetector)
-              case None    => Nil
+              case Some(xx) => xx lookupInternal (Pick, wanted, loopDetector)
+              case None     => Nil
             }
 
           case _ => Nil
@@ -312,14 +306,12 @@ object TreeScope {
         if (ret.isEmpty)
           ret = exportedFromModule
         if (ret.isEmpty)
-          ret = surroundingTsContainer
-            .flatMap(container => Imports.lookupFromImports(this, Pick, wanted, loopDetector, container.imports))
-            .getOrElse(Nil)
+          ret = importedFromModule
         if (ret.isEmpty)
           ret = augmentedModule
         if (ret.isEmpty)
           ret = fromGlobals
-        if (ret.isEmpty)
+        if (ret.isEmpty && !wanted.headOption.contains(TsIdent.dummy)) //optimization
           ret = ExtendingScope(this, Pick, wanted, loopDetector)
         if (ret.isEmpty)
           ret = prototype
@@ -327,6 +319,7 @@ object TreeScope {
 
       if (ret.isEmpty)
         ret = outer.lookupInternal(Pick, wanted, loopDetector)
+
       ret
     }
   }
@@ -356,14 +349,15 @@ object TreeScope {
           case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
           case Some(decls) =>
             decls flatMap {
-//              case x: TsContainer => search(scope / x, Pick, x, t)
-              case x: TsContainer => (scope / x).lookupInternal(Pick, t, loopDetector)
+              case x: TsContainer =>
+                (scope / x).lookupInternal(Pick, t, loopDetector)
+              case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
+                search(scope, Pick, c, t, loopDetector)
               case TsDeclVar(_, _, _, _, Some(tr: TsTypeRef), _, _, cp: CodePath.HasPath, false) =>
-                val hoisted = TsParsedFile(NoComments,
-                                           Nil,
-                                           Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr),
-                                           CodePath.NoPath)
-                scope / hoisted lookupInternal (Pick, t, loopDetector)
+                Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr).collect {
+                  case Pick(x) if t.headOption.contains(x.name) => x -> scope
+                }
+
               case _ => Nil
             }
           case None => Nil
@@ -390,7 +384,6 @@ object ExtendingScope {
         }
         scope.`..`.lookupInternal(p, List(x.name), loopDetector).flatMap {
           case (c, extScope) =>
-//            extScope.lookupInternal(Pick, wanted, loopDetector)
             TreeScope.search(extScope, Pick, c, wanted, loopDetector)
         }
       case _ => Nil

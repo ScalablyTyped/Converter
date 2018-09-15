@@ -40,6 +40,7 @@ object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
 
       /* this causes issues since it's a class*/
       case TsTypeRef.`object` => Nil
+      case TsTypeRef.any      => Nil
 
       /* inline type aliases just to make things simpler */
       case tr: TsTypeRef =>
@@ -57,9 +58,9 @@ object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
 
     val diff = original.filterNot(newParents.contains)
     if (diff.nonEmpty) {
-      s.copy(parent     = newParents.headOption,
+      s.copy(parent = newParents.headOption,
              implements = newParents.drop(1),
-             comments   = s.comments + Comment(s"/* RemoveDifficultInheritance */"))
+             comments = s.comments + Comment(s"/* RemoveDifficultInheritance */"))
     } else {
       s
     }

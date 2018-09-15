@@ -46,8 +46,8 @@ object ParentsResolver {
           if (seen forall (_ ne ta)) {
             seen += ta
             FillInTParams(ta, currentTParams).alias match {
-              case _: TsTypeFunction => innerRecurse(foundInScope / ta, TsQIdent.Function, Nil)
-              case x: TsTypeRef => innerRecurse(foundInScope / ta, x.name, x.tparams)
+              case _: TsTypeFunction => innerRecurse(foundInScope, TsQIdent.Function, Nil)
+              case x: TsTypeRef => innerRecurse(foundInScope, x.name, x.tparams)
               case x: TsTypeObject =>
                 allParents += TsDeclInterface(NoComments, declared = false, TsIdent.dummy, Nil, Nil, x.members, NoPath)
               case TsTypeUnion(types) =>

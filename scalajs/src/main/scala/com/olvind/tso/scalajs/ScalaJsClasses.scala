@@ -31,26 +31,26 @@ object ScalaJsClasses {
     val Apply: MethodSymbol =
       MethodSymbol(
         annotations = Nil,
-        level       = Default,
-        name        = Name("apply"),
-        tparams     = Nil,
-        params      = Seq(0 to arity map (n => ParamSymbol(T(n), TypeRef(T(n)), NoComments))),
-        fieldType   = FieldTypeNotImplemented,
-        resultType  = TypeRef(Name("R")),
-        isOverride  = false,
-        comments    = NoComments
+        level = Default,
+        name = Name("apply"),
+        tparams = Nil,
+        params = Seq(0 to arity map (n => ParamSymbol(T(n), TypeRef(T(n)), NoComments))),
+        fieldType = FieldTypeNotImplemented,
+        resultType = TypeRef(Name("R")),
+        isOverride = false,
+        comments = NoComments
       )
 
     ClassSymbol(
       annotations = Seq(JsNative),
-      name        = QualifiedName.FunctionArity(arity).parts.last,
-      tparams     = 0 to arity map (n => TypeParamSymbol(T(n), None, NoComments)),
-      parents     = Seq(TypeRef(QualifiedName.Function)),
-      ctors       = Nil,
-      members     = Seq(Apply),
-      classType   = ClassType.Trait,
-      isSealed    = false,
-      comments    = NoComments
+      name = QualifiedName.FunctionArity(arity).parts.last,
+      tparams = 0 to arity map (n => TypeParamSymbol(T(n), None, NoComments)),
+      parents = Seq(TypeRef(QualifiedName.Function)),
+      ctors = Nil,
+      members = Seq(Apply),
+      classType = ClassType.Trait,
+      isSealed = false,
+      comments = NoComments
     )
   }
   private val Functions = mutable.Map.empty[Int, ClassSymbol]

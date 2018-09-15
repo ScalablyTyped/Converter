@@ -13,7 +13,7 @@ val baseSettings: Project => Project =
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings")
     )),
-    javaOptions in ThisBuild += "-Xmx4G"
+    javaOptions in ThisBuild += "-Xmx8G"
   )
 
 lazy val publicationSettings: Seq[Def.Setting[_]] =

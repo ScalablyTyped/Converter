@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultStuff */
+
 trait ReactSelectProps[TValue] extends ReactLib.ReactModule.ReactNamespace.Props[ReactSelectClass[TValue]] {
   /**
        * text to display when `allowCreate` is true.

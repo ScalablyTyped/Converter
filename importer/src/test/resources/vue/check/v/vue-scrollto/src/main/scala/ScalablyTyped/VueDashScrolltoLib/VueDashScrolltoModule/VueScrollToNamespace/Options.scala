@@ -10,14 +10,14 @@ trait Options extends js.Object {
   // Indicates if user can cancel the scroll or not. Default: true
   val cancelable: js.UndefOr[scala.Boolean] = js.undefined
   // The container that has to be scrolled. Default: body
-  val container: js.UndefOr[java.lang.String | StdLib.Element] = js.undefined
+  val container: js.UndefOr[java.lang.String | StdLib.Node] = js.undefined
   // The duration (in milliseconds) of the scrolling animation. Default: 500
   val duration: js.UndefOr[scala.Double] = js.undefined
   // The easing to be used when animating. Default: ease
   val easing: js.UndefOr[java.lang.String] = js.undefined
   // The element you want to scroll to.
-  val el: js.UndefOr[java.lang.String | StdLib.Element] = js.undefined
-  val element: js.UndefOr[java.lang.String | StdLib.Element] = js.undefined
+  val el: js.UndefOr[java.lang.String | StdLib.Node] = js.undefined
+  val element: js.UndefOr[java.lang.String | StdLib.Node] = js.undefined
   // The offset that should be applied when scrolling. Default: 0
   val offset: js.UndefOr[scala.Double] = js.undefined
   // A callback function that should be called when scrolling has been aborted by the user (user scrolled, clicked

@@ -45,10 +45,10 @@ object InferMemberOverrides extends SymbolVisitor {
           val newType = TypeRef.Intersection(fs.map(_._1.tpe))
           head.copy(
             isOverride = fs.exists(_._1.fieldType =/= FieldTypeNotImplemented),
-            tpe        = newType,
+            tpe = newType,
             isReadOnly = true,
-            fieldType  = updatedFieldType(head.fieldType, fieldType, Some(newType)),
-            comments   = head.comments + Comment("/* InferMemberOverrides */\n")
+            fieldType = updatedFieldType(head.fieldType, fieldType, Some(newType)),
+            comments = head.comments + Comment("/* InferMemberOverrides */\n")
           )
       }
 
@@ -61,8 +61,8 @@ object InferMemberOverrides extends SymbolVisitor {
           fs.head.copy(
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType)),
-            fieldType  = updatedFieldType(fs.head.fieldType, fieldType, None),
-            comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n")
+            fieldType = updatedFieldType(fs.head.fieldType, fieldType, None),
+            comments = fs.head.comments + Comment("/* InferMemberOverrides */\n")
           )
       }
 
@@ -84,8 +84,8 @@ object InferMemberOverrides extends SymbolVisitor {
 
   private def updatedFieldType(original: FieldType, `override`: FieldType, newType: Option[TypeRef]): FieldType =
     original match {
-      case FieldTypeNative | FieldTypeNotImplemented => `override`
+      case FieldTypeNative | FieldTypeNotImplemented                                      => `override`
       case FieldTypeScala("js.undefined") if newType.fold(false)(x => !canBeUndefined(x)) => `override`
-      case other => other
+      case other                                                                          => other
     }
 }

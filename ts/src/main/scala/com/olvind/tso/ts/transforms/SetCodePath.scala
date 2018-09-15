@@ -15,6 +15,12 @@ object SetCodePath extends TreeVisitor[CodePath.HasPath] {
       case other => other
     }
 
+  override def enterTsNamedDecl(cp: CodePath.HasPath)(x: TsNamedDecl): TsNamedDecl =
+    x match {
+      case xx: HasCodePath => xx.withCodePath(cp).asInstanceOf[TsNamedDecl]
+      case other => other
+    }
+
   override def enterTsParsedFile(t: CodePath.HasPath)(x: TsParsedFile): TsParsedFile =
     x.withCodePath(t).asInstanceOf[TsParsedFile]
 

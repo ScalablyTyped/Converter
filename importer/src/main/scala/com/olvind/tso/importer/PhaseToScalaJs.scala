@@ -52,12 +52,12 @@ object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibSca
           val rewrittenTree = ScalaTransforms.run(TsImporterDecl(lib, logger))
 
           LibScalaJs(
-            source        = lib.source,
-            libName       = Name(lib.name.`__value`),
-            libVersion    = lib.version,
+            source = lib.source,
+            libName = Name(lib.name.`__value`),
+            libVersion = lib.version,
             packageSymbol = rewrittenTree,
-            dependencies  = scalaDeps.values.to[Set],
-            isStdLib      = lib.isStdLib
+            dependencies = scalaDeps.values.to[Set],
+            isStdLib = lib.isStdLib
           )
         }
     }

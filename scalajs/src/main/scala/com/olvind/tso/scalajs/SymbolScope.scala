@@ -2,6 +2,7 @@ package com.olvind.tso
 package scalajs
 
 import com.olvind.logging.{Formatter, Logger}
+import com.olvind.tso.scalajs.TypeRef.ThisType
 import com.olvind.tso.seqs.Head
 
 sealed abstract class SymbolScope { outer =>
@@ -93,6 +94,7 @@ object SymbolScope {
       names match {
         case current.name :: Nil =>
           Seq((current, this))
+
         case current.name :: head :: tail =>
           current match {
             case c: ContainerSymbol =>
@@ -100,22 +102,16 @@ object SymbolScope {
                 .get(head)
                 .to[Seq]
                 .flatten
-                .flatMap(sym => this / sym lookupNoBacktrack (head :: tail))
+                .flatMap {
+                  case FieldSymbol(_, _, ThisType(_), _, _, _, _) =>
+                    lookupNoBacktrack(tail)
+                  case sym =>
+                    this / sym lookupNoBacktrack (head :: tail)
+                }
             case _ =>
               Seq.empty
           }
 
-        case head :: tail =>
-          current match {
-            case c: ContainerSymbol =>
-              c.index
-                .get(head)
-                .to[Seq]
-                .flatten
-                .flatMap(sym => this / sym lookupNoBacktrack (head :: tail))
-            case _ =>
-              Seq.empty
-          }
         case _ => Nil
       }
 

@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultStuff */
+
 trait NdArray[T] extends NdarrayLib.NdarrayModule.ndarray[T] {
   @JSName("T")
   val T_NdArray: NdArray[T]

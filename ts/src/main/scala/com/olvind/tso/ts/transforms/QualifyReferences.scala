@@ -14,14 +14,17 @@ object QualifyReferences extends TreeVisitorScopedChanges {
 
   override def enterTsType(scope: TreeScope)(x: TsType): TsType =
     x match {
-      case x: TsTypeQuery =>
-        if (shouldQualify(x.expr, scope))
-          referenceFrom(scope.lookupBase(Picker.NamedValues, x.expr, skipValidation = true)) match {
-            case Some(newLocation) => x.copy(expr = newLocation.codePath)
-            case None =>
-              scope.logger.warn(s"Couldn't qualify type query ${x.expr}, defaulting to any")
-              TsTypeRef.any
-          } else x
+      case x @ TsTypeQuery(expr) =>
+        if (shouldQualify(expr, scope)) {
+          scope.lookupBase(Picker.NamedValues, expr, skipValidation = true) match {
+            case (found, _) +: _ =>
+              found.codePath match {
+                case CodePath.NoPath => x
+                case hasPath: CodePath.HasPath => TsTypeQuery(hasPath.codePath)
+              }
+            case Nil => x
+          }
+        } else x
 
       case x: TsTypeRef => enterTsTypeRef(scope)(x)
       case other => other
@@ -37,13 +40,14 @@ object QualifyReferences extends TreeVisitorScopedChanges {
   }
 
   private def resolveTypeRef(scope: TreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]) =
-    if (shouldQualify(tr.name, scope))
+    if (shouldQualify(tr.name, scope)) {
       referenceFrom(scope.lookupBase(picker, tr.name)) match {
         case Some(newLocation) => tr.copy(name = newLocation.codePath)
         case None =>
           scope.logger.warn(s"Couldn't qualify $tr, defaulting to any")
           TsTypeRef.any
-      } else tr
+      }
+    } else tr
 
   private def referenceFrom(types: Seq[(TsNamedDecl, TreeScope)]): Option[CodePath.HasPath] =
     types collectFirst {

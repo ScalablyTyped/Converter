@@ -23,12 +23,10 @@ object CodePath {
 
     def /(tree: TsTree): CodePath.HasPath =
       tree match {
-        case TsDeclModule(_, _, name, _, _, _) =>
-          HasPath(inLibrary, codePathPart + name)
         case named: TsNamedDecl =>
-          HasPath(inLibrary, codePathPart + named.name)
+          this + named.name
         case TsGlobal(_, _, _, _) =>
-          HasPath(inLibrary, codePathPart + TsIdent.Global)
+          this + TsIdent.Global
         case _ => this
       }
 

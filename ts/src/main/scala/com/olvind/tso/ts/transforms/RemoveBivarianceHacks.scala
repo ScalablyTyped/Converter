@@ -22,38 +22,4 @@ object RemoveBivarianceHacks extends TreeVisitorScopedChanges {
         TsTypeFunction(sig)
       case other => other
     }
-
-//  val from = TsTypeLookup(
-//    TsTypeObject(
-//      List(TsMemberFunction(
-//        NoComments,
-//        Default,
-//        TsIdent("bivarianceHack"),
-//        TsFunSig(
-//          NoComments,
-//          List(),
-//          List(TsFunParam(NoComments,
-//                          TsIdent("event"),
-//                          Some(TsTypeRef(TsQIdent(List(TsIdent("E"))), List())),
-//                          isOptional = false)),
-//          Some(TsTypeRef(TsQIdent(List(TsIdent("void"))), List()))
-//        ),
-//        isStatic = false,
-//        isReadOnly = false,
-//        isOptional = false
-//      ))),
-//    Left(TsLiteralString("bivarianceHack"))
-//  )
-//
-//  val to = TsTypeFunction(
-//    TsFunSig(
-//      NoComments,
-//      List(),
-//      List(
-//        TsFunParam(NoComments,
-//                   TsIdent("event"),
-//                   Some(TsTypeRef(TsQIdent(List(TsIdent("E"))), List())),
-//                   isOptional = false)),
-//      Some(TsTypeRef(TsQIdent(List(TsIdent("void"))), List()))
-//    ))
 }

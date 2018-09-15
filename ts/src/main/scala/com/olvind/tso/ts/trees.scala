@@ -26,12 +26,9 @@ sealed trait TsContainer extends TsContainerOrDecl with MemberCache with HasCode
   def withMembers(newMembers: Seq[TsContainerOrDecl]): TsContainer
 }
 
-sealed trait Renameable extends TsNamedDecl {
-  def withName(name: TsIdent): TsNamedDecl
-}
-
 sealed trait TsNamedDecl extends TsDecl with HasCodePath {
   def name: TsIdent
+  def withName(name: TsIdent): TsNamedDecl
 }
 
 sealed trait TsNamedValueDecl extends TsNamedDecl
@@ -54,17 +51,15 @@ final case class TsParsedFile(comments:   Comments,
   override def withCodePath(newCodePath: CodePath): HasCodePath = copy(codePath = newCodePath)
 }
 
+sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl with HasJsLocation
+
 final case class TsDeclNamespace(comments:   Comments,
                                  declared:   Boolean,
                                  name:       TsIdentNamespace,
                                  members:    Seq[TsContainerOrDecl],
                                  codePath:   CodePath,
                                  jsLocation: JsLocation)
-    extends TsNamedValueDecl
-    with TsContainer
-    with HasCodePath
-    with HasJsLocation
-    with Renameable {
+    extends TsDeclNamespaceOrModule {
 
   override def withCodePath(newCodePath: CodePath): TsDeclNamespace =
     copy(codePath = newCodePath)
@@ -87,11 +82,10 @@ final case class TsDeclModule(
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
-) extends TsDecl
-    with TsNamedValueDecl
-    with TsContainer
-    with HasCodePath
-    with HasJsLocation {
+) extends TsDeclNamespaceOrModule {
+
+  override def withName(name: TsIdent): TsNamedDecl =
+    copy(name = TsIdentModule(None, name.value.split("/").toList))
 
   override def withMembers(newMembers: Seq[TsContainerOrDecl]): TsDeclModule =
     copy(members = newMembers)
@@ -108,11 +102,7 @@ final case class TsAugmentedModule(
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation
-) extends TsDecl
-    with TsNamedDecl
-    with TsContainer
-    with HasCodePath
-    with HasJsLocation {
+) extends TsDeclNamespaceOrModule {
   override def withMembers(newMembers: Seq[TsContainerOrDecl]): TsAugmentedModule =
     copy(members = newMembers)
 
@@ -121,6 +111,9 @@ final case class TsAugmentedModule(
 
   override def withJsLocation(newLocation: JsLocation): TsAugmentedModule =
     copy(jsLocation = newLocation)
+
+  override def withName(name: TsIdent): TsNamedDecl =
+    copy(name = TsIdentModule(None, name.value.split("/").toList))
 }
 
 final case class TsGlobal(comments: Comments, declared: Boolean, members: Seq[TsContainerOrDecl], codePath: CodePath)
@@ -146,8 +139,7 @@ final case class TsDeclClass(
 ) extends TsNamedValueDecl
     with HasJsLocation
     with HasClassMembers
-    with HasCodePath
-    with Renameable {
+    with HasCodePath {
 
   override def withCodePath(newCodePath: CodePath): TsDeclClass =
     copy(codePath = newCodePath)
@@ -169,8 +161,7 @@ final case class TsDeclInterface(
     codePath:    CodePath
 ) extends TsNamedDecl
     with HasClassMembers
-    with HasCodePath
-    with Renameable {
+    with HasCodePath {
 
   override def withCodePath(newCodePath: CodePath): TsDeclInterface =
     copy(codePath = newCodePath)
@@ -189,8 +180,7 @@ final case class TsDeclEnum(comments:   Comments,
                             codePath:   CodePath)
     extends TsNamedValueDecl
     with HasJsLocation
-    with HasCodePath
-    with Renameable {
+    with HasCodePath {
 
   override def withCodePath(newCodePath: CodePath): TsDeclEnum =
     copy(codePath = newCodePath)
@@ -217,8 +207,7 @@ final case class TsDeclVar(
     isOptional: Boolean
 ) extends TsNamedValueDecl
     with HasJsLocation
-    with HasCodePath
-    with Renameable {
+    with HasCodePath {
 
   override def withCodePath(newCodePath: CodePath): TsDeclVar =
     copy(codePath = newCodePath)
@@ -238,8 +227,7 @@ final case class TsDeclFunction(comments:   Comments,
                                 codePath:   CodePath)
     extends TsNamedValueDecl
     with HasJsLocation
-    with HasCodePath
-    with Renameable {
+    with HasCodePath {
 
   override def withCodePath(newCodePath: CodePath): TsDeclFunction =
     copy(codePath = newCodePath)
@@ -259,8 +247,7 @@ final case class TsDeclTypeAlias(
     alias:    TsType,
     codePath: CodePath
 ) extends TsNamedDecl
-    with HasCodePath
-    with Renameable {
+    with HasCodePath {
   override def withCodePath(newCodePath: CodePath): TsDeclTypeAlias =
     copy(codePath = newCodePath)
 
@@ -389,16 +376,16 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val Apply:       TsIdent        = TsIdent("<apply>")
-  val update:      TsIdent        = TsIdent("update")
-  val prototype:   TsIdent        = TsIdent("prototype")
-  val constructor: TsIdent        = TsIdent("constructor")
-  val default:     TsIdent        = TsIdent("default")
-  val namespaced:  TsIdent        = TsIdent("namespaced")
-  val All:         TsIdent        = TsIdent("<All>")
-  val dummy:       TsIdentLibrary = TsIdentLibrarySimple("dummy")
-  val Symbol:      TsIdent        = TsIdent("Symbol")
-  val Global:      TsIdent        = TsIdent("Global")
+  val Apply:       TsIdent          = TsIdent("<apply>")
+  val update:      TsIdent          = TsIdent("update")
+  val prototype:   TsIdent          = TsIdent("prototype")
+  val constructor: TsIdent          = TsIdent("constructor")
+  val default:     TsIdent          = TsIdent("default")
+  val namespaced:  TsIdent          = TsIdent("namespaced")
+  val All:         TsIdentNamespace = TsIdentNamespace("<All>")
+  val dummy:       TsIdentLibrary   = TsIdentLibrarySimple("dummy")
+  val Symbol:      TsIdent          = TsIdent("Symbol")
+  val Global:      TsIdent          = TsIdent("Global")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 

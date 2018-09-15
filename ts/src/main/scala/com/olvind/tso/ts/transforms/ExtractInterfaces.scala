@@ -54,9 +54,13 @@ object ExtractInterfaces {
         case _ => false
       }
 
+    def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
+      stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || obj.members.exists(_.isInstanceOf[TsMemberTypeMapped])
+
     override def leaveTsType(t: TreeScope)(x: TsType): TsType =
       x match {
-        case obj: TsTypeObject if obj.members.nonEmpty && !isDictionary(obj) && shouldBeExtracted(t) =>
+        case obj: TsTypeObject
+            if obj.members.nonEmpty && !isDictionary(obj) && !partOfTypeMapping(t.stack, obj) && shouldBeExtracted(t) =>
           val referencedTparams: Seq[TsTypeParam] =
             TypeParamsReferencedInTree(t.tparams, obj)
 

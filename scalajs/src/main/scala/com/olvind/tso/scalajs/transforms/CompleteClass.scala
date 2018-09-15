@@ -47,13 +47,13 @@ object CompleteClass extends SymbolVisitor {
       .collect {
         case x: FieldSymbol if x.fieldType === FieldTypeNotImplemented && !c.index.contains(x.name) =>
           x.copy(isOverride = true,
-                 fieldType  = FieldTypeNative,
-                 comments   = x.comments + Comment("/* CompleteClass */\n"))
+                 fieldType = FieldTypeNative,
+                 comments = x.comments + Comment("/* CompleteClass */\n"))
         case x: MethodSymbol
             if x.fieldType === FieldTypeNotImplemented && !isAlreadyImplemented(x, c.index.get(x.name)) =>
           x.copy(isOverride = true,
-                 fieldType  = FieldTypeNative,
-                 comments   = x.comments + Comment("/* CompleteClass */\n"))
+                 fieldType = FieldTypeNative,
+                 comments = x.comments + Comment("/* CompleteClass */\n"))
       }
 
     if (ret.nonEmpty)
