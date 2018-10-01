@@ -10,7 +10,7 @@ object SbtProjectStructure {
 
   val Fixed = List(
     `version%%%`(scalaJsOrganization, "scalajs-dom", scalaJsDomVersion),
-    `version%%%`("com.olvind", "runtime", scalablyTypedRuntimeVersion)
+    `version%%%`(constants.organization, "runtime", scalablyTypedRuntimeVersion)
   )
 
   def asSbt(s: SbtProject) = `version%%%`(s.organization, s.name, s.version)

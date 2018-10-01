@@ -388,7 +388,7 @@ object ImportTree {
       case TsMemberCall(cs, level, signature) =>
         Seq(
           MemberRet(
-            tsMethod(scope, level, Name.APPLY, cs, signature, scalaJsDefined = scalaJsDefined),
+            tsMethod(scope, level, Name.APPLY, cs, signature, scalaJsDefined),
             isStatic = false
           )
         )

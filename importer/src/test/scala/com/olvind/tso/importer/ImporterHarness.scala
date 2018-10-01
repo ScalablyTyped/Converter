@@ -5,7 +5,7 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{Path, root}
+import ammonite.ops.{root, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.build.BloopCompiler
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -34,7 +34,7 @@ trait ImporterHarness extends FunSuiteLike {
       RecPhase[TsSource]
         .next(new PhaseReadTypescript(Seq(source), Set.empty, stdLibSource, parser.parseFile), "typescript")
         .next(PhaseToScalaJs, "scala.js")
-        .next(PhaseCompileBloop(bloop, targetFolder, Name(constants.pkg), publishFolder), "build")
+        .next(PhaseCompileBloop(bloop, targetFolder, Name(constants.Project), publishFolder), "build")
 
     val found: Set[TsLibSource] =
       TypescriptSources.forFolder(InFolder(source.path), Set.empty)

@@ -12,7 +12,8 @@ object constants {
   val ScalablyTypedRepo   = "git@github.com:oyvindberg/ScalablyTyped.git"
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
   val Pedantic            = false
-  val pkg                 = "ScalablyTyped"
+  val organization        = "com.olvind"
+  val Project             = "ScalablyTyped"
   val offline             = false
   val freshRepo           = false
 

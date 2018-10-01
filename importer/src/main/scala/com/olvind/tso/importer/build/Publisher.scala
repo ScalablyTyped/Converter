@@ -128,7 +128,7 @@ object Publisher {
         <dependency org={scalaJsOrganization} name={s("scalajs-library")} rev={scalaJsVersion} conf="compile->default(compile)"/>
         <dependency org={scalaJsOrganization} name={s("scalajs-test-interface")} rev={scalaJsVersion} conf="test->default(compile)"/>
         <dependency org={scalaJsOrganization} name={sjs("scalajs-dom")} rev={scalaJsDomVersion} conf="compile->default(compile)"/>
-        <dependency org="com.olvind" name={sjs("runtime")} rev={scalablyTypedRuntimeVersion} conf="compile->default(compile)"/>
+        <dependency org={constants.organization} name={sjs("runtime")} rev={scalablyTypedRuntimeVersion} conf="compile->default(compile)"/>
         {p.deps.map(d =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
       )}
