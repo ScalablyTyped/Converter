@@ -72,21 +72,13 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
                 }
               )
 
-          val patched: TsParsedFile =
-            if (source.inLibrary.libName === TsIdentLibrarySimple("prop-types")) {
-              parsed.withMembers(parsed.members.filter {
-                case TsImport(_, TsImporteeFrom(TsIdentModule(None, Seq("react")))) => false
-                case _                                                              => true
-              })
-            } else parsed
-
           for {
             /* Ensure we resolved all modules referenced by a path directive */
             pathRefs <- PhaseRes sequenceSet (pathRefsR ++ libRefsR)
             /* Assert all path directive referenced modules are files (not libraries) */
             toInline <- getDeps(pathRefs) map maps.assertLeftOnly map (_.values.map(_.file))
 
-            withoutDirectives = patched.copy(directives = remaining.to[Seq])
+            withoutDirectives = parsed.copy(directives = remaining.to[Seq])
 
             /* Ensure we resolved all modules referenced by a type reference directive */
             typeReferencedDeps <- PhaseRes sequenceSet typeRefsR

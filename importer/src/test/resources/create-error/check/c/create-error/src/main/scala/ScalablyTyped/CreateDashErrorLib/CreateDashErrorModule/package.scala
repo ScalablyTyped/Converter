@@ -6,6 +6,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object CreateDashErrorModule {
-  type Err = Error[js.Object]
-  type Error[T /* <: Err */] = CreateDashErrorLib.CreateDashErrorModule.createErrorNamespace.Error[T]
+  type Error[T /* <: CreateDashErrorLib.Err */] = CreateDashErrorLib.CreateDashErrorModule.createErrorNamespace.Error[T]
 }

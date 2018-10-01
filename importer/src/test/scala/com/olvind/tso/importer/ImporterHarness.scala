@@ -5,7 +5,7 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{root, Path}
+import ammonite.ops.{root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.build.BloopCompiler
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -43,7 +43,12 @@ trait ImporterHarness extends FunSuiteLike {
   }
 
   def assertImportsOk(testName: String, update: Boolean): Assertion = {
-    val testFolder   = InFolder(ammonite.ops.pwd / 'importer / 'src / 'test / 'resources / testName)
+    val testFolder = getClass.getClassLoader.getResource(testName) match {
+      case null  => sys.error(s"Could not find test resource folder $testName")
+      case other =>
+        // The test can be run from varous working directories, so find the correct directory this way :/
+        InFolder(Path(other.getFile) / up / up / up / up / 'src / 'test / 'resources / testName)
+    }
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = OutFolder(Path(Files.createTempDirectory("tso-test-")))
     val checkFolder  = OutFolder(testFolder.path / 'check)

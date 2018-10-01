@@ -1,11 +1,11 @@
 organization := "com.olvind.scalablytyped"
 name := "react"
-version := "0.0-unknown-b9a260"
-scalaVersion := "2.12.6"
+version := "0.0-unknown-be16ac"
+scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.olvind.scalablytyped" %%% "std" % "0.0-unknown-d934bb",
+  "com.olvind.scalablytyped" %%% "std" % "0.0-unknown-87233b",
   "org.scala-js" %%% "scalajs-dom" % "0.9.5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"

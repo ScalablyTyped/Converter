@@ -6,7 +6,7 @@ val IntegrationTest = Configuration.of("IntegrationTest", "it") extend Test
 
 val baseSettings: Project => Project =
   _.settings(
-    scalaVersion := "2.12.6",
+    scalaVersion := "2.12.7",
     organization := "com.olvind",
     version := "0.1-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
@@ -102,5 +102,7 @@ val importer = project
     fork in run := true,
     javaOptions in run += "-Xmx8G",
     mainClass := Some("com.olvind.tso.importer.Importer"),
+    // fork to keep CI happy with memory usage
+    fork in Test := true,
     test in Test := (test in Test).dependsOn(publishLocal in runtime).value
   )
