@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation._
 
 
 trait StoryStore extends js.Object {
-  val fileName: js.UndefOr[java.lang.String]
-  val kind: java.lang.String
-  val stories: StdLib.Array[StoryObject]
+  var fileName: js.UndefOr[java.lang.String]
+  var kind: java.lang.String
+  var stories: StdLib.Array[StoryObject]
 }
 

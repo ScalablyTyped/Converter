@@ -8,9 +8,9 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Vue extends js.Object {
   @JSName("$http")
-  val $http_Original: VueDashResourceLib.Anon_Options = js.native
+  var $http_Original: VueDashResourceLib.Anon_Options = js.native
   @JSName("$resource")
-  val $resource_Original: $resource = js.native
+  var $resource_Original: $resource = js.native
   @JSName("$http")
   def $http(options: HttpOptions): StdLib.PromiseLike = js.native
   @JSName("$resource")

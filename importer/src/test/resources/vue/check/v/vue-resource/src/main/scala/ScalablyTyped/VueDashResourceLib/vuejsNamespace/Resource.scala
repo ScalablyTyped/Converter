@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Resource extends $resource {
-  val actions: ResourceActions = js.native
+  var actions: ResourceActions = js.native
 }
 

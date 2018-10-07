@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait Global extends js.Object {
-  val Array: StdLib.ArrayConstrucor
-  val global: Global
+  var Array: StdLib.ArrayConstrucor
+  var global: Global
 }
 

@@ -7,11 +7,11 @@ import scala.scalajs.js.annotation._
 
 
 trait ResourceActions extends js.Object {
-  val delete: VueDashResourceLib.Anon_Method
-  val get: VueDashResourceLib.Anon_Method
-  val query: VueDashResourceLib.Anon_Method
-  val remove: VueDashResourceLib.Anon_Method
-  val save: VueDashResourceLib.Anon_Method
-  val update: VueDashResourceLib.Anon_Method
+  var delete: VueDashResourceLib.Anon_Method
+  var get: VueDashResourceLib.Anon_Method
+  var query: VueDashResourceLib.Anon_Method
+  var remove: VueDashResourceLib.Anon_Method
+  var save: VueDashResourceLib.Anon_Method
+  var update: VueDashResourceLib.Anon_Method
 }
 

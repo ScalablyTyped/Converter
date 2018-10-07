@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait VueConstructor[V /* <: Vue */] extends ScalablyTyped.runtime.Instantiable0[CombinedVueInstance[V, js.Object, js.Object, js.Object, StdLib.Record[java.lang.String, js.Any]]] with ScalablyTyped.runtime.Instantiable1[/* options */ VueLib.VueTypesOptionsModule.ComponentOptions[V, VueLib.VueTypesOptionsModule.DefaultData[V], VueLib.VueTypesOptionsModule.DefaultMethods[V], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]], CombinedVueInstance[V, js.Object, js.Object, js.Object, StdLib.Record[java.lang.String, js.Any]]] {
-  val config: VueConfiguration = js.native
+  var config: VueConfiguration = js.native
   def compile(template: java.lang.String): VueLib.Anon_StaticRenderFnsRender = js.native
   def component(id: java.lang.String): VueConstructor[Vue] = js.native
   def component(id: java.lang.String, definition: VueLib.VueTypesOptionsModule.ComponentOptions[V, VueLib.VueTypesOptionsModule.DefaultData[V], VueLib.VueTypesOptionsModule.DefaultMethods[V], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]]): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native

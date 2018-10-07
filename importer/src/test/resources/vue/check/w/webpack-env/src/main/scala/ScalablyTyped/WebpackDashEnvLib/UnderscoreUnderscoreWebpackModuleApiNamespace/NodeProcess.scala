@@ -10,6 +10,6 @@ import scala.scalajs.js.annotation._
     */
 
 trait NodeProcess extends js.Object {
-  val env: js.UndefOr[js.Any] = js.undefined
+  var env: js.UndefOr[js.Any] = js.undefined
 }
 

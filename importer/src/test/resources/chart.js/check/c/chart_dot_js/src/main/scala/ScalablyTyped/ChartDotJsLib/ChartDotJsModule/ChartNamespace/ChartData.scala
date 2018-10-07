@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait ChartData extends js.Object {
-  val labels: js.UndefOr[StdLib.Array[java.lang.String]] = js.undefined
+  var labels: js.UndefOr[StdLib.Array[java.lang.String]] = js.undefined
 }
 

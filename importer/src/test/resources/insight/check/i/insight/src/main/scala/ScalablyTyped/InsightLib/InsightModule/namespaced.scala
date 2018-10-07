@@ -10,11 +10,11 @@ import scala.scalajs.js.annotation._
 class namespaced protected () extends Insight {
   def this(options: InsightLib.InsightModule.insightNamespace.IOptions) = this()
   /* CompleteClass */
-  override val clientId: java.lang.String = js.native
+  override var clientId: java.lang.String = js.native
   /* CompleteClass */
-  override val config: InsightLib.InsightModule.insightNamespace.IConfigstore = js.native
+  override var config: InsightLib.InsightModule.insightNamespace.IConfigstore = js.native
   /* CompleteClass */
-  override val optOut: scala.Boolean = js.native
+  override var optOut: scala.Boolean = js.native
   /* CompleteClass */
   override def track(args: java.lang.String*): scala.Unit = js.native
 }

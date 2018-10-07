@@ -12,6 +12,6 @@ trait Option[TValue] extends /**
      */
 /* property */ ScalablyTyped.runtime.StringDictionary[js.Any] {
   /** Value for searching */
-  val value: js.UndefOr[TValue] = js.undefined
+  var value: js.UndefOr[TValue] = js.undefined
 }
 

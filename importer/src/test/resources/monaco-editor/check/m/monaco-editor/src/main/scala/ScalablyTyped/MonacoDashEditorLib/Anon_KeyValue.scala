@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait Anon_KeyValue[T] extends js.Object {
-  val key: java.lang.String
-  val value: MonacoDashEditorLib.monacoNamespace.Promise[Anon_Key[T], _]
+  var key: java.lang.String
+  var value: MonacoDashEditorLib.monacoNamespace.Promise[Anon_Key[T], _]
 }
 

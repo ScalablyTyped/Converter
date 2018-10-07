@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait VueStatic extends js.Object {
-  val http: Http
-  val resource: Resource
+  var http: Http
+  var resource: Resource
 }
 

@@ -7,11 +7,11 @@ import scala.scalajs.js.annotation._
 
 
 trait RenderContext[Props] extends js.Object {
-  val children: StdLib.Array[VueLib.VueTypesVnodeModule.VNode]
-  val data: VueLib.VueTypesVnodeModule.VNodeData
-  val injections: js.Any
-  val parent: VueLib.VueTypesVueModule.Vue
-  val props: Props
+  var children: StdLib.Array[VueLib.VueTypesVnodeModule.VNode]
+  var data: VueLib.VueTypesVnodeModule.VNodeData
+  var injections: js.Any
+  var parent: VueLib.VueTypesVueModule.Vue
+  var props: Props
   def slots(): js.Any
 }
 

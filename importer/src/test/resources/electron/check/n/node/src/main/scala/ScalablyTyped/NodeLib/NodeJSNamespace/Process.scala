@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Process extends EventEmitter {
-  val bar: NodeLib.NodeLibStrings.foo = js.native
+  var bar: NodeLib.NodeLibStrings.foo = js.native
 }
 

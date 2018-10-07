@@ -295,7 +295,7 @@ object Printer {
       case other                                                => other.map(formatName).mkString(".")
     }
 
-  private def formatName(name: Name) = name match {
+  def formatName(name: Name) = name match {
     case Name.APPLY => "apply"
     case other      => other.value
   }

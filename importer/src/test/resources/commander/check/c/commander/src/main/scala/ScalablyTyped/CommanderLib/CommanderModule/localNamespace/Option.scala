@@ -7,12 +7,12 @@ import scala.scalajs.js.annotation._
 
 
 trait Option extends js.Object {
-  val bool: scala.Boolean
-  val description: java.lang.String
-  val flags: java.lang.String
-  val long: java.lang.String
-  val optional: scala.Boolean
-  val required: scala.Boolean
-  val short: js.UndefOr[java.lang.String] = js.undefined
+  var bool: scala.Boolean
+  var description: java.lang.String
+  var flags: java.lang.String
+  var long: java.lang.String
+  var optional: scala.Boolean
+  var required: scala.Boolean
+  var short: js.UndefOr[java.lang.String] = js.undefined
 }
 

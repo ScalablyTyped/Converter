@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Anon_Age extends js.Object {
-  val age: scala.Double
+  var age: scala.Double
 }
 

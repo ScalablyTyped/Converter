@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait ParseOptionsResult extends js.Object {
-  val args: StdLib.Array[java.lang.String]
-  val unknown: StdLib.Array[java.lang.String]
+  var args: StdLib.Array[java.lang.String]
+  var unknown: StdLib.Array[java.lang.String]
 }
 

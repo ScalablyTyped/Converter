@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait ReadableStream extends EventEmitter {
-  val readable: scala.Boolean = js.native
+  var readable: scala.Boolean = js.native
 }
 

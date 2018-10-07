@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Anon_Method extends js.Object {
-  val method: java.lang.String
+  var method: java.lang.String
 }
 

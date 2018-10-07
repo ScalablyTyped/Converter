@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Hot extends js.Object {
-  val active: scala.Boolean = js.native
-  val data: js.Any = js.native
+  var active: scala.Boolean = js.native
+  var data: js.Any = js.native
   /**
            * Accept code updates for this module without notification of parents.
            * This should only be used if the module doesn’t export anything.

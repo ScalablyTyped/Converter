@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait MainInterface extends CommonInterface {
-  val app: App
+  var app: App
 }
 

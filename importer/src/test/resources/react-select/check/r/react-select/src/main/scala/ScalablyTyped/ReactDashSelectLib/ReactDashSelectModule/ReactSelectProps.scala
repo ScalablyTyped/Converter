@@ -11,6 +11,6 @@ trait ReactSelectProps[TValue] extends ReactLib.ReactModule.ReactNamespace.Props
        * text to display when `allowCreate` is true.
        * @default 'Add "{label}"?'
        */
-  val addLabelText: js.UndefOr[java.lang.String] = js.undefined
+  var addLabelText: js.UndefOr[java.lang.String] = js.undefined
 }
 

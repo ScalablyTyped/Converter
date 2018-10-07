@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Anon_Headers extends js.Object {
-  val headers: js.UndefOr[VueDashResourceLib.vuejsNamespace.HttpHeaders] = js.undefined
+  var headers: js.UndefOr[VueDashResourceLib.vuejsNamespace.HttpHeaders] = js.undefined
 }
 

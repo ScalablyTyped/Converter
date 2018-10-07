@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait BaseTag extends js.Object {
-  val isSelfClosing: scala.Boolean
-  val name: java.lang.String
+  var isSelfClosing: scala.Boolean
+  var name: java.lang.String
 }
 

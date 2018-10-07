@@ -7,12 +7,12 @@ import scala.scalajs.js.annotation._
 
 
 trait CSSProperties extends js.Object {
-  val color: java.lang.String
-  val fontFamily: java.lang.String
-  val fontSize: java.lang.String
-  val fontWeight: java.lang.String
-  val letterSpacing: java.lang.String
-  val lineHeight: java.lang.String
-  val textTransform: java.lang.String
+  var color: java.lang.String
+  var fontFamily: java.lang.String
+  var fontSize: java.lang.String
+  var fontWeight: java.lang.String
+  var letterSpacing: java.lang.String
+  var lineHeight: java.lang.String
+  var textTransform: java.lang.String
 }
 

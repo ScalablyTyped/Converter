@@ -7,9 +7,9 @@ import scala.scalajs.js.annotation._
 
 
 trait HTMLProps[T] extends AllHTMLAttributes[T] with ClassAttributes[T] {
-  val defaultValue: ReactLib.ReactLibStrings.foo
-  val onChange: ReactLib.ReactLibStrings.foo
-  val `type`: ReactLib.ReactLibStrings.foo
-  val value: ReactLib.ReactLibStrings.foo
+  var defaultValue: ReactLib.ReactLibStrings.foo
+  var onChange: ReactLib.ReactLibStrings.foo
+  var `type`: ReactLib.ReactLibStrings.foo
+  var value: ReactLib.ReactLibStrings.foo
 }
 

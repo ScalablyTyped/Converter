@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Vue extends js.Object {
   @JSName("$scrollTo")
-  val $scrollTo_Original: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.VueStatic = js.native
+  var $scrollTo_Original: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.VueStatic = js.native
   @JSName("$scrollTo")
   def $scrollTo(element: StdLib.Element): scala.Unit = js.native
   @JSName("$scrollTo")

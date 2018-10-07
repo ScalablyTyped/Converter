@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Props[T] extends js.Object {
-  val key: js.UndefOr[java.lang.String] = js.undefined
+  var key: js.UndefOr[java.lang.String] = js.undefined
 }
 

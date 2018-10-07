@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "lodash"
-version := "4.14-337842"
+version := "4.14-1ccd9d"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

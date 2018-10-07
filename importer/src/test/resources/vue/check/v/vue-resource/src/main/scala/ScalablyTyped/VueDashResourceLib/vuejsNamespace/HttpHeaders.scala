@@ -7,11 +7,11 @@ import scala.scalajs.js.annotation._
 
 
 trait HttpHeaders extends /* key */ ScalablyTyped.runtime.StringDictionary[js.Any] {
-  val common: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
-  val custom: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
-  val delete: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
-  val patch: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
-  val post: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
-  val put: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
+  var common: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
+  var custom: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
+  var delete: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
+  var patch: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
+  var post: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
+  var put: js.UndefOr[ScalablyTyped.runtime.StringDictionary[java.lang.String]] = js.undefined
 }
 
