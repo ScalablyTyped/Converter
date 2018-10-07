@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 
 trait IServiceProvider extends js.Object {
   @JSName("$get")
-  val $get: js.Any
+  var $get: js.Any
 }
 

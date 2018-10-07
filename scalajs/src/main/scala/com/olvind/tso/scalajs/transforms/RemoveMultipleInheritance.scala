@@ -18,6 +18,7 @@ object RemoveMultipleInheritance extends SymbolVisitor {
     val (newComments, newParents) = findNewParents(scope, cls)
     cls.copy(comments = newComments, parents = newParents)
   }
+
   override def enterModuleSymbol(scope: SymbolScope)(mod: ModuleSymbol): ModuleSymbol = {
     val (newComments, newParents) = findNewParents(scope, mod)
 
@@ -28,7 +29,7 @@ object RemoveMultipleInheritance extends SymbolVisitor {
     val allParents = ParentsResolver(scope, cls)
 
     val first     = firstReferringToClass(allParents) orElse longestInheritance(allParents)
-    val remaining = first ++ allParents.directParents.filterNot(x => first.contains(x))
+    val remaining = first ++ (allParents.directParents filterNot first.contains)
 
     val (changes, ps) = step(included = Nil, newParents = Nil, dropped = Nil, remaining = remaining.to[List])
 
@@ -74,24 +75,43 @@ object RemoveMultipleInheritance extends SymbolVisitor {
           }
 
         def alreadyInherits: Option[Dropped] =
-          included.firstDefined(
-            _.transitiveParents.keys.firstDefined(
+          included firstDefined
+            (_.transitiveParents.keys.firstDefined(
               i =>
-                if (h.refs.exists(_.typeName === i.typeName)) Some(Dropped(h.refs.last, "Already inherited"))
+                if (h.refs.exists(_.typeName === i.typeName))
+                  Some(Dropped(h.refs.last, "Already inherited"))
                 else None
-            )
-          )
+            ))
 
         def alreadyInheritsUnresolved: Option[Dropped] =
-          included.firstDefined(_.transitiveUnresolved.firstDefined { u =>
+          included firstDefined (_.transitiveUnresolved.firstDefined { u =>
             h.transitiveUnresolved.filter(_.typeName === u.typeName) match {
               case Nil => None
               case some =>
-                Some(Dropped(h.refs.last, s"Already inherited ${some.map(Printer.formatTypeRef(Nil)).mkString(", ")}"))
+                val someString = some.map(Printer.formatTypeRef(Nil)).mkString(", ")
+                Some(Dropped(h.refs.last, s"Already inherited $someString"))
             }
           })
 
-        inheritsClass orElse alreadyInherits orElse alreadyInheritsUnresolved match {
+        def inheritsConflictingVars: Option[Dropped] = {
+          val includedMutables: Seq[Name] =
+            included.flatMap(_.mutableFields).map(_.name)
+
+          val nextMutables: Seq[Name] =
+            h.mutableFields.map(_.name)
+
+          includedMutables intersect nextMutables match {
+            case Nil => None
+            case conflict =>
+              val conflictString = conflict.distinct.map(Printer.formatName)
+              Some(Dropped(h.refs.last, s"Would inherit conflicting mutable fields $conflictString"))
+          }
+        }
+
+        inheritsClass orElse
+          alreadyInherits orElse
+          alreadyInheritsUnresolved orElse
+          inheritsConflictingVars match {
           case None =>
             //todo: drop conflicts here
 

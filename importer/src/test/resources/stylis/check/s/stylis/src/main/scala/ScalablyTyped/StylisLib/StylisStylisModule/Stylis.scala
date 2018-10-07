@@ -8,9 +8,9 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Stylis extends ScalablyTyped.runtime.Instantiable0[Stylis] with ScalablyTyped.runtime.Instantiable1[/* options */ Options, Stylis] {
   @JSName("set")
-  val set_Original: Set = js.native
+  var set_Original: Set = js.native
   @JSName("use")
-  val use_Original: Use = js.native
+  var use_Original: Use = js.native
   def apply(namescope: java.lang.String, input: java.lang.String): java.lang.String | js.Any = js.native
   def set(): Set = js.native
   def set(options: Options): Set = js.native

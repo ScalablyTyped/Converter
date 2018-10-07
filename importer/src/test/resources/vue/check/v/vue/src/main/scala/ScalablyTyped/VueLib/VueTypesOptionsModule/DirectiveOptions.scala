@@ -7,10 +7,10 @@ import scala.scalajs.js.annotation._
 
 
 trait DirectiveOptions extends js.Object {
-  val bind: js.UndefOr[DirectiveFunction] = js.undefined
-  val componentUpdated: js.UndefOr[DirectiveFunction] = js.undefined
-  val inserted: js.UndefOr[DirectiveFunction] = js.undefined
-  val unbind: js.UndefOr[DirectiveFunction] = js.undefined
-  val update: js.UndefOr[DirectiveFunction] = js.undefined
+  var bind: js.UndefOr[DirectiveFunction] = js.undefined
+  var componentUpdated: js.UndefOr[DirectiveFunction] = js.undefined
+  var inserted: js.UndefOr[DirectiveFunction] = js.undefined
+  var unbind: js.UndefOr[DirectiveFunction] = js.undefined
+  var update: js.UndefOr[DirectiveFunction] = js.undefined
 }
 

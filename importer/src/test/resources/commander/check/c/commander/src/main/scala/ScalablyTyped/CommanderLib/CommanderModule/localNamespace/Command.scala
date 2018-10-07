@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ ScalablyTyped.runtime.StringDictionary[js.Any] {
-  val args: StdLib.Array[java.lang.String] = js.native
+  var args: StdLib.Array[java.lang.String] = js.native
   /**
            * Register callback `fn` for the command.
            *

@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait CommandOptions extends js.Object {
-  val isDefault: js.UndefOr[scala.Boolean] = js.undefined
-  val noHelp: js.UndefOr[scala.Boolean] = js.undefined
+  var isDefault: js.UndefOr[scala.Boolean] = js.undefined
+  var noHelp: js.UndefOr[scala.Boolean] = js.undefined
 }
 

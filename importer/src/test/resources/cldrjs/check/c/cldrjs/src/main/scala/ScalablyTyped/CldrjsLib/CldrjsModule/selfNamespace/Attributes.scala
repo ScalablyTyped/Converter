@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Attributes extends js.Object {
-  val language: js.Any
+  var language: js.Any
 }
 

@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Error extends js.Object {
-  val stack: js.UndefOr[java.lang.String] = js.undefined
+  var stack: js.UndefOr[java.lang.String] = js.undefined
 }
 

@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation._
 
 trait RadioProps extends js.Object {
   /** Required if `type` is set to "radio" */
-  val name: java.lang.String
-  val onChange: js.UndefOr[js.Function1[/* value */ js.Any, scala.Unit]] = js.undefined
-  val `type`: ReactDashBootstrapLib.ReactDashBootstrapLibStrings.radio
+  var name: java.lang.String
+  var onChange: js.UndefOr[js.Function1[/* value */ js.Any, scala.Unit]] = js.undefined
+  var `type`: ReactDashBootstrapLib.ReactDashBootstrapLibStrings.radio
 }
 

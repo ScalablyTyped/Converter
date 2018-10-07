@@ -10,7 +10,7 @@ import scala.scalajs.js.annotation._
 object winstonNamespace extends js.Object {
   
   trait LoggerOptions extends js.Object {
-    val levels: js.UndefOr[WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.AbstractConfigSetLevels] = js.undefined
+    var levels: js.UndefOr[WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.AbstractConfigSetLevels] = js.undefined
   }
   
   val config: WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.Config = js.native
@@ -25,7 +25,7 @@ object winstonNamespace extends js.Object {
       
       
       trait Config extends js.Object {
-        val foo: WinstonLib.WinstonLibStrings.bar
+        var foo: WinstonLib.WinstonLibStrings.bar
       }
       
     }

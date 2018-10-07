@@ -41,13 +41,13 @@ object DynamoDBNamespace extends js.Object {
                * An optional flag indicating that the document client should cast
                * empty strings, buffers, and sets to NULL shapes
                */
-      val convertEmptyValues: js.UndefOr[scala.Boolean] = js.undefined
+      var convertEmptyValues: js.UndefOr[scala.Boolean] = js.undefined
       /**
                * Whether to return numbers as a NumberValue object instead of
                * converting them to native JavaScript numbers. This allows for the
                * safe round-trip transport of numbers of arbitrary size.
                */
-      val wrapNumbers: js.UndefOr[scala.Boolean] = js.undefined
+      var wrapNumbers: js.UndefOr[scala.Boolean] = js.undefined
     }
     
     
@@ -55,11 +55,11 @@ object DynamoDBNamespace extends js.Object {
       /**
                * An optional map of parameters to bind to every request sent by this service object.
                */
-      val params: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any]] = js.undefined
+      var params: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any]] = js.undefined
       /**
                * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
                */
-      val service: js.UndefOr[namespaced] = js.undefined
+      var service: js.UndefOr[namespaced] = js.undefined
     }
     
     type AttributeAction = AwsDashSdkLib.AwsDashSdkLibStrings.ADD | AwsDashSdkLib.AwsDashSdkLibStrings.PUT | AwsDashSdkLib.AwsDashSdkLibStrings.DELETE | java.lang.String

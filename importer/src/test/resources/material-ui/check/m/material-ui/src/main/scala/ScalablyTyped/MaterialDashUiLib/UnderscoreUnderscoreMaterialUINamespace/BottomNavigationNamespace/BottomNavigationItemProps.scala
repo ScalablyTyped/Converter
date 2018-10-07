@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait BottomNavigationItemProps extends js.Object {
-  val className: js.UndefOr[java.lang.String] = js.undefined
+  var className: js.UndefOr[java.lang.String] = js.undefined
 }
 

@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait LoDashFp extends js.Object {
-  val curry: js.Any
+  var curry: js.Any
 }
 

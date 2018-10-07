@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait Anon_StaticRenderFns extends js.Object {
-  val render: js.Function
-  val staticRenderFns: StdLib.Array[js.Function]
+  var render: js.Function
+  var staticRenderFns: StdLib.Array[js.Function]
 }
 

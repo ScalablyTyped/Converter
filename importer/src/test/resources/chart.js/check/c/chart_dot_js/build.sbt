@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "chart_dot_js"
-version := "0.0-unknown-67d3e6"
+version := "0.0-unknown-6fd519"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

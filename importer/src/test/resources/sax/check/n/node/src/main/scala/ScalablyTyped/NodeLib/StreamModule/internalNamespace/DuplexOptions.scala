@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait DuplexOptions extends ReadableOptions with WritableOptions {
-  val allowHalfOpen: js.UndefOr[scala.Boolean] = js.undefined
+  var allowHalfOpen: js.UndefOr[scala.Boolean] = js.undefined
 }
 

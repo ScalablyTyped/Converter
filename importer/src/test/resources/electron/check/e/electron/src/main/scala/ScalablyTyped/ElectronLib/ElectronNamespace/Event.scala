@@ -7,11 +7,11 @@ import scala.scalajs.js.annotation._
 
 
 trait Event extends StdLib.Event {
-  val altKey: js.UndefOr[scala.Boolean] = js.undefined
-  val ctrlKey: js.UndefOr[scala.Boolean] = js.undefined
-  val metaKey: js.UndefOr[scala.Boolean] = js.undefined
-  val returnValue: js.Any
-  val shiftKey: js.UndefOr[scala.Boolean] = js.undefined
+  var altKey: js.UndefOr[scala.Boolean] = js.undefined
+  var ctrlKey: js.UndefOr[scala.Boolean] = js.undefined
+  var metaKey: js.UndefOr[scala.Boolean] = js.undefined
+  var returnValue: js.Any
+  var shiftKey: js.UndefOr[scala.Boolean] = js.undefined
   def preventDefault(): scala.Unit
 }
 

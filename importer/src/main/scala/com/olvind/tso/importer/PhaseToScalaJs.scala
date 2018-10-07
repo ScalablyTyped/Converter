@@ -9,25 +9,6 @@ import com.olvind.tso.ts._
 
 object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibScalaJs[TsSource]] {
 
-  val PhaseOne =
-    S.RemoveDuplicateInheritance >>
-      S.CleanIllegalNames >>
-      S.FixVars >>
-      S.InlineNestedIdentityAlias >>
-      S.LimitUnionLength >>
-      S.Deduplicator
-
-  val PhaseTwo =
-    S.CombineOverloads >> //must have stable types, so FakeLiterals run before
-      S.FilterMemberOverrides
-
-  val PhaseThree =
-    S.InferMemberOverrides
-
-  val PhaseFour =
-    S.CompleteClass >> //after FilterMemberOverrides
-      S.Sorter
-
   override def apply(source:     TsSource,
                      current:    Either[LibraryPart, LibTs],
                      getDeps:    GetDeps[TsSource, LibScalaJs[TsSource]],
@@ -43,12 +24,24 @@ object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibSca
           logger.warn(s"Processing ${lib.name}")
 
           val ScalaTransforms = (Pipe[ContainerSymbol]
-            >> PhaseOne.visitContainerSymbol(scope)
+            >> (
+              S.RemoveDuplicateInheritance >>
+                S.CleanIllegalNames >>
+                S.InlineNestedIdentityAlias >>
+                S.LimitUnionLength >>
+                S.Deduplicator
+            ).visitContainerSymbol(scope)
             >> FakeLiterals(scope)
             >> S.RemoveMultipleInheritance.visitContainerSymbol(scope)
-            >> PhaseTwo.visitContainerSymbol(scope) //
-            >> PhaseThree.visitContainerSymbol(scope) //runs in phase after FilterMemberOverrides
-            >> PhaseFour.visitContainerSymbol(scope) //
+            >> (
+              S.CombineOverloads >> //must have stable types, so FakeLiterals run before
+                S.FilterMemberOverrides
+            ).visitContainerSymbol(scope) //
+            >> S.InferMemberOverrides.visitContainerSymbol(scope) //runs in phase after FilterMemberOverrides
+            >> (
+              S.CompleteClass >> //after FilterMemberOverrides
+                S.Sorter
+            ).visitContainerSymbol(scope) //
           )
 
           val rewrittenTree = ScalaTransforms.run(ImportTree(lib, logger))

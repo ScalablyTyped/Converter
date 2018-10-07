@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait IconBaseProps extends ReactLib.ReactModule.ReactNamespace.ClassAttributes[ReactLib.ReactModule.ReactNamespace.ReactSVGElement] {
-  val size: js.UndefOr[java.lang.String | scala.Double] = js.undefined
+  var size: js.UndefOr[java.lang.String | scala.Double] = js.undefined
 }
 

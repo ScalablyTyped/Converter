@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait ClassAttributes[T] extends Attributes {
-  val ref: js.UndefOr[Ref[T]] = js.undefined
+  var ref: js.UndefOr[Ref[T]] = js.undefined
 }
 

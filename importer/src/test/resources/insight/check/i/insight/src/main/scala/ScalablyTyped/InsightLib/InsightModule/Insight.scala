@@ -7,9 +7,9 @@ import scala.scalajs.js.annotation._
 
 
 trait Insight extends js.Object {
-  val clientId: java.lang.String
-  val config: InsightLib.InsightModule.insightNamespace.IConfigstore
-  val optOut: scala.Boolean
+  var clientId: java.lang.String
+  var config: InsightLib.InsightModule.insightNamespace.IConfigstore
+  var optOut: scala.Boolean
   def track(args: java.lang.String*): scala.Unit
 }
 

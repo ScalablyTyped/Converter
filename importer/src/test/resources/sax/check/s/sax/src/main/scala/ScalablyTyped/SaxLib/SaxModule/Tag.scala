@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Tag extends BaseTag {
-  val attributes: ScalablyTyped.runtime.StringDictionary[java.lang.String]
+  var attributes: ScalablyTyped.runtime.StringDictionary[java.lang.String]
 }
 

@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait QualifiedAttribute extends QualifiedName {
-  val value: java.lang.String
+  var value: java.lang.String
 }
 

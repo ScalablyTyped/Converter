@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Request extends ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.Global.ExpressNamespace.Request {
-  val url: java.lang.String
+  var url: java.lang.String
 }
 

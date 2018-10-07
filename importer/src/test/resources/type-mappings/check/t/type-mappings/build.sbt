@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "type-mappings"
-version := "0.0-unknown-a30c54"
+version := "0.0-unknown-142d7e"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

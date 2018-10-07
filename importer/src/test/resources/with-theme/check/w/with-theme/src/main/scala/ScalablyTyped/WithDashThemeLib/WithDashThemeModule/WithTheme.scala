@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait WithTheme extends js.Object {
-  val innerRef: js.UndefOr[js.Any] = js.undefined
-  val theme: java.lang.String
+  var innerRef: js.UndefOr[js.Any] = js.undefined
+  var theme: java.lang.String
 }
 

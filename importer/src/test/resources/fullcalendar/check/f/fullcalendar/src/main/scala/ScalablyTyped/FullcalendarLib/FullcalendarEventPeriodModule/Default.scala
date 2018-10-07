@@ -9,11 +9,11 @@ import scala.scalajs.js.annotation._
 @js.native
 class Default protected () extends js.Object {
   def this(start: js.Any, end: js.Any, timezone: js.Any) = this()
-  val eventInstanceGroupsById: js.Any = js.native
-  val freezeDepth: scala.Double = js.native
-  val on: js.Function2[/* types */ js.Any, /* handler */ js.Any, _] = js.native
-  val pendingCnt: scala.Double = js.native
-  val requestsByUid: js.Any = js.native
+  var eventInstanceGroupsById: js.Any = js.native
+  var freezeDepth: scala.Double = js.native
+  var on: js.Function2[/* types */ js.Any, /* handler */ js.Any, _] = js.native
+  var pendingCnt: scala.Double = js.native
+  var requestsByUid: js.Any = js.native
   def isWithinRange(start: js.Any, end: js.Any): scala.Boolean = js.native
   def thaw(): scala.Unit = js.native
 }

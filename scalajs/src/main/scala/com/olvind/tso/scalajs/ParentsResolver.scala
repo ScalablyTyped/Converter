@@ -29,7 +29,16 @@ object ParentsResolver {
                     foundIn:     SymbolScope,
                     parents:     Seq[Parent],
                     unresolved:  Seq[TypeRef])
-      extends ParentTree
+      extends ParentTree {
+
+    lazy val members: Seq[MemberSymbol] =
+      parents.flatMap(_.members) ++ classSymbol.members
+
+    val mutableFields: Seq[FieldSymbol] =
+      members.collect {
+        case x: FieldSymbol if !x.isReadOnly => x
+      }
+  }
 
   case class Parents(directParents: Seq[Parent], unresolved: Seq[TypeRef]) extends ParentTree {
     def pruneClasses: Parents = {

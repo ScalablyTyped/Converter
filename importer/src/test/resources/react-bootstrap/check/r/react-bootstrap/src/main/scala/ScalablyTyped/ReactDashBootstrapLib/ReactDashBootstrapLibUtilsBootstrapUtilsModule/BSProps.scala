@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait BSProps extends js.Object {
-  val bsClass: js.Any
+  var bsClass: js.Any
 }
 

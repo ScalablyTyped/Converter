@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 
 trait ReactSVGElement extends DOMElement[SVGAttributes[ReactLib.SVGElement], ReactLib.SVGElement] {
   @JSName("type")
-  val type_ReactSVGElement: ReactLib.ReactLibStrings.animate | ReactLib.ReactLibStrings.circle | ReactLib.ReactLibStrings.clipPath
+  var type_ReactSVGElement: ReactLib.ReactLibStrings.animate | ReactLib.ReactLibStrings.circle | ReactLib.ReactLibStrings.clipPath
 }
 

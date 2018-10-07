@@ -8,17 +8,17 @@ import scala.scalajs.js.annotation._
 @js.native
 trait ResourceMethods extends js.Object {
   @JSName("delete")
-  val delete_Original: ResourceMethod = js.native
+  var delete_Original: ResourceMethod = js.native
   @JSName("get")
-  val get_Original: ResourceMethod = js.native
+  var get_Original: ResourceMethod = js.native
   @JSName("query")
-  val query_Original: ResourceMethod = js.native
+  var query_Original: ResourceMethod = js.native
   @JSName("remove")
-  val remove_Original: ResourceMethod = js.native
+  var remove_Original: ResourceMethod = js.native
   @JSName("save")
-  val save_Original: ResourceMethod = js.native
+  var save_Original: ResourceMethod = js.native
   @JSName("update")
-  val update_Original: ResourceMethod = js.native
+  var update_Original: ResourceMethod = js.native
   def delete(): StdLib.PromiseLike = js.native
   def delete(params: js.Any): StdLib.PromiseLike = js.native
   def delete(params: js.Any, data: js.Any): StdLib.PromiseLike = js.native

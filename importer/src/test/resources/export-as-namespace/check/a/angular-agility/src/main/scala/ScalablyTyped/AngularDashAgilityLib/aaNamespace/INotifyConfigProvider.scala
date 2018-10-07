@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation._
 
 
 trait INotifyConfigProvider extends AngularLib.AngularModule.angularNamespace.IServiceProvider {
-  val defaultNotifyConfig: java.lang.String
-  val defaultTargetContainerName: java.lang.String
-  val notifyConfigs: js.Any
+  var defaultNotifyConfig: java.lang.String
+  var defaultTargetContainerName: java.lang.String
+  var notifyConfigs: js.Any
 }
 

@@ -12,11 +12,11 @@ trait Vue extends js.Object {
   @JSName("$children")
   val $children: StdLib.Array[Vue] = js.native
   @JSName("$createElement")
-  val $createElement_Original: CreateElement = js.native
+  var $createElement_Original: CreateElement = js.native
   @JSName("$data")
   val $data: StdLib.Record[java.lang.String, _] = js.native
   @JSName("$delete")
-  val $delete_Original: js.Function2[/* object */ js.Object, /* key */ java.lang.String, scala.Unit] = js.native
+  var $delete_Original: js.Function2[/* object */ js.Object, /* key */ java.lang.String, scala.Unit] = js.native
   @JSName("$el")
   val $el: StdLib.HTMLElement = js.native
   @JSName("$isServer")
@@ -36,7 +36,7 @@ trait Vue extends js.Object {
   @JSName("$scopedSlots")
   val $scopedSlots: ScalablyTyped.runtime.StringDictionary[VueLib.VueTypesVnodeModule.ScopedSlot] = js.native
   @JSName("$set")
-  val $set_Original: js.Function3[/* object */ js.Object, /* key */ java.lang.String, /* value */ js.Any, _] = js.native
+  var $set_Original: js.Function3[/* object */ js.Object, /* key */ java.lang.String, /* value */ js.Any, _] = js.native
   @JSName("$slots")
   val $slots: ScalablyTyped.runtime.StringDictionary[StdLib.Array[VueLib.VueTypesVnodeModule.VNode]] = js.native
   @JSName("$ssrContext")

@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait ChartFontOptions extends js.Object {
-  val foo: scala.Boolean
+  var foo: scala.Boolean
 }
 

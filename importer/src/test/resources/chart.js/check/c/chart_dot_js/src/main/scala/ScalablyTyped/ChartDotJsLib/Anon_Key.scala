@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait Anon_Key extends /* key */ ScalablyTyped.runtime.StringDictionary[js.Any] {
-  val global: ChartDotJsLib.ChartDotJsModule.ChartNamespace.ChartOptions with ChartDotJsLib.ChartDotJsModule.ChartNamespace.ChartFontOptions
+  var global: ChartDotJsLib.ChartDotJsModule.ChartNamespace.ChartOptions with ChartDotJsLib.ChartDotJsModule.ChartNamespace.ChartFontOptions
 }
 
