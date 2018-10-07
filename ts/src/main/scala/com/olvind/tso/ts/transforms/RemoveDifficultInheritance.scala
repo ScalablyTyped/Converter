@@ -76,10 +76,10 @@ object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
             .mkString(", ")}. Dropped Inheritance: \n${drop map format mkString "\n"} */"
         )
 
-        s.copy(parent = keep.headOption,
+        s.copy(parent     = keep.headOption,
                implements = keep.drop(1),
-               comments = s.comments + c,
-               members = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
+               comments   = s.comments + c,
+               members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
 
   override def enterTsDeclInterface(scope: TreeScope)(s: TsDeclInterface): TsDeclInterface =
@@ -101,7 +101,7 @@ object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
         }
 
         s.copy(inheritance = keep,
-               comments = newComments,
-               members = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
+               comments    = newComments,
+               members     = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
 }

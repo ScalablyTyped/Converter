@@ -18,9 +18,9 @@ object DeriveCopy {
             case x: TsMemberProperty if x.isStatic => x
             case x: TsMemberFunction if x.isStatic => x
           },
-          declared = true,
+          declared   = true,
           implements = Nil,
-          parent = Some(TsTypeRef(origin, TsTypeParam.asTypeArgs(x.tparams)))
+          parent     = Some(TsTypeRef(origin, TsTypeParam.asTypeArgs(x.tparams)))
         )
 
         List(`class`)
@@ -30,9 +30,9 @@ object DeriveCopy {
           TsDeclTypeAlias(
             comments = NoComments,
             declared = true,
-            name = rename getOrElse x.name,
-            tparams = x.tparams,
-            alias = TsTypeRef(origin, TsTypeParam.asTypeArgs(x.tparams)),
+            name     = rename getOrElse x.name,
+            tparams  = x.tparams,
+            alias    = TsTypeRef(origin, TsTypeParam.asTypeArgs(x.tparams)),
             codePath = x.codePath
           )
         )
@@ -42,9 +42,9 @@ object DeriveCopy {
           TsDeclTypeAlias(
             comments = NoComments,
             declared = true,
-            name = rename getOrElse x.name,
-            tparams = Nil,
-            alias = TsTypeRef(origin, Nil),
+            name     = rename getOrElse x.name,
+            tparams  = Nil,
+            alias    = TsTypeRef(origin, Nil),
             codePath = x.codePath
           )
         )

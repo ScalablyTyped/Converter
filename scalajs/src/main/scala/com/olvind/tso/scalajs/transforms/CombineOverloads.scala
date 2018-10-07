@@ -32,7 +32,7 @@ object CombineOverloads extends SymbolVisitor {
       }
 
     val combined = methods.head.copy(
-      params = newParamss,
+      params   = newParamss,
       comments = Comments.flatten(methods)(_.comments)
     )
 
@@ -148,7 +148,7 @@ object CombineOverloads extends SymbolVisitor {
       case m: MethodSymbol => m
     }
     s.copy(
-      ctors = ctorHack(scope, s.ctors),
+      ctors   = ctorHack(scope, s.ctors),
       members = rest ++ combineOverloads(scope, methods)
     )
   }

@@ -5,7 +5,7 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{%, cp, rm, root, Path}
+import ammonite.ops.{Path, root}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.build.BloopCompiler
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -71,7 +71,8 @@ trait ImporterHarness extends FunSuiteLike {
         Try(%%("diff", "-Naur", checkFolder.folder, targetFolder.folder)) match {
           case Success(_) => if (update) pending else succeed
           case Failure(th: ShelloutException) =>
-            fail(s"Output for test $testFolder was not as expected ", th)
+            val diff = %%("diff", "-r", checkFolder.folder, targetFolder.folder).out.string
+            fail(s"Output for test $testFolder was not as expected : $diff", th)
           case Failure(th) => throw th
         }
 
@@ -82,13 +83,6 @@ trait ImporterHarness extends FunSuiteLike {
               case (name, logger) =>
                 println(("-" * 10) + name)
                 println(logger.underlying.toString)
-            }
-            if (update) {
-              import ammonite.ops._
-              import ImplicitWd.implicitCwd
-              rm(checkFolder.folder)
-              cp(targetFolder.folder, checkFolder.folder)
-              %("git", "add", checkFolder.folder)
             }
 
             detail match {

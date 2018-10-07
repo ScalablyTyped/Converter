@@ -39,10 +39,10 @@ object SbtProjectStructure {
 
     OutRelFiles(
       Map(
-        OutRelFile(RelPath("build.sbt"))                    -> buildSbt.getBytes(constants.Utf8),
+        OutRelFile(RelPath("build.sbt")) -> buildSbt.getBytes(constants.Utf8),
         OutRelFile(RelPath("project") / "build.properties") -> s"sbt.version=$sbtVersion".getBytes(constants.Utf8),
-        OutRelFile(RelPath("project") / "plugins.sbt")      -> pluginsSbt.getBytes(constants.Utf8),
-        OutRelFile(RelPath("readme.md"))                    -> readme.getBytes(constants.Utf8)
+        OutRelFile(RelPath("project") / "plugins.sbt") -> pluginsSbt.getBytes(constants.Utf8),
+        OutRelFile(RelPath("readme.md")) -> readme.getBytes(constants.Utf8)
       )
     )
   }

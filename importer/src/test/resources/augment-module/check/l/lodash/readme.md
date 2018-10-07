@@ -1,7 +1,4 @@
 ```
-// AUTO-GENERATED: do not modify this file directly.
-// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
-// npm run fp
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>,
@@ -15,4 +12,7 @@
 //                 Dominique Rau <https://github.com/DomiR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+// AUTO-GENERATED: do not modify this file directly.
+// If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
+// npm run fp
 ```

@@ -102,12 +102,12 @@ sealed trait TreeScope {
 object TreeScope {
   type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TreeScope)]]
   case class Cache(
-      applyTypeMapping:  mutable.Map[TsTypeRef, Option[TsDeclInterface]] = mutable.Map.empty,
-      lookupExportFrom:  C = mutable.Map.empty,
-      lookupFromImports: C = mutable.Map.empty,
-      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule] = mutable.Map.empty,
+      applyTypeMapping:  mutable.Map[TsTypeRef, Option[TsDeclInterface]]   = mutable.Map.empty,
+      lookupExportFrom:  C                                                 = mutable.Map.empty,
+      lookupFromImports: C                                                 = mutable.Map.empty,
+      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]          = mutable.Map.empty,
       expandExport:      mutable.Map[(String, TsExport), Seq[TsNamedDecl]] = mutable.Map.empty,
-      expandImportee:    mutable.Map[(String, TsImportee), ExpandedMod] = mutable.Map.empty,
+      expandImportee:    mutable.Map[(String, TsImportee), ExpandedMod]    = mutable.Map.empty,
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 

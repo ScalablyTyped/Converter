@@ -181,7 +181,7 @@ final class CommentTests extends FunSuite with Matchers {
                          Default,
                          TsIdent("member"),
                          Some(TsTypeRef.any),
-                         isStatic = false,
+                         isStatic   = false,
                          isReadOnly = false,
                          isOptional = false)
       )
@@ -203,14 +203,14 @@ final class CommentTests extends FunSuite with Matchers {
                            Default,
                            TsIdent("id"),
                            Some(TsTypeRef.string),
-                           isStatic = false,
+                           isStatic   = false,
                            isReadOnly = false,
                            isOptional = false),
           TsMemberProperty(NoComments,
                            Default,
                            TsIdent("size"),
                            Some(TsTypeRef(TsQIdent.number, Nil)),
-                           isStatic = false,
+                           isStatic   = false,
                            isReadOnly = false,
                            isOptional = false)
         )

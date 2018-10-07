@@ -36,14 +36,14 @@ object ScalaJsClasses {
     val Apply: MethodSymbol =
       MethodSymbol(
         annotations = Nil,
-        level = Default,
-        name = Name.APPLY,
-        tparams = Nil,
-        params = Seq(ThisParam ++ inputParams),
-        impl = MemberImplNotImplemented,
-        resultType = R,
-        isOverride = false,
-        comments = NoComments
+        level       = Default,
+        name        = Name.APPLY,
+        tparams     = Nil,
+        params      = Seq(ThisParam ++ inputParams),
+        impl        = MemberImplNotImplemented,
+        resultType  = R,
+        isOverride  = false,
+        comments    = NoComments
       )
 
     val ThisTParam: Seq[TypeParamSymbol] =
@@ -57,14 +57,14 @@ object ScalaJsClasses {
 
     ClassSymbol(
       annotations = Seq(JsNative),
-      name = QualifiedName.FunctionArity(isThis, arity).parts.last,
-      tparams = ThisTParam ++ inputTParams ++ outputTParams,
-      parents = Seq(TypeRef(QualifiedName.Function)),
-      ctors = Nil,
-      members = Seq(Apply),
-      classType = ClassType.Trait,
-      isSealed = false,
-      comments = NoComments
+      name        = QualifiedName.FunctionArity(isThis, arity).parts.last,
+      tparams     = ThisTParam ++ inputTParams ++ outputTParams,
+      parents     = Seq(TypeRef(QualifiedName.Function)),
+      ctors       = Nil,
+      members     = Seq(Apply),
+      classType   = ClassType.Trait,
+      isSealed    = false,
+      comments    = NoComments
     )
   }
   private val Functions = mutable.Map.empty[(Boolean, Int), ClassSymbol]

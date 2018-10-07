@@ -18,9 +18,9 @@ package object logging {
                                   ctx:        Ctx = emptyContext): Logger[A] =
     new AppendableLogger(appendable, pattern, ctx)
 
-  def writer[W <: Writer](writer:  W = System.out,
+  def writer[W <: Writer](writer:  W       = System.out,
                           pattern: Pattern = Pattern.default,
-                          ctx:     Ctx = emptyContext): Logger[W] =
+                          ctx:     Ctx     = emptyContext): Logger[W] =
     new WriterLogger(new AppendableLogger(writer, pattern, ctx))
 
   def storing(ctx: Ctx = emptyContext): Logger[Array[Stored]] =

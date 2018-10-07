@@ -244,7 +244,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         TsExporteeTree(
           TsDeclClass(
             NoComments,
-            declared = false,
+            declared   = false,
             isAbstract = false,
             TsIdent("default"),
             List(),
@@ -258,7 +258,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                                        Default,
                                        TsIdent("statusCode"),
                                        Some(TsTypeRef(TsQIdent(List(TsIdent("number"))), List())),
-                                       isStatic = false,
+                                       isStatic   = false,
                                        isReadOnly = false,
                                        isOptional = false)
                     )

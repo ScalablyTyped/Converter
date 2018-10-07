@@ -39,15 +39,15 @@ object InferredDependency {
     }
 
   private val libraryPrefix = Map[TsIdent, TsIdentLibrary](
-    TsIdent("React")    -> TsIdentLibrarySimple("react"),
-    TsIdent("ng")       -> TsIdentLibrarySimple("angular"),
-    TsIdent("angular")  -> TsIdentLibrarySimple("angular"),
-    TsIdent("NodeJS")   -> TsIdentLibrarySimple("node"),
-    TsIdent("Buffer")   -> TsIdentLibrarySimple("node"),
-    TsIdent("global")   -> TsIdentLibrarySimple("node"),
-    TsIdent("moment")   -> TsIdentLibrarySimple("moment"),
+    TsIdent("React") -> TsIdentLibrarySimple("react"),
+    TsIdent("ng") -> TsIdentLibrarySimple("angular"),
+    TsIdent("angular") -> TsIdentLibrarySimple("angular"),
+    TsIdent("NodeJS") -> TsIdentLibrarySimple("node"),
+    TsIdent("Buffer") -> TsIdentLibrarySimple("node"),
+    TsIdent("global") -> TsIdentLibrarySimple("node"),
+    TsIdent("moment") -> TsIdentLibrarySimple("moment"),
     TsIdent("Backbone") -> TsIdentLibrarySimple("backbone"),
-    TsIdent("Leaflet")  -> TsIdentLibrarySimple("leaflet"),
+    TsIdent("Leaflet") -> TsIdentLibrarySimple("leaflet"),
   )
 
   private val NodeModules: Set[TsIdentModule] = Set(

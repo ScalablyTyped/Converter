@@ -55,7 +55,7 @@ object FakeLiterals {
                   MemberImplCustom(impl),
                   TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
                   isOverride = false,
-                  comments = NoComments
+                  comments   = NoComments
                 )
               Seq(`trait`, `def`)
             }

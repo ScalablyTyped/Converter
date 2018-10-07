@@ -147,8 +147,8 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
               val scope: TreeScope.Root =
                 TreeScope(libName, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
-              val preprocessed: Iterable[TsParsedFile] =
-                libParts map {
+              val preprocessed: Seq[TsParsedFile] =
+                libParts.to[Seq].sortBy(_._1.file.path) map {
                   case (thisSource, file) =>
                     val PreProcessAll = (Pipe[TsParsedFile]
                       >> TS.SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty)))

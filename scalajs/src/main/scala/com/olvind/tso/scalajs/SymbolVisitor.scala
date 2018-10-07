@@ -40,10 +40,10 @@ class SymbolVisitor { self =>
 
     val updatedChildren =
       transformed.copy(
-        tparams = transformed.tparams map visitTypeParamSymbol(childrenScope),
-        parents = transformed.parents map visitTypeRef(childrenScope),
-        ctors = transformed.ctors map visitCtorSymbol(childrenScope),
-        members = transformed.members map visitMemberSymbol(childrenScope),
+        tparams  = transformed.tparams map visitTypeParamSymbol(childrenScope),
+        parents  = transformed.parents map visitTypeRef(childrenScope),
+        ctors    = transformed.ctors map visitCtorSymbol(childrenScope),
+        members  = transformed.members map visitMemberSymbol(childrenScope),
         comments = transformed.comments
       )
 
@@ -85,10 +85,10 @@ class SymbolVisitor { self =>
 
     val updatedChildren =
       transformed.copy(
-        tparams = transformed.tparams map visitTypeParamSymbol(childrenScope),
-        params = transformed.params.map(_.map(visitParamSymbol(childrenScope))),
+        tparams    = transformed.tparams map visitTypeParamSymbol(childrenScope),
+        params     = transformed.params.map(_.map(visitParamSymbol(childrenScope))),
         resultType = visitTypeRef(childrenScope)(transformed.resultType),
-        comments = transformed.comments
+        comments   = transformed.comments
       )
 
     leaveMethodSymbol(scope)(updatedChildren)
@@ -102,8 +102,8 @@ class SymbolVisitor { self =>
       scope / transformed
 
     val updatedChildren =
-      transformed.copy(parents = transformed.parents map visitTypeRef(childrenScope),
-                       members = transformed.members map visitSymbol(childrenScope),
+      transformed.copy(parents  = transformed.parents map visitTypeRef(childrenScope),
+                       members  = transformed.members map visitSymbol(childrenScope),
                        comments = transformed.comments)
 
     leaveModuleSymbol(scope)(updatedChildren)
@@ -118,7 +118,7 @@ class SymbolVisitor { self =>
 
     val updatedChildren =
       transformed.copy(
-        members = transformed.members map visitSymbol(childrenScope),
+        members  = transformed.members map visitSymbol(childrenScope),
         comments = transformed.comments
       )
 
@@ -146,8 +146,8 @@ class SymbolVisitor { self =>
       scope / transformed
 
     val updatedChildren =
-      transformed.copy(tparams = transformed.tparams map visitTypeParamSymbol(childrenScope),
-                       alias = visitTypeRef(childrenScope)(transformed.alias),
+      transformed.copy(tparams  = transformed.tparams map visitTypeParamSymbol(childrenScope),
+                       alias    = visitTypeRef(childrenScope)(transformed.alias),
                        comments = transformed.comments)
 
     leaveTypeAliasSymbol(scope)(updatedChildren)
@@ -162,7 +162,7 @@ class SymbolVisitor { self =>
 
     val updatedChildren =
       transformed.copy(upperBound = transformed.upperBound map visitTypeRef(childrenScope),
-                       comments = transformed.comments)
+                       comments   = transformed.comments)
 
     leaveTypeParamSymbol(scope)(updatedChildren)
   }

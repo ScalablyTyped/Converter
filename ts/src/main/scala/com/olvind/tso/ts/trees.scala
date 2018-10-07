@@ -562,8 +562,8 @@ sealed trait OptionalModifier {
 }
 
 object OptionalModifier {
-  case object Noop          extends OptionalModifier
-  case object Optionalize   extends OptionalModifier
+  case object Noop extends OptionalModifier
+  case object Optionalize extends OptionalModifier
   case object Deoptionalize extends OptionalModifier
 }
 

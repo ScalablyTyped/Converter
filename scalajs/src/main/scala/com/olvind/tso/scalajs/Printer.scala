@@ -34,11 +34,11 @@ object Printer {
     val reg = new Registry()
 
     apply(
-      reg = reg,
-      mainPkg = mainPkg,
-      scalaPrefix = List(lib.packageSymbol.name),
+      reg          = reg,
+      mainPkg      = mainPkg,
+      scalaPrefix  = List(lib.packageSymbol.name),
       targetFolder = sourcesDir / mainPkg.value / lib.packageSymbol.name.value,
-      sym = lib.packageSymbol
+      sym          = lib.packageSymbol
     )
 
     OutRelFiles(reg.result)

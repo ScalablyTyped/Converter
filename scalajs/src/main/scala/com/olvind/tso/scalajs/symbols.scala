@@ -41,7 +41,7 @@ final case class ClassSymbol(
 
 sealed trait ModuleType
 case object ModuleTypeNative extends ModuleType
-case object ModuleTypeScala  extends ModuleType
+case object ModuleTypeScala extends ModuleType
 
 final case class ModuleSymbol(
     annotations: Seq[ClassAnnotation],
@@ -65,7 +65,7 @@ sealed trait MemberSymbol extends Symbol {
 
 sealed trait MemberImpl
 
-case object MemberImplNative         extends MemberImpl
+case object MemberImplNative extends MemberImpl
 case object MemberImplNotImplemented extends MemberImpl
 final case class MemberImplCustom(impl: String) extends MemberImpl
 
@@ -84,9 +84,9 @@ final case class FieldSymbol(
 
   def renamed(newName: Name): FieldSymbol =
     copy(
-      name = newName,
+      name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
-      isOverride = false
+      isOverride  = false
     )
 }
 
@@ -106,9 +106,9 @@ final case class MethodSymbol(
 
   def renamed(newName: Name): MethodSymbol =
     copy(
-      name = newName,
+      name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
-      isOverride = false
+      isOverride  = false
     )
 }
 

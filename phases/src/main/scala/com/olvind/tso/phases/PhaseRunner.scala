@@ -53,7 +53,6 @@ object PhaseRunner {
             val ret: PhaseRes[Id, Map[Id, TT]] =
               PhaseRes.sequenceMap(
                 newRequestedIds
-                  .to[Seq]
                   .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))
                   .toMap
               )

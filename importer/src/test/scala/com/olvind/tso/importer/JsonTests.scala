@@ -38,15 +38,15 @@ class JsonTests extends FunSuite with MetadataCodecs {
     val expected = TsConfig(
       Some(
         CompilerOptions(
-          module = Option("commonjs"),
-          lib = Option(Vector("es6")),
-          noImplicitAny = Option(true),
-          noImplicitThis = Option(true),
-          strictNullChecks = Option(true),
-          baseUrl = Some(RelPath("../")),
-          typeRoots = Some(Vector(RelPath("../"))),
-          types = Some(Vector()),
-          noEmit = Some(true),
+          module                           = Option("commonjs"),
+          lib                              = Option(Vector("es6")),
+          noImplicitAny                    = Option(true),
+          noImplicitThis                   = Option(true),
+          strictNullChecks                 = Option(true),
+          baseUrl                          = Some(RelPath("../")),
+          typeRoots                        = Some(Vector(RelPath("../"))),
+          types                            = Some(Vector()),
+          noEmit                           = Some(true),
           forceConsistentCasingInFileNames = Some(true)
         )
       ),

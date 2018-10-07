@@ -33,10 +33,10 @@ object FlattenTrees {
 
   def mergeFile(one: TsParsedFile, two: TsParsedFile): TsParsedFile =
     TsParsedFile(
-      comments = mergeComments(one.comments, two.comments),
+      comments   = mergeComments(one.comments, two.comments),
       directives = (one.directives ++ two.directives).distinct,
-      members = newMembers(one.members, two.members),
-      codePath = mergeCodePath(one.codePath, two.codePath)
+      members    = newMembers(one.members, two.members),
+      codePath   = mergeCodePath(one.codePath, two.codePath)
     )
 
   def newMembers(these: Seq[TsContainerOrDecl], thats: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = {
@@ -91,8 +91,8 @@ object FlattenTrees {
         rets.addOrUpdateMatching(that)(m => m) {
           case existing: TsDeclVar if that.name === existing.name =>
             existing.copy(
-              comments = mergeComments(existing.comments, that.comments),
-              tpe = bothTypes(existing.tpe, that.tpe),
+              comments   = mergeComments(existing.comments, that.comments),
+              tpe        = bothTypes(existing.tpe, that.tpe),
               isOptional = existing.isOptional || that.isOptional
             )
         }
@@ -114,9 +114,9 @@ object FlattenTrees {
             TsDeclTypeAlias(
               comments = mergeComments(existing.comments, that.comments),
               declared = existing.declared || that.declared,
-              name = existing.name,
-              tparams = mergeTypeParams(existing.tparams, that.tparams),
-              alias = TsTypeIntersect.simplified(existing.alias :: that.alias :: Nil),
+              name     = existing.name,
+              tparams  = mergeTypeParams(existing.tparams, that.tparams),
+              alias    = TsTypeIntersect.simplified(existing.alias :: that.alias :: Nil),
               codePath = mergeCodePath(existing.codePath, that.codePath)
             )
 
@@ -137,8 +137,8 @@ object FlattenTrees {
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsMemberProperty if that.name === existing.name && that.isStatic === existing.isStatic =>
             existing.copy(
-              comments = mergeComments(existing.comments, that.comments),
-              tpe = bothTypes(existing.tpe, that.tpe),
+              comments   = mergeComments(existing.comments, that.comments),
+              tpe        = bothTypes(existing.tpe, that.tpe),
               isOptional = existing.isOptional || that.isOptional
             )
         }
@@ -147,8 +147,8 @@ object FlattenTrees {
         rets.addOrUpdateMatching(that)(x => x) {
           case existing: TsMemberIndex if that.indexing === existing.indexing =>
             existing.copy(
-              comments = mergeComments(existing.comments, that.comments),
-              valueType = TsTypeIntersect.simplified(Seq(existing.valueType, that.valueType)),
+              comments   = mergeComments(existing.comments, that.comments),
+              valueType  = TsTypeIntersect.simplified(Seq(existing.valueType, that.valueType)),
               isOptional = existing.isOptional || that.isOptional
             )
         }
@@ -170,21 +170,21 @@ object FlattenTrees {
     }
   def mergeAugmentedModule(that: TsAugmentedModule, existing: TsAugmentedModule) =
     TsAugmentedModule(
-      name = existing.name,
-      members = newMembers(existing.members, that.members),
-      codePath = mergeCodePath(existing.codePath, that.codePath),
+      name       = existing.name,
+      members    = newMembers(existing.members, that.members),
+      codePath   = mergeCodePath(existing.codePath, that.codePath),
       jsLocation = that.jsLocation
     )
 
   def mergeInterface(that: TsDeclInterface, existing: TsDeclInterface) =
     TsDeclInterface(
-      comments = mergeComments(existing.comments, that.comments),
-      declared = existing.declared || that.declared,
-      name = existing.name,
-      tparams = mergeTypeParams(that.tparams, existing.tparams),
+      comments    = mergeComments(existing.comments, that.comments),
+      declared    = existing.declared || that.declared,
+      name        = existing.name,
+      tparams     = mergeTypeParams(that.tparams, existing.tparams),
       inheritance = (existing.inheritance ++ that.inheritance).distinct,
-      members = newClassMembers(existing.members, that.members),
-      codePath = mergeCodePath(existing.codePath, that.codePath),
+      members     = newClassMembers(existing.members, that.members),
+      codePath    = mergeCodePath(existing.codePath, that.codePath),
     )
 
   def mergeTypeParams(thats: Seq[TsTypeParam], existings: Seq[TsTypeParam]): Seq[TsTypeParam] =
@@ -193,68 +193,68 @@ object FlattenTrees {
   def mergeClass(that: TsDeclClass, existing: TsDeclClass): TsDeclClass = {
     val inheritance = (existing.parent.to[Seq] ++ that.parent ++ existing.implements ++ that.implements).distinct
     TsDeclClass(
-      comments = mergeComments(existing.comments, that.comments),
-      declared = existing.declared || that.declared,
+      comments   = mergeComments(existing.comments, that.comments),
+      declared   = existing.declared || that.declared,
       isAbstract = existing.isAbstract && that.isAbstract,
-      name = existing.name,
-      tparams = mergeTypeParams(that.tparams, existing.tparams),
-      parent = inheritance.headOption,
+      name       = existing.name,
+      tparams    = mergeTypeParams(that.tparams, existing.tparams),
+      parent     = inheritance.headOption,
       implements = inheritance.drop(1),
-      members = newClassMembers(existing.members, that.members),
+      members    = newClassMembers(existing.members, that.members),
       jsLocation = mergeJsLocation(existing.jsLocation, that.jsLocation),
-      codePath = mergeCodePath(existing.codePath, that.codePath)
+      codePath   = mergeCodePath(existing.codePath, that.codePath)
     )
   }
   def mergeModule(that: TsDeclModule, existing: TsDeclModule) =
     TsDeclModule(
-      comments = mergeComments(existing.comments, that.comments),
-      declared = existing.declared || that.declared,
-      name = that.name,
-      members = newMembers(existing.members, that.members),
-      codePath = mergeCodePath(existing.codePath, that.codePath),
+      comments   = mergeComments(existing.comments, that.comments),
+      declared   = existing.declared || that.declared,
+      name       = that.name,
+      members    = newMembers(existing.members, that.members),
+      codePath   = mergeCodePath(existing.codePath, that.codePath),
       jsLocation = mergeJsLocation(existing.jsLocation, that.jsLocation),
     )
 
   def mergeModuleAndAugmented(that: TsAugmentedModule, existing: TsDeclModule) =
     TsDeclModule(
-      comments = existing.comments,
-      declared = existing.declared,
-      name = that.name,
-      members = newMembers(existing.members, that.members),
-      codePath = mergeCodePath(existing.codePath, that.codePath),
+      comments   = existing.comments,
+      declared   = existing.declared,
+      name       = that.name,
+      members    = newMembers(existing.members, that.members),
+      codePath   = mergeCodePath(existing.codePath, that.codePath),
       jsLocation = mergeJsLocation(existing.jsLocation, that.jsLocation),
     )
 
   def mergeGlobal(that: TsGlobal, existing: TsGlobal) =
     TsGlobal(
       comments = mergeComments(existing.comments, that.comments),
-      members = newMembers(existing.members, that.members),
+      members  = newMembers(existing.members, that.members),
       declared = existing.declared || that.declared,
       codePath = mergeCodePath(existing.codePath, that.codePath),
     )
 
   def mergeNamespace(that: TsDeclNamespace, existing: TsDeclNamespace) =
     TsDeclNamespace(
-      comments = mergeComments(existing.comments, that.comments),
-      declared = existing.declared || that.declared,
-      name = existing.name,
-      members = newMembers(existing.members, that.members),
-      codePath = mergeCodePath(existing.codePath, that.codePath),
+      comments   = mergeComments(existing.comments, that.comments),
+      declared   = existing.declared || that.declared,
+      name       = existing.name,
+      members    = newMembers(existing.members, that.members),
+      codePath   = mergeCodePath(existing.codePath, that.codePath),
       jsLocation = mergeJsLocation(existing.jsLocation, that.jsLocation),
     )
 
   def mergedClassAndInterface(c: TsDeclClass, i: TsDeclInterface): TsDeclClass =
     TsDeclClass(
-      comments = mergeComments(i.comments, c.comments),
-      declared = i.declared || c.declared,
+      comments   = mergeComments(i.comments, c.comments),
+      declared   = i.declared || c.declared,
       isAbstract = c.isAbstract,
-      name = i.name,
-      tparams = mergeTypeParams(c.tparams, i.tparams),
-      parent = c.parent,
+      name       = i.name,
+      tparams    = mergeTypeParams(c.tparams, i.tparams),
+      parent     = c.parent,
       implements = (i.inheritance ++ c.implements).distinct,
-      members = newClassMembers(c.members, i.members),
+      members    = newClassMembers(c.members, i.members),
       jsLocation = c.jsLocation,
-      codePath = mergeCodePath(c.codePath, i.codePath),
+      codePath   = mergeCodePath(c.codePath, i.codePath),
     )
 
   def mergeComments(one: Comments, two: Comments): Comments =

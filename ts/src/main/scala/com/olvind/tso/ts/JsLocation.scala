@@ -28,7 +28,7 @@ sealed trait ModuleSpec {
 }
 
 object ModuleSpec {
-  case object Defaulted  extends ModuleSpec
+  case object Defaulted extends ModuleSpec
   case object Namespaced extends ModuleSpec
   final case class Specified(tsIdents: Seq[TsIdent]) extends ModuleSpec
 }

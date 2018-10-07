@@ -9,10 +9,10 @@ import ammonite.ops.{exists, ls, mkdir, rm, up, Path, RelPath}
 
 sealed trait Synced
 object Synced {
-  case object New       extends Synced
-  case object Changed   extends Synced
+  case object New extends Synced
+  case object Changed extends Synced
   case object Unchanged extends Synced
-  case object Deleted   extends Synced
+  case object Deleted extends Synced
 }
 
 final case class InFile(path: Path) {

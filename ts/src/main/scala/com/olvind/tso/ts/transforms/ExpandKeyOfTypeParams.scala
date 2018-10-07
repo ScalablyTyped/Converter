@@ -43,7 +43,7 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
 
                 new TypeRewriter(mm).visitTsMemberFunction(
                   Map(
-                    TsTypeRef.of(indexed.typeParam)                                    -> TsTypeLiteral(TsLiteralString(n)),
+                    TsTypeRef.of(indexed.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
                     TsTypeLookup(TsTypeRef(indexed.map, Nil), Left(indexed.typeParam)) -> tpe
                   )
                 )(mm)
@@ -66,7 +66,7 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
                 val mm = m.copy(signature = sig.copy(tparams = rest))
                 new TypeRewriter(mm).visitTsDeclFunction(
                   Map(
-                    TsTypeRef.of(indexed.typeParam)                                    -> TsTypeLiteral(TsLiteralString(n)),
+                    TsTypeRef.of(indexed.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
                     TsTypeLookup(TsTypeRef(indexed.map, Nil), Left(indexed.typeParam)) -> tpe
                   )
                 )(mm)

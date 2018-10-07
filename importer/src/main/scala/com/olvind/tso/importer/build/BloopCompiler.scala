@@ -113,19 +113,19 @@ object BloopCompiler {
       CompileInputs(
         scalaInstance = compilerInstance,
         compilerCache = singleCompilerCache,
-        sources = Array(toAbs(paths.sourcesDir)),
-        classpath = globalClasspath ++ localClassPath,
-        classesDir = toAbs(paths.classesDir),
+        sources       = Array(toAbs(paths.sourcesDir)),
+        classpath     = globalClasspath ++ localClassPath,
+        classesDir    = toAbs(paths.classesDir),
         baseDirectory = toAbs(paths.baseDir),
         scalacOptions = Array(
           "-Xplugin:" + scalaJsCompiler.syntax,
           "-P:scalajs:sjsDefinedByDefault"
         ),
-        javacOptions = Array(),
+        javacOptions     = Array(),
         classpathOptions = classPathOptions,
-        previousResult = PreviousResult.of(Optional.empty(), Optional.empty()),
-        reporter = new LogReporter(NoLogger, toAbs(paths.baseDir), identity, ReporterConfig.defaultFormat),
-        logger = NoLogger
+        previousResult   = PreviousResult.of(Optional.empty(), Optional.empty()),
+        reporter         = new LogReporter(NoLogger, toAbs(paths.baseDir), identity, ReporterConfig.defaultFormat),
+        logger           = NoLogger
       )
     }
 

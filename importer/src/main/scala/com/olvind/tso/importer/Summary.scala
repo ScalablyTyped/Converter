@@ -28,8 +28,8 @@ object Summary {
         val newFailures = current.failures -- existing.failures
         SummaryDiff(
           newSuccesses = current.successes -- existing.successes,
-          newFailures = newFailures,
-          oldFailures = current.failures -- newFailures
+          newFailures  = newFailures,
+          oldFailures  = current.failures -- newFailures
         )
       case None =>
         SummaryDiff(current.successes, current.failures, Set.empty)

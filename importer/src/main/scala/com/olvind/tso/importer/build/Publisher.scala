@@ -32,10 +32,10 @@ object Publisher {
                 sourceFiles: OutRelFiles): OutRelFiles =
     OutRelFiles(
       Map(
-        layout.jarFile    -> createJar(paths.classesDir),
+        layout.jarFile -> createJar(paths.classesDir),
         layout.sourceFile -> createJar(sourceFiles, publication),
-        layout.ivyFile    -> fromXml(ivy(p, publication)),
-        layout.pomFile    -> fromXml(pom(p))
+        layout.ivyFile -> fromXml(ivy(p, publication)),
+        layout.pomFile -> fromXml(pom(p))
       )
     )
 

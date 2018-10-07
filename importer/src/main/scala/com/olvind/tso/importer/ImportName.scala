@@ -29,7 +29,7 @@ object ImportName {
     i match {
       case TsIdent.Apply        => Name.APPLY
       case TsIdentSimple(value) => Name(value)
-      case x: TsIdentLibrary => Name(rewrite(x.value, "Lib", capitalize = true))
+      case x: TsIdentLibrary => Name(rewrite(x.value, "Lib", capitalize    = true))
       case x: TsIdentModule  => Name(rewrite(x.value, "Module", capitalize = true))
       case TsIdentNamespace(value) => Name(rewrite(value, "Namespace", capitalize = false))
     }

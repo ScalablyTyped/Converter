@@ -108,7 +108,7 @@ object SplitMethodsOnOptionalParams extends TreeVisitorScopedChanges {
 
     val (requiredParams: Seq[TsFunParam], optionalParams: Seq[TsFunParam]) =
       collectRightWhile(paramsNoRep) {
-        case x @ TsFunParam(_, _, OptionalType(simplified), _) => x.copy(tpe = Some(simplified), isOptional = false)
+        case x @ TsFunParam(_, _, OptionalType(simplified), _) => x.copy(tpe        = Some(simplified), isOptional = false)
         case x if x.isOptional                                 => x.copy(isOptional = false)
       }
 

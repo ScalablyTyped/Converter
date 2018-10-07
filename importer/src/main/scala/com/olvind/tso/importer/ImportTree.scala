@@ -169,23 +169,23 @@ object ImportTree {
           Seq(
             ModuleSymbol(
               annotations = ImportJsLocation(jsLocation, isWithinScalaModule),
-              name = name,
-              moduleType = ModuleTypeNative,
-              parents = Seq(base.withOptional(isOptional)),
-              members = Nil,
-              comments = cs
+              name        = name,
+              moduleType  = ModuleTypeNative,
+              parents     = Seq(base.withOptional(isOptional)),
+              members     = Nil,
+              comments    = cs
             )
           )
         } else
           Seq(
             FieldSymbol(
               annotations = Annotation.jsName(name),
-              name = name,
-              tpe = base.withOptional(isOptional),
-              impl = MemberImplNative,
-              isReadOnly = readOnly,
-              isOverride = false,
-              comments = cs
+              name        = name,
+              tpe         = base.withOptional(isOptional),
+              impl        = MemberImplNative,
+              isReadOnly  = readOnly,
+              isOverride  = false,
+              comments    = cs
             )
           )
 
@@ -203,14 +203,14 @@ object ImportTree {
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassSymbol(
           annotations = anns,
-          name = name,
-          tparams = tparams map typeParam(scope),
-          parents = parents ++ extraInheritance,
-          ctors = ctors,
-          members = ms,
-          classType = classType,
-          isSealed = false,
-          comments = cs
+          name        = name,
+          tparams     = tparams map typeParam(scope),
+          parents     = parents ++ extraInheritance,
+          ctors       = ctors,
+          members     = ms,
+          classType   = classType,
+          isSealed    = false,
+          comments    = cs
         )
 
         val module: Option[ModuleSymbol] =
@@ -228,23 +228,23 @@ object ImportTree {
         Seq(
           ClassSymbol(
             annotations = Seq(if (scalaJsDefined) ScalaJSDefined else JsNative),
-            name = name,
-            tparams = tparams map typeParam(scope),
-            parents = parents ++ extraInheritance,
-            ctors = ctors,
-            members = ms,
-            classType = ClassType.Trait,
-            isSealed = false,
-            comments = cs
+            name        = name,
+            tparams     = tparams map typeParam(scope),
+            parents     = parents ++ extraInheritance,
+            ctors       = ctors,
+            members     = ms,
+            classType   = ClassType.Trait,
+            isSealed    = false,
+            comments    = cs
           )
         )
 
       case TsDeclTypeAlias(cs, _, ImportName(name), tparams, alias, _) =>
         Seq(
           TypeAliasSymbol(
-            name = name,
-            tparams = tparams map typeParam(scope),
-            alias = ImportType(Wildcards.Prohibit, scope)(alias),
+            name     = name,
+            tparams  = tparams map typeParam(scope),
+            alias    = ImportType(Wildcards.Prohibit, scope)(alias),
             comments = cs
           )
         )
@@ -252,11 +252,11 @@ object ImportTree {
       case TsDeclFunction(cs, _, ImportName(name), sig, _, _) =>
         Seq(
           tsMethod(
-            scope = scope,
-            level = Default,
-            name = name,
-            cs = cs,
-            sig = sig,
+            scope          = scope,
+            level          = Default,
+            name           = name,
+            cs             = cs,
+            sig            = sig,
             scalaJsDefined = false,
           )
         )
@@ -279,31 +279,31 @@ object ImportTree {
     val classSymbol =
       ClassSymbol(
         annotations = Seq(JsNative),
-        name = name,
-        tparams = Nil,
-        parents = Nil,
-        ctors = Nil,
-        members = Nil,
-        classType = ClassType.Trait,
-        isSealed = true,
-        comments = NoComments
+        name        = name,
+        tparams     = Nil,
+        parents     = Nil,
+        ctors       = Nil,
+        members     = Nil,
+        classType   = ClassType.Trait,
+        isSealed    = true,
+        comments    = NoComments
       )
 
     val moduleSymbol: ModuleSymbol = {
       val applyMethod = MethodSymbol(
         annotations = Annotation.method(name, isBracketAccess = true),
-        level = Default,
-        name = Name.APPLY,
-        tparams = Nil,
+        level       = Default,
+        name        = Name.APPLY,
+        tparams     = Nil,
         params = Seq(
           Seq(
             ParamSymbol(Name.value, TypeRef(QualifiedName(name :: Nil), Nil, NoComments), NoComments)
           )
         ),
-        impl = MemberImplNative,
+        impl       = MemberImplNative,
         resultType = TypeRef(QualifiedName.String, Nil, NoComments),
         isOverride = false,
-        comments = NoComments
+        comments   = NoComments
       )
 
       val membersSyms: Seq[ContainerSymbol] =
@@ -323,21 +323,21 @@ object ImportTree {
             Seq(
               ClassSymbol(
                 annotations = Seq(JsNative),
-                name = memberName,
-                tparams = Nil,
-                parents = Seq(TypeRef(QualifiedName(name :: Nil), Nil, NoComments)),
-                ctors = Nil,
-                members = Nil,
-                classType = ClassType.Trait,
-                isSealed = true,
-                comments = memberCs
+                name        = memberName,
+                tparams     = Nil,
+                parents     = Seq(TypeRef(QualifiedName(name :: Nil), Nil, NoComments)),
+                ctors       = Nil,
+                members     = Nil,
+                classType   = ClassType.Trait,
+                isSealed    = true,
+                comments    = memberCs
               ),
               ModuleSymbol(
                 annotations = anns,
-                name = memberName,
-                moduleType = ModuleTypeNative,
-                parents = Seq(TypeRef(QualifiedName(memberName :: Nil), Nil, NoComments)),
-                members = Nil,
+                name        = memberName,
+                moduleType  = ModuleTypeNative,
+                parents     = Seq(TypeRef(QualifiedName(memberName :: Nil), Nil, NoComments)),
+                members     = Nil,
                 comments = Comments(literalOpt map {
                   case Left(x)  => literalComment(x)
                   case Right(x) => Comment(s"/* ${x.value} */")
@@ -480,12 +480,12 @@ object ImportTree {
                   MemberRet(
                     FieldSymbol(
                       annotations = Seq(a),
-                      name = ImportName(symName),
-                      tpe = ImportType(Wildcards.No, scope)(m.valueType).withOptional(m.isOptional),
-                      impl = fieldType,
-                      isReadOnly = m.isReadOnly,
-                      isOverride = false,
-                      comments = m.comments
+                      name        = ImportName(symName),
+                      tpe         = ImportType(Wildcards.No, scope)(m.valueType).withOptional(m.isOptional),
+                      impl        = fieldType,
+                      isReadOnly  = m.isReadOnly,
+                      isOverride  = false,
+                      comments    = m.comments
                     ),
                     isStatic = false
                   )
@@ -529,12 +529,12 @@ object ImportTree {
             hack(
               FieldSymbol(
                 annotations = Annotation.jsName(name),
-                name = name,
-                tpe = ImportType.orAny(Wildcards.No, scope)(tpe).withOptional(m.isOptional),
-                impl = fieldType,
-                isReadOnly = m.isReadOnly,
-                isOverride = false,
-                comments = m.comments
+                name        = name,
+                tpe         = ImportType.orAny(Wildcards.No, scope)(tpe).withOptional(m.isOptional),
+                impl        = fieldType,
+                isReadOnly  = m.isReadOnly,
+                isOverride  = false,
+                comments    = m.comments
               )
             ),
             m.isStatic
@@ -553,9 +553,9 @@ object ImportTree {
 
   def typeParam(scope: TreeScope)(tp: TsTypeParam): TypeParamSymbol =
     TypeParamSymbol(
-      name = ImportName(tp.name),
+      name       = ImportName(tp.name),
       upperBound = tp.upperBound map ImportType(Wildcards.No, scope / tp),
-      comments = tp.comments
+      comments   = tp.comments
     )
 
   def tsFunParams(scope: TreeScope, params: Seq[TsFunParam]): Seq[ParamSymbol] =
@@ -588,14 +588,14 @@ object ImportTree {
 
     val ret = MethodSymbol(
       as,
-      level = level,
-      name = name,
-      tparams = sig.tparams map typeParam(scope),
-      params = Seq(tsFunParams(scope, sig.params)),
-      impl = fieldType,
+      level      = level,
+      name       = name,
+      tparams    = sig.tparams map typeParam(scope),
+      params     = Seq(tsFunParams(scope, sig.params)),
+      impl       = fieldType,
       resultType = resultType,
       isOverride = false,
-      comments = cs ++ sig.comments
+      comments   = cs ++ sig.comments
     )
 
     containedLiterals.distinct.toList match {

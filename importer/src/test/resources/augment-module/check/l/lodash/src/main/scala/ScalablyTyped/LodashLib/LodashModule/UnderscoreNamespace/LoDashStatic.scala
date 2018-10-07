@@ -6,10 +6,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 // tslint:disable-next-line no-empty-interface (This will be augmented)
-// assign
 // add
 // assign
 // add
+// assign
 @js.native
 trait LoDashStatic extends js.Object {
   /**

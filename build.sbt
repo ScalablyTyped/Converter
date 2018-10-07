@@ -101,5 +101,6 @@ val importer = project
     libraryDependencies ++= Deps.circe ++ Seq(Deps.fansi, Deps.bloop),
     fork in run := true,
     javaOptions in run += "-Xmx8G",
-    mainClass := Some("com.olvind.tso.importer.Importer")
+    mainClass := Some("com.olvind.tso.importer.Importer"),
+    test in Test := (test in Test).dependsOn(publishLocal in runtime).value
   )

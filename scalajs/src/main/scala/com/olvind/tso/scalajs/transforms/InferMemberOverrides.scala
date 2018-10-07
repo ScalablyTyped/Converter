@@ -56,10 +56,10 @@ object InferMemberOverrides extends SymbolVisitor {
           val newType = TypeRef.Intersection(fs.map(_._1.tpe))
           head.copy(
             isOverride = true,
-            tpe = newType,
+            tpe        = newType,
             isReadOnly = true,
-            impl = updatedFieldType(head.impl, fieldType, Some(newType)),
-            comments = head.comments + Comment("/* InferMemberOverrides */\n")
+            impl       = updatedFieldType(head.impl, fieldType, Some(newType)),
+            comments   = head.comments + Comment("/* InferMemberOverrides */\n")
           )
       }
 
@@ -72,8 +72,8 @@ object InferMemberOverrides extends SymbolVisitor {
           fs.head.copy(
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType)),
-            impl = updatedFieldType(fs.head.impl, fieldType, None),
-            comments = fs.head.comments + Comment("/* InferMemberOverrides */\n")
+            impl       = updatedFieldType(fs.head.impl, fieldType, None),
+            comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n")
           )
       }
 

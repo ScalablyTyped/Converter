@@ -5,7 +5,8 @@ package importer
 import org.scalatest.FunSuite
 
 class ImporterTest extends FunSuite with ImporterHarness {
-  val update = true
+  // todo: automatically update locally, check in ci. Seems the build is not deterministic!
+  val update = sys.env.get("CIRCLECI").isEmpty
 
   test("augment-module")(assertImportsOk("augment-module", update))
   test("typings-json")(assertImportsOk("typings-json", update))

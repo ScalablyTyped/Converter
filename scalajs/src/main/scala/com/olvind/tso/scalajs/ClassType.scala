@@ -22,7 +22,7 @@ sealed trait ClassType {
 }
 
 object ClassType {
-  case object Class         extends ClassType
+  case object Class extends ClassType
   case object AbstractClass extends ClassType
-  case object Trait         extends ClassType
+  case object Trait extends ClassType
 }

@@ -46,20 +46,20 @@ object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibSca
             >> PhaseOne.visitContainerSymbol(scope)
             >> FakeLiterals(scope)
             >> S.RemoveMultipleInheritance.visitContainerSymbol(scope)
-            >> PhaseTwo.visitContainerSymbol(scope)   //
+            >> PhaseTwo.visitContainerSymbol(scope) //
             >> PhaseThree.visitContainerSymbol(scope) //runs in phase after FilterMemberOverrides
-            >> PhaseFour.visitContainerSymbol(scope)  //
+            >> PhaseFour.visitContainerSymbol(scope) //
           )
 
           val rewrittenTree = ScalaTransforms.run(ImportTree(lib, logger))
 
           LibScalaJs(
-            source = lib.source,
-            libName = Name(lib.name.`__value`),
-            libVersion = lib.version,
+            source        = lib.source,
+            libName       = Name(lib.name.`__value`),
+            libVersion    = lib.version,
             packageSymbol = rewrittenTree,
-            dependencies = scalaDeps.values.to[Set],
-            isStdLib = lib.isStdLib
+            dependencies  = scalaDeps.values.to[Set],
+            isStdLib      = lib.isStdLib
           )
         }
     }

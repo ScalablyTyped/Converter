@@ -14,7 +14,7 @@ sealed abstract class Wildcards(val allowed: Boolean) {
 }
 
 object Wildcards {
-  case object Yes      extends Wildcards(true)
-  case object No       extends Wildcards(false)
+  case object Yes extends Wildcards(true)
+  case object No extends Wildcards(false)
   case object Prohibit extends Wildcards(false)
 }
