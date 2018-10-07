@@ -8,7 +8,7 @@ import scala.util.Try
 
 /* calculate difference from last run (if any) and commit new changes */
 object CommitChanges {
-  def apply(summary: Summary)(implicit wd: Path): Unit = {
+  def apply(summary: Summary, otherDirs: Seq[Path])(implicit wd: Path): Unit = {
 
     val summaryFile   = wd / Summary.path
     val existingOpt   = Try(Json[Summary](summaryFile)).toOption
@@ -18,9 +18,8 @@ object CommitChanges {
     println(formattedDiff)
     Json.persist(summaryFile)(summary)
 
-    println("Commiting...")
     %% git ('add, summaryFile.toString)
-    %% git ('add, 'failures)
+    otherDirs.foreach(otherDir => %% git ('add, otherDir))
 
     def duplicatedLogic(s: TsIdentLibrary): String = {
       val base = PhaseCompileBloop.fromName(Name(s.`__value`))

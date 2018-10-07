@@ -2,7 +2,7 @@ package com.olvind.tso
 package importer
 
 import java.io.FileWriter
-import java.time.Instant
+import java.time.{Instant, LocalDate}
 import java.util.concurrent._
 
 import ammonite.ops._
@@ -10,9 +10,9 @@ import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
-import com.olvind.tso.importer.build.BloopCompiler
+import com.olvind.tso.importer.build.{BloopCompiler, GenerateSbtPlugin}
 import com.olvind.tso.importer.jsonCodecs._
-import com.olvind.tso.phases.{PhaseRunner, RecPhase}
+import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.ts.TsSource.FromFile
 import com.olvind.tso.ts._
@@ -120,7 +120,9 @@ object Main extends App {
   val pool = new ForkJoinPool(3)
 
   par.tasksupport = new ForkJoinTaskSupport(pool)
-  par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
+  val results: Set[PhaseRes[TsSource, PublishedSbtProject]] =
+    par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
+
   pool.shutdown()
 
   val summary = interface.finish()
@@ -153,7 +155,15 @@ object Main extends App {
   if (debugMode) {
     System.err.println(s"Not committing because of non-empty args ${args.mkString(", ")}")
   } else {
-    CommitChanges(summary)(targetFolder)
+    val successes: Set[PublishedSbtProject] =
+      results collect { case PhaseRes.Ok(res) => res }
+
+    println("Generating sbt plugin...")
+    val sbtProjectDir = targetFolder / s"sbt-${constants.Project}"
+    GenerateSbtPlugin(sbtProjectDir, successes, LocalDate.now().toString)
+
+    println("Commiting...")
+    CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
   }
 
   System.exit(0)

@@ -7,7 +7,7 @@ import bloop.io.{AbsolutePath, Paths}
 import bloop.reporter.{LogReporter, ReporterConfig}
 import bloop.{CompileInputs, Compiler, CompilerCache, DependencyResolution, ScalaInstance}
 import com.olvind.logging.{Formatter, Logger}
-import com.olvind.tso.Seq
+import com.olvind.tso.{constants, Seq}
 import coursier.Cache
 import coursier.core.Repository
 import coursier.maven.MavenRepository
@@ -77,7 +77,11 @@ object BloopCompiler {
       Array(
         DependencyResolution.resolve(scalaJsOrganization, s("scalajs-library"), scalaJsVersion, bloopLogger, repos),
         DependencyResolution.resolve(scalaJsOrganization, sjs("scalajs-dom"), scalaJsDomVersion, bloopLogger, repos),
-        DependencyResolution.resolve("com.olvind", sjs("runtime"), scalablyTypedRuntimeVersion, bloopLogger, repos),
+        DependencyResolution.resolve(constants.organization,
+                                     sjs("runtime"),
+                                     scalablyTypedRuntimeVersion,
+                                     bloopLogger,
+                                     repos),
       ).flatten
 
     val scalaJsCompiler =

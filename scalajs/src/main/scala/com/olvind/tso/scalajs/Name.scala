@@ -34,7 +34,7 @@ object Name {
   val Object:     Name = Name("Object")
   val Function:   Name = Name("Function")
   val Default:    Name = Name("default")
-  val OutputPkg:  Name = Name(constants.pkg)
+  val OutputPkg:  Name = Name(constants.Project)
   val StdLib:     Name = Name("StdLib")
   val Symbol:     Name = Name("Symbol")
   val This:       Name = Name("This")

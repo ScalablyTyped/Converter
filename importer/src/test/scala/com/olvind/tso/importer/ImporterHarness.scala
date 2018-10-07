@@ -34,7 +34,7 @@ trait ImporterHarness extends FunSuiteLike {
       RecPhase[TsSource]
         .next(new PhaseReadTypescript(Seq(source), Set.empty, stdLibSource, parser.parseFile), "typescript")
         .next(PhaseToScalaJs, "scala.js")
-        .next(PhaseCompileBloop(bloop, targetFolder, Name(constants.pkg), publishFolder), "build")
+        .next(PhaseCompileBloop(bloop, targetFolder, Name(constants.Project), publishFolder), "build")
 
     val found: Set[TsLibSource] =
       TypescriptSources.forFolder(InFolder(source.path), Set.empty)

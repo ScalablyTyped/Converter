@@ -36,7 +36,7 @@ case class PhaseCompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, main
                      logger:  Logger[Unit]): PhaseRes[TsSource, PublishedSbtProject] =
     //
     getDeps(lib.dependencies map (_.source)) flatMap { deps: Map[TsSource, PublishedSbtProject] =>
-      val organization          = s"com.olvind.${PhaseCompileBloop.fromName(mainPackageName).toLowerCase}"
+      val organization          = s"${constants.organization}.${PhaseCompileBloop.fromName(mainPackageName).toLowerCase}"
       val name                  = PhaseCompileBloop.fromName(lib.libName)
       val artifactId            = versions.sjs(name)
       val depsSeq               = deps.values.to[Seq]
