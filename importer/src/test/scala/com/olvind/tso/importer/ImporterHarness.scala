@@ -6,7 +6,7 @@ import java.io.StringWriter
 import java.nio.file.Files
 
 import ammonite.ops.{%, cp, rm, root, Path}
-import com.olvind.logging.LogRegistry
+import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.build.BloopCompiler
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs._
@@ -17,7 +17,7 @@ import org.scalatest.{Assertion, FunSuiteLike}
 import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
-  private val testLogger = logging.stdout //.filter(LogLevel.warn)
+  private val testLogger = logging.stdout.filter(LogLevel.error)
   private val bloop      = BloopCompiler(testLogger)
   val NoListener: PhaseListener[TsSource] = (_, _, _) => ()
 
@@ -82,6 +82,13 @@ trait ImporterHarness extends FunSuiteLike {
               case (name, logger) =>
                 println(("-" * 10) + name)
                 println(logger.underlying.toString)
+            }
+            if (update) {
+              import ammonite.ops._
+              import ImplicitWd.implicitCwd
+              rm(checkFolder.folder)
+              cp(targetFolder.folder, checkFolder.folder)
+              %("git", "add", checkFolder.folder)
             }
 
             detail match {

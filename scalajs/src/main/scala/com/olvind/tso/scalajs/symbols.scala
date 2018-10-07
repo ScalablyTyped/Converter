@@ -63,17 +63,17 @@ sealed trait MemberSymbol extends Symbol {
   val isOverride: Boolean
 }
 
-sealed trait FieldType
+sealed trait MemberImpl
 
-case object FieldTypeNative         extends FieldType
-case object FieldTypeNotImplemented extends FieldType
-final case class FieldTypeScala(impl: String) extends FieldType
+case object MemberImplNative         extends MemberImpl
+case object MemberImplNotImplemented extends MemberImpl
+final case class MemberImplCustom(impl: String) extends MemberImpl
 
 final case class FieldSymbol(
     annotations: Seq[MemberAnnotation],
     name:        Name,
     tpe:         TypeRef,
-    fieldType:   FieldType,
+    impl:        MemberImpl,
     isReadOnly:  Boolean,
     isOverride:  Boolean,
     comments:    Comments
@@ -85,7 +85,7 @@ final case class FieldSymbol(
   def renamed(newName: Name): FieldSymbol =
     copy(
       name = newName,
-      annotations = Annotations.renamedFrom(name)(annotations),
+      annotations = Annotation.renamedFrom(name)(annotations),
       isOverride = false
     )
 }
@@ -96,7 +96,7 @@ final case class MethodSymbol(
     name:        Name,
     tparams:     Seq[TypeParamSymbol],
     params:      Seq[Seq[ParamSymbol]],
-    fieldType:   FieldType,
+    impl:        MemberImpl,
     resultType:  TypeRef,
     isOverride:  Boolean,
     comments:    Comments
@@ -107,7 +107,7 @@ final case class MethodSymbol(
   def renamed(newName: Name): MethodSymbol =
     copy(
       name = newName,
-      annotations = Annotations.renamedFrom(name)(annotations),
+      annotations = Annotation.renamedFrom(name)(annotations),
       isOverride = false
     )
 }
@@ -183,14 +183,20 @@ object TypeRef {
   def TopLevel(typeParam: TypeRef): TypeRef =
     TypeRef(QualifiedName.TopLevel, Seq(typeParam), NoComments)
 
-  def Function(typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef =
-    typeParams.lastOption match {
-      case Some(Repeated(underlying, _)) =>
-        val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
-        TypeRef(QualifiedName.FunctionArity(typeParams.size), typeParams.dropRight(1) :+ commented :+ resType, comments)
-      case _ =>
-        TypeRef(QualifiedName.FunctionArity(typeParams.size), typeParams :+ resType, comments)
-    }
+  def Function(thisType: Option[TypeRef], typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
+    val rewriteRepeated: Seq[TypeRef] =
+      typeParams.lastOption match {
+        case Some(Repeated(underlying, _)) =>
+          val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+          typeParams.dropRight(1) :+ commented
+        case _ =>
+          typeParams
+      }
+
+    val finalTparams = thisType.to[Seq] ++ (rewriteRepeated :+ resType)
+
+    TypeRef(QualifiedName.FunctionArity(thisType.isDefined, typeParams.size), finalTparams, comments)
+  }
 
   def Tuple(typeParams: Seq[TypeRef]): TypeRef =
     typeParams.length match {

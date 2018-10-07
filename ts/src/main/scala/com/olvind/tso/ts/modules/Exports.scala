@@ -36,8 +36,15 @@ object Exports {
                         export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
                       case _ => Nil
                     }
-                  case ExpandedMod.Whole(defaults, namespaceds, _, newScope) =>
-                    (defaults ++ namespaceds).flatMap(
+
+                  case ExpandedMod.Whole(defaults, namespaceds, rest, newScope) =>
+                    val restNs = TsDeclNamespace(NoComments,
+                                                 false,
+                                                 TsIdentNamespace(ident.value),
+                                                 rest,
+                                                 CodePath.NoPath,
+                                                 JsLocation.Zero)
+                    (defaults ++ namespaceds :+ restNs).flatMap(
                       m => export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
                     )
                 }
@@ -46,34 +53,49 @@ object Exports {
                 Imports.expandImportee(i.from, scope, loopDetector)
                 scope.logger.fatalMaybe(s"Could not resolve import $i", constants.Pedantic)
                 Nil
-
             }
         }
 
       case TsExport(_, exportType, TsExporteeNames(idents, fromOpt)) =>
+        val newScope = fromOpt match {
+          case Some(from) =>
+            scope.moduleScopes.get(from) match {
+              case Some(modScope) => modScope
+              case None =>
+                scope.logger.fatalMaybe(s"Couldn't find expected module $from", constants.Pedantic)
+                scope
+            }
+          case None => scope
+        }
+
         idents flatMap {
           case (qIdent, asNameOpt) =>
-            val newScope = fromOpt match {
-              case Some(from) => scope.moduleScopes(from)
-              case None       => scope
+            val found = newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
+            if (found.isEmpty && constants.Pedantic) {
+              //for debugging
+              newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
+              newScope.logger.warn(s"Could not resolve $qIdent")
             }
-
-            newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector) flatMap {
+            found flatMap {
               case (found, newNewScope) =>
                 export(codePath, jsLocation, newNewScope, exportType, found, asNameOpt, loopDetector)
             }
         }
 
       case TsExport(_, exportType, TsExporteeStar(from, None /* todo*/ )) =>
-        scope moduleScopes from match {
-          case TreeScope.Scoped(newScope, mod: TsDeclModule) =>
+        scope.moduleScopes get from match {
+          case Some(TreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
               if (scope.stack contains mod) mod
               else CachedReplaceExports(newScope, loopDetector, mod)
 
-            resolvedModule.nameds.flatMap { n =>
-              export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
+            resolvedModule.nameds.flatMap {
+              case n if n.name === TsIdent.default => Nil
+              case n                               => export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
             }
+          case _ =>
+            scope.logger.fatalMaybe(s"Couldn't find expected module $from", constants.Pedantic)
+            Nil
         }
     }
 
@@ -113,15 +135,8 @@ object Exports {
           case x: TsDeclNamespace =>
             val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
             xx.members flatMap {
-              case xxx: TsNamedDecl =>
-                DeriveCopy(xxx, None)
+              case xxx: TsNamedDecl => DeriveCopy(xxx, None)
               case _ => Nil
-            }
-
-          case v @ TsDeclVar(_, _, _, _, Some(tpe: TsTypeRef), _, _, _, _) =>
-            Hoisting.hoistedMembersFrom(scope, ownerCp, loopDetector)(tpe) match {
-              case Nil     => v.withName(TsIdent.namespaced) :: Nil
-              case hoisted => hoisted
             }
 
           case x =>

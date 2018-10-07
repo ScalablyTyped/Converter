@@ -223,9 +223,9 @@ object Printer {
         )
 
         fieldType match {
-          case FieldTypeNotImplemented => println()
-          case FieldTypeNative         => println(" = js.native")
-          case FieldTypeScala(impl)    => println(" = ", impl)
+          case MemberImplNotImplemented => println()
+          case MemberImplNative         => println(" = js.native")
+          case MemberImplCustom(impl)   => println(" = ", impl)
         }
 
       case MethodSymbol(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments) =>
@@ -240,9 +240,9 @@ object Printer {
         print(params.map(_.map(formatParamSymbol(prefix)).mkString("(", ", ", ")")).mkString, ": ")
         print(formatTypeRef(prefix)(resultType))
         fieldType match {
-          case FieldTypeNotImplemented => println()
-          case FieldTypeNative         => println(" = js.native")
-          case FieldTypeScala(impl)    => println(" = ", impl)
+          case MemberImplNotImplemented => println()
+          case MemberImplNative         => println(" = js.native")
+          case MemberImplCustom(impl)   => println(" = ", impl)
         }
 
       case CtorSymbol(level, params, comments) =>

@@ -5,9 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultInheritance */@JSImport("aws-sdk/clients/dynamodb", JSImport.Namespace)
+@JSImport("aws-sdk/clients/dynamodb", JSImport.Namespace)
 @js.native
-class namespaced () extends AwsDashSdkLib.AwsDashSdkLibServicesDynamodbModule.DynamoDBCustomizations {
+class namespaced () extends DynamoDB {
   def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.TypesNamespace.ClientConfiguration) = this()
 }
 

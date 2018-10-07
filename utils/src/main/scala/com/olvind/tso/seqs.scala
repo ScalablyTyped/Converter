@@ -21,6 +21,15 @@ object seqs {
   implicit def noBuild[C[_]]: CanBuildFrom[Any, Unit, C[Unit]] =
     NoBuild.asInstanceOf[CanBuildFrom[Any, Unit, C[Unit]]]
 
+  @inline final implicit class UnzipOps[L, R](private val es: Seq[Either[L, R]]) extends AnyVal {
+
+    @inline def unzipEither: (Seq[L], Seq[R]) =
+      (
+        es.collect({ case Left(v1)  => v1 }),
+        es.collect({ case Right(v2) => v2 })
+      )
+
+  }
   @inline final implicit class TraversableOps[C[t] <: GenIterableLike[t, C[t]], T](private val ts: C[T])
       extends AnyVal {
 

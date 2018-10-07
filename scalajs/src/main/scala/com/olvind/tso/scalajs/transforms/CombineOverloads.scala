@@ -131,7 +131,7 @@ object CombineOverloads extends SymbolVisitor {
                        ctor.name,
                        Nil,
                        Seq(ctor.params),
-                       FieldTypeNative,
+                       MemberImplNative,
                        TypeRef.Nothing,
                        false,
                        ctor.comments)

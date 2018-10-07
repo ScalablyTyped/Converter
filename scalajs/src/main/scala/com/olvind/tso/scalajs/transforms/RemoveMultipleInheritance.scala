@@ -2,52 +2,101 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import scala.collection.mutable
+import com.olvind.tso.scalajs.ParentsResolver.{Parent, Parents}
+import com.olvind.tso.scalajs.Printer.formatQN
+import seqs._
 
 /**
   * Sort parents to ensure that if we inherit from a class it
   *  goes first, and traits are mixins
   */
 object RemoveMultipleInheritance extends SymbolVisitor {
-  private val Empty: Set[TypeRef] = Set.empty
+
+  final case class Dropped(typeRef: TypeRef, because: String)
 
   override def enterClassSymbol(scope: SymbolScope)(cls: ClassSymbol): ClassSymbol = {
-    val parents = ParentsResolver(scope, cls)
-
-    val parentsByTransitiveClassesReferenced: Map[Set[TypeRef], Seq[ParentsResolver.NotRoot]] =
-      parents.directParents
-        .groupBy { p: ParentsResolver.NotRoot =>
-          p.transitiveParents
-            .collect {
-              case (ref, cs) if cs.classType === ClassType.Class || cs.classType === ClassType.AbstractClass => ref
-            }
-            .to[Set]
-        }
-
-    val classParentRefs = mutable.ArrayBuffer.empty[TypeRef]
-    val ignoredRefs     = mutable.ArrayBuffer.empty[TypeRef]
-
-    parentsByTransitiveClassesReferenced.to[Seq].sortBy(_._2.length).foreach {
-      case (Empty, _) =>
-      case (_, ps) =>
-        ignoredRefs ++= classParentRefs
-        classParentRefs.clear()
-        classParentRefs ++= ps.map(_.ref)
-    }
-
-    val interfaceParentRefs = cls.parents.filterNot(pr => classParentRefs.contains(pr) || ignoredRefs.contains(pr))
-
-    val msg = s"Dropped parents $ignoredRefs"
-
-    if (ignoredRefs.nonEmpty) {
-      scope.logger.info(msg)
-    }
-
-    cls.copy(
-      comments =
-        if (ignoredRefs.isEmpty) cls.comments
-        else cls.comments + Comment("/* RemoveMultipleInheritance: " + msg + "*/\n"),
-      parents = Seq.empty ++ classParentRefs ++ interfaceParentRefs
-    )
+    val (newComments, newParents) = findNewParents(scope, cls)
+    cls.copy(comments = newComments, parents = newParents)
   }
+  override def enterModuleSymbol(scope: SymbolScope)(mod: ModuleSymbol): ModuleSymbol = {
+    val (newComments, newParents) = findNewParents(scope, mod)
+
+    mod.copy(comments = newComments, parents = newParents)
+  }
+
+  def findNewParents(scope: SymbolScope, cls: ContainerSymbol): (Comments, List[TypeRef]) = {
+    val allParents = ParentsResolver(scope, cls)
+
+    val first     = firstReferringToClass(allParents) orElse longestInheritance(allParents)
+    val remaining = first ++ allParents.directParents.filterNot(x => first.contains(x))
+
+    val (changes, ps) = step(included = Nil, newParents = Nil, dropped = Nil, remaining = remaining.to[List])
+
+    val newComments: Comments =
+      if (changes.nonEmpty) {
+        val msg = s"Dropped parents ${changes.map(x => formatQN(Nil, x.typeRef.typeName) + " because " + x.because)}"
+        scope.logger.info(msg)
+        cls.comments + Comment("/* RemoveMultipleInheritance: " + msg + "*/\n")
+      } else cls.comments
+
+    (newComments, ps.reverse ::: allParents.unresolved.to[List])
+  }
+
+  def longestInheritance(parents: Parents): Option[Parent] =
+    if (parents.directParents.nonEmpty)
+      Some(parents.directParents.maxBy(_.transitiveParents.size))
+    else None
+
+  def firstReferringToClass(parents: Parents): Option[Parent] =
+    parents.directParents.find(
+      p =>
+        p.transitiveParents.exists {
+          case (_, cs) => cs.classType === ClassType.Class || cs.classType === ClassType.AbstractClass
+          case _       => false
+      }
+    )
+
+  def step(included:   List[Parent],
+           newParents: List[TypeRef],
+           dropped:    List[Dropped],
+           remaining:  List[Parent]): (List[Dropped], List[TypeRef]) =
+    remaining match {
+      case Nil =>
+        (dropped, newParents)
+      case h :: rest =>
+        def inheritsClass: Option[Dropped] =
+          h.transitiveParents.collectFirst {
+            case (_, c)
+                if included.nonEmpty && c.classType =/= ClassType.Trait && !included.exists(
+                  _.transitiveParents.exists(_._2 === c)
+                ) =>
+              Dropped(h.refs.last, "Inheritance from two classes")
+          }
+
+        def alreadyInherits: Option[Dropped] =
+          included.firstDefined(
+            _.transitiveParents.keys.firstDefined(
+              i =>
+                if (h.refs.exists(_.typeName === i.typeName)) Some(Dropped(h.refs.last, "Already inherited"))
+                else None
+            )
+          )
+
+        def alreadyInheritsUnresolved: Option[Dropped] =
+          included.firstDefined(_.transitiveUnresolved.firstDefined { u =>
+            h.transitiveUnresolved.filter(_.typeName === u.typeName) match {
+              case Nil => None
+              case some =>
+                Some(Dropped(h.refs.last, s"Already inherited ${some.map(Printer.formatTypeRef(Nil)).mkString(", ")}"))
+            }
+          })
+
+        inheritsClass orElse alreadyInherits orElse alreadyInheritsUnresolved match {
+          case None =>
+            //todo: drop conflicts here
+
+            step(h :: included, h.refs.last :: newParents, dropped, rest)
+          case Some(d) => step(included, newParents, d :: dropped, rest)
+        }
+    }
 }

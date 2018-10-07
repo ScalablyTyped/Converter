@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "rxjs"
-version := "0.0-unknown-3cde7d"
+version := "0.0-unknown-5254cc"
 scalaVersion := "2.12.6"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

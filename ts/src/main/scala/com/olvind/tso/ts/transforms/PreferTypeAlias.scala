@@ -44,6 +44,22 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
         }
       }
   }
+  /* simulate that we have already ran `PreferTypeAlias` on `tree` somehow.
+  The point is that as long as we know that `tree` is not going to be a type alias itself, we can ignore the members */
+  def memberHack(tree: TsTree): TsTree =
+    tree match {
+      case x: TsDeclInterface =>
+        val newMembers = x.members collect {
+          case x: TsMemberCall => x
+        }
+        x.copy(members = newMembers)
+      case x: TsDeclClass =>
+        val newMembers = x.members collect {
+          case x: TsMemberCall => x
+        }
+        x.copy(members = newMembers)
+      case other => other
+    }
 
   /**
     * Typescript and Scala share limitations on recursive/circular types.
@@ -52,7 +68,7 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
     * type T = T[] | number;
     * ```
     *
-    * Howevery, in both languages you can the the know by using an interface/trait
+    * However, in both languages you can make it work by using an interface/trait
     * ```typescript
     * type T = TArray | number
     * interface TArray extends T[] [}
@@ -61,10 +77,11 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
     * So to avoid compilation failure after we simplify, we leave it to the user of the generated
     *  code to cast appropriately
     */
-  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TreeScope, tree: TsTree): Boolean =
-    TreeTraverse.collect(tree) { case x: TsIdent if x === self => x } match {
+  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TreeScope, tree: TsTree): Boolean = {
+    val minimizedTree = memberHack(tree)
+    TreeTraverse.collect(minimizedTree) { case x: TsIdent if x === self => x } match {
       case Nil =>
-        val refs = TreeTraverse.collect(tree) { case x: TsTypeRef => x }.to[Set]
+        val refs = TreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.to[Set]
         refs exists { ref =>
           if (cache(ref)) false
           else
@@ -82,7 +99,7 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
         )
         true
     }
-
+  }
   override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl = x match {
 
     /**
@@ -90,8 +107,7 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
       *  `new` an intersection type
       */
     case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
-      if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance))
-        i
+      if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance)) i
       else {
         t.logger.info("Simplified to type alias")
         TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)

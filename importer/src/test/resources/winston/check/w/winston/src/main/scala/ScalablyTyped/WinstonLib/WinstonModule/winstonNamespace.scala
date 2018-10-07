@@ -13,10 +13,10 @@ object winstonNamespace extends js.Object {
     val levels: js.UndefOr[WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.AbstractConfigSetLevels] = js.undefined
   }
   
+  val config: WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.Config = js.native
   @JSName("config")
   @js.native
   object configNamespace extends js.Object {
-    var foo: WinstonLib.WinstonLibStrings.bar = js.native
     @JSName("winston")
     @js.native
     object winstonNamespace extends js.Object {

@@ -2,6 +2,8 @@ package com.olvind.tso
 package scalajs
 package transforms
 
+import seqs.TraversableOps
+
 /**
   * We filter away unneeded overrides, since they add nothing, and
   * wreck havoc with IDE performance.
@@ -22,16 +24,30 @@ object FilterMemberOverrides extends SymbolVisitor {
   override def enterPackageSymbol(scope: SymbolScope)(s: PackageSymbol): PackageSymbol =
     s.copy(members = newMembers(scope, s, s.members))
 
-  private def newMembers[S >: MemberSymbol <: Symbol](scope: SymbolScope, owner: ContainerSymbol, members: Seq[S]) = {
+  private def newMembers[S >: MemberSymbol <: Symbol](scope:   SymbolScope,
+                                                      owner:   ContainerSymbol,
+                                                      members: Seq[S]): Seq[S] = {
+    val (methods, fields, other) = members.partitionCollect2(
+      { case x: MethodSymbol => x },
+      { case x: FieldSymbol  => x }
+    )
+    val methodsByName: Map[Name, Seq[MethodSymbol]] =
+      methods groupBy (_.name)
+
+    val fieldsByName: Map[Name, Seq[FieldSymbol]] =
+      fields.groupBy(_.name)
+
     val parents: Map[TypeRef, ClassSymbol] =
       ParentsResolver(scope, owner).transitiveParents
 
-    val parentMembers = ObjectMembers.members ++ parents.flatMap(_._2.members)
+    val (inheritedMethods, inheritedFields, _) =
+      (ObjectMembers.members ++ parents.flatMap(_._2.members)).partitionCollect2(
+        { case x: MethodSymbol => x },
+        { case x: FieldSymbol  => x }
+      )
 
-    val inheritedFields: Map[Name, Seq[FieldSymbol]] =
-      parentMembers collect { case c: FieldSymbol => c } groupBy (_.name)
-
-    val inheritedMethods = parentMembers collect { case c: MethodSymbol => c }
+    val inheritedFieldsByName: Map[Name, Seq[FieldSymbol]] =
+      inheritedFields groupBy (_.name)
 
     val inheritedMethodsByBase: Map[MethodBase, Seq[MethodSymbol]] =
       inheritedMethods groupBy Erasure.base(scope)
@@ -39,51 +55,56 @@ object FilterMemberOverrides extends SymbolVisitor {
     val inheritedMethodsByName: Map[Name, Seq[MethodSymbol]] =
       inheritedMethods groupBy (_.name)
 
-    val newMembers: Seq[S] =
-      members flatMap {
-        case f: FieldSymbol =>
-          if (inheritedMethodsByName.contains(f.name))
-            Seq(f withSuffix owner.name)
-          else
-            inheritedFields.get(f.name) match {
-              case Some(conflicting: Seq[FieldSymbol]) =>
-                if (f.tpe === TypeRef.Any || f.tpe === TypeRef.Nothing || (conflicting exists (_.tpe === f.tpe)))
-                  /* there is no point in emitting duplicate fields */
-                  Nil
-                else
-                  /* but to retain a field with a different type, we rename it */
-                  Seq(f withSuffix owner.name)
+    val allMethods = inheritedMethodsByName ++ methodsByName
+    val allFields  = inheritedFieldsByName ++ fieldsByName
 
-              case None =>
-                Seq(f)
-            }
+    val newFields: Seq[FieldSymbol] = fields.flatMap { f =>
+      allMethods.get(f.name) match {
+        case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === f.name) =>
+          Seq(f withSuffix "F" + owner.name.value)
+        case _ =>
+          inheritedFieldsByName.get(f.name) match {
+            case Some(conflicting: Seq[FieldSymbol]) =>
+              /* but to retain a field with a different type, we rename it */
+              val withSuffix = f withSuffix owner.name
 
-        case m: MethodSymbol =>
-          val mErasure = Erasure.erasure(scope)(m)
-
-          if (inheritedFields.contains(m.name)) Seq(m withSuffix owner.name)
-          else {
-            val mBase = Erasure.base(scope)(m)
-
-            inheritedMethodsByBase get mBase match {
-              case Some(conflicting) =>
-//                /* there is no point in emitting duplicate methods */
-//                if (conflicting exists (c => Erasure.erasure(scope)(c) === mErasure))
-//                  Nil
-//                /* but to retain a subtly different method, we rename it, and drop completely if it exists in super class  */
-//                else {
-//                  val newM = m withSuffix owner.name
-//                  if (inheritedMethodsByName.contains(newM.name)) Nil
-//                  else Seq(newM)
-//
-//                }
+              if (f.tpe === TypeRef.Any || f.tpe === TypeRef.Nothing || (conflicting exists (_.tpe === f.tpe)))
+                /* there is no point in emitting duplicate fields */
                 Nil
-              case _ => Seq(m)
-            }
-          }
-        case other => Seq(other)
-      }
+              else if (allFields.contains(withSuffix.name)) Nil
+              else Seq(withSuffix)
 
-    newMembers
+            case None =>
+              Seq(f)
+          }
+      }
+    }
+
+    val newMethods: Seq[MethodSymbol] = methods.flatMap { m =>
+//        val mErasure = Erasure.erasure(scope)(m)
+
+      if (inheritedFieldsByName.contains(m.name)) Seq(m withSuffix "M" + owner.name.value)
+      else {
+        val mBase = Erasure.base(scope)(m)
+
+        inheritedMethodsByBase get mBase match {
+          case Some(conflicting) =>
+            //                /* there is no point in emitting duplicate methods */
+            //                if (conflicting exists (c => Erasure.erasure(scope)(c) === mErasure))
+            //                  Nil
+            //                /* but to retain a subtly different method, we rename it, and drop completely if it exists in super class  */
+            //                else {
+            //                  val newM = m withSuffix owner.name
+            //                  if (inheritedMethodsByName.contains(newM.name)) Nil
+            //                  else Seq(newM)
+            //
+            //                }
+            Nil
+          case _ => Seq(m)
+        }
+      }
+    }
+
+    newFields ++ newMethods ++ other
   }
 }

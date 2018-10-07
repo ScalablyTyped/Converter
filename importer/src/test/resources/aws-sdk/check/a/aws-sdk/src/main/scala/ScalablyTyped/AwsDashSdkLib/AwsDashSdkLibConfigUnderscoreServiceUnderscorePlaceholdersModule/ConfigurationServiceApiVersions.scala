@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 
 trait ConfigurationServiceApiVersions extends js.Object {
-  val dynamodb: js.UndefOr[js.Any] = js.undefined
+  val dynamodb: js.UndefOr[AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.apiVersion] = js.undefined
 }
 

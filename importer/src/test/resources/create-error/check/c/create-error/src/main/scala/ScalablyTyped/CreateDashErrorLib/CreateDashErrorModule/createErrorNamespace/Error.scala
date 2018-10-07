@@ -5,6 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultStuff */@js.native
-trait Error[T /* <: CreateDashErrorLib.CreateDashErrorModule.Error[js.Object] */] extends js.Object
+@js.native
+trait Error[T /* <: CreateDashErrorLib.CreateDashErrorModule.Err */] extends ScalablyTyped.runtime.Instantiable0[T] with ScalablyTyped.runtime.Instantiable1[/* message */ java.lang.String, T] with ScalablyTyped.runtime.Instantiable2[/* message */ java.lang.String, /* obj */ js.Any, T]
 

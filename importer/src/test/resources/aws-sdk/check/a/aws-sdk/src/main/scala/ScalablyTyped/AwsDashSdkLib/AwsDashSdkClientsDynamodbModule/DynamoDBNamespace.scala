@@ -16,14 +16,14 @@ object DynamoDBNamespace extends js.Object {
     /**
          * Creates a DynamoDB document client with a set of configuration options.
          */
-    def this(options: AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.DocumentClientOptions with ClientConfiguration) = this()
+    def this(options: AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.DocumentClientOptions with AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration) = this()
   }
   
   val TypesNamespace: this.type = js.native
   @js.native
   object Converter extends js.Object {
-    def input(data: js.Any): AttributeValue = js.native
-    def input(data: js.Any, options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions): AttributeValue = js.native
+    def input(data: js.Any): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
+    def input(data: js.Any, options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
   }
   
   @JSName("Converter")
@@ -67,6 +67,7 @@ object DynamoDBNamespace extends js.Object {
   
   type AttributeValue = js.Any
   type ClientConfiguration = js.Any
+  type Types = AwsDashSdkLib.AwsDashSdkLibServicesDynamodbModule.DynamoDBCustomizations
   type apiVersion = AwsDashSdkLib.AwsDashSdkLibStrings.latest
 }
 

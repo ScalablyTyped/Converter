@@ -9,7 +9,7 @@ import ammonite.ops._
 import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
-import com.olvind.tso.importer.PersistedFunction.nameAndMtimeUnder
+import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
 import com.olvind.tso.importer.build.BloopCompiler
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRunner, RecPhase}
@@ -19,14 +19,18 @@ import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
 
 import scala.collection.parallel.ForkJoinTaskSupport
+import scala.util.Try
 
 object Main extends App {
   val debugMode    = args.nonEmpty
   val cacheFolder  = home / 'tmp / "tso-cache"
   val targetFolder = cacheFolder / Name.OutputPkg.value
+  val failFolder   = targetFolder / 'failures
   val logsFolder   = cacheFolder / 'logs
 
   mkdir(targetFolder)
+  rm(failFolder)
+  mkdir(failFolder)
   mkdir(logsFolder)
 
   if (!exists(targetFolder / ".git")) {
@@ -48,8 +52,8 @@ object Main extends App {
     }
   } else {
     implicit val wd = targetFolder
-    % git ('clean, "-qfdx")
-    % git 'pull
+    % git 'fetch
+    % git ('reset, "--hard", "origin/master")
   }
 
   val storingErrorLogger = logging.storing()
@@ -86,7 +90,7 @@ object Main extends App {
   val sources: Seq[InFolder] = Seq(dtFolder, externalsFolder)
 
   val persistedParser: InFile => Either[String, TsParsedFile] =
-    PersistedFunction(nameAndMtimeUnder(cacheFolder / 'parse / BuildInfo.parserHash.toString), logger.void)(
+    PersistingFunction(nameAndMtimeUnder(cacheFolder / 'parse / BuildInfo.parserHash.toString), logger.void)(
       parseFile
     )
 
@@ -119,25 +123,37 @@ object Main extends App {
   par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
   pool.shutdown()
 
+  val summary = interface.finish()
+
+  println("Writing logs")
+
   logRegistry.logs.foreach {
     case (libName, storeds) =>
-      files.softWrite(logsFolder / RelPath(libName.`__value` + ".log")) { w1 =>
-        storeds.underlying.foreach { stored =>
-          {
-            val str = LibraryPattern(stored.message, stored.throwable, stored.metadata, stored.ctx).plainText
+      val failLog = failFolder / RelPath(libName.`__value` + ".log")
+
+      if (summary.failures.contains(libName)) {
+        files.softWrite(failLog) { w1 =>
+          storeds.underlying.foreach { stored =>
+            val str = LogPatternLibrary(stored.message, stored.throwable, stored.metadata, stored.ctx).plainText
             w1.append(str)
             w1.append("\n")
           }
         }
+      } else Try(rm(failLog))
+
+      files.softWrite(logsFolder / RelPath(libName.`__value` + ".log")) { w1 =>
+        storeds.underlying.foreach { stored =>
+          val str = LogPatternLibrary(stored.message, stored.throwable, stored.metadata, stored.ctx).plainText
+          w1.append(str)
+          w1.append("\n")
+        }
       }
   }
-
-  val summary = interface.finish()
 
   if (debugMode) {
     System.err.println(s"Not committing because of non-empty args ${args.mkString(", ")}")
   } else {
-    CommitRun(summary)(targetFolder)
+    CommitChanges(summary)(targetFolder)
   }
 
   System.exit(0)

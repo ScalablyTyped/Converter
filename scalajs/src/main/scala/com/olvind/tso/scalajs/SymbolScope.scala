@@ -22,7 +22,7 @@ sealed abstract class SymbolScope { outer =>
 
         if (res.isEmpty && constants.Pedantic) {
           _lookup(fragments)
-          logger error s"Couldnt resolve $fragments at $this"
+          logger warn s"Couldn't resolve $fragments"
         }
 
         res

@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 
 trait ndarray[T] extends js.Object {
   val T: ndarray[T]
-  val data: StdLib.Array[T]
+  val data: NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T]
 }
 

@@ -44,15 +44,14 @@ object QualifiedName {
   val TopLevel:         QualifiedName = Runtime + Name("TopLevel")
   val UNION:            QualifiedName = QualifiedName(Name("<union>") :: Nil)
   val INTERSECTION:     QualifiedName = QualifiedName(Name("<intersection>") :: Nil)
-  val SINGLETON:        QualifiedName = QualifiedName(Name("<typeof>") :: Nil)
   val LITERAL:          QualifiedName = QualifiedName(Name("<literal>") :: Nil)
   val THIS_TYPE:        QualifiedName = QualifiedName(Name("<this>") :: Nil)
   val IGNORED:          QualifiedName = QualifiedName(Name("<ignored>") :: Nil)
   val REPEATED:         QualifiedName = QualifiedName(Name("*") :: Nil)
 
-  def Instantiable(arity:  Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
-  def FunctionArity(arity: Int): QualifiedName = scala_js + Name.FunctionArity(arity)
-  def Tuple(arity:         Int): QualifiedName =
+  def Instantiable(arity:   Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
+  def FunctionArity(isThis: Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)
+  def Tuple(arity:          Int): QualifiedName =
     arity match {
       case 0 | 1 => Array
       case n     => scala_js + Name("Tuple" + n.toString)

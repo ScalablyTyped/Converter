@@ -11,6 +11,6 @@ trait ReadableOptions extends js.Object {
   val encoding: js.UndefOr[java.lang.String] = js.undefined
   val highWaterMark: js.UndefOr[scala.Double] = js.undefined
   val objectMode: js.UndefOr[scala.Boolean] = js.undefined
-  val read: js.UndefOr[js.Function2[/* this */ Readable, /* size */ js.UndefOr[scala.Double], _]] = js.undefined
+  val read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[scala.Double], _]] = js.undefined
 }
 

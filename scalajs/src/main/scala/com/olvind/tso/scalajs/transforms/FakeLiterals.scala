@@ -26,6 +26,7 @@ object FakeLiterals {
         }
 
       val str = base match {
+        case "_"       => "Underscore"
         case ""        => "Empty"
         case "package" => "PACKAGE"
         case "js"      => "JS"
@@ -46,12 +47,12 @@ object FakeLiterals {
               val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
                 MethodSymbol(
-                  Annotations.jsName(name),
+                  Annotation.jsName(name),
                   Default,
                   name,
                   Nil,
                   Nil,
-                  FieldTypeScala(impl),
+                  MemberImplCustom(impl),
                   TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
                   isOverride = false,
                   comments = NoComments

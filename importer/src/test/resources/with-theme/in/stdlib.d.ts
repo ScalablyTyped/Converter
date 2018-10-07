@@ -5,3 +5,7 @@ interface SomethingHasToBeHereApparently {}
 type Pick<T, K extends keyof T> = {
     [P in K]: T[P];
 };
+
+interface Foo {
+    f?: (n: number) => string
+}

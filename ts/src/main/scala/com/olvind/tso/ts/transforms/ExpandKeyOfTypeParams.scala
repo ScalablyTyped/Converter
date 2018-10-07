@@ -34,16 +34,16 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
       case m @ TsMemberFunction(_, _, name, sig @ TsFunSig(_, IndexedTypeParams(indexed, rest), _, _), _, _, _) =>
         lookupMemberPropertiesFrom(scope / m, indexed.map) match {
           case Nil => Seq(m)
-          case members =>
-            scope.logger.info(s"Expanding ${members.size} members for $name")
+          case nonEmpty =>
+            scope.logger.info(s"Expanding ${nonEmpty.size} members for $name")
 
-            members collect {
+            nonEmpty collect {
               case TsMemberProperty(_, Default, TsIdentSimple(n), Some(tpe), false, false, false) =>
                 val mm = m.copy(signature = sig.copy(tparams = rest))
 
                 new TypeRewriter(mm).visitTsMemberFunction(
                   Map(
-                    TsTypeRef(TsQIdent(List(indexed.typeParam)), Nil)                  -> TsTypeLiteral(TsLiteralString(n)),
+                    TsTypeRef.of(indexed.typeParam)                                    -> TsTypeLiteral(TsLiteralString(n)),
                     TsTypeLookup(TsTypeRef(indexed.map, Nil), Left(indexed.typeParam)) -> tpe
                   )
                 )(mm)
@@ -58,15 +58,15 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
       case m @ TsDeclFunction(_, _, name, sig @ TsFunSig(_, IndexedTypeParams(indexed, rest), _, _), _, _) =>
         lookupMemberPropertiesFrom(scope / m, indexed.map) match {
           case Nil => Seq(m)
-          case members =>
-            scope.logger.info(s"Expanding ${members.size} members for $name")
+          case nonEmpty =>
+            scope.logger.info(s"Expanding ${nonEmpty.size} members for $name")
 
-            members collect {
+            nonEmpty collect {
               case TsMemberProperty(_, Default, TsIdentSimple(n), Some(tpe), false, false, false) =>
                 val mm = m.copy(signature = sig.copy(tparams = rest))
                 new TypeRewriter(mm).visitTsDeclFunction(
                   Map(
-                    TsTypeRef(TsQIdent(List(indexed.typeParam)), Nil)                  -> TsTypeLiteral(TsLiteralString(n)),
+                    TsTypeRef.of(indexed.typeParam)                                    -> TsTypeLiteral(TsLiteralString(n)),
                     TsTypeLookup(TsTypeRef(indexed.map, Nil), Left(indexed.typeParam)) -> tpe
                   )
                 )(mm)

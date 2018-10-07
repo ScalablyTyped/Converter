@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 @js.native
 class SAXStream protected () extends NodeLib.StreamModule.Duplex {
   def this(strict: scala.Boolean, opt: SAXOptions) = this()
-  var _parser: SAXParser = js.native
+  val _parser: SAXParser = js.native
 }
 

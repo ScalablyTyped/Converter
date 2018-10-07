@@ -31,8 +31,7 @@ object Erasure {
       case QualifiedName.UNION     => QualifiedName.`|`
       case QualifiedName.REPEATED  => QualifiedName.JArray
       case QualifiedName.LITERAL =>
-        tpe.targs.head.typeName // the way we fake singletons means this is true enough
-      case QualifiedName.SINGLETON => simplify(scope, tpe.targs.head)
+        tpe.targs.head.typeName // the way we fake literal means this is true enough
       case QualifiedName.INTERSECTION =>
         val primitive = tpe.targs.collectFirst {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName

@@ -37,9 +37,11 @@ object Name {
   val OutputPkg:  Name = Name(constants.pkg)
   val StdLib:     Name = Name("StdLib")
   val Symbol:     Name = Name("Symbol")
+  val This:       Name = Name("This")
   val UndefOr:    Name = Name("UndefOr")
   val Dynamic:    Name = Name("Dynamic")
   val namespaced: Name = Name("namespaced")
+  val underscore: Name = Name("_")
 
   val APPLY:        Name = Name("<apply>")
   val CONSTRUCTOR:  Name = Name("<init>")
@@ -51,7 +53,8 @@ object Name {
   val IGNORED:      Name = Name("<ignored>")
   val REPEATED:     Name = Name("*")
 
-  def FunctionArity(arity: Int): Name = Name("Function" + arity.toString)
+  def FunctionArity(isThis: Boolean, arity: Int): Name =
+    Name((if (isThis) This.unescaped else "") + "Function" + arity.toString)
 
   val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, IGNORED, REPEATED, APPLY)
 

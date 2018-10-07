@@ -17,11 +17,11 @@ object PathsFromTsLibSource {
         case f: TsSource.FromFolder =>
           FirstNonEmpty(
             () => fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-            () => fromFileEntry(f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-            () => fromFileEntry(f, packageJsonOpt.flatMap(_.types)).map(x => (x, true)),
-            () => fromFilesEntry(f, packageJsonOpt.flatMap(_.files)).map(x => (x, false)),
-            () => fromFilesEntry(f, tsConfig.flatMap(_.files)).map(x => (x, false)),
-            () => whateverIsThere(f).map(x => (x, false))
+            () => fromFileEntry(f, packageJsonOpt.flatMap(_.typings)).map(x   => (x, true)),
+            () => fromFileEntry(f, packageJsonOpt.flatMap(_.types)).map(x     => (x, true)),
+            () => fromFilesEntry(f, packageJsonOpt.flatMap(_.files)).map(x    => (x, false)),
+            () => fromFilesEntry(f, tsConfig.flatMap(_.files)).map(x          => (x, false)),
+            () => whateverIsThere(f).map(x                                    => (x, false))
           ).getOrElse(Nil)
       }
 

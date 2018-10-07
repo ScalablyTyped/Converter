@@ -12,8 +12,7 @@ val baseSettings: Project => Project =
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings")
-    )),
-    javaOptions in ThisBuild += "-Xmx8G"
+    ))
   )
 
 lazy val publicationSettings: Seq[Def.Setting[_]] =
@@ -101,5 +100,6 @@ val importer = project
   .settings(
     libraryDependencies ++= Deps.circe ++ Seq(Deps.fansi, Deps.bloop),
     fork in run := true,
+    javaOptions in run += "-Xmx8G",
     mainClass := Some("com.olvind.tso.importer.Importer")
   )

@@ -4,10 +4,12 @@ package parser
 
 import com.olvind.tso.ts
 import com.olvind.tso.ts.JsLocation.Zero
+import com.olvind.tso.ts.OptionalModifier.Noop
 import org.scalatest.Matchers._
 import org.scalatest._
 
 final class ParserTests extends FunSuite {
+  private val T = TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())
 
   import ParserHarness._
 
@@ -1091,13 +1093,13 @@ final class ParserTests extends FunSuite {
         TsTypeObject(
           List(
             TsMemberTypeMapped(
-              NoComments,
-              Default,
+              comments = NoComments,
+              level = Default,
               isReadOnly = false,
-              TsIdent("P"),
-              TsTypeRef(TsQIdent.of("K"), Nil),
-              OptionalModifier.Noop,
-              TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))
+              key = TsIdent("P"),
+              from = TsTypeRef(TsQIdent.of("K"), Nil),
+              optionalize = OptionalModifier.Noop,
+              to = TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))
             )
           )
         ),
@@ -1123,7 +1125,7 @@ final class ParserTests extends FunSuite {
               level = Default,
               isReadOnly = false,
               key = TsIdent("P"),
-              from = TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil)),
+              from = TsTypeKeyOf(T),
               optionalize = OptionalModifier.Noop,
               to = TsTypeObject(
                 List(
@@ -1170,6 +1172,34 @@ final class ParserTests extends FunSuite {
         CodePath.NoPath
       )
     )
+
+    val Readonly = """
+type Readonly<T> = {
+    readonly [P in keyof T]: T[P];
+}"""
+    shouldParseAs(Readonly, TsParser.tsDeclTypeAlias)(
+      TsDeclTypeAlias(
+        NoComments,
+        false,
+        TsIdentSimple("Readonly"),
+        List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
+        TsTypeObject(
+          List(
+            TsMemberTypeMapped(
+              comments = NoComments,
+              level = Default,
+              isReadOnly = true,
+              key = TsIdentSimple("P"),
+              from = TsTypeKeyOf(T),
+              optionalize = Noop,
+              to = TsTypeLookup(T, Left(TsIdentSimple("P")))
+            )
+          )
+        ),
+        CodePath.NoPath
+      )
+    )
+
   }
 
   test("symbols") {
@@ -1726,10 +1756,9 @@ final class ParserTests extends FunSuite {
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None),
              TsTypeParam(NoComments, TsIdentSimple("U"), None, None)),
         TsTypeConditional(
-          TsTypeExtends(TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
-                        TsTypeRef(TsQIdent(List(TsIdentSimple("U"))), List())),
+          TsTypeExtends(T, TsTypeRef(TsQIdent(List(TsIdentSimple("U"))), List())),
           TsTypeRef(TsQIdent(List(TsIdentSimple("never"))), List()),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())
+          T
         ),
         CodePath.NoPath
       )
@@ -1745,9 +1774,8 @@ final class ParserTests extends FunSuite {
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None),
              TsTypeParam(NoComments, TsIdentSimple("U"), None, None)),
         TsTypeConditional(
-          TsTypeExtends(TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
-                        TsTypeRef(TsQIdent(List(TsIdentSimple("U"))), List())),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
+          TsTypeExtends(T, TsTypeRef(TsQIdent(List(TsIdentSimple("U"))), List())),
+          T,
           TsTypeRef(TsQIdent(List(TsIdentSimple("never"))), List())
         ),
         CodePath.NoPath
@@ -1764,14 +1792,14 @@ final class ParserTests extends FunSuite {
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         TsTypeConditional(
           TsTypeExtends(
-            TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
+            T,
             TsTypeUnion(
               List(TsTypeRef(TsQIdent(List(TsIdentSimple("null"))), List()),
                    TsTypeRef(TsQIdent(List(TsIdentSimple("undefined"))), List()))
             )
           ),
           TsTypeRef(TsQIdent(List(TsIdentSimple("never"))), List()),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())
+          T
         ),
         CodePath.NoPath
       )
@@ -1808,7 +1836,7 @@ final class ParserTests extends FunSuite {
         ),
         TsTypeConditional(
           TsTypeExtends(
-            TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
+            T,
             TsTypeFunction(
               TsFunSig(
                 NoComments,
@@ -1861,7 +1889,7 @@ final class ParserTests extends FunSuite {
         ),
         TsTypeConditional(
           TsTypeExtends(
-            TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
+            T,
             TsTypeConstructor(
               TsTypeFunction(
                 TsFunSig(
@@ -1898,9 +1926,9 @@ final class ParserTests extends FunSuite {
               Default,
               isReadOnly = false,
               TsIdentSimple("P"),
-              TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())),
+              TsTypeKeyOf(T),
               OptionalModifier.Deoptionalize,
-              TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()), Left(TsIdentSimple("P")))
+              TsTypeLookup(T, Left(TsIdentSimple("P")))
             )
           )
         ),
@@ -1941,8 +1969,7 @@ final class ParserTests extends FunSuite {
             TsTypeRef(
               TsQIdent(List(TsIdentSimple("Promise"))),
               List(
-                TsTypeRef(TsQIdent(List(TsIdentSimple("Bar"))),
-                          List(TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())))
+                TsTypeRef(TsQIdent(List(TsIdentSimple("Bar"))), List(T))
               )
             )
           )
@@ -1972,7 +1999,7 @@ final class ParserTests extends FunSuite {
   }
 
   test("conditional types part 2") {
-    val TT    = TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())
+    val TT    = T
     val True  = TsTypeLiteral(TsLiteralBoolean(true))
     val False = TsTypeLiteral(TsLiteralBoolean(false))
     shouldParseAs(
@@ -2019,7 +2046,7 @@ final class ParserTests extends FunSuite {
             isReadOnly = false,
             level = Default,
             indexing = IndexingSingle(TsQIdent(List(TsIdentSimple("nominalTypeHack")))),
-            valueType = TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List()),
+            valueType = T,
             isOptional = true
           )
         ),

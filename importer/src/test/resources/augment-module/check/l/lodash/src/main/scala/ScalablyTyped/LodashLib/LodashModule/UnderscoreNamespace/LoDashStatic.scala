@@ -37,7 +37,7 @@ trait LoDashStatic extends js.Object {
        * @return Returns the new array of picked elements.
        */
   @JSName("at")
-  def at_T[T](`object`: LodashLib.LodashModule.List[T], props: Many[LodashLib.LodashModule.PropertyName]*): StdLib.Array[T] = js.native
+  def at_TT[T](`object`: List[T], props: PropertyPath*): T = js.native
   /**
        * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
        * specified as individual arguments or as arrays of keys.
@@ -47,6 +47,6 @@ trait LoDashStatic extends js.Object {
        * @return Returns the new array of picked elements.
        */
   @JSName("at")
-  def at_T[T](props: Many[LodashLib.LodashModule.PropertyName]*): StdLib.Array[T] = js.native
+  def at_TT[T](props: PropertyPath*): T = js.native
 }
 

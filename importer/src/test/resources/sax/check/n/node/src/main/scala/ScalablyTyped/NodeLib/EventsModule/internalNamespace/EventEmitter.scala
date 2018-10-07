@@ -5,6 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* RemoveDifficultStuff */@js.native
+@js.native
 trait EventEmitter extends NodeLib.NodeJSNamespace.EventEmitter
 

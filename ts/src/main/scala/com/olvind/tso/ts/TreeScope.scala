@@ -102,6 +102,7 @@ sealed trait TreeScope {
 object TreeScope {
   type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TreeScope)]]
   case class Cache(
+      applyTypeMapping:  mutable.Map[TsTypeRef, Option[TsDeclInterface]] = mutable.Map.empty,
       lookupExportFrom:  C = mutable.Map.empty,
       lookupFromImports: C = mutable.Map.empty,
       replaceExports:    mutable.Map[TsIdentModule, TsDeclModule] = mutable.Map.empty,
@@ -230,9 +231,10 @@ object TreeScope {
 
       def local: Seq[(T, TreeScope)] =
         (wanted, current) match {
-          case (Nil, Pick(x))                      => Seq((x, this))
-          case (h :: Nil, Pick(x)) if x.name === h => Seq((x, this))
+          case (Nil, Pick(x)) => Seq((x, this))
           case (frags, x: TsContainer) =>
+            search(this, Pick, x, frags, loopDetector)
+          case (frags, x: TsDeclVar) =>
             search(this, Pick, x, frags, loopDetector)
           case _ => Nil
         }
@@ -304,11 +306,11 @@ object TreeScope {
         ret = local
 
         if (ret.isEmpty)
-          ret = exportedFromModule
-        if (ret.isEmpty)
           ret = importedFromModule
         if (ret.isEmpty)
           ret = augmentedModule
+        if (ret.isEmpty)
+          ret = exportedFromModule
         if (ret.isEmpty)
           ret = fromGlobals
         if (ret.isEmpty && !wanted.headOption.contains(TsIdent.dummy)) //optimization
@@ -326,7 +328,7 @@ object TreeScope {
 
   def search[T <: TsNamedDecl](scope:        TreeScope,
                                Pick:         Picker[T],
-                               c:            TsContainer,
+                               c:            TsTree,
                                wanted:       List[TsIdent],
                                loopDetector: LoopDetector): Seq[(T, TreeScope)] =
     wanted match {
@@ -337,30 +339,42 @@ object TreeScope {
         }
 
       case one :: Nil =>
-        val ret = c.membersByNameMeh get one match {
-          case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
-          case Some(decls) => decls collect { case Pick(x) => (x, scope / x) }
-          case None        => Nil
+        c match {
+          case cc: TsContainer =>
+            cc.membersByNameMeh get one match {
+              case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
+              case Some(decls) => decls collect { case Pick(x) => (x, scope / x) }
+              case None        => Nil
+            }
+
+          case TsDeclVar(_, _, _, _, Some(tr: TsTypeRef), _, _, cp: CodePath.HasPath, false) =>
+            Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr).collect {
+              case Pick(x) if one === x.name => x -> scope
+            }
+          case _ => Nil
         }
-        ret
 
       case h :: t =>
-        c.membersByNameMeh get h match {
-          case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
-          case Some(decls) =>
-            decls flatMap {
-              case x: TsContainer =>
-                (scope / x).lookupInternal(Pick, t, loopDetector)
-              case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
-                search(scope, Pick, c, t, loopDetector)
-              case TsDeclVar(_, _, _, _, Some(tr: TsTypeRef), _, _, cp: CodePath.HasPath, false) =>
-                Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr).collect {
-                  case Pick(x) if t.headOption.contains(x.name) => x -> scope
-                }
+        c match {
+          case cc: TsContainer =>
+            cc.membersByNameMeh get h match {
+              case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
+              case Some(decls) =>
+                decls flatMap {
+                  case x: TsContainer =>
+                    (scope / x).lookupInternal(Pick, t, loopDetector)
+                  case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
+                    search(scope, Pick, c, t, loopDetector)
+                  case TsDeclVar(_, _, _, _, Some(tr: TsTypeRef), _, _, cp: CodePath.HasPath, false) =>
+                    Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr).collect {
+                      case Pick(x) if t.headOption.contains(x.name) => x -> scope
+                    }
 
-              case _ => Nil
+                  case _ => Nil
+                }
+              case None => Nil
             }
-          case None => Nil
+          case _ => Nil
         }
     }
 }

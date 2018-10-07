@@ -3,6 +3,7 @@ package scalajs
 package transforms
 
 import com.olvind.tso.maps.sum
+import seqs.TraversableOps
 
 /**
   * When a class inherits the same method/field from two ancestors,
@@ -11,20 +12,30 @@ import com.olvind.tso.maps.sum
 object InferMemberOverrides extends SymbolVisitor {
 
   override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol =
-    if (s.parents.lengthCompare(1) > 0) s.copy(members = newMembers(scope, s, s.members, FieldTypeNative))
+    if (s.parents.lengthCompare(1) > 0) s.copy(members = newMembers(scope, s, s.members, MemberImplNative))
     else s
 
   override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
     if (s.parents.lengthCompare(1) > 0) {
-      val fieldType = if (s.annotations.contains(JsNative)) FieldTypeNative else FieldTypeNotImplemented
+      val fieldType = if (s.annotations.contains(JsNative)) MemberImplNative else MemberImplNotImplemented
       s.copy(members = newMembers(scope, s, s.members, fieldType))
     } else s
 
   private def newMembers[S >: MemberSymbol <: Symbol](scope:     SymbolScope,
                                                       sym:       ContainerSymbol,
                                                       members:   Seq[S],
-                                                      fieldType: FieldType): Seq[S] = {
+                                                      fieldType: MemberImpl): Seq[S] = {
     val root = ParentsResolver(scope, sym)
+
+    val (methods, fields, _) = members.partitionCollect2(
+      { case x: MethodSymbol => x },
+      { case x: FieldSymbol  => x }
+    )
+    val fieldsByName: Map[Name, Seq[FieldSymbol]] =
+      fields.groupBy(_.name)
+
+    val methodsByBase: Map[MethodBase, Seq[MethodSymbol]] =
+      methods groupBy Erasure.base(scope)
 
     val inheritedFields: Map[Name, Seq[(FieldSymbol, TypeRef)]] =
       sum(
@@ -40,14 +51,14 @@ object InferMemberOverrides extends SymbolVisitor {
 
     val addedFields: Iterable[FieldSymbol] =
       inheritedFields collect {
-        case (_, fs) =>
+        case (name, fs) if !fieldsByName.contains(name) =>
           val head    = fs.head._1
           val newType = TypeRef.Intersection(fs.map(_._1.tpe))
           head.copy(
-            isOverride = fs.exists(_._1.fieldType =/= FieldTypeNotImplemented),
+            isOverride = true,
             tpe = newType,
             isReadOnly = true,
-            fieldType = updatedFieldType(head.fieldType, fieldType, Some(newType)),
+            impl = updatedFieldType(head.impl, fieldType, Some(newType)),
             comments = head.comments + Comment("/* InferMemberOverrides */\n")
           )
       }
@@ -57,11 +68,11 @@ object InferMemberOverrides extends SymbolVisitor {
 
     val addedMethods: Iterable[MethodSymbol] =
       inheritedMethods groupBy Erasure.base(scope) collect {
-        case (_, fs) if fs.size > 1 =>
+        case (base, fs) if fs.size > 1 && !methodsByBase.contains(base) =>
           fs.head.copy(
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType)),
-            fieldType = updatedFieldType(fs.head.fieldType, fieldType, None),
+            impl = updatedFieldType(fs.head.impl, fieldType, None),
             comments = fs.head.comments + Comment("/* InferMemberOverrides */\n")
           )
       }
@@ -82,10 +93,10 @@ object InferMemberOverrides extends SymbolVisitor {
       case _                                    => false
     }
 
-  private def updatedFieldType(original: FieldType, `override`: FieldType, newType: Option[TypeRef]): FieldType =
+  private def updatedFieldType(original: MemberImpl, `override`: MemberImpl, newType: Option[TypeRef]): MemberImpl =
     original match {
-      case FieldTypeNative | FieldTypeNotImplemented                                      => `override`
-      case FieldTypeScala("js.undefined") if newType.fold(false)(x => !canBeUndefined(x)) => `override`
-      case other                                                                          => other
+      case MemberImplNative | MemberImplNotImplemented => `override`
+      case MemberImplCustom("js.undefined") if newType.fold(false)(x => !canBeUndefined(x)) => `override`
+      case other => other
     }
 }

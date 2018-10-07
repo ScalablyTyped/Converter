@@ -9,9 +9,9 @@ import scala.scalajs.js.annotation._
 @js.native
 object ServeDashStaticModuleMembers extends js.Object {
   var mime: js.Any = js.native
-  def apply(root: java.lang.String): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.RequestHandler = js.native
-  def apply(root: java.lang.String, options: ServeDashStaticLib.ServeDashStaticModule.serveStaticNamespace.ServeStaticOptions): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.RequestHandler = js.native
-  def serveStatic(root: java.lang.String): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.RequestHandler = js.native
-  def serveStatic(root: java.lang.String, options: ServeDashStaticLib.ServeDashStaticModule.serveStaticNamespace.ServeStaticOptions): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.RequestHandler = js.native
+  def apply(root: java.lang.String): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.Handler = js.native
+  def apply(root: java.lang.String, options: ServeDashStaticLib.ServeDashStaticModule.serveStaticNamespace.ServeStaticOptions): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.Handler = js.native
+  def serveStatic(root: java.lang.String): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.Handler = js.native
+  def serveStatic(root: java.lang.String, options: ServeDashStaticLib.ServeDashStaticModule.serveStaticNamespace.ServeStaticOptions): ExpressDashServeDashStaticDashCoreLib.ExpressDashServeDashStaticDashCoreModule.Handler = js.native
 }
 
