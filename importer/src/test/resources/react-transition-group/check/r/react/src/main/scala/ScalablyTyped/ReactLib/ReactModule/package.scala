@@ -18,7 +18,6 @@ package object ReactModule {
   type HTMLAttributes[T] = ReactLib.ReactModule.ReactNamespace.HTMLAttributes[T]
   type HTMLProps[T] = ReactLib.ReactModule.ReactNamespace.HTMLProps[T]
   type Key = ReactLib.ReactModule.ReactNamespace.Key
-  type NativeAnimationEvent = ReactLib.AnimationEvent
   type ReactElement[P] = ReactLib.ReactModule.ReactNamespace.ReactElement[P]
   type ReactNode = ReactLib.ReactModule.ReactNamespace.ReactNode
   type ReactType[P] = ReactLib.ReactModule.ReactNamespace.ReactType[P]

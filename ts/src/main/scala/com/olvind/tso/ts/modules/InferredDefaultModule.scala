@@ -3,6 +3,7 @@ package ts.modules
 
 import com.olvind.logging.Logger
 import com.olvind.tso.ts._
+import seqs._
 
 object InferredDefaultModule {
   def onlyAugments(in: TsParsedFile): Boolean =
@@ -23,19 +24,47 @@ object InferredDefaultModule {
   def apply(in: TsParsedFile, moduleName: TsIdentModule, logger: Logger[Unit]): TsParsedFile =
     in match {
       case file if file.isModule && !onlyAugments(in) && !alreadyExists(file, moduleName) =>
+        val (keepOutside, moveInside) = keepTopLevelTypeAliasesOutside(moduleName, file)
+
         val module = TsDeclModule(
           comments   = NoComments,
           declared   = true,
           name       = moduleName,
-          members    = file.members,
+          members    = moveInside,
           codePath   = CodePath.NoPath,
           jsLocation = JsLocation.Module(moduleName, ModuleSpec.Defaulted)
         )
 
         logger.info(s"Inferred module $moduleName")
-        file.copy(members = Seq(module))
+        file.copy(members = keepOutside ++ Seq(module))
 
       case other => other
     }
 
+  /**
+    * To support things like this:
+    *
+    * ```typescript
+    * type Err = Error;
+    *
+    * declare namespace createError {
+    *     interface Error<T extends Err> extends Err {
+    *         new (message?: string, obj?: any): T;
+    *     }
+    * }
+    *
+    * export = createError;
+    * ```
+    * `Err` refers to global error, not the one defined in the namespace.
+    * Note that we cannot do this in arbitrary modules, as we might leave
+    *  conflicting definitions in the same scope (2x `type Props = ...` for instance)
+    */
+  private def keepTopLevelTypeAliasesOutside(moduleName: TsIdentModule,
+                                             file:       TsParsedFile): (Seq[TsDeclTypeAlias], Seq[TsContainerOrDecl]) =
+    if (moduleName.fragments.size > 1)
+      (Nil, file.members)
+    else
+      file.members partitionCollect {
+        case x: TsDeclTypeAlias => x
+      }
 }

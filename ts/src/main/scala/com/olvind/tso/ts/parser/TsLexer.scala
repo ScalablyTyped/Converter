@@ -86,8 +86,16 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     }
   }
 
-  val numericLiteral: Parser[NumericLit] =
-    stringOf1(digit | '.' | 'x' | 'X' | '-') ^^ NumericLit
+  val numericLiteral: Parser[NumericLit] = {
+    val hexNumericLiteral: Parser[NumericLit] =
+      '0' ~> (Parser('x') | 'X') ~> stringOf1(
+        digit | 'a' | 'A' | 'b' | 'B' | 'c' | 'C' | 'd' | 'D' | 'e' | 'E' | 'f' | 'F'
+      ) ^^ (s => NumericLit("0x" + s))
+
+    val decimal = stringOf1(digit | '.' | '-') ^^ NumericLit // yeah yeah, good enough for us
+
+    hexNumericLiteral | decimal
+  }
 
   val stringLiteral: Parser[StringLit] = {
     def inQuoteChar(quoteChar: Char): Parser[Char] =
