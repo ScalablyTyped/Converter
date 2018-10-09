@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 object TypeDashMappingsLibMembers extends js.Object {
   val foo: js.Function0[Person] = js.native
-  val newPerson: /* import warning: Failed type conversion: TsTypeConstructor(TsTypeFunction(TsFunSig(NoComments,List(),List(),Some(TsTypeRef(TsQIdent(List(TsIdentLibrarySimple(type-mappings), TsIdentSimple(Person))),List()))))) */js.Any = js.native
+  val newPerson: ScalablyTyped.runtime.Instantiable0[Person] = js.native
   val proxy: ProxiedPerson = js.native
 }
 

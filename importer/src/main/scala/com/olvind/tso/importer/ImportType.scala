@@ -104,6 +104,9 @@ object ImportType {
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types map apply(Wildcards.No, scope))
 
+      case TsTypeConstructor(TsTypeFunction(sig)) =>
+        signature(scope, sig, NoComments)
+
       case TsTypeKeyOf(_) =>
         TypeRef.String
 
@@ -133,6 +136,36 @@ object ImportType {
         scope.logger.info(msg)
         TypeRef(QualifiedName.Any, Nil, Comments(Comment.warning(msg)))
     }
+  }
+
+  def signature(scope: TreeScope.Scoped, _sig: TsFunSig, comments: Comments): TypeRef = {
+    /* get rid of type parameters and fill them with bound / object */
+    val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
+    val sig   = ts.FillInTParams(_sig, targs)
+
+    val params: Seq[TypeRef] =
+      sig.params.map { param =>
+        val (baseType, isRepeated) = param.tpe match {
+          case Some(TsTypeRepeated(repeated)) => (Some(repeated), true)
+          case other                          => (other, false)
+        }
+
+        val comment = Comment(s"/* ${param.name.value}${if (isRepeated) " (repeated)" else ""} */ ")
+
+        ImportType
+          .orAny(Wildcards.Prohibit, scope)(baseType)
+          .withComments(Comments(comment))
+          .withOptional(param.isOptional)
+      }
+
+    val ret: TypeRef =
+      ImportType.orAny(Wildcards.Prohibit, scope)(sig.resultType)
+
+    TypeRef(
+      QualifiedName.Instantiable(sig.params.length),
+      params :+ ret,
+      comments
+    )
   }
 
   private def funParam(wildcards: Wildcards, scope: TreeScope)(param: TsFunParam): TypeRef =

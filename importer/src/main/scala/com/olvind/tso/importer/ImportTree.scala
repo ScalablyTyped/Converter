@@ -392,32 +392,8 @@ object ImportTree {
             isStatic = false
           )
         )
-      case TsMemberCtor(cs, _, sig) =>
-        if (sig.tparams.nonEmpty) {
-          scope.logger.info(s"Dropping Instantiable with type params at")
-          Nil
-        } else if (sig.params.exists(_.tpe.exists(_.isInstanceOf[TsTypeRepeated]))) {
-          scope.logger.info(s"Dropping Instantiable with repeated params")
-          Nil
-        } else {
-          val params = sig.params.map(
-            param =>
-              ImportType
-                .orAny(Wildcards.Prohibit, scope)(param.tpe)
-                .withComments(Comments(Comment(s"/* ${param.name.value} */ ")))
-                .withOptional(param.isOptional)
-          )
-          val ret = ImportType.orAny(Wildcards.Prohibit, scope)(sig.resultType)
-          Seq(
-            MemberRet.Inheritance(
-              TypeRef(
-                QualifiedName.Instantiable(sig.params.length),
-                params :+ ret,
-                cs
-              )
-            )
-          )
-        }
+      case TsMemberCtor(cs, _, _sig) =>
+        Seq(MemberRet.Inheritance(ImportType.signature(scope, _sig, cs)))
 
       case TsMemberFunction(cs, level, TsIdent.constructor, sig, false, _, _) =>
         Seq(MemberRet.Ctor(CtorSymbol(level, tsFunParams(scope / sig, params = sig.params), cs ++ sig.comments)))
