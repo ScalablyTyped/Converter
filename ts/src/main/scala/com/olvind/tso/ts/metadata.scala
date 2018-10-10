@@ -1,8 +1,6 @@
 package com.olvind.tso
 package ts
 
-import java.net.URI
-
 import ammonite.ops.RelPath
 
 case class CompilerOptions(
@@ -35,7 +33,7 @@ case class PackageJsonDeps(
 case class NotNeededPackage(
     libraryName:        String,
     typingsPackageName: String,
-    sourceRepoURL:      URI,
+    sourceRepoURL:      String,
     asOfVersion:        String
 )
 case class TypingsJson(

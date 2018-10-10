@@ -10,7 +10,7 @@ package object TypeDashMappingsLib {
   type IPersonRecord = PersonRecord
   type IProxiedPerson = Proxify[Person]
   type NamePerson = StdLib.Pick[Person, TypeDashMappingsLib.TypeDashMappingsLibStrings.name]
-  type NewedPerson = StdLib.InstanceType[/* import warning: Failed type conversion: TsTypeConstructor(TsTypeFunction(TsFunSig(NoComments,List(),List(),Some(TsTypeRef(TsQIdent(List(TsIdentLibrarySimple(type-mappings), TsIdentSimple(Person))),List()))))) */js.Any]
+  type NewedPerson = StdLib.InstanceType[ScalablyTyped.runtime.Instantiable0[Person]]
   type NonNullablePerson = Person
   type PartialPerson = StdLib.Partial[Person]
   type PersonRecord = StdLib.Record[TypeDashMappingsLib.TypeDashMappingsLibStrings.name | TypeDashMappingsLib.TypeDashMappingsLibStrings.age, java.lang.String]

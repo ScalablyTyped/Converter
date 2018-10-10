@@ -7,9 +7,9 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait CommanderStatic extends CommanderLib.CommanderModule.localNamespace.Command {
-  var Command: /* import warning: Failed type conversion: TsTypeConstructor(TsTypeFunction(TsFunSig(Comments(1),List(),List(TsFunParam(NoComments,TsIdentSimple(name),Some(TsTypeRef(TsQIdent(List(TsIdentSimple(string))),List())),true)),Some(TsTypeRef(TsQIdent(List(TsIdentLibrarySimple(commander), TsIdentModule(None,List(commander)), TsIdentNamespace(local), TsIdentSimple(Command))),List()))))) */js.Any = js.native
+  var Command: ScalablyTyped.runtime.Instantiable1[/* name */ js.UndefOr[/* name */ java.lang.String], CommanderLib.CommanderModule.localNamespace.Command] = js.native
   var CommandOptions: CommandOptions = js.native
-  var Option: /* import warning: Failed type conversion: TsTypeConstructor(TsTypeFunction(TsFunSig(Comments(1),List(),List(TsFunParam(NoComments,TsIdentSimple(flags),Some(TsTypeRef(TsQIdent(List(TsIdentSimple(string))),List())),false), TsFunParam(NoComments,TsIdentSimple(description),Some(TsTypeRef(TsQIdent(List(TsIdentSimple(string))),List())),true)),Some(TsTypeRef(TsQIdent(List(TsIdentLibrarySimple(commander), TsIdentModule(None,List(commander)), TsIdentNamespace(local), TsIdentSimple(Option))),List()))))) */js.Any = js.native
+  var Option: ScalablyTyped.runtime.Instantiable2[/* flags */ java.lang.String, /* description */ js.UndefOr[/* description */ java.lang.String], CommanderLib.CommanderModule.localNamespace.Option] = js.native
   var ParseOptionsResult: ParseOptionsResult = js.native
 }
 

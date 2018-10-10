@@ -1,7 +1,5 @@
 package com.olvind.tso.importer
 
-import java.net.URI
-
 import ammonite.ops.RelPath
 import com.olvind.tso.ts._
 import io.circe.parser._
@@ -72,15 +70,15 @@ class JsonTests extends FunSuite with MetadataCodecs {
         {
             "libraryName": "antd",
             "typingsPackageName": "antd",
-            "sourceRepoURL": "https://github.com/ant-design/ant-design",
+            "sourceRepoURL": "git@github.com:KyleAMathews/deepmerge.git",
             "asOfVersion": "1.0.0"
         }]}
 """
     val expected =
       NotNeededPackages(
         Vector(
-          NotNeededPackage("ajv", "ajv", new URI("https://github.com/epoberezkin/ajv"), "1.0.0"),
-          NotNeededPackage("antd", "antd", new URI("https://github.com/ant-design/ant-design"), "1.0.0")
+          NotNeededPackage("ajv", "ajv", "https://github.com/epoberezkin/ajv", "1.0.0"),
+          NotNeededPackage("antd", "antd", "git@github.com:KyleAMathews/deepmerge.git", "1.0.0")
         )
       )
 

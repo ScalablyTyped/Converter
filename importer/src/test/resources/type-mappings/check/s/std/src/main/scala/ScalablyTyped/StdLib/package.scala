@@ -16,7 +16,7 @@ package object StdLib {
   /**
    * Obtain the return type of a constructor function type
    */
-  type InstanceType[T /* <: /* import warning: Failed type conversion: TsTypeConstructor(TsTypeFunction(TsFunSig(NoComments,List(),List(TsFunParam(NoComments,TsIdentSimple(args),Some(TsTypeRepeated(TsTypeRef(TsQIdent(List(TsIdentSimple(any))),List()))),false)),Some(TsTypeRef(TsQIdent(List(TsIdentSimple(any))),List()))))) */js.Any */] = js.Any
+  type InstanceType[T /* <: ScalablyTyped.runtime.Instantiable1[/* args (repeated) */ js.Any, js.Any] */] = js.Any
   /**
    * Exclude null and undefined from T
    */
