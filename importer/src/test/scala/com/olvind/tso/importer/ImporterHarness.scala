@@ -82,6 +82,14 @@ trait ImporterHarness extends FunSuiteLike {
         }
 
       case PhaseRes.Failure(errors) =>
+        if (update) {
+          import ammonite.ops._
+          import ImplicitWd.implicitCwd
+
+          rm(checkFolder.folder)
+          cp(targetFolder.folder, checkFolder.folder)
+          %("git", "add", checkFolder.folder)
+        }
         errors foreach {
           case (fromSource, detail) =>
             logRegistry.logs.foreach {

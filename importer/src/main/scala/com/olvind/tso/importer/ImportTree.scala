@@ -58,6 +58,7 @@ object ImportTree {
         case _: TsImport        => true
         case _: TsDeclInterface => true
         case _: TsDeclTypeAlias => true
+        case x: TsDeclEnum      => !x.isValue
         case x: TsDeclNamespace => allTypes(x.members)
         case _ => false
       }
@@ -200,8 +201,8 @@ object ImportTree {
             )
           )
 
-      case TsDeclEnum(cs, _, ImportName(name), members, location, _) =>
-        tsEnumDecl(name, members, cs, ImportJsLocation(location, isWithinScalaModule))
+      case e: TsDeclEnum =>
+        ImportEnum(e, ImportJsLocation(e.jsLocation, isWithinScalaModule))
 
       case TsDeclClass(cs, _, isAbstract, ImportName(name), tparams, parent, implements, members, location, _) =>
         val MemberRet(ctors, ms, extraInheritance, statics) =
@@ -278,89 +279,6 @@ object ImportTree {
         scope.logger.fatalMaybe(s"Unexpected: $other", constants.Pedantic)
         Nil
     }
-  }
-
-  private def literalComment(lit: TsLiteral) =
-    Comment(s"/* ${lit.literal} */")
-
-  private def tsEnumDecl(name:    Name,
-                         members: Seq[TsEnumMember],
-                         cs:      Comments,
-                         anns:    Seq[ClassAnnotation]): Seq[ContainerSymbol] = {
-    val classSymbol =
-      ClassSymbol(
-        annotations = Seq(JsNative),
-        name        = name,
-        tparams     = Nil,
-        parents     = Nil,
-        ctors       = Nil,
-        members     = Nil,
-        classType   = ClassType.Trait,
-        isSealed    = true,
-        comments    = NoComments
-      )
-
-    val moduleSymbol: ModuleSymbol = {
-      val applyMethod = MethodSymbol(
-        annotations = Annotation.method(name, isBracketAccess = true),
-        level       = Default,
-        name        = Name.APPLY,
-        tparams     = Nil,
-        params = Seq(
-          Seq(
-            ParamSymbol(Name.value, TypeRef(QualifiedName(name :: Nil), Nil, NoComments), NoComments)
-          )
-        ),
-        impl       = MemberImplNative,
-        resultType = TypeRef(QualifiedName.String, Nil, NoComments),
-        isOverride = false,
-        comments   = NoComments
-      )
-
-      val membersSyms: Seq[ContainerSymbol] =
-        members flatMap {
-          case TsEnumMember(memberCs, ImportName(_memberName), literalOpt) =>
-            val (memberName: Name, anns) =
-              _memberName match {
-                /* work around that object A {object notify} doesnt compile */
-                case n if ObjectMembers.byName.contains(n) =>
-                  (Name(n.unescaped.toUpperCase), Seq(JsNative, JsName(n)))
-                /* and that `js`/`java` will cause a name collision */
-                case n @ (Name.js | Name.java) => (Name(n.unescaped.toUpperCase), Seq(JsNative, JsName(n)))
-                case n @ Name.underscore       => (Name("underscore"), Seq(JsNative, JsName(n)))
-                case n                         => (n, Seq(JsNative))
-              }
-
-            Seq(
-              ClassSymbol(
-                annotations = Seq(JsNative),
-                name        = memberName,
-                tparams     = Nil,
-                parents     = Seq(TypeRef(QualifiedName(name :: Nil), Nil, NoComments)),
-                ctors       = Nil,
-                members     = Nil,
-                classType   = ClassType.Trait,
-                isSealed    = true,
-                comments    = memberCs
-              ),
-              ModuleSymbol(
-                annotations = anns,
-                name        = memberName,
-                moduleType  = ModuleTypeNative,
-                parents     = Seq(TypeRef(QualifiedName(memberName :: Nil), Nil, NoComments)),
-                members     = Nil,
-                comments = Comments(literalOpt map {
-                  case Left(x)  => literalComment(x)
-                  case Right(x) => Comment(s"/* ${x.value} */")
-                })
-              )
-            )
-        }
-
-      ModuleSymbol(anns, name, ModuleTypeNative, parents = Nil, members = applyMethod +: membersSyms, comments = cs)
-    }
-
-    Seq(classSymbol, moduleSymbol)
   }
 
   sealed trait MemberRet

@@ -17,13 +17,9 @@ object blendModes extends js.Object {
   @js.native
   sealed trait NORMAL extends blendModes
   
+  val ADD: PhaserLib.PIXINamespace.blendModes.ADD with java.lang.String = js.native
+  val NORMAL: PhaserLib.PIXINamespace.blendModes.NORMAL with java.lang.String = js.native
   @JSBracketAccess
-  def apply(value: blendModes): java.lang.String = js.native
-  @js.native
-  object ADD extends ADD
-  
-  @js.native
-  object NORMAL extends NORMAL
-  
+  def apply(value: java.lang.String): js.UndefOr[blendModes with java.lang.String] = js.native
 }
 

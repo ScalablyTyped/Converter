@@ -172,12 +172,14 @@ final case class TsDeclInterface(
 
 /* other decls */
 
-final case class TsDeclEnum(comments:   Comments,
-                            declared:   Boolean,
-                            name:       TsIdent,
-                            members:    Seq[TsEnumMember],
-                            jsLocation: JsLocation,
-                            codePath:   CodePath)
+final case class TsDeclEnum(comments:     Comments,
+                            declared:     Boolean,
+                            name:         TsIdent,
+                            members:      Seq[TsEnumMember],
+                            isValue:      Boolean,
+                            exportedFrom: Option[TsTypeRef],
+                            jsLocation:   JsLocation,
+                            codePath:     CodePath)
     extends TsNamedValueDecl
     with HasJsLocation
     with HasCodePath {

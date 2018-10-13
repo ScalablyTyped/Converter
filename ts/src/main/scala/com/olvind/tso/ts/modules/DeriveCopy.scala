@@ -39,13 +39,10 @@ object DeriveCopy {
 
       case x: TsDeclEnum =>
         List(
-          TsDeclTypeAlias(
-            comments = NoComments,
-            declared = true,
-            name     = rename getOrElse x.name,
-            tparams  = Nil,
-            alias    = TsTypeRef(origin, Nil),
-            codePath = x.codePath
+          x.copy(
+            name         = rename getOrElse x.name,
+            isValue      = true,
+            exportedFrom = x.exportedFrom orElse Some(TsTypeRef(origin, Nil)),
           )
         )
 
@@ -132,20 +129,7 @@ object DeriveCopy {
     case x: TsDeclNamespace =>
       Some(x.copy(members = x.members flatMap downgrade))
     case x: TsDeclEnum =>
-      val tpe: TsTypeRef =
-        x.members
-          .collectFirst {
-            case TsEnumMember(_, _, Some(Left(lit))) =>
-              lit match {
-                case TsLiteralNumber(_)  => TsTypeRef.number
-                case TsLiteralBoolean(_) => TsTypeRef.boolean
-                case TsLiteralString(_)  => TsTypeRef.string
-              }
-          }
-          .getOrElse(TsTypeRef.any)
-
-      Some(TsDeclTypeAlias(NoComments, declared = false, x.name, Nil, tpe, x.codePath))
-
+      Some(x.copy(isValue = false))
     case other => Some(other)
   }
 }

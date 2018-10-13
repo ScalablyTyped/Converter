@@ -101,7 +101,7 @@ object TreeTraverse {
 
     tree match {
       case TsDeclClass(No(), No(), No(), Yes(), Yes(), Yes(), Yes(), Yes(), No(), No()) =>
-      case TsDeclEnum(No(), No(), Yes(), Yes(), No(), No())                             =>
+      case TsDeclEnum(No(), No(), Yes(), Yes(), No(), Yes(), No(), No())                =>
       case TsDeclFunction(No(), No(), Yes(), Yes(), No(), No())                         =>
       case TsGlobal(No(), No(), Yes(), No())                                            =>
       case TsDeclInterface(No(), No(), Yes(), Yes(), Yes(), Yes(), No())                =>

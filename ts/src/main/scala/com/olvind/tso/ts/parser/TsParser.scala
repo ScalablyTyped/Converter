@@ -242,7 +242,9 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
     comments ~ (isDeclared <~ "function") ~ identifierOrDefault ~ functionSignature ~ zeroLocation ~ zeroCodePath ^^ TsDeclFunction
 
   lazy val tsDeclEnum: Parser[TsDeclEnum] =
-    comments ~ (isDeclared <~ ("const".? ~> "enum")) ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ zeroLocation ~ zeroCodePath ^^ TsDeclEnum
+    comments ~ (isDeclared <~ ("const".? ~> "enum")) ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ success(true) ~ success(
+      None
+    ) ~ zeroLocation ~ zeroCodePath ^^ TsDeclEnum
 
   lazy val tsEnumMembers: Parser[Seq[TsEnumMember]] = {
     val base: Parser[TsEnumMember] =
