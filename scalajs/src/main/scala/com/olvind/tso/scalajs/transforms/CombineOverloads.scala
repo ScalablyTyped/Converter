@@ -37,7 +37,7 @@ object CombineOverloads extends SymbolVisitor {
     )
 
     renameSuffix.foldLeft(combined) {
-      case (ret, suffix) => ret withSuffix suffix
+      case (ret, suffix) => ret withSuffix "_" withSuffix suffix
     }
   }
 

@@ -16,12 +16,31 @@ object ImportTree {
 
     val scope = TreeScope(lib.name, deps, logger) / lib.parsed
 
-    ContainerSymbol.container(isWithinScalaModule = false,
-                              scope,
-                              lib.parsed.comments,
-                              lib.name,
-                              JsLocation.Zero,
-                              lib.parsed.members)
+    val ret = ContainerSymbol.container(
+      isWithinScalaModule = false,
+      scope,
+      lib.parsed.comments,
+      lib.name,
+      JsLocation.Zero,
+      lib.parsed.members
+    )
+
+    val require = ModuleSymbol(
+      Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
+      ImportName(lib.name).withSuffix("Require"),
+      ModuleTypeNative,
+      Nil,
+      Nil,
+      Comments("""/* This can be used to `require` the library as a side effect.
+  If it is a global library this will make scalajs-bundler include it */
+""")
+    )
+
+    ret match {
+      case x: ModuleSymbol  => x.copy(members = x.members :+ require)
+      case x: PackageSymbol => x.copy(members = x.members :+ require)
+      case other => other
+    }
   }
 
   object ContainerSymbol {
@@ -104,7 +123,7 @@ object ImportTree {
             Some(
               ModuleSymbol(
                 anns,
-                Name(scalaName.unescaped + "Members"),
+                scalaName.withSuffix("Members"),
                 ModuleTypeNative,
                 inheritance,
                 liftedMembers,
@@ -147,15 +166,7 @@ object ImportTree {
                        cs)
         )
 
-      case TsDeclVar(cs,
-                     _,
-                     readOnly,
-                     ImportName(name),
-                     tpeOpt: Option[TsType],
-                     literalOpt,
-                     jsLocation,
-                     _,
-                     isOptional) =>
+      case TsDeclVar(cs, _, readOnly, ImportName(name), tpeOpt, literalOpt, jsLocation, _, isOptional) =>
         val base: TypeRef = tpeOpt map ImportType(Wildcards.Prohibit, scope) getOrElse {
           literalOpt match {
             case Some(TsLiteralNumber(_))  => TypeRef.Double
@@ -524,7 +535,7 @@ object ImportTree {
   def hack(fs: FieldSymbol): FieldSymbol =
     fs.comments.cs.partitionCollect { case c if c === ExpandCallables.MarkerComment => c } match {
       case (Nil, _)  => fs
-      case (_, rest) => fs.withSuffix("Original").copy(comments = Comments(rest))
+      case (_, rest) => fs.withSuffix("_Original").copy(comments = Comments(rest))
     }
 
   def typeParam(scope: TreeScope)(tp: TsTypeParam): TypeParamSymbol =
@@ -576,7 +587,7 @@ object ImportTree {
 
     containedLiterals.distinct.toList match {
       case _ if name === Name.APPLY || name === Name.namespaced => ret
-      case oneLit :: Nil                                        => ret withSuffix oneLit
+      case oneLit :: Nil                                        => ret withSuffix "_" withSuffix oneLit
       case _                                                    => ret
     }
   }
