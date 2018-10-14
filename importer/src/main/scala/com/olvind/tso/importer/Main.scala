@@ -54,6 +54,8 @@ object Main extends App {
     implicit val wd = targetFolder
     % git 'fetch
     % git ('reset, "--hard", "origin/master")
+    % rm ("-f", ".git/gc.log")
+    % git 'prune
   }
 
   val storingErrorLogger = logging.storing()

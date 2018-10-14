@@ -61,12 +61,12 @@ object FilterMemberOverrides extends SymbolVisitor {
     val newFields: Seq[FieldSymbol] = fields.flatMap { f =>
       allMethods.get(f.name) match {
         case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === f.name) =>
-          Seq(f withSuffix "F" + owner.name.value)
+          Seq(f withSuffix "_F" + owner.name.value)
         case _ =>
           inheritedFieldsByName.get(f.name) match {
             case Some(conflicting: Seq[FieldSymbol]) =>
               /* but to retain a field with a different type, we rename it */
-              val withSuffix = f withSuffix owner.name
+              val withSuffix = f withSuffix "_" withSuffix owner.name
 
               if (f.tpe === TypeRef.Any || f.tpe === TypeRef.Nothing || (conflicting exists (_.tpe === f.tpe)))
                 /* there is no point in emitting duplicate fields */
@@ -83,7 +83,7 @@ object FilterMemberOverrides extends SymbolVisitor {
     val newMethods: Seq[MethodSymbol] = methods.flatMap { m =>
 //        val mErasure = Erasure.erasure(scope)(m)
 
-      if (inheritedFieldsByName.contains(m.name)) Seq(m withSuffix "M" + owner.name.value)
+      if (inheritedFieldsByName.contains(m.name)) Seq(m withSuffix "_M" + owner.name.value)
       else {
         val mBase = Erasure.base(scope)(m)
 

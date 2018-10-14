@@ -4,7 +4,7 @@ package scalajs
 final case class Name(unescaped: String) extends AnyVal {
 
   def withSuffix[T: ToSuffix](t: T): Name =
-    new Name(unescaped + "_" + ToSuffix(t).unescaped)
+    new Name(unescaped + ToSuffix(t).unescaped)
 
   def value: String =
     ScalaNameEscape(unescaped)
