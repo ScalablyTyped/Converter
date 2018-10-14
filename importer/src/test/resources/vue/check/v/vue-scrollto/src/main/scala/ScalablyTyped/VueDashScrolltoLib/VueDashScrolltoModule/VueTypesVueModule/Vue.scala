@@ -14,17 +14,31 @@ trait Vue extends js.Object {
   @JSName("$scrollTo")
   def $scrollTo(element: StdLib.Element, duration: scala.Double): scala.Unit = js.native
   @JSName("$scrollTo")
-  def $scrollTo(element: StdLib.Element, duration: scala.Double, options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options): scala.Unit = js.native
+  def $scrollTo(
+    element: StdLib.Element,
+    duration: scala.Double,
+    options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options
+  ): scala.Unit = js.native
   @JSName("$scrollTo")
-  def $scrollTo(element: StdLib.Element, options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options): scala.Unit = js.native
+  def $scrollTo(
+    element: StdLib.Element,
+    options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options
+  ): scala.Unit = js.native
   @JSName("$scrollTo")
   def $scrollTo(element: java.lang.String): scala.Unit = js.native
   @JSName("$scrollTo")
   def $scrollTo(element: java.lang.String, duration: scala.Double): scala.Unit = js.native
   @JSName("$scrollTo")
-  def $scrollTo(element: java.lang.String, duration: scala.Double, options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options): scala.Unit = js.native
+  def $scrollTo(
+    element: java.lang.String,
+    duration: scala.Double,
+    options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options
+  ): scala.Unit = js.native
   @JSName("$scrollTo")
-  def $scrollTo(element: java.lang.String, options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options): scala.Unit = js.native
+  def $scrollTo(
+    element: java.lang.String,
+    options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options
+  ): scala.Unit = js.native
   @JSName("$scrollTo")
   def $scrollTo(options: VueDashScrolltoLib.VueDashScrolltoModule.VueScrollToNamespace.Options): scala.Unit = js.native
 }

@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("original-fs", "ReadStream")
 @js.native
-class ReadStream () extends NodeLib.FsModule.ReadStream
+class ReadStream ()
+  extends NodeLib.FsModule.ReadStream
 

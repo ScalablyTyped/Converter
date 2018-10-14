@@ -12,18 +12,21 @@ sealed trait scaleModes extends js.Object
 @js.native
 object scaleModes extends js.Object {
   @js.native
-  sealed trait DEFAULT extends scaleModes
+  sealed trait DEFAULT
+    extends PhaserLib.PIXINamespace.scaleModes
   
   @js.native
-  sealed trait LINEAR extends scaleModes
+  sealed trait LINEAR
+    extends PhaserLib.PIXINamespace.scaleModes
   
   @js.native
-  sealed trait NEAREST extends scaleModes
+  sealed trait NEAREST
+    extends PhaserLib.PIXINamespace.scaleModes
   
-  val DEFAULT: PhaserLib.PIXINamespace.scaleModes.DEFAULT with java.lang.String = js.native
-  val LINEAR: PhaserLib.PIXINamespace.scaleModes.LINEAR with java.lang.String = js.native
-  val NEAREST: PhaserLib.PIXINamespace.scaleModes.NEAREST with java.lang.String = js.native
+  val DEFAULT: DEFAULT with java.lang.String = js.native
+  val LINEAR: LINEAR with java.lang.String = js.native
+  val NEAREST: NEAREST with java.lang.String = js.native
   @JSBracketAccess
-  def apply(value: java.lang.String): js.UndefOr[scaleModes with java.lang.String] = js.native
+  def apply(value: java.lang.String): js.UndefOr[PhaserLib.PIXINamespace.scaleModes with java.lang.String] = js.native
 }
 

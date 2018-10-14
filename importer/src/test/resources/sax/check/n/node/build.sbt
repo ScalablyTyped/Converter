@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "node"
-version := "9.6.x-ac71c8"
+version := "9.6.x-048549"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

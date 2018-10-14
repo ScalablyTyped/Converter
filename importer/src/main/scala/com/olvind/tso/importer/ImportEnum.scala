@@ -17,7 +17,7 @@ object ImportEnum {
       }
       .getOrElse(TypeRef.String)
 
-  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation]): Seq[ContainerSymbol] = {
+  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation]): Seq[Symbol] = {
     val TsDeclEnum(cs, _, ImportName(name), members, isValue, exportedFrom, _, codePath) = e
 
     val baseInterface: TypeRef =
@@ -25,10 +25,16 @@ object ImportEnum {
 
     val underlying = underlyingType(e)
 
-    val classSymbol: Option[ContainerSymbol] =
-      if (exportedFrom.nonEmpty) None
-      else
-        Some(
+    val typeSymbol: Symbol =
+      exportedFrom match {
+        case Some(ef) =>
+          scalajs.TypeAliasSymbol(
+            name     = name,
+            tparams  = Nil,
+            alias    = TypeRef(ImportName(ef.name)),
+            comments = NoComments
+          )
+        case None =>
           ClassSymbol(
             annotations = Seq(JsNative),
             name        = name,
@@ -40,7 +46,7 @@ object ImportEnum {
             isSealed    = true,
             comments    = NoComments
           )
-        )
+      }
 
     val moduleSymbol: ModuleSymbol = {
       val applyMethod: Option[MethodSymbol] =
@@ -108,6 +114,6 @@ object ImportEnum {
       ModuleSymbol(anns, name, ModuleTypeNative, parents = Nil, members = membersSyms ++ applyMethod, comments = cs)
     }
 
-    Seq(moduleSymbol) ++ classSymbol.toSeq
+    Seq(moduleSymbol, typeSymbol)
   }
 }

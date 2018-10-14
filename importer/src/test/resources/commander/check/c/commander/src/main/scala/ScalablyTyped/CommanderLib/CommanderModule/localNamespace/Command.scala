@@ -6,7 +6,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ ScalablyTyped.runtime.StringDictionary[js.Any] {
+trait Command
+  extends NodeLib.NodeJSNamespace.EventEmitter
+     with /* key */ ScalablyTyped.runtime.StringDictionary[js.Any] {
   var args: StdLib.Array[java.lang.String] = js.native
   /**
            * Register callback `fn` for the command.
@@ -231,7 +233,11 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {CommandOptions} [opts] command options
            * @returns {Command} the new command
            */
-  def command(name: java.lang.String, desc: java.lang.String, opts: CommanderLib.CommanderModule.commanderNamespace.CommandOptions): Command = js.native
+  def command(
+    name: java.lang.String,
+    desc: java.lang.String,
+    opts: CommanderLib.CommanderModule.commanderNamespace.CommandOptions
+  ): Command = js.native
   def description(): java.lang.String = js.native
   /**
            * Set the description to `str`.
@@ -498,7 +504,11 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit]): Command = js.native
+  def option(
+    flags: java.lang.String,
+    description: java.lang.String,
+    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit]
+  ): Command = js.native
   /**
            * Define option with `flags`, `description` and optional
            * coercion `fn`.
@@ -545,7 +555,12 @@ trait Command extends NodeLib.NodeJSNamespace.EventEmitter with /* key */ Scalab
            * @param {*} [defaultValue]
            * @returns {Command} for chaining
            */
-  def option(flags: java.lang.String, description: java.lang.String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit], defaultValue: js.Any): Command = js.native
+  def option(
+    flags: java.lang.String,
+    description: java.lang.String,
+    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit],
+    defaultValue: js.Any
+  ): Command = js.native
   /**
            * Return an object containing options as key-value pairs
            *

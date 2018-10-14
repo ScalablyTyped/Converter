@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("angular", JSImport.Namespace)
 @js.native
-object AngularModuleMembers extends ScalablyTyped.runtime.TopLevel[AngularLib.AngularModule.angularNamespace.IAngularStatic]
+object AngularModuleMembers
+  extends ScalablyTyped.runtime.TopLevel[AngularLib.AngularModule.angularNamespace.IAngularStatic]
 

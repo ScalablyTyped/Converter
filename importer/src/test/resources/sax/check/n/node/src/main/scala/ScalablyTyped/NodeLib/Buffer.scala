@@ -12,13 +12,15 @@ import scala.scalajs.js.annotation._
  */
 @JSGlobal("Buffer")
 @js.native
-object Buffer extends /**
+object Buffer
+  extends /**
      * Allocates a new buffer containing the given {str}.
      *
      * @param str String to store in buffer.
      * @param encoding encoding to use, optional.  Default is 'utf8'
      */
-ScalablyTyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ java.lang.String, Buffer] with /**
+ScalablyTyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ java.lang.String, Buffer]
+     with /**
      * Allocates a new buffer containing the given {str}.
      *
      * @param str String to store in buffer.
@@ -50,6 +52,6 @@ ScalablyTyped.runtime.Instantiable1[(/* str */ java.lang.String) | (/* size */ s
   /**
        * Allocates a new Buffer using an {array} of octets.
        */
-  def from(array: StdLib.Array[_]): Buffer = js.native
+  def from(array: StdLib.Array[_]): NodeLib.Buffer = js.native
 }
 

@@ -87,6 +87,11 @@ object FlattenTrees {
           case existing: TsDeclInterface if that.name === existing.name => mergeInterface(that, existing)
           case existing: TsDeclClass if that.name === existing.name     => mergedClassAndInterface(existing, that)
         }
+
+      case that: TsDeclEnum =>
+        rets.addOrUpdateMatching(that)(m => m) {
+          case existing: TsDeclEnum if that.name === existing.name => mergeEnum(that, existing)
+        }
       case that: TsDeclVar =>
         rets.addOrUpdateMatching(that)(m => m) {
           case existing: TsDeclVar if that.name === existing.name =>
@@ -186,6 +191,23 @@ object FlattenTrees {
       members     = newClassMembers(existing.members, that.members),
       codePath    = mergeCodePath(existing.codePath, that.codePath),
     )
+
+  def mergeEnum(that: TsDeclEnum, existing: TsDeclEnum) = {
+    val both         = Seq(existing, that)
+    val codePaths    = both.map(_.codePath.forceHasPath.codePath).toSet
+    val exportedFrom = both.flatMap(_.exportedFrom).filterNot(x => codePaths(x.name)).headOption
+
+    TsDeclEnum(
+      comments     = mergeComments(existing.comments, that.comments),
+      declared     = existing.declared || that.declared,
+      name         = existing.name,
+      members      = existing.members,
+      codePath     = existing.codePath,
+      isValue      = existing.isValue || that.isValue,
+      exportedFrom = exportedFrom,
+      jsLocation   = mergeJsLocation(existing.jsLocation, that.jsLocation)
+    )
+  }
 
   def mergeTypeParams(thats: Seq[TsTypeParam], existings: Seq[TsTypeParam]): Seq[TsTypeParam] =
     if (thats.length >= existings.length) thats else existings

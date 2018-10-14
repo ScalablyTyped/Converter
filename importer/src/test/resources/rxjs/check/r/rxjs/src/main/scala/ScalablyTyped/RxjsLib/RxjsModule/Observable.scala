@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("rxjs", "Observable")
 @js.native
-class Observable[T] () extends RxjsLib.RxjsInternalObservableModule.Observable[T]
+class Observable[T] ()
+  extends RxjsLib.RxjsInternalObservableModule.Observable[T]
 

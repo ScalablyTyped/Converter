@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "webpack-env"
-version := "1.13-660ae5"
+version := "1.13-cc4e64"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

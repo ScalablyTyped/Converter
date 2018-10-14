@@ -193,9 +193,12 @@ object Printer {
 
         print("object ", formatName(name), extendsClause(prefix, parents, isNative))
 
+        val newPrefix = if (name.unescaped.endsWith("Members")) prefix else prefix :+ name
+
         if (members.nonEmpty) {
           println(" {")
-          members foreach printSym
+
+          members foreach printSymbol(reg, w, mainPkg, newPrefix, folder, indent + 2)
           println("}")
         } else
           println()
@@ -237,7 +240,11 @@ object Printer {
         if (tparams.nonEmpty)
           print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
 
-        print(params.map(_.map(formatParamSymbol(prefix)).mkString("(", ", ", ")")).mkString, ": ")
+        var paramString = params.map(_.map(formatParamSymbol(prefix)).mkString("(", ", ", ")"))
+        if (params.flatten.length > 1 && paramString.map(_.length).sum > 100) {
+          paramString = params.map(_.map(formatParamSymbol(prefix)).mkString("(\n  ", ",\n  ", "\n)"))
+        }
+        print(paramString.mkString, ": ")
         print(formatTypeRef(prefix)(resultType))
         fieldType match {
           case MemberImplNotImplemented => println()
@@ -269,10 +276,11 @@ object Printer {
 
   def extendsClause(prefix: List[Name], parents: Seq[TypeRef], isNative: Boolean): String =
     parents.toList.map(parent => formatTypeRef(prefix)(parent)) match {
-      case Nil if isNative => " extends js.Object"
-      case Nil             => ""
-      case head :: Nil     => " extends " + head
-      case head :: tail    => " extends " + head + tail.mkString(" with ", " with ", "")
+      case Nil if isNative                    => " extends js.Object"
+      case Nil                                => ""
+      case head :: Nil if !head.contains(".") => " extends " + head
+      case head :: Nil                        => "\n  extends " + head
+      case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
     }
 
   def formatTypeParamSymbol(prefix: List[Name])(sym: TypeParamSymbol): String =

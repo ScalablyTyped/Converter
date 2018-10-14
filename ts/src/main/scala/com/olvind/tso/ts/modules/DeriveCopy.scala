@@ -77,7 +77,7 @@ object DeriveCopy {
         List(
           TsDeclNamespace(
             x.comments,
-            false,
+            declared = false,
             name,
             newMembers,
             x.codePath,
@@ -127,6 +127,8 @@ object DeriveCopy {
     case cls: TsDeclClass =>
       Some(downgradeClass(cls))
     case x: TsDeclNamespace =>
+      Some(x.copy(members = x.members flatMap downgrade))
+    case x: TsAugmentedModule =>
       Some(x.copy(members = x.members flatMap downgrade))
     case x: TsDeclEnum =>
       Some(x.copy(isValue = false))

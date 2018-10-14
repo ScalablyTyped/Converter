@@ -107,7 +107,7 @@ object ImportTree {
                   members:             Seq[TsContainerOrDecl]): ContainerSymbol = {
 
       val anns                               = ImportJsLocation(jsLocation, isWithinScalaModule)
-      val inModule                           = isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope)
+      val inModule                           = scope.stack.length > 1 && (isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope))
       val (inheritance, liftedMembers, rest) = avoidPackageObject(members flatMap decl(scope, inModule))
       val scalaName                          = ImportName(name)
 

@@ -27,13 +27,20 @@ trait RequireFunction extends js.Object {
            *
            * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
            */
-  def ensure(paths: StdLib.Array[java.lang.String], callback: js.Function1[/* require */ WebpackDashEnvLib.NodeRequire, scala.Unit]): scala.Unit = js.native
+  def ensure(
+    paths: StdLib.Array[java.lang.String],
+    callback: js.Function1[/* require */ WebpackDashEnvLib.NodeRequire, scala.Unit]
+  ): scala.Unit = js.native
   /**
            * Download additional dependencies on demand. The paths array lists modules that should be available. When they are, callback is called. If the callback is a function expression, dependencies in that source part are extracted and also loaded on demand. A single request is fired to the server, except if all modules are already available.
            *
            * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
            */
-  def ensure(paths: StdLib.Array[java.lang.String], callback: js.Function1[/* require */ WebpackDashEnvLib.NodeRequire, scala.Unit], chunkName: java.lang.String): scala.Unit = js.native
+  def ensure(
+    paths: StdLib.Array[java.lang.String],
+    callback: js.Function1[/* require */ WebpackDashEnvLib.NodeRequire, scala.Unit],
+    chunkName: java.lang.String
+  ): scala.Unit = js.native
   /**
            * Ensures that the dependency is available, but don’t execute it. This can be use for optimizing the position of a module in the chunks.
            */

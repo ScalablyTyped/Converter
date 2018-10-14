@@ -48,19 +48,39 @@ trait Vue extends js.Object {
   @JSName("$createElement")
   def $createElement(tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _]): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _], children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _],
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _], data: VueLib.VueTypesVnodeModule.VNodeData): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _],
+    data: VueLib.VueTypesVnodeModule.VNodeData
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _], data: VueLib.VueTypesVnodeModule.VNodeData, children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: VueLib.VueTypesOptionsModule.AsyncComponent[_, _, _, _],
+    data: VueLib.VueTypesVnodeModule.VNodeData,
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _]): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _], children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _],
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _], data: VueLib.VueTypesVnodeModule.VNodeData): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _],
+    data: VueLib.VueTypesVnodeModule.VNodeData
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _], data: VueLib.VueTypesVnodeModule.VNodeData, children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: VueLib.VueTypesOptionsModule.Component[_, _, _, _],
+    data: VueLib.VueTypesVnodeModule.VNodeData,
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: java.lang.String): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
@@ -68,15 +88,29 @@ trait Vue extends js.Object {
   @JSName("$createElement")
   def $createElement(tag: java.lang.String, data: VueLib.VueTypesVnodeModule.VNodeData): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: java.lang.String, data: VueLib.VueTypesVnodeModule.VNodeData, children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: java.lang.String,
+    data: VueLib.VueTypesVnodeModule.VNodeData,
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
   def $createElement(tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]]): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]], children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]],
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]], data: VueLib.VueTypesVnodeModule.VNodeData): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]],
+    data: VueLib.VueTypesVnodeModule.VNodeData
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$createElement")
-  def $createElement(tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]], data: VueLib.VueTypesVnodeModule.VNodeData, children: VueLib.VueTypesVnodeModule.VNodeChildren): VueLib.VueTypesVnodeModule.VNode = js.native
+  def $createElement(
+    tag: js.Function0[VueLib.VueTypesOptionsModule.Component[VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.DefaultProps]],
+    data: VueLib.VueTypesVnodeModule.VNodeData,
+    children: VueLib.VueTypesVnodeModule.VNodeChildren
+  ): VueLib.VueTypesVnodeModule.VNode = js.native
   @JSName("$delete")
   def $delete(`object`: js.Object, key: java.lang.String): scala.Unit = js.native
   @JSName("$destroy")
@@ -118,12 +152,26 @@ trait Vue extends js.Object {
   @JSName("$set")
   def $set[T](`object`: js.Object, key: java.lang.String, value: T): T = js.native
   @JSName("$watch")
-  def $watch(expOrFn: java.lang.String, callback: js.ThisFunction2[/* this */ this.type, /* n */ js.Any, /* o */ js.Any, scala.Unit]): js.Function0[scala.Unit] = js.native
+  def $watch(
+    expOrFn: java.lang.String,
+    callback: js.ThisFunction2[/* this */ this.type, /* n */ js.Any, /* o */ js.Any, scala.Unit]
+  ): js.Function0[scala.Unit] = js.native
   @JSName("$watch")
-  def $watch(expOrFn: java.lang.String, callback: js.ThisFunction2[/* this */ this.type, /* n */ js.Any, /* o */ js.Any, scala.Unit], options: VueLib.VueTypesOptionsModule.WatchOptions): js.Function0[scala.Unit] = js.native
+  def $watch(
+    expOrFn: java.lang.String,
+    callback: js.ThisFunction2[/* this */ this.type, /* n */ js.Any, /* o */ js.Any, scala.Unit],
+    options: VueLib.VueTypesOptionsModule.WatchOptions
+  ): js.Function0[scala.Unit] = js.native
   @JSName("$watch")
-  def $watch[T](expOrFn: js.ThisFunction0[/* this */ this.type, T], callback: js.ThisFunction2[/* this */ this.type, /* n */ T, /* o */ T, scala.Unit]): js.Function0[scala.Unit] = js.native
+  def $watch[T](
+    expOrFn: js.ThisFunction0[/* this */ this.type, T],
+    callback: js.ThisFunction2[/* this */ this.type, /* n */ T, /* o */ T, scala.Unit]
+  ): js.Function0[scala.Unit] = js.native
   @JSName("$watch")
-  def $watch[T](expOrFn: js.ThisFunction0[/* this */ this.type, T], callback: js.ThisFunction2[/* this */ this.type, /* n */ T, /* o */ T, scala.Unit], options: VueLib.VueTypesOptionsModule.WatchOptions): js.Function0[scala.Unit] = js.native
+  def $watch[T](
+    expOrFn: js.ThisFunction0[/* this */ this.type, T],
+    callback: js.ThisFunction2[/* this */ this.type, /* n */ T, /* o */ T, scala.Unit],
+    options: VueLib.VueTypesOptionsModule.WatchOptions
+  ): js.Function0[scala.Unit] = js.native
 }
 

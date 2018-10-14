@@ -6,7 +6,8 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait NdArray[T] extends NdarrayLib.NdarrayModule.ndarray[T] {
+trait NdArray[T]
+  extends NdarrayLib.NdarrayModule.ndarray[T] {
   @JSName("T")
   var T_NdArray: NdArray[T]
   var ndim: scala.Double

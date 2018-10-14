@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "create-error"
-version := "0.3.1-19c91e"
+version := "0.3.1-2af753"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

@@ -7,6 +7,10 @@ import com.olvind.tso.ts.transforms.SetCodePath
 
 import scala.collection.mutable
 
+/**
+  * Here be dragons, i guess. The implementation of augmented modules is the bare minimum to make a few
+  *  key libraries, like lodash, compile. We should really re-do all of this.
+  */
 object AugmentModules {
 
   /** Determine which container to extend.
@@ -67,9 +71,9 @@ object AugmentModules {
         x.copy(members = newMembers)
       }
       override def leaveTsDeclModule(t: Unit)(x: TsDeclModule): TsDeclModule = {
-        val newMembers = x.members.filter {
-          case aux: TsAugmentedModule if toRemove(aux.codePath) => false
-          case _ => true
+        val newMembers = x.members.flatMap {
+          case aux: TsAugmentedModule if toRemove(aux.codePath) => DeriveCopy.downgrade(aux)
+          case other => Some(other)
         }
         x.copy(members = newMembers)
       }

@@ -52,7 +52,9 @@ object Main extends App {
     }
   } else {
     implicit val wd = targetFolder
-    % git 'fetch
+    if (!constants.offline) {
+      % git 'fetch
+    }
     % git ('reset, "--hard", "origin/master")
     % rm ("-f", ".git/gc.log")
     % git 'prune

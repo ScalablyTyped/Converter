@@ -7,7 +7,8 @@ import scala.scalajs.js.annotation._
 
 @JSImport("react", "Component")
 @js.native
-class Component[P, S] protected () extends ReactLib.ReactModule.ReactNamespace.Component[P, S] {
+class Component[P, S] protected ()
+  extends ReactLib.ReactModule.ReactNamespace.Component[P, S] {
   def this(p: P) = this()
 }
 

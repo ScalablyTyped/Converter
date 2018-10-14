@@ -12,5 +12,6 @@ import scala.scalajs.js.annotation._
      */
 @JSImport("phaser", "Animation")
 @js.native
-class Animation () extends PhaserLib.PhaserNamespace.Animation
+class Animation ()
+  extends PhaserLib.PhaserNamespace.Animation
 

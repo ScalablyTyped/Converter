@@ -12,22 +12,28 @@ sealed trait Context extends js.Object
 @js.native
 object Context extends js.Object {
   @js.native
-  sealed trait ATRUL extends Context
+  sealed trait ATRUL
+    extends StylisLib.StylisStylisModule.Context
   
   @js.native
-  sealed trait BLCKS extends Context
+  sealed trait BLCKS
+    extends StylisLib.StylisStylisModule.Context
   
   @js.native
-  sealed trait POSTS extends Context
+  sealed trait POSTS
+    extends StylisLib.StylisStylisModule.Context
   
   @js.native
-  sealed trait PREPS extends Context
+  sealed trait PREPS
+    extends StylisLib.StylisStylisModule.Context
   
   @js.native
-  sealed trait PROPS extends Context
+  sealed trait PROPS
+    extends StylisLib.StylisStylisModule.Context
   
   @js.native
-  sealed trait UNKWN extends Context
+  sealed trait UNKWN
+    extends StylisLib.StylisStylisModule.Context
   
 }
 

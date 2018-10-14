@@ -21,7 +21,10 @@ trait Hot extends js.Object {
            * @param dependencies
            * @param callback
            */
-  def accept(dependencies: StdLib.Array[java.lang.String], callback: js.Function1[/* updatedDependencies */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
+  def accept(
+    dependencies: StdLib.Array[java.lang.String],
+    callback: js.Function1[/* updatedDependencies */ StdLib.Array[ModuleId], scala.Unit]
+  ): scala.Unit = js.native
   /**
            * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
            * @param dependency
@@ -61,7 +64,10 @@ trait Hot extends js.Object {
            * @param callback
            */
   @JSName("apply")
-  def apply(options: AcceptOptions, callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
+  def apply(
+    options: AcceptOptions,
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+  ): scala.Unit = js.native
   /**
            * Throws an exceptions if status() is not idle.
            * Check all currently loaded modules for updates and apply updates if found.
@@ -72,7 +78,10 @@ trait Hot extends js.Object {
            * @param autoApply
            * @param callback
            */
-  def check(autoApply: scala.Boolean, callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
+  def check(
+    autoApply: scala.Boolean,
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+  ): scala.Unit = js.native
   /**
            * Throws an exceptions if status() is not idle.
            * Check all currently loaded modules for updates and apply updates if found.

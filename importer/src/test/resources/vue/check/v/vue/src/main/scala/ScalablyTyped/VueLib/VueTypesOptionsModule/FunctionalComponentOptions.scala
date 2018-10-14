@@ -11,6 +11,10 @@ trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
   var inject: js.UndefOr[InjectOptions] = js.undefined
   var name: js.UndefOr[java.lang.String] = js.undefined
   var props: js.UndefOr[PropDefs] = js.undefined
-  def render(`this`: js.UndefOr[scala.Nothing], createElement: VueLib.VueTypesVueModule.CreateElement, context: RenderContext[Props]): VueLib.VueTypesVnodeModule.VNode
+  def render(
+    `this`: js.UndefOr[scala.Nothing],
+    createElement: VueLib.VueTypesVueModule.CreateElement,
+    context: RenderContext[Props]
+  ): VueLib.VueTypesVnodeModule.VNode
 }
 
