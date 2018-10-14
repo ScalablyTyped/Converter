@@ -7,7 +7,8 @@ import scala.scalajs.js.annotation._
 
 @JSImport("phaser", JSImport.Namespace)
 @js.native
-class namespaced () extends PhaserLib.Phaser
+class namespaced ()
+  extends PhaserLib.Phaser
 
 @JSImport("phaser", JSImport.Namespace)
 @js.native

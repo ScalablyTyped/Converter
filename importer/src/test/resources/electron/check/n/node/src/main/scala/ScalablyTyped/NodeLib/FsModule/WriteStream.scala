@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("fs", "WriteStream")
 @js.native
-class WriteStream () extends NodeLib.StreamModule.Writable
+class WriteStream ()
+  extends NodeLib.StreamModule.Writable
 

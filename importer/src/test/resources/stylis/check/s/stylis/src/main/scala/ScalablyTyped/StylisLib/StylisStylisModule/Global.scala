@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSGlobalScope
 @js.native
 object Global extends js.Object {
-  val stylis: Stylis = js.native
+  val stylis: StylisLib.StylisStylisModule.Stylis = js.native
 }
 

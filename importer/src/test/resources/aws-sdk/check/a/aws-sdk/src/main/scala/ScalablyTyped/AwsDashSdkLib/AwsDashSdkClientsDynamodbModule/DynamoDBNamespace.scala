@@ -16,14 +16,17 @@ object DynamoDBNamespace extends js.Object {
     /**
          * Creates a DynamoDB document client with a set of configuration options.
          */
-    def this(options: AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.DocumentClientOptions with AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration) = this()
+    def this(options: AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.DocumentClientOptions with ClientConfiguration) = this()
   }
   
   val TypesNamespace: this.type = js.native
   @js.native
   object Converter extends js.Object {
     def input(data: js.Any): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
-    def input(data: js.Any, options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
+    def input(
+      data: js.Any,
+      options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
+    ): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
   }
   
   @JSName("Converter")
@@ -51,7 +54,8 @@ object DynamoDBNamespace extends js.Object {
     }
     
     
-    trait DocumentClientOptions extends AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.ConverterOptions {
+    trait DocumentClientOptions
+      extends AwsDashSdkLib.AwsDashSdkLibDynamodbDocumentUnderscoreClientModule.DocumentClientNamespace.ConverterOptions {
       /**
                * An optional map of parameters to bind to every request sent by this service object.
                */
@@ -59,7 +63,7 @@ object DynamoDBNamespace extends js.Object {
       /**
                * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
                */
-      var service: js.UndefOr[namespaced] = js.undefined
+      var service: js.UndefOr[AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.namespaced] = js.undefined
     }
     
     type AttributeAction = AwsDashSdkLib.AwsDashSdkLibStrings.ADD | AwsDashSdkLib.AwsDashSdkLibStrings.PUT | AwsDashSdkLib.AwsDashSdkLibStrings.DELETE | java.lang.String

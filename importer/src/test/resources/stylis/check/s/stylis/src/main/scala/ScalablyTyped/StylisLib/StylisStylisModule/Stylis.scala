@@ -6,7 +6,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait Stylis extends ScalablyTyped.runtime.Instantiable0[Stylis] with ScalablyTyped.runtime.Instantiable1[/* options */ Options, Stylis] {
+trait Stylis
+  extends ScalablyTyped.runtime.Instantiable0[Stylis]
+     with ScalablyTyped.runtime.Instantiable1[/* options */ Options, Stylis] {
   @JSName("set")
   var set_Original: Set = js.native
   @JSName("use")

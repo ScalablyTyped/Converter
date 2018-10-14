@@ -7,7 +7,9 @@ import scala.scalajs.js.annotation._
 
 @JSImport("fullcalendar/EmitterMixin", "Default")
 @js.native
-class Default () extends FullcalendarLib.FullcalendarMixinModule.default with EmitterInterface {
+class Default ()
+  extends FullcalendarLib.FullcalendarMixinModule.default
+     with EmitterInterface {
   /* CompleteClass */
   override def on(types: js.Any, handler: js.Any): js.Any = js.native
 }

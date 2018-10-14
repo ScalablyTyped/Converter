@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("lodash/fp/curry", JSImport.Namespace)
 @js.native
-object LodashFpCurryModuleMembers extends ScalablyTyped.runtime.TopLevel[Curry]
+object LodashFpCurryModuleMembers
+  extends ScalablyTyped.runtime.TopLevel[Curry]
 

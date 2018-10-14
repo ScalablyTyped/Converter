@@ -21,7 +21,8 @@ object winstonNamespace extends js.Object {
     @js.native
     object winstonNamespace extends js.Object {
       
-      trait AbstractConfigSetLevels extends /* key */ ScalablyTyped.runtime.StringDictionary[scala.Double]
+      trait AbstractConfigSetLevels
+        extends /* key */ ScalablyTyped.runtime.StringDictionary[scala.Double]
       
       
       trait Config extends js.Object {

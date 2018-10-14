@@ -6,7 +6,8 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait Event extends StdLib.Event {
+trait Event
+  extends StdLib.Event {
   var altKey: js.UndefOr[scala.Boolean] = js.undefined
   var ctrlKey: js.UndefOr[scala.Boolean] = js.undefined
   var metaKey: js.UndefOr[scala.Boolean] = js.undefined

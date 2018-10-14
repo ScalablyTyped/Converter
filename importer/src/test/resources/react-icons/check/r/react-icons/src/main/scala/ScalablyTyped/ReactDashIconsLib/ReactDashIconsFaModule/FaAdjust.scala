@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("react-icons/fa", "FaAdjust")
 @js.native
-class FaAdjust () extends ReactDashIconsLib.ReactDashIconsFaAdjustModule.default
+class FaAdjust ()
+  extends ReactDashIconsLib.ReactDashIconsFaAdjustModule.default
 

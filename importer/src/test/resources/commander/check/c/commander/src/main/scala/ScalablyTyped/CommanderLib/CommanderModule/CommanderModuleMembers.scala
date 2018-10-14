@@ -7,5 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("commander", JSImport.Namespace)
 @js.native
-object CommanderModuleMembers extends ScalablyTyped.runtime.TopLevel[CommanderLib.CommanderModule.commanderNamespace.CommanderStatic]
+object CommanderModuleMembers
+  extends ScalablyTyped.runtime.TopLevel[CommanderLib.CommanderModule.commanderNamespace.CommanderStatic]
 

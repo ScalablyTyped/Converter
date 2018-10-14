@@ -9,7 +9,14 @@ import scala.scalajs.js.annotation._
 trait SchedulerLike extends js.Object {
   def now(): scala.Double = js.native
   def schedule[T](work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit]): RxjsLib.RxjsInternalSubscriptionModule.Subscription = js.native
-  def schedule[T](work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit], delay: scala.Double): RxjsLib.RxjsInternalSubscriptionModule.Subscription = js.native
-  def schedule[T](work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit], delay: scala.Double, state: T): RxjsLib.RxjsInternalSubscriptionModule.Subscription = js.native
+  def schedule[T](
+    work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit],
+    delay: scala.Double
+  ): RxjsLib.RxjsInternalSubscriptionModule.Subscription = js.native
+  def schedule[T](
+    work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit],
+    delay: scala.Double,
+    state: T
+  ): RxjsLib.RxjsInternalSubscriptionModule.Subscription = js.native
 }
 

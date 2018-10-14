@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "phaser"
-version := "2.6.2-40bd25"
+version := "2.6.2-713b09"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
