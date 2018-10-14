@@ -15,9 +15,7 @@ object UpToDateDefinitelyTyped {
     if (!constants.offline)
       Try(
         if (exists(dtTypes)) {
-          %("git", "stash")(dtBase)
           %("git", "pull")(dtBase)
-          %("git", "stash", "pop")(dtBase)
         } else
           %("git", "clone", repo.toString)(cacheFolder)
       )
