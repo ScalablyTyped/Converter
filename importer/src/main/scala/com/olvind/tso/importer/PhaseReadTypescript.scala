@@ -1,6 +1,7 @@
 package com.olvind.tso
 package importer
 
+import ammonite.ops.up
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
@@ -100,7 +101,9 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
 
       case source: TsSource.TsLibSource =>
         val packageJsonOpt: Option[PackageJsonDeps] =
-          Json.opt[PackageJsonDeps](source.folder.path / "package.json")
+          Json.opt[PackageJsonDeps](source.folder.path / "package.json") orElse
+            /* discover stdlib package.json as well */
+            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json")
 
         val tsConfig: Option[TsConfig] =
           Json.opt[TsConfig](source.folder.path / "tsconfig.json")
