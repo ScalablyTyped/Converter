@@ -247,7 +247,7 @@ final class ParserTests extends FunSuite {
           TsEnumMember(NoComments, TsIdent("ERROR"), Some(Left(TsLiteralNumber("0")))),
           TsEnumMember(NoComments, TsIdent("WARNING"), Some(Left(TsLiteralNumber("1"))))
         ),
-        isValue = true,
+        isValue      = true,
         exportedFrom = None,
         Zero,
         CodePath.NoPath
@@ -266,7 +266,7 @@ final class ParserTests extends FunSuite {
           TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(Left(TsLiteralNumber("-1")))),
           TsEnumMember(NoComments, TsIdent("INTERNAL_SERVER_ERROR"), Some(Left(TsLiteralNumber("1"))))
         ),
-        isValue = true,
+        isValue      = true,
         exportedFrom = None,
         Zero,
         CodePath.NoPath
@@ -292,7 +292,7 @@ final class ParserTests extends FunSuite {
           TsEnumMember(NoComments, TsIdent("exception"), None),
           TsEnumMember(NoComments, TsIdent("timing"), None)
         ),
-        isValue = true,
+        isValue      = true,
         exportedFrom = None,
         Zero,
         CodePath.NoPath
@@ -1747,7 +1747,7 @@ type Readonly<T> = {
           TsEnumMember(NoComments, TsIdentSimple("MINUS"), Some(Left(TsLiteralNumber("0x00000004")))),
           TsEnumMember(NoComments, TsIdentSimple("SELECT"), Some(Right(TsIdentSimple("MINUS"))))
         ),
-        isValue = true,
+        isValue      = true,
         exportedFrom = None,
         Zero,
         CodePath.NoPath

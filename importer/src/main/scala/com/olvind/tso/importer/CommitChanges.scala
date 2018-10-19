@@ -22,7 +22,7 @@ object CommitChanges {
     otherDirs.foreach(otherDir => %% git ('add, otherDir))
 
     def duplicatedLogic(s: TsIdentLibrary): String = {
-      val base = PhaseCompileBloop.fromName(Name(s.`__value`))
+      val base = Phase3CompileBloop.fromName(Name(s.`__value`))
       s"${base.filter(_.isLetterOrDigit).take(1)}/$base"
     }
 

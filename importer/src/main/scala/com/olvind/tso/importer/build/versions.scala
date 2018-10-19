@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer.build
 
-import ammonite.ops.RelPath
 import stringUtils.quote
 
 object versions {
@@ -33,7 +32,4 @@ object versions {
 
   def `version%`(org: String, artifact: String, version: String): String =
     s"${quote(org)} % ${quote(artifact)} % ${quote(version)}"
-
-  val sourcesDir: RelPath = RelPath("src") / 'main / 'scala
-  val classesDir: RelPath = RelPath("target") / s"scala-$binVersion" / 'classes
 }

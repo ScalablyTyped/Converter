@@ -7,37 +7,29 @@ import java.time.format.DateTimeFormatter
 import java.util.jar.{JarEntry, JarOutputStream, Manifest}
 
 import ammonite.ops.{ls, read, Path, RelPath}
-import com.olvind.tso.scalajs.SbtProject
 
 import scala.collection.mutable
 import scala.xml.Elem
 
-object Publisher {
+object ContentForPublish {
   import versions._
 
-  class IvyLayoutFiles(p: SbtProject) {
-    private val libraryPath = RelPath(p.organization) / p.artifactId / p.version
-    val jarFile             = OutRelFile(libraryPath / 'jars / s"${p.artifactId}.jar")
-    val sourceFile          = OutRelFile(libraryPath / 'srcs / s"${p.artifactId}-sources.jar")
-    val ivyFile             = OutRelFile(libraryPath / 'ivys / "ivy.xml")
-    val pomFile             = OutRelFile(libraryPath / 'poms / s"${p.artifactId}.pom")
+  def apply(paths:       CompilerPaths,
+            p:           SbtProject,
+            publication: ZonedDateTime,
+            sourceFiles: Layout[RelPath, Array[Byte]]): IvyLayout[RelPath, Array[Byte]] = {
 
-    val all = Seq(jarFile, sourceFile, ivyFile, pomFile)
-  }
+    val jarFile    = createJar(paths.classesDir)
+    val sourceFile = createJar(sourceFiles, publication)
+    val pomFile    = fromXml(pom(p))
 
-  def ivyLayout(layout:      IvyLayoutFiles,
-                paths:       ProjectPaths,
-                p:           SbtProject,
-                publication: ZonedDateTime,
-                sourceFiles: OutRelFiles): OutRelFiles =
-    OutRelFiles(
-      Map(
-        layout.jarFile -> createJar(paths.classesDir),
-        layout.sourceFile -> createJar(sourceFiles, publication),
-        layout.ivyFile -> fromXml(ivy(p, publication)),
-        layout.pomFile -> fromXml(pom(p))
-      )
+    IvyLayout(p).mapIvy(
+      _ => jarFile,
+      _ => sourceFile,
+      _ => fromXml(ivy(p, publication)),
+      _ => pomFile
     )
+  }
 
   private def fromXml(xml: Elem): Array[Byte] = {
     val prelude: String = """<?xml version="1.0" encoding="UTF-8"?>"""
@@ -74,14 +66,14 @@ object Publisher {
     baos.toByteArray
   }
 
-  private def createJar(sourceFiles: OutRelFiles, publication: ZonedDateTime): Array[Byte] = {
+  private def createJar(sourceFiles: Layout[RelPath, Array[Byte]], publication: ZonedDateTime): Array[Byte] = {
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 
     try {
-      sourceFiles.files.foreach {
+      sourceFiles.all.foreach {
         case (relFile, contents) =>
-          val entry = new JarEntry(relFile.file.toString)
+          val entry = new JarEntry(relFile.toString)
           entry.setTime(publication.toEpochSecond)
           jar.putNextEntry(entry)
           jar.write(contents)
@@ -92,7 +84,7 @@ object Publisher {
     baos.toByteArray
   }
 
-  def ivy(p: SbtProject, publication: ZonedDateTime) =
+  def ivy(p: SbtProject, publication: ZonedDateTime): Elem =
     <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
       <info organisation={p.organization}
             module={p.artifactId}
@@ -100,7 +92,7 @@ object Publisher {
             status="release"
             publication={publication.format(DateTimeFormatter.ofPattern("ddMMyyyyhhmmss"))}>
         <description>
-          react
+          {p.name}
         </description>
       </info>
       <configurations>
@@ -117,8 +109,8 @@ object Publisher {
         <conf name="scala-tool" visibility="private" description=""/>
       </configurations>
       <publications>
-        <artifact name={p.artifactId} type="pom" ext="pom" conf="pom"/>
         <artifact name={p.artifactId} type="jar" ext="jar" conf="compile"/>
+        <artifact name={p.artifactId} type="pom" ext="pom" conf="pom"/>
         <artifact name={p.artifactId} type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
@@ -129,9 +121,9 @@ object Publisher {
         <dependency org={scalaJsOrganization} name={s("scalajs-test-interface")} rev={scalaJsVersion} conf="test->default(compile)"/>
         <dependency org={scalaJsOrganization} name={sjs("scalajs-dom")} rev={scalaJsDomVersion} conf="compile->default(compile)"/>
         <dependency org={constants.organization} name={sjs("runtime")} rev={scalablyTypedRuntimeVersion} conf="compile->default(compile)"/>
-        {p.deps.map(d =>
+        {p.deps.map{case (_, d) =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
-      )}
+      }}
       </dependencies>
     </ivy-module>
 
@@ -174,13 +166,13 @@ object Publisher {
           <artifactId>{sjs("runtime")}</artifactId>
           <version>{scalablyTypedRuntimeVersion}</version>
         </dependency>
-        {p.deps.map(d =>
+        {p.deps.map{case (_, d) =>
         <dependency>
           <groupId>{d.project.organization}</groupId>
           <artifactId>{d.project.artifactId}</artifactId>
           <version>{d.project.version}</version>
         </dependency>
-      )}
+      }}
       </dependencies>
     </project>
 }

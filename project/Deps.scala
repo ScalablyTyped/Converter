@@ -8,6 +8,9 @@ object Deps {
   val scalatest         = "org.scalatest" %% "scalatest" % "3.0.5"
   val fansi             = "com.lihaoyi" %% "fansi" % "0.2.5"
   val bloop             = "ch.epfl.scala" %% "bloop-backend" % "1.0.0"
+  val bintry            = "org.foundweekends" %% "bintry" % "0.5.2"
+  val dispatch          = "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
+  val asyncHttpClient   = "com.ning" % "async-http-client" % "1.8.10"
 
   val circe: Seq[ModuleID] =
     Seq("core", "generic", "parser").map(s => "io.circe" %% s"circe-$s" % "0.10.0")

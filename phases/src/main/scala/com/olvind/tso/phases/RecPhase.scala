@@ -20,6 +20,12 @@ sealed abstract class RecPhase[Id: Key, T] {
 
   final def next[TT](f: Phase[Id, T, TT], name: String): RecPhase[Id, TT] =
     RecPhase.Next(this, f, new PhaseCache, name)
+
+  final def nextOpt(op: Option[Phase[Id, T, T]], name: String): RecPhase[Id, T] =
+    op match {
+      case None    => this
+      case Some(p) => RecPhase.Next(this, p, new PhaseCache, name)
+    }
 }
 
 object RecPhase {

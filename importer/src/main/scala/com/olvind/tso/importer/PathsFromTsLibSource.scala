@@ -11,7 +11,7 @@ object PathsFromTsLibSource {
 
     val found: Seq[(InFile, Boolean)] =
       source match {
-        case TsSource.FromFile(file, _) =>
+        case TsSource.StdLibSource(file, _) =>
           Seq(file -> false)
 
         case f: TsSource.FromFolder =>
