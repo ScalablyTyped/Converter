@@ -17,6 +17,7 @@ object versions {
   val scalaJsDomVersion           = "0.9.5"
   val scalablyTypedRuntimeVersion = "1.0.0-M1"
   val sbtVersion                  = "1.2.3"
+  val sbtBintray                  = `version%`("org.foundweekends", "sbt-bintray", "0.5.4")
 
   def s(artifact: String): String =
     s"${artifact}_$binVersion"

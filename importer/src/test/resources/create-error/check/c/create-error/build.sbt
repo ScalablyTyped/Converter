@@ -1,12 +1,14 @@
 organization := "com.olvind.scalablytyped"
 name := "create-error"
-version := "0.3.1-2af753"
+version := "0.3.1-e607d0"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.olvind.scalablytyped" %%% "std" % "0.0-unknown-49a242",
+  "com.olvind.scalablytyped" %%% "std" % "0.0-unknown-c80739",
   "org.scala-js" %%% "scalajs-dom" % "0.9.5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+bintrayRepository := "ScalablyTyped"
         

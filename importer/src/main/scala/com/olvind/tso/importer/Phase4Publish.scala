@@ -28,10 +28,10 @@ case class Phase4Publish(publisher: BinTrayPublisher)
                     lib.localIvyFiles.pomFile._1,
         )
 
-      val published: Iterable[(Int, String)] =
+      val published: Iterable[Boolean] =
         Await.result(publisher.publish(lib.project, alreadyWrittenMavenFiles), Duration.Inf)
-
-      println(published)
+      val count = published.count(x => x)
+      if (count > 0) logger.warn(s"Published $count files")
       PhaseRes.Ok(PublishedSbtProject(lib.project)(lib.localIvyFiles, Some(published)))
     }
 }

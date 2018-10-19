@@ -10,7 +10,7 @@ object GenerateSbtPlugin {
   def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String) = {
     files.sync(contents(projects, pluginVersion), projectDir)
     implicit val wd = projectDir
-    % sbt "publishLocal"
+    % sbt "publish"
   }
 
   def contents(projects: Set[PublishedSbtProject], pluginVersion: String): Map[RelPath, Array[Byte]] = {
@@ -20,6 +20,8 @@ object GenerateSbtPlugin {
       |version := ${stringUtils.quote(pluginVersion)}
       |sbtPlugin := true
       |scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
+      |bintrayRepository := ${stringUtils.quote(constants.Project)}
+      |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |""".stripMargin
 
     val projectsByLetter =
@@ -64,6 +66,7 @@ object GenerateSbtPlugin {
 
     Map(
       RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
+      RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${versions.sbtBintray})""".getBytes(constants.Utf8),
       RelPath("project") / "build.properties" -> s"sbt.version=$sbtVersion".getBytes(constants.Utf8),
       pluginSourcePath -> pluginSource.getBytes(constants.Utf8)
     )

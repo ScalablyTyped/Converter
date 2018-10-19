@@ -2,7 +2,8 @@ package com.olvind.tso
 package importer
 
 import java.io.FileWriter
-import java.time.{Instant, LocalDate}
+import java.time.format.DateTimeFormatter
+import java.time.{Instant, LocalDateTime}
 import java.util.concurrent._
 
 import ammonite.ops._
@@ -150,7 +151,7 @@ object Main extends App {
 
   val summary = interface.finish()
 
-  println("Writing logs")
+  logger.warn("Writing logs")
 
   logRegistry.logs.foreach {
     case (libName, storeds) =>
@@ -175,18 +176,27 @@ object Main extends App {
       }
   }
 
+  val successes: Set[PublishedSbtProject] = {
+    def go(p: PublishedSbtProject): Set[PublishedSbtProject] =
+      p.project.deps.values.flatMap(go).to[Set] + p
+
+    results.collect { case PhaseRes.Ok(res) => go(res) }.flatten
+  }
+
   if (debugMode) {
-    System.err.println(s"Not committing because of non-empty args ${args.mkString(", ")}")
+    logger.warn(s"Not committing because of non-empty args ${args.mkString(", ")}")
   } else {
-    val successes: Set[PublishedSbtProject] =
-      results collect { case PhaseRes.Ok(res) => res }
-
-    println("Generating sbt plugin...")
     val sbtProjectDir = targetFolder / s"sbt-${constants.Project}"
-    GenerateSbtPlugin(sbtProjectDir, successes, LocalDate.now().toString)
 
-    println("Commiting...")
-    CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
+    if (bintray.isDefined) {
+      logger.warn("Generating sbt plugin...")
+      val pattern = DateTimeFormatter.ofPattern("ddMMyyyyhhmm")
+      GenerateSbtPlugin(sbtProjectDir, successes, pattern.format(LocalDateTime.now()))
+    }
+
+    logger.warn("Commiting...")
+    val summaryString = CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
+    logger.warn(summaryString)
   }
 
   System.exit(0)

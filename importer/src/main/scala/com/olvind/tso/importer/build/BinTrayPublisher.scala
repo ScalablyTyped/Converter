@@ -6,24 +6,12 @@ import java.io.IOException
 
 import ammonite.ops.{Path, RelPath}
 import bintry.Client
-import com.ning.http.client.filter.{FilterContext, ResponseFilter}
 import dispatch.{FunctionHandler, Http}
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class BinTrayPublisher(user: String, password: String, repoName: String)(implicit ec: ExecutionContext) {
-  private lazy val http =
-    new Http()
-      .configure(
-        _.addResponseFilter(new ResponseFilter {
-          override def filter[T](ctx: FilterContext[T]): FilterContext[T] = {
-            System.err.println(ctx.getRequest.getUri)
-            Option(ctx.getResponseStatus).foreach(s => System.err.println(s.getStatusCode))
-            ctx
-          }
-        })
-      )
-
+  private lazy val http   = new Http()
   private lazy val client = Client(user, password, http)
   private lazy val repo   = client.repo(user, repoName)
 
@@ -81,21 +69,20 @@ class BinTrayPublisher(user: String, password: String, repoName: String)(implici
       case _: IOException if n > 0 => retry(n - 1)(thunk)
     }
 
-  def publish(p: SbtProject, layout: Layout[RelPath, Path]): Future[Iterable[(Int, String)]] = {
-    def uploadFiles(pkg: repo.Package): Iterable[Future[(Int, String)]] =
+  def publish(p: SbtProject, layout: Layout[RelPath, Path]): Future[Iterable[Boolean]] = {
+    def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
       layout.all.map {
         case (relPath, src) =>
-          retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).publish(true)(Handle.asStatusAndBody))
+          retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).publish(true)(Handle.asCreated))
       }
 
-    def uploadIfNotExisting(pkg: repo.Package,
-                            ev:  Either[Existed.type, repo.Package#Version]): Future[List[(Int, String)]] =
+    def uploadIfNotExisting(pkg: repo.Package, ev: Either[Existed.type, repo.Package#Version]): Future[List[Boolean]] =
       ev match {
         case Left(Existed) => Future.successful(Nil)
         case Right(v) =>
           for {
             uploaded <- Future.sequence(uploadFiles(pkg))
-            published <- retry(2)(v.publish(Handle.asStatusAndBody))
+            published <- retry(2)(v.publish(Handle.asCreated))
           } yield uploaded.toList :+ published
       }
 

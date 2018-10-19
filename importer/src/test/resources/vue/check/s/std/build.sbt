@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "std"
-version := "0.0-unknown-0ccee1"
+version := "0.0-unknown-cd38ff"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
@@ -8,4 +8,6 @@ libraryDependencies ++= Seq(
   "org.scala-js" %%% "scalajs-dom" % "0.9.5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
+licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+bintrayRepository := "ScalablyTyped"
         

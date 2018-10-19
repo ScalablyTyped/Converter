@@ -17,16 +17,9 @@ val baseSettings: Project => Project =
 
 lazy val publicationSettings: Seq[Def.Setting[_]] =
   Seq(
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if (isSnapshot.value)
-        Some("snapshots" at nexus + "content/repositories/snapshots")
-      else
-        Some("releases" at nexus + "service/local/staging/deploy/maven2")
-    },
+    bintrayRepository := "ScalablyTyped",
     homepage := Some(new URL("http://github.com/oyvindberg/tso")),
     startYear := Some(2018),
-    licenses := Seq(("Apache 2", new URL("http://www.apache.org/licenses/LICENSE-2.0.txt"))),
     pomExtra := (
       <scm>
       <connection>scm:git:github.com:oyvindberg/tso</connection>
@@ -57,13 +50,14 @@ val testUtils = project
 
 val runtime = project
   .configure(baseSettings)
-  .enablePlugins(spray.boilerplate.BoilerplatePlugin, ScalaJSPlugin)
+  .enablePlugins(spray.boilerplate.BoilerplatePlugin, ScalaJSPlugin, BintrayPlugin)
   .settings(
     publicationSettings,
     libraryDependencies += Deps.scalaJsDom.value,
-    scalacOptions += "-P:scalajs:sjsDefinedByDefault"
+    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
+    version := "1.0.0-M1",
+    licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   )
-  .settings(version := "1.0.0-M1")
 
 lazy val ts: Project = project
   .configure(baseSettings)

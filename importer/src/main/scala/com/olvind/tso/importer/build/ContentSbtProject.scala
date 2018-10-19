@@ -42,7 +42,7 @@ object ContentSbtProject {
 
     val pluginsSbt =
       s"""|addSbtPlugin(${`version%%`(scalaJsOrganization, "sbt-scalajs", scalaJsVersion)})
-          |addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.4")
+          |addSbtPlugin($sbtBintray)
           |""".stripMargin
 
     val readme = comments.cs.map(_.raw).mkString("```\n", "", "```")

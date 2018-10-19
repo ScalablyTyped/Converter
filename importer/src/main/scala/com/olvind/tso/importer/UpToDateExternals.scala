@@ -27,7 +27,9 @@ object UpToDateExternals {
 
     if (missingExternals.nonEmpty) {
       logger.warn(s"Adding missing externals $missingExternals")
-      %("yarn", "add", "--ignore-scripts", missingExternals.toSeq)(cacheFolder)
+      %("/home/olvind/.nvm/versions/node/v10.12.0/bin/yarn", "add", "--ignore-scripts", missingExternals.toSeq)(
+        cacheFolder
+      )
     } else
       logger.warn(s"Externals is already up to date")
 
