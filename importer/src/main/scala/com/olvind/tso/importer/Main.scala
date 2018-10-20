@@ -2,7 +2,8 @@ package com.olvind.tso
 package importer
 
 import java.io.FileWriter
-import java.time.{Instant, LocalDate}
+import java.time.format.DateTimeFormatter
+import java.time.{Instant, LocalDateTime}
 import java.util.concurrent._
 
 import ammonite.ops._
@@ -10,15 +11,16 @@ import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
-import com.olvind.tso.importer.build.{BloopCompiler, GenerateSbtPlugin}
+import com.olvind.tso.importer.build.{BinTrayPublisher, BloopCompiler, GenerateSbtPlugin, PublishedSbtProject}
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.ts.TsSource.FromFile
+import com.olvind.tso.ts.TsSource.StdLibSource
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
 
 import scala.collection.parallel.ForkJoinTaskSupport
+import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object Main extends App {
@@ -55,6 +57,7 @@ object Main extends App {
     if (!constants.offline) {
       % git 'fetch
     }
+    % git ("clean", "-fd")
     % git ('reset, "--hard", "origin/master")
     % rm ("-f", ".git/gc.log")
     % git 'prune
@@ -89,7 +92,8 @@ object Main extends App {
     )
 
   val stdLibSource: TsSource =
-    FromFile(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"), TsIdentLibrarySimple("std"))
+    StdLibSource(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
+                 TsIdentLibrarySimple("std"))
 
   val sources: Seq[InFolder] = Seq(dtFolder, externalsFolder)
 
@@ -110,11 +114,27 @@ object Main extends App {
 
   val bloop = BloopCompiler(logger.filter(LogLevel.debug).void)
 
+  val bintray: Option[BinTrayPublisher] =
+    if (args.contains("publish")) {
+      val values: Map[String, String] =
+        files
+          .content(InFile(home / ".bintray" / ".credentials"))
+          .split("\n")
+          .map(_.split("=").map(_.trim).filter(_.nonEmpty).toList)
+          .collect { case List(k, v) => (k, v) }
+          .toMap
+
+      import ExecutionContext.Implicits.global
+
+      Some(new BinTrayPublisher(values("user"), values("password"), constants.Project))
+    } else None
+
   val Phase: RecPhase[TsSource, PublishedSbtProject] =
     RecPhase[TsSource]
-      .next(new PhaseReadTypescript(sources, constants.ignored, stdLibSource, persistedParser), "typescript")
-      .next(PhaseToScalaJs, "scala.js")
-      .next(PhaseCompileBloop(bloop, OutFolder(targetFolder), Name.OutputPkg, home / ".ivy2" / "local"), "build")
+      .next(new Phase1ReadTypescript(sources, constants.ignored, stdLibSource, persistedParser), "typescript")
+      .next(Phase2ToScalaJs, "scala.js")
+      .next(Phase3CompileBloop(bloop, OutFolder(targetFolder), Name.OutputPkg, home / ".ivy2" / "local"), "build")
+      .nextOpt(bintray.map(Phase4Publish), "publish")
 
   val interface = new Interface(debugMode, storingErrorLogger)
   interface.start()
@@ -131,7 +151,7 @@ object Main extends App {
 
   val summary = interface.finish()
 
-  println("Writing logs")
+  logger.warn("Writing logs")
 
   logRegistry.logs.foreach {
     case (libName, storeds) =>
@@ -156,18 +176,27 @@ object Main extends App {
       }
   }
 
+  val successes: Set[PublishedSbtProject] = {
+    def go(p: PublishedSbtProject): Set[PublishedSbtProject] =
+      p.project.deps.values.flatMap(go).to[Set] + p
+
+    results.collect { case PhaseRes.Ok(res) => go(res) }.flatten
+  }
+
   if (debugMode) {
-    System.err.println(s"Not committing because of non-empty args ${args.mkString(", ")}")
+    logger.warn(s"Not committing because of non-empty args ${args.mkString(", ")}")
   } else {
-    val successes: Set[PublishedSbtProject] =
-      results collect { case PhaseRes.Ok(res) => res }
-
-    println("Generating sbt plugin...")
     val sbtProjectDir = targetFolder / s"sbt-${constants.Project}"
-    GenerateSbtPlugin(sbtProjectDir, successes, LocalDate.now().toString)
 
-    println("Commiting...")
-    CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
+    if (bintray.isDefined) {
+      logger.warn("Generating sbt plugin...")
+      val pattern = DateTimeFormatter.ofPattern("ddMMyyyyhhmm")
+      GenerateSbtPlugin(sbtProjectDir, successes, pattern.format(LocalDateTime.now()))
+    }
+
+    logger.warn("Commiting...")
+    val summaryString = CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
+    logger.warn(summaryString)
   }
 
   System.exit(0)

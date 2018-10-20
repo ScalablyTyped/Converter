@@ -77,7 +77,14 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         NoComments,
         ExportType.Named,
         TsExporteeTree(
-          TsDeclEnum(NoComments, declared = false, TsIdent("RoundingMode"), Nil, isValue = true, exportedFrom = None, Zero, CodePath.NoPath)
+          TsDeclEnum(NoComments,
+                     declared = false,
+                     TsIdent("RoundingMode"),
+                     Nil,
+                     isValue      = true,
+                     exportedFrom = None,
+                     Zero,
+                     CodePath.NoPath)
         )
       )
     )

@@ -111,7 +111,7 @@ object BloopCompiler {
       ClasspathOptions.of(bootLibrary, compiler, extra, autoBoot, filterLibrary)
     }
 
-    val compileInputs = (paths: ProjectPaths, localClassPath: Seq[AbsolutePath]) => {
+    val compileInputs = (paths: CompilerPaths, localClassPath: Seq[AbsolutePath]) => {
       def toAbs(p: Path) = AbsolutePath(p.toNIO)
 
       CompileInputs(
@@ -138,7 +138,7 @@ object BloopCompiler {
   }
 }
 
-class BloopCompiler(repos: Array[Repository], compileInputs: (ProjectPaths, Seq[AbsolutePath]) => CompileInputs) {
-  def compileLib(paths: ProjectPaths, localClassPath: Seq[AbsolutePath]): Compiler.Result =
+class BloopCompiler(repos: Array[Repository], compileInputs: (CompilerPaths, Seq[AbsolutePath]) => CompileInputs) {
+  def compileLib(paths: CompilerPaths, localClassPath: Seq[AbsolutePath]): Compiler.Result =
     bloop.Compiler.compile(compileInputs(paths, localClassPath))
 }

@@ -7,7 +7,7 @@ import com.olvind.tso.scalajs.transforms.FakeLiterals
 import com.olvind.tso.scalajs.{ContainerSymbol, LibScalaJs, Name, SymbolScope, transforms => S}
 import com.olvind.tso.ts._
 
-object PhaseToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibScalaJs[TsSource]] {
+object Phase2ToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibScalaJs[TsSource]] {
 
   override def apply(source:     TsSource,
                      current:    Either[LibraryPart, LibTs],

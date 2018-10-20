@@ -7,7 +7,7 @@ import java.nio.file.Files
 
 import ammonite.ops.{root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
-import com.olvind.tso.importer.build.BloopCompiler
+import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject}
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.ts.TsSource.TsLibSource
@@ -28,13 +28,13 @@ trait ImporterHarness extends FunSuiteLike {
       publishFolder: Path
   ): PhaseRes[TsSource, Map[TsSource, PublishedSbtProject]] = {
     val stdLibSource: TsSource =
-      TsSource.FromFile(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
+      TsSource.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
 
     val phase: RecPhase[TsSource, PublishedSbtProject] =
       RecPhase[TsSource]
-        .next(new PhaseReadTypescript(Seq(source), Set.empty, stdLibSource, parser.parseFile), "typescript")
-        .next(PhaseToScalaJs, "scala.js")
-        .next(PhaseCompileBloop(bloop, targetFolder, Name(constants.Project), publishFolder), "build")
+        .next(new Phase1ReadTypescript(Seq(source), Set.empty, stdLibSource, parser.parseFile), "typescript")
+        .next(Phase2ToScalaJs, "scala.js")
+        .next(Phase3CompileBloop(bloop, targetFolder, Name(constants.Project), publishFolder), "build")
 
     val found: Set[TsLibSource] =
       TypescriptSources.forFolder(InFolder(source.path), Set.empty)

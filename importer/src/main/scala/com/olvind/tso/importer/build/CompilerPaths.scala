@@ -5,16 +5,16 @@ package build
 
 import ammonite.ops.Path
 
-case class ProjectPaths private (baseDir: Path, sourcesDir: Path, classesDir: Path)
+case class CompilerPaths private (baseDir: Path, sourcesDir: Path, classesDir: Path)
 
-object ProjectPaths {
+object CompilerPaths {
   //changing this? Have a look at `CommitRun` as well - i was lazy
   def of(baseDir: OutFolder, libName: String) = {
     val thisBaseDir = baseDir.folder / libName.filter(_.isLetterOrDigit).take(1) / libName
-    new ProjectPaths(
+    new CompilerPaths(
       thisBaseDir,
-      sourcesDir = thisBaseDir / versions.sourcesDir,
-      classesDir = thisBaseDir / versions.classesDir
+      sourcesDir = thisBaseDir / ContentSbtProject.sourcesDir,
+      classesDir = thisBaseDir / ContentSbtProject.classesDir
     )
   }
 }

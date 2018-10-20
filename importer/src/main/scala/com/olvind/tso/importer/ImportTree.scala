@@ -492,15 +492,15 @@ object ImportTree {
     )
 
     val ret = MethodSymbol(
-      as,
-      level      = level,
-      name       = name,
-      tparams    = sig.tparams map typeParam(scope),
-      params     = Seq(tsFunParams(scope, sig.params)),
-      impl       = fieldType,
-      resultType = resultType,
-      isOverride = false,
-      comments   = cs ++ sig.comments
+      annotations = as,
+      level       = level,
+      name        = name,
+      tparams     = sig.tparams map typeParam(scope),
+      params      = Seq(tsFunParams(scope, sig.params)),
+      impl        = fieldType,
+      resultType  = resultType,
+      isOverride  = false,
+      comments    = cs ++ sig.comments
     )
 
     containedLiterals.distinct.toList match {

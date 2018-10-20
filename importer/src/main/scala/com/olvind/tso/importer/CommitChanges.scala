@@ -8,29 +8,26 @@ import scala.util.Try
 
 /* calculate difference from last run (if any) and commit new changes */
 object CommitChanges {
-  def apply(summary: Summary, otherDirs: Seq[Path])(implicit wd: Path): Unit = {
+  def apply(summary: Summary, otherDirs: Seq[Path])(implicit wd: Path): String = {
 
-    val summaryFile   = wd / Summary.path
-    val existingOpt   = Try(Json[Summary](summaryFile)).toOption
-    val diff          = Summary.diff(existingOpt, summary)
-    val formattedDiff = Summary.formatDiff(diff)
+    val summaryFile = wd / Summary.path
+    val existingOpt = Try(Json[Summary](summaryFile)).toOption
+    val diff        = Summary.diff(existingOpt, summary)
 
-    println(formattedDiff)
     Json.persist(summaryFile)(summary)
 
     %% git ('add, summaryFile.toString)
     otherDirs.foreach(otherDir => %% git ('add, otherDir))
 
     def duplicatedLogic(s: TsIdentLibrary): String = {
-      val base = PhaseCompileBloop.fromName(Name(s.`__value`))
+      val base = Phase3CompileBloop.fromName(Name(s.`__value`))
       s"${base.filter(_.isLetterOrDigit).take(1)}/$base"
     }
 
-    summary.successes.grouped(500).foreach { xs =>
-      %% git ('add, xs.map(duplicatedLogic).to[List])
-    }
+    summary.successes.grouped(500).foreach(xs => %% git ('add, xs.map(duplicatedLogic).to[List]))
 
+    val formattedDiff = Summary.formatDiff(diff)
     %% git ('commit, "-m", formattedDiff)
-    ()
+    formattedDiff
   }
 }

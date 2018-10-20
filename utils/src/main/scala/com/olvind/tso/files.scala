@@ -30,15 +30,11 @@ final case class InFolder(path: Path) {
   def name: String = path.last
 }
 
-final case class OutRelFolder(folder: RelPath)
-
-final case class OutRelFile(file: RelPath)
-
-final case class OutRelFiles(files: Map[OutRelFile, Array[Byte]]) {
-  def ++(other: OutRelFiles): OutRelFiles = OutRelFiles(files ++ other.files)
-}
-
 final case class OutFolder(folder: Path)
+
+trait Layout[F, V] {
+  def all: Map[F, V]
+}
 
 object files {
   val BOM = "\uFEFF"
@@ -56,10 +52,10 @@ object files {
     name === ".idea" || name === "target"
   }
 
-  def sync(fs: OutRelFiles, folder: Path): Map[Path, Synced] = {
+  def sync(fs: Map[RelPath, Array[Byte]], folder: Path): Map[Path, Synced] = {
 
-    val absolutePathFiles: Map[Path, Array[Byte]] = fs.files.map {
-      case (relPath, content) => folder / relPath.file -> content
+    val absolutePathFiles: Map[Path, Array[Byte]] = fs.map {
+      case (relPath, content) => folder / relPath -> content
     }
 
     val deleted: Map[Path, Synced] =
@@ -78,25 +74,16 @@ object files {
 
     val writtenFiles: Map[Path, Synced] =
       absolutePathFiles.map {
-        case (file, content) => (file, softWrite(file, content))
+        case (file, content) => (file, softWriteBytes(file, content))
       }
 
     deleted ++ writtenFiles
   }
 
-  def write(fs: OutRelFiles, folder: Path): Map[Path, Synced] = {
-
-    val absolutePathFiles: Map[Path, Array[Byte]] = fs.files.map {
-      case (relPath, content) => folder / relPath.file -> content
+  def write(fs: Map[Path, Array[Byte]]): Map[Path, Synced] =
+    fs.map {
+      case (file, content) => (file, softWriteBytes(file, content))
     }
-
-    val writtenFiles: Map[Path, Synced] =
-      absolutePathFiles.map {
-        case (file, content) => (file, softWrite(file, content))
-      }
-
-    writtenFiles
-  }
 
   def softWrite[T](path: Path)(f: PrintWriter => T): Synced = {
     val baos: ByteArrayOutputStream =
@@ -107,10 +94,10 @@ object files {
     try f(writer)
     finally writer.close()
 
-    softWrite(path, baos.toByteArray)
+    softWriteBytes(path, baos.toByteArray)
   }
 
-  def softWrite[T](path: Path, newContent: Array[Byte]): Synced =
+  def softWriteBytes[T](path: Path, newContent: Array[Byte]): Synced =
     (if (exists(path)) Some(contentBytes(InFile(path))) else None) match {
       case None =>
         mkdir(path / up)

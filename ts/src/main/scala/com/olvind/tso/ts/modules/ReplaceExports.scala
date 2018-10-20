@@ -105,7 +105,14 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeVisitorScopedChange
 
   def newMember(scope: TreeScope, owner: TsDeclNamespaceOrModule, jsLocation: ModuleSpec => JsLocation)(
       decl:            TsContainerOrDecl
-  ): Seq[TsContainerOrDecl] =
+  ): Seq[TsContainerOrDecl] = {
+    lazy val hasExportedValues: Boolean =
+      owner.exports.exists {
+        case TsExport(_, _, TsExporteeTree(_: TsDeclInterface | _: TsDeclTypeAlias)) => false
+        case _: TsExport => true
+        case _ => false
+      }
+
     decl match {
       /* fix for @angular/core */
       case TsExport(NoComments, _, TsExporteeStar(name, None)) if owner.name === name => Nil
@@ -135,8 +142,9 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeVisitorScopedChange
 
       case x: TsDeclModule      => Seq(x)
       case x: TsAugmentedModule => Seq(x)
-      case x: TsNamedValueDecl  => if (owner.exports.nonEmpty) DeriveCopy.downgrade(x).to[List] else Seq(x)
+      case x: TsNamedValueDecl  => if (hasExportedValues) DeriveCopy.downgrade(x).to[List] else Seq(x)
 //      case _: TsImport          => Nil
       case x => Seq(x)
     }
+  }
 }

@@ -4,24 +4,25 @@ package build
 
 import ammonite.ops._
 import com.olvind.tso.importer.build.versions.{`version%`, sbtVersion}
-import com.olvind.tso.scalajs.{PublishedSbtProject, ScalaNameEscape}
+import com.olvind.tso.scalajs.ScalaNameEscape
 
 object GenerateSbtPlugin {
   def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String) = {
     files.sync(contents(projects, pluginVersion), projectDir)
     implicit val wd = projectDir
-    % sbt "publishLocal"
+    % sbt "publish"
   }
 
-  def contents(projects: Set[PublishedSbtProject], pluginVersion: String): OutRelFiles = {
+  def contents(projects: Set[PublishedSbtProject], pluginVersion: String): Map[RelPath, Array[Byte]] = {
 
-    val buildSbt = s"""
-name := "sbt-${constants.Project}"
-organization := ${stringUtils.quote(constants.organization)}
-version := ${stringUtils.quote(pluginVersion)}
-sbtPlugin := true
-scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
-"""
+    val buildSbt = s"""name := "sbt-${constants.Project}"
+      |organization := ${stringUtils.quote(constants.organization)}
+      |version := ${stringUtils.quote(pluginVersion)}
+      |sbtPlugin := true
+      |scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
+      |bintrayRepository := ${stringUtils.quote(constants.Project)}
+      |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+      |""".stripMargin
 
     val projectsByLetter =
       projects
@@ -31,45 +32,43 @@ scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
         .sortBy(_._1)
         .map {
           case (letter, ps) =>
-            s"""  object ${ScalaNameEscape(letter.toUpper.toString)} {
-          ${ps.to[Seq]
-              .sortBy(_.name)
-              .map { p =>
-                val pIdent = ScalaNameEscape(ImportName.rewrite(p.name, "", capitalize = true))
-                s"    val $pIdent = ${`version%`(p.organization, p.artifactId, p.version)}"
-              }
-              .mkString("\n", "\n", "\n")}
-        }"""
+            s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
+                |${ps
+                 .to[Seq]
+                 .sortBy(_.name)
+                 .map { p =>
+                   val pIdent = ScalaNameEscape(ImportName.rewrite(p.name, "", capitalize = true))
+                   s"|        val $pIdent = ${`version%`(p.organization, p.artifactId, p.version)}"
+                 }
+                 .mkString("", "\n", "")}
+        |      }""".stripMargin
         }
         .mkString("\n")
 
     val pluginSource = s"""
-package ${constants.organization}.sbt
+|package ${constants.organization}.sbt
+|
+|import sbt._
+|import sbt.Keys._
+|
+|object ${constants.Project}Plugin extends AutoPlugin {
+|  override def trigger = allRequirements
+|  override def requires = sbt.plugins.JvmPlugin
+|
+|  object autoImport {
+|    object ${constants.Project} {
+|$projectsByLetter
+|    }
+|  }
+|}""".stripMargin
 
-import sbt._
-import sbt.Keys._
+    val pluginSourcePath = RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
 
-object ${constants.Project}Plugin extends AutoPlugin {
-  override def trigger = allRequirements
-  override def requires = sbt.plugins.JvmPlugin
-
-  object autoImport {
-    object ${constants.Project} {
-      $projectsByLetter
-    }
-  }
-}"""
-
-    val pluginSourcePath = OutRelFile(
-      RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
-    )
-
-    OutRelFiles(
-      Map(
-        OutRelFile(RelPath("build.sbt")) -> buildSbt.getBytes(constants.Utf8),
-        OutRelFile(RelPath("project") / "build.properties") -> s"sbt.version=$sbtVersion".getBytes(constants.Utf8),
-        pluginSourcePath -> pluginSource.getBytes(constants.Utf8)
-      )
+    Map(
+      RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
+      RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${versions.sbtBintray})""".getBytes(constants.Utf8),
+      RelPath("project") / "build.properties" -> s"sbt.version=$sbtVersion".getBytes(constants.Utf8),
+      pluginSourcePath -> pluginSource.getBytes(constants.Utf8)
     )
   }
 }

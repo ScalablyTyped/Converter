@@ -12,9 +12,9 @@ object Printer {
 
   private class Registry() {
 
-    private val fs = mutable.Map.empty[OutRelFile, Array[Byte]]
+    private val fs = mutable.Map.empty[RelPath, Array[Byte]]
 
-    def write(file: OutRelFile)(f: PrintWriter => Unit): Unit = {
+    def write(file: RelPath)(f: PrintWriter => Unit): Unit = {
       val w  = new StringWriter()
       val pw = new PrintWriter(w)
 
@@ -26,22 +26,22 @@ object Printer {
       }
     }
 
-    def result: Map[OutRelFile, Array[Byte]] =
+    def result: Map[RelPath, Array[Byte]] =
       fs.toMap
   }
 
-  def apply(lib: LibScalaJs[_], sourcesDir: RelPath, mainPkg: Name): OutRelFiles = {
+  def apply(lib: LibScalaJs[_], mainPkg: Name): Map[RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
       reg          = reg,
       mainPkg      = mainPkg,
       scalaPrefix  = List(lib.packageSymbol.name),
-      targetFolder = sourcesDir / mainPkg.value / lib.packageSymbol.name.value,
+      targetFolder = RelPath(mainPkg.value) / lib.packageSymbol.name.value,
       sym          = lib.packageSymbol
     )
 
-    OutRelFiles(reg.result)
+    reg.result
   }
 
   val Imports: String =
@@ -61,7 +61,7 @@ object Printer {
 
     files foreach {
       case (ScalaOutput.File(name), members: Seq[Symbol]) =>
-        reg.write(OutRelFile(targetFolder / RelPath(s"${name.unescaped}.scala"))) { writer =>
+        reg.write(targetFolder / RelPath(s"${name.unescaped}.scala")) { writer =>
           writer println s"package ${formatName(mainPkg)}"
           writer println s"package ${formatQN(Nil, QualifiedName(scalaPrefix))}"
           writer.println("")
@@ -78,7 +78,7 @@ object Printer {
         }
 
       case (ScalaOutput.PackageObject, members) =>
-        reg.write(OutRelFile(targetFolder / "package.scala")) { writer =>
+        reg.write(targetFolder / "package.scala") { writer =>
           writer println s"package ${formatName(mainPkg)}"
           scalaPrefix.dropRight(1) match {
             case Nil => ()
@@ -163,7 +163,7 @@ object Printer {
 
         if (classType =/= ClassType.Trait) {
           print(" ")
-          print(formatProtectionLevel(defaultCtor.level, true))
+          print(formatProtectionLevel(defaultCtor.level, isCtor = true))
           print((defaultCtor.params map formatParamSymbol(prefix)).mkString("(", ", ", ")"))
         }
 
@@ -235,7 +235,7 @@ object Printer {
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
-        print(formatProtectionLevel(level, false))
+        print(formatProtectionLevel(level, isCtor = false))
         print(s"${if (isOverride) "override " else ""}def ", formatName(name))
         if (tparams.nonEmpty)
           print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
@@ -255,7 +255,7 @@ object Printer {
       case CtorSymbol(level, params, comments) =>
         print(formatComments(comments))
         println("",
-                formatProtectionLevel(level, true),
+                formatProtectionLevel(level, isCtor = true),
                 "def this(",
                 (params map formatParamSymbol(prefix)) mkString ", ",
                 ") = this()")
@@ -303,7 +303,7 @@ object Printer {
       case other                                                => other.map(formatName).mkString(".")
     }
 
-  def formatName(name: Name) = name match {
+  def formatName(name: Name): String = name match {
     case Name.APPLY => "apply"
     case other      => other.value
   }

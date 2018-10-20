@@ -16,8 +16,10 @@ object Digest {
   object Digestable {
     def apply[T: Digestable]: Digestable[T] = implicitly
 
-    implicit val StringDigestable:    Digestable[String]      = (t:  String)      => t.getBytes(constants.Utf8)
-    implicit val ByteArrayDigestable: Digestable[Array[Byte]] = (bs: Array[Byte]) => bs
+    implicit val StringDigestable: Digestable[String] =
+      (t: String) => t.filterNot(_.isWhitespace).getBytes(constants.Utf8)
+    implicit val ByteArrayDigestable: Digestable[Array[Byte]] =
+      (bs: Array[Byte]) => bs
   }
 
   def of[T: Digestable](ts: scala.collection.Iterable[T]): Digest =

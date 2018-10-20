@@ -1,6 +1,5 @@
-package com.olvind.tso.scalajs.transforms
-
-import com.olvind.tso.scalajs._
+package com.olvind.tso.scalajs
+package transforms
 
 object CleanIllegalNames extends SymbolVisitor {
   override def enterFieldSymbol(scope: SymbolScope)(s: FieldSymbol): FieldSymbol =

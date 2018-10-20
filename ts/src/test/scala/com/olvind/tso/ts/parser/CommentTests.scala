@@ -377,8 +377,7 @@ interface IDateJSLiteral {
     milliseconds: number;
 }
 """
-    val force: TsParsedFile = parseAs(content, TsParser.parsedTsFile)
-    println(force)
+    parseAs(content, TsParser.parsedTsFile)
   }
 
   test("directives bug2") {
@@ -409,8 +408,7 @@ and limitations under the License.
 /// <reference lib="scripthost" />
 /// <reference lib="dom.iterable" />
 """
-    val force: TsParsedFile = parseAs(content, TsParser.parsedTsFile)
-    println(force)
+    parseAs(content, TsParser.parsedTsFile)
   }
 
   test("ignore directives not on top of file") {

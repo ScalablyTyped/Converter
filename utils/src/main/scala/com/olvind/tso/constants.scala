@@ -9,13 +9,14 @@ import scala.io.Codec
   * Todo: this is mostly config, and it's only lazyness that it's all here static
   */
 object constants {
-  val ScalablyTypedRepo   = "git@github.com:oyvindberg/ScalablyTyped.git"
-  val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
-  val Pedantic            = false
-  val organization        = "com.olvind"
-  val Project             = "ScalablyTyped"
-  val offline             = false
-  val freshRepo           = false
+  val ScalablyTypedRepo       = "git@github.com:oyvindberg/ScalablyTyped.git"
+  val ScalablyTypedRepoPublic = "https://github.com/oyvindberg/ScalablyTyped.git"
+  val DefinitelyTypedRepo     = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
+  val Pedantic                = false
+  val organization            = "com.olvind"
+  val Project                 = "ScalablyTyped"
+  val offline                 = false
+  val freshRepo               = false
 
   val TimeZone = ZoneId.of("GMT")
   val Utf8     = Codec.UTF8.charSet
@@ -85,6 +86,10 @@ object constants {
     "prisma-binding",
     "@protobufjs/aspromise",
     "@protobufjs/codegen",
+    "@pulumi/pulumi",
+//    "@pulumi/aws",
+    "@pulumi/cloud",
+    "@pulumi/kubernetes",
     "react-apollo",
     "react-ace",
     "react-emotion",
@@ -109,6 +114,7 @@ object constants {
     "semantic-ui-react",
     "signals.js",
     "snabbdom",
+    "source-map-support",
     "storm-react-diagrams",
     "styled-components",
     "sw-toolbox",
@@ -123,6 +129,7 @@ object constants {
     "typescript-optional",
     "@uifabric/merge-styles",
     "@uifabric/styling",
+    "@uirouter/angularjs",
     "vscode-languageserver",
     "vscode-languageserver-types",
     "vue-class-component",

@@ -1,6 +1,7 @@
 package com.olvind.tso
 package importer
 
+import ammonite.ops.up
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
@@ -8,10 +9,10 @@ import com.olvind.tso.ts.TreeScope.LoopDetector
 import com.olvind.tso.ts.modules._
 import com.olvind.tso.ts.{transforms => TS, _}
 
-class PhaseReadTypescript(sources:      Seq[InFolder],
-                          ignored:      Set[String],
-                          stdlibSource: TsSource,
-                          parser:       InFile => Either[String, TsParsedFile])
+class Phase1ReadTypescript(sources:      Seq[InFolder],
+                           ignored:      Set[String],
+                           stdlibSource: TsSource,
+                           parser:       InFile => Either[String, TsParsedFile])
     extends Phase[TsSource, TsSource, Either[LibraryPart, LibTs]] {
 
   import jsonCodecs._
@@ -100,7 +101,9 @@ class PhaseReadTypescript(sources:      Seq[InFolder],
 
       case source: TsSource.TsLibSource =>
         val packageJsonOpt: Option[PackageJsonDeps] =
-          Json.opt[PackageJsonDeps](source.folder.path / "package.json")
+          Json.opt[PackageJsonDeps](source.folder.path / "package.json") orElse
+            /* discover stdlib package.json as well */
+            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json")
 
         val tsConfig: Option[TsConfig] =
           Json.opt[TsConfig](source.folder.path / "tsconfig.json")

@@ -8,7 +8,7 @@ import com.olvind.tso.ts.TsSource.TsLibSource
 sealed abstract class TsSource(val folder: InFolder) {
   final def path: Path =
     this match {
-      case TsSource.FromFile(InFile(path), _)      => path
+      case TsSource.StdLibSource(InFile(path), _)  => path
       case TsSource.FromFolder(InFolder(path), _)  => path
       case TsSource.HelperFile(InFile(path), _, _) => path
     }
@@ -27,7 +27,7 @@ object TsSource {
     val libName: TsIdentLibrary
   }
 
-  case class FromFile(file: InFile, libName: TsIdentLibrary) extends TsSource(file.folder) with TsLibSource
+  case class StdLibSource(file: InFile, libName: TsIdentLibrary) extends TsSource(file.folder) with TsLibSource
 
   case class FromFolder(override val folder: InFolder, libName: TsIdentLibrary)
       extends TsSource(folder)

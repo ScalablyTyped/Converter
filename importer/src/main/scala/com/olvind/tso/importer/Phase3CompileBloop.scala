@@ -14,19 +14,20 @@ import com.olvind.tso.ts._
 import fansi.Back
 import xsbti.Severity
 
-object PhaseCompileBloop {
+object Phase3CompileBloop {
   //todo: formalize a bit
   def fromName(name: Name): String =
     name.unescaped.replaceAll("\\.", "_dot_")
 }
 
-case class PhaseCompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mainPackageName: Name, publishFolder: Path)
+case class Phase3CompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mainPackageName: Name, publishFolder: Path)
     extends Phase[TsSource, LibScalaJs[TsSource], PublishedSbtProject] {
 
-  val ScalaFiles: PartialFunction[(OutRelFile, Array[Byte]), Array[Byte]] = {
-    case (path, value) if path.file.segments.last.endsWith(".scala") || path.file.segments.last.endsWith(".sbt") =>
+  val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
+    case (path, value) if path.segments.last.endsWith(".scala") || path.segments.last.endsWith(".sbt") =>
       value
   }
+
   implicit val PathFormatter: Formatter[Path] = _.toString
 
   override def apply(source:  TsSource,
@@ -36,53 +37,61 @@ case class PhaseCompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, main
                      logger:  Logger[Unit]): PhaseRes[TsSource, PublishedSbtProject] =
     //
     getDeps(lib.dependencies map (_.source)) flatMap { deps: Map[TsSource, PublishedSbtProject] =>
-      val organization          = s"${constants.organization}.${PhaseCompileBloop.fromName(mainPackageName).toLowerCase}"
-      val name                  = PhaseCompileBloop.fromName(lib.libName)
-      val artifactId            = versions.sjs(name)
-      val depsSeq               = deps.values.to[Seq]
-      val sbtFiles              = SbtProjectStructure(lib, organization, name, VersionHack.TemplateValue, depsSeq)
-      val scalaFiles            = Printer(lib, versions.sourcesDir, mainPackageName)
-      val allFiles              = scalaFiles ++ sbtFiles
-      val finalVersion          = lib.libVersion.version(Digest.of(allFiles.files collect ScalaFiles))
-      val allFilesProperVersion = VersionHack.templateVersion(allFiles, finalVersion)
-      val paths                 = ProjectPaths.of(targetFolder, name)
-      val written               = files.sync(allFilesProperVersion, paths.baseDir)
-      val sbtProject            = SbtProject(name, organization, artifactId, finalVersion)(written, depsSeq)
-      val ivyLayout             = new Publisher.IvyLayoutFiles(sbtProject)
-      val publishedFiles        = ivyLayout.all.map(rel => publishFolder / rel.file)
+      val organization = s"${constants.organization}.${Phase3CompileBloop.fromName(mainPackageName).toLowerCase}"
+      val name         = Phase3CompileBloop.fromName(lib.libName)
+      val scalaFiles   = Printer(lib, mainPackageName)
+      val sbtLayout = ContentSbtProject(
+        lib.packageSymbol.comments,
+        organization,
+        name,
+        VersionHack.TemplateValue,
+        deps.values.to[Seq],
+        scalaFiles
+      )
+      val finalVersion          = lib.libVersion.version(Digest.of(sbtLayout.all collect ScalaFiles))
+      val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
+      val compilerPaths         = CompilerPaths.of(targetFolder, name)
+      val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir)
+      val sbtProject            = SbtProject(name, organization, versions.sjs(name), finalVersion)(written, deps)
 
-      if (publishedFiles forall exists) {
+      val existing: IvyLayout[Path, Synced] =
+        IvyLayout(sbtProject)
+          .mapFiles(publishFolder / _)
+          .mapValues((_, _) => Synced.Unchanged)
+
+      if (existing.all.keys forall exists) {
         logger warn s"Using cached build of ${sbtProject.name}"
-        val unchanged = publishedFiles.map(x => x -> Synced.Unchanged).toMap
-        PhaseRes.Ok(PublishedSbtProject(sbtProject)(unchanged))
+        PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
       } else {
 
         val localClassPath: Seq[AbsolutePath] =
-          depsSeq map { x =>
-            x.written
+          deps.values.to[Seq] map { x =>
+            x.localIvyFiles.all
               .collectFirst {
                 case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
                   AbsolutePath(path.toIO)
               }
-              .getOrElse(
-                logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.written}")
-              )
+              .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
           }
 
-        rm(paths.classesDir)
+        rm(compilerPaths.classesDir)
 
         val ret: PhaseRes[TsSource, PublishedSbtProject] =
-          bloop.compileLib(paths, localClassPath) match {
+          bloop.compileLib(compilerPaths, localClassPath) match {
             case Compiler.Result.Success(_, _, elapsed) =>
               logger warn s"Built ${sbtProject.name} in $elapsed ms"
 
-              val published = files.write(
-                Publisher.ivyLayout(ivyLayout, paths, sbtProject, ZonedDateTime.now(), allFilesProperVersion),
-                publishFolder
-              )
+              val relativeLayout: IvyLayout[RelPath, Array[Byte]] =
+                build.ContentForPublish(compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
 
-              logger.info(("published", published.keys))
-              PhaseRes.Ok(PublishedSbtProject(sbtProject)(published))
+              val writtenIvyFiles: IvyLayout[Path, Synced] =
+                relativeLayout
+                  .mapFiles(p => publishFolder / p)
+                  .mapValues(files.softWriteBytes)
+
+              logger.info(("published local", writtenIvyFiles.all.keys))
+
+              PhaseRes.Ok(PublishedSbtProject(sbtProject)(writtenIvyFiles, None))
 
             case Compiler.Result.Failed(problems, _) =>
               problems foreach { p =>
@@ -101,7 +110,7 @@ case class PhaseCompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, main
             case other => logger.fatal(other.toString)
           }
 
-        rm(paths.classesDir)
+        rm(compilerPaths.classesDir)
 
         ret
       }
