@@ -300,11 +300,16 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
     comments ~ tsTypeParams ~ ("(" ~> rep(functionParam) <~ ")") ~ typeAnnotationOpt ^^ TsFunSig
 
   lazy val functionParam: Parser[TsFunParam] = {
-    /* todo: represent in tree */
-    lazy val destructured: TsParser.Parser[TsIdent] =
+    /* Represent in tree? */
+    lazy val destructuredObj: TsParser.Parser[TsIdent] =
       "{" ~> rep((tsIdent | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
           ids => TsIdent("has" + ids.map(_.value.capitalize).mkString(""))
       )
+    lazy val destructuredArray: TsParser.Parser[TsIdent] =
+      "[" ~> repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
+          ids => TsIdent("has" + ids.map(_.value.capitalize).mkString(""))
+      )
+    lazy val destructured = destructuredArray | destructuredObj
 
     comments ~ "...".isDefined ~ (tsIdent | destructured) ~ "?".isDefined ~ typeAnnotationOpt ~ delimMaybeComment(
       ','
@@ -428,9 +433,9 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
       }
 
     val field: Parser[TsMemberProperty] =
-      comments ~ intro ~ "?".isDefined ~ typeAnnotationOpt ^^ {
-        case cs ~ ((level, name, static, readonly)) ~ optional ~ tpe =>
-          TsMemberProperty(cs, level, name, tpe, static, readonly, optional)
+      comments ~ intro ~ "?".isDefined ~ typeAnnotationOpt ~ ("=" ~> tsLiteral).? ^^ {
+        case cs ~ ((level, name, static, readonly)) ~ optional ~ tpe ~ litOpt =>
+          TsMemberProperty(cs, level, name, tpe, litOpt, static, readonly, optional)
       }
 
     function | field

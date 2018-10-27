@@ -177,14 +177,14 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                     TS.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     TS.UnionTypesFromKeyOf >>
                     TS.DropPrototypes >>
-                    TS.DefaultedTParams >>
                     TS.InlineTrivialTypeAlias >>
                     TS.InferReturnTypes >>
                     TS.RewriteTypeThis //
                 ).visitTsParsedFile(scope.caching)
+                >> TS.DefaultedTParams.visitTsParsedFile(scope) //after SimplifyTypes
                 >> (
                   TS.SplitMethodsOnUnionTypes
-                    >> TS.RemoveDifficultInheritance
+                    >> TS.RemoveDifficultInheritance //after DefaultedTParams
                 ).visitTsParsedFile(scope)
                 >> TS.SplitMethodsOnOptionalParams.visitTsParsedFile(scope)
                 >> TS.ExtractInterfaces(libName, scope) //

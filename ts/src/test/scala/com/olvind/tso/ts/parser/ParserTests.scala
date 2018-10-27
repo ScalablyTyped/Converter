@@ -114,6 +114,7 @@ final class ParserTests extends FunSuite {
             level      = Default,
             name       = TsIdent("algorithm"),
             tpe        = Some(TsTypeRef.string),
+            literal    = None,
             isStatic   = false,
             isReadOnly = false,
             isOptional = true
@@ -123,6 +124,7 @@ final class ParserTests extends FunSuite {
             level      = Default,
             name       = TsIdent("saltLength"),
             tpe        = Some(TsTypeRef.number),
+            literal    = None,
             isStatic   = false,
             isReadOnly = false,
             isOptional = true
@@ -132,6 +134,7 @@ final class ParserTests extends FunSuite {
             level      = Default,
             name       = TsIdent("iterations"),
             tpe        = Some(TsTypeRef.number),
+            literal    = None,
             isStatic   = false,
             isReadOnly = false,
             isOptional = true
@@ -328,13 +331,13 @@ final class ParserTests extends FunSuite {
       .size should be(3)
 
     TreeTraverse.collect(tree) {
-      case TsMemberProperty(_, level, _, _, false, _, _)                   => level
+      case TsMemberProperty(_, level, _, _, _, false, _, _)                => level
       case TsMemberFunction(_, level, TsIdent.constructor, _, false, _, _) => level
     } should be(List(Protected, Private, Default))
 
     TreeTraverse
       .collect(tree) {
-        case TsMemberProperty(_, _, _, tpe, false, _, _) => tpe
+        case TsMemberProperty(_, _, _, tpe, _, false, _, _) => tpe
       }
       .distinct should be(List(None))
   }
@@ -523,6 +526,7 @@ final class ParserTests extends FunSuite {
                           tparams = List(TsTypeRef(TsQIdent.of("ValidationError"), Nil))
                         )
                       ),
+                      literal    = None,
                       isStatic   = false,
                       isReadOnly = false,
                       isOptional = false
@@ -554,6 +558,7 @@ final class ParserTests extends FunSuite {
             )
           )
         ),
+        literal    = None,
         isStatic   = false,
         isReadOnly = false,
         isOptional = true
@@ -576,6 +581,7 @@ final class ParserTests extends FunSuite {
             )
           )
         ),
+        literal    = None,
         isStatic   = false,
         isReadOnly = false,
         isOptional = true
@@ -616,6 +622,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("static"),
                        Some(TsTypeRef(TsQIdent.boolean, Nil)),
+                       literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
                        isOptional = false)
@@ -628,6 +635,7 @@ final class ParserTests extends FunSuite {
                        level      = Default,
                        name       = TsIdent("0"),
                        tpe        = Some(TsTypeRef.string),
+                       literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
                        isOptional = true)
@@ -787,6 +795,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("public"),
                        Some(TsTypeRef(TsQIdent.boolean, Nil)),
+                       literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
                        isOptional = false)
@@ -797,6 +806,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("public"),
                        Some(TsTypeRef(TsQIdent.of("private"), Nil)),
+                       literal    = None,
                        isStatic   = true,
                        isReadOnly = false,
                        isOptional = true)
@@ -824,6 +834,7 @@ final class ParserTests extends FunSuite {
                        Default,
                        TsIdent("i"),
                        Some(TsTypeRef(TsQIdent.number, Nil)),
+                       literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
                        isOptional = false)
@@ -907,6 +918,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("name"),
                            tpe        = Some(TsTypeRef.string),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = true,
                            isOptional = false),
@@ -914,6 +926,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("size"),
                            tpe        = Some(TsTypeRef.number),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = true,
                            isOptional = false),
@@ -921,6 +934,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("type"),
                            tpe        = Some(TsTypeRef.number),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = true,
                            isOptional = false)
@@ -952,6 +966,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("default"),
                            tpe        = Some(TsTypeRef.string),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = false,
                            isOptional = true),
@@ -959,6 +974,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("hue-1"),
                            tpe        = Some(TsTypeRef.string),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = false,
                            isOptional = true),
@@ -966,6 +982,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("hue-2"),
                            tpe        = Some(TsTypeRef.string),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = false,
                            isOptional = true),
@@ -973,6 +990,7 @@ final class ParserTests extends FunSuite {
                            level      = Default,
                            name       = TsIdent("hue-3"),
                            tpe        = Some(TsTypeRef.string),
+                           literal    = None,
                            isStatic   = false,
                            isReadOnly = false,
                            isOptional = true)
@@ -1186,7 +1204,7 @@ type Readonly<T> = {
     shouldParseAs(Readonly, TsParser.tsDeclTypeAlias)(
       TsDeclTypeAlias(
         NoComments,
-        false,
+        declared = false,
         TsIdentSimple("Readonly"),
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         TsTypeObject(
@@ -1316,13 +1334,16 @@ type Readonly<T> = {
       TsTypeRef(TsQIdent(List(TsIdent("boolean"))), List())
     )
     shouldParseAs("trueSpeed: boolean", TsParser.tsMember)(
-      TsMemberProperty(NoComments,
-                       Default,
-                       TsIdent("trueSpeed"),
-                       Some(TsTypeRef(TsQIdent(List(TsIdent("boolean"))), List())),
-                       isStatic   = false,
-                       isReadOnly = false,
-                       isOptional = false)
+      TsMemberProperty(
+        NoComments,
+        Default,
+        TsIdent("trueSpeed"),
+        Some(TsTypeRef(TsQIdent(List(TsIdent("boolean"))), List())),
+        literal    = None,
+        isStatic   = false,
+        isReadOnly = false,
+        isOptional = false
+      )
     )
   }
 
@@ -1467,6 +1488,7 @@ type Readonly<T> = {
             )
           )
         ),
+        literal    = None,
         isStatic   = false,
         isReadOnly = false,
         isOptional = false
@@ -1499,6 +1521,7 @@ type Readonly<T> = {
         Default,
         TsIdentSimple("swipeVelocityThreshold"),
         Some(TsTypeLiteral(TsLiteralNumber("0.25"))),
+        literal    = None,
         isStatic   = false,
         isReadOnly = false,
         isOptional = false
@@ -1593,6 +1616,7 @@ type Readonly<T> = {
                           Default,
                           TsIdentSimple("facetName"),
                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
+                          literal    = None,
                           isStatic   = false,
                           isReadOnly = false,
                           isOptional = false
@@ -1602,6 +1626,7 @@ type Readonly<T> = {
                           Default,
                           TsIdentSimple("facetQuery"),
                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
+                          literal    = None,
                           isStatic   = false,
                           isReadOnly = false,
                           isOptional = false
@@ -1903,7 +1928,12 @@ type Readonly<T> = {
                 TsFunSig(
                   NoComments,
                   List(),
-                  List(TsFunParam(NoComments, TsIdentSimple("args"), Some(TsTypeRepeated(TsTypeRef.any)), false)),
+                  List(
+                    TsFunParam(NoComments,
+                               TsIdentSimple("args"),
+                               Some(TsTypeRepeated(TsTypeRef.any)),
+                               isOptional = false)
+                  ),
                   Some(TsTypeInfer(TsTypeParam(NoComments, TsIdentSimple("R"), None, None)))
                 )
               )
@@ -1970,7 +2000,7 @@ type Readonly<T> = {
               NoComments,
               TsIdentSimple("hasOptimisticResponseUpdateQueriesRefetchQueriesUpdateErrorPolicy"),
               Some(TsTypeRef(TsQIdent(List(TsIdentSimple("Fpp"))), List())),
-              false
+              isOptional = false
             )
           ),
           Some(
@@ -1982,9 +2012,9 @@ type Readonly<T> = {
             )
           )
         ),
-        false,
-        false,
-        false
+        isStatic   = false,
+        isReadOnly = false,
+        isOptional = false
       )
     )
   }
@@ -1994,15 +2024,17 @@ type Readonly<T> = {
       "const foo: unique symbol",
       TsParser.tsDeclVar
     )(
-      TsDeclVar(NoComments,
-                false,
-                true,
-                TsIdentSimple("foo"),
-                Some(TsTypeRef(TsQIdent(List(TsIdentSimple("symbol"))), List())),
-                None,
-                Zero,
-                CodePath.NoPath,
-                false)
+      TsDeclVar(
+        NoComments,
+        declared = false,
+        readOnly = true,
+        TsIdentSimple("foo"),
+        Some(TsTypeRef(TsQIdent(List(TsIdentSimple("symbol"))), List())),
+        None,
+        Zero,
+        CodePath.NoPath,
+        isOptional = false
+      )
     )
   }
 
@@ -2016,7 +2048,7 @@ type Readonly<T> = {
     )(
       TsDeclTypeAlias(
         NoComments,
-        false,
+        declared = false,
         TsIdentSimple("IsOptional"),
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         TsTypeConditional(
@@ -2044,7 +2076,7 @@ type Readonly<T> = {
     )(
       TsDeclInterface(
         NoComments,
-        false,
+        declared = false,
         TsIdentSimple("Validator"),
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         List(),
@@ -2059,6 +2091,40 @@ type Readonly<T> = {
           )
         ),
         CodePath.NoPath
+      )
+    )
+  }
+
+  test("destructured array parameter") {
+    shouldParseAs(
+      " const keyValsToObjectR: (accum: any, [key, val]: [any, any]) => any",
+      TsParser.tsDeclVar
+    )(
+      TsDeclVar(
+        NoComments,
+        declared = false,
+        readOnly = true,
+        TsIdentSimple("keyValsToObjectR"),
+        Some(
+          TsTypeFunction(
+            TsFunSig(
+              NoComments,
+              List(),
+              List(
+                TsFunParam(NoComments, TsIdentSimple("accum"), Some(TsTypeRef.any), isOptional = false),
+                TsFunParam(NoComments,
+                           TsIdentSimple("hasKeyVal"),
+                           Some(TsTypeTuple(List(TsTypeRef.any, TsTypeRef.any))),
+                           isOptional = false)
+              ),
+              Some(TsTypeRef.any)
+            )
+          )
+        ),
+        None,
+        Zero,
+        CodePath.NoPath,
+        isOptional = false
       )
     )
   }

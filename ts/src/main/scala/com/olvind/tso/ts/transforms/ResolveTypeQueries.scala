@@ -104,12 +104,20 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
       case TsDeclFunction(cs, _, name, sig: TsFunSig, _, _) =>
         TsMemberFunction(cs, Default, name, sig, isStatic = false, isReadOnly = true, isOptional = false)
       case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _, isOptional) =>
-        TsMemberProperty(cs, Default, name, tpe, isStatic = false, isReadOnly = isReadOnly, isOptional = isOptional)
+        TsMemberProperty(cs,
+                         Default,
+                         name,
+                         tpe,
+                         lit,
+                         isStatic   = false,
+                         isReadOnly = isReadOnly,
+                         isOptional = isOptional)
       case RewrittenClass((cls, typeConstructor)) =>
         TsMemberProperty(cls.comments,
                          Default,
                          cls.name,
                          Some(typeConstructor),
+                         None,
                          isStatic   = false,
                          isReadOnly = false,
                          isOptional = false)

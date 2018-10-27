@@ -8,9 +8,9 @@ sealed trait TsTree {
   lazy val asString: String = {
     val name = this match {
       case named: TsNamedDecl => named.name.value
-      case TsMemberProperty(_, _, TsIdent(str), _, _, _, _) => str
-      case TsMemberFunction(_, _, TsIdent(str), _, _, _, _) => str
-      case _                                                => ""
+      case TsMemberProperty(_, _, TsIdent(str), _, _, _, _, _) => str
+      case TsMemberFunction(_, _, TsIdent(str), _, _, _, _)    => str
+      case _                                                   => ""
     }
     s"${getClass.getSimpleName}($name)"
   }
@@ -293,6 +293,15 @@ sealed trait TsTerm extends TsTree
 
 sealed abstract class TsLiteral(repr: String) extends TsTerm {
   def literal = repr
+}
+
+object TsLiteral {
+  def typeOf(tsLiteral: TsLiteral): (Comment, TsTypeRef) =
+    tsLiteral match {
+      case TsLiteralNumber(x)  => (Comment(s"/* $x */ "), TsTypeRef.number)
+      case TsLiteralBoolean(x) => (Comment(s"/* $x */ "), TsTypeRef.boolean)
+      case TsLiteralString(x)  => (Comment(s"/* $x */ "), TsTypeRef.string)
+    }
 }
 
 final case class TsLiteralNumber(value: String) extends TsLiteral(value)
@@ -584,6 +593,7 @@ final case class TsMemberProperty(
     level:      ProtectionLevel,
     name:       TsIdent,
     tpe:        Option[TsType],
+    literal:    Option[TsLiteral],
     isStatic:   Boolean,
     isReadOnly: Boolean,
     isOptional: Boolean

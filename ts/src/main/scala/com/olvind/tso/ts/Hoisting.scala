@@ -21,8 +21,8 @@ object Hoisting {
         Some(TsDeclFunction(cs, declared, TsIdent.Apply, sig, JsLocation.Zero, add(codePath, TsIdent.Apply)))
       case TsMemberFunction(cs, _, name: TsIdent, sig, _, _, _) =>
         Some(TsDeclFunction(cs, declared, name, sig, JsLocation.Zero, add(codePath, name)))
-      case TsMemberProperty(cs, _, name, tpe, _, isReadOnly, isOptional) =>
-        Some(TsDeclVar(cs, declared, isReadOnly, name, tpe, None, JsLocation.Zero, add(codePath, name), isOptional))
+      case TsMemberProperty(cs, _, name, tpe, lit, _, isReadOnly, isOptional) =>
+        Some(TsDeclVar(cs, declared, isReadOnly, name, tpe, lit, JsLocation.Zero, add(codePath, name), isOptional))
       case _ => None
     }
 

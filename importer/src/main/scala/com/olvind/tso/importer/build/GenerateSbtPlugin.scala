@@ -46,21 +46,21 @@ object GenerateSbtPlugin {
         .mkString("\n")
 
     val pluginSource = s"""
-|package ${constants.organization}.sbt
-|
-|import sbt._
-|import sbt.Keys._
-|
-|object ${constants.Project}Plugin extends AutoPlugin {
-|  override def trigger = allRequirements
-|  override def requires = sbt.plugins.JvmPlugin
-|
-|  object autoImport {
-|    object ${constants.Project} {
-|$projectsByLetter
-|    }
-|  }
-|}""".stripMargin
+      |package ${constants.organization}.sbt
+      |
+      |import sbt._
+      |import sbt.Keys._
+      |
+      |object ${constants.Project}Plugin extends AutoPlugin {
+      |  override def trigger = allRequirements
+      |  override def requires = sbt.plugins.JvmPlugin
+      |
+      |  object autoImport {
+      |    object ${constants.Project} {
+      |$projectsByLetter
+      |    }
+      |  }
+      |}""".stripMargin
 
     val pluginSourcePath = RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
 

@@ -87,7 +87,6 @@ object constants {
     "@protobufjs/aspromise",
     "@protobufjs/codegen",
     "@pulumi/pulumi",
-//    "@pulumi/aws",
     "@pulumi/cloud",
     "@pulumi/kubernetes",
     "react-apollo",
@@ -151,6 +150,8 @@ object constants {
       "yfiles",
       "chromecast-caf-receiver",
       "snoowrap",
+      // exponential growth in parsing time :/
+      "@pulumi/aws",
       // these are just slow
 //      "dojo",
 //      "react-icons",

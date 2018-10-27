@@ -40,6 +40,7 @@ object CompleteClass extends SymbolVisitor {
           case _ => false
         }
     }
+
   private def implementations(scope:   SymbolScope,
                               c:       ContainerSymbol,
                               parents: ParentsResolver.Parents): Seq[MemberSymbol] = {

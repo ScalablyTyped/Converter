@@ -55,9 +55,8 @@ case class Phase3CompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mai
       val sbtProject            = SbtProject(name, organization, versions.sjs(name), finalVersion)(written, deps)
 
       val existing: IvyLayout[Path, Synced] =
-        IvyLayout(sbtProject)
+        IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
           .mapFiles(publishFolder / _)
-          .mapValues((_, _) => Synced.Unchanged)
 
       if (existing.all.keys forall exists) {
         logger warn s"Using cached build of ${sbtProject.name}"

@@ -57,28 +57,30 @@ object ExtractInterfaces {
     def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
       stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || obj.members.forall(_.isInstanceOf[TsMemberTypeMapped])
 
-    override def leaveTsType(t: TreeScope)(x: TsType): TsType =
+    override def leaveTsType(scope: TreeScope)(x: TsType): TsType =
       x match {
         case obj: TsTypeObject
-            if obj.members.nonEmpty && !isDictionary(obj) && !partOfTypeMapping(t.stack, obj) && shouldBeExtracted(t) =>
+            if obj.members.nonEmpty && !isDictionary(obj) && !partOfTypeMapping(scope.stack, obj) && shouldBeExtracted(
+              scope
+            ) =>
           val referencedTparams: Seq[TsTypeParam] =
-            TypeParamsReferencedInTree(t.tparams, obj)
+            TypeParamsReferencedInTree(scope.tparams, obj)
 
           val codePath = store.addInterface(
-            t,
+            scope,
             "Anon_",
             obj.members,
             name =>
-              visitTsDeclInterface(t.root)(
-                TsDeclInterface(
-                  NoComments,
-                  declared = true,
-                  name,
-                  referencedTparams,
-                  Nil,
-                  obj.members,
-                  CodePath.NoPath
-                )
+//              visitTsDeclInterface(scope.root)(
+              TsDeclInterface(
+                NoComments,
+                declared = true,
+                name,
+                referencedTparams,
+                Nil,
+                obj.members,
+                CodePath.NoPath
+//                )
             )
           )
 

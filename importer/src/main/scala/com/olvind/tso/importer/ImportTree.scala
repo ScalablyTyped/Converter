@@ -168,14 +168,7 @@ object ImportTree {
         )
 
       case TsDeclVar(cs, _, readOnly, ImportName(name), tpeOpt, literalOpt, jsLocation, _, isOptional) =>
-        val base: TypeRef = tpeOpt map ImportType(Wildcards.Prohibit, scope) getOrElse {
-          literalOpt match {
-            case Some(TsLiteralNumber(_))  => TypeRef.Double
-            case Some(TsLiteralBoolean(_)) => TypeRef.Boolean
-            case Some(TsLiteralString(_))  => TypeRef.String
-            case None                      => TypeRef.Any
-          }
-        }
+        val base = ImportType.orLitOrAny(Wildcards.Prohibit, scope)(tpeOpt, literalOpt)
 
         if (name === Name.Symbol) {
           Seq(
@@ -333,7 +326,7 @@ object ImportTree {
       case TsMemberFunction(cs, level, name, signature, isStatic, isReadOnly, isOptional) =>
         if (isOptional) {
           val asFunction =
-            TsMemberProperty(cs, level, name, Some(TsTypeFunction(signature)), isStatic, isReadOnly, isOptional)
+            TsMemberProperty(cs, level, name, Some(TsTypeFunction(signature)), None, isStatic, isReadOnly, isOptional)
 
           tsMemberProperty(scope.`..`, scalaJsDefined)(asFunction)
         } else {
@@ -429,13 +422,14 @@ object ImportTree {
             case _             => MemberImplNative
           }
 
+        val importedType = ImportType.orLitOrAny(Wildcards.No, scope)(tpe, m.literal).withOptional(m.isOptional)
         Seq(
           MemberRet(
             hack(
               FieldSymbol(
                 annotations = Annotation.jsName(name),
                 name        = name,
-                tpe         = ImportType.orAny(Wildcards.No, scope)(tpe).withOptional(m.isOptional),
+                tpe         = importedType,
                 impl        = fieldType,
                 isReadOnly  = m.isReadOnly,
                 isOverride  = false,

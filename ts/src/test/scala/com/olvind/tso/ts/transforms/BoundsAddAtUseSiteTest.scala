@@ -61,6 +61,7 @@ interface Document {
               )
             )
           ),
+          literal    = None,
           isStatic   = false,
           isReadOnly = false,
           isOptional = false

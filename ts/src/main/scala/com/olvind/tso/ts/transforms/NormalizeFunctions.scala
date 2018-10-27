@@ -33,8 +33,15 @@ object NormalizeFunctions extends TreeVisitorScopedChanges {
   private def newMembers(members: Seq[TsMember]): Seq[TsMember] =
     members.map {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
-        TsMemberProperty(comments, level, name, Some(TsTypeFunction(signature)), isStatic, m.isReadOnly, m.isOptional)
-      case m @ TsMemberProperty(cs, level, name, Some(TsTypeFunction(sig)), isStatic, _, isOptional) =>
+        TsMemberProperty(comments,
+                         level,
+                         name,
+                         Some(TsTypeFunction(signature)),
+                         None,
+                         isStatic,
+                         m.isReadOnly,
+                         m.isOptional)
+      case m @ TsMemberProperty(cs, level, name, Some(TsTypeFunction(sig)), None, isStatic, _, isOptional) =>
         TsMemberFunction(cs, level, name, sig, isStatic, m.isReadOnly, m.isOptional)
       case other => other
     }
