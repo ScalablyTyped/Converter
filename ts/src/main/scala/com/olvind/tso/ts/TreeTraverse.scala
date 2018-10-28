@@ -133,7 +133,7 @@ object TreeTraverse {
       case TsMemberCtor(No(), No(), Yes())                                              =>
       case TsMemberFunction(No(), No(), Yes(), Yes(), No(), No(), No())                 =>
       case TsMemberIndex(No(), No(), No(), Yes(), No(), Yes())                          =>
-      case TsMemberProperty(No(), No(), Yes(), Yes(), No(), No(), No())                 =>
+      case TsMemberProperty(No(), No(), Yes(), Yes(), Yes(), No(), No(), No())          =>
       case TsMemberTypeMapped(No(), No(), No(), Yes(), Yes(), No(), Yes())              =>
       case TsParsedFile(No(), No(), Yes(), No())                                        =>
       case TsQIdent(Yes())                                                              =>

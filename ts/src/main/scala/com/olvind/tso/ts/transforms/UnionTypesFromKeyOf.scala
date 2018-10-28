@@ -11,7 +11,7 @@ object UnionTypesFromKeyOf extends TreeVisitorScopedChanges {
             t.logger.info(s"Expanded keyof $key")
 
             val literals = members.collect {
-              case TsMemberProperty(_, _, TsIdent(name), _, _, _, _) =>
+              case TsMemberProperty(_, _, TsIdent(name), _, _, _, _, _) =>
                 TsTypeLiteral(TsLiteralString(name))
             }
 

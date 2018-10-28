@@ -165,7 +165,7 @@ object Imports {
 
             ExpandedMod.Whole(defaults, namespaceds, rest, modScope)
           case _ =>
-            scope.logger.fatalMaybe(s"Couldn't find expected module $fromModule", constants.Pedantic)
+            //scope.logger.fatalMaybe(s"Couldn't find expected module $fromModule", constants.Pedantic)
             ExpandedMod.Picked(Nil)
         }
 

@@ -17,19 +17,14 @@ object ContentForPublish {
   def apply(paths:       CompilerPaths,
             p:           SbtProject,
             publication: ZonedDateTime,
-            sourceFiles: Layout[RelPath, Array[Byte]]): IvyLayout[RelPath, Array[Byte]] = {
-
-    val jarFile    = createJar(paths.classesDir)
-    val sourceFile = createJar(sourceFiles, publication)
-    val pomFile    = fromXml(pom(p))
-
-    IvyLayout(p).mapIvy(
-      _ => jarFile,
-      _ => sourceFile,
-      _ => fromXml(ivy(p, publication)),
-      _ => pomFile
+            sourceFiles: Layout[RelPath, Array[Byte]]): IvyLayout[RelPath, Array[Byte]] =
+    IvyLayout(
+      p          = p,
+      jarFile    = createJar(paths.classesDir),
+      sourceFile = createJar(sourceFiles, publication),
+      ivyFile    = fromXml(ivy(p, publication)),
+      pomFile    = fromXml(pom(p))
     )
-  }
 
   private def fromXml(xml: Elem): Array[Byte] = {
     val prelude: String = """<?xml version="1.0" encoding="UTF-8"?>"""

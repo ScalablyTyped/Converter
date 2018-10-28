@@ -261,13 +261,16 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                 List(
                   TsTypeObject(
                     List(
-                      TsMemberProperty(NoComments,
-                                       Default,
-                                       TsIdent("statusCode"),
-                                       Some(TsTypeRef(TsQIdent(List(TsIdent("number"))), List())),
-                                       isStatic   = false,
-                                       isReadOnly = false,
-                                       isOptional = false)
+                      TsMemberProperty(
+                        NoComments,
+                        Default,
+                        TsIdent("statusCode"),
+                        Some(TsTypeRef(TsQIdent(List(TsIdent("number"))), List())),
+                        None,
+                        isStatic   = false,
+                        isReadOnly = false,
+                        isOptional = false
+                      )
                     )
                   ),
                   TsTypeObject(List())

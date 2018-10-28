@@ -79,7 +79,7 @@ object SimplifyTypes extends TreeVisitorScopedChanges {
 
   def pickNonStatic(members: Seq[TsMember], key: TsIdent): Seq[TsType] =
     members collect {
-      case TsMemberProperty(_, _, `key`, tpeOpt, false, _, isOptional) =>
+      case TsMemberProperty(_, _, `key`, tpeOpt, lit, false, _, isOptional) =>
         optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
       case TsMemberFunction(_, _, `key`, signature, false, _, isOptional) =>
         optional(TsTypeFunction(signature), isOptional)

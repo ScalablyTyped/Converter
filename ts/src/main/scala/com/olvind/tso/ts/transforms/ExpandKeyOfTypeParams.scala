@@ -38,7 +38,7 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
             scope.logger.info(s"Expanding ${nonEmpty.size} members for $name")
 
             nonEmpty collect {
-              case TsMemberProperty(_, Default, TsIdentSimple(n), Some(tpe), false, false, false) =>
+              case TsMemberProperty(_, Default, TsIdentSimple(n), Some(tpe), _, false, false, false) =>
                 val mm = m.copy(signature = sig.copy(tparams = rest))
 
                 new TypeRewriter(mm).visitTsMemberFunction(
@@ -62,7 +62,7 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
             scope.logger.info(s"Expanding ${nonEmpty.size} members for $name")
 
             nonEmpty collect {
-              case TsMemberProperty(_, Default, TsIdentSimple(n), Some(tpe), false, false, false) =>
+              case TsMemberProperty(_, Default, TsIdentSimple(n), Some(tpe), _, false, false, false) =>
                 val mm = m.copy(signature = sig.copy(tparams = rest))
                 new TypeRewriter(mm).visitTsDeclFunction(
                   Map(
@@ -100,12 +100,13 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
           ) =>
         lookupMemberPropertiesFrom(scope, from)
           .map {
-            case TsMemberProperty(cs0, level0, name0, Some(tpe0), isStatic, isReadOnly0, wasOptional) =>
+            case TsMemberProperty(cs0, level0, name0, Some(tpe0), lit, isStatic, isReadOnly0, wasOptional) =>
               TsMemberProperty(
                 cs ++ cs0,
                 if (level =/= Default) level else level0,
                 name0,
                 Some(new TypeRewriter(to).visitTsType(Map(TsTypeLookup(TsTypeRef(from, Nil), Left(key)) -> tpe0))(to)),
+                lit,
                 isStatic,
                 isReadOnly || isReadOnly0,
                 opt(wasOptional)

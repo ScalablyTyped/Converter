@@ -33,6 +33,7 @@ final class SuchTestMuchFail extends FunSuite {
     val allFiles: Seq[Path] =
       ls.rec(skip = _.name == ".git")
         .recursiveListFiles(dtFolder.path)
+        .filter(_.isFile)
         .filter(_.toString.endsWith(".d.ts"))
         .take(4000)
         .toSeq

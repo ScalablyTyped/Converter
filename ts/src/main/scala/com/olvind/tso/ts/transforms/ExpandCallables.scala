@@ -41,7 +41,7 @@ object ExpandCallables extends TreeVisitorScopedChanges {
 
   private def newClassMembers(scope: TreeScope, members: Seq[TsMember]): Seq[TsMember] =
     members.flatMap {
-      case m @ TsMemberProperty(cs, level, name, Some(tpe), isStatic, isReadonly, false) =>
+      case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false) =>
         callableTypes(scope)(tpe) match {
           case Expand(callables, keepOriginalMember) if callables.nonEmpty =>
             val keptOpt: Option[TsMemberProperty] =

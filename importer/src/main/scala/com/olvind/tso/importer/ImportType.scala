@@ -9,6 +9,15 @@ object ImportType {
   def orAny(wildcards: Wildcards, scope: TreeScope)(ott: Option[TsType]): TypeRef =
     ott map apply(wildcards, scope) getOrElse TypeRef.Any
 
+  def orLitOrAny(wildcards: Wildcards, scope: TreeScope)(ott: Option[TsType], ol: Option[TsLiteral]): TypeRef =
+    (ott, ol) match {
+      case (Some(x), _) => apply(wildcards, scope)(x)
+      case (None, Some(lit)) =>
+        val (c, tpe) = TsLiteral.typeOf(lit)
+        apply(wildcards, scope)(tpe).withComments(Comments(c))
+      case _ => TypeRef.Any
+    }
+
   def apply(wildcards: Wildcards, _scope: TreeScope)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {

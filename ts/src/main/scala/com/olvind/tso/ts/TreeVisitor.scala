@@ -407,8 +407,8 @@ trait TreeVisitor[T] { self =>
     val xx = enterTsMemberProperty(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7) =>
-        TsMemberProperty(_1, _2, visitTsIdent(tt)(_3), _4 map visitTsType(tt), _5, _6, _7)
+      case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7, _8) =>
+        TsMemberProperty(_1, _2, visitTsIdent(tt)(_3), _4 map visitTsType(tt), _5 map visitTsLiteral(tt), _6, _7, _8)
     }
   }
   final def visitTsMemberTypeMapped(t: T)(x: TsMemberTypeMapped): TsMemberTypeMapped = {
