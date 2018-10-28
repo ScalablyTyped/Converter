@@ -1,11 +1,11 @@
-organization := "com.olvind.scalablytyped"
+organization := "com.scalablytyped"
 name := "monaco-editor"
-version := "0.0-unknown-5eb188"
+version := "0.0-unknown-44a9e6"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.olvind.scalablytyped" %%% "std" % "0.0-unknown-7cf952",
+  "com.scalablytyped" %%% "std" % "0.0-unknown-e03a2c",
   "org.scala-js" %%% "scalajs-dom" % "0.9.5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"

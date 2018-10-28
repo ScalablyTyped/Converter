@@ -115,7 +115,7 @@ object ContentForPublish {
         <dependency org={scalaJsOrganization} name={s("scalajs-library")} rev={scalaJsVersion} conf="compile->default(compile)"/>
         <dependency org={scalaJsOrganization} name={s("scalajs-test-interface")} rev={scalaJsVersion} conf="test->default(compile)"/>
         <dependency org={scalaJsOrganization} name={sjs("scalajs-dom")} rev={scalaJsDomVersion} conf="compile->default(compile)"/>
-        <dependency org={constants.organization} name={sjs("runtime")} rev={scalablyTypedRuntimeVersion} conf="compile->default(compile)"/>
+        <dependency org={RuntimeOrganization} name={sjs(RuntimeName)} rev={RuntimeVersion} conf="compile->default(compile)"/>
         {p.deps.map{case (_, d) =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
       }}
@@ -159,7 +159,7 @@ object ContentForPublish {
         <dependency>
           <groupId>com.olvind</groupId>
           <artifactId>{sjs("runtime")}</artifactId>
-          <version>{scalablyTypedRuntimeVersion}</version>
+          <version>{RuntimeVersion}</version>
         </dependency>
         {p.deps.map{case (_, d) =>
         <dependency>

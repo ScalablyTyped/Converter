@@ -37,22 +37,21 @@ case class Phase3CompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mai
                      logger:  Logger[Unit]): PhaseRes[TsSource, PublishedSbtProject] =
     //
     getDeps(lib.dependencies map (_.source)) flatMap { deps: Map[TsSource, PublishedSbtProject] =>
-      val organization = s"${constants.organization}.${Phase3CompileBloop.fromName(mainPackageName).toLowerCase}"
-      val name         = Phase3CompileBloop.fromName(lib.libName)
-      val scalaFiles   = Printer(lib, mainPackageName)
+      val name       = Phase3CompileBloop.fromName(lib.libName)
+      val scalaFiles = Printer(lib, mainPackageName)
       val sbtLayout = ContentSbtProject(
-        lib.packageSymbol.comments,
-        organization,
-        name,
-        VersionHack.TemplateValue,
-        deps.values.to[Seq],
-        scalaFiles
+        comments     = lib.packageSymbol.comments,
+        organization = constants.organization,
+        name         = name,
+        version      = VersionHack.TemplateValue,
+        deps         = deps.values.to[Seq],
+        scalaFiles   = scalaFiles
       )
       val finalVersion          = lib.libVersion.version(Digest.of(sbtLayout.all collect ScalaFiles))
       val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
       val compilerPaths         = CompilerPaths.of(targetFolder, name)
       val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir)
-      val sbtProject            = SbtProject(name, organization, versions.sjs(name), finalVersion)(written, deps)
+      val sbtProject            = SbtProject(name, constants.organization, versions.sjs(name), finalVersion)(written, deps)
 
       val existing: IvyLayout[Path, Synced] =
         IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)

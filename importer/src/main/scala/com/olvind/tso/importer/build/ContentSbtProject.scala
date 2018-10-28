@@ -13,7 +13,7 @@ object ContentSbtProject {
   val Fixed: List[String] =
     List(
       `version%%%`(scalaJsOrganization, "scalajs-dom", scalaJsDomVersion),
-      `version%%%`(constants.organization, "runtime", scalablyTypedRuntimeVersion)
+      `version%%%`(RuntimeOrganization, RuntimeName, RuntimeVersion)
     )
 
   def asSbt(s: SbtProject) = `version%%%`(s.organization, s.name, s.version)
