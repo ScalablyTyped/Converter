@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "with-theme"
-version := "0.0-unknown-e6c16f"
+version := "0.0-unknown-d5fd9f"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

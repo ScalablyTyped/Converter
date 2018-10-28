@@ -56,7 +56,9 @@ trait Hot extends js.Object {
            * @param callback
            */
   @JSName("apply")
-  def apply(callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
+  def apply(
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+  ): scala.Unit = js.native
   /**
            * If status() != "ready" it throws an error.
            * Continue the update process.
@@ -89,7 +91,9 @@ trait Hot extends js.Object {
            * The callback will be called with all modules that will be disposed on apply().
            * @param callback
            */
-  def check(callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]): scala.Unit = js.native
+  def check(
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+  ): scala.Unit = js.native
   /**
            * Flag the current module as not update-able. If updated the update code would fail with code "decline".
            */
