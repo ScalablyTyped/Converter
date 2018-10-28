@@ -23,11 +23,15 @@ trait LoDashStatic extends js.Object {
   /**
        * @see _.at
        */
-  def at[T /* <: js.Object */](`object`: T, props: Many[java.lang.String]*): StdLib.Array[/* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any] = js.native
+  def at[T /* <: js.Object */](`object`: T, props: Many[java.lang.String]*): StdLib.Array[
+    /* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any
+  ] = js.native
   /**
        * @see _.at
        */
-  def at[T /* <: js.Object */](props: Many[java.lang.String]*): StdLib.Array[/* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any] = js.native
+  def at[T /* <: js.Object */](props: Many[java.lang.String]*): StdLib.Array[
+    /* import warning: Failed type conversion: TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List()),Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdentSimple(T))),List())))) */js.Any
+  ] = js.native
   /**
        * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
        * specified as individual arguments or as arrays of keys.

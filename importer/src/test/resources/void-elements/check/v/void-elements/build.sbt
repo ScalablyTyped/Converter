@@ -1,6 +1,6 @@
 organization := "com.olvind.scalablytyped"
 name := "void-elements"
-version := "3.1-c042e7"
+version := "3.1-6ba05a"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

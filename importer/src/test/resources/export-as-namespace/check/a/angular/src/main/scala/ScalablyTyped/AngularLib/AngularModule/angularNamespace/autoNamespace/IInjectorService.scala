@@ -20,7 +20,9 @@ trait IInjectorService extends js.Object {
   def has(name: java.lang.String): scala.Boolean = js.native
   def instantiate[T](typeConstructor: AngularLib.Anon_Args[T]): T = js.native
   def instantiate[T](typeConstructor: AngularLib.Anon_Args[T], locals: js.Any): T = js.native
-  def invoke[T](func: AngularLib.AngularModule.angularNamespace.Injectable[js.Function | (js.Function1[/* repeated */_, T])]): T = js.native
+  def invoke[T](
+    func: AngularLib.AngularModule.angularNamespace.Injectable[js.Function | (js.Function1[/* repeated */_, T])]
+  ): T = js.native
   def invoke[T](
     func: AngularLib.AngularModule.angularNamespace.Injectable[js.Function | (js.Function1[/* repeated */_, T])],
     context: js.Any

@@ -48,7 +48,10 @@ ScalablyTyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ j
      *
      * @param buffer The buffer to copy.
      */
-ScalablyTyped.runtime.Instantiable1[(/* str */ java.lang.String) | (/* size */ scala.Double) | (/* array */ StdLib.Uint8Array[js.Object]) | (/* arrayBuffer */ StdLib.ArrayBuffer) | (/* array */ StdLib.Array[js.Any]) | (/* buffer */ Buffer), Buffer] {
+ScalablyTyped.runtime.Instantiable1[
+      (/* str */ java.lang.String) | (/* size */ scala.Double) | (/* array */ StdLib.Uint8Array[js.Object]) | (/* arrayBuffer */ StdLib.ArrayBuffer) | (/* array */ StdLib.Array[js.Any]) | (/* buffer */ Buffer), 
+      Buffer
+    ] {
   /**
        * Allocates a new Buffer using an {array} of octets.
        */

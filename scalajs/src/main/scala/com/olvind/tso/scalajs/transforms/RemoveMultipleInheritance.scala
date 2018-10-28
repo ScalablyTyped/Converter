@@ -88,7 +88,7 @@ object RemoveMultipleInheritance extends SymbolVisitor {
             h.transitiveUnresolved.filter(_.typeName === u.typeName) match {
               case Nil => None
               case some =>
-                val someString = some.map(Printer.formatTypeRef(Nil)).mkString(", ")
+                val someString = some.map(Printer.formatTypeRef(Nil, 0)).mkString(", ")
                 Some(Dropped(h.refs.last, s"Already inherited $someString"))
             }
           })

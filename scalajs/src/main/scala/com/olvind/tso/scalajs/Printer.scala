@@ -159,15 +159,15 @@ object Printer {
         print(sealedKw, classType.asString, " ", formatName(name))
 
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
+          print("[", tparams map formatTypeParamSymbol(prefix, indent) mkString ", ", "]")
 
         if (classType =/= ClassType.Trait) {
           print(" ")
           print(formatProtectionLevel(defaultCtor.level, isCtor = true))
-          print((defaultCtor.params map formatParamSymbol(prefix)).mkString("(", ", ", ")"))
+          print((defaultCtor.params map formatParamSymbol(prefix, indent)).mkString("(", ", ", ")"))
         }
 
-        print(extendsClause(prefix, parents, isNative = true))
+        print(extendsClause(prefix, parents, isNative = true, indent))
 
         if (members.nonEmpty || restCtors.nonEmpty) {
           println(" {")
@@ -191,7 +191,7 @@ object Printer {
           case ModuleTypeScala  => false
         }
 
-        print("object ", formatName(name), extendsClause(prefix, parents, isNative))
+        print("object ", formatName(name), extendsClause(prefix, parents, isNative, indent))
 
         val newPrefix = if (name.unescaped.endsWith("Members")) prefix else prefix :+ name
 
@@ -208,8 +208,8 @@ object Printer {
         print(formatComments(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
-        println(s" = ", formatTypeRef(prefix)(alias))
+          print("[", tparams map formatTypeParamSymbol(prefix, indent) mkString ", ", "]")
+        println(s" = ", formatTypeRef(prefix, indent)(alias))
 
       case FieldSymbol(anns, name, tpe, fieldType, isReadOnly, isOverride, comments) =>
         print(formatComments(comments))
@@ -222,7 +222,7 @@ object Printer {
           " ",
           formatName(name),
           ": ",
-          formatTypeRef(prefix)(tpe)
+          formatTypeRef(prefix, indent)(tpe)
         )
 
         fieldType match {
@@ -238,14 +238,14 @@ object Printer {
         print(formatProtectionLevel(level, isCtor = false))
         print(s"${if (isOverride) "override " else ""}def ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol(prefix) mkString ", ", "]")
+          print("[", tparams map formatTypeParamSymbol(prefix, indent) mkString ", ", "]")
 
-        var paramString = params.map(_.map(formatParamSymbol(prefix)).mkString("(", ", ", ")"))
-        if (params.flatten.length > 1 && paramString.map(_.length).sum > 100) {
-          paramString = params.map(_.map(formatParamSymbol(prefix)).mkString("(\n  ", ",\n  ", "\n)"))
+        var paramString = params.map(_.map(formatParamSymbol(prefix, indent)).mkString("(", ", ", ")"))
+        if (paramString.map(_.length).sum > 100) {
+          paramString = params.map(_.map(formatParamSymbol(prefix, indent)).mkString("(\n  ", ",\n  ", "\n)"))
         }
         print(paramString.mkString, ": ")
-        print(formatTypeRef(prefix)(resultType))
+        print(formatTypeRef(prefix, indent)(resultType))
         fieldType match {
           case MemberImplNotImplemented => println()
           case MemberImplNative         => println(" = js.native")
@@ -257,25 +257,25 @@ object Printer {
         println("",
                 formatProtectionLevel(level, isCtor = true),
                 "def this(",
-                (params map formatParamSymbol(prefix)) mkString ", ",
+                (params map formatParamSymbol(prefix, indent)) mkString ", ",
                 ") = this()")
 
       case sym @ ParamSymbol(_, _, comments) =>
         print(formatComments(comments))
-        println(formatParamSymbol(prefix)(sym))
+        println(formatParamSymbol(prefix, indent)(sym))
 
       case sym @ TypeParamSymbol(_, _, comments) =>
         print(formatComments(comments))
-        print(formatTypeParamSymbol(prefix)(sym))
+        print(formatTypeParamSymbol(prefix, indent)(sym))
 
       case sym @ TypeRef(_, _, comments) =>
         print(formatComments(comments))
-        print(formatTypeRef(prefix)(sym))
+        print(formatTypeRef(prefix, indent)(sym))
     }
   }
 
-  def extendsClause(prefix: List[Name], parents: Seq[TypeRef], isNative: Boolean): String =
-    parents.toList.map(parent => formatTypeRef(prefix)(parent)) match {
+  def extendsClause(prefix: List[Name], parents: Seq[TypeRef], isNative: Boolean, indent: Int): String =
+    parents.toList.map(parent => formatTypeRef(prefix, indent + 6)(parent)) match {
       case Nil if isNative                    => " extends js.Object"
       case Nil                                => ""
       case head :: Nil if !head.contains(".") => " extends " + head
@@ -283,17 +283,17 @@ object Printer {
       case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
     }
 
-  def formatTypeParamSymbol(prefix: List[Name])(sym: TypeParamSymbol): String =
+  def formatTypeParamSymbol(prefix: List[Name], indent: Int)(sym: TypeParamSymbol): String =
     formatComments(sym.comments) |+|
       formatName(sym.name) |+|
-      sym.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(prefix)(bound) |+| " */")
+      sym.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(prefix, indent)(bound) |+| " */")
 
-  def formatParamSymbol(prefix: List[Name])(sym: ParamSymbol): String =
+  def formatParamSymbol(prefix: List[Name], indent: Int)(sym: ParamSymbol): String =
     Seq(
       formatComments(sym.comments),
       formatName(sym.name),
       ": ",
-      formatTypeRef(prefix)(sym.tpe)
+      formatTypeRef(prefix, indent + 2)(sym.tpe)
     ).foldLeft("")(_ |+| _)
 
   def formatQN(prefix: List[Name], q: QualifiedName): String =
@@ -310,7 +310,7 @@ object Printer {
 
   val StringOrdering: Ordering[String] = Ordering[String]
 
-  def formatTypeRef(prefix: List[Name])(t1: TypeRef): String = {
+  def formatTypeRef(prefix: List[Name], indent: Int)(t1: TypeRef): String = {
     val ret: String =
       t1 match {
         case TypeRef.ThisType(_)       => "this.type"
@@ -318,19 +318,23 @@ object Printer {
         case TypeRef(typeName, Nil, _) => formatQN(prefix, typeName)
 
         case TypeRef.Intersection(types) =>
-          types map formatTypeRef(prefix) map paramsIfNeeded mkString " with "
+          types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " with "
 
         case TypeRef.Union(types) =>
-          types map formatTypeRef(prefix) map paramsIfNeeded mkString " | "
+          types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " | "
 
         case TypeRef.Literal(literal: String) =>
           literal |+| ".type"
 
         case TypeRef.Repeated(underlying: TypeRef, _) =>
-          paramsIfNeeded(formatTypeRef(prefix)(underlying)) |+| "*"
+          paramsIfNeeded(formatTypeRef(prefix, indent)(underlying)) |+| "*"
 
         case TypeRef(typeName, targs, _) =>
-          formatQN(prefix, typeName) |+| "[" |+| (targs map formatTypeRef(prefix) mkString ", ") |+| "]"
+          val targStrs    = targs map formatTypeRef(prefix, indent + 2)
+          val targsLength = targStrs.foldLeft(0)(_ + _.length)
+          val sep         = if (targsLength > 80) "\n" + (" " * indent) else ""
+          val targsStr    = targStrs.mkString(s"[$sep", s", $sep", s"${sep.dropRight(2)}]")
+          formatQN(prefix, typeName) |+| targsStr
       }
 
     formatComments(t1.comments) |+| ret

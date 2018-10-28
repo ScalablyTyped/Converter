@@ -22,7 +22,12 @@ trait IAngularStatic extends js.Object {
            * If window.name contains prefix NG_DEFER_BOOTSTRAP! when angular.bootstrap is called, the bootstrap process will be paused until angular.resumeBootstrap() is called.
            * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
            */
-  var resumeBootstrap: js.UndefOr[js.Function1[/* extraModules */ js.UndefOr[StdLib.Array[java.lang.String]], AngularLib.AngularModule.angularNamespace.autoNamespace.IInjectorService]] = js.native
+  var resumeBootstrap: js.UndefOr[
+    js.Function1[
+      /* extraModules */ js.UndefOr[StdLib.Array[java.lang.String]], 
+      AngularLib.AngularModule.angularNamespace.autoNamespace.IInjectorService
+    ]
+  ] = js.native
   /**
            * Wraps a raw DOM element or HTML string as a jQuery element.
            *

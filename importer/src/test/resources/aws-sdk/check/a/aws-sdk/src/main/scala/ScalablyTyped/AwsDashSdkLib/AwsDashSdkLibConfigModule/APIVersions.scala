@@ -14,6 +14,8 @@ trait APIVersions extends js.Object {
   /**
        * A map of service identifiers (the lowercase service class name) with the API version to use when instantiating a service. Specify 'latest' for each individual that can use the latest available version.
        */
-  var apiVersions: js.UndefOr[AwsDashSdkLib.AwsDashSdkLibConfigUnderscoreServiceUnderscorePlaceholdersModule.ConfigurationServiceApiVersions] = js.undefined
+  var apiVersions: js.UndefOr[
+    AwsDashSdkLib.AwsDashSdkLibConfigUnderscoreServiceUnderscorePlaceholdersModule.ConfigurationServiceApiVersions
+  ] = js.undefined
 }
 

@@ -8,15 +8,32 @@ import scala.scalajs.js.annotation._
 @js.native
 trait VueConstructor[V /* <: Vue */]
   extends // ideally, the return type should just contains Props, not Record<keyof Props, any>. But TS requires Base constructors must all have the same return type.
-ScalablyTyped.runtime.Instantiable1[(/* options */ VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithArrayProps[V, js.Object, js.Object, js.Object, java.lang.String]) | (/* options */ VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithRecordProps[V, js.Object, js.Object, js.Object, js.Object]) | (/* options */ VueLib.VueTypesOptionsModule.ComponentOptions[V, VueLib.VueTypesOptionsModule.DefaultData[V], VueLib.VueTypesOptionsModule.DefaultMethods[V], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]]), CombinedVueInstance[V, js.Object, js.Object, js.Object, StdLib.Record[java.lang.String, js.Any]]]
+ScalablyTyped.runtime.Instantiable1[
+      (/* options */ VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithArrayProps[V, js.Object, js.Object, js.Object, java.lang.String]) | (/* options */ VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithRecordProps[V, js.Object, js.Object, js.Object, js.Object]) | (/* options */ VueLib.VueTypesOptionsModule.ComponentOptions[
+        V, 
+        VueLib.VueTypesOptionsModule.DefaultData[V], 
+        VueLib.VueTypesOptionsModule.DefaultMethods[V], 
+        VueLib.VueTypesOptionsModule.DefaultComputed, 
+        VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]
+      ]), 
+      CombinedVueInstance[V, js.Object, js.Object, js.Object, StdLib.Record[java.lang.String, js.Any]]
+    ]
      with // ideally, the return type should just contains Props, not Record<keyof Props, any>. But TS requires Base constructors must all have the same return type.
-ScalablyTyped.runtime.Instantiable0[CombinedVueInstance[V, js.Object, js.Object, js.Object, StdLib.Record[java.lang.String, js.Any]]] {
+ScalablyTyped.runtime.Instantiable0[
+      CombinedVueInstance[V, js.Object, js.Object, js.Object, StdLib.Record[java.lang.String, js.Any]]
+    ] {
   var config: VueConfiguration = js.native
   def compile(template: java.lang.String): VueLib.Anon_StaticRenderFnsRender = js.native
   def component(id: java.lang.String): VueConstructor[Vue] = js.native
   def component(
     id: java.lang.String,
-    definition: VueLib.VueTypesOptionsModule.ComponentOptions[V, VueLib.VueTypesOptionsModule.DefaultData[V], VueLib.VueTypesOptionsModule.DefaultMethods[V], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]]
+    definition: VueLib.VueTypesOptionsModule.ComponentOptions[
+      V, 
+      VueLib.VueTypesOptionsModule.DefaultData[V], 
+      VueLib.VueTypesOptionsModule.DefaultMethods[V], 
+      VueLib.VueTypesOptionsModule.DefaultComputed, 
+      VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]
+    ]
   ): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
   def component[VC /* <: VueConstructor[Vue] */](id: java.lang.String, constructor: VC): VC = js.native
   def component[PropNames /* <: java.lang.String */](
@@ -54,21 +71,45 @@ ScalablyTyped.runtime.Instantiable0[CombinedVueInstance[V, js.Object, js.Object,
   def directive(id: java.lang.String, definition: VueLib.VueTypesOptionsModule.DirectiveFunction): VueLib.VueTypesOptionsModule.DirectiveOptions = js.native
   def directive(id: java.lang.String, definition: VueLib.VueTypesOptionsModule.DirectiveOptions): VueLib.VueTypesOptionsModule.DirectiveOptions = js.native
   def extend(): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
-  def extend(options: VueLib.VueTypesOptionsModule.ComponentOptions[V, VueLib.VueTypesOptionsModule.DefaultData[V], VueLib.VueTypesOptionsModule.DefaultMethods[V], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]]): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
-  def extend[PropNames /* <: java.lang.String */](definition: VueLib.VueTypesOptionsModule.FunctionalComponentOptions[StdLib.Record[PropNames, _], StdLib.Array[PropNames]]): ExtendedVue[V, js.Object, js.Object, js.Object, StdLib.Record[PropNames, _]] = js.native
+  def extend(
+    options: VueLib.VueTypesOptionsModule.ComponentOptions[
+      V, 
+      VueLib.VueTypesOptionsModule.DefaultData[V], 
+      VueLib.VueTypesOptionsModule.DefaultMethods[V], 
+      VueLib.VueTypesOptionsModule.DefaultComputed, 
+      VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]
+    ]
+  ): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
+  def extend[PropNames /* <: java.lang.String */](
+    definition: VueLib.VueTypesOptionsModule.FunctionalComponentOptions[StdLib.Record[PropNames, _], StdLib.Array[PropNames]]
+  ): ExtendedVue[V, js.Object, js.Object, js.Object, StdLib.Record[PropNames, _]] = js.native
   @JSName("extend")
   def extend_DataMethodsComputedPropNamesString[Data, Methods, Computed, PropNames /* <: java.lang.String */](): ExtendedVue[V, Data, Methods, Computed, StdLib.Record[PropNames, _]] = js.native
   @JSName("extend")
-  def extend_DataMethodsComputedPropNamesString[Data, Methods, Computed, PropNames /* <: java.lang.String */](options: VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames]): ExtendedVue[V, Data, Methods, Computed, StdLib.Record[PropNames, _]] = js.native
+  def extend_DataMethodsComputedPropNamesString[Data, Methods, Computed, PropNames /* <: java.lang.String */](
+    options: VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames]
+  ): ExtendedVue[V, Data, Methods, Computed, StdLib.Record[PropNames, _]] = js.native
   @JSName("extend")
   def extend_DataMethodsComputedProps[Data, Methods, Computed, Props](): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
   @JSName("extend")
-  def extend_DataMethodsComputedProps[Data, Methods, Computed, Props](options: VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
+  def extend_DataMethodsComputedProps[Data, Methods, Computed, Props](
+    options: VueLib.VueTypesOptionsModule.ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]
+  ): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
   @JSName("extend")
-  def extend_Props[Props](definition: VueLib.VueTypesOptionsModule.FunctionalComponentOptions[Props, VueLib.VueTypesOptionsModule.RecordPropsDefinition[Props]]): ExtendedVue[V, js.Object, js.Object, js.Object, Props] = js.native
+  def extend_Props[Props](
+    definition: VueLib.VueTypesOptionsModule.FunctionalComponentOptions[Props, VueLib.VueTypesOptionsModule.RecordPropsDefinition[Props]]
+  ): ExtendedVue[V, js.Object, js.Object, js.Object, Props] = js.native
   def filter(id: java.lang.String): js.Function = js.native
   def filter(id: java.lang.String, definition: js.Function): js.Function = js.native
-  def mixin(mixin: VueLib.VueTypesOptionsModule.ComponentOptions[Vue, VueLib.VueTypesOptionsModule.DefaultData[Vue], VueLib.VueTypesOptionsModule.DefaultMethods[Vue], VueLib.VueTypesOptionsModule.DefaultComputed, VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]]): scala.Unit = js.native
+  def mixin(
+    mixin: VueLib.VueTypesOptionsModule.ComponentOptions[
+      Vue, 
+      VueLib.VueTypesOptionsModule.DefaultData[Vue], 
+      VueLib.VueTypesOptionsModule.DefaultMethods[Vue], 
+      VueLib.VueTypesOptionsModule.DefaultComputed, 
+      VueLib.VueTypesOptionsModule.PropsDefinition[VueLib.VueTypesOptionsModule.DefaultProps]
+    ]
+  ): scala.Unit = js.native
   def mixin(mixin: VueConstructor[Vue]): scala.Unit = js.native
   def nextTick(): StdLib.Promise = js.native
   def nextTick(callback: js.Function0[scala.Unit]): scala.Unit = js.native

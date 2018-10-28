@@ -28,7 +28,14 @@ object WebpackDashEnvLibMembers extends js.Object {
    * @param chunkId The id for the chunk to load.
    * @param callback A callback function called once the chunk is loaded.
    */
-  var `__webpack_chunk_load__`: js.Function2[/* chunkId */ js.Any, /* callback */ js.Function1[/* require */ WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.RequireLambda, scala.Unit], scala.Unit] = js.native
+  var `__webpack_chunk_load__`: js.Function2[
+    /* chunkId */ js.Any, 
+    /* callback */ js.Function1[
+      /* require */ WebpackDashEnvLib.UnderscoreUnderscoreWebpackModuleApiNamespace.RequireLambda, 
+      scala.Unit
+    ], 
+    scala.Unit
+  ] = js.native
   /**
    * Access to the hash of the compilation.
    *
