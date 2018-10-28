@@ -186,13 +186,15 @@ object Main extends App {
   if (debugMode) {
     logger.warn(s"Not committing because of non-empty args ${args.mkString(", ")}")
   } else {
+    logger.warn("Generating sbt plugin...")
     val sbtProjectDir = targetFolder / s"sbt-${constants.Project}"
-
-    if (bintray.isDefined) {
-      logger.warn("Generating sbt plugin...")
-      val pattern = DateTimeFormatter.ofPattern("ddMMyyyyhhmm")
-      GenerateSbtPlugin(sbtProjectDir, successes, pattern.format(LocalDateTime.now()))
-    }
+    val pattern       = DateTimeFormatter.ofPattern("ddMMyyyyhhmm")
+    GenerateSbtPlugin(
+      projectDir    = sbtProjectDir,
+      projects      = successes,
+      pluginVersion = pattern.format(LocalDateTime.now()),
+      action        = if (bintray.isDefined) "publish" else "publishLocal"
+    )
 
     logger.warn("Commiting...")
     val summaryString = CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)

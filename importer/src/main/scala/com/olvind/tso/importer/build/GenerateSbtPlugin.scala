@@ -7,10 +7,10 @@ import com.olvind.tso.importer.build.versions.{`version%`, sbtVersion}
 import com.olvind.tso.scalajs.ScalaNameEscape
 
 object GenerateSbtPlugin {
-  def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String) = {
+  def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String, action: String) = {
     files.sync(contents(projects, pluginVersion), projectDir)
     implicit val wd = projectDir
-    % sbt "publish"
+    % sbt action
   }
 
   def contents(projects: Set[PublishedSbtProject], pluginVersion: String): Map[RelPath, Array[Byte]] = {
