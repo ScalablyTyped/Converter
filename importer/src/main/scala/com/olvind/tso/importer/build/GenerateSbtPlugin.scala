@@ -37,7 +37,7 @@ object GenerateSbtPlugin {
                  .to[Seq]
                  .sortBy(_.name)
                  .map { p =>
-                   val pIdent = ScalaNameEscape(ImportName.rewrite(p.name, "", capitalize = true))
+                   val pIdent = ScalaNameEscape(p.name)
                    s"|        val $pIdent = ${`version%`(p.organization, p.artifactId, p.version)}"
                  }
                  .mkString("", "\n", "")}
