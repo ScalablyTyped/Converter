@@ -24,11 +24,12 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object Main extends App {
-  val debugMode    = args.nonEmpty
-  val cacheFolder  = home / 'tmp / "tso-cache"
-  val targetFolder = cacheFolder / Name.OutputPkg.value
-  val failFolder   = targetFolder / 'failures
-  val logsFolder   = cacheFolder / 'logs
+  val (wantedLibNames, flags) = args.partition(_.startsWith("-"))
+  val debugMode               = wantedLibNames.nonEmpty
+  val cacheFolder             = home / 'tmp / "tso-cache"
+  val targetFolder            = cacheFolder / Name.OutputPkg.value
+  val failFolder              = targetFolder / 'failures
+  val logsFolder              = cacheFolder / 'logs
 
   mkdir(targetFolder)
   rm(failFolder)
@@ -103,7 +104,7 @@ object Main extends App {
     )
 
   val tsSources: Set[TsSource] =
-    (TypescriptSources(externalsFolder, dtFolder, constants.ignored), args.to[List]) match {
+    (TypescriptSources(externalsFolder, dtFolder, constants.ignored), wantedLibNames.to[List]) match {
       case (sources, Nil) => sources
       case (sources, wantedLibsStrings) =>
         val wantedLibNames: Set[TsIdentLibrary] =
@@ -115,7 +116,7 @@ object Main extends App {
   val bloop = BloopCompiler(logger.filter(LogLevel.debug).void)
 
   val bintray: Option[BinTrayPublisher] =
-    if (args.contains("publish")) {
+    if (flags.contains("-publish")) {
       val values: Map[String, String] =
         files
           .content(InFile(home / ".bintray" / ".credentials"))
@@ -151,7 +152,7 @@ object Main extends App {
 
   val summary = interface.finish()
 
-  logger.warn("Writing logs")
+  logger error "Writing logs"
 
   logRegistry.logs.foreach {
     case (libName, storeds) =>
@@ -184,21 +185,22 @@ object Main extends App {
   }
 
   if (debugMode) {
-    logger.warn(s"Not committing because of non-empty args ${args.mkString(", ")}")
+    logger error s"Not committing because of non-empty args ${args.mkString(", ")}"
   } else {
-    logger.warn("Generating sbt plugin...")
+    logger error "Generating sbt plugin..."
+
     val sbtProjectDir = targetFolder / s"sbt-${constants.Project}"
-    val pattern       = DateTimeFormatter.ofPattern("ddMMyyyyhhmm")
+    val pattern       = DateTimeFormatter ofPattern "ddMMyyyyhhmm"
     GenerateSbtPlugin(
       projectDir    = sbtProjectDir,
       projects      = successes,
-      pluginVersion = pattern.format(LocalDateTime.now()),
+      pluginVersion = pattern format LocalDateTime.now,
       action        = if (bintray.isDefined) "publish" else "publishLocal"
     )
 
-    logger.warn("Commiting...")
+    logger error "Committing..."
     val summaryString = CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
-    logger.warn(summaryString)
+    logger error summaryString
   }
 
   System.exit(0)
