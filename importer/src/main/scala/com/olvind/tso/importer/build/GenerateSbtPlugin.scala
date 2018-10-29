@@ -22,6 +22,7 @@ object GenerateSbtPlugin {
       |scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
       |bintrayRepository := ${stringUtils.quote(constants.Project)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+      |publishMavenStyle := true
       |""".stripMargin
 
     /* we have at least a `clone` and a `notify` library - of course */
