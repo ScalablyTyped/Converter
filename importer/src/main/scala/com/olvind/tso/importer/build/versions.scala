@@ -14,10 +14,12 @@ object versions {
   val scalaJsVersion    = "0.6.25"
   val scalaJsBinVersion = "0.6"
 
-  val scalaJsDomVersion           = "0.9.5"
-  val scalablyTypedRuntimeVersion = "1.0.0-M1"
-  val sbtVersion                  = "1.2.3"
-  val sbtBintray                  = `version%`("org.foundweekends", "sbt-bintray", "0.5.4")
+  val scalaJsDomVersion   = "0.9.5"
+  val RuntimeOrganization = "com.olvind"
+  val RuntimeName         = "runtime"
+  val RuntimeVersion      = "1.0.0-M1"
+  val sbtVersion          = "1.2.6"
+  val sbtBintray          = `version%`("org.foundweekends", "sbt-bintray", "0.5.4")
 
   def s(artifact: String): String =
     s"${artifact}_$binVersion"

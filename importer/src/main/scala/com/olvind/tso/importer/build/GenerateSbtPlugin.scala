@@ -4,13 +4,13 @@ package build
 
 import ammonite.ops._
 import com.olvind.tso.importer.build.versions.{`version%`, sbtVersion}
-import com.olvind.tso.scalajs.ScalaNameEscape
+import com.olvind.tso.scalajs.{Name, ObjectMembers, ScalaNameEscape}
 
 object GenerateSbtPlugin {
-  def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String) = {
+  def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String, action: String) = {
     files.sync(contents(projects, pluginVersion), projectDir)
     implicit val wd = projectDir
-    % sbt "publish"
+    % sbt action
   }
 
   def contents(projects: Set[PublishedSbtProject], pluginVersion: String): Map[RelPath, Array[Byte]] = {
@@ -22,7 +22,15 @@ object GenerateSbtPlugin {
       |scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
       |bintrayRepository := ${stringUtils.quote(constants.Project)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+      |publishMavenStyle := true
       |""".stripMargin
+
+    /* we have at least a `clone` and a `notify` library - of course */
+    def fix(name: String): String =
+      ObjectMembers.byName.get(Name(name)) match {
+        case Some(_) => s"_$name"
+        case None    => name
+      }
 
     val projectsByLetter =
       projects
@@ -36,10 +44,10 @@ object GenerateSbtPlugin {
                 |${ps
                  .to[Seq]
                  .sortBy(_.name)
-                 .map { p =>
-                   val pIdent = ScalaNameEscape(ImportName.rewrite(p.name, "", capitalize = true))
-                   s"|        val $pIdent = ${`version%`(p.organization, p.artifactId, p.version)}"
-                 }
+                 .map(
+                   p =>
+                     s"|        val ${ScalaNameEscape(fix(p.name))} = ${`version%`(p.organization, p.artifactId, p.version)}"
+                 )
                  .mkString("", "\n", "")}
         |      }""".stripMargin
         }

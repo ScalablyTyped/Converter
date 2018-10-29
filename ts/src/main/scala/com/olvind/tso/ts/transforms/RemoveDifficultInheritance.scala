@@ -63,45 +63,41 @@ object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
       case ref: TsTypeRef => ref.name.parts.map(_.value).mkString(".")
       case TsTypeUnion(types)     => types map format mkString " | "
       case TsTypeIntersect(types) => types map format mkString " with "
-      case other                  => other.toString
+      case other                  => other.asString
     }
 
   override def enterTsDeclClass(scope: TreeScope)(s: TsDeclClass): TsDeclClass =
     Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
       case Res(_, Nil, EmptyMap()) => s
       case Res(keep, drop, lifted) =>
-        val c = Comment(
-          s"/* RemoveDifficultInheritance: Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys
-            .map(format)
-            .mkString(", ")}. Dropped Inheritance: \n${drop map format mkString "\n"} */"
+        s.copy(
+          parent     = keep.headOption,
+          implements = keep.drop(1),
+          comments   = s.comments +? summarizeChanges(drop, lifted),
+          members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq])
         )
-
-        s.copy(parent     = keep.headOption,
-               implements = keep.drop(1),
-               comments   = s.comments + c,
-               members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
 
   override def enterTsDeclInterface(scope: TreeScope)(s: TsDeclInterface): TsDeclInterface =
     Res.combine(s.inheritance map cleanParentRef(scope)) match {
       case Res(keep, _, _) if s.inheritance === keep => s
       case Res(keep, drop, lifted) =>
-        val droppedMessages: Seq[String] =
-          drop map (d => s"- Dropped ${format(d)}")
-
-        val liftedMessage: Option[String] =
-          if (lifted.isEmpty) None
-          else Some(s"- Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys.map(format)}")
-
-        val newComments = droppedMessages ++ liftedMessage match {
-          case Nil => s.comments
-          case messages =>
-            val c = Comment(s"/* RemoveDifficultInheritance: ${messages.mkString("\n", "\n", "")} */ ")
-            s.comments + c
-        }
-
         s.copy(inheritance = keep,
-               comments    = newComments,
+               comments    = s.comments +? summarizeChanges(drop, lifted),
                members     = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
+
+  private def summarizeChanges(drop: List[TsType], lifted: Map[TsTypeRef, Seq[TsMember]]): Option[Comment] = {
+    val droppedMessages: Seq[String] =
+      drop map (d => s"- Dropped ${format(d)}")
+
+    val liftedMessage: Option[String] =
+      if (lifted.isEmpty) None
+      else Some(s"- Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys.map(format)}")
+
+    droppedMessages ++ liftedMessage match {
+      case Nil      => None
+      case messages => Some(Comment(s"/* RemoveDifficultInheritance: ${messages.mkString("\n", "\n", "")} */ "))
+    }
+  }
 }

@@ -77,9 +77,9 @@ object BloopCompiler {
       Array(
         DependencyResolution.resolve(scalaJsOrganization, s("scalajs-library"), scalaJsVersion, bloopLogger, repos),
         DependencyResolution.resolve(scalaJsOrganization, sjs("scalajs-dom"), scalaJsDomVersion, bloopLogger, repos),
-        DependencyResolution.resolve(constants.organization,
-                                     sjs("runtime"),
-                                     scalablyTypedRuntimeVersion,
+        DependencyResolution.resolve(versions.RuntimeOrganization,
+                                     sjs(versions.RuntimeName),
+                                     RuntimeVersion,
                                      bloopLogger,
                                      repos),
       ).flatten
