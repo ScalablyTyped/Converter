@@ -24,7 +24,7 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object Main extends App {
-  val (wantedLibNames, flags) = args.partition(_.startsWith("-"))
+  val (flags, wantedLibNames) = args.partition(_.startsWith("-"))
   val debugMode               = wantedLibNames.nonEmpty
   val cacheFolder             = home / 'tmp / "tso-cache"
   val targetFolder            = cacheFolder / Name.OutputPkg.value
@@ -185,7 +185,7 @@ object Main extends App {
   }
 
   if (debugMode) {
-    logger error s"Not committing because of non-empty args ${args.mkString(", ")}"
+    logger error s"Not committing because of non-empty args ${wantedLibNames.mkString(", ")}"
   } else {
     logger error "Generating sbt plugin..."
 
