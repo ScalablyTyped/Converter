@@ -1,9 +1,10 @@
 package ScalablyTyped
+package StdLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-package object StdLib {
-  type Partial[T] = T
-}
+
+trait Array[T] extends js.Object
+

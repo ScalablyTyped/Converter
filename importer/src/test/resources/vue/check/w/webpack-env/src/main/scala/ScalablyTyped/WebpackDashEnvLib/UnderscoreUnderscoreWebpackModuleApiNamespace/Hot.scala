@@ -22,8 +22,8 @@ trait Hot extends js.Object {
            * @param callback
            */
   def accept(
-    dependencies: StdLib.Array[java.lang.String],
-    callback: js.Function1[/* updatedDependencies */ StdLib.Array[ModuleId], scala.Unit]
+    dependencies: js.Array[java.lang.String],
+    callback: js.Function1[/* updatedDependencies */ js.Array[ModuleId], scala.Unit]
   ): scala.Unit = js.native
   /**
            * Accept code updates for the specified dependencies. The callback is called when dependencies were replaced.
@@ -57,7 +57,7 @@ trait Hot extends js.Object {
            */
   @JSName("apply")
   def apply(
-    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ js.Array[ModuleId], scala.Unit]
   ): scala.Unit = js.native
   /**
            * If status() != "ready" it throws an error.
@@ -68,7 +68,7 @@ trait Hot extends js.Object {
   @JSName("apply")
   def apply(
     options: AcceptOptions,
-    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ js.Array[ModuleId], scala.Unit]
   ): scala.Unit = js.native
   /**
            * Throws an exceptions if status() is not idle.
@@ -82,7 +82,7 @@ trait Hot extends js.Object {
            */
   def check(
     autoApply: scala.Boolean,
-    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ js.Array[ModuleId], scala.Unit]
   ): scala.Unit = js.native
   /**
            * Throws an exceptions if status() is not idle.
@@ -92,7 +92,7 @@ trait Hot extends js.Object {
            * @param callback
            */
   def check(
-    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ StdLib.Array[ModuleId], scala.Unit]
+    callback: js.Function2[/* err */ StdLib.Error, /* outdatedModules */ js.Array[ModuleId], scala.Unit]
   ): scala.Unit = js.native
   /**
            * Flag the current module as not update-able. If updated the update code would fail with code "decline".
@@ -101,7 +101,7 @@ trait Hot extends js.Object {
   /**
            * Do not accept updates for the specified dependencies. If any dependencies is updated, the code update fails with code "decline".
            */
-  def decline(dependencies: StdLib.Array[java.lang.String]): scala.Unit = js.native
+  def decline(dependencies: js.Array[java.lang.String]): scala.Unit = js.native
   /**
            * Do not accept updates for the specified dependencies. If any dependencies is updated, the code update fails with code "decline".
            */

@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 trait Command
   extends NodeLib.NodeJSNamespace.EventEmitter
      with /* key */ ScalablyTyped.runtime.StringDictionary[js.Any] {
-  var args: StdLib.Array[java.lang.String] = js.native
+  var args: js.Array[java.lang.String] = js.native
   /**
            * Register callback `fn` for the command.
            *
@@ -585,7 +585,7 @@ trait Command
            * @param {string[]} argv
            * @returns {Command} for chaining
            */
-  def parse(argv: StdLib.Array[java.lang.String]): Command = js.native
+  def parse(argv: js.Array[java.lang.String]): Command = js.native
   /**
            * Parse expected `args`.
            *
@@ -594,14 +594,14 @@ trait Command
            * @param {string[]} args
            * @returns {Command} for chaining
            */
-  def parseExpectedArgs(args: StdLib.Array[java.lang.String]): Command = js.native
+  def parseExpectedArgs(args: js.Array[java.lang.String]): Command = js.native
   /**
            * Parse options from `argv` returning `argv` void of these options.
            *
            * @param {string[]} argv
            * @returns {ParseOptionsResult}
            */
-  def parseOptions(argv: StdLib.Array[java.lang.String]): CommanderLib.CommanderModule.commanderNamespace.ParseOptionsResult = js.native
+  def parseOptions(argv: js.Array[java.lang.String]): CommanderLib.CommanderModule.commanderNamespace.ParseOptionsResult = js.native
   def usage(): java.lang.String = js.native
   /**
            * Set or get the command usage.

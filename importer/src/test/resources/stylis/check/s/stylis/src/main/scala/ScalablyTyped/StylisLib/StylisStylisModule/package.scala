@@ -19,5 +19,5 @@ package object StylisStylisModule {
     /* depth */ scala.Double, 
     scala.Null | scala.Unit | java.lang.String
   ]
-  type Selectors = StdLib.Array[java.lang.String]
+  type Selectors = js.Array[java.lang.String]
 }

@@ -14,7 +14,8 @@ sealed abstract class SymbolScope { outer =>
 
   final def lookup(fragments: List[Name]): Seq[(Symbol, SymbolScope)] =
     fragments match {
-      case ScalaJsClasses.Lookup(found)                  => Seq((found, this))
+      case ScalaJsClasses.isFunction(f)                  => Seq((f, this))
+      case a if a === QualifiedName.Array.parts          => Seq((ScalaJsClasses.ScalaJsArray, this))
       case Head(Name.scala | Name.java | Name.OutputPkg) => Seq.empty
       case Head(name) if Name.Internal(name)             => Seq.empty
       case _ =>

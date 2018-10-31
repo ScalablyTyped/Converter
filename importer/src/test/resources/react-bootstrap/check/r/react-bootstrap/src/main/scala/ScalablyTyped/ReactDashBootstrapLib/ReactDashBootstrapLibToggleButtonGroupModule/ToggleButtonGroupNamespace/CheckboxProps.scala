@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 
 trait CheckboxProps extends js.Object {
   var name: js.UndefOr[java.lang.String] = js.undefined
-  var onChange: js.UndefOr[js.Function1[/* values */ StdLib.Array[_], scala.Unit]] = js.undefined
+  var onChange: js.UndefOr[js.Function1[/* values */ js.Array[_], scala.Unit]] = js.undefined
   var `type`: ReactDashBootstrapLib.ReactDashBootstrapLibStrings.checkbox
 }
 

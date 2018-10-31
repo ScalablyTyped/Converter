@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Function extends js.Object {
   @JSName("$inject")
-  var $inject: js.UndefOr[StdLib.ReadonlyArray[java.lang.String]] = js.native
+  var $inject: js.UndefOr[js.Array[java.lang.String]] = js.native
 }
 

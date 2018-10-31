@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 
 trait VNode extends js.Object {
-  var children: js.UndefOr[StdLib.Array[VNode]] = js.undefined
+  var children: js.UndefOr[js.Array[VNode]] = js.undefined
   var componentInstance: js.UndefOr[VueLib.VueTypesVueModule.Vue] = js.undefined
   var componentOptions: js.UndefOr[VNodeComponentOptions] = js.undefined
   var context: js.UndefOr[VueLib.VueTypesVueModule.Vue] = js.undefined

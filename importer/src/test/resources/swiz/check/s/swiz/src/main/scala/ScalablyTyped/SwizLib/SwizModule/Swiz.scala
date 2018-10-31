@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation._
 @JSImport("swiz", "Swiz")
 @js.native
 class Swiz protected () extends js.Object {
-  def this(defs: StdLib.Array[SwizLib.SwizModule.structNamespace.IObj]) = this()
-  def this(defs: StdLib.Array[SwizLib.SwizModule.structNamespace.IObj], options: ISwizOptions) = this()
+  def this(defs: js.Array[SwizLib.SwizModule.structNamespace.IObj]) = this()
+  def this(defs: js.Array[SwizLib.SwizModule.structNamespace.IObj], options: ISwizOptions) = this()
   def deserialize(
     mode: SERIALIZATION,
     version: scala.Double,
@@ -25,7 +25,7 @@ class Swiz protected () extends js.Object {
   ): scala.Unit = js.native
   def serializeForPagination(
     mode: SERIALIZATION,
-    array: StdLib.Array[_],
+    array: js.Array[_],
     metadata: js.Any,
     callback: js.Function2[/* err */ js.Any, /* result */ java.lang.String, scala.Unit]
   ): scala.Unit = js.native

@@ -24,7 +24,7 @@ trait IAngularStatic extends js.Object {
            */
   var resumeBootstrap: js.UndefOr[
     js.Function1[
-      /* extraModules */ js.UndefOr[StdLib.Array[java.lang.String]], 
+      /* extraModules */ js.UndefOr[js.Array[java.lang.String]], 
       AngularLib.AngularModule.angularNamespace.autoNamespace.IInjectorService
     ]
   ] = js.native

@@ -18,7 +18,7 @@ trait RequireFunction extends js.Object {
   /**
            * Behaves similar to require.ensure, but the callback is called with the exports of each dependency in the paths array. There is no option to provide a chunk name.
            */
-  def apply(paths: StdLib.Array[java.lang.String], callback: js.Function1[/* repeated */js.Any, scala.Unit]): scala.Unit = js.native
+  def apply(paths: js.Array[java.lang.String], callback: js.Function1[/* repeated */js.Any, scala.Unit]): scala.Unit = js.native
   def context(path: java.lang.String): RequireContext = js.native
   def context(path: java.lang.String, deep: scala.Boolean): RequireContext = js.native
   def context(path: java.lang.String, deep: scala.Boolean, filter: StdLib.RegExp): RequireContext = js.native
@@ -28,7 +28,7 @@ trait RequireFunction extends js.Object {
            * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
            */
   def ensure(
-    paths: StdLib.Array[java.lang.String],
+    paths: js.Array[java.lang.String],
     callback: js.Function1[/* require */ WebpackDashEnvLib.NodeRequire, scala.Unit]
   ): scala.Unit = js.native
   /**
@@ -37,7 +37,7 @@ trait RequireFunction extends js.Object {
            * This creates a chunk. The chunk can be named. If a chunk with this name already exists, the dependencies are merged into that chunk and that chunk is used.
            */
   def ensure(
-    paths: StdLib.Array[java.lang.String],
+    paths: js.Array[java.lang.String],
     callback: js.Function1[/* require */ WebpackDashEnvLib.NodeRequire, scala.Unit],
     chunkName: java.lang.String
   ): scala.Unit = js.native

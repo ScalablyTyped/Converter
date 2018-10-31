@@ -10,7 +10,7 @@ trait Vue extends js.Object {
   @JSName("$attrs")
   val $attrs: StdLib.Record[java.lang.String, java.lang.String] = js.native
   @JSName("$children")
-  val $children: StdLib.Array[Vue] = js.native
+  val $children: js.Array[Vue] = js.native
   @JSName("$createElement")
   var $createElement_Original: CreateElement = js.native
   @JSName("$data")
@@ -22,7 +22,7 @@ trait Vue extends js.Object {
   @JSName("$isServer")
   val $isServer: scala.Boolean = js.native
   @JSName("$listeners")
-  val $listeners: StdLib.Record[java.lang.String, js.Function | StdLib.Array[js.Function]] = js.native
+  val $listeners: StdLib.Record[java.lang.String, js.Function | js.Array[js.Function]] = js.native
   @JSName("$options")
   val $options: VueLib.VueTypesOptionsModule.ComponentOptions[
     Vue, 
@@ -36,7 +36,7 @@ trait Vue extends js.Object {
   @JSName("$props")
   val $props: StdLib.Record[java.lang.String, _] = js.native
   @JSName("$refs")
-  val $refs: ScalablyTyped.runtime.StringDictionary[Vue | StdLib.Element | StdLib.Array[Vue] | StdLib.Array[StdLib.Element]] = js.native
+  val $refs: ScalablyTyped.runtime.StringDictionary[Vue | StdLib.Element | js.Array[Vue] | js.Array[StdLib.Element]] = js.native
   @JSName("$root")
   val $root: Vue = js.native
   @JSName("$scopedSlots")
@@ -44,7 +44,7 @@ trait Vue extends js.Object {
   @JSName("$set")
   var $set_Original: js.Function3[/* object */ js.Object, /* key */ java.lang.String, /* value */ js.Any, _] = js.native
   @JSName("$slots")
-  val $slots: ScalablyTyped.runtime.StringDictionary[StdLib.Array[VueLib.VueTypesVnodeModule.VNode]] = js.native
+  val $slots: ScalablyTyped.runtime.StringDictionary[js.Array[VueLib.VueTypesVnodeModule.VNode]] = js.native
   @JSName("$ssrContext")
   val $ssrContext: js.Any = js.native
   @JSName("$vnode")
@@ -172,17 +172,17 @@ trait Vue extends js.Object {
   @JSName("$off")
   def $off(): this.type = js.native
   @JSName("$off")
-  def $off(event: StdLib.Array[java.lang.String]): this.type = js.native
-  @JSName("$off")
-  def $off(event: StdLib.Array[java.lang.String], callback: js.Function): this.type = js.native
-  @JSName("$off")
   def $off(event: java.lang.String): this.type = js.native
   @JSName("$off")
   def $off(event: java.lang.String, callback: js.Function): this.type = js.native
-  @JSName("$on")
-  def $on(event: StdLib.Array[java.lang.String], callback: js.Function): this.type = js.native
+  @JSName("$off")
+  def $off(event: js.Array[java.lang.String]): this.type = js.native
+  @JSName("$off")
+  def $off(event: js.Array[java.lang.String], callback: js.Function): this.type = js.native
   @JSName("$on")
   def $on(event: java.lang.String, callback: js.Function): this.type = js.native
+  @JSName("$on")
+  def $on(event: js.Array[java.lang.String], callback: js.Function): this.type = js.native
   @JSName("$once")
   def $once(event: java.lang.String, callback: js.Function): this.type = js.native
   @JSName("$set")

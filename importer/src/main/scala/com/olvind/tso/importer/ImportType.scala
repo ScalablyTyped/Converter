@@ -18,6 +18,21 @@ object ImportType {
       case _ => TypeRef.Any
     }
 
+  private val isArray = Set(
+    TsQIdent.Array,
+    TsQIdent(List(TsIdentLibrarySimple("std"), TsIdent("Array"))),
+    TsQIdent(List(TsIdentLibrarySimple("std"), TsIdent("ReadonlyArray"))),
+    TsQIdent(List(TsIdentLibrarySimple("std"), TsIdent("ConcatArray"))),
+  )
+  def isInheritance(tpe: TsQIdent, scope: TreeScope): Boolean =
+    scope.stack match {
+      case _ :: (owner: TsDeclInterface) :: _ =>
+        owner.inheritance.exists(_.name === tpe)
+      case _ :: (owner: TsDeclClass) :: _ =>
+        owner.implements.exists(_.name === tpe) || owner.parent.exists(_.name === tpe)
+      case _ => false
+    }
+
   def apply(wildcards: Wildcards, _scope: TreeScope)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
@@ -37,7 +52,7 @@ object ImportType {
           case TsQIdent.`object`  => TypeRef.Object
           case TsQIdent.Object    => TypeRef.Object
           case TsQIdent.undefined => TypeRef.UndefOr(TypeRef.Nothing)
-          case TsQIdent.Array =>
+          case tpe if (isArray(tpe) && !isInheritance(tpe, scope)) || tpe === TsQIdent.Array =>
             TypeRef(QualifiedName.Array, targs map apply(wildcards.maybeAllow, scope), NoComments)
           case TsQIdent.Function =>
             TypeRef(QualifiedName.Function, targs map apply(wildcards.maybeAllow, scope), NoComments)
@@ -51,8 +66,8 @@ object ImportType {
       /* Proper handling (of static) cases will be done in `ApplyTypeMapping`.
        * This piece of code just ignores the effect of the type mapping.
        *
-       * It is crucial that it belong here in the importer, since it needs to be exported
-       *  in it's original form to dependant libraries
+       * It is crucial that this "logic" live here in the importer, since it needs to be exported
+       *  in it's original form to dependencies
        */
       case TsTypeObject(Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
         val lookups: Seq[TsTypeRef] =

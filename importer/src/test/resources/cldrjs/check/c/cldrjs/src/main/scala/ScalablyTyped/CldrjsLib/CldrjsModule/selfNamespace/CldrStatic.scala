@@ -31,6 +31,6 @@ trait CldrStatic extends js.Object {
     listener: js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]
   ): scala.Unit = js.native
   def supplemental(path: java.lang.String): js.Any = js.native
-  def supplemental(paths: StdLib.Array[java.lang.String]): js.Any = js.native
+  def supplemental(paths: js.Array[java.lang.String]): js.Any = js.native
 }
 

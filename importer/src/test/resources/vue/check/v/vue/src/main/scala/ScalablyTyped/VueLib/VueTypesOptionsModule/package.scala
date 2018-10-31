@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 package object VueTypesOptionsModule {
   type Accessors[T] = VueLib.VueLibStrings.Accessors with T
-  type ArrayPropsDefinition[T] = StdLib.Array[java.lang.String]
+  type ArrayPropsDefinition[T] = js.Array[java.lang.String]
   type AsyncComponent[Data, Methods, Computed, Props] = js.Function2[
     /* resolve */ js.Function1[/* component */ Component[Data, Methods, Computed, Props], scala.Unit], 
     /* reject */ js.Function1[/* reason */ js.UndefOr[js.Any], scala.Unit], 
@@ -24,9 +24,9 @@ package object VueTypesOptionsModule {
     scala.Unit
   ]
   type InjectKey = java.lang.String | js.Symbol
-  type InjectOptions = (ScalablyTyped.runtime.StringDictionary[InjectKey | VueLib.Anon_From]) | StdLib.Array[java.lang.String]
+  type InjectOptions = (ScalablyTyped.runtime.StringDictionary[InjectKey | VueLib.Anon_From]) | js.Array[java.lang.String]
   type Prop[T] = VueLib.Anon_T[T] | VueLib.Anon_Args[T]
-  type PropValidator[T] = PropOptions[T] | Prop[T] | StdLib.Array[Prop[T]]
+  type PropValidator[T] = PropOptions[T] | Prop[T] | js.Array[Prop[T]]
   type PropsDefinition[T] = ArrayPropsDefinition[T] | RecordPropsDefinition[T]
   type RecordPropsDefinition[T] = VueLib.VueLibStrings.RecordPropsDefinition with T
   type ThisTypedComponentOptionsWithArrayProps[V /* <: VueLib.VueTypesVueModule.Vue */, Data, Methods, Computed, PropNames /* <: java.lang.String */] = js.Object with (ComponentOptions[
@@ -34,7 +34,7 @@ package object VueTypesOptionsModule {
     Data | (js.ThisFunction0[/* this */ (StdLib.Readonly[StdLib.Record[PropNames, _]]) with V, Data]), 
     Methods, 
     Computed, 
-    StdLib.Array[PropNames]
+    js.Array[PropNames]
   ]) with (StdLib.ThisType[
     VueLib.VueTypesVueModule.CombinedVueInstance[V, Data, Methods, Computed, StdLib.Readonly[StdLib.Record[PropNames, _]]]
   ])

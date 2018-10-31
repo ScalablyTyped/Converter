@@ -12,7 +12,7 @@ trait Http extends js.Object {
   @JSName("get")
   var get_Original: $http = js.native
   var headers: HttpHeaders = js.native
-  var interceptors: StdLib.Array[HttpInterceptor | js.Function0[HttpInterceptor]] = js.native
+  var interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]] = js.native
   @JSName("jsonp")
   var jsonp_Original: $http = js.native
   var options: HttpOptions with VueDashResourceLib.Anon_Root = js.native
