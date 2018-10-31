@@ -145,17 +145,10 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
               val preprocessed: Seq[TsParsedFile] =
                 libParts.to[Seq].sortBy(_._1.file.path) map {
                   case (thisSource, file) =>
-                    val PreProcessAll = (Pipe[TsParsedFile]
-                      >> TS.SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty)))
-
                     logger.info(s"Preprocessing $thisSource")
-
-                    val file1 = InferredDefaultModule(file.file, thisSource.moduleName, logger)
-                    val file2 = FlattenTrees(file1 +: file.pathRefFiles)
-                    val file3 = PreProcessAll run file2
-
-                    logger.info(s"Preprocessed $thisSource")
-                    file3
+                    val _1 = InferredDefaultModule(file.file, thisSource.moduleName, logger)
+                    val _2 = FlattenTrees(_1 +: file.pathRefFiles)
+                    TS.SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty))(_2)
                 }
 
               val ProcessAll = (Pipe[TsParsedFile]
