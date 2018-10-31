@@ -17,7 +17,7 @@ trait Stylis
   def set(): Set = js.native
   def set(options: Options): Set = js.native
   def use(): Use = js.native
-  def use(plugin: StdLib.Array[Plugin]): Use = js.native
   def use(plugin: Plugin): Use = js.native
+  def use(plugin: js.Array[Plugin]): Use = js.native
 }
 

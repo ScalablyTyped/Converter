@@ -12,9 +12,9 @@ import scala.scalajs.js.annotation._
 @js.native
 trait IInjectorService extends js.Object {
   var strictDi: scala.Boolean = js.native
-  def annotate(fn: js.Function): StdLib.Array[java.lang.String] = js.native
-  def annotate(fn: js.Function, strictDi: scala.Boolean): StdLib.Array[java.lang.String] = js.native
-  def annotate(inlineAnnotatedFunction: StdLib.Array[_]): StdLib.Array[java.lang.String] = js.native
+  def annotate(fn: js.Function): js.Array[java.lang.String] = js.native
+  def annotate(fn: js.Function, strictDi: scala.Boolean): js.Array[java.lang.String] = js.native
+  def annotate(inlineAnnotatedFunction: js.Array[_]): js.Array[java.lang.String] = js.native
   def get[T](name: java.lang.String): T = js.native
   def get[T](name: java.lang.String, caller: java.lang.String): T = js.native
   def has(name: java.lang.String): scala.Boolean = js.native

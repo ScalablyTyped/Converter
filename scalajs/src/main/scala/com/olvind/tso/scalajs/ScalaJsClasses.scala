@@ -5,6 +5,22 @@ import scala.collection.mutable
 
 object ScalaJsClasses {
   // format: off
+  val ScalaJsArray =
+    ClassSymbol(
+      Seq(JsNative, JsGlobalScope),
+      Name("Array"),
+      Seq(TypeParamSymbol(Name("T"), None, NoComments)),
+      // todo: fill in
+      Nil,
+      Nil,
+      Nil,
+      ClassType.Class,
+      isSealed = false,
+      NoComments
+    )
+  // format: on
+
+  // format: off
   val ScalaJsFunction =
     ClassSymbol(
       Seq(JsNative, JsGlobalScope),
@@ -71,7 +87,7 @@ object ScalaJsClasses {
 
   val MatchFunction = "(This|)Function(\\d*)".r
 
-  object Lookup {
+  object isFunction {
     def unapply(fragments: List[Name]): Option[ClassSymbol] =
       if ((fragments.length === QualifiedName.Function.parts.length)
           && fragments.startsWith(QualifiedName.scala_js.parts)) {

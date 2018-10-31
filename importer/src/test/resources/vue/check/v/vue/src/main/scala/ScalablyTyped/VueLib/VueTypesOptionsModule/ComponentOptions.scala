@@ -40,7 +40,7 @@ trait ComponentOptions[V /* <: VueLib.VueTypesVueModule.Vue */, Data, Methods, C
   var inject: js.UndefOr[InjectOptions] = js.undefined
   var methods: js.UndefOr[Methods] = js.undefined
   var mixins: js.UndefOr[
-    StdLib.Array[
+    js.Array[
       (ComponentOptions[
         VueLib.VueTypesVueModule.Vue, 
         DefaultData[VueLib.VueTypesVueModule.Vue], 
@@ -71,7 +71,7 @@ trait ComponentOptions[V /* <: VueLib.VueTypesVueModule.Vue */, Data, Methods, C
     ]
   ] = js.undefined
   var staticRenderFns: js.UndefOr[
-    StdLib.Array[
+    js.Array[
       js.Function1[
         /* createElement */ VueLib.VueTypesVueModule.CreateElement, 
         VueLib.VueTypesVnodeModule.VNode

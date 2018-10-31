@@ -9,16 +9,16 @@ import scala.scalajs.js.annotation._
 @js.native
 object NdarrayModuleMembers extends js.Object {
   def apply[T](data: NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T]): ndarray[T] = js.native
-  def apply[T](data: NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T], shape: StdLib.Array[scala.Double]): ndarray[T] = js.native
+  def apply[T](data: NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T], shape: js.Array[scala.Double]): ndarray[T] = js.native
   def apply[T](
     data: NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T],
-    shape: StdLib.Array[scala.Double],
-    stride: StdLib.Array[scala.Double]
+    shape: js.Array[scala.Double],
+    stride: js.Array[scala.Double]
   ): ndarray[T] = js.native
   def apply[T](
     data: NdarrayLib.NdarrayModule.ndarrayNamespace.Data[T],
-    shape: StdLib.Array[scala.Double],
-    stride: StdLib.Array[scala.Double],
+    shape: js.Array[scala.Double],
+    stride: js.Array[scala.Double],
     offset: scala.Double
   ): ndarray[T] = js.native
 }

@@ -45,7 +45,7 @@ object WebpackDashEnvLibMembers extends js.Object {
   /**
    * Access to the internal object of all modules.
    */
-  var `__webpack_modules__`: StdLib.Array[js.Any] = js.native
+  var `__webpack_modules__`: js.Array[js.Any] = js.native
   /**
    * Equals the config options output.publicPath.
    */
