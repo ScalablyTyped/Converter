@@ -122,6 +122,7 @@ object constants {
     "ts-mockito",
     "tslint",
     "typed-rest-client",
+    "typed-github-api",
     "typed-undo",
     "typedoc",
     "typesafe-actions",
