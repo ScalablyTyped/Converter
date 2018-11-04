@@ -33,22 +33,8 @@ object DynamoDBNamespace extends js.Object {
     def input(data: js.Any): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
     def input(
       data: js.Any,
-      options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
+      options: AwsDashSdkLib.AwsDashSdkLibDynamodbConverterModule.ConverterNamespace.ConverterOptions
     ): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
-  }
-  
-  @JSName("Converter")
-  @js.native
-  object ConverterNamespace extends js.Object {
-    type ConverterOptions = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
-  }
-  
-  @JSName("DocumentClient")
-  @js.native
-  object DocumentClientNamespace extends js.Object {
-    type AttributeAction = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.AttributeAction
-    type ConverterOptions = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
-    type DocumentClientOptions = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.DocumentClientOptions
   }
   
   @JSName("DynamoDB")
@@ -73,33 +59,11 @@ object DynamoDBNamespace extends js.Object {
       def input(data: js.Any): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
       def input(
         data: js.Any,
-        options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
+        options: AwsDashSdkLib.AwsDashSdkLibDynamodbConverterModule.ConverterNamespace.ConverterOptions
       ): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
     }
     
-    @JSName("Converter")
-    @js.native
-    object ConverterNamespace extends js.Object {
-      type ConverterOptions = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
-    }
-    
-    @JSName("DocumentClient")
-    @js.native
-    object DocumentClientNamespace extends js.Object {
-      type AttributeAction = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.AttributeAction
-      type ConverterOptions = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
-      type DocumentClientOptions = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.DocumentClientOptions
-    }
-    
-    type AttributeValue = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue
-    type ClientConfiguration = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration
-    type Types = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.Types
-    type apiVersion = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.apiVersion
   }
   
-  type AttributeValue = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue
-  type ClientConfiguration = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration
-  type DynamoDB = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDB
-  type apiVersion = AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.apiVersion
 }
 

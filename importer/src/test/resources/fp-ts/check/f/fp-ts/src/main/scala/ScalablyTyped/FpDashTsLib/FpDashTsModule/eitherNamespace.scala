@@ -9,7 +9,5 @@ import scala.scalajs.js.annotation._
 @js.native
 object eitherNamespace extends js.Object {
   val URI: /* Either */ java.lang.String = js.native
-  type Either[L, A] = FpDashTsLib.FpDashTsLibEitherModule.Either[L, A]
-  type URI = FpDashTsLib.FpDashTsLibEitherModule.URI
 }
 

@@ -18,12 +18,10 @@ object Patches {
         "\\): Store<S & StateExt, A> & Ext",
         "\\): Store<S & StateExt, A> & Ext,"
       ),
-
       "downshift" / 'typings / "index.d.ts" -> Patch(
         "refKey\\?: string",
         "refKey?: string;",
       ),
-
       // resolve circular set of type aliases
       "styled-components" / "index.d.ts" -> Patch(
         "export type InterpolationFunction<P> = \\(props: P\\) => Interpolation<P>;",

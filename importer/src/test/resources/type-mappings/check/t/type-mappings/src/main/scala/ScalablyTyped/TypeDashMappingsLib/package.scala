@@ -11,7 +11,7 @@ package object TypeDashMappingsLib {
   type IProxiedPerson = Proxify[Person]
   type NamePerson = StdLib.Pick[Person, TypeDashMappingsLib.TypeDashMappingsLibStrings.name]
   type NewedPerson = StdLib.InstanceType[ScalablyTyped.runtime.Instantiable0[Person]]
-  type NonNullablePerson = Person
+  type NonNullablePerson = StdLib.NonNullable[Person]
   type PartialPerson = StdLib.Partial[Person]
   type PersonRecord = StdLib.Record[
     TypeDashMappingsLib.TypeDashMappingsLibStrings.name | TypeDashMappingsLib.TypeDashMappingsLibStrings.age, 

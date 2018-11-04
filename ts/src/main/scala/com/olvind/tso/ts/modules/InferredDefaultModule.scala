@@ -10,6 +10,7 @@ object InferredDefaultModule {
     in.members.forall {
       case _: TsImport          => true
       case _: TsAugmentedModule => true
+      case _: TsDeclModule      => true
       case _: TsDeclTypeAlias   => true
       case _: TsDeclInterface   => true
       case _ => false

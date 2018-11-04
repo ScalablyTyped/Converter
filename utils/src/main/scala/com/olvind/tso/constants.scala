@@ -21,6 +21,11 @@ object constants {
   val TimeZone = ZoneId.of("GMT")
   val Utf8     = Codec.UTF8.charSet
 
+  // yeah, sorry - we'll do this more properly one day
+  object MagicComments {
+    val TrivialTypeAlias = new Comment("/* tso:trivial-typeparam */ ")
+  }
+
   /**
     * A good combination of interesting libraries, and libraries that are needed by libs in DT.
     */

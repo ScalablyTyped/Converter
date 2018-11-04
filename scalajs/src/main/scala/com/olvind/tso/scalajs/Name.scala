@@ -58,6 +58,8 @@ object Name {
 
   val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, IGNORED, REPEATED, APPLY)
 
+  val Primitive = Set(Any, Double, Int, Long, Boolean, Unit, Null, Nothing, String, Array)
+
   implicit object NameSuffix extends ToSuffix[Name] {
     override def to(t: Name): Suffix = Suffix(t.unescaped)
   }
