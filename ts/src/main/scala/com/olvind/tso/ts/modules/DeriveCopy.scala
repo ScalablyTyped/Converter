@@ -28,7 +28,7 @@ object DeriveCopy {
       case x: TsDeclInterface =>
         List(
           TsDeclTypeAlias(
-            comments = NoComments,
+            comments = Comments(constants.MagicComments.TrivialTypeAlias),
             declared = true,
             name     = rename getOrElse x.name,
             tparams  = x.tparams,
@@ -95,12 +95,14 @@ object DeriveCopy {
 
       case x: TsDeclTypeAlias =>
         List(
-          TsDeclTypeAlias(NoComments,
-                          declared = false,
-                          rename getOrElse x.name,
-                          x.tparams,
-                          TsTypeRef(x.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(x.tparams)),
-                          x.codePath)
+          TsDeclTypeAlias(
+            Comments(constants.MagicComments.TrivialTypeAlias),
+            declared = false,
+            rename getOrElse x.name,
+            x.tparams,
+            TsTypeRef(x.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(x.tparams)),
+            x.codePath
+          )
         )
     }
   }

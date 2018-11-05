@@ -13,6 +13,7 @@ object Patches {
 
   val patches: Map[RelPath, Patch] =
     Map[RelPath, Patch](
+      // handle ambiguities because of non-whitespace aware parser
       "redux" / "index.d.ts" -> Patch(
         "\\): Store<S & StateExt, A> & Ext",
         "\\): Store<S & StateExt, A> & Ext,"
@@ -20,7 +21,16 @@ object Patches {
       "downshift" / 'typings / "index.d.ts" -> Patch(
         "refKey\\?: string",
         "refKey?: string;",
-      )
+      ),
+      // resolve circular set of type aliases
+      "styled-components" / "index.d.ts" -> Patch(
+        "export type InterpolationFunction<P> = \\(props: P\\) => Interpolation<P>;",
+        "/* Return type should be Interpolation<P> */ export type InterpolationFunction<P> = (props: P) => InterpolationValue;",
+      ),
+      "create-emotion-styled" / 'types / "common.d.ts" -> Patch(
+        "export type FunctionInterpolation<Props> = \\(props: Props, context: any\\) => Interpolation<Props>;",
+        "/* Return type should be Interpolation<Props> */ export type FunctionInterpolation<Props> = (props: Props, context: any) => BaseInterpolation;",
+      ),
     )
 
   def apply(inFile: InFile, content: String): String = {

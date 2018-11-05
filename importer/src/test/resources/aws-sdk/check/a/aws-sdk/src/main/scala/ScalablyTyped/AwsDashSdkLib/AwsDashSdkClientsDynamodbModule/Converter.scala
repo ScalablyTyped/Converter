@@ -16,7 +16,7 @@ object Converter extends js.Object {
   def input(data: js.Any): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
   def input(
     data: js.Any,
-    options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.DocumentClientNamespace.ConverterOptions
+    options: AwsDashSdkLib.AwsDashSdkLibDynamodbConverterModule.ConverterNamespace.ConverterOptions
   ): AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.AttributeValue = js.native
 }
 

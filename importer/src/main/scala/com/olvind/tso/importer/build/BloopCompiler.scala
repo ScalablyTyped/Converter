@@ -1,4 +1,6 @@
-package com.olvind.tso.importer.build
+package com.olvind.tso
+package importer
+package build
 
 import java.util.Optional
 
@@ -7,7 +9,6 @@ import bloop.io.{AbsolutePath, Paths}
 import bloop.reporter.{LogReporter, ReporterConfig}
 import bloop.{CompileInputs, Compiler, CompilerCache, DependencyResolution, ScalaInstance}
 import com.olvind.logging.{Formatter, Logger}
-import com.olvind.tso.{constants, Seq}
 import coursier.Cache
 import coursier.core.Repository
 import coursier.maven.MavenRepository

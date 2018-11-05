@@ -2,56 +2,53 @@ package com.olvind.tso
 package ts
 package transforms
 
+/**
+  * This is the first part of a two step process to rid ourselves of the myriad of
+  *  type aliases resulting from the resolution of modules.
+  *
+  *  Here, we inline all trivial type aliases.
+  *  We need to do the removal  in scala.js (`CleanupTypeAliases`) to ensure that
+  *  all dependencies can also resolve all their uses of the intermediate type aliases.
+  */
 object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
-  def canExplodeCodeSize(x: TsTypeRef): Boolean =
-    x.tparams.exists {
-      case _: TsTypeUnion => true
-      case _ => false
+
+  /* changing this? also change `Cleanup`. We need to do it in two stages */
+  def followTrivialAliases(scope: TreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
+    cur match {
+      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(nextName, _), codePath)
+          if cs.cs.exists(_ === constants.MagicComments.TrivialTypeAlias) =>
+        scope
+          .lookupIncludeScope(nextName)
+          .collectFirst {
+            case (next: TsDeclTypeAlias, newScope) if next.codePath =/= codePath => // avoid SOE on invalid code
+              followTrivialAliases(newScope)(next).getOrElse(currentAlias.name)
+            case (other, _) =>
+              require(currentAlias.name === other.codePath.forceHasPath.codePath)
+              currentAlias.name
+          }
+      case _ => None
     }
 
-  /**
-    *
-    * @param originalTParams Keep track of these to handle type aliases like this:
-    *                        ```typescript
-    *                        Type U&lt;P&gt> = T[P]
-    *                        type T&lt;A&gt> = A
-    *                        ```
-    *                        If we inline `U` and lookup `P` within `T`, the lookup will fail
-    */
-  def simplify(scope: TreeScope, originalTParams: Set[TsQIdent])(tr: TsTypeRef): Option[TsTypeRef] =
-    tr match {
-      case TsTypeRef(target: TsQIdent, providedTparams: Seq[TsType])
-          if !TsQIdent.Primitive(target) && !TsQIdent.BuiltIn(target) & !originalTParams(target) =>
+  override def enterTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
+    handleRef(scope, x)
+
+  private def handleRef(scope: TreeScope, x: TsTypeRef): TsTypeRef = {
+    val simplifiedOpt = x match {
+      case ref @ TsTypeRef(target: TsQIdent, tparams) if !TsQIdent.Primitive(target) && !TsQIdent.BuiltIn(target) =>
         val ret: Option[Option[TsTypeRef]] =
           scope lookupBase (Picker.Types, target) collectFirst {
-            case (next: TsDeclTypeAlias, newScope) if next.tparams.forall(_.upperBound.isEmpty) =>
-              FillInTParams(next, providedTparams).alias match {
-                case trNext: TsTypeRef
-                    if !canExplodeCodeSize(trNext) // you won't believe what happens next!
-                      && trNext.name =/= target // avoid SOE on invalid code
-                      && trNext.name.parts.last === target.parts.last // keep renames, as they may add semantic value
-                    =>
-                  simplify(newScope, originalTParams)(trNext)
-
-                case isIdentity: TsTypeRef if providedTparams.size === 1 && providedTparams.head === isIdentity =>
-                  Some(isIdentity)
-
-                case _ => Some(tr)
-              }
-            case _ => Some(tr)
+            case (TsDeclEnum(_, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>
+              Some(ref.copy(name = exportedFrom.name))
+            case (next: TsDeclTypeAlias, newScope) =>
+              followTrivialAliases(newScope)(next).map(newName => ref.copy(name = newName))
+            case (x: TsNamedDecl, _) =>
+              Some(ref.copy(name = x.codePath.forceHasPath.codePath))
+            case _ => Some(x)
           }
 
         ret.flatten
       case _ => None
     }
-
-  override def leaveTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef = {
-    val targs = x.tparams
-      .collect {
-        case TsTypeRef(targName, _) => targName
-      }
-      .to[Set]
-
-    simplify(scope, targs)(x).getOrElse(x)
+    simplifiedOpt.getOrElse(x)
   }
 }

@@ -36,7 +36,7 @@ object CalculateLibraryVersion {
     * Version is normally specified in DefinitelyTyped like this
     */
   private object DefinitelyTypedVersion {
-    private val Version = "^\\/\\/ Type definitions for .+ (\\S+)$".r
+    private val Version = "^\\/\\/ Type definitions for .+ ([a-zA-Z\\d][a-zA-Z\\d.\\-]*)$".r
 
     def from(comments: Comments): Option[String] = {
       val lines = comments.cs.flatMap(_.raw.split("\n"))

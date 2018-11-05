@@ -13,7 +13,6 @@ object utilsNamespace extends js.Object {
   @js.native
   object bootstrapUtilsNamespace extends js.Object {
     def getBsProps(props: js.Any): ReactDashBootstrapLib.ReactDashBootstrapLibUtilsBootstrapUtilsModule.BSProps = js.native
-    type BSProps = ReactDashBootstrapLib.ReactDashBootstrapLibUtilsBootstrapUtilsModule.BSProps
   }
   
 }

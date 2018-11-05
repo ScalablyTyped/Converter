@@ -33,8 +33,6 @@ object winstonNamespace extends js.Object {
       
     }
     
-    type AbstractConfigSetLevels = WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.AbstractConfigSetLevels
-    type Config = WinstonLib.WinstonLibWinstonConfigModule.winstonNamespace.Config
   }
   
 }

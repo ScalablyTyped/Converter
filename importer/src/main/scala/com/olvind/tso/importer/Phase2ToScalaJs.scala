@@ -26,6 +26,7 @@ object Phase2ToScalaJs extends Phase[TsSource, Either[LibraryPart, LibTs], LibSc
           val ScalaTransforms = (Pipe[ContainerSymbol]
             >> (
               S.RemoveDuplicateInheritance >>
+                S.CleanupTypeAliases >>
                 S.CleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>
                 S.LimitUnionLength >>
