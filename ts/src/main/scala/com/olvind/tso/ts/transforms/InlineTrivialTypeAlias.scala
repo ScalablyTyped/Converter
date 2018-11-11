@@ -18,14 +18,17 @@ object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
       case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(nextName, _), codePath)
           if cs.cs.exists(_ === constants.MagicComments.TrivialTypeAlias) =>
         scope
-          .lookupIncludeScope(nextName)
+          .lookupTypeIncludeScope(nextName)
           .collectFirst {
             case (next: TsDeclTypeAlias, newScope) if next.codePath =/= codePath => // avoid SOE on invalid code
               followTrivialAliases(newScope)(next).getOrElse(currentAlias.name)
             case (other, _) =>
-              require(currentAlias.name === other.codePath.forceHasPath.codePath)
-              currentAlias.name
+              other.codePath.forceHasPath.codePath
           }
+          .orElse(Some(currentAlias.name))
+
+      case TsDeclTypeAlias(_, _, _, _, _, codePath) =>
+        Some(codePath.forceHasPath.codePath)
       case _ => None
     }
 
@@ -36,7 +39,7 @@ object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
     val simplifiedOpt = x match {
       case ref @ TsTypeRef(target: TsQIdent, tparams) if !TsQIdent.Primitive(target) && !TsQIdent.BuiltIn(target) =>
         val ret: Option[Option[TsTypeRef]] =
-          scope lookupBase (Picker.Types, target) collectFirst {
+          scope lookupTypeIncludeScope target collectFirst {
             case (TsDeclEnum(_, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>
               Some(ref.copy(name = exportedFrom.name))
             case (next: TsDeclTypeAlias, newScope) =>
