@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSImport("aws-sdk/clients/dynamodb", JSImport.Namespace)
 @js.native
 class namespaced () extends DynamoDB {
-  def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.TypesNamespace.ClientConfiguration) = this()
+  def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration) = this()
 }
 

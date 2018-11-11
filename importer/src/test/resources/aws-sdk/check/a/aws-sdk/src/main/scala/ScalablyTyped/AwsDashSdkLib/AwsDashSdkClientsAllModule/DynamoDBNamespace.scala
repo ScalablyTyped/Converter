@@ -24,7 +24,7 @@ object DynamoDBNamespace extends js.Object {
   @js.native
   class Types ()
     extends AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.Types {
-    def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.TypesNamespace.ClientConfiguration) = this()
+    def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration) = this()
   }
   
   val TypesNamespace: this.type = js.native

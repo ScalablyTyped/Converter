@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 @js.native
 class Types ()
   extends AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.Types {
-  def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.TypesNamespace.ClientConfiguration) = this()
+  def this(options: AwsDashSdkLib.AwsDashSdkClientsDynamodbModule.DynamoDBNamespace.ClientConfiguration) = this()
 }
 
