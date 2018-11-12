@@ -18,7 +18,7 @@ object QualifiedName {
   val scala_scalajs: QualifiedName = scala + Name.scalajs
   val scala_js:      QualifiedName = scala_scalajs + Name.js
   val scala_js_ann:  QualifiedName = scala_js + Name("annotation")
-  val Runtime:       QualifiedName = QualifiedName(List(Name.OutputPkg, Name("runtime")))
+  val Runtime:       QualifiedName = QualifiedName(List(Name("ScalablyTyped"), Name("runtime")))
 
   val String:           QualifiedName = java_lang + Name.String
   val JObject:          QualifiedName = java_lang + Name.Object
@@ -42,12 +42,12 @@ object QualifiedName {
   val NumberDictionary: QualifiedName = Runtime + Name("NumberDictionary")
   val StringDictionary: QualifiedName = Runtime + Name("StringDictionary")
   val TopLevel:         QualifiedName = Runtime + Name("TopLevel")
-  val UNION:            QualifiedName = QualifiedName(Name("<union>") :: Nil)
-  val INTERSECTION:     QualifiedName = QualifiedName(Name("<intersection>") :: Nil)
-  val LITERAL:          QualifiedName = QualifiedName(Name("<literal>") :: Nil)
-  val THIS_TYPE:        QualifiedName = QualifiedName(Name("<this>") :: Nil)
-  val IGNORED:          QualifiedName = QualifiedName(Name("<ignored>") :: Nil)
-  val REPEATED:         QualifiedName = QualifiedName(Name("*") :: Nil)
+  val UNION:            QualifiedName = QualifiedName(Name.UNION :: Nil)
+  val INTERSECTION:     QualifiedName = QualifiedName(Name.INTERSECTION :: Nil)
+  val LITERAL:          QualifiedName = QualifiedName(Name.LITERAL :: Nil)
+  val THIS_TYPE:        QualifiedName = QualifiedName(Name.THIS_TYPE :: Nil)
+  val IGNORED:          QualifiedName = QualifiedName(Name.IGNORED :: Nil)
+  val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
 
   def Instantiable(arity:   Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
   def FunctionArity(isThis: Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)

@@ -9,7 +9,7 @@ import ammonite.ops.{root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject}
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts.TsSource.TsLibSource
 import com.olvind.tso.ts._
 import org.scalatest.{Assertion, FunSuiteLike}
@@ -34,7 +34,7 @@ trait ImporterHarness extends FunSuiteLike {
       RecPhase[TsSource]
         .next(new Phase1ReadTypescript(Seq(source), Set.empty, stdLibSource, parser.parseFile), "typescript")
         .next(Phase2ToScalaJs, "scala.js")
-        .next(Phase3CompileBloop(bloop, targetFolder, Name(constants.Project), publishFolder), "build")
+        .next(Phase3CompileBloop(bloop, targetFolder, Name.OutputPkg, publishFolder), "build")
 
     val found: Set[TsLibSource] =
       TypescriptSources.forFolder(InFolder(source.path), Set.empty)
@@ -46,7 +46,7 @@ trait ImporterHarness extends FunSuiteLike {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
       case other =>
-        // The test can be run from varous working directories, so find the correct directory this way :/
+        // The test can be run from various working directories, so find the correct directory this way :/
         InFolder(Path(other.getFile) / up / up / up / up / 'src / 'test / 'resources / testName)
     }
     val source       = InFolder(testFolder.path / 'in)
@@ -75,10 +75,15 @@ trait ImporterHarness extends FunSuiteLike {
 
         Try(%%("diff", "-Naur", checkFolder.folder, targetFolder.folder)) match {
           case Success(_) => if (update) pending else succeed
-          case Failure(th: ShelloutException) =>
-            val diff = %%("diff", "-r", checkFolder.folder, targetFolder.folder).out.string
-            fail(s"Output for test $testFolder was not as expected : $diff", th)
-          case Failure(th) => throw th
+          case Failure(th: ShelloutException) => {
+            import ImplicitWd.implicitCwd
+            rm(checkFolder.folder)
+            cp(targetFolder.folder, checkFolder.folder)
+            %("git", "add", checkFolder.folder)
+          }
+          val diff = %%("diff", "-r", checkFolder.folder, targetFolder.folder).out.string
+          fail(s"Output for test $testFolder was not as expected : $diff", th)
+        case Failure(th) => throw th
         }
 
       case PhaseRes.Failure(errors) =>

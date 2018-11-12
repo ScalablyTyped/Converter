@@ -8,7 +8,6 @@ sealed trait ScalaOutput
 
 object ScalaOutput {
   case object PackageObject extends ScalaOutput
-  case object StaticsObject extends ScalaOutput
 
   final case class File(name: Name) extends ScalaOutput {
     // account for case insensitive file systems
@@ -24,7 +23,6 @@ object ScalaOutput {
     s match {
       case s: PackageSymbol   => Package(s.name)
       case s: ContainerSymbol => File(s.name)
-      case _: MemberSymbol    => StaticsObject
       case _ => PackageObject
     }
 

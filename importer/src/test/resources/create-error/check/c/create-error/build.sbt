@@ -1,11 +1,11 @@
 organization := "com.scalablytyped"
 name := "create-error"
-version := "0.3.1-10d747"
+version := "0.3.1-654842"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.scalablytyped" %%% "std" % "0.0-unknown-befe5d",
+  "com.scalablytyped" %%% "std" % "0.0-unknown-d2ff50",
   "org.scala-js" %%% "scalajs-dom" % "0.9.5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"

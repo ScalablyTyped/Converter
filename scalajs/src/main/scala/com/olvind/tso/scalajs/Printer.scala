@@ -94,9 +94,6 @@ object Printer {
           members foreach printSymbol(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 2)
           writer.println("}")
         }
-
-      case (ScalaOutput.StaticsObject, _) =>
-        sys.error("This codepath should no longer be reached, still missing some refactoring")
     }
   }
   private final case class Indenter(a: Appendable) {
@@ -313,9 +310,8 @@ object Printer {
   def formatTypeRef(prefix: List[Name], indent: Int)(t1: TypeRef): String = {
     val ret: String =
       t1 match {
-        case TypeRef.ThisType(_)       => "this.type"
-        case TypeRef.Ignored           => "_"
-        case TypeRef(typeName, Nil, _) => formatQN(prefix, typeName)
+        case TypeRef.ThisType(_) => "this.type"
+        case TypeRef.Ignored     => "_"
 
         case TypeRef.Intersection(types) =>
           types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " with "
@@ -330,10 +326,15 @@ object Printer {
           paramsIfNeeded(formatTypeRef(prefix, indent)(underlying)) |+| "*"
 
         case TypeRef(typeName, targs, _) =>
-          val targStrs    = targs map formatTypeRef(prefix, indent + 2)
-          val targsLength = targStrs.foldLeft(0)(_ + _.length)
-          val sep         = if (targsLength > 80) "\n" + (" " * indent) else ""
-          val targsStr    = targStrs.mkString(s"[$sep", s", $sep", s"${sep.dropRight(2)}]")
+          val targsStr = targs match {
+            case Nil => ""
+            case nonEmpty =>
+              val targStrs    = nonEmpty map formatTypeRef(prefix, indent + 2)
+              val targsLength = targStrs.foldLeft(0)(_ + _.length)
+              val sep         = if (targsLength > 80) "\n" + (" " * indent) else ""
+              targStrs.mkString(s"[$sep", s", $sep", s"${sep.dropRight(2)}]")
+          }
+
           formatQN(prefix, typeName) |+| targsStr
       }
 

@@ -14,7 +14,10 @@ package transforms
   */
 object InlineNestedIdentityAlias extends SymbolVisitor {
   override def enterTypeRef(scope: SymbolScope)(ref: TypeRef): TypeRef =
-    simplify(scope, ref) getOrElse ref
+    ref match {
+      case TypeRef(_, Seq(TypeRef(QualifiedName(Seq(tp)), Nil, _)), _) if scope.tparams.contains(tp) => ref
+      case _                                                                                         => simplify(scope, ref) getOrElse ref
+    }
 
   def isIdentityFor(body: Name)(tr: TypeRef): Boolean =
     tr match {

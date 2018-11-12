@@ -17,11 +17,11 @@ object ImportEnum {
       }
       .getOrElse(TypeRef.String)
 
-  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation]): Seq[Symbol] = {
+  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation], scope: TreeScope): Seq[Symbol] = {
     val TsDeclEnum(cs, _, ImportName(name), members, isValue, exportedFrom, _, codePath) = e
 
     val baseInterface: TypeRef =
-      TypeRef(ImportName(exportedFrom.fold(codePath.forceHasPath.codePath)(_.name)))
+      ImportType(Wildcards.No, scope)(TsTypeRef(exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Nil))
 
     val underlying = underlyingType(e)
 
@@ -31,7 +31,7 @@ object ImportEnum {
           scalajs.TypeAliasSymbol(
             name     = name,
             tparams  = Nil,
-            alias    = TypeRef(ImportName(ef.name)),
+            alias    = ImportType(Wildcards.No, scope)(TsTypeRef(ef.name, Nil)),
             comments = NoComments
           )
         case None =>

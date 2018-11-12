@@ -13,6 +13,7 @@ final class SuchTestMuchFail extends FunSuite {
   mkdir(cacheFolder)
   val dtFolder: InFolder =
     UpToDateDefinitelyTyped(
+      offline = false,
       cacheFolder,
       new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
     )

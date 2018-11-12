@@ -1,4 +1,5 @@
-package com.olvind.tso.importer
+package com.olvind.tso
+package importer
 
 import com.olvind.tso.scalajs.{Name, QualifiedName}
 import com.olvind.tso.ts._
@@ -10,28 +11,39 @@ object ImportName {
   def unapply(x: TsIdent): Option[Name] =
     Some(apply(x))
 
-  def rewrite(value: String, suffix: String, capitalize: Boolean): String =
+  def rewrite(value: String, suffix: String): String =
     value
       .flatMap {
-        case '\\'  => "Backslash_"
-        case '.'   => "Dot_"
-        case '@'   => "At_"
-        case '_'   => "Underscore_"
-        case '-'   => "Dash_"
+        case '\\'  => "#backslash#" //be safe
+        case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
+        case '@'   => "#at#"
+        case '_'   => "#underscore#" // will be erased otherwise
+        case '-'   => "#dash#" //causes `` in scala code
         case other => other.toString
       }
-      .split("[/_]")
+      .split("[#/]")
       .filterNot(_.isEmpty)
-      .map(x => if (capitalize) x.capitalize else x)
+      .zipWithIndex
+      .map {
+        case (x, 0) => x
+        case (x, _) => x.capitalize
+      }
       .mkString("", "", suffix)
 
   def apply(i: TsIdent): Name =
     i match {
-      case TsIdent.Apply        => Name.APPLY
-      case TsIdentSimple(value) => Name(value)
-      case x: TsIdentLibrary => Name(rewrite(x.value, "Lib", capitalize    = true))
-      case x: TsIdentModule  => Name(rewrite(x.value, "Module", capitalize = true))
-      case TsIdentNamespace(value) => Name(rewrite(value, "Namespace", capitalize = false))
+      case TsIdent.Apply           => Name.APPLY
+      case TsIdentSimple(value)    => Name(value)
+      case TsIdentNamespace(value) => Name(rewrite(value, "Ns"))
+      case x: TsIdentLibrary =>
+        Name(rewrite(x.value, "Lib"))
+      case x: TsIdentModule =>
+        def maybeDropFirst(ts: List[String]): List[String] =
+          ts match {
+            case one :: (tail @ (two :: _)) if one =/= two => tail
+            case other                                     => other
+          }
+        Name(rewrite(maybeDropFirst(x.fragments).mkString("#"), "Mod"))
     }
 
   def apply(ident: TsQIdent): QualifiedName =

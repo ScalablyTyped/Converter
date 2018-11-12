@@ -6,7 +6,7 @@ import java.time.ZoneId
 import scala.io.Codec
 
 /**
-  * Todo: this is mostly config, and it's only lazyness that it's all here static
+  * Todo: this is mostly config, and it's only laziness that it's all here static
   */
 object constants {
   val ScalablyTypedRepo       = "git@github.com:oyvindberg/ScalablyTyped.git"
@@ -15,8 +15,7 @@ object constants {
   val Pedantic                = false
   val organization            = "com.scalablytyped"
   val Project                 = "ScalablyTyped"
-  val offline                 = false
-  val freshRepo               = false
+  val ProjectShort            = "typings"
 
   val TimeZone = ZoneId.of("GMT")
   val Utf8     = Codec.UTF8.charSet
