@@ -14,7 +14,7 @@ import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
 import com.olvind.tso.importer.build.{BinTrayPublisher, BloopCompiler, GenerateSbtPlugin, PublishedSbtProject}
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts.TsSource.StdLibSource
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
@@ -23,21 +23,42 @@ import scala.collection.parallel.ForkJoinTaskSupport
 import scala.concurrent.ExecutionContext
 import scala.util.Try
 
+case class Flags(publish: Boolean, offline: Boolean, cleanRepo: Boolean, wantedLibNames: Array[String]) {
+  def debugMode: Boolean = wantedLibNames.nonEmpty
+}
+
+object Flags {
+  def unapply(args: Array[String]): Some[Flags] =
+    args.partition(_.startsWith("-")) match {
+      case (flags, rest) =>
+        Some(
+          Flags(
+            publish        = flags.contains("-publish"),
+            offline        = flags.contains("-offline"),
+            cleanRepo      = flags.contains("-cleanRepo"),
+            wantedLibNames = rest
+          )
+        )
+    }
+}
+
 object Main extends App {
-  val (flags, wantedLibNames) = args.partition(_.startsWith("-"))
-  val debugMode               = wantedLibNames.nonEmpty
-  val cacheFolder             = home / 'tmp / "tso-cache"
-  val targetFolder            = cacheFolder / Name.OutputPkg.value
-  val failFolder              = targetFolder / 'failures
-  val logsFolder              = cacheFolder / 'logs
+  val Flags(flags) = args
+  println(flags)
+  val cacheFolder  = home / 'tmp / "tso-cache"
+  val targetFolder = cacheFolder / constants.Project
+  val failFolder   = targetFolder / 'failures
+  val logsFolder   = cacheFolder / 'logs
 
-  mkdir(targetFolder)
-  rm(failFolder)
-  mkdir(failFolder)
-  mkdir(logsFolder)
+  (exists(targetFolder / ".git"), flags.cleanRepo) match {
+    case (existed, true) =>
+      if (existed) {
+        rm(targetFolder)
+        assert(!exists(targetFolder))
+      }
 
-  if (!exists(targetFolder / ".git")) {
-    if (constants.freshRepo) {
+      mkdir(targetFolder)
+
       implicit val wd = targetFolder
       % git 'init
       val gitIgnore = wd / ".gitignore"
@@ -45,31 +66,34 @@ object Main extends App {
         pw.println("target/")
         pw.println(".idea/")
       }
-      %%('git, 'add, gitIgnore)
+      %% git ('add, gitIgnore)
       %% git ('remote, 'add, 'origin, constants.ScalablyTypedRepo)
-      %% git ('branch, 'add, "--set-upstream-to=origin/master")
-
-    } else {
+//      %% git ('branch, "--set-upstream-to=origin/master")
+    case (true, false) =>
+      implicit val wd = targetFolder
+      if (!flags.offline) {
+        % git 'fetch
+      }
+      % git ("clean", "-fdX") // remove ignored files/folders
+      % git ("clean", "-fd")
+      % git ('reset, "--hard", "origin/master")
+      % rm ("-f", ".git/gc.log")
+      % git 'prune
+    case (false, false) =>
       implicit val wd = cacheFolder
       % git ('clone, constants.ScalablyTypedRepo)
-    }
-  } else {
-    implicit val wd = targetFolder
-    if (!constants.offline) {
-      % git 'fetch
-    }
-    % git ("clean", "-fd")
-    % git ('reset, "--hard", "origin/master")
-    % rm ("-f", ".git/gc.log")
-    % git 'prune
   }
+
+  rm(failFolder)
+  mkdir(failFolder)
 
   val storingErrorLogger = logging.storing()
 
   val logger = {
+    mkdir(logsFolder)
     val logFile = new FileWriter((logsFolder / s"${Instant.now()}.log").toIO)
     val base    = logging.appendable(logFile).zipWith(storingErrorLogger.filter(LogLevel.error))
-    if (debugMode) base.zipWith(logging.stdout) else base
+    if (flags.debugMode) base.zipWith(logging.stdout) else base
   }
 
   val logRegistry = new LogRegistry[TsSource, TsIdentLibrary, Array[Stored]](
@@ -79,7 +103,7 @@ object Main extends App {
   )
 
   val dtFolder: InFolder =
-    UpToDateDefinitelyTyped(cacheFolder, constants.DefinitelyTypedRepo)
+    UpToDateDefinitelyTyped(flags.offline, cacheFolder, constants.DefinitelyTypedRepo)
 
   val external: NotNeededPackages =
     Json[NotNeededPackages](dtFolder.path / up / "notNeededPackages.json")
@@ -104,7 +128,7 @@ object Main extends App {
     )
 
   val tsSources: Set[TsSource] =
-    (TypescriptSources(externalsFolder, dtFolder, constants.ignored), wantedLibNames.to[List]) match {
+    (TypescriptSources(externalsFolder, dtFolder, constants.ignored), flags.wantedLibNames.to[List]) match {
       case (sources, Nil) => sources
       case (sources, wantedLibsStrings) =>
         val wantedLibNames: Set[TsIdentLibrary] =
@@ -116,7 +140,7 @@ object Main extends App {
   val bloop = BloopCompiler(logger.filter(LogLevel.debug).void)
 
   val bintray: Option[BinTrayPublisher] =
-    if (flags.contains("-publish")) {
+    if (flags.publish) {
       val values: Map[String, String] =
         files
           .content(InFile(home / ".bintray" / ".credentials"))
@@ -137,7 +161,7 @@ object Main extends App {
       .next(Phase3CompileBloop(bloop, OutFolder(targetFolder), Name.OutputPkg, home / ".ivy2" / "local"), "build")
       .nextOpt(bintray.map(Phase4Publish), "publish")
 
-  val interface = new Interface(debugMode, storingErrorLogger)
+  val interface = new Interface(flags.debugMode, storingErrorLogger)
   interface.start()
 
   /* todo: parallel collections suck, but are super easy to use. We'll settle with that for now */
@@ -184,8 +208,8 @@ object Main extends App {
     results.collect { case PhaseRes.Ok(res) => go(res) }.flatten
   }
 
-  if (debugMode) {
-    logger error s"Not committing because of non-empty args ${wantedLibNames.mkString(", ")}"
+  if (flags.debugMode) {
+    logger error s"Not committing because of non-empty args ${flags.wantedLibNames.mkString(", ")}"
   } else {
     logger error "Generating sbt plugin..."
 

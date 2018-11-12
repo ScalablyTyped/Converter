@@ -195,7 +195,7 @@ object ImportTree {
           )
 
       case e: TsDeclEnum =>
-        ImportEnum(e, ImportJsLocation(e.jsLocation, isWithinScalaModule))
+        ImportEnum(e, ImportJsLocation(e.jsLocation, isWithinScalaModule), scope)
 
       case TsDeclClass(cs, _, isAbstract, ImportName(name), tparams, parent, implements, members, location, _) =>
         val MemberRet(ctors, ms, extraInheritance, statics) =

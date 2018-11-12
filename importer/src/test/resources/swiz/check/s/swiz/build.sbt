@@ -1,11 +1,11 @@
 organization := "com.scalablytyped"
 name := "swiz"
-version := "0.0-unknown-f320bc"
+version := "0.0-unknown-e46789"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.scalablytyped" %%% "std" % "0.0-unknown-cf75bc",
+  "com.scalablytyped" %%% "std" % "0.0-unknown-f00535",
   "org.scala-js" %%% "scalajs-dom" % "0.9.5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
