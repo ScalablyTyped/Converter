@@ -1,5 +1,5 @@
 package typings
-package fullcalendarLib.MixinMod
+package fullcalendarLib.mixinMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

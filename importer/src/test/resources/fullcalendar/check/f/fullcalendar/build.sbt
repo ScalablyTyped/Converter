@@ -1,6 +1,6 @@
 organization := "com.scalablytyped"
 name := "fullcalendar"
-version := "0.0-unknown-1f13b3"
+version := "0.0-unknown-731655"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

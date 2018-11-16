@@ -11,7 +11,7 @@ object ImportName {
   def unapply(x: TsIdent): Option[Name] =
     Some(apply(x))
 
-  def rewrite(value: String, suffix: String): String =
+  def rewrite(value: String, suffix: String, forceCamelCase: Boolean): String =
     value
       .flatMap {
         case '\\'  => "#backslash#" //be safe
@@ -25,7 +25,7 @@ object ImportName {
       .filterNot(_.isEmpty)
       .zipWithIndex
       .map {
-        case (x, 0) => x
+        case (x, 0) => if (forceCamelCase && x.head.isUpper) x.toLowerCase else x
         case (x, _) => x.capitalize
       }
       .mkString("", "", suffix)
@@ -34,16 +34,16 @@ object ImportName {
     i match {
       case TsIdent.Apply           => Name.APPLY
       case TsIdentSimple(value)    => Name(value)
-      case TsIdentNamespace(value) => Name(rewrite(value, "Ns"))
+      case TsIdentNamespace(value) => Name(rewrite(value, "Ns", forceCamelCase = false))
       case x: TsIdentLibrary =>
-        Name(rewrite(x.value, "Lib"))
+        Name(rewrite(x.value, "Lib", forceCamelCase = true))
       case x: TsIdentModule =>
         def maybeDropFirst(ts: List[String]): List[String] =
           ts match {
             case one :: (tail @ (two :: _)) if one =/= two => tail
             case other                                     => other
           }
-        Name(rewrite(maybeDropFirst(x.fragments).mkString("#"), "Mod"))
+        Name(rewrite(maybeDropFirst(x.fragments).mkString("#"), "Mod", forceCamelCase = true))
     }
 
   def apply(ident: TsQIdent): QualifiedName =
