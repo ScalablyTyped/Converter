@@ -87,8 +87,8 @@ class BinTrayPublisher(user: String, password: String, repoName: String)(implici
       }
 
     for {
-      pkg <- ensurePackage(p.name, p.name, constants.ScalablyTypedRepoPublic, Seq("MIT"), Nil)
-      ev <- checkVersion(pkg, p.version)
+      pkg <- retry(2)(ensurePackage(p.name, p.name, constants.ScalablyTypedRepoPublic, Seq("MIT"), Nil))
+      ev <- retry(2)(checkVersion(pkg, p.version))
       published <- uploadIfNotExisting(pkg, ev)
     } yield published
   }
