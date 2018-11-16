@@ -3,26 +3,37 @@ package importer
 package build
 
 import ammonite.ops._
-import com.olvind.tso.importer.build.versions.{`version%`, sbtVersion}
 import com.olvind.tso.scalajs.{Name, ObjectMembers, ScalaNameEscape}
+import com.olvind.tso.stringUtils.quote
 
 object GenerateSbtPlugin {
-  def apply(projectDir: Path, projects: Set[PublishedSbtProject], pluginVersion: String, action: String) = {
-    files.sync(contents(projects, pluginVersion), projectDir)
+  def apply(versions:      Versions,
+            organization:  String,
+            projectName:   String,
+            projectDir:    Path,
+            projects:      Set[PublishedSbtProject],
+            pluginVersion: String,
+            action:        String) = {
+    files.sync(contents(versions, organization, projectName, projects, pluginVersion), projectDir)
     implicit val wd = projectDir
     % sbt action
   }
 
-  def contents(projects: Set[PublishedSbtProject], pluginVersion: String): Map[RelPath, Array[Byte]] = {
+  def contents(v:             Versions,
+               organization:  String,
+               projectName:   String,
+               projects:      Set[PublishedSbtProject],
+               pluginVersion: String): Map[RelPath, Array[Byte]] = {
 
-    val buildSbt = s"""name := "sbt-${constants.Project}"
-      |organization := ${stringUtils.quote(constants.organization)}
-      |version := ${stringUtils.quote(pluginVersion)}
+    val buildSbt = s"""name := "sbt-$projectName"
+      |organization := ${quote(organization)}
+      |version := ${quote(pluginVersion)}
       |sbtPlugin := true
-      |scalaVersion := ${stringUtils.quote(versions.scalaVersion)}
-      |bintrayRepository := ${stringUtils.quote(constants.Project)}
+      |scalaVersion := ${quote(v.scalaVersion)}
+      |bintrayRepository := ${quote(projectName)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |publishMavenStyle := true
+      |crossSbtVersions := Vector("0.13.16", ${quote(v.sbtVersion)})
       |""".stripMargin
 
     /* we have at least a `clone` and a `notify` library - of course */
@@ -46,7 +57,7 @@ object GenerateSbtPlugin {
                  .sortBy(_.name)
                  .map(
                    p =>
-                     s"|        val ${ScalaNameEscape(fix(p.name))} = ${`version%`(p.organization, p.artifactId, p.version)}"
+                     s"|        val ${ScalaNameEscape(fix(p.name))} = ${v.%(p.organization, p.artifactId, p.version)}"
                  )
                  .mkString("", "\n", "")}
         |      }""".stripMargin
@@ -54,17 +65,17 @@ object GenerateSbtPlugin {
         .mkString("\n")
 
     val pluginSource = s"""
-      |package ${constants.organization}.sbt
+      |package $organization.sbt
       |
       |import sbt._
       |import sbt.Keys._
       |
-      |object ${constants.Project}Plugin extends AutoPlugin {
+      |object ${projectName}Plugin extends AutoPlugin {
       |  override def trigger = allRequirements
       |  override def requires = sbt.plugins.JvmPlugin
       |
       |  object autoImport {
-      |    object ${constants.Project} {
+      |    object $projectName {
       |$projectsByLetter
       |    }
       |  }
@@ -74,8 +85,8 @@ object GenerateSbtPlugin {
 
     Map(
       RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${versions.sbtBintray})""".getBytes(constants.Utf8),
-      RelPath("project") / "build.properties" -> s"sbt.version=$sbtVersion".getBytes(constants.Utf8),
+      RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${v.sbtBintray})""".getBytes(constants.Utf8),
+      RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
       pluginSourcePath -> pluginSource.getBytes(constants.Utf8)
     )
   }

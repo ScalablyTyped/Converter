@@ -14,7 +14,7 @@ object ImportTree {
       case (_, depLib) => depLib.name -> depLib.parsed
     }
 
-    val scope = TreeScope(lib.name, deps, logger) / lib.parsed
+    val scope = TreeScope(lib.name, pedantic = true, deps, logger) / lib.parsed
 
     val ret = ContainerSymbol.container(
       isWithinScalaModule = false,
@@ -269,7 +269,7 @@ object ImportTree {
       case _: TsImport            => Nil
 
       case other =>
-        scope.logger.fatalMaybe(s"Unexpected: $other", constants.Pedantic)
+        scope.fatalMaybe(s"Unexpected: $other")
         Nil
     }
   }

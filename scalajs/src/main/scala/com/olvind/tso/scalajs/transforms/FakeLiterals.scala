@@ -17,7 +17,7 @@ object FakeLiterals {
     @deprecated("find a... less ad hoc approach here", "")
     def nameFor(underlying: String): Name = {
       val base =
-        stringUtils.unquote(underlying).flatMap {
+        stringUtils unquote underlying flatMap {
           case '.'   => "DOT"
           case '`'   => "BACKTICK"
           case '\\'  => "BACKSLASH"
@@ -32,6 +32,7 @@ object FakeLiterals {
         case "js"      => "JS"
         case other     => other
       }
+
       Name(str)
     }
 

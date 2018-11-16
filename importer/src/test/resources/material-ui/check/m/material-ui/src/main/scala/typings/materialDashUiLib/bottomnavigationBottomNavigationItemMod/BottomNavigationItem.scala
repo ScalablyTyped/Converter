@@ -1,5 +1,5 @@
 package typings
-package materialDashUiLib.BottomNavigationBottomNavigationItemMod
+package materialDashUiLib.bottomnavigationBottomNavigationItemMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

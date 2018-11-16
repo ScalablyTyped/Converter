@@ -20,8 +20,16 @@ object Phase3CompileBloop {
     name.unescaped.replaceAll("\\.", "_dot_")
 }
 
-case class Phase3CompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mainPackageName: Name, publishFolder: Path)
+class Phase3CompileBloop(versions:        Versions,
+                         bloopFactory:    BloopFactory,
+                         targetFolder:    Path,
+                         mainPackageName: Name,
+                         projectName:     String,
+                         organization:    String,
+                         publishFolder:   Path)
     extends Phase[TsSource, LibScalaJs[TsSource], PublishedSbtProject] {
+
+  private val bloop = bloopFactory.forVersion(versions)
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
     case (path, value) if path.segments.last.endsWith(".scala") || path.segments.last.endsWith(".sbt") =>
@@ -40,18 +48,20 @@ case class Phase3CompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mai
       val name       = Phase3CompileBloop.fromName(lib.libName)
       val scalaFiles = Printer(lib, mainPackageName)
       val sbtLayout = ContentSbtProject(
+        v            = versions,
         comments     = lib.packageSymbol.comments,
-        organization = constants.organization,
+        organization = organization,
         name         = name,
         version      = VersionHack.TemplateValue,
         deps         = deps.values.to[Seq],
-        scalaFiles   = scalaFiles
+        scalaFiles   = scalaFiles,
+        projectName  = projectName
       )
       val finalVersion          = lib.libVersion.version(Digest.of(sbtLayout.all collect ScalaFiles))
       val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
-      val compilerPaths         = CompilerPaths.of(targetFolder, name)
+      val compilerPaths         = CompilerPaths.of(versions, targetFolder, name)
       val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir)
-      val sbtProject            = SbtProject(name, constants.organization, versions.sjs(name), finalVersion)(written, deps)
+      val sbtProject            = SbtProject(name, organization, versions.sjs(name), finalVersion)(written, deps)
 
       val existing: IvyLayout[Path, Synced] =
         IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
@@ -80,7 +90,7 @@ case class Phase3CompileBloop(bloop: BloopCompiler, targetFolder: OutFolder, mai
               logger warn s"Built ${sbtProject.name} in $elapsed ms"
 
               val relativeLayout: IvyLayout[RelPath, Array[Byte]] =
-                build.ContentForPublish(compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
+                build.ContentForPublish(versions, compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
 
               val writtenIvyFiles: IvyLayout[Path, Synced] =
                 relativeLayout

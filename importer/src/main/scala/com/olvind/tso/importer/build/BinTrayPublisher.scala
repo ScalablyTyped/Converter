@@ -10,7 +10,9 @@ import dispatch.{FunctionHandler, Http}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BinTrayPublisher(user: String, password: String, repoName: String)(implicit ec: ExecutionContext) {
+class BinTrayPublisher(repoPublic: String, user: String, password: String, repoName: String)(
+    implicit ec:                   ExecutionContext
+) {
   private lazy val http   = new Http()
   private lazy val client = Client(user, password, http)
   private lazy val repo   = client.repo(user, repoName)
@@ -87,8 +89,8 @@ class BinTrayPublisher(user: String, password: String, repoName: String)(implici
       }
 
     for {
-      pkg <- ensurePackage(p.name, p.name, constants.ScalablyTypedRepoPublic, Seq("MIT"), Nil)
-      ev <- checkVersion(pkg, p.version)
+      pkg <- retry(2)(ensurePackage(p.name, p.name, repoPublic, Seq("MIT"), Nil))
+      ev <- retry(2)(checkVersion(pkg, p.version))
       published <- uploadIfNotExisting(pkg, ev)
     } yield published
   }

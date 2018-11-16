@@ -54,7 +54,10 @@ val runtime = project
   .settings(
     publicationSettings,
     libraryDependencies += Deps.scalaJsDom.value,
-    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
+    scalacOptions ++= {
+      if (scalaJSVersion.startsWith("0.6.")) Seq("-P:scalajs:sjsDefinedByDefault")
+      else Nil
+    },
     version := "1.0.0-M1",
     licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   )

@@ -30,8 +30,6 @@ final case class InFolder(path: Path) {
   def name: String = path.last
 }
 
-final case class OutFolder(folder: Path)
-
 trait Layout[F, V] {
   def all: Map[F, V]
 }

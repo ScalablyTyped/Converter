@@ -7,11 +7,12 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.TreeScope.LoopDetector
 import com.olvind.tso.ts.modules._
-import com.olvind.tso.ts.{transforms => TS, _}
+import com.olvind.tso.ts.{transforms => T, _}
 
 class Phase1ReadTypescript(sources:      Seq[InFolder],
                            ignored:      Set[String],
                            stdlibSource: TsSource,
+                           pedantic:     Boolean,
                            parser:       InFile => Either[String, TsParsedFile])
     extends Phase[TsSource, TsSource, Either[LibraryPart, LibTs]] {
 
@@ -118,18 +119,14 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
           val declaredDependencies: Set[TsSource] =
             packageJsonOpt
               .to[Set]
-              .flatMap(
-                x =>
-                  x.dependencies.fold[scala.Iterable[String]](Nil)(_.keys) ++
-                    x.peerDependencies.fold[scala.Iterable[String]](Nil)(_.keys)
-              )
+              .flatMap(x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil))
               .flatMap(
                 depName =>
                   libraryResolver(sources, source, depName) match {
-                    case Some((x, _)) => Seq(x)
+                    case Some((x, _)) => Some(x)
                     case None =>
-                      logger.fatalMaybe(s"Could not resolve declared dependency $depName", constants.Pedantic)
-                      Nil
+                      logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
+                      None
                 }
               )
 
@@ -138,9 +135,8 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
 
           getDeps(fileSources ++ declaredDependencies ++ stdlibSourceOpt) map {
             case Unpack(libParts: Map[TsSource.HelperFile, FileAndRefs], deps: Map[TsSource, LibTs]) =>
-              val libName = source.libName
               val scope: TreeScope.Root =
-                TreeScope(libName, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
+                TreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
               val preprocessed: Seq[TsParsedFile] =
                 libParts.to[Seq].sortBy(_._1.file.path) map {
@@ -148,44 +144,43 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                     logger.info(s"Preprocessing $thisSource")
                     val _1 = InferredDefaultModule(file.file, thisSource.moduleName, logger)
                     val _2 = FlattenTrees(_1 +: file.pathRefFiles)
-                    TS.SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty))(_2)
+                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
-              val ProcessAll = (Pipe[TsParsedFile]
-                >> TS.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty))
-                >> (
-                  TS.SimplifyParents >>
-                    TS.NormalizeFunctions // run before FlattenTrees
-                ).visitTsParsedFile(scope)
-                >> TS.QualifyReferences.visitTsParsedFile(scope.caching)
-                >> AugmentModules(scope)
-                >> TS.ResolveTypeQueries.visitTsParsedFile(scope)
-                >> new ReplaceExports(new LoopDetector()).visitTsParsedFile(scope.caching)
-                >> (f => FlattenTrees(f :: Nil))
-                >> (
-                  TS.SimplifyTypes >> //before ExpandCallables
-                    TS.PreferTypeAlias >>
-                    TS.ExpandCallables >>
-                    TS.ExpandKeyOfTypeParams >>
-                    TS.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
-                    TS.UnionTypesFromKeyOf >>
-                    TS.DropPrototypes >>
-                    TS.InferReturnTypes >>
-                    TS.RewriteTypeThis //
-                ).visitTsParsedFile(scope.caching)
-                >> TS.DefaultedTParams.visitTsParsedFile(scope) //after SimplifyTypes
-                >> (
-                  TS.InlineTrivialTypeAlias >> //after DefaultedTParams
-                    TS.SplitMethodsOnUnionTypes
-                    >> TS.RemoveDifficultInheritance //after DefaultedTParams
-                ).visitTsParsedFile(scope)
-                >> TS.SplitMethodsOnOptionalParams.visitTsParsedFile(scope)
-                >> TS.ExtractInterfaces(libName, scope) //
+              val ProcessAll = List[TsParsedFile => TsParsedFile](
+                T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
+                (
+                  T.SimplifyParents >>
+                    T.NormalizeFunctions // run before FlattenTrees
+                ).visitTsParsedFile(scope),
+                T.QualifyReferences.visitTsParsedFile(scope.caching),
+                AugmentModules(scope),
+                T.ResolveTypeQueries.visitTsParsedFile(scope),
+                new ReplaceExports(new LoopDetector()).visitTsParsedFile(scope.caching),
+                f => FlattenTrees(f :: Nil),
+                (
+                  T.SimplifyTypes >> //before ExpandCallables
+                    T.PreferTypeAlias >>
+                    T.ExpandCallables >>
+                    T.ExpandKeyOfTypeParams >>
+                    T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
+                    T.UnionTypesFromKeyOf >>
+                    T.DropPrototypes >>
+                    T.InferReturnTypes >>
+                    T.RewriteTypeThis //
+                ).visitTsParsedFile(scope.caching),
+                T.DefaultedTParams.visitTsParsedFile(scope), //after SimplifyTypes
+                (
+                  T.InlineTrivialTypeAlias >> //after DefaultedTParams
+                    T.SplitMethodsOnUnionTypes >>
+                    T.RemoveDifficultInheritance //after DefaultedTParams
+                ).visitTsParsedFile(scope),
+                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope),
+                T.ExtractInterfaces(source.libName, scope) //
               )
 
-              logger.warn(s"Processing $libName")
-              val finished = ProcessAll run FlattenTrees(preprocessed)
-              logger.info(s"Processed $libName")
+              logger.warn(s"Processing ${source.libName}")
+              val finished = ProcessAll.foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
               val version = CalculateLibraryVersion(
                 source.folder,
@@ -194,7 +189,7 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                 finished.comments
               )
 
-              Right(LibTs(libName, source, version, tsConfig, finished, deps))
+              Right(LibTs(source.libName, source, version, tsConfig, finished, deps))
           }
         }
     }

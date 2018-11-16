@@ -33,7 +33,9 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
   """).force
 
     val rewritten =
-      ExpandKeyOfTypeParams.visitTsParsedFile(TreeScope(TsIdent.dummy, Map.empty, logging.stdout))(original)
+      ExpandKeyOfTypeParams.visitTsParsedFile(TreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout))(
+        original
+      )
 
     val NodeSelectorActual = rewritten.members.collectFirst {
       case x: TsDeclInterface if x.name === TsIdentSimple("NodeSelector") => x

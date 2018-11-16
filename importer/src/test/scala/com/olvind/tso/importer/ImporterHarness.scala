@@ -7,7 +7,7 @@ import java.nio.file.Files
 
 import ammonite.ops.{root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
-import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject}
+import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Versions}
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts.TsSource.TsLibSource
@@ -17,13 +17,17 @@ import org.scalatest.{Assertion, FunSuiteLike}
 import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
-  private val testLogger = logging.stdout.filter(LogLevel.error)
-  private val bloop      = BloopCompiler(testLogger)
+  private val testLogger   = logging.stdout.filter(LogLevel.error)
+  private val version      = Versions.`scala 2.12 with scala.js 0.6.25`
+  private val bloopFactory = new BloopFactory(testLogger)
+
+  val OutputPkg:  Name                    = Name("typings")
   val NoListener: PhaseListener[TsSource] = (_, _, _) => ()
 
   private def runImport(
       source:        InFolder,
-      targetFolder:  OutFolder,
+      targetFolder:  Path,
+      pedantic:      Boolean,
       logRegistry:   LogRegistry[TsSource, TsIdentLibrary, StringWriter],
       publishFolder: Path
   ): PhaseRes[TsSource, Map[TsSource, PublishedSbtProject]] = {
@@ -32,9 +36,20 @@ trait ImporterHarness extends FunSuiteLike {
 
     val phase: RecPhase[TsSource, PublishedSbtProject] =
       RecPhase[TsSource]
-        .next(new Phase1ReadTypescript(Seq(source), Set.empty, stdLibSource, parser.parseFile), "typescript")
-        .next(Phase2ToScalaJs, "scala.js")
-        .next(Phase3CompileBloop(bloop, targetFolder, Name.OutputPkg, publishFolder), "build")
+        .next(new Phase1ReadTypescript(Seq(source), Set.empty, stdLibSource, pedantic, parser.parseFile), "typescript")
+        .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
+        .next(
+          new Phase3CompileBloop(
+            versions        = version,
+            bloopFactory    = bloopFactory,
+            targetFolder    = targetFolder,
+            mainPackageName = OutputPkg,
+            projectName     = "ScalablyTyped",
+            organization    = "com.scalablytyped",
+            publishFolder   = publishFolder
+          ),
+          "build"
+        )
 
     val found: Set[TsLibSource] =
       TypescriptSources.forFolder(InFolder(source.path), Set.empty)
@@ -42,7 +57,7 @@ trait ImporterHarness extends FunSuiteLike {
     PhaseRes.sequenceMap(found.map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)).toMap)
   }
 
-  def assertImportsOk(testName: String, update: Boolean): Assertion = {
+  def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
       case other =>
@@ -50,8 +65,8 @@ trait ImporterHarness extends FunSuiteLike {
         InFolder(Path(other.getFile) / up / up / up / up / 'src / 'test / 'resources / testName)
     }
     val source       = InFolder(testFolder.path / 'in)
-    val targetFolder = OutFolder(Path(Files.createTempDirectory("tso-test-")))
-    val checkFolder  = OutFolder(testFolder.path / 'check)
+    val targetFolder = Path(Files.createTempDirectory("tso-test-"))
+    val checkFolder  = testFolder.path / 'check
 
     val logRegistry =
       new LogRegistry[TsSource, TsIdentLibrary, StringWriter](
@@ -62,26 +77,26 @@ trait ImporterHarness extends FunSuiteLike {
 
     val publishFolder = root / 'tmp / "tso-published-tests" / testName
 
-    runImport(source, targetFolder, logRegistry, publishFolder) match {
+    runImport(source, targetFolder, pedantic, logRegistry, publishFolder) match {
       case PhaseRes.Ok(_) =>
         import ammonite.ops._
         import ImplicitWd.implicitCwd
 
         if (update) {
-          rm(checkFolder.folder)
-          cp(targetFolder.folder, checkFolder.folder)
-          %("git", "add", checkFolder.folder)
+          rm(checkFolder)
+          cp(targetFolder, checkFolder)
+          %("git", "add", checkFolder)
         }
 
-        Try(%%("diff", "-Naur", checkFolder.folder, targetFolder.folder)) match {
+        Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
           case Success(_) => if (update) pending else succeed
           case Failure(th: ShelloutException) => {
             import ImplicitWd.implicitCwd
-            rm(checkFolder.folder)
-            cp(targetFolder.folder, checkFolder.folder)
-            %("git", "add", checkFolder.folder)
+            rm(checkFolder)
+            cp(targetFolder, checkFolder)
+            %("git", "add", checkFolder)
           }
-          val diff = %%("diff", "-r", checkFolder.folder, targetFolder.folder).out.string
+          val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
           fail(s"Output for test $testFolder was not as expected : $diff", th)
         case Failure(th) => throw th
         }
@@ -91,9 +106,9 @@ trait ImporterHarness extends FunSuiteLike {
           import ammonite.ops._
           import ImplicitWd.implicitCwd
 
-          rm(checkFolder.folder)
-          cp(targetFolder.folder, checkFolder.folder)
-          %("git", "add", checkFolder.folder)
+          rm(checkFolder)
+          cp(targetFolder, checkFolder)
+          %("git", "add", checkFolder)
         }
         errors foreach {
           case (fromSource, detail) =>
