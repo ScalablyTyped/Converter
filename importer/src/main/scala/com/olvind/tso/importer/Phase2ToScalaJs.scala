@@ -5,7 +5,6 @@ import com.olvind.logging.Logger
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.transforms.FakeLiterals
 import com.olvind.tso.scalajs.{ContainerSymbol, LibScalaJs, Name, SymbolScope, transforms => S}
-import com.olvind.tso.ts._
 
 class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name)
     extends Phase[TsSource, Either[LibraryPart, LibTs], LibScalaJs[TsSource]] {

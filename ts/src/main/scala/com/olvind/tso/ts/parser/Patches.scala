@@ -1,8 +1,6 @@
 package com.olvind.tso.ts.parser
-import ammonite.ops.RelPath
+import ammonite.ops.{RelPath, _}
 import com.olvind.tso.InFile
-
-import ammonite.ops._
 
 /**
   * These are library specific hacks to make up for shortcomings in the parser.

@@ -3,7 +3,7 @@ package scalajs
 package transforms
 
 import com.olvind.tso.maps.sum
-import seqs.TraversableOps
+import com.olvind.tso.seqs.TraversableOps
 
 /**
   * When a class inherits the same method/field from two ancestors,

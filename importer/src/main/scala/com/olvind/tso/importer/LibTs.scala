@@ -1,5 +1,7 @@
 package com.olvind.tso
-package ts
+package importer
+
+import com.olvind.tso.ts.{TsConfig, TsIdentLibrary, TsParsedFile}
 
 final case class LibTs(name:         TsIdentLibrary,
                        source:       TsSource,

@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.logging.Logger
 import com.olvind.tso.phases.PhaseListener
-import com.olvind.tso.ts.{TsIdentLibrary, TsSource}
+import com.olvind.tso.ts.TsIdentLibrary
 import fansi.{Color, Str}
 import monix.execution.atomic.AtomicBoolean
 

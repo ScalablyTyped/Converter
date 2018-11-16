@@ -2,8 +2,8 @@ package com.olvind.tso
 package ts
 package transforms
 
+import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.ParentsResolver.InterfaceOrClass
-import seqs.TraversableOps
 
 object InferReturnTypes extends TreeVisitorScopedChanges {
   override def enterTsMemberFunction(scope: TreeScope)(x: TsMemberFunction): TsMemberFunction = {

@@ -57,7 +57,7 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                 {
                   case r @ DirectivePathRef(value) =>
                     def src(f: InFile): TsSource =
-                      TsSource.HelperFile(f, inLib, ModuleNameParser.inferred(file.path, inLib))
+                      TsSource.HelperFile(f, inLib, libraryResolver.inferredModule(file.path, inLib))
 
                     PhaseRes.fromOption(source,
                                         libraryResolver.resolveFile(file.folder, value).map(src),
@@ -66,7 +66,7 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) =>
                     def src(f: InFile): TsSource =
-                      TsSource.HelperFile(f, inLib, ModuleNameParser.inferred(file.path, inLib))
+                      TsSource.HelperFile(f, inLib, libraryResolver.inferredModule(file.path, inLib))
 
                     PhaseRes.fromOption(source,
                                         libraryResolver.resolveFile(stdlibSource.folder, s"lib.$value.d.ts").map(src),

@@ -5,12 +5,12 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{root, up, Path}
+import ammonite.ops.{Path, root, up}
 import com.olvind.logging.{LogLevel, LogRegistry}
+import com.olvind.tso.importer.TsSource.TsLibSource
 import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Versions}
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
-import com.olvind.tso.ts.TsSource.TsLibSource
 import com.olvind.tso.ts._
 import org.scalatest.{Assertion, FunSuiteLike}
 

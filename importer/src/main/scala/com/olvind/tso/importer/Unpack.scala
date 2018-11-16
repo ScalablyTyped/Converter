@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import com.olvind.tso.ts.{LibTs, TsParsedFile, TsSource}
+import com.olvind.tso.ts.TsParsedFile
 
 import scala.collection.mutable
 

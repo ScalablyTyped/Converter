@@ -5,7 +5,6 @@ import ammonite.ops._
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.ts._
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration

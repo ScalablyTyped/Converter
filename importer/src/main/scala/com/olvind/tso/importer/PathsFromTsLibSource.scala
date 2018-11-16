@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{ls, up, RelPath}
+import ammonite.ops.{RelPath, ls, up}
 import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
@@ -33,7 +33,7 @@ object PathsFromTsLibSource {
           case TsIdentLibrarySimple(value) =>
             TsSource.HelperFile(file, source, TsIdentModule(None, value :: Nil))
         }
-      case (file, false) => TsSource.HelperFile(file, source, ModuleNameParser.inferred(file.path, source))
+      case (file, false) => TsSource.HelperFile(file, source, libraryResolver.inferredModule(file.path, source))
 
     }.toSet
   }

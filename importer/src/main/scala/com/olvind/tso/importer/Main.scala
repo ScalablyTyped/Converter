@@ -11,10 +11,10 @@ import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
+import com.olvind.tso.importer.TsSource.StdLibSource
 import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.ts.TsSource.StdLibSource
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
 

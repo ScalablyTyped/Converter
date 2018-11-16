@@ -1,8 +1,7 @@
 package com.olvind.tso
 package ts
 
-import com.olvind.tso.seqs.BufferOps
-import com.olvind.tso.seqs.TraversableOps
+import com.olvind.tso.seqs.{BufferOps, TraversableOps}
 
 import scala.collection.mutable
 

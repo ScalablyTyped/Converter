@@ -3,9 +3,9 @@ package importer
 
 import com.olvind.logging.Logger
 import com.olvind.tso.scalajs._
-import com.olvind.tso.ts.{ParentsResolver, _}
 import com.olvind.tso.seqs._
 import com.olvind.tso.ts.transforms.ExpandCallables
+import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
 

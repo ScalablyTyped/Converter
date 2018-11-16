@@ -1,4 +1,4 @@
-package com.olvind.tso.ts.modules
+package com.olvind.tso.importer
 import com.olvind.logging.Logger
 import com.olvind.tso.ts._
 import com.olvind.tso.{InFolder, Seq, Set}

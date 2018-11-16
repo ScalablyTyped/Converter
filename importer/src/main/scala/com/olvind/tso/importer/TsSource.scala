@@ -1,9 +1,10 @@
-package com.olvind.tso
-package ts
+package com.olvind.tso.importer
 
 import ammonite.ops.Path
 import com.olvind.logging.Formatter
-import com.olvind.tso.ts.TsSource.TsLibSource
+import com.olvind.tso.importer.TsSource.TsLibSource
+import com.olvind.tso.ts.{TsIdentLibrary, TsIdentModule}
+import com.olvind.tso.{InFile, InFolder, Key}
 
 sealed abstract class TsSource(val folder: InFolder) {
   final def path: Path =

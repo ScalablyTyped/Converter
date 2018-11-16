@@ -1,7 +1,7 @@
 package com.olvind.tso
 package scalajs
 
-import seqs._
+import com.olvind.tso.seqs._
 
 /**
   * @deprecated This doesn't handle any of `Name.Internal`.

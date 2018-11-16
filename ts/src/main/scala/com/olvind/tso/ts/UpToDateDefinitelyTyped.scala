@@ -2,7 +2,7 @@ package com.olvind.tso.ts
 
 import java.net.URI
 
-import ammonite.ops.{%, exists, Path}
+import ammonite.ops.{%, Path, exists}
 import com.olvind.tso.InFolder
 
 import scala.util.Try

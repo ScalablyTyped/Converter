@@ -10,7 +10,6 @@ import com.olvind.logging.{Formatter, LogLevel, Logger}
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.ts._
 import fansi.Back
 import xsbti.Severity
 

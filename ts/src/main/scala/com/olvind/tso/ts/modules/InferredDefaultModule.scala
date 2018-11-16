@@ -2,8 +2,8 @@ package com.olvind.tso
 package ts.modules
 
 import com.olvind.logging.Logger
+import com.olvind.tso.seqs._
 import com.olvind.tso.ts._
-import seqs._
 
 object InferredDefaultModule {
   def onlyAugments(in: TsParsedFile): Boolean =

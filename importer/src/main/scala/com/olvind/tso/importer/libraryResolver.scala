@@ -1,15 +1,20 @@
 package com.olvind.tso
-package ts
+package importer
 
-import ammonite.ops.{exists, Path, RelPath}
+import ammonite.ops.{Path, RelPath, exists}
+import com.olvind.tso.importer.TsSource.TsLibSource
 import com.olvind.tso.seqs.TraversableOps
+import com.olvind.tso.ts.{ModuleNameParser, TsIdentLibrary, TsIdentModule}
 
 object libraryResolver {
+  def inferredModule(path: Path, inLib: TsLibSource): TsIdentModule =
+    ModuleNameParser(inLib.libName.`__value` +: path.relativeTo(inLib.folder.path).segments.to[List])
+
   def apply(sources: Seq[InFolder], current: TsSource, value: String): Option[(TsSource, TsIdentModule)] =
     value match {
       case LocalPath(localPath) =>
         resolveFile(current.folder, localPath).map { file =>
-          val modName = ModuleNameParser.inferred(file.path, current.inLibrary)
+          val modName = inferredModule(file.path, current.inLibrary)
           (TsSource.HelperFile(file, current.inLibrary, modName), modName)
         }
 
