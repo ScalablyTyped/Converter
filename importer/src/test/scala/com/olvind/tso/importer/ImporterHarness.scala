@@ -5,9 +5,9 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{Path, root, up}
+import ammonite.ops.{root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
-import com.olvind.tso.importer.TsSource.TsLibSource
+import com.olvind.tso.importer.Source.TsLibSource
 import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Versions}
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
@@ -21,22 +21,24 @@ trait ImporterHarness extends FunSuiteLike {
   private val version      = Versions.`scala 2.12 with scala.js 0.6.25`
   private val bloopFactory = new BloopFactory(testLogger)
 
-  val OutputPkg:  Name                    = Name("typings")
-  val NoListener: PhaseListener[TsSource] = (_, _, _) => ()
+  val OutputPkg:  Name                  = Name("typings")
+  val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   private def runImport(
       source:        InFolder,
       targetFolder:  Path,
       pedantic:      Boolean,
-      logRegistry:   LogRegistry[TsSource, TsIdentLibrary, StringWriter],
+      logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: Path
-  ): PhaseRes[TsSource, Map[TsSource, PublishedSbtProject]] = {
-    val stdLibSource: TsSource =
-      TsSource.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
+  ): PhaseRes[Source, Map[Source, PublishedSbtProject]] = {
+    val stdLibSource: Source =
+      Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
 
-    val phase: RecPhase[TsSource, PublishedSbtProject] =
-      RecPhase[TsSource]
-        .next(new Phase1ReadTypescript(Seq(source), Set.empty, stdLibSource, pedantic, parser.parseFile), "typescript")
+    val resolve = new LibraryResolver(Seq(source), None)
+
+    val phase: RecPhase[Source, PublishedSbtProject] =
+      RecPhase[Source]
+        .next(new Phase1ReadTypescript(resolve, Set.empty, stdLibSource, pedantic, parser.parseFile), "typescript")
         .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
         .next(
           new Phase3CompileBloop(
@@ -46,7 +48,8 @@ trait ImporterHarness extends FunSuiteLike {
             mainPackageName = OutputPkg,
             projectName     = "ScalablyTyped",
             organization    = "com.scalablytyped",
-            publishFolder   = publishFolder
+            publishFolder   = publishFolder,
+            resolve         = resolve
           ),
           "build"
         )
@@ -69,9 +72,9 @@ trait ImporterHarness extends FunSuiteLike {
     val checkFolder  = testFolder.path / 'check
 
     val logRegistry =
-      new LogRegistry[TsSource, TsIdentLibrary, StringWriter](
+      new LogRegistry[Source, TsIdentLibrary, StringWriter](
         testLogger,
-        _.inLibrary.libName,
+        _.libName,
         _ => logging.appendable(new StringWriter())
       )
 

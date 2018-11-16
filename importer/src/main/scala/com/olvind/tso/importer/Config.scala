@@ -9,7 +9,7 @@ case class Config(publish:        Boolean,
                   offline:        Boolean,
                   cleanRepo:      Boolean,
                   pedantic:       Boolean,
-                  wantedLibNames: Array[String]) {
+                  wantedLibNames: Set[String]) {
 
   def debugMode = wantedLibNames.nonEmpty
 
@@ -34,7 +34,7 @@ object Config {
             offline        = flags.contains("-offline"),
             cleanRepo      = flags.contains("-cleanRepo"),
             pedantic       = flags.contains("-pedantic"),
-            wantedLibNames = rest
+            wantedLibNames = rest.to[Set]
           )
         )
     }

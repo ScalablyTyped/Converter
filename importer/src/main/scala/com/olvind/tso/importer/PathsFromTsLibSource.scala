@@ -1,27 +1,28 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{RelPath, ls, up}
+import ammonite.ops.{ls, up, RelPath}
 import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
-  def apply(source:         TsSource.TsLibSource,
+  def apply(resolve:        LibraryResolver,
+            source:         Source.TsLibSource,
             packageJsonOpt: Option[PackageJsonDeps],
-            tsConfig:       Option[TsConfig]): Set[TsSource.HelperFile] = {
+            tsConfig:       Option[TsConfig]): Set[Source.TsHelperFile] = {
 
     val found: Seq[(InFile, Boolean)] =
       source match {
-        case TsSource.StdLibSource(file, _) =>
+        case Source.StdLibSource(file, _) =>
           Seq(file -> false)
 
-        case f: TsSource.FromFolder =>
+        case f: Source.FromFolder =>
           FirstNonEmpty(
-            () => fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-            () => fromFileEntry(f, packageJsonOpt.flatMap(_.typings)).map(x   => (x, true)),
-            () => fromFileEntry(f, packageJsonOpt.flatMap(_.types)).map(x     => (x, true)),
-            () => fromFilesEntry(f, packageJsonOpt.flatMap(_.files)).map(x    => (x, false)),
-            () => fromFilesEntry(f, tsConfig.flatMap(_.files)).map(x          => (x, false)),
-            () => whateverIsThere(f).map(x                                    => (x, false))
+            () => fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x        => (x, true)),
+            () => fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
+            () => fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.types)).map(x   => (x, true)),
+            () => fromFilesEntry(resolve, f, packageJsonOpt.flatMap(_.files)).map(x  => (x, false)),
+            () => fromFilesEntry(resolve, f, tsConfig.flatMap(_.files)).map(x        => (x, false)),
+            () => whateverIsThere(f).map(x                                           => (x, false))
           ).getOrElse(Nil)
       }
 
@@ -29,16 +30,16 @@ object PathsFromTsLibSource {
       case (file, true) =>
         source.libName match {
           case TsIdentLibraryScoped(scope, name) =>
-            TsSource.HelperFile(file, source, TsIdentModule(Some(scope), name.to[List]))
+            Source.TsHelperFile(file, source, TsIdentModule(Some(scope), name.to[List]))
           case TsIdentLibrarySimple(value) =>
-            TsSource.HelperFile(file, source, TsIdentModule(None, value :: Nil))
+            Source.TsHelperFile(file, source, TsIdentModule(None, value :: Nil))
         }
-      case (file, false) => TsSource.HelperFile(file, source, libraryResolver.inferredModule(file.path, source))
+      case (file, false) => Source.TsHelperFile(file, source, resolve.inferredModule(file.path, source))
 
     }.toSet
   }
 
-  private def fromTypingsJson(fromFolder: TsSource.FromFolder, fileOpt: Option[String]): Seq[InFile] =
+  private def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): Seq[InFile] =
     fileOpt match {
       case Some(path) if path.endsWith("typings.json") =>
         import jsonCodecs._
@@ -48,19 +49,23 @@ object PathsFromTsLibSource {
       case _ => Nil
     }
 
-  private def fromFileEntry(fromFolder: TsSource.FromFolder, fileOpt: Option[String]): Seq[InFile] =
-    fileOpt.flatMap(file => libraryResolver.resolveFile(fromFolder.folder, file)).to[Seq]
+  private def fromFileEntry(resolve:    LibraryResolver,
+                            fromFolder: Source.FromFolder,
+                            fileOpt:    Option[String]): Seq[InFile] =
+    fileOpt.flatMap(file => resolve.file(fromFolder.folder, file)).to[Seq]
 
-  private def fromFilesEntry(fromFolder: TsSource.FromFolder, filesOpt: Option[Seq[String]]): Seq[InFile] =
+  private def fromFilesEntry(resolve:    LibraryResolver,
+                             fromFolder: Source.FromFolder,
+                             filesOpt:   Option[Seq[String]]): Seq[InFile] =
     filesOpt match {
       case Some(files) =>
         files
-          .flatMap(file => libraryResolver.resolveFile(fromFolder.folder, file))
+          .flatMap(file => resolve.file(fromFolder.folder, file))
           .filter(_.path.toString().endsWith(".d.ts"))
       case _ => Nil
     }
 
-  private def whateverIsThere(fromFolder: TsSource.FromFolder): Seq[InFile] = {
+  private def whateverIsThere(fromFolder: Source.FromFolder): Seq[InFile] = {
     val base = ls(fromFolder.folder.path)
       .filter(_.last.endsWith("d.ts"))
       .to[Seq]

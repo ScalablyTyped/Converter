@@ -16,7 +16,7 @@ object Synced {
 }
 
 final case class InFile(path: Path) {
-  require(path.isFile)
+  require(path.isFile, s"$path is not a file")
 
   def folder: InFolder =
     InFolder(path / up)
@@ -50,25 +50,27 @@ object files {
     name === ".idea" || name === "target"
   }
 
-  def sync(fs: Map[RelPath, Array[Byte]], folder: Path): Map[Path, Synced] = {
+  def sync(fs: Map[RelPath, Array[Byte]], folder: Path, deleteUnknowns: Boolean): Map[Path, Synced] = {
 
     val absolutePathFiles: Map[Path, Array[Byte]] = fs.map {
       case (relPath, content) => folder / relPath -> content
     }
 
     val deleted: Map[Path, Synced] =
-      folder match {
-        case Exists(f) =>
-          ls.rec(IgnoreProjectFiles)(f)
-            .filterNot(absolutePathFiles.contains)
-            .filter(_.isFile)
-            .map { p: Path =>
-              rm(p)
-              p -> Synced.Deleted
-            }
-            .toMap
-        case _ => Map.empty
-      }
+      if (!deleteUnknowns) Map.empty
+      else
+        folder match {
+          case Exists(f) =>
+            ls.rec(IgnoreProjectFiles)(f)
+              .filterNot(absolutePathFiles.contains)
+              .filter(_.isFile)
+              .map { p: Path =>
+                rm(p)
+                p -> Synced.Deleted
+              }
+              .toMap
+          case _ => Map.empty
+        }
 
     val writtenFiles: Map[Path, Synced] =
       absolutePathFiles.map {

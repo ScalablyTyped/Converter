@@ -1,7 +1,9 @@
 package com.olvind.tso.importer
+
 import com.olvind.logging.Logger
+import com.olvind.tso.Set
+import com.olvind.tso.importer.Source.TsSource
 import com.olvind.tso.ts._
-import com.olvind.tso.{InFolder, Seq, Set}
 
 import scala.collection.mutable
 
@@ -9,11 +11,11 @@ object ResolveExternalReferences {
 
   case class Result(
       rewritten:      TsParsedFile,
-      resolvedDeps:   Set[TsSource],
+      resolvedDeps:   Set[Source],
       unresolvedDeps: Set[TsIdentModule]
   )
 
-  def apply(sources: Seq[InFolder], source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {
+  def apply(resolve: LibraryResolver, source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {
     val imported: Set[TsIdentModule] =
       tsParsedFile.imports.collect {
         case TsImport(_, TsImporteeFrom(from))     => from
@@ -22,21 +24,15 @@ object ResolveExternalReferences {
         case TsExport(_, _, TsExporteeNames(_, Some(from))) => from
       }
 
-    /**
-      * Todo: `InferredDependency` takes care of undeclared node dependency.
-      * However, that is not solid enough when there actually exists a library
-      * with the same name as the requested module.
-      */
-    val doResolve: TsIdentModule => Option[(TsSource, TsIdentModule)] = {
-      case TsIdentModule(None, "events" :: Nil) => None
+    val doResolve: TsIdentModule => Option[(Source, TsIdentModule)] = {
       case jsName if jsName.value.endsWith(".js") =>
-        libraryResolver(sources, source, jsName.value.dropRight(".js".length))
+        resolve.lookup(source, jsName.value.dropRight(".js".length))
       case name =>
-        libraryResolver(sources, source, name.value)
+        resolve.lookup(source, name.value)
     }
     val v = new V(doResolve, imported)
 
-    val root  = TreeScope(source.inLibrary.libName, pedantic = true, Map.empty, logger)
+    val root  = TreeScope(source.libName, pedantic = true, Map.empty, logger)
     val after = v.visitTsParsedFile(root)(tsParsedFile)
 
     val newImports: Iterable[TsImport] =
@@ -47,15 +43,15 @@ object ResolveExternalReferences {
     Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])
   }
 
-  private class V(doResolve: TsIdentModule => Option[(TsSource, TsIdentModule)], imported: Set[TsIdentModule])
+  private class V(doResolve: TsIdentModule => Option[(Source, TsIdentModule)], imported: Set[TsIdentModule])
       extends TreeVisitorScopedChanges {
-    val foundSources = mutable.Set.empty[TsSource]
+    val foundSources = mutable.Set.empty[Source]
     val notFound     = mutable.Set.empty[TsIdentModule]
     val importTypes  = mutable.Map.empty[TsIdentImport, TsIdentSimple]
 
     private def resolveAndStore(name: TsIdentModule): TsIdentModule =
       doResolve(name) match {
-        case Some((found: TsSource, moduleName)) =>
+        case Some((found: Source, moduleName)) =>
           foundSources += found
           moduleName
         case None =>

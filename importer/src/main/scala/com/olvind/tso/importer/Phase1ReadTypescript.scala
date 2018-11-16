@@ -3,18 +3,20 @@ package importer
 
 import ammonite.ops.up
 import com.olvind.logging.{Formatter, Logger}
+import com.olvind.tso.importer.Phase1Res._
+import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.TreeScope.LoopDetector
 import com.olvind.tso.ts.modules._
 import com.olvind.tso.ts.{transforms => T, _}
 
-class Phase1ReadTypescript(sources:      Seq[InFolder],
+class Phase1ReadTypescript(resolve:      LibraryResolver,
                            ignored:      Set[String],
-                           stdlibSource: TsSource,
+                           stdlibSource: Source,
                            pedantic:     Boolean,
                            parser:       InFile => Either[String, TsParsedFile])
-    extends Phase[TsSource, TsSource, Either[LibraryPart, LibTs]] {
+    extends Phase[Source, Source, Phase1Res] {
 
   import jsonCodecs._
 
@@ -25,51 +27,58 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
       else inFile.path.segments.mkString("/")
 
   override def apply(
-      source:     TsSource,
-      _1:         TsSource,
-      getDeps:    GetDeps[TsSource, Either[LibraryPart, LibTs]],
+      source:     Source,
+      _1:         Source,
+      getDeps:    GetDeps[Source, Phase1Res],
       isCircular: IsCircular,
       logger:     Logger[Unit]
-  ): PhaseRes[TsSource, Either[LibraryPart, LibTs]] = {
+  ): PhaseRes[Source, Phase1Res] = {
 
     source match {
-      case source: TsSource.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
+      case _:      Source.ContribSource                                => PhaseRes.Ok(Contrib)
+      case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
 
-      case TsSource.HelperFile(file, inLib, _) =>
+      case Source.TsHelperFile(file, inLib, _) =>
         val L = logger.withContext(file)
 
         val resolveDep = (value: String) =>
           PhaseRes.fromOption(
             source,
-            libraryResolver(sources, source, value).map(_._1),
+            resolve.lookup(inLib, value).map(_._1),
             Right(s"Couldn't resolve $value")
         )
 
+        def assertPartsOnly(m: Map[Source, Phase1Res]): Map[Source, LibraryPart] =
+          m.map {
+            case (s, part: LibraryPart) => s -> part
+            case (s, other) => sys.error(s"$s: Unexpected $other")
+          }
+
         PhaseRes.fromEither(source, parser(file)) flatMap { parsed: TsParsedFile =>
-          val (pathRefsR: Set[PhaseRes[TsSource, TsSource]],
-               typeRefsR: Set[PhaseRes[TsSource, TsSource]],
-               libRefsR:  Set[PhaseRes[TsSource, TsSource]],
+          val (pathRefsR: Set[PhaseRes[Source, Source]],
+               typeRefsR: Set[PhaseRes[Source, Source]],
+               libRefsR:  Set[PhaseRes[Source, Source]],
                remaining: Set[Directive]) =
             parsed.directives
               .to[Set]
               .partitionCollect3(
                 {
                   case r @ DirectivePathRef(value) =>
-                    def src(f: InFile): TsSource =
-                      TsSource.HelperFile(f, inLib, libraryResolver.inferredModule(file.path, inLib))
+                    def src(f: InFile): Source =
+                      Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
 
                     PhaseRes.fromOption(source,
-                                        libraryResolver.resolveFile(file.folder, value).map(src),
+                                        resolve.file(file.folder, value).map(src),
                                         Right(s"Couldn't resolve $r"))
                 },
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) =>
-                    def src(f: InFile): TsSource =
-                      TsSource.HelperFile(f, inLib, libraryResolver.inferredModule(file.path, inLib))
+                    def src(f: InFile): Source =
+                      Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
 
                     PhaseRes.fromOption(source,
-                                        libraryResolver.resolveFile(stdlibSource.folder, s"lib.$value.d.ts").map(src),
+                                        resolve.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
                                         Right(s"Couldn't resolve $r"))
                 }
               )
@@ -78,7 +87,7 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
             /* Ensure we resolved all modules referenced by a path directive */
             pathRefs <- PhaseRes sequenceSet (pathRefsR ++ libRefsR)
             /* Assert all path directive referenced modules are files (not libraries) */
-            toInline <- getDeps(pathRefs) map maps.assertLeftOnly map (_.values.map(_.file))
+            toInline <- getDeps(pathRefs) map assertPartsOnly map (_.values.map(_.file))
 
             withoutDirectives = parsed.copy(directives = remaining.to[Seq])
 
@@ -86,7 +95,7 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
             typeReferencedDeps <- PhaseRes sequenceSet typeRefsR
 
             /* Resolve all references to other modules in `from` clauses, rename modules */
-            withExternals = ResolveExternalReferences(sources, source, withoutDirectives, L)
+            withExternals = ResolveExternalReferences(resolve, source.asInstanceOf[TsSource], withoutDirectives, L)
 
             inferredDepNames = InferredDependency(inLib.libName,
                                                   withExternals.rewritten,
@@ -96,11 +105,10 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
 
             /* look up all resulting dependencies */
             parts <- getDeps(withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps)
-          } yield
-            Left[LibraryPart, LibTs](LibraryPart(FileAndRefsRec(withExternals.rewritten, toInline.to[Seq]), parts))
+          } yield LibraryPart(FileAndRefsRec(withExternals.rewritten, toInline.to[Seq]), parts)
         }
 
-      case source: TsSource.TsLibSource =>
+      case source: Source.TsLibSource =>
         val packageJsonOpt: Option[PackageJsonDeps] =
           Json.opt[PackageJsonDeps](source.folder.path / "package.json") orElse
             /* discover stdlib package.json as well */
@@ -109,20 +117,20 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
         val tsConfig: Option[TsConfig] =
           Json.opt[TsConfig](source.folder.path / "tsconfig.json")
 
-        val fileSources: Set[TsSource.HelperFile] =
-          PathsFromTsLibSource(source, packageJsonOpt, tsConfig)
+        val fileSources: Set[Source.TsHelperFile] =
+          PathsFromTsLibSource(resolve, source, packageJsonOpt, tsConfig)
 
         if (fileSources.isEmpty) {
           logger.warn(s"No typescript definitions found for $source")
           PhaseRes.Ignore()
         } else {
-          val declaredDependencies: Set[TsSource] =
+          val declaredDependencies: Set[Source] =
             packageJsonOpt
               .to[Set]
               .flatMap(x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil))
               .flatMap(
                 depName =>
-                  libraryResolver(sources, source, depName) match {
+                  resolve.lookup(source, depName) match {
                     case Some((x, _)) => Some(x)
                     case None =>
                       logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
@@ -130,11 +138,11 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                 }
               )
 
-          val stdlibSourceOpt: Option[TsSource] =
+          val stdlibSourceOpt: Option[Source] =
             if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
 
           getDeps(fileSources ++ declaredDependencies ++ stdlibSourceOpt) map {
-            case Unpack(libParts: Map[TsSource.HelperFile, FileAndRefs], deps: Map[TsSource, LibTs]) =>
+            case Unpack(libParts: Map[Source.TsHelperFile, FileAndRefs], deps: Map[TsLibSource, LibTs], contribs) =>
               val scope: TreeScope.Root =
                 TreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
@@ -189,7 +197,7 @@ class Phase1ReadTypescript(sources:      Seq[InFolder],
                 finished.comments
               )
 
-              Right(LibTs(source.libName, source, version, tsConfig, finished, deps))
+              LibTs(source.libName, source, version, tsConfig, finished, deps, contribs)
           }
         }
     }

@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{%, Path, mkdir}
+import ammonite.ops.{%, mkdir, Path}
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.ts.PackageJsonDeps

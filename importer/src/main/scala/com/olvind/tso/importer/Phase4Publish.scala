@@ -9,15 +9,14 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
-case class Phase4Publish(publisher: BinTrayPublisher)
-    extends Phase[TsSource, PublishedSbtProject, PublishedSbtProject] {
+case class Phase4Publish(publisher: BinTrayPublisher) extends Phase[Source, PublishedSbtProject, PublishedSbtProject] {
 
-  override def apply(source:  TsSource,
+  override def apply(source:  Source,
                      lib:     PublishedSbtProject,
-                     getDeps: GetDeps[TsSource, PublishedSbtProject],
+                     getDeps: GetDeps[Source, PublishedSbtProject],
                      v4:      IsCircular,
-                     logger:  Logger[Unit]): PhaseRes[TsSource, PublishedSbtProject] =
-    getDeps(lib.project.deps.keys.to[Set]) flatMap { deps: Map[TsSource, PublishedSbtProject] =>
+                     logger:  Logger[Unit]): PhaseRes[Source, PublishedSbtProject] =
+    getDeps(lib.project.deps.keys.to[Set]) flatMap { deps: Map[Source, PublishedSbtProject] =>
       /** This is somewhat annoying. The bintry thing we deploy with insists on
         *  receiving already written files. We just wrote them locally for ivy, so... */
       val alreadyWrittenMavenFiles: MavenLayout[RelPath, Path] =

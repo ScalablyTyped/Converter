@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.jar.{JarEntry, JarOutputStream, Manifest}
 
-import ammonite.ops.{Path, RelPath, ls, read}
+import ammonite.ops.{ls, read, Path, RelPath}
 
 import scala.collection.mutable
 import scala.xml.Elem
