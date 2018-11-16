@@ -336,6 +336,10 @@ sealed trait TsIdentInterchangeable extends TsIdent {
 
 final case class TsIdentSimple(value: String) extends TsIdentInterchangeable
 
+final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
+  override def value: String = from.value
+}
+
 final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]) extends TsIdent {
   @deprecated("this doesnt really work for node")
   lazy val inLibrary: TsIdentLibrary =

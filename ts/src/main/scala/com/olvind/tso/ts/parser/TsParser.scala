@@ -486,11 +486,16 @@ object TsParser extends StdTokenParsers with ParserHelpers with ImplicitConversi
   lazy val tsIdent: Parser[TsIdentSimple] =
     identifierName ^^ TsIdent.apply | (tsLiteralString ^^ (lit => TsIdentSimple(lit.value)))
 
+  lazy val tsIdentImport: Parser[TsIdentImport] =
+    "import" ~> "(" ~> tsIdentModule <~ ")" ^^ TsIdentImport
+
   lazy val identifierOrDefault: Parser[TsIdent] =
     identifierName.? ^^ (oi => TsIdent(oi.getOrElse("default")))
 
   lazy val qualifiedIdent: Parser[TsQIdent] =
-    rep1sep(tsIdent, ".") ^^ TsQIdent.apply
+    (tsIdentImport <~ ".").? ~ rep1sep(tsIdent, ".") ^^ {
+      case importOpt ~ rest => TsQIdent(importOpt.toList ++ rest)
+    }
 
   lazy val tsLiteralString: Parser[TsLiteralString] =
     stringLit ^^ EscapeStrings.java ^^ TsLiteralString.apply

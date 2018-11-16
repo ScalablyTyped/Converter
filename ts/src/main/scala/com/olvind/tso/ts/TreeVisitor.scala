@@ -23,10 +23,6 @@ trait TreeVisitor[T] { self =>
   def enterTsExport(t:               T)(x: TsExport):               TsExport               = x
   def enterTsFunParam(t:             T)(x: TsFunParam):             TsFunParam             = x
   def enterTsFunSig(t:               T)(x: TsFunSig):               TsFunSig               = x
-  def enterTsIdentModule(t:          T)(x: TsIdentModule):          TsIdentModule          = x
-  def enterTsIdentSimple(t:          T)(x: TsIdentSimple):          TsIdentSimple          = x
-  def enterTsIdentLibrary(t:         T)(x: TsIdentLibrary):         TsIdentLibrary         = x
-  def enterTsIdentNamespace(t:       T)(x: TsIdentNamespace):       TsIdentNamespace       = x
   def enterTsImportedDestructured(t: T)(x: TsImportedDestructured): TsImportedDestructured = x
   def enterTsImportedIdent(t:        T)(x: TsImportedIdent):        TsImportedIdent        = x
   def enterTsImportedStar(t:         T)(x: TsImportedStar):         TsImportedStar         = x
@@ -65,7 +61,6 @@ trait TreeVisitor[T] { self =>
   def enterTsTypeUnion(t:            T)(x: TsTypeUnion):            TsTypeUnion            = x
   def enterTsTree(t:                 T)(x: TsTree):                 TsTree                 = x
 
-  def enterTsIdent(t:           T)(x: TsIdent):           TsIdent           = x
   def enterTsDecl(t:            T)(x: TsDecl):            TsDecl            = x
   def enterTsNamedDecl(t:       T)(x: TsNamedDecl):       TsNamedDecl       = x
   def enterTsContainer(t:       T)(x: TsContainer):       TsContainer       = x
@@ -96,7 +91,7 @@ trait TreeVisitor[T] { self =>
         TsDeclClass(_1,
                     _2,
                     _3,
-                    visitTsIdent(tt)(_4),
+                    _4,
                     _5 map visitTsTypeParam(tt),
                     _6 map visitTsTypeRef(tt),
                     _7 map visitTsTypeRef(tt),
@@ -112,7 +107,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclEnum(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsDeclEnum(_1, _2, visitTsIdent(tt)(_3), _4 map visitTsEnumMember(tt), _5, _6.map(visitTsTypeRef(tt)), _7, _8)
+        TsDeclEnum(_1, _2, _3, _4 map visitTsEnumMember(tt), _5, _6.map(visitTsTypeRef(tt)), _7, _8)
     }
   }
   final def visitTsDeclFunction(t: T)(x: TsDeclFunction): TsDeclFunction = {
@@ -120,7 +115,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclFunction(_1, _2, _3, _4, _5, _6) =>
-        TsDeclFunction(_1, _2, visitTsIdent(tt)(_3), visitTsFunSig(tt)(_4), _5, _6)
+        TsDeclFunction(_1, _2, _3, visitTsFunSig(tt)(_4), _5, _6)
     }
   }
   final def visitTsDeclGlobal(t: T)(x: TsGlobal): TsGlobal = {
@@ -137,7 +132,7 @@ trait TreeVisitor[T] { self =>
       case TsDeclInterface(_1, _2, _3, _4, _5, _6, _7) =>
         TsDeclInterface(_1,
                         _2,
-                        visitTsIdent(tt)(_3),
+                        _3,
                         _4 map visitTsTypeParam(tt),
                         _5 map visitTsTypeRef(tt),
                         _6 map visitTsMember(tt),
@@ -150,7 +145,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsDeclModule(_1, _2, _3, _4, _5, _6) =>
-        TsDeclModule(_1, _2, visitTsIdentModule(tt)(_3), _4 map visitTsContainerOrDecl(tt), _5, _6)
+        TsDeclModule(_1, _2, _3, _4 map visitTsContainerOrDecl(tt), _5, _6)
     }
     leaveTsDeclModule(tt)(xxx)
   }
@@ -160,7 +155,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsAugmentedModule(_1, _2, _3, _4) =>
-        TsAugmentedModule(visitTsIdentModule(tt)(_1), _2.map(visitTsContainerOrDecl(tt)), _3, _4)
+        TsAugmentedModule(_1, _2.map(visitTsContainerOrDecl(tt)), _3, _4)
     }
     leaveTsAugmentedModule(tt)(xxx)
   }
@@ -170,7 +165,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsDeclNamespace(_1, _2, _3, _4, _5, _6) =>
-        TsDeclNamespace(_1, _2, visitTsIdentNamespace(tt)(_3), _4 map visitTsContainerOrDecl(tt), _5, _6)
+        TsDeclNamespace(_1, _2, _3, _4 map visitTsContainerOrDecl(tt), _5, _6)
     }
     leaveTsDeclNamespace(tt)(xxx)
   }
@@ -179,7 +174,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclTypeAlias(_1, _2, _3, _4, _5, _6) =>
-        TsDeclTypeAlias(_1, _2, visitTsIdent(tt)(_3), _4 map visitTsTypeParam(tt), visitTsType(tt)(_5), _6)
+        TsDeclTypeAlias(_1, _2, _3, _4 map visitTsTypeParam(tt), visitTsType(tt)(_5), _6)
     }
   }
   final def visitTsDeclVar(t: T)(x: TsDeclVar): TsDeclVar = {
@@ -187,7 +182,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclVar(_1, _2, _3, _4, _5, _6, _7, _8, _9) =>
-        TsDeclVar(_1, _2, _3, visitTsIdent(tt)(_4), _5 map visitTsType(tt), _6 map visitTsLiteral(tt), _7, _8, _9)
+        TsDeclVar(_1, _2, _3, _4, _5 map visitTsType(tt), _6 map visitTsLiteral(tt), _7, _8, _9)
     }
   }
   final def visitTsEnumMember(t: T)(x: TsEnumMember): TsEnumMember = {
@@ -195,35 +190,28 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsEnumMember(_1, _2, _3) =>
-        TsEnumMember(_1, visitTsIdent(tt)(_2), _3 map {
-          case Left(x)  => Left(visitTsLiteral(tt)(x))
-          case Right(x) => Right(visitTsIdent(tt)(x))
+        TsEnumMember(_1, _2, _3 map {
+          case Left(x) => Left(visitTsLiteral(tt)(x))
+          case right   => right
         })
     }
   }
-  final def visitTsExportAsNamespace(t: T)(x: TsExportAsNamespace): TsExportAsNamespace = {
-    val xx = enterTsExportAsNamespace(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsExportAsNamespace(_1) => TsExportAsNamespace(visitTsIdent(tt)(_1))
-    }
-  }
+
+  final def visitTsExportAsNamespace(t: T)(x: TsExportAsNamespace): TsExportAsNamespace =
+    enterTsExportAsNamespace(withTree(t, x))(x)
+
   final def visitTsExporteeNames(t: T)(x: TsExporteeNames): TsExporteeNames = {
     val xx = enterTsExporteeNames(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
       case TsExporteeNames(_1, _2) =>
-        TsExporteeNames(_1.map(a => (visitTsQIdent(tt)(a._1), a._2 map visitTsIdent(t))), _2 map visitTsIdentModule(tt))
+        TsExporteeNames(_1.map(a => (visitTsQIdent(tt)(a._1), a._2)), _2)
     }
   }
-  final def visitTsExporteeStar(t: T)(x: TsExporteeStar): TsExporteeStar = {
-    val xx = enterTsExporteeStar(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsExporteeStar(_1, _2) =>
-        TsExporteeStar(visitTsIdentModule(tt)(_1), _2 map visitTsIdent(t))
-    }
-  }
+
+  final def visitTsExporteeStar(t: T)(x: TsExporteeStar): TsExporteeStar =
+    enterTsExporteeStar(withTree(t, x))(x)
+
   final def visitTsExporteeTree(t: T)(x: TsExporteeTree): TsExporteeTree = {
     val xx = enterTsExporteeTree(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -244,7 +232,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsFunParam(_1, _2, _3, _4) =>
-        TsFunParam(_1, visitTsIdent(tt)(_2), _3 map visitTsType(tt), _4)
+        TsFunParam(_1, _2, _3 map visitTsType(tt), _4)
     }
   }
   final def visitTsFunSig(t: T)(x: TsFunSig): TsFunSig = {
@@ -255,75 +243,17 @@ trait TreeVisitor[T] { self =>
         TsFunSig(_1, _2 map visitTsTypeParam(tt), _3 map visitTsFunParam(tt), _4 map visitTsType(tt))
     }
   }
-  final def visitTsIdentSimple(t: T)(x: TsIdentSimple): TsIdentSimple = {
-    val xx = enterTsIdentSimple(withTree(t, x))(x)
-    xx
-    //    val tt = withTree(t, xx)
-//    xx match {
-//      case TsIdentSimple(_1) => TsIdentSimple(_1)
-//    }
-  }
-
-  final def visitTsIdentModule(t: T)(x: TsIdentModule): TsIdentModule = {
-    val xx = enterTsIdentModule(withTree(t, x))(x)
-//    val tt = withTree(t, xx)
-    xx
-//    xx match {
-//      case TsIdentModule(_1) => TsIdentModule(_1)
-//    }
-  }
-
-  final def visitTsIdentLibrary(t: T)(x: TsIdentLibrary): TsIdentLibrary = {
-    val xx = enterTsIdentLibrary(withTree(t, x))(x)
-    xx
-    //    val tt = withTree(t, xx)
-//    xx match {
-//      case TsIdentLibrary(_1) => TsIdentLibrary(_1)
-//    }
-  }
-
-  final def visitTsIdentNamespace(t: T)(x: TsIdentNamespace): TsIdentNamespace = {
-    val xx = enterTsIdentNamespace(withTree(t, x))(x)
-    xx
-    //    val tt = withTree(t, xx)
-//    xx match {
-//      case TsIdentNamespace(_1) => TsIdentNamespace(_1)
-//    }
-  }
 
   final def visitTsImportedDestructured(
       t: T
-  )(x:   TsImportedDestructured): TsImportedDestructured = {
-    val xx = enterTsImportedDestructured(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsImportedDestructured(_1) =>
-        TsImportedDestructured(_1 map {
-          case (ident, optIdent) => (visitTsIdent(tt)(ident), optIdent.map(visitTsIdent(tt)))
-        })
-    }
-  }
-  final def visitTsImportedIdent(t: T)(x: TsImportedIdent): TsImportedIdent = {
-    val xx = enterTsImportedIdent(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsImportedIdent(_1) => TsImportedIdent(visitTsIdent(tt)(_1))
-    }
-  }
-  final def visitTsImportedStar(t: T)(x: TsImportedStar): TsImportedStar = {
-    val xx = enterTsImportedStar(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsImportedStar(_1) => TsImportedStar(_1.map(visitTsIdent(tt)))
-    }
-  }
-  final def visitTsImporteeFrom(t: T)(x: TsImporteeFrom): TsImporteeFrom = {
-    val xx = enterTsImporteeFrom(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsImporteeFrom(_1) => TsImporteeFrom(visitTsIdentModule(tt)(_1))
-    }
-  }
+  )(x:   TsImportedDestructured): TsImportedDestructured =
+    enterTsImportedDestructured(withTree(t, x))(x)
+  final def visitTsImportedIdent(t: T)(x: TsImportedIdent): TsImportedIdent =
+    enterTsImportedIdent(withTree(t, x))(x)
+  final def visitTsImportedStar(t: T)(x: TsImportedStar): TsImportedStar =
+    enterTsImportedStar(withTree(t, x))(x)
+  final def visitTsImporteeFrom(t: T)(x: TsImporteeFrom): TsImporteeFrom =
+    enterTsImporteeFrom(withTree(t, x))(x)
   final def visitTsImporteeLocal(t: T)(x: TsImporteeLocal): TsImporteeLocal = {
     val xx = enterTsImporteeLocal(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -331,13 +261,8 @@ trait TreeVisitor[T] { self =>
       case TsImporteeLocal(_1) => TsImporteeLocal(visitTsQIdent(tt)(_1))
     }
   }
-  final def visitTsImporteeRequired(t: T)(x: TsImporteeRequired): TsImporteeRequired = {
-    val xx = enterTsImporteeRequired(withTree(t, x))(x)
-    val tt = withTree(t, xx)
-    xx match {
-      case TsImporteeRequired(_1) => TsImporteeRequired(visitTsIdentModule(tt)(_1))
-    }
-  }
+  final def visitTsImporteeRequired(t: T)(x: TsImporteeRequired): TsImporteeRequired =
+    enterTsImporteeRequired(withTree(t, x))(x)
   final def visitTsImport(t: T)(x: TsImport): TsImport = {
     val xx = enterTsImport(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -345,30 +270,12 @@ trait TreeVisitor[T] { self =>
       case TsImport(_1, _2) => TsImport(_1 map visitTsImported(tt), visitTsImportee(tt)(_2))
     }
   }
-  final def visitTsLiteralBoolean(t: T)(x: TsLiteralBoolean): TsLiteralBoolean = {
-    val xx = enterTsLiteralBoolean(withTree(t, x))(x)
-//    val tt = withTree(t, xx)
-    xx
-//    xx match {
-//      case TsLiteralBoolean(_1) => TsLiteralBoolean(_1)
-//    }
-  }
-  final def visitTsLiteralNumber(t: T)(x: TsLiteralNumber): TsLiteralNumber = {
-    val xx = enterTsLiteralNumber(withTree(t, x))(x)
-//    val tt = withTree(t, xx)
-    xx
-//    xx match {
-//      case TsLiteralNumber(_1) => TsLiteralNumber(_1)
-//    }
-  }
-  final def visitTsLiteralString(t: T)(x: TsLiteralString): TsLiteralString = {
-    val xx = enterTsLiteralString(withTree(t, x))(x)
-    xx
-//    val tt = withTree(t, xx)
-//    xx match {
-//      case TsLiteralString(_1) => TsLiteralString(_1)
-//    }
-  }
+  final def visitTsLiteralBoolean(t: T)(x: TsLiteralBoolean): TsLiteralBoolean =
+    enterTsLiteralBoolean(withTree(t, x))(x)
+  final def visitTsLiteralNumber(t: T)(x: TsLiteralNumber): TsLiteralNumber =
+    enterTsLiteralNumber(withTree(t, x))(x)
+  final def visitTsLiteralString(t: T)(x: TsLiteralString): TsLiteralString =
+    enterTsLiteralString(withTree(t, x))(x)
   final def visitTsMemberCall(t: T)(x: TsMemberCall): TsMemberCall = {
     val xx = enterTsMemberCall(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -388,7 +295,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberFunction(_1, _2, _3, _4, _5, _6, _7) =>
-        TsMemberFunction(_1, _2, visitTsIdent(tt)(_3), visitTsFunSig(tt)(_4), _5, _6, _7)
+        TsMemberFunction(_1, _2, _3, visitTsFunSig(tt)(_4), _5, _6, _7)
     }
   }
   final def visitTsMemberIndex(t: T)(x: TsMemberIndex): TsMemberIndex = {
@@ -397,7 +304,7 @@ trait TreeVisitor[T] { self =>
     xx match {
       case TsMemberIndex(_1, _2, _3, _4, _5, _6) =>
         val indexed = _4 match {
-          case IndexingDict(name, tpe) => IndexingDict(visitTsIdent(tt)(name), visitTsType(tt)(tpe))
+          case IndexingDict(name, tpe) => IndexingDict(name, visitTsType(tt)(tpe))
           case IndexingSingle(name)    => IndexingSingle(visitTsQIdent(tt)(name))
         }
         TsMemberIndex(_1, _2, _3, indexed, _5, visitTsType(tt)(_6))
@@ -408,7 +315,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsMemberProperty(_1, _2, visitTsIdent(tt)(_3), _4 map visitTsType(tt), _5 map visitTsLiteral(tt), _6, _7, _8)
+        TsMemberProperty(_1, _2, _3, _4 map visitTsType(tt), _5 map visitTsLiteral(tt), _6, _7, _8)
     }
   }
   final def visitTsMemberTypeMapped(t: T)(x: TsMemberTypeMapped): TsMemberTypeMapped = {
@@ -416,7 +323,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberTypeMapped(_1, _2, _3, _4, _5, _6, _7) =>
-        TsMemberTypeMapped(_1, _2, _3, visitTsIdent(tt)(_4), visitTsType(tt)(_5), _6, visitTsType(tt)(_7))
+        TsMemberTypeMapped(_1, _2, _3, _4, visitTsType(tt)(_5), _6, visitTsType(tt)(_7))
     }
   }
   final def visitTsParsedFile(t: T)(x: TsParsedFile): TsParsedFile = {
@@ -428,14 +335,8 @@ trait TreeVisitor[T] { self =>
     leaveTsParsedFile(tt)(xxx)
   }
 
-  final def visitTsQIdent(t: T)(x: TsQIdent): TsQIdent = {
-    val xx = enterTsQIdent(withTree(t, x))(x)
-//    val tt = withTree(t, xx)
-    xx
-//    match {
-//      case TsQIdent(_1) => TsQIdent(_1)
-//    }
-  }
+  final def visitTsQIdent(t: T)(x: TsQIdent): TsQIdent =
+    enterTsQIdent(withTree(t, x))(x)
   final def visitTsTypeConstructor(t: T)(x: TsTypeConstructor): TsTypeConstructor = {
     val xx = enterTsTypeConstructor(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -483,7 +384,7 @@ trait TreeVisitor[T] { self =>
     val xx = enterTsTypeIs(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeIs(_1, _2) => TsTypeIs(visitTsIdent(tt)(_1), visitTsType(tt)(_2))
+      case TsTypeIs(_1, _2) => TsTypeIs(_1, visitTsType(tt)(_2))
     }
   }
 
@@ -507,7 +408,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsTypeLookup(_1, _2) =>
-        TsTypeLookup(visitTsType(tt)(_1), _2.left.map(visitTsIdent(tt)).right.map(visitTsTypeIndexedQuery(tt)))
+        TsTypeLookup(visitTsType(tt)(_1), _2.right.map(visitTsTypeIndexedQuery(tt)))
     }
   }
   final def visitTsTypeObject(t: T)(x: TsTypeObject): TsTypeObject = {
@@ -522,7 +423,7 @@ trait TreeVisitor[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsTypeParam(_1, _2, _3, _4) =>
-        TsTypeParam(_1, visitTsIdent(tt)(_2), _3 map visitTsType(tt), _4 map visitTsType(tt))
+        TsTypeParam(_1, _2, _3 map visitTsType(tt), _4 map visitTsType(tt))
     }
   }
   final def visitTsTypeQuery(t: T)(x: TsTypeQuery): TsTypeQuery = {
@@ -547,13 +448,8 @@ trait TreeVisitor[T] { self =>
       case TsTypeRepeated(_1) => TsTypeRepeated(visitTsType(tt)(_1))
     }
   }
-  final def visitTsTypeThis(t: T)(x: TsTypeThis): TsTypeThis = {
-    val xx = enterTsTypeThis(withTree(t, x))(x)
-//    val tt = withTree(t, xx)
-    xx match {
-      case TsTypeThis() => TsTypeThis()
-    }
-  }
+  final def visitTsTypeThis(t: T)(x: TsTypeThis): TsTypeThis =
+    enterTsTypeThis(withTree(t, x))(x)
   final def visitTsTypeTuple(t: T)(x: TsTypeTuple): TsTypeTuple = {
     val xx = enterTsTypeTuple(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -631,7 +527,7 @@ trait TreeVisitor[T] { self =>
   final def visitTsTerm(t: T)(x: TsTerm): TsTerm =
     enterTsTerm(withTree(t, x))(x) match {
       case x: TsLiteral => visitTsLiteral(t)(x)
-      case x: TsIdent   => visitTsIdent(t)(x)
+      case x: TsIdent   => x
     }
 
   final def visitTsLiteral(t: T)(x: TsLiteral): TsLiteral =
@@ -639,14 +535,6 @@ trait TreeVisitor[T] { self =>
       case x: TsLiteralBoolean => visitTsLiteralBoolean(t)(x)
       case x: TsLiteralString  => visitTsLiteralString(t)(x)
       case x: TsLiteralNumber  => visitTsLiteralNumber(t)(x)
-    }
-
-  final def visitTsIdent(t: T)(x: TsIdent): TsIdent =
-    enterTsIdent(withTree(t, x))(x) match {
-      case x: TsIdentSimple    => visitTsIdentSimple(t)(x)
-      case x: TsIdentModule    => visitTsIdentModule(t)(x)
-      case x: TsIdentLibrary   => visitTsIdentLibrary(t)(x)
-      case x: TsIdentNamespace => visitTsIdentNamespace(t)(x)
     }
 
   final def visitTsType(t: T)(x: TsType): TsType =
@@ -735,16 +623,6 @@ trait TreeVisitor[T] { self =>
         self.enterTsFunParam(t)(that.enterTsFunParam(t)(x))
       override def enterTsFunSig(t: T)(x: TsFunSig): TsFunSig =
         self.enterTsFunSig(t)(that.enterTsFunSig(t)(x))
-      override def enterTsIdent(t: T)(x: TsIdent): TsIdent =
-        self.enterTsIdent(t)(that.enterTsIdent(t)(x))
-      override def enterTsIdentModule(t: T)(x: TsIdentModule): TsIdentModule =
-        self.enterTsIdentModule(t)(that.enterTsIdentModule(t)(x))
-      override def enterTsIdentSimple(t: T)(x: TsIdentSimple): TsIdentSimple =
-        self.enterTsIdentSimple(t)(that.enterTsIdentSimple(t)(x))
-      override def enterTsIdentLibrary(t: T)(x: TsIdentLibrary): TsIdentLibrary =
-        self.enterTsIdentLibrary(t)(that.enterTsIdentLibrary(t)(x))
-      override def enterTsIdentNamespace(t: T)(x: TsIdentNamespace): TsIdentNamespace =
-        self.enterTsIdentNamespace(t)(that.enterTsIdentNamespace(t)(x))
       override def enterTsImportedDestructured(t: T)(x: TsImportedDestructured): TsImportedDestructured =
         self.enterTsImportedDestructured(t)(that.enterTsImportedDestructured(t)(x))
       override def enterTsImportedIdent(t: T)(x: TsImportedIdent): TsImportedIdent =

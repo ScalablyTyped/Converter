@@ -39,14 +39,19 @@ object ResolveExternalReferences {
     val root  = TreeScope(source.inLibrary.libName, pedantic = true, Map.empty, logger)
     val after = v.visitTsParsedFile(root)(tsParsedFile)
 
-    Result(after, v.foundSources.to[Set], v.notFound.to[Set])
+    val newImports: Iterable[TsImport] =
+      v.importTypes map {
+        case (TsIdentImport(from), name) => TsImport(TsImportedStar(Some(name)) :: Nil, TsImporteeFrom(from))
+      }
 
+    Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])
   }
 
   private class V(doResolve: TsIdentModule => Option[(TsSource, TsIdentModule)], imported: Set[TsIdentModule])
       extends TreeVisitorScopedChanges {
     val foundSources = mutable.Set.empty[TsSource]
     val notFound     = mutable.Set.empty[TsIdentModule]
+    val importTypes  = mutable.Map.empty[TsIdentImport, TsIdentSimple]
 
     private def resolveAndStore(name: TsIdentModule): TsIdentModule =
       doResolve(name) match {
@@ -92,6 +97,16 @@ object ResolveExternalReferences {
 
     override def enterTsExporteeNames(t: TreeScope)(x: TsExporteeNames): TsExporteeNames =
       x.fromOpt.fold(x)(from => x.copy(fromOpt = Some(resolveAndStore(from))))
+
+    override def enterTsQIdent(t: TreeScope)(x: TsQIdent): TsQIdent =
+      x match {
+        case TsQIdent((x: TsIdentImport) :: rest) =>
+          val from = resolveAndStore(x.from)
+          val name = TsIdentSimple("imported_" + from.value)
+          importTypes.put(x, name)
+          TsQIdent(name :: rest)
+        case other => other
+      }
   }
 
 }

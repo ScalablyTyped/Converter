@@ -2128,4 +2128,23 @@ type Readonly<T> = {
       )
     )
   }
+
+  test("import types") {
+    shouldParseAs(
+      "var foo: import('@babel/types').Foo",
+      TsParser.tsDeclVar
+    )(
+      TsDeclVar(
+        NoComments,
+        false,
+        false,
+        TsIdentSimple("foo"),
+        Some(TsTypeRef(TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))), List())),
+        None,
+        Zero,
+        CodePath.NoPath,
+        false
+      )
+    )
+  }
 }
