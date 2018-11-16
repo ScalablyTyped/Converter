@@ -16,7 +16,7 @@ object UpToDateExternals {
     val ensurePresentPackagesFixes = ensurePresentPackages.map {
       // yarn can apparently not resolve scoped packages with this syntax
       case s if s.contains("__") => s.split("__").mkString("@", "/", "")
-      case other => other
+      case other                 => other
     }
     val alreadyAddedExternals: Set[String] =
       Json.opt[PackageJsonDeps](cacheFolder / "package.json") match {

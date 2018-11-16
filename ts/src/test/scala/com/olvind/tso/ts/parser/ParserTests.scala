@@ -2139,7 +2139,10 @@ type Readonly<T> = {
         false,
         false,
         TsIdentSimple("foo"),
-        Some(TsTypeRef(TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))), List())),
+        Some(
+          TsTypeRef(TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))),
+                    List())
+        ),
         None,
         Zero,
         CodePath.NoPath,

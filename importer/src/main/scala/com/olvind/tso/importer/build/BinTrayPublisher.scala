@@ -10,7 +10,9 @@ import dispatch.{FunctionHandler, Http}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class BinTrayPublisher(repoPublic: String, user: String, password: String, repoName: String)(implicit ec: ExecutionContext) {
+class BinTrayPublisher(repoPublic: String, user: String, password: String, repoName: String)(
+    implicit ec:                   ExecutionContext
+) {
   private lazy val http   = new Http()
   private lazy val client = Client(user, password, http)
   private lazy val repo   = client.repo(user, repoName)

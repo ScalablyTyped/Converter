@@ -40,13 +40,13 @@ trait ImporterHarness extends FunSuiteLike {
         .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
         .next(
           new Phase3CompileBloop(
-            versions = version,
-            bloopFactory = bloopFactory,
-            targetFolder = targetFolder,
+            versions        = version,
+            bloopFactory    = bloopFactory,
+            targetFolder    = targetFolder,
             mainPackageName = OutputPkg,
-            projectName = "ScalablyTyped",
-            organization = "com.scalablytyped",
-            publishFolder = publishFolder
+            projectName     = "ScalablyTyped",
+            organization    = "com.scalablytyped",
+            publishFolder   = publishFolder
           ),
           "build"
         )

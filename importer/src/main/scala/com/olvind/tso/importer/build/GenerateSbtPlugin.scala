@@ -26,7 +26,7 @@ object GenerateSbtPlugin {
                pluginVersion: String): Map[RelPath, Array[Byte]] = {
 
     val buildSbt = s"""name := "sbt-$projectName"
-      |organization := ${ quote(organization)}
+      |organization := ${quote(organization)}
       |version := ${quote(pluginVersion)}
       |sbtPlugin := true
       |scalaVersion := ${quote(v.scalaVersion)}
