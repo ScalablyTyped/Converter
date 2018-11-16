@@ -13,6 +13,11 @@ object UpToDateExternals {
             ignored:               Set[String]): InFolder = {
     mkdir(cacheFolder)
 
+    val ensurePresentPackagesFixes = ensurePresentPackages.map {
+      // yarn can apparently not resolve scoped packages with this syntax
+      case s if s.contains("__") => s.split("__").mkString("@", "/", "")
+      case other => other
+    }
     val alreadyAddedExternals: Set[String] =
       Json.opt[PackageJsonDeps](cacheFolder / "package.json") match {
         case Some(PackageJsonDeps(_, deps, peerDeps, _, _, _)) =>
@@ -23,7 +28,7 @@ object UpToDateExternals {
       }
 
     val missingExternals: Set[String] =
-      ensurePresentPackages -- alreadyAddedExternals -- ignored
+      ensurePresentPackagesFixes -- alreadyAddedExternals -- ignored
 
     if (missingExternals.nonEmpty) {
       logger.warn(s"Adding missing externals $missingExternals")
