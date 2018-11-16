@@ -22,7 +22,7 @@ object Phase3CompileBloop {
 
 class Phase3CompileBloop(versions:        Versions,
                          bloopFactory:    BloopFactory,
-                         targetFolder:    OutFolder,
+                         targetFolder:    Path,
                          mainPackageName: Name,
                          projectName:     String,
                          organization:    String,

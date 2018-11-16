@@ -151,7 +151,7 @@ object Main extends App {
         new Phase3CompileBloop(
           versions        = config.versions,
           bloopFactory    = bloopFactory,
-          targetFolder    = OutFolder(targetFolder),
+          targetFolder    = targetFolder,
           mainPackageName = config.outputPkg,
           projectName     = config.projectName,
           organization    = config.organization,

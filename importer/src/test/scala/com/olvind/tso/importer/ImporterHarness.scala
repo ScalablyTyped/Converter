@@ -26,7 +26,7 @@ trait ImporterHarness extends FunSuiteLike {
 
   private def runImport(
       source:        InFolder,
-      targetFolder:  OutFolder,
+      targetFolder:  Path,
       pedantic:      Boolean,
       logRegistry:   LogRegistry[TsSource, TsIdentLibrary, StringWriter],
       publishFolder: Path
@@ -65,8 +65,8 @@ trait ImporterHarness extends FunSuiteLike {
         InFolder(Path(other.getFile) / up / up / up / up / 'src / 'test / 'resources / testName)
     }
     val source       = InFolder(testFolder.path / 'in)
-    val targetFolder = OutFolder(Path(Files.createTempDirectory("tso-test-")))
-    val checkFolder  = OutFolder(testFolder.path / 'check)
+    val targetFolder = Path(Files.createTempDirectory("tso-test-"))
+    val checkFolder  = testFolder.path / 'check
 
     val logRegistry =
       new LogRegistry[TsSource, TsIdentLibrary, StringWriter](
@@ -83,20 +83,20 @@ trait ImporterHarness extends FunSuiteLike {
         import ImplicitWd.implicitCwd
 
         if (update) {
-          rm(checkFolder.folder)
-          cp(targetFolder.folder, checkFolder.folder)
-          %("git", "add", checkFolder.folder)
+          rm(checkFolder)
+          cp(targetFolder, checkFolder)
+          %("git", "add", checkFolder)
         }
 
-        Try(%%("diff", "-Naur", checkFolder.folder, targetFolder.folder)) match {
+        Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
           case Success(_) => if (update) pending else succeed
           case Failure(th: ShelloutException) => {
             import ImplicitWd.implicitCwd
-            rm(checkFolder.folder)
-            cp(targetFolder.folder, checkFolder.folder)
-            %("git", "add", checkFolder.folder)
+            rm(checkFolder)
+            cp(targetFolder, checkFolder)
+            %("git", "add", checkFolder)
           }
-          val diff = %%("diff", "-r", checkFolder.folder, targetFolder.folder).out.string
+          val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
           fail(s"Output for test $testFolder was not as expected : $diff", th)
         case Failure(th) => throw th
         }
@@ -106,9 +106,9 @@ trait ImporterHarness extends FunSuiteLike {
           import ammonite.ops._
           import ImplicitWd.implicitCwd
 
-          rm(checkFolder.folder)
-          cp(targetFolder.folder, checkFolder.folder)
-          %("git", "add", checkFolder.folder)
+          rm(checkFolder)
+          cp(targetFolder, checkFolder)
+          %("git", "add", checkFolder)
         }
         errors foreach {
           case (fromSource, detail) =>
