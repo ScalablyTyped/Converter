@@ -33,7 +33,8 @@ object ResolveExternalReferences {
     }
     val v = new V(doResolve, imported)
 
-    val after = v.visitTsParsedFile(TreeScope(source.inLibrary.libName, Map.empty, logger))(tsParsedFile)
+    val root  = TreeScope(source.inLibrary.libName, pedantic = true, Map.empty, logger)
+    val after = v.visitTsParsedFile(root)(tsParsedFile)
 
     Result(after, v.foundSources.to[Set], v.notFound.to[Set])
 

@@ -88,7 +88,7 @@ object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
 
         case (TsDeclTypeAlias(_, _, _, Nil, tpe, _), newScope) => mpsFromType(newScope, tpe)
         case other =>
-          scope.logger.fatalMaybe(s"Unexpected not interface or type alias $other", constants.Pedantic)
+          scope.fatalMaybe(s"Unexpected not interface or type alias $other")
           Nil
       }
 

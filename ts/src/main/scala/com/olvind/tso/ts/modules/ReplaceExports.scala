@@ -118,7 +118,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeVisitorScopedChange
       case TsExport(NoComments, _, TsExporteeStar(name, None)) if owner.name === name => Nil
       case e: TsExport =>
         val ret = Exports.expandExport(scope, jsLocation, e, loopDetector, owner)
-        if (ret.isEmpty && constants.Pedantic) {
+        if (ret.isEmpty && scope.root.pedantic) {
           e match {
             /* OF COURSE somebody had to export an empty object */
             case TsExport(_, ExportType.Named, TsExporteeNames(names, None)) if names.isEmpty => ()

@@ -10,7 +10,8 @@ sealed abstract class SymbolScope { outer =>
   val libName: Name
   def tparams: Map[Name, TypeParamSymbol]
   def _lookup(fragments: List[Name]): Seq[(Symbol, SymbolScope)]
-  def logger: Logger[Unit]
+  def logger:   Logger[Unit]
+  def pedantic: Boolean
 
   final def lookup(fragments: List[Name]): Seq[(Symbol, SymbolScope)] =
     fragments match {
@@ -22,7 +23,7 @@ sealed abstract class SymbolScope { outer =>
       case _ =>
         val res = _lookup(fragments)
 
-        if (res.isEmpty && constants.Pedantic) {
+        if (res.isEmpty && pedantic) {
           _lookup(fragments)
           logger warn s"Couldn't resolve $fragments"
         }
@@ -48,7 +49,10 @@ sealed abstract class SymbolScope { outer =>
 object SymbolScope {
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
-  class Root[Source](val libName: Name, _dependencies: Set[LibScalaJs[Source]], val logger: Logger[Unit])
+  class Root[Source](val libName:   Name,
+                     _dependencies: Set[LibScalaJs[Source]],
+                     val logger:    Logger[Unit],
+                     val pedantic:  Boolean)
       extends SymbolScope {
     lazy val dependencies: Map[Name, SymbolScope] =
       mapDeps(this, _dependencies)
@@ -70,7 +74,6 @@ object SymbolScope {
 
     override def lookupNoBacktrack(names: List[Name]): Seq[(Symbol, SymbolScope)] =
       Seq.empty
-
   }
 
   final case class Scoped(libName: Name, outer: SymbolScope, current: Symbol) extends SymbolScope {
@@ -79,6 +82,9 @@ object SymbolScope {
 
     override lazy val logger =
       outer.logger.withContext(this)
+
+    override def pedantic: Boolean =
+      outer.pedantic
 
     lazy val tparams: Map[Name, TypeParamSymbol] = {
       val newTParams: Seq[TypeParamSymbol] =

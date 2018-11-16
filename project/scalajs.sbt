@@ -1,2 +1,4 @@
-//addSbtPlugin("org.scala-js" % "sbt-scalajs" % "1.0.0-M3")
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.25")
+val scalaJSVersion =
+  Option(System.getenv("SCALAJS_VERSION")).getOrElse("0.6.25")
+
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % scalaJSVersion)

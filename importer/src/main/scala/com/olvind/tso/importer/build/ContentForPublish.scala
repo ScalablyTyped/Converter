@@ -12,9 +12,8 @@ import scala.collection.mutable
 import scala.xml.Elem
 
 object ContentForPublish {
-  import versions._
-
-  def apply(paths:       CompilerPaths,
+  def apply(v:           Versions,
+            paths:       CompilerPaths,
             p:           SbtProject,
             publication: ZonedDateTime,
             sourceFiles: Layout[RelPath, Array[Byte]]): IvyLayout[RelPath, Array[Byte]] =
@@ -22,8 +21,8 @@ object ContentForPublish {
       p          = p,
       jarFile    = createJar(paths.classesDir),
       sourceFile = createJar(sourceFiles, publication),
-      ivyFile    = fromXml(ivy(p, publication)),
-      pomFile    = fromXml(pom(p))
+      ivyFile    = fromXml(ivy(v, p, publication)),
+      pomFile    = fromXml(pom(v, p))
     )
 
   private def fromXml(xml: Elem): Array[Byte] = {
@@ -79,7 +78,7 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  def ivy(p: SbtProject, publication: ZonedDateTime): Elem =
+  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime): Elem =
     <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
       <info organisation={p.organization}
             module={p.artifactId}
@@ -109,20 +108,20 @@ object ContentForPublish {
         <artifact name={p.artifactId} type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        <dependency org={scalaOrganization} name="scala-compiler" rev={scalaVersion} conf="scala-tool->default,optional(default)"/>
-        <dependency org={scalaOrganization} name="scala-library" rev={scalaVersion} conf="scala-tool->default,optional(default);compile->default(compile)"/>
-        <dependency org={scalaJsOrganization} name={s"scalajs-compiler_$scalaVersion"} rev={scalaJsVersion} conf="plugin->default(compile)"/>
-        <dependency org={scalaJsOrganization} name={s("scalajs-library")} rev={scalaJsVersion} conf="compile->default(compile)"/>
-        <dependency org={scalaJsOrganization} name={s("scalajs-test-interface")} rev={scalaJsVersion} conf="test->default(compile)"/>
-        <dependency org={scalaJsOrganization} name={sjs("scalajs-dom")} rev={scalaJsDomVersion} conf="compile->default(compile)"/>
-        <dependency org={RuntimeOrganization} name={sjs(RuntimeName)} rev={RuntimeVersion} conf="compile->default(compile)"/>
+        <dependency org={v.scalaOrganization} name="scala-compiler" rev={v.scalaVersion} conf="scala-tool->default,optional(default)"/>
+        <dependency org={v.scalaOrganization} name="scala-library" rev={v.scalaVersion} conf="scala-tool->default,optional(default);compile->default(compile)"/>
+        <dependency org={v.scalaJsOrganization} name={s"scalajs-compiler_${v.scalaVersion}"} rev={v.scalaJsVersion} conf="plugin->default(compile)"/>
+        <dependency org={v.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJsVersion} conf="compile->default(compile)"/>
+        <dependency org={v.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={v.scalaJsVersion} conf="test->default(compile)"/>
+        <dependency org={v.scalaJsOrganization} name={v.sjs("scalajs-dom")} rev={v.scalaJsDomVersion} conf="compile->default(compile)"/>
+        <dependency org={v.RuntimeOrganization} name={v.sjs(v.RuntimeName)} rev={v.RuntimeVersion} conf="compile->default(compile)"/>
         {p.deps.map{case (_, d) =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
       }}
       </dependencies>
     </ivy-module>
 
-  def pom(p: SbtProject): Elem =
+  def pom(v: Versions, p: SbtProject): Elem =
     <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
       <modelVersion>4.0.0</modelVersion>
       <groupId>{p.organization}</groupId>
@@ -136,30 +135,30 @@ object ContentForPublish {
       </organization>
       <dependencies>
         <dependency>
-          <groupId>{scalaOrganization}</groupId>
+          <groupId>{v.scalaOrganization}</groupId>
           <artifactId>scala-library</artifactId>
-          <version>{scalaVersion}</version>
+          <version>{v.scalaVersion}</version>
         </dependency>
         <dependency>
-          <groupId>{scalaJsOrganization}</groupId>
-          <artifactId>{s("scalajs-library")}</artifactId>
-          <version>{scalaJsVersion}</version>
+          <groupId>{v.scalaJsOrganization}</groupId>
+          <artifactId>{v.s("scalajs-library")}</artifactId>
+          <version>{v.scalaJsVersion}</version>
         </dependency>
         <dependency>
-          <groupId>{scalaJsOrganization}</groupId>
-          <artifactId>{s("scalajs-test-interface")}</artifactId>
-          <version>{scalaJsVersion}</version>
+          <groupId>{v.scalaJsOrganization}</groupId>
+          <artifactId>{v.s("scalajs-test-interface")}</artifactId>
+          <version>{v.scalaJsVersion}</version>
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>{scalaJsOrganization}</groupId>
-          <artifactId>{sjs("scalajs-dom")}</artifactId>
-          <version>{scalaJsDomVersion}</version>
+          <groupId>{v.scalaJsOrganization}</groupId>
+          <artifactId>{v.sjs("scalajs-dom")}</artifactId>
+          <version>{v.scalaJsDomVersion}</version>
         </dependency>
         <dependency>
           <groupId>com.olvind</groupId>
-          <artifactId>{sjs("runtime")}</artifactId>
-          <version>{RuntimeVersion}</version>
+          <artifactId>{v.sjs("runtime")}</artifactId>
+          <version>{v.RuntimeVersion}</version>
         </dependency>
         {p.deps.map{case (_, d) =>
         <dependency>

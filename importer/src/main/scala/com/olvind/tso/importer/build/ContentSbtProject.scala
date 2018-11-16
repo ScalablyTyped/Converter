@@ -5,51 +5,55 @@ import ammonite.ops.RelPath
 import com.olvind.tso.stringUtils.quote
 
 object ContentSbtProject {
-  import versions._
-
-  val sourcesDir: RelPath = RelPath("src") / 'main / 'scala
-  val classesDir: RelPath = RelPath("target") / s"scala-$binVersion" / 'classes
-
-  val Fixed: List[String] =
-    List(
-      `version%%%`(scalaJsOrganization, "scalajs-dom", scalaJsDomVersion),
-      `version%%%`(RuntimeOrganization, RuntimeName, RuntimeVersion)
-    )
-
-  def asSbt(s: SbtProject) = `version%%%`(s.organization, s.name, s.version)
-
-  def apply(comments:     Comments,
+  def apply(v:            Versions,
+            comments:     Comments,
             organization: String,
             name:         String,
             version:      String,
             deps:         Seq[PublishedSbtProject],
-            scalaFiles:   Map[RelPath, Array[Byte]]): SbtProjectLayout[RelPath, Array[Byte]] = {
+            scalaFiles:   Map[RelPath, Array[Byte]],
+            projectName:  String): SbtProjectLayout[RelPath, Array[Byte]] = {
+
+    val Fixed: List[String] =
+      List(
+        v.%%%(v.scalaJsOrganization, "scalajs-dom", v.scalaJsDomVersion),
+        v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion)
+      )
+
     val buildSbt = {
-      val ds = (Fixed ++ deps.map(d => asSbt(d.project))).sorted.mkString("Seq(\n  ", ",\n  ", ")")
+      val ds =
+        (Fixed ++ deps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))).sorted
+          .mkString("Seq(\n  ", ",\n  ", ")")
+
+      val scalacOptions =
+        if (v.scalaJsBinVersion === "0.6") s"scalacOptions += ${quote("-P:scalajs:sjsDefinedByDefault")}"
+        else ""
 
       s"""|organization := ${quote(organization)}
           |name := ${quote(name)}
           |version := ${quote(version)}
-          |scalaVersion := ${quote(scalaVersion)}
+          |scalaVersion := ${quote(v.scalaVersion)}
           |enablePlugins(ScalaJSPlugin)
           |libraryDependencies ++= $ds
           |publishArtifact in packageDoc := false
-          |scalacOptions += "-P:scalajs:sjsDefinedByDefault"
+          |$scalacOptions
           |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-          |bintrayRepository := ${quote(constants.Project)}
+          |bintrayRepository := ${quote(projectName)}
         """.stripMargin
     }
 
     val pluginsSbt =
-      s"""|addSbtPlugin(${`version%%`(scalaJsOrganization, "sbt-scalajs", scalaJsVersion)})
-          |addSbtPlugin($sbtBintray)
+      s"""|addSbtPlugin(${v.%%(v.scalaJsOrganization, "sbt-scalajs", v.scalaJsVersion)})
+          |addSbtPlugin(${v.sbtBintray})
           |""".stripMargin
 
     val readme = comments.cs.map(_.raw).mkString("```\n", "", "```")
 
+    val sourcesDir = RelPath("src") / 'main / 'scala
+
     SbtProjectLayout(
       RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      RelPath("project") / "build.properties" -> s"sbt.version=$sbtVersion".getBytes(constants.Utf8),
+      RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
       RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
       RelPath("readme.md") -> readme.getBytes(constants.Utf8),
       scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content }

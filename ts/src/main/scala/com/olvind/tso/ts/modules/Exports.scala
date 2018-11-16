@@ -51,7 +51,7 @@ object Exports {
 
               case _ =>
                 Imports.expandImportee(i.from, scope, loopDetector)
-                scope.logger.fatalMaybe(s"Could not resolve import $i", constants.Pedantic)
+                scope.fatalMaybe(s"Could not resolve import $i")
                 Nil
             }
         }
@@ -62,7 +62,7 @@ object Exports {
             scope.moduleScopes.get(from) match {
               case Some(modScope) => modScope
               case None =>
-                scope.logger.fatalMaybe(s"Couldn't find expected module $from", constants.Pedantic)
+                scope.fatalMaybe(s"Couldn't find expected module $from")
                 scope
             }
           case None => scope
@@ -71,7 +71,7 @@ object Exports {
         idents flatMap {
           case (qIdent, asNameOpt) =>
             val found = newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
-            if (found.isEmpty && constants.Pedantic) {
+            if (found.isEmpty && newScope.root.pedantic) {
               //for debugging
               newScope.lookupInternal(Picker.All, qIdent.parts, loopDetector)
               newScope.logger.warn(s"Could not resolve $qIdent")
@@ -94,7 +94,7 @@ object Exports {
               case n                               => export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
             }
           case _ =>
-            scope.logger.fatalMaybe(s"Couldn't find expected module $from", constants.Pedantic)
+            scope.fatalMaybe(s"Couldn't find expected module $from")
             Nil
         }
     }

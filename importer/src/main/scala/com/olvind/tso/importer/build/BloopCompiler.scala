@@ -16,8 +16,7 @@ import sbt.internal.inc.bloop.ZincInternals
 import xsbti.ComponentProvider
 import xsbti.compile.{ClasspathOptions, PreviousResult}
 
-object BloopCompiler {
-  import versions._
+class BloopFactory(logger: Logger[Unit]) {
 
   class LoggerAdapter(logger: Logger[Unit]) extends bloop.logging.Logger {
     override def name: String = "bloop-scala-logger"
@@ -45,30 +44,30 @@ object BloopCompiler {
     override def isVerbose: Boolean = true
   }
 
-  def apply(logger: Logger[Unit]) = {
-    logger.warn("Initializing scala compiler")
+  val bloopLogger = new LoggerAdapter(logger)
 
-    val bloopLogger = new LoggerAdapter(logger)
+  val provider: ComponentProvider =
+    ZincInternals.getComponentProvider(Paths.getCacheDirectory("components"))
 
-    val provider: ComponentProvider =
-      ZincInternals.getComponentProvider(Paths.getCacheDirectory("components"))
+  val jars: AbsolutePath =
+    Paths.getCacheDirectory("scala-jars")
 
-    val jars: AbsolutePath =
-      Paths.getCacheDirectory("scala-jars")
+  val singleCompilerCache: CompilerCache =
+    new CompilerCache(provider, jars, bloopLogger, Nil)
 
-    val singleCompilerCache: CompilerCache =
-      new CompilerCache(provider, jars, bloopLogger, Nil)
+  def forVersion(v: Versions): BloopCompiler = {
+    logger.warn(s"Initializing scala compiler ${v.scalaVersion} with scala.js ${v.scalaJsVersion}")
 
     val compilerInstance: ScalaInstance = {
       val allPaths: Array[AbsolutePath] =
-        DependencyResolution.resolve(scalaOrganization, "scala-compiler", scalaVersion, bloopLogger)
+        DependencyResolution.resolve(v.scalaOrganization, "scala-compiler", v.scalaVersion, bloopLogger)
 
       val allJars: Array[AbsolutePath] =
         allPaths.collect {
           case path if path.underlying.toString.endsWith(".jar") => path
         }
 
-      ScalaInstance(scalaOrganization, "scala-compiler", scalaVersion, allJars, bloopLogger)
+      ScalaInstance(v.scalaOrganization, "scala-compiler", v.scalaVersion, allJars, bloopLogger)
     }
 
     val repos: Array[Repository] =
@@ -76,21 +75,35 @@ object BloopCompiler {
 
     val globalClasspath: Array[AbsolutePath] =
       Array(
-        DependencyResolution.resolve(scalaJsOrganization, s("scalajs-library"), scalaJsVersion, bloopLogger, repos),
-        DependencyResolution.resolve(scalaJsOrganization, sjs("scalajs-dom"), scalaJsDomVersion, bloopLogger, repos),
-        DependencyResolution.resolve(versions.RuntimeOrganization,
-                                     sjs(versions.RuntimeName),
-                                     RuntimeVersion,
-                                     bloopLogger,
-                                     repos),
+        DependencyResolution.resolve(
+          v.scalaJsOrganization,
+          v.s("scalajs-library"),
+          v.scalaJsVersion,
+          bloopLogger,
+          repos
+        ),
+        DependencyResolution.resolve(
+          v.scalaJsOrganization,
+          v.sjs("scalajs-dom"),
+          v.scalaJsDomVersion,
+          bloopLogger,
+          repos
+        ),
+        DependencyResolution.resolve(
+          v.RuntimeOrganization,
+          v.sjs(v.RuntimeName),
+          v.RuntimeVersion,
+          bloopLogger,
+          repos
+        ),
       ).flatten
 
     val scalaJsCompiler =
       DependencyResolution
         .resolve(
-          scalaJsOrganization,
-          s"scalajs-compiler_$scalaVersion",
-          scalaJsVersion,
+          v.scalaJsOrganization,
+          s"scalajs-compiler_${v.scalaVersion}",
+          v.scalaJsVersion,
           bloopLogger,
           repos
         )
@@ -115,17 +128,17 @@ object BloopCompiler {
     val compileInputs = (paths: CompilerPaths, localClassPath: Seq[AbsolutePath]) => {
       def toAbs(p: Path) = AbsolutePath(p.toNIO)
 
+      val scalacOptions = Array("-Xplugin:" + scalaJsCompiler.syntax) ++
+        Array("-P:scalajs:sjsDefinedByDefault").filter(_ => v.scalaJsBinVersion === "0.6")
+
       CompileInputs(
-        scalaInstance = compilerInstance,
-        compilerCache = singleCompilerCache,
-        sources       = Array(toAbs(paths.sourcesDir)),
-        classpath     = globalClasspath ++ localClassPath,
-        classesDir    = toAbs(paths.classesDir),
-        baseDirectory = toAbs(paths.baseDir),
-        scalacOptions = Array(
-          "-Xplugin:" + scalaJsCompiler.syntax,
-          "-P:scalajs:sjsDefinedByDefault"
-        ),
+        scalaInstance    = compilerInstance,
+        compilerCache    = singleCompilerCache,
+        sources          = Array(toAbs(paths.sourcesDir)),
+        classpath        = globalClasspath ++ localClassPath,
+        classesDir       = toAbs(paths.classesDir),
+        baseDirectory    = toAbs(paths.baseDir),
+        scalacOptions    = scalacOptions,
         javacOptions     = Array(),
         classpathOptions = classPathOptions,
         previousResult   = PreviousResult.of(Optional.empty(), Optional.empty()),

@@ -4,6 +4,7 @@ package ts
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.ts.TreeScope.LoopDetector
 import com.olvind.tso.ts.modules.{ExpandedMod, Exports, Imports}
+import sourcecode.{Enclosing, File, Line, Text}
 
 import scala.collection.mutable
 
@@ -20,6 +21,9 @@ sealed trait TreeScope {
   def moduleScopes:    Map[TsIdentModule, TreeScope.Scoped]
   def moduleAuxScopes: Map[TsIdentModule, TreeScope.Scoped]
   def exports:         Seq[TsExport]
+
+  def fatalMaybe[T: Formatter](t: Text[T])(implicit l: Line, f: File, e: Enclosing): Unit =
+    if (root.pedantic) logger.fatal(t) else logger.warn(t)
 
   final def /(current: TsTree): TreeScope.Scoped =
     new TreeScope.Scoped(this, current)
@@ -63,7 +67,7 @@ sealed trait TreeScope {
 
     val res = lookupInternal(picker, qname.parts, loopDetector)
 
-    if (res.isEmpty && !skipValidation && constants.Pedantic) {
+    if (res.isEmpty && !skipValidation && root.pedantic) {
       //unused, it's just for easier debugging
       lookupInternal(picker, qname.parts, loopDetector)
 
@@ -111,8 +115,11 @@ object TreeScope {
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
-  def apply(libName: TsIdentLibrary, deps: Map[TsIdentLibrary, TsParsedFile], logger: Logger[Unit]): TreeScope.Root =
-    new Root(libName, deps, logger)
+  def apply(libName:  TsIdentLibrary,
+            pedantic: Boolean,
+            deps:     Map[TsIdentLibrary, TsParsedFile],
+            logger:   Logger[Unit]): TreeScope.Root =
+    new Root(libName, pedantic, deps, logger)
 
   class LoopDetector private (val stack: List[(List[TsIdent], String)]) {
     def this() = this(Nil)
@@ -124,10 +131,11 @@ object TreeScope {
     }
   }
 
-  final class Root private[TreeScope] (val libName: TsIdentLibrary,
-                                       _deps:       Map[TsIdentLibrary, TsParsedFile],
-                                       val logger:  Logger[Unit],
-                                       val cache:   Option[Cache] = None)
+  final class Root private[TreeScope] (val libName:  TsIdentLibrary,
+                                       val pedantic: Boolean,
+                                       _deps:        Map[TsIdentLibrary, TsParsedFile],
+                                       val logger:   Logger[Unit],
+                                       val cache:    Option[Cache] = None)
       extends TreeScope {
     override val root          = this
     override def stack         = Nil
@@ -137,7 +145,7 @@ object TreeScope {
     override def exports       = Nil
     private lazy val depScopes = _deps mapValues (f => (f, this / f))
 
-    def caching: Root = new Root(libName, _deps, logger, Some(Cache()))
+    def caching: Root = new Root(libName, pedantic, _deps, logger, Some(Cache()))
 
     override lazy val moduleScopes: Map[TsIdentModule, TreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TreeScope.Scoped]
