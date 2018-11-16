@@ -4,6 +4,7 @@ package build
 
 import ammonite.ops._
 import com.olvind.tso.scalajs.{Name, ObjectMembers, ScalaNameEscape}
+import com.olvind.tso.stringUtils.quote
 
 object GenerateSbtPlugin {
   def apply(versions:      Versions,
@@ -25,13 +26,14 @@ object GenerateSbtPlugin {
                pluginVersion: String): Map[RelPath, Array[Byte]] = {
 
     val buildSbt = s"""name := "sbt-$projectName"
-      |organization := ${stringUtils.quote(organization)}
-      |version := ${stringUtils.quote(pluginVersion)}
+      |organization := ${ quote(organization)}
+      |version := ${quote(pluginVersion)}
       |sbtPlugin := true
-      |scalaVersion := ${stringUtils.quote(v.scalaVersion)}
-      |bintrayRepository := ${stringUtils.quote(projectName)}
+      |scalaVersion := ${quote(v.scalaVersion)}
+      |bintrayRepository := ${quote(projectName)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |publishMavenStyle := true
+      |crossSbtVersions := Vector("0.13.16", ${quote(v.sbtVersion)})
       |""".stripMargin
 
     /* we have at least a `clone` and a `notify` library - of course */
