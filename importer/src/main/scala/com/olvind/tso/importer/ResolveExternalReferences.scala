@@ -23,8 +23,13 @@ object ResolveExternalReferences {
       }.toSet ++ tsParsedFile.exports.collect {
         case TsExport(_, _, TsExporteeNames(_, Some(from))) => from
       }
-
+    /**
+      * Todo: `InferredDependency` takes care of undeclared node dependency.
+      * However, that is not solid enough when there actually exists a library
+      * with the same name as the requested module.
+      */
     val doResolve: TsIdentModule => Option[(Source, TsIdentModule)] = {
+      case TsIdentModule(None, "events" :: Nil) => None
       case jsName if jsName.value.endsWith(".js") =>
         resolve.lookup(source, jsName.value.dropRight(".js".length))
       case name =>
