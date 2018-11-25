@@ -2,6 +2,8 @@ package com.olvind.tso
 
 import java.net.URI
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 import scala.io.Codec
 
@@ -11,8 +13,9 @@ import scala.io.Codec
 object constants {
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
 
-  val TimeZone = ZoneId.of("GMT")
-  val Utf8     = Codec.UTF8.charSet
+  val TimeZone        = ZoneId.of("UTC")
+  val Utf8            = Codec.UTF8.charSet
+  val DateTimePattern = DateTimeFormatter ofPattern "ddMMyyyyhhmm" withLocale Locale.ENGLISH withZone TimeZone
 
   // yeah, sorry - we'll do this more properly one day
   object MagicComments {

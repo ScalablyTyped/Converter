@@ -2,15 +2,15 @@ package com.olvind.tso
 package importer
 
 import com.olvind.logging.Logger
+import com.olvind.tso.importer.Phase1Res.{LibTs, UnpackLibs}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.ts.{ParentsResolver, _}
 import com.olvind.tso.seqs._
 import com.olvind.tso.ts.transforms.ExpandCallables
+import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
-
   def apply(lib: LibTs, logger: Logger[Unit]): ContainerSymbol = {
-    val deps = Unpack.Libs(lib.dependencies).map {
+    val deps = UnpackLibs(lib.dependencies).map {
       case (_, depLib) => depLib.name -> depLib.parsed
     }
 

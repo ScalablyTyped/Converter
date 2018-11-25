@@ -2,16 +2,16 @@ package com.olvind.tso
 package importer
 
 import ammonite.ops.ls
-import com.olvind.tso.ts.TsSource.{FromFolder, TsLibSource}
-import com.olvind.tso.ts.{TsIdentLibraryScoped, TsIdentLibrarySimple, TsSource}
+import com.olvind.tso.importer.Source.{FromFolder, TsLibSource}
+import com.olvind.tso.ts.{TsIdentLibraryScoped, TsIdentLibrarySimple}
 
 object TypescriptSources {
-  def apply(nodeModulesFolder: InFolder, dtFolder: InFolder, ignored: Set[String]): Set[TsSource] = {
+  def apply(nodeModulesFolder: InFolder, dtFolder: InFolder, ignored: Set[String]): Set[Source] = {
     val dtSources       = forFolder(dtFolder, ignored)
     val dtLibs          = dtSources.map(_.libName)
     val externalSources = forFolder(nodeModulesFolder, ignored).filterNot(s => dtLibs(s.libName))
 
-    Set.empty[TsSource] ++ dtSources ++ externalSources
+    Set.empty[Source] ++ dtSources ++ externalSources
   }
 
   def forFolder(folder: InFolder, ignored: Set[String]): Set[TsLibSource] =

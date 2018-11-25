@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.logging.Logger
 import com.olvind.tso.phases.PhaseListener
-import com.olvind.tso.ts.{TsIdentLibrary, TsSource}
+import com.olvind.tso.ts.TsIdentLibrary
 import fansi.{Color, Str}
 import monix.execution.atomic.AtomicBoolean
 
@@ -12,7 +12,7 @@ import scala.util.Try
 
 class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stored]])
     extends Thread
-    with PhaseListener[TsSource] {
+    with PhaseListener[Source] {
   private val t0        = System.currentTimeMillis
   private val files     = mutable.Set.empty[InFile]
   private val succeeded = mutable.Map.empty[TsIdentLibrary, String]
@@ -29,12 +29,12 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
     Summary(succeeded.keys.to[Set], failed.keys.to[Set])
   }
 
-  override def on(phaseName: String, id: TsSource, event: PhaseListener.Event): Unit =
+  override def on(phaseName: String, id: Source, event: PhaseListener.Event): Unit =
     synchronized {
       id match {
-        case TsSource.HelperFile(file, _, _) =>
+        case Source.TsHelperFile(file, _, _) =>
           files += file
-        case x: TsSource.TsLibSource =>
+        case x: Source =>
           val name = x.libName
           event match {
             case PhaseListener.Failure(phase) =>

@@ -141,6 +141,7 @@ object Libraries {
       "chromecast-caf-receiver",
       "snoowrap",
       // exponential growth in parsing time :/
+      "echarts",
       "@pulumi/aws",
       // these are just slow
       //      "dojo",

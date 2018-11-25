@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer.build
 
-import stringUtils.quote
+import com.olvind.tso.stringUtils.quote
 
 object Versions {
   /* Changing Scala or Scala.js versions? also publish `runtime` artifact */

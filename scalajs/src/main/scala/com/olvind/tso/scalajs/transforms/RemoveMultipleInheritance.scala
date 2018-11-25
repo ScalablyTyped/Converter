@@ -4,7 +4,7 @@ package transforms
 
 import com.olvind.tso.scalajs.ParentsResolver.{Parent, Parents}
 import com.olvind.tso.scalajs.Printer.formatQN
-import seqs._
+import com.olvind.tso.seqs._
 
 /**
   * Sort parents to ensure that if we inherit from a class it

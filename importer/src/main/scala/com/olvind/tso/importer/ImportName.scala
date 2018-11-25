@@ -33,7 +33,6 @@ object ImportName {
   def apply(i: TsIdent): Name =
     i match {
       case TsIdent.Apply           => Name.APPLY
-      case TsIdent.Apply           => Name.APPLY
       case TsIdentSimple(value)    => Name(value)
       case TsIdentNamespace(value) => Name(rewrite(value, "Ns", forceCamelCase = false))
       case x: TsIdentImport =>

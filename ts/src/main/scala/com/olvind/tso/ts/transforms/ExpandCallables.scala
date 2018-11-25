@@ -2,8 +2,8 @@ package com.olvind.tso
 package ts
 package transforms
 
+import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.TreeScope.LoopDetector
-import seqs.TraversableOps
 
 /**
   * Oh boy. Work around https://github.com/scala-js/scala-js/issues/3435

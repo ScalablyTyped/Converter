@@ -2,9 +2,9 @@ package com.olvind.tso
 package importer
 
 import ammonite.ops.{exists, Path}
-import io.circe.{Decoder, Encoder}
 import io.circe.parser.decode
 import io.circe.syntax._
+import io.circe.{Decoder, Encoder}
 
 object Json {
   def apply[T: Decoder](path: Path): T =

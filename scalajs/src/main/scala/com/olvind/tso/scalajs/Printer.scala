@@ -30,15 +30,15 @@ object Printer {
       fs.toMap
   }
 
-  def apply(lib: LibScalaJs[_], mainPkg: Name): Map[RelPath, Array[Byte]] = {
+  def apply(sym: ContainerSymbol, mainPkg: Name): Map[RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
       reg          = reg,
       mainPkg      = mainPkg,
-      scalaPrefix  = List(lib.packageSymbol.name),
-      targetFolder = RelPath(mainPkg.value) / lib.packageSymbol.name.value,
-      sym          = lib.packageSymbol
+      scalaPrefix  = List(sym.name),
+      targetFolder = RelPath(mainPkg.value) / sym.name.value,
+      sym          = sym
     )
 
     reg.result

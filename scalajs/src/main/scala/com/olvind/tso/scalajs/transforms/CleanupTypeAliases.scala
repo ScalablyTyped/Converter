@@ -2,7 +2,7 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import seqs.TraversableOps
+import com.olvind.tso.seqs.TraversableOps
 
 /**
   * This is the second part of a two step process to rid ourselves of the myriad of

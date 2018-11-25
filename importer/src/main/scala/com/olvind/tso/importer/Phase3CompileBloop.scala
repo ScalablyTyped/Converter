@@ -1,17 +1,21 @@
 package com.olvind.tso
 package importer
 
-import java.time.ZonedDateTime
+import java.nio.file.attribute.FileTime
+import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops._
-import bloop.Compiler
 import bloop.io.AbsolutePath
+import bloop.{Compiler, DependencyResolution}
 import com.olvind.logging.{Formatter, LogLevel, Logger}
+import com.olvind.tso.importer.Phase2Res.{Contrib, LibScalaJs}
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.ts._
+import com.olvind.tso.ts.TsIdentLibrarySimple
 import fansi.Back
+import io.circe.Decoder
+import io.circe.generic.semiauto.deriveDecoder
 import xsbti.Severity
 
 object Phase3CompileBloop {
@@ -20,14 +24,15 @@ object Phase3CompileBloop {
     name.unescaped.replaceAll("\\.", "_dot_")
 }
 
-class Phase3CompileBloop(versions:        Versions,
+class Phase3CompileBloop(resolve:         LibraryResolver,
+                         versions:        Versions,
                          bloopFactory:    BloopFactory,
                          targetFolder:    Path,
                          mainPackageName: Name,
                          projectName:     String,
                          organization:    String,
                          publishFolder:   Path)
-    extends Phase[TsSource, LibScalaJs[TsSource], PublishedSbtProject] {
+    extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   private val bloop = bloopFactory.forVersion(versions)
 
@@ -38,89 +43,205 @@ class Phase3CompileBloop(versions:        Versions,
 
   implicit val PathFormatter: Formatter[Path] = _.toString
 
-  override def apply(source:  TsSource,
-                     lib:     LibScalaJs[TsSource],
-                     getDeps: GetDeps[TsSource, PublishedSbtProject],
+  override def apply(source:  Source,
+                     _lib:    Phase2Res,
+                     getDeps: GetDeps[Source, PublishedSbtProject],
                      v4:      IsCircular,
-                     logger:  Logger[Unit]): PhaseRes[TsSource, PublishedSbtProject] =
-    //
-    getDeps(lib.dependencies map (_.source)) flatMap { deps: Map[TsSource, PublishedSbtProject] =>
-      val name       = Phase3CompileBloop.fromName(lib.libName)
-      val scalaFiles = Printer(lib, mainPackageName)
-      val sbtLayout = ContentSbtProject(
-        v            = versions,
-        comments     = lib.packageSymbol.comments,
-        organization = organization,
-        name         = name,
-        version      = VersionHack.TemplateValue,
-        deps         = deps.values.to[Seq],
-        scalaFiles   = scalaFiles,
-        projectName  = projectName
-      )
-      val finalVersion          = lib.libVersion.version(Digest.of(sbtLayout.all collect ScalaFiles))
-      val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
-      val compilerPaths         = CompilerPaths.of(versions, targetFolder, name)
-      val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir)
-      val sbtProject            = SbtProject(name, organization, versions.sjs(name), finalVersion)(written, deps)
+                     logger:  Logger[Unit]): PhaseRes[Source, PublishedSbtProject] =
+    _lib match {
+      case Contrib =>
+        case class Dep(org: String, artifact: String, version: String)
 
-      val existing: IvyLayout[Path, Synced] =
-        IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
-          .mapFiles(publishFolder / _)
+        case class ContribJson(typings: Set[String], dependencies: Set[Dep])
 
-      if (existing.all.keys forall exists) {
-        logger warn s"Using cached build of ${sbtProject.name}"
-        PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
-      } else {
+        implicit val DecoderDep: Decoder[Dep]         = deriveDecoder[Dep]
+        implicit val Decoder:    Decoder[ContribJson] = deriveDecoder[ContribJson]
 
-        val localClassPath: Seq[AbsolutePath] =
-          deps.values.to[Seq] map { x =>
-            x.localIvyFiles.all
-              .collectFirst {
-                case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
-                  AbsolutePath(path.toIO)
-              }
-              .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
-          }
+        val buildJson = Json[ContribJson](source.path / "build.json")
 
-        rm(compilerPaths.classesDir)
+        val dependencies: PhaseRes[Source, Set[Source]] =
+          PhaseRes.sequenceSet(
+            buildJson.typings.map(
+              t =>
+                PhaseRes.fromOption(
+                  source,
+                  resolve.global(TsIdentLibrarySimple(t)),
+                  Right(s"Couldn't resolve $t")
+              )
+            )
+          )
 
-        val ret: PhaseRes[TsSource, PublishedSbtProject] =
-          bloop.compileLib(compilerPaths, localClassPath) match {
-            case Compiler.Result.Success(_, _, elapsed) =>
-              logger warn s"Built ${sbtProject.name} in $elapsed ms"
+        def externalDeps: Set[AbsolutePath] =
+          buildJson.dependencies.flatMap(
+            dep =>
+              DependencyResolution.resolve(
+                dep.org,
+                versions.sjs(dep.artifact),
+                dep.version,
+                bloopFactory.bloopLogger
+            )
+          )
 
-              val relativeLayout: IvyLayout[RelPath, Array[Byte]] =
-                build.ContentForPublish(versions, compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
-
-              val writtenIvyFiles: IvyLayout[Path, Synced] =
-                relativeLayout
-                  .mapFiles(p => publishFolder / p)
-                  .mapValues(files.softWriteBytes)
-
-              logger.info(("published local", writtenIvyFiles.all.keys))
-
-              PhaseRes.Ok(PublishedSbtProject(sbtProject)(writtenIvyFiles, None))
-
-            case Compiler.Result.Failed(problems, _) =>
-              problems foreach { p =>
-                val logLevel: LogLevel = p.severity match {
-                  case Severity.Info  => LogLevel.info
-                  case Severity.Warn  => LogLevel.warn
-                  case Severity.Error => LogLevel.error
+        dependencies flatMap getDeps flatMap {
+          case PublishedSbtProject.Unpack(deps) =>
+            val sourceFilesBase: Map[RelPath, (Array[Byte], FileTime)] =
+              ls.rec(source.path / 'src)
+                .filter(_.isFile)
+                .map { path =>
+                  val relPath = path relativeTo source.path
+                  val bytes   = files contentBytes InFile(path)
+                  val mtime   = path.mtime
+                  relPath -> ((bytes, mtime))
                 }
+                .toMap
 
-                implicit val line = sourcecode.Line(p.position.line().orElse(-1))
-                implicit val file = sourcecode.File(p.position.sourcePath.orElse("unknown file"))
-                logger(logLevel, (p.message, Back.LightGray(p.position.lineContent)))
+            require(sourceFilesBase.nonEmpty, "no files found")
+
+            val sourceFiles: Map[RelPath, Array[Byte]] =
+              sourceFilesBase mapValues {
+                case (bytes, _) => bytes
               }
-              PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
 
-            case other => logger.fatal(other.toString)
-          }
+            val newestChange: Instant =
+              sourceFilesBase.foldLeft(Instant.MIN) {
+                case (acc, (_, (_, time))) =>
+                  val instant = time.toInstant
+                  if (acc isBefore instant) instant else acc
+              }
 
-        rm(compilerPaths.classesDir)
+            val sbtLayout = ContentSbtProject(
+              v            = versions,
+              comments     = NoComments,
+              organization = organization,
+              name         = source.libName.value,
+              version      = VersionHack.TemplateValue,
+              deps         = deps.values.to[Seq],
+              scalaFiles   = sourceFiles,
+              projectName  = projectName
+            )
 
-        ret
-      }
+            go(
+              logger             = logger,
+              deps               = deps,
+              source             = source,
+              name               = source.libName.value,
+              sbtLayout          = sbtLayout,
+              compilerPaths      = CompilerPaths(versions, source.path),
+              externalDeps       = externalDeps,
+              deleteUnknownFiles = false,
+              makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}"
+            )
+        }
+
+      case lib: LibScalaJs =>
+        getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) flatMap {
+          case PublishedSbtProject.Unpack(deps) =>
+            val name       = Phase3CompileBloop.fromName(lib.libName)
+            val scalaFiles = Printer(lib.packageSymbol, mainPackageName)
+            val sourcesDir = RelPath("src") / 'main / 'scala
+            val sbtLayout = ContentSbtProject(
+              v            = versions,
+              comments     = lib.packageSymbol.comments,
+              organization = organization,
+              name         = name,
+              version      = VersionHack.TemplateValue,
+              deps         = deps.values.to[Seq],
+              scalaFiles   = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
+              projectName  = projectName
+            )
+
+            go(
+              logger             = logger,
+              deps               = deps,
+              source             = source,
+              name               = name,
+              sbtLayout          = sbtLayout,
+              compilerPaths      = CompilerPaths.of(versions, targetFolder, name),
+              externalDeps       = Nil,
+              deleteUnknownFiles = true,
+              makeVersion        = lib.libVersion.version
+            )
+        }
     }
+
+  def go(logger:             Logger[Unit],
+         deps:               Map[Source, PublishedSbtProject],
+         source:             Source,
+         name:               String,
+         sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
+         compilerPaths:      CompilerPaths,
+         externalDeps:       => Iterable[AbsolutePath],
+         deleteUnknownFiles: Boolean,
+         makeVersion:        Digest => String): PhaseRes[Source, PublishedSbtProject] = {
+
+    val finalVersion          = makeVersion(Digest.of(sbtLayout.all collect ScalaFiles))
+    val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
+    val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles)
+    val sbtProject = SbtProject(
+      name,
+      organization,
+      versions.sjs(name),
+      finalVersion
+    )(compilerPaths.baseDir, written, deps)
+
+    val existing: IvyLayout[Path, Synced] =
+      IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
+        .mapFiles(publishFolder / _)
+
+    if (existing.all.keys forall exists) {
+      logger warn s"Using cached build of ${sbtProject.name}"
+      PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
+    } else {
+
+      val localClassPath: Seq[AbsolutePath] =
+        deps.values.to[Seq] map { x =>
+          x.localIvyFiles.all
+            .collectFirst {
+              case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
+                AbsolutePath(path.toIO)
+            }
+            .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
+        }
+
+      rm(compilerPaths.classesDir)
+
+      val ret: PhaseRes[Source, PublishedSbtProject] =
+        bloop.compileLib(compilerPaths, localClassPath ++ externalDeps) match {
+          case Compiler.Result.Success(_, _, elapsed) =>
+            logger warn s"Built ${sbtProject.name} in $elapsed ms"
+
+            val relativeLayout: IvyLayout[RelPath, Array[Byte]] =
+              build.ContentForPublish(versions, compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
+
+            val writtenIvyFiles: IvyLayout[Path, Synced] =
+              relativeLayout
+                .mapFiles(p => publishFolder / p)
+                .mapValues(files.softWriteBytes)
+
+            logger.info(("published local", writtenIvyFiles.all.keys))
+
+            PhaseRes.Ok(PublishedSbtProject(sbtProject)(writtenIvyFiles, None))
+
+          case Compiler.Result.Failed(problems, _) =>
+            problems foreach { p =>
+              val logLevel: LogLevel = p.severity match {
+                case Severity.Info  => LogLevel.info
+                case Severity.Warn  => LogLevel.warn
+                case Severity.Error => LogLevel.error
+              }
+
+              implicit val line = sourcecode.Line(p.position.line().orElse(-1))
+              implicit val file = sourcecode.File(p.position.sourcePath.orElse("unknown file"))
+              logger(logLevel, (p.message, Back.LightGray(p.position.lineContent)))
+            }
+            PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
+
+          case other => logger.fatal(other.toString)
+        }
+
+      rm(compilerPaths.classesDir)
+
+      ret
+    }
+  }
 }

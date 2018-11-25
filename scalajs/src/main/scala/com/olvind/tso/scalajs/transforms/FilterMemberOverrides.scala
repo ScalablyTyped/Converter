@@ -2,7 +2,7 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import seqs.TraversableOps
+import com.olvind.tso.seqs.TraversableOps
 
 /**
   * We filter away unneeded overrides, since they add nothing, and

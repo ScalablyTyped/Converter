@@ -11,10 +11,10 @@ import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
+import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.ts.TsSource.StdLibSource
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
 
@@ -34,6 +34,7 @@ object Main extends App {
   val failFolder       = targetFolder / 'failures
   val logsFolder       = config.cacheFolder / 'logs
   val parseCacheFolder = config.cacheFolder / 'parse / BuildInfo.parserHash.toString
+  val contribFolder    = targetFolder / 'contrib
 
   (exists(targetFolder / ".git"), config.cleanRepo) match {
     case (existed, true) =>
@@ -71,6 +72,7 @@ object Main extends App {
 
   rm(failFolder)
   mkdir(failFolder)
+  mkdir(contribFolder)
 
   val storingErrorLogger = logging.storing()
 
@@ -81,9 +83,9 @@ object Main extends App {
     if (config.debugMode) base zipWith logging.stdout else base
   }
 
-  val logRegistry = new LogRegistry[TsSource, TsIdentLibrary, Array[Stored]](
+  val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
     logger.filter(LogLevel.warn).syncAccess.void,
-    _.inLibrary.libName,
+    _.libName,
     _ => logging.storing()
   )
 
@@ -101,18 +103,21 @@ object Main extends App {
       Libraries.ignored
     )
 
-  val stdLibSource: TsSource =
+  val stdLibSource: Source =
     StdLibSource(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
                  TsIdentLibrarySimple("std"))
 
-  val tsSources: Set[TsSource] =
-    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored), config.wantedLibNames.to[List]) match {
-      case (sources, Nil) => sources
+  val contribSources: Set[Source] =
+    ls(contribFolder).map(path => Source.ContribSource(InFolder(path)): Source).to[Set]
+
+  val tsSources: Set[Source] =
+    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored) ++ contribSources, config.wantedLibNames) match {
+      case (sources, sets.EmptySet()) => sources
       case (sources, wantedLibsStrings) =>
         val wantedLibNames: Set[TsIdentLibrary] =
-          wantedLibsStrings.map(libName => ModuleNameParser(TsLiteralString(libName)).inLibrary).to[Set]
+          wantedLibsStrings.map(libName => ModuleNameParser(TsLiteralString(libName)).inLibrary)
 
-        sources.filter(s => wantedLibNames(s.inLibrary.libName))
+        sources.filter(s => wantedLibNames(s.libName))
     }
 
   val bintray: Option[BinTrayPublisher] =
@@ -133,12 +138,16 @@ object Main extends App {
     } else None
 
   val bloopFactory = new BloopFactory(logger.filter(LogLevel.debug).void)
+  val resolve = new LibraryResolver(
+    sourceFolders = Seq(dtFolder, externalsFolder),
+    contribFolder = Some(InFolder(contribFolder))
+  )
 
-  val Phase: RecPhase[TsSource, PublishedSbtProject] =
-    RecPhase[TsSource]
+  val Phase: RecPhase[Source, PublishedSbtProject] =
+    RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          sources      = Seq(dtFolder, externalsFolder),
+          resolve      = resolve,
           ignored      = Libraries.ignored,
           stdlibSource = stdLibSource,
           pedantic     = config.pedantic,
@@ -155,7 +164,8 @@ object Main extends App {
           mainPackageName = config.outputPkg,
           projectName     = config.projectName,
           organization    = config.organization,
-          publishFolder   = config.publishFolder
+          publishFolder   = config.publishFolder,
+          resolve         = resolve
         ),
         "build"
       )
@@ -169,7 +179,7 @@ object Main extends App {
   val pool = new ForkJoinPool(3)
 
   par.tasksupport = new ForkJoinTaskSupport(pool)
-  val results: Set[PhaseRes[TsSource, PublishedSbtProject]] =
+  val results: Set[PhaseRes[Source, PublishedSbtProject]] =
     par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
 
   pool.shutdown()
@@ -225,7 +235,8 @@ object Main extends App {
     )
 
     logger error "Committing..."
-    val summaryString = CommitChanges(summary, Seq(sbtProjectDir, failFolder))(targetFolder)
+    val summaryString =
+      CommitChanges(summary, successes.map(_.project.baseDir).to[Seq], Seq(sbtProjectDir, failFolder))(targetFolder)
     logger error summaryString
   }
 

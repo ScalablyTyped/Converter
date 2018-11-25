@@ -1,13 +1,7 @@
 package com.olvind.tso
 package ts
 
-import ammonite.ops.Path
-import com.olvind.tso.ts.TsSource.TsLibSource
-
 object ModuleNameParser {
-  def inferred(path: Path, inLib: TsLibSource): TsIdentModule =
-    apply(inLib.libName.`__value` +: path.relativeTo(inLib.folder.path).segments.to[List])
-
   def apply(lit: TsLiteralString): TsIdentModule = apply(lit.value.split("/").toList)
 
   def apply(fragments: List[String]): TsIdentModule = {

@@ -25,7 +25,7 @@ sealed abstract class SymbolScope { outer =>
 
         if (res.isEmpty && pedantic) {
           _lookup(fragments)
-          logger warn s"Couldn't resolve $fragments"
+          logger fatal s"Couldn't resolve $fragments"
         }
 
         res
@@ -50,12 +50,13 @@ object SymbolScope {
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
   class Root[Source](val libName:   Name,
-                     _dependencies: Set[LibScalaJs[Source]],
+                     _dependencies: Map[Name, ContainerSymbol],
                      val logger:    Logger[Unit],
                      val pedantic:  Boolean)
       extends SymbolScope {
+
     lazy val dependencies: Map[Name, SymbolScope] =
-      mapDeps(this, _dependencies)
+      _dependencies.mapValues(x => this / x)
 
     override val stack: List[Symbol] =
       Nil
@@ -130,11 +131,8 @@ object SymbolScope {
       }
   }
 
-  private def mapDeps[Source](self: SymbolScope, _dependencies: Set[LibScalaJs[Source]]): Map[Name, SymbolScope] =
-    _dependencies
-      .to[Seq] // the seq is to avoid keeping symbols in a set
-      .flatMap(
-        dep => Map(dep.packageSymbol.name -> self / dep.packageSymbol) ++ mapDeps(self, dep.dependencies)
-      )
-      .toMap
+  trait Lib {
+    def packageSymbol: ContainerSymbol
+    def dependencies:  Map[_, Lib]
+  }
 }

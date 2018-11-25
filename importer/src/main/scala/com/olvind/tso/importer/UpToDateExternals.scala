@@ -3,8 +3,8 @@ package importer
 
 import ammonite.ops.{%, mkdir, Path}
 import com.olvind.logging.Logger
-import com.olvind.tso.ts.PackageJsonDeps
 import com.olvind.tso.importer.jsonCodecs._
+import com.olvind.tso.ts.PackageJsonDeps
 
 object UpToDateExternals {
   def apply(logger:                Logger[Unit],

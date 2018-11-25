@@ -14,7 +14,9 @@ object GenerateSbtPlugin {
             projects:      Set[PublishedSbtProject],
             pluginVersion: String,
             action:        String) = {
-    files.sync(contents(versions, organization, projectName, projects, pluginVersion), projectDir)
+    files.sync(contents(versions, organization, projectName, projects, pluginVersion),
+               projectDir,
+               deleteUnknowns = true)
     implicit val wd = projectDir
     % sbt action
   }

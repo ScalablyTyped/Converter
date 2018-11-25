@@ -47,16 +47,18 @@ object ContentSbtProject {
           |addSbtPlugin(${v.sbtBintray})
           |""".stripMargin
 
-    val readme = comments.cs.map(_.raw).mkString("```\n", "", "```")
-
-    val sourcesDir = RelPath("src") / 'main / 'scala
+    val readme: Option[(RelPath, Array[Byte])] =
+      comments.cs match {
+        case Nil => None
+        case cs  => Some(RelPath("readme.md") -> cs.map(_.raw).mkString("```\n", "", "```").getBytes(constants.Utf8))
+      }
 
     SbtProjectLayout(
       RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
       RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
       RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
-      RelPath("readme.md") -> readme.getBytes(constants.Utf8),
-      scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content }
+      readme,
+      scalaFiles.map { case (relPath, content) => relPath -> content }
     )
   }
 }
