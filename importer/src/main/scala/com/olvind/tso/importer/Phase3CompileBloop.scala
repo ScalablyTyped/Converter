@@ -18,12 +18,6 @@ import io.circe.Decoder
 import io.circe.generic.semiauto.deriveDecoder
 import xsbti.Severity
 
-object Phase3CompileBloop {
-  //todo: formalize a bit
-  def fromName(name: Name): String =
-    name.unescaped.replaceAll("\\.", "_dot_")
-}
-
 class Phase3CompileBloop(resolve:         LibraryResolver,
                          versions:        Versions,
                          bloopFactory:    BloopFactory,
@@ -136,14 +130,13 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       case lib: LibScalaJs =>
         getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
-            val name       = Phase3CompileBloop.fromName(lib.libName)
             val scalaFiles = Printer(lib.packageSymbol, mainPackageName)
             val sourcesDir = RelPath("src") / 'main / 'scala
             val sbtLayout = ContentSbtProject(
               v            = versions,
               comments     = lib.packageSymbol.comments,
               organization = organization,
-              name         = name,
+              name         = lib.libName,
               version      = VersionHack.TemplateValue,
               deps         = deps.values.to[Seq],
               scalaFiles   = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
@@ -154,9 +147,9 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               logger             = logger,
               deps               = deps,
               source             = source,
-              name               = name,
+              name               = lib.libName,
               sbtLayout          = sbtLayout,
-              compilerPaths      = CompilerPaths.of(versions, targetFolder, name),
+              compilerPaths      = CompilerPaths.of(versions, targetFolder, lib.libName),
               externalDeps       = Nil,
               deleteUnknownFiles = true,
               makeVersion        = lib.libVersion.version

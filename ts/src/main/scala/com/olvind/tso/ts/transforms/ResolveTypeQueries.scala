@@ -75,8 +75,6 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
           pack(TsTypeFunction(sig))
         case TsDeclNamespace(_, _, _, members, _, _) =>
           pack(typeObject(members))
-        case m @ TsDeclModule(_, _, _, members, _, _) if false =>
-          pack(typeObject(members))
         case _ => None
       }
   }

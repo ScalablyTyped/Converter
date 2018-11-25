@@ -1,8 +1,6 @@
 package com.olvind.tso.importer
 
 import ammonite.ops.{%%, Path}
-import com.olvind.tso.scalajs.Name
-import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.util.Try
 

@@ -31,7 +31,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
               pedantic      = pedantic
             )
 
-            logger.warn(s"Processing ${lib.name}")
+            logger.warn(s"Processing ${lib.name.value}")
 
             val ScalaTransforms = List[ContainerSymbol => ContainerSymbol](
               S.RemoveDuplicateInheritance >>
@@ -51,13 +51,12 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
 
             val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger)) { case (acc, f) => f(acc) }
 
-            LibScalaJs(
-              source        = lib.source,
-              libName       = Name(lib.name.`__value`),
+            LibScalaJs(lib.source)(
+              libName       = lib.name.`__value`.replaceAll("\\.", "_dot_"),
               libVersion    = lib.version,
               packageSymbol = rewrittenTree,
               dependencies  = scalaDeps,
-              isStdLib      = lib.isStdLib,
+              isStdLib      = lib.parsed.isStdLib,
               contribs      = lib.contribs ++ contribs
             )
         }

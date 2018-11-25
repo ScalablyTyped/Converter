@@ -26,14 +26,14 @@ case class Config(publish:        Boolean,
 
 object Config {
   def unapply(args: Array[String]): Some[Config] =
-    args.partition(_.startsWith("-")) match {
+    args partition (_ startsWith "-") match {
       case (flags, rest) =>
         Some(
           Config(
-            publish        = flags.contains("-publish"),
-            offline        = flags.contains("-offline"),
-            cleanRepo      = flags.contains("-cleanRepo"),
-            pedantic       = flags.contains("-pedantic"),
+            publish        = flags contains "-publish",
+            offline        = flags contains "-offline",
+            cleanRepo      = flags contains "-cleanRepo",
+            pedantic       = flags contains "-pedantic",
             wantedLibNames = rest.to[Set]
           )
         )

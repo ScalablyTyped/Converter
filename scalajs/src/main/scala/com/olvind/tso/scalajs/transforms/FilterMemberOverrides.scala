@@ -88,7 +88,7 @@ object FilterMemberOverrides extends SymbolVisitor {
         val mBase = Erasure.base(scope)(m)
 
         inheritedMethodsByBase get mBase match {
-          case Some(conflicting) =>
+          case Some(conflicting @ _) =>
             //                /* there is no point in emitting duplicate methods */
             //                if (conflicting exists (c => Erasure.erasure(scope)(c) === mErasure))
             //                  Nil

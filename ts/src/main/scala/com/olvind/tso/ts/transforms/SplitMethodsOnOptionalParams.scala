@@ -50,7 +50,7 @@ object SplitMethodsOnOptionalParams extends TreeVisitorScopedChanges {
   private def newMembers(x: TsContainer): Seq[TsContainerOrDecl] = {
     val newMembers: Iterable[TsNamedDecl] =
       x.membersByName flatMap {
-        case (name, members: Seq[TsNamedDecl]) =>
+        case (name @ _, members: Seq[TsNamedDecl]) =>
           members flatMap {
             case x: TsDeclFunction =>
               split(x.signature).map(sig => x.copy(signature = sig))

@@ -22,7 +22,7 @@ trait MemberCache {
       case _ => true
     }
 
-  @deprecated("kill with fire")
+  @deprecated("kill with fire", "")
   lazy val membersByNameMeh: Map[TsIdent, Seq[TsNamedDecl]] = {
     val ret = mutable.Map.empty[TsIdent, List[TsNamedDecl]]
 

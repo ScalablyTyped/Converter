@@ -341,7 +341,7 @@ final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
 }
 
 final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]) extends TsIdent {
-  @deprecated("this doesnt really work for node")
+  @deprecated("this doesnt really work for node", "")
   lazy val inLibrary: TsIdentLibrary =
     scopeOpt match {
       case None        => TsIdentLibrarySimple(fragments.head)

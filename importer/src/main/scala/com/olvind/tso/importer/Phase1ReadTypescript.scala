@@ -197,7 +197,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
                 finished.comments
               )
 
-              LibTs(source.libName, source, version, tsConfig, finished, deps, contribs)
+              LibTs(source)(version, tsConfig, finished, deps, contribs)
           }
         }
     }

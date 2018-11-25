@@ -41,8 +41,8 @@ object NormalizeFunctions extends TreeVisitorScopedChanges {
                          isStatic,
                          m.isReadOnly,
                          m.isOptional)
-      case m @ TsMemberProperty(cs, level, name, Some(TsTypeFunction(sig)), None, isStatic, _, isOptional) =>
-        TsMemberFunction(cs, level, name, sig, isStatic, m.isReadOnly, m.isOptional)
+      case TsMemberProperty(cs, level, name, Some(TsTypeFunction(sig)), None, isStatic, isReadOnly, isOptional) =>
+        TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional)
       case other => other
     }
 }

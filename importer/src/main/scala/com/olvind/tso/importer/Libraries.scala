@@ -110,6 +110,7 @@ object Libraries {
     "ts-cookie",
     "ts-mockito",
     "tslint",
+    "typed-graphql",
     "typed-rest-client",
     "typed-github-api",
     "typed-undo",

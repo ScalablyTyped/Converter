@@ -2,7 +2,7 @@ package com.olvind.tso
 package importer
 
 import com.olvind.tso.importer.Source.{ContribSource, TsLibSource}
-import com.olvind.tso.scalajs.{ContainerSymbol, Name, SymbolScope}
+import com.olvind.tso.scalajs.{ContainerSymbol, SymbolScope}
 
 import scala.collection.mutable
 
@@ -11,25 +11,15 @@ sealed trait Phase2Res
 object Phase2Res {
   case object Contrib extends Phase2Res
 
-  case class LibScalaJs(source:        Source,
-                        libName:       Name,
-                        libVersion:    LibraryVersion,
-                        packageSymbol: ContainerSymbol,
-                        dependencies:  Map[TsLibSource, LibScalaJs],
-                        isStdLib:      Boolean,
-                        contribs:      Set[ContribSource])
-      extends Phase2Res
-      with SymbolScope.Lib {
-
-    override def equals(obj: Any): Boolean =
-      obj match {
-        case that: LibScalaJs => that.hashCode === hashCode && that.source === source
-        case _ => false
-      }
-
-    override lazy val hashCode: Int =
-      source.hashCode
-  }
+  case class LibScalaJs(source: Source)(
+      val libName:              String,
+      val libVersion:           LibraryVersion,
+      val packageSymbol:        ContainerSymbol,
+      val dependencies:         Map[TsLibSource, LibScalaJs],
+      val isStdLib:             Boolean,
+      val contribs:             Set[ContribSource]
+  ) extends Phase2Res
+      with SymbolScope.Lib
 
   object Unpack {
     def unapply(_m: Map[Source, Phase2Res]): Some[(Map[TsLibSource, LibScalaJs], Set[ContribSource])] =

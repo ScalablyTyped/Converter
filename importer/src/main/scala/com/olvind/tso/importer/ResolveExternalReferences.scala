@@ -23,6 +23,7 @@ object ResolveExternalReferences {
       }.toSet ++ tsParsedFile.exports.collect {
         case TsExport(_, _, TsExporteeNames(_, Some(from))) => from
       }
+
     /**
       * Todo: `InferredDependency` takes care of undeclared node dependency.
       * However, that is not solid enough when there actually exists a library

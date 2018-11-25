@@ -5,8 +5,6 @@ import java.io.{File, PrintWriter, StringWriter}
 import fansi.{Color, EscapeAttr, Str}
 import sourcecode.Text
 
-import scala.annotation.switch
-
 trait Pattern {
   def apply[T: Formatter](t: => Text[T], throwable: Option[Throwable], metadata: Metadata, ctx: Ctx): Str
 }
@@ -16,7 +14,7 @@ object Pattern {
     f"[${l.name.value}%-5s]"
 
   @inline def colorFor(l: LogLevel): EscapeAttr =
-    (l.level: @switch) match {
+    l.level match {
       case LogLevel.trace.level => Color.Reset
       case LogLevel.debug.level => Color.Green
       case LogLevel.info.level  => Color.Blue
@@ -25,7 +23,7 @@ object Pattern {
     }
 
   @inline def subtleColorFor(l: LogLevel): EscapeAttr =
-    (l.level: @switch) match {
+    l.level match {
       case LogLevel.trace.level => Color.Reset
       case LogLevel.debug.level => Color.LightGreen
       case LogLevel.info.level  => Color.LightBlue

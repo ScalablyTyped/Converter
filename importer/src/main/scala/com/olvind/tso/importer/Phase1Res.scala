@@ -15,47 +15,21 @@ object Phase1Res {
 
   case object Contrib extends Phase1Res
 
-  final case class LibTs(name:         TsIdentLibrary,
-                         source:       Source,
-                         version:      LibraryVersion,
-                         tsConfig:     Option[TsConfig],
-                         parsed:       TsParsedFile,
-                         dependencies: Map[TsLibSource, LibTs],
-                         contribs:     Set[ContribSource])
-      extends Phase1Res {
-
-    override def equals(that: Any): Boolean =
-      that match {
-        case x: LibTs => hashCode === x.hashCode && source === x.source
-        case _ => false
-      }
-
-    override lazy val hashCode: Int = source.hashCode
-
-    override def toString: String =
-      s"TsLibBase($name, $source, $version, $tsConfig, ${parsed.members.map(_.asString)}, ${dependencies
-        .map(_._2.name.value)})"
-
-    def isStdLib: Boolean =
-      parsed.isStdLib
+  final case class LibTs(source: Source)(
+      val version:               LibraryVersion,
+      val tsConfig:              Option[TsConfig],
+      val parsed:                TsParsedFile,
+      val dependencies:          Map[TsLibSource, LibTs],
+      val contribs:              Set[ContribSource]
+  ) extends Phase1Res {
+    def name: TsIdentLibrary = source.libName
   }
 
-  case class LibraryPart(
-      file:  FileAndRefsRec,
-      parts: Map[Source, Phase1Res]
-  ) extends Phase1Res
+  case class LibraryPart(file: FileAndRefsRec, parts: Map[Source, Phase1Res]) extends Phase1Res
 
-  case class FileAndRefsRec(
-      file:         TsParsedFile,
-      pathRefFiles: Seq[FileAndRefsRec]
-  )
+  case class FileAndRefsRec(file: TsParsedFile, pathRefFiles: Seq[FileAndRefsRec])
 
-  case class FileAndRefs(
-      file:         TsParsedFile,
-      pathRefFiles: Seq[TsParsedFile]
-  ) {
-    def toSeq: Seq[TsParsedFile] = file +: pathRefFiles
-  }
+  case class FileAndRefs(file: TsParsedFile, pathRefFiles: Seq[TsParsedFile])
 
   object UnpackLibs {
     def unapply(_m: Map[TsLibSource, LibTs]): Some[Map[TsLibSource, LibTs]] =
