@@ -1,13 +1,13 @@
-organization := "com.scalablytyped"
+organization := "org.scalablytyped"
 name := "electron"
-version := "2.0.0-93fa0e"
+version := "2.0.0-c4528d"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.scalablytyped" %%% "node" % "0.0-unknown-4ccc25",
-  "com.scalablytyped" %%% "std" % "0.0-unknown-ea65e0",
-  "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+  "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+  "org.scalablytyped" %%% "node" % "0.0-unknown-40aad5",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-f3dda7")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

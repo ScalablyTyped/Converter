@@ -1,6 +1,6 @@
-organization := "com.scalablytyped"
+organization := "org.scalablytyped"
 name := "std"
-version := "0.0-unknown-1c98bf"
+version := "0.0-unknown-a877d0"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

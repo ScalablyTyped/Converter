@@ -1,12 +1,12 @@
-organization := "com.scalablytyped"
+organization := "org.scalablytyped"
 name := "rxjs"
-version := "0.0-unknown-e48697"
+version := "0.0-unknown-75528f"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "runtime" % "1.0.0-M1",
-  "com.scalablytyped" %%% "std" % "0.0-unknown-24b7ae",
-  "org.scala-js" %%% "scalajs-dom" % "0.9.6")
+  "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-e1cc22")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

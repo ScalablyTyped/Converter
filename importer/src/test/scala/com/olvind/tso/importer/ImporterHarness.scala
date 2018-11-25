@@ -47,7 +47,7 @@ trait ImporterHarness extends FunSuiteLike {
             targetFolder    = targetFolder,
             mainPackageName = OutputPkg,
             projectName     = "ScalablyTyped",
-            organization    = "com.scalablytyped",
+            organization    = "org.scalablytyped",
             publishFolder   = publishFolder,
             resolve         = resolve
           ),

@@ -16,7 +16,7 @@ case class Config(publish:        Boolean,
   // change in source code for now, lazy...
   val outputPkg               = Name("typings")
   val projectName             = "ScalablyTyped"
-  val organization            = "com.scalablytyped"
+  val organization            = "org.scalablytyped"
   val versions                = Versions.`scala 2.12 with scala.js 0.6.25`
   val cacheFolder             = home / 'tmp / "tso-cache"
   val publishFolder           = home / ".ivy2" / "local"
