@@ -3,7 +3,6 @@ package importer
 
 import java.io.FileWriter
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.concurrent._
 
 import ammonite.ops._
@@ -23,17 +22,12 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object Main extends App {
-  val Config(config) = args
-
-  val RunId = {
-    val pattern = DateTimeFormatter ofPattern "ddMMyyyyhhmm"
-    pattern format LocalDateTime.now
-  }
-
-  val targetFolder     = config.cacheFolder / config.projectName
-  val failFolder       = targetFolder / 'failures
+  val Config(config)   = args
+  val RunId            = constants.DateTimePattern format LocalDateTime.now
   val logsFolder       = config.cacheFolder / 'logs
   val parseCacheFolder = config.cacheFolder / 'parse / BuildInfo.parserHash.toString
+  val targetFolder     = config.cacheFolder / config.projectName
+  val failFolder       = targetFolder / 'failures
   val contribFolder    = targetFolder / 'contrib
 
   (exists(targetFolder / ".git"), config.cleanRepo) match {
@@ -73,11 +67,11 @@ object Main extends App {
   rm(failFolder)
   mkdir(failFolder)
   mkdir(contribFolder)
+  mkdir(logsFolder)
 
   val storingErrorLogger = logging.storing()
 
   val logger = {
-    mkdir(logsFolder)
     val logFile = new FileWriter((logsFolder / s"$RunId.log").toIO)
     val base    = logging appendable logFile zipWith (storingErrorLogger filter LogLevel.error)
     if (config.debugMode) base zipWith logging.stdout else base

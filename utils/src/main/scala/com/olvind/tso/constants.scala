@@ -15,7 +15,7 @@ object constants {
 
   val TimeZone        = ZoneId.of("UTC")
   val Utf8            = Codec.UTF8.charSet
-  val DateTimePattern = DateTimeFormatter ofPattern "ddMMyyyyhhmm" withLocale Locale.ENGLISH withZone TimeZone
+  val DateTimePattern = DateTimeFormatter ofPattern "yyyyMMddhhmm" withLocale Locale.ENGLISH withZone TimeZone
 
   // yeah, sorry - we'll do this more properly one day
   object MagicComments {
