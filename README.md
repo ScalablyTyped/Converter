@@ -1,35 +1,42 @@
-# Tso - Typescript to Scala importer
+# Tso - Typescript to Scala converter
 
-The Typescript community has spent thousand upon thousand of hours typing up 
- javascript libraries in [DefinitelyTyped](http://definitelytyped.org/) and elsewhere.
- 
-Since [Scala.js](http://www.scala-js.org/) also has a need for this, we leverage their
- work to generate Scala.js versions of these libraries.   
+### Haven't people already tried this?
 
-The tool is written to work in batch mode, and generate and compile thousands of libraries
- at a time. It is absolutely possible for users to run it themselves as well, but we envision
- that most needs can be satisfied by users requesting a particular library published to npm.   
+There are heaps of other projects which does this for different languages, 
+with different levels of effort put into them, and different degrees of success.
 
-## Limitations
+This is a small sample:
+- [DefinitelyScala](https://definitelyscala.com/)
+- [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-importer)
+- [Retyped for C#](https://retyped.com)
+- [ts2k for Kotlin](https://github.com/Kotlin/ts2kt)
+- [ReasonablyTyped for Reason ML](https://rrdelaney.github.io/ReasonablyTyped/)
+- [typescript2java](https://github.com/ltearno/typescript2java)
 
-Typescript is explicitly designed to model all the insane things you can express in
- Javascript, while Scala.js is not. Particularity the type system differs throughout,
- so any conversion between them is best effort.
- 
-For users these changes manifest themselves mostly in two ways:
+You'll see there are two projects which target Scala.
+`scala-js-ts-importer` is Sebastien's original attempt from some years ago,
+ which forms the basis for both `DefinitelyScala` and `ScalablyTyped`.
+  
+`DefinitelyScala` is an awesome project, but it's not finished. 
+This project tries to pick up where it left off and finish the task.   
 
-- Typescript is structurally typed, which means that types have subtyping relationships which
- don't transfer over to Scala (which is nominally typed). In other words, there
- will be times when you need to tell the Scala compiler about this by casting.
- 
-- Related with the first point, we simply don't support bounds now. Bounds in typescript
- are very rich, and most of that functionality doesn't transfer at all (type mappings in particular).
- In other words we are trading some typesafety for convenience here.
+`tso` powers `ScalablyTyped` with a huge set of features not frequently found elsewhere:
+- Parser for 99% of typescript 3.1
+- Keeps ~all comments
+- Full handling of dependencies between libraries, including those outside of `DefinitelyTyped`
+- Full implementation of the module system, which all useful javascript libraries rely on
+- ~All types and values are fully resolved, across library boundaries
+- A naming scheme to avoid name collisions
+- Scala.js must abide by JVM rules, so we handle erasure, overloads, overrides, default parameters, `var` conflicts, inheritance conflicts, etc.
+- Better user convenience by converting to `@ScalaJSDefined` traits
+- Bridges gap between structural and nominal typing somewhat by a strong bias towards type aliases instead of traits
+- Answers `typeof` queries and type lookups (`React.Props["children"]`) 
+- Fills in defaulted type parameters
 
-Also   
+All these features combined enable us to rewrite a very high percentage of all typings, 
+somewhere around 97-98% of the newest version of all libraries in the current set.  
 
-## Derived work
-
+### Derived work
 This project took [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-importer/) as a starting point,
 and inherited a lot of decisions from it.
 

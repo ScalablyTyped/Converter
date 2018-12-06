@@ -12,6 +12,7 @@ import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
 import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer.build._
+import com.olvind.tso.importer.documentation.Readme
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.ts._
@@ -228,9 +229,14 @@ object Main extends App {
       action        = if (bintray.isDefined) "^publish" else "^publishLocal"
     )
 
+    val readme = targetFolder / "readme.md"
+    files.softWrite(readme)(_.print(Readme(summary, RunId)))
+
     logger error "Committing..."
     val summaryString =
-      CommitChanges(summary, successes.map(_.project.baseDir).to[Seq], Seq(sbtProjectDir, failFolder))(targetFolder)
+      CommitChanges(summary, successes.map(_.project.baseDir).to[Seq], Seq(sbtProjectDir, failFolder, readme))(
+        targetFolder
+      )
     logger error summaryString
   }
 
