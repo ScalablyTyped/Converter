@@ -2,13 +2,12 @@ package com.olvind.tso
 package importer
 package build
 
-import java.io.IOException
-
 import ammonite.ops.{Path, RelPath}
 import bintry.Client
 import dispatch.{FunctionHandler, Http}
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.control.NonFatal
 
 class BinTrayPublisher(repoPublic: String, user: String, password: String, repoName: String)(
     implicit ec:                   ExecutionContext
@@ -68,7 +67,7 @@ class BinTrayPublisher(repoPublic: String, user: String, password: String, repoN
 
   def retry[T](n: Int)(thunk: => Future[T]): Future[T] =
     thunk.recoverWith {
-      case _: IOException if n > 0 => retry(n - 1)(thunk)
+      case NonFatal(_) if n > 0 => retry(n - 1)(thunk)
     }
 
   def publish(p: SbtProject, layout: Layout[RelPath, Path]): Future[Iterable[Boolean]] = {
