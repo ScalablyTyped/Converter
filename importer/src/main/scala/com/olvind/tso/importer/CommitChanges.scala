@@ -1,6 +1,7 @@
 package com.olvind.tso.importer
 
 import ammonite.ops.{%%, Path}
+import com.olvind.tso.ts.BuildInfo
 
 import scala.util.Try
 
@@ -10,7 +11,7 @@ object CommitChanges {
 
     val summaryFile = wd / Summary.path
     val existingOpt = Try(Json[Summary](summaryFile)).toOption
-    val diff        = Summary.diff(existingOpt, summary)
+    val diff        = Summary.diff(BuildInfo.gitSha.take(6), existingOpt, summary)
 
     Json.persist(summaryFile)(summary)
 
