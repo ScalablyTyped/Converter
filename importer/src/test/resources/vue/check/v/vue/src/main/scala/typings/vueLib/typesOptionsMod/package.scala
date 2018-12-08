@@ -11,7 +11,14 @@ package object typesOptionsMod {
   type AsyncComponent[Data, Methods, Computed, Props] = js.Function2[
     /* resolve */ js.Function1[/* component */ Component[Data, Methods, Computed, Props], scala.Unit], 
     /* reject */ js.Function1[/* reason */ js.UndefOr[js.Any], scala.Unit], 
-    stdLib.Promise | scala.Unit
+    (js.Promise[
+      (Component[
+        DefaultData[vueLib.typesVueMod.Vue], 
+        DefaultMethods[vueLib.typesVueMod.Vue], 
+        DefaultComputed, 
+        DefaultProps
+      ]) | EsModuleComponent
+    ]) | scala.Unit
   ]
   type Component[Data, Methods, Computed, Props] = vueLib.typesVueMod.VueConstructor[vueLib.typesVueMod.Vue] | (FunctionalComponentOptions[Props, PropsDefinition[Props]]) | (ComponentOptions[vueLib.typesVueMod.Vue, Data, Methods, Computed, Props])
   type DefaultData[V] = js.Object | (js.ThisFunction0[/* this */ V, js.Object])

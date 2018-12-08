@@ -26,7 +26,7 @@ object Erasure {
   private def simplify(scope: SymbolScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
       case QualifiedName.UndefOr   => QualifiedName.`|`
-      case QualifiedName.IGNORED   => QualifiedName.JObject
+      case QualifiedName.WILDCARD   => QualifiedName.JObject
       case QualifiedName.THIS_TYPE => QualifiedName.THIS_TYPE
       case QualifiedName.UNION     => QualifiedName.`|`
       case QualifiedName.REPEATED  => QualifiedName.JArray

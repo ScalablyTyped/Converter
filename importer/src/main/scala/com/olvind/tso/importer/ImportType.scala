@@ -18,18 +18,54 @@ object ImportType {
       case _ => TypeRef.Any
     }
 
-  private val isArray = Set(
-    TsQIdent.Array,
-    TsQIdent(List(TsIdentLibrarySimple("std"), TsIdent("Array"))),
-    TsQIdent(List(TsIdentLibrarySimple("std"), TsIdent("ReadonlyArray"))),
-    TsQIdent(List(TsIdentLibrarySimple("std"), TsIdent("ConcatArray"))),
-  )
+  sealed trait Mapping
+  case class Ref(isInheritance:      TypeRef, normal:       TypeRef) extends Mapping
+  case class OnlyName(isInheritance: QualifiedName, normal: QualifiedName) extends Mapping
+
+  /**
+    * The point here? Dont inherit from sealed classes in scala.js, but otherwise
+    * prefer types from there. Handle resolved and unresolved qidents
+    */
+  private val Mappings = {
+    val ArrayM = OnlyName(QualifiedName.Std.Array, QualifiedName.Array)
+    val BooleanM = Ref(TypeRef(QualifiedName.Std.Boolean), TypeRef.Boolean)
+    val FunctionM = Ref(TypeRef.FunctionBase, TypeRef.FunctionBase)
+    val ObjectM = Ref(TypeRef(QualifiedName.Std.Object), TypeRef.Object)
+    val StringM = Ref(TypeRef(QualifiedName.Std.String), TypeRef.String)
+
+    Map[TsQIdent, Mapping](
+    TsQIdent.Array -> ArrayM,
+    TsQIdent.bigint -> Ref(TypeRef(QualifiedName.Std.BigInt), TypeRef(QualifiedName.Std.BigInt)),
+    TsQIdent.boolean -> BooleanM,
+    TsQIdent.Boolean -> BooleanM,
+    TsQIdent.Function -> FunctionM,
+    TsQIdent.never -> Ref(TypeRef.Any, TypeRef.Nothing),
+    TsQIdent.`null` -> Ref(TypeRef.Any, TypeRef.Null),
+    TsQIdent.number -> Ref(TypeRef(QualifiedName.Std.Number), TypeRef.Double),
+    TsQIdent.`object` -> ObjectM,
+    TsQIdent.Object -> ObjectM,
+    TsQIdent.Std.Array -> ArrayM,
+    TsQIdent.Std.Boolean -> BooleanM,
+    TsQIdent.Std.ConcatArray -> OnlyName(QualifiedName.Std.ConcatArray, QualifiedName.Array),
+    TsQIdent.Std.Function -> FunctionM,
+    TsQIdent.Std.Object -> ObjectM,
+    TsQIdent.Std.PromiseLike -> OnlyName(QualifiedName.Std.PromiseLike, QualifiedName.Thenable),
+    TsQIdent.Std.Promise -> OnlyName(QualifiedName.Std.Promise, QualifiedName.Promise),
+    TsQIdent.Std.ReadonlyArray -> OnlyName(QualifiedName.Std.ReadonlyArray, QualifiedName.Array),
+    TsQIdent.Std.String -> StringM,
+    TsQIdent.string -> StringM,
+    TsQIdent.String -> StringM,
+    TsQIdent.symbol -> Ref(TypeRef(QualifiedName.Std.Symbol), TypeRef.Symbol),
+    TsQIdent.undefined -> Ref(TypeRef.Any, TypeRef.UndefOr(TypeRef.Nothing)),
+    TsQIdent.void -> Ref(TypeRef.Any, TypeRef.Unit),
+  )}
+
   def isInheritance(tpe: TsQIdent, scope: TreeScope): Boolean =
     scope.stack match {
       case _ :: (owner: TsDeclInterface) :: _ =>
-        owner.inheritance.exists(_.name === tpe)
+        owner.inheritance.exists(_.name eq tpe)
       case _ :: (owner: TsDeclClass) :: _ =>
-        owner.implements.exists(_.name === tpe) || owner.parent.exists(_.name === tpe)
+        owner.implements.exists(_.name eq tpe) || owner.parent.exists(_.name eq tpe)
       case _ => false
     }
 
@@ -38,26 +74,19 @@ object ImportType {
     t1 match {
       case TsTypeRef(base: TsQIdent, targs: Seq[TsType]) =>
         base match {
-          case TsQIdent.any       => if (wildcards.allowed) TypeRef.Ignored else TypeRef.Any
-          case TsQIdent.void      => TypeRef.Unit
-          case TsQIdent.number    => TypeRef.Double
-          case TsQIdent.bool      => TypeRef.Boolean
-          case TsQIdent.boolean   => TypeRef.Boolean
-          case TsQIdent.Boolean   => TypeRef.Boolean
-          case TsQIdent.string    => TypeRef.String
-          case TsQIdent.String    => TypeRef.String
-          case TsQIdent.symbol    => TypeRef.Symbol
-          case TsQIdent.`null`    => TypeRef.Null
-          case TsQIdent.never     => TypeRef.Nothing
-          case TsQIdent.`object`  => TypeRef.Object
-          case TsQIdent.Object    => TypeRef.Object
-          case TsQIdent.undefined => TypeRef.UndefOr(TypeRef.Nothing)
-          case tpe if (isArray(tpe) && !isInheritance(tpe, scope)) || tpe === TsQIdent.Array =>
-            TypeRef(QualifiedName.Array, targs map apply(wildcards.maybeAllow, scope), NoComments)
-          case TsQIdent.Function =>
-            TypeRef(QualifiedName.Function, targs map apply(wildcards.maybeAllow, scope), NoComments)
+          case TsQIdent.any => if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any
+
           case other =>
-            TypeRef(ImportName(other), targs map apply(wildcards.maybeAllow, scope), NoComments)
+            lazy val parent = isInheritance(other, scope)
+            lazy val targs2 = targs map apply(wildcards.maybeAllow, scope)
+
+            Mappings.get(other) match {
+              case Some(Ref(tr, _)) if parent         => tr
+              case Some(Ref(_, tr))                   => tr
+              case Some(OnlyName(qname, _)) if parent => TypeRef(qname, targs2, NoComments)
+              case Some(OnlyName(_, qname))           => TypeRef(qname, targs2, NoComments)
+              case None                               => TypeRef(ImportName(other), targs2, NoComments)
+            }
         }
 
       case TsTypeObject(Nil) =>
@@ -79,6 +108,8 @@ object ImportType {
         }
 
         scope.stack collectFirst {
+          case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
+            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams.head.name)), NoComments)
           case x: TsNamedDecl => TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base))
         } getOrElse base
 
@@ -89,35 +120,33 @@ object ImportType {
         TypeRef.NumberDictionary(apply(wildcards, scope)(valueType).withOptional(isOptional), cs)
 
       case TsTypeFunction(sig) =>
-        def recursiveBound(name: TsIdent, b: TsType): Boolean =
-          TreeTraverse.collect(b) { case `name` => name }.nonEmpty
+        if (sig.tparams.size > 22) TypeRef.FunctionBase
+        else {
+          def recursiveBound(name: TsIdent, b: TsType): Boolean =
+            TreeTraverse.collect(b) { case `name` => name }.nonEmpty
 
-        val defaulted = sig.tparams.map { tp =>
-          tp.upperBound match {
-            case Some(b) if !recursiveBound(tp.name, b) => b
-            case _                                      => TsTypeRef.any
+          val defaulted = sig.tparams.map { tp =>
+            tp.upperBound match {
+              case Some(b) if !recursiveBound(tp.name, b) => b
+              case _                                      => TsTypeRef.any
+            }
           }
+
+          val newSig = ts.FillInTParams(sig, defaulted)
+
+          val (thisType, restParams) =
+            newSig.params.to[List] match {
+              case first :: tail if first.name === TsIdent.`this` =>
+                (Some(funParam(wildcards, scope)(first)), tail)
+              case all =>
+                (None, all)
+            }
+
+          TypeRef.Function(thisType,
+                           restParams map funParam(wildcards, scope),
+                           orAny(wildcards.maybeAllow, scope)(newSig.resultType),
+                           newSig.comments)
         }
-
-        val newSig = ts.FillInTParams(sig, defaulted)
-
-        val (thisType, restParams) =
-          newSig.params.to[List] match {
-            case first :: tail if first.name === TsIdent.`this` => (Some(funParam(wildcards, scope)(first)), tail)
-            case all                                            =>
-//              val inferredThis = scope.stack match {
-//                case _ :: (_: TsMemberProperty | _: TsMemberCall) :: (_: TsDeclClass | _: TsDeclInterface) :: _ => true
-//                case _ => false
-//              }
-//              if (inferredThis) (Some(TypeRef.ThisType(NoComments)), all) else
-              (None, all)
-          }
-
-        TypeRef.Function(thisType,
-                         restParams map funParam(wildcards, scope),
-                         orAny(wildcards.maybeAllow, scope)(newSig.resultType),
-                         newSig.comments)
-
       case TsTypeUnion(types) =>
         types.partitionCollect { case TsTypeRef.undefined => } match {
           case (Nil, ts)     => TypeRef.Union(ts map apply(wildcards, scope))

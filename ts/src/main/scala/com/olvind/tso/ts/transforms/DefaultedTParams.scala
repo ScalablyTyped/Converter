@@ -20,7 +20,7 @@ object DefaultedTParams extends TreeVisitorScopedChanges {
   override def leaveTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
     x match {
       case TsTypeRef(target: TsQIdent, providedTparams: Seq[TsType])
-          if !TsQIdent.Primitive(target) && !TsQIdent.BuiltIn(target) =>
+          if !TsQIdent.Primitive(target) =>
         scope lookupBase (Picker.Types, target) collectFirst {
           case (HasTParams(expectedTparams), newScope) if expectedTparams.size =/= providedTparams.size =>
             val newTparams: Seq[TsType] =

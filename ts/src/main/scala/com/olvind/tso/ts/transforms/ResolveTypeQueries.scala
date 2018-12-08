@@ -81,7 +81,7 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
 
   private def resolve(t: TreeScope, target: TsTypeQuery, loopDetector: LoopDetector): TsType =
     target.expr match {
-      case wanted if TsQIdent.BuiltIn(wanted) || TsQIdent.Primitive(wanted) => TsTypeRef(wanted, Nil)
+      case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(wanted, Nil)
       case wanted =>
         val found = t.`..`.lookupBase(P, wanted)
         val mappedOpt = found.collectFirst {

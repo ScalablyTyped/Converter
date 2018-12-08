@@ -6,5 +6,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 
-trait PromiseLike extends js.Object
+trait PromiseLike[T] extends js.Object
 

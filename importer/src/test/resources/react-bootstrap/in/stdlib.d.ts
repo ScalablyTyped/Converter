@@ -6,3 +6,5 @@ interface HTMLElement{}
 type Pick<T, K extends keyof T> = {
     [P in K]: T[P];
 };
+
+interface Function {}

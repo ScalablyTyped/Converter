@@ -402,6 +402,7 @@ object TsIdent {
   val dummy:       TsIdentLibrary = TsIdentLibrarySimple("dummy")
   val Symbol:      TsIdent        = TsIdent("Symbol")
   val Global:      TsIdent        = TsIdent("Global")
+  val Record:      TsIdent        = TsIdent("Record")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 
@@ -424,8 +425,8 @@ object TsQIdent {
   val empty: TsQIdent = TsQIdent(Nil)
 
   val any:       TsQIdent = TsQIdent.of("any")
+  val bigint:    TsQIdent = TsQIdent.of("bigint")
   val number:    TsQIdent = TsQIdent.of("number")
-  val bool:      TsQIdent = TsQIdent.of("bool")
   val boolean:   TsQIdent = TsQIdent.of("boolean")
   val never:     TsQIdent = TsQIdent.of("never")
   val `null`:    TsQIdent = TsQIdent.of("null")
@@ -435,14 +436,27 @@ object TsQIdent {
   val undefined: TsQIdent = TsQIdent.of("undefined")
   val void:      TsQIdent = TsQIdent.of("void")
   val Primitive =
-    Set(any, number, bool, boolean, never, `null`, `object`, string, symbol, undefined, void)
+    Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, void)
 
   val Array:    TsQIdent = TsQIdent.of("Array")
   val Boolean:  TsQIdent = TsQIdent.of("Boolean")
   val Function: TsQIdent = TsQIdent.of("Function")
   val Object:   TsQIdent = TsQIdent.of("Object")
   val String:   TsQIdent = TsQIdent.of("String")
-  val BuiltIn = Set( /*Array, */ Boolean, Function, Object, String)
+
+  object Std {
+    private val std = TsIdentLibrarySimple("std")
+
+    val Array         = TsQIdent(List(std, TsIdent("Array")))
+    val Boolean       = TsQIdent(List(std, TsIdent("Boolean")))
+    val ConcatArray   = TsQIdent(List(std, TsIdent("ConcatArray")))
+    val Function      = TsQIdent(List(std, TsIdent("Function")))
+    val Object        = TsQIdent(List(std, TsIdent("Object")))
+    val Promise       = TsQIdent(List(std, TsIdent("Promise")))
+    val PromiseLike   = TsQIdent(List(std, TsIdent("PromiseLike")))
+    val ReadonlyArray = TsQIdent(List(std, TsIdent("ReadonlyArray")))
+    val String        = TsQIdent(List(std, TsIdent("String")))
+  }
 }
 
 //types

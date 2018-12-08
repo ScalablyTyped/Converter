@@ -72,10 +72,10 @@ object PhaseRes {
         case th: LoggedException =>
           Failure[Id, T](Map(id -> Left(th)))
         case NonFatal(th) =>
-          logger.error("Caught exception", th)
+          logger.error(s"Caught exception: ${th.getMessage}", th)
           Failure[Id, T](Map(id -> Left(th)))
         case th: StackOverflowError =>
-          logger.error("Caught exception", th)
+          logger.error("StackOverflowError", th)
           Failure[Id, T](Map(id -> Left(th)))
       }
 }

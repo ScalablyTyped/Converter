@@ -34,6 +34,8 @@ object QualifiedName {
   val Any:              QualifiedName = scala_js + Name.Any
   val Object:           QualifiedName = scala_js + Name.Object
   val Array:            QualifiedName = scala_js + Name.Array
+  val Thenable:         QualifiedName = scala_js + Name("Thenable")
+  val Promise:          QualifiedName = scala_js + Name("Promise")
   val `|`             : QualifiedName = scala_js + Name("|")
   val Function:         QualifiedName = scala_js + Name.Function
   val Symbol:           QualifiedName = scala_js + Name.Symbol
@@ -46,8 +48,25 @@ object QualifiedName {
   val INTERSECTION:     QualifiedName = QualifiedName(Name.INTERSECTION :: Nil)
   val LITERAL:          QualifiedName = QualifiedName(Name.LITERAL :: Nil)
   val THIS_TYPE:        QualifiedName = QualifiedName(Name.THIS_TYPE :: Nil)
-  val IGNORED:          QualifiedName = QualifiedName(Name.IGNORED :: Nil)
+  val WILDCARD:         QualifiedName = QualifiedName(Name.WILDCARD :: Nil)
   val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
+
+  object Std {
+    private val std = QualifiedName(Name("stdLib") :: Nil)
+
+    val Array:         QualifiedName = std + Name.Array
+    val Boolean:       QualifiedName = std + Name.Boolean
+    val BigInt:        QualifiedName = std + Name("BigInt")
+    val ConcatArray:   QualifiedName = std + Name("ConcatArray")
+    val Function:      QualifiedName = std + Name.Function
+    val Number:        QualifiedName = std + Name("Number")
+    val Object:        QualifiedName = std + Name.Object
+    val Promise:       QualifiedName = std + Name("Promise")
+    val PromiseLike:   QualifiedName = std + Name("PromiseLike")
+    val ReadonlyArray: QualifiedName = std + Name("ReadonlyArray")
+    val String:        QualifiedName = std + Name.String
+    val Symbol:        QualifiedName = std + Name.Symbol
+  }
 
   def Instantiable(arity:   Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
   def FunctionArity(isThis: Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)
