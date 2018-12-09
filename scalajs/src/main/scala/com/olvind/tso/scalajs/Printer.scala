@@ -311,7 +311,7 @@ object Printer {
     val ret: String =
       t1 match {
         case TypeRef.ThisType(_) => "this.type"
-        case TypeRef.Ignored     => "_"
+        case TypeRef.Wildcard    => "_"
 
         case TypeRef.Intersection(types) =>
           types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " with "

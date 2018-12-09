@@ -37,7 +37,7 @@ package object stdLib {
   /**
    * Construct a type with a set of properties K of type T
    */
-  type Record[K /* <: java.lang.String */, T] = stdLib.stdLibStrings.Record with js.Any
+  type Record[K /* <: java.lang.String */, T] = ScalablyTyped.runtime.StringDictionary[K]
   /**
    * Make all properties in T required
    */

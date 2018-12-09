@@ -85,7 +85,7 @@ object ExpandCallables extends TreeVisitorScopedChanges {
         val (callables, rest) = x.members.partitionCollect { case TsMemberCall(cs, _, signature) => (cs, signature) }
         if (callables.nonEmpty) Expand(callables, rest.nonEmpty) else Noop
 
-      case typeRef: TsTypeRef if !TsQIdent.BuiltIn(typeRef.name) =>
+      case typeRef: TsTypeRef if !TsQIdent.Primitive(typeRef.name) =>
         scope
           .lookupTypeIncludeScope(typeRef.name)
           .collectFirst {

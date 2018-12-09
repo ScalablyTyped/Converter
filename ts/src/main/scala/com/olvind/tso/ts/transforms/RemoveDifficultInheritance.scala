@@ -27,11 +27,6 @@ object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
 
   private def cleanParentRef(scope: TreeScope)(tpe: TsTypeRef): Res =
     tpe match {
-      /* We could solve this by using the types in the generated stdlib instead of scala.js types, but we don't for now */
-      case drop @ (TsTypeRef.string | TsTypeRef.String | TsTypeRef.number | TsTypeRef.boolean | TsTypeRef.Boolean |
-          TsTypeRef.Symbol) =>
-        Res(Nil, drop :: Nil, Map.empty)
-
       /* this causes issues since they are classes in scala */
       case drop @ (TsTypeRef.`object` | TsTypeRef.Object | TsTypeRef.any) => Res(Nil, drop :: Nil, Map.empty)
 

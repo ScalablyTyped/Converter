@@ -26,8 +26,10 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
                      sig.copy(
                        comments = sig.comments ++ cs,
                        tparams  = cls.tparams ++ sig.tparams,
-                       resultType =
-                         Some(TsTypeRef(cls.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(sig.tparams)))
+                       resultType = Some(
+                         TsTypeRef(cls.codePath.forceHasPath.codePath,
+                                   TsTypeParam.asTypeArgs(cls.tparams ++ sig.tparams))
+                       )
                      )
                    )
                  ))
@@ -81,7 +83,7 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
 
   private def resolve(t: TreeScope, target: TsTypeQuery, loopDetector: LoopDetector): TsType =
     target.expr match {
-      case wanted if TsQIdent.BuiltIn(wanted) || TsQIdent.Primitive(wanted) => TsTypeRef(wanted, Nil)
+      case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(wanted, Nil)
       case wanted =>
         val found = t.`..`.lookupBase(P, wanted)
         val mappedOpt = found.collectFirst {

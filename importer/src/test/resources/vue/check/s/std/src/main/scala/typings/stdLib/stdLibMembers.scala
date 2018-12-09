@@ -10,7 +10,7 @@ import scala.scalajs.js.annotation._
 object stdLibMembers extends js.Object {
   val Error: Error = js.native
   val Function: js.Function = js.native
-  val Promise: Promise = js.native
+  val Promise: js.Promise[js.Any] = js.native
   val RegExp: RegExp = js.native
 }
 

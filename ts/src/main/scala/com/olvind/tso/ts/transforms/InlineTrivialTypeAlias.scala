@@ -37,7 +37,7 @@ object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
 
   private def handleRef(scope: TreeScope, x: TsTypeRef): TsTypeRef = {
     val simplifiedOpt = x match {
-      case ref @ TsTypeRef(target: TsQIdent, tparams) if !TsQIdent.Primitive(target) && !TsQIdent.BuiltIn(target) =>
+      case ref @ TsTypeRef(target: TsQIdent, tparams) if !TsQIdent.Primitive(target) =>
         val ret: Option[Option[TsTypeRef]] =
           scope lookupTypeIncludeScope target collectFirst {
             case (TsDeclEnum(_, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>

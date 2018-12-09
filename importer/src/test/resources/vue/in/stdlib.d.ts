@@ -17,9 +17,9 @@ type Readonly<T> = {
 interface RegExp {}
 declare const RegExp: RegExp;
 
-interface PromiseLike {}
-interface Promise {}
-declare const Promise: Promise;
+interface PromiseLike<T> {}
+interface Promise<T> {}
+declare const Promise: Promise<any>;
 
 interface Error {}
 declare const Error: Error;
@@ -28,3 +28,5 @@ interface Function {}
 declare const Function: Function;
 
 interface Blob{}
+
+interface Object {}

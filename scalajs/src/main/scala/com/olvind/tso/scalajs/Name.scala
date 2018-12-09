@@ -49,13 +49,13 @@ object Name {
   val SINGLETON:    Name = Name("<typeof>")
   val LITERAL:      Name = Name("<literal>")
   val THIS_TYPE:    Name = Name("<this>")
-  val IGNORED:      Name = Name("<ignored>")
+  val WILDCARD:     Name = Name("<wildcard>")
   val REPEATED:     Name = Name("*")
 
   def FunctionArity(isThis: Boolean, arity: Int): Name =
     Name((if (isThis) This.unescaped else "") + "Function" + arity.toString)
 
-  val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, IGNORED, REPEATED, APPLY)
+  val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, WILDCARD, REPEATED, APPLY)
 
   val Primitive = Set(Any, Double, Int, Long, Boolean, Unit, Null, Nothing, String, Array)
 
