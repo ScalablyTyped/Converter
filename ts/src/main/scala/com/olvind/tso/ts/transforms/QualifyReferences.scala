@@ -8,7 +8,7 @@ object QualifyReferences extends TreeVisitorScopedChanges {
   private def shouldQualify(name: TsQIdent, scope: TreeScope): Boolean =
     if (TsQIdent Primitive name) false
     else if (name.parts.head.isInstanceOf[TsIdentLibrary]) false
-    else if (name.parts.length === 1 && (scope.tparams.contains(name.parts.head) || scope.tkeys(name.parts.head))) false
+    else if (scope.isAbstract(name)) false
     else true
 
   override def enterTsType(scope: TreeScope)(x: TsType): TsType =

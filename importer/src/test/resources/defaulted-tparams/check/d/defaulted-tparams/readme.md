@@ -1,0 +1,5 @@
+```
+/**
+ * Represents a queue
+ */
+```

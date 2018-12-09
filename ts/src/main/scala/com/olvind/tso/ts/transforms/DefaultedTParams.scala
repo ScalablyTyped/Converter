@@ -1,6 +1,7 @@
 package com.olvind.tso
 package ts
 package transforms
+import scala.collection.mutable
 
 /**
   * Typescript added support for defaulted type parameters.
@@ -17,31 +18,34 @@ package transforms
   * ```
   */
 object DefaultedTParams extends TreeVisitorScopedChanges {
-  override def leaveTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
+  override def enterTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
     x match {
       case TsTypeRef(target: TsQIdent, providedTparams: Seq[TsType])
-          if !TsQIdent.Primitive(target) =>
+          if !TsQIdent.Primitive(target) && !scope.isAbstract(target) =>
         scope lookupBase (Picker.Types, target) collectFirst {
-          case (HasTParams(expectedTparams), newScope) if expectedTparams.size =/= providedTparams.size =>
-            val newTparams: Seq[TsType] =
+          case (HasTParams(expectedTparams), _) if expectedTparams.size =/= providedTparams.size =>
+            val m: mutable.Map[TsType, TsType] =
+              mutable.Map.empty
+
+            val newTParams: Seq[TsType] =
               expectedTparams.zipWithIndex.map {
-                case (TsTypeParam(_, tparamName, _, Some(defaulted)), idx) if idx >= providedTparams.length =>
-                  scope.logger.debug(s"Defaulting type parameter $tparamName at $scope")
-                  /* notice that we need to recurse here, the default for a type parameter might well omit a default value itself */
-                  visitTsType(newScope)(defaulted)
+                case (current, idx) if idx < providedTparams.length =>
+                  val provided = providedTparams(idx)
+                  m.put(TsTypeRef.of(current.name), provided)
+                  provided
+                case (current, _) =>
+                  val next = current.default.getOrElse {
+                    scope.logger.warn(s"no default parameter for $current")
+                    current.upperBound getOrElse TsTypeRef.any
+                  }
 
-                case (_, idx) if idx < providedTparams.length => providedTparams(idx)
-                case _                                        => TsTypeRef(TsQIdent.`object`, Nil)
+                  /* a default tparam may refer to earlier tparams by name, so handle that here */
+                  val nextRewritten = new TypeRewriter(next).visitTsType(m)(next)
+                  m.put(TsTypeRef.of(current.name), nextRewritten)
+                  nextRewritten
               }
 
-            /* one defaulted tparam might reference other earlier tparams */
-            val replacements: Seq[(TsType, TsType)] =
-              expectedTparams zip newTparams map {
-                case (TsTypeParam(_, tparamName, _, _), actual) =>
-                  TsTypeRef.of(tparamName) -> actual
-              }
-
-            x.copy(tparams = newTparams.map(tp => new TypeRewriter(tp).visitTsType(replacements.toMap)(tp)))
+            x.copy(tparams = newTParams)
         } getOrElse x
       case _ => x
     }

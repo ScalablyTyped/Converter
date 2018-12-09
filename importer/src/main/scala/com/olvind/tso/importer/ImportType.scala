@@ -27,38 +27,39 @@ object ImportType {
     * prefer types from there. Handle resolved and unresolved qidents
     */
   private val Mappings = {
-    val ArrayM = OnlyName(QualifiedName.Std.Array, QualifiedName.Array)
-    val BooleanM = Ref(TypeRef(QualifiedName.Std.Boolean), TypeRef.Boolean)
+    val ArrayM    = OnlyName(QualifiedName.Std.Array, QualifiedName.Array)
+    val BooleanM  = Ref(TypeRef(QualifiedName.Std.Boolean), TypeRef.Boolean)
     val FunctionM = Ref(TypeRef.FunctionBase, TypeRef.FunctionBase)
-    val ObjectM = Ref(TypeRef(QualifiedName.Std.Object), TypeRef.Object)
-    val StringM = Ref(TypeRef(QualifiedName.Std.String), TypeRef.String)
+    val ObjectM   = Ref(TypeRef(QualifiedName.Std.Object), TypeRef.Object)
+    val StringM   = Ref(TypeRef(QualifiedName.Std.String), TypeRef.String)
 
     Map[TsQIdent, Mapping](
-    TsQIdent.Array -> ArrayM,
-    TsQIdent.bigint -> Ref(TypeRef(QualifiedName.Std.BigInt), TypeRef(QualifiedName.Std.BigInt)),
-    TsQIdent.boolean -> BooleanM,
-    TsQIdent.Boolean -> BooleanM,
-    TsQIdent.Function -> FunctionM,
-    TsQIdent.never -> Ref(TypeRef.Any, TypeRef.Nothing),
-    TsQIdent.`null` -> Ref(TypeRef.Any, TypeRef.Null),
-    TsQIdent.number -> Ref(TypeRef(QualifiedName.Std.Number), TypeRef.Double),
-    TsQIdent.`object` -> ObjectM,
-    TsQIdent.Object -> ObjectM,
-    TsQIdent.Std.Array -> ArrayM,
-    TsQIdent.Std.Boolean -> BooleanM,
-    TsQIdent.Std.ConcatArray -> OnlyName(QualifiedName.Std.ConcatArray, QualifiedName.Array),
-    TsQIdent.Std.Function -> FunctionM,
-    TsQIdent.Std.Object -> ObjectM,
-    TsQIdent.Std.PromiseLike -> OnlyName(QualifiedName.Std.PromiseLike, QualifiedName.Thenable),
-    TsQIdent.Std.Promise -> OnlyName(QualifiedName.Std.Promise, QualifiedName.Promise),
-    TsQIdent.Std.ReadonlyArray -> OnlyName(QualifiedName.Std.ReadonlyArray, QualifiedName.Array),
-    TsQIdent.Std.String -> StringM,
-    TsQIdent.string -> StringM,
-    TsQIdent.String -> StringM,
-    TsQIdent.symbol -> Ref(TypeRef(QualifiedName.Std.Symbol), TypeRef.Symbol),
-    TsQIdent.undefined -> Ref(TypeRef.Any, TypeRef.UndefOr(TypeRef.Nothing)),
-    TsQIdent.void -> Ref(TypeRef.Any, TypeRef.Unit),
-  )}
+      TsQIdent.Array -> ArrayM,
+      TsQIdent.bigint -> Ref(TypeRef(QualifiedName.Std.BigInt), TypeRef(QualifiedName.Std.BigInt)),
+      TsQIdent.boolean -> BooleanM,
+      TsQIdent.Boolean -> BooleanM,
+      TsQIdent.Function -> FunctionM,
+      TsQIdent.never -> Ref(TypeRef.Any, TypeRef.Nothing),
+      TsQIdent.`null` -> Ref(TypeRef.Any, TypeRef.Null),
+      TsQIdent.number -> Ref(TypeRef(QualifiedName.Std.Number), TypeRef.Double),
+      TsQIdent.`object` -> ObjectM,
+      TsQIdent.Object -> ObjectM,
+      TsQIdent.Std.Array -> ArrayM,
+      TsQIdent.Std.Boolean -> BooleanM,
+      TsQIdent.Std.ConcatArray -> OnlyName(QualifiedName.Std.ConcatArray, QualifiedName.Array),
+      TsQIdent.Std.Function -> FunctionM,
+      TsQIdent.Std.Object -> ObjectM,
+      TsQIdent.Std.PromiseLike -> OnlyName(QualifiedName.Std.PromiseLike, QualifiedName.Thenable),
+      TsQIdent.Std.Promise -> OnlyName(QualifiedName.Std.Promise, QualifiedName.Promise),
+      TsQIdent.Std.ReadonlyArray -> OnlyName(QualifiedName.Std.ReadonlyArray, QualifiedName.Array),
+      TsQIdent.Std.String -> StringM,
+      TsQIdent.string -> StringM,
+      TsQIdent.String -> StringM,
+      TsQIdent.symbol -> Ref(TypeRef(QualifiedName.Std.Symbol), TypeRef.Symbol),
+      TsQIdent.undefined -> Ref(TypeRef.Any, TypeRef.UndefOr(TypeRef.Nothing)),
+      TsQIdent.void -> Ref(TypeRef.Any, TypeRef.Unit),
+    )
+  }
 
   def isInheritance(tpe: TsQIdent, scope: TreeScope): Boolean =
     scope.stack match {

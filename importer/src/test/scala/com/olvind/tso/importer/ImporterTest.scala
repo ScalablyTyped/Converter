@@ -40,4 +40,5 @@ class ImporterTest extends FunSuite with ImporterHarness {
   test("void-elements")(assertImportsOk("void-elements", pedantic                   = true, update  = update))
   test("type-mappings")(assertImportsOk("type-mappings", pedantic                   = true, update  = update))
   test("swiz")(assertImportsOk("swiz", pedantic                                     = true, update  = update))
+  test("defaulted-tparams")(assertImportsOk("defaulted-tparams", pedantic           = true, update  = update))
 }

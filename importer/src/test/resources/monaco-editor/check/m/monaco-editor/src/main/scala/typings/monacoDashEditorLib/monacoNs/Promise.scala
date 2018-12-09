@@ -25,6 +25,6 @@ class Promise[T, TProgress] protected () extends js.Object {
 @JSGlobal("monaco.Promise")
 @js.native
 object Promise extends js.Object {
-  def any[T](promises: js.Array[T | js.Thenable[T]]): monacoDashEditorLib.monacoNs.Promise[monacoDashEditorLib.Anon_KeyValue[T], _] = js.native
+  def any[T](promises: js.Array[T | js.Thenable[T]]): monacoDashEditorLib.monacoNs.Promise[monacoDashEditorLib.Anon_Key[T], _] = js.native
 }
 

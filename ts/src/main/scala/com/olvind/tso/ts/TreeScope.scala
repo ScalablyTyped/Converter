@@ -42,6 +42,12 @@ sealed trait TreeScope {
       case _: TreeScope => None
     }
 
+  final def isAbstract(qident: TsQIdent): Boolean =
+    qident.parts match {
+      case one :: _ => tparams.contains(one) || tkeys.contains(one)
+      case _        => false
+    }
+
   final def lookup(qname: TsQIdent, skipValidation: Boolean = false): Seq[TsNamedDecl] =
     lookupIncludeScope(qname, skipValidation).map(_._1)
 
@@ -57,10 +63,7 @@ sealed trait TreeScope {
   final def lookupBase[T <: TsNamedDecl](picker:         Picker[T],
                                          qname:          TsQIdent,
                                          skipValidation: Boolean = false): Seq[(T, TreeScope)] = {
-    if (TsQIdent Primitive qname)
-      return Nil
-
-    if (qname.parts.length === 1 && (tparams.contains(qname.parts.head) || tkeys(qname.parts.head)))
+    if ((TsQIdent Primitive qname) || isAbstract(qname))
       return Nil
 
     val loopDetector = new LoopDetector

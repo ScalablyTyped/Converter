@@ -26,8 +26,10 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
                      sig.copy(
                        comments = sig.comments ++ cs,
                        tparams  = cls.tparams ++ sig.tparams,
-                       resultType =
-                         Some(TsTypeRef(cls.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(sig.tparams)))
+                       resultType = Some(
+                         TsTypeRef(cls.codePath.forceHasPath.codePath,
+                                   TsTypeParam.asTypeArgs(cls.tparams ++ sig.tparams))
+                       )
                      )
                    )
                  ))

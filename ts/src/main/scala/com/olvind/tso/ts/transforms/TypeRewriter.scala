@@ -1,6 +1,7 @@
 package com.olvind.tso.ts.transforms
 
 import com.olvind.tso.ts._
+import scala.collection.Map
 
 class TypeRewriter(base: TsTree) extends TreeVisitor[Map[TsType, TsType]] {
   override def leaveTsType(replacements: Map[TsType, TsType])(x: TsType): TsType =

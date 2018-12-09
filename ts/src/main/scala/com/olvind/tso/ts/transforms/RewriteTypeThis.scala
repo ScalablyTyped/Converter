@@ -23,6 +23,11 @@ object RewriteTypeThis extends TreeVisitorScopedChanges {
       case _:     TsMemberCtor                                           => true
       case _ => false
     }
+  def isReferencedInIndexType(stack: List[TsTree]): Boolean =
+    stack.exists {
+      case _: TsMemberIndex => true
+      case _ => false
+    }
 
   override def enterTsType(scope: TreeScope)(tpe: TsType): TsType =
     tpe match {
@@ -30,10 +35,11 @@ object RewriteTypeThis extends TreeVisitorScopedChanges {
           if x.tparams.isEmpty &&
             isReferenceToOwner(scope.stack, x.name) &&
             isReferencedInFunction(scope.stack) &&
+            !isReferencedInIndexType(scope.stack) &&
             !isReferencedInConstructor(scope.stack) =>
         TsTypeThis()
 
-      case x: TsTypeThis if isReferencedInConstructor(scope.stack) =>
+      case x: TsTypeThis if isReferencedInConstructor(scope.stack) || isReferencedInIndexType(scope.stack) =>
         scope.stack.collectFirst {
           case owner: TsDeclClass =>
             TsTypeRef(owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
