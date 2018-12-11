@@ -15,7 +15,7 @@ object CachedReplaceExports {
     else new ReplaceExports(loopDetector).visitTsDeclModule(scope)(x)
 }
 
-class ReplaceExports(loopDetector: LoopDetector) extends TreeVisitorScopedChanges {
+class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScopedChanges {
   override def enterTsDeclNamespace(scope: TreeScope)(x: TsDeclNamespace): TsDeclNamespace =
     if (x.exports.isEmpty && x.imports.isEmpty) x
     else {

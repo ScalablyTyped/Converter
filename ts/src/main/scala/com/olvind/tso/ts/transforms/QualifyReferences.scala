@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package transforms
 
-object QualifyReferences extends TreeVisitorScopedChanges {
+object QualifyReferences extends TreeTransformationScopedChanges {
 
   /* don't qualify built ins */
   private def shouldQualify(name: TsQIdent, scope: TreeScope): Boolean =

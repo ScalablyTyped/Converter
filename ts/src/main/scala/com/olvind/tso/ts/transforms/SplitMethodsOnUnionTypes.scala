@@ -4,7 +4,7 @@ package transforms
 
 import scala.annotation.tailrec
 
-object SplitMethodsOnUnionTypes extends TreeVisitorScopedChanges {
+object SplitMethodsOnUnionTypes extends TreeTransformationScopedChanges {
   override def enterTsParsedFile(t: TreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = newMembers(x))
 

@@ -40,7 +40,7 @@ object AugmentModules {
 
     val toRemove = mutable.Set.empty[CodePath]
 
-    object Merge extends TreeVisitorUnit {
+    object Merge extends TreeTransformationUnit {
       override def enterTsDeclNamespace(t: Unit)(x: TsDeclNamespace): TsDeclNamespace =
         targetToAux.get(Option(x.codePath.forceHasPath)) match {
           case Some(auxes) =>
@@ -62,7 +62,7 @@ object AugmentModules {
         }
     }
 
-    object Remove extends TreeVisitorUnit {
+    object Remove extends TreeTransformationUnit {
       override def leaveTsParsedFile(t: Unit)(x: TsParsedFile): TsParsedFile = {
         val newMembers = x.members.filter {
           case aux: TsAugmentedModule if toRemove(aux.codePath) => false

@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package transforms
 
-object RewriteTypeThis extends TreeVisitorScopedChanges {
+object RewriteTypeThis extends TreeTransformationScopedChanges {
   def isReferenceToOwner(stack: List[TsTree], ownerName: TsQIdent): Boolean =
     stack exists {
       case owner: TsDeclInterface if owner.name === ownerName.parts.last => true

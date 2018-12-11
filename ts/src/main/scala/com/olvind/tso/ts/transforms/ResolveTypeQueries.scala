@@ -4,7 +4,7 @@ package transforms
 
 import com.olvind.tso.ts.TreeScope.LoopDetector
 
-object ResolveTypeQueries extends TreeVisitorScopedChanges {
+object ResolveTypeQueries extends TreeTransformationScopedChanges {
   override def leaveTsType(t: TreeScope)(x: TsType): TsType =
     x match {
       case xx: TsTypeQuery => resolve(t, xx, new LoopDetector())

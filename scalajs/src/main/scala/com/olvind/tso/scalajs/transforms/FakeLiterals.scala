@@ -8,7 +8,7 @@ object FakeLiterals {
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
   val LiteralTokenComment: Comments = new Comments(Nil)
 
-  private case class LiteralRewriter(_s: ContainerSymbol, scope: SymbolScope) extends SymbolVisitor {
+  private case class LiteralRewriter(_s: ContainerSymbol, scope: SymbolScope) extends SymbolTransformation {
     val StringModuleName  = Name(_s.name.unescaped + "Strings")
     val collectedStrings  = mutable.HashSet.empty[String]
     val NumbersModuleName = Name(_s.name.unescaped + "Numbers")

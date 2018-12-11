@@ -5,7 +5,7 @@ package transforms
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.ParentsResolver.InterfaceOrClass
 
-object InferReturnTypes extends TreeVisitorScopedChanges {
+object InferReturnTypes extends TreeTransformationScopedChanges {
   override def enterTsMemberFunction(scope: TreeScope)(x: TsMemberFunction): TsMemberFunction = {
     val ownerOpt: Option[InterfaceOrClass] =
       scope.stack collectFirst { case ioc: InterfaceOrClass => ioc }

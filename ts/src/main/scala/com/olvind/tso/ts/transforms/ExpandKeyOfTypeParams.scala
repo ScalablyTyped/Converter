@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package transforms
 
-object ExpandKeyOfTypeParams extends TreeVisitorScopedChanges {
+object ExpandKeyOfTypeParams extends TreeTransformationScopedChanges {
 
   case class IndexedTypeParam(cs: Comments, typeParam: TsIdent, map: TsQIdent)
 

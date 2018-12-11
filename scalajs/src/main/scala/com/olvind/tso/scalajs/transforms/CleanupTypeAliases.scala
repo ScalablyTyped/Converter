@@ -12,7 +12,7 @@ import com.olvind.tso.seqs.TraversableOps
   *  type aliases. We need to do the removal here in scala.js to ensure that all dependencies
   *  can also resolve all their uses of the intermediate type aliases.
   */
-object CleanupTypeAliases extends SymbolVisitor {
+object CleanupTypeAliases extends SymbolTransformation {
   private def clearEmptyContainers(members: Seq[Symbol]): Seq[Symbol] =
     members.filter {
       case x: ModuleSymbol =>

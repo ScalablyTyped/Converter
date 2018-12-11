@@ -9,7 +9,7 @@ import com.olvind.tso.seqs.TraversableOps
   * When a class inherits the same method/field from two ancestors,
   *  we need to provide an override
   */
-object InferMemberOverrides extends SymbolVisitor {
+object InferMemberOverrides extends SymbolTransformation {
 
   override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol =
     if (s.parents.lengthCompare(1) > 0) s.copy(members = newMembers(scope, s, s.members, MemberImplNative))

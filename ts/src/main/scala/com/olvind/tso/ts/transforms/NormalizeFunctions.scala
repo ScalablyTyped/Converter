@@ -22,7 +22,7 @@ package transforms
   * Also rewrite optional methods to properties, since scala has no such concept
   *
   */
-object NormalizeFunctions extends TreeVisitorScopedChanges {
+object NormalizeFunctions extends TreeTransformationScopedChanges {
 
   override def enterTsDeclClass(scope: TreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(members = newMembers(x.members))

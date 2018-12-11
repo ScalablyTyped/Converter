@@ -13,7 +13,7 @@ import com.olvind.tso.seqs.TraversableOps
   *
   * Note that no subtype calculation is done for now.
   */
-object FilterMemberOverrides extends SymbolVisitor {
+object FilterMemberOverrides extends SymbolTransformation {
 
   override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
     s.copy(members = newMembers(scope, s, s.members))

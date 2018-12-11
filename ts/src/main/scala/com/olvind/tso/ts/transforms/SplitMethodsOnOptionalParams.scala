@@ -4,7 +4,7 @@ package transforms
 
 import scala.collection.mutable.ListBuffer
 
-object SplitMethodsOnOptionalParams extends TreeVisitorScopedChanges {
+object SplitMethodsOnOptionalParams extends TreeTransformationScopedChanges {
   override def enterTsParsedFile(t: TreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = newMembers(x))
 

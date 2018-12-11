@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 
 //column-editing driven development FTW
-trait TreeVisitor[T] { self =>
+trait TreeTransformation[T] { self =>
   def withTree(t: T, tree: TsTree): T
 
   def enterTsDeclClass(t:            T)(x: TsDeclClass):            TsDeclClass            = x
@@ -582,11 +582,11 @@ trait TreeVisitor[T] { self =>
       case x: TsImporteeLocal    => visitTsImporteeLocal(t)(x)
     }
 
-  final def >>(that: TreeVisitor[T]): TreeVisitor[T] =
+  final def >>(that: TreeTransformation[T]): TreeTransformation[T] =
     combine(that)
 
-  final def combine(that: TreeVisitor[T]): TreeVisitor[T] =
-    new TreeVisitor[T] {
+  final def combine(that: TreeTransformation[T]): TreeTransformation[T] =
+    new TreeTransformation[T] {
       override def withTree(t: T, tree: TsTree): T =
         self.withTree(t, tree)
       override def enterTsDeclClass(t: T)(x: TsDeclClass): TsDeclClass =

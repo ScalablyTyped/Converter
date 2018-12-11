@@ -2,7 +2,7 @@ package com.olvind.tso.ts.transforms
 
 import com.olvind.tso.ts._
 
-object SetJsLocation extends TreeVisitor[JsLocation] {
+object SetJsLocation extends TreeTransformation[JsLocation] {
   override def enterTsDecl(loc: JsLocation)(x: TsDecl): TsDecl =
     x match {
       case xx: HasJsLocation => xx.withJsLocation(loc).asInstanceOf[TsDecl]

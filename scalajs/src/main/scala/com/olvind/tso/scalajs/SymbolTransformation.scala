@@ -2,7 +2,7 @@ package com.olvind.tso
 package scalajs
 
 //column-editing driven development FTW
-class SymbolVisitor { self =>
+class SymbolTransformation { self =>
   def enterClassSymbol(scope:     SymbolScope)(s: ClassSymbol):     ClassSymbol     = s
   def enterContainerSymbol(scope: SymbolScope)(s: ContainerSymbol): ContainerSymbol = s
   def enterCtorSymbol(scope:      SymbolScope)(s: CtorSymbol):      CtorSymbol      = s
@@ -208,8 +208,8 @@ class SymbolVisitor { self =>
       }
     )
 
-  final def >>(that: SymbolVisitor): SymbolVisitor =
-    new SymbolVisitor {
+  final def >>(that: SymbolTransformation): SymbolTransformation =
+    new SymbolTransformation {
       override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
         that.enterClassSymbol(scope)(self.enterClassSymbol(scope)(s))
       override def enterContainerSymbol(scope: SymbolScope)(s: ContainerSymbol): ContainerSymbol =

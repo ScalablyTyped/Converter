@@ -27,7 +27,7 @@ import com.olvind.tso.ts.TreeScope.LoopDetector
   *
   * If not it wouldn't be safe to call from scala since it discards `this`.
   */
-object ExpandCallables extends TreeVisitorScopedChanges {
+object ExpandCallables extends TreeTransformationScopedChanges {
   /* yeah, sorry. This is out of band information because we cannot
       rename the original member until we reach scala :/
    */

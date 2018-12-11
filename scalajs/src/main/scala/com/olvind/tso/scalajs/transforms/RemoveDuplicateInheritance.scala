@@ -10,7 +10,7 @@ import com.olvind.tso.scalajs._
   *
   *  todo: merge with `RemoveMultipleInheritance`?
   */
-object RemoveDuplicateInheritance extends SymbolVisitor {
+object RemoveDuplicateInheritance extends SymbolTransformation {
 
   def conflicts(parents: Seq[TypeRef]): Option[Map[QualifiedName, Seq[TypeRef]]] =
     Option(parents groupBy (_.typeName) filter (_._2.lengthCompare(1) > 0)) filter (_.nonEmpty)

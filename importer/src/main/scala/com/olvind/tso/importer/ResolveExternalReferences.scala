@@ -50,7 +50,7 @@ object ResolveExternalReferences {
   }
 
   private class V(doResolve: TsIdentModule => Option[(Source, TsIdentModule)], imported: Set[TsIdentModule])
-      extends TreeVisitorScopedChanges {
+      extends TreeTransformationScopedChanges {
     val foundSources = mutable.Set.empty[Source]
     val notFound     = mutable.Set.empty[TsIdentModule]
     val importTypes  = mutable.Map.empty[TsIdentImport, TsIdentSimple]

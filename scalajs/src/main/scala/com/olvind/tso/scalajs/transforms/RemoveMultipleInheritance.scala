@@ -10,7 +10,7 @@ import com.olvind.tso.seqs._
   * Sort parents to ensure that if we inherit from a class it
   *  goes first, and traits are mixins
   */
-object RemoveMultipleInheritance extends SymbolVisitor {
+object RemoveMultipleInheritance extends SymbolTransformation {
 
   final case class Dropped(typeRef: TypeRef, because: String)
 

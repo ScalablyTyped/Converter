@@ -15,7 +15,7 @@ import com.olvind.tso.scalajs._
   *  weirdly enough.
   *
   */
-object CompleteClass extends SymbolVisitor {
+object CompleteClass extends SymbolTransformation {
   override def enterModuleSymbol(scope: SymbolScope)(mod: ModuleSymbol): ModuleSymbol =
     mod.copy(
       members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod))

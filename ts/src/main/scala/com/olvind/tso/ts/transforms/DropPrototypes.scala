@@ -3,7 +3,7 @@ package ts.transforms
 
 import com.olvind.tso.ts._
 
-object DropPrototypes extends TreeVisitorScopedChanges {
+object DropPrototypes extends TreeTransformationScopedChanges {
   def newMembers(ms: Seq[TsMember]): Seq[TsMember] =
     ms.filter {
       case TsMemberProperty(_, _, TsIdent.prototype, _, _, _, _, _) => false

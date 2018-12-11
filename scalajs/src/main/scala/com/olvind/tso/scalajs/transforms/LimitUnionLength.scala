@@ -6,7 +6,7 @@ package transforms
   * Error:scalac: Error while emitting ScalablyTyped/AtBabelTypesLib/AtBabelTypesModule/AtBabelTypesModuleMembers$
   * Maximum String literal length exceeded
   */
-object LimitUnionLength extends SymbolVisitor {
+object LimitUnionLength extends SymbolTransformation {
   override def enterTypeRef(scope: SymbolScope)(s: TypeRef): TypeRef =
     s match {
       case TypeRef.Union(types) if types.length > 50 =>

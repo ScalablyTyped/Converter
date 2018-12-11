@@ -10,7 +10,7 @@ import com.olvind.tso.ts.TreeScope.LoopDetector
 /** We dont really implement this stuff, we just ignore the effects of the type mapping.
   * This line below is a very rough approximation to picking the original unmapped type
   */
-object SimplifyTypes extends TreeVisitorScopedChanges {
+object SimplifyTypes extends TreeTransformationScopedChanges {
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
 
   /**

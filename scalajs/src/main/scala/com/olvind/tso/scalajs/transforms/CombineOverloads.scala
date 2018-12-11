@@ -14,7 +14,7 @@ import com.olvind.tso.seqs.TraversableOps
   * We also detect conflicts (same method with different type parameter sets, non-compatible return types),
   *  and rename methods when needed.
   */
-object CombineOverloads extends SymbolVisitor {
+object CombineOverloads extends SymbolTransformation {
 
   private def combineSameErasureSameTypeParams(methods:      Seq[MethodSymbol],
                                                renameSuffix: Option[Suffix]): MethodSymbol = {

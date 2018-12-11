@@ -12,7 +12,7 @@ import com.olvind.tso.maps.EmptyMap
   *
   * We'll do better eventually, this is the fallback to make things compile
   */
-object RemoveDifficultInheritance extends TreeVisitorScopedChanges {
+object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
   final case class Res(keep: List[TsTypeRef], drop: List[TsType], lift: Map[TsTypeRef, Seq[TsMember]])
 
   object Res {

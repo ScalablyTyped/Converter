@@ -4,7 +4,7 @@ package transforms
 
 import scala.annotation.switch
 
-object Sorter extends SymbolVisitor {
+object Sorter extends SymbolTransformation {
   private object SymbolOrdering extends Ordering[Symbol] {
     // todo: should consider prefix (see Printer)
     val NoPrefix = Nil

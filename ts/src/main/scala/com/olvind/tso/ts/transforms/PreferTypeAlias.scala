@@ -31,7 +31,7 @@ import scala.collection.mutable
   *
   * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo``
   */
-object PreferTypeAlias extends TreeVisitorScopedChanges {
+object PreferTypeAlias extends TreeTransformationScopedChanges {
 
   private object IsFunction {
     def unapply(i: TsDeclInterface): Option[TsDeclTypeAlias] =

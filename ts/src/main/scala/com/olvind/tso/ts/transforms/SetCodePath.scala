@@ -2,7 +2,7 @@ package com.olvind.tso.ts.transforms
 
 import com.olvind.tso.ts._
 
-object SetCodePath extends TreeVisitor[CodePath.HasPath] {
+object SetCodePath extends TreeTransformation[CodePath.HasPath] {
   override def enterTsDecl(cp: CodePath.HasPath)(x: TsDecl): TsDecl =
     x match {
       case xx: HasCodePath => xx.withCodePath(cp).asInstanceOf[TsDecl]

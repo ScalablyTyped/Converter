@@ -15,7 +15,7 @@ package transforms
   *
   * We'll deal with it more properly later if we have to, for now simplify and make stuff compile at least
   */
-object SimplifyParents extends TreeVisitorScopedChanges {
+object SimplifyParents extends TreeTransformationScopedChanges {
   override def enterTsDeclClass(t: TreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(parent = newParents(x.parent.to[Seq], t).headOption, implements = newParents(x.implements, t))
 

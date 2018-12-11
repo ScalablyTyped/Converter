@@ -40,7 +40,7 @@ object ExtractInterfaces {
     asd.copy(members = asd.members ++ store.interfaces.values)
   }
 
-  private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeVisitorScopedChanges {
+  private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {
     override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl =
       x match {
         case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeObject(members), cp) if !isTypeMapping(members) =>

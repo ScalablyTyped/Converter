@@ -1,7 +1,7 @@
 package com.olvind.tso.scalajs
 package transforms
 
-case class CleanIllegalNames(OutputPkg: Name) extends SymbolVisitor {
+case class CleanIllegalNames(OutputPkg: Name) extends SymbolTransformation {
   override def enterFieldSymbol(scope: SymbolScope)(s: FieldSymbol): FieldSymbol =
     s.name match {
       case Name.js | Name.java | OutputPkg => s.withSuffix("_")
