@@ -8,11 +8,9 @@ import scala.scalajs.js.annotation._
 @JSImport("with-theme", JSImport.Namespace)
 @js.native
 object withDashThemeModMembers extends js.Object {
-  val default: js.Function0[
-    js.Function1[
-      /* component */ reactLib.ReactNs.ComponentType[js.Any with WithTheme], 
-      reactLib.ReactNs.ComponentClass[js.Any]
-    ]
+  def default(): js.Function1[
+    /* component */ reactLib.ReactNs.ComponentType[js.Any with WithTheme], 
+    reactLib.ReactNs.ComponentClass[_]
   ] = js.native
 }
 
