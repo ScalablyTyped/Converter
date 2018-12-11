@@ -15,42 +15,40 @@ import com.olvind.tso.scalajs._
   *  weirdly enough.
   *
   */
-object CompleteClass extends SymbolTransformation {
-  override def enterModuleSymbol(scope: SymbolScope)(mod: ModuleSymbol): ModuleSymbol =
+object CompleteClass extends TreeTransformation {
+  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     mod.copy(
       members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod))
     )
 
-  override def enterClassSymbol(scope: SymbolScope)(cls: ClassSymbol): ClassSymbol = {
+  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val parents = ParentsResolver(scope, cls)
 
-    val newImplementations: Iterable[MemberSymbol] =
+    val newImplementations: Iterable[MemberTree] =
       if (cls.classType === ClassType.Trait) Nil else implementations(scope, cls, parents)
 
     cls.copy(members = cls.members ++ newImplementations)
   }
 
-  def isAlreadyImplemented(x: MethodSymbol, existing: Option[Seq[Symbol]]): Boolean =
+  def isAlreadyImplemented(x: MethodTree, existing: Option[Seq[Tree]]): Boolean =
     existing match {
       case None => false
       case Some(existings) =>
         existings.exists {
-          case xx: MethodSymbol =>
+          case xx: MethodTree =>
             xx.params.flatten.map(_.tpe) === x.params.flatten.map(_.tpe) && xx.tparams === x.tparams
           case _ => false
         }
     }
 
-  private def implementations(scope:   SymbolScope,
-                              c:       ContainerSymbol,
-                              parents: ParentsResolver.Parents): Seq[MemberSymbol] = {
+  private def implementations(scope: TreeScope, c: ContainerTree, parents: ParentsResolver.Parents): Seq[MemberTree] = {
 
     val ret = parents.pruneClasses.transitiveParents
       .flatMap(_._2.members)
       .collect {
-        case x: FieldSymbol if x.impl === MemberImplNotImplemented && !c.index.contains(x.name) =>
+        case x: FieldTree if x.impl === MemberImplNotImplemented && !c.index.contains(x.name) =>
           x.copy(isOverride = true, impl = MemberImplNative, comments = x.comments + Comment("/* CompleteClass */\n"))
-        case x: MethodSymbol if x.impl === MemberImplNotImplemented && !isAlreadyImplemented(x, c.index.get(x.name)) =>
+        case x: MethodTree if x.impl === MemberImplNotImplemented && !isAlreadyImplemented(x, c.index.get(x.name)) =>
           x.copy(isOverride = true, impl = MemberImplNative, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
       .to[Seq]

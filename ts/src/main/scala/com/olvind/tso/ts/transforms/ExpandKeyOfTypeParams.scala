@@ -14,22 +14,22 @@ object ExpandKeyOfTypeParams extends TreeTransformationScopedChanges {
       }
   }
 
-  override def enterTsDeclInterface(scope: TreeScope)(x: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(scope: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(members = newClassMembers(scope, x.members))
 
-  override def enterTsDeclClass(scope: TreeScope)(x: TsDeclClass): TsDeclClass =
+  override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(members = newClassMembers(scope, x.members))
 
-  override def enterTsParsedFile(scope: TreeScope)(x: TsParsedFile): TsParsedFile =
+  override def enterTsParsedFile(scope: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = newContainerMembers(scope, x.members))
 
-  override def enterTsDeclModule(scope: TreeScope)(x: TsDeclModule): TsDeclModule =
+  override def enterTsDeclModule(scope: TsTreeScope)(x: TsDeclModule): TsDeclModule =
     x.copy(members = newContainerMembers(scope, x.members))
 
-  override def enterTsDeclNamespace(scope: TreeScope)(x: TsDeclNamespace): TsDeclNamespace =
+  override def enterTsDeclNamespace(scope: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
     x.copy(members = newContainerMembers(scope, x.members))
 
-  def newClassMembers(scope: TreeScope, members: Seq[TsMember]): Seq[TsMember] =
+  def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
     members.flatMap {
       case m @ TsMemberFunction(_, _, name, sig @ TsFunSig(_, IndexedTypeParams(indexed, rest), _, _), _, _, _) =>
         lookupMemberPropertiesFrom(scope / m, indexed.map) match {
@@ -53,7 +53,7 @@ object ExpandKeyOfTypeParams extends TreeTransformationScopedChanges {
       case other => Seq(other)
     }
 
-  def newContainerMembers(scope: TreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
+  def newContainerMembers(scope: TsTreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
     members flatMap {
       case m @ TsDeclFunction(_, _, name, sig @ TsFunSig(_, IndexedTypeParams(indexed, rest), _, _), _, _) =>
         lookupMemberPropertiesFrom(scope / m, indexed.map) match {
@@ -75,7 +75,7 @@ object ExpandKeyOfTypeParams extends TreeTransformationScopedChanges {
       case other => Seq(other)
     }
 
-  def lookupMemberPropertiesFrom(scope: TreeScope, name: TsQIdent): Seq[TsMemberProperty] =
+  def lookupMemberPropertiesFrom(scope: TsTreeScope, name: TsQIdent): Seq[TsMemberProperty] =
     scope
       .lookupBase(Picker.Types, name)
       .flatMap {
@@ -92,7 +92,7 @@ object ExpandKeyOfTypeParams extends TreeTransformationScopedChanges {
           Nil
       }
 
-  def mpsFromType(scope: TreeScope, tpe: TsType): Seq[TsMemberProperty] =
+  def mpsFromType(scope: TsTreeScope, tpe: TsType): Seq[TsMemberProperty] =
     tpe match {
       case TsTypeRef(parent, Nil) => lookupMemberPropertiesFrom(scope, parent)
       case TsTypeObject(

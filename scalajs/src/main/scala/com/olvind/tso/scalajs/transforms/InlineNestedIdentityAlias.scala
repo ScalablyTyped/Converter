@@ -12,8 +12,8 @@ package transforms
   *
   * This is only really a problem since we don't properly expand type mappings for now
   */
-object InlineNestedIdentityAlias extends SymbolTransformation {
-  override def enterTypeRef(scope: SymbolScope)(ref: TypeRef): TypeRef =
+object InlineNestedIdentityAlias extends TreeTransformation {
+  override def enterTypeRef(scope: TreeScope)(ref: TypeRef): TypeRef =
     ref match {
       case TypeRef(_, Seq(TypeRef(QualifiedName(Seq(tp)), Nil, _)), _) if scope.tparams.contains(tp) => ref
       case _                                                                                         => simplify(scope, ref) getOrElse ref
@@ -26,15 +26,15 @@ object InlineNestedIdentityAlias extends SymbolTransformation {
       case _                                             => false
     }
 
-  private def simplify(scope: SymbolScope, ref: TypeRef): Option[TypeRef] = ref match {
+  private def simplify(scope: TreeScope, ref: TypeRef): Option[TypeRef] = ref match {
     case TypeRef(maybeIdentityWrapper, Seq(realType), cs) =>
       scope.lookup(maybeIdentityWrapper) collectFirst {
-        case (TypeAliasSymbol(_, Seq(TypeParamSymbol(tparam, _, _)), alias, _), _) if isIdentityFor(tparam)(alias) =>
+        case (TypeAliasTree(_, Seq(TypeParamTree(tparam, _, _)), alias, _), _) if isIdentityFor(tparam)(alias) =>
           // at this point we know that the referenced type is identity, now consider if the only type param references the same wrapper
 
           val mustSimplify: Option[Boolean] =
             scope lookup realType.typeName collectFirst {
-              case (TypeAliasSymbol(_, _, innerAlias, _), _) =>
+              case (TypeAliasTree(_, _, innerAlias, _), _) =>
                 innerAlias match {
                   case TypeRef.Union(ts)        => ts.exists(_.typeName === maybeIdentityWrapper)
                   case TypeRef.Intersection(ts) => ts.exists(_.typeName === maybeIdentityWrapper)

@@ -1,8 +1,8 @@
 package com.olvind.tso.scalajs
 package transforms
 
-case class CleanIllegalNames(OutputPkg: Name) extends SymbolTransformation {
-  override def enterFieldSymbol(scope: SymbolScope)(s: FieldSymbol): FieldSymbol =
+case class CleanIllegalNames(OutputPkg: Name) extends TreeTransformation {
+  override def enterFieldTree(scope: TreeScope)(s: FieldTree): FieldTree =
     s.name match {
       case Name.js | Name.java | OutputPkg => s.withSuffix("_")
       case Name("`")                       => s.renamed(Name("backtick"))
@@ -10,7 +10,7 @@ case class CleanIllegalNames(OutputPkg: Name) extends SymbolTransformation {
       case _                               => s
     }
 
-  override def enterMethodSymbol(scope: SymbolScope)(s: MethodSymbol): MethodSymbol =
+  override def enterMethodTree(scope: TreeScope)(s: MethodTree): MethodTree =
     s.name match {
       case Name.js | Name.java | OutputPkg => s.withSuffix("_")
       case Name("`")                       => s.renamed(Name("backtick"))
@@ -18,7 +18,7 @@ case class CleanIllegalNames(OutputPkg: Name) extends SymbolTransformation {
       case _                               => s
     }
 
-  override def enterParamSymbol(scope: SymbolScope)(s: ParamSymbol): ParamSymbol =
+  override def enterParamTree(scope: TreeScope)(s: ParamTree): ParamTree =
     s.name match {
       case Name.js | Name.java | OutputPkg => s.copy(name = s.name.withSuffix("_"))
       case _                               => s

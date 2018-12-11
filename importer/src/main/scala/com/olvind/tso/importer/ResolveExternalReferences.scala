@@ -38,7 +38,7 @@ object ResolveExternalReferences {
     }
     val v = new V(doResolve, imported)
 
-    val root  = TreeScope(source.libName, pedantic = true, Map.empty, logger)
+    val root  = TsTreeScope(source.libName, pedantic = true, Map.empty, logger)
     val after = v.visitTsParsedFile(root)(tsParsedFile)
 
     val newImports: Iterable[TsImport] =
@@ -65,7 +65,7 @@ object ResolveExternalReferences {
           name
       }
 
-    override def enterTsContainer(t: TreeScope)(x: TsContainer): TsContainer =
+    override def enterTsContainer(t: TsTreeScope)(x: TsContainer): TsContainer =
       x match {
         case m: TsDeclModule =>
           val newName: Option[TsIdentModule] = doResolve(m.name) flatMap {
@@ -88,19 +88,19 @@ object ResolveExternalReferences {
         case other => other
       }
 
-    override def enterTsExporteeStar(t: TreeScope)(x: TsExporteeStar): TsExporteeStar =
+    override def enterTsExporteeStar(t: TsTreeScope)(x: TsExporteeStar): TsExporteeStar =
       x.copy(from = resolveAndStore(x.from))
 
-    override def enterTsImporteeRequired(t: TreeScope)(x: TsImporteeRequired): TsImporteeRequired =
+    override def enterTsImporteeRequired(t: TsTreeScope)(x: TsImporteeRequired): TsImporteeRequired =
       x.copy(from = resolveAndStore(x.from))
 
-    override def enterTsImporteeFrom(t: TreeScope)(x: TsImporteeFrom): TsImporteeFrom =
+    override def enterTsImporteeFrom(t: TsTreeScope)(x: TsImporteeFrom): TsImporteeFrom =
       x.copy(from = resolveAndStore(x.from))
 
-    override def enterTsExporteeNames(t: TreeScope)(x: TsExporteeNames): TsExporteeNames =
+    override def enterTsExporteeNames(t: TsTreeScope)(x: TsExporteeNames): TsExporteeNames =
       x.fromOpt.fold(x)(from => x.copy(fromOpt = Some(resolveAndStore(from))))
 
-    override def enterTsQIdent(t: TreeScope)(x: TsQIdent): TsQIdent =
+    override def enterTsQIdent(t: TsTreeScope)(x: TsQIdent): TsQIdent =
       x match {
         case TsQIdent((x: TsIdentImport) :: rest) =>
           val from = resolveAndStore(x.from)

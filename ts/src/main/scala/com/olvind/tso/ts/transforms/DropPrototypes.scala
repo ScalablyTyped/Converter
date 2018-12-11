@@ -10,12 +10,12 @@ object DropPrototypes extends TreeTransformationScopedChanges {
       case _                                                        => true
     }
 
-  override def enterTsTypeObject(t: TreeScope)(x: TsTypeObject) =
+  override def enterTsTypeObject(t: TsTreeScope)(x: TsTypeObject) =
     x.copy(members = newMembers(x.members))
 
-  override def enterTsDeclClass(t: TreeScope)(x: TsDeclClass) =
+  override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass) =
     x.copy(members = newMembers(x.members))
 
-  override def enterTsDeclInterface(t: TreeScope)(x: TsDeclInterface) =
+  override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface) =
     x.copy(members = newMembers(x.members))
 }

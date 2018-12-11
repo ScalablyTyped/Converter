@@ -24,10 +24,10 @@ package transforms
   */
 object NormalizeFunctions extends TreeTransformationScopedChanges {
 
-  override def enterTsDeclClass(scope: TreeScope)(x: TsDeclClass): TsDeclClass =
+  override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(members = newMembers(x.members))
 
-  override def enterTsDeclInterface(scope: TreeScope)(x: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(scope: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(members = newMembers(x.members))
 
   private def newMembers(members: Seq[TsMember]): Seq[TsMember] =
@@ -46,18 +46,18 @@ object NormalizeFunctions extends TreeTransformationScopedChanges {
       case other => other
     }
 
-  override def enterTsParsedFile(scope: TreeScope)(x: TsParsedFile): TsParsedFile =
+  override def enterTsParsedFile(scope: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = newContainerMembers(x.members))
-  override def enterTsDeclModule(scope: TreeScope)(x: TsDeclModule): TsDeclModule =
+  override def enterTsDeclModule(scope: TsTreeScope)(x: TsDeclModule): TsDeclModule =
     x.copy(members = newContainerMembers(x.members))
-  override def enterTsDeclNamespace(scope: TreeScope)(x: TsDeclNamespace): TsDeclNamespace =
+  override def enterTsDeclNamespace(scope: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
     x.copy(members = newContainerMembers(x.members))
-  override def enterTsAugmentedModule(scope: TreeScope)(x: TsAugmentedModule): TsAugmentedModule =
+  override def enterTsAugmentedModule(scope: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
     x.copy(members = newContainerMembers(x.members))
-  override def enterTsDeclGlobal(scope: TreeScope)(x: TsGlobal): TsGlobal =
+  override def enterTsDeclGlobal(scope: TsTreeScope)(x: TsGlobal): TsGlobal =
     x.copy(members = newContainerMembers(x.members))
 
-  override def enterTsExporteeTree(t: TreeScope)(x: TsExporteeTree): TsExporteeTree =
+  override def enterTsExporteeTree(t: TsTreeScope)(x: TsExporteeTree): TsExporteeTree =
     x.copy(decl = rewriteDecl(x.decl))
 
   private def newContainerMembers(members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = members map {

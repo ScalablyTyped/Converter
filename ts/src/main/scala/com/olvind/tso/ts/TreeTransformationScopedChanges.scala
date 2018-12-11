@@ -1,7 +1,7 @@
 package com.olvind.tso.ts
 
-abstract class TreeTransformationScopedChanges extends TreeTransformation[TreeScope] {
-  override final def withTree(t: TreeScope, tree: TsTree): TreeScope =
+abstract class TreeTransformationScopedChanges extends TreeTransformation[TsTreeScope] {
+  override final def withTree(t: TsTreeScope, tree: TsTree): TsTreeScope =
     t / tree
 }
 

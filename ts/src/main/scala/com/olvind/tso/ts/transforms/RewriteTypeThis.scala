@@ -29,7 +29,7 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
       case _ => false
     }
 
-  override def enterTsType(scope: TreeScope)(tpe: TsType): TsType =
+  override def enterTsType(scope: TsTreeScope)(tpe: TsType): TsType =
     tpe match {
       case x: TsTypeRef
           if x.tparams.isEmpty &&

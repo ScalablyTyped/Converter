@@ -2,24 +2,24 @@ package com.olvind.tso
 package ts.modules
 
 import com.olvind.tso.seqs.TraversableOps
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts._
 
 object Imports {
   def lookupFromImports[T <: TsNamedDecl](
-      scope:        TreeScope.Scoped,
+      scope:        TsTreeScope.Scoped,
       Pick:         Picker[T],
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
       imports:      Seq[TsImport]
-  ): Seq[(T, TreeScope)] = {
+  ): Seq[(T, TsTreeScope)] = {
     lazy val key: (String, Picker[T], List[TsIdent]) = (scope.toString, Pick, wanted)
 
     if (scope.root.cache.isDefined && scope.root.cache.get.lookupFromImports.contains(key)) {
-      return scope.root.cache.get.lookupFromImports(key).asInstanceOf[Seq[(T, TreeScope)]]
+      return scope.root.cache.get.lookupFromImports(key).asInstanceOf[Seq[(T, TsTreeScope)]]
     }
 
-    val ret: Seq[(T, TreeScope)] =
+    val ret: Seq[(T, TsTreeScope)] =
       pickImport(imports, wanted) flatMap { chosenImport =>
         val expanded: ExpandedMod = expandImportee(chosenImport.from, scope, loopDetector)
 
@@ -108,7 +108,7 @@ object Imports {
     ret
   }
 
-  def expandImportee(from: TsImportee, scope: TreeScope, loopDetector: LoopDetector): ExpandedMod = {
+  def expandImportee(from: TsImportee, scope: TsTreeScope, loopDetector: LoopDetector): ExpandedMod = {
     lazy val key = (scope.toString, from)
 
     if (scope.root.cache.isDefined && scope.root.cache.get.expandImportee.contains(key)) {
@@ -118,12 +118,12 @@ object Imports {
     val ret: ExpandedMod = from match {
       case TsImporteeRequired(fromModule) =>
         scope.moduleScopes get fromModule match {
-          case Some(modScope @ TreeScope.Scoped(_, mod: TsDeclModule)) =>
+          case Some(modScope @ TsTreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod: TsDeclModule = CachedReplaceExports(modScope.`..`, loopDetector, mod)
 
             val withAugmented: TsDeclModule =
               scope.moduleAuxScopes.get(fromModule) match {
-                case Some(auxScope @ TreeScope.Scoped(_, aux: TsAugmentedModule)) =>
+                case Some(auxScope @ TsTreeScope.Scoped(_, aux: TsAugmentedModule)) =>
                   val rewritten =
                     if (aux.exports.nonEmpty)
                       new ReplaceExports(loopDetector).visitTsAugmentedModule(auxScope.`..`)(aux)
@@ -144,12 +144,12 @@ object Imports {
 
       case TsImporteeFrom(fromModule) =>
         scope.moduleScopes get fromModule match {
-          case Some(modScope @ TreeScope.Scoped(_, mod: TsDeclModule)) =>
+          case Some(modScope @ TsTreeScope.Scoped(_, mod: TsDeclModule)) =>
             val newMod = CachedReplaceExports(modScope.`..`, loopDetector, mod)
 
             val withAugmented: TsDeclModule =
               scope.moduleAuxScopes.get(fromModule) match {
-                case Some(auxScope @ TreeScope.Scoped(_, aux: TsAugmentedModule)) =>
+                case Some(auxScope @ TsTreeScope.Scoped(_, aux: TsAugmentedModule)) =>
                   val rewritten =
                     if (aux.exports.nonEmpty)
                       new ReplaceExports(loopDetector).visitTsAugmentedModule(auxScope.`..`)(aux)

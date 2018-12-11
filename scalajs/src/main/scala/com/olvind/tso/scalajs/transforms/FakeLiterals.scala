@@ -8,7 +8,7 @@ object FakeLiterals {
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
   val LiteralTokenComment: Comments = new Comments(Nil)
 
-  private case class LiteralRewriter(_s: ContainerSymbol, scope: SymbolScope) extends SymbolTransformation {
+  private case class LiteralRewriter(_s: ContainerTree, scope: TreeScope) extends TreeTransformation {
     val StringModuleName  = Name(_s.name.unescaped + "Strings")
     val collectedStrings  = mutable.HashSet.empty[String]
     val NumbersModuleName = Name(_s.name.unescaped + "Numbers")
@@ -36,7 +36,7 @@ object FakeLiterals {
       Name(str)
     }
 
-    def module(collected: mutable.Set[String], moduleName: Name): Option[ModuleSymbol] =
+    def module(collected: mutable.Set[String], moduleName: Name): Option[ModuleTree] =
       collected match {
         case empty if empty.isEmpty => None
         case found =>
@@ -44,10 +44,10 @@ object FakeLiterals {
             found flatMap { underlying: String =>
               val name = nameFor(underlying)
               val `trait` =
-                ClassSymbol(Seq(JsNative), name, Nil, Nil, Nil, Nil, ClassType.Trait, isSealed = true, NoComments)
+                ClassTree(Seq(JsNative), name, Nil, Nil, Nil, Nil, ClassType.Trait, isSealed = true, NoComments)
               val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
-                MethodSymbol(
+                MethodTree(
                   Annotation.jsName(name),
                   Default,
                   name,
@@ -61,10 +61,10 @@ object FakeLiterals {
               Seq(`trait`, `def`)
             }
 
-          Some(ModuleSymbol(Nil, moduleName, ModuleTypeScala, Nil, members.to[Seq], NoComments))
+          Some(ModuleTree(Nil, moduleName, ModuleTypeScala, Nil, members.to[Seq], NoComments))
       }
 
-    override def enterTypeRef(scope: SymbolScope)(s: TypeRef): TypeRef =
+    override def enterTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
           collectedStrings += underlying
@@ -77,18 +77,18 @@ object FakeLiterals {
           other
       }
 
-    lazy val output: ContainerSymbol = {
-      val ss         = visitContainerSymbol(scope)(_s)
+    lazy val output: ContainerTree = {
+      val ss         = visitContainerTree(scope)(_s)
       val nums       = module(collectedNumbers, NumbersModuleName)
       val strings    = module(collectedStrings, StringModuleName)
       val newMembers = ss.members ++ nums ++ strings
       ss match {
-        case p: PackageSymbol => p.copy(members = newMembers)
-        case m: ModuleSymbol  => m.copy(members = newMembers)
-        case c: ClassSymbol   => c //todo: enforce with types that this is impossible
+        case p: PackageTree => p.copy(members = newMembers)
+        case m: ModuleTree  => m.copy(members = newMembers)
+        case c: ClassTree   => c //todo: enforce with types that this is impossible
       }
     }
   }
 
-  def apply(scope: SymbolScope)(s: ContainerSymbol): ContainerSymbol = LiteralRewriter(s, scope).output
+  def apply(scope: TreeScope)(s: ContainerTree): ContainerTree = LiteralRewriter(s, scope).output
 }

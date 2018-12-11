@@ -9,14 +9,14 @@ import com.olvind.tso.ts.transforms.ExpandCallables
 import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
-  def apply(lib: LibTs, logger: Logger[Unit]): ContainerSymbol = {
+  def apply(lib: LibTs, logger: Logger[Unit]): ContainerTree = {
     val deps = UnpackLibs(lib.dependencies).map {
       case (_, depLib) => depLib.name -> depLib.parsed
     }
 
-    val scope = TreeScope(lib.name, pedantic = true, deps, logger) / lib.parsed
+    val scope = TsTreeScope(lib.name, pedantic = true, deps, logger) / lib.parsed
 
-    val ret = ContainerSymbol.container(
+    val ret = ContainerTree.container(
       isWithinScalaModule = false,
       scope,
       lib.parsed.comments,
@@ -25,7 +25,7 @@ object ImportTree {
       lib.parsed.members
     )
 
-    val require = ModuleSymbol(
+    val require = ModuleTree(
       Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
       ImportName(lib.name).withSuffix("Require"),
       ModuleTypeNative,
@@ -37,13 +37,13 @@ object ImportTree {
     )
 
     ret match {
-      case x: ModuleSymbol  => x.copy(members = x.members :+ require)
-      case x: PackageSymbol => x.copy(members = x.members :+ require)
+      case x: ModuleTree  => x.copy(members = x.members :+ require)
+      case x: PackageTree => x.copy(members = x.members :+ require)
       case other => other
     }
   }
 
-  object ContainerSymbol {
+  object ContainerTree {
     private def canBeCompact(members: Seq[TsContainerOrDecl]): Boolean =
       members.forall {
         case _: TsImport        => true
@@ -64,7 +64,7 @@ object ImportTree {
       }
 
     /* A namespace within a module must end up as a scala module, given that we don't have a way to express the `@JSImport` */
-    private def mustBeCompact(scope: TreeScope): Boolean = {
+    private def mustBeCompact(scope: TsTreeScope): Boolean = {
       var foundNamespace = false
       var idx            = 0
       while (idx < scope.stack.length) {
@@ -80,11 +80,11 @@ object ImportTree {
       false
     }
 
-    private def avoidPackageObject(members: Seq[Symbol]): (Seq[TypeRef], Seq[MemberSymbol], Seq[Symbol]) =
+    private def avoidPackageObject(members: Seq[Tree]): (Seq[TypeRef], Seq[MemberTree], Seq[Tree]) =
       members.partitionCollect3(
-        { case x: FieldSymbol if x.name === Name.namespaced  => x },
-        { case x: MethodSymbol if x.name === Name.namespaced => x },
-        { case x: MemberSymbol                               => x }
+        { case x: FieldTree if x.name === Name.namespaced  => x },
+        { case x: MethodTree if x.name === Name.namespaced => x },
+        { case x: MemberTree                               => x }
       ) match {
         case (namespacedFields, namespacedMethods, memberSyms, rest) =>
           val rewrittenMethods = namespacedMethods.map(_.copy(name = Name.APPLY))
@@ -100,11 +100,11 @@ object ImportTree {
       }
 
     def container(isWithinScalaModule: Boolean,
-                  scope:               TreeScope,
+                  scope:               TsTreeScope,
                   cs:                  Comments,
                   name:                TsIdent,
                   jsLocation:          JsLocation,
-                  members:             Seq[TsContainerOrDecl]): ContainerSymbol = {
+                  members:             Seq[TsContainerOrDecl]): ContainerTree = {
 
       val anns                               = ImportJsLocation(jsLocation, isWithinScalaModule)
       val inModule                           = scope.stack.length > 1 && (isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope))
@@ -117,12 +117,12 @@ object ImportTree {
             case x: TsIdentNamespace if isWithinScalaModule => Option(JsName(Name(x.value)))
             case _ => None
           }
-        ModuleSymbol(anns ++ nameAnns, scalaName, ModuleTypeNative, inheritance, liftedMembers ++ rest, cs)
+        ModuleTree(anns ++ nameAnns, scalaName, ModuleTypeNative, inheritance, liftedMembers ++ rest, cs)
       } else {
         val membersModule =
           if (liftedMembers.nonEmpty || inheritance.nonEmpty)
             Some(
-              ModuleSymbol(
+              ModuleTree(
                 anns,
                 scalaName.withSuffix("Members"),
                 ModuleTypeNative,
@@ -133,38 +133,38 @@ object ImportTree {
             )
           else None
 
-        PackageSymbol(anns, scalaName, rest ++ membersModule, cs)
+        PackageTree(anns, scalaName, rest ++ membersModule, cs)
       }
     }
   }
 
-  def decl(_scope: TreeScope, isWithinScalaModule: Boolean)(t1: TsContainerOrDecl): Seq[Symbol] = {
-    val scope: TreeScope = _scope / t1
+  def decl(_scope: TsTreeScope, isWithinScalaModule: Boolean)(t1: TsContainerOrDecl): Seq[Tree] = {
+    val scope: TsTreeScope = _scope / t1
 
     t1 match {
       case TsDeclModule(cs, _, name, innerDecls, _, jsLocation) =>
-        Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, name, jsLocation, innerDecls))
+        Seq(ContainerTree.container(isWithinScalaModule, scope, cs, name, jsLocation, innerDecls))
 
       case TsAugmentedModule(name, innerDecls, _, jsLocation) =>
-        Seq(ContainerSymbol.container(isWithinScalaModule, scope, NoComments, name, jsLocation, innerDecls))
+        Seq(ContainerTree.container(isWithinScalaModule, scope, NoComments, name, jsLocation, innerDecls))
 
       case TsDeclNamespace(cs, _, name, innerDecls, _, jsLocation) =>
         if (innerDecls.nonEmpty) {
-          Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, name, jsLocation, innerDecls))
+          Seq(ContainerTree.container(isWithinScalaModule, scope, cs, name, jsLocation, innerDecls))
         } else Nil
 
       case TsGlobal(cs, _, ms, _) =>
-        Seq(ContainerSymbol.container(isWithinScalaModule, scope, cs, TsIdent.Global, JsLocation.Zero, ms))
+        Seq(ContainerTree.container(isWithinScalaModule, scope, cs, TsIdent.Global, JsLocation.Zero, ms))
 
       case TsDeclVar(cs, _, _, ImportName(name), Some(TsTypeObject(members)), None, location, _, false) =>
         val MemberRet(ctors, ms, inheritance, Nil) = members flatMap tsMember(scope, scalaJsDefined = false)
         Seq(
-          ModuleSymbol(ImportJsLocation(location, isWithinScalaModule),
-                       name,
-                       ModuleTypeNative,
-                       inheritance,
-                       ms ++ ctors,
-                       cs)
+          ModuleTree(ImportJsLocation(location, isWithinScalaModule),
+                     name,
+                     ModuleTypeNative,
+                     inheritance,
+                     ms ++ ctors,
+                     cs)
         )
 
       case TsDeclVar(cs, _, readOnly, ImportName(name), tpeOpt, literalOpt, jsLocation, _, isOptional) =>
@@ -172,7 +172,7 @@ object ImportTree {
 
         if (name === Name.Symbol) {
           Seq(
-            ModuleSymbol(
+            ModuleTree(
               annotations = ImportJsLocation(jsLocation, isWithinScalaModule),
               name        = name,
               moduleType  = ModuleTypeNative,
@@ -183,7 +183,7 @@ object ImportTree {
           )
         } else
           Seq(
-            FieldSymbol(
+            FieldTree(
               annotations = Annotation.jsName(name),
               name        = name,
               tpe         = base.withOptional(isOptional),
@@ -206,7 +206,7 @@ object ImportTree {
         val parents = parent.to[Seq] ++ implements map ImportType(Wildcards.Prohibit, scope)
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
-        val cls = ClassSymbol(
+        val cls = ClassTree(
           annotations = anns,
           name        = name,
           tparams     = tparams map typeParam(scope),
@@ -218,8 +218,8 @@ object ImportTree {
           comments    = cs
         )
 
-        val module: Option[ModuleSymbol] =
-          if (statics.nonEmpty) Some(ModuleSymbol(anns, name, ModuleTypeNative, Nil, statics, cs))
+        val module: Option[ModuleTree] =
+          if (statics.nonEmpty) Some(ModuleTree(anns, name, ModuleTypeNative, Nil, statics, cs))
           else None
 
         cls :: module.to[List]
@@ -231,7 +231,7 @@ object ImportTree {
         val parents                                     = inheritance.map(ImportType(Wildcards.Prohibit, scope))
 
         Seq(
-          ClassSymbol(
+          ClassTree(
             annotations = Seq(if (scalaJsDefined) ScalaJSDefined else JsNative),
             name        = name,
             tparams     = tparams map typeParam(scope),
@@ -246,7 +246,7 @@ object ImportTree {
 
       case TsDeclTypeAlias(cs, _, ImportName(name), tparams, alias, _) =>
         Seq(
-          TypeAliasSymbol(
+          TypeAliasTree(
             name     = name,
             tparams  = tparams map typeParam(scope),
             alias    = ImportType(Wildcards.Prohibit, scope)(alias),
@@ -277,17 +277,17 @@ object ImportTree {
   sealed trait MemberRet
 
   object MemberRet {
-    def apply(value: MemberSymbol, isStatic: Boolean): MemberRet =
+    def apply(value: MemberTree, isStatic: Boolean): MemberRet =
       if (isStatic) Static(value) else Normal(value)
 
-    final case class Ctor(value: CtorSymbol) extends MemberRet
+    final case class Ctor(value: CtorTree) extends MemberRet
 
-    final case class Normal(value: MemberSymbol) extends MemberRet
-    final case class Static(value: MemberSymbol) extends MemberRet
+    final case class Normal(value: MemberTree) extends MemberRet
+    final case class Static(value: MemberTree) extends MemberRet
 
     final case class Inheritance(value: TypeRef) extends MemberRet
 
-    def unapply(es: Seq[MemberRet]): Some[(Seq[CtorSymbol], Seq[MemberSymbol], Seq[TypeRef], Seq[MemberSymbol])] = {
+    def unapply(es: Seq[MemberRet]): Some[(Seq[CtorTree], Seq[MemberTree], Seq[TypeRef], Seq[MemberTree])] = {
       val ctors = es.collect {
         case Ctor(c) => c
       }
@@ -304,7 +304,7 @@ object ImportTree {
     }
   }
 
-  def tsMember(_scope: TreeScope, scalaJsDefined: Boolean)(t1: TsMember): Seq[MemberRet] = {
+  def tsMember(_scope: TsTreeScope, scalaJsDefined: Boolean)(t1: TsMember): Seq[MemberRet] = {
     lazy val scope = _scope / t1
     t1 match {
       case TsMemberCall(cs, level, signature) =>
@@ -318,7 +318,7 @@ object ImportTree {
         Seq(MemberRet.Inheritance(ImportType.signature(scope, _sig, cs)))
 
       case TsMemberFunction(cs, level, TsIdent.constructor, sig, false, _, _) =>
-        Seq(MemberRet.Ctor(CtorSymbol(level, tsFunParams(scope / sig, params = sig.params), cs ++ sig.comments)))
+        Seq(MemberRet.Ctor(CtorTree(level, tsFunParams(scope / sig, params = sig.params), cs ++ sig.comments)))
 
       case m: TsMemberProperty =>
         tsMemberProperty(scope, scalaJsDefined)(m)
@@ -376,7 +376,7 @@ object ImportTree {
 
                 Seq(
                   MemberRet(
-                    FieldSymbol(
+                    FieldTree(
                       annotations = Seq(a),
                       name        = ImportName(symName),
                       tpe         = ImportType(Wildcards.No, scope)(m.valueType).withOptional(m.isOptional),
@@ -400,7 +400,7 @@ object ImportTree {
     }
   }
 
-  def tsMemberProperty(scope: TreeScope, scalaJsDefined: Boolean)(m: TsMemberProperty): Seq[MemberRet] =
+  def tsMemberProperty(scope: TsTreeScope, scalaJsDefined: Boolean)(m: TsMemberProperty): Seq[MemberRet] =
     (m.name, m.tpe) match {
       case (_, Some(TsTypeQuery(_))) =>
         scope.logger.info(s"Dropping $m")
@@ -426,7 +426,7 @@ object ImportTree {
         Seq(
           MemberRet(
             hack(
-              FieldSymbol(
+              FieldTree(
                 annotations = Annotation.jsName(name),
                 name        = name,
                 tpe         = importedType,
@@ -444,32 +444,32 @@ object ImportTree {
         Nil
     }
 
-  def hack(fs: FieldSymbol): FieldSymbol =
+  def hack(fs: FieldTree): FieldTree =
     fs.comments.cs.partitionCollect { case c if c === ExpandCallables.MarkerComment => c } match {
       case (Nil, _)  => fs
       case (_, rest) => fs.withSuffix("_Original").copy(comments = Comments(rest))
     }
 
-  def typeParam(scope: TreeScope)(tp: TsTypeParam): TypeParamSymbol =
-    TypeParamSymbol(
+  def typeParam(scope: TsTreeScope)(tp: TsTypeParam): TypeParamTree =
+    TypeParamTree(
       name       = ImportName(tp.name),
       upperBound = tp.upperBound map ImportType(Wildcards.No, scope / tp),
       comments   = tp.comments
     )
 
-  def tsFunParams(scope: TreeScope, params: Seq[TsFunParam]): Seq[ParamSymbol] =
+  def tsFunParams(scope: TsTreeScope, params: Seq[TsFunParam]): Seq[ParamTree] =
     params map { param =>
       val tpe       = ImportType.orAny(Wildcards.No, scope / param)(param.tpe)
       val undefType = if (param.isOptional) TypeRef.UndefOr(tpe) else tpe
-      ParamSymbol(ImportName(param.name), undefType, param.comments)
+      ParamTree(ImportName(param.name), undefType, param.comments)
     }
 
-  def tsMethod(scope:          TreeScope,
+  def tsMethod(scope:          TsTreeScope,
                level:          ProtectionLevel,
                name:           Name,
                cs:             Comments,
                sig:            TsFunSig,
-               scalaJsDefined: Boolean): MethodSymbol = {
+               scalaJsDefined: Boolean): MethodTree = {
 
     val as = Annotation.method(name, isBracketAccess = false)
 
@@ -485,7 +485,7 @@ object ImportTree {
         getOrElse TypeRef.Any
     )
 
-    val ret = MethodSymbol(
+    val ret = MethodTree(
       annotations = as,
       level       = level,
       name        = name,

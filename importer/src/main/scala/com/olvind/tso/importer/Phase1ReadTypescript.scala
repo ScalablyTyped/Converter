@@ -7,7 +7,7 @@ import com.olvind.tso.importer.Phase1Res._
 import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.modules._
 import com.olvind.tso.ts.{transforms => T, _}
 
@@ -143,8 +143,8 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
 
           getDeps(fileSources ++ declaredDependencies ++ stdlibSourceOpt) map {
             case Unpack(libParts: Map[Source.TsHelperFile, FileAndRefs], deps: Map[TsLibSource, LibTs], contribs) =>
-              val scope: TreeScope.Root =
-                TreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
+              val scope: TsTreeScope.Root =
+                TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
               val preprocessed: Seq[TsParsedFile] =
                 libParts.to[Seq].sortBy(_._1.file.path) map {

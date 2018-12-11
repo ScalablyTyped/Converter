@@ -1,10 +1,10 @@
 package com.olvind.tso
 package ts
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
 object AllMembersFor {
-  def apply(scope: TreeScope, loopDetector: LoopDetector)(typeRef: TsTypeRef): Seq[TsMember] =
+  def apply(scope: TsTreeScope, loopDetector: LoopDetector)(typeRef: TsTypeRef): Seq[TsMember] =
     scope lookupInternal (Picker.Types, typeRef.name.parts, loopDetector) flatMap {
       case (x: TsDeclInterface, newScope) =>
         forInterface(loopDetector, x, newScope, typeRef.tparams)
@@ -23,9 +23,9 @@ object AllMembersFor {
       case _ => Nil
     }
 
-  def forInterface(loopDetector: TreeScope.LoopDetector,
+  def forInterface(loopDetector: TsTreeScope.LoopDetector,
                    x:            TsDeclInterface,
-                   newScope:     TreeScope,
+                   newScope:     TsTreeScope,
                    tparams:      Seq[TsType]): Seq[TsMember] =
     FillInTParams(x, tparams) match {
       case TsDeclInterface(_, _, _, _, inheritance, members, _) =>

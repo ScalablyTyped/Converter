@@ -10,22 +10,22 @@ import com.olvind.tso.seqs._
   * Sort parents to ensure that if we inherit from a class it
   *  goes first, and traits are mixins
   */
-object RemoveMultipleInheritance extends SymbolTransformation {
+object RemoveMultipleInheritance extends TreeTransformation {
 
   final case class Dropped(typeRef: TypeRef, because: String)
 
-  override def enterClassSymbol(scope: SymbolScope)(cls: ClassSymbol): ClassSymbol = {
+  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents) = findNewParents(scope, cls)
     cls.copy(comments = newComments, parents = newParents)
   }
 
-  override def enterModuleSymbol(scope: SymbolScope)(mod: ModuleSymbol): ModuleSymbol = {
+  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree = {
     val (newComments, newParents) = findNewParents(scope, mod)
 
     mod.copy(comments = newComments, parents = newParents)
   }
 
-  def findNewParents(scope: SymbolScope, cls: ContainerSymbol): (Comments, List[TypeRef]) = {
+  def findNewParents(scope: TreeScope, cls: ContainerTree): (Comments, List[TypeRef]) = {
     val allParents = ParentsResolver(scope, cls)
 
     val first     = firstReferringToClass(allParents) orElse longestInheritance(allParents)

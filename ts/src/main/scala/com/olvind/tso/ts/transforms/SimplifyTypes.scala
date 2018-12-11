@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package transforms
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
 /**
   * We also don't really implement this. We try to recover whatever useful types are in there
@@ -27,7 +27,7 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
     if (isOptional) TsTypeUnion.simplified(tpe :: TsTypeRef.undefined :: Nil)
     else tpe
 
-  override def leaveTsType(scope: TreeScope)(x: TsType): TsType =
+  override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
       case lookup: TsTypeLookup =>
         expandLookupType(scope, lookup) getOrElse x
@@ -60,7 +60,7 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
       case other => other
     }
 
-  def expandLookupType(scope: TreeScope, lookup: TsTypeLookup): Option[TsType] =
+  def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
     lookup.key match {
       case Left(key) =>
         lookup.from match {

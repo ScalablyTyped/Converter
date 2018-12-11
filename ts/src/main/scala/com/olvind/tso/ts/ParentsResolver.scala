@@ -16,7 +16,7 @@ object ParentsResolver {
 
   case class WithParents[X <: InterfaceOrClass](value: X, parents: Seq[InterfaceOrClass])
 
-  def apply[X <: InterfaceOrClass](_scope: TreeScope, tree: X): WithParents[X] = {
+  def apply[X <: InterfaceOrClass](_scope: TsTreeScope, tree: X): WithParents[X] = {
 
     val seen: mutable.ArrayBuffer[TsTree] =
       mutable.ArrayBuffer()
@@ -24,7 +24,7 @@ object ParentsResolver {
     val allParents: mutable.ArrayBuffer[InterfaceOrClass] =
       mutable.ArrayBuffer()
 
-    def innerRecurse(scope: TreeScope, qualifiedName: TsQIdent, currentTParams: Seq[TsType]): Unit =
+    def innerRecurse(scope: TsTreeScope, qualifiedName: TsQIdent, currentTParams: Seq[TsType]): Unit =
       scope.lookupTypeIncludeScope(qualifiedName) foreach {
         case (cls: TsDeclClass, foundInScope) =>
           if (seen forall (_ ne cls)) {
@@ -69,7 +69,7 @@ object ParentsResolver {
         case _ => ()
       }
 
-    def outerRecurse(scope: TreeScope, tree: TsTree): Unit = {
+    def outerRecurse(scope: TsTreeScope, tree: TsTree): Unit = {
       val parentRefs: Seq[TsTypeRef] =
         tree match {
           case x: TsDeclInterface => x.inheritance

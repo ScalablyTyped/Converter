@@ -18,7 +18,7 @@ import scala.collection.mutable
   * ```
   */
 object DefaultedTParams extends TreeTransformationScopedChanges {
-  override def enterTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
+  override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     x match {
       case TsTypeRef(target: TsQIdent, providedTparams: Seq[TsType])
           if !TsQIdent.Primitive(target) && !scope.isAbstract(target) =>

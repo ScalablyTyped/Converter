@@ -4,14 +4,14 @@ package transforms
 
 import scala.annotation.switch
 
-object Sorter extends SymbolTransformation {
-  private object SymbolOrdering extends Ordering[Symbol] {
+object Sorter extends TreeTransformation {
+  private object TreeOrdering extends Ordering[Tree] {
     // todo: should consider prefix (see Printer)
     val NoPrefix = Nil
 
-    override def compare(x: Symbol, y: Symbol): Int =
+    override def compare(x: Tree, y: Tree): Int =
       (x, y) match {
-        case (m1: MethodSymbol, m2: MethodSymbol) =>
+        case (m1: MethodTree, m2: MethodTree) =>
           (m1.name.unescaped.compareTo(m2.name.unescaped): @switch) match {
             case 0 =>
               (m1.tparams.size.compareTo(m2.tparams.size): @switch) match {
@@ -35,7 +35,7 @@ object Sorter extends SymbolTransformation {
             case other => other
           }
 
-        case (c1: CtorSymbol, c2: CtorSymbol) =>
+        case (c1: CtorTree, c2: CtorTree) =>
           (c1.params.size.compareTo(c2.params.size): @switch) match {
             case 0 =>
               val p1: String =
@@ -55,12 +55,12 @@ object Sorter extends SymbolTransformation {
       }
   }
 
-  override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
-    s.copy(members = s.members.sorted(SymbolOrdering), ctors = s.ctors.sorted(SymbolOrdering))
+  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
+    s.copy(members = s.members.sorted(TreeOrdering), ctors = s.ctors.sorted(TreeOrdering))
 
-  override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol =
-    s.copy(members = s.members.sorted(SymbolOrdering))
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
+    s.copy(members = s.members.sorted(TreeOrdering))
 
-  override def enterPackageSymbol(scope: SymbolScope)(s: PackageSymbol): PackageSymbol =
-    s.copy(members = s.members.sorted(SymbolOrdering))
+  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
+    s.copy(members = s.members.sorted(TreeOrdering))
 }

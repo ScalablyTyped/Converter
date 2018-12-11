@@ -2,13 +2,13 @@ package com.olvind.tso
 package ts
 package modules
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.modules.Exports.export
 import com.olvind.tso.ts.transforms.SetCodePath
 
 /* Skip traversing the entire tree if the module is cached */
 object CachedReplaceExports {
-  def apply(scope: TreeScope, loopDetector: LoopDetector, x: TsDeclModule): TsDeclModule =
+  def apply(scope: TsTreeScope, loopDetector: LoopDetector, x: TsDeclModule): TsDeclModule =
     if (scope.root.cache.isDefined && scope.root.cache.get.replaceExports.contains(x.name))
       scope.root.cache.get.replaceExports(x.name)
     else if (x.exports.isEmpty) x
@@ -16,7 +16,7 @@ object CachedReplaceExports {
 }
 
 class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScopedChanges {
-  override def enterTsDeclNamespace(scope: TreeScope)(x: TsDeclNamespace): TsDeclNamespace =
+  override def enterTsDeclNamespace(scope: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
     if (x.exports.isEmpty && x.imports.isEmpty) x
     else {
       val newMembers: Seq[TsContainerOrDecl] = x.members.flatMap {
@@ -64,7 +64,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
       x.copy(members = newMembers)
     }
 
-  override def enterTsDeclModule(scope: TreeScope)(x: TsDeclModule): TsDeclModule = {
+  override def enterTsDeclModule(scope: TsTreeScope)(x: TsDeclModule): TsDeclModule = {
     if (scope.root.cache.isDefined && scope.root.cache.get.replaceExports.contains(x.name)) {
       return scope.root.cache.get.replaceExports(x.name)
     }
@@ -79,13 +79,13 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     _3
   }
 
-  override def enterTsAugmentedModule(t: TreeScope)(x: TsAugmentedModule): TsAugmentedModule = {
+  override def enterTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule = {
     val _1 = x.copy(members = x.members flatMap newMember(t, x, spec => JsLocation.Module(x.name, spec)))
     val _2 = ensureTypesPresent(x, _1)
     FlattenTrees.mergeAugmentedModule(_2, _2.copy(members = Nil))
   }
 
-  override def leaveTsParsedFile(t: TreeScope)(x: TsParsedFile): TsParsedFile =
+  override def leaveTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = x.members.filterNot(_.isInstanceOf[TsImport]))
 
   def ensureTypesPresent[T <: TsContainer](old: T, `new`: T): T = {
@@ -103,7 +103,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     `new`.withMembers(`new`.members ++ missingTypes).asInstanceOf[T]
   }
 
-  def newMember(scope: TreeScope, owner: TsDeclNamespaceOrModule, jsLocation: ModuleSpec => JsLocation)(
+  def newMember(scope: TsTreeScope, owner: TsDeclNamespaceOrModule, jsLocation: ModuleSpec => JsLocation)(
       decl:            TsContainerOrDecl
   ): Seq[TsContainerOrDecl] = {
     lazy val hasExportedValues: Boolean =

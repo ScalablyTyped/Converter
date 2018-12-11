@@ -9,7 +9,7 @@ object ExtractInterfaces {
   class ConflictHandlingStore(inLibrary: TsIdent) {
     val interfaces = mutable.Map.empty[TsIdent, TsDeclInterface]
 
-    def addInterface(scope:     TreeScope,
+    def addInterface(scope:     TsTreeScope,
                      prefix:    String,
                      members:   Seq[TsTree],
                      construct: TsIdent => TsDeclInterface): CodePath.HasPath = {
@@ -32,7 +32,7 @@ object ExtractInterfaces {
     }
   }
 
-  def apply(inLibrary: TsIdentLibrary, scope: TreeScope)(file: TsParsedFile): TsParsedFile = {
+  def apply(inLibrary: TsIdentLibrary, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
     val store = new ConflictHandlingStore(inLibrary)
     val V     = new LiftTypeObjects(store)
     val asd   = V.visitTsParsedFile(scope)(file)
@@ -41,7 +41,7 @@ object ExtractInterfaces {
   }
 
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {
-    override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl =
+    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
       x match {
         case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeObject(members), cp) if !isTypeMapping(members) =>
           TsDeclInterface(cs, dec, name, tparams, Nil, members, cp)
@@ -57,7 +57,7 @@ object ExtractInterfaces {
     def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
       stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || obj.members.forall(_.isInstanceOf[TsMemberTypeMapped])
 
-    override def leaveTsType(scope: TreeScope)(x: TsType): TsType =
+    override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
       x match {
         case obj: TsTypeObject
             if obj.members.nonEmpty && !isDictionary(obj) && !partOfTypeMapping(scope.stack, obj) && shouldBeExtracted(
@@ -90,7 +90,7 @@ object ExtractInterfaces {
       }
   }
 
-  def shouldBeExtracted(t: TreeScope): Boolean =
+  def shouldBeExtracted(t: TsTreeScope): Boolean =
     t.stack match {
       case List(_, _: TsDeclVar, _: TsParsedFile) => false
       case _ => true

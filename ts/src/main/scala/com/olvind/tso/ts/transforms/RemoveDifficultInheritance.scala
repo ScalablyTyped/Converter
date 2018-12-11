@@ -25,7 +25,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
       }
   }
 
-  private def cleanParentRef(scope: TreeScope)(tpe: TsTypeRef): Res =
+  private def cleanParentRef(scope: TsTreeScope)(tpe: TsTypeRef): Res =
     tpe match {
       /* this causes issues since they are classes in scala */
       case drop @ (TsTypeRef.`object` | TsTypeRef.Object | TsTypeRef.any) => Res(Nil, drop :: Nil, Map.empty)
@@ -61,7 +61,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
       case other                  => other.asString
     }
 
-  override def enterTsDeclClass(scope: TreeScope)(s: TsDeclClass): TsDeclClass =
+  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass =
     Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
       case Res(_, Nil, EmptyMap()) => s
       case Res(keep, drop, lifted) =>
@@ -73,7 +73,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
         )
     }
 
-  override def enterTsDeclInterface(scope: TreeScope)(s: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(scope: TsTreeScope)(s: TsDeclInterface): TsDeclInterface =
     Res.combine(s.inheritance map cleanParentRef(scope)) match {
       case Res(keep, _, _) if s.inheritance === keep => s
       case Res(keep, drop, lifted) =>

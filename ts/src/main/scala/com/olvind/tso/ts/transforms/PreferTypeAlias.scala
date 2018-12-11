@@ -77,7 +77,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
     * So to avoid compilation failure after we simplify, we leave it to the user of the generated
     *  code to cast appropriately
     */
-  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TreeScope, tree: TsTree): Boolean = {
+  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
     val minimizedTree = memberHack(tree)
     TreeTraverse.collect(minimizedTree) { case x: TsIdent if x === self => x } match {
       case Nil =>
@@ -100,7 +100,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         true
     }
   }
-  override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl = x match {
+  override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
 
     /**
       * We rewrite interfaces which extends one type, not more. The reason is that scala doesn't let you

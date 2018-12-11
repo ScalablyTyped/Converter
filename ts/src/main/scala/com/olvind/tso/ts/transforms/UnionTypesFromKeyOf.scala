@@ -3,7 +3,7 @@ package ts
 package transforms
 
 object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
-  override def enterTsType(scope: TreeScope)(x: TsType): TsType =
+  override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
       case TsTypeKeyOf(TsTypeRef(key, Nil)) if !scope.isAbstract(key) =>
         scope.lookup(key).headOption match {

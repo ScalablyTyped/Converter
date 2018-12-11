@@ -5,13 +5,13 @@ package transforms
 object QualifyReferences extends TreeTransformationScopedChanges {
 
   /* don't qualify built ins */
-  private def shouldQualify(name: TsQIdent, scope: TreeScope): Boolean =
+  private def shouldQualify(name: TsQIdent, scope: TsTreeScope): Boolean =
     if (TsQIdent Primitive name) false
     else if (name.parts.head.isInstanceOf[TsIdentLibrary]) false
     else if (scope.isAbstract(name)) false
     else true
 
-  override def enterTsType(scope: TreeScope)(x: TsType): TsType =
+  override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
       case x @ TsTypeQuery(expr) =>
         if (shouldQualify(expr, scope)) {
@@ -29,16 +29,16 @@ object QualifyReferences extends TreeTransformationScopedChanges {
       case other => other
     }
 
-  override def enterTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
+  override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     resolveTypeRef(scope, x, Picker.Types)
 
   /* Special case because sometimes classes inherit from an interface with the same name */
-  override def enterTsDeclClass(scope: TreeScope)(x: TsDeclClass): TsDeclClass = {
+  override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass = {
     val picker = Picker.ButNot(Picker.Types, x)
     x.copy(implements = x.implements.map(i => resolveTypeRef(scope, i, picker)))
   }
 
-  private def resolveTypeRef(scope: TreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]) =
+  private def resolveTypeRef(scope: TsTreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]) =
     if (shouldQualify(tr.name, scope)) {
       referenceFrom(scope.lookupBase(picker, tr.name)) match {
         case Some(newLocation) => tr.copy(name = newLocation.codePath)
@@ -48,7 +48,7 @@ object QualifyReferences extends TreeTransformationScopedChanges {
       }
     } else tr
 
-  private def referenceFrom(types: Seq[(TsNamedDecl, TreeScope)]): Option[CodePath.HasPath] =
+  private def referenceFrom(types: Seq[(TsNamedDecl, TsTreeScope)]): Option[CodePath.HasPath] =
     types collectFirst {
       case (xx: TsNamedDecl, _) => xx.codePath.forceHasPath
     }

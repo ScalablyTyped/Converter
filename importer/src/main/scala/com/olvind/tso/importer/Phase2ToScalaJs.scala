@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.transforms.FakeLiterals
-import com.olvind.tso.scalajs.{ContainerSymbol, Name, SymbolScope, transforms => S}
+import com.olvind.tso.scalajs.{ContainerTree, Name, TreeScope, transforms => S}
 
 class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, Phase1Res, Phase2Res] {
 
@@ -24,40 +24,40 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
       case lib: LibTs =>
         getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) map {
           case Phase2Res.Unpack(scalaDeps, contribs) =>
-            val scope = new SymbolScope.Root(
+            val scope = new TreeScope.Root(
               libName       = ImportName(lib.name),
-              _dependencies = scalaDeps.map { case (_, l) => l.packageSymbol.name -> l.packageSymbol },
+              _dependencies = scalaDeps.map { case (_, l) => l.packageTree.name -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic
             )
 
             logger.warn(s"Processing ${lib.name.value}")
 
-            val ScalaTransforms = List[ContainerSymbol => ContainerSymbol](
+            val ScalaTransforms = List[ContainerTree => ContainerTree](
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
                 S.CleanIllegalNames(OutputPkg) >>
                 S.InlineNestedIdentityAlias >>
                 S.LimitUnionLength >>
-                S.Deduplicator visitContainerSymbol scope,
+                S.Deduplicator visitContainerTree scope,
               FakeLiterals(scope),
-              S.RemoveMultipleInheritance visitContainerSymbol scope,
+              S.RemoveMultipleInheritance visitContainerTree scope,
               S.CombineOverloads >> //must have stable types, so FakeLiterals run before
-                S.FilterMemberOverrides visitContainerSymbol scope, //
-              S.InferMemberOverrides visitContainerSymbol scope, //runs in phase after FilterMemberOverrides
+                S.FilterMemberOverrides visitContainerTree scope, //
+              S.InferMemberOverrides visitContainerTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
-                S.Sorter visitContainerSymbol scope
+                S.Sorter visitContainerTree scope
             )
 
             val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger)) { case (acc, f) => f(acc) }
 
             LibScalaJs(lib.source)(
-              libName       = lib.name.`__value`.replaceAll("\\.", "_dot_"),
-              libVersion    = lib.version,
-              packageSymbol = rewrittenTree,
-              dependencies  = scalaDeps,
-              isStdLib      = lib.parsed.isStdLib,
-              contribs      = lib.contribs ++ contribs
+              libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),
+              libVersion   = lib.version,
+              packageTree  = rewrittenTree,
+              dependencies = scalaDeps,
+              isStdLib     = lib.parsed.isStdLib,
+              contribs     = lib.contribs ++ contribs
             )
         }
     }

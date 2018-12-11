@@ -2,25 +2,25 @@ package com.olvind.tso
 package scalajs
 
 object FillInTParams {
-  def apply(x: ClassSymbol, scope: SymbolScope, providedTParams: Seq[TypeRef]): ClassSymbol =
+  def apply(x: ClassTree, scope: TreeScope, providedTParams: Seq[TypeRef]): ClassTree =
     if (providedTParams.isEmpty) x
     else {
       val refToRef = rewrites(x.tparams, providedTParams)
-      TypeRewriter(refToRef).visitClassSymbol(scope)(x).copy(tparams = Nil)
+      TypeRewriter(refToRef).visitClassTree(scope)(x).copy(tparams = Nil)
     }
 
-  def apply(x: TypeAliasSymbol, scope: SymbolScope, providedTParams: Seq[TypeRef]): TypeAliasSymbol =
+  def apply(x: TypeAliasTree, scope: TreeScope, providedTParams: Seq[TypeRef]): TypeAliasTree =
     if (providedTParams.isEmpty) x
     else {
       val refToRef = rewrites(x.tparams, providedTParams)
-      TypeRewriter(refToRef).visitTypeAliasSymbol(scope)(x).copy(tparams = Nil)
+      TypeRewriter(refToRef).visitTypeAliasTree(scope)(x).copy(tparams = Nil)
     }
 
-  private def rewrites(expectedTParams: Seq[TypeParamSymbol], providedTParams: Seq[TypeRef]): Map[TypeRef, TypeRef] =
+  private def rewrites(expectedTParams: Seq[TypeParamTree], providedTParams: Seq[TypeRef]): Map[TypeRef, TypeRef] =
     (expectedTParams zip providedTParams).map {
-      case (TypeParamSymbol(expected, _, _), provided) if provided.targs.nonEmpty =>
+      case (TypeParamTree(expected, _, _), provided) if provided.targs.nonEmpty =>
         TypeRef(QualifiedName(expected :: Nil), Nil, NoComments) -> provided
-      case (TypeParamSymbol(expected, _, _), provided) =>
+      case (TypeParamTree(expected, _, _), provided) =>
         TypeRef(QualifiedName(expected :: Nil), Nil, NoComments) -> provided
     }.toMap
 }
