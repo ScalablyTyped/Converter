@@ -75,7 +75,7 @@ object ImportType {
     t1 match {
       case TsTypeRef(base: TsQIdent, targs: Seq[TsType]) =>
         base match {
-          case TsQIdent.any => if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any
+          case TsQIdent.any | TsQIdent.unknown => if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any
 
           case other =>
             lazy val parent = isInheritance(other, scope)
