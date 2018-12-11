@@ -45,4 +45,30 @@ object NormalizeFunctions extends TreeVisitorScopedChanges {
         TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional)
       case other => other
     }
+
+  override def enterTsParsedFile(scope: TreeScope)(x: TsParsedFile): TsParsedFile =
+    x.copy(members = newContainerMembers(x.members))
+  override def enterTsDeclModule(scope: TreeScope)(x: TsDeclModule): TsDeclModule =
+    x.copy(members = newContainerMembers(x.members))
+  override def enterTsDeclNamespace(scope: TreeScope)(x: TsDeclNamespace): TsDeclNamespace =
+    x.copy(members = newContainerMembers(x.members))
+  override def enterTsAugmentedModule(scope: TreeScope)(x: TsAugmentedModule): TsAugmentedModule =
+    x.copy(members = newContainerMembers(x.members))
+  override def enterTsDeclGlobal(scope: TreeScope)(x: TsGlobal): TsGlobal =
+    x.copy(members = newContainerMembers(x.members))
+
+  override def enterTsExporteeTree(t: TreeScope)(x: TsExporteeTree): TsExporteeTree =
+    x.copy(decl = rewriteDecl(x.decl))
+
+  private def newContainerMembers(members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = members map {
+    case decl: TsDecl => rewriteDecl(decl)
+    case other => other
+  }
+
+  private def rewriteDecl(d: TsDecl): TsDecl =
+    d match {
+      case TsDeclVar(cs, declared, true, name, Some(TsTypeFunction(sig)), None, jsLocation, codePath, false) =>
+        TsDeclFunction(cs, declared, name, sig, jsLocation, codePath)
+      case other => other
+    }
 }
