@@ -96,7 +96,12 @@ val importer = project
   .dependsOn(ts, scalajs, phases, testUtils % Test)
   .configure(baseSettings)
   .settings(
-    libraryDependencies ++= Deps.circe ++ Seq(Deps.fansi, Deps.bloop, Deps.bintry, Deps.dispatch, Deps.asyncHttpClient),
+    libraryDependencies ++= Deps.circe ++ Seq(Deps.fansi,
+                                              Deps.bloop,
+                                              Deps.bsp4s,
+                                              Deps.bintry,
+                                              Deps.dispatch,
+                                              Deps.asyncHttpClient),
     fork in run := true,
     javaOptions in run += "-Xmx8G",
     mainClass := Some("com.olvind.tso.importer.Importer"),

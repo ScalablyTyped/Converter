@@ -14,9 +14,12 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.ts.TsIdentLibrarySimple
 import fansi.Back
-import io.circe.Decoder
-import io.circe.generic.semiauto.deriveDecoder
+import monix.eval.Task
+import monix.execution.Scheduler
 import xsbti.Severity
+
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
 class Phase3CompileBloop(resolve:         LibraryResolver,
                          versions:        Versions,
@@ -25,14 +28,14 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                          mainPackageName: Name,
                          projectName:     String,
                          organization:    String,
-                         publishFolder:   Path)
+                         publishFolder:   Path,
+                         scheduler:       Scheduler)
     extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   private val bloop = bloopFactory.forVersion(versions)
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
-    case (path, value) if path.segments.last.endsWith(".scala") || path.segments.last.endsWith(".sbt") =>
-      value
+    case (path, value) if path.ext === "scala" || path.ext === "sbt" => value
   }
 
   implicit val PathFormatter: Formatter[Path] = _.toString
@@ -44,13 +47,6 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                      logger:  Logger[Unit]): PhaseRes[Source, PublishedSbtProject] =
     _lib match {
       case Contrib =>
-        case class Dep(org: String, artifact: String, version: String)
-
-        case class ContribJson(typings: Set[String], dependencies: Set[Dep])
-
-        implicit val DecoderDep: Decoder[Dep]         = deriveDecoder[Dep]
-        implicit val Decoder:    Decoder[ContribJson] = deriveDecoder[ContribJson]
-
         val buildJson = Json[ContribJson](source.path / "build.json")
 
         val dependencies: PhaseRes[Source, Set[Source]] =
@@ -167,7 +163,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
          deleteUnknownFiles: Boolean,
          makeVersion:        Digest => String): PhaseRes[Source, PublishedSbtProject] = {
 
-    val finalVersion          = makeVersion(Digest.of(sbtLayout.all collect ScalaFiles))
+    val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
+    val finalVersion          = makeVersion(digest)
     val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
     val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles)
     val sbtProject = SbtProject(
@@ -198,16 +195,14 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
       rm(compilerPaths.classesDir)
 
-      val ret: PhaseRes[Source, PublishedSbtProject] =
-        bloop.compileLib(compilerPaths, localClassPath ++ externalDeps) match {
+      val ret: Task[PhaseRes[Source, PublishedSbtProject]] =
+        bloop.compileLib(compilerPaths, localClassPath ++ externalDeps).map {
           case Compiler.Result.Success(_, _, elapsed) =>
             logger warn s"Built ${sbtProject.name} in $elapsed ms"
 
-            val relativeLayout: IvyLayout[RelPath, Array[Byte]] =
-              build.ContentForPublish(versions, compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
-
             val writtenIvyFiles: IvyLayout[Path, Synced] =
-              relativeLayout
+              build
+                .ContentForPublish(versions, compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
                 .mapFiles(p => publishFolder / p)
                 .mapValues(files.softWriteBytes)
 
@@ -215,7 +210,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
             PhaseRes.Ok(PublishedSbtProject(sbtProject)(writtenIvyFiles, None))
 
-          case Compiler.Result.Failed(problems, _) =>
+          case Compiler.Result.Failed(problems, _, _) =>
             problems foreach { p =>
               val logLevel: LogLevel = p.severity match {
                 case Severity.Info  => LogLevel.info
@@ -227,14 +222,18 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               implicit val file = sourcecode.File(p.position.sourcePath.orElse("unknown file"))
               logger(logLevel, (p.message, Back.LightGray(p.position.lineContent)))
             }
+
             PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
 
           case other => logger.fatal(other.toString)
         }
 
-      rm(compilerPaths.classesDir)
-
-      ret
+      Await.result(
+        ret
+          .doOnFinish(_ => Task(rm(compilerPaths.classesDir)))
+          .runAsync(scheduler),
+        Duration.Inf
+      )
     }
   }
 }

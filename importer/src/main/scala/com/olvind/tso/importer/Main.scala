@@ -17,6 +17,7 @@ import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
+import monix.execution.Scheduler
 
 import scala.collection.parallel.ForkJoinTaskSupport
 import scala.concurrent.ExecutionContext
@@ -138,6 +139,9 @@ object Main extends App {
     contribFolder = Some(InFolder(contribFolder))
   )
 
+  val compilePool = new ForkJoinPool(config.parallelScalas)
+  val scheduler   = Scheduler(compilePool)
+
   val Phase: RecPhase[Source, PublishedSbtProject] =
     RecPhase[Source]
       .next(
@@ -160,7 +164,8 @@ object Main extends App {
           projectName     = config.projectName,
           organization    = config.organization,
           publishFolder   = config.publishFolder,
-          resolve         = resolve
+          resolve         = resolve,
+          scheduler       = scheduler
         ),
         "build"
       )
@@ -171,13 +176,14 @@ object Main extends App {
 
   /* todo: parallel collections suck, but are super easy to use. We'll settle with that for now */
   val par  = tsSources.par
-  val pool = new ForkJoinPool(3)
+  val pool = new ForkJoinPool(config.parallelLibraries)
 
   par.tasksupport = new ForkJoinTaskSupport(pool)
   val results: Set[PhaseRes[Source, PublishedSbtProject]] =
     par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
 
   pool.shutdown()
+  compilePool.shutdown()
 
   val summary = interface.finish()
 
