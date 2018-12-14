@@ -10,7 +10,7 @@ package object typeDashMappingsLib {
   type IPersonRecord = PersonRecord
   type IProxiedPerson = Proxify[Person]
   type NamePerson = stdLib.Pick[Person, typeDashMappingsLib.typeDashMappingsLibStrings.name]
-  type NewedPerson = stdLib.InstanceType[ScalablyTyped.runtime.Instantiable0[Person]]
+  type NewedPerson = stdLib.InstanceType[org.scalablytyped.runtime.Instantiable0[Person]]
   type NonNullablePerson = stdLib.NonNullable[Person]
   type PartialPerson = stdLib.Partial[Person]
   type PersonRecord = stdLib.Record[

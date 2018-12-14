@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 
 trait ChartOptions extends js.Object {
   // Plugins can require any options
-  var plugins: js.UndefOr[ScalablyTyped.runtime.StringDictionary[js.Any]] = js.undefined
+  var plugins: js.UndefOr[org.scalablytyped.runtime.StringDictionary[js.Any]] = js.undefined
   var responsive: js.UndefOr[scala.Boolean] = js.undefined
 }
 

@@ -16,7 +16,7 @@ package object stdLib {
   /**
    * Obtain the return type of a constructor function type
    */
-  type InstanceType[T /* <: ScalablyTyped.runtime.Instantiable1[/* args (repeated) */ js.Any, js.Any] */] = js.Any
+  type InstanceType[T /* <: org.scalablytyped.runtime.Instantiable1[/* args (repeated) */ js.Any, js.Any] */] = js.Any
   /**
    * Exclude null and undefined from T
    */
@@ -37,7 +37,7 @@ package object stdLib {
   /**
    * Construct a type with a set of properties K of type T
    */
-  type Record[K /* <: java.lang.String */, T] = ScalablyTyped.runtime.StringDictionary[K]
+  type Record[K /* <: java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[K]
   /**
    * Make all properties in T required
    */

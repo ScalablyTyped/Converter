@@ -1,5 +1,4 @@
-import sbt.{stringToOrganization, Def, ModuleID}
-import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport.toPlatformDepsGroupID
+import sbt.{ModuleID, stringToOrganization}
 
 object Deps {
   val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.1"
@@ -9,14 +8,10 @@ object Deps {
   val fansi             = "com.lihaoyi" %% "fansi" % "0.2.5"
   val bloop             = "ch.epfl.scala" %% "bloop-backend" % "1.1.1"
   val bsp4s             = "ch.epfl.scala" %% "bsp4s" % "2.0.0-M2"
-
-  val bintry          = "org.foundweekends" %% "bintry" % "0.5.2"
-  val dispatch        = "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
-  val asyncHttpClient = "com.ning" % "async-http-client" % "1.8.10"
+  val bintry            = "org.foundweekends" %% "bintry" % "0.5.2"
+  val dispatch          = "net.databinder.dispatch" %% "dispatch-core" % "0.11.2"
+  val asyncHttpClient   = "com.ning" % "async-http-client" % "1.8.10"
 
   val circe: Seq[ModuleID] =
     Seq("core", "generic", "parser").map(s => "io.circe" %% s"circe-$s" % "0.10.1")
-
-  val scalaJsDom: Def.Initialize[ModuleID] =
-    Def.setting("org.scala-js" %%% "scalajs-dom" % "0.9.6")
 }

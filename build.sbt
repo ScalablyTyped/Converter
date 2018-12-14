@@ -1,5 +1,3 @@
-import sbt.Def
-
 import scala.sys.process.stringToProcess
 
 val IntegrationTest = Configuration.of("IntegrationTest", "it") extend Test
@@ -15,26 +13,6 @@ val baseSettings: Project => Project =
     ))
   )
 
-lazy val publicationSettings: Seq[Def.Setting[_]] =
-  Seq(
-    bintrayRepository := "ScalablyTyped",
-    homepage := Some(new URL("http://github.com/oyvindberg/tso")),
-    startYear := Some(2018),
-    pomExtra := (
-      <scm>
-      <connection>scm:git:github.com:oyvindberg/tso</connection>
-      <developerConnection>scm:git:git@github.com:oyvindberg/tso.git</developerConnection>
-      <url>github.com:oyvindberg/tso.git</url>
-    </scm>
-      <developers>
-        <developer>
-          <id>oyvindberg</id>
-          <name>Øyvind Raddum Berg</name>
-        </developer>
-      </developers>
-    )
-  )
-
 val utils = project
   .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.sourcecode))
@@ -47,21 +25,6 @@ val testUtils = project
   .dependsOn(utils, logging)
   .configure(baseSettings)
   .settings(libraryDependencies ++= Seq(Deps.scalatest, Deps.parserCombinators))
-
-val runtime = project
-  .configure(baseSettings)
-  .enablePlugins(spray.boilerplate.BoilerplatePlugin, ScalaJSPlugin, BintrayPlugin)
-  .settings(
-    publicationSettings,
-    libraryDependencies += Deps.scalaJsDom.value,
-    scalacOptions ++= {
-      if (scalaJSVersion.startsWith("0.6.")) Seq("-P:scalajs:sjsDefinedByDefault")
-      else Nil
-    },
-    scalacOptions -= "-Ywarn-dead-code",
-    version := "1.0.0-M1",
-    licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
-  )
 
 lazy val ts: Project = project
   .configure(baseSettings)
@@ -107,5 +70,4 @@ val importer = project
     mainClass := Some("com.olvind.tso.importer.Importer"),
     // fork to keep CI happy with memory usage
     fork in Test := true,
-    test in Test := (test in Test).dependsOn(publishLocal in runtime).value
   )

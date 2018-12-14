@@ -8,5 +8,5 @@ import scala.scalajs.js.annotation._
 @JSImport("stylis/stylis", JSImport.Namespace)
 @js.native
 object stylisStylisModMembers
-  extends ScalablyTyped.runtime.TopLevel[Stylis]
+  extends org.scalablytyped.runtime.TopLevel[Stylis]
 

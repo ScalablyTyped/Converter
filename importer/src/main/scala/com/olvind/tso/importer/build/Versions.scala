@@ -4,8 +4,6 @@ package importer.build
 import com.olvind.tso.stringUtils.quote
 
 object Versions {
-  /* Changing Scala or Scala.js versions? also publish `runtime` artifact */
-
   object `scala 2.12 with scala.js 0.6.25` extends Versions {
     val scalaOrganization   = "org.scala-lang"
     val scalaVersion        = "2.12.7"
@@ -35,8 +33,8 @@ trait Versions {
 
   val scalaJsDomVersion   = "0.9.6"
   val RuntimeOrganization = "com.olvind"
-  val RuntimeName         = "runtime"
-  val RuntimeVersion      = "1.0.0-M1"
+  val RuntimeName         = "scalablytyped-runtime"
+  val RuntimeVersion      = "1.0.0"
   val sbtVersion          = "1.2.6"
   val sbtBintray          = %("org.foundweekends", "sbt-bintray", "0.5.4")
 

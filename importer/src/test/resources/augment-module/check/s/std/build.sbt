@@ -1,10 +1,10 @@
 organization := "org.scalablytyped"
 name := "std"
-version := "0.0-unknown-fffca1"
+version := "0.0-unknown-ec0a62"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.olvind" %%% "runtime" % "1.0.0-M1",
+  "com.olvind" %%% "scalablytyped-runtime" % "1.0.0",
   "org.scala-js" %%% "scalajs-dom" % "0.9.6")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"

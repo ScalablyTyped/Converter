@@ -8,5 +8,5 @@ package object stdLib {
   type Element = Node
   type HTMLElement = Element
   type Readonly[T] = stdLib.stdLibStrings.Readonly with T
-  type Record[K /* <: java.lang.String */, T] = ScalablyTyped.runtime.StringDictionary[K]
+  type Record[K /* <: java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[K]
 }
