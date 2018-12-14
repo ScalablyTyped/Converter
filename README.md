@@ -21,7 +21,7 @@ You'll see there are two projects which target Scala.
 This project tries to pick up where it left off and finish the task.   
 
 `tso` powers `ScalablyTyped` with a huge set of features not frequently found elsewhere:
-- Parser for 99% of typescript 3.1
+- Parser for ~all of typescript 3.2
 - Keeps ~all comments
 - Full handling of dependencies between libraries, including those outside of `DefinitelyTyped`
 - Full implementation of the module system, which all useful javascript libraries rely on
