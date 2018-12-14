@@ -17,7 +17,7 @@ class namespaced protected () extends Chart {
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
 object namespaced extends js.Object {
-  var controllers: ScalablyTyped.runtime.StringDictionary[js.Any] = js.native
+  var controllers: org.scalablytyped.runtime.StringDictionary[js.Any] = js.native
   var defaults: chartDotJsLib.Anon_Key = js.native
 }
 

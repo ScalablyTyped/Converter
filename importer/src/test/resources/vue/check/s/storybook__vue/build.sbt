@@ -1,15 +1,15 @@
 organization := "org.scalablytyped"
 name := "storybook__vue"
-version := "3.3-547bdf"
+version := "3.3-67da70"
 scalaVersion := "2.12.7"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.olvind" %%% "runtime" % "1.0.0-M1",
+  "com.olvind" %%% "scalablytyped-runtime" % "1.0.0",
   "org.scala-js" %%% "scalajs-dom" % "0.9.6",
-  "org.scalablytyped" %%% "node" % "0.0-unknown-835fcd",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-93ac75",
-  "org.scalablytyped" %%% "vue" % "2.5.13-9e571e",
-  "org.scalablytyped" %%% "webpack-env" % "1.13-aee59d")
+  "org.scalablytyped" %%% "node" % "0.0-unknown-1dbf0a",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-470dfe",
+  "org.scalablytyped" %%% "vue" % "2.5.13-977153",
+  "org.scalablytyped" %%% "webpack-env" % "1.13-8db096")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

@@ -7,5 +7,5 @@ import scala.scalajs.js.annotation._
 
 
 trait VNodeChildrenArrayContents
-  extends /* x */ ScalablyTyped.runtime.NumberDictionary[VNode | java.lang.String | VNodeChildren]
+  extends /* x */ org.scalablytyped.runtime.NumberDictionary[VNode | java.lang.String | VNodeChildren]
 

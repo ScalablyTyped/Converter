@@ -11,7 +11,7 @@ trait Option[TValue]
      * In the event that a custom menuRenderer is provided, Option should be able
      * to accept arbitrary key-value pairs. See react-virtualized-select.
      */
-/* property */ ScalablyTyped.runtime.StringDictionary[js.Any] {
+/* property */ org.scalablytyped.runtime.StringDictionary[js.Any] {
   /** Value for searching */
   var value: js.UndefOr[TValue] = js.undefined
 }

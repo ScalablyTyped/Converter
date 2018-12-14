@@ -22,7 +22,7 @@ object winstonNs extends js.Object {
     object winstonNs extends js.Object {
       
       trait AbstractConfigSetLevels
-        extends /* key */ ScalablyTyped.runtime.StringDictionary[scala.Double]
+        extends /* key */ org.scalablytyped.runtime.StringDictionary[scala.Double]
       
       
       trait Config extends js.Object {

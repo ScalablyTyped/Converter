@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 trait VueConfiguration extends js.Object {
   var devtools: scala.Boolean
   var ignoredElements: js.Array[java.lang.String | stdLib.RegExp]
-  var keyCodes: ScalablyTyped.runtime.StringDictionary[scala.Double | js.Array[scala.Double]]
+  var keyCodes: org.scalablytyped.runtime.StringDictionary[scala.Double | js.Array[scala.Double]]
   var optionMergeStrategies: js.Any
   var performance: scala.Boolean
   var productionTip: scala.Boolean

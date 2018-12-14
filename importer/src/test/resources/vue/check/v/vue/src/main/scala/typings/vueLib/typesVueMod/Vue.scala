@@ -36,15 +36,15 @@ trait Vue extends js.Object {
   @JSName("$props")
   val $props: stdLib.Record[java.lang.String, _] = js.native
   @JSName("$refs")
-  val $refs: ScalablyTyped.runtime.StringDictionary[Vue | stdLib.Element | js.Array[Vue] | js.Array[stdLib.Element]] = js.native
+  val $refs: org.scalablytyped.runtime.StringDictionary[Vue | stdLib.Element | js.Array[Vue] | js.Array[stdLib.Element]] = js.native
   @JSName("$root")
   val $root: Vue = js.native
   @JSName("$scopedSlots")
-  val $scopedSlots: ScalablyTyped.runtime.StringDictionary[vueLib.typesVnodeMod.ScopedSlot] = js.native
+  val $scopedSlots: org.scalablytyped.runtime.StringDictionary[vueLib.typesVnodeMod.ScopedSlot] = js.native
   @JSName("$set")
   var $set_Original: js.Function3[/* object */ js.Object, /* key */ java.lang.String, /* value */ js.Any, _] = js.native
   @JSName("$slots")
-  val $slots: ScalablyTyped.runtime.StringDictionary[js.Array[vueLib.typesVnodeMod.VNode]] = js.native
+  val $slots: org.scalablytyped.runtime.StringDictionary[js.Array[vueLib.typesVnodeMod.VNode]] = js.native
   @JSName("$ssrContext")
   val $ssrContext: js.Any = js.native
   @JSName("$vnode")
