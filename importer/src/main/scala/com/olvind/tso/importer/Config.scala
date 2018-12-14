@@ -22,6 +22,8 @@ case class Config(publish:        Boolean,
   val publishFolder           = home / ".ivy2" / "local"
   val ScalablyTypedRepo       = "git@github.com:oyvindberg/ScalablyTyped.git"
   val ScalablyTypedRepoPublic = "https://github.com/oyvindberg/ScalablyTyped.git"
+  val parallelScalas          = Runtime.getRuntime.availableProcessors / 2
+  val parallelLibraries       = 100
 }
 
 object Config {

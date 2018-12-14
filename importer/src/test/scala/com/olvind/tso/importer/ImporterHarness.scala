@@ -12,8 +12,10 @@ import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Version
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts._
+import monix.execution.Scheduler
 import org.scalatest.{Assertion, FunSuiteLike}
 
+import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
@@ -49,7 +51,8 @@ trait ImporterHarness extends FunSuiteLike {
             projectName     = "ScalablyTyped",
             organization    = "org.scalablytyped",
             publishFolder   = publishFolder,
-            resolve         = resolve
+            resolve         = resolve,
+            scheduler       = Scheduler(ExecutionContext.Implicits.global)
           ),
           "build"
         )

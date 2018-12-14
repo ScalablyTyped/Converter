@@ -5,7 +5,7 @@ import com.olvind.logging.Logger.LoggedException
 
 import scala.util.control.NonFatal
 
-sealed trait PhaseRes[Id, T] {
+sealed trait PhaseRes[Id, T] extends Product with Serializable {
   import PhaseRes._
 
   def foreach(f: T => Unit): PhaseRes[Id, Unit] = map(f)

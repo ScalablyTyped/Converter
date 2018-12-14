@@ -2,33 +2,42 @@ package com.olvind.tso
 package importer
 package build
 
+import java.io.File
 import java.util.Optional
 
-import ammonite.ops.Path
+import ammonite.ops.{ls, Path}
+import bloop.Compiler.Result
 import bloop.io.{AbsolutePath, Paths}
-import bloop.reporter.{LogReporter, ReporterConfig}
-import bloop.{CompileInputs, Compiler, CompilerCache, DependencyResolution, ScalaInstance}
+import bloop.logging.DebugFilter
+import bloop.reporter.{Problem, Reporter, ReporterConfig}
+import bloop.{CompileInputs, CompileMode, Compiler, CompilerCache, DependencyResolution, ScalaInstance, SimpleIRStore}
+import ch.epfl.scala.bsp.StatusCode
 import com.olvind.logging.{Formatter, Logger}
 import coursier.Cache
 import coursier.core.Repository
 import coursier.maven.MavenRepository
+import monix.eval.Task
 import sbt.internal.inc.bloop.ZincInternals
 import xsbti.ComponentProvider
-import xsbti.compile.{ClasspathOptions, PreviousResult}
+import xsbti.compile._
 
 class BloopFactory(logger: Logger[Unit]) {
+  val irStore = SimpleIRStore(Array())
 
   class LoggerAdapter(logger: Logger[Unit]) extends bloop.logging.Logger {
     override def name: String = "bloop-scala-logger"
     override def asVerbose  = this
     override def asDiscrete = this
     override def ansiCodesSupported(): Boolean = false
-    override def error(msg: String):    Unit = logger.error(msg)
-    override def warn(msg:  String):    Unit = logger.warn(msg)
-    override def info(msg:  String):    Unit = logger.info(msg)
-    override def debug(msg: String):    Unit = logger.debug(msg)
+    override def error(msg: String): Unit = logger.error(msg)
+    override def warn(msg:  String): Unit = logger.warn(msg)
+    override def info(msg:  String): Unit = logger.info(msg)
+    override def debug(msg: String): Unit = logger.debug(msg)
+    override def debug(msg: String)(implicit ctx: DebugFilter): Unit = logger.debug(msg)
     override def trace(t:   Throwable): Unit = logger.debug(t.getMessage)
-    override def isVerbose: Boolean = true
+    override def isVerbose:   Boolean     = true
+    override def debugFilter: DebugFilter = DebugFilter.All
+    override def printDebug(line: String): Unit = logger.debug(line)
   }
 
   object NoLogger extends bloop.logging.Logger {
@@ -36,12 +45,15 @@ class BloopFactory(logger: Logger[Unit]) {
     override def asVerbose  = this
     override def asDiscrete = this
     override def ansiCodesSupported(): Boolean = false
-    override def error(msg: String):    Unit = ()
-    override def warn(msg:  String):    Unit = ()
-    override def info(msg:  String):    Unit = ()
-    override def debug(msg: String):    Unit = ()
+    override def error(msg: String): Unit = ()
+    override def warn(msg:  String): Unit = ()
+    override def info(msg:  String): Unit = ()
+    override def debug(msg: String): Unit = ()
+    override def debug(msg: String)(implicit ctx: DebugFilter): Unit = ()
     override def trace(t:   Throwable): Unit = ()
-    override def isVerbose: Boolean = true
+    override def isVerbose:   Boolean     = true
+    override def debugFilter: DebugFilter = DebugFilter.All
+    override def printDebug(line: String): Unit = ()
   }
 
   val bloopLogger = new LoggerAdapter(logger)
@@ -128,22 +140,47 @@ class BloopFactory(logger: Logger[Unit]) {
     val compileInputs = (paths: CompilerPaths, localClassPath: Seq[AbsolutePath]) => {
       def toAbs(p: Path) = AbsolutePath(p.toNIO)
 
+      object reporter extends Reporter(NoLogger, toAbs(paths.baseDir), identity, ReporterConfig.defaultFormat) {
+        override protected def logFull(problem: Problem): Unit = ()
+
+        override def reportStartCompilation(previousProblems: scala.List[xsbti.Problem]): Unit = ()
+
+        override def reportEndCompilation(previousAnalysis: Option[CompileAnalysis],
+                                          analysis:         Option[CompileAnalysis],
+                                          code:             StatusCode): Unit = ()
+
+        override def reportStartIncrementalCycle(sources: scala.Seq[File], outputDirs: scala.Seq[File]): Unit = ()
+
+        override def reportEndIncrementalCycle(durationMs: Long): Unit = ()
+
+        override def printSummary(): Unit = ()
+      }
+
       val scalacOptions = Array("-Xplugin:" + scalaJsCompiler.syntax) ++
         Array("-P:scalajs:sjsDefinedByDefault").filter(_ => v.scalaJsBinVersion === "0.6")
 
+      val foo: Array[AbsolutePath] =
+        ls.rec(paths.sourcesDir).filter(_.ext === "scala").map(toAbs).toArray
+
       CompileInputs(
-        scalaInstance    = compilerInstance,
-        compilerCache    = singleCompilerCache,
-        sources          = Array(toAbs(paths.sourcesDir)),
-        classpath        = globalClasspath ++ localClassPath,
-        classesDir       = toAbs(paths.classesDir),
-        baseDirectory    = toAbs(paths.baseDir),
-        scalacOptions    = scalacOptions,
-        javacOptions     = Array(),
-        classpathOptions = classPathOptions,
-        previousResult   = PreviousResult.of(Optional.empty(), Optional.empty()),
-        reporter         = new LogReporter(NoLogger, toAbs(paths.baseDir), identity, ReporterConfig.defaultFormat),
-        logger           = NoLogger
+        scalaInstance          = compilerInstance,
+        compilerCache          = singleCompilerCache,
+        sources                = foo,
+        classpath              = globalClasspath ++ localClassPath,
+        classesDir             = toAbs(paths.classesDir),
+        baseDirectory          = toAbs(paths.baseDir),
+        scalacOptions          = scalacOptions,
+        javacOptions           = Array(),
+        classpathOptions       = classPathOptions,
+        previousResult         = PreviousResult.of(Optional.empty(), Optional.empty()),
+        reporter               = reporter,
+        compileOrder           = CompileOrder.ScalaThenJava,
+        previousCompilerResult = Result.Empty,
+//        mode                   = CompileMode.Parallel(2),
+        mode             = CompileMode.Sequential,
+        dependentResults = Map.empty,
+        store            = irStore
+//        store                  = new EmptyIRStore
       )
     }
 
@@ -153,6 +190,6 @@ class BloopFactory(logger: Logger[Unit]) {
 }
 
 class BloopCompiler(repos: Array[Repository], compileInputs: (CompilerPaths, Seq[AbsolutePath]) => CompileInputs) {
-  def compileLib(paths: CompilerPaths, localClassPath: Seq[AbsolutePath]): Compiler.Result =
+  def compileLib(paths: CompilerPaths, localClassPath: Seq[AbsolutePath]): Task[Compiler.Result] =
     bloop.Compiler.compile(compileInputs(paths, localClassPath))
 }
