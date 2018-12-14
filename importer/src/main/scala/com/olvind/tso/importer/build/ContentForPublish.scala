@@ -156,8 +156,8 @@ object ContentForPublish {
           <version>{v.scalaJsDomVersion}</version>
         </dependency>
         <dependency>
-          <groupId>com.olvind</groupId>
-          <artifactId>{v.sjs("runtime")}</artifactId>
+          <groupId>{v.RuntimeOrganization}</groupId>
+          <artifactId>{v.sjs(v.RuntimeName)}</artifactId>
           <version>{v.RuntimeVersion}</version>
         </dependency>
         {p.deps.map{case (_, d) =>
