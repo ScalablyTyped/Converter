@@ -4,26 +4,26 @@ package scalajs
 object ObjectMembers {
   // format: off
   val ScalaObject =
-    ClassSymbol(
+    ClassTree(
       Nil,
       Name.Object,
       Nil,
       Nil,
       Nil,
       Seq(
-        MethodSymbol(Nil, Default, Name("getClass"), Nil, Seq(Seq()), MemberImplNative, TypeRef(QualifiedName(Name.java :: Name.lang :: Name("Class") :: Nil), Nil, NoComments), false, NoComments),
-        MethodSymbol(Nil, Default, Name("hashCode"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Int, false, NoComments),
-        MethodSymbol(Nil, Default, Name("eq"), Nil, Seq(Seq(ParamSymbol(Name("obj"), TypeRef.JObject, NoComments))), MemberImplNative, TypeRef.Int, false, NoComments),
-        MethodSymbol(Nil, Default, Name("equals"), Nil, Seq(Seq(ParamSymbol(Name("obj"), TypeRef.JObject, NoComments))), MemberImplNative, TypeRef.Int, false, NoComments),
-        MethodSymbol(Nil, Default, Name("toString"), Nil, Seq(Seq()), MemberImplNative, TypeRef.String, false, NoComments),
-        MethodSymbol(Nil, Default, Name("ne"), Nil, Seq(Seq(ParamSymbol(Name("obj"), TypeRef.JObject, NoComments))), MemberImplNative, TypeRef.Int, false, NoComments),
-        MethodSymbol(Nil, Default, Name("notify"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments),
-        MethodSymbol(Nil, Default, Name("notifyAll"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments),
-        MethodSymbol(Nil, Default, Name("wait"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments),
-        MethodSymbol(Nil, Default, Name("wait"), Nil, Seq(Seq(ParamSymbol(Name("timeout"), TypeRef.Long, NoComments))), MemberImplNative, TypeRef.Unit, false, NoComments),
-        MethodSymbol(Nil, Default, Name("wait"), Nil, Seq(Seq(ParamSymbol(Name("timeout"), TypeRef.Long, NoComments), ParamSymbol(Name("nanos"), TypeRef.Int, NoComments))), MemberImplNative, TypeRef.Unit, false, NoComments),
-        MethodSymbol(Nil, Protected, Name("clone"), Nil, Seq(Seq()), MemberImplNative, TypeRef.JObject, false, NoComments),
-        MethodSymbol(Nil, Protected, Name("finalize"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments)
+        MethodTree(Nil, Default, Name("getClass"), Nil, Seq(Seq()), MemberImplNative, TypeRef(QualifiedName(Name.java :: Name.lang :: Name("Class") :: Nil), Nil, NoComments), false, NoComments),
+        MethodTree(Nil, Default, Name("hashCode"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Int, false, NoComments),
+        MethodTree(Nil, Default, Name("eq"), Nil, Seq(Seq(ParamTree(Name("obj"), TypeRef.JObject, NoComments))), MemberImplNative, TypeRef.Int, false, NoComments),
+        MethodTree(Nil, Default, Name("equals"), Nil, Seq(Seq(ParamTree(Name("obj"), TypeRef.JObject, NoComments))), MemberImplNative, TypeRef.Int, false, NoComments),
+        MethodTree(Nil, Default, Name("toString"), Nil, Seq(Seq()), MemberImplNative, TypeRef.String, false, NoComments),
+        MethodTree(Nil, Default, Name("ne"), Nil, Seq(Seq(ParamTree(Name("obj"), TypeRef.JObject, NoComments))), MemberImplNative, TypeRef.Int, false, NoComments),
+        MethodTree(Nil, Default, Name("notify"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments),
+        MethodTree(Nil, Default, Name("notifyAll"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments),
+        MethodTree(Nil, Default, Name("wait"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments),
+        MethodTree(Nil, Default, Name("wait"), Nil, Seq(Seq(ParamTree(Name("timeout"), TypeRef.Long, NoComments))), MemberImplNative, TypeRef.Unit, false, NoComments),
+        MethodTree(Nil, Default, Name("wait"), Nil, Seq(Seq(ParamTree(Name("timeout"), TypeRef.Long, NoComments), ParamTree(Name("nanos"), TypeRef.Int, NoComments))), MemberImplNative, TypeRef.Unit, false, NoComments),
+        MethodTree(Nil, Protected, Name("clone"), Nil, Seq(Seq()), MemberImplNative, TypeRef.JObject, false, NoComments),
+        MethodTree(Nil, Protected, Name("finalize"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Unit, false, NoComments)
       ),
       ClassType.Class,
       isSealed = false,
@@ -31,18 +31,18 @@ object ObjectMembers {
     )
 
   val ScalaJsObject =
-    ClassSymbol(
+    ClassTree(
       Nil,
       Name.Object,
       Nil,
       Nil,
       Nil,
       Seq(
-        MethodSymbol(Nil, Default, Name("toLocaleString"), Nil, Seq(Seq()), MemberImplNative, TypeRef.String, false, NoComments),
-        MethodSymbol(Nil, Default, Name("valueOf"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Any, false, NoComments),
-        MethodSymbol(Nil, Default, Name("hasOwnProperty"), Nil, Seq(Seq(ParamSymbol(Name("v"), TypeRef.String, NoComments))), MemberImplNative, TypeRef.Boolean, false, NoComments),
-        MethodSymbol(Nil, Default, Name("isPrototypeOf"), Nil, Seq(Seq(ParamSymbol(Name("v"), TypeRef.Object, NoComments))), MemberImplNative, TypeRef.Boolean, false, NoComments),
-        MethodSymbol(Nil, Default, Name("propertyIsEnumerable"), Nil, Seq(Seq(ParamSymbol(Name("v"), TypeRef.String, NoComments))), MemberImplNative, TypeRef.Boolean, false, NoComments),
+        MethodTree(Nil, Default, Name("toLocaleString"), Nil, Seq(Seq()), MemberImplNative, TypeRef.String, false, NoComments),
+        MethodTree(Nil, Default, Name("valueOf"), Nil, Seq(Seq()), MemberImplNative, TypeRef.Any, false, NoComments),
+        MethodTree(Nil, Default, Name("hasOwnProperty"), Nil, Seq(Seq(ParamTree(Name("v"), TypeRef.String, NoComments))), MemberImplNative, TypeRef.Boolean, false, NoComments),
+        MethodTree(Nil, Default, Name("isPrototypeOf"), Nil, Seq(Seq(ParamTree(Name("v"), TypeRef.Object, NoComments))), MemberImplNative, TypeRef.Boolean, false, NoComments),
+        MethodTree(Nil, Default, Name("propertyIsEnumerable"), Nil, Seq(Seq(ParamTree(Name("v"), TypeRef.String, NoComments))), MemberImplNative, TypeRef.Boolean, false, NoComments),
       ),
       ClassType.Class,
       isSealed = false,
@@ -50,10 +50,10 @@ object ObjectMembers {
     )
   // format: on
 
-  val members: Seq[MemberSymbol] =
+  val members: Seq[MemberTree] =
     ScalaObject.members ++ ScalaJsObject.members
 
-  val byName: Map[Name, Seq[MemberSymbol]] =
+  val byName: Map[Name, Seq[MemberTree]] =
     members.groupBy(_.name)
 
 }

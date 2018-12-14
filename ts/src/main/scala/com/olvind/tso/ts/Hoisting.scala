@@ -1,12 +1,14 @@
 package com.olvind.tso
 package ts
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
 object Hoisting {
   val declared = false
 
-  def hoistedMembersFrom(scope: TreeScope, cp: CodePath, ld: LoopDetector)(typeRef: TsTypeRef): Seq[TsNamedValueDecl] =
+  def hoistedMembersFrom(scope: TsTreeScope, cp: CodePath, ld: LoopDetector)(
+      typeRef:                  TsTypeRef
+  ): Seq[TsNamedValueDecl] =
     AllMembersFor(scope, ld)(typeRef) flatMap memberToDecl(cp)
 
   def add(codePath: CodePath, ident: TsIdent) =

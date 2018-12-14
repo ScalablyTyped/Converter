@@ -2,7 +2,7 @@ package com.olvind.tso
 package importer
 
 import com.olvind.tso.importer.Source.{ContribSource, TsLibSource}
-import com.olvind.tso.scalajs.{ContainerSymbol, SymbolScope}
+import com.olvind.tso.scalajs.{ContainerTree, TreeScope}
 
 import scala.collection.mutable
 
@@ -14,12 +14,12 @@ object Phase2Res {
   case class LibScalaJs(source: Source)(
       val libName:              String,
       val libVersion:           LibraryVersion,
-      val packageSymbol:        ContainerSymbol,
+      val packageTree:          ContainerTree,
       val dependencies:         Map[TsLibSource, LibScalaJs],
       val isStdLib:             Boolean,
       val contribs:             Set[ContribSource]
   ) extends Phase2Res
-      with SymbolScope.Lib
+      with TreeScope.Lib
 
   object Unpack {
     def unapply(_m: Map[Source, Phase2Res]): Some[(Map[TsLibSource, LibScalaJs], Set[ContribSource])] =

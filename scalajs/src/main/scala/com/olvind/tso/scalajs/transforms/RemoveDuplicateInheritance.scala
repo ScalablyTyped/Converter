@@ -10,7 +10,7 @@ import com.olvind.tso.scalajs._
   *
   *  todo: merge with `RemoveMultipleInheritance`?
   */
-object RemoveDuplicateInheritance extends SymbolVisitor {
+object RemoveDuplicateInheritance extends TreeTransformation {
 
   def conflicts(parents: Seq[TypeRef]): Option[Map[QualifiedName, Seq[TypeRef]]] =
     Option(parents groupBy (_.typeName) filter (_._2.lengthCompare(1) > 0)) filter (_.nonEmpty)
@@ -42,7 +42,7 @@ object RemoveDuplicateInheritance extends SymbolVisitor {
     * 1) we depend upon parent references to be fully qualified for now
     * 2) type params of the conflicts might be compatible, but we remove anyway
     */
-  def dropInheritedConflicts(scope: SymbolScope, cls: ClassSymbol): ClassSymbol = {
+  def dropInheritedConflicts(scope: TreeScope, cls: ClassTree): ClassTree = {
     val allParentRefs: Set[TypeRef] =
       ParentsResolver(scope, cls).transitiveParents
         .foldLeft(Set.empty[TypeRef])(
@@ -59,11 +59,11 @@ object RemoveDuplicateInheritance extends SymbolVisitor {
     }
   }
 
-  override def enterClassSymbol(scope: SymbolScope)(_s: ClassSymbol): ClassSymbol = {
+  override def enterClassTree(scope: TreeScope)(_s: ClassTree): ClassTree = {
     val s = dropInheritedConflicts(scope, _s)
     conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
   }
 
-  override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol =
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
     conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
 }

@@ -9,47 +9,47 @@ import com.olvind.tso.seqs.TraversableOps
   * When a class inherits the same method/field from two ancestors,
   *  we need to provide an override
   */
-object InferMemberOverrides extends SymbolVisitor {
+object InferMemberOverrides extends TreeTransformation {
 
-  override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol =
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
     if (s.parents.lengthCompare(1) > 0) s.copy(members = newMembers(scope, s, s.members, MemberImplNative))
     else s
 
-  override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
+  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
     if (s.parents.lengthCompare(1) > 0) {
       val fieldType = if (s.annotations.contains(JsNative)) MemberImplNative else MemberImplNotImplemented
       s.copy(members = newMembers(scope, s, s.members, fieldType))
     } else s
 
-  private def newMembers[S >: MemberSymbol <: Symbol](scope:     SymbolScope,
-                                                      sym:       ContainerSymbol,
-                                                      members:   Seq[S],
-                                                      fieldType: MemberImpl): Seq[S] = {
-    val root = ParentsResolver(scope, sym)
+  private def newMembers[S >: MemberTree <: Tree](scope:     TreeScope,
+                                                  tree:      ContainerTree,
+                                                  members:   Seq[S],
+                                                  fieldType: MemberImpl): Seq[S] = {
+    val root = ParentsResolver(scope, tree)
 
     val (methods, fields, _) = members.partitionCollect2(
-      { case x: MethodSymbol => x },
-      { case x: FieldSymbol  => x }
+      { case x: MethodTree => x },
+      { case x: FieldTree  => x }
     )
-    val fieldsByName: Map[Name, Seq[FieldSymbol]] =
+    val fieldsByName: Map[Name, Seq[FieldTree]] =
       fields.groupBy(_.name)
 
-    val methodsByBase: Map[MethodBase, Seq[MethodSymbol]] =
+    val methodsByBase: Map[MethodBase, Seq[MethodTree]] =
       methods groupBy Erasure.base(scope)
 
-    val inheritedFields: Map[Name, Seq[(FieldSymbol, TypeRef)]] =
+    val inheritedFields: Map[Name, Seq[(FieldTree, TypeRef)]] =
       sum(
         root.directParents.map(
           branch =>
             branch.transitiveParents.flatMap {
-              case (parentRef, p) => p.members collect { case c: FieldSymbol => c.name -> (c -> parentRef) }
+              case (parentRef, p) => p.members collect { case c: FieldTree => c.name -> (c -> parentRef) }
           }
         )
       ).filter {
         case (_, containedFields) => containedFields.map(_._2).distinct.size > 1
       }
 
-    val addedFields: Iterable[FieldSymbol] =
+    val addedFields: Iterable[FieldTree] =
       inheritedFields collect {
         case (name, fs) if !fieldsByName.contains(name) =>
           val head    = fs.head._1
@@ -63,10 +63,10 @@ object InferMemberOverrides extends SymbolVisitor {
           )
       }
 
-    val inheritedMethods: Seq[MethodSymbol] =
-      root.transitiveParents.values.to[Seq] flatMap (_.members collect { case c: MethodSymbol => c })
+    val inheritedMethods: Seq[MethodTree] =
+      root.transitiveParents.values.to[Seq] flatMap (_.members collect { case c: MethodTree => c })
 
-    val addedMethods: Iterable[MethodSymbol] =
+    val addedMethods: Iterable[MethodTree] =
       inheritedMethods groupBy Erasure.base(scope) collect {
         case (base, fs) if fs.size > 1 && !methodsByBase.contains(base) =>
           fs.head.copy(

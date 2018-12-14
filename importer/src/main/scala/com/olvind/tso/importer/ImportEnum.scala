@@ -17,7 +17,7 @@ object ImportEnum {
       }
       .getOrElse(TypeRef.String)
 
-  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation], scope: TreeScope): Seq[Symbol] = {
+  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation], scope: TsTreeScope): Seq[Tree] = {
     val TsDeclEnum(cs, _, ImportName(name), members, isValue, exportedFrom, _, codePath) = e
 
     val baseInterface: TypeRef =
@@ -25,17 +25,17 @@ object ImportEnum {
 
     val underlying = underlyingType(e)
 
-    val typeSymbol: Symbol =
+    val typeTree: Tree =
       exportedFrom match {
         case Some(ef) =>
-          scalajs.TypeAliasSymbol(
+          scalajs.TypeAliasTree(
             name     = name,
             tparams  = Nil,
             alias    = ImportType(Wildcards.No, scope)(TsTypeRef(ef.name, Nil)),
             comments = NoComments
           )
         case None =>
-          ClassSymbol(
+          ClassTree(
             annotations = Seq(JsNative),
             name        = name,
             tparams     = Nil,
@@ -48,12 +48,12 @@ object ImportEnum {
           )
       }
 
-    val moduleSymbol: ModuleSymbol = {
-      val applyMethod: Option[MethodSymbol] =
+    val moduleTree: ModuleTree = {
+      val applyMethod: Option[MethodTree] =
         if (isValue) {
-          val applyParam = ParamSymbol(Name.value, underlying, NoComments)
+          val applyParam = ParamTree(Name.value, underlying, NoComments)
           Some(
-            MethodSymbol(
+            MethodTree(
               annotations = Annotation.method(name, isBracketAccess = true),
               level       = Default,
               name        = Name.APPLY,
@@ -67,14 +67,14 @@ object ImportEnum {
           )
         } else None
 
-      val membersSyms: Seq[Symbol] =
+      val membersSyms: Seq[Tree] =
         members flatMap {
           case TsEnumMember(memberCs, ImportName(memberName), literalOpt) =>
-            val memberType: Option[ClassSymbol] =
+            val memberType: Option[ClassTree] =
               if (exportedFrom.nonEmpty) None
               else
                 Some(
-                  ClassSymbol(
+                  ClassTree(
                     annotations = Seq(JsNative),
                     name        = memberName,
                     tparams     = Nil,
@@ -93,10 +93,10 @@ object ImportEnum {
             })
             val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
 
-            val memberValue: Option[FieldSymbol] =
+            val memberValue: Option[FieldTree] =
               if (isValue) {
                 Some(
-                  FieldSymbol(
+                  FieldTree(
                     annotations = Nil,
                     name        = memberName,
                     impl        = MemberImplNative,
@@ -111,9 +111,9 @@ object ImportEnum {
             Seq() ++ memberType ++ memberValue
         }
 
-      ModuleSymbol(anns, name, ModuleTypeNative, parents = Nil, members = membersSyms ++ applyMethod, comments = cs)
+      ModuleTree(anns, name, ModuleTypeNative, parents = Nil, members = membersSyms ++ applyMethod, comments = cs)
     }
 
-    Seq(moduleSymbol, typeSymbol)
+    Seq(moduleTree, typeTree)
   }
 }

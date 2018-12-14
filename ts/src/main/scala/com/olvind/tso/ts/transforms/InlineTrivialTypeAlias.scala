@@ -10,10 +10,10 @@ package transforms
   *  We need to do the removal  in scala.js (`CleanupTypeAliases`) to ensure that
   *  all dependencies can also resolve all their uses of the intermediate type aliases.
   */
-object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
+object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
 
   /* changing this? also change `Cleanup`. We need to do it in two stages */
-  def followTrivialAliases(scope: TreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
+  def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
     cur match {
       case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(nextName, _), codePath)
           if cs.cs.exists(_ === constants.MagicComments.TrivialTypeAlias) =>
@@ -32,10 +32,10 @@ object InlineTrivialTypeAlias extends TreeVisitorScopedChanges {
       case _ => None
     }
 
-  override def enterTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
+  override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     handleRef(scope, x)
 
-  private def handleRef(scope: TreeScope, x: TsTypeRef): TsTypeRef = {
+  private def handleRef(scope: TsTreeScope, x: TsTypeRef): TsTypeRef = {
     val simplifiedOpt = x match {
       case ref @ TsTypeRef(target: TsQIdent, tparams) if !TsQIdent.Primitive(target) =>
         val ret: Option[Option[TsTypeRef]] =

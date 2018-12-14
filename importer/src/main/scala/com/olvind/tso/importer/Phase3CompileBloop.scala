@@ -130,11 +130,11 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       case lib: LibScalaJs =>
         getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
-            val scalaFiles = Printer(lib.packageSymbol, mainPackageName)
+            val scalaFiles = Printer(lib.packageTree, mainPackageName)
             val sourcesDir = RelPath("src") / 'main / 'scala
             val sbtLayout = ContentSbtProject(
               v            = versions,
-              comments     = lib.packageSymbol.comments,
+              comments     = lib.packageTree.comments,
               organization = organization,
               name         = lib.libName,
               version      = VersionHack.TemplateValue,

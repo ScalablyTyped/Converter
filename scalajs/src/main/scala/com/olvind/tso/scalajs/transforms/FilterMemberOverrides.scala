@@ -13,58 +13,56 @@ import com.olvind.tso.seqs.TraversableOps
   *
   * Note that no subtype calculation is done for now.
   */
-object FilterMemberOverrides extends SymbolVisitor {
+object FilterMemberOverrides extends TreeTransformation {
 
-  override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol =
+  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
     s.copy(members = newMembers(scope, s, s.members))
 
-  override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol =
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
     s.copy(members = newMembers(scope, s, s.members))
 
-  override def enterPackageSymbol(scope: SymbolScope)(s: PackageSymbol): PackageSymbol =
+  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
     s.copy(members = newMembers(scope, s, s.members))
 
-  private def newMembers[S >: MemberSymbol <: Symbol](scope:   SymbolScope,
-                                                      owner:   ContainerSymbol,
-                                                      members: Seq[S]): Seq[S] = {
+  private def newMembers[S >: MemberTree <: Tree](scope: TreeScope, owner: ContainerTree, members: Seq[S]): Seq[S] = {
     val (methods, fields, other) = members.partitionCollect2(
-      { case x: MethodSymbol => x },
-      { case x: FieldSymbol  => x }
+      { case x: MethodTree => x },
+      { case x: FieldTree  => x }
     )
-    val methodsByName: Map[Name, Seq[MethodSymbol]] =
+    val methodsByName: Map[Name, Seq[MethodTree]] =
       methods groupBy (_.name)
 
-    val fieldsByName: Map[Name, Seq[FieldSymbol]] =
+    val fieldsByName: Map[Name, Seq[FieldTree]] =
       fields.groupBy(_.name)
 
-    val parents: Map[TypeRef, ClassSymbol] =
+    val parents: Map[TypeRef, ClassTree] =
       ParentsResolver(scope, owner).transitiveParents
 
     val (inheritedMethods, inheritedFields, _) =
       (ObjectMembers.members ++ parents.flatMap(_._2.members)).partitionCollect2(
-        { case x: MethodSymbol => x },
-        { case x: FieldSymbol  => x }
+        { case x: MethodTree => x },
+        { case x: FieldTree  => x }
       )
 
-    val inheritedFieldsByName: Map[Name, Seq[FieldSymbol]] =
+    val inheritedFieldsByName: Map[Name, Seq[FieldTree]] =
       inheritedFields groupBy (_.name)
 
-    val inheritedMethodsByBase: Map[MethodBase, Seq[MethodSymbol]] =
+    val inheritedMethodsByBase: Map[MethodBase, Seq[MethodTree]] =
       inheritedMethods groupBy Erasure.base(scope)
 
-    val inheritedMethodsByName: Map[Name, Seq[MethodSymbol]] =
+    val inheritedMethodsByName: Map[Name, Seq[MethodTree]] =
       inheritedMethods groupBy (_.name)
 
     val allMethods = inheritedMethodsByName ++ methodsByName
     val allFields  = inheritedFieldsByName ++ fieldsByName
 
-    val newFields: Seq[FieldSymbol] = fields.flatMap { f =>
+    val newFields: Seq[FieldTree] = fields.flatMap { f =>
       allMethods.get(f.name) match {
         case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === f.name) =>
           Seq(f withSuffix "_F" + owner.name.value)
         case _ =>
           inheritedFieldsByName.get(f.name) match {
-            case Some(conflicting: Seq[FieldSymbol]) =>
+            case Some(conflicting: Seq[FieldTree]) =>
               /* but to retain a field with a different type, we rename it */
               val withSuffix = f withSuffix "_" withSuffix owner.name
 
@@ -80,7 +78,7 @@ object FilterMemberOverrides extends SymbolVisitor {
       }
     }
 
-    val newMethods: Seq[MethodSymbol] = methods.flatMap { m =>
+    val newMethods: Seq[MethodTree] = methods.flatMap { m =>
 //        val mErasure = Erasure.erasure(scope)(m)
 
       if (inheritedFieldsByName.contains(m.name)) Seq(m withSuffix "_M" + owner.name.value)

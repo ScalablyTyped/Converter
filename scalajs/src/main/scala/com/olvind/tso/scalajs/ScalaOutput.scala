@@ -2,7 +2,7 @@ package com.olvind.tso
 package scalajs
 
 /**
-  * Maps the in-memory `Symbol` structure to a file structure
+  * Maps the in-memory `Tree` structure to a file structure
   */
 sealed trait ScalaOutput
 
@@ -19,10 +19,10 @@ object ScalaOutput {
   }
   final case class Package(name: Name) extends ScalaOutput
 
-  def outputAs(s: Symbol): ScalaOutput =
+  def outputAs(s: Tree): ScalaOutput =
     s match {
-      case s: PackageSymbol   => Package(s.name)
-      case s: ContainerSymbol => File(s.name)
+      case s: PackageTree   => Package(s.name)
+      case s: ContainerTree => File(s.name)
       case _ => PackageObject
     }
 

@@ -17,8 +17,8 @@ import scala.collection.mutable
   * type ReactInstance = Component<any, {}> | Element;
   * ```
   */
-object DefaultedTParams extends TreeVisitorScopedChanges {
-  override def enterTsTypeRef(scope: TreeScope)(x: TsTypeRef): TsTypeRef =
+object DefaultedTParams extends TreeTransformationScopedChanges {
+  override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     x match {
       case TsTypeRef(target: TsQIdent, providedTparams: Seq[TsType])
           if !TsQIdent.Primitive(target) && !scope.isAbstract(target) =>

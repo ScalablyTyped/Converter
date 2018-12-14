@@ -17,7 +17,7 @@ object AugmentModules {
     * By default it will be the provided module, but if it has a default or = export
     *  of a namespace, we put it there instead
     */
-  def target(mod: TsDeclModule, scope: TreeScope): CodePath.HasPath = {
+  def target(mod: TsDeclModule, scope: TsTreeScope): CodePath.HasPath = {
     val exportedNamespaceOpt: Option[CodePath] =
       mod.exports.firstDefined {
         case TsExport(_, exportType, TsExporteeNames(Seq((qIdent, None)), None)) if ExportType.NotNamed(exportType) =>
@@ -33,14 +33,14 @@ object AugmentModules {
     codePath.forceHasPath
   }
 
-  def apply(rootScope: TreeScope)(file: TsParsedFile): TsParsedFile = {
+  def apply(rootScope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
 
     val targetToAux: Map[Option[CodePath.HasPath], Seq[TsAugmentedModule]] =
       file.augmentedModules.groupBy(aux => file.modules.get(aux.name).map(m => target(m, rootScope)))
 
     val toRemove = mutable.Set.empty[CodePath]
 
-    object Merge extends TreeVisitorUnit {
+    object Merge extends TreeTransformationUnit {
       override def enterTsDeclNamespace(t: Unit)(x: TsDeclNamespace): TsDeclNamespace =
         targetToAux.get(Option(x.codePath.forceHasPath)) match {
           case Some(auxes) =>
@@ -62,7 +62,7 @@ object AugmentModules {
         }
     }
 
-    object Remove extends TreeVisitorUnit {
+    object Remove extends TreeTransformationUnit {
       override def leaveTsParsedFile(t: Unit)(x: TsParsedFile): TsParsedFile = {
         val newMembers = x.members.filter {
           case aux: TsAugmentedModule if toRemove(aux.codePath) => false

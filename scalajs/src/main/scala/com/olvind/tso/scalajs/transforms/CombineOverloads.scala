@@ -14,15 +14,14 @@ import com.olvind.tso.seqs.TraversableOps
   * We also detect conflicts (same method with different type parameter sets, non-compatible return types),
   *  and rename methods when needed.
   */
-object CombineOverloads extends SymbolVisitor {
+object CombineOverloads extends TreeTransformation {
 
-  private def combineSameErasureSameTypeParams(methods:      Seq[MethodSymbol],
-                                               renameSuffix: Option[Suffix]): MethodSymbol = {
+  private def combineSameErasureSameTypeParams(methods: Seq[MethodTree], renameSuffix: Option[Suffix]): MethodTree = {
     if (methods.map(_.params.map(_.size)).toSet.size =/= 1) {
       sys.error("Methods do not have same shape: " + methods)
     }
 
-    val newParamss: Seq[Seq[ParamSymbol]] =
+    val newParamss: Seq[Seq[ParamTree]] =
       methods.head.params.zipWithIndex map {
         case (params, i) =>
           params.zipWithIndex map {
@@ -41,21 +40,21 @@ object CombineOverloads extends SymbolVisitor {
     }
   }
 
-  private def combineSameErasure(_methods: Seq[MethodSymbol], scope: SymbolScope): Seq[MethodSymbol] = {
-    val grouped: Seq[((Seq[TypeParamSymbol], QualifiedName), Seq[MethodSymbol])] =
+  private def combineSameErasure(_methods: Seq[MethodTree], scope: TreeScope): Seq[MethodTree] = {
+    val grouped: Seq[((Seq[TypeParamTree], QualifiedName), Seq[MethodTree])] =
       _methods.groupBy(m => (m.tparams, m.resultType.typeName)).to[Seq].sortBy(_._1._1.size)
 
-    val default: MethodSymbol =
+    val default: MethodTree =
       combineSameErasureSameTypeParams(grouped.head._2, None)
 
-    val suffixed: Seq[MethodSymbol] =
+    val suffixed: Seq[MethodTree] =
       grouped drop 1 flatMap {
         case (_, methods) if methods.head.name === Name.APPLY =>
           scope.logger.info(
             s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope"
           )
           Nil
-        case ((tparams: Seq[TypeParamSymbol], retType), methods) =>
+        case ((tparams: Seq[TypeParamTree], retType), methods) =>
           val returnTypeSuffix: Option[Suffix] =
             if (retType === default.resultType.typeName) None else Some(ToSuffix(retType))
 
@@ -89,11 +88,11 @@ object CombineOverloads extends SymbolVisitor {
         )
     }
 
-  def combineOverloads(scope: SymbolScope, methods: Seq[MethodSymbol]): Seq[MethodSymbol] = {
+  def combineOverloads(scope: TreeScope, methods: Seq[MethodTree]): Seq[MethodTree] = {
 
     val methodsByBase = methods.groupBy(Erasure.base(scope))
 
-    val newMethods: Seq[MethodSymbol] =
+    val newMethods: Seq[MethodTree] =
       methodsByBase.flatMap {
         case (_, Seq(one))    => Seq(one)
         case (_, sameErasure) => combineSameErasure(sameErasure, scope)
@@ -122,30 +121,30 @@ object CombineOverloads extends SymbolVisitor {
   /**
     * Ctors are methods...ish. This was easier than refactoring
     */
-  def ctorHack(scope: SymbolScope, members: Seq[CtorSymbol]): Seq[CtorSymbol] = {
-    val asMethods: Seq[MethodSymbol] =
+  def ctorHack(scope: TreeScope, members: Seq[CtorTree]): Seq[CtorTree] = {
+    val asMethods: Seq[MethodTree] =
       members.map(
         ctor =>
-          MethodSymbol(Nil,
-                       ctor.level,
-                       ctor.name,
-                       Nil,
-                       Seq(ctor.params),
-                       MemberImplNative,
-                       TypeRef.Nothing,
-                       false,
-                       ctor.comments)
+          MethodTree(Nil,
+                     ctor.level,
+                     ctor.name,
+                     Nil,
+                     Seq(ctor.params),
+                     MemberImplNative,
+                     TypeRef.Nothing,
+                     false,
+                     ctor.comments)
       )
     val ret = combineOverloads(scope, asMethods)
     ret.map {
-      case MethodSymbol(_, level, _, _, params, _, _, _, comments) =>
-        CtorSymbol(level, params.head, comments)
+      case MethodTree(_, level, _, _, params, _, _, _, comments) =>
+        CtorTree(level, params.head, comments)
     }
   }
 
-  override def enterClassSymbol(scope: SymbolScope)(s: ClassSymbol): ClassSymbol = {
+  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
     val (methods, rest) = s.members.partitionCollect {
-      case m: MethodSymbol => m
+      case m: MethodTree => m
     }
     s.copy(
       ctors   = ctorHack(scope, s.ctors),
@@ -153,17 +152,17 @@ object CombineOverloads extends SymbolVisitor {
     )
   }
 
-  override def enterModuleSymbol(scope: SymbolScope)(s: ModuleSymbol): ModuleSymbol = {
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
     val (methods, rest) = s.members.partitionCollect {
-      case m: MethodSymbol => m
+      case m: MethodTree => m
     }
 
     s.copy(members = rest ++ combineOverloads(scope, methods))
   }
 
-  override def enterPackageSymbol(scope: SymbolScope)(s: PackageSymbol): PackageSymbol = {
+  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
     val (methods, rest) = s.members.partitionCollect {
-      case m: MethodSymbol => m
+      case m: MethodTree => m
     }
     s.copy(members = rest ++ combineOverloads(scope, methods))
   }

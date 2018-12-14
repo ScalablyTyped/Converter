@@ -31,7 +31,7 @@ import scala.collection.mutable
   *
   * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo``
   */
-object PreferTypeAlias extends TreeVisitorScopedChanges {
+object PreferTypeAlias extends TreeTransformationScopedChanges {
 
   private object IsFunction {
     def unapply(i: TsDeclInterface): Option[TsDeclTypeAlias] =
@@ -77,7 +77,7 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
     * So to avoid compilation failure after we simplify, we leave it to the user of the generated
     *  code to cast appropriately
     */
-  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TreeScope, tree: TsTree): Boolean = {
+  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
     val minimizedTree = memberHack(tree)
     TreeTraverse.collect(minimizedTree) { case x: TsIdent if x === self => x } match {
       case Nil =>
@@ -100,7 +100,7 @@ object PreferTypeAlias extends TreeVisitorScopedChanges {
         true
     }
   }
-  override def enterTsDecl(t: TreeScope)(x: TsDecl): TsDecl = x match {
+  override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
 
     /**
       * We rewrite interfaces which extends one type, not more. The reason is that scala doesn't let you

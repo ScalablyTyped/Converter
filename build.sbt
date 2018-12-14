@@ -6,7 +6,7 @@ val IntegrationTest = Configuration.of("IntegrationTest", "it") extend Test
 
 val baseSettings: Project => Project =
   _.settings(
-    scalaVersion := "2.12.7",
+    scalaVersion := "2.12.8",
     organization := "com.olvind",
     version := "0.1-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
@@ -58,6 +58,7 @@ val runtime = project
       if (scalaJSVersion.startsWith("0.6.")) Seq("-P:scalajs:sjsDefinedByDefault")
       else Nil
     },
+    scalacOptions -= "-Ywarn-dead-code",
     version := "1.0.0-M1",
     licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
   )

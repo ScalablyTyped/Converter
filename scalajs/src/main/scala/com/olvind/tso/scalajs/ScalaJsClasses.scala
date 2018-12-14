@@ -6,10 +6,10 @@ import scala.collection.mutable
 object ScalaJsClasses {
   // format: off
   val ScalaJsArray =
-    ClassSymbol(
+    ClassTree(
       Seq(JsNative, JsGlobalScope),
       Name("Array"),
-      Seq(TypeParamSymbol(Name("T"), None, NoComments)),
+      Seq(TypeParamTree(Name("T"), None, NoComments)),
       // todo: fill in
       Nil,
       Nil,
@@ -22,18 +22,18 @@ object ScalaJsClasses {
 
   // format: off
   val ScalaJsFunction =
-    ClassSymbol(
+    ClassTree(
       Seq(JsNative, JsGlobalScope),
       Name("Function"),
       Nil,
       Nil,
       Seq(
-        CtorSymbol(Default, Seq(ParamSymbol(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), NoComments)), NoComments)
+        CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), NoComments)), NoComments)
       ),
       Seq(
-        FieldSymbol(Nil, Name("length"), TypeRef.Int, MemberImplNative, isReadOnly = false, isOverride = false, NoComments),
-        MethodSymbol(Nil, Default, Name("call"), Nil, Seq(Seq(ParamSymbol(Name("thisArg"), TypeRef.Any, NoComments), ParamSymbol(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
-        MethodSymbol(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamSymbol(Name("thisArg"), TypeRef.Any, NoComments), ParamSymbol(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
+        FieldTree(Nil, Name("length"), TypeRef.Int, MemberImplNative, isReadOnly = false, isOverride = false, NoComments),
+        MethodTree(Nil, Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
+        MethodTree(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
       ),
       ClassType.Class,
       isSealed = false,
@@ -41,16 +41,16 @@ object ScalaJsClasses {
     )
   // format: on
 
-  def ScalaJsF(isThis: Boolean, arity: Int): ClassSymbol = {
+  def ScalaJsF(isThis: Boolean, arity: Int): ClassTree = {
     def T(n: Int) = Name(s"T" + n)
 
-    val ThisParam: Seq[ParamSymbol] =
-      if (isThis) Seq(ParamSymbol(Name.This, TypeRef.ThisType(NoComments), NoComments)) else Nil
+    val ThisParam: Seq[ParamTree] =
+      if (isThis) Seq(ParamTree(Name.This, TypeRef.ThisType(NoComments), NoComments)) else Nil
 
-    val inputParams = 0 until arity map (n => ParamSymbol(T(n), TypeRef(T(n)), NoComments))
+    val inputParams = 0 until arity map (n => ParamTree(T(n), TypeRef(T(n)), NoComments))
     val R           = TypeRef(Name("R"))
-    val Apply: MethodSymbol =
-      MethodSymbol(
+    val Apply: MethodTree =
+      MethodTree(
         annotations = Nil,
         level       = Default,
         name        = Name.APPLY,
@@ -62,16 +62,16 @@ object ScalaJsClasses {
         comments    = NoComments
       )
 
-    val ThisTParam: Seq[TypeParamSymbol] =
-      if (isThis) Seq(TypeParamSymbol(Name.This, None, NoComments)) else Nil
+    val ThisTParam: Seq[TypeParamTree] =
+      if (isThis) Seq(TypeParamTree(Name.This, None, NoComments)) else Nil
 
-    val inputTParams: Seq[TypeParamSymbol] =
-      0 until arity map (n => TypeParamSymbol(T(n), None, NoComments))
+    val inputTParams: Seq[TypeParamTree] =
+      0 until arity map (n => TypeParamTree(T(n), None, NoComments))
 
-    val outputTParams: Seq[TypeParamSymbol] =
-      Seq(TypeParamSymbol(R.name, None, NoComments))
+    val outputTParams: Seq[TypeParamTree] =
+      Seq(TypeParamTree(R.name, None, NoComments))
 
-    ClassSymbol(
+    ClassTree(
       annotations = Seq(JsNative),
       name        = QualifiedName.FunctionArity(isThis, arity).parts.last,
       tparams     = ThisTParam ++ inputTParams ++ outputTParams,
@@ -83,12 +83,12 @@ object ScalaJsClasses {
       comments    = NoComments
     )
   }
-  private val Functions = mutable.Map.empty[(Boolean, Int), ClassSymbol]
+  private val Functions = mutable.Map.empty[(Boolean, Int), ClassTree]
 
   val MatchFunction = "(This|)Function(\\d*)".r
 
   object isFunction {
-    def unapply(fragments: List[Name]): Option[ClassSymbol] =
+    def unapply(fragments: List[Name]): Option[ClassTree] =
       if ((fragments.length === QualifiedName.Function.parts.length)
           && fragments.startsWith(QualifiedName.scala_js.parts)) {
 

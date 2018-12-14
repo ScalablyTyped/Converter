@@ -30,15 +30,15 @@ object Printer {
       fs.toMap
   }
 
-  def apply(sym: ContainerSymbol, mainPkg: Name): Map[RelPath, Array[Byte]] = {
+  def apply(tree: ContainerTree, mainPkg: Name): Map[RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
       reg          = reg,
       mainPkg      = mainPkg,
-      scalaPrefix  = List(sym.name),
-      targetFolder = RelPath(mainPkg.value) / sym.name.value,
-      sym          = sym
+      scalaPrefix  = List(tree.name),
+      targetFolder = RelPath(mainPkg.value) / tree.name.value,
+      tree         = tree
     )
 
     reg.result
@@ -49,30 +49,26 @@ object Printer {
        |import scala.scalajs.js.`|`
        |import scala.scalajs.js.annotation._""".stripMargin
 
-  def apply(reg:          Registry,
-            mainPkg:      Name,
-            scalaPrefix:  List[Name],
-            targetFolder: RelPath,
-            sym:          ContainerSymbol): Unit = {
-    val files: Map[ScalaOutput, Seq[Symbol]] = sym match {
-      case _: PackageSymbol => sym.members groupBy ScalaOutput.outputAs
+  def apply(reg: Registry, mainPkg: Name, scalaPrefix: List[Name], targetFolder: RelPath, tree: ContainerTree): Unit = {
+    val files: Map[ScalaOutput, Seq[Tree]] = tree match {
+      case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
       case other => Map(ScalaOutput.File(other.name) -> Seq(other))
     }
 
     files foreach {
-      case (ScalaOutput.File(name), members: Seq[Symbol]) =>
+      case (ScalaOutput.File(name), members: Seq[Tree]) =>
         reg.write(targetFolder / RelPath(s"${name.unescaped}.scala")) { writer =>
           writer println s"package ${formatName(mainPkg)}"
           writer println s"package ${formatQN(Nil, QualifiedName(scalaPrefix))}"
           writer.println("")
           writer.println(Imports)
           writer.println("")
-          members foreach printSymbol(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 0)
+          members foreach printTree(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 0)
         }
 
       case (ScalaOutput.Package(name), pkgs) =>
         pkgs foreach {
-          case pkg: PackageSymbol =>
+          case pkg: PackageTree =>
             apply(reg, mainPkg, scalaPrefix :+ name, targetFolder / RelPath(name.unescaped), pkg)
           case _ => sys.error("i was too lazy to prove this with types")
         }
@@ -89,9 +85,9 @@ object Printer {
           writer.println("")
           writer.println(Imports)
           writer.println("")
-          writer.println("package object " + formatName(sym.name) + " {")
+          writer.println("package object " + formatName(tree.name) + " {")
 
-          members foreach printSymbol(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 2)
+          members foreach printTree(reg, Indenter(writer), mainPkg, scalaPrefix, targetFolder, 2)
           writer.println("}")
         }
     }
@@ -123,12 +119,12 @@ object Printer {
     }
   }
 
-  def printSymbol(reg: Registry, w: Indenter, mainPkg: Name, prefix: List[Name], folder: RelPath, indent: Int)(
-      sym:             Symbol
+  def printTree(reg: Registry, w: Indenter, mainPkg: Name, prefix: List[Name], folder: RelPath, indent: Int)(
+      tree:          Tree
   ): Unit = {
 
-    val printSym: Symbol => Unit =
-      printSymbol(reg, w, mainPkg, prefix, folder, indent + 2)
+    val printSym: Tree => Unit =
+      printTree(reg, w, mainPkg, prefix, folder, indent + 2)
 
     def print(ss: String*): Unit =
       ss foreach w.print(indent)
@@ -138,30 +134,30 @@ object Printer {
       print("\n")
     }
 
-    sym match {
-      case sym: PackageSymbol =>
-        apply(reg, mainPkg, prefix :+ sym.name, folder / RelPath(sym.name.value), sym)
+    tree match {
+      case tree: PackageTree =>
+        apply(reg, mainPkg, prefix :+ tree.name, folder / RelPath(tree.name.value), tree)
 
-      case ClassSymbol(anns, name, tparams, parents, ctors, members, classType, isSealed, comments) =>
+      case ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
         val sealedKw = if (isSealed) "sealed " else ""
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
-          case Nil                                 => (CtorSymbol.defaultPublic, Nil)
+          case Nil                                 => (CtorTree.defaultPublic, Nil)
           case head :: tail if head.params.isEmpty => (head, tail)
-          case all                                 => (CtorSymbol.defaultProtected, all)
+          case all                                 => (CtorTree.defaultProtected, all)
         }
 
         print(sealedKw, classType.asString, " ", formatName(name))
 
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol(prefix, indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
 
         if (classType =/= ClassType.Trait) {
           print(" ")
           print(formatProtectionLevel(defaultCtor.level, isCtor = true))
-          print((defaultCtor.params map formatParamSymbol(prefix, indent)).mkString("(", ", ", ")"))
+          print((defaultCtor.params map formatParamTree(prefix, indent)).mkString("(", ", ", ")"))
         }
 
         print(extendsClause(prefix, parents, isNative = true, indent))
@@ -179,7 +175,7 @@ object Printer {
 
         println()
 
-      case ModuleSymbol(anns, name, moduleType, parents, members, comments) =>
+      case ModuleTree(anns, name, moduleType, parents, members, comments) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -195,20 +191,20 @@ object Printer {
         if (members.nonEmpty) {
           println(" {")
 
-          members foreach printSymbol(reg, w, mainPkg, newPrefix, folder, indent + 2)
+          members foreach printTree(reg, w, mainPkg, newPrefix, folder, indent + 2)
           println("}")
         } else
           println()
         println()
 
-      case TypeAliasSymbol(name, tparams, alias, comments) =>
+      case TypeAliasTree(name, tparams, alias, comments) =>
         print(formatComments(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol(prefix, indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
         println(s" = ", formatTypeRef(prefix, indent)(alias))
 
-      case FieldSymbol(anns, name, tpe, fieldType, isReadOnly, isOverride, comments) =>
+      case FieldTree(anns, name, tpe, fieldType, isReadOnly, isOverride, comments) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -228,18 +224,18 @@ object Printer {
           case MemberImplCustom(impl)   => println(" = ", impl)
         }
 
-      case MethodSymbol(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments) =>
+      case MethodTree(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
         print(formatProtectionLevel(level, isCtor = false))
         print(s"${if (isOverride) "override " else ""}def ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamSymbol(prefix, indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
 
-        var paramString = params.map(_.map(formatParamSymbol(prefix, indent)).mkString("(", ", ", ")"))
+        var paramString = params.map(_.map(formatParamTree(prefix, indent)).mkString("(", ", ", ")"))
         if (paramString.map(_.length).sum > 100) {
-          paramString = params.map(_.map(formatParamSymbol(prefix, indent)).mkString("(\n  ", ",\n  ", "\n)"))
+          paramString = params.map(_.map(formatParamTree(prefix, indent)).mkString("(\n  ", ",\n  ", "\n)"))
         }
         print(paramString.mkString, ": ")
         print(formatTypeRef(prefix, indent)(resultType))
@@ -249,25 +245,25 @@ object Printer {
           case MemberImplCustom(impl)   => println(" = ", impl)
         }
 
-      case CtorSymbol(level, params, comments) =>
+      case CtorTree(level, params, comments) =>
         print(formatComments(comments))
         println("",
                 formatProtectionLevel(level, isCtor = true),
                 "def this(",
-                (params map formatParamSymbol(prefix, indent)) mkString ", ",
+                (params map formatParamTree(prefix, indent)) mkString ", ",
                 ") = this()")
 
-      case sym @ ParamSymbol(_, _, comments) =>
+      case tree @ ParamTree(_, _, comments) =>
         print(formatComments(comments))
-        println(formatParamSymbol(prefix, indent)(sym))
+        println(formatParamTree(prefix, indent)(tree))
 
-      case sym @ TypeParamSymbol(_, _, comments) =>
+      case tree @ TypeParamTree(_, _, comments) =>
         print(formatComments(comments))
-        print(formatTypeParamSymbol(prefix, indent)(sym))
+        print(formatTypeParamTree(prefix, indent)(tree))
 
-      case sym @ TypeRef(_, _, comments) =>
+      case tree @ TypeRef(_, _, comments) =>
         print(formatComments(comments))
-        print(formatTypeRef(prefix, indent)(sym))
+        print(formatTypeRef(prefix, indent)(tree))
     }
   }
 
@@ -280,17 +276,17 @@ object Printer {
       case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
     }
 
-  def formatTypeParamSymbol(prefix: List[Name], indent: Int)(sym: TypeParamSymbol): String =
-    formatComments(sym.comments) |+|
-      formatName(sym.name) |+|
-      sym.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(prefix, indent)(bound) |+| " */")
+  def formatTypeParamTree(prefix: List[Name], indent: Int)(tree: TypeParamTree): String =
+    formatComments(tree.comments) |+|
+      formatName(tree.name) |+|
+      tree.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(prefix, indent)(bound) |+| " */")
 
-  def formatParamSymbol(prefix: List[Name], indent: Int)(sym: ParamSymbol): String =
+  def formatParamTree(prefix: List[Name], indent: Int)(tree: ParamTree): String =
     Seq(
-      formatComments(sym.comments),
-      formatName(sym.name),
+      formatComments(tree.comments),
+      formatName(tree.name),
       ": ",
-      formatTypeRef(prefix, indent + 2)(sym.tpe)
+      formatTypeRef(prefix, indent + 2)(tree.tpe)
     ).foldLeft("")(_ |+| _)
 
   def formatQN(prefix: List[Name], q: QualifiedName): String =

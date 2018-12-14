@@ -2,10 +2,10 @@ package com.olvind.tso
 package ts
 package transforms
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
-object ResolveTypeQueries extends TreeVisitorScopedChanges {
-  override def leaveTsType(t: TreeScope)(x: TsType): TsType =
+object ResolveTypeQueries extends TreeTransformationScopedChanges {
+  override def leaveTsType(t: TsTreeScope)(x: TsType): TsType =
     x match {
       case xx: TsTypeQuery => resolve(t, xx, new LoopDetector())
       case other => other
@@ -81,7 +81,7 @@ object ResolveTypeQueries extends TreeVisitorScopedChanges {
       }
   }
 
-  private def resolve(t: TreeScope, target: TsTypeQuery, loopDetector: LoopDetector): TsType =
+  private def resolve(t: TsTreeScope, target: TsTypeQuery, loopDetector: LoopDetector): TsType =
     target.expr match {
       case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(wanted, Nil)
       case wanted =>

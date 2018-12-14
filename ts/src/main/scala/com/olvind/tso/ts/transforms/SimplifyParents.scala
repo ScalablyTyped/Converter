@@ -15,14 +15,14 @@ package transforms
   *
   * We'll deal with it more properly later if we have to, for now simplify and make stuff compile at least
   */
-object SimplifyParents extends TreeVisitorScopedChanges {
-  override def enterTsDeclClass(t: TreeScope)(x: TsDeclClass): TsDeclClass =
+object SimplifyParents extends TreeTransformationScopedChanges {
+  override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(parent = newParents(x.parent.to[Seq], t).headOption, implements = newParents(x.implements, t))
 
-  override def enterTsDeclInterface(t: TreeScope)(x: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(inheritance = newParents(x.inheritance, t))
 
-  private def newParents(parents: Seq[TsTypeRef], scope: TreeScope): Seq[TsTypeRef] =
+  private def newParents(parents: Seq[TsTypeRef], scope: TsTreeScope): Seq[TsTypeRef] =
     parents.flatMap { parentRef =>
       scope.lookupType(parentRef.name, skipValidation = true) match {
         case Nil =>
@@ -34,7 +34,7 @@ object SimplifyParents extends TreeVisitorScopedChanges {
       }
     }
 
-  private def lift(scope: TreeScope, ref: TsTypeRef, tpe: TsType): Seq[TsTypeRef] =
+  private def lift(scope: TsTreeScope, ref: TsTypeRef, tpe: TsType): Seq[TsTypeRef] =
     tpe match {
       case ref: TsTypeRef =>
         scope.lookup(ref.name).headOption match {

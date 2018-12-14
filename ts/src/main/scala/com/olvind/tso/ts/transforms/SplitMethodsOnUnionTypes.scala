@@ -4,26 +4,26 @@ package transforms
 
 import scala.annotation.tailrec
 
-object SplitMethodsOnUnionTypes extends TreeVisitorScopedChanges {
-  override def enterTsParsedFile(t: TreeScope)(x: TsParsedFile): TsParsedFile =
+object SplitMethodsOnUnionTypes extends TreeTransformationScopedChanges {
+  override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = newMembers(x))
 
-  override def enterTsDeclGlobal(t: TreeScope)(x: TsGlobal): TsGlobal =
+  override def enterTsDeclGlobal(t: TsTreeScope)(x: TsGlobal): TsGlobal =
     x.copy(members = newMembers(x))
 
-  override def enterTsDeclNamespace(t: TreeScope)(x: TsDeclNamespace): TsDeclNamespace =
+  override def enterTsDeclNamespace(t: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
     x.copy(members = newMembers(x))
 
-  override def enterTsDeclModule(t: TreeScope)(x: TsDeclModule): TsDeclModule =
+  override def enterTsDeclModule(t: TsTreeScope)(x: TsDeclModule): TsDeclModule =
     x.copy(members = newMembers(x))
 
-  override def enterTsDeclClass(t: TreeScope)(x: TsDeclClass): TsDeclClass =
+  override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(members = newClassMembers(x))
 
-  override def enterTsDeclInterface(t: TreeScope)(x: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(members = newClassMembers(x))
 
-  override def enterTsTypeObject(t: TreeScope)(x: TsTypeObject): TsTypeObject =
+  override def enterTsTypeObject(t: TsTreeScope)(x: TsTypeObject): TsTypeObject =
     x.copy(members = newClassMembers(x))
 
   private def newClassMembers(x: HasClassMembers) = {

@@ -1,65 +1,65 @@
 package com.olvind.tso
 package scalajs
 
-sealed trait Symbol {
+sealed trait Tree {
   val name:     Name
   val comments: Comments
 }
 
-sealed trait ContainerSymbol extends Symbol {
-  val members: Seq[Symbol]
+sealed trait ContainerTree extends Tree {
+  val members: Seq[Tree]
 
-  lazy val index: Map[Name, Seq[Symbol]] =
+  lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 }
 
-final case class PackageSymbol(
+final case class PackageTree(
     annotations: Seq[ClassAnnotation],
     name:        Name,
-    members:     Seq[Symbol],
+    members:     Seq[Tree],
     comments:    Comments
-) extends ContainerSymbol
+) extends ContainerTree
 
-object PackageSymbol {
-  implicit object PackageSymbolKey extends Key[PackageSymbol] {
+object PackageTree {
+  implicit object PackageTreeKey extends Key[PackageTree] {
     override type Id = Name
-    override def apply(t: PackageSymbol): Id = t.name
+    override def apply(t: PackageTree): Id = t.name
   }
 }
 
-final case class ClassSymbol(
+final case class ClassTree(
     annotations: Seq[ClassAnnotation],
     name:        Name,
-    tparams:     Seq[TypeParamSymbol],
+    tparams:     Seq[TypeParamTree],
     parents:     Seq[TypeRef],
-    ctors:       Seq[CtorSymbol],
-    members:     Seq[MemberSymbol],
+    ctors:       Seq[CtorTree],
+    members:     Seq[MemberTree],
     classType:   ClassType,
     isSealed:    Boolean,
     comments:    Comments
-) extends ContainerSymbol
+) extends ContainerTree
 
 sealed trait ModuleType
 case object ModuleTypeNative extends ModuleType
 case object ModuleTypeScala extends ModuleType
 
-final case class ModuleSymbol(
+final case class ModuleTree(
     annotations: Seq[ClassAnnotation],
     name:        Name,
     moduleType:  ModuleType,
     parents:     Seq[TypeRef],
-    members:     Seq[Symbol],
+    members:     Seq[Tree],
     comments:    Comments
-) extends ContainerSymbol
+) extends ContainerTree
 
-final case class TypeAliasSymbol(
+final case class TypeAliasTree(
     name:     Name,
-    tparams:  Seq[TypeParamSymbol],
+    tparams:  Seq[TypeParamTree],
     alias:    TypeRef,
     comments: Comments
-) extends Symbol
+) extends Tree
 
-sealed trait MemberSymbol extends Symbol {
+sealed trait MemberTree extends Tree {
   val isOverride: Boolean
 }
 
@@ -69,7 +69,7 @@ case object MemberImplNative extends MemberImpl
 case object MemberImplNotImplemented extends MemberImpl
 final case class MemberImplCustom(impl: String) extends MemberImpl
 
-final case class FieldSymbol(
+final case class FieldTree(
     annotations: Seq[MemberAnnotation],
     name:        Name,
     tpe:         TypeRef,
@@ -77,12 +77,12 @@ final case class FieldSymbol(
     isReadOnly:  Boolean,
     isOverride:  Boolean,
     comments:    Comments
-) extends MemberSymbol {
+) extends MemberTree {
 
-  def withSuffix[T: ToSuffix](t: T): FieldSymbol =
+  def withSuffix[T: ToSuffix](t: T): FieldTree =
     renamed(name withSuffix t)
 
-  def renamed(newName: Name): FieldSymbol =
+  def renamed(newName: Name): FieldTree =
     copy(
       name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
@@ -90,21 +90,21 @@ final case class FieldSymbol(
     )
 }
 
-final case class MethodSymbol(
+final case class MethodTree(
     annotations: Seq[MemberAnnotation],
     level:       ProtectionLevel,
     name:        Name,
-    tparams:     Seq[TypeParamSymbol],
-    params:      Seq[Seq[ParamSymbol]],
+    tparams:     Seq[TypeParamTree],
+    params:      Seq[Seq[ParamTree]],
     impl:        MemberImpl,
     resultType:  TypeRef,
     isOverride:  Boolean,
     comments:    Comments
-) extends MemberSymbol {
-  def withSuffix[T: ToSuffix](t: T): MethodSymbol =
+) extends MemberTree {
+  def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name withSuffix t)
 
-  def renamed(newName: Name): MethodSymbol =
+  def renamed(newName: Name): MethodTree =
     copy(
       name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
@@ -112,20 +112,20 @@ final case class MethodSymbol(
     )
 }
 
-final case class CtorSymbol(level: ProtectionLevel, params: Seq[ParamSymbol], comments: Comments) extends Symbol {
+final case class CtorTree(level: ProtectionLevel, params: Seq[ParamTree], comments: Comments) extends Tree {
   override val name = Name.CONSTRUCTOR
 }
 
-object CtorSymbol {
-  val defaultPublic    = CtorSymbol(Default, Seq(), NoComments)
-  val defaultProtected = CtorSymbol(Protected, Seq(), NoComments)
+object CtorTree {
+  val defaultPublic    = CtorTree(Default, Seq(), NoComments)
+  val defaultProtected = CtorTree(Protected, Seq(), NoComments)
 }
 
-final case class TypeParamSymbol(name: Name, upperBound: Option[TypeRef], comments: Comments) extends Symbol
+final case class TypeParamTree(name: Name, upperBound: Option[TypeRef], comments: Comments) extends Tree
 
-object TypeParamSymbol {
-  implicit object TypeParamsToSuffix extends ToSuffix[Seq[TypeParamSymbol]] {
-    override def to(tparams: Seq[TypeParamSymbol]): Suffix =
+object TypeParamTree {
+  implicit object TypeParamsToSuffix extends ToSuffix[Seq[TypeParamTree]] {
+    override def to(tparams: Seq[TypeParamTree]): Suffix =
       Suffix(
         tparams
           .map(tp => tp.name.unescaped + tp.upperBound.fold("")(_.name.unescaped))
@@ -134,9 +134,9 @@ object TypeParamSymbol {
   }
 }
 
-final case class ParamSymbol(name: Name, tpe: TypeRef, comments: Comments) extends Symbol
+final case class ParamTree(name: Name, tpe: TypeRef, comments: Comments) extends Tree
 
-final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Symbol {
+final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
 
   def withOptional(optional: Boolean): TypeRef =

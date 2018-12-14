@@ -4,17 +4,17 @@ package scalajs
 import com.olvind.tso.scalajs.transforms.FakeLiterals
 
 /**
-  * Note, this requires that the method symbol has already filled in type params for containing context!
+  * Note, this requires that the method tree has already filled in type params for containing context!
   */
 object Erasure {
-  def base(_scope: SymbolScope)(s: MethodSymbol): MethodBase = {
+  def base(_scope: TreeScope)(s: MethodTree): MethodBase = {
     val newScope = _scope / s
     MethodBase(
       s.name,
       s.params.flatten.map(param => simplify(newScope, param.tpe))
     )
   }
-  def erasure(_scope: SymbolScope)(s: MethodSymbol): MethodErasure = {
+  def erasure(_scope: TreeScope)(s: MethodTree): MethodErasure = {
     val newScope = _scope / s
     MethodErasure(
       s.name,
@@ -23,7 +23,7 @@ object Erasure {
     )
   }
 
-  private def simplify(scope: SymbolScope, tpe: TypeRef): QualifiedName =
+  private def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
       case QualifiedName.UndefOr   => QualifiedName.`|`
       case QualifiedName.WILDCARD  => QualifiedName.JObject
@@ -49,10 +49,10 @@ object Erasure {
         scope
           .lookup(other)
           .collectFirst {
-            case (x: TypeAliasSymbol, s) =>
+            case (x: TypeAliasTree, s) =>
               if (x.alias.typeName === other) QualifiedName.JObject
               else simplify(s, x.alias)
-            case (x: ClassSymbol, _) =>
+            case (x: ClassTree, _) =>
               QualifiedName(x.name :: Nil)
           }
           .getOrElse(other)

@@ -33,7 +33,7 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
   """).force
 
     val rewritten =
-      ExpandKeyOfTypeParams.visitTsParsedFile(TreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout))(
+      ExpandKeyOfTypeParams.visitTsParsedFile(TsTreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout))(
         original
       )
 

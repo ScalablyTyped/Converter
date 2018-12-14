@@ -6,10 +6,10 @@ import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts._
 
 object ImportType {
-  def orAny(wildcards: Wildcards, scope: TreeScope)(ott: Option[TsType]): TypeRef =
+  def orAny(wildcards: Wildcards, scope: TsTreeScope)(ott: Option[TsType]): TypeRef =
     ott map apply(wildcards, scope) getOrElse TypeRef.Any
 
-  def orLitOrAny(wildcards: Wildcards, scope: TreeScope)(ott: Option[TsType], ol: Option[TsLiteral]): TypeRef =
+  def orLitOrAny(wildcards: Wildcards, scope: TsTreeScope)(ott: Option[TsType], ol: Option[TsLiteral]): TypeRef =
     (ott, ol) match {
       case (Some(x), _) => apply(wildcards, scope)(x)
       case (None, Some(lit)) =>
@@ -61,7 +61,7 @@ object ImportType {
     )
   }
 
-  def isInheritance(tpe: TsQIdent, scope: TreeScope): Boolean =
+  def isInheritance(tpe: TsQIdent, scope: TsTreeScope): Boolean =
     scope.stack match {
       case _ :: (owner: TsDeclInterface) :: _ =>
         owner.inheritance.exists(_.name eq tpe)
@@ -70,7 +70,7 @@ object ImportType {
       case _ => false
     }
 
-  def apply(wildcards: Wildcards, _scope: TreeScope)(t1: TsType): TypeRef = {
+  def apply(wildcards: Wildcards, _scope: TsTreeScope)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
       case TsTypeRef(base: TsQIdent, targs: Seq[TsType]) =>
@@ -192,7 +192,7 @@ object ImportType {
     }
   }
 
-  def signature(scope: TreeScope.Scoped, _sig: TsFunSig, comments: Comments): TypeRef = {
+  def signature(scope: TsTreeScope.Scoped, _sig: TsFunSig, comments: Comments): TypeRef = {
     /* get rid of type parameters and fill them with bound / object */
     val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
     val sig   = ts.FillInTParams(_sig, targs)
@@ -222,7 +222,7 @@ object ImportType {
     )
   }
 
-  private def funParam(wildcards: Wildcards, scope: TreeScope)(param: TsFunParam): TypeRef =
+  private def funParam(wildcards: Wildcards, scope: TsTreeScope)(param: TsFunParam): TypeRef =
     orAny(wildcards, scope / param)(param.tpe) withOptional param.isOptional withComments Comments(
       s"/* ${param.name.value} */ "
     )

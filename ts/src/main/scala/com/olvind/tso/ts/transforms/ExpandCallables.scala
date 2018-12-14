@@ -3,7 +3,7 @@ package ts
 package transforms
 
 import com.olvind.tso.seqs.TraversableOps
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
 /**
   * Oh boy. Work around https://github.com/scala-js/scala-js/issues/3435
@@ -27,19 +27,19 @@ import com.olvind.tso.ts.TreeScope.LoopDetector
   *
   * If not it wouldn't be safe to call from scala since it discards `this`.
   */
-object ExpandCallables extends TreeVisitorScopedChanges {
+object ExpandCallables extends TreeTransformationScopedChanges {
   /* yeah, sorry. This is out of band information because we cannot
       rename the original member until we reach scala :/
    */
   val MarkerComment = Comment("/* Expanded */")
 
-  override def enterTsDeclClass(scope: TreeScope)(x: TsDeclClass): TsDeclClass =
+  override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass =
     x.copy(members = newClassMembers(scope, x.members))
 
-  override def enterTsDeclInterface(scope: TreeScope)(x: TsDeclInterface): TsDeclInterface =
+  override def enterTsDeclInterface(scope: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(members = newClassMembers(scope, x.members))
 
-  private def newClassMembers(scope: TreeScope, members: Seq[TsMember]): Seq[TsMember] =
+  private def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
     members.flatMap {
       case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false) =>
         callableTypes(scope)(tpe) match {
@@ -76,7 +76,7 @@ object ExpandCallables extends TreeVisitorScopedChanges {
   case class Expand(callables: Seq[(Comments, TsFunSig)], keepOriginalMember: Boolean) extends Result
   case object Noop extends Result
 
-  def callableTypes(scope: TreeScope)(tpe: TsType): Result =
+  def callableTypes(scope: TsTreeScope)(tpe: TsType): Result =
     tpe match {
       case x: TsTypeFunction  => Expand((NoComments, x.signature) :: Nil, keepOriginalMember = false)
       case x: TsTypeIntersect => Result.combine(x.types map callableTypes(scope))
@@ -113,7 +113,7 @@ object ExpandCallables extends TreeVisitorScopedChanges {
         case _ => false
       }
 
-    def unapply(x: (TsNamedDecl, TreeScope)): Option[(TsDeclInterface, TreeScope)] =
+    def unapply(x: (TsNamedDecl, TsTreeScope)): Option[(TsDeclInterface, TsTreeScope)] =
       x match {
         case (i: TsDeclInterface, s) if hasCallMember(i) => Some((i, s))
         case _ => None

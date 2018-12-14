@@ -2,8 +2,8 @@ package com.olvind.tso
 package ts
 package transforms
 
-object UnionTypesFromKeyOf extends TreeVisitorScopedChanges {
-  override def enterTsType(scope: TreeScope)(x: TsType): TsType =
+object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
+  override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
       case TsTypeKeyOf(TsTypeRef(key, Nil)) if !scope.isAbstract(key) =>
         scope.lookup(key).headOption match {

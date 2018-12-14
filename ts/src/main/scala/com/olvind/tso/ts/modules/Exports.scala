@@ -2,11 +2,11 @@ package com.olvind.tso
 package ts
 package modules
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.transforms.SetCodePath
 
 object Exports {
-  def expandExport(scope:        TreeScope,
+  def expandExport(scope:        TsTreeScope,
                    jsLocation:   ModuleSpec => JsLocation,
                    e:            TsExport,
                    loopDetector: LoopDetector,
@@ -84,7 +84,7 @@ object Exports {
 
       case TsExport(_, exportType, TsExporteeStar(from, None /* todo*/ )) =>
         scope.moduleScopes get from match {
-          case Some(TreeScope.Scoped(newScope, mod: TsDeclModule)) =>
+          case Some(TsTreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
               if (scope.stack contains mod) mod
               else CachedReplaceExports(newScope, loopDetector, mod)
@@ -109,7 +109,7 @@ object Exports {
 
   def export(ownerCp:      CodePath.HasPath,
              jsLocation:   ModuleSpec => JsLocation,
-             scope:        TreeScope,
+             scope:        TsTreeScope,
              exportType:   ExportType,
              _namedDecl:   TsNamedDecl,
              renamedOpt:   Option[TsIdent],
@@ -225,11 +225,11 @@ object Exports {
     case (JsLocation.Zero, _)                                      => JsLocation.Zero
   }
 
-  def lookupExportFrom[T <: TsNamedDecl](scope:        TreeScope.Scoped,
+  def lookupExportFrom[T <: TsNamedDecl](scope:        TsTreeScope.Scoped,
                                          Pick:         Picker[T],
                                          wanted:       List[TsIdent],
                                          loopDetector: LoopDetector,
-                                         owner:        TsDeclNamespaceOrModule): Seq[(T, TreeScope)] =
+                                         owner:        TsDeclNamespaceOrModule): Seq[(T, TsTreeScope)] =
     pickExports(scope.exports, wanted).flatMap {
       case PickedExport(e, newWanteds) =>
         expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner) match {

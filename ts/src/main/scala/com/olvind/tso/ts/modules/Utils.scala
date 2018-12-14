@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package modules
 
-import com.olvind.tso.ts.TreeScope.LoopDetector
+import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.transforms.SetJsLocation
 
 object Utils {
@@ -20,11 +20,11 @@ object Utils {
   /**
     * The `TreeScope` interface for this is somewhat awkward, so we at least contain it here
     */
-  def searchAmong[T <: TsNamedDecl](scope:        TreeScope.Scoped,
+  def searchAmong[T <: TsNamedDecl](scope:        TsTreeScope.Scoped,
                                     Pick:         Picker[T],
                                     wanted:       List[TsIdent],
                                     expandeds:    Seq[TsNamedDecl],
-                                    loopDetector: LoopDetector): Seq[(T, TreeScope)] = {
+                                    loopDetector: LoopDetector): Seq[(T, TsTreeScope)] = {
     wanted match {
       case first :: Nil =>
         return expandeds.collect {
