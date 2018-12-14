@@ -235,8 +235,10 @@ object Main extends App {
       action        = if (bintray.isDefined) "^publish" else "^publishLocal"
     )
 
-    val readme = targetFolder / "readme.md"
-    files.softWrite(readme)(_.print(Readme(summary, RunId)))
+    val readme    = targetFolder / "readme.md"
+    val locOutput = Try(%%('loc)(targetFolder)).toOption.map(_.out.string)
+
+    files.softWrite(readme)(_.print(Readme(summary, RunId, locOutput)))
 
     logger error "Committing..."
     val summaryString =
