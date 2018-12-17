@@ -3,6 +3,7 @@ package phases
 
 import com.olvind.logging.{Formatter, Logger}
 
+import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.{Failure, Success}
@@ -11,9 +12,11 @@ import scala.util.{Failure, Success}
   * Runs a computation given a sequence of input ids.
   */
 object PhaseRunner {
-  def apply[_Id: Formatter, T](phase: RecPhase[_Id, T], getLogger: _Id => Logger[Unit], listener: PhaseListener[_Id])(
-      initial: phase._Id
-  ): PhaseRes[phase._Id, phase._T] =
+  def apply[Id: Formatter, T](
+      phase:     RecPhase[Id, T],
+      getLogger: Id => Logger[Unit],
+      listener:  PhaseListener[Id]
+  )(initial:     phase._Id): PhaseRes[phase._Id, phase._T] =
     go(phase, initial, Nil, getLogger, listener)
 
   def go[Id: Formatter, TT](phase: RecPhase[Id, TT],
@@ -47,15 +50,13 @@ object PhaseRunner {
           val resLastPhase: PhaseRes[Id, T] =
             go(next.prev, id, Nil, getLogger, listener)
 
-          def calculateDeps(newRequestedIds: Set[Id]): PhaseRes[Id, Map[Id, TT]] = {
+          def calculateDeps(newRequestedIds: SortedSet[Id]): PhaseRes[Id, Map[Id, TT]] = {
             listener.on(next.name, id, PhaseListener.Blocked(next.name, newRequestedIds.map(Formatter.apply[Id])))
 
             val ret: PhaseRes[Id, Map[Id, TT]] =
               PhaseRes.sequenceMap(
                 newRequestedIds
-                  .to[Seq] // note, important to avoid a `Set` of `T`s
-                  .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))
-                  .toMap
+                  .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))(collection.breakOut)
               )
 
             listener.on(next.name, id, PhaseListener.Started(next.name))

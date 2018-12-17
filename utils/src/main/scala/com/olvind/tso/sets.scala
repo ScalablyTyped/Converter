@@ -1,4 +1,5 @@
 package com.olvind.tso
+import scala.collection.immutable.SortedSet
 
 object sets {
   object EmptySet {
@@ -7,5 +8,10 @@ object sets {
 
   object NonEmptySet {
     def unapply[T](ts: Set[T]): Option[Set[T]] = if (ts.nonEmpty) Some(ts) else None
+  }
+
+  @inline final implicit class SetOps[T](private val ts: Set[T]) extends AnyVal {
+    @inline def sorted(implicit O: Ordering[T]): SortedSet[T] =
+      SortedSet.empty[T] ++ ts
   }
 }

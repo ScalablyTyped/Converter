@@ -10,6 +10,7 @@ import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.modules._
 import com.olvind.tso.ts.{transforms => T, _}
+import sets.SetOps
 
 class Phase1ReadTypescript(resolve:      LibraryResolver,
                            ignored:      Set[String],
@@ -87,7 +88,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
             /* Ensure we resolved all modules referenced by a path directive */
             pathRefs <- PhaseRes sequenceSet (pathRefsR ++ libRefsR)
             /* Assert all path directive referenced modules are files (not libraries) */
-            toInline <- getDeps(pathRefs) map assertPartsOnly map (_.values.map(_.file))
+            toInline <- getDeps(pathRefs.sorted) map assertPartsOnly map (_.values.map(_.file))
 
             withoutDirectives = parsed.copy(directives = remaining.to[Seq])
 
@@ -104,7 +105,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
             inferredDeps <- PhaseRes sequenceSet (inferredDepNames map (n => resolveDep(n.value)))
 
             /* look up all resulting dependencies */
-            parts <- getDeps(withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps)
+            parts <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
           } yield LibraryPart(FileAndRefsRec(withExternals.rewritten, toInline.to[Seq]), parts)
         }
 
@@ -141,7 +142,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
           val stdlibSourceOpt: Option[Source] =
             if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
 
-          getDeps(fileSources ++ declaredDependencies ++ stdlibSourceOpt) map {
+          getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
             case Unpack(libParts: Map[Source.TsHelperFile, FileAndRefs], deps: Map[TsLibSource, LibTs], contribs) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)

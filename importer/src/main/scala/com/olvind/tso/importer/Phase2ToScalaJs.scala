@@ -8,6 +8,8 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.transforms.FakeLiterals
 import com.olvind.tso.scalajs.{ContainerTree, Name, TreeScope, transforms => S}
 
+import scala.collection.immutable.SortedSet
+
 class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(source:     Source,
@@ -22,7 +24,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
         PhaseRes.Ignore()
 
       case lib: LibTs =>
-        getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) map {
+        getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) map {
           case Phase2Res.Unpack(scalaDeps, contribs) =>
             val scope = new TreeScope.Root(
               libName       = ImportName(lib.name),

@@ -12,12 +12,14 @@ import com.olvind.tso.importer.Phase2Res.{Contrib, LibScalaJs}
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrarySimple
 import fansi.Back
 import monix.eval.Task
 import monix.execution.Scheduler
 import xsbti.Severity
 
+import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
@@ -72,7 +74,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
             )
           )
 
-        dependencies flatMap getDeps flatMap {
+        dependencies flatMap (x => getDeps(x.sorted)) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
             val sourceFilesBase: Map[RelPath, (Array[Byte], FileTime)] =
               ls.rec(source.path / 'src)
@@ -124,7 +126,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
         }
 
       case lib: LibScalaJs =>
-        getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) flatMap {
+        getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
             val scalaFiles = Printer(lib.packageTree, mainPackageName)
             val sourcesDir = RelPath("src") / 'main / 'scala
