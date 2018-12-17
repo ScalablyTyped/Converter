@@ -22,6 +22,9 @@ trait ImporterHarness extends FunSuiteLike {
   private val testLogger   = logging.stdout.filter(LogLevel.error)
   private val version      = Versions.`scala 2.12 with scala.js 0.6.25`
   private val bloopFactory = new BloopFactory(testLogger)
+  // hack: there is some flakiness while resolving scalac/scalajs plugin.
+  // We only evaluate it once to make either all or none of the tests fail because of it
+  private val bloop = bloopFactory.forVersion(version)
 
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
@@ -45,7 +48,8 @@ trait ImporterHarness extends FunSuiteLike {
         .next(
           new Phase3CompileBloop(
             versions        = version,
-            bloopFactory    = bloopFactory,
+            bloopLogger     = bloopFactory.bloopLogger,
+            bloop           = bloop,
             targetFolder    = targetFolder,
             mainPackageName = OutputPkg,
             projectName     = "ScalablyTyped",

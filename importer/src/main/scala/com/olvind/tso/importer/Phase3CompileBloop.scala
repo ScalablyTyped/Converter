@@ -7,23 +7,27 @@ import java.time.{Instant, ZonedDateTime}
 import ammonite.ops._
 import bloop.io.AbsolutePath
 import bloop.{Compiler, DependencyResolution}
+import bloop.logging.{Logger => BloopLogger}
 import com.olvind.logging.{Formatter, LogLevel, Logger}
 import com.olvind.tso.importer.Phase2Res.{Contrib, LibScalaJs}
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrarySimple
 import fansi.Back
 import monix.eval.Task
 import monix.execution.Scheduler
 import xsbti.Severity
 
+import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 class Phase3CompileBloop(resolve:         LibraryResolver,
                          versions:        Versions,
-                         bloopFactory:    BloopFactory,
+                         bloop:           BloopCompiler,
+                         bloopLogger:     BloopLogger,
                          targetFolder:    Path,
                          mainPackageName: Name,
                          projectName:     String,
@@ -31,8 +35,6 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                          publishFolder:   Path,
                          scheduler:       Scheduler)
     extends Phase[Source, Phase2Res, PublishedSbtProject] {
-
-  private val bloop = bloopFactory.forVersion(versions)
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
     case (path, value) if path.ext === "scala" || path.ext === "sbt" => value
@@ -63,16 +65,10 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
         def externalDeps: Set[AbsolutePath] =
           buildJson.dependencies.flatMap(
-            dep =>
-              DependencyResolution.resolve(
-                dep.org,
-                versions.sjs(dep.artifact),
-                dep.version,
-                bloopFactory.bloopLogger
-            )
+            dep => DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)
           )
 
-        dependencies flatMap getDeps flatMap {
+        dependencies flatMap (x => getDeps(x.sorted)) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
             val sourceFilesBase: Map[RelPath, (Array[Byte], FileTime)] =
               ls.rec(source.path / 'src)
@@ -124,7 +120,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
         }
 
       case lib: LibScalaJs =>
-        getDeps(lib.dependencies.keys.map(x => x: Source).to[Set]) flatMap {
+        getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
             val scalaFiles = Printer(lib.packageTree, mainPackageName)
             val sourcesDir = RelPath("src") / 'main / 'scala

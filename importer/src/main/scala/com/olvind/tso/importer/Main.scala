@@ -15,10 +15,12 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Readme
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
+import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
 import monix.execution.Scheduler
 
+import scala.collection.immutable.SortedSet
 import scala.collection.parallel.ForkJoinTaskSupport
 import scala.concurrent.ExecutionContext
 import scala.util.Try
@@ -106,8 +108,8 @@ object Main extends App {
   val contribSources: Set[Source] =
     ls(contribFolder).map(path => Source.ContribSource(InFolder(path)): Source).to[Set]
 
-  val tsSources: Set[Source] =
-    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored) ++ contribSources, config.wantedLibNames) match {
+  val tsSources: SortedSet[Source] =
+    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ contribSources, config.wantedLibNames) match {
       case (sources, sets.EmptySet()) => sources
       case (sources, wantedLibsStrings) =>
         val wantedLibNames: Set[TsIdentLibrary] =
@@ -158,7 +160,8 @@ object Main extends App {
       .next(
         new Phase3CompileBloop(
           versions        = config.versions,
-          bloopFactory    = bloopFactory,
+          bloop           = bloopFactory.forVersion(config.versions),
+          bloopLogger     = bloopFactory.bloopLogger,
           targetFolder    = targetFolder,
           mainPackageName = config.outputPkg,
           projectName     = config.projectName,
@@ -175,11 +178,11 @@ object Main extends App {
   interface.start()
 
   /* todo: parallel collections suck, but are super easy to use. We'll settle with that for now */
-  val par  = tsSources.par
+  val par  = tsSources.toVector.par
   val pool = new ForkJoinPool(config.parallelLibraries)
 
   par.tasksupport = new ForkJoinTaskSupport(pool)
-  val results: Set[PhaseRes[Source, PublishedSbtProject]] =
+  val results: Seq[PhaseRes[Source, PublishedSbtProject]] =
     par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
 
   pool.shutdown()
@@ -216,7 +219,7 @@ object Main extends App {
     def go(p: PublishedSbtProject): Set[PublishedSbtProject] =
       p.project.deps.values.flatMap(go).to[Set] + p
 
-    results.collect { case PhaseRes.Ok(res) => go(res) }.flatten
+    results.collect { case PhaseRes.Ok(res) => go(res) }.flatten.to[Set]
   }
 
   if (config.debugMode) {
