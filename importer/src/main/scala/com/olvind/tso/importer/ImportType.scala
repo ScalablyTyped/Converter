@@ -150,16 +150,16 @@ object ImportType {
         }
       case TsTypeUnion(types) =>
         types.partitionCollect { case TsTypeRef.undefined => } match {
-          case (Nil, ts)     => TypeRef.Union(ts map apply(wildcards, scope))
+          case (Nil, ts)     => TypeRef.Union(ts map apply(wildcards, scope), sort = false)
           case (_, Seq(one)) => TypeRef.UndefOr(apply(wildcards.maybeAllow, scope)(one))
-          case (_, ts)       => TypeRef.UndefOr(TypeRef.Union(ts map apply(wildcards, scope)))
+          case (_, ts)       => TypeRef.UndefOr(TypeRef.Union(ts map apply(wildcards, scope), sort = false))
         }
 
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types map apply(Wildcards.No, scope))
 
       case TsTypeConstructor(TsTypeFunction(sig)) =>
-        signature(scope, sig, NoComments)
+        newableFunction(scope, sig, NoComments)
 
       case TsTypeKeyOf(_) =>
         TypeRef.String
@@ -192,7 +192,7 @@ object ImportType {
     }
   }
 
-  def signature(scope: TsTreeScope.Scoped, _sig: TsFunSig, comments: Comments): TypeRef = {
+  def newableFunction(scope: TsTreeScope.Scoped, _sig: TsFunSig, comments: Comments): TypeRef = {
     /* get rid of type parameters and fill them with bound / object */
     val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
     val sig   = ts.FillInTParams(_sig, targs)

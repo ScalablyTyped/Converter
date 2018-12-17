@@ -3,7 +3,7 @@ package phases
 
 import com.olvind.logging.{Formatter, Logger}
 
-import scala.collection.immutable.SortedSet
+import scala.collection.immutable.{SortedMap, SortedSet}
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.{Failure, Success}
@@ -12,28 +12,28 @@ import scala.util.{Failure, Success}
   * Runs a computation given a sequence of input ids.
   */
 object PhaseRunner {
-  def apply[Id: Formatter, T](
+  def apply[Id: Formatter: Ordering, T](
       phase:     RecPhase[Id, T],
       getLogger: Id => Logger[Unit],
       listener:  PhaseListener[Id]
   )(initial:     phase._Id): PhaseRes[phase._Id, phase._T] =
     go(phase, initial, Nil, getLogger, listener)
 
-  def go[Id: Formatter, TT](phase: RecPhase[Id, TT],
-                            id:             Id,
-                            circuitBreaker: List[Id],
-                            getLogger:      Id => Logger[Unit],
-                            listener:       PhaseListener[Id]): PhaseRes[Id, TT] =
+  def go[Id: Formatter: Ordering, TT](phase: RecPhase[Id, TT],
+                                      id:             Id,
+                                      circuitBreaker: List[Id],
+                                      getLogger:      Id => Logger[Unit],
+                                      listener:       PhaseListener[Id]): PhaseRes[Id, TT] =
     phase match {
       case _:    RecPhase.Initial[Id]     => PhaseRes.Ok[Id, TT](id)
       case next: RecPhase.Next[Id, t, TT] => doNext[Id, t, TT](next, id, circuitBreaker, getLogger, listener)
     }
 
-  def doNext[Id: Formatter, T, TT](next: RecPhase.Next[Id, T, TT],
-                                   id:             Id,
-                                   circuitBreaker: List[Id],
-                                   getLogger:      Id => Logger[Unit],
-                                   listener:       PhaseListener[Id]): PhaseRes[Id, TT] = {
+  def doNext[Id: Formatter: Ordering, T, TT](next: RecPhase.Next[Id, T, TT],
+                                             id:             Id,
+                                             circuitBreaker: List[Id],
+                                             getLogger:      Id => Logger[Unit],
+                                             listener:       PhaseListener[Id]): PhaseRes[Id, TT] = {
 
     val isCircular = circuitBreaker contains id
 
@@ -50,10 +50,10 @@ object PhaseRunner {
           val resLastPhase: PhaseRes[Id, T] =
             go(next.prev, id, Nil, getLogger, listener)
 
-          def calculateDeps(newRequestedIds: SortedSet[Id]): PhaseRes[Id, Map[Id, TT]] = {
+          def calculateDeps(newRequestedIds: SortedSet[Id]): PhaseRes[Id, SortedMap[Id, TT]] = {
             listener.on(next.name, id, PhaseListener.Blocked(next.name, newRequestedIds.map(Formatter.apply[Id])))
 
-            val ret: PhaseRes[Id, Map[Id, TT]] =
+            val ret: PhaseRes[Id, SortedMap[Id, TT]] =
               PhaseRes.sequenceMap(
                 newRequestedIds
                   .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))(

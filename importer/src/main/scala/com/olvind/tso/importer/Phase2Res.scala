@@ -2,8 +2,10 @@ package com.olvind.tso
 package importer
 
 import com.olvind.tso.importer.Source.{ContribSource, TsLibSource}
+import com.olvind.tso.maps.MapOps
 import com.olvind.tso.scalajs.{ContainerTree, TreeScope}
 
+import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
 sealed trait Phase2Res
@@ -22,10 +24,10 @@ object Phase2Res {
       with TreeScope.Lib
 
   object Unpack {
-    def unapply(_m: Map[Source, Phase2Res]): Some[(Map[TsLibSource, LibScalaJs], Set[ContribSource])] =
+    def unapply(_m: SortedMap[Source, Phase2Res]): Some[(SortedMap[TsLibSource, LibScalaJs], Set[ContribSource])] =
       Some(apply(_m))
 
-    def apply(_m: Map[Source, Phase2Res]): (Map[TsLibSource, LibScalaJs], Set[ContribSource]) = {
+    def apply(_m: SortedMap[Source, Phase2Res]): (SortedMap[TsLibSource, LibScalaJs], Set[ContribSource]) = {
 
       val libs     = mutable.HashMap.empty[TsLibSource, LibScalaJs]
       val contribs = mutable.HashSet.empty[ContribSource]
@@ -43,7 +45,7 @@ object Phase2Res {
 
       go(_m)
 
-      (libs.toMap, contribs.to[Set])
+      (libs.sorted, contribs.to[Set])
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibScalaJs], ds: Map[TsLibSource, LibScalaJs]): Unit =

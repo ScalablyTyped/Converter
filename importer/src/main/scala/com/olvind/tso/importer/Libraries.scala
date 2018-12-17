@@ -44,6 +44,7 @@ object Libraries {
     "gestalt",
     "graphql-tools",
     "grommet",
+    "@grpc/proto-loader",
     "@hyperloris/tyson",
     "indefinite-observable",
     "@ionic/discover",
@@ -144,6 +145,8 @@ object Libraries {
       // exponential growth in parsing time :/
       "echarts",
       "@pulumi/aws",
+      // some new kind of circular dependency causes the phase runner to wait forever
+      "mali",
       // these are just slow
       //      "dojo",
       //      "react-icons",

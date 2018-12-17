@@ -315,7 +315,7 @@ object ImportTree {
           )
         )
       case TsMemberCtor(cs, _, _sig) =>
-        Seq(MemberRet.Inheritance(ImportType.signature(scope, _sig, cs)))
+        Seq(MemberRet.Inheritance(ImportType.newableFunction(scope, _sig, cs)))
 
       case TsMemberFunction(cs, level, TsIdent.constructor, sig, false, _, _) =>
         Seq(MemberRet.Ctor(CtorTree(level, tsFunParams(scope / sig, params = sig.params), cs ++ sig.comments)))

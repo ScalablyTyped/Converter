@@ -3,7 +3,9 @@ package importer
 package build
 
 import ammonite.ops.Path
+import com.olvind.tso.maps.MapOps
 
+import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
 case class SbtProject(name: String, organization: String, artifactId: String, version: String)(
@@ -19,10 +21,10 @@ case class PublishedSbtProject(project: SbtProject)(
 
 object PublishedSbtProject {
   object Unpack {
-    def unapply(_m: Map[Source, PublishedSbtProject]): Some[Map[Source, PublishedSbtProject]] =
+    def unapply(_m: SortedMap[Source, PublishedSbtProject]): Some[SortedMap[Source, PublishedSbtProject]] =
       Some(apply(_m))
 
-    def apply(_m: Map[Source, PublishedSbtProject]): Map[Source, PublishedSbtProject] = {
+    def apply(_m: SortedMap[Source, PublishedSbtProject]): SortedMap[Source, PublishedSbtProject] = {
       val ret = mutable.HashMap.empty[Source, PublishedSbtProject]
 
       def go(libs: mutable.Map[Source, PublishedSbtProject], ds: Map[Source, PublishedSbtProject]): Unit =
@@ -35,7 +37,7 @@ object PublishedSbtProject {
         }
 
       go(ret, _m)
-      ret.toMap
+      ret.sorted
     }
   }
 }

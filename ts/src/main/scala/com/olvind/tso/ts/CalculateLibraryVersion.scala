@@ -2,17 +2,19 @@ package com.olvind.tso
 package ts
 
 import java.net.URI
+import java.time.{Instant, ZonedDateTime}
 
-import ammonite.ops.{%%, stat}
+import ammonite.ops.%%
 
 import scala.util.{Success, Try}
 
 object CalculateLibraryVersion {
 
-  def apply(sourceFolder:   InFolder,
-            sourceFiles:    Seq[InFile],
-            packageJsonOpt: Option[PackageJsonDeps],
-            comments:       Comments): LibraryVersion = {
+  def apply(sourceFolder:     InFolder,
+            sourceFiles:      Seq[InFile],
+            lastChangedIndex: RepoLastChangedIndex,
+            packageJsonOpt:   Option[PackageJsonDeps],
+            comments:         Comments): LibraryVersion = {
     implicit val wd = sourceFolder.path
 
     val libraryVersion = packageJsonOpt.flatMap(_.version) orElse
@@ -24,7 +26,11 @@ object CalculateLibraryVersion {
     val inGit: Option[InGit] =
       Try(new URI((%% git ('remote, "get-url", 'origin)).out.string.trim)) match {
         case Success(uri) =>
-          def lastModified = stat(sourceFolder.path).mtime.toInstant.atZone(constants.TimeZone)
+          val lastModified = ZonedDateTime.ofInstant(
+            Instant.ofEpochSecond(lastChangedIndex.values(sourceFolder.path)),
+            constants.TimeZone
+          )
+
           Some(InGit(uri, uri === constants.DefinitelyTypedRepo, lastModified))
         case _ => None
       }

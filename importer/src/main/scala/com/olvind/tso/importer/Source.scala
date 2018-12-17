@@ -46,7 +46,7 @@ object Source {
     override val libName = TsIdentLibrarySimple(folder.path.name + "-" + "contrib")
   }
 
-  implicit val SourceKey:       Key[Source]       = Key.of[Source, String](_.key)
-  implicit val SourceOrdering:  Ordering[Source]  = Ordering.by[Source, String](_.path.toString())
-  implicit val SourceFormatter: Formatter[Source] = _.libName.value
+  implicit val SourceKey:                   Key[Source]       = Key.of[Source, String](_.key)
+  implicit def SourceOrdering[S <: Source]: Ordering[S]       = Ordering.by[S, String](_.key)
+  implicit val SourceFormatter:             Formatter[Source] = _.libName.value
 }
