@@ -24,7 +24,7 @@ trait ImporterHarness extends FunSuiteLike {
   private val bloopFactory = new BloopFactory(testLogger)
   // hack: there is some flakiness while resolving scalac/scalajs plugin.
   // We only evaluate it once to make either all or none of the tests fail because of it
-  private val bloop        = bloopFactory.forVersion(version)
+  private val bloop = bloopFactory.forVersion(version)
 
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
