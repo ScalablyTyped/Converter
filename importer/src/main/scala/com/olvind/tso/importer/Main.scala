@@ -109,8 +109,7 @@ object Main extends App {
     ls(contribFolder).map(path => Source.ContribSource(InFolder(path)): Source).to[Set]
 
   val tsSources: SortedSet[Source] =
-    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ contribSources,
-     config.wantedLibNames) match {
+    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ contribSources, config.wantedLibNames) match {
       case (sources, sets.EmptySet()) => sources
       case (sources, wantedLibsStrings) =>
         val wantedLibNames: Set[TsIdentLibrary] =
@@ -161,7 +160,8 @@ object Main extends App {
       .next(
         new Phase3CompileBloop(
           versions        = config.versions,
-          bloopFactory    = bloopFactory,
+          bloop           = bloopFactory.forVersion(config.versions),
+          bloopLogger     = bloopFactory.bloopLogger,
           targetFolder    = targetFolder,
           mainPackageName = config.outputPkg,
           projectName     = config.projectName,
