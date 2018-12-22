@@ -26,7 +26,7 @@ object CombineOverloads extends TreeTransformation {
         case (params, i) =>
           params.zipWithIndex map {
             case (param, j) =>
-              param.copy(tpe = asUnionType(methods.map(_.params(i).apply(j).tpe)))
+              param.copy(tpe = asUnionType(methods.map(_.params(i)(j).tpe)))
           }
       }
 
@@ -64,28 +64,23 @@ object CombineOverloads extends TreeTransformation {
     default +: suffixed
   }
 
-  /* recursively combine `_params` into one `TypeRef` Using union types */
-  def asUnionType(_params: Seq[TypeRef]): TypeRef =
-    _params match {
+  def asUnionType(_types: Seq[TypeRef]): TypeRef =
+    _types match {
       case head +: Nil =>
         head
 
-      case params if params.map(_.typeName).distinct.size === 1 =>
-        val typeName = params.head.typeName
-        val targs: Seq[TypeRef] =
-          if (typeName === QualifiedName.UNION)
-            params.flatMap(_.targs).distinct
-          else params.map(_.targs).transpose.map(asUnionType)
+      case sameTypeName if sameTypeName.map(_.typeName).distinct.size === 1 =>
+        val typeName = sameTypeName.head.typeName
 
-        TypeRef(typeName, targs, Comments.flatten(params)(_.comments))
+        if (typeName === QualifiedName.UNION)
+          TypeRef.Union(sameTypeName.flatMap(_.targs), sort = true)
+        else {
+          val combinedTArgs: Seq[TypeRef] = sameTypeName.map(_.targs).transpose.map(asUnionType)
+          TypeRef(typeName, combinedTArgs, Comments.flatten(sameTypeName)(_.comments))
+        }
 
-      case params =>
-        TypeRef.Union(
-          params
-            .groupBy(_.typeName)
-            .values
-            .to[Seq] map asUnionType sortBy (_.typeName.toString)
-        )
+      case types =>
+        TypeRef.Union(types.groupBy(_.typeName).values.toList.map(asUnionType), sort = true)
     }
 
   def combineOverloads(scope: TreeScope, methods: Seq[MethodTree]): Seq[MethodTree] = {

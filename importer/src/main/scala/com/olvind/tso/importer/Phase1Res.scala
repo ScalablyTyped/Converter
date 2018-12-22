@@ -3,7 +3,8 @@ package importer
 
 import com.olvind.tso.importer.Source.{ContribSource, TsHelperFile, TsLibSource}
 import com.olvind.tso.ts.{TsConfig, TsIdentLibrary, TsParsedFile}
-
+import maps.MapOps
+import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
 sealed trait Phase1Res
@@ -19,17 +20,17 @@ object Phase1Res {
       val version:               LibraryVersion,
       val tsConfig:              Option[TsConfig],
       val parsed:                TsParsedFile,
-      val dependencies:          Map[TsLibSource, LibTs],
+      val dependencies:          SortedMap[TsLibSource, LibTs],
       val contribs:              Set[ContribSource]
   ) extends Phase1Res {
     def name: TsIdentLibrary = source.libName
   }
 
-  case class LibraryPart(file: FileAndRefsRec, parts: Map[Source, Phase1Res]) extends Phase1Res
+  case class LibraryPart(file: FileAndInlinesRec, deps: SortedMap[Source, Phase1Res]) extends Phase1Res
 
-  case class FileAndRefsRec(file: TsParsedFile, pathRefFiles: Seq[FileAndRefsRec])
+  case class FileAndInlinesRec(file: TsParsedFile, toInline: SortedMap[Source, LibraryPart])
 
-  case class FileAndRefs(file: TsParsedFile, pathRefFiles: Seq[TsParsedFile])
+  case class FileAndInlinesFlat(file: TsParsedFile, toInline: SortedMap[Source, TsParsedFile])
 
   object UnpackLibs {
     def unapply(_m: Map[TsLibSource, LibTs]): Some[Map[TsLibSource, LibTs]] =
@@ -44,15 +45,15 @@ object Phase1Res {
 
   object Unpack {
     def unapply(
-        _m: Map[Source, Phase1Res]
-    ): Some[(Map[TsHelperFile, FileAndRefs], Map[TsLibSource, LibTs], Set[ContribSource])] =
+        _m: SortedMap[Source, Phase1Res]
+    ): Some[(SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[ContribSource])] =
       Some(apply(_m))
 
     def apply(
-        _m: Map[Source, Phase1Res]
-    ): (Map[TsHelperFile, FileAndRefs], Map[TsLibSource, LibTs], Set[ContribSource]) = {
+        _m: SortedMap[Source, Phase1Res]
+    ): (SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[ContribSource]) = {
 
-      val libParts = mutable.HashMap.empty[TsHelperFile, FileAndRefs]
+      val libParts = mutable.HashMap.empty[TsHelperFile, FileAndInlinesFlat]
       val libs     = mutable.HashMap.empty[TsLibSource, LibTs]
       val contribs = mutable.HashSet.empty[ContribSource]
 
@@ -60,8 +61,23 @@ object Phase1Res {
         m foreach {
           case (s: TsHelperFile, libPart: LibraryPart) =>
             if (!libParts.contains(s)) {
-              libParts(s) = FileAndRefs(libPart.file.file, goRefs(libPart.file))
-              go(libPart.parts)
+              def flatten(os: Option[Source], _f: FileAndInlinesRec): SortedMap[Source, TsParsedFile] = {
+                val first: SortedMap[Source, TsParsedFile] =
+                  os match {
+                    case None     => SortedMap.empty
+                    case Some(s2) => SortedMap(s2 -> _f.file)
+                  }
+                val rest: SortedMap[Source, TsParsedFile] =
+                  _f.toInline.flatMap {
+                    case (s2, x: LibraryPart) =>
+                      go(x.deps)
+                      flatten(Some(s2), x.file)
+                  }
+                first ++ rest
+              }
+
+              libParts(s) = FileAndInlinesFlat(libPart.file.file, flatten(None, libPart.file))
+              go(libPart.deps)
             }
           case (s: TsLibSource, lib: LibTs) =>
             if (!libs.contains(s)) {
@@ -74,11 +90,8 @@ object Phase1Res {
 
       go(_m)
 
-      (libParts.toMap, libs.toMap, contribs.to[Set])
+      (libParts.sorted, libs.sorted, contribs.to[Set])
     }
-
-    private def goRefs(file: FileAndRefsRec): Seq[TsParsedFile] =
-      file.pathRefFiles.map(_.file) ++ file.pathRefFiles.flatMap(goRefs)
 
     def goLibs(libs: mutable.Map[TsLibSource, LibTs], ds: Map[TsLibSource, LibTs]): Unit =
       ds foreach {

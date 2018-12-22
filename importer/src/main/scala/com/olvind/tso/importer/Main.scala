@@ -141,18 +141,20 @@ object Main extends App {
     contribFolder = Some(InFolder(contribFolder))
   )
 
-  val compilePool = new ForkJoinPool(config.parallelScalas)
-  val scheduler   = Scheduler(compilePool)
+  val compilePool      = new ForkJoinPool(config.parallelScalas)
+  val scheduler        = Scheduler(compilePool)
+  val lastChangedIndex = RepoLastChangedIndex(dtFolder.path / up)
 
   val Phase: RecPhase[Source, PublishedSbtProject] =
     RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          resolve      = resolve,
-          ignored      = Libraries.ignored,
-          stdlibSource = stdLibSource,
-          pedantic     = config.pedantic,
-          parser       = PersistingFunction(nameAndMtimeUnder(parseCacheFolder), logger.void)(parseFile)
+          lastChangedIndex = lastChangedIndex,
+          resolve          = resolve,
+          ignored          = Libraries.ignored,
+          stdlibSource     = stdLibSource,
+          pedantic         = config.pedantic,
+          parser           = PersistingFunction(nameAndMtimeUnder(parseCacheFolder), logger.void)(parseFile)
         ),
         "typescript"
       )

@@ -43,7 +43,7 @@ org.scalablytyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding 
      * @param buffer The buffer to copy.
      */
 org.scalablytyped.runtime.Instantiable1[
-      (/* str */ java.lang.String) | (/* size */ scala.Double) | (/* array */ stdLib.Uint8Array) | (/* arrayBuffer */ stdLib.ArrayBuffer) | (/* array */ js.Array[js.Any]) | (/* buffer */ Buffer), 
+      (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ stdLib.ArrayBuffer) | (/* buffer */ Buffer) | (/* size */ scala.Double) | (/* str */ java.lang.String) | (/* array */ stdLib.Uint8Array), 
       Buffer
     ] {
   /**

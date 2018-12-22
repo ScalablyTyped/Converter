@@ -7,16 +7,19 @@ import com.olvind.tso.importer.Phase1Res._
 import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
+import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.modules._
 import com.olvind.tso.ts.{transforms => T, _}
-import sets.SetOps
 
-class Phase1ReadTypescript(resolve:      LibraryResolver,
-                           ignored:      Set[String],
-                           stdlibSource: Source,
-                           pedantic:     Boolean,
-                           parser:       InFile => Either[String, TsParsedFile])
+import scala.collection.immutable.SortedMap
+
+class Phase1ReadTypescript(resolve:          LibraryResolver,
+                           lastChangedIndex: RepoLastChangedIndex,
+                           ignored:          Set[String],
+                           stdlibSource:     Source,
+                           pedantic:         Boolean,
+                           parser:           InFile => Either[String, TsParsedFile])
     extends Phase[Source, Source, Phase1Res] {
 
   import jsonCodecs._
@@ -50,7 +53,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
             Right(s"Couldn't resolve $value")
         )
 
-        def assertPartsOnly(m: Map[Source, Phase1Res]): Map[Source, LibraryPart] =
+        def assertPartsOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibraryPart] =
           m.map {
             case (s, part: LibraryPart) => s -> part
             case (s, other) => sys.error(s"$s: Unexpected $other")
@@ -88,7 +91,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
             /* Ensure we resolved all modules referenced by a path directive */
             pathRefs <- PhaseRes sequenceSet (pathRefsR ++ libRefsR)
             /* Assert all path directive referenced modules are files (not libraries) */
-            toInline <- getDeps(pathRefs.sorted) map assertPartsOnly map (_.values.map(_.file))
+            toInline <- getDeps(pathRefs.sorted) map assertPartsOnly
 
             withoutDirectives = parsed.copy(directives = remaining.to[Seq])
 
@@ -105,8 +108,8 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
             inferredDeps <- PhaseRes sequenceSet (inferredDepNames map (n => resolveDep(n.value)))
 
             /* look up all resulting dependencies */
-            parts <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
-          } yield LibraryPart(FileAndRefsRec(withExternals.rewritten, toInline.to[Seq]), parts)
+            deps <- getDeps((withExternals.resolvedDeps ++ typeReferencedDeps ++ inferredDeps).sorted)
+          } yield LibraryPart(FileAndInlinesRec(withExternals.rewritten, toInline), deps)
         }
 
       case source: Source.TsLibSource =>
@@ -143,16 +146,18 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
             if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
-            case Unpack(libParts: Map[Source.TsHelperFile, FileAndRefs], deps: Map[TsLibSource, LibTs], contribs) =>
+            case Unpack(libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
+                        deps:     SortedMap[TsLibSource, LibTs],
+                        contribs) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
               val preprocessed: Seq[TsParsedFile] =
-                libParts.to[Seq].sortBy(_._1.file.path) map {
+                libParts.to[Seq] map {
                   case (thisSource, file) =>
                     logger.info(s"Preprocessing $thisSource")
                     val _1 = InferredDefaultModule(file.file, thisSource.moduleName, logger)
-                    val _2 = FlattenTrees(_1 +: file.pathRefFiles)
+                    val _2 = FlattenTrees(_1 +: file.toInline.to[Seq].map(_._2))
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
@@ -194,6 +199,7 @@ class Phase1ReadTypescript(resolve:      LibraryResolver,
               val version = CalculateLibraryVersion(
                 source.folder,
                 libParts.keys.map(_.file).to[Seq],
+                lastChangedIndex,
                 packageJsonOpt,
                 finished.comments
               )

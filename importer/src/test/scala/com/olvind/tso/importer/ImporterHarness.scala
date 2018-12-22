@@ -15,6 +15,7 @@ import com.olvind.tso.ts._
 import monix.execution.Scheduler
 import org.scalatest.{Assertion, FunSuiteLike}
 
+import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success, Try}
 
@@ -35,15 +36,17 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: Path
-  ): PhaseRes[Source, Map[Source, PublishedSbtProject]] = {
+  ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
 
-    val resolve = new LibraryResolver(Seq(source), None)
+    val resolve          = new LibraryResolver(Seq(source), None)
+    val lastChangedIndex = RepoLastChangedIndex(source.path)
 
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
-        .next(new Phase1ReadTypescript(resolve, Set.empty, stdLibSource, pedantic, parser.parseFile), "typescript")
+        .next(new Phase1ReadTypescript(resolve, lastChangedIndex, Set.empty, stdLibSource, pedantic, parser.parseFile),
+              "typescript")
         .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
         .next(
           new Phase3CompileBloop(
@@ -64,7 +67,10 @@ trait ImporterHarness extends FunSuiteLike {
     val found: Set[TsLibSource] =
       TypescriptSources.forFolder(InFolder(source.path), Set.empty)
 
-    PhaseRes.sequenceMap(found.map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)).toMap)
+    PhaseRes.sequenceMap(
+      TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ found
+        .map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s))
+    )
   }
 
   def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean): Assertion = {

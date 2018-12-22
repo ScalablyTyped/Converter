@@ -3,6 +3,7 @@ package com.olvind.tso.phases
 import com.olvind.logging.Logger
 import com.olvind.logging.Logger.LoggedException
 
+import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.util.control.NonFatal
 
 sealed trait PhaseRes[Id, T] extends Product with Serializable {
@@ -53,14 +54,14 @@ object PhaseRes {
       case (Ignore(), Failure(error))        => Failure(error)
     }
 
-  def sequenceMap[Id, T](rs: Map[Id, PhaseRes[Id, T]]): PhaseRes[Id, Map[Id, T]] =
-    rs.foldLeft[PhaseRes[Id, Map[Id, T]]](Ok(Map.empty)) {
+  def sequenceMap[Id: Ordering, T](rs: SortedMap[Id, PhaseRes[Id, T]]): PhaseRes[Id, SortedMap[Id, T]] =
+    rs.foldLeft[PhaseRes[Id, SortedMap[Id, T]]](Ok(TreeMap.empty[Id, T])) {
       case (other, (_, Ignore()))                    => other
       case (Ok(map), (id, Ok(value)))                => Ok(map + ((id, value)))
       case (Ok(_), (_, Failure(errors)))             => Failure(errors)
       case (Failure(errors1), (_, Failure(errors2))) => Failure(errors1 ++ errors2)
       case (error @ Failure(_), _)                   => error
-      case (Ignore(), (id, Ok(value)))               => Ok(Map((id, value)))
+      case (Ignore(), (id, Ok(value)))               => Ok(TreeMap((id, value)))
       case (Ignore(), (_, Failure(errors)))          => Failure(errors)
     }
 

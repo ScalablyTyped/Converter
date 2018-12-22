@@ -234,16 +234,28 @@ object TypeRef {
   object Union {
     private def flattened(types: List[TypeRef]): List[TypeRef] =
       types flatMap {
-        case Union(inner) => inner
+        case Union(inner) => flattened(inner.toList)
         case other        => List(other)
       }
 
-    def apply(types: Seq[TypeRef]): TypeRef =
-      flattened(types.to[List]).distinct match {
+    /**
+      * @param sort matters surprisingly much, since union types dont commute.
+      * The best would be to always sort, but it's difficult because of subtyping.
+      * What we do for now is that when `tso` constructs a union type it's sorted (for consistent builds),
+      *  and when we encounter an existing we don't change it
+      */
+    def apply(types: Seq[TypeRef], sort: Boolean): TypeRef = {
+      val distinct = flattened(types.to[List]).distinct match {
+        case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
+        case otherwise      => otherwise
+      }
+
+      distinct match {
         case Nil        => TypeRef.Nothing
         case one :: Nil => one
         case more       => TypeRef(QualifiedName.UNION, more, NoComments)
       }
+    }
 
     def unapply(typeRef: TypeRef): Option[Seq[TypeRef]] =
       typeRef match {
