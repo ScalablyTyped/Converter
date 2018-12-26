@@ -11,11 +11,21 @@ object QualifyReferences extends TreeTransformationScopedChanges {
     else if (scope.isAbstract(name)) false
     else true
 
+  case class P(x: TsTypeQuery) extends Picker[TsNamedValueDecl] {
+    override def unapply(t: TsNamedDecl): Option[TsNamedValueDecl] =
+      t match {
+        case v: TsDeclVar        => if (v.tpe.exists(_ eq x)) None else Some(v)
+        case x: TsNamedValueDecl => Some(x)
+        case _ => None
+      }
+  }
+
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
       case x @ TsTypeQuery(expr) =>
         if (shouldQualify(expr, scope)) {
-          scope.lookupBase(Picker.NamedValues, expr, skipValidation = true) match {
+          val picker = P(x)
+          scope.lookupBase(picker, expr) match {
             case (found, _) +: _ =>
               found.codePath match {
                 case CodePath.NoPath => x
@@ -38,13 +48,14 @@ object QualifyReferences extends TreeTransformationScopedChanges {
     x.copy(implements = x.implements.map(i => resolveTypeRef(scope, i, picker)))
   }
 
-  private def resolveTypeRef(scope: TsTreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]) =
+  private def resolveTypeRef(scope: TsTreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]): TsTypeRef =
     if (shouldQualify(tr.name, scope)) {
       referenceFrom(scope.lookupBase(picker, tr.name)) match {
         case Some(newLocation) => tr.copy(name = newLocation.codePath)
         case None =>
-          scope.logger.warn(s"Couldn't qualify $tr, defaulting to any")
-          TsTypeRef.any
+          val msg = s"Couldn't qualify ${TsTypeFormatter(tr)}"
+          scope.logger.warn(msg)
+          TsTypeRef.any.copy(comments = Comments(Comment.warning(msg)))
       }
     } else tr
 

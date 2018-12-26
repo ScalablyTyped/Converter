@@ -21,7 +21,9 @@ object ImportEnum {
     val TsDeclEnum(cs, _, ImportName(name), members, isValue, exportedFrom, _, codePath) = e
 
     val baseInterface: TypeRef =
-      ImportType(Wildcards.No, scope)(TsTypeRef(exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Nil))
+      ImportType(Wildcards.No, scope)(
+        TsTypeRef(NoComments, exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Nil)
+      )
 
     val underlying = underlyingType(e)
 
@@ -31,7 +33,7 @@ object ImportEnum {
           scalajs.TypeAliasTree(
             name     = name,
             tparams  = Nil,
-            alias    = ImportType(Wildcards.No, scope)(TsTypeRef(ef.name, Nil)),
+            alias    = ImportType(Wildcards.No, scope)(TsTypeRef(NoComments, ef.name, Nil)),
             comments = NoComments
           )
         case None =>
@@ -88,8 +90,8 @@ object ImportEnum {
                 )
 
             val memberComments = Comments(literalOpt map {
-              case Left(x)  => Comment(s"/* ${x.literal} */ ")
-              case Right(x) => Comment(s"/* ${x.value} */ ")
+              case Left(x)  => Comment(s"/* ${x.literal} */")
+              case Right(x) => Comment(s"/* ${x.value} */")
             })
             val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
 

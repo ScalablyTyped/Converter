@@ -43,9 +43,12 @@ class DefaultedHasTParamsTest extends FunSuite with DiffingAssertions {
           List(TsTypeParam(NoComments, TsIdent("P"), None, Some(TsTypeObject(List()))),
                TsTypeParam(NoComments, TsIdent("S"), None, Some(TsTypeObject(List())))),
           List(
-            TsTypeRef(TsQIdent(List(TsIdent("ComponentLifecycle"))),
-                      List(TsTypeRef(TsQIdent(List(TsIdent("P"))), List()),
-                           TsTypeRef(TsQIdent(List(TsIdent("S"))), List())))
+            TsTypeRef(
+              NoComments,
+              TsQIdent(List(TsIdent("ComponentLifecycle"))),
+              List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("P"))), List()),
+                   TsTypeRef(NoComments, TsQIdent(List(TsIdent("S"))), List()))
+            )
           ),
           List(),
           CodePath.NoPath
@@ -57,9 +60,10 @@ class DefaultedHasTParamsTest extends FunSuite with DiffingAssertions {
           List(),
           TsTypeUnion(
             List(
-              TsTypeRef(TsQIdent(List(TsIdent("Component"))),
-                        List(TsTypeRef(TsQIdent(List(TsIdent("any"))), List()), TsTypeObject(List()))),
-              TsTypeRef(TsQIdent(List(TsIdent("Element"))), List())
+              TsTypeRef(NoComments,
+                        TsQIdent(List(TsIdent("Component"))),
+                        List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("any"))), List()), TsTypeObject(List()))),
+              TsTypeRef(NoComments, TsQIdent(List(TsIdent("Element"))), List())
             )
           ),
           CodePath.NoPath

@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait VueConfiguration extends js.Object {
   var devtools: scala.Boolean
   var ignoredElements: js.Array[java.lang.String | stdLib.RegExp]

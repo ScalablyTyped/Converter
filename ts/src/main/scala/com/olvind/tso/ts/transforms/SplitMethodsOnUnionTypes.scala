@@ -33,11 +33,11 @@ object SplitMethodsOnUnionTypes extends TreeTransformationScopedChanges {
         case (_, members: Seq[TsMember]) =>
           members flatMap {
             case x: TsMemberFunction if !x.isOptional && x.name =/= TsIdent.Apply =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case x: TsMemberCall =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case x: TsMemberCtor =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case other => Seq(other)
           }
       }
@@ -51,7 +51,7 @@ object SplitMethodsOnUnionTypes extends TreeTransformationScopedChanges {
         case (_, members: Seq[TsNamedDecl]) =>
           members flatMap {
             case x: TsDeclFunction if x.name =/= TsIdent.namespaced =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case other => Seq(other)
           }
       }

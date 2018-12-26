@@ -142,14 +142,14 @@ object Printer {
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
-        val sealedKw = if (isSealed) "sealed " else ""
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
           case Nil                                 => (CtorTree.defaultPublic, Nil)
           case head :: tail if head.params.isEmpty => (head, tail)
           case all                                 => (CtorTree.defaultProtected, all)
         }
 
-        print(sealedKw, classType.asString, " ", formatName(name))
+        print(formatComments(defaultCtor.comments))
+        print(if (isSealed) "sealed " else "", classType.asString, " ", formatName(name))
 
         if (tparams.nonEmpty)
           print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
@@ -377,10 +377,20 @@ object Printer {
     }
 
   def formatAnns(prefix: List[Name], anns: Seq[Annotation]): String =
-    if (anns.isEmpty) "" else (anns map formatAnn(prefix)).sorted.mkString("", "\n", "\n")
+    anns map formatAnn(prefix) filterNot (_.isEmpty) match {
+      case Nil       => ""
+      case formatted => formatted.sorted.mkString("", "\n", "\n")
+    }
 
   def formatComments(comments: Comments): String =
     comments.cs
-      .map(comment => stringUtils.escapeUnicodeEscapes(stringUtils.escapeNestedComments(comment.raw)))
+      .map(
+        comment =>
+          stringUtils.formatComment(
+            stringUtils.escapeUnicodeEscapes(
+              stringUtils.escapeNestedComments(comment.raw)
+            )
+        )
+      )
       .mkString("")
 }

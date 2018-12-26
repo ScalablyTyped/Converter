@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait ServeStaticOptions extends js.Object {
   var setHeaders: js.UndefOr[
     js.Function3[

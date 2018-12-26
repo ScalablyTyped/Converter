@@ -5,10 +5,7 @@ package transforms
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
 /**
-  * We also don't really implement this. We try to recover whatever useful types are in there
-  */
-/** We dont really implement this stuff, we just ignore the effects of the type mapping.
-  * This line below is a very rough approximation to picking the original unmapped type
+  * Enables some support for type lookups, and very little support for conditional types
   */
 object SimplifyTypes extends TreeTransformationScopedChanges {
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
@@ -40,7 +37,7 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
               val types: List[TsType] =
                 go(xx.ifFalse) ::: go(xx.ifTrue)
 
-              val inferredNames: Seq[TsIdent] =
+              lazy val inferredNames: Seq[TsIdent] =
                 TreeTraverse.collect(xx.pred) { case TsTypeInfer(tp) => tp.name }
 
               lazy val inferAny: TsType => TsType = {
@@ -60,28 +57,60 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
       case other => other
     }
 
-  def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
-    lookup.key match {
-      case Left(key) =>
-        lookup.from match {
-          case TsTypeRef(TsQIdent(Seq(tparam)), Nil) if scope.tparams.contains(tparam) => None
-          case fromTypeRef: TsTypeRef =>
-            val members = AllMembersFor(scope, new LoopDetector)(fromTypeRef)
-            Some(unify(pickNonStatic(members, key)))
+  def memberName(x: TsMember): Option[TsIdent] = x match {
+    case x: TsMemberProperty => Some(x.name)
+    case x: TsMemberFunction => Some(x.name)
+    case _ => None
+  }
 
-          case TsTypeObject(members) => Some(unify(pickNonStatic(members, key)))
-          case _                     => None
-        }
-      case Right(_) =>
-        //todo: need to investigate what's going on here
-        None
+  def nonEmpty[C[t] <: TraversableOnce[t], T](ct: C[T]): Option[C[T]] =
+    if (ct.isEmpty) None else Some(ct)
+
+  def keysOf(scope: TsTreeScope)(target: TsType): Seq[TsIdent] =
+    target match {
+      case ref: TsTypeRef =>
+        AllMembersFor(scope, new LoopDetector())(ref).flatMap(memberName)
+      case TsTypeObject(members) =>
+        members flatMap memberName
+      case TsTypeUnion(types) =>
+        types flatMap keysOf(scope)
+      case TsTypeIntersect(types) =>
+        types flatMap keysOf(scope)
+      case _ =>
+        Nil
     }
 
-  def pickNonStatic(members: Seq[TsMember], key: TsIdent): Seq[TsType] =
+  def stringsFrom(scope: TsTreeScope, tpe: TsType): Option[Set[TsIdent]] =
+    nonEmpty {
+      tpe match {
+        case TsTypeLiteral(TsLiteralString(s)) =>
+          Set(TsIdent(s))
+        case TsTypeUnion(types) =>
+          (types flatMap (tpe => stringsFrom(scope, tpe) getOrElse Nil)).toSet
+        case keyof: TsTypeKeyOf =>
+          keysOf(scope)(keyof.key).toSet
+        case _ => Set.empty
+      }
+    }
+
+  def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
+    stringsFrom(scope, lookup.key) flatMap { strings =>
+      lookup.from match {
+        case TsTypeRef(_, name, Nil) if scope.isAbstract(name) => None
+        case fromTypeRef: TsTypeRef =>
+          val members = AllMembersFor(scope, new LoopDetector)(fromTypeRef)
+          Some(unify(pickNonStatic(members, strings)))
+
+        case TsTypeObject(members) => Some(unify(pickNonStatic(members, strings)))
+        case _                     => None
+      }
+    }
+
+  def pickNonStatic(members: Seq[TsMember], pick: Set[TsIdent]): Seq[TsType] =
     members collect {
-      case TsMemberProperty(_, _, `key`, tpeOpt, lit, false, _, isOptional) =>
+      case TsMemberProperty(_, _, name, tpeOpt, _, false, _, isOptional) if pick(name) =>
         optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
-      case TsMemberFunction(_, _, `key`, signature, false, _, isOptional) =>
+      case TsMemberFunction(_, _, name, signature, false, _, isOptional) if pick(name) =>
         optional(TsTypeFunction(signature), isOptional)
     }
 }

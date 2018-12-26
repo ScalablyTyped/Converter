@@ -2,6 +2,7 @@ package com.olvind.tso
 package ts
 
 import com.olvind.logging.Formatter
+import com.olvind.tso.seqs._
 
 sealed trait TsTree {
 
@@ -298,9 +299,9 @@ sealed abstract class TsLiteral(repr: String) extends TsTerm {
 object TsLiteral {
   def typeOf(tsLiteral: TsLiteral): (Comment, TsTypeRef) =
     tsLiteral match {
-      case TsLiteralNumber(x)  => (Comment(s"/* $x */ "), TsTypeRef.number)
-      case TsLiteralBoolean(x) => (Comment(s"/* $x */ "), TsTypeRef.boolean)
-      case TsLiteralString(x)  => (Comment(s"/* $x */ "), TsTypeRef.string)
+      case TsLiteralNumber(x)  => (Comment(s"/* $x */"), TsTypeRef.number)
+      case TsLiteralBoolean(x) => (Comment(s"/* $x */"), TsTypeRef.boolean)
+      case TsLiteralString(x)  => (Comment(s"/* $x */"), TsTypeRef.string)
     }
 }
 
@@ -419,6 +420,7 @@ final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
 }
 
 object TsQIdent {
+
   def of(ss:      String*) = TsQIdent(ss.toList.map(TsIdent.apply))
   def of(tsIdent: TsIdent) = TsQIdent(tsIdent :: Nil)
 
@@ -463,25 +465,25 @@ object TsQIdent {
 
 sealed abstract class TsType extends TsTree
 
-final case class TsTypeRef(name: TsQIdent, tparams: Seq[TsType]) extends TsType
+final case class TsTypeRef(comments: Comments, name: TsQIdent, tparams: Seq[TsType]) extends TsType
 
 object TsTypeRef {
   def of(tsIdent: TsIdent): TsTypeRef =
-    TsTypeRef(TsQIdent.of(tsIdent), Nil)
+    TsTypeRef(NoComments, TsQIdent.of(tsIdent), Nil)
 
-  val any       = TsTypeRef(TsQIdent.any, Nil)
-  val boolean   = TsTypeRef(TsQIdent.boolean, Nil)
-  val Boolean   = TsTypeRef(TsQIdent.Boolean, Nil)
-  val Symbol    = TsTypeRef(TsQIdent.symbol, Nil)
-  val `object`  = TsTypeRef(TsQIdent.`object`, Nil)
-  val Object    = TsTypeRef(TsQIdent.Object, Nil)
-  val string    = TsTypeRef(TsQIdent.string, Nil)
-  val String    = TsTypeRef(TsQIdent.String, Nil)
-  val never     = TsTypeRef(TsQIdent.never, Nil)
-  val number    = TsTypeRef(TsQIdent.number, Nil)
-  val `null`    = TsTypeRef(TsQIdent.`null`, Nil)
-  val void      = TsTypeRef(TsQIdent.void, Nil)
-  val undefined = TsTypeRef(TsQIdent.undefined, Nil)
+  val any       = TsTypeRef(NoComments, TsQIdent.any, Nil)
+  val boolean   = TsTypeRef(NoComments, TsQIdent.boolean, Nil)
+  val Boolean   = TsTypeRef(NoComments, TsQIdent.Boolean, Nil)
+  val Symbol    = TsTypeRef(NoComments, TsQIdent.symbol, Nil)
+  val `object`  = TsTypeRef(NoComments, TsQIdent.`object`, Nil)
+  val Object    = TsTypeRef(NoComments, TsQIdent.Object, Nil)
+  val string    = TsTypeRef(NoComments, TsQIdent.string, Nil)
+  val String    = TsTypeRef(NoComments, TsQIdent.String, Nil)
+  val never     = TsTypeRef(NoComments, TsQIdent.never, Nil)
+  val number    = TsTypeRef(NoComments, TsQIdent.number, Nil)
+  val `null`    = TsTypeRef(NoComments, TsQIdent.`null`, Nil)
+  val void      = TsTypeRef(NoComments, TsQIdent.void, Nil)
+  val undefined = TsTypeRef(NoComments, TsQIdent.undefined, Nil)
 }
 
 final case class TsTypeLiteral(literal: TsLiteral) extends TsType
@@ -502,7 +504,7 @@ final case class TsTypeRepeated(underlying: TsType) extends TsType
 
 final case class TsTypeKeyOf(key: TsType) extends TsType
 
-final case class TsTypeLookup(from: TsType, key: Either[TsIdent, TsTypeKeyOf]) extends TsType
+final case class TsTypeLookup(from: TsType, key: TsType) extends TsType
 
 final case class TsTypeThis() extends TsType
 
@@ -515,12 +517,24 @@ object TsTypeIntersect {
       case other                   => other :: Nil
     }
 
-  def simplified(types: Seq[TsType]): TsType =
-    flatten(types.to[List]).distinct match {
+  def simplified(types: Seq[TsType]): TsType = {
+    val withCombinedObjects = types.partitionCollect { case x: TsTypeObject => x } match {
+      case (Nil, all)      => all
+      case (Seq(_), _)     => types // just keep order
+      case (objects, rest) => TsTypeObject(objects.flatMap(_.members)) +: rest
+    }
+    flatten(withCombinedObjects.to[List]).distinct match {
       case Nil      => TsTypeRef.never
       case Seq(one) => one
-      case more     => new TsTypeIntersect(more)
+      case more     =>
+        /* if we combine a type query with an actual type, drop the former */
+        more.filterNot(_.isInstanceOf[TsTypeQuery]) match {
+          case Nil      => new TsTypeIntersect(more)
+          case Seq(one) => one
+          case _        => new TsTypeIntersect(more)
+        }
     }
+  }
 }
 
 final case class TsTypeUnion private (types: Seq[TsType]) extends TsType

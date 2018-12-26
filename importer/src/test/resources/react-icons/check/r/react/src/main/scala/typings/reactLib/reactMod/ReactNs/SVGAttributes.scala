@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait SVGAttributes[T] extends DOMAttributes[T] {
   // Attributes which also defined in HTMLAttributes
   // See comment in SVGDOMPropertyConfig.js

@@ -211,7 +211,7 @@ final class CommentTests extends FunSuite with Matchers {
           TsMemberProperty(NoComments,
                            Default,
                            TsIdent("size"),
-                           Some(TsTypeRef(TsQIdent.number, Nil)),
+                           Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
                            None,
                            isStatic   = false,
                            isReadOnly = false,
@@ -241,18 +241,21 @@ final class CommentTests extends FunSuite with Matchers {
                   NoComments,
                   TsIdent("iter"),
                   Some(
-                    TsTypeRef(
-                      TsQIdent(List(TsIdent("Iterable"))),
-                      List(TsTypeRef.any, TsTypeRef(TsQIdent(List(TsIdent("Array"))), List(TsTypeRef.any)))
-                    )
+                    TsTypeRef(NoComments,
+                              TsQIdent(List(TsIdent("Iterable"))),
+                              List(TsTypeRef.any,
+                                   TsTypeRef(NoComments, TsQIdent(List(TsIdent("Array"))), List(TsTypeRef.any))))
                   ),
                   isOptional = false
                 )
               ),
               Some(
-                TsTypeRef(TsQIdent(List(TsIdent("Map"))),
-                          List(TsTypeRef(TsQIdent(List(TsIdent("K"))), Nil),
-                               TsTypeRef(TsQIdent(List(TsIdent("V"))), Nil)))
+                TsTypeRef(
+                  NoComments,
+                  TsQIdent(List(TsIdent("Map"))),
+                  List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Nil),
+                       TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Nil))
+                )
               )
             ),
             JsLocation.Zero,
@@ -355,11 +358,14 @@ final class CommentTests extends FunSuite with Matchers {
     shouldParseAs(
       """F<A, /* foo */
         B>""",
-      TsParser.typeRef
+      TsParser.tsTypeRef
     )(
-      TsTypeRef(TsQIdent(List(TsIdentSimple("F"))),
-                List(TsTypeRef(TsQIdent(List(TsIdentSimple("A"))), List()),
-                     TsTypeRef(TsQIdent(List(TsIdentSimple("B"))), List())))
+      TsTypeRef(
+        NoComments,
+        TsQIdent(List(TsIdentSimple("F"))),
+        List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), List()),
+             TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), List()))
+      )
     )
   }
 

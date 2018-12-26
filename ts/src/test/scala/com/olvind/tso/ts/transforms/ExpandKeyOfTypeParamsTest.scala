@@ -27,18 +27,16 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
   interface NodeSelector {
       querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
       querySelector(selectors: string): Element | null;
-      querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
-      querySelectorAll(selectors: string): NodeListOf<Element>;
+//      querySelectorAll<K extends keyof ElementListTagNameMap>(selectors: K): ElementListTagNameMap[K];
+//      querySelectorAll(selectors: string): NodeListOf<Element>;
   }
   """).force
 
-    val rewritten =
-      ExpandKeyOfTypeParams.visitTsParsedFile(TsTreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout))(
-        original
-      )
+    val scope     = TsTreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout)
+    val rewritten = ExpandKeyOfTypeParams.visitTsParsedFile(scope)(original)
 
     val NodeSelectorActual = rewritten.members.collectFirst {
-      case x: TsDeclInterface if x.name === TsIdentSimple("NodeSelector") => x
+      case x: TsDeclInterface if x.name.value === "NodeSelector" => x
     }.get
 
     val NodeSelectorExpected =
@@ -61,8 +59,8 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
               ),
               Some(
                 TsTypeUnion(
-                  List(TsTypeRef(TsQIdent(List(TsIdentSimple("HTMLElement"))), List()),
-                       TsTypeRef(TsQIdent(List(TsIdentSimple("null"))), List()))
+                  List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("HTMLElement"))), List()),
+                       TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("null"))), List()))
                 )
               )
             ),
@@ -82,8 +80,8 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
               ),
               Some(
                 TsTypeUnion(
-                  List(TsTypeRef(TsQIdent(List(TsIdentSimple("HTMLAnchorElement"))), List()),
-                       TsTypeRef(TsQIdent(List(TsIdentSimple("null"))), List()))
+                  List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("HTMLAnchorElement"))), List()),
+                       TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("null"))), List()))
                 )
               )
             ),
@@ -101,13 +99,13 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
               List(
                 TsFunParam(NoComments,
                            TsIdentSimple("selectors"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
+                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("string"))), List())),
                            false)
               ),
               Some(
                 TsTypeUnion(
-                  List(TsTypeRef(TsQIdent(List(TsIdentSimple("Element"))), List()),
-                       TsTypeRef(TsQIdent(List(TsIdentSimple("null"))), List()))
+                  List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Element"))), List()),
+                       TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("null"))), List()))
                 )
               )
             ),
@@ -115,66 +113,69 @@ class ExpandKeyOfTypeParamsTest extends FunSuite with DiffingAssertions {
             false,
             false
           ),
-          TsMemberFunction(
-            NoComments,
-            Default,
-            TsIdentSimple("querySelectorAll"),
-            TsFunSig(
-              NoComments,
-              List(),
-              List(
-                TsFunParam(NoComments, TsIdentSimple("selectors"), Some(TsTypeLiteral(TsLiteralString("abbr"))), false)
-              ),
-              Some(
-                TsTypeRef(TsQIdent(List(TsIdentSimple("NodeListOf"))),
-                          List(TsTypeRef(TsQIdent(List(TsIdentSimple("HTMLElement"))), List())))
-              )
-            ),
-            false,
-            false,
-            false
-          ),
-          TsMemberFunction(
-            NoComments,
-            Default,
-            TsIdentSimple("querySelectorAll"),
-            TsFunSig(
-              NoComments,
-              List(),
-              List(
-                TsFunParam(NoComments, TsIdentSimple("selectors"), Some(TsTypeLiteral(TsLiteralString("a"))), false)
-              ),
-              Some(
-                TsTypeRef(TsQIdent(List(TsIdentSimple("NodeListOf"))),
-                          List(TsTypeRef(TsQIdent(List(TsIdentSimple("HTMLAnchorElement"))), List())))
-              )
-            ),
-            false,
-            false,
-            false
-          ),
-          TsMemberFunction(
-            NoComments,
-            Default,
-            TsIdentSimple("querySelectorAll"),
-            TsFunSig(
-              NoComments,
-              List(),
-              List(
-                TsFunParam(NoComments,
-                           TsIdentSimple("selectors"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
-                           false)
-              ),
-              Some(
-                TsTypeRef(TsQIdent(List(TsIdentSimple("NodeListOf"))),
-                          List(TsTypeRef(TsQIdent(List(TsIdentSimple("Element"))), List())))
-              )
-            ),
-            false,
-            false,
-            false
-          )
+//          TsMemberFunction(
+//            NoComments,
+//            Default,
+//            TsIdentSimple("querySelectorAll"),
+//            TsFunSig(
+//              NoComments,
+//              List(),
+//              List(
+//                TsFunParam(NoComments, TsIdentSimple("selectors"), Some(TsTypeLiteral(TsLiteralString("abbr"))), false)
+//              ),
+//              Some(
+//                TsTypeRef(NoComments,
+//                          TsQIdent(List(TsIdentSimple("NodeListOf"))),
+//                          List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("HTMLElement"))), List())))
+//              )
+//            ),
+//            false,
+//            false,
+//            false
+//          ),
+//          TsMemberFunction(
+//            NoComments,
+//            Default,
+//            TsIdentSimple("querySelectorAll"),
+//            TsFunSig(
+//              NoComments,
+//              List(),
+//              List(
+//                TsFunParam(NoComments, TsIdentSimple("selectors"), Some(TsTypeLiteral(TsLiteralString("a"))), false)
+//              ),
+//              Some(
+//                TsTypeRef(NoComments,
+//                          TsQIdent(List(TsIdentSimple("NodeListOf"))),
+//                          List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("HTMLAnchorElement"))), List())))
+//              )
+//            ),
+//            false,
+//            false,
+//            false
+//          ),
+//          TsMemberFunction(
+//            NoComments,
+//            Default,
+//            TsIdentSimple("querySelectorAll"),
+//            TsFunSig(
+//              NoComments,
+//              List(),
+//              List(
+//                TsFunParam(NoComments,
+//                           TsIdentSimple("selectors"),
+//                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("string"))), List())),
+//                           false)
+//              ),
+//              Some(
+//                TsTypeRef(NoComments,
+//                          TsQIdent(List(TsIdentSimple("NodeListOf"))),
+//                          List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Element"))), List())))
+//              )
+//            ),
+//            false,
+//            false,
+//            false
+//          )
         ),
         CodePath.NoPath
       )

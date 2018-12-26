@@ -14,7 +14,7 @@ object TypeParamsReferencedInTree {
     val referencedInTree: Set[TsIdent] =
       TreeTraverse
         .collect(tree) {
-          case TsTypeRef(TsQIdent(List(unprefixedName)), _) if inScope.contains(unprefixedName) => unprefixedName
+          case TsTypeRef(_, TsQIdent(List(unprefixedName)), _) if inScope.contains(unprefixedName) => unprefixedName
         }
         .to[Set]
 

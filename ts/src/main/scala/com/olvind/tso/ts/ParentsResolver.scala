@@ -52,13 +52,13 @@ object ParentsResolver {
                 allParents += TsDeclInterface(NoComments, declared = false, TsIdent.dummy, Nil, Nil, x.members, NoPath)
               case TsTypeUnion(types) =>
                 types foreach {
-                  case TsTypeRef(tpe, targs) => innerRecurse(scope, tpe, targs)
-                  case _                     => ()
+                  case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
+                  case _                        => ()
                 }
               case TsTypeIntersect(types) =>
                 types foreach {
-                  case TsTypeRef(tpe, targs) => innerRecurse(scope, tpe, targs)
-                  case _                     => ()
+                  case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
+                  case _                        => ()
                 }
               case _: TsTypeConstructor => ()
               case _: TsTypeTuple       => ()
@@ -78,7 +78,7 @@ object ParentsResolver {
         }
 
       parentRefs.foreach {
-        case TsTypeRef(tpe, targs) => innerRecurse(scope, tpe, targs)
+        case TsTypeRef(_, tpe, targs) => innerRecurse(scope, tpe, targs)
       }
     }
 

@@ -53,14 +53,6 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
         } getOrElse Res(tr :: Nil, Nil, Map.empty)
     }
 
-  def format(tpe: TsType): String =
-    tpe match {
-      case ref: TsTypeRef => ref.name.parts.map(_.value).mkString(".")
-      case TsTypeUnion(types)     => types map format mkString " | "
-      case TsTypeIntersect(types) => types map format mkString " with "
-      case other                  => other.asString
-    }
-
   override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass =
     Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
       case Res(_, Nil, EmptyMap()) => s
@@ -84,11 +76,12 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
 
   private def summarizeChanges(drop: List[TsType], lifted: Map[TsTypeRef, Seq[TsMember]]): Option[Comment] = {
     val droppedMessages: Seq[String] =
-      drop map (d => s"- Dropped ${format(d)}")
+      drop map (d => s"- Dropped ${TsTypeFormatter(d)}")
 
     val liftedMessage: Option[String] =
       if (lifted.isEmpty) None
-      else Some(s"- Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys.map(format)}")
+      else
+        Some(s"- Lifted ${lifted.foldLeft(0)(_ + _._2.length)} members from ${lifted.keys.map(TsTypeFormatter.apply)}")
 
     droppedMessages ++ liftedMessage match {
       case Nil      => None

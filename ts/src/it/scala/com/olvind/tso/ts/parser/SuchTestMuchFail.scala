@@ -7,6 +7,8 @@ import ammonite.ops._
 import com.olvind.tso.InFolder
 import org.scalatest._
 
+import scala.util.parsing.combinator.Parsers
+
 final class SuchTestMuchFail extends FunSuite {
   val cacheFolder: Path = home / 'tmp / "tso-cache"
 
@@ -39,22 +41,29 @@ final class SuchTestMuchFail extends FunSuite {
         .take(4000)
         .toSeq
 
-    val parsed: Seq[(Path, TsParser.ParseResult[TsParsedFile])] =
+    val parsed: Seq[(Path, Parsers#ParseResult[TsParsedFile])] =
       allFiles.par.map { path: Path =>
-        val t0  = System.currentTimeMillis
-        val res = TsParser.parsedTsFile(read(path))
+        val t0       = System.currentTimeMillis
+        val contents = read(path)
+        val p        = new TsParser(Some((path, contents.length)))
+        import p.FromString
+
+        val res = try p.parsedTsFile(read(path))
+        catch {
+          case x: StackOverflowError => TsParser.Failure(x.getMessage, new TsParser.lexical.Scanner(""))
+        }
         println(s"$path in ${System.currentTimeMillis() - t0} ms")
         (path, res)
       }.seq
 
     val successes: Seq[Path] =
       parsed collect {
-        case (path, TsParser.Success(_, _)) => path
+        case (path, res) if res.successful => path
       } sortBy (_.toString)
 
-    val failures: Seq[(Path, TsParser.ParseResult[TsParsedFile])] =
+    val failures: Seq[(Path, Parsers#ParseResult[TsParsedFile])] =
       parsed collect {
-        case a @ (_, TsParser.Failure(_, _)) => a
+        case a @ (_, res) if !res.successful => a
       } sortBy (_._1.toString)
 
     val percentageSuccess: Double =

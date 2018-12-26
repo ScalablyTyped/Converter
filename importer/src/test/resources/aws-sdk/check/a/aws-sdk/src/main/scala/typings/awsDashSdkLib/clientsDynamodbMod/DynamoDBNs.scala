@@ -12,10 +12,10 @@ object DynamoDBNs extends js.Object {
   class Converter () extends js.Object
   
   @js.native
+  /**
+    * Creates a DynamoDB document client with a set of configuration options.
+    */
   class DocumentClient () extends js.Object {
-    /**
-         * Creates a DynamoDB document client with a set of configuration options.
-         */
     def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with ClientConfiguration) = this()
   }
   
@@ -35,31 +35,29 @@ object DynamoDBNs extends js.Object {
   @JSName("DocumentClient")
   @js.native
   object DocumentClientNs extends js.Object {
-    
     trait ConverterOptions extends js.Object {
       /**
-               * An optional flag indicating that the document client should cast
-               * empty strings, buffers, and sets to NULL shapes
-               */
+        * An optional flag indicating that the document client should cast
+        * empty strings, buffers, and sets to NULL shapes
+        */
       var convertEmptyValues: js.UndefOr[scala.Boolean] = js.undefined
       /**
-               * Whether to return numbers as a NumberValue object instead of
-               * converting them to native JavaScript numbers. This allows for the
-               * safe round-trip transport of numbers of arbitrary size.
-               */
+        * Whether to return numbers as a NumberValue object instead of
+        * converting them to native JavaScript numbers. This allows for the
+        * safe round-trip transport of numbers of arbitrary size.
+        */
       var wrapNumbers: js.UndefOr[scala.Boolean] = js.undefined
     }
-    
     
     trait DocumentClientOptions
       extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.ConverterOptions {
       /**
-               * An optional map of parameters to bind to every request sent by this service object.
-               */
+        * An optional map of parameters to bind to every request sent by this service object.
+        */
       var params: js.UndefOr[org.scalablytyped.runtime.StringDictionary[js.Any]] = js.undefined
       /**
-               * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
-               */
+        * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
+        */
       var service: js.UndefOr[awsDashSdkLib.clientsDynamodbMod.namespaced] = js.undefined
     }
     

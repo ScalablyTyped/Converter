@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 package object ReactNs {
   type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: reactLib.Element */] = js.Function2[
     /* props */ js.UndefOr[ClassAttributes[T] with (P | scala.Null)], 
-    /* repeated */ReactNode, 
+    /* repeated */ ReactNode, 
     DOMElement[P, T]
   ]
   type Key = java.lang.String | scala.Double

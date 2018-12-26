@@ -6,12 +6,17 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
 object Hoisting {
   val declared = false
 
-  def hoistedMembersFrom(scope: TsTreeScope, cp: CodePath, ld: LoopDetector)(
-      typeRef:                  TsTypeRef
-  ): Seq[TsNamedValueDecl] =
+  def fromType(scope: TsTreeScope, cp: CodePath, ld: LoopDetector, tpe: TsType): Seq[TsNamedValueDecl] =
+    tpe match {
+      case ref: TsTypeRef => fromRef(scope, cp, ld, ref)
+      case TsTypeObject(ms) => ms.flatMap(memberToDecl(cp))
+      case _                => Nil
+    }
+
+  def fromRef(scope: TsTreeScope, cp: CodePath, ld: LoopDetector, typeRef: TsTypeRef): Seq[TsNamedValueDecl] =
     AllMembersFor(scope, ld)(typeRef) flatMap memberToDecl(cp)
 
-  def add(codePath: CodePath, ident: TsIdent) =
+  private def add(codePath: CodePath, ident: TsIdent): CodePath =
     codePath match {
       case x: CodePath.HasPath => x + ident
       case noPath => noPath

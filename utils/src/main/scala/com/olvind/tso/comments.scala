@@ -5,8 +5,8 @@ import scala.collection.mutable
 final case class Comment(raw: String) extends AnyVal
 
 object Comment {
-  def warning(s: String): Comment =
-    Comment(s"/* import warning: $s */")
+  def warning(s: String)(implicit e: sourcecode.Enclosing): Comment =
+    Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
 }
 
 sealed class Comments(val cs: List[Comment]) {
@@ -72,7 +72,4 @@ object Comments {
     ts.foreach(t => buf ++= f(t).cs)
     apply(buf.distinct.toList)
   }
-
-  def unapply(cs: Comments): Option[Int] =
-    Some(cs.cs.length)
 }

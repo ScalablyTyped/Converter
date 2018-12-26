@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait EitherT[F]
   extends Foo[F, fpDashTsLib.libEitherMod.URI] {
   def chain[L, A, B](

@@ -365,7 +365,7 @@ trait TreeTransformation[T] { self =>
       case TsTypeFunction(_1) => TsTypeFunction(visitTsFunSig(tt)(_1))
     }
   }
-  final def visitTsTypeIndexedQuery(t: T)(x: TsTypeKeyOf): TsTypeKeyOf = {
+  final def visitTsTypeKeyOf(t: T)(x: TsTypeKeyOf): TsTypeKeyOf = {
     val xx = enterTsTypeKeyOf(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
@@ -408,7 +408,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsTypeLookup(_1, _2) =>
-        TsTypeLookup(visitTsType(tt)(_1), _2.right.map(visitTsTypeIndexedQuery(tt)))
+        TsTypeLookup(visitTsType(tt)(_1), visitTsType(tt)(_2))
     }
   }
   final def visitTsTypeObject(t: T)(x: TsTypeObject): TsTypeObject = {
@@ -437,7 +437,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeRef(withTree(t, x))(x)
     val tt = withTree(t, xx)
     val xxx = xx match {
-      case TsTypeRef(_1, _2) => TsTypeRef(visitTsQIdent(tt)(_1), _2 map visitTsType(tt))
+      case TsTypeRef(_1, _2, _3) => TsTypeRef(_1, visitTsQIdent(tt)(_2), _3 map visitTsType(tt))
     }
     leaveTsTypeRef(tt)(xxx)
   }
@@ -544,7 +544,7 @@ trait TreeTransformation[T] { self =>
       case x: TsTypeConditional => visitTsTypeConditional(t)(x)
       case x: TsTypeExtends     => visitTsTypeExtends(t)(x)
       case x: TsTypeFunction    => visitTsTypeFunction(t)(x)
-      case x: TsTypeKeyOf       => visitTsTypeIndexedQuery(t)(x)
+      case x: TsTypeKeyOf       => visitTsTypeKeyOf(t)(x)
       case x: TsTypeIntersect   => visitTsTypeIntersect(t)(x)
       case x: TsTypeIs          => visitTsTypeIs(t)(x)
       case x: TsTypeInfer       => visitTsTypeInfer(t)(x)

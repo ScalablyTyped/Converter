@@ -134,6 +134,10 @@ object TsTreeScope {
     }
   }
 
+  object LoopDetector {
+    val initial = new LoopDetector()
+  }
+
   final class Root private[TsTreeScope] (val libName:  TsIdentLibrary,
                                          val pedantic: Boolean,
                                          _deps:        Map[TsIdentLibrary, TsParsedFile],
@@ -358,10 +362,11 @@ object TsTreeScope {
               case None        => Nil
             }
 
-          case TsDeclVar(_, _, _, _, Some(tr: TsTypeRef), _, _, cp: CodePath.HasPath, false) =>
-            Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr).collect {
+          case TsDeclVar(_, _, _, _, Some(tpe), _, _, cp: CodePath.HasPath, false) =>
+            Hoisting.fromType(scope, cp, loopDetector, tpe).collect {
               case Pick(x) if one === x.name => x -> scope
             }
+
           case _ => Nil
         }
 
@@ -376,8 +381,8 @@ object TsTreeScope {
                     (scope / x).lookupInternal(Pick, t, loopDetector)
                   case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
                     search(scope, Pick, c, t, loopDetector)
-                  case TsDeclVar(_, _, _, _, Some(tr: TsTypeRef), _, _, cp: CodePath.HasPath, false) =>
-                    Hoisting.hoistedMembersFrom(scope, cp, loopDetector)(tr).collect {
+                  case TsDeclVar(_, _, _, _, Some(tpe), _, _, cp: CodePath.HasPath, false) =>
+                    Hoisting.fromType(scope, cp, loopDetector, tpe).collect {
                       case Pick(x) if t.headOption.contains(x.name) => x -> scope
                     }
 

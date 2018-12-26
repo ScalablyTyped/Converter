@@ -12,7 +12,7 @@ object LimitUnionLength extends TreeTransformation {
       case TypeRef.Union(types) if types.length > 50 =>
         val base =
           if (types.forall(x => TypeRef.Literal.unapply(x).exists(_.startsWith("\"")))) TypeRef.String else TypeRef.Any
-        base.withComments(Comments(s"/* LimitUnionLength: was union type with length ${types.length} */"))
+        base.withComments(Comments(Comment.warning(s"Was union type with length ${types.length}")))
       case other => other
     }
 }
