@@ -103,7 +103,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
           includedFields intersect nextMutables match {
             case Nil => None
             case conflict =>
-              val conflictString = conflict.distinct.map(Printer.formatName)
+              val conflictString = conflict.distinct.sortBy(_.unescaped).map(Printer.formatName)
               Some(Dropped(h.refs.last, s"Would inherit conflicting mutable fields $conflictString"))
           }
         }
