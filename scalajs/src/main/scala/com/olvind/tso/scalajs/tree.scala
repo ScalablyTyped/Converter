@@ -212,7 +212,7 @@ object TypeRef {
         case other               => List(other)
       }
 
-    def apply(types: Seq[TypeRef]): TypeRef = {
+    def apply(types: Iterable[TypeRef]): TypeRef = {
       val base = flattened(types.to[List]).distinct
 
       base match {
