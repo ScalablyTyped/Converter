@@ -34,10 +34,12 @@ object ParentsResolver {
     lazy val members: Seq[MemberTree] =
       parents.flatMap(_.members) ++ classTree.members
 
-    val mutableFields: Seq[FieldTree] =
+    lazy val fields: Seq[FieldTree] =
       members.collect {
-        case x: FieldTree if !x.isReadOnly => x
+        case x: FieldTree => x
       }
+    lazy val mutableFields: Seq[FieldTree] =
+      fields.filter(!_.isReadOnly)
   }
 
   case class Parents(directParents: Seq[Parent], unresolved: Seq[TypeRef]) extends ParentTree {
