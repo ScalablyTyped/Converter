@@ -207,18 +207,18 @@ final class ImportExportParseTests extends FunSuite with Matchers {
               List(
                 TsFunParam(NoComments,
                            TsIdent("engine"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdent("StorageEngine"))), List())),
+                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), List())),
                            isOptional = false),
                 TsFunParam(NoComments,
                            TsIdent("whitelist"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdent("FilterList"))), List())),
+                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), List())),
                            isOptional = true),
                 TsFunParam(NoComments,
                            TsIdent("blacklist"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdent("FilterList"))), List())),
+                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), List())),
                            isOptional = true)
               ),
-              Some(TsTypeRef(TsQIdent(List(TsIdent("StorageEngine"))), List()))
+              Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), List()))
             ),
             Zero,
             CodePath.NoPath
@@ -257,6 +257,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
             List(),
             Some(
               TsTypeRef(
+                NoComments,
                 TsQIdent(List(TsIdent("React"), TsIdent("Component"))),
                 List(
                   TsTypeObject(
@@ -265,7 +266,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                         NoComments,
                         Default,
                         TsIdent("statusCode"),
-                        Some(TsTypeRef(TsQIdent(List(TsIdent("number"))), List())),
+                        Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("number"))), List())),
                         None,
                         isStatic   = false,
                         isReadOnly = false,

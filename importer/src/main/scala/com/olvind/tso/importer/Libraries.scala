@@ -75,6 +75,7 @@ object Libraries {
     "prisma-binding",
     "@protobufjs/aspromise",
     "@protobufjs/codegen",
+    "@pulumi/aws",
     "@pulumi/pulumi",
     "@pulumi/cloud",
     "@pulumi/kubernetes",
@@ -157,16 +158,8 @@ object Libraries {
       "yfiles",
       "chromecast-caf-receiver",
       "snoowrap",
-      // exponential growth in parsing time :/
-      "echarts",
-      "@pulumi/aws",
       // some new kind of circular dependency causes the phase runner to wait forever
       "mali",
       "apollo-tracing"
-      // these are just slow
-      //      "dojo",
-      //      "react-icons",
-      //      "aws-sdk",
-      //      "winrt-uwp",
     )
 }

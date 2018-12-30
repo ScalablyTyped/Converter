@@ -42,9 +42,9 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
       case x: TsTypeThis if isReferencedInConstructor(scope.stack) || isReferencedInIndexType(scope.stack) =>
         scope.stack.collectFirst {
           case owner: TsDeclClass =>
-            TsTypeRef(owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
+            TsTypeRef(NoComments, owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
           case owner: TsDeclInterface =>
-            TsTypeRef(owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
+            TsTypeRef(NoComments, owner.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(owner.tparams))
         } getOrElse x
 
       case other => other

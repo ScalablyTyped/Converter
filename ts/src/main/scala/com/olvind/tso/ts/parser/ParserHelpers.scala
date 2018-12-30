@@ -4,7 +4,7 @@ import scala.util.parsing.combinator.Parsers
 
 trait ParserHelpers { self: Parsers =>
 
-  @inline protected final implicit class ToParserOpt[P](private val p: P) {
+  @inline protected final implicit class ToParserOps[P](private val p: P) {
     def isDefined[Q](implicit ev: P => Parser[Q]): Parser[Boolean] =
       p.? ^^ (_.isDefined)
   }

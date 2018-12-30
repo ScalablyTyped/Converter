@@ -35,11 +35,11 @@ object SplitMethodsOnOptionalParams extends TreeTransformationScopedChanges {
         case (_, members: Seq[TsMember]) =>
           members flatMap {
             case x: TsMemberCtor =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case x: TsMemberFunction if !x.isOptional =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case x: TsMemberCall =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case other => Seq(other)
           }
       }
@@ -50,10 +50,10 @@ object SplitMethodsOnOptionalParams extends TreeTransformationScopedChanges {
   private def newMembers(x: TsContainer): Seq[TsContainerOrDecl] = {
     val newMembers: Iterable[TsNamedDecl] =
       x.membersByName flatMap {
-        case (name @ _, members: Seq[TsNamedDecl]) =>
+        case (_, members: Seq[TsNamedDecl]) =>
           members flatMap {
             case x: TsDeclFunction =>
-              split(x.signature).map(sig => x.copy(signature = sig))
+              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
             case other => Seq(other)
           }
       }

@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait VNodeDirective extends js.Object {
   val arg: java.lang.String
   val expression: js.Any

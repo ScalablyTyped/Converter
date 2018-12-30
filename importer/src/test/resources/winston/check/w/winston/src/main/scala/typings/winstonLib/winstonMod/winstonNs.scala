@@ -8,7 +8,6 @@ import scala.scalajs.js.annotation._
 @JSImport("winston", "winston")
 @js.native
 object winstonNs extends js.Object {
-  
   trait LoggerOptions extends js.Object {
     var levels: js.UndefOr[winstonLib.libWinstonConfigMod.winstonNs.AbstractConfigSetLevels] = js.undefined
   }
@@ -20,10 +19,8 @@ object winstonNs extends js.Object {
     @JSName("winston")
     @js.native
     object winstonNs extends js.Object {
-      
       trait AbstractConfigSetLevels
         extends /* key */ org.scalablytyped.runtime.StringDictionary[scala.Double]
-      
       
       trait Config extends js.Object {
         var foo: winstonLib.winstonLibStrings.bar

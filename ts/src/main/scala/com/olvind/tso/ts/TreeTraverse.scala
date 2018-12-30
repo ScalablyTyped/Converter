@@ -91,12 +91,6 @@ object TreeTraverse {
           true
         }
       }
-
-      object Either {
-        @inline def unapply[L, R](lr: Either[L, R]): Some[(Option[L], Option[R])] =
-          Some((lr.left.toOption, lr.right.toOption))
-      }
-
     }
 
     tree match {
@@ -146,11 +140,11 @@ object TreeTraverse {
       case TsTypeIntersect(Yes())                                                       =>
       case TsTypeIs(Yes(), Yes())                                                       =>
       case TsTypeLiteral(Yes())                                                         =>
-      case TsTypeLookup(Yes(), Yes.Either(Yes(), Yes()))                                =>
+      case TsTypeLookup(Yes(), Yes())                                                   =>
       case TsTypeObject(Yes())                                                          =>
       case TsTypeParam(No(), Yes(), Yes(), Yes())                                       =>
       case TsTypeQuery(Yes())                                                           =>
-      case TsTypeRef(Yes(), Yes())                                                      =>
+      case TsTypeRef(No(), Yes(), Yes())                                                =>
       case TsTypeRepeated(Yes())                                                        =>
       case TsTypeThis()                                                                 =>
       case TsTypeTuple(Yes())                                                           =>

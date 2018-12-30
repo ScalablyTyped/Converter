@@ -11,7 +11,6 @@ import scala.scalajs.js.annotation._
 // interface AnimationEvent<T> extends SyntheticEvent<T> {
 //     nativeEvent: NativeAnimationEvent;
 // }
-
 trait Attributes extends js.Object {
   var key: js.UndefOr[Key] = js.undefined
 }

@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 @JSImport("serve-static", JSImport.Namespace)
 @js.native
 object serveDashStaticModMembers extends js.Object {
-  var mime: js.Any = js.native
+  var mime: serveDashStaticLib.Anon_Defaulttype = js.native
   def apply(root: java.lang.String): expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Handler = js.native
   def apply(
     root: java.lang.String,

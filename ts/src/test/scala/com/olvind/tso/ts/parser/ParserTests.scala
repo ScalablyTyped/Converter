@@ -2,14 +2,13 @@ package com.olvind.tso
 package ts
 package parser
 
-import com.olvind.tso.ts
 import com.olvind.tso.ts.JsLocation.Zero
 import com.olvind.tso.ts.OptionalModifier.Noop
 import org.scalatest.Matchers._
 import org.scalatest._
 
 final class ParserTests extends FunSuite {
-  private val T = TsTypeRef(TsQIdent(List(TsIdentSimple("T"))), List())
+  private val T = TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("T"))), List())
 
   import ParserHarness._
 
@@ -65,6 +64,12 @@ final class ParserTests extends FunSuite {
       shouldParseAs(content, TsParser.parsedTsFile)(expected)
     }
   }
+
+//  test("foo") {
+//    withTsFileAbs(Path("/home/olvind/tmp/tso-cache/DefinitelyTyped/types/echarts/options/series/candlestick.d.ts")) { content =>
+//      TsParser.parsedTsFile(content).force
+//    }
+//  }
 
   test("handle byte order mark") {
     withTsFile("adm-zip.d.ts") { content =>
@@ -206,7 +211,7 @@ final class ParserTests extends FunSuite {
               NoComments,
               tparams    = Nil,
               params     = Nil,
-              resultType = Some(TsTypeRef(name = TsQIdent.void, tparams = Nil))
+              resultType = Some(TsTypeRef(NoComments, name = TsQIdent.void, tparams = Nil))
             ),
             isStatic   = false,
             isReadOnly = false,
@@ -360,7 +365,7 @@ final class ParserTests extends FunSuite {
                        _,
                        _,
                        TsIdent(name),
-                       Some(TsTypeRef(TsQIdent(List(TsIdent("BrorandStatic"))), _)),
+                       Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("BrorandStatic"))), _)),
                        None,
                        _,
                        _,
@@ -389,10 +394,10 @@ final class ParserTests extends FunSuite {
               List(
                 TsFunParam(NoComments,
                            TsIdentSimple("alt"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("Alt"))), List())),
+                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Alt"))), List())),
                            isOptional = false)
               ),
-              Some(TsTypeRef(TsQIdent(List(TsIdentSimple("AltJS"), TsIdentSimple("ActionsClass"))), List()))
+              Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("AltJS"), TsIdentSimple("ActionsClass"))), List()))
             )
           )
         ),
@@ -414,8 +419,8 @@ final class ParserTests extends FunSuite {
         TsTypeUnion(
           Seq(
             TsTypeRef.string,
-            TsTypeRef(TsQIdent.of("CanvasGradient"), Nil),
-            TsTypeRef(TsQIdent.of("CanvasPattern"), Nil)
+            TsTypeRef(NoComments, TsQIdent.of("CanvasGradient"), Nil),
+            TsTypeRef(NoComments, TsQIdent.of("CanvasPattern"), Nil)
           )
         ),
         CodePath.NoPath
@@ -464,10 +469,10 @@ final class ParserTests extends FunSuite {
               ),
               params = Nil,
               resultType = Some(
-                TsTypeRef(
-                  name    = TsQIdent.of("Ordinal"),
-                  tparams = List(TsTypeRef(TsQIdent.of("Domain"), Nil), TsTypeRef(TsQIdent.of("Range"), Nil))
-                )
+                TsTypeRef(NoComments,
+                          name = TsQIdent.of("Ordinal"),
+                          tparams = List(TsTypeRef(NoComments, TsQIdent.of("Domain"), Nil),
+                                         TsTypeRef(NoComments, TsQIdent.of("Range"), Nil)))
               )
             ),
             Zero,
@@ -507,8 +512,10 @@ final class ParserTests extends FunSuite {
                     Some(
                       TsTypeUnion(
                         Seq(
-                          TsTypeRef(TsQIdent.boolean, Nil),
-                          TsTypeRef(TsQIdent.of("PromiseLike"), List(TsTypeRef(TsQIdent.boolean, Nil)))
+                          TsTypeRef(NoComments, TsQIdent.boolean, Nil),
+                          TsTypeRef(NoComments,
+                                    TsQIdent.of("PromiseLike"),
+                                    List(TsTypeRef(NoComments, TsQIdent.boolean, Nil)))
                         )
                       )
                     )
@@ -521,10 +528,9 @@ final class ParserTests extends FunSuite {
                       level = Default,
                       name  = TsIdent("errors"),
                       tpe = Some(
-                        TsTypeRef(
-                          name    = TsQIdent.Array,
-                          tparams = List(TsTypeRef(TsQIdent.of("ValidationError"), Nil))
-                        )
+                        TsTypeRef(NoComments,
+                                  name    = TsQIdent.Array,
+                                  tparams = List(TsTypeRef(NoComments, TsQIdent.of("ValidationError"), Nil)))
                       ),
                       literal    = None,
                       isStatic   = false,
@@ -577,7 +583,7 @@ final class ParserTests extends FunSuite {
             Seq(
               TsTypeLiteral(TsLiteralNumber("0")),
               TsTypeLiteral(TsLiteralNumber("1")),
-              TsTypeRef(TsQIdent.boolean, Nil)
+              TsTypeRef(NoComments, TsQIdent.boolean, Nil)
             )
           )
         ),
@@ -621,7 +627,7 @@ final class ParserTests extends FunSuite {
       TsMemberProperty(NoComments,
                        Default,
                        TsIdent("static"),
-                       Some(TsTypeRef(TsQIdent.boolean, Nil)),
+                       Some(TsTypeRef(NoComments, TsQIdent.boolean, Nil)),
                        literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
@@ -666,9 +672,12 @@ final class ParserTests extends FunSuite {
                 TsTypeParam(NoComments, TsIdent("T"), Some(TsTypeQuery(TsQIdent(List(TsIdent("FormComponent"))))), None)
               ),
               List(
-                TsFunParam(NoComments, TsIdent("component"), Some(TsTypeRef(TsQIdent.of("T"), Nil)), isOptional = false)
+                TsFunParam(NoComments,
+                           TsIdent("component"),
+                           Some(TsTypeRef(NoComments, TsQIdent.of("T"), Nil)),
+                           isOptional = false)
               ),
-              Some(TsTypeRef(TsQIdent.of("T"), Nil))
+              Some(TsTypeRef(NoComments, TsQIdent.of("T"), Nil))
             )
           )
         ),
@@ -690,7 +699,10 @@ final class ParserTests extends FunSuite {
             TsFunParam(NoComments, TsIdent("object"), Some(TsTypeObject(Nil)), isOptional = false)
           ),
           Some(
-            TsTypeIs(TsIdent("object"), TsTypeRef(TsQIdent.of("ReactElement"), List(TsTypeRef(TsQIdent.of("P"), Nil))))
+            TsTypeIs(TsIdent("object"),
+                     TsTypeRef(NoComments,
+                               TsQIdent.of("ReactElement"),
+                               List(TsTypeRef(NoComments, TsQIdent.of("P"), Nil))))
           )
         ),
         Zero,
@@ -719,8 +731,10 @@ final class ParserTests extends FunSuite {
                 TsTypeRepeated(
                   TsTypeUnion(
                     Seq(
-                      TsTypeRef(TsQIdent.of("T"), Nil),
-                      TsTypeRef(TsQIdent.of("JQueryPromise"), List(TsTypeRef(TsQIdent.of("T"), Nil)))
+                      TsTypeRef(NoComments, TsQIdent.of("T"), Nil),
+                      TsTypeRef(NoComments,
+                                TsQIdent.of("JQueryPromise"),
+                                List(TsTypeRef(NoComments, TsQIdent.of("T"), Nil)))
                     )
                   )
                 )
@@ -728,7 +742,7 @@ final class ParserTests extends FunSuite {
               isOptional = false
             )
           ),
-          Some(TsTypeRef(TsQIdent.of("JQueryPromise"), List(TsTypeRef(TsQIdent.of("T"), Nil))))
+          Some(TsTypeRef(NoComments, TsQIdent.of("JQueryPromise"), List(TsTypeRef(NoComments, TsQIdent.of("T"), Nil))))
         ),
         isStatic   = false,
         isReadOnly = false,
@@ -755,12 +769,15 @@ final class ParserTests extends FunSuite {
               Some(
                 TsTypeUnion(
                   Seq(
-                    TsTypeRef(TsQIdent.of("React", "ComponentClass"), List(TsTypeRef(TsQIdent.any, Nil))),
-                    TsTypeRef(TsQIdent.of("React", "StatelessComponent"), List(TsTypeRef(TsQIdent.any, Nil))),
-                    TsTypeRef(
-                      TsQIdent.of("React", "PureComponent"),
-                      List(TsTypeRef(TsQIdent.any, Nil), TsTypeRef(TsQIdent.any, Nil))
-                    )
+                    TsTypeRef(NoComments,
+                              TsQIdent.of("React", "ComponentClass"),
+                              List(TsTypeRef(NoComments, TsQIdent.any, Nil))),
+                    TsTypeRef(NoComments,
+                              TsQIdent.of("React", "StatelessComponent"),
+                              List(TsTypeRef(NoComments, TsQIdent.any, Nil))),
+                    TsTypeRef(NoComments,
+                              TsQIdent.of("React", "PureComponent"),
+                              List(TsTypeRef(NoComments, TsQIdent.any, Nil), TsTypeRef(NoComments, TsQIdent.any, Nil)))
                   )
                 )
               ),
@@ -768,9 +785,12 @@ final class ParserTests extends FunSuite {
             )
           ),
           List(
-            TsFunParam(NoComments, TsIdent("component"), Some(TsTypeRef(TsQIdent.of("C"), Nil)), isOptional = false)
+            TsFunParam(NoComments,
+                       TsIdent("component"),
+                       Some(TsTypeRef(NoComments, TsQIdent.of("C"), Nil)),
+                       isOptional = false)
           ),
-          Some(TsTypeRef(TsQIdent.of("C"), Nil))
+          Some(TsTypeRef(NoComments, TsQIdent.of("C"), Nil))
         ),
         Zero,
         CodePath.NoPath
@@ -781,8 +801,8 @@ final class ParserTests extends FunSuite {
   test("keyword identifiers are apparently legal") {
     shouldParseAs("module|module[]", TsParser.tsType)(
       TsTypeUnion(
-        Seq(TsTypeRef(TsQIdent.of("module"), Nil),
-            TsTypeRef(TsQIdent.Array, List(TsTypeRef(TsQIdent.of("module"), Nil))))
+        Seq(TsTypeRef(NoComments, TsQIdent.of("module"), Nil),
+            TsTypeRef(NoComments, TsQIdent.Array, List(TsTypeRef(NoComments, TsQIdent.of("module"), Nil))))
       )
     )
 
@@ -794,7 +814,7 @@ final class ParserTests extends FunSuite {
       TsMemberProperty(NoComments,
                        Default,
                        TsIdent("public"),
-                       Some(TsTypeRef(TsQIdent.boolean, Nil)),
+                       Some(TsTypeRef(NoComments, TsQIdent.boolean, Nil)),
                        literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
@@ -802,14 +822,16 @@ final class ParserTests extends FunSuite {
     )
 
     shouldParseAs("static public?: private", TsParser.tsMemberNamed)(
-      TsMemberProperty(NoComments,
-                       Default,
-                       TsIdent("public"),
-                       Some(TsTypeRef(TsQIdent.of("private"), Nil)),
-                       literal    = None,
-                       isStatic   = true,
-                       isReadOnly = false,
-                       isOptional = true)
+      TsMemberProperty(
+        NoComments,
+        Default,
+        TsIdent("public"),
+        Some(TsTypeRef(NoComments, TsQIdent.of("private"), Nil)),
+        literal    = None,
+        isStatic   = true,
+        isReadOnly = false,
+        isOptional = true
+      )
     )
   }
 
@@ -833,7 +855,7 @@ final class ParserTests extends FunSuite {
       TsMemberProperty(NoComments,
                        Default,
                        TsIdent("i"),
-                       Some(TsTypeRef(TsQIdent.number, Nil)),
+                       Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
                        literal    = None,
                        isStatic   = false,
                        isReadOnly = false,
@@ -874,7 +896,7 @@ final class ParserTests extends FunSuite {
       TsIdent("Element"),
       Nil,
       List(
-        TsTypeRef(TsQIdent.of("React", "ReactElement"), List(TsTypeRef(TsQIdent.any, Nil)))
+        TsTypeRef(NoComments, TsQIdent.of("React", "ReactElement"), List(TsTypeRef(NoComments, TsQIdent.any, Nil)))
       ),
       Nil,
       CodePath.NoPath
@@ -1008,7 +1030,7 @@ final class ParserTests extends FunSuite {
           comments   = NoComments,
           isReadOnly = true,
           level      = Default,
-          indexing   = IndexingDict(TsIdent("index"), TsTypeRef(TsQIdent.number, Nil)),
+          indexing   = IndexingDict(TsIdent("index"), TsTypeRef(NoComments, TsQIdent.number, Nil)),
           valueType  = TsTypeRef.string,
           isOptional = false
         )
@@ -1031,11 +1053,14 @@ final class ParserTests extends FunSuite {
           List(
             TsTypeParam(NoComments,
                         TsIdent("K"),
-                        Some(TsTypeKeyOf(TsTypeRef(TsQIdent.of("MSBaseReaderEventMap"), Nil))),
+                        Some(TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("MSBaseReaderEventMap"), Nil))),
                         None)
           ),
           List(
-            TsFunParam(NoComments, TsIdent("type"), Some(TsTypeRef(TsQIdent.of("K"), Nil)), isOptional = false),
+            TsFunParam(NoComments,
+                       TsIdent("type"),
+                       Some(TsTypeRef(NoComments, TsQIdent.of("K"), Nil)),
+                       isOptional = false),
             TsFunParam(
               NoComments,
               TsIdent("listener"),
@@ -1047,24 +1072,30 @@ final class ParserTests extends FunSuite {
                     List(
                       TsFunParam(NoComments,
                                  TsIdent("this"),
-                                 Some(TsTypeRef(TsQIdent.of("FileReader"), Nil)),
+                                 Some(TsTypeRef(NoComments, TsQIdent.of("FileReader"), Nil)),
                                  isOptional = false),
-                      TsFunParam(NoComments,
-                                 TsIdent("ev"),
-                                 Some(
-                                   TsTypeLookup(TsTypeRef(TsQIdent.of("MSBaseReaderEventMap"), Nil), Left(TsIdent("K")))
-                                 ),
-                                 isOptional = false)
+                      TsFunParam(
+                        NoComments,
+                        TsIdent("ev"),
+                        Some(
+                          TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("MSBaseReaderEventMap"), Nil),
+                                       TsTypeRef.of(TsIdent("K")))
+                        ),
+                        isOptional = false
+                      )
                     ),
-                    Some(TsTypeRef(TsQIdent.any, Nil))
+                    Some(TsTypeRef(NoComments, TsQIdent.any, Nil))
                   )
                 )
               ),
               isOptional = false
             ),
-            TsFunParam(NoComments, TsIdent("useCapture"), Some(TsTypeRef(TsQIdent.boolean, Nil)), isOptional = true)
+            TsFunParam(NoComments,
+                       TsIdent("useCapture"),
+                       Some(TsTypeRef(NoComments, TsQIdent.boolean, Nil)),
+                       isOptional = true)
           ),
-          Some(TsTypeRef(TsQIdent.void, Nil))
+          Some(TsTypeRef(NoComments, TsQIdent.void, Nil))
         ),
         isStatic   = false,
         isReadOnly = false,
@@ -1090,9 +1121,9 @@ final class ParserTests extends FunSuite {
               level       = Default,
               isReadOnly  = false,
               key         = TsIdent("P"),
-              from        = TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil)),
+              from        = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Nil)),
               optionalize = OptionalModifier.Optionalize,
-              to          = TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))
+              to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Nil), TsTypeRef.of(TsIdent("P")))
             )
           )
         ),
@@ -1112,7 +1143,7 @@ final class ParserTests extends FunSuite {
         TsIdent("Pick"),
         List(
           TsTypeParam(NoComments, TsIdent("T"), None, None),
-          TsTypeParam(NoComments, TsIdent("K"), Some(TsTypeKeyOf(TsTypeRef(TsQIdent.of("T"), Nil))), None)
+          TsTypeParam(NoComments, TsIdent("K"), Some(TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Nil))), None)
         ),
         TsTypeObject(
           List(
@@ -1121,9 +1152,9 @@ final class ParserTests extends FunSuite {
               level       = Default,
               isReadOnly  = false,
               key         = TsIdent("P"),
-              from        = TsTypeRef(TsQIdent.of("K"), Nil),
+              from        = TsTypeRef(NoComments, TsQIdent.of("K"), Nil),
               optionalize = OptionalModifier.Noop,
-              to          = TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))
+              to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Nil), TsTypeRef.of(TsIdent("P")))
             )
           )
         ),
@@ -1161,7 +1192,7 @@ final class ParserTests extends FunSuite {
                       NoComments,
                       Nil,
                       Nil,
-                      Some(TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P"))))
+                      Some(TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Nil), TsTypeRef.of(TsIdent("P"))))
                     ),
                     isStatic   = false,
                     isReadOnly = false,
@@ -1178,11 +1209,11 @@ final class ParserTests extends FunSuite {
                         TsFunParam(
                           NoComments,
                           TsIdent("v"),
-                          Some(TsTypeLookup(TsTypeRef(TsQIdent.of("T"), Nil), Left(TsIdent("P")))),
+                          Some(TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Nil), TsTypeRef.of(TsIdent("P")))),
                           isOptional = false
                         )
                       ),
-                      Some(TsTypeRef(TsQIdent.void, Nil))
+                      Some(TsTypeRef(NoComments, TsQIdent.void, Nil))
                     ),
                     isStatic   = false,
                     isReadOnly = false,
@@ -1216,7 +1247,7 @@ type Readonly<T> = {
               key         = TsIdentSimple("P"),
               from        = TsTypeKeyOf(T),
               optionalize = Noop,
-              to          = TsTypeLookup(T, Left(TsIdentSimple("P")))
+              to          = TsTypeLookup(T, TsTypeRef.of(TsIdentSimple("P")))
             )
           )
         ),
@@ -1270,7 +1301,7 @@ type Readonly<T> = {
             List(),
             Some(
               TsTypeUnion(
-                List(TsTypeRef(TsQIdent(List(TsIdentSimple("TResult"))), List()), TsTypeRef.void)
+                List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("TResult"))), List()), TsTypeRef.void)
               )
             )
           )
@@ -1294,30 +1325,39 @@ type Readonly<T> = {
         TsIdent("cloneElement"),
         TsFunSig(
           NoComments,
-          List(TsTypeParam(NoComments, TsIdent("P"), Some(TsTypeRef(TsQIdent(List(TsIdent("Q"))), List())), None),
-               TsTypeParam(NoComments, TsIdent("Q"), None, None)),
+          List(
+            TsTypeParam(NoComments,
+                        TsIdent("P"),
+                        Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("Q"))), List())),
+                        None),
+            TsTypeParam(NoComments, TsIdent("Q"), None, None)
+          ),
           List(
             TsFunParam(
               NoComments,
               TsIdent("element"),
               Some(
-                TsTypeRef(TsQIdent(List(TsIdent("SFCElement"))), List(TsTypeRef(TsQIdent(List(TsIdent("P"))), List())))
+                TsTypeRef(NoComments,
+                          TsQIdent(List(TsIdent("SFCElement"))),
+                          List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("P"))), List())))
               ),
               isOptional = false
             ),
             TsFunParam(NoComments,
                        TsIdent("props"),
-                       Some(TsTypeRef(TsQIdent(List(TsIdent("Q"))), List())),
+                       Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("Q"))), List())),
                        isOptional = true),
             TsFunParam(
               NoComments,
               TsIdent("children"),
-              Some(TsTypeRepeated(TsTypeRef(TsQIdent(List(TsIdent("ReactNode"))), List()))),
+              Some(TsTypeRepeated(TsTypeRef(NoComments, TsQIdent(List(TsIdent("ReactNode"))), List()))),
               isOptional = false
             )
           ),
           Some(
-            TsTypeRef(TsQIdent(List(TsIdent("SFCElement"))), List(TsTypeRef(TsQIdent(List(TsIdent("P"))), List())))
+            TsTypeRef(NoComments,
+                      TsQIdent(List(TsIdent("SFCElement"))),
+                      List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("P"))), List())))
           )
         ),
         Zero,
@@ -1331,14 +1371,14 @@ type Readonly<T> = {
     shouldParseAs("true", TsParser.tsLiteral)(TsLiteralBoolean(true))
     shouldParseAs("false", TsParser.tsLiteral)(TsLiteralBoolean(false))
     shouldParseAs("boolean", TsParser.tsType)(
-      TsTypeRef(TsQIdent(List(TsIdent("boolean"))), List())
+      TsTypeRef(NoComments, TsQIdent(List(TsIdent("boolean"))), List())
     )
     shouldParseAs("trueSpeed: boolean", TsParser.tsMember)(
       TsMemberProperty(
         NoComments,
         Default,
         TsIdent("trueSpeed"),
-        Some(TsTypeRef(TsQIdent(List(TsIdent("boolean"))), List())),
+        Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("boolean"))), List())),
         literal    = None,
         isStatic   = false,
         isReadOnly = false,
@@ -1359,10 +1399,10 @@ type Readonly<T> = {
           List(
             TsFunParam(NoComments,
                        TsIdent("hasToken"),
-                       Some(TsTypeRef(TsQIdent(List(TsIdent("TokenAuthData"))), List())),
+                       Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("TokenAuthData"))), List())),
                        isOptional = false)
           ),
-          Some(TsTypeRef(TsQIdent(List(TsIdent("TokenHandshake"))), List()))
+          Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("TokenHandshake"))), List()))
         ),
         isStatic   = true,
         isReadOnly = false,
@@ -1380,9 +1420,12 @@ type Readonly<T> = {
         List(TsTypeParam(NoComments, TsIdent("P"), None, Some(TsTypeObject(List()))),
              TsTypeParam(NoComments, TsIdent("S"), None, Some(TsTypeObject(List())))),
         List(
-          TsTypeRef(TsQIdent(List(TsIdent("ComponentLifecycle"))),
-                    List(TsTypeRef(TsQIdent(List(TsIdent("P"))), List()),
-                         TsTypeRef(TsQIdent(List(TsIdent("S"))), List())))
+          TsTypeRef(
+            NoComments,
+            TsQIdent(List(TsIdent("ComponentLifecycle"))),
+            List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("P"))), List()),
+                 TsTypeRef(NoComments, TsQIdent(List(TsIdent("S"))), List()))
+          )
         ),
         List(),
         CodePath.NoPath
@@ -1402,7 +1445,7 @@ type Readonly<T> = {
           List(
             TsFunParam(NoComments,
                        TsIdent("obj"),
-                       Some(TsTypeRef(TsQIdent(List(TsIdent("any"))), List())),
+                       Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("any"))), List())),
                        isOptional = false)
           ),
           Some(TsTypeIs(TsIdent("obj"), TsTypeObject(List())))
@@ -1435,14 +1478,13 @@ type Readonly<T> = {
                   List(
                     TsFunParam(NoComments,
                                TsIdent("input"),
-                               Some(TsTypeRef(TsQIdent(List(TsIdent("string"))), List())),
+                               Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("string"))), List())),
                                isOptional = false)
                   ),
                   Some(
-                    TsTypeRef(
-                      TsQIdent(List(TsIdent("Promise"))),
-                      List(TsTypeRef(TsQIdent(List(TsIdent("AutocompleteResult"))), List()))
-                    )
+                    TsTypeRef(NoComments,
+                              TsQIdent(List(TsIdent("Promise"))),
+                              List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("AutocompleteResult"))), List())))
                   )
                 )
               ),
@@ -1453,7 +1495,7 @@ type Readonly<T> = {
                   List(
                     TsFunParam(NoComments,
                                TsIdent("input"),
-                               Some(TsTypeRef(TsQIdent(List(TsIdent("string"))), List())),
+                               Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("string"))), List())),
                                isOptional = false),
                     TsFunParam(
                       NoComments,
@@ -1466,23 +1508,23 @@ type Readonly<T> = {
                             List(
                               TsFunParam(NoComments,
                                          TsIdent("err"),
-                                         Some(TsTypeRef(TsQIdent(List(TsIdent("any"))), List())),
+                                         Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("any"))), List())),
                                          isOptional = false),
                               TsFunParam(NoComments,
                                          TsIdent("result"),
                                          Some(
-                                           TsTypeRef(TsQIdent(List(TsIdent("AutocompleteResult"))), List())
+                                           TsTypeRef(NoComments, TsQIdent(List(TsIdent("AutocompleteResult"))), List())
                                          ),
                                          isOptional = false)
                             ),
-                            Some(TsTypeRef(TsQIdent(List(TsIdent("void"))), List()))
+                            Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("void"))), List()))
                           )
                         )
                       ),
                       isOptional = false
                     )
                   ),
-                  Some(TsTypeRef(TsQIdent(List(TsIdent("void"))), List()))
+                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("void"))), List()))
                 )
               )
             )
@@ -1499,10 +1541,11 @@ type Readonly<T> = {
   test("keyof 1") {
     shouldParseAs("LoDashImplicitArrayWrapper<T[keyof T]>", TsParser.tsType)(
       TsTypeRef(
+        NoComments,
         TsQIdent(List(TsIdent("LoDashImplicitArrayWrapper"))),
         List(
-          TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdent("T"))), List()),
-                       Right(TsTypeKeyOf(TsTypeRef(TsQIdent(List(TsIdent("T"))), Nil))))
+          TsTypeLookup(TsTypeRef(NoComments, TsQIdent(List(TsIdent("T"))), List()),
+                       TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent(List(TsIdent("T"))), Nil)))
         )
       )
     )
@@ -1510,7 +1553,8 @@ type Readonly<T> = {
 
   test("type lookup") {
     shouldParseAs("KeywordTypeNode[\"kind\"]", TsParser.tsType)(
-      TsTypeLookup(TsTypeRef(TsQIdent(List(TsIdent("KeywordTypeNode"))), List()), Left(TsIdent("kind")))
+      TsTypeLookup(TsTypeRef(NoComments, TsQIdent(List(TsIdent("KeywordTypeNode"))), List()),
+                   TsTypeLiteral(TsLiteralString("kind")))
     )
   }
 
@@ -1615,7 +1659,7 @@ type Readonly<T> = {
                           NoComments,
                           Default,
                           TsIdentSimple("facetName"),
-                          Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
+                          Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("string"))), List())),
                           literal    = None,
                           isStatic   = false,
                           isReadOnly = false,
@@ -1625,7 +1669,7 @@ type Readonly<T> = {
                           NoComments,
                           Default,
                           TsIdentSimple("facetQuery"),
-                          Some(TsTypeRef(TsQIdent(List(TsIdentSimple("string"))), List())),
+                          Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("string"))), List())),
                           literal    = None,
                           isStatic   = false,
                           isReadOnly = false,
@@ -1633,7 +1677,7 @@ type Readonly<T> = {
                         )
                       )
                     ),
-                    TsTypeRef(TsQIdent(List(TsIdentSimple("AlgoliaQueryParameters"))), List())
+                    TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("AlgoliaQueryParameters"))), List())
                   )
                 )
               ),
@@ -1641,7 +1685,7 @@ type Readonly<T> = {
             )
           ),
           Some(
-            TsTypeRef(TsQIdent(List(TsIdentSimple("Promise"))), List(TsTypeRef.any))
+            TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Promise"))), List(TsTypeRef.any))
           )
         ),
         isStatic   = false,
@@ -1664,7 +1708,7 @@ type Readonly<T> = {
         isAbstract = false,
         TsIdentSimple("PartialValueApplicator"),
         List(),
-        Some(TsTypeRef(TsQIdent(List(TsIdentSimple("Applicator"))), List())),
+        Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Applicator"))), List())),
         List(),
         List(
           TsMemberFunction(
@@ -1675,10 +1719,12 @@ type Readonly<T> = {
               NoComments,
               List(),
               List(
-                TsFunParam(NoComments,
-                           TsIdentSimple("hasArgsTargetValueConfig"),
-                           Some(TsTypeRef(TsQIdent(List(TsIdentSimple("ApplicateOptions"))), List())),
-                           isOptional = false)
+                TsFunParam(
+                  NoComments,
+                  TsIdentSimple("hasArgsTargetValueConfig"),
+                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("ApplicateOptions"))), List())),
+                  isOptional = false
+                )
               ),
               Some(TsTypeRef.any)
             ),
@@ -1707,7 +1753,7 @@ type Readonly<T> = {
             NoComments,
             TsIdentSimple("E"),
             Some(
-              TsTypeRef(TsQIdent(List(TsIdentSimple("SyntheticEvent"))), List(TsTypeRef.any))
+              TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("SyntheticEvent"))), List(TsTypeRef.any))
             ),
             None
           )
@@ -1725,10 +1771,10 @@ type Readonly<T> = {
                   List(
                     TsFunParam(NoComments,
                                TsIdentSimple("event"),
-                               Some(TsTypeRef(TsQIdent(List(TsIdentSimple("E"))), List())),
+                               Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("E"))), List())),
                                isOptional = false)
                   ),
-                  Some(TsTypeRef(TsQIdent(List(TsIdentSimple("void"))), List()))
+                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("void"))), List()))
                 ),
                 isStatic   = false,
                 isReadOnly = false,
@@ -1736,7 +1782,7 @@ type Readonly<T> = {
               )
             )
           ),
-          Left(TsIdentSimple("bivarianceHack"))
+          TsTypeLiteral(TsLiteralString("bivarianceHack"))
         ),
         CodePath.NoPath
       )
@@ -1744,15 +1790,16 @@ type Readonly<T> = {
   }
 
   test("double type lookup") {
-    val RTS = TsTypeRef(TsQIdent(List(TsIdentSimple("RTS"))), List())
+    val RTS = TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("RTS"))), List())
     shouldParseAs("""UnionType<RTS, RTS["_A"]["_A"], RTS["_A"]["_O"], mixed>""", TsParser.tsType)(
       TsTypeRef(
+        NoComments,
         TsQIdent(List(TsIdentSimple("UnionType"))),
         List(
           RTS,
-          TsTypeLookup(TsTypeLookup(RTS, Left(TsIdentSimple("_A"))), Left(TsIdentSimple("_A"))),
-          TsTypeLookup(TsTypeLookup(RTS, Left(TsIdentSimple("_A"))), Left(TsIdentSimple("_O"))),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("mixed"))), List())
+          TsTypeLookup(TsTypeLookup(RTS, TsTypeLiteral(TsLiteralString("_A"))), TsTypeLiteral(TsLiteralString("_A"))),
+          TsTypeLookup(TsTypeLookup(RTS, TsTypeLiteral(TsLiteralString("_A"))), TsTypeLiteral(TsLiteralString("_O"))),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("mixed"))), List())
         )
       )
     )
@@ -1789,8 +1836,8 @@ type Readonly<T> = {
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None),
              TsTypeParam(NoComments, TsIdentSimple("U"), None, None)),
         TsTypeConditional(
-          TsTypeExtends(T, TsTypeRef(TsQIdent(List(TsIdentSimple("U"))), List())),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("never"))), List()),
+          TsTypeExtends(T, TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("U"))), List())),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("never"))), List()),
           T
         ),
         CodePath.NoPath
@@ -1807,9 +1854,9 @@ type Readonly<T> = {
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None),
              TsTypeParam(NoComments, TsIdentSimple("U"), None, None)),
         TsTypeConditional(
-          TsTypeExtends(T, TsTypeRef(TsQIdent(List(TsIdentSimple("U"))), List())),
+          TsTypeExtends(T, TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("U"))), List())),
           T,
-          TsTypeRef(TsQIdent(List(TsIdentSimple("never"))), List())
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("never"))), List())
         ),
         CodePath.NoPath
       )
@@ -1827,11 +1874,11 @@ type Readonly<T> = {
           TsTypeExtends(
             T,
             TsTypeUnion(
-              List(TsTypeRef(TsQIdent(List(TsIdentSimple("null"))), List()),
-                   TsTypeRef(TsQIdent(List(TsIdentSimple("undefined"))), List()))
+              List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("null"))), List()),
+                   TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("undefined"))), List()))
             )
           ),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("never"))), List()),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("never"))), List()),
           T
         ),
         CodePath.NoPath
@@ -1881,7 +1928,7 @@ type Readonly<T> = {
               )
             )
           ),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("R"))), List()),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("R"))), List()),
           TsTypeRef.any
         ),
         CodePath.NoPath
@@ -1939,7 +1986,7 @@ type Readonly<T> = {
               )
             )
           ),
-          TsTypeRef(TsQIdent(List(TsIdentSimple("R"))), List()),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("R"))), List()),
           TsTypeRef.any
         ),
         CodePath.NoPath
@@ -1966,7 +2013,7 @@ type Readonly<T> = {
               TsIdentSimple("P"),
               TsTypeKeyOf(T),
               OptionalModifier.Deoptionalize,
-              TsTypeLookup(T, Left(TsIdentSimple("P")))
+              TsTypeLookup(T, TsTypeRef.of(TsIdentSimple("P")))
             )
           )
         ),
@@ -1999,17 +2046,16 @@ type Readonly<T> = {
             TsFunParam(
               NoComments,
               TsIdentSimple("hasOptimisticResponseUpdateQueriesRefetchQueriesUpdateErrorPolicy"),
-              Some(TsTypeRef(TsQIdent(List(TsIdentSimple("Fpp"))), List())),
+              Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Fpp"))), List())),
               isOptional = false
             )
           ),
           Some(
-            TsTypeRef(
-              TsQIdent(List(TsIdentSimple("Promise"))),
-              List(
-                TsTypeRef(TsQIdent(List(TsIdentSimple("Bar"))), List(T))
-              )
-            )
+            TsTypeRef(NoComments,
+                      TsQIdent(List(TsIdentSimple("Promise"))),
+                      List(
+                        TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Bar"))), List(T))
+                      ))
           )
         ),
         isStatic   = false,
@@ -2029,7 +2075,7 @@ type Readonly<T> = {
         declared = false,
         readOnly = true,
         TsIdentSimple("foo"),
-        Some(TsTypeRef(TsQIdent(List(TsIdentSimple("symbol"))), List())),
+        Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("symbol"))), List())),
         None,
         Zero,
         CodePath.NoPath,
@@ -2140,9 +2186,53 @@ type Readonly<T> = {
         false,
         TsIdentSimple("foo"),
         Some(
-          TsTypeRef(TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))),
+          TsTypeRef(NoComments,
+                    TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))),
                     List())
         ),
+        None,
+        Zero,
+        CodePath.NoPath,
+        false
+      )
+    )
+  }
+
+  test("tuple optional") {
+    shouldParseAs(
+      "[number, number?]",
+      TsParser.tsType
+    )(
+      TsTypeTuple(List(TsTypeRef.number, TsTypeUnion(List(TsTypeRef.number, TsTypeRef.undefined))))
+    )
+  }
+
+  test("tuple variable") {
+    shouldParseAs(
+      "[number, number, ...T[]]",
+      TsParser.tsType
+    )(
+      TsTypeTuple(
+        List(
+          TsTypeRef(NoComments, TsQIdent.number, Nil),
+          TsTypeRef(NoComments, TsQIdent.number, Nil),
+          TsTypeRepeated(TsTypeRef(NoComments, TsQIdent.of("T"), Nil))
+        )
+      )
+    )
+  }
+
+  test("typeof import()") {
+    shouldParseAs(
+      "const sdk: typeof import(\"aws-sdk\")",
+      TsParser.tsDeclVar
+    )(
+      TsDeclVar(
+        NoComments,
+        false,
+        true,
+        TsIdentSimple("sdk"),
+        Some(TsTypeQuery(TsQIdent(List(TsIdentImport(TsIdentModule(None, List("aws-sdk"))))))),
         None,
         Zero,
         CodePath.NoPath,

@@ -60,9 +60,10 @@ object ExtractInterfaces {
     override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
       x match {
         case obj: TsTypeObject
-            if obj.members.nonEmpty && !isDictionary(obj) && !partOfTypeMapping(scope.stack, obj) && shouldBeExtracted(
-              scope
-            ) =>
+            if obj.members.nonEmpty &&
+              !isDictionary(obj) &&
+              !partOfTypeMapping(scope.stack, obj) &&
+              shouldBeExtracted(scope) =>
           val referencedTparams: Seq[TsTypeParam] =
             TypeParamsReferencedInTree(scope.tparams, obj)
 
@@ -71,7 +72,6 @@ object ExtractInterfaces {
             "Anon_",
             obj.members,
             name =>
-//              visitTsDeclInterface(scope.root)(
               TsDeclInterface(
                 NoComments,
                 declared = true,
@@ -80,11 +80,10 @@ object ExtractInterfaces {
                 Nil,
                 obj.members,
                 CodePath.NoPath
-//                )
             )
           )
 
-          TsTypeRef(codePath.codePath, TsTypeParam.asTypeArgs(referencedTparams))
+          TsTypeRef(NoComments, codePath.codePath, TsTypeParam.asTypeArgs(referencedTparams))
 
         case _ => x
       }

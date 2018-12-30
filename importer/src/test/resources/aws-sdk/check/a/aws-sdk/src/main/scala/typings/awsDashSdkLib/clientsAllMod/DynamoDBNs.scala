@@ -13,11 +13,11 @@ object DynamoDBNs extends js.Object {
     extends awsDashSdkLib.clientsDynamodbMod.Converter
   
   @js.native
+  /**
+    * Creates a DynamoDB document client with a set of configuration options.
+    */
   class DocumentClient ()
     extends awsDashSdkLib.clientsDynamodbMod.DocumentClient {
-    /**
-         * Creates a DynamoDB document client with a set of configuration options.
-         */
     def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration) = this()
   }
   
@@ -42,11 +42,11 @@ object DynamoDBNs extends js.Object {
       extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.Converter
     
     @js.native
+    /**
+      * Creates a DynamoDB document client with a set of configuration options.
+      */
     class DocumentClient ()
       extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.DocumentClient {
-      /**
-           * Creates a DynamoDB document client with a set of configuration options.
-           */
       def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration) = this()
     }
     

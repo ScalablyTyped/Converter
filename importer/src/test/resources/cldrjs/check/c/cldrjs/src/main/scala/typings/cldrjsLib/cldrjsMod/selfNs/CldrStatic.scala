@@ -6,13 +6,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /**
-     * @name CldrStatic
-     * @memberof cldr
-     * @kind interface
-     *
-     * @description
-     * The cldr class definition.
-     */
+  * @name CldrStatic
+  * @memberof cldr
+  * @kind interface
+  *
+  * @description
+  * The cldr class definition.
+  */
 @js.native
 trait CldrStatic extends js.Object {
   @JSName("supplemental")

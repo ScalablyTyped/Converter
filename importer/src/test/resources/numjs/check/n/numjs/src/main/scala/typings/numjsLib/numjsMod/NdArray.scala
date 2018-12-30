@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait NdArray[T]
   extends ndarrayLib.ndarrayMod.ndarray[T] {
   @JSName("T")

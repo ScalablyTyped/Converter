@@ -7,12 +7,12 @@ import scala.scalajs.js.annotation._
 
 @JSImport("rxjs/internal/Subscription", "Subscription")
 @js.native
+/**
+  * @param {function(): void} [unsubscribe] A function describing how to
+  * perform the disposal of resources when the `unsubscribe` method is called.
+  */
 class Subscription ()
   extends rxjsLib.internalTypesMod.SubscriptionLike {
-  /**
-       * @param {function(): void} [unsubscribe] A function describing how to
-       * perform the disposal of resources when the `unsubscribe` method is called.
-       */
   def this(unsubscribe: js.Function0[scala.Unit]) = this()
   /** @internal */
   var _subscriptions: js.Any = js.native

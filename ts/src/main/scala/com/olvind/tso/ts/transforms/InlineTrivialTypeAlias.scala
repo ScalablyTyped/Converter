@@ -15,7 +15,7 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
   /* changing this? also change `Cleanup`. We need to do it in two stages */
   def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
     cur match {
-      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(nextName, _), codePath)
+      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(_, nextName, _), codePath)
           if cs.cs.exists(_ === constants.MagicComments.TrivialTypeAlias) =>
         scope
           .lookupTypeIncludeScope(nextName)
@@ -37,7 +37,7 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
 
   private def handleRef(scope: TsTreeScope, x: TsTypeRef): TsTypeRef = {
     val simplifiedOpt = x match {
-      case ref @ TsTypeRef(target: TsQIdent, tparams) if !TsQIdent.Primitive(target) =>
+      case ref @ TsTypeRef(_, target: TsQIdent, tparams) if !TsQIdent.Primitive(target) =>
         val ret: Option[Option[TsTypeRef]] =
           scope lookupTypeIncludeScope target collectFirst {
             case (TsDeclEnum(_, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>

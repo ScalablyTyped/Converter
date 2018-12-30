@@ -21,14 +21,14 @@ trait IInjectorService extends js.Object {
   def instantiate[T](typeConstructor: angularLib.Anon_Args[T]): T = js.native
   def instantiate[T](typeConstructor: angularLib.Anon_Args[T], locals: js.Any): T = js.native
   def invoke[T](
-    func: angularLib.angularMod.angularNs.Injectable[angularLib.angularMod.Global.Function | (js.Function1[/* repeated */_, T])]
+    func: angularLib.angularMod.angularNs.Injectable[angularLib.angularMod.Global.Function | (js.Function1[/* repeated */ _, T])]
   ): T = js.native
   def invoke[T](
-    func: angularLib.angularMod.angularNs.Injectable[angularLib.angularMod.Global.Function | (js.Function1[/* repeated */_, T])],
+    func: angularLib.angularMod.angularNs.Injectable[angularLib.angularMod.Global.Function | (js.Function1[/* repeated */ _, T])],
     context: js.Any
   ): T = js.native
   def invoke[T](
-    func: angularLib.angularMod.angularNs.Injectable[angularLib.angularMod.Global.Function | (js.Function1[/* repeated */_, T])],
+    func: angularLib.angularMod.angularNs.Injectable[angularLib.angularMod.Global.Function | (js.Function1[/* repeated */ _, T])],
     context: js.Any,
     locals: js.Any
   ): T = js.native

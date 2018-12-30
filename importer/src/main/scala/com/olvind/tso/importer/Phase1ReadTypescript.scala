@@ -169,7 +169,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 ).visitTsParsedFile(scope),
                 T.QualifyReferences.visitTsParsedFile(scope.caching),
                 AugmentModules(scope),
-                T.ResolveTypeQueries.visitTsParsedFile(scope),
+                T.ResolveTypeQueries.visitTsParsedFile(scope), // before ReplaceExports
                 new ReplaceExports(new LoopDetector()).visitTsParsedFile(scope.caching),
                 f => FlattenTrees(f :: Nil),
                 (

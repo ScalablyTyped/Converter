@@ -5,7 +5,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-
 trait ReadableOptions extends js.Object {
   var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[nodeLib.Error], _]] = js.undefined
   var encoding: js.UndefOr[java.lang.String] = js.undefined

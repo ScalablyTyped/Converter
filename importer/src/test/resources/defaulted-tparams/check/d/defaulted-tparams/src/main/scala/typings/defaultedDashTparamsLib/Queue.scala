@@ -9,24 +9,24 @@ import scala.scalajs.js.annotation._
 @js.native
 class Queue[S, T] () extends js.Object {
   /**
-       * Whether the queue is empty
-       */
+    * Whether the queue is empty
+    */
   val empty: scala.Boolean = js.native
   /**
-       * Whether the queue is full
-       */
+    * Whether the queue is full
+    */
   val full: scala.Boolean = js.native
   /**
-       * The length of the queue
-       */
+    * The length of the queue
+    */
   val length: scala.Double = js.native
   /**
-       * Removes and returns an element from the beginning
-       */
+    * Removes and returns an element from the beginning
+    */
   def pop(): js.UndefOr[T] = js.native
   /**
-       * Inserts a new element at the end
-       */
+    * Inserts a new element at the end
+    */
   def push(x: S): this.type = js.native
 }
 

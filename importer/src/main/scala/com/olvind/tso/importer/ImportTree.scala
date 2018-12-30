@@ -341,9 +341,9 @@ object ImportTree {
 
             val rewritten: TypeRef =
               if (indexTpe === TypeRef.String)
-                TypeRef.StringDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */ "))
+                TypeRef.StringDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */"))
               else if (indexTpe === TypeRef.Double)
-                TypeRef.NumberDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */ "))
+                TypeRef.NumberDictionary(valueTpe, m.comments + Comment(s"/* ${indexName.value} */"))
               else scope.logger.fatal(s"Unsupported index type $indexTpe")
 
             Seq(MemberRet.Inheritance(rewritten))

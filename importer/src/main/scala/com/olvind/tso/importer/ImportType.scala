@@ -6,6 +6,7 @@ import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts._
 
 object ImportType {
+
   def orAny(wildcards: Wildcards, scope: TsTreeScope)(ott: Option[TsType]): TypeRef =
     ott map apply(wildcards, scope) getOrElse TypeRef.Any
 
@@ -73,20 +74,21 @@ object ImportType {
   def apply(wildcards: Wildcards, _scope: TsTreeScope)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
-      case TsTypeRef(base: TsQIdent, targs: Seq[TsType]) =>
+      case TsTypeRef(cs, base: TsQIdent, targs: Seq[TsType]) =>
         base match {
-          case TsQIdent.any | TsQIdent.unknown => if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any
+          case TsQIdent.any | TsQIdent.unknown =>
+            (if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any).withComments(cs)
 
           case other =>
             lazy val parent = isInheritance(other, scope)
             lazy val targs2 = targs map apply(wildcards.maybeAllow, scope)
 
             Mappings.get(other) match {
-              case Some(Ref(tr, _)) if parent         => tr
-              case Some(Ref(_, tr))                   => tr
-              case Some(OnlyName(qname, _)) if parent => TypeRef(qname, targs2, NoComments)
-              case Some(OnlyName(_, qname))           => TypeRef(qname, targs2, NoComments)
-              case None                               => TypeRef(ImportName(other), targs2, NoComments)
+              case Some(Ref(tr, _)) if parent         => tr.withComments(cs)
+              case Some(Ref(_, tr))                   => tr.withComments(cs)
+              case Some(OnlyName(qname, _)) if parent => TypeRef(qname, targs2, cs)
+              case Some(OnlyName(_, qname))           => TypeRef(qname, targs2, cs)
+              case None                               => TypeRef(ImportName(other), targs2, cs)
             }
         }
 
@@ -164,6 +166,13 @@ object ImportType {
       case TsTypeKeyOf(_) =>
         TypeRef.String
 
+      case TsTypeTuple(StrippedRepeat(targs)) =>
+        TypeRef(
+          QualifiedName.Array,
+          List(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope), false)),
+          NoComments
+        )
+
       case TsTypeTuple(targs) =>
         TypeRef.Tuple(targs map apply(wildcards.maybeAllow, scope))
 
@@ -173,7 +182,7 @@ object ImportType {
       case TsTypeIs(_, tpe) =>
         tpe match {
           case ref: TsTypeRef =>
-            TypeRef.Boolean.withComments(Comments(s"/* is ${ref.name.parts.last.value} */"))
+            TypeRef.Boolean.withComments(Comments(s"/* is ${TsTypeFormatter(ref)} */"))
           case _ =>
             TypeRef.Boolean
         }
@@ -185,8 +194,7 @@ object ImportType {
         TypeRef.ThisType(NoComments)
 
       case other =>
-        val msg =
-          s"Failed type conversion: ${other.toString.replaceAll("Vector\\(", "List(")}"
+        val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
         TypeRef(QualifiedName.Any, Nil, Comments(Comment.warning(msg)))
     }
@@ -204,7 +212,7 @@ object ImportType {
           case other                          => (other, false)
         }
 
-        val comment = Comment(s"/* ${param.name.value}${if (isRepeated) " (repeated)" else ""} */ ")
+        val comment = Comment(s"/* ${param.name.value}${if (isRepeated) " (repeated)" else ""} */")
 
         ImportType
           .orAny(Wildcards.Prohibit, scope)(baseType)
@@ -224,6 +232,19 @@ object ImportType {
 
   private def funParam(wildcards: Wildcards, scope: TsTreeScope)(param: TsFunParam): TypeRef =
     orAny(wildcards, scope / param)(param.tpe) withOptional param.isOptional withComments Comments(
-      s"/* ${param.name.value} */ "
+      s"/* ${param.name.value} */"
     )
+
+  private object StrippedRepeat {
+    def unapply(types: Seq[TsType]): Option[Seq[TsType]] = {
+      var found = false
+      val ret = types.map {
+        case TsTypeRepeated(x) =>
+          found = true
+          x
+        case other => other
+      }
+      if (found) Some(ret) else None
+    }
+  }
 }

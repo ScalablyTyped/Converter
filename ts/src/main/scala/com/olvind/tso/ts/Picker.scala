@@ -59,6 +59,6 @@ object Picker {
       }
   }
 
-  def ButNot[T <: TsNamedDecl](picker: Picker[T], exclude: T): Picker[T] =
-    (t: TsNamedDecl) => picker.unapply(t).filter(_ ne exclude)
+  def ButNot[T <: TsNamedDecl](picker: Picker[T], excludes: T*): Picker[T] =
+    (decl: TsNamedDecl) => picker.unapply(decl).filter(t => excludes.exists(_ ne t))
 }

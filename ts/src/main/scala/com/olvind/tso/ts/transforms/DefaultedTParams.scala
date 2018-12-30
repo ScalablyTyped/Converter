@@ -20,7 +20,7 @@ import scala.collection.mutable
 object DefaultedTParams extends TreeTransformationScopedChanges {
   override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     x match {
-      case TsTypeRef(target: TsQIdent, providedTparams: Seq[TsType])
+      case TsTypeRef(_, target: TsQIdent, providedTparams: Seq[TsType])
           if !TsQIdent.Primitive(target) && !scope.isAbstract(target) =>
         scope lookupBase (Picker.Types, target) collectFirst {
           case (HasTParams(expectedTparams), _) if expectedTparams.size =/= providedTparams.size =>
@@ -35,8 +35,9 @@ object DefaultedTParams extends TreeTransformationScopedChanges {
                   provided
                 case (current, _) =>
                   val next = current.default.getOrElse {
-                    scope.logger.warn(s"no default parameter for $current")
-                    current.upperBound getOrElse TsTypeRef.any
+                    val msg = s"no default parameter for ${TsTypeFormatter.tparam(current)}"
+                    scope.logger.warn(msg)
+                    current.upperBound getOrElse TsTypeRef.any.copy(comments = Comments(Comment.warning(msg)))
                   }
 
                   /* a default tparam may refer to earlier tparams by name, so handle that here */

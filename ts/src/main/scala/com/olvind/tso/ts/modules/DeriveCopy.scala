@@ -20,7 +20,7 @@ object DeriveCopy {
           },
           declared   = true,
           implements = Nil,
-          parent     = Some(TsTypeRef(origin, TsTypeParam.asTypeArgs(x.tparams)))
+          parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)))
         )
 
         List(`class`)
@@ -32,7 +32,7 @@ object DeriveCopy {
             declared = true,
             name     = rename getOrElse x.name,
             tparams  = x.tparams,
-            alias    = TsTypeRef(origin, TsTypeParam.asTypeArgs(x.tparams)),
+            alias    = TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
             codePath = x.codePath
           )
         )
@@ -42,7 +42,7 @@ object DeriveCopy {
           x.copy(
             name         = rename getOrElse x.name,
             isValue      = true,
-            exportedFrom = x.exportedFrom orElse Some(TsTypeRef(origin, Nil)),
+            exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Nil)),
           )
         )
 
@@ -100,7 +100,7 @@ object DeriveCopy {
             declared = false,
             rename getOrElse x.name,
             x.tparams,
-            TsTypeRef(x.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(x.tparams)),
+            TsTypeRef(NoComments, x.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(x.tparams)),
             x.codePath
           )
         )
