@@ -3,8 +3,9 @@ package ts
 
 import com.olvind.logging.Formatter
 import com.olvind.tso.seqs._
+import com.olvind.tso.ts.transforms.ExtractInterfaces
 
-sealed trait TsTree {
+sealed trait TsTree extends Serializable with Product {
 
   lazy val asString: String = {
     val name = this match {
@@ -393,20 +394,21 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val `this`:      TsIdent        = TsIdent("this")
-  val Apply:       TsIdent        = TsIdent("<apply>")
-  val update:      TsIdent        = TsIdent("update")
-  val prototype:   TsIdent        = TsIdent("prototype")
-  val constructor: TsIdent        = TsIdent("constructor")
-  val default:     TsIdent        = TsIdent("default")
-  val namespaced:  TsIdent        = TsIdent("namespaced")
-  val dummy:       TsIdentLibrary = TsIdentLibrarySimple("dummy")
-  val Symbol:      TsIdent        = TsIdent("Symbol")
-  val Global:      TsIdent        = TsIdent("Global")
-  val Record:      TsIdent        = TsIdent("Record")
+  val `this`:      TsIdent = TsIdent("this")
+  val Apply:       TsIdent = TsIdent("<apply>")
+  val update:      TsIdent = TsIdent("update")
+  val prototype:   TsIdent = TsIdent("prototype")
+  val constructor: TsIdent = TsIdent("constructor")
+  val default:     TsIdent = TsIdent("default")
+  val namespaced:  TsIdent = TsIdent("namespaced")
+  val Symbol:      TsIdent = TsIdent("Symbol")
+  val Global:      TsIdent = TsIdent("Global")
+  val Record:      TsIdent = TsIdent("Record")
+
+  val dummy: TsIdentLibrary = TsIdentLibrarySimple("dummy")
+  val std:   TsIdentLibrary = TsIdentLibrarySimple("std")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
-
 }
 
 final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
@@ -518,7 +520,9 @@ object TsTypeIntersect {
     }
 
   def simplified(types: Seq[TsType]): TsType = {
-    val withCombinedObjects = types.partitionCollect { case x: TsTypeObject => x } match {
+    val withCombinedObjects = types.partitionCollect {
+      case x: TsTypeObject if !ExtractInterfaces.isTypeMapping(x.members) => x
+    } match {
       case (Nil, all)      => all
       case (Seq(_), _)     => types // just keep order
       case (objects, rest) => TsTypeObject(objects.flatMap(_.members)) +: rest
@@ -567,6 +571,17 @@ final case class TsTypeInfer(tparam: TsTypeParam) extends TsTypePredicate
 
 sealed abstract class TsMember extends TsTree {
   def level: ProtectionLevel
+}
+
+object TsMember {
+  def optional(m: TsMember): TsMember = m match {
+    case x: TsMemberCall       => x
+    case x: TsMemberCtor       => x
+    case x: TsMemberFunction   => x.copy(isOptional = true)
+    case x: TsMemberIndex      => x.copy(isOptional = true)
+    case x: TsMemberTypeMapped => x.copy(optionalize = OptionalModifier.Optionalize)
+    case x: TsMemberProperty   => x.copy(isOptional = true)
+  }
 }
 
 final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember

@@ -6,16 +6,16 @@ import com.olvind.tso.stringUtils.quote
 object Versions {
   object `scala 2.12 with scala.js 0.6.25` extends Versions {
     val scalaOrganization   = "org.scala-lang"
-    val scalaVersion        = "2.12.7"
+    val scalaVersion        = "2.12.8"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "0.6.25"
+    val scalaJsVersion      = "0.6.26"
     val scalaJsBinVersion   = "0.6"
   }
 
   object `scala 2.12 with scala.js 1.0.0` extends Versions {
     val scalaOrganization   = "org.scala-lang"
-    val scalaVersion        = "2.12.7"
+    val scalaVersion        = "2.12.8"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
     val scalaJsVersion      = "1.0.0-M6"
@@ -35,7 +35,7 @@ trait Versions {
   val RuntimeOrganization = "com.olvind"
   val RuntimeName         = "scalablytyped-runtime"
   val RuntimeVersion      = "1.0.0"
-  val sbtVersion          = "1.2.6"
+  val sbtVersion          = "1.2.8"
   val sbtBintray          = %("org.foundweekends", "sbt-bintray", "0.5.4")
 
   def s(artifact: String): String =

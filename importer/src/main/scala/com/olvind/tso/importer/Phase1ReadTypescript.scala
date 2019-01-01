@@ -42,6 +42,8 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
       case _:      Source.ContribSource                                => PhaseRes.Ok(Contrib)
       case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
+      case Source.TsHelperFile(file, inLib, _) if !file.path.segments.last.endsWith(".d.ts") =>
+        PhaseRes.Ignore()
 
       case Source.TsHelperFile(file, inLib, _) =>
         val L = logger.withContext(file)
@@ -114,12 +116,12 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 
       case source: Source.TsLibSource =>
         val packageJsonOpt: Option[PackageJsonDeps] =
-          Json.opt[PackageJsonDeps](source.folder.path / "package.json") orElse
+          Json.opt[PackageJsonDeps](source.folder.path / "package.json", error => logger.warn(error)) orElse
             /* discover stdlib package.json as well */
-            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json")
+            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json", error => logger.warn(error))
 
         val tsConfig: Option[TsConfig] =
-          Json.opt[TsConfig](source.folder.path / "tsconfig.json")
+          Json.opt[TsConfig](source.folder.path / "tsconfig.json", error => logger.warn(error))
 
         val fileSources: Set[Source.TsHelperFile] =
           PathsFromTsLibSource(resolve, source, packageJsonOpt, tsConfig)
@@ -157,7 +159,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                   case (thisSource, file) =>
                     logger.info(s"Preprocessing $thisSource")
                     val _1 = InferredDefaultModule(file.file, thisSource.moduleName, logger)
-                    val _2 = FlattenTrees(_1 +: file.toInline.to[Seq].map(_._2))
+                    val _2 = FlattenTrees(_1 +: file.toInline.filterNot(_._2.isModule).to[Seq].map(_._2))
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
@@ -170,10 +172,12 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 T.QualifyReferences.visitTsParsedFile(scope.caching),
                 AugmentModules(scope),
                 T.ResolveTypeQueries.visitTsParsedFile(scope), // before ReplaceExports
-                new ReplaceExports(new LoopDetector()).visitTsParsedFile(scope.caching),
+                new ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
                 f => FlattenTrees(f :: Nil),
                 (
-                  T.SimplifyTypes >> //before ExpandCallables
+                  T.ResolveTypeLookups >> //before ExpandCallables
+//                      T.ApplyTypeMapping >> //after ResolveTypeLookups
+                    T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
                     T.ExpandCallables >>
                     T.ExpandKeyOfTypeParams >>

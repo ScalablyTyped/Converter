@@ -4,62 +4,24 @@ package transforms
 
 import scala.collection.mutable.ListBuffer
 
-object SplitMethodsOnOptionalParams extends TreeTransformationScopedChanges {
-  override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
-    x.copy(members = newMembers(x))
+object SplitMethodsOnOptionalParams extends TransformMembers with TransformClassMembers {
+  override def newClassMembers(scope: TsTreeScope, xs: Seq[TsMember]): Seq[TsMember] =
+    xs flatMap {
+      case x: TsMemberCtor =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case x: TsMemberFunction if !x.isOptional =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case x: TsMemberCall =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case other => List(other)
+    }
 
-  override def enterTsDeclGlobal(t: TsTreeScope)(x: TsGlobal): TsGlobal =
-    x.copy(members = newMembers(x))
-
-  override def enterTsDeclNamespace(t: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
-    x.copy(members = newMembers(x))
-
-  override def enterTsDeclModule(t: TsTreeScope)(x: TsDeclModule): TsDeclModule =
-    x.copy(members = newMembers(x))
-
-  override def enterTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
-    x.copy(members = newMembers(x))
-
-  override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass =
-    x.copy(members = newClassMembers(x))
-
-  override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
-    x.copy(members = newClassMembers(x))
-
-  override def enterTsTypeObject(t: TsTreeScope)(x: TsTypeObject): TsTypeObject =
-    x.copy(members = newClassMembers(x))
-
-  private def newClassMembers(x: HasClassMembers) = {
-    val newMembers: Iterable[TsMember] =
-      x.membersByName flatMap {
-        case (_, members: Seq[TsMember]) =>
-          members flatMap {
-            case x: TsMemberCtor =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case x: TsMemberFunction if !x.isOptional =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case x: TsMemberCall =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case other => Seq(other)
-          }
-      }
-
-    x.unnamed ++ newMembers.to[Seq]
-  }
-
-  private def newMembers(x: TsContainer): Seq[TsContainerOrDecl] = {
-    val newMembers: Iterable[TsNamedDecl] =
-      x.membersByName flatMap {
-        case (_, members: Seq[TsNamedDecl]) =>
-          members flatMap {
-            case x: TsDeclFunction =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case other => Seq(other)
-          }
-      }
-
-    x.unnamed ++ x.imports ++ newMembers.to[Seq]
-  }
+  override def newMembers(scope: TsTreeScope, xs: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
+    xs flatMap {
+      case x: TsDeclFunction =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case other => List(other)
+    }
 
   def isRepeated(x: TsType): Boolean =
     x match {

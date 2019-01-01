@@ -20,7 +20,6 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     if (x.exports.isEmpty && x.imports.isEmpty) x
     else {
       val newMembers: Seq[TsContainerOrDecl] = x.members.flatMap {
-        case _: TsImport => Nil
         case TsExport(_, ExportType.Named, TsExporteeTree(tree)) =>
           tree match {
             case namedExport: TsNamedDecl =>
@@ -52,11 +51,16 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
                     copy.codePath,
                     isOptional = false
                   )
+
                 case other => other
               }
 
             case other => scope.logger.fatal(s"Unexpected $other")
           }
+        case e: TsExport =>
+          scope.fatalMaybe(s"Dropping unexpected export in namespace $e")
+          Nil
+        case _: TsImport => Nil
 
         case other => other :: Nil
       }
@@ -86,7 +90,11 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   }
 
   override def leaveTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
-    x.copy(members = x.members.filterNot(_.isInstanceOf[TsImport]))
+    x.copy(members = x.members.flatMap {
+      case _: TsImport => Nil
+      case TsExport(_, _, TsExporteeTree(x)) => Some(x)
+      case other                             => Some(other)
+    })
 
   def ensureTypesPresent[T <: TsContainer](old: T, `new`: T): T = {
     val newTypes: Set[TsIdent] =

@@ -4,10 +4,15 @@ package transforms
 
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
 
-/**
-  * Enables some support for type lookups, and very little support for conditional types
-  */
-object SimplifyTypes extends TreeTransformationScopedChanges {
+object ResolveTypeLookups extends TreeTransformationScopedChanges {
+  override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
+    x match {
+      case lookup: TsTypeLookup =>
+        expandLookupType(scope, lookup) getOrElse x
+
+      case other => other
+    }
+
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
 
   /**
@@ -24,39 +29,6 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
     if (isOptional) TsTypeUnion.simplified(tpe :: TsTypeRef.undefined :: Nil)
     else tpe
 
-  override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
-    x match {
-      case lookup: TsTypeLookup =>
-        expandLookupType(scope, lookup) getOrElse x
-
-      case x: TsTypeConditional =>
-        /* It's common to nest these things, so handle that */
-        def go(x: TsType): List[TsType] =
-          x match {
-            case xx: TsTypeConditional =>
-              val types: List[TsType] =
-                go(xx.ifFalse) ::: go(xx.ifTrue)
-
-              lazy val inferredNames: Seq[TsIdent] =
-                TreeTraverse.collect(xx.pred) { case TsTypeInfer(tp) => tp.name }
-
-              lazy val inferAny: TsType => TsType = {
-                val rewrites: Map[TsType, TsType] =
-                  Map(inferredNames.map(ident => TsTypeRef.of(ident) -> TsTypeRef.any): _*)
-
-                new ts.transforms.TypeRewriter(x).visitTsType(rewrites)
-              }
-
-              types map inferAny
-
-            case other => other :: Nil
-          }
-
-        unify(go(x))
-
-      case other => other
-    }
-
   def memberName(x: TsMember): Option[TsIdent] = x match {
     case x: TsMemberProperty => Some(x.name)
     case x: TsMemberFunction => Some(x.name)
@@ -69,7 +41,7 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
   def keysOf(scope: TsTreeScope)(target: TsType): Seq[TsIdent] =
     target match {
       case ref: TsTypeRef =>
-        AllMembersFor(scope, new LoopDetector())(ref).flatMap(memberName)
+        AllMembersFor(scope, LoopDetector.initial)(ref).flatMap(memberName)
       case TsTypeObject(members) =>
         members flatMap memberName
       case TsTypeUnion(types) =>
@@ -98,7 +70,7 @@ object SimplifyTypes extends TreeTransformationScopedChanges {
       lookup.from match {
         case TsTypeRef(_, name, Nil) if scope.isAbstract(name) => None
         case fromTypeRef: TsTypeRef =>
-          val members = AllMembersFor(scope, new LoopDetector)(fromTypeRef)
+          val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
           Some(unify(pickNonStatic(members, strings)))
 
         case TsTypeObject(members) => Some(unify(pickNonStatic(members, strings)))

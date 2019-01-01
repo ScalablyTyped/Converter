@@ -5,6 +5,8 @@ package transforms
 import scala.collection.mutable
 
 object FakeLiterals {
+  def apply(scope: TreeScope)(s: ContainerTree): ContainerTree = LiteralRewriter(s, scope).output
+
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
   val LiteralTokenComment: Comments = new Comments(Nil)
 
@@ -89,6 +91,4 @@ object FakeLiterals {
       }
     }
   }
-
-  def apply(scope: TreeScope)(s: ContainerTree): ContainerTree = LiteralRewriter(s, scope).output
 }

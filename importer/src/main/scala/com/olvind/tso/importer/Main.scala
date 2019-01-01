@@ -137,6 +137,7 @@ object Main extends App {
 
   val bloopFactory = new BloopFactory(logger.filter(LogLevel.debug).void)
   val resolve = new LibraryResolver(
+    stdLibSource,
     sourceFolders = Seq(dtFolder, externalsFolder),
     contribFolder = Some(InFolder(contribFolder))
   )

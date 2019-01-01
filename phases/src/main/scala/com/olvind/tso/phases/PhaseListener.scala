@@ -1,15 +1,14 @@
 package com.olvind.tso.phases
-import fansi.Str
 
 trait PhaseListener[Id] {
-  def on(phaseName: String, id: Id, event: PhaseListener.Event): Unit
+  def on(phaseName: String, id: Id, event: PhaseListener.Event[Id]): Unit
 }
 
 object PhaseListener {
-  sealed trait Event
-  case class Started(phase: String) extends Event
-  case class Blocked(phase: String, on: Set[Str]) extends Event
-  case class Success(phase: String) extends Event
-  case class Failure(phase: String) extends Event
-  case object Ignored extends Event
+  sealed trait Event[Id]
+  case class Started[Id](phase: String) extends Event[Id]
+  case class Blocked[Id](phase: String, on: Set[Id]) extends Event[Id]
+  case class Success[Id](phase: String) extends Event[Id]
+  case class Failure[Id](phase: String) extends Event[Id]
+  case class Ignored[Id]() extends Event[Id]
 }

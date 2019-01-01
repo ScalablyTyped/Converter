@@ -13,8 +13,14 @@ object Json {
       case Right(t)    => t
     }
 
-  def opt[T: Decoder](path: Path): Option[T] =
-    if (exists(path)) Some(apply[T](path)) else None
+  def opt[T: Decoder](path: Path, log: String => Unit): Option[T] =
+    if (exists(path))
+      decode[T](files content InFile(path)) match {
+        case Left(error) =>
+          log(s"Error while parsing: $path: $error")
+          None
+        case Right(t) => Some(t)
+      } else None
 
   def persist[V: Encoder](file: Path)(value: V): Synced =
     files.softWrite(file)(_.append(value.asJson.noSpaces))

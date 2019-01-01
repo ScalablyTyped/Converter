@@ -11,6 +11,13 @@ import com.olvind.tso.scalajs._
   *  todo: merge with `RemoveMultipleInheritance`?
   */
 object RemoveDuplicateInheritance extends TreeTransformation {
+  override def enterClassTree(scope: TreeScope)(_s: ClassTree): ClassTree = {
+    val s = dropInheritedConflicts(scope, _s)
+    conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
+  }
+
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
+    conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
 
   def conflicts(parents: Seq[TypeRef]): Option[Map[QualifiedName, Seq[TypeRef]]] =
     Option(parents groupBy (_.typeName) filter (_._2.lengthCompare(1) > 0)) filter (_.nonEmpty)
@@ -58,12 +65,4 @@ object RemoveDuplicateInheritance extends TreeTransformation {
         cls.copy(parents = keep)
     }
   }
-
-  override def enterClassTree(scope: TreeScope)(_s: ClassTree): ClassTree = {
-    val s = dropInheritedConflicts(scope, _s)
-    conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
-  }
-
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
 }

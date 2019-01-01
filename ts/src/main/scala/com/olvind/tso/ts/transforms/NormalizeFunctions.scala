@@ -22,15 +22,9 @@ package transforms
   * Also rewrite optional methods to properties, since scala has no such concept
   *
   */
-object NormalizeFunctions extends TreeTransformationScopedChanges {
+object NormalizeFunctions extends TransformMembers with TransformClassMembers {
 
-  override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass =
-    x.copy(members = newMembers(x.members))
-
-  override def enterTsDeclInterface(scope: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
-    x.copy(members = newMembers(x.members))
-
-  private def newMembers(members: Seq[TsMember]): Seq[TsMember] =
+  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
     members.map {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
         TsMemberProperty(comments,
@@ -46,21 +40,10 @@ object NormalizeFunctions extends TreeTransformationScopedChanges {
       case other => other
     }
 
-  override def enterTsParsedFile(scope: TsTreeScope)(x: TsParsedFile): TsParsedFile =
-    x.copy(members = newContainerMembers(x.members))
-  override def enterTsDeclModule(scope: TsTreeScope)(x: TsDeclModule): TsDeclModule =
-    x.copy(members = newContainerMembers(x.members))
-  override def enterTsDeclNamespace(scope: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
-    x.copy(members = newContainerMembers(x.members))
-  override def enterTsAugmentedModule(scope: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
-    x.copy(members = newContainerMembers(x.members))
-  override def enterTsDeclGlobal(scope: TsTreeScope)(x: TsGlobal): TsGlobal =
-    x.copy(members = newContainerMembers(x.members))
-
   override def enterTsExporteeTree(t: TsTreeScope)(x: TsExporteeTree): TsExporteeTree =
     x.copy(decl = rewriteDecl(x.decl))
 
-  private def newContainerMembers(members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = members map {
+  def newMembers(scope: TsTreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = members map {
     case decl: TsDecl => rewriteDecl(decl)
     case other => other
   }

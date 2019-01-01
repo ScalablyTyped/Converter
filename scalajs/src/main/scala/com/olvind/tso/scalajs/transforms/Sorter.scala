@@ -5,6 +5,15 @@ package transforms
 import scala.annotation.switch
 
 object Sorter extends TreeTransformation {
+  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
+    s.copy(members = s.members.sorted(TreeOrdering), ctors = s.ctors.sorted(TreeOrdering))
+
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
+    s.copy(members = s.members.sorted(TreeOrdering))
+
+  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
+    s.copy(members = s.members.sorted(TreeOrdering))
+
   private object TreeOrdering extends Ordering[Tree] {
     // todo: should consider prefix (see Printer)
     val NoPrefix = Nil
@@ -54,13 +63,4 @@ object Sorter extends TreeTransformation {
           }
       }
   }
-
-  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
-    s.copy(members = s.members.sorted(TreeOrdering), ctors = s.ctors.sorted(TreeOrdering))
-
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = s.members.sorted(TreeOrdering))
-
-  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = s.members.sorted(TreeOrdering))
 }

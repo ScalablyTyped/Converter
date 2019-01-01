@@ -123,7 +123,7 @@ object ImportType {
         TypeRef.NumberDictionary(apply(wildcards, scope)(valueType).withOptional(isOptional), cs)
 
       case TsTypeFunction(sig) =>
-        if (sig.tparams.size > 22) TypeRef.FunctionBase
+        if (sig.params.size > 22) TypeRef.FunctionBase
         else {
           def recursiveBound(name: TsIdent, b: TsType): Boolean =
             TreeTraverse.collect(b) { case `name` => name }.nonEmpty

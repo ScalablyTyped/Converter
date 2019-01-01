@@ -7,10 +7,10 @@ object TsTypeFormatter {
 
   def sig(sig: TsFunSig): String =
     List[Option[String]](
-      Some(tparams(sig.tparams)(tparam)),
+      tparams(sig.tparams)(tparam),
       Some(sig.params.map(param).mkString("(", ", ", ")")),
       sig.resultType.map(apply).map(": " + _)
-    ).mkString("")
+    ).flatten.mkString("")
 
   def tparam(tparam: TsTypeParam): String =
     tparam match {
@@ -27,19 +27,19 @@ object TsTypeFormatter {
       case TsFunParam(_, name, tpe, isOptional) =>
         List[Option[String]](
           Some(name.value),
-          Some(if (isOptional) "?" else ""),
+          if (isOptional) Some("?") else None,
           tpe.map(x => s": ${apply(x)}"),
         ).flatten.mkString(" ")
     }
 
-  def tparams[T](ts: Seq[T])(f: T => String): String =
-    if (ts.isEmpty) "" else "<" + ts.map(f).mkString(", ") + ">"
+  def tparams[T](ts: Seq[T])(f: T => String): Option[String] =
+    if (ts.isEmpty) None else Some("<" + ts.map(f).mkString(", ") + ">")
 
-  def level(l: ProtectionLevel): String =
+  def level(l: ProtectionLevel): Option[String] =
     l match {
-      case Default   => ""
-      case Private   => "private"
-      case Protected => "protected"
+      case Default   => None
+      case Private   => Some("private")
+      case Protected => Some("protected")
     }
 
   def member(m: TsMember): String = m match {
@@ -48,18 +48,18 @@ object TsTypeFormatter {
     case TsMemberCtor(_, _, s) =>
       s"new ${sig(s)}"
     case TsMemberFunction(_, l, name, s, isStatic, isReadOnly, isOptional) =>
-      List[String](
+      List[Option[String]](
         level(l),
-        if (isStatic) "static" else "",
-        if (isReadOnly) "readonly" else "",
-        name.value,
-        if (isOptional) "?" else "",
-        sig(s)
-      ).mkString(" ")
+        if (isStatic) Some("static") else None,
+        if (isReadOnly) Some("readonly") else None,
+        Some(name.value),
+        if (isOptional) Some("?") else None,
+        Some(sig(s))
+      ).flatten.mkString(" ")
 
     case TsMemberProperty(_, l, name, tpe, literal, isStatic, isReadOnly, isOptional) =>
       List[Option[String]](
-        Some(level(l)),
+        level(l),
         Some(if (isStatic) "static" else ""),
         Some(if (isReadOnly) "readonly" else ""),
         Some(name.value),
@@ -70,9 +70,36 @@ object TsTypeFormatter {
 
     // lazy
     case TsMemberIndex(_, isReadOnly, l, indexing, isOptional, valueType) =>
-      "indexed"
+      List[Option[String]](
+        if (isReadOnly) Some("readonly") else None,
+        level(l),
+        Some(indexing match {
+          case IndexingDict(name, tpe) => s"[${name.value}: ${apply(tpe)}]"
+          case IndexingSingle(name)    => s"[${qident(name)}]"
+        }),
+        if (isOptional) Some("?") else None,
+        Some(":"),
+        Some(apply(valueType))
+      ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
+
     case TsMemberTypeMapped(_, l, isReadOnly, key, from, optionalize, to) =>
-      "typemapped"
+      List[Option[String]](
+        level(l),
+        if (isReadOnly) Some("readonly") else None,
+        Some("["),
+        Some(key.value),
+        Some("in"),
+        Some(apply(from)),
+        Some("]:"),
+        optionalize match {
+          case OptionalModifier.Noop          => None
+          case OptionalModifier.Optionalize   => Some("?")
+          case OptionalModifier.Deoptionalize => Some("-?")
+        },
+        Some(apply(to))
+      ).flatten
+        .mkString(" ")
+        .replaceAllLiterally(" ?", "?")
   }
 
   def lit(lit: TsLiteral): String = lit match {
@@ -83,7 +110,7 @@ object TsTypeFormatter {
 
   def apply(tpe: TsType): String =
     tpe match {
-      case TsTypeRef(_, name, ts)                   => qident(name) + tparams(ts)(apply)
+      case TsTypeRef(_, name, ts)                   => qident(name) + tparams(ts)(apply).getOrElse("")
       case TsTypeLiteral(l)                         => lit(l)
       case TsTypeObject(members)                    => s"{${members.map(member).mkString(", ")}}"
       case TsTypeFunction(s)                        => s"${sig(s)}"

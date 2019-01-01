@@ -1,12 +1,12 @@
 package typings
-package chartDotJsLib
+package vueDashResourceLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait Anon_Key
+trait Anon_Headers
   extends /* key */ org.scalablytyped.runtime.StringDictionary[js.Any] {
-  var global: chartDotJsLib.chartDotJsMod.ChartNs.ChartOptions with chartDotJsLib.chartDotJsMod.ChartNs.ChartFontOptions
+  var headers: js.UndefOr[vueDashResourceLib.vuejsNs.HttpHeaders] = js.undefined
 }
 

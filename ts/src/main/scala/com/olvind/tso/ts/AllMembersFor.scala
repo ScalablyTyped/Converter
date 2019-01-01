@@ -6,36 +6,10 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
 object AllMembersFor {
   def forType(scope: TsTreeScope, loopDetector: LoopDetector)(tpe: TsType): Seq[TsMember] =
     tpe match {
-      case x: TsTypeRef => apply(scope, loopDetector)(x)
-      case x: TsTypeIntersect =>
-        x.types.flatMap(forType(scope, loopDetector))
-      case _: TsTypeUnion =>
-        Nil
-      case x: TsTypeObject =>
-        x.members match {
-//          case Seq(TsMemberTypeMapped(cs, level, isReadOnly, key, TsTypeKeyOf(from: TsTypeRef), opt, to)) =>
-//            AllMembersFor(scope, loopDetector)(from)
-//              .map {
-//                case TsMemberProperty(cs0, level0, name0, Some(tpe0), lit, isStatic, isReadOnly0, wasOptional) =>
-//                  TsMemberProperty(
-//                    cs ++ cs0,
-//                    if (level =/= Default) level else level0,
-//                    name0,
-//                    Some(
-//                      new TypeRewriter(to)
-//                        .visitTsType(Map(TsTypeLookup(from, TsTypeRef.of(key)) -> tpe0))(to)
-//                    ),
-//                    lit,
-//                    isStatic,
-//                    isReadOnly || isReadOnly0,
-//                    opt(wasOptional)
-//                  )
-//
-//                case other => scope.logger.fatal(s"Unexpected non member property: $other")
-//              }
-          case other => other
-        }
-
+      case x: TsTypeRef         => apply(scope, loopDetector)(x)
+      case x: TsTypeIntersect   => x.types.flatMap(forType(scope, loopDetector))
+      case x: TsTypeUnion       => x.types.flatMap(forType(scope, loopDetector)).map(TsMember.optional)
+      case x: TsTypeObject      => x.members
       case _: TsTypeLiteral     => Nil
       case _: TsTypeFunction    => Nil
       case _: TsTypeConstructor => Nil

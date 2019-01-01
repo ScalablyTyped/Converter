@@ -30,6 +30,7 @@ declare interface IProxiedPerson extends Proxify<Person> {}
 
 type T = Pick<{name: string} | {age: number}, "name" & "age">
 type U = Pick<{name: string} & {age: number}, "name" | "age">
+type V = Pick<{name: string} & {age: number}, "age">
 
 
 interface CSSProperties {

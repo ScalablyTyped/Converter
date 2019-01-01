@@ -4,60 +4,25 @@ package transforms
 
 import scala.annotation.tailrec
 
-object SplitMethodsOnUnionTypes extends TreeTransformationScopedChanges {
-  override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
-    x.copy(members = newMembers(x))
+object SplitMethodsOnUnionTypes extends TransformMembers with TransformClassMembers {
 
-  override def enterTsDeclGlobal(t: TsTreeScope)(x: TsGlobal): TsGlobal =
-    x.copy(members = newMembers(x))
+  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
+    members flatMap {
+      case x: TsMemberFunction if !x.isOptional && x.name =/= TsIdent.Apply =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case x: TsMemberCall =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case x: TsMemberCtor =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case other => Seq(other)
+    }
 
-  override def enterTsDeclNamespace(t: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
-    x.copy(members = newMembers(x))
-
-  override def enterTsDeclModule(t: TsTreeScope)(x: TsDeclModule): TsDeclModule =
-    x.copy(members = newMembers(x))
-
-  override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass =
-    x.copy(members = newClassMembers(x))
-
-  override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
-    x.copy(members = newClassMembers(x))
-
-  override def enterTsTypeObject(t: TsTreeScope)(x: TsTypeObject): TsTypeObject =
-    x.copy(members = newClassMembers(x))
-
-  private def newClassMembers(x: HasClassMembers) = {
-
-    val newMembers: Iterable[TsMember] =
-      x.membersByName flatMap {
-        case (_, members: Seq[TsMember]) =>
-          members flatMap {
-            case x: TsMemberFunction if !x.isOptional && x.name =/= TsIdent.Apply =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case x: TsMemberCall =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case x: TsMemberCtor =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case other => Seq(other)
-          }
-      }
-
-    x.unnamed ++ newMembers.to[Seq]
-  }
-
-  private def newMembers(x: TsContainer): Seq[TsContainerOrDecl] = {
-    val newMembers: Iterable[TsNamedDecl] =
-      x.membersByName flatMap {
-        case (_, members: Seq[TsNamedDecl]) =>
-          members flatMap {
-            case x: TsDeclFunction if x.name =/= TsIdent.namespaced =>
-              RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
-            case other => Seq(other)
-          }
-      }
-
-    x.unnamed ++ x.imports ++ newMembers.to[Seq]
-  }
+  override def newMembers(scope: TsTreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
+    members flatMap {
+      case x: TsDeclFunction if x.name =/= TsIdent.namespaced =>
+        RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
+      case other => Seq(other)
+    }
 
   private def split(origin: TsFunSig): Seq[TsFunSig] = {
     if (!origin.params.exists(_.tpe.fold(false)(_.isInstanceOf[TsTypeUnion]))) //optimization

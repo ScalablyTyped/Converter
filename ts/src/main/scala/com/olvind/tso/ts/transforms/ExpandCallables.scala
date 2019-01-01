@@ -27,19 +27,13 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
   *
   * If not it wouldn't be safe to call from scala since it discards `this`.
   */
-object ExpandCallables extends TreeTransformationScopedChanges {
+object ExpandCallables extends TransformClassMembers {
   /* yeah, sorry. This is out of band information because we cannot
       rename the original member until we reach scala :/
    */
   val MarkerComment = Comment("/* Expanded */")
 
-  override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass =
-    x.copy(members = newClassMembers(scope, x.members))
-
-  override def enterTsDeclInterface(scope: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
-    x.copy(members = newClassMembers(scope, x.members))
-
-  private def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
+  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
     members.flatMap {
       case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false) =>
         callableTypes(scope)(tpe) match {
@@ -90,7 +84,7 @@ object ExpandCallables extends TreeTransformationScopedChanges {
           .lookupTypeIncludeScope(typeRef.name)
           .collectFirst {
             case CallableInterface((_i, newScope)) =>
-              val ms = AllMembersFor.forInterface(new LoopDetector(), _i, newScope, typeRef.tparams)
+              val ms = AllMembersFor.forInterface(LoopDetector.initial, _i, newScope, typeRef.tparams)
               val (callables, rest) = ms.partitionCollect {
                 case TsMemberCall(cs, _, signature) => (cs, signature)
               }
