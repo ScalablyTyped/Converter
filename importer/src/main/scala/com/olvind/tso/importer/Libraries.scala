@@ -52,6 +52,7 @@ object Libraries {
     "@ionic/discover",
     "io-ts",
     "jcore-react-native",
+    "js-joda",
     "@material-ui/core",
     "@material-ui/icons",
     "@material-ui/lab",
