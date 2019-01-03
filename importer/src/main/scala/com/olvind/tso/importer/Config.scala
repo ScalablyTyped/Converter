@@ -9,6 +9,7 @@ case class Config(publish:        Boolean,
                   offline:        Boolean,
                   cleanRepo:      Boolean,
                   pedantic:       Boolean,
+                  sequential:     Boolean,
                   wantedLibNames: Set[String]) {
 
   def debugMode = wantedLibNames.nonEmpty
@@ -22,8 +23,8 @@ case class Config(publish:        Boolean,
   val publishFolder           = home / ".ivy2" / "local"
   val ScalablyTypedRepo       = "git@github.com:oyvindberg/ScalablyTyped.git"
   val ScalablyTypedRepoPublic = "https://github.com/oyvindberg/ScalablyTyped.git"
-  val parallelScalas          = Runtime.getRuntime.availableProcessors / 2
-  val parallelLibraries       = 100
+  val parallelScalas          = if (sequential) 1 else Runtime.getRuntime.availableProcessors / 2
+  val parallelLibraries       = if (sequential) 1 else 100
 }
 
 object Config {
@@ -36,6 +37,7 @@ object Config {
             offline        = flags contains "-offline",
             cleanRepo      = flags contains "-cleanRepo",
             pedantic       = flags contains "-pedantic",
+            sequential     = flags contains "-sequential",
             wantedLibNames = rest.to[Set]
           )
         )
