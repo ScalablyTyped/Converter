@@ -218,12 +218,27 @@ object ImportType {
       case TsTypeThis() =>
         TypeRef.ThisType(NoComments)
 
+      case x: TsTypeConditional =>
+        apply(wildcards, _scope, importName)(unify(List(x.ifFalse, x.ifTrue)))
+
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
         TypeRef(QualifiedName.Any, Nil, Comments(Comment.warning(msg)))
     }
   }
+
+  private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
+
+  /**
+    * TsTypeUnion.simplified simplifies a set of types into a union types, a normal type, or `never`.
+    *    The latter is the least useful, so let's rewrite it to any
+    */
+  def unify(types: Seq[TsType]): TsType =
+    TsTypeUnion.simplified(types filterNot toIgnore) match {
+      case TsTypeRef.never => TsTypeRef.any
+      case other           => other
+    }
 
   def newableFunction(scope:      TsTreeScope.Scoped,
                       importName: ImportName,

@@ -5,13 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object typeDashMappingsLib {
-  type AgePerson = stdLib.Exclude[Person, NamePerson]
-  type AgePerson2 = stdLib.Extract[Person, AgePerson]
+  type Excluded = Omit[CSSProperties, typeDashMappingsLib.typeDashMappingsLibStrings.color]
   type IPersonRecord = PersonRecord
   type IProxiedPerson = Proxify[Person]
   type NamePerson = stdLib.Pick[Person, typeDashMappingsLib.typeDashMappingsLibStrings.name]
   type NewedPerson = stdLib.InstanceType[org.scalablytyped.runtime.Instantiable0[Person]]
   type NonNullablePerson = stdLib.NonNullable[Person]
+  type Omit[T, K /* <: java.lang.String */] = stdLib.Pick[T, stdLib.Exclude[java.lang.String, K]]
   type PartialPerson = stdLib.Partial[Person]
   type PersonRecord = stdLib.Record[
     typeDashMappingsLib.typeDashMappingsLibStrings.name | typeDashMappingsLib.typeDashMappingsLibStrings.age, 

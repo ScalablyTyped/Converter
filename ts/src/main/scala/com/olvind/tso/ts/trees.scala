@@ -561,13 +561,13 @@ sealed abstract class TsMember extends TsTree {
 }
 
 object TsMember {
-  def optional(m: TsMember): TsMember = m match {
+  def optional(isOptional: Boolean)(m: TsMember): TsMember = m match {
     case x: TsMemberCall       => x
     case x: TsMemberCtor       => x
-    case x: TsMemberFunction   => x.copy(isOptional = true)
-    case x: TsMemberIndex      => x.copy(isOptional = true)
-    case x: TsMemberTypeMapped => x.copy(optionalize = OptionalModifier.Optionalize)
-    case x: TsMemberProperty   => x.copy(isOptional = true)
+    case x: TsMemberTypeMapped => x
+    case x: TsMemberFunction   => x.copy(isOptional = isOptional)
+    case x: TsMemberIndex      => x.copy(isOptional = isOptional)
+    case x: TsMemberProperty   => x.copy(isOptional = isOptional)
   }
 }
 

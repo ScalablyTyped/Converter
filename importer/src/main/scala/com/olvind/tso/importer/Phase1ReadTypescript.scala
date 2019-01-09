@@ -166,6 +166,10 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
+              val isMaterialUi = source.libName match {
+                case TsIdentLibraryScoped("material-ui", _) => true
+                case _                                      => false
+              }
               val ProcessAll = List[TsParsedFile => TsParsedFile](
                 T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
                 modules.HandleCommonJsModules.visitTsParsedFile(scope),
@@ -177,6 +181,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
                 FlattenTrees.apply,
                 T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
+                if (isMaterialUi) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
                 (
                   T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
@@ -189,7 +194,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                     T.InlineTrivialTypeAlias //after DefaultedTypeArguments
                 ).visitTsParsedFile(scope.caching),
                 T.ResolveTypeLookups
-                  .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias
+                  .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
                 T.ExtractInterfaces(source.libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
                 (
                   T.ExtractClasses >> // after DefaultedTypeArguments

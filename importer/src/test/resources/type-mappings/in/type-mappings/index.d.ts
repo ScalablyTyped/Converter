@@ -8,8 +8,6 @@ type RequiredPerson = Required<Person>
 type ReadonlyPerson = Readonly<Person>
 type NamePerson = Pick<Person, "name">
 type PersonRecord = Record<"name" | "age", string>
-type AgePerson = Exclude<Person, NamePerson>
-type AgePerson2 = Extract<Person, AgePerson>
 type NonNullablePerson = NonNullable<Person>
 
 declare const foo: () => Person;
@@ -33,7 +31,7 @@ type U = Pick<{name: string} & {age: number}, "name" | "age">
 type V = Pick<{name: string} & {age: number}, "age">
 
 
-interface CSSProperties {
+declare interface CSSProperties {
     color: string;
     fontSize: string;
     fontFamily: string;
@@ -45,3 +43,8 @@ interface CSSProperties {
 
 type TypographyStyle = (Required<Pick<CSSProperties, "fontFamily" | "fontSize" | "fontWeight" | "color">>) & (Partial<Pick<CSSProperties, "letterSpacing" | "lineHeight" | "textTransform">>)
 type TypographyStyleOptions = Partial<TypographyStyle>
+
+
+type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
+
+type Excluded = Omit<CSSProperties, 'color'>

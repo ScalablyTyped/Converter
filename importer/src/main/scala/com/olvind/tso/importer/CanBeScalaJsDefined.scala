@@ -28,7 +28,11 @@ object CanBeScalaJsDefined {
               case x: TsMemberFunction => !x.isStatic && x.name =/= TsIdent.Apply
               case _ => true
             }
-          case (_, _) => false
+          case (_, many) =>
+            many.forall {
+              case x: TsMemberProperty => !x.isStatic // will combine later
+              case _ => false
+            }
         }
 
         fromUnnamed && fromNamed
