@@ -4,6 +4,7 @@ package ts
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.modules.{ExpandedMod, Exports, Imports}
+import com.olvind.tso.ts.transforms.ExpandTypeMappings
 import sourcecode.{Enclosing, File, Line, Text}
 
 import scala.collection.mutable
@@ -107,12 +108,12 @@ sealed trait TsTreeScope {
 object TsTreeScope {
   type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
   case class Cache(
-      applyTypeMapping:  mutable.Map[TsTypeRef, Option[TsTypeObject]]      = mutable.Map.empty,
-      lookupExportFrom:  C                                                 = mutable.Map.empty,
-      lookupFromImports: C                                                 = mutable.Map.empty,
-      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]          = mutable.Map.empty,
-      expandExport:      mutable.Map[(String, TsExport), Seq[TsNamedDecl]] = mutable.Map.empty,
-      expandImportee:    mutable.Map[(String, TsImportee), ExpandedMod]    = mutable.Map.empty,
+      applyTypeMapping:  mutable.Map[TsTypeRef, ExpandTypeMappings.Res[Seq[TsMember]]] = mutable.Map.empty,
+      lookupExportFrom:  C                                                             = mutable.Map.empty,
+      lookupFromImports: C                                                             = mutable.Map.empty,
+      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]                      = mutable.Map.empty,
+      expandExport:      mutable.Map[(String, TsExport), Seq[TsNamedDecl]]             = mutable.Map.empty,
+      expandImportee:    mutable.Map[(String, TsImportee), ExpandedMod]                = mutable.Map.empty,
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 

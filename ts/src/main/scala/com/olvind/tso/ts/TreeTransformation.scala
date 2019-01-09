@@ -343,7 +343,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeConditional(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeConditional(_1, _2, _3) => TsTypeConditional(_1, visitTsType(tt)(_2), visitTsType(tt)(_3))
+      case TsTypeConditional(_1, _2, _3) =>
+        TsTypeConditional(visitTsType(tt)(_1), visitTsType(tt)(_2), visitTsType(tt)(_3))
     }
   }
   final def visitTsTypeExtends(t: T)(x: TsTypeExtends): TsTypeExtends = {
