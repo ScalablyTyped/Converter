@@ -4,14 +4,31 @@ package importer
 import com.olvind.tso.scalajs.{Name, QualifiedName}
 import com.olvind.tso.ts._
 
-object ImportName {
-  def unapply(qident: TsQIdent): Option[QualifiedName] =
+/**
+  * @param knownLibraries A known library in this context is the one we
+  *                       are converting, or any of it's dependencies
+  */
+class ImportName(knownLibraries: Set[TsIdentLibrary]) {
+  def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
-  def unapply(x: TsIdent): Option[Name] =
+  def unapply(x: TsIdent): Some[Name] =
     Some(apply(x))
 
-  def rewrite(value: String, suffix: String, forceCamelCase: Boolean): String =
+  def apply(ident: TsQIdent): QualifiedName =
+    QualifiedName(ident.parts map apply)
+
+  def apply(i: TsIdent): Name =
+    i match {
+      case TsIdent.Apply           => Name.APPLY
+      case TsIdentSimple(value)    => Name(value)
+      case TsIdentNamespace(value) => Name(rewrite(value, "Ns", forceCamelCase = false))
+      case x: TsIdentLibrary => Name(rewrite(x.value, "Lib", forceCamelCase = true))
+      case x: TsIdentModule  => rewriteModuleName(x)
+      case x: TsIdentImport  => sys.error(s"Unexpected: $x")
+    }
+
+  private def rewrite(value: String, suffix: String, forceCamelCase: Boolean): String =
     value
       .flatMap {
         case '\\'  => "#backslash#" //be safe
@@ -30,30 +47,28 @@ object ImportName {
       }
       .mkString("", "", suffix)
 
-  def apply(i: TsIdent): Name =
-    i match {
-      case TsIdent.Apply           => Name.APPLY
-      case TsIdentSimple(value)    => Name(value)
-      case TsIdentNamespace(value) => Name(rewrite(value, "Ns", forceCamelCase = false))
-      case x: TsIdentImport =>
-        sys.error(s"Unexpected: ${x}")
-      case x: TsIdentLibrary =>
-        Name(rewrite(x.value, "Lib", forceCamelCase = true))
-      case x: TsIdentModule =>
-        def maybeDropFirst(ts: List[String]): List[String] =
-          ts match {
-            case one :: (tail @ (two :: _)) if one =/= two => tail
-            case other                                     => other
+  /**
+    * We shorten a module name if it starts with the name of a known library.
+    */
+  private def rewriteModuleName(x: TsIdentModule): Name = {
+    val shortenedOpt: Option[String] =
+      x match {
+        case TsIdentModule(Some(scope), head :: tail) =>
+          knownLibraries.collectFirst {
+            case TsIdentLibraryScoped(`scope`, Some(`head`)) => tail.mkString("/")
           }
-        Name(rewrite(maybeDropFirst(x.fragments).mkString("#"), "Mod", forceCamelCase = true))
-    }
+        case TsIdentModule(None, head :: tail) =>
+          knownLibraries.collectFirst {
+            case TsIdentLibrarySimple(`head`) => tail.mkString("/")
+          }
+        case _ => None
+      }
 
-  def apply(ident: TsQIdent): QualifiedName =
-    QualifiedName(ident.parts map apply)
+    Name(rewrite(shortenedOpt.filter(_.nonEmpty).getOrElse(x.value), "Mod", forceCamelCase = true))
+  }
+}
 
-  def skipConversion(i: TsIdent): Name =
-    Name(i.value)
-
-  def skipConversion(ident: TsQIdent): QualifiedName =
-    QualifiedName(ident.parts map skipConversion)
+object ImportName {
+  def skipConversion(i:     TsIdent):  Name          = Name(i.value)
+  def skipConversion(ident: TsQIdent): QualifiedName = QualifiedName(ident.parts map skipConversion)
 }

@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "angular"
-version := "1.6-7a40f8"
+version := "1.6-a97dce"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

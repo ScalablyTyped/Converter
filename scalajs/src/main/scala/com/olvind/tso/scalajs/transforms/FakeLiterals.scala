@@ -29,6 +29,7 @@ object FakeLiterals {
 
       val str = base match {
         case "_"       => "Underscore"
+        case "^"       => "`^`" // this is insane, it's a legal name for traits and objects, but not defs
         case ""        => "Empty"
         case "package" => "PACKAGE"
         case "js"      => "JS"

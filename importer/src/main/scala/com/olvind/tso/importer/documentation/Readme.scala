@@ -197,6 +197,29 @@ package object myapp {
 }
 ```
 
+### Whatsup with the hats?
+
+Scala package objects are [broken](https://github.com/scala-js/scala-js/issues/1892) when used as javascript facades.
+For that reason, and to be forwards compatible with scala.js 1.0, we package up top level members in objects.
+
+The scheme is like this:
+```scala
+package typings
+package stdLib
+
+import scala.scalajs.js
+import scala.scalajs.js.`|`
+import scala.scalajs.js.annotation._
+
+@JSGlobalScope
+@js.native
+object ^ extends js.Object {
+  val Array: stdLib.ArrayConstructor = js.native
+  // ...
+}
+// usage: typings.stdLib.^.Array.newInstance(1)
+```
+
 ### Whatsup with those version strings?
 
 Oh yes, you've noticed the long version strings - Good! If you didn't, they look like this:

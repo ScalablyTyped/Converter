@@ -20,6 +20,7 @@ object ScalaNameEscape {
 
   def needsEscaping(ident: String): Boolean =
     ident match {
+      case "^"                                             => false
       case str if str.isEmpty                              => true
       case str if str.head === '`' && str.last === '`'     => false
       case str if isScalaKeyword(str)                      => true

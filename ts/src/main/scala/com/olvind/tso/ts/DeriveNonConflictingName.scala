@@ -38,7 +38,7 @@ object DeriveNonConflictingName {
     case x: TsQIdent         => pretty(x.parts.last.value)
     case x: TsMemberProperty => if (x.isOptional) "Optional" else if (x.isReadOnly) "ReadOnly" else ""
     case x: TsMemberFunction => if (x.isOptional) "Optional" else if (x.isReadOnly) "ReadOnly" else ""
-    case x: TsFunParam       => if (x.isOptional) "Optional" else  ""
+    case x: TsFunParam       => if (x.isOptional) "Optional" else ""
   }
 
   def apply[T](prefix: String, members: Seq[TsTree])(tryCreate: TsIdent => Option[T]): T = {

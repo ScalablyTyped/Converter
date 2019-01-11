@@ -24,10 +24,14 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
         PhaseRes.Ignore()
 
       case lib: LibTs =>
-        getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) map {
+        val knownLibs: SortedSet[Source] =
+          lib.dependencies.keys.map(x => x: Source).to[SortedSet]
+
+        val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
+        getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, contribs) =>
             val scope = new TreeScope.Root(
-              libName       = ImportName(lib.name),
+              libName       = importName(lib.name),
               _dependencies = scalaDeps.map { case (_, l) => l.packageTree.name -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic
@@ -51,7 +55,9 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
                 S.Sorter visitContainerTree scope
             )
 
-            val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger)) { case (acc, f) => f(acc) }
+            val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger, importName)) {
+              case (acc, f) => f(acc)
+            }
 
             LibScalaJs(lib.source)(
               libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),
