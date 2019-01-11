@@ -13,6 +13,27 @@ import com.olvind.tso.maps.EmptyMap
   * We'll do better eventually, this is the fallback to make things compile
   */
 object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
+  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass =
+    Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
+      case Res(_, Nil, EmptyMap()) => s
+      case Res(keep, drop, lifted) =>
+        s.copy(
+          parent     = keep.headOption,
+          implements = keep.drop(1),
+          comments   = s.comments +? summarizeChanges(drop, lifted),
+          members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq])
+        )
+    }
+
+  override def enterTsDeclInterface(scope: TsTreeScope)(s: TsDeclInterface): TsDeclInterface =
+    Res.combine(s.inheritance map cleanParentRef(scope)) match {
+      case Res(keep, _, _) if s.inheritance === keep => s
+      case Res(keep, drop, lifted) =>
+        s.copy(inheritance = keep,
+               comments    = s.comments +? summarizeChanges(drop, lifted),
+               members     = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
+    }
+
   final case class Res(keep: List[TsTypeRef], drop: List[TsType], lift: Map[TsTypeRef, Seq[TsMember]])
 
   object Res {
@@ -42,36 +63,17 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
               case TsTypeIntersect(types) =>
                 Res.combine(types map {
                   case next: TsTypeRef => cleanParentRef(newScope)(next)
-                  case TsTypeObject(members) => Res(Nil, Nil, Map(tr -> members))
-                  case other                 => Res(Nil, other :: Nil, Map.empty)
+                  case TsTypeObject(members) if !ExtractInterfaces.isTypeMapping(members) =>
+                    Res(Nil, Nil, Map(tr -> members))
+                  case other => Res(Nil, other :: Nil, Map.empty)
                 })
               case x: TsTypeUnion    => Res(Nil, x :: Nil, Map.empty)
               case _: TsTypeFunction => Res(tr :: Nil, Nil, Map.empty)
-              case TsTypeObject(members) => Res(Nil, Nil, Map(tr -> members))
-              case dropUnknown           => Res(Nil, dropUnknown :: Nil, Map.empty)
+              case TsTypeObject(members) if !ExtractInterfaces.isTypeMapping(members) =>
+                Res(Nil, Nil, Map(tr -> members))
+              case dropUnknown => Res(Nil, dropUnknown :: Nil, Map.empty)
             }
         } getOrElse Res(tr :: Nil, Nil, Map.empty)
-    }
-
-  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass =
-    Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
-      case Res(_, Nil, EmptyMap()) => s
-      case Res(keep, drop, lifted) =>
-        s.copy(
-          parent     = keep.headOption,
-          implements = keep.drop(1),
-          comments   = s.comments +? summarizeChanges(drop, lifted),
-          members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq])
-        )
-    }
-
-  override def enterTsDeclInterface(scope: TsTreeScope)(s: TsDeclInterface): TsDeclInterface =
-    Res.combine(s.inheritance map cleanParentRef(scope)) match {
-      case Res(keep, _, _) if s.inheritance === keep => s
-      case Res(keep, drop, lifted) =>
-        s.copy(inheritance = keep,
-               comments    = s.comments +? summarizeChanges(drop, lifted),
-               members     = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
     }
 
   private def summarizeChanges(drop: List[TsType], lifted: Map[TsTypeRef, Seq[TsMember]]): Option[Comment] = {
@@ -85,7 +87,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
 
     droppedMessages ++ liftedMessage match {
       case Nil      => None
-      case messages => Some(Comment(s"/* RemoveDifficultInheritance: ${messages.mkString("\n", "\n", "")} */ "))
+      case messages => Some(Comment.warning(messages.mkString("\n", "\n", "")))
     }
   }
 }

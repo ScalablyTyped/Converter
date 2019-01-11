@@ -19,7 +19,7 @@ object UpToDateExternals {
       case other                 => other
     }
     val alreadyAddedExternals: Set[String] =
-      Json.opt[PackageJsonDeps](cacheFolder / "package.json") match {
+      Json.opt[PackageJsonDeps](cacheFolder / "package.json", error => logger.warn(error)) match {
         case Some(PackageJsonDeps(_, deps, peerDeps, _, _, _)) =>
           (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty)).map { case (name, _) => name }(
             collection.breakOut

@@ -17,12 +17,8 @@ class namespaced protected () extends Chart {
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
 object namespaced extends js.Object {
-  val Chart: org.scalablytyped.runtime.Instantiable2[
-    /* context */ java.lang.String | stdLib.CanvasRenderingContext2D | stdLib.HTMLCanvasElement | (stdLib.ArrayLike[stdLib.CanvasRenderingContext2D | stdLib.HTMLCanvasElement]), 
-    /* options */ js.Any, 
-    chartDotJsLib.chartDotJsMod.Chart
-  ] = js.native
+  val Chart: chartDotJsLib.Anon_Chart = js.native
   var controllers: org.scalablytyped.runtime.StringDictionary[js.Any] = js.native
-  var defaults: chartDotJsLib.Anon_Key = js.native
+  var defaults: chartDotJsLib.Anon_Global = js.native
 }
 

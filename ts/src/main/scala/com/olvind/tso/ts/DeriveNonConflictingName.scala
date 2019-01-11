@@ -36,15 +36,17 @@ object DeriveNonConflictingName {
 
   val ExtractNamePartsTertiary: PartialFunction[TsTree, String] = {
     case x: TsQIdent         => pretty(x.parts.last.value)
-    case x: TsMemberProperty => if (x.isOptional) "Optional" else ""
+    case x: TsMemberProperty => if (x.isOptional) "Optional" else if (x.isReadOnly) "ReadOnly" else ""
+    case x: TsMemberFunction => if (x.isOptional) "Optional" else if (x.isReadOnly) "ReadOnly" else ""
     case x: TsFunParam       => if (x.isOptional) "Optional" else ""
-    case x: TsMemberFunction => if (x.isOptional) "Optional" else ""
   }
 
   def apply[T](prefix: String, members: Seq[TsTree])(tryCreate: TsIdent => Option[T]): T = {
-    val names     = TreeTraverse.collectSeq(members)(ExtractNameParts)
-    val secondary = TreeTraverse.collectSeq(members)(ExtractNamePartsSecondary)
-    val tertiary  = TreeTraverse.collectSeq(members)(ExtractNamePartsTertiary)
+    /* note, we sort below. This is beneficial from a consistency perspective, and
+     *   negative for the number of names we can generate. Prefer the former for now */
+    val names     = TreeTraverse.collectSeq(members)(ExtractNameParts).sorted
+    val secondary = TreeTraverse.collectSeq(members)(ExtractNamePartsSecondary).sorted
+    val tertiary  = TreeTraverse.collectSeq(members)(ExtractNamePartsTertiary).sorted
     val base      = (prefix +: (names ++ secondary ++ tertiary)).distinct
 
     @tailrec

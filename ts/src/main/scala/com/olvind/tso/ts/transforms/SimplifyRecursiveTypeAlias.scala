@@ -10,8 +10,9 @@ object SimplifyRecursiveTypeAlias extends TreeTransformationScopedChanges {
   override def enterTsTypeRef(scope: TsTreeScope)(tr: TsTypeRef): TsTypeRef = {
     val rewrittenOpt = scope.stack.collectFirst {
       case owner: TsDeclTypeAlias if owner.codePath.forceHasPath.codePath === tr.name =>
-        scope.logger.info(s"Simplified recursive type alias")
-        TsTypeRef.`object`
+        val msg = s"Simplified recursive type alias ${TsTypeFormatter(tr)}"
+        scope.logger.warn(msg)
+        TsTypeRef.`object`.copy(comments = Comments(Comment.warning(msg)))
     }
     rewrittenOpt getOrElse tr
 

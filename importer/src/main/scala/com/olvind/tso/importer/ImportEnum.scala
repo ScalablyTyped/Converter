@@ -17,11 +17,11 @@ object ImportEnum {
       }
       .getOrElse(TypeRef.String)
 
-  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation], scope: TsTreeScope): Seq[Tree] = {
-    val TsDeclEnum(cs, _, ImportName(name), members, isValue, exportedFrom, _, codePath) = e
+  def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation], scope: TsTreeScope, importName: ImportName): Seq[Tree] = {
+    val TsDeclEnum(cs, _, importName(name), members, isValue, exportedFrom, _, codePath) = e
 
     val baseInterface: TypeRef =
-      ImportType(Wildcards.No, scope)(
+      ImportType(Wildcards.No, scope, importName)(
         TsTypeRef(NoComments, exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Nil)
       )
 
@@ -33,7 +33,7 @@ object ImportEnum {
           scalajs.TypeAliasTree(
             name     = name,
             tparams  = Nil,
-            alias    = ImportType(Wildcards.No, scope)(TsTypeRef(NoComments, ef.name, Nil)),
+            alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Nil)),
             comments = NoComments
           )
         case None =>
@@ -71,7 +71,7 @@ object ImportEnum {
 
       val membersSyms: Seq[Tree] =
         members flatMap {
-          case TsEnumMember(memberCs, ImportName(memberName), literalOpt) =>
+          case TsEnumMember(memberCs, importName(memberName), literalOpt) =>
             val memberType: Option[ClassTree] =
               if (exportedFrom.nonEmpty) None
               else

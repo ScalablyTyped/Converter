@@ -39,7 +39,8 @@ package object typeDashMappingsLib {
   ])
   type TypographyStyleOptions = /* InlineNestedIdentityAlias: stdLib.Partial*/ TypographyStyle
   type U = stdLib.Pick[
-    Anon_NameAge, 
+    Anon_AgeName, 
     typeDashMappingsLib.typeDashMappingsLibStrings.name | typeDashMappingsLib.typeDashMappingsLibStrings.age
   ]
+  type V = stdLib.Pick[Anon_AgeName, typeDashMappingsLib.typeDashMappingsLibStrings.age]
 }

@@ -16,6 +16,35 @@ import com.olvind.tso.seqs.TraversableOps
   */
 object CombineOverloads extends TreeTransformation {
 
+  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
+    val (methods, fields, Nil) = s.members.partitionCollect2(
+      { case x: MethodTree => x },
+      { case x: FieldTree  => x }
+    )
+
+    s.copy(
+      ctors   = ctorHack(scope, s.ctors),
+      members = combineOverloads(scope, methods) ++ unifyFields(fields)
+    )
+  }
+
+  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
+    val (methods, fields, rest) = s.members.partitionCollect2(
+      { case x: MethodTree => x },
+      { case x: FieldTree  => x }
+    )
+
+    s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
+  }
+
+  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
+    val (methods, fields, rest) = s.members.partitionCollect2(
+      { case x: MethodTree => x },
+      { case x: FieldTree  => x }
+    )
+    s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
+  }
+
   private def combineSameErasureSameTypeParams(methods: Seq[MethodTree], renameSuffix: Option[Suffix]): MethodTree = {
     if (methods.map(_.params.map(_.size)).toSet.size =/= 1) {
       sys.error("Methods do not have same shape: " + methods)
@@ -137,28 +166,9 @@ object CombineOverloads extends TreeTransformation {
     }
   }
 
-  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
-    val (methods, rest) = s.members.partitionCollect {
-      case m: MethodTree => m
+  def unifyFields(fields: Seq[FieldTree]): Iterable[FieldTree] =
+    fields.groupBy(_.name).map {
+      case (_, Seq(one)) => one
+      case (_, sameName) => sameName.head.copy(tpe = asUnionType(sameName.map(_.tpe)))
     }
-    s.copy(
-      ctors   = ctorHack(scope, s.ctors),
-      members = rest ++ combineOverloads(scope, methods)
-    )
-  }
-
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
-    val (methods, rest) = s.members.partitionCollect {
-      case m: MethodTree => m
-    }
-
-    s.copy(members = rest ++ combineOverloads(scope, methods))
-  }
-
-  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
-    val (methods, rest) = s.members.partitionCollect {
-      case m: MethodTree => m
-    }
-    s.copy(members = rest ++ combineOverloads(scope, methods))
-  }
 }

@@ -20,8 +20,7 @@ import scala.collection.mutable
 object DefaultedTParams extends TreeTransformationScopedChanges {
   override def enterTsTypeRef(scope: TsTreeScope)(x: TsTypeRef): TsTypeRef =
     x match {
-      case TsTypeRef(_, target: TsQIdent, providedTparams: Seq[TsType])
-          if !TsQIdent.Primitive(target) && !scope.isAbstract(target) =>
+      case TsTypeRef(_, target, providedTparams) if !TsQIdent.Primitive(target) && !scope.isAbstract(target) =>
         scope lookupBase (Picker.Types, target) collectFirst {
           case (HasTParams(expectedTparams), _) if expectedTparams.size =/= providedTparams.size =>
             val m: mutable.Map[TsType, TsType] =

@@ -5,6 +5,13 @@ package transforms
 import scala.collection.mutable
 
 object ExtractInterfaces {
+  def apply(inLibrary: TsIdentLibrary, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
+    val store = new ConflictHandlingStore(inLibrary)
+    val V     = new LiftTypeObjects(store)
+    val asd   = V.visitTsParsedFile(scope)(file)
+
+    asd.copy(members = asd.members ++ store.interfaces.values)
+  }
 
   class ConflictHandlingStore(inLibrary: TsIdent) {
     val interfaces = mutable.Map.empty[TsIdent, TsDeclInterface]
@@ -30,14 +37,6 @@ object ExtractInterfaces {
       scope.logger info s"Extracted anonymous interface ${interface.name}"
       interface.codePath.forceHasPath
     }
-  }
-
-  def apply(inLibrary: TsIdentLibrary, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
-    val store = new ConflictHandlingStore(inLibrary)
-    val V     = new LiftTypeObjects(store)
-    val asd   = V.visitTsParsedFile(scope)(file)
-
-    asd.copy(members = asd.members ++ store.interfaces.values)
   }
 
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {

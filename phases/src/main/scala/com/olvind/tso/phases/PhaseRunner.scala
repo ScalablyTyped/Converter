@@ -4,9 +4,8 @@ package phases
 import com.olvind.logging.{Formatter, Logger}
 
 import scala.collection.immutable.{SortedMap, SortedSet}
-import scala.concurrent.Await
 import scala.concurrent.duration._
-import scala.util.{Failure, Success}
+import scala.concurrent.{Await}
 
 /**
   * Runs a computation given a sequence of input ids.
@@ -29,11 +28,13 @@ object PhaseRunner {
       case next: RecPhase.Next[Id, t, TT] => doNext[Id, t, TT](next, id, circuitBreaker, getLogger, listener)
     }
 
-  def doNext[Id: Formatter: Ordering, T, TT](next: RecPhase.Next[Id, T, TT],
-                                             id:             Id,
-                                             circuitBreaker: List[Id],
-                                             getLogger:      Id => Logger[Unit],
-                                             listener:       PhaseListener[Id]): PhaseRes[Id, TT] = {
+  def doNext[Id: Formatter: Ordering, T, TT](
+      next:           RecPhase.Next[Id, T, TT],
+      id:             Id,
+      circuitBreaker: List[Id],
+      getLogger:      Id => Logger[Unit],
+      listener:       PhaseListener[Id],
+  ): PhaseRes[Id, TT] = {
 
     val isCircular = circuitBreaker contains id
 
@@ -42,7 +43,7 @@ object PhaseRunner {
       .withContext("thread", Thread.currentThread().getId)
       .withContext("phase", next.name)
 
-    val res = Await.ready(
+    Await.result(
       next.cache.getOrElse((id, isCircular)) { p =>
         try {
           listener.on(next.name, id, PhaseListener.Started(next.name))
@@ -51,7 +52,7 @@ object PhaseRunner {
             go(next.prev, id, Nil, getLogger, listener)
 
           def calculateDeps(newRequestedIds: SortedSet[Id]): PhaseRes[Id, SortedMap[Id, TT]] = {
-            listener.on(next.name, id, PhaseListener.Blocked(next.name, newRequestedIds.map(Formatter.apply[Id])))
+            listener.on(next.name, id, PhaseListener.Blocked(next.name, newRequestedIds))
 
             val ret: PhaseRes[Id, SortedMap[Id, TT]] =
               PhaseRes.sequenceMap(
@@ -82,10 +83,10 @@ object PhaseRunner {
               p.success(res)
             case res @ PhaseRes.Failure(errors) =>
               listener.on(next.name, id, PhaseListener.Failure(next.name))
-              logger.debug(("Failure", errors))
+              logger.error(("Failure", errors))
               p.success(res)
             case res @ PhaseRes.Ignore() =>
-              listener.on(next.name, id, PhaseListener.Ignored)
+              listener.on(next.name, id, PhaseListener.Ignored())
               logger.debug("Ignored")
               p.success(res)
           }
@@ -98,18 +99,5 @@ object PhaseRunner {
       },
       Duration.Inf
     )
-
-    res.value match {
-      case Some(Success(ok)) => ok
-      case Some(Failure(th)) =>
-        listener.on(next.name, id, PhaseListener.Failure(next.name))
-        System.err.println("Error while running phase")
-        th.printStackTrace()
-        PhaseRes.Failure(Map(id -> Left(th)))
-
-      case None =>
-        listener.on(next.name, id, PhaseListener.Failure(next.name))
-        PhaseRes.Failure(Map(id -> Right("timed out")))
-    }
   }
 }

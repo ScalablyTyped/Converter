@@ -32,6 +32,27 @@ import scala.collection.mutable
   * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo``
   */
 object PreferTypeAlias extends TreeTransformationScopedChanges {
+  override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
+    x match {
+
+      /**
+        * We rewrite interfaces which extends one type, not more. The reason is that scala doesn't let you
+        *  `new` an intersection type
+        */
+      case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
+        if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance)) i
+        else {
+          t.logger.info("Simplified to type alias")
+          TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
+        }
+      case IsFunction(typeAlias) =>
+        if (hasCircularReference(typeAlias.name, mutable.Set(), t, typeAlias.alias)) x
+        else {
+          t.logger.info("Simplified to function type alias")
+          typeAlias
+        }
+      case other => other
+    }
 
   private object IsFunction {
     def unapply(i: TsDeclInterface): Option[TsDeclTypeAlias] =
@@ -44,8 +65,12 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         }
       }
   }
-  /* simulate that we have already ran `PreferTypeAlias` on `tree` somehow.
-  The point is that as long as we know that `tree` is not going to be a type alias itself, we can ignore the members */
+
+  /** Simulate that we have already ran `PreferTypeAlias` on `tree` somehow.
+    *
+    * The point is that as long as we know that `tree` is not going to be
+    *  a type alias itself, we can ignore the members
+    */
   def memberHack(tree: TsTree): TsTree =
     tree match {
       case x: TsDeclInterface =>
@@ -99,25 +124,5 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         )
         true
     }
-  }
-  override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
-
-    /**
-      * We rewrite interfaces which extends one type, not more. The reason is that scala doesn't let you
-      *  `new` an intersection type
-      */
-    case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
-      if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance)) i
-      else {
-        t.logger.info("Simplified to type alias")
-        TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
-      }
-    case IsFunction(typeAlias) =>
-      if (hasCircularReference(typeAlias.name, mutable.Set(), t, typeAlias.alias)) x
-      else {
-        t.logger.info("Simplified to function type alias")
-        typeAlias
-      }
-    case other => other
   }
 }

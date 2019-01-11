@@ -7,15 +7,16 @@ import com.olvind.tso.ts._
 
 object ImportType {
 
-  def orAny(wildcards: Wildcards, scope: TsTreeScope)(ott: Option[TsType]): TypeRef =
-    ott map apply(wildcards, scope) getOrElse TypeRef.Any
+  def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType]): TypeRef =
+    ott map apply(wildcards, scope, importName) getOrElse TypeRef.Any
 
-  def orLitOrAny(wildcards: Wildcards, scope: TsTreeScope)(ott: Option[TsType], ol: Option[TsLiteral]): TypeRef =
+  def orLitOrAny(wildcards:                                                            Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType],
+                                                                                   ol: Option[TsLiteral]): TypeRef =
     (ott, ol) match {
-      case (Some(x), _) => apply(wildcards, scope)(x)
+      case (Some(x), _) => apply(wildcards, scope, importName)(x)
       case (None, Some(lit)) =>
         val (c, tpe) = TsLiteral.typeOf(lit)
-        apply(wildcards, scope)(tpe).withComments(Comments(c))
+        apply(wildcards, scope, importName)(tpe).withComments(Comments(c))
       case _ => TypeRef.Any
     }
 
@@ -71,7 +72,7 @@ object ImportType {
       case _ => false
     }
 
-  def apply(wildcards: Wildcards, _scope: TsTreeScope)(t1: TsType): TypeRef = {
+  def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: ImportName)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
       case TsTypeRef(cs, base: TsQIdent, targs: Seq[TsType]) =>
@@ -81,14 +82,14 @@ object ImportType {
 
           case other =>
             lazy val parent = isInheritance(other, scope)
-            lazy val targs2 = targs map apply(wildcards.maybeAllow, scope)
+            lazy val targs2 = targs map apply(wildcards.maybeAllow, scope, importName)
 
             Mappings.get(other) match {
               case Some(Ref(tr, _)) if parent         => tr.withComments(cs)
               case Some(Ref(_, tr))                   => tr.withComments(cs)
               case Some(OnlyName(qname, _)) if parent => TypeRef(qname, targs2, cs)
               case Some(OnlyName(_, qname))           => TypeRef(qname, targs2, cs)
-              case None                               => TypeRef(ImportName(other), targs2, cs)
+              case None                               => TypeRef(importName(other), targs2, cs)
             }
         }
 
@@ -107,23 +108,23 @@ object ImportType {
 
         val base = lookups.headOption match {
           case None      => TypeRef.Any
-          case Some(one) => apply(wildcards, scope)(one)
+          case Some(one) => apply(wildcards, scope, importName)(one)
         }
 
         scope.stack collectFirst {
           case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
-            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams.head.name)), NoComments)
+            TypeRef.StringDictionary(TypeRef(importName(x.tparams.head.name)), NoComments)
           case x: TsNamedDecl => TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base))
         } getOrElse base
 
       case TsTypeObject(Seq(TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType))) =>
-        TypeRef.StringDictionary(apply(wildcards, scope)(valueType).withOptional(isOptional), cs)
+        TypeRef.StringDictionary(apply(wildcards, scope, importName)(valueType).withOptional(isOptional), cs)
 
       case TsTypeObject(Seq(TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType))) =>
-        TypeRef.NumberDictionary(apply(wildcards, scope)(valueType).withOptional(isOptional), cs)
+        TypeRef.NumberDictionary(apply(wildcards, scope, importName)(valueType).withOptional(isOptional), cs)
 
       case TsTypeFunction(sig) =>
-        if (sig.tparams.size > 22) TypeRef.FunctionBase
+        if (sig.params.size > 22) TypeRef.FunctionBase
         else {
           def recursiveBound(name: TsIdent, b: TsType): Boolean =
             TreeTraverse.collect(b) { case `name` => name }.nonEmpty
@@ -140,28 +141,28 @@ object ImportType {
           val (thisType, restParams) =
             newSig.params.to[List] match {
               case first :: tail if first.name === TsIdent.`this` =>
-                (Some(funParam(wildcards, scope)(first)), tail)
+                (Some(funParam(wildcards, scope, importName)(first)), tail)
               case all =>
                 (None, all)
             }
 
           TypeRef.Function(thisType,
-                           restParams map funParam(wildcards, scope),
-                           orAny(wildcards.maybeAllow, scope)(newSig.resultType),
+                           restParams map funParam(wildcards, scope, importName),
+                           orAny(wildcards.maybeAllow, scope, importName)(newSig.resultType),
                            newSig.comments)
         }
       case TsTypeUnion(types) =>
         types.partitionCollect { case TsTypeRef.undefined => } match {
-          case (Nil, ts)     => TypeRef.Union(ts map apply(wildcards, scope), sort = false)
-          case (_, Seq(one)) => TypeRef.UndefOr(apply(wildcards.maybeAllow, scope)(one))
-          case (_, ts)       => TypeRef.UndefOr(TypeRef.Union(ts map apply(wildcards, scope), sort = false))
+          case (Nil, ts)     => TypeRef.Union(ts map apply(wildcards, scope, importName), sort = false)
+          case (_, Seq(one)) => TypeRef.UndefOr(apply(wildcards.maybeAllow, scope, importName)(one))
+          case (_, ts)       => TypeRef.UndefOr(TypeRef.Union(ts map apply(wildcards, scope, importName), sort = false))
         }
 
       case TsTypeIntersect(types) =>
-        TypeRef.Intersection(types map apply(Wildcards.No, scope))
+        TypeRef.Intersection(types map apply(Wildcards.No, scope, importName))
 
       case TsTypeConstructor(TsTypeFunction(sig)) =>
-        newableFunction(scope, sig, NoComments)
+        newableFunction(scope, importName, sig, NoComments)
 
       case TsTypeKeyOf(_) =>
         TypeRef.String
@@ -169,15 +170,15 @@ object ImportType {
       case TsTypeTuple(StrippedRepeat(targs)) =>
         TypeRef(
           QualifiedName.Array,
-          List(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope), false)),
+          List(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope, importName), false)),
           NoComments
         )
 
       case TsTypeTuple(targs) =>
-        TypeRef.Tuple(targs map apply(wildcards.maybeAllow, scope))
+        TypeRef.Tuple(targs map apply(wildcards.maybeAllow, scope, importName))
 
       case TsTypeRepeated(underlying) =>
-        TypeRef.Repeated(apply(wildcards, scope)(underlying), NoComments)
+        TypeRef.Repeated(apply(wildcards, scope, importName)(underlying), NoComments)
 
       case TsTypeIs(_, tpe) =>
         tpe match {
@@ -200,7 +201,10 @@ object ImportType {
     }
   }
 
-  def newableFunction(scope: TsTreeScope.Scoped, _sig: TsFunSig, comments: Comments): TypeRef = {
+  def newableFunction(scope:      TsTreeScope.Scoped,
+                      importName: ImportName,
+                      _sig:       TsFunSig,
+                      comments:   Comments): TypeRef = {
     /* get rid of type parameters and fill them with bound / object */
     val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
     val sig   = ts.FillInTParams(_sig, targs)
@@ -215,13 +219,13 @@ object ImportType {
         val comment = Comment(s"/* ${param.name.value}${if (isRepeated) " (repeated)" else ""} */")
 
         ImportType
-          .orAny(Wildcards.Prohibit, scope)(baseType)
+          .orAny(Wildcards.Prohibit, scope, importName)(baseType)
           .withComments(Comments(comment))
           .withOptional(param.isOptional)
       }
 
     val ret: TypeRef =
-      ImportType.orAny(Wildcards.Prohibit, scope)(sig.resultType)
+      ImportType.orAny(Wildcards.Prohibit, scope, importName)(sig.resultType)
 
     TypeRef(
       QualifiedName.Instantiable(sig.params.length),
@@ -230,8 +234,8 @@ object ImportType {
     )
   }
 
-  private def funParam(wildcards: Wildcards, scope: TsTreeScope)(param: TsFunParam): TypeRef =
-    orAny(wildcards, scope / param)(param.tpe) withOptional param.isOptional withComments Comments(
+  private def funParam(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(param: TsFunParam): TypeRef =
+    orAny(wildcards, scope / param, importName)(param.tpe) withOptional param.isOptional withComments Comments(
       s"/* ${param.name.value} */"
     )
 

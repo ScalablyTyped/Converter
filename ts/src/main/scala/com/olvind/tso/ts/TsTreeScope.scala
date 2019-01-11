@@ -66,13 +66,11 @@ sealed trait TsTreeScope {
     if ((TsQIdent Primitive qname) || isAbstract(qname))
       return Nil
 
-    val loopDetector = new LoopDetector
-
-    val res = lookupInternal(picker, qname.parts, loopDetector)
+    val res = lookupInternal(picker, qname.parts, LoopDetector.initial)
 
     if (res.isEmpty && !skipValidation && root.pedantic) {
       //unused, it's just for easier debugging
-      lookupInternal(picker, qname.parts, loopDetector)
+      lookupInternal(picker, qname.parts, LoopDetector.initial)
 
       logger.fatal(s"Cannot resolve $qname")
     } else res
@@ -109,7 +107,7 @@ sealed trait TsTreeScope {
 object TsTreeScope {
   type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
   case class Cache(
-      applyTypeMapping:  mutable.Map[TsTypeRef, Option[TsDeclInterface]]   = mutable.Map.empty,
+      applyTypeMapping:  mutable.Map[TsTypeRef, Option[TsTypeObject]]      = mutable.Map.empty,
       lookupExportFrom:  C                                                 = mutable.Map.empty,
       lookupFromImports: C                                                 = mutable.Map.empty,
       replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]          = mutable.Map.empty,

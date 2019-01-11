@@ -66,7 +66,7 @@ val importer = project
                                               Deps.dispatch,
                                               Deps.asyncHttpClient),
     fork in run := true,
-    javaOptions in run += "-Xmx8G",
+    javaOptions in run += "-Xmx12G",
     mainClass := Some("com.olvind.tso.importer.Importer"),
     // fork to keep CI happy with memory usage
     fork in Test := true,

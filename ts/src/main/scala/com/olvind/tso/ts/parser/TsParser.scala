@@ -289,8 +289,15 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     val isAbstract: Parser[Boolean] =
       "abstract".isDefined
 
+    val functionCall: Parser[TsTypeRef] =
+      qualifiedIdent ~ ("(" ~> repsep(qualifiedIdent, ",") <~ ")") ^^ {
+        case qi ~ types =>
+          val str = s"${TsTypeFormatter.qident(qi)}(${types.map(tpe => TsTypeFormatter.qident(tpe)).mkString(", ")})"
+          TsTypeRef.any.copy(Comments(Comment.warning(s"class extends from function call: $str")))
+      }
+
     val parent: Parser[Option[TsTypeRef]] =
-      ("extends" ~> tsTypeRef).?
+      ("extends" ~> (functionCall | tsTypeRef)).?
 
     val implements: Parser[List[TsTypeRef]] =
       "implements" ~> repsep(tsTypeRef, ",") | success(Nil)

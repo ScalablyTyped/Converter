@@ -4,7 +4,7 @@ package importer
 import com.olvind.logging.Logger
 import com.olvind.tso.phases.PhaseListener
 import com.olvind.tso.ts.TsIdentLibrary
-import fansi.{Color, Str}
+import fansi.Color
 import monix.execution.atomic.AtomicBoolean
 
 import scala.collection.mutable
@@ -13,13 +13,17 @@ import scala.util.Try
 class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stored]])
     extends Thread
     with PhaseListener[Source] {
-  private val t0        = System.currentTimeMillis
-  private val files     = mutable.Set.empty[InFile]
-  private val succeeded = mutable.Map.empty[TsIdentLibrary, String]
-  private val failed    = mutable.Map.empty[TsIdentLibrary, String]
-  private val ignored   = mutable.Set.empty[TsIdentLibrary]
-  private val active    = mutable.Map.empty[TsIdentLibrary, String]
-  private val blocked   = mutable.Map.empty[TsIdentLibrary, (String, Set[Str])]
+
+  import PhaseListener._
+  private val t0     = System.currentTimeMillis
+  private val files  = mutable.Set.empty[InFile]
+  private val status = mutable.Map.empty[TsIdentLibrary, Event[Source]]
+
+  private def failed    = status.collect { case (lib, x: Failure[Source]) => (lib, x) }
+  private def ignored   = status.collect { case (lib, _: Ignored[Source]) => lib }
+  private def active    = status.collect { case (lib, x: Started[Source]) => (lib, x) }
+  private def blocked   = status.collect { case (lib, x: Blocked[Source]) => (lib, x) }
+  private def succeeded = status.collect { case (lib, x: Success[Source]) => lib -> x }
   private val hasExited = AtomicBoolean(false)
 
   def finish(): Summary = {
@@ -29,31 +33,13 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
     Summary(succeeded.keys.to[Set], failed.keys.to[Set])
   }
 
-  override def on(phaseName: String, id: Source, event: PhaseListener.Event): Unit =
+  override def on(phaseName: String, id: Source, event: PhaseListener.Event[Source]): Unit =
     synchronized {
       id match {
         case Source.TsHelperFile(file, _, _) =>
           files += file
         case x: Source =>
-          val name = x.libName
-          event match {
-            case PhaseListener.Failure(phase) =>
-              active -= name
-              succeeded -= name //retardo design, but fix later. earlier stages count as "successful"
-              failed += (name -> phase)
-            case PhaseListener.Success(phase) =>
-              active -= name
-              succeeded += (name -> phase)
-            case PhaseListener.Ignored =>
-              active -= name
-              ignored += name
-            case PhaseListener.Started(phase) =>
-              blocked -= name
-              active += (name -> phase)
-            case PhaseListener.Blocked(phase, on) =>
-              active -= name
-              blocked += (name -> (phase -> on))
-          }
+          status(x.libName) = event
       }
       ()
     }
@@ -66,45 +52,53 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
       }
     }
 
-  def render(): Unit =
-    synchronized {
-      val numSucceded        = succeeded.size
-      val numFailed          = failed.size
-      val numIgnored         = ignored.size
-      val numFiles           = files.size
-      val td                 = (System.currentTimeMillis() - t0) / 1000.0
-      val numProcessed       = numFailed + numSucceded
-      val processedPerSecond = td / numProcessed
-      //reset terminal
-      println("\u001b[2J")
-      //move cursor to start of screen
-      println("\u001b[H")
+  def render(): Unit = {
+    val sb = new StringBuffer()
+    def println(s: String) = sb.append(s).append("\n")
 
-      def row[N: Numeric](title: String, num: N): Unit =
-        println(fansi.Str.join(title, ": ", fansi.Bold.On(num.toString)).render)
+    val numSucceded        = succeeded.size
+    val numFailed          = failed.size
+    val numIgnored         = ignored.size
+    val numFiles           = files.size
+    val td                 = (System.currentTimeMillis() - t0) / 1000.0
+    val numProcessed       = numFailed + numSucceded
+    val processedPerSecond = td / numProcessed
+    //reset terminal
+    println("\u001b[2J")
+    //move cursor to start of screen
+    println("\u001b[H")
 
-      row("Successes", numSucceded)
-      row("Failed", numFailed)
-      row("Ignored", numIgnored)
-      row("Files", numFiles)
-      row("Seconds elapsed", td)
-      row("Seconds per library", processedPerSecond)
+    def row[N: Numeric](title: String, num: N): Unit =
+      println(fansi.Str.join(title, ": ", fansi.Bold.On(num.toString)).render)
 
-      println("Active:")
-      active.to[Seq].map(x => (Color.Green(x._1.value).render, x._2)).sorted.foreach(println)
+    row("Successes", numSucceded)
+    row("Failed", numFailed)
+    row("Ignored", numIgnored)
+    row("Files", numFiles)
+    row("Seconds elapsed", td)
+    row("Seconds per library", processedPerSecond)
 
-      println("Blocked:")
-      blocked
-        .to[Seq]
-        .map { case (name, (phase, on)) => s"${Color.LightGray(name.value).render} ($phase) blocked on $on" }
-        .sorted
-        .foreach(println)
+    println("Active:")
+    active.to[Seq].map(x => (Color.Green(x._1.value).render, x._2.phase)).sorted.foreach(x => println(x.toString))
 
-      println("Last ten errors: ")
-      storingErrorLogger.underlying.takeRight(10).foreach { stored =>
-        println(
-          stored.ctx.get("id").fold("")(Color.Red(_).render + ": ") + stored.message.render.takeWhile(_ =/= '\n')
-        )
+    println("Blocked:")
+    blocked
+      .to[Seq]
+      .map {
+        case (name, Blocked(phase, on)) =>
+          s"${Color.LightGray(name.value).render} ($phase) blocked on ${on.map(_.libName) -- succeeded.keys map (_.value)}"
       }
+      .sorted
+      .foreach(println)
+
+    println("Last ten errors: ")
+    storingErrorLogger.underlying.takeRight(10).foreach { stored =>
+      println(
+        stored.ctx.get("id").fold("")(Color.Red(_).render + ": ") + stored.message.render
+          .takeWhile(_ =/= '\n')
+          .take(200)
+      )
     }
+    System.out.println(sb)
+  }
 }
