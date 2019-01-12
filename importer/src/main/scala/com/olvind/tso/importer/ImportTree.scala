@@ -51,7 +51,8 @@ object ImportTree {
         case _: TsDeclVar       => true
         case _: TsDeclFunction  => true
         case x: TsDeclNamespace => canBeCompact(x.members)
-        case _ => false
+        case TsDeclTypeAlias(Comments(Seq(constants.MagicComments.TrivialTypeAlias)), _, _, _, _, _) => true
+        case _                                                                                       => false
       }
 
     private def allTypes(members: Seq[TsContainerOrDecl]): Boolean =

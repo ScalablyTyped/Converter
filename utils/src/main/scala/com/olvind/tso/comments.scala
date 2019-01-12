@@ -72,4 +72,5 @@ object Comments {
     ts.foreach(t => buf ++= f(t).cs)
     apply(buf.distinct.toList)
   }
+  def unapply(c: Comments): Some[List[Comment]] = Some(c.cs)
 }

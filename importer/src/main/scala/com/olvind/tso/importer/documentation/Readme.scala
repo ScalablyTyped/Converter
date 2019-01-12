@@ -199,8 +199,11 @@ package object myapp {
 
 ### Whatsup with the hats?
 
-Scala package objects are [broken](https://github.com/scala-js/scala-js/issues/1892) when used as javascript facades.
-For that reason, and to be forwards compatible with scala.js 1.0, we package up top level members in objects.
+We normally convert typescript namespaces and modules into scala packages.
+
+In idiomatic scala top level members inside would be placed into package objects,
+but those are unfortunately [broken](https://github.com/scala-js/scala-js/issues/1892) when used as javascript facades.
+For that reason we put them into objects called `^`.
 
 The scheme is like this:
 ```scala
@@ -219,6 +222,11 @@ object ^ extends js.Object {
 }
 // usage: typings.stdLib.^.Array.newInstance(1)
 ```
+
+Note that this is the "normal" container format.
+If a container doesn't introduce new types (or if a namespace is exported in a module),
+the "compact" format is used instead where everything goes into an object.
+
 
 ### Whatsup with those version strings?
 

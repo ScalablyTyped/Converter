@@ -1,5 +1,5 @@
 package typings
-package cldrjsLib.cldrSupplementalMod
+package cldrjsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 @JSImport("cldr/supplemental", JSImport.Namespace)
 @js.native
-object ^
+object cldrSupplementalMod
   extends org.scalablytyped.runtime.TopLevel[cldrjsLib.cldrjsMod.selfNs.CldrFactory]
 
