@@ -125,6 +125,7 @@ object Libraries {
     "source-map-support",
     "storm-react-diagrams",
     "styled-components",
+    "superagent-proxy",
     "sw-toolbox",
     "ts-mockito",
     "tslint",
@@ -161,6 +162,7 @@ object Libraries {
       "snoowrap",
       // some new kind of circular dependency causes the phase runner to wait forever
       "mali",
-      "apollo-tracing"
+      "apollo-tracing",
+      "playerframework"
     )
 }
