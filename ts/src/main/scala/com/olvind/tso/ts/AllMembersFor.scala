@@ -2,6 +2,7 @@ package com.olvind.tso
 package ts
 
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
+import seqs.TraversableOps
 
 object AllMembersFor {
   def forType(scope: TsTreeScope, loopDetector: LoopDetector)(tpe: TsType): Seq[TsMember] =
@@ -23,6 +24,14 @@ object AllMembersFor {
       case _: TsTypePredicate   => Nil
     }
 
+  /* would want to do this for methods too, and in a more principled way. */
+  def handleOverridingFields(fromThis: Seq[TsMember], fromParents: Seq[TsMember]): Seq[TsMember] = {
+    val thisFieldOverrides           = fromThis.collect { case x: TsMemberProperty => x.name }.toSet
+    val (parentsFields, parentsRest) = fromParents.partitionCollect { case x: TsMemberProperty => x }
+
+    fromThis ++ parentsFields.filterNot(x => thisFieldOverrides(x.name)) ++ parentsRest
+  }
+
   def apply(scope: TsTreeScope, loopDetector: LoopDetector)(typeRef: TsTypeRef): Seq[TsMember] =
     scope lookupInternal (Picker.Types, typeRef.name.parts, loopDetector) flatMap {
       case (x: TsDeclInterface, newScope) =>
@@ -31,7 +40,7 @@ object AllMembersFor {
       case (x: TsDeclClass, newScope) =>
         FillInTParams(x, typeRef.tparams) match {
           case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
-            members ++ (implements ++ parent flatMap apply(newScope, loopDetector))
+            handleOverridingFields(members, implements ++ parent flatMap apply(newScope, loopDetector))
         }
 
       case (x: TsDeclTypeAlias, newScope) =>
@@ -46,6 +55,6 @@ object AllMembersFor {
                    tparams:      Seq[TsType]): Seq[TsMember] =
     FillInTParams(x, tparams) match {
       case TsDeclInterface(_, _, _, _, inheritance, members, _) =>
-        members ++ (inheritance flatMap AllMembersFor(newScope, loopDetector))
+        handleOverridingFields(members, inheritance flatMap AllMembersFor(newScope, loopDetector))
     }
 }
