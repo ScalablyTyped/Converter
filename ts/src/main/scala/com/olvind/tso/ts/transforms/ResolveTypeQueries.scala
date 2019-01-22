@@ -43,7 +43,20 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
 
     def unapply(decl: TsContainerOrDecl): Option[(TsDeclClass, TsType)] =
       decl match {
-        case cls: TsDeclClass =>
+        case _cls: TsDeclClass =>
+          /**
+            * todo: this is only necessary until we adopt answering these type queries as classes
+            */
+          val cls = new TypeRewriter(_cls).visitTsDeclClass(
+            _cls.tparams
+              .map(
+                tp =>
+                  TsTypeRef.of(tp.name) -> TsTypeRef.any
+                    .copy(comments = Comments(Comment.warning(s"was tparam ${tp.name.value}")))
+              )
+              .toMap
+          )(_cls)
+
           val existingCtorOpt: Option[TsTypeConstructor] =
             cls.members collectFirst {
               case TsMemberCtor(cs, _, sig) => asTypeCtor(cls, sig.comments ++ cs, sig.params)
