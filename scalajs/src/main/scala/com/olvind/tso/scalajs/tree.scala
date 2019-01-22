@@ -200,9 +200,11 @@ object TypeRef {
   }
 
   def Tuple(typeParams: Seq[TypeRef]): TypeRef =
-    typeParams.length match {
-      case n if n > 22 => TypeRef(QualifiedName.Array, Seq(TypeRef.Any), NoComments)
-      case _           => TypeRef(QualifiedName.Tuple(typeParams.length), typeParams, NoComments)
+    typeParams match {
+      case Nil                            => TypeRef(QualifiedName.Array, Seq(TypeRef.Any), NoComments)
+      case Seq(one)                       => TypeRef(QualifiedName.Array, Seq(one), NoComments)
+      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.Array, Seq(TypeRef.Any), NoComments)
+      case _                              => TypeRef(QualifiedName.Tuple(typeParams.length), typeParams, NoComments)
     }
 
   object Intersection {
