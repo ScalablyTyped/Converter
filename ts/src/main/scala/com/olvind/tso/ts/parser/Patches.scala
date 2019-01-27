@@ -3,7 +3,10 @@ import ammonite.ops.{RelPath, _}
 import com.olvind.tso.InFile
 
 /**
-  * These are library specific hacks to make up for shortcomings in the parser.
+  * These are library specific hacks to make up for shortcomings in the converter
+  *
+  * OOPS. When changing these, keep in mind that this operates at the parser level,
+  *  and the result is cached. Delete cache between runs or comment out in `Main`
   */
 object Patches {
   final case class Patch(comment: String, from: String, to: String)
@@ -23,24 +26,31 @@ object Patches {
         "refKey?: string;",
       )
     ),
-    "styled-components" / "index.d.ts" -> List(
+    "@emotion" / 'serialize / 'types / "index.d.ts" -> List(
       Patch(
         "resolve circular set of type aliases",
-        "export type InterpolationFunction<P> = (props: P) => Interpolation<P>;",
-        "/* Return type should be (P) => Interpolation<P> */ export type InterpolationFunction<P> = (props: P) => InterpolationValue;",
-      ),
-      Patch(
-        "protect against `Omit` inside `Omit` such that `InlineNestedIdentityAlias` doesn't understand it",
-        "type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, 'theme'>",
-        "type WithOptionalTheme<P extends { theme?: T }, T> = P",
+        "export type FunctionInterpolation<MP> = (mergedProps: MP) => Interpolation<MP>",
+        "/* break circular type alias by converting to interface*/ export interface FunctionInterpolation<MP>{(mergedProps: MP): Interpolation<MP>}",
       )
     ),
-    "create-emotion-styled" / 'types / "common.d.ts" -> List(
+    "styled-components" / "index.d.ts" -> List(
+      Patch(
+        "resolve double Omit",
+        "type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, \"theme\"> & {\n    theme?: T;\n};",
+        "type WithOptionalTheme<P extends { theme?: T }, T> = P & {\n    theme?: T;\n};",
+      ),
       Patch(
         "resolve circular set of type aliases",
         "export type InterpolationFunction<P> = (props: P) => Interpolation<P>;",
-        "/* Return type should be Interpolation<Props> */ export type InterpolationFunction<P> = (props: P) => BaseInterpolation<P>;",
+        "/* break circular type alias by converting to interface*/ export interface InterpolationFunction<P>{(props: P): Interpolation<P>}",
       )
+    ),
+    "react" / "index.d.ts" -> List(
+      Patch(
+        "drop a type parameter (that surprisingly works well) to resolve circular set of type aliases",
+        "interface ReactElement<P, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {",
+        "interface ReactElement<P> {",
+      ),
     ),
   )
 
