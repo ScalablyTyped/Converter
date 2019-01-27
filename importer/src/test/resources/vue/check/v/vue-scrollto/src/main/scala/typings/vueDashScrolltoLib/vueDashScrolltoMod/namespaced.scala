@@ -13,8 +13,8 @@ class namespaced () extends VueScrollTo
 @js.native
 object namespaced extends js.Object {
   @JSName("install")
-  var install_Original: vueLib.typesPluginMod.PluginFunction[scala.Nothing] = js.native
-  def install(Vue: vueLib.typesVueMod.VueConstructor[vueLib.typesVueMod.Vue]): scala.Unit = js.native
-  def install(Vue: vueLib.typesVueMod.VueConstructor[vueLib.typesVueMod.Vue], options: scala.Nothing): scala.Unit = js.native
+  var install_Original: vueLib.pluginMod.PluginFunction[scala.Nothing] = js.native
+  def install(Vue: vueLib.vueVueMod.VueConstructor[vueLib.vueVueMod.Vue]): scala.Unit = js.native
+  def install(Vue: vueLib.vueVueMod.VueConstructor[vueLib.vueVueMod.Vue], options: scala.Nothing): scala.Unit = js.native
 }
 

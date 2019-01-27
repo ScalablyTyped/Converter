@@ -8,30 +8,30 @@ import scala.scalajs.js.annotation._
 package object atStorybookVueMod {
   type StoryDecorator = js.Function2[
     /* story */ js.Function0[
-      vueLib.typesOptionsMod.ComponentOptions[
-        vueLib.typesVueMod.Vue, 
-        vueLib.typesOptionsMod.DefaultData[vueLib.typesVueMod.Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[vueLib.typesVueMod.Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.PropsDefinition[vueLib.typesOptionsMod.DefaultProps]
+      vueLib.optionsMod.ComponentOptions[
+        vueLib.vueVueMod.Vue, 
+        vueLib.optionsMod.DefaultData[vueLib.vueVueMod.Vue], 
+        vueLib.optionsMod.DefaultMethods[vueLib.vueVueMod.Vue], 
+        vueLib.optionsMod.DefaultComputed, 
+        vueLib.optionsMod.PropsDefinition[vueLib.optionsMod.DefaultProps]
       ]
     ], 
     /* context */ atStorybookVueLib.Anon_Kind, 
-    (vueLib.typesOptionsMod.ComponentOptions[
-      vueLib.typesVueMod.Vue, 
-      vueLib.typesOptionsMod.DefaultData[vueLib.typesVueMod.Vue], 
-      vueLib.typesOptionsMod.DefaultMethods[vueLib.typesVueMod.Vue], 
-      vueLib.typesOptionsMod.DefaultComputed, 
-      vueLib.typesOptionsMod.PropsDefinition[vueLib.typesOptionsMod.DefaultProps]
+    (vueLib.optionsMod.ComponentOptions[
+      vueLib.vueVueMod.Vue, 
+      vueLib.optionsMod.DefaultData[vueLib.vueVueMod.Vue], 
+      vueLib.optionsMod.DefaultMethods[vueLib.vueVueMod.Vue], 
+      vueLib.optionsMod.DefaultComputed, 
+      vueLib.optionsMod.PropsDefinition[vueLib.optionsMod.DefaultProps]
     ]) | scala.Null
   ]
   type StoryFunction = js.Function0[
-    (vueLib.typesOptionsMod.ComponentOptions[
-      vueLib.typesVueMod.Vue, 
-      vueLib.typesOptionsMod.DefaultData[vueLib.typesVueMod.Vue], 
-      vueLib.typesOptionsMod.DefaultMethods[vueLib.typesVueMod.Vue], 
-      vueLib.typesOptionsMod.DefaultComputed, 
-      vueLib.typesOptionsMod.PropsDefinition[vueLib.typesOptionsMod.DefaultProps]
+    (vueLib.optionsMod.ComponentOptions[
+      vueLib.vueVueMod.Vue, 
+      vueLib.optionsMod.DefaultData[vueLib.vueVueMod.Vue], 
+      vueLib.optionsMod.DefaultMethods[vueLib.vueVueMod.Vue], 
+      vueLib.optionsMod.DefaultComputed, 
+      vueLib.optionsMod.PropsDefinition[vueLib.optionsMod.DefaultProps]
     ]) | java.lang.String
   ]
 }

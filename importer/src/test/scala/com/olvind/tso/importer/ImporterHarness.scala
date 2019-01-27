@@ -37,8 +37,8 @@ trait ImporterHarness extends FunSuiteLike {
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: Path
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
-    val stdLibSource: Source =
-      Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
+    val stdLibSource: Source.FromFile =
+      Source.FromFile(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
 
     val resolve          = new LibraryResolver(stdLibSource, Seq(source), None)
     val lastChangedIndex = RepoLastChangedIndex(source.path)

@@ -10,31 +10,30 @@ object PathsFromTsLibSource {
             packageJsonOpt: Option[PackageJsonDeps],
             tsConfig:       Option[TsConfig]): Set[Source.TsHelperFile] = {
 
-    val found: Seq[(InFile, Boolean)] =
+    val found: Seq[(InFile, Source.TsLibSource)] =
       source match {
-        case Source.StdLibSource(file, _) =>
-          Seq(file -> false)
+        case Source.FromFile(file, _) =>
+          Seq(file -> source)
 
         case f: Source.FromFolder =>
           FirstNonEmpty(
-            () => fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x        => (x, true)),
-            () => fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-            () => fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.types)).map(x   => (x, true)),
-            () => fromFilesEntry(resolve, f, packageJsonOpt.flatMap(_.files)).map(x  => (x, false)),
-            () => fromFilesEntry(resolve, f, tsConfig.flatMap(_.files)).map(x        => (x, false)),
-            () => whateverIsThere(f).map(x                                           => (x, false))
+            () =>
+              fromTypingsJson(f, packageJsonOpt.flatMap(_.typings))
+                .map(x => (x, Source.FromFile(x, source.libName))),
+            () =>
+              fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.typings))
+                .map(x => (x, Source.FromFile(x, source.libName))),
+            () =>
+              fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.types))
+                .map(x => (x, Source.FromFile(x, source.libName))),
+            () => fromFilesEntry(resolve, f, packageJsonOpt.flatMap(_.files)).map(x => (x, source)),
+            () => fromFilesEntry(resolve, f, tsConfig.flatMap(_.files)).map(x       => (x, source)),
+            () => whateverIsThere(f).map(x                                          => (x, source))
           ).getOrElse(Nil)
       }
 
     found.map {
-      case (file, true) =>
-        source.libName match {
-          case TsIdentLibraryScoped(scope, name) =>
-            Source.TsHelperFile(file, source, TsIdentModule(Some(scope), name.to[List]))
-          case TsIdentLibrarySimple(value) =>
-            Source.TsHelperFile(file, source, TsIdentModule(None, value :: Nil))
-        }
-      case (file, false) => Source.TsHelperFile(file, source, resolve.inferredModule(file.path, source))
+      case (file, newSource) => Source.TsHelperFile(file, newSource, resolve.inferredModule(file.path, newSource))
 
     }.toSet
   }

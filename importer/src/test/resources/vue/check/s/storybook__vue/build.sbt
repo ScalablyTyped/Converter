@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "storybook__vue"
-version := "3.3-b4f5e5"
+version := "3.3-e2e982"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
@@ -8,7 +8,7 @@ libraryDependencies ++= Seq(
   "org.scala-js" %%% "scalajs-dom" % "0.9.6",
   "org.scalablytyped" %%% "node" % "0.0-unknown-59d174",
   "org.scalablytyped" %%% "std" % "0.0-unknown-3a694c",
-  "org.scalablytyped" %%% "vue" % "2.5.13-318af5",
+  "org.scalablytyped" %%% "vue" % "2.5.13-1a53a8",
   "org.scalablytyped" %%% "webpack-env" % "1.13-f394c7")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"

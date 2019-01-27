@@ -10,7 +10,7 @@ import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
-import com.olvind.tso.importer.Source.StdLibSource
+import com.olvind.tso.importer.Source.FromFile
 import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Readme
 import com.olvind.tso.importer.jsonCodecs._
@@ -101,9 +101,8 @@ object Main extends App {
       Libraries.ignored
     )
 
-  val stdLibSource: Source =
-    StdLibSource(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
-                 TsIdentLibrarySimple("std"))
+  val stdLibSource: FromFile =
+    FromFile(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"), TsIdentLibrarySimple("std"))
 
   val contribSources: Set[Source] =
     ls(contribFolder).map(path => Source.ContribSource(InFolder(path)): Source).to[Set]

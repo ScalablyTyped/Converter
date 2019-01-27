@@ -55,11 +55,12 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
       x match {
         case TsIdentModule(Some(scope), head :: tail) =>
           knownLibraries.collectFirst {
-            case TsIdentLibraryScoped(`scope`, Some(`head`)) => tail.mkString("/")
+            case TsIdentLibraryScoped(`scope`, Some(`head`)) if !tail.headOption.contains(head) => tail.mkString("/")
           }
         case TsIdentModule(None, head :: tail) =>
           knownLibraries.collectFirst {
-            case TsIdentLibrarySimple(`head`) => tail.mkString("/")
+            // the tail check is to avoid name collisions for a module foofoo and foo within a library foo
+            case TsIdentLibrarySimple(`head`) if !tail.headOption.contains(head) => tail.mkString("/")
           }
         case _ => None
       }
