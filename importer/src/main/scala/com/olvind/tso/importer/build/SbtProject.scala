@@ -16,7 +16,7 @@ case class SbtProject(name: String, organization: String, artifactId: String, ve
 
 case class PublishedSbtProject(project: SbtProject)(
     val localIvyFiles:                  IvyLayout[Path, Synced],
-    val publishedOpt:                   Option[Iterable[Boolean]]
+    val publishedOpt:                   Option[Unit]
 )
 
 object PublishedSbtProject {
