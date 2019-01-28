@@ -26,13 +26,14 @@ import scala.concurrent.ExecutionContext
 import scala.util.Try
 
 object Main extends App {
-  val Config(config)   = args
-  val RunId            = constants.DateTimePattern format LocalDateTime.now
-  val logsFolder       = config.cacheFolder / 'logs
-  val parseCacheFolder = config.cacheFolder / 'parse / BuildInfo.parserHash.toString
-  val targetFolder     = config.cacheFolder / config.projectName
-  val failFolder       = targetFolder / 'failures
-  val contribFolder    = targetFolder / 'contrib
+  val Config(config)     = args
+  val RunId              = constants.DateTimePattern format LocalDateTime.now
+  val logsFolder         = config.cacheFolder / 'logs
+  val parseCacheFolder   = config.cacheFolder / 'parse / BuildInfo.parserHash.toString
+  val targetFolder       = config.cacheFolder / config.projectName
+  val bintrayCacheFolder = config.cacheFolder / 'bintray
+  val failFolder         = targetFolder / 'failures
+  val contribFolder      = targetFolder / 'contrib
 
   (exists(targetFolder / ".git"), config.cleanRepo) match {
     case (existed, true) =>
@@ -72,6 +73,7 @@ object Main extends App {
   mkdir(failFolder)
   mkdir(contribFolder)
   mkdir(logsFolder)
+  mkdir(bintrayCacheFolder)
 
   val storingErrorLogger = logging.storing()
 
@@ -129,7 +131,11 @@ object Main extends App {
           .toMap
 
       Some(
-        new BinTrayPublisher(config.ScalablyTypedRepoPublic, values("user"), values("password"), config.projectName)(
+        new BinTrayPublisher(bintrayCacheFolder,
+                             config.ScalablyTypedRepoPublic,
+                             values("user"),
+                             values("password"),
+                             config.projectName)(
           ExecutionContext.Implicits.global
         )
       )
