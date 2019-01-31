@@ -5,7 +5,7 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{root, up, Path}
+import ammonite.ops.{mkdir, root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.Source.TsLibSource
 import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Versions}
@@ -29,6 +29,8 @@ trait ImporterHarness extends FunSuiteLike {
 
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
+  val failureCacheDir = root / 'tmp / 'tso / 'compileFailures
+  mkdir(failureCacheDir)
 
   private def runImport(
       source:        InFolder,
@@ -59,7 +61,8 @@ trait ImporterHarness extends FunSuiteLike {
             organization    = "org.scalablytyped",
             publishFolder   = publishFolder,
             resolve         = resolve,
-            scheduler       = Scheduler(ExecutionContext.Implicits.global)
+            scheduler       = Scheduler(ExecutionContext.Implicits.global),
+            failureCacheDir = failureCacheDir
           ),
           "build"
         )
