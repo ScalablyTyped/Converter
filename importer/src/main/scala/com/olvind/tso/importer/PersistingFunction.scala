@@ -5,6 +5,7 @@ import ammonite.ops.Path
 import com.olvind.logging.Logger
 import io.circe._
 import io.circe.parser._
+import monix.eval.Task
 
 object PersistingFunction {
 
@@ -24,6 +25,27 @@ object PersistingFunction {
         val ret = f(key)
         Json.persist(cacheFile)(ret)
         ret
+    }
+  }
+
+  def taskPartial[K, V, VV <: V: Encoder: Decoder](cachedFile: Path,
+                                                   logger:  Logger[Unit],
+                                                   run:     Task[V],
+                                                   extract: PartialFunction[V, VV]): Task[V] = {
+    def persisted(v: V): V = {
+      extract.lift(v).foreach(vv => Json.persist(cachedFile)(vv))
+      v
+    }
+    cachedFile match {
+      case files.Exists(existingFile) =>
+        decode[VV](files content InFile(existingFile)) match {
+          case Left(error) =>
+            logger.warn(s"Couldn't decode cached file $existingFile: $error")
+            run.map(persisted)
+          case Right(file) => Task.pure(file)
+        }
+
+      case _ => run.map(persisted)
     }
   }
 

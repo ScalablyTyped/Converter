@@ -5,6 +5,7 @@ import java.nio.file.attribute.FileTime
 import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops._
+import bloop.Compiler.Result
 import bloop.io.AbsolutePath
 import bloop.{Compiler, DependencyResolution}
 import bloop.logging.{Logger => BloopLogger}
@@ -33,7 +34,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                          projectName:     String,
                          organization:    String,
                          publishFolder:   Path,
-                         scheduler:       Scheduler)
+                         scheduler:       Scheduler,
+                         failureCacheDir: Path)
     extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
@@ -191,8 +193,27 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
       rm(compilerPaths.classesDir)
 
+      val compileWithCachedFailures = {
+        val isFailure: PartialFunction[Result, Result.Failed] = {
+          case x: Result.Failed
+              /* protect against flaky errors */
+              if !x.problems.exists(_.message().contains("bad option: -P:scalajs:sjsDefinedByDefault"))
+                && x.t.isEmpty =>
+            x
+        }
+
+        import ResultFailedJsonCodec._
+
+        PersistingFunction.taskPartial(
+          failureCacheDir / name / finalVersion,
+          logger,
+          bloop.compileLib(compilerPaths, localClassPath ++ externalDeps),
+          extract = isFailure
+        )
+      }
+
       val ret: Task[PhaseRes[Source, PublishedSbtProject]] =
-        bloop.compileLib(compilerPaths, localClassPath ++ externalDeps).map {
+        compileWithCachedFailures.map {
           case Compiler.Result.Success(_, _, elapsed) =>
             logger warn s"Built ${sbtProject.name} in $elapsed ms"
 
