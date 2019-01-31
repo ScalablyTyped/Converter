@@ -30,13 +30,15 @@ class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, passwor
   private lazy val repo   = client.repo(user, repoName)
 
   object Handle {
+    val createOrConflictUncached = new FunctionHandler({
+      case res if res.getStatusCode === Status.CONFLICT => false
+      case res if res.getStatusCode === Status.CREATED  => true
+      case res if res.getStatusCode === Status.OK       => true
+      case failed                                       => throw StatusCode(failed.getStatusCode)
+    })
+
     val createOrConflict: AsyncHandler[Boolean] =
-      Caching.Handler(new FunctionHandler({
-        case res if res.getStatusCode === Status.CONFLICT => false
-        case res if res.getStatusCode === Status.CREATED  => true
-        case res if res.getStatusCode === Status.OK       => true
-        case failed                                       => throw StatusCode(failed.getStatusCode)
-      }))
+      Caching.Handler(createOrConflictUncached)
 
     val asFound: AsyncHandler[Boolean] =
       Caching.Handler(new FunctionHandler(_.getStatusCode != 404))
@@ -60,7 +62,7 @@ class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, passwor
           .vcs(vcs)
           .licenses(lics: _*)
           .labels(labels: _*)
-          .apply(Handle.createOrConflict)
+          .apply(Handle.createOrConflictUncached)
           .map(_ => pkgRepo)
     }
   }
