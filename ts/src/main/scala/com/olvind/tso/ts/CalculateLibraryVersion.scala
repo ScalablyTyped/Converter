@@ -11,13 +11,17 @@ import scala.util.{Success, Try}
 object CalculateLibraryVersion {
 
   def apply(sourceFolder:     InFolder,
+            isStdLib:         Boolean,
             sourceFiles:      Seq[InFile],
             lastChangedIndex: RepoLastChangedIndex,
             packageJsonOpt:   Option[PackageJsonDeps],
             comments:         Comments): LibraryVersion = {
     implicit val wd = sourceFolder.path
 
-    val libraryVersion = packageJsonOpt.flatMap(_.version) orElse
+    def ignoreStdLibMinorVersion(v: String): String =
+      if (isStdLib) v.substring(0, v.lastIndexOf(".")) else v
+
+    val libraryVersion = packageJsonOpt.flatMap(_.version) map ignoreStdLibMinorVersion orElse
       DefinitelyTypedVersion.from(comments) getOrElse
       "0.0-unknown"
 

@@ -18,7 +18,9 @@ package object typeDashMappingsLib {
     java.lang.String
   ]
   type ProxiedPerson = Proxify[Person]
-  type Proxify[T] = typeDashMappingsLib.typeDashMappingsLibStrings.Proxify with T
+  type Proxify[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
+  {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
+    */ typeDashMappingsLib.typeDashMappingsLibStrings.Proxify with js.Any
   type ReadonlyPerson = stdLib.Readonly[Person]
   type RequiredPerson = stdLib.Required[Person]
   type ReturnedPerson = stdLib.ReturnType[js.Function0[Person]]

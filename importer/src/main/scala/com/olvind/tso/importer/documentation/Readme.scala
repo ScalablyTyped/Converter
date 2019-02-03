@@ -681,11 +681,13 @@ As you might imagine, converting these to Scala is not straightforward.
 For static cases we can evaluate them and generate interfaces (though it's not implemented yet!),
 but for generic cases (say `Partial<T>`) there isn't much we can do for now.
 
-Just to get things working, we mostly ignore the effects of the type mappings in Scala for now.
+Just to get things working, we mostly ignore the effects of the type mappings in Scala for now,
+ and keep the transformation in a comment:
+
 ```scala
-type Partial[T] = stdLib.stdLibStrings.Partial with T
-type Pick[T, K /* <: java.lang.String */] = stdLib.stdLibStrings.Pick with T
-type Record[K /* <: java.lang.String */, T] = stdLib.stdLibStrings.Record with js.Any
+type Partial[T] = /* import warning: ImportType.apply c Unsupported type mapping:
+  {[ P in keyof T ]:? T[P]}
+  */ stdLib.stdLibStrings.Partial with T
 ```
 This is again not necessarily awesome, but it works.
 

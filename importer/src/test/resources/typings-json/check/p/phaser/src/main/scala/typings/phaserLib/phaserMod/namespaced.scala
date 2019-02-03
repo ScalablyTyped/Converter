@@ -10,6 +10,7 @@ import scala.scalajs.js.annotation._
 class namespaced ()
   extends phaserLib.Phaser
 
+/* static members */
 @JSImport("phaser", JSImport.Namespace)
 @js.native
 object namespaced extends js.Object {

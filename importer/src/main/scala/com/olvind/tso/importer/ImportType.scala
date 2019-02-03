@@ -102,20 +102,23 @@ object ImportType {
        * It is crucial that this "logic" live here in the importer, since it needs to be exported
        *  in it's original form to dependencies
        */
-      case TsTypeObject(Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
+      case tpe @ TsTypeObject(Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
         val lookups: Seq[TsTypeRef] =
           TreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
 
-        val base = lookups.headOption match {
-          case None      => TypeRef.Any
-          case Some(one) => apply(wildcards, scope, importName)(one)
+        val base = lookups match {
+          case Seq(one) => apply(wildcards, scope, importName)(one)
+          case _        => TypeRef.Any
         }
+
+        def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))
 
         scope.stack collectFirst {
           case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
             TypeRef.StringDictionary(TypeRef(importName(x.tparams.head.name)), NoComments)
-          case x: TsNamedDecl => TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base))
-        } getOrElse base
+          case x: TsNamedDecl =>
+            TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base)).withComments(c)
+        } getOrElse base.withComments(c)
 
       case TsTypeObject(Seq(TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType))) =>
         TypeRef.StringDictionary(apply(wildcards, scope, importName)(valueType).withOptional(isOptional), cs)

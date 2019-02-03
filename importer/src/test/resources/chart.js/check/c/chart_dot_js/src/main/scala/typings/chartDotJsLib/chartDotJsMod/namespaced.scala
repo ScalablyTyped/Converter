@@ -14,6 +14,7 @@ class namespaced protected () extends Chart {
   def this(context: stdLib.HTMLCanvasElement, options: js.Any) = this()
 }
 
+/* static members */
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
 object namespaced extends js.Object {

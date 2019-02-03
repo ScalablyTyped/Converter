@@ -224,7 +224,8 @@ object ImportTree {
         )
 
         val module: Option[ModuleTree] =
-          if (statics.nonEmpty) Some(ModuleTree(anns, name, ModuleTypeNative, Nil, statics, cs))
+          if (statics.nonEmpty)
+            Some(ModuleTree(anns, name, ModuleTypeNative, Nil, statics, Comments(Comment("/* static members */\n"))))
           else None
 
         cls :: module.to[List]

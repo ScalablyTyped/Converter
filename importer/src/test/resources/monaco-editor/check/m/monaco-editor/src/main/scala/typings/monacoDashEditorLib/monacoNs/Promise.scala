@@ -22,6 +22,7 @@ class Promise[T, TProgress] protected () extends js.Object {
     ], oncancel: js.Function0[scala.Unit]) = this()
 }
 
+/* static members */
 @JSGlobal("monaco.Promise")
 @js.native
 object Promise extends js.Object {

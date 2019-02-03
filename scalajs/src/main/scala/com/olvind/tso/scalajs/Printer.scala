@@ -351,6 +351,8 @@ object Printer {
 
   def formatAnn(prefix: List[Name])(a: Annotation): String =
     a match {
+      case Inline =>
+        "@scala.inline"
       case JsBracketAccess =>
         "@JSBracketAccess"
       case JsBracketCall =>

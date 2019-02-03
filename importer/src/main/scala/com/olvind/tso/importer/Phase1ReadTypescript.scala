@@ -116,12 +116,12 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 
       case source: Source.TsLibSource =>
         val packageJsonOpt: Option[PackageJsonDeps] =
-          Json.opt[PackageJsonDeps](source.folder.path / "package.json", error => logger.warn(error)) orElse
+          Json.opt[PackageJsonDeps](source.folder.path / "package.json", logger.warn(_)) orElse
             /* discover stdlib package.json as well */
-            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json", error => logger.warn(error))
+            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json", logger.warn(_))
 
         val tsConfig: Option[TsConfig] =
-          Json.opt[TsConfig](source.folder.path / "tsconfig.json", error => logger.warn(error))
+          Json.opt[TsConfig](source.folder.path / "tsconfig.json", logger.warn(_))
 
         val fileSources: Set[Source.TsHelperFile] =
           PathsFromTsLibSource(resolve, source, packageJsonOpt, tsConfig)
@@ -202,6 +202,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 
               val version = CalculateLibraryVersion(
                 source.folder,
+                source.isInstanceOf[Source.StdLibSource],
                 libParts.keys.map(_.file).to[Seq],
                 lastChangedIndex,
                 packageJsonOpt,

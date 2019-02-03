@@ -530,13 +530,7 @@ object TsTypeIntersect {
     flatten(withCombinedObjects.to[List]).distinct match {
       case Nil      => TsTypeRef.never
       case Seq(one) => one
-      case more     =>
-        /* if we combine a type query with an actual type, drop the former */
-        more.filterNot(_.isInstanceOf[TsTypeQuery]) match {
-          case Nil      => new TsTypeIntersect(more)
-          case Seq(one) => one
-          case _        => new TsTypeIntersect(more)
-        }
+      case more     => new TsTypeIntersect(more)
     }
   }
 }

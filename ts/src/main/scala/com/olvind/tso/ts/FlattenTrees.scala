@@ -165,13 +165,19 @@ object FlattenTrees {
   }
 
   def bothTypes(one: Option[TsType], two: Option[TsType]): Option[TsType] =
-    (one, two) match {
-      case (Some(_1), Some(_2)) => Some(TsTypeIntersect.simplified(Seq(_1, _2)))
-      case (Some(_1), None)     => Some(_1)
-      case (None, Some(_2))     => Some(_2)
-      case (None, None)         => None
-
+    one ++ two match {
+      case Nil      => None
+      case Seq(one) => Some(one)
+      case more     =>
+        /* if we combine a type query with an actual type, drop the former */
+        val filtered = more.filterNot(_.isInstanceOf[TsTypeQuery]) match {
+          case Nil      => more
+          case Seq(one) => List(one)
+          case _        => more
+        }
+        Some(TsTypeIntersect.simplified(filtered.to[List]))
     }
+
   def mergeAugmentedModule(that: TsAugmentedModule, existing: TsAugmentedModule) =
     TsAugmentedModule(
       name       = existing.name,
