@@ -51,7 +51,7 @@ object FakeLiterals {
               val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
                 MethodTree(
-                  Annotation.jsName(name),
+                  Annotation.jsName(name) :+ Inline,
                   Default,
                   name,
                   Nil,

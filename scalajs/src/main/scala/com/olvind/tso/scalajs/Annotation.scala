@@ -10,6 +10,7 @@ case object JsBracketCall extends MemberAnnotation
 case object JsNative extends ClassAnnotation
 case object ScalaJSDefined extends ClassAnnotation
 case object JsGlobalScope extends ClassAnnotation
+case object Inline extends MemberAnnotation
 case class JsName(name:       Name) extends MemberAnnotation with ClassAnnotation
 case class JsNameSymbol(name: QualifiedName) extends MemberAnnotation
 case class JsImport(module:   String, imported: Imported) extends ClassAnnotation

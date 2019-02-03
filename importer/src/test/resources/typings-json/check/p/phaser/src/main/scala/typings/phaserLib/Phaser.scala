@@ -9,6 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 class Phaser () extends js.Object
 
+/* static members */
 @JSGlobal("Phaser")
 @js.native
 object Phaser extends js.Object {

@@ -30,6 +30,7 @@ class Queue[S, T] () extends js.Object {
   def push(x: S): this.type = js.native
 }
 
+/* static members */
 @JSGlobal("Queue")
 @js.native
 object Queue extends js.Object {

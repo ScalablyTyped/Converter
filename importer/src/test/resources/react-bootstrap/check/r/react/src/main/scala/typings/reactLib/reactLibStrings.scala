@@ -9,6 +9,7 @@ object reactLibStrings {
   @js.native
   sealed trait foo extends js.Object
   
+  @scala.inline
   def foo: foo = "foo".asInstanceOf[foo]
 }
 

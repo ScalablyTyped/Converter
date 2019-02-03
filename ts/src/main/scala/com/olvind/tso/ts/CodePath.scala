@@ -8,9 +8,12 @@ trait HasCodePath {
 
 sealed trait CodePath {
   def forceHasPath: CodePath.HasPath =
+    get getOrElse sys.error("Expected code path")
+
+  def get: Option[CodePath.HasPath] =
     this match {
-      case hp: CodePath.HasPath => hp
-      case CodePath.NoPath => sys.error("Expected code path")
+      case hp: CodePath.HasPath => Some(hp)
+      case CodePath.NoPath => None
     }
 }
 
