@@ -81,7 +81,7 @@ class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, passwor
     def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
       layout.all.map {
         case (relPath, src) =>
-          retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).publish(true)(Handle.createOrConflict))
+          retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).exploded(true)(Handle.createOrConflict))
       }
 
     for {
