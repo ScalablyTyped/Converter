@@ -12,11 +12,11 @@ trait Vue extends js.Object {
   @JSName("$children")
   val $children: js.Array[Vue] = js.native
   @JSName("$createElement")
-  var $createElement_Original: CreateElement = js.native
+  var $createElement: CreateElement = js.native
   @JSName("$data")
   val $data: stdLib.Record[java.lang.String, _] = js.native
   @JSName("$delete")
-  var $delete_Original: vueLib.Anon_ArrayKey = js.native
+  var $delete: vueLib.Anon_ArrayKey = js.native
   @JSName("$el")
   val $el: stdLib.HTMLElement = js.native
   @JSName("$isServer")
@@ -42,106 +42,13 @@ trait Vue extends js.Object {
   @JSName("$scopedSlots")
   val $scopedSlots: org.scalablytyped.runtime.StringDictionary[vueLib.typesVnodeMod.ScopedSlot] = js.native
   @JSName("$set")
-  var $set_Original: vueLib.Anon_Array = js.native
+  var $set: vueLib.Anon_Array = js.native
   @JSName("$slots")
   val $slots: org.scalablytyped.runtime.StringDictionary[js.Array[vueLib.typesVnodeMod.VNode]] = js.native
   @JSName("$ssrContext")
   val $ssrContext: js.Any = js.native
   @JSName("$vnode")
   val $vnode: vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: java.lang.String): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: java.lang.String, children: vueLib.typesVnodeMod.VNodeChildren): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: java.lang.String, data: vueLib.typesVnodeMod.VNodeData): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: java.lang.String,
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ]
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ],
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ],
-    data: vueLib.typesVnodeMod.VNodeData
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ],
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _]): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _],
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _], data: vueLib.typesVnodeMod.VNodeData): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _],
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: vueLib.typesOptionsMod.Component[_, _, _, _]): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: vueLib.typesOptionsMod.Component[_, _, _, _], children: vueLib.typesVnodeMod.VNodeChildren): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(tag: vueLib.typesOptionsMod.Component[_, _, _, _], data: vueLib.typesVnodeMod.VNodeData): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$createElement")
-  def $createElement(
-    tag: vueLib.typesOptionsMod.Component[_, _, _, _],
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  @JSName("$delete")
-  def $delete(`object`: js.Object, key: java.lang.String): scala.Unit = js.native
-  @JSName("$delete")
-  def $delete[T](array: js.Array[T], key: scala.Double): scala.Unit = js.native
   @JSName("$destroy")
   def $destroy(): scala.Unit = js.native
   @JSName("$emit")
@@ -178,10 +85,6 @@ trait Vue extends js.Object {
   def $on(event: js.Array[java.lang.String], callback: js.Function): this.type = js.native
   @JSName("$once")
   def $once(event: java.lang.String, callback: js.Function): this.type = js.native
-  @JSName("$set")
-  def $set[T](array: js.Array[T], key: scala.Double, value: T): T = js.native
-  @JSName("$set")
-  def $set[T](`object`: js.Object, key: java.lang.String, value: T): T = js.native
   @JSName("$watch")
   def $watch(
     expOrFn: java.lang.String,

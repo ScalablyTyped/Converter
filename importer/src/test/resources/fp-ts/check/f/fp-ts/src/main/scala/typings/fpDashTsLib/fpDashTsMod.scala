@@ -17,7 +17,11 @@ object fpDashTsMod extends js.Object {
   @JSName("task")
   @js.native
   object taskNs extends js.Object {
-    def tryCatch[L, A](f: js.Any, onrejected: js.Function1[/* reason */ js.Object, L]): fpDashTsLib.libEitherMod.Either[L, A] = js.native
+    val tryCatch: js.Function2[
+        /* f */ js.Any, 
+        /* onrejected */ js.Function1[/* reason */ js.Object, js.Any], 
+        fpDashTsLib.libEitherMod.Either[js.Any, js.Any]
+      ] = js.native
   }
   
 }

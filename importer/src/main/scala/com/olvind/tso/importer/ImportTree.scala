@@ -5,7 +5,6 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, UnpackLibs}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.seqs._
-import com.olvind.tso.ts.transforms.ExpandCallables
 import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
@@ -495,16 +494,14 @@ object ImportTree {
           ImportType.orLitOrAny(Wildcards.No, scope, importName)(tpe, m.literal).withOptional(m.isOptional)
         Seq(
           MemberRet(
-            hack(
-              FieldTree(
-                annotations = Annotation.jsName(name),
-                name        = name,
-                tpe         = importedType,
-                impl        = fieldType,
-                isReadOnly  = m.isReadOnly,
-                isOverride  = false,
-                comments    = m.comments
-              )
+            FieldTree(
+              annotations = Annotation.jsName(name),
+              name        = name,
+              tpe         = importedType,
+              impl        = fieldType,
+              isReadOnly  = m.isReadOnly,
+              isOverride  = false,
+              comments    = m.comments
             ),
             m.isStatic
           )
@@ -512,12 +509,6 @@ object ImportTree {
       case (name, _) =>
         scope.logger.info(s"dropping member $name")
         Nil
-    }
-
-  def hack(fs: FieldTree): FieldTree =
-    fs.comments.cs.partitionCollect { case c if c === ExpandCallables.MarkerComment => c } match {
-      case (Nil, _)  => fs
-      case (_, rest) => fs.withSuffix("_Original").copy(comments = Comments(rest))
     }
 
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =

@@ -42,7 +42,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
       case _:      Source.ContribSource                                => PhaseRes.Ok(Contrib)
       case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
-      case Source.TsHelperFile(file, inLib, _) if !file.path.segments.last.endsWith(".d.ts") =>
+      case Source.TsHelperFile(file, _, _) if !file.path.segments.last.endsWith(".d.ts") =>
         PhaseRes.Ignore()
 
       case Source.TsHelperFile(file, inLib, _) =>
@@ -165,10 +165,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 
               val ProcessAll = List[TsParsedFile => TsParsedFile](
                 T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
-                (
-                  T.SimplifyParents >>
-                    T.NormalizeFunctions // run before FlattenTrees
-                ).visitTsParsedFile(scope),
+                T.SimplifyParents.visitTsParsedFile(scope),
                 T.QualifyReferences.visitTsParsedFile(scope.caching),
                 AugmentModules(scope),
                 T.ResolveTypeQueries.visitTsParsedFile(scope), // before ReplaceExports
@@ -179,7 +176,6 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 //                      T.ApplyTypeMapping >> //after ResolveTypeLookups
                     T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
-                    T.ExpandCallables >>
                     T.ExpandKeyOfTypeParams >>
                     T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     T.UnionTypesFromKeyOf >>
