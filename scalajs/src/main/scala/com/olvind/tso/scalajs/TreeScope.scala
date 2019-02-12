@@ -43,6 +43,12 @@ sealed abstract class TreeScope { outer =>
 
   final override def toString: String =
     nameStack.mkString(" / ")
+
+  final def isAbstract(tr: TypeRef): Boolean =
+    tr match {
+      case TypeRef(QualifiedName(one :: Nil), Nil, _) => tparams.contains(one)
+      case _                                          => false
+    }
 }
 
 object TreeScope {

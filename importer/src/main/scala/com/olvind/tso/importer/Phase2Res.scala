@@ -45,7 +45,7 @@ object Phase2Res {
 
       go(_m)
 
-      (libs.sorted, contribs.to[Set])
+      (libs.toSorted, contribs.to[Set])
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibScalaJs], ds: Map[TsLibSource, LibScalaJs]): Unit =

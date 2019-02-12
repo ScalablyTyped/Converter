@@ -59,7 +59,7 @@ object ParentsResolver {
     val ld = new LoopDetector
     val (roots, unresolved, _) =
       parentRefs(tree)
-        .map(tr => recurse(scope, tr :: Nil, ld))
+        .map(tr => recurse(scope, tr :: Nil, ld, typeParams(tree)))
         .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
 
     Parents(roots.map(_.nr), unresolved.flatMap(_.tr))
@@ -69,6 +69,12 @@ object ParentsResolver {
     tree match {
       case x: ClassTree  => x.parents
       case x: ModuleTree => x.parents
+    }
+
+  private def typeParams(tree: InheritanceTree): Seq[TypeParamTree] =
+    tree match {
+      case x: ClassTree  => x.tparams
+      case _: ModuleTree => Nil
     }
 
   sealed trait Res
@@ -82,17 +88,20 @@ object ParentsResolver {
   /* A primitive doesn't resolve to a `ClassTree`, for instance */
   case class Unresolved(tr: Seq[TypeRef]) extends Res
 
-  private def recurse(scope: TreeScope, typeRefs: List[TypeRef], ld: LoopDetector): Res =
+  private def recurse(scope:      TreeScope,
+                      typeRefs:   List[TypeRef],
+                      ld:         LoopDetector,
+                      newTParams: Seq[TypeParamTree]): Res =
     ld.including(typeRefs.head.typeName.parts, scope) match {
       case Left(()) =>
         Circular
       case Right(newLd) =>
-        (scope lookup typeRefs.head.typeName).headOption match {
-          case Some((cls: ClassTree, foundInScope)) =>
-            val rewritten = FillInTParams(cls, scope, typeRefs.head.targs)
+        (scope lookup typeRefs.head.typeName).collectFirst {
+          case (cls: ClassTree, foundInScope) =>
+            val rewritten = FillInTParams(cls, scope, typeRefs.head.targs, newTParams)
             val (parents, unresolved, circular) =
               parentRefs(rewritten)
-                .map(tr => recurse(foundInScope, tr :: Nil, newLd))
+                .map(tr => recurse(foundInScope, tr :: Nil, newLd, newTParams))
                 .partitionCollect2({ case x: Resolved => x }, { case u: Unresolved => u })
 
             if (circular.nonEmpty) Circular
@@ -107,12 +116,9 @@ object ParentsResolver {
                 )
               )
 
-          case Some((ta: TypeAliasTree, foundInScope)) =>
-            val rewritten = FillInTParams(ta, scope, typeRefs.head.targs)
-            recurse(foundInScope, rewritten.alias :: typeRefs, newLd)
-
-          case _ => Unresolved(typeRefs)
-        }
-
+          case (ta: TypeAliasTree, foundInScope) =>
+            val rewritten = FillInTParams(ta, scope, typeRefs.head.targs, newTParams)
+            recurse(foundInScope, rewritten.alias :: typeRefs, newLd, newTParams)
+        } getOrElse Unresolved(typeRefs)
     }
 }

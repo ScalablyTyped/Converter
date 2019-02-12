@@ -186,7 +186,8 @@ object Printer {
 
         print("object ", formatName(name), extendsClause(prefix, parents, isNative, indent))
 
-        val newPrefix = if (name.unescaped.endsWith("Members")) prefix else prefix :+ name
+        val newPrefix =
+          if (name.unescaped.endsWith("Members") || moduleType === ModuleTypeScala) prefix else prefix :+ name
 
         if (members.nonEmpty) {
           println(" {")

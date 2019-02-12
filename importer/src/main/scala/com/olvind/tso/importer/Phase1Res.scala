@@ -90,7 +90,7 @@ object Phase1Res {
 
       go(_m)
 
-      (libParts.sorted, libs.sorted, contribs.to[Set])
+      (libParts.toSorted, libs.toSorted, contribs.to[Set])
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibTs], ds: Map[TsLibSource, LibTs]): Unit =

@@ -33,6 +33,7 @@ object FakeLiterals {
         case ""        => "Empty"
         case "package" => "PACKAGE"
         case "js"      => "JS"
+        case "scala"   => "SCALA"
         case other     => other
       }
 

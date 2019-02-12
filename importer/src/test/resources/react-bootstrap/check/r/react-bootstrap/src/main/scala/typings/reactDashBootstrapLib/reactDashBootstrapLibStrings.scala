@@ -13,13 +13,16 @@ object reactDashBootstrapLibStrings {
   sealed trait defaultValue extends js.Object
   
   @js.native
-  sealed trait large extends js.Object
+  sealed trait large
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @js.native
-  sealed trait lg extends js.Object
+  sealed trait lg
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @js.native
-  sealed trait medium extends js.Object
+  sealed trait medium
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @js.native
   sealed trait onChange extends js.Object
@@ -28,10 +31,12 @@ object reactDashBootstrapLibStrings {
   sealed trait radio extends js.Object
   
   @js.native
-  sealed trait sm extends js.Object
+  sealed trait sm
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @js.native
-  sealed trait small extends js.Object
+  sealed trait small
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @js.native
   sealed trait `type` extends js.Object
@@ -40,10 +45,12 @@ object reactDashBootstrapLibStrings {
   sealed trait value extends js.Object
   
   @js.native
-  sealed trait xs extends js.Object
+  sealed trait xs
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @js.native
-  sealed trait xsmall extends js.Object
+  sealed trait xsmall
+    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
   
   @scala.inline
   def checkbox: checkbox = "checkbox".asInstanceOf[checkbox]

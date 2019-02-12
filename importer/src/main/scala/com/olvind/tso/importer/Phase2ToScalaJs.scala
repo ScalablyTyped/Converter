@@ -5,7 +5,6 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.scalajs.transforms.FakeLiterals
 import com.olvind.tso.scalajs.{ContainerTree, Name, TreeScope, transforms => S}
 
 import scala.collection.immutable.SortedSet
@@ -30,8 +29,9 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
         val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, contribs) =>
+            val libName = importName(lib.name)
             val scope = new TreeScope.Root(
-              libName       = importName(lib.name),
+              libName       = libName,
               _dependencies = scalaDeps.map { case (_, l) => l.packageTree.name -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic
@@ -44,12 +44,13 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
                 S.CleanupTypeAliases >>
                 S.CleanIllegalNames(OutputPkg) >>
                 S.InlineNestedIdentityAlias >>
-                S.LimitUnionLength >>
                 S.Deduplicator visitContainerTree scope,
-              FakeLiterals(scope),
+              S.FakeLiterals(scope),
+              S.UnionToInheritance(scope, _, libName), // after FakeLiterals
+              S.LimitUnionLength visitContainerTree scope, // after UnionToInheritance
               S.RemoveMultipleInheritance visitContainerTree scope,
-              S.CombineOverloads >> //must have stable types, so FakeLiterals run before
-                S.FilterMemberOverrides visitContainerTree scope, //
+              S.CombineOverloads visitContainerTree scope, //must have stable types, so FakeLiterals run before
+              S.FilterMemberOverrides visitContainerTree scope, //
               S.InferMemberOverrides visitContainerTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitContainerTree scope

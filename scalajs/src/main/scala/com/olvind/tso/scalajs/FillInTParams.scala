@@ -2,18 +2,28 @@ package com.olvind.tso
 package scalajs
 
 object FillInTParams {
-  def apply(x: ClassTree, scope: TreeScope, providedTParams: Seq[TypeRef]): ClassTree =
+  def apply(x: ClassTree, scope: TreeScope, providedTParams: Seq[TypeRef], newTParams: Seq[TypeParamTree]): ClassTree =
     if (providedTParams.isEmpty) x
     else {
       val refToRef = rewrites(x.tparams, providedTParams)
-      TypeRewriter(refToRef).visitClassTree(scope)(x).copy(tparams = Nil)
-    }
+      TypeRewriter(refToRef).visitClassTree(scope)(x)
+    }.copy(tparams = newTParams)
 
-  def apply(x: TypeAliasTree, scope: TreeScope, providedTParams: Seq[TypeRef]): TypeAliasTree =
+  def apply(x:               TypeAliasTree,
+            scope:           TreeScope,
+            providedTParams: Seq[TypeRef],
+            newTParams:      Seq[TypeParamTree]): TypeAliasTree =
     if (providedTParams.isEmpty) x
     else {
       val refToRef = rewrites(x.tparams, providedTParams)
-      TypeRewriter(refToRef).visitTypeAliasTree(scope)(x).copy(tparams = Nil)
+      TypeRewriter(refToRef).visitTypeAliasTree(scope)(x)
+    }.copy(tparams = newTParams)
+
+  def apply(x: MethodTree, scope: TreeScope, providedTParams: Seq[TypeRef]): MethodTree =
+    if (providedTParams.isEmpty) x
+    else {
+      val refToRef = rewrites(x.tparams, providedTParams)
+      TypeRewriter(refToRef).visitMethodTree(scope)(x).copy(tparams = Nil)
     }
 
   private def rewrites(expectedTParams: Seq[TypeParamTree], providedTParams: Seq[TypeRef]): Map[TypeRef, TypeRef] =
