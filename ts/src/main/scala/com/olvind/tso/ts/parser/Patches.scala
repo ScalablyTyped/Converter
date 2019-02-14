@@ -48,8 +48,8 @@ object Patches {
     "react" / "index.d.ts" -> List(
       Patch(
         "drop a type parameter (that surprisingly works well) to resolve circular set of type aliases",
-        "interface ReactElement<P, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {",
-        "interface ReactElement<P> {",
+        "interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {",
+        "interface ReactElement<P = any> {",
       ),
     ),
   )
