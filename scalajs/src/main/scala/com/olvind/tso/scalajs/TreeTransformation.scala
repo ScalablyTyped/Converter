@@ -184,7 +184,6 @@ class TreeTransformation { self =>
     leaveContainerTree(scope)(
       enterContainerTree(scope)(s) match {
         case x: PackageTree => visitPackageTree(scope)(x)
-        case x: ClassTree   => visitClassTree(scope)(x)
         case x: ModuleTree  => visitModuleTree(scope)(x)
       }
     )
@@ -199,6 +198,7 @@ class TreeTransformation { self =>
     leaveTree(scope)(
       enterTree(scope)(s) match {
         case x: ContainerTree => visitContainerTree(scope)(x)
+        case x: ClassTree     => visitClassTree(scope)(x)
         case x: CtorTree      => visitCtorTree(scope)(x)
         case x: MemberTree    => visitMemberTree(scope)(x)
         case x: ParamTree     => visitParamTree(scope)(x)

@@ -55,7 +55,7 @@ object ParentsResolver {
     }
   }
 
-  def apply(scope: TreeScope, tree: ContainerTree): Parents = {
+  def apply(scope: TreeScope, tree: InheritanceTree): Parents = {
     val ld = new LoopDetector
     val (roots, unresolved, _) =
       parentRefs(tree)
@@ -65,11 +65,10 @@ object ParentsResolver {
     Parents(roots.map(_.nr), unresolved.flatMap(_.tr))
   }
 
-  private def parentRefs(tree: ContainerTree): Seq[TypeRef] =
+  private def parentRefs(tree: InheritanceTree): Seq[TypeRef] =
     tree match {
       case x: ClassTree  => x.parents
       case x: ModuleTree => x.parents
-      case _ => Nil
     }
 
   sealed trait Res

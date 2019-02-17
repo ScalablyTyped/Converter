@@ -22,7 +22,7 @@ object InferMemberOverrides extends TreeTransformation {
     } else s
 
   private def newMembers[S >: MemberTree <: Tree](scope:     TreeScope,
-                                                  tree:      ContainerTree,
+                                                  tree:      InheritanceTree,
                                                   members:   Seq[S],
                                                   fieldType: MemberImpl): Seq[S] = {
     val root = ParentsResolver(scope, tree)

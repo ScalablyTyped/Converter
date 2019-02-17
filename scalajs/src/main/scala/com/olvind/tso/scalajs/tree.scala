@@ -13,6 +13,13 @@ sealed trait ContainerTree extends Tree {
     members.groupBy(_.name)
 }
 
+sealed trait InheritanceTree extends Tree {
+  lazy val memberIndex: Map[Name, Seq[MemberTree]] = this match {
+    case x: ClassTree  => x.index
+    case x: ModuleTree => x.index.mapValues(_.collect{case x: MemberTree => x})
+  }
+}
+
 final case class PackageTree(
     annotations: Seq[ClassAnnotation],
     name:        Name,
@@ -37,7 +44,11 @@ final case class ClassTree(
     classType:   ClassType,
     isSealed:    Boolean,
     comments:    Comments
-) extends ContainerTree
+) extends InheritanceTree {
+  lazy val index: Map[Name, Seq[MemberTree]] =
+    members.groupBy(_.name)
+
+}
 
 sealed trait ModuleType
 case object ModuleTypeNative extends ModuleType
@@ -51,6 +62,7 @@ final case class ModuleTree(
     members:     Seq[Tree],
     comments:    Comments
 ) extends ContainerTree
+    with InheritanceTree
 
 final case class TypeAliasTree(
     name:     Name,

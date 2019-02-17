@@ -88,7 +88,6 @@ object FakeLiterals {
       ss match {
         case p: PackageTree => p.copy(members = newMembers)
         case m: ModuleTree  => m.copy(members = newMembers)
-        case c: ClassTree   => c //todo: enforce with types that this is impossible
       }
     }
   }

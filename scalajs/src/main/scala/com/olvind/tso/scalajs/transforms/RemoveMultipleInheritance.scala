@@ -30,15 +30,11 @@ object RemoveMultipleInheritance extends TreeTransformation {
     mod.copy(comments = newComments, parents = newParents, members = mod.members ++ newMembers)
   }
 
-  def findNewParents(scope: TreeScope, c: ContainerTree): (Comments, List[TypeRef], List[MemberTree]) = {
-
-    val allParents  = ParentsResolver(scope, c)
-    val first       = firstReferringToClass(allParents) orElse longestInheritance(allParents)
-    val remaining   = first ++ (allParents.directParents filterNot first.contains)
-    val baseMembers = c.members.collect { case x: MemberTree => x }
-
-    val (changes, ps) =
-      step(baseMembers, included = Nil, newParents = Nil, dropped = Nil, remaining = remaining.to[List])
+  def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, List[TypeRef], List[MemberTree]) = {
+    val allParents    = ParentsResolver(scope, c)
+    val first         = firstReferringToClass(allParents) orElse longestInheritance(allParents)
+    val remaining     = first ++ (allParents.directParents filterNot first.contains)
+    val (changes, ps) = step(included = Nil, newParents = Nil, dropped = Nil, remaining = remaining.to[List])
 
     val newComments: Comments =
       if (changes.nonEmpty) {
@@ -65,11 +61,10 @@ object RemoveMultipleInheritance extends TreeTransformation {
       }
     )
 
-  def step(baseMembers: Seq[MemberTree],
-           included:    List[Parent],
-           newParents:  List[TypeRef],
-           dropped:     List[Dropped],
-           remaining:   List[Parent]): (List[Dropped], List[TypeRef]) =
+  def step(included:   List[Parent],
+           newParents: List[TypeRef],
+           dropped:    List[Dropped],
+           remaining:  List[Parent]): (List[Dropped], List[TypeRef]) =
     remaining match {
       case Nil =>
         (dropped, newParents)
@@ -128,8 +123,8 @@ object RemoveMultipleInheritance extends TreeTransformation {
           alreadyInherits orElse
           alreadyInheritsUnresolved orElse
           inheritsConflictingVars match {
-          case None    => step(baseMembers, h :: included, h.refs.last :: newParents, dropped, rest)
-          case Some(d) => step(baseMembers, included, newParents, d :: dropped, rest)
+          case None    => step(h :: included, h.refs.last :: newParents, dropped, rest)
+          case Some(d) => step(included, newParents, d :: dropped, rest)
         }
     }
 }
