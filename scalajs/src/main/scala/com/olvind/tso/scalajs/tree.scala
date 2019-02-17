@@ -6,17 +6,21 @@ sealed trait Tree {
   val comments: Comments
 }
 
-sealed trait ContainerTree extends Tree {
+sealed trait HasCodePath {
+  val codePath: QualifiedName
+}
+
+sealed trait ContainerTree extends Tree with HasCodePath {
   val members: Seq[Tree]
 
   lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 }
 
-sealed trait InheritanceTree extends Tree {
+sealed trait InheritanceTree extends Tree with HasCodePath {
   lazy val memberIndex: Map[Name, Seq[MemberTree]] = this match {
     case x: ClassTree  => x.index
-    case x: ModuleTree => x.index.mapValues(_.collect{case x: MemberTree => x})
+    case x: ModuleTree => x.index.mapValues(_.collect { case x: MemberTree => x })
   }
 }
 
@@ -24,7 +28,8 @@ final case class PackageTree(
     annotations: Seq[ClassAnnotation],
     name:        Name,
     members:     Seq[Tree],
-    comments:    Comments
+    comments:    Comments,
+    codePath:    QualifiedName
 ) extends ContainerTree
 
 object PackageTree {
@@ -43,7 +48,8 @@ final case class ClassTree(
     members:     Seq[MemberTree],
     classType:   ClassType,
     isSealed:    Boolean,
-    comments:    Comments
+    comments:    Comments,
+    codePath:    QualifiedName
 ) extends InheritanceTree {
   lazy val index: Map[Name, Seq[MemberTree]] =
     members.groupBy(_.name)
@@ -60,7 +66,8 @@ final case class ModuleTree(
     moduleType:  ModuleType,
     parents:     Seq[TypeRef],
     members:     Seq[Tree],
-    comments:    Comments
+    comments:    Comments,
+    codePath:    QualifiedName
 ) extends ContainerTree
     with InheritanceTree
 
@@ -68,8 +75,10 @@ final case class TypeAliasTree(
     name:     Name,
     tparams:  Seq[TypeParamTree],
     alias:    TypeRef,
-    comments: Comments
+    comments: Comments,
+    codePath: QualifiedName
 ) extends Tree
+    with HasCodePath
 
 sealed trait MemberTree extends Tree {
   val isOverride: Boolean

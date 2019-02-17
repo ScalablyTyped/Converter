@@ -15,8 +15,7 @@ sealed abstract class TreeScope { outer =>
 
   final def lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
     fragments match {
-      case ScalaJsClasses.isFunction(f)                     => Seq((f, this))
-      case a if a === QualifiedName.Array.parts             => Seq((ScalaJsClasses.ScalaJsArray, this))
+      case x if ScalaJsClasses.ScalaJsTypes.contains(x)     => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
       case Head(Name.scala | Name.java)                     => Nil
       case fs if fs.startsWith(QualifiedName.Runtime.parts) => Nil
       case Head(name) if Name.Internal(name)                => Nil

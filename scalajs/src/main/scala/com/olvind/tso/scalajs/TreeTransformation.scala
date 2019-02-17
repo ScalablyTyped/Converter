@@ -181,22 +181,22 @@ class TreeTransformation { self =>
   }
 
   final def visitContainerTree(scope: TreeScope)(s: ContainerTree): ContainerTree =
-    leaveContainerTree(scope)(
-      enterContainerTree(scope)(s) match {
+    leaveContainerTree(scope / s)(
+      enterContainerTree(scope / s)(s) match {
         case x: PackageTree => visitPackageTree(scope)(x)
         case x: ModuleTree  => visitModuleTree(scope)(x)
       }
     )
 
   final def visitMemberTree(scope: TreeScope)(s: MemberTree): MemberTree =
-    leaveMemberTree(scope)(enterMemberTree(scope)(s) match {
-      case x: MethodTree => visitMethodTree(scope)(x)
-      case x: FieldTree  => visitFieldTree(scope)(x)
+    leaveMemberTree(scope / s)(enterMemberTree(scope / s)(s) match {
+      case x: MethodTree => visitMethodTree(scope / s)(x)
+      case x: FieldTree  => visitFieldTree(scope / s)(x)
     })
 
   final def visitTree(scope: TreeScope)(s: Tree): Tree =
-    leaveTree(scope)(
-      enterTree(scope)(s) match {
+    leaveTree(scope / s)(
+      enterTree(scope / s)(s) match {
         case x: ContainerTree => visitContainerTree(scope)(x)
         case x: ClassTree     => visitClassTree(scope)(x)
         case x: CtorTree      => visitCtorTree(scope)(x)

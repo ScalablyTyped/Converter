@@ -47,7 +47,16 @@ object FakeLiterals {
             found flatMap { underlying: String =>
               val name = nameFor(underlying)
               val `trait` =
-                ClassTree(Seq(JsNative), name, Nil, Nil, Nil, Nil, ClassType.Trait, isSealed = true, NoComments)
+                ClassTree(Seq(JsNative),
+                          name,
+                          Nil,
+                          Nil,
+                          Nil,
+                          Nil,
+                          ClassType.Trait,
+                          isSealed = true,
+                          NoComments,
+                          _s.codePath + moduleName + name)
               val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
                 MethodTree(
@@ -64,7 +73,7 @@ object FakeLiterals {
               Seq(`trait`, `def`)
             }
 
-          Some(ModuleTree(Nil, moduleName, ModuleTypeScala, Nil, members.to[Seq], NoComments))
+          Some(ModuleTree(Nil, moduleName, ModuleTypeScala, Nil, members.to[Seq], NoComments, _s.codePath + moduleName))
       }
 
     override def enterTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =

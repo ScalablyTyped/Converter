@@ -27,7 +27,8 @@ object ObjectMembers {
       ),
       ClassType.Class,
       isSealed = false,
-      NoComments
+      NoComments,
+      QualifiedName.JObject
     )
 
   val ScalaJsObject =
@@ -46,7 +47,8 @@ object ObjectMembers {
       ),
       ClassType.Class,
       isSealed = false,
-      NoComments
+      NoComments,
+      QualifiedName.Object,
     )
   // format: on
 

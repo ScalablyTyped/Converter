@@ -16,6 +16,7 @@ import com.olvind.tso.scalajs._
   *
   */
 object CompleteClass extends TreeTransformation {
+
   override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     mod.copy(
       members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod))
@@ -41,14 +42,17 @@ object CompleteClass extends TreeTransformation {
         }
     }
 
-  private def implementations(scope: TreeScope, c: InheritanceTree, parents: ParentsResolver.Parents): Seq[MemberTree] = {
+  private def implementations(scope:   TreeScope,
+                              c:       InheritanceTree,
+                              parents: ParentsResolver.Parents): Seq[MemberTree] = {
 
     val ret = parents.pruneClasses.transitiveParents
       .flatMap(_._2.members)
       .collect {
         case x: FieldTree if x.impl === MemberImplNotImplemented && !c.memberIndex.contains(x.name) =>
           x.copy(isOverride = true, impl = MemberImplNative, comments = x.comments + Comment("/* CompleteClass */\n"))
-        case x: MethodTree if x.impl === MemberImplNotImplemented && !isAlreadyImplemented(x, c.memberIndex.get(x.name)) =>
+        case x: MethodTree
+            if x.impl === MemberImplNotImplemented && !isAlreadyImplemented(x, c.memberIndex.get(x.name)) =>
           x.copy(isOverride = true, impl = MemberImplNative, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
       .to[Seq]

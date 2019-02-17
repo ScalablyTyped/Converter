@@ -23,20 +23,25 @@ object ImportTree {
       lib.parsed.comments,
       lib.name,
       JsLocation.Zero,
-      lib.parsed.members
+      lib.parsed.members,
+      lib.parsed.codePath.forceHasPath
     )
 
-    val require = ModuleTree(
-      Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
-      importName(lib.name).withSuffix("Require"),
-      ModuleTypeNative,
-      Nil,
-      Nil,
-      Comments("""/* This can be used to `require` the library as a side effect.
+    val require = {
+      val libName = importName(lib.name)
+      val name    = libName.withSuffix("Require")
+      ModuleTree(
+        Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
+        name,
+        ModuleTypeNative,
+        Nil,
+        Nil,
+        Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
-""")
-    )
-
+"""),
+        codePath = QualifiedName(libName :: name :: Nil)
+      )
+    }
     ret match {
       case x: ModuleTree  => x.copy(members = x.members :+ require)
       case x: PackageTree => x.copy(members = x.members :+ require)
@@ -107,7 +112,8 @@ object ImportTree {
                   cs:                  Comments,
                   name:                TsIdent,
                   jsLocation:          JsLocation,
-                  members:             Seq[TsContainerOrDecl]): ContainerTree = {
+                  members:             Seq[TsContainerOrDecl],
+                  codePath:            CodePath.HasPath): ContainerTree = {
 
       val anns                               = ImportJsLocation(jsLocation, isWithinScalaModule)
       val inModule                           = scope.stack.length > 1 && (isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope))
@@ -120,23 +126,30 @@ object ImportTree {
             case x: TsIdentNamespace if isWithinScalaModule => Option(JsName(Name(x.value)))
             case _ => None
           }
-        ModuleTree(anns ++ nameAnns, scalaName, ModuleTypeNative, inheritance, liftedMembers ++ rest, cs)
+        ModuleTree(anns ++ nameAnns,
+                   scalaName,
+                   ModuleTypeNative,
+                   inheritance,
+                   liftedMembers ++ rest,
+                   cs,
+                   importName(codePath.codePath))
       } else {
         val membersModule =
           if (liftedMembers.nonEmpty || inheritance.nonEmpty)
             Some(
               ModuleTree(
                 anns,
-                Name("^"),
+                Name.hat,
                 ModuleTypeNative,
                 inheritance,
                 liftedMembers,
-                NoComments
+                NoComments,
+                importName(codePath.codePath) + Name.hat
               )
             )
           else None
 
-        PackageTree(anns, scalaName, rest ++ membersModule, cs)
+        PackageTree(anns, scalaName, rest ++ membersModule, cs, importName(codePath.codePath))
       }
     }
   }
@@ -147,21 +160,51 @@ object ImportTree {
     val scope: TsTreeScope = _scope / t1
 
     t1 match {
-      case TsDeclModule(cs, _, name, innerDecls, _, jsLocation) =>
-        Seq(ContainerTree.container(isWithinScalaModule, importName, scope, cs, name, jsLocation, innerDecls))
+      case TsDeclModule(cs, _, name, innerDecls, codePath, jsLocation) =>
+        Seq(
+          ContainerTree
+            .container(isWithinScalaModule, importName, scope, cs, name, jsLocation, innerDecls, codePath.forceHasPath)
+        )
 
-      case TsAugmentedModule(name, innerDecls, _, jsLocation) =>
-        Seq(ContainerTree.container(isWithinScalaModule, importName, scope, NoComments, name, jsLocation, innerDecls))
+      case TsAugmentedModule(name, innerDecls, codePath, jsLocation) =>
+        Seq(
+          ContainerTree.container(isWithinScalaModule,
+                                  importName,
+                                  scope,
+                                  NoComments,
+                                  name,
+                                  jsLocation,
+                                  innerDecls,
+                                  codePath.forceHasPath)
+        )
 
-      case TsDeclNamespace(cs, _, name, innerDecls, _, jsLocation) =>
+      case TsDeclNamespace(cs, _, name, innerDecls, codePath, jsLocation) =>
         if (innerDecls.nonEmpty) {
-          Seq(ContainerTree.container(isWithinScalaModule, importName, scope, cs, name, jsLocation, innerDecls))
+          Seq(
+            ContainerTree.container(isWithinScalaModule,
+                                    importName,
+                                    scope,
+                                    cs,
+                                    name,
+                                    jsLocation,
+                                    innerDecls,
+                                    codePath.forceHasPath)
+          )
         } else Nil
 
-      case TsGlobal(cs, _, ms, _) =>
-        Seq(ContainerTree.container(isWithinScalaModule, importName, scope, cs, TsIdent.Global, JsLocation.Zero, ms))
+      case TsGlobal(cs, _, ms, codePath) =>
+        Seq(
+          ContainerTree.container(isWithinScalaModule,
+                                  importName,
+                                  scope,
+                                  cs,
+                                  TsIdent.Global,
+                                  JsLocation.Zero,
+                                  ms,
+                                  codePath.forceHasPath)
+        )
 
-      case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(members)), None, location, _, false) =>
+      case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(members)), None, location, codePath, false) =>
         val MemberRet(ctors, ms, inheritance, Nil) = members flatMap tsMember(scope, scalaJsDefined = false, importName)
         Seq(
           ModuleTree(ImportJsLocation(location, isWithinScalaModule),
@@ -169,10 +212,11 @@ object ImportTree {
                      ModuleTypeNative,
                      inheritance,
                      ms ++ ctors,
-                     cs)
+                     cs,
+                     importName(codePath.forceHasPath.codePath))
         )
 
-      case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, literalOpt, jsLocation, _, isOptional) =>
+      case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, literalOpt, jsLocation, codePath, isOptional) =>
         val base = ImportType.orLitOrAny(Wildcards.Prohibit, scope, importName)(tpeOpt, literalOpt)
 
         if (name === Name.Symbol) {
@@ -183,7 +227,8 @@ object ImportTree {
               moduleType  = ModuleTypeNative,
               parents     = Seq(base.withOptional(isOptional)),
               members     = Nil,
-              comments    = cs
+              comments    = cs,
+              codePath    = importName(codePath.forceHasPath.codePath)
             )
           )
         } else
@@ -202,7 +247,7 @@ object ImportTree {
       case e: TsDeclEnum =>
         ImportEnum(e, ImportJsLocation(e.jsLocation, isWithinScalaModule), scope, importName)
 
-      case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, _) =>
+      case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, codePath) =>
         val MemberRet(ctors, ms, extraInheritance, statics) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName)
 
@@ -220,17 +265,26 @@ object ImportTree {
           members     = ms,
           classType   = classType,
           isSealed    = false,
-          comments    = cs
+          comments    = cs,
+          codePath    = importName(codePath.forceHasPath.codePath)
         )
 
         val module: Option[ModuleTree] =
           if (statics.nonEmpty)
-            Some(ModuleTree(anns, name, ModuleTypeNative, Nil, statics, Comments(Comment("/* static members */\n"))))
+            Some(
+              ModuleTree(anns,
+                         name,
+                         ModuleTypeNative,
+                         Nil,
+                         statics,
+                         Comments(Comment("/* static members */\n")),
+                         importName(codePath.forceHasPath.codePath))
+            )
           else None
 
         cls :: module.to[List]
 
-      case i @ TsDeclInterface(cs, _, importName(name), tparams, inheritance, members, _) =>
+      case i @ TsDeclInterface(cs, _, importName(name), tparams, inheritance, members, codePath) =>
         val withParents                                 = ParentsResolver(scope, i)
         val scalaJsDefined                              = CanBeScalaJsDefined(withParents)
         val MemberRet(ctors, ms, extraInheritance, Nil) = members flatMap tsMember(scope, scalaJsDefined, importName)
@@ -246,17 +300,19 @@ object ImportTree {
             members     = ms,
             classType   = ClassType.Trait,
             isSealed    = false,
-            comments    = cs
+            comments    = cs,
+            codePath    = importName(codePath.forceHasPath.codePath)
           )
         )
 
-      case TsDeclTypeAlias(cs, _, importName(name), tparams, alias, _) =>
+      case TsDeclTypeAlias(cs, _, importName(name), tparams, alias, codePath) =>
         Seq(
           TypeAliasTree(
             name     = name,
             tparams  = tparams map typeParam(scope, importName),
             alias    = ImportType(Wildcards.Prohibit, scope, importName)(alias),
-            comments = cs
+            comments = cs,
+            codePath = importName(codePath.forceHasPath.codePath)
           )
         )
 

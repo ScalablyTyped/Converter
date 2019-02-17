@@ -18,11 +18,12 @@ object ImportEnum {
       .getOrElse(TypeRef.String)
 
   def apply(e: TsDeclEnum, anns: Seq[ClassAnnotation], scope: TsTreeScope, importName: ImportName): Seq[Tree] = {
-    val TsDeclEnum(cs, _, importName(name), members, isValue, exportedFrom, _, codePath) = e
+    val TsDeclEnum(cs, _, importName(name), members, isValue, exportedFrom, _, codePath: CodePath.HasPath) = e
+    val importedCodePath = importName(codePath.codePath)
 
     val baseInterface: TypeRef =
       ImportType(Wildcards.No, scope, importName)(
-        TsTypeRef(NoComments, exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Nil)
+        TsTypeRef(NoComments, exportedFrom.fold(codePath.codePath)(_.name), Nil)
       )
 
     val underlying = underlyingType(e)
@@ -34,7 +35,8 @@ object ImportEnum {
             name     = name,
             tparams  = Nil,
             alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Nil)),
-            comments = NoComments
+            comments = NoComments,
+            codePath = importedCodePath
           )
         case None =>
           ClassTree(
@@ -46,7 +48,8 @@ object ImportEnum {
             members     = Nil,
             classType   = ClassType.Trait,
             isSealed    = true,
-            comments    = NoComments
+            comments    = NoComments,
+            codePath    = importedCodePath
           )
       }
 
@@ -85,7 +88,8 @@ object ImportEnum {
                     members     = Nil,
                     classType   = ClassType.Trait,
                     isSealed    = true,
-                    comments    = memberCs
+                    comments    = memberCs,
+                    codePath    = importedCodePath + memberName
                   )
                 )
 
@@ -113,7 +117,13 @@ object ImportEnum {
             Seq() ++ memberType ++ memberValue
         }
 
-      ModuleTree(anns, name, ModuleTypeNative, parents = Nil, members = membersSyms ++ applyMethod, comments = cs)
+      ModuleTree(anns,
+                 name,
+                 ModuleTypeNative,
+                 parents  = Nil,
+                 members  = membersSyms ++ applyMethod,
+                 comments = cs,
+                 codePath = importedCodePath)
     }
 
     Seq(moduleTree, typeTree)

@@ -138,7 +138,7 @@ object Printer {
       case tree: PackageTree =>
         apply(reg, mainPkg, prefix :+ tree.name, folder / RelPath(tree.name.value), tree)
 
-      case ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments) =>
+      case ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -175,7 +175,7 @@ object Printer {
 
         println()
 
-      case ModuleTree(anns, name, moduleType, parents, members, comments) =>
+      case ModuleTree(anns, name, moduleType, parents, members, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -197,7 +197,7 @@ object Printer {
           println()
         println()
 
-      case TypeAliasTree(name, tparams, alias, comments) =>
+      case TypeAliasTree(name, tparams, alias, comments, _) =>
         print(formatComments(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty)

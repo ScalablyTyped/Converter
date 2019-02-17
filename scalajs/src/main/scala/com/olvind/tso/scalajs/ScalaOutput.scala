@@ -23,7 +23,7 @@ object ScalaOutput {
     s match {
       case s: PackageTree   => Package(s.name)
       case s: ContainerTree => File(s.name)
-      case s: ClassTree => File(s.name)
+      case s: ClassTree     => File(s.name)
       case _ => PackageObject
     }
 

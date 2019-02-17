@@ -1,8 +1,6 @@
 package com.olvind.tso
 package scalajs
 
-import scala.collection.mutable
-
 object ScalaJsClasses {
   // format: off
   val ScalaJsArray =
@@ -16,7 +14,8 @@ object ScalaJsClasses {
       Nil,
       ClassType.Class,
       isSealed = false,
-      NoComments
+      NoComments,
+      QualifiedName.Array
     )
   // format: on
 
@@ -37,7 +36,8 @@ object ScalaJsClasses {
       ),
       ClassType.Class,
       isSealed = false,
-      NoComments
+      NoComments,
+      QualifiedName.Function
     )
   // format: on
 
@@ -71,37 +71,27 @@ object ScalaJsClasses {
     val outputTParams: Seq[TypeParamTree] =
       Seq(TypeParamTree(R.name, None, NoComments))
 
+    val qname = QualifiedName.FunctionArity(isThis, arity)
+
     ClassTree(
       annotations = Seq(JsNative),
-      name        = QualifiedName.FunctionArity(isThis, arity).parts.last,
+      name        = qname.parts.last,
       tparams     = ThisTParam ++ inputTParams ++ outputTParams,
       parents     = Seq(TypeRef(QualifiedName.Function)),
       ctors       = Nil,
       members     = Seq(Apply),
       classType   = ClassType.Trait,
       isSealed    = false,
-      comments    = NoComments
+      comments    = NoComments,
+      qname
     )
   }
-  private val Functions = mutable.Map.empty[(Boolean, Int), ClassTree]
 
-  val MatchFunction = "(This|)Function(\\d*)".r
+  val Functions: Seq[ClassTree] =
+    0 to 22 flatMap (n => List(ScalaJsF(isThis = false, n), ScalaJsF(isThis = true, n)))
 
-  object isFunction {
-    def unapply(fragments: List[Name]): Option[ClassTree] =
-      if ((fragments.length === QualifiedName.Function.parts.length)
-          && fragments.startsWith(QualifiedName.scala_js.parts)) {
-
-        fragments.last.unescaped match {
-          case MatchFunction(thisStr, numStr) =>
-            if (thisStr.isEmpty && numStr.isEmpty) Some(ScalaJsFunction)
-            else {
-              val isThis = thisStr === Name.This.unescaped
-              val num    = numStr.toInt
-              Some(Functions.getOrElseUpdate((isThis, num), ScalaJsF(isThis, num)))
-            }
-          case _ => None
-        }
-      } else None
-  }
+  val ScalaJsTypes: Map[List[Name], ClassTree] =
+    (Functions :+ ScalaJsFunction :+ ScalaJsArray :+ ObjectMembers.ScalaJsObject :+ ObjectMembers.ScalaObject)
+      .map(x => x.codePath.parts -> x)
+      .toMap
 }
