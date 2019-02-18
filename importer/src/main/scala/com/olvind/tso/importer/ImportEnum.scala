@@ -56,7 +56,7 @@ object ImportEnum {
     val moduleTree: ModuleTree = {
       val applyMethod: Option[MethodTree] =
         if (isValue) {
-          val applyParam = ParamTree(Name.value, underlying, NoComments)
+          val applyParam = ParamTree(Name.value, underlying, None, NoComments)
           Some(
             MethodTree(
               annotations = Annotation.method(name, isBracketAccess = true),

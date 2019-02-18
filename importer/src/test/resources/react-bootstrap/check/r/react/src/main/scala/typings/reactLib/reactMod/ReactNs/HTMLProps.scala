@@ -14,3 +14,30 @@ trait HTMLProps[T]
   var value: reactLib.reactLibStrings.foo
 }
 
+object HTMLProps {
+  @scala.inline
+  def apply[T](
+    defaultValue: reactLib.reactLibStrings.foo,
+    onChange: reactLib.reactLibStrings.foo,
+    `type`: reactLib.reactLibStrings.foo,
+    value: reactLib.reactLibStrings.foo,
+    accept: java.lang.String = null,
+    acceptCharset: java.lang.String = null,
+    children: ReactNode = null,
+    dangerouslySetInnerHTML: reactLib.Anon_Html = null,
+    defaultChecked: js.UndefOr[scala.Boolean] = js.undefined,
+    key: Key = null,
+    ref: Ref[T] = null
+  ): HTMLProps[T] = {
+    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, `type` = `type`, value = value)
+    if (accept != null) __obj.updateDynamic("accept")(accept)
+    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
+    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
+    if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
+    if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
+    __obj.asInstanceOf[HTMLProps[T]]
+  }
+}
+

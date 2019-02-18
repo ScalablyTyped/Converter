@@ -9,3 +9,12 @@ trait ComponentTransitionGroupProps[T /* <: reactLib.reactMod.ReactNs.ReactType[
   var component: T
 }
 
+object ComponentTransitionGroupProps {
+  @scala.inline
+  def apply[T /* <: reactLib.reactMod.ReactNs.ReactType[_] */](component: T): ComponentTransitionGroupProps[T] = {
+    val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
+  
+    __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
+  }
+}
+

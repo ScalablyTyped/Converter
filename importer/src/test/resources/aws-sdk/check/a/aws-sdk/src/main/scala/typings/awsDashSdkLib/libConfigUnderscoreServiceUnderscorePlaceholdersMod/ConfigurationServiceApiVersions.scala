@@ -9,3 +9,12 @@ trait ConfigurationServiceApiVersions extends js.Object {
   var dynamodb: js.UndefOr[awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.apiVersion] = js.undefined
 }
 
+object ConfigurationServiceApiVersions {
+  @scala.inline
+  def apply(dynamodb: awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.apiVersion = null): ConfigurationServiceApiVersions = {
+    val __obj = js.Dynamic.literal()
+    if (dynamodb != null) __obj.updateDynamic("dynamodb")(dynamodb)
+    __obj.asInstanceOf[ConfigurationServiceApiVersions]
+  }
+}
+

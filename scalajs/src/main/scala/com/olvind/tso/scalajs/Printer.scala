@@ -254,7 +254,7 @@ object Printer {
                 (params map formatParamTree(prefix, indent)) mkString ", ",
                 ") = this()")
 
-      case tree @ ParamTree(_, _, comments) =>
+      case tree @ ParamTree(_, _, _, comments) =>
         print(formatComments(comments))
         println(formatParamTree(prefix, indent)(tree))
 
@@ -287,8 +287,16 @@ object Printer {
       formatComments(tree.comments),
       formatName(tree.name),
       ": ",
-      formatTypeRef(prefix, indent + 2)(tree.tpe)
+      formatTypeRef(prefix, indent + 2)(tree.tpe),
+      tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(prefix, indent)(d)}")
     ).foldLeft("")(_ |+| _)
+
+  def formatDefaultedTypeRef(prefix: List[Name], indent: Int)(ref: TypeRef): String =
+    ref match {
+      case TypeRef.`null`    => "null"
+      case TypeRef.undefined => "js.undefined"
+      case other             => formatTypeRef(prefix, indent + 2)(other)
+    }
 
   def formatQN(prefix: List[Name], q: QualifiedName): String =
     q.parts match {

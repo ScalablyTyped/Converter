@@ -14,3 +14,19 @@ trait EsModuleComponent extends js.Object {
   ]
 }
 
+object EsModuleComponent {
+  @scala.inline
+  def apply(
+    default: Component[
+      DefaultData[vueLib.typesVueMod.Vue], 
+      DefaultMethods[vueLib.typesVueMod.Vue], 
+      DefaultComputed, 
+      DefaultProps
+    ]
+  ): EsModuleComponent = {
+    val __obj = js.Dynamic.literal(default = default.asInstanceOf[js.Any])
+  
+    __obj.asInstanceOf[EsModuleComponent]
+  }
+}
+

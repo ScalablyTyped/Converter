@@ -15,3 +15,20 @@ trait Option[TValue]
   var value: js.UndefOr[TValue] = js.undefined
 }
 
+object Option {
+  @scala.inline
+  def apply[TValue](
+    StringDictionary: /**
+    * In the event that a custom menuRenderer is provided, Option should be able
+    * to accept arbitrary key-value pairs. See react-virtualized-select.
+    */
+  /* property */ org.scalablytyped.runtime.StringDictionary[js.Any] = null,
+    value: TValue = null
+  ): Option[TValue] = {
+    val __obj = js.Dynamic.literal()
+    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
+    __obj.asInstanceOf[Option[TValue]]
+  }
+}
+

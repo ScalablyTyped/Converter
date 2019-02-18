@@ -17,3 +17,25 @@ trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
   ): vueLib.typesVnodeMod.VNode
 }
 
+object FunctionalComponentOptions {
+  @scala.inline
+  def apply[Props, PropDefs](
+    functional: scala.Boolean,
+    render: js.Function3[
+      js.UndefOr[scala.Nothing], 
+      vueLib.typesVueMod.CreateElement, 
+      RenderContext[Props], 
+      vueLib.typesVnodeMod.VNode
+    ],
+    inject: InjectOptions = null,
+    name: java.lang.String = null,
+    props: PropDefs = null
+  ): FunctionalComponentOptions[Props, PropDefs] = {
+    val __obj = js.Dynamic.literal(functional = functional, render = render)
+    if (inject != null) __obj.updateDynamic("inject")(inject.asInstanceOf[js.Any])
+    if (name != null) __obj.updateDynamic("name")(name)
+    if (props != null) __obj.updateDynamic("props")(props.asInstanceOf[js.Any])
+    __obj.asInstanceOf[FunctionalComponentOptions[Props, PropDefs]]
+  }
+}
+

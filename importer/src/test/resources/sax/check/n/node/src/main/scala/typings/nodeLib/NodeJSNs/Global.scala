@@ -10,3 +10,12 @@ trait Global extends js.Object {
   var global: Global
 }
 
+object Global {
+  @scala.inline
+  def apply(Array: stdLib.ArrayConstrucor, global: Global): Global = {
+    val __obj = js.Dynamic.literal(Array = Array, global = global)
+  
+    __obj.asInstanceOf[Global]
+  }
+}
+

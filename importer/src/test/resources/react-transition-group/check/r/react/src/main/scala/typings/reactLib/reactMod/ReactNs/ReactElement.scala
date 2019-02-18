@@ -11,3 +11,12 @@ trait ReactElement[P] extends js.Object {
   var `type`: java.lang.String | ComponentClass[P] | SFC[P]
 }
 
+object ReactElement {
+  @scala.inline
+  def apply[P](props: P, `type`: java.lang.String | ComponentClass[P] | SFC[P], key: Key = null): ReactElement[P] = {
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], `type` = `type`.asInstanceOf[js.Any])
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
+    __obj.asInstanceOf[ReactElement[P]]
+  }
+}
+

@@ -10,3 +10,12 @@ trait Anon_AgeName extends js.Object {
   var name: java.lang.String
 }
 
+object Anon_AgeName {
+  @scala.inline
+  def apply(age: scala.Double, name: java.lang.String): Anon_AgeName = {
+    val __obj = js.Dynamic.literal(age = age, name = name)
+  
+    __obj.asInstanceOf[Anon_AgeName]
+  }
+}
+

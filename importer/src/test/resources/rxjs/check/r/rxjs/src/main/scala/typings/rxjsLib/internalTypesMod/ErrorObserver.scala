@@ -12,3 +12,19 @@ trait ErrorObserver[T] extends PartialObserver[T] {
   def error(err: js.Any): scala.Unit
 }
 
+object ErrorObserver {
+  @scala.inline
+  def apply[T](
+    error: js.Function1[js.Any, scala.Unit],
+    closed: js.UndefOr[scala.Boolean] = js.undefined,
+    complete: js.Function0[scala.Unit] = null,
+    next: js.Function1[/* value */ T, scala.Unit] = null
+  ): ErrorObserver[T] = {
+    val __obj = js.Dynamic.literal(error = error)
+    if (!js.isUndefined(closed)) __obj.updateDynamic("closed")(closed)
+    if (complete != null) __obj.updateDynamic("complete")(complete)
+    if (next != null) __obj.updateDynamic("next")(next)
+    __obj.asInstanceOf[ErrorObserver[T]]
+  }
+}
+

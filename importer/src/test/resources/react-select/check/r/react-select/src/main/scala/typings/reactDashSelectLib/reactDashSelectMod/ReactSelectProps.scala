@@ -14,3 +14,13 @@ trait ReactSelectProps[TValue]
   var addLabelText: js.UndefOr[java.lang.String] = js.undefined
 }
 
+object ReactSelectProps {
+  @scala.inline
+  def apply[TValue](addLabelText: java.lang.String = null, key: java.lang.String = null): ReactSelectProps[TValue] = {
+    val __obj = js.Dynamic.literal()
+    if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText)
+    if (key != null) __obj.updateDynamic("key")(key)
+    __obj.asInstanceOf[ReactSelectProps[TValue]]
+  }
+}
+

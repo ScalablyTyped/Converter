@@ -27,12 +27,12 @@ object ScalaJsClasses {
       Nil,
       Nil,
       Seq(
-        CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), NoComments)), NoComments)
+        CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments)
       ),
       Seq(
         FieldTree(Nil, Name("length"), TypeRef.Int, MemberImplNative, isReadOnly = false, isOverride = false, NoComments),
-        MethodTree(Nil, Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
-        MethodTree(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
+        MethodTree(Nil, Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
+        MethodTree(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
       ),
       ClassType.Class,
       isSealed = false,
@@ -45,9 +45,9 @@ object ScalaJsClasses {
     def T(n: Int) = Name(s"T" + n)
 
     val ThisParam: Seq[ParamTree] =
-      if (isThis) Seq(ParamTree(Name.This, TypeRef.ThisType(NoComments), NoComments)) else Nil
+      if (isThis) Seq(ParamTree(Name.This, TypeRef.ThisType(NoComments), None, NoComments)) else Nil
 
-    val inputParams = 0 until arity map (n => ParamTree(T(n), TypeRef(T(n)), NoComments))
+    val inputParams = 0 until arity map (n => ParamTree(T(n), TypeRef(T(n)), None, NoComments))
     val R           = TypeRef(Name("R"))
     val Apply: MethodTree =
       MethodTree(

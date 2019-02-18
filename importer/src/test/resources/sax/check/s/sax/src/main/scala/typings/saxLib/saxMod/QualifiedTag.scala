@@ -12,3 +12,20 @@ import scala.scalajs.js.annotation._
   var ns: org.scalablytyped.runtime.StringDictionary[java.lang.String]
 }
 
+object QualifiedTag {
+  @scala.inline
+  def apply(
+    attributes: org.scalablytyped.runtime.StringDictionary[QualifiedAttribute],
+    isSelfClosing: scala.Boolean,
+    local: java.lang.String,
+    name: java.lang.String,
+    ns: org.scalablytyped.runtime.StringDictionary[java.lang.String],
+    prefix: java.lang.String,
+    uri: java.lang.String
+  ): QualifiedTag = {
+    val __obj = js.Dynamic.literal(attributes = attributes, isSelfClosing = isSelfClosing, local = local, name = name, ns = ns, prefix = prefix, uri = uri)
+  
+    __obj.asInstanceOf[QualifiedTag]
+  }
+}
+

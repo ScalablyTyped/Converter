@@ -531,7 +531,7 @@ object ImportTree {
     params map { param =>
       val tpe       = ImportType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
       val undefType = if (param.isOptional) TypeRef.UndefOr(tpe) else tpe
-      ParamTree(importName(param.name), undefType, param.comments)
+      ParamTree(importName(param.name), undefType, None, param.comments)
     }
 
   def tsMethod(scope:          TsTreeScope,

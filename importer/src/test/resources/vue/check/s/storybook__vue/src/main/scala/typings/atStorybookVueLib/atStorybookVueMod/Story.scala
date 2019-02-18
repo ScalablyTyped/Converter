@@ -11,3 +11,16 @@ trait Story extends js.Object {
   def addDecorator(decorator: StoryDecorator): this.type
 }
 
+object Story {
+  @scala.inline
+  def apply(
+    add: js.Function2[java.lang.String, StoryFunction, Story],
+    addDecorator: js.Function1[StoryDecorator, Story],
+    kind: java.lang.String
+  ): Story = {
+    val __obj = js.Dynamic.literal(add = add, addDecorator = addDecorator, kind = kind)
+  
+    __obj.asInstanceOf[Story]
+  }
+}
+

@@ -10,3 +10,15 @@ trait Anon_Global
   var global: chartDotJsLib.chartDotJsMod.ChartNs.ChartOptions with chartDotJsLib.chartDotJsMod.ChartNs.ChartFontOptions
 }
 
+object Anon_Global {
+  @scala.inline
+  def apply(
+    global: chartDotJsLib.chartDotJsMod.ChartNs.ChartOptions with chartDotJsLib.chartDotJsMod.ChartNs.ChartFontOptions,
+    StringDictionary: /* key */ org.scalablytyped.runtime.StringDictionary[js.Any] = null
+  ): Anon_Global = {
+    val __obj = js.Dynamic.literal(global = global)
+    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    __obj.asInstanceOf[Anon_Global]
+  }
+}
+
