@@ -52,8 +52,7 @@ object Erasure {
             case (x: TypeAliasTree, s) =>
               if (x.alias.typeName === other) QualifiedName.JObject
               else simplify(s, x.alias)
-            case (x: ClassTree, _) =>
-              QualifiedName(x.name :: Nil)
+            case (x: ClassTree, _) => x.codePath
           }
           .getOrElse(other)
     }
