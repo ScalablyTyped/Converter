@@ -10,6 +10,7 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
             isReferenceToOwner(scope.stack, x.name) &&
             isReferencedInFunction(scope.stack) &&
             !isReferencedInIndexType(scope.stack) &&
+            !isReferencedInTypeLookup(scope.stack) &&
             !isReferencedInConstructor(scope.stack) =>
         TsTypeThis()
 
@@ -42,6 +43,12 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
       case _:     TsTypeConstructor                                      => true
       case owner: TsMemberFunction if owner.name === TsIdent.constructor => true
       case _:     TsMemberCtor                                           => true
+      case _ => false
+    }
+
+  def isReferencedInTypeLookup(stack: List[TsTree]): Boolean =
+    stack.exists {
+      case _: TsTypeLookup => true
       case _ => false
     }
   def isReferencedInIndexType(stack: List[TsTree]): Boolean =

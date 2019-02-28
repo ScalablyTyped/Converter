@@ -1,4 +1,6 @@
 package com.olvind.tso
+
+import scala.collection.generic.CanBuildFrom
 import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.collection.mutable
 
@@ -16,7 +18,23 @@ object maps {
 
   @inline final implicit class MapOps[M[k, v] <: scala.Traversable[(k, v)], K, V](private val m: M[K, V])
       extends AnyVal {
-    @inline def sorted(implicit O: Ordering[K]): SortedMap[K, V] =
-      TreeMap.empty[K, V] ++ m
+
+    def mapNotNone[VV](f: V => Option[VV])(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
+      val b  = cbf()
+      val it = m.toIterator
+
+      while (it.hasNext) {
+        it.next() match {
+          case (k, v) =>
+            f(v) match {
+              case Some(vv) => b += ((k, vv))
+              case None     => ()
+            }
+        }
+      }
+      b.result()
+    }
+
+    @inline def toSorted(implicit O: Ordering[K]): SortedMap[K, V] = TreeMap() ++ m
   }
 }

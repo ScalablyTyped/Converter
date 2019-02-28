@@ -34,8 +34,7 @@ package object typesOptionsMod {
   ]
   type InjectKey = java.lang.String | js.Symbol
   type InjectOptions = (org.scalablytyped.runtime.StringDictionary[InjectKey | vueLib.Anon_Default]) | js.Array[java.lang.String]
-  type Prop[T] = vueLib.Anon_T[T] | vueLib.Anon_Args[T]
-  type PropValidator[T] = PropOptions[T] | Prop[T] | js.Array[Prop[T]]
+  type PropValidator[T] = _PropValidator[T] | js.Array[Prop[T]]
   type PropsDefinition[T] = ArrayPropsDefinition[T] | RecordPropsDefinition[T]
   type RecordPropsDefinition[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}

@@ -13,6 +13,12 @@ sealed trait HasCodePath {
 sealed trait ContainerTree extends Tree with HasCodePath {
   val members: Seq[Tree]
 
+  def withMembers(members: Seq[Tree]): ContainerTree =
+    this match {
+      case x: PackageTree => x.copy(members = members)
+      case x: ModuleTree  => x.copy(members = members)
+    }
+
   lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 }

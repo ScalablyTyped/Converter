@@ -63,5 +63,8 @@ object Name {
   implicit object NameSuffix extends ToSuffix[Name] {
     override def to(t: Name): Suffix = Suffix(t.unescaped)
   }
+
+  implicit val OrderedName = Ordering[String].on[Name](_.unescaped)
+
   implicit object NameKey extends IsKey[Name]
 }

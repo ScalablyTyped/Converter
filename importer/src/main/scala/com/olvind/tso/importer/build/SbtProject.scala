@@ -37,7 +37,7 @@ object PublishedSbtProject {
         }
 
       go(ret, _m)
-      ret.sorted
+      ret.toSorted
     }
   }
 }

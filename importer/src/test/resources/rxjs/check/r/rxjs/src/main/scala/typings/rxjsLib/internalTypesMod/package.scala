@@ -10,6 +10,5 @@ package object internalTypesMod {
     rxjsLib.internalObservableMod.Observable[T], 
     rxjsLib.internalObservableMod.Observable[R]
   ]
-  type PartialObserver[T] = NextObserver[T] | ErrorObserver[T] | CompletionObserver[T]
   type UnaryFunction[T, R] = js.Function1[/* source */ T, R]
 }

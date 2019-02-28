@@ -6,5 +6,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object DocumentClientNs {
-  type AttributeAction = awsDashSdkLib.awsDashSdkLibStrings.ADD | awsDashSdkLib.awsDashSdkLibStrings.PUT | awsDashSdkLib.awsDashSdkLibStrings.DELETE | java.lang.String
+  type AttributeAction = _AttributeAction | java.lang.String
 }

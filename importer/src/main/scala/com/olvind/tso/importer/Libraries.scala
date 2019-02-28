@@ -39,6 +39,7 @@ object Libraries {
     "@firebase/auth-types",
     "@firebase/functions-types",
     "@firebase/storage-types",
+    "fastify",
     "formik",
     "formstate",
     "formsy-react",

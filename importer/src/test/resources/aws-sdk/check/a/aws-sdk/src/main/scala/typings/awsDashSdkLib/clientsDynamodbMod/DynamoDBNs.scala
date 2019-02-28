@@ -62,7 +62,9 @@ object DynamoDBNs extends js.Object {
       var service: js.UndefOr[awsDashSdkLib.clientsDynamodbMod.namespaced] = js.undefined
     }
     
-    type AttributeAction = awsDashSdkLib.awsDashSdkLibStrings.ADD | awsDashSdkLib.awsDashSdkLibStrings.PUT | awsDashSdkLib.awsDashSdkLibStrings.DELETE | java.lang.String
+    trait _AttributeAction extends js.Object
+    
+    type AttributeAction = _AttributeAction | java.lang.String
   }
   
   type AttributeValue = js.Any
