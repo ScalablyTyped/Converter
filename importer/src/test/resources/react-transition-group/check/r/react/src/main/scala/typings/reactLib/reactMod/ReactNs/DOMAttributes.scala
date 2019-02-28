@@ -10,3 +10,13 @@ trait DOMAttributes[T] extends js.Object {
   var dangerouslySetInnerHTML: js.UndefOr[reactLib.Anon_Html] = js.undefined
 }
 
+object DOMAttributes {
+  @scala.inline
+  def apply[T](children: ReactNode = null, dangerouslySetInnerHTML: reactLib.Anon_Html = null): DOMAttributes[T] = {
+    val __obj = js.Dynamic.literal()
+    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
+    __obj.asInstanceOf[DOMAttributes[T]]
+  }
+}
+

@@ -10,3 +10,12 @@ trait Either[L, R]
   var value: R
 }
 
+object Either {
+  @scala.inline
+  def apply[L, R](value: R): Either[L, R] = {
+    val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
+  
+    __obj.asInstanceOf[Either[L, R]]
+  }
+}
+

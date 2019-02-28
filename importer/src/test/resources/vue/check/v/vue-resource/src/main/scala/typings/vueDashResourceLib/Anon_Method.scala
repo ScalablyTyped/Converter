@@ -9,3 +9,12 @@ trait Anon_Method extends js.Object {
   var method: java.lang.String
 }
 
+object Anon_Method {
+  @scala.inline
+  def apply(method: java.lang.String): Anon_Method = {
+    val __obj = js.Dynamic.literal(method = method)
+  
+    __obj.asInstanceOf[Anon_Method]
+  }
+}
+

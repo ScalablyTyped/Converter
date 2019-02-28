@@ -5,8 +5,16 @@ object ScalaNameEscape {
   def apply(ident: String): String =
     ident match {
       case i if i.isEmpty        => "Empty"
-      case i if needsEscaping(i) => "`" + i + "`"
-      case i                     => i
+      case i if needsEscaping(i) =>
+        /* can't just escape these with backticks */
+        val patched = i
+          .replaceAllLiterally("`", "_backtick")
+          .replaceAllLiterally("'", "_quote")
+          .replaceAllLiterally("\\n", "_newline")
+          .replaceAllLiterally("\\b", "_backslash_b")
+
+        if (needsEscaping(patched)) "`" + patched + "`" else patched
+      case i => i
     }
 
   def isValidIdentifier(name: String): Boolean = {
@@ -22,12 +30,10 @@ object ScalaNameEscape {
     ident match {
       case "^"                                             => false
       case str if str.isEmpty                              => true
-      case str if str.head === '`' && str.last === '`'     => false
-      case str if isScalaKeyword(str)                      => true
       case str if str.endsWith("_=") && !str.contains("-") => false //lets say this is good enough
       case str if str.endsWith("_")                        => true //`val name_: tpe` doesnt work
-      case str if isValidIdentifier(str)                   => false
-      case _                                               => true
+      case str if isScalaKeyword(str)                      => true
+      case str                                             => !isValidIdentifier(str)
     }
 
   val isScalaKeyword: Set[String] =

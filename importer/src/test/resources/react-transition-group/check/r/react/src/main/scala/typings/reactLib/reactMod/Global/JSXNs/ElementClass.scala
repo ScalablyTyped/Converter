@@ -10,3 +10,12 @@ trait ElementClass
   def render(): reactLib.reactMod.ReactNs.ReactNode
 }
 
+object ElementClass {
+  @scala.inline
+  def apply(render: js.Function0[reactLib.reactMod.ReactNs.ReactNode]): ElementClass = {
+    val __obj = js.Dynamic.literal(render = render)
+  
+    __obj.asInstanceOf[ElementClass]
+  }
+}
+

@@ -48,7 +48,8 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
               S.FakeLiterals(scope),
               S.UnionToInheritance(scope, _, libName), // after FakeLiterals
               S.LimitUnionLength visitContainerTree scope, // after UnionToInheritance
-              S.RemoveMultipleInheritance visitContainerTree scope,
+              S.Companions >>
+                S.RemoveMultipleInheritance visitContainerTree scope,
               S.CombineOverloads visitContainerTree scope, //must have stable types, so FakeLiterals run before
               S.FilterMemberOverrides visitContainerTree scope, //
               S.InferMemberOverrides visitContainerTree scope, //runs in phase after FilterMemberOverrides

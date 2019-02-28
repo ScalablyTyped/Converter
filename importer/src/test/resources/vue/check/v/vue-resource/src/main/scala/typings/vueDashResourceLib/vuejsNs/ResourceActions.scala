@@ -14,3 +14,19 @@ trait ResourceActions extends js.Object {
   var update: vueDashResourceLib.Anon_Method
 }
 
+object ResourceActions {
+  @scala.inline
+  def apply(
+    delete: vueDashResourceLib.Anon_Method,
+    get: vueDashResourceLib.Anon_Method,
+    query: vueDashResourceLib.Anon_Method,
+    remove: vueDashResourceLib.Anon_Method,
+    save: vueDashResourceLib.Anon_Method,
+    update: vueDashResourceLib.Anon_Method
+  ): ResourceActions = {
+    val __obj = js.Dynamic.literal(delete = delete, get = get, query = query, remove = remove, save = save, update = update)
+  
+    __obj.asInstanceOf[ResourceActions]
+  }
+}
+

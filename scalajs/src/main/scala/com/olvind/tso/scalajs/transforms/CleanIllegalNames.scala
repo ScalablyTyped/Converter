@@ -1,20 +1,18 @@
-package com.olvind.tso.scalajs
+package com.olvind.tso
+package scalajs
 package transforms
 
 case class CleanIllegalNames(OutputPkg: Name) extends TreeTransformation {
+
   override def enterFieldTree(scope: TreeScope)(s: FieldTree): FieldTree =
     s.name match {
       case Name.js | Name.java | OutputPkg => s.withSuffix("_")
-      case Name("`")                       => s.renamed(Name("backtick"))
-      case Name("'")                       => s.renamed(Name("quote"))
       case _                               => s
     }
 
   override def enterMethodTree(scope: TreeScope)(s: MethodTree): MethodTree =
     s.name match {
       case Name.js | Name.java | OutputPkg => s.withSuffix("_")
-      case Name("`")                       => s.renamed(Name("backtick"))
-      case Name("'")                       => s.renamed(Name("quote"))
       case _                               => s
     }
 

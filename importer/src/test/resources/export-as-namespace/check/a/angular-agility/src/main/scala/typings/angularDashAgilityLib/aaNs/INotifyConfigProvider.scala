@@ -12,3 +12,17 @@ trait INotifyConfigProvider
   var notifyConfigs: js.Any
 }
 
+object INotifyConfigProvider {
+  @scala.inline
+  def apply(
+    $get: js.Any,
+    defaultNotifyConfig: java.lang.String,
+    defaultTargetContainerName: java.lang.String,
+    notifyConfigs: js.Any
+  ): INotifyConfigProvider = {
+    val __obj = js.Dynamic.literal($get = $get, defaultNotifyConfig = defaultNotifyConfig, defaultTargetContainerName = defaultTargetContainerName, notifyConfigs = notifyConfigs)
+  
+    __obj.asInstanceOf[INotifyConfigProvider]
+  }
+}
+

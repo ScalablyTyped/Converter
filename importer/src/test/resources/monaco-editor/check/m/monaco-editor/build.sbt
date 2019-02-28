@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "monaco-editor"
-version := "0.0-unknown-135f13"
+version := "0.0-unknown-89d95d"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

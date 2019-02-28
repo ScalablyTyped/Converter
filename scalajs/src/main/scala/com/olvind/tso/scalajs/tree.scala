@@ -161,7 +161,7 @@ object TypeParamTree {
   }
 }
 
-final case class ParamTree(name: Name, tpe: TypeRef, comments: Comments) extends Tree
+final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
 
 final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
@@ -199,8 +199,8 @@ object TypeRef {
   val Unit         = TypeRef(QualifiedName.Unit, Nil, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Nil, NoComments)
 
-  def UndefOr(of: TypeRef): TypeRef =
-    TypeRef(QualifiedName.UndefOr, Seq(of), NoComments)
+  val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
+  val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)
 
   def StringDictionary(typeParam: TypeRef, comments: Comments): TypeRef =
     TypeRef(QualifiedName.StringDictionary, Seq(typeParam), comments)
@@ -256,6 +256,17 @@ object TypeRef {
         case TypeRef(QualifiedName.INTERSECTION, types, _) =>
           Some(types)
 
+        case _ => None
+      }
+  }
+
+  object UndefOr {
+    def apply(tpe: TypeRef): TypeRef = TypeRef(QualifiedName.UndefOr, Seq(tpe), NoComments)
+
+    def unapply(typeRef: TypeRef): Option[TypeRef] =
+      typeRef match {
+        case TypeRef(QualifiedName.UndefOr, Seq(tpe), _) =>
+          Some(tpe)
         case _ => None
       }
   }

@@ -247,7 +247,7 @@ object Main extends App {
       projectDir    = sbtProjectDir,
       projects      = successes,
       pluginVersion = RunId,
-      action        = if (bintray.isDefined) "^publish" else "^publishLocal"
+      action        = if (bintray.isDefined) "^publish" else "publishLocal"
     )
 
     val readme    = targetFolder / "readme.md"
