@@ -34,7 +34,8 @@ object ButtonGroupProps {
     ref: reactLib.reactMod.ReactNs.Ref[reactDashBootstrapLib.libButtonGroupMod.ButtonGroup] = null,
     vertical: js.UndefOr[scala.Boolean] = js.undefined
   ): ButtonGroupProps = {
-    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, `type` = `type`, value = value)
+    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
+    __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)

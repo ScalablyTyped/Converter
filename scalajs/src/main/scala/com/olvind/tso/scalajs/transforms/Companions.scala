@@ -188,25 +188,29 @@ object Companions extends TreeTransformation {
     patched match {
       /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
       case FieldTree(anns, name, OptionalType(TypeRef.Double), _, _, _, _) =>
-        val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
+        val tpe          = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
+        val originalName = findOriginalName(name, anns)
+
         Some(
           Param(
             ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
             isOptional = true,
             Right(
               obj =>
-                s"""if (${name.value} != null) $obj.updateDynamic("${findOriginalName(name, anns).unescaped}")(${name.value}${OptionalCast.Cast})"""
+                s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast.Cast})"""
             )
           )
         )
       case FieldTree(anns, name, OptionalType(tpe), _, _, _, _) if !CanBeNull(tpe, scope / x) =>
+        val originalName = findOriginalName(name, anns)
+
         Some(
           Param(
             ParamTree(name, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
             isOptional = true,
             Right(
               obj =>
-                s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${findOriginalName(name, anns).unescaped}")(${name.value}${OptionalCast(
+                s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(
                   scope,
                   tpe
                 )})"""
@@ -215,7 +219,8 @@ object Companions extends TreeTransformation {
         )
 
       case FieldTree(anns, name, OptionalType(_tpe), _, _, _, _) =>
-        val tpe = if (_tpe === TypeRef.Wildcard) TypeRef.Any else _tpe
+        val originalName = findOriginalName(name, anns)
+        val tpe          = if (_tpe === TypeRef.Wildcard) TypeRef.Any else _tpe
 
         Some(
           Param(
@@ -223,7 +228,7 @@ object Companions extends TreeTransformation {
             isOptional = true,
             Right(
               obj =>
-                s"""if (${name.value} != null) $obj.updateDynamic("${findOriginalName(name, anns).unescaped}")(${name.value}${OptionalCast(
+                s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(
                   scope,
                   tpe
                 )})"""
@@ -232,25 +237,24 @@ object Companions extends TreeTransformation {
         )
 
       case FieldTree(anns, name, tpe, _, _, _, _) =>
+        val originalName = findOriginalName(name, anns)
         Some(
           Param(
             ParamTree(name, tpe, None, NoComments),
             isOptional = false,
-            if (ScalaNameEscape.isValidIdentifier(name.unescaped))
+            if (!ScalaNameEscape.needsEscaping(name.unescaped) && originalName === name)
               Left(s"""${name.value} = ${name.value}${OptionalCast(scope, tpe)}""")
             else
               Right(
-                obj =>
-                  s"""$obj.updateDynamic("${findOriginalName(name, anns).unescaped}")(${name.value}${OptionalCast(
-                    scope,
-                    tpe
-                  )})"""
+                obj => s"""$obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(scope, tpe)})"""
               )
           )
         )
 
       case _m: MethodTree =>
-        val m = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any))
+        val m            = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any))
+        val originalName = findOriginalName(m.name, m.annotations)
+
         Some(
           Param(
             ParamTree(m.name,
@@ -258,13 +262,10 @@ object Companions extends TreeTransformation {
                       None,
                       NoComments),
             isOptional = false,
-            if (ScalaNameEscape.isValidIdentifier(m.name.unescaped))
+            if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && originalName === m.name)
               Left(s"""${m.name.value} = ${m.name.value}""")
             else
-              Right(
-                obj =>
-                  s"""$obj.updateDynamic("${findOriginalName(m.name, m.annotations).unescaped}")(${m.name.value})"""
-              )
+              Right(obj => s"""$obj.updateDynamic("${originalName.unescaped}")(${m.name.value})""")
           )
         )
       case _ => None
@@ -275,12 +276,9 @@ object Companions extends TreeTransformation {
   object OptionalCast {
     val Cast = ".asInstanceOf[js.Any]"
 
-    def apply(scope: TreeScope, tpe: TypeRef): String = {
-      if (tpe.name.unescaped === "Bytes") {
-        println("foo")
-      }
+    def apply(scope: TreeScope, tpe: TypeRef): String =
       if (resolvesToUnionOrAbstract(tpe, scope)) { Cast } else ""
-    }
+
     def resolvesToUnionOrAbstract(tpe: TypeRef, scope: TreeScope): Boolean =
       tpe match {
         case x if scope.tparams.contains(x.typeName.parts.last) => true

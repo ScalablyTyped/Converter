@@ -31,7 +31,6 @@ object ScalaNameEscape {
       case "^"                                             => false
       case str if str.isEmpty                              => true
       case str if str.endsWith("_=") && !str.contains("-") => false //lets say this is good enough
-      case str if str.endsWith("_")                        => true //`val name_: tpe` doesnt work
       case str if isScalaKeyword(str)                      => true
       case str                                             => !isValidIdentifier(str)
     }

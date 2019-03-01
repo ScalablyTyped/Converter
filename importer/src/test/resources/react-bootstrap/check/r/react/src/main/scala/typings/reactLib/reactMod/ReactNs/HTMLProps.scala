@@ -29,7 +29,8 @@ object HTMLProps {
     key: Key = null,
     ref: Ref[T] = null
   ): HTMLProps[T] = {
-    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, `type` = `type`, value = value)
+    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
+    __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])

@@ -214,9 +214,7 @@ object Printer {
           if (isOverride) "override " else "",
           if (isReadOnly) "val" else "var",
           " ",
-          formatName(name),
-          ": ",
-          formatTypeRef(prefix, indent)(tpe)
+          typeAnnotation(formatName(name), formatTypeRef(prefix, indent)(tpe))
         )
 
         fieldType match {
@@ -230,16 +228,21 @@ object Printer {
         print(formatAnns(prefix, anns))
 
         print(formatProtectionLevel(level, isCtor = false))
-        print(s"${if (isOverride) "override " else ""}def ", formatName(name))
-        if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
+        print(s"${if (isOverride) "override " else ""}def ")
+
+        val nameString = formatName(name)
+        val tparamString =
+          if (tparams.isEmpty) ""
+          else
+            tparams.map(formatTypeParamTree(prefix, indent)).mkString("[", ", ", "]")
 
         var paramString = params.map(_.map(formatParamTree(prefix, indent)).mkString("(", ", ", ")"))
         if (paramString.map(_.length).sum > 100) {
           paramString = params.map(_.map(formatParamTree(prefix, indent)).mkString("(\n  ", ",\n  ", "\n)"))
         }
-        print(paramString.mkString, ": ")
-        print(formatTypeRef(prefix, indent)(resultType))
+        print(
+          typeAnnotation(nameString + tparamString + paramString.mkString, formatTypeRef(prefix, indent)(resultType))
+        )
         fieldType match {
           case MemberImplNotImplemented => println()
           case MemberImplNative         => println(" = js.native")
@@ -285,9 +288,7 @@ object Printer {
   def formatParamTree(prefix: List[Name], indent: Int)(tree: ParamTree): String =
     Seq(
       formatComments(tree.comments),
-      formatName(tree.name),
-      ": ",
-      formatTypeRef(prefix, indent + 2)(tree.tpe),
+      typeAnnotation(formatName(tree.name), formatTypeRef(prefix, indent + 2)(tree.tpe)),
       tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(prefix, indent)(d)}")
     ).foldLeft("")(_ |+| _)
 
@@ -311,6 +312,12 @@ object Printer {
   }
 
   val StringOrdering: Ordering[String] = Ordering[String]
+
+  /* for instance `val foo: Type_: Int` needs a space between `_` and `:` */
+  def typeAnnotation(preceding: String, formattedType: String): String = {
+    val colon = if (preceding.last === '_' || preceding.last === '^') " : " else ": "
+    preceding + colon + formattedType
+  }
 
   def formatTypeRef(prefix: List[Name], indent: Int)(t1: TypeRef): String = {
     val ret: String =

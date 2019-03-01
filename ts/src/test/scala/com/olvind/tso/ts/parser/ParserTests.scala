@@ -1588,19 +1588,6 @@ type Readonly<T> = {
     )
   }
 
-  test("multiple var declaration") {
-    val content =
-      """
-    var TableSchema: new()=>TableSchema,
-        IndexSpec: new()=>IndexSpec,
-        Events: any; // Too complex to define correctly right now.
-"""
-    pending
-    shouldParseAs(content, TsParser.tsDeclVar)(
-      null
-    )
-  }
-
   test("destructured parameter") {
     val content =
       """

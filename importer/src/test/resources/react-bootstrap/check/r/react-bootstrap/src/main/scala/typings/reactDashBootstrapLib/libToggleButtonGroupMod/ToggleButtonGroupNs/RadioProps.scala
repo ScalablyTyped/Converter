@@ -19,7 +19,8 @@ object RadioProps {
     `type`: reactDashBootstrapLib.reactDashBootstrapLibStrings.radio,
     onChange: js.Function1[/* value */ js.Any, scala.Unit] = null
   ): RadioProps = {
-    val __obj = js.Dynamic.literal(name = name, `type` = `type`)
+    val __obj = js.Dynamic.literal(name = name)
+    __obj.updateDynamic("type")(`type`)
     if (onChange != null) __obj.updateDynamic("onChange")(onChange)
     __obj.asInstanceOf[RadioProps]
   }

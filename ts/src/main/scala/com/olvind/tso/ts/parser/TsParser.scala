@@ -260,12 +260,22 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
   lazy val zeroLocation: Parser[JsLocation] = success(JsLocation.Zero)
   lazy val zeroCodePath: Parser[CodePath]   = success(CodePath.NoPath)
 
-  lazy val tsDeclVar: Parser[TsDeclVar] = {
+  @deprecated("properly support multiple vars in one statement")
+  lazy val tsDeclVar: Parser[TsDeclVar] = tsDeclVars ^^ {
+    case first :: Nil  => first
+    case first :: rest => first.copy(comments = Comments(Comment.warning(s"Dropped ${rest.map(_.name.value)}")))
+  }
+
+  lazy val tsDeclVars: Parser[List[TsDeclVar]] = {
     val variable = ("var" | "let") ^^ (_ => false)
     val constant = "const" ^^ (_         => true)
-    comments ~ isDeclared ~ (variable | constant) ~ tsIdent ~ typeAnnotationOpt ~ ("=" ~> tsLiteral).? ~ zeroLocation ~ zeroCodePath ~ success(
-      false
-    ) ^^ TsDeclVar
+    comments ~ isDeclared ~ (variable | constant) ~ repsep(tsIdent ~ typeAnnotationOpt ~ ("=" ~> tsLiteral).?, ",") ^^ {
+      case cs ~ declared ~ isReadonly ~ vars =>
+        vars.map {
+          case name ~ tpe ~ lit =>
+            TsDeclVar(cs, declared, isReadonly, name, tpe, lit, JsLocation.Zero, CodePath.NoPath, isOptional = false)
+        }
+    }
   }
 
   lazy val tsDeclFunction: Parser[TsDeclFunction] =
