@@ -117,7 +117,7 @@ object TreeScope {
                 .to[Seq]
                 .flatten
                 .flatMap {
-                  case FieldTree(_, _, ThisType(_), _, _, _, _) =>
+                  case FieldTree(_, _, ThisType(_), _, _, _, _, _) =>
                     lookupNoBacktrack(tail)
                   case tree =>
                     this / tree lookupNoBacktrack (head :: tail)

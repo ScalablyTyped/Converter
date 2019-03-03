@@ -88,6 +88,8 @@ final case class TypeAliasTree(
 
 sealed trait MemberTree extends Tree {
   val isOverride: Boolean
+  val codePath:   QualifiedName
+  def withCodePath(newCodePath: QualifiedName): MemberTree
 }
 
 sealed trait MemberImpl
@@ -103,7 +105,8 @@ final case class FieldTree(
     impl:        MemberImpl,
     isReadOnly:  Boolean,
     isOverride:  Boolean,
-    comments:    Comments
+    comments:    Comments,
+    codePath:    QualifiedName
 ) extends MemberTree {
 
   def withSuffix[T: ToSuffix](t: T): FieldTree =
@@ -113,8 +116,11 @@ final case class FieldTree(
     copy(
       name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
-      isOverride  = false
+      isOverride  = false,
+      codePath    = QualifiedName(codePath.parts.init :+ newName)
     )
+
+  def withCodePath(newCodePath: QualifiedName): FieldTree = copy(codePath = newCodePath)
 }
 
 final case class MethodTree(
@@ -126,7 +132,8 @@ final case class MethodTree(
     impl:        MemberImpl,
     resultType:  TypeRef,
     isOverride:  Boolean,
-    comments:    Comments
+    comments:    Comments,
+    codePath:    QualifiedName
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name withSuffix t)
@@ -135,8 +142,11 @@ final case class MethodTree(
     copy(
       name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
-      isOverride  = false
+      isOverride  = false,
+      codePath    = QualifiedName(codePath.parts.init :+ newName)
     )
+
+  def withCodePath(newCodePath: QualifiedName): MethodTree = copy(codePath = newCodePath)
 }
 
 final case class CtorTree(level: ProtectionLevel, params: Seq[ParamTree], comments: Comments) extends Tree {

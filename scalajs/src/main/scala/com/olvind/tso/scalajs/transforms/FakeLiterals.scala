@@ -46,7 +46,8 @@ object FakeLiterals {
         case found =>
           val members =
             found flatMap { underlying: String =>
-              val name = nameFor(underlying)
+              val name     = nameFor(underlying)
+              val codePath = _s.codePath + moduleName + name
               val `trait` =
                 ClassTree(Seq(JsNative),
                           name,
@@ -57,7 +58,7 @@ object FakeLiterals {
                           ClassType.Trait,
                           isSealed = true,
                           NoComments,
-                          _s.codePath + moduleName + name)
+                          codePath)
               val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
                 MethodTree(
@@ -69,7 +70,8 @@ object FakeLiterals {
                   MemberImplCustom(impl),
                   TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
                   isOverride = false,
-                  comments   = NoComments
+                  comments   = NoComments,
+                  codePath
                 )
               Seq(`trait`, `def`)
             }

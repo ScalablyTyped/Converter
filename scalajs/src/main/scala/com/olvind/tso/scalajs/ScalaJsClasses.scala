@@ -30,9 +30,9 @@ object ScalaJsClasses {
         CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments)
       ),
       Seq(
-        FieldTree(Nil, Name("length"), TypeRef.Int, MemberImplNative, isReadOnly = false, isOverride = false, NoComments),
-        MethodTree(Nil, Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
-        MethodTree(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments),
+        FieldTree(Nil, Name("length"), TypeRef.Int, MemberImplNative, isReadOnly = false, isOverride = false, NoComments, QualifiedName.Function + Name("length")),
+        MethodTree(Nil, Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call")),
+        MethodTree(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImplNative, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind")),
       ),
       ClassType.Class,
       isSealed = false,
@@ -49,6 +49,8 @@ object ScalaJsClasses {
 
     val inputParams = 0 until arity map (n => ParamTree(T(n), TypeRef(T(n)), None, NoComments))
     val R           = TypeRef(Name("R"))
+    val codePath    = QualifiedName.FunctionArity(isThis, arity)
+
     val Apply: MethodTree =
       MethodTree(
         annotations = Nil,
@@ -59,7 +61,8 @@ object ScalaJsClasses {
         impl        = MemberImplNotImplemented,
         resultType  = R,
         isOverride  = false,
-        comments    = NoComments
+        comments    = NoComments,
+        codePath    = codePath + Name.APPLY
       )
 
     val ThisTParam: Seq[TypeParamTree] =
@@ -71,11 +74,9 @@ object ScalaJsClasses {
     val outputTParams: Seq[TypeParamTree] =
       Seq(TypeParamTree(R.name, None, NoComments))
 
-    val qname = QualifiedName.FunctionArity(isThis, arity)
-
     ClassTree(
       annotations = Seq(JsNative),
-      name        = qname.parts.last,
+      name        = codePath.parts.last,
       tparams     = ThisTParam ++ inputTParams ++ outputTParams,
       parents     = Seq(TypeRef(QualifiedName.Function)),
       ctors       = Nil,
@@ -83,7 +84,7 @@ object ScalaJsClasses {
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,
-      qname
+      codePath
     )
   }
 
