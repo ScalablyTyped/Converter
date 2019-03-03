@@ -18,9 +18,9 @@ object Insight {
     clientId: java.lang.String,
     config: insightLib.insightMod.insightNs.IConfigstore,
     optOut: scala.Boolean,
-    track: js.Function1[/* repeated */ java.lang.String, scala.Unit]
+    track: /* repeated */ java.lang.String => scala.Unit
   ): Insight = {
-    val __obj = js.Dynamic.literal(clientId = clientId, config = config, optOut = optOut, track = track)
+    val __obj = js.Dynamic.literal(clientId = clientId, config = config, optOut = optOut, track = js.Any.fromFunction1(track))
   
     __obj.asInstanceOf[Insight]
   }

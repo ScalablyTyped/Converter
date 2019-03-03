@@ -19,10 +19,10 @@ trait JQuery extends js.Object {
 object JQuery {
   @scala.inline
   def apply(
-    addClass: js.Function1[java.lang.String, JQuery],
-    injector: js.Function0[angularLib.angularMod.angularNs.autoNs.IInjectorService]
+    addClass: java.lang.String => JQuery,
+    injector: () => angularLib.angularMod.angularNs.autoNs.IInjectorService
   ): JQuery = {
-    val __obj = js.Dynamic.literal(addClass = addClass, injector = injector)
+    val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
   
     __obj.asInstanceOf[JQuery]
   }

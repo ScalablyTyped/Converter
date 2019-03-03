@@ -17,13 +17,10 @@ trait Anon_Child extends js.Object {
 object Anon_Child {
   @scala.inline
   def apply(
-    childFactory: js.Function1[
-      /* child */ reactLib.reactMod.ReactNs.ReactElement[_], 
-      reactLib.reactMod.ReactNs.ReactElement[_]
-    ] = null
+    childFactory: /* child */ reactLib.reactMod.ReactNs.ReactElement[_] => reactLib.reactMod.ReactNs.ReactElement[_] = null
   ): Anon_Child = {
     val __obj = js.Dynamic.literal()
-    if (childFactory != null) __obj.updateDynamic("childFactory")(childFactory)
+    if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1(childFactory))
     __obj.asInstanceOf[Anon_Child]
   }
 }

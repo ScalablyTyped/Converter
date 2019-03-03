@@ -19,15 +19,10 @@ trait ServeStaticOptions extends js.Object {
 object ServeStaticOptions {
   @scala.inline
   def apply(
-    setHeaders: js.Function3[
-      /* res */ expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Response, 
-      /* path */ java.lang.String, 
-      /* stat */ js.Any, 
-      _
-    ] = null
+    setHeaders: (/* res */ expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Response, /* path */ java.lang.String, /* stat */ js.Any) => _ = null
   ): ServeStaticOptions = {
     val __obj = js.Dynamic.literal()
-    if (setHeaders != null) __obj.updateDynamic("setHeaders")(setHeaders)
+    if (setHeaders != null) __obj.updateDynamic("setHeaders")(js.Any.fromFunction3(setHeaders))
     __obj.asInstanceOf[ServeStaticOptions]
   }
 }

@@ -21,16 +21,16 @@ object VueConfiguration {
   @scala.inline
   def apply(
     devtools: scala.Boolean,
-    errorHandler: js.Function3[stdLib.Error, Vue, java.lang.String, scala.Unit],
+    errorHandler: (stdLib.Error, Vue, java.lang.String) => scala.Unit,
     ignoredElements: js.Array[java.lang.String | stdLib.RegExp],
     keyCodes: org.scalablytyped.runtime.StringDictionary[scala.Double | js.Array[scala.Double]],
     optionMergeStrategies: js.Any,
     performance: scala.Boolean,
     productionTip: scala.Boolean,
     silent: scala.Boolean,
-    warnHandler: js.Function3[java.lang.String, Vue, java.lang.String, scala.Unit]
+    warnHandler: (java.lang.String, Vue, java.lang.String) => scala.Unit
   ): VueConfiguration = {
-    val __obj = js.Dynamic.literal(devtools = devtools, errorHandler = errorHandler, ignoredElements = ignoredElements, keyCodes = keyCodes, optionMergeStrategies = optionMergeStrategies, performance = performance, productionTip = productionTip, silent = silent, warnHandler = warnHandler)
+    val __obj = js.Dynamic.literal(devtools = devtools, errorHandler = js.Any.fromFunction3(errorHandler), ignoredElements = ignoredElements, keyCodes = keyCodes, optionMergeStrategies = optionMergeStrategies, performance = performance, productionTip = productionTip, silent = silent, warnHandler = js.Any.fromFunction3(warnHandler))
   
     __obj.asInstanceOf[VueConfiguration]
   }

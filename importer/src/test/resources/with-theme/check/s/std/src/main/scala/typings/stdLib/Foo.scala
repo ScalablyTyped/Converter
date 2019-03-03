@@ -11,9 +11,9 @@ trait Foo extends js.Object {
 
 object Foo {
   @scala.inline
-  def apply(f: js.Function1[/* n */ scala.Double, java.lang.String] = null): Foo = {
+  def apply(f: /* n */ scala.Double => java.lang.String = null): Foo = {
     val __obj = js.Dynamic.literal()
-    if (f != null) __obj.updateDynamic("f")(f)
+    if (f != null) __obj.updateDynamic("f")(js.Any.fromFunction1(f))
     __obj.asInstanceOf[Foo]
   }
 }

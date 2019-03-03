@@ -22,9 +22,9 @@ object RenderContext {
     injections: js.Any,
     parent: vueLib.typesVueMod.Vue,
     props: Props,
-    slots: js.Function0[js.Any]
+    slots: () => js.Any
   ): RenderContext[Props] = {
-    val __obj = js.Dynamic.literal(children = children, data = data, injections = injections, parent = parent, props = props.asInstanceOf[js.Any], slots = slots)
+    val __obj = js.Dynamic.literal(children = children, data = data, injections = injections, parent = parent, props = props.asInstanceOf[js.Any], slots = js.Any.fromFunction0(slots))
   
     __obj.asInstanceOf[RenderContext[Props]]
   }

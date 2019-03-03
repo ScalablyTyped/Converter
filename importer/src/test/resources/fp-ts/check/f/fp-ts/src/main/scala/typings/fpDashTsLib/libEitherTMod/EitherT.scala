@@ -16,16 +16,12 @@ trait EitherT[F]
 object EitherT {
   @scala.inline
   def apply[F](
-    chain: js.Function2[
-      js.Function1[
-        js.Any, 
-        fpDashTsLib.libHKTMod.HKT[F, fpDashTsLib.libEitherMod.Either[js.Any, js.Any]]
-      ], 
-      fpDashTsLib.libHKTMod.HKT[F, fpDashTsLib.libEitherMod.Either[js.Any, js.Any]], 
+    chain: (js.Function1[
+      js.Any, 
       fpDashTsLib.libHKTMod.HKT[F, fpDashTsLib.libEitherMod.Either[js.Any, js.Any]]
-    ]
+    ], fpDashTsLib.libHKTMod.HKT[F, fpDashTsLib.libEitherMod.Either[js.Any, js.Any]]) => fpDashTsLib.libHKTMod.HKT[F, fpDashTsLib.libEitherMod.Either[js.Any, js.Any]]
   ): EitherT[F] = {
-    val __obj = js.Dynamic.literal(chain = chain)
+    val __obj = js.Dynamic.literal(chain = js.Any.fromFunction2(chain))
   
     __obj.asInstanceOf[EitherT[F]]
   }

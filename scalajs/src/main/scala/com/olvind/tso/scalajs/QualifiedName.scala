@@ -70,6 +70,8 @@ object QualifiedName {
 
   def Instantiable(arity:   Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
   def FunctionArity(isThis: Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)
+  def ScalaFunctionArity(arity: Int): QualifiedName = scala + Name.FunctionArity(isThis = false, arity)
+
   def Tuple(arity:          Int): QualifiedName =
     arity match {
       case 0 | 1 => Array

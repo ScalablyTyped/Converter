@@ -322,6 +322,13 @@ object Printer {
   def formatTypeRef(prefix: List[Name], indent: Int)(t1: TypeRef): String = {
     val ret: String =
       t1 match {
+        case TypeRef.ScalaFunction(paramTypes, retType) =>
+          val params = paramTypes match {
+            case Seq(one) => formatTypeRef(prefix, indent)(one)
+            case many     => (many map formatTypeRef(prefix, indent)).mkString("(", ", ", ")")
+          }
+          s"$params => ${formatTypeRef(prefix, indent)(retType)}"
+
         case TypeRef.ThisType(_) => "this.type"
         case TypeRef.Wildcard    => "_"
 
