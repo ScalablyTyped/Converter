@@ -27,19 +27,16 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
   *
   * If not it wouldn't be safe to call from scala since it discards `this`.
   */
-object ExpandCallables extends TransformClassMembers {
-  /* yeah, sorry. This is out of band information because we cannot
-      rename the original member until we reach scala :/
-   */
-  val MarkerComment = Comment("/* Expanded */")
-
+case class ExpandCallables(canExpand: (TsType, TsTreeScope) => Boolean) extends TransformClassMembers {
   override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
     members.flatMap {
-      case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false) =>
-        callableTypes(scope)(tpe) match {
-          case Expand(callables, keepOriginalMember) if callables.nonEmpty =>
+      case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false)
+          if canExpand(tpe, scope) =>
+        ExpandCallables.callableTypes(scope)(tpe) match {
+          case ExpandCallables.Expand(callables, keepOriginalMember) if callables.nonEmpty =>
             val keptOpt: Option[TsMemberProperty] =
-              if (keepOriginalMember || !isReadonly) Some(m.copy(comments = m.comments + MarkerComment)) else None
+              if (keepOriginalMember || !isReadonly) Some(m.copy(comments = m.comments + ExpandCallables.MarkerComment))
+              else None
 
             val fs: Seq[TsMemberFunction] =
               callables.map {
@@ -56,6 +53,14 @@ object ExpandCallables extends TransformClassMembers {
 
       case other => other :: Nil
     }
+
+}
+
+object ExpandCallables {
+  /* yeah, sorry. This is out of band information because we cannot
+      rename the original member until we reach scala :/
+   */
+  val MarkerComment = Comment("/* Expanded */")
 
   sealed trait Result
   object Result {
