@@ -18,14 +18,14 @@ trait Event
 object Event {
   @scala.inline
   def apply(
-    preventDefault: js.Function0[scala.Unit],
+    preventDefault: () => scala.Unit,
     returnValue: js.Any,
     altKey: js.UndefOr[scala.Boolean] = js.undefined,
     ctrlKey: js.UndefOr[scala.Boolean] = js.undefined,
     metaKey: js.UndefOr[scala.Boolean] = js.undefined,
     shiftKey: js.UndefOr[scala.Boolean] = js.undefined
   ): Event = {
-    val __obj = js.Dynamic.literal(preventDefault = preventDefault, returnValue = returnValue)
+    val __obj = js.Dynamic.literal(preventDefault = js.Any.fromFunction0(preventDefault), returnValue = returnValue)
     if (!js.isUndefined(altKey)) __obj.updateDynamic("altKey")(altKey)
     if (!js.isUndefined(ctrlKey)) __obj.updateDynamic("ctrlKey")(ctrlKey)
     if (!js.isUndefined(metaKey)) __obj.updateDynamic("metaKey")(metaKey)

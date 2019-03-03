@@ -211,19 +211,60 @@ object TypeRef {
   def TopLevel(typeParam: TypeRef): TypeRef =
     TypeRef(QualifiedName.TopLevel, Seq(typeParam), NoComments)
 
-  def Function(thisType: Option[TypeRef], typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
-    val rewriteRepeated: Seq[TypeRef] =
-      typeParams.lastOption match {
-        case Some(Repeated(underlying, _)) =>
-          val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
-          typeParams.dropRight(1) :+ commented
-        case _ =>
-          typeParams
+  object Function {
+    def apply(thisType: Option[TypeRef], typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
+      val rewriteRepeated: Seq[TypeRef] =
+        typeParams.lastOption match {
+          case Some(Repeated(underlying, _)) =>
+            val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+            typeParams.dropRight(1) :+ commented
+          case _ =>
+            typeParams
+        }
+
+      val finalTparams = thisType.to[Seq] ++ (rewriteRepeated :+ resType)
+
+      TypeRef(QualifiedName.FunctionArity(thisType.isDefined, typeParams.size), finalTparams, comments)
+    }
+
+    private val F = "Function(\\d+)".r
+
+    def unapply(tr: TypeRef): Option[(Seq[TypeRef], TypeRef)] =
+      if (tr.typeName.startsWith(QualifiedName.scala_js) && tr.typeName.parts.length === QualifiedName.scala_js.parts.length + 1) {
+        tr.typeName.parts.last.unescaped match {
+          case F(_) => Some((tr.targs.init, tr.targs.last))
+          case _    => None
+        }
+      } else None
+  }
+
+  object ScalaFunction {
+    def apply(typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
+      val rewriteRepeated: Seq[TypeRef] =
+        typeParams.lastOption match {
+          case Some(Repeated(underlying, _)) =>
+            val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+            typeParams.dropRight(1) :+ commented
+          case _ =>
+            typeParams
+        }
+
+      val finalTparams = rewriteRepeated :+ resType
+
+      TypeRef(QualifiedName.ScalaFunctionArity(typeParams.size), finalTparams, comments)
+    }
+
+    private val F = "Function(\\d+)".r
+
+    def unapply(tr: TypeRef): Option[(Seq[TypeRef], TypeRef)] =
+      tr.typeName.parts match {
+        case Name.scala :: f :: Nil =>
+          f.unescaped match {
+            case F(_) => Some((tr.targs.init, tr.targs.last))
+            case _    => None
+          }
+        case _ => None
       }
-
-    val finalTparams = thisType.to[Seq] ++ (rewriteRepeated :+ resType)
-
-    TypeRef(QualifiedName.FunctionArity(thisType.isDefined, typeParams.size), finalTparams, comments)
   }
 
   def Tuple(typeParams: Seq[TypeRef]): TypeRef =

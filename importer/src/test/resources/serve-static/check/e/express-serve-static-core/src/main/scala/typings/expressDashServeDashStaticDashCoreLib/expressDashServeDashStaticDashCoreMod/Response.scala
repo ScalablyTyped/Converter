@@ -12,8 +12,8 @@ trait Response
 
 object Response {
   @scala.inline
-  def apply(location: js.Function1[java.lang.String, Response]): Response = {
-    val __obj = js.Dynamic.literal(location = location)
+  def apply(location: java.lang.String => Response): Response = {
+    val __obj = js.Dynamic.literal(location = js.Any.fromFunction1(location))
   
     __obj.asInstanceOf[Response]
   }

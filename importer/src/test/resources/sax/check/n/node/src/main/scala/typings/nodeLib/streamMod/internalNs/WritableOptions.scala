@@ -17,13 +17,10 @@ trait WritableOptions extends js.Object {
 object WritableOptions {
   @scala.inline
   def apply(
-    `final`: js.Function1[
-      /* callback */ js.Function1[/* error */ js.UndefOr[nodeLib.Error], scala.Unit], 
-      scala.Unit
-    ] = null
+    `final`: /* callback */ js.Function1[/* error */ js.UndefOr[nodeLib.Error], scala.Unit] => scala.Unit = null
   ): WritableOptions = {
     val __obj = js.Dynamic.literal()
-    if (`final` != null) __obj.updateDynamic("final")(`final`)
+    if (`final` != null) __obj.updateDynamic("final")(js.Any.fromFunction1(`final`))
     __obj.asInstanceOf[WritableOptions]
   }
 }

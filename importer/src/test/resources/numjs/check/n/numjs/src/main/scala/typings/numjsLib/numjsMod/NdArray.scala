@@ -19,9 +19,9 @@ object NdArray {
     T: NdArray[T],
     data: ndarrayLib.ndarrayMod.ndarrayNs.Data[T],
     ndim: scala.Double,
-    slice: js.Function1[/* repeated */ scala.Double, NdArray[T]]
+    slice: /* repeated */ scala.Double => NdArray[T]
   ): NdArray[T] = {
-    val __obj = js.Dynamic.literal(T = T, data = data, ndim = ndim, slice = slice)
+    val __obj = js.Dynamic.literal(T = T, data = data, ndim = ndim, slice = js.Any.fromFunction1(slice))
   
     __obj.asInstanceOf[NdArray[T]]
   }

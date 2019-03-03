@@ -24,24 +24,12 @@ trait CldrFactory extends js.Object {
 object CldrFactory {
   @scala.inline
   def apply(
-    load: js.Function2[js.Any, /* repeated */ js.Any, scala.Unit],
-    off: js.Function2[
-      java.lang.String, 
-      js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit], 
-      scala.Unit
-    ],
-    on: js.Function2[
-      java.lang.String, 
-      js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit], 
-      scala.Unit
-    ],
-    once: js.Function2[
-      java.lang.String, 
-      js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit], 
-      scala.Unit
-    ]
+    load: (js.Any, /* repeated */ js.Any) => scala.Unit,
+    off: (java.lang.String, js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]) => scala.Unit,
+    on: (java.lang.String, js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]) => scala.Unit,
+    once: (java.lang.String, js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]) => scala.Unit
   ): CldrFactory = {
-    val __obj = js.Dynamic.literal(load = load, off = off, on = on, once = once)
+    val __obj = js.Dynamic.literal(load = js.Any.fromFunction2(load), off = js.Any.fromFunction2(off), on = js.Any.fromFunction2(on), once = js.Any.fromFunction2(once))
   
     __obj.asInstanceOf[CldrFactory]
   }
