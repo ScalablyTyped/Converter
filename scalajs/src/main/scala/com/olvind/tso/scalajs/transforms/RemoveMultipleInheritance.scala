@@ -75,7 +75,14 @@ object RemoveMultipleInheritance extends TreeTransformation {
                 if included.nonEmpty && c.classType =/= ClassType.Trait && !included.exists(
                   _.transitiveParents.exists(_._2 === c)
                 ) =>
-              Dropped(h.refs.last, "Inheritance from two classes", Nil)
+              val includedFields: Seq[Name] =
+                (/* baseMembers ++ */ dropped.flatMap(_.members) ++ included.flatMap(_.fields)).map(_.name)
+
+              val inlined = h.classTree.members.filterNot(m => includedFields.contains(m.name))
+
+              Dropped(h.refs.last,
+                      s"Inheritance from two classes. Inlined ${inlined.map(_.name.value).mkString(", ")}",
+                      inlined)
           }
 
         def alreadyInherits: Option[Dropped] =

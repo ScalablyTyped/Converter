@@ -292,7 +292,7 @@ object Companions extends TreeTransformation {
       }
   }
 
-  /* primitives can be be `null` in Scala */
+  /* primitives can not be `null` in Scala */
   object CanBeNull {
     val NotNullable: Set[TypeRef] =
       Set(TypeRef.Boolean, TypeRef.Int, TypeRef.Long, TypeRef.Unit, TypeRef.Double, TypeRef.Nothing)
