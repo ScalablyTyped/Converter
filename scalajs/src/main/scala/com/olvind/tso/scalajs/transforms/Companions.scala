@@ -56,7 +56,7 @@ object Companions extends TreeTransformation {
         .skipParentInlineIfMoreMembersThan(MaxParamsForMethod) { parent =>
           val isRequired = parent.classTree.members.exists {
             case _: MethodTree => true
-            case FieldTree(_, _, OptionalType(_), _, _, _, _) => false
+            case FieldTree(_, _, OptionalType(_), _, _, _, _, _) => false
             case _: FieldTree => true
           }
           parentParameter(parent.refs.head, isRequired)
@@ -99,7 +99,8 @@ object Companions extends TreeTransformation {
                   |}""".stripMargin),
                 applyRet,
                 isOverride = false,
-                NoComments
+                NoComments,
+                cls.codePath + Name.APPLY
               )
             ),
             NoComments,
@@ -188,7 +189,7 @@ object Companions extends TreeTransformation {
     /* yeah, i know. We'll refactor if we'll do many more rewrites */
     patched match {
       /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
-      case FieldTree(anns, name, OptionalType(TypeRef.Double), _, _, _, _) =>
+      case FieldTree(anns, name, OptionalType(TypeRef.Double), _, _, _, _, _) =>
         val tpe          = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
         val originalName = findOriginalName(name, anns)
 
@@ -202,7 +203,7 @@ object Companions extends TreeTransformation {
             )
           )
         )
-      case FieldTree(anns, name, OptionalType(tpe), _, _, _, _) if !CanBeNull(tpe, scope / x) =>
+      case FieldTree(anns, name, OptionalType(tpe), _, _, _, _, _) if !CanBeNull(tpe, scope / x) =>
         val originalName = findOriginalName(name, anns)
 
         Some(
@@ -219,7 +220,7 @@ object Companions extends TreeTransformation {
           )
         )
 
-      case FieldTree(anns, name, OptionalType(TypeRef.Function(paramTypes, retType)), _, _, _, _) =>
+      case FieldTree(anns, name, OptionalType(TypeRef.Function(paramTypes, retType)), _, _, _, _, _) =>
         val originalName    = findOriginalName(name, anns)
         val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
@@ -233,7 +234,7 @@ object Companions extends TreeTransformation {
           )
         )
 
-      case FieldTree(anns, name, OptionalType(_tpe), _, _, _, _) =>
+      case FieldTree(anns, name, OptionalType(_tpe), _, _, _, _, _) =>
         val originalName = findOriginalName(name, anns)
         val tpe          = if (_tpe === TypeRef.Wildcard) TypeRef.Any else _tpe
 
@@ -251,7 +252,7 @@ object Companions extends TreeTransformation {
           )
         )
 
-      case FieldTree(anns, name, TypeRef.Function(paramTypes, retType), _, _, _, _) =>
+      case FieldTree(anns, name, TypeRef.Function(paramTypes, retType), _, _, _, _, _) =>
         val originalName    = findOriginalName(name, anns)
         val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
@@ -268,7 +269,7 @@ object Companions extends TreeTransformation {
           )
         )
 
-      case FieldTree(anns, name, tpe, _, _, _, _) =>
+      case FieldTree(anns, name, tpe, _, _, _, _, _) =>
         val originalName = findOriginalName(name, anns)
         Some(
           Param(

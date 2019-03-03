@@ -67,7 +67,8 @@ object ImportEnum {
               impl        = MemberImplNative,
               resultType  = TypeRef.Intersection(baseInterface :: underlying :: Nil).withOptional(true),
               isOverride  = false,
-              comments    = NoComments
+              comments    = NoComments,
+              codePath    = importedCodePath + Name.APPLY
             )
           )
         } else None
@@ -109,7 +110,8 @@ object ImportEnum {
                     tpe         = TypeRef.Intersection(memberTypeRef :: underlying :: Nil),
                     comments    = memberComments,
                     isReadOnly  = true,
-                    isOverride  = false
+                    isOverride  = false,
+                    codePath    = importedCodePath + memberName
                   )
                 )
               } else None

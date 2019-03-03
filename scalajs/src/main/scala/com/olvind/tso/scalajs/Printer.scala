@@ -205,7 +205,7 @@ object Printer {
           print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
         println(s" = ", formatTypeRef(prefix, indent)(alias))
 
-      case FieldTree(anns, name, tpe, fieldType, isReadOnly, isOverride, comments) =>
+      case FieldTree(anns, name, tpe, fieldType, isReadOnly, isOverride, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -223,7 +223,7 @@ object Printer {
           case MemberImplCustom(impl)   => println(" = ", impl)
         }
 
-      case MethodTree(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments) =>
+      case MethodTree(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 

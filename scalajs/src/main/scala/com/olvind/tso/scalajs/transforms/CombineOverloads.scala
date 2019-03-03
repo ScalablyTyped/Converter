@@ -157,11 +157,12 @@ object CombineOverloads extends TreeTransformation {
                      MemberImplNative,
                      TypeRef.Nothing,
                      false,
-                     ctor.comments)
+                     ctor.comments,
+                     QualifiedName(Nil))
       )
     val ret = combineOverloads(scope, asMethods)
     ret.map {
-      case MethodTree(_, level, _, _, params, _, _, _, comments) =>
+      case MethodTree(_, level, _, _, params, _, _, _, comments, _) =>
         CtorTree(level, params.head, comments)
     }
   }
