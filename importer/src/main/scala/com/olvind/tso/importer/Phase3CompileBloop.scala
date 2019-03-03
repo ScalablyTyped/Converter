@@ -65,11 +65,6 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
             )
           )
 
-        def externalDeps: Set[AbsolutePath] =
-          buildJson.dependencies.flatMap(
-            dep => DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)
-          )
-
         dependencies flatMap (x => getDeps(x.sorted)) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
             val sourceFilesBase: Map[RelPath, (Array[Byte], FileTime)] =
@@ -103,7 +98,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               organization = organization,
               name         = source.libName.value,
               version      = VersionHack.TemplateValue,
-              deps         = deps.values.to[Seq],
+              localDeps    = deps.values.to[Seq],
+              contribDeps  = buildJson.dependencies,
               scalaFiles   = sourceFiles,
               projectName  = projectName
             )
@@ -115,7 +111,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               name               = source.libName.value,
               sbtLayout          = sbtLayout,
               compilerPaths      = CompilerPaths(versions, source.path),
-              externalDeps       = externalDeps,
+              dependencies       = buildJson.dependencies,
               deleteUnknownFiles = false,
               makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}"
             )
@@ -132,7 +128,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               organization = organization,
               name         = lib.libName,
               version      = VersionHack.TemplateValue,
-              deps         = deps.values.to[Seq],
+              localDeps    = deps.values.to[Seq],
+              contribDeps  = Set(),
               scalaFiles   = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               projectName  = projectName
             )
@@ -144,7 +141,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               name               = lib.libName,
               sbtLayout          = sbtLayout,
               compilerPaths      = CompilerPaths.of(versions, targetFolder, lib.libName),
-              externalDeps       = Nil,
+              dependencies       = Set(),
               deleteUnknownFiles = true,
               makeVersion        = lib.libVersion.version
             )
@@ -157,7 +154,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
          name:               String,
          sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
          compilerPaths:      CompilerPaths,
-         externalDeps:       => Iterable[AbsolutePath],
+         dependencies:       Set[ContribJson.Dep],
          deleteUnknownFiles: Boolean,
          makeVersion:        Digest => String): PhaseRes[Source, PublishedSbtProject] = {
 
@@ -181,33 +178,37 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
     } else {
 
-      val localClassPath: Seq[AbsolutePath] =
-        deps.values.to[Seq] map { x =>
-          x.localIvyFiles.all
-            .collectFirst {
-              case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
-                AbsolutePath(path.toIO)
-            }
-            .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
-        }
-
       rm(compilerPaths.classesDir)
 
       val compileWithCachedFailures = {
         val isFailure: PartialFunction[Result, Result.Failed] = {
           case x: Result.Failed
               /* protect against flaky errors */
-              if !x.problems.exists(_.message().contains("bad option: -P:scalajs:sjsDefinedByDefault"))
-                && x.t.isEmpty =>
+              if !x.problems.exists(_.message().contains("bad option: -P:scalajs:sjsDefinedByDefault")) && x.t.isEmpty =>
             x
         }
+
+        val localClassPath: Seq[AbsolutePath] =
+          deps.values.to[Seq] map { x =>
+            x.localIvyFiles.all
+              .collectFirst {
+                case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
+                  AbsolutePath(path.toIO)
+              }
+              .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
+          }
+
+        val externalClasspath: Set[AbsolutePath] =
+          dependencies.flatMap(
+            dep => DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)
+          )
 
         import ResultFailedJsonCodec._
 
         PersistingFunction.taskPartial(
           failureCacheDir / name / finalVersion,
           logger,
-          bloop.compileLib(compilerPaths, localClassPath ++ externalDeps),
+          bloop.compileLib(compilerPaths, localClassPath ++ externalClasspath),
           extract = isFailure
         )
       }

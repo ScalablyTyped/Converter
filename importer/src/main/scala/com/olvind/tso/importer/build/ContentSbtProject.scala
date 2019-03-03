@@ -1,8 +1,10 @@
 package com.olvind.tso
-package importer.build
+package importer
+package build
 
 import ammonite.ops.RelPath
 import com.olvind.tso.stringUtils.quote
+import sets.SetOps
 
 object ContentSbtProject {
   def apply(v:            Versions,
@@ -10,20 +12,22 @@ object ContentSbtProject {
             organization: String,
             name:         String,
             version:      String,
-            deps:         Seq[PublishedSbtProject],
+            localDeps:    Seq[PublishedSbtProject],
+            contribDeps:  Set[ContribJson.Dep],
             scalaFiles:   Map[RelPath, Array[Byte]],
             projectName:  String): SbtProjectLayout[RelPath, Array[Byte]] = {
 
-    val Fixed: List[String] =
-      List(
-        v.%%%(v.scalaJsOrganization, "scalajs-dom", v.scalaJsDomVersion),
-        v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion)
-      )
-
     val buildSbt = {
-      val ds =
-        (Fixed ++ deps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))).sorted
-          .mkString("Seq(\n  ", ",\n  ", ")")
+      val fixed =
+        List(
+          v.%%%(v.scalaJsOrganization, "scalajs-dom", v.scalaJsDomVersion),
+          v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion)
+        )
+
+      val external = contribDeps.map(d => v.%%%(d.org, d.artifact, d.version))
+      val local    = localDeps.map(d   => v.%%%(d.project.organization, d.project.name, d.project.version))
+
+      val ds = (external ++ fixed ++ local).sorted.mkString("Seq(\n  ", ",\n  ", ")")
 
       val scalacOptions =
         if (v.scalaJsBinVersion === "0.6") s"scalacOptions += ${quote("-P:scalajs:sjsDefinedByDefault")}"
