@@ -179,7 +179,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 //                      T.ApplyTypeMapping >> //after ResolveTypeLookups
                     T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
-                    T.ExpandCallables >>
+                    T.ExpandCallables((tpe, _) => !IsFunctionalComponent(tpe)) >>
                     T.ExpandKeyOfTypeParams >>
                     T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     T.UnionTypesFromKeyOf >>
