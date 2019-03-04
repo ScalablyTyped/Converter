@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSGlobalScope
 @js.native
 object ^ extends js.Object {
-  val Array: stdLib.ArrayConstrucor = js.native
+  val Array: ArrayConstrucor = js.native
 }
 

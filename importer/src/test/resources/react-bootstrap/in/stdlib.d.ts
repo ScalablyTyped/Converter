@@ -8,3 +8,7 @@ type Pick<T, K extends keyof T> = {
 };
 
 interface Function {}
+
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};

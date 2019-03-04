@@ -50,6 +50,7 @@ object QualifiedName {
   val THIS_TYPE:        QualifiedName = QualifiedName(Name.THIS_TYPE :: Nil)
   val WILDCARD:         QualifiedName = QualifiedName(Name.WILDCARD :: Nil)
   val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
+  val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
 
   object Std {
     private val std = QualifiedName(Name("stdLib") :: Nil)
@@ -68,11 +69,11 @@ object QualifiedName {
     val Symbol:        QualifiedName = std + Name.Symbol
   }
 
-  def Instantiable(arity:   Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
-  def FunctionArity(isThis: Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)
+  def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
+  def FunctionArity(isThis:     Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)
   def ScalaFunctionArity(arity: Int): QualifiedName = scala + Name.FunctionArity(isThis = false, arity)
 
-  def Tuple(arity:          Int): QualifiedName =
+  def Tuple(arity: Int): QualifiedName =
     arity match {
       case 0 | 1 => Array
       case n     => scala_js + Name("Tuple" + n.toString)

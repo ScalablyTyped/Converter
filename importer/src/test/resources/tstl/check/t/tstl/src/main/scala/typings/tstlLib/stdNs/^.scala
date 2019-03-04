@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSGlobal("std")
 @js.native
 object ^ extends js.Object {
-  var queue: org.scalablytyped.runtime.Instantiable0[tstlLib.stdNs.Queue[js.Object]] = js.native
+  var queue: org.scalablytyped.runtime.Instantiable0[Queue[js.Object]] = js.native
 }
 

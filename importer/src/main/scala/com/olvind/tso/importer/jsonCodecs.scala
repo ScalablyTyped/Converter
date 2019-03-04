@@ -1,17 +1,17 @@
-package com.olvind.tso.importer
+package com.olvind.tso
+package importer
 
 import java.net.URI
 
 import ammonite.ops.RelPath
 import com.olvind.tso.ts._
-import com.olvind.tso.{Comment, Comments}
 import io.circe._
 
 object jsonCodecs extends MetadataCodecs with TreeCodecs
 
 trait MetadataCodecs {
 
-  implicit val RelPathDecoder: Decoder[RelPath] = Decoder[String].map(str => RelPath(str))
+  implicit val RelPathDecoder: Decoder[RelPath] = Decoder[String].map(str => RelPath(str.dropWhile(_ === '/')))
   implicit val RelPathEncoder: Encoder[RelPath] = Encoder[String].contramap[RelPath](_.toString)
   implicit val URIDecoder:     Decoder[URI]     = Decoder[String].map(new URI(_))
   implicit val URIEncoder:     Encoder[URI]     = Encoder[String].contramap[URI](_.toString)

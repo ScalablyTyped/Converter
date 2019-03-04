@@ -179,7 +179,6 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 //                      T.ApplyTypeMapping >> //after ResolveTypeLookups
                     T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
-                    T.ExpandCallables((tpe, _) => !IsFunctionalComponent(tpe)) >>
                     T.ExpandKeyOfTypeParams >>
                     T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     T.UnionTypesFromKeyOf >>
@@ -188,6 +187,8 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                     T.RewriteTypeThis //
                 ).visitTsParsedFile(scope.caching),
                 T.DefaultedTParams.visitTsParsedFile(scope), //after SimplifyTypes
+                T.ExpandCallables((tpe, _) => !IsFunctionalComponent(tpe))
+                  .visitTsParsedFile(scope), //after DefaultedTParams, before SplitMethodsOnUnionTypes
                 (
                   T.InlineTrivialTypeAlias >> //after DefaultedTParams
                     T.SplitMethodsOnUnionTypes >>

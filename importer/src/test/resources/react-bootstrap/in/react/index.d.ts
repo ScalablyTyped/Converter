@@ -43,4 +43,28 @@ declare namespace React {
         type: "foo"
         value: "foo"
     }
+
+    type ComponentState = {};
+    type SFC<P = {}> = StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
+
+    interface ReactElement<P> {
+        type: string | ComponentClass<P> | SFC<P>;
+        props: P;
+        key: Key | null;
+    }
+
+    interface StatelessComponent<P = {}> {
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+    interface ComponentClass<P = {}> {
+        new(props: P, context?: any): Component<P, ComponentState>;
+
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
 }

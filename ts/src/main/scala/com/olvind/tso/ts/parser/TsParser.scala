@@ -300,9 +300,9 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
       "abstract".isDefined
 
     val functionCall: Parser[TsTypeRef] =
-      qualifiedIdent ~ ("(" ~> repsep(qualifiedIdent, ",") <~ ")") ^^ {
-        case qi ~ types =>
-          val str = s"${TsTypeFormatter.qident(qi)}(${types.map(tpe => TsTypeFormatter.qident(tpe)).mkString(", ")})"
+      qualifiedIdent ~ ("(" ~> repsep(qualifiedIdent | tsType, ",") <~ ")") ^^ {
+        case qi ~ _ =>
+          val str = s"${TsTypeFormatter.qident(qi)}(...)"
           TsTypeRef.any.copy(Comments(Comment.warning(s"class extends from function call: $str")))
       }
 
@@ -400,27 +400,18 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
   }
 
   lazy val tsType: Parser[TsType] = memo {
-    val tsTypeLookup: Parser[TsType] = memo {
-      baseTypeDesc ~ rep("[" ~> tsType <~ "]") ^^ {
+    val tsTypeLookupAndArray: Parser[TsType] = memo {
+      baseTypeDesc ~ rep("[" ~> tsType.? <~ "]") ^^ {
         case base ~ typeLookups =>
-          (base /: typeLookups) { (elem, key) =>
-            TsTypeLookup(elem, key)
+          (base /: typeLookups) {
+            case (elem, Some(key)) => TsTypeLookup(elem, key)
+            case (elem, None)      => ArrayType(elem)
           }
       }
     }
 
-    val arrayType: Parser[TsType] =
-      memo {
-        tsTypeLookup ~ rep("[" ~ "]") ^^ {
-          case base ~ arrayDims =>
-            (base /: arrayDims) { (elem, _) =>
-              ArrayType(elem)
-            }
-        }
-      }
-
     val union: Parser[TsType] =
-      "|".? ~> rep1sep(arrayType, "|") ^^ TsTypeUnion.simplified
+      "|".? ~> rep1sep(tsTypeLookupAndArray, "|") ^^ TsTypeUnion.simplified
 
     val intersect = "&".? ~> rep1sep(union, "&") ^^ {
       case head :: Nil => head

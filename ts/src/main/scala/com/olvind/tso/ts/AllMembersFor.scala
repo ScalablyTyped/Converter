@@ -32,21 +32,25 @@ object AllMembersFor {
     fromThis ++ parentsFields.filterNot(x => thisFieldOverrides(x.name)) ++ parentsRest
   }
 
-  def apply(scope: TsTreeScope, loopDetector: LoopDetector)(typeRef: TsTypeRef): Seq[TsMember] =
-    scope lookupInternal (Picker.Types, typeRef.name.parts, loopDetector) flatMap {
-      case (x: TsDeclInterface, newScope) =>
-        forInterface(loopDetector, x, newScope, typeRef.tparams)
+  def apply(scope: TsTreeScope, _loopDetector: LoopDetector)(typeRef: TsTypeRef): Seq[TsMember] =
+    _loopDetector.including(typeRef.name.parts, scope) match {
+      case Left(()) => Nil
+      case Right(newLoopDetector) =>
+        scope.lookupInternal(Picker.Types, typeRef.name.parts, LoopDetector.initial) flatMap {
+          case (x: TsDeclInterface, newScope) =>
+            forInterface(newLoopDetector, x, newScope, typeRef.tparams)
 
-      case (x: TsDeclClass, newScope) =>
-        FillInTParams(x, typeRef.tparams) match {
-          case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
-            handleOverridingFields(members, implements ++ parent flatMap apply(newScope, loopDetector))
+          case (x: TsDeclClass, newScope) =>
+            FillInTParams(x, typeRef.tparams) match {
+              case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
+                handleOverridingFields(members, implements ++ parent flatMap apply(newScope, newLoopDetector))
+            }
+
+          case (x: TsDeclTypeAlias, newScope) =>
+            forType(newScope, newLoopDetector)(FillInTParams(x, typeRef.tparams).alias)
+
+          case _ => Nil
         }
-
-      case (x: TsDeclTypeAlias, newScope) =>
-        forType(newScope, loopDetector)(FillInTParams(x, typeRef.tparams).alias)
-
-      case _ => Nil
     }
 
   def forInterface(loopDetector: TsTreeScope.LoopDetector,

@@ -24,8 +24,8 @@ package transforms
   */
 object NormalizeFunctions extends TransformMembers with TransformClassMembers {
 
-  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
-    members.map {
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+    x.members.map {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
         TsMemberProperty(comments,
                          level,
@@ -43,10 +43,11 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
   override def enterTsExporteeTree(t: TsTreeScope)(x: TsExporteeTree): TsExporteeTree =
     x.copy(decl = rewriteDecl(x.decl))
 
-  def newMembers(scope: TsTreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = members map {
-    case decl: TsDecl => rewriteDecl(decl)
-    case other => other
-  }
+  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+    x.members map {
+      case decl: TsDecl => rewriteDecl(decl)
+      case other => other
+    }
 
   private def rewriteDecl(d: TsDecl): TsDecl =
     d match {

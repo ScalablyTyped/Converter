@@ -5,8 +5,8 @@ package transforms
 import scala.collection.mutable.ListBuffer
 
 object SplitMethodsOnOptionalParams extends TransformMembers with TransformClassMembers {
-  override def newClassMembers(scope: TsTreeScope, xs: Seq[TsMember]): Seq[TsMember] =
-    xs flatMap {
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+    x.members flatMap {
       case x: TsMemberCtor =>
         RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
       case x: TsMemberFunction if !x.isOptional =>
@@ -16,8 +16,8 @@ object SplitMethodsOnOptionalParams extends TransformMembers with TransformClass
       case other => List(other)
     }
 
-  override def newMembers(scope: TsTreeScope, xs: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
-    xs flatMap {
+  override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+    x.members flatMap {
       case x: TsDeclFunction =>
         RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
       case other => List(other)

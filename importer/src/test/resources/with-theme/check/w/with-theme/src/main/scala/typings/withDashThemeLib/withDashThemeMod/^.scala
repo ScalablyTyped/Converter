@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 object ^ extends js.Object {
   def default(): js.Function1[
-    /* component */ reactLib.ReactNs.ComponentType[js.Any with withDashThemeLib.withDashThemeMod.WithTheme], 
+    /* component */ reactLib.ReactNs.ComponentType[js.Any with WithTheme], 
     reactLib.ReactNs.ComponentClass[_]
   ] = js.native
 }

@@ -11,9 +11,11 @@ class Observable[T] ()
   extends rxjsLib.internalTypesMod.Subscribable[T] {
   /** Internal implementation detail, do not use directly. */
   var _isScalar: scala.Boolean = js.native
-  var foo: rxjsLib.internalTypesMod.OperatorFunction[scala.Double, java.lang.String] = js.native
+  @JSName("foo")
+  var foo_Original: rxjsLib.internalTypesMod.OperatorFunction[scala.Double, java.lang.String] = js.native
   /** @deprecated This is an internal implementation detail, do not use. */
   var source: Observable[_] = js.native
+  def foo(source: Observable[scala.Double]): Observable[java.lang.String] = js.native
   def pipe(): Observable[T] = js.native
 }
 

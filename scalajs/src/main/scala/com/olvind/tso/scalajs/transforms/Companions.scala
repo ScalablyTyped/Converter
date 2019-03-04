@@ -14,10 +14,7 @@ import seqs._
 object Companions extends TreeTransformation {
 
 //  /* javascript limitation */
-//  val MaxParamsForMethod = 254
-
-  /* max that works with for instance csstype */
-  val MaxParamsForMethod = 150
+  val MaxParamsForMethod = 254
 
   final case class Param(parameter: ParamTree, isOptional: Boolean, asString: Either[String, String => String])
 

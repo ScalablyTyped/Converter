@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSGlobal("Electron")
 @js.native
 object ^ extends js.Object {
-  val app: electronLib.ElectronNs.App = js.native
+  val app: App = js.native
 }
 
