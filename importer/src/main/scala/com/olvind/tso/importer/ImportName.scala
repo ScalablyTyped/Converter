@@ -22,30 +22,11 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
     i match {
       case TsIdent.Apply           => Name.APPLY
       case TsIdentSimple(value)    => Name(value)
-      case TsIdentNamespace(value) => Name(rewrite(value, "Ns", forceCamelCase = false))
-      case x: TsIdentLibrary => Name(rewrite(x.value, "Lib", forceCamelCase = true))
+      case TsIdentNamespace(value) => Name(prettyString(value, "Ns", forceCamelCase = false))
+      case x: TsIdentLibrary => Name(prettyString(x.value, "Lib", forceCamelCase = true))
       case x: TsIdentModule  => rewriteModuleName(x)
       case x: TsIdentImport  => sys.error(s"Unexpected: $x")
     }
-
-  private def rewrite(value: String, suffix: String, forceCamelCase: Boolean): String =
-    value
-      .flatMap {
-        case '\\'  => "#backslash#" //be safe
-        case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
-        case '@'   => "#at#"
-        case '_'   => "#underscore#" // will be erased otherwise
-        case '-'   => "#dash#" //causes `` in scala code
-        case other => other.toString
-      }
-      .split("[#/]")
-      .filterNot(_.isEmpty)
-      .zipWithIndex
-      .map {
-        case (x, 0) => if (forceCamelCase && x.head.isUpper) x.toLowerCase else x
-        case (x, _) => x.capitalize
-      }
-      .mkString("", "", suffix)
 
   /**
     * We shorten a module name if it starts with the name of a known library.
@@ -64,7 +45,7 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
         case _ => None
       }
 
-    Name(rewrite(shortenedOpt.filter(_.nonEmpty).getOrElse(x.value), "Mod", forceCamelCase = true))
+    Name(prettyString(shortenedOpt.filter(_.nonEmpty).getOrElse(x.value), "Mod", forceCamelCase = true))
   }
 }
 

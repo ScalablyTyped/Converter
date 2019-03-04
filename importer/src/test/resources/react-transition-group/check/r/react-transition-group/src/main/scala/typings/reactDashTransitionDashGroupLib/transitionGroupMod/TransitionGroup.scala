@@ -1,5 +1,5 @@
 package typings
-package reactDashTransitionDashGroupLib.transitiongroupMod
+package reactDashTransitionDashGroupLib.transitionGroupMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 trait TransitionGroup
   extends reactLib.reactMod.ReactNs.Component[
-      reactDashTransitionDashGroupLib.transitiongroupMod.TransitionGroupNs.TransitionGroupProps[
+      reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupNs.TransitionGroupProps[
         reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr, 
         js.Any
       ], 

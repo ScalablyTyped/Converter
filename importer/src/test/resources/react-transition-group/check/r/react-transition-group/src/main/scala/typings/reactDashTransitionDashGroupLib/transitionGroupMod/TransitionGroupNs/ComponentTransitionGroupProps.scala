@@ -1,5 +1,5 @@
 package typings
-package reactDashTransitionDashGroupLib.transitiongroupMod.TransitionGroupNs
+package reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

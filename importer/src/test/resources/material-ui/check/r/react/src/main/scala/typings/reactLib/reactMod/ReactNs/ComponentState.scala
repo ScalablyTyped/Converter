@@ -1,9 +1,9 @@
 package typings
-package stdLib
+package reactLib.reactMod.ReactNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait foo extends js.Object
+trait ComponentState extends js.Object
 

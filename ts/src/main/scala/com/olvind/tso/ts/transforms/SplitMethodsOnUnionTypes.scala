@@ -6,8 +6,8 @@ import scala.annotation.tailrec
 
 object SplitMethodsOnUnionTypes extends TransformMembers with TransformClassMembers {
 
-  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
-    members flatMap {
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+    x.members flatMap {
       case x: TsMemberFunction if !x.isOptional && x.name =/= TsIdent.Apply =>
         RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
       case x: TsMemberCall =>
@@ -17,8 +17,8 @@ object SplitMethodsOnUnionTypes extends TransformMembers with TransformClassMemb
       case other => Seq(other)
     }
 
-  override def newMembers(scope: TsTreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
-    members flatMap {
+  override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+    x.members flatMap {
       case x: TsDeclFunction if x.name =/= TsIdent.namespaced =>
         RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
       case other => Seq(other)

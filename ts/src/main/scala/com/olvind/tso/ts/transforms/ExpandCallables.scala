@@ -28,8 +28,8 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
   * If not it wouldn't be safe to call from scala since it discards `this`.
   */
 case class ExpandCallables(canExpand: (TsType, TsTreeScope) => Boolean) extends TransformClassMembers {
-  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
-    members.flatMap {
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+    x.members.flatMap {
       case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false)
           if canExpand(tpe, scope) =>
         ExpandCallables.callableTypes(scope)(tpe) match {
@@ -88,7 +88,7 @@ object ExpandCallables {
         scope
           .lookupTypeIncludeScope(typeRef.name)
           .collectFirst {
-            case CallableInterface((_i, newScope)) =>
+            case (_i: TsDeclInterface, newScope) =>
               val ms = AllMembersFor.forInterface(LoopDetector.initial, _i, newScope, typeRef.tparams)
               val (callables, rest) = ms.partitionCollect {
                 case TsMemberCall(cs, _, signature) => (cs, signature)
@@ -104,18 +104,4 @@ object ExpandCallables {
       case _: TsTypeConstructor => Noop //todo may want to do this later
       case _ => Noop
     }
-
-  object CallableInterface {
-    def hasCallMember(i: TsDeclInterface): Boolean =
-      i.members exists {
-        case _: TsMemberCall => true
-        case _ => false
-      }
-
-    def unapply(x: (TsNamedDecl, TsTreeScope)): Option[(TsDeclInterface, TsTreeScope)] =
-      x match {
-        case (i: TsDeclInterface, s) if hasCallMember(i) => Some((i, s))
-        case _ => None
-      }
-  }
 }

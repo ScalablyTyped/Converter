@@ -15,8 +15,8 @@ object ExpandKeyOfTypeParams extends TransformMembers with TransformClassMembers
       }
   }
 
-  override def newClassMembers(scope: TsTreeScope, members: Seq[TsMember]): Seq[TsMember] =
-    members.flatMap {
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+    x.members.flatMap {
       case m @ TsMemberFunction(_, _, name, sig @ TsFunSig(_, IndexedTypeParams(indexed, rest), _, _), _, _, _) =>
         lazy val mm = m.copy(signature = sig.copy(tparams = rest))
 
@@ -43,8 +43,8 @@ object ExpandKeyOfTypeParams extends TransformMembers with TransformClassMembers
       case other => Seq(other)
     }
 
-  override def newMembers(scope: TsTreeScope, members: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] =
-    members flatMap {
+  override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+    x.members flatMap {
       case m @ TsDeclFunction(_, _, name, sig @ TsFunSig(_, IndexedTypeParams(indexed, rest), _, _), _, _) =>
         lazy val mm = m.copy(signature = sig.copy(tparams = rest))
 

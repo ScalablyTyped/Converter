@@ -186,8 +186,7 @@ object Printer {
 
         print("object ", formatName(name), extendsClause(prefix, parents, isNative, indent))
 
-        val newPrefix =
-          if (name.unescaped.endsWith("Members") || moduleType === ModuleTypeScala) prefix else prefix :+ name
+        val newPrefix = if (name === Name.hat || moduleType === ModuleTypeScala) prefix else prefix :+ name
 
         if (members.nonEmpty) {
           println(" {")
@@ -203,7 +202,14 @@ object Printer {
         print("type ", formatName(name))
         if (tparams.nonEmpty)
           print("[", tparams map formatTypeParamTree(prefix, indent) mkString ", ", "]")
-        println(s" = ", formatTypeRef(prefix, indent)(alias))
+
+        /* guard against shortening `type Foo: Foo = ...` (or `Foo.type`) */
+        val formattedType = formatTypeRef(prefix, indent)(alias) match {
+          case formatted if formatted.takeWhile(c => c =/= '.' && c =/= '[') === name.value =>
+            formatTypeRef(prefix :+ name, indent)(alias)
+          case other => other
+        }
+        println(s" = ", formattedType)
 
       case FieldTree(anns, name, tpe, fieldType, isReadOnly, isOverride, comments, _) =>
         print(formatComments(comments))
@@ -214,7 +220,7 @@ object Printer {
           if (isOverride) "override " else "",
           if (isReadOnly) "val" else "var",
           " ",
-          typeAnnotation(formatName(name), formatTypeRef(prefix, indent)(tpe))
+          typeAnnotation(formatName(name), prefix, indent, tpe, name)
         )
 
         fieldType match {
@@ -230,7 +236,6 @@ object Printer {
         print(formatProtectionLevel(level, isCtor = false))
         print(s"${if (isOverride) "override " else ""}def ")
 
-        val nameString = formatName(name)
         val tparamString =
           if (tparams.isEmpty) ""
           else
@@ -240,8 +245,9 @@ object Printer {
         if (paramString.map(_.length).sum > 100) {
           paramString = params.map(_.map(formatParamTree(prefix, indent)).mkString("(\n  ", ",\n  ", "\n)"))
         }
+
         print(
-          typeAnnotation(nameString + tparamString + paramString.mkString, formatTypeRef(prefix, indent)(resultType))
+          typeAnnotation(formatName(name) + tparamString + paramString.mkString, prefix, indent, resultType, name)
         )
         fieldType match {
           case MemberImplNotImplemented => println()
@@ -288,9 +294,9 @@ object Printer {
   def formatParamTree(prefix: List[Name], indent: Int)(tree: ParamTree): String =
     Seq(
       formatComments(tree.comments),
-      typeAnnotation(formatName(tree.name), formatTypeRef(prefix, indent + 2)(tree.tpe)),
+      typeAnnotation(formatName(tree.name), prefix, indent + 2, tree.tpe, Name.WILDCARD),
       tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(prefix, indent)(d)}")
-    ).foldLeft("")(_ |+| _)
+    ).mkString
 
   def formatDefaultedTypeRef(prefix: List[Name], indent: Int)(ref: TypeRef): String =
     ref match {
@@ -313,9 +319,17 @@ object Printer {
 
   val StringOrdering: Ordering[String] = Ordering[String]
 
-  /* for instance `val foo: Type_: Int` needs a space between `_` and `:` */
-  def typeAnnotation(preceding: String, formattedType: String): String = {
+  def typeAnnotation(preceding: String, prefix: List[Name], indent: Int, tpe: TypeRef, owner: Name): String = {
+    /* for instance `val foo: Type_: Int` needs a space between `_` and `:` */
     val colon = if (preceding.last === '_' || preceding.last === '^') " : " else ": "
+
+    /* guard against shortening `val Foo: Foo = ...` (or `Foo.type`) */
+    val formattedType = formatTypeRef(prefix, indent)(tpe) match {
+      case formatted if formatted.takeWhile(c => c =/= '.' && c =/= '[') === owner.value =>
+        formatTypeRef(prefix :+ owner, indent)(tpe)
+      case other => other
+    }
+
     preceding + colon + formattedType
   }
 
@@ -329,8 +343,9 @@ object Printer {
           }
           s"$params => ${formatTypeRef(prefix, indent)(retType)}"
 
-        case TypeRef.ThisType(_) => "this.type"
-        case TypeRef.Wildcard    => "_"
+        case TypeRef.ThisType(_)           => "this.type"
+        case TypeRef.Wildcard              => "_"
+        case TypeRef.Singleton(underlying) => formatTypeRef(prefix, indent)(underlying) |+| ".type"
 
         case TypeRef.Intersection(types) =>
           types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " with "

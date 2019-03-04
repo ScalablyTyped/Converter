@@ -17,4 +17,9 @@ final class LexerTests extends FunSuite with Matchers {
       TsLexer.CommentLineToken("//A\n")
     )
   }
+  test("string literal") {
+    shouldParseAs("`a`", TsLexer.stringLiteral)(
+      TsLexer.StringLit("a")
+    )
+  }
 }

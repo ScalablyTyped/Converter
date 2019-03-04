@@ -2190,4 +2190,30 @@ type Readonly<T> = {
       )
     )
   }
+
+  test("lookup of array") {
+    shouldParseAs(
+      """T[]['forEach']""",
+      TsParser.tsType
+    )(
+      TsTypeLookup(
+        TsTypeRef(NoComments, TsQIdent.Array, List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("T"))), List()))),
+        TsTypeLiteral(TsLiteralString("forEach"))
+      )
+    )
+
+    shouldParseAs(
+      """T['forEach'][]""",
+      TsParser.tsType
+    )(
+      TsTypeRef(
+        NoComments,
+        TsQIdent.Array,
+        List(
+          TsTypeLookup(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("T"))), List()),
+                       TsTypeLiteral(TsLiteralString("forEach")))
+        )
+      )
+    )
+  }
 }

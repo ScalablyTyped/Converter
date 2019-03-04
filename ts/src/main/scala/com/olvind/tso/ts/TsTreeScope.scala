@@ -182,9 +182,16 @@ object TsTreeScope {
           }
 
         case _ =>
-          depScopes.values.to[Seq] flatMap {
-            case (lib, libScope) =>
-              search(libScope, picker, lib, fragments, loopDetector)
+          depScopes
+            .find(_._1 === TsIdent.std)
+            .map { case (_, (lib, libScope)) => search(libScope, picker, lib, fragments, loopDetector) }
+            .getOrElse(Nil) match {
+            case Nil =>
+              depScopes.values.to[Seq] flatMap {
+                case (lib, libScope) =>
+                  search(libScope, picker, lib, fragments, loopDetector)
+              }
+            case found => found
           }
       }
   }
@@ -302,7 +309,8 @@ object TsTreeScope {
                 cls.membersByName.get(tail) match {
                   case Some(found) =>
                     val hoisted = found.flatMap(
-                      member => Hoisting.memberToDecl(cls.codePath.forceHasPath + TsIdent.prototype)(member)
+                      member =>
+                        Hoisting.memberToDecl(cls.codePath.forceHasPath + TsIdent.prototype, JsLocation.Zero)(member)
                     )
                     hoisted.collect {
                       case Pick(x) => (x, newScope)
@@ -360,8 +368,8 @@ object TsTreeScope {
               case None        => Nil
             }
 
-          case TsDeclVar(_, _, _, _, Some(tpe), _, _, cp: CodePath.HasPath, false) =>
-            Hoisting.fromType(scope, cp, loopDetector, tpe).collect {
+          case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp, false) =>
+            Hoisting.fromType(scope, cp, jsLocation, loopDetector, tpe).collect {
               case Pick(x) if one === x.name => x -> scope
             }
 
@@ -379,8 +387,8 @@ object TsTreeScope {
                     (scope / x).lookupInternal(Pick, t, loopDetector)
                   case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
                     search(scope, Pick, c, t, loopDetector)
-                  case TsDeclVar(_, _, _, _, Some(tpe), _, _, cp: CodePath.HasPath, false) =>
-                    Hoisting.fromType(scope, cp, loopDetector, tpe).collect {
+                  case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp, false) =>
+                    Hoisting.fromType(scope, cp, jsLocation, loopDetector, tpe).collect {
                       case Pick(x) if t.headOption.contains(x.name) => x -> scope
                     }
 

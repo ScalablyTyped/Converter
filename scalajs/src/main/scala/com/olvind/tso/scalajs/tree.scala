@@ -11,7 +11,8 @@ sealed trait HasCodePath {
 }
 
 sealed trait ContainerTree extends Tree with HasCodePath {
-  val members: Seq[Tree]
+  val annotations: Seq[ClassAnnotation]
+  val members:     Seq[Tree]
 
   def withMembers(members: Seq[Tree]): ContainerTree =
     this match {
@@ -378,6 +379,19 @@ object TypeRef {
       typeRef match {
         case TypeRef(QualifiedName.REPEATED, Seq(underlying), comments) =>
           Some((underlying, comments))
+
+        case _ => None
+      }
+  }
+
+  object Singleton {
+    def apply(underlying: TypeRef): TypeRef =
+      TypeRef(QualifiedName.SINGLETON, Seq(underlying), NoComments)
+
+    def unapply(typeRef: TypeRef): Option[TypeRef] =
+      typeRef match {
+        case TypeRef(QualifiedName.SINGLETON, Seq(underlying), _) =>
+          Some(underlying)
 
         case _ => None
       }

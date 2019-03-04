@@ -2,6 +2,7 @@
 /// <reference path="global.d.ts" />
 
 // tslint:disable-next-line:export-just-namespace
+
 export = React;
 export as namespace React;
 
@@ -11,7 +12,6 @@ declare namespace React {
 
     type Key = string | number;
     type ReactNode = string | number | boolean | null | undefined;
-
 
     interface ReactElement<P> {
         type: string | ComponentClass<P>;
@@ -80,5 +80,15 @@ declare namespace React {
     interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
         type: keyof ReactSVG;
     }
+    type SFC<P = {}> = StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
+
+    interface StatelessComponent<P = {}> {
+        (props: P & { children?: ReactNode }, context?: any): ReactElement<any> | null;
+
+        defaultProps?: Partial<P>;
+        displayName?: string;
+    }
+
 
 }

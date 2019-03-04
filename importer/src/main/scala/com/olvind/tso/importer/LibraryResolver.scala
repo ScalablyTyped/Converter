@@ -47,7 +47,7 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], contribFolde
     resolve(folder.path, fragment) find (_.isDir) map InFolder.apply
 
   private def resolve(path: Path, frags: String*): Seq[Path] =
-    frags.to[Seq].flatMap(frag => Option(path / RelPath(frag)) filter exists)
+    frags.to[Seq].flatMap(frag => Option(path / RelPath(frag.dropWhile(_ === '/'))) filter exists)
 
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None

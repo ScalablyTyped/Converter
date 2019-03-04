@@ -104,7 +104,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     def quoted(quoteChar: Char): Parser[String] =
       quoteChar ~> stringOf(inQuoteChar(quoteChar)) <~ quoteChar
 
-    (quoted('\"') | quoted('\'')) ^^ StringLit
+    (quoted('\"') | quoted('\'') | quoted('`')) ^^ StringLit
   }
 
   val delim: Parser[Keyword] = {
