@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "react-icons"
-version := "2.2-d7b057"
+version := "2.2-028146"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "1.0.0",
   "org.scala-js" %%% "scalajs-dom" % "0.9.6",
   "org.scalablytyped" %%% "react" % "0.0-unknown-18a15f",
-  "org.scalablytyped" %%% "react-icon-base" % "2.1-df8b68",
+  "org.scalablytyped" %%% "react-icon-base" % "2.1-dae32d",
   "org.scalablytyped" %%% "std" % "0.0-unknown-f5ca6c")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
