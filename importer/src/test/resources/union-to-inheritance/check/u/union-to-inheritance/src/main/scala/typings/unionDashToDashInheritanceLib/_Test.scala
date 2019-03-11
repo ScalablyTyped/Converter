@@ -5,6 +5,5 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait Legal1[T]
-  extends _Test2[js.Any, T]
+trait _Test[T1, T2, T3] extends js.Object
 
