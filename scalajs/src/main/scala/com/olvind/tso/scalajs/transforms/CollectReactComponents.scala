@@ -63,7 +63,7 @@ object CollectReactComponents {
               } map { tps =>
                 TypeAliasTree(comp.props.name,
                               tps,
-                              comp.props.copy(targs = tps.map(tp => TypeRef(tp.name))),
+                              comp.props.copy(targs = TypeParamTree.asTypeArgs(tps)),
                               NoComments,
                               moduleCodePath + comp.props.name)
               }
@@ -97,7 +97,7 @@ object CollectReactComponents {
           .sortBy(_.name)
           .map { comp =>
             val loc = Printer.formatTypeRef(Nil, 0)(
-              TypeRef(comp.scalaLocation, comp.tparams.map(tp => TypeRef(tp.name)), NoComments)
+              TypeRef(comp.scalaLocation, TypeParamTree.asTypeArgs(comp.tparams), NoComments)
             )
             MethodTree(
               Inline :: Nil,

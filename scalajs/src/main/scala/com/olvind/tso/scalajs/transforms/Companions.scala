@@ -45,7 +45,7 @@ object Companions extends TreeTransformation {
     }
 
   def generateModule(scope: TreeScope, cls: ClassTree): List[InheritanceTree] = {
-    val thisRef = TypeRef(cls.codePath, cls.tparams.map(tp => TypeRef(tp.name)), NoComments)
+    val thisRef = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments)
 
     val params: Seq[Param] =
       ByParent(cls, scope)

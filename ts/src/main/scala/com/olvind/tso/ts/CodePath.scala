@@ -15,6 +15,14 @@ sealed trait CodePath {
       case hp: CodePath.HasPath => Some(hp)
       case CodePath.NoPath => None
     }
+
+  def replaceLast(newLast: TsIdent): CodePath =
+    this match {
+      case CodePath.HasPath(inLib, TsQIdent(parts)) =>
+        CodePath.HasPath(inLib, TsQIdent(parts.dropRight(1) :+ newLast))
+      case CodePath.NoPath => CodePath.NoPath
+    }
+
 }
 
 object CodePath {

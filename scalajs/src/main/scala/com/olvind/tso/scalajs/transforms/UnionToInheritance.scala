@@ -133,7 +133,7 @@ object UnionToInheritance {
             )
             val newTa = ta.copy(
               alias = TypeRef.Union(
-                TypeRef(patchedTa.codePath, patchedTa.tparams.map(x => TypeRef(x.name)), NoComments) +: noRewrites,
+                TypeRef(patchedTa.codePath, TypeParamTree.asTypeArgs(patchedTa.tparams), NoComments) +: noRewrites,
                 sort = false
               )
             )
@@ -175,15 +175,22 @@ private object Rewrite {
 
     val all = go(p, scope)
 
-    /* remove references to other rewritten type aliases */
-    all
-//      .map { r: Rewrite =>
-//        val (isRewrite, rest) = r.asInheritance.partitionCollect {
-//          case tr if all.exists { case Rewrite(alias, _, _) => alias.codePath === tr.typeName } => tr
-//        }
-//        r.copy(asInheritance = rest, unchanged = r.unchanged ++ isRewrite)
-//      } /* repeat the check from above */
-//      .filter(_.asInheritance.size > 1)
+    includeUnchangeds(all)
+  }
+
+  private def includeUnchangeds(all: Seq[Rewrite]) = {
+    val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head)
+
+    def recursiveUnchanged(name: QualifiedName): Seq[TypeRef] =
+      allIndexed.get(name) match {
+        case None => Nil
+        case Some(Rewrite(_, asInheritance, unchanged)) =>
+          unchanged ++ asInheritance.flatMap(u => recursiveUnchanged(u.typeName))
+      }
+
+    all.map(
+      r => r.copy(unchanged = (r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(recursiveUnchanged).distinct))
+    )
   }
 
   def canRewrite(inLib: Name, ta: TypeAliasTree, scope: TreeScope): Option[Rewrite] =

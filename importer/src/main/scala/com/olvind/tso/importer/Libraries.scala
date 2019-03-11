@@ -95,6 +95,7 @@ object Libraries {
     "react-helmet",
     "react-instantsearch",
     "react-json-view",
+    "react-latex-next",
     "react-localization",
     "react-markdown",
     "react-md",

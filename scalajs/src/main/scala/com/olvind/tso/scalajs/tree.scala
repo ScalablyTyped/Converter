@@ -162,6 +162,9 @@ object CtorTree {
 final case class TypeParamTree(name: Name, upperBound: Option[TypeRef], comments: Comments) extends Tree
 
 object TypeParamTree {
+  def asTypeArgs(tps: Seq[TypeParamTree]): Seq[TypeRef] =
+    tps.map(x => TypeRef(x.name))
+
   implicit object TypeParamsToSuffix extends ToSuffix[Seq[TypeParamTree]] {
     override def to(tparams: Seq[TypeParamTree]): Suffix =
       Suffix(

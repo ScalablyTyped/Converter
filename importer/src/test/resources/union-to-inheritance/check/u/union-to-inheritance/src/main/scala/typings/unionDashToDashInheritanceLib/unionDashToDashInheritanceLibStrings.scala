@@ -26,6 +26,7 @@ object unionDashToDashInheritanceLibStrings {
        with _Illegal1
        with _Illegal2
        with _Illegal3[js.Any]
+       with _Test[js.Any, js.Any, js.Any]
   
   @js.native
   sealed trait foo
@@ -35,6 +36,7 @@ object unionDashToDashInheritanceLibStrings {
        with _Illegal1
        with _Illegal2
        with _Illegal3[js.Any]
+       with _Test[js.Any, js.Any, js.Any]
   
   @scala.inline
   def a1: a1 = "a1".asInstanceOf[a1]
