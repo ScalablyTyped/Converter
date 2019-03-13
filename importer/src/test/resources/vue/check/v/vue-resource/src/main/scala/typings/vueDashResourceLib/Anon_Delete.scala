@@ -6,7 +6,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait Anon_Data extends js.Object {
+trait Anon_Delete extends js.Object {
   @JSName("delete")
   var delete_Original: vueDashResourceLib.vuejsNs.$http = js.native
   @JSName("get")

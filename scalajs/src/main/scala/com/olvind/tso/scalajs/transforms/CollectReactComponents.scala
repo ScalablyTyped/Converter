@@ -195,14 +195,18 @@ object CollectReactComponents {
 
   def componentName(annotations: Seq[Annotation], codePath: QualifiedName): Name = {
     val fromCodePath = codePath.parts.last match {
-      case Name.Default | Name.namespaced => None
-      case other                          => Some(other)
+      case Name.Default | Name.namespaced =>
+        None
+      case other =>
+        Some(Annotation.realName(annotations, other))
     }
+
     val fromAnnotation: Option[Name] =
       annotations.collectFirst {
-        case JsImport(_, Imported.Named(name)) if name.value =/= "default" => name
+        case JsImport(_, Imported.Named(name)) if name =/= Name.Default && name =/= Name.namespaced => name
         case JsImport(mod, _) =>
-          val fragment = mod.split("/").filterNot(_ === "default").last
+          val fragment =
+            mod.split("/").filterNot(x => x === Name.Default.unescaped || x === Name.namespaced.unescaped).last
           Name(prettyString(fragment.capitalize, "", forceCamelCase = false))
       }
 

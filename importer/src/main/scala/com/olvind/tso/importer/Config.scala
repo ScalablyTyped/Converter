@@ -10,7 +10,9 @@ case class Config(publish:        Boolean,
                   cleanRepo:      Boolean,
                   pedantic:       Boolean,
                   sequential:     Boolean,
-                  wantedLibNames: Set[String]) {
+                  forceCommit:    Boolean,
+                  wantedLibNames: Set[String],
+) {
 
   def debugMode = wantedLibNames.nonEmpty
 
@@ -38,6 +40,7 @@ object Config {
             cleanRepo      = flags contains "-cleanRepo",
             pedantic       = flags contains "-pedantic",
             sequential     = flags contains "-sequential",
+            forceCommit    = flags contains "-forceCommit",
             wantedLibNames = rest.to[Set]
           )
         )

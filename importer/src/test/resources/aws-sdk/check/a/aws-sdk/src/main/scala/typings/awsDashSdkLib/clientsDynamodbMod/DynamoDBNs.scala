@@ -64,6 +64,12 @@ object DynamoDBNs extends js.Object {
     
     trait _AttributeAction extends js.Object
     
+    /* Rewritten from type alias, can be one of: 
+      - awsDashSdkLib.awsDashSdkLibStrings.ADD
+      - awsDashSdkLib.awsDashSdkLibStrings.PUT
+      - awsDashSdkLib.awsDashSdkLibStrings.DELETE
+      - java.lang.String
+    */
     type AttributeAction = _AttributeAction | java.lang.String
   }
   

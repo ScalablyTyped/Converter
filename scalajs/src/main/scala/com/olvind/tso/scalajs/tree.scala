@@ -1,9 +1,13 @@
 package com.olvind.tso
 package scalajs
 
-sealed trait Tree {
+import scala.util.hashing.MurmurHash3.productHash
+
+sealed trait Tree extends Product with Serializable {
   val name:     Name
   val comments: Comments
+
+  override lazy val hashCode: Int = productHash(this)
 }
 
 sealed trait HasCodePath {

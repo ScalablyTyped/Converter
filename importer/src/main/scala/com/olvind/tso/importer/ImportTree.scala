@@ -14,7 +14,7 @@ object ImportTree {
       case (_, depLib) => depLib.name -> depLib.parsed
     }
 
-    val scope = TsTreeScope(lib.name, pedantic = true, deps, logger) / lib.parsed
+    val scope = TsTreeScope(lib.name, pedantic = true, deps, logger).caching / lib.parsed
 
     val ret = ContainerTree.container(
       isWithinScalaModule = false,

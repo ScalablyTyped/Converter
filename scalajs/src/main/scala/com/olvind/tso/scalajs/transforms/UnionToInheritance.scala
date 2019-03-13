@@ -101,6 +101,13 @@ object UnionToInheritance {
         typesToInterfaces(p, indexedRewrites, newParentsByCodePath) :: Nil
 
       case ta: TypeAliasTree if indexedRewrites.contains(ta.codePath) =>
+        val comment = ta.alias match {
+          case TypeRef.Union(tps) =>
+            val strings = tps.map(Printer.formatTypeRef(ta.codePath.parts.dropRight(1), 0)).map("  - " + _)
+            Some(Comment(s"/* Rewritten from type alias, can be one of: \n${strings.mkString("\n")}\n*/\n"))
+          case _ => None
+        }
+
         indexedRewrites(ta.codePath) match {
           case Rewrite(_, _, Nil) =>
             val cls = ClassTree(
@@ -112,7 +119,7 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              NoComments,
+              ta.comments +? comment,
               ta.codePath
             )
 
@@ -135,7 +142,8 @@ object UnionToInheritance {
               alias = TypeRef.Union(
                 TypeRef(patchedTa.codePath, TypeParamTree.asTypeArgs(patchedTa.tparams), NoComments) +: noRewrites,
                 sort = false
-              )
+              ),
+              comments = ta.comments +? comment
             )
             cls :: newTa :: Nil
         }
@@ -189,7 +197,7 @@ private object Rewrite {
       }
 
     all.map(
-      r => r.copy(unchanged = (r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(recursiveUnchanged).distinct))
+      r => r.copy(unchanged = r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(recursiveUnchanged).distinct)
     )
   }
 

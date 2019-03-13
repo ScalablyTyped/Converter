@@ -5,7 +5,11 @@ import com.olvind.logging.Formatter
 import com.olvind.tso.seqs._
 import com.olvind.tso.ts.transforms.ExtractInterfaces
 
+import scala.util.hashing.MurmurHash3.productHash
+
 sealed trait TsTree extends Serializable with Product {
+
+  override lazy val hashCode: Int = productHash(this)
 
   lazy val asString: String = {
     val name = this match {
@@ -278,7 +282,7 @@ final case class TsFunParam(comments: Comments, name: TsIdent, tpe: Option[TsTyp
       case _ => false
     }
 
-  override def hashCode: Int =
+  override lazy val hashCode: Int =
     (7 + tpe.##) * 31 + isOptional.##
 }
 
@@ -333,7 +337,7 @@ sealed trait TsIdentInterchangeable extends TsIdent {
       case _                   => false
     }
 
-  override def hashCode: Int = value.hashCode
+  override lazy val hashCode: Int = value.hashCode
 }
 
 final case class TsIdentSimple(value: String) extends TsIdentInterchangeable
@@ -417,8 +421,6 @@ final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
 
   def ++(tsIdents: Seq[TsIdent]): TsQIdent =
     TsQIdent(parts ++ tsIdents)
-
-  override lazy val hashCode: Int = parts.hashCode
 }
 
 object TsQIdent {
