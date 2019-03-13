@@ -234,7 +234,11 @@ object Main extends App {
     results.collect { case PhaseRes.Ok(res) => go(res) }.flatten.to[Set]
   }
 
-  if (config.debugMode) {
+  val readme    = targetFolder / "readme.md"
+  val locOutput = Try(%%('loc)(targetFolder)).toOption.map(_.out.string)
+  files.softWrite(readme)(_.print(Readme(summary, RunId, locOutput)))
+
+  if (config.debugMode && !config.forceCommit) {
     logger error s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
   } else {
     logger error "Generating sbt plugin..."
@@ -249,11 +253,6 @@ object Main extends App {
       pluginVersion = RunId,
       action        = if (bintray.isDefined) "^publish" else "publishLocal"
     )
-
-    val readme    = targetFolder / "readme.md"
-    val locOutput = Try(%%('loc)(targetFolder)).toOption.map(_.out.string)
-
-    files.softWrite(readme)(_.print(Readme(summary, RunId, locOutput)))
 
     logger error "Committing..."
     val summaryString =

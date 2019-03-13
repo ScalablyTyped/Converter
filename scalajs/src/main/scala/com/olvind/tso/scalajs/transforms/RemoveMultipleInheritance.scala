@@ -105,17 +105,17 @@ object RemoveMultipleInheritance extends TreeTransformation {
           })
 
         def inheritsConflictingVars: Option[Dropped] = {
-          val includedFields: Seq[Name] =
-            (/* baseMembers ++ */ dropped.flatMap(_.members) ++ included.flatMap(_.fields)).map(_.name)
+          val includedMembers: Seq[Name] =
+            (/* baseMembers ++ */ dropped.flatMap(_.members) ++ included.flatMap(_.members)).map(_.name)
 
           val nextMutables: Seq[Name] =
             h.mutableFields.map(_.name)
 
-          includedFields intersect nextMutables match {
+          includedMembers intersect nextMutables match {
             case Nil => None
             case conflict =>
               val conflictString = conflict.distinct.sortBy(_.unescaped).map(Printer.formatName).mkString(", ")
-              val inlined        = h.classTree.members.filterNot(m => includedFields.contains(m.name))
+              val inlined        = h.classTree.members.filterNot(m => includedMembers.contains(m.name))
               Some(
                 Dropped(
                   h.refs.last,

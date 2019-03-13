@@ -24,12 +24,12 @@ object ParentsResolver {
       }
   }
 
-  case class Parent(refs:       Seq[TypeRef],
-                    classTree:  ClassTree,
-                    foundIn:    TreeScope,
-                    parents:    Seq[Parent],
-                    unresolved: Seq[TypeRef])
-      extends ParentTree {
+  case class Parent(refs: Seq[TypeRef])(
+      val classTree:      ClassTree,
+      val foundIn:        TreeScope,
+      val parents:        Seq[Parent],
+      val unresolved:     Seq[TypeRef]
+  ) extends ParentTree {
 
     lazy val members: Seq[MemberTree] =
       parents.flatMap(_.members) ++ classTree.members
@@ -45,11 +45,11 @@ object ParentsResolver {
   case class Parents(directParents: Seq[Parent], unresolved: Seq[TypeRef]) extends ParentTree {
     def pruneClasses: Parents = {
       def go(it: Parent): Option[Parent] =
-        it match {
-          case Parent(_, ClassTree(_, _, _, _, _, _, ClassType.Class | ClassType.AbstractClass, _, _, _), _, _, _) =>
+        it.classTree match {
+          case ClassTree(_, _, _, _, _, _, ClassType.Class | ClassType.AbstractClass, _, _, _) =>
             None
-          case Parent(refs, cls, scope, ps, us) =>
-            Some(Parent(refs, cls, scope, ps.flatMap(go), us))
+          case _ =>
+            Some(Parent(it.refs)(it.classTree, it.foundIn, it.parents.flatMap(go), it.unresolved))
         }
       copy(directParents = directParents.flatMap(go))
     }
@@ -107,8 +107,7 @@ object ParentsResolver {
             if (circular.nonEmpty) Circular
             else
               Resolved(
-                Parent(
-                  typeRefs,
+                Parent(typeRefs)(
                   rewritten,
                   foundInScope,
                   parents.map(_.nr),

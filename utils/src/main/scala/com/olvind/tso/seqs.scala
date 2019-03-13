@@ -33,6 +33,9 @@ object seqs {
   @inline final implicit class TraversableOps[C[t] <: GenIterableLike[t, C[t]], T](private val ts: C[T])
       extends AnyVal {
 
+    def nonEmptyOpt: Option[C[T]] =
+      if (ts.isEmpty) None else Some(ts)
+
     def firstDefined[U](f: T => Option[U]): Option[U] = {
       val it = ts.toIterator
 

@@ -10,16 +10,16 @@ sealed trait JsLocation {
   def /(tree: TsTree): JsLocation
   def isTopLevel: Boolean
 
-  def specifyMore(tsIdent: TsIdent): JsLocation =
+  def +(tsIdent: TsIdent): JsLocation =
     this match {
-      case JsLocation.Zero              => sys.error(s"Didnt expect ${this}")
-      case JsLocation.Module(mod, spec) => JsLocation.Module(mod, spec.specifyMore(tsIdent))
+      case JsLocation.Zero              => JsLocation.Zero
+      case JsLocation.Module(mod, spec) => JsLocation.Module(mod, spec + tsIdent)
       case JsLocation.Global(jsPath)    => JsLocation.Global(jsPath ++ List(tsIdent))
     }
 }
 
 sealed trait ModuleSpec {
-  def specifyMore(tsIdent: TsIdent): ModuleSpec.Specified =
+  def +(tsIdent: TsIdent): ModuleSpec.Specified =
     this match {
       case ModuleSpec.Defaulted     => ModuleSpec.Specified(Seq(tsIdent))
       case ModuleSpec.Namespaced    => ModuleSpec.Specified(Seq(tsIdent))
@@ -55,7 +55,7 @@ object JsLocation {
     override def /(tree: TsTree): JsLocation =
       tree match {
         case x: TsDeclModule => x.jsLocation
-        case x: TsNamedDecl  => Module(module, spec.specifyMore(x.name))
+        case x: TsNamedDecl  => Module(module, spec + x.name)
         case _ => this
       }
 

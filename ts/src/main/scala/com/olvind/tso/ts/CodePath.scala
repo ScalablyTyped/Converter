@@ -23,10 +23,13 @@ sealed trait CodePath {
       case CodePath.NoPath => CodePath.NoPath
     }
 
+  def +(ident: TsIdent): CodePath
 }
 
 object CodePath {
-  case object NoPath extends CodePath
+  case object NoPath extends CodePath {
+    def +(ident: TsIdent): NoPath.type = NoPath
+  }
 
   case class HasPath private (inLibrary: TsIdent, codePathPart: TsQIdent) extends CodePath {
     lazy val codePath: TsQIdent =

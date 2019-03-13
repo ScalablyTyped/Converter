@@ -308,13 +308,13 @@ object TsTreeScope {
               case (cls, newScope) =>
                 cls.membersByName.get(tail) match {
                   case Some(found) =>
-                    val hoisted = found.flatMap(
-                      member =>
-                        Hoisting.memberToDecl(cls.codePath.forceHasPath + TsIdent.prototype, JsLocation.Zero)(member)
-                    )
-                    hoisted.collect {
-                      case Pick(x) => (x, newScope)
-                    }
+                    found
+                      .flatMap(
+                        member => Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member)
+                      )
+                      .collect {
+                        case Pick(x) => (x, newScope)
+                      }
                   case None => Nil
                 }
             }

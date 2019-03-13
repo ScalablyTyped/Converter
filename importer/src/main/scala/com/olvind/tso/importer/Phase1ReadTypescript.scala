@@ -42,16 +42,16 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
       case _:      Source.ContribSource                                => PhaseRes.Ok(Contrib)
       case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
-      case Source.TsHelperFile(file, inLib, _) if !file.path.segments.last.endsWith(".d.ts") =>
+      case Source.TsHelperFile(file, _, _) if !file.path.segments.last.endsWith(".d.ts") =>
         PhaseRes.Ignore()
 
-      case Source.TsHelperFile(file, inLib, _) =>
+      case s @ Source.TsHelperFile(file, inLib, _) =>
         val L = logger.withContext(file)
 
         val resolveDep = (value: String) =>
           PhaseRes.fromOption(
             source,
-            resolve.lookup(inLib, value).map(_._1),
+            resolve.lookup(s, value).map(_._1),
             Right(s"Couldn't resolve $value")
         )
 
@@ -79,7 +79,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                                         Right(s"Couldn't resolve $r"))
                 },
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
-                  case r @ DirectiveLibRef(value) =>
+                  case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
                     def src(f: InFile): Source =
                       Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
 
@@ -168,34 +168,37 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 (
                   T.SimplifyParents >>
                     T.NormalizeFunctions // run before FlattenTrees
-                ).visitTsParsedFile(scope),
+                ).visitTsParsedFile(scope.caching),
                 T.QualifyReferences.visitTsParsedFile(scope.caching),
-                AugmentModules(scope),
-                T.ResolveTypeQueries.visitTsParsedFile(scope), // before ReplaceExports
+                AugmentModules(scope.caching),
+                T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
                 new ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
                 f => FlattenTrees(f :: Nil),
+                T.DefaultedTParams.visitTsParsedFile(scope.caching), //after FlattenTrees
                 (
-                  T.ResolveTypeLookups >> //before ExpandCallables
 //                      T.ApplyTypeMapping >> //after ResolveTypeLookups
-                    T.SimplifyConditionals >>
+                  T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
                     T.ExpandKeyOfTypeParams >>
                     T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     T.UnionTypesFromKeyOf >>
                     T.DropPrototypes >>
                     T.InferReturnTypes >>
-                    T.RewriteTypeThis //
+                    T.RewriteTypeThis >>
+                    T.InlineTrivialTypeAlias //after DefaultedTParams
                 ).visitTsParsedFile(scope.caching),
-                T.DefaultedTParams.visitTsParsedFile(scope), //after SimplifyTypes
-                T.ExpandCallables((tpe, _) => !IsFunctionalComponent(tpe))
-                  .visitTsParsedFile(scope), //after DefaultedTParams, before SplitMethodsOnUnionTypes
+                T.ResolveTypeLookups
+                  .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias
+                T.ExtractInterfaces(source.libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
                 (
-                  T.InlineTrivialTypeAlias >> //after DefaultedTParams
-                    T.SplitMethodsOnUnionTypes >>
-                    T.RemoveDifficultInheritance //after DefaultedTParams
-                ).visitTsParsedFile(scope),
-                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope),
-                T.ExtractInterfaces(source.libName, scope) //
+                  T.ExtractClasses >> // after DefaultedTParams
+                    T.ExpandCallables((tpe, _) => !IsFunctionalComponent(tpe)) // after DefaultedTParams
+                ).visitTsParsedFile(scope.caching),
+                (
+                  T.SplitMethodsOnUnionTypes >> // after ExpandCallables
+                    T.RemoveDifficultInheritance // after DefaultedTParams
+                ).visitTsParsedFile(scope.caching),
+                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
               )
 
               logger.warn(s"Processing ${source.libName}")

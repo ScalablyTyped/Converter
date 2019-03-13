@@ -3,6 +3,7 @@ package ts
 package transforms
 
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
+import seqs.TraversableOps
 
 object ResolveTypeLookups extends TreeTransformationScopedChanges {
   override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
@@ -14,16 +15,6 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
     }
 
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
-
-  /**
-    * TsTypeUnion.simplified simplifies a set of types into a union types, a normal type, or `never`.
-    *    The latter is the least useful, so let's rewrite it to any
-    */
-  def unify(types: Seq[TsType]): TsType =
-    TsTypeUnion.simplified(types filterNot toIgnore) match {
-      case TsTypeRef.never => TsTypeRef.any
-      case other           => other
-    }
 
   def optional(tpe: TsType, isOptional: Boolean): TsType =
     if (isOptional) TsTypeUnion.simplified(tpe :: TsTypeRef.undefined :: Nil)
@@ -68,21 +59,42 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
     stringsFrom(scope, lookup.key) flatMap { strings =>
       lookup.from match {
-        case TsTypeRef(_, name, Nil) if scope.isAbstract(name) => None
+        case TsTypeRef(_, name, _) if scope isAbstract name => None
         case fromTypeRef: TsTypeRef =>
           val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
-          Some(unify(pickNonStatic(members, strings)))
+          Some(pick(members, strings))
 
-        case TsTypeObject(members) => Some(unify(pickNonStatic(members, strings)))
+        case TsTypeObject(members) => Some(pick(members, strings))
         case _                     => None
       }
     }
 
-  def pickNonStatic(members: Seq[TsMember], pick: Set[TsIdent]): Seq[TsType] =
-    members collect {
-      case TsMemberProperty(_, _, name, tpeOpt, _, false, _, isOptional) if pick(name) =>
-        optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
-      case TsMemberFunction(_, _, name, signature, false, _, isOptional) if pick(name) =>
-        optional(TsTypeFunction(signature), isOptional)
+  val NonStatic = false
+
+  def pick(members: Seq[TsMember], strings: Set[TsIdent]): TsType =
+    TsTypeUnion.simplified(strings.toList.map(x => pick(members, x)) filterNot toIgnore)
+
+  def pick(members: Seq[TsMember], Wanted: TsIdent): TsType = {
+    val (functions, fields, _) = members.partitionCollect2(
+      { case TsMemberFunction(_, _, Wanted, sig, NonStatic, _, false) => sig }, {
+        case TsMemberProperty(_, _, Wanted, tpeOpt, _, NonStatic, _, isOptional) =>
+          optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
+        case TsMemberFunction(_, _, Wanted, sig, NonStatic, _, _) => TsTypeFunction(sig)
+      }
+    )
+    val combinedFunctions: Option[TsType] = functions.distinct match {
+      case Nil      => None
+      case Seq(one) => Some(TsTypeFunction(one))
+      case more     => Some(TsTypeObject(more.map(sig => TsMemberCall(NoComments, Default, sig))))
     }
+
+    /**
+      * TsTypeIntersect.simplified simplifies a set of types into a union types, a normal type, or `never`.
+      *    The latter is the least useful, so let's rewrite it to any
+      */
+    TsTypeIntersect.simplified(combinedFunctions.foldLeft(fields)(_ :+ _) filterNot toIgnore) match {
+      case TsTypeRef.never => TsTypeRef.any
+      case other           => other
+    }
+  }
 }
