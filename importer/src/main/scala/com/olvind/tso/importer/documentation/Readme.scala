@@ -7,14 +7,25 @@ object Readme {
 
 # ScalablyTyped - The Javascript ecosystem for Scala.js!
 
+[![Join the chat at https://gitter.im/ScalablyTyped/community](https://badges.gitter.im/ScalablyTyped/community.svg)](https://gitter.im/ScalablyTyped/community)
+
+## Warning :collision: :bomb: :sunglasses:
+
+Beware: While these typings generally work, some details of the encoding are still subject to change.
+All currently published artifacts should be considered snapshots and will be deleted without notice.
+Expect the first stable release before May.
+
+## About
+
 This is the home of Scala.js typings for **${summary.successes.size}** Javascript libraries,
  which should span more or less the entire set of modern and popular libraries.
 
 This should make it one of the biggest Scala repos on the planet${describeSize(locOutput)}
 
 ## Typing?
+
 Javascript is infamously unityped. Given a library function like this:
-```ecmascript 6
+```javascript
   const add = (a, b) => a + b
 ```
 
