@@ -149,11 +149,11 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     }
 
   lazy val tsDeclModule: Parser[TsNamedDecl] = {
-    comments ~ (isDeclared <~ "module") ~ either(tsIdentModule, rep1sep(tsIdent, ".")) ~ tsContainerOrDeclBody ^^ {
+    comments ~ (isDeclared <~ "module") ~ either(tsIdentModule, rep1sep(tsIdent, ".")) ~ tsContainerOrDeclBody.? ^^ {
       case cs ~ declared ~ nameEither ~ body =>
         nameEither match {
           case Left(name) =>
-            TsDeclModule(cs, declared, name, body, CodePath.NoPath, JsLocation.Zero)
+            TsDeclModule(cs, declared, name, body.getOrElse(Nil), CodePath.NoPath, JsLocation.Zero)
           case Right(idents) =>
             val initNameParts :+ lastNamePart = idents
 
@@ -161,7 +161,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
               TsDeclNamespace(cs,
                               declared,
                               TsIdentNamespace(lastNamePart.value),
-                              body,
+                              body.getOrElse(Nil),
                               CodePath.NoPath,
                               JsLocation.Zero)
             ) { (name: TsIdentSimple, inner: TsDeclNamespace) =>

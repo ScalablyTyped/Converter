@@ -589,7 +589,7 @@ object ImportTree {
 
     containedLiterals.distinct.toList match {
       case _ if name === Name.APPLY || name === Name.namespaced => ret
-      case oneLit :: Nil                                        => ret withSuffix "_" withSuffix oneLit
+      case oneLit :: Nil if !oneLit.value.contains("$")         => ret withSuffix "_" withSuffix oneLit
       case _                                                    => ret
     }
   }

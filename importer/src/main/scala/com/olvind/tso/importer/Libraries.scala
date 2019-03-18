@@ -44,6 +44,8 @@ object Libraries {
     "formstate",
     "formsy-react",
     "fullcalendar",
+    "gatsby",
+    "gatsby-image",
     "gestalt",
     "graphql-tools",
     "grommet",
