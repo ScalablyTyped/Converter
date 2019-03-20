@@ -1,0 +1,52 @@
+package com.olvind.tso
+package importer
+
+import ammonite.ops.home
+import bintry.{Client, Message, PackageSummary}
+import monix.execution.atomic.AtomicLong
+
+import scala.concurrent.ExecutionContext.Implicits.global
+
+object BintrayCleanup extends App {
+  val Config(config) = args
+
+  val values: Map[String, String] =
+    files
+      .content(InFile(home / ".bintray" / ".credentials"))
+      .split("\n")
+      .map(_.split("=").map(_.trim).filter(_.nonEmpty).toList)
+      .collect { case List(k, v) => (k, v) }
+      .toMap
+
+  private val user     = values("user")
+  private val password = values("password")
+  private val repoName = config.projectName
+
+  private lazy val client = Client(user, password)
+  private lazy val repo   = client.repo(user, repoName)
+
+  val deleted = AtomicLong(0)
+
+  def deleteFrom(pos: Int): Unit =
+    repo.packages(pos)().foreach { packages =>
+      packages.foreach {
+        case PackageSummary(name, _) =>
+          val Pkg = repo.get(name)
+          Pkg().foreach { pkg =>
+            pkg.versions.drop(5).foreach { d =>
+              Pkg.version(d).delete().foreach {
+                case Message(msg) =>
+                  deleted.increment()
+                  println(s"Deleted $name $d $msg (${deleted.get})")
+              }
+            }
+          }
+      }
+
+      if (packages.nonEmpty) {
+        deleteFrom(pos + packages.length)
+      }
+    }
+
+  deleteFrom(0)
+}
