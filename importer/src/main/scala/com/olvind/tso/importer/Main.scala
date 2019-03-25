@@ -36,6 +36,8 @@ object Main extends App {
   val failFolder             = targetFolder / 'failures
   val contribFolder          = targetFolder / 'contrib
 
+  mkdir(targetFolder)
+
   (exists(targetFolder / ".git"), config.cleanRepo) match {
     case (existed, true) =>
       if (existed) {
@@ -54,7 +56,6 @@ object Main extends App {
       }
       %% git ('add, gitIgnore)
       %% git ('remote, 'add, 'origin, config.ScalablyTypedRepo)
-//      %% git ('branch, "--set-upstream-to=origin/master")
     case (true, false) =>
       implicit val wd = targetFolder
       if (!config.offline) {
