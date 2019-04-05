@@ -5,13 +5,16 @@ import ammonite.ops.home
 import com.olvind.tso.importer.build.Versions
 import com.olvind.tso.scalajs.Name
 
-case class Config(publish:        Boolean,
-                  offline:        Boolean,
-                  cleanRepo:      Boolean,
-                  pedantic:       Boolean,
-                  sequential:     Boolean,
-                  forceCommit:    Boolean,
-                  wantedLibNames: Set[String],
+case class Config(
+    publish:          Boolean,
+    offline:          Boolean,
+    cleanRepo:        Boolean,
+    pedantic:         Boolean,
+    sequential:       Boolean,
+    forceCommit:      Boolean,
+    conserveSpace:    Boolean,
+    enableParseCache: Boolean,
+    wantedLibNames:   Set[String],
 ) {
 
   def debugMode = wantedLibNames.nonEmpty
@@ -35,13 +38,15 @@ object Config {
       case (flags, rest) =>
         Some(
           Config(
-            publish        = flags contains "-publish",
-            offline        = flags contains "-offline",
-            cleanRepo      = flags contains "-cleanRepo",
-            pedantic       = flags contains "-pedantic",
-            sequential     = flags contains "-sequential",
-            forceCommit    = flags contains "-forceCommit",
-            wantedLibNames = rest.to[Set]
+            publish          = flags contains "-publish",
+            offline          = flags contains "-offline",
+            cleanRepo        = flags contains "-cleanRepo",
+            pedantic         = flags contains "-pedantic",
+            sequential       = flags contains "-sequential",
+            forceCommit      = flags contains "-forceCommit",
+            conserveSpace    = flags contains "-conserveSpace",
+            enableParseCache = flags contains "-enableParseCache",
+            wantedLibNames   = rest.to[Set]
           )
         )
     }
