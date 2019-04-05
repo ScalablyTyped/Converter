@@ -98,12 +98,19 @@ object Main extends App {
   val external: NotNeededPackages =
     Json[NotNeededPackages](dtFolder.path / up / "notNeededPackages.json")
 
+  if (config.conserveSpace) {
+    logger.warn(s"Cleaning old artifacts in ${config.publishFolder}")
+    LocalCleanup(config.publishFolder, config.organization, keepNum = 2)
+  }
+
   val externalsFolder: InFolder =
     UpToDateExternals(
       logger.void,
       config.cacheFolder / 'npm,
       external.packages.map(_.typingsPackageName).to[Set] + "typescript" ++ Libraries.extraExternals,
-      Libraries.ignored
+      Libraries.ignored,
+      config.conserveSpace,
+      config.offline
     )
 
   val stdLibSource: Source =
@@ -164,7 +171,9 @@ object Main extends App {
           ignored          = Libraries.ignored,
           stdlibSource     = stdLibSource,
           pedantic         = config.pedantic,
-          parser           = PersistingFunction(nameAndMtimeUnder(parseCacheFolder), logger.void)(parseFile)
+          parser =
+            if (config.enableParseCache) PersistingFunction(nameAndMtimeUnder(parseCacheFolder), logger.void)(parseFile)
+            else parseFile
         ),
         "typescript"
       )
