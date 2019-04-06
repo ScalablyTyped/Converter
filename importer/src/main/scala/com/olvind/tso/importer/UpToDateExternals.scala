@@ -16,37 +16,43 @@ object UpToDateExternals {
     mkdir(cacheFolder)
 
     val ensurePresentPackagesFixes = ensurePresentPackages.map {
-      // yarn can apparently not resolve scoped packages with this syntax
+      // you can apparently not resolve scoped packages with this syntax
       case s if s.contains("__") => s.split("__").mkString("@", "/", "")
       case other                 => other
     }
 
+    val packageJsonPath = cacheFolder / "package.json"
+    val packageJson     = Json.opt[PackageJsonDeps](packageJsonPath, error => logger.warn(error))
+
     val alreadyAddedExternals: Set[String] =
-      Json.opt[PackageJsonDeps](cacheFolder / "package.json", error => logger.warn(error)) match {
+      packageJson match {
         case Some(PackageJsonDeps(_, deps, peerDeps, _, _, _)) =>
           (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty)).map { case (name, _) => name }(
             collection.breakOut
           )
-        case _ => Set.empty
+        case None =>
+          files.softWrite(packageJsonPath)(_.println("{}"))
+          Set.empty
       }
 
     val missingExternals: Set[String] =
       ensurePresentPackagesFixes -- alreadyAddedExternals -- ignored
 
-    if (missingExternals.nonEmpty) {
+    if (missingExternals.isEmpty) logger.warn("All external libraries present in node_modules")
+    else {
       if (offline) {
         logger.fatal(s"Is in offline mode but is missing externals $missingExternals")
       }
 
-      logger.warn(s"Adding missing externals $missingExternals")
-      %("yarn", "add", "--ignore-scripts", missingExternals.toSeq)(cacheFolder)
-
-    } else
-      logger.warn("All external libraries present in node_modules")
+      missingExternals.toSeq.sorted.grouped(30).foreach { es =>
+        logger.warn(s"Adding missing externals $es")
+        %%("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", es)(cacheFolder)
+      }
+    }
 
     if (!offline) {
       logger.warn("Updating external libraries in node_modules")
-      %('yarn, 'upgrade, "--latest", "--ignore-scripts")(cacheFolder)
+      %%('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit")(cacheFolder)
     }
 
     if (conserveSpace) {
@@ -55,11 +61,8 @@ object UpToDateExternals {
 
       logger.warn("Trimming node_modules")
       ls.rec(p => KeepExtensions(p.ext))(cacheFolder).filter(_.isFile).foreach(rm)
-
-      logger.warn("Deleting yarn cache")
-      rm(home / 'cache / 'yarn)
-
     }
+
     InFolder(cacheFolder / 'node_modules)
   }
 }
