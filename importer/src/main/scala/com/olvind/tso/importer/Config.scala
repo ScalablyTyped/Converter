@@ -14,6 +14,7 @@ case class Config(
     forceCommit:      Boolean,
     conserveSpace:    Boolean,
     enableParseCache: Boolean,
+    dontCleanProject: Boolean,
     wantedLibNames:   Set[String],
 ) {
 
@@ -46,6 +47,7 @@ object Config {
             forceCommit      = flags contains "-forceCommit",
             conserveSpace    = flags contains "-conserveSpace",
             enableParseCache = flags contains "-enableParseCache",
+            dontCleanProject = flags contains "-dontCleanProject",
             wantedLibNames   = rest.to[Set]
           )
         )

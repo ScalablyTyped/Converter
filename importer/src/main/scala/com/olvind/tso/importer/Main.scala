@@ -61,11 +61,13 @@ object Main extends App {
       if (!config.offline) {
         % git 'fetch
       }
-      % git ("clean", "-fdX") // remove ignored files/folders
-      % git ("clean", "-fd")
-      % git ('reset, "--hard", "origin/master")
-      % rm ("-f", ".git/gc.log")
-      % git 'prune
+      if (!config.dontCleanProject) {
+        % git ("clean", "-fdX") // remove ignored files/folders
+        % git ("clean", "-fd")
+        % git ('reset, "--hard", "origin/master")
+        % rm ("-f", ".git/gc.log")
+        % git 'prune
+      }
     case (false, false) =>
       implicit val wd = config.cacheFolder
       % git ('clone, config.ScalablyTypedRepo)
