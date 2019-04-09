@@ -7,21 +7,15 @@ import scala.scalajs.js.annotation._
 
 trait IntrinsicElements extends js.Object {
   // HTML
-  var abbr: reactLib.reactMod.ReactNs.DetailedHTMLProps[
-    reactLib.reactMod.ReactNs.HTMLAttributes[reactLib.HTMLElement], 
-    reactLib.HTMLElement
-  ]
-  var animate: reactLib.reactMod.ReactNs.SVGProps[reactLib.SVGElement]
+  var abbr: reactLib.reactMod.DetailedHTMLProps[reactLib.reactMod.HTMLAttributes[reactLib.HTMLElement], reactLib.HTMLElement]
+  var animate: reactLib.reactMod.SVGProps[reactLib.SVGElement]
 }
 
 object IntrinsicElements {
   @scala.inline
   def apply(
-    abbr: reactLib.reactMod.ReactNs.DetailedHTMLProps[
-      reactLib.reactMod.ReactNs.HTMLAttributes[reactLib.HTMLElement], 
-      reactLib.HTMLElement
-    ],
-    animate: reactLib.reactMod.ReactNs.SVGProps[reactLib.SVGElement]
+    abbr: reactLib.reactMod.DetailedHTMLProps[reactLib.reactMod.HTMLAttributes[reactLib.HTMLElement], reactLib.HTMLElement],
+    animate: reactLib.reactMod.SVGProps[reactLib.SVGElement]
   ): IntrinsicElements = {
     val __obj = js.Dynamic.literal(abbr = abbr, animate = animate)
   

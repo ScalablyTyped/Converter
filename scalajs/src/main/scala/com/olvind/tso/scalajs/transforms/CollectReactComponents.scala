@@ -177,7 +177,7 @@ object CollectReactComponents {
   }
 
   def maybeClassComponent(cls: ClassTree, scope: TreeScope): Option[Component] =
-    if (Names.isComponentClassInReactItself(cls.codePath)) None
+    if (Names.inReact(cls.codePath)) None
     else if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
@@ -223,12 +223,7 @@ object CollectReactComponents {
     }
 
   private object Names {
-    val isComponentClassInReactItself = Set(
-      QualifiedName(List(Name("reactLib"), Name("reactMod"), Name("Component"))),
-      QualifiedName(List(Name("reactLib"), Name("reactMod"), Name("PureComponent")))
-    )
-
-    val React             = List(Name("reactLib"), Name("reactMod"), Name("ReactNs"))
+    val React             = List(Name("reactLib"), Name("reactMod"))
     val Component         = QualifiedName(React :+ Name("Component"))
     val ComponentClass    = QualifiedName(React :+ Name("ComponentClass"))
     val ClassType         = QualifiedName(React :+ Name("ClassType"))
@@ -237,5 +232,7 @@ object CollectReactComponents {
     val Element           = QualifiedName(React :+ Name("ReactElement"))
 
     val isComponent = Set(Component, ClassType, ComponentType, ComponentClass, FunctionComponent)
+
+    def inReact(cp: QualifiedName): Boolean = cp.parts startsWith React
   }
 }

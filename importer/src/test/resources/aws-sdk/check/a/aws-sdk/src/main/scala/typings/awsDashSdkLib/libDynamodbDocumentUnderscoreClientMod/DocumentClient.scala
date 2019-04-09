@@ -11,6 +11,6 @@ import scala.scalajs.js.annotation._
   * Creates a DynamoDB document client with a set of configuration options.
   */
 class DocumentClient () extends js.Object {
-  def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration) = this()
+  def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.ClientConfiguration) = this()
 }
 

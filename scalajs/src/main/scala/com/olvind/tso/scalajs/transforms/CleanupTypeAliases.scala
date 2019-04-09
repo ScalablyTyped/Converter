@@ -42,6 +42,8 @@ object CleanupTypeAliases extends TreeTransformation {
           case (_, Nil)       => None
           case (_, remaining) => Some(ta.copy(comments = Comments(remaining)))
         }
+      case x: FieldTree =>
+        if (x.comments.cs.exists(_ === constants.MagicComments.TrivialTypeAlias)) None else Some(x)
       case other => Some(other)
     }
 }

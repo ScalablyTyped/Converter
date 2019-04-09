@@ -6,5 +6,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactDashIconDashBaseMod {
-  type IconBaseClass = reactLib.reactMod.ReactNs.Component[IconBaseProps, js.Object]
+  type IconBaseClass = reactLib.reactMod.Component[IconBaseProps, js.Object]
 }

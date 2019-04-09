@@ -386,6 +386,7 @@ object TsTreeScope {
                   case x: TsContainer =>
                     (scope / x).lookupInternal(Pick, t, loopDetector)
                   case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>
+                    // this is the second part of the aws-sdk hack, see HandleCommonJsModules
                     search(scope, Pick, c, t, loopDetector)
                   case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp, false) =>
                     Hoisting.fromType(scope, cp, jsLocation, loopDetector, tpe).collect {

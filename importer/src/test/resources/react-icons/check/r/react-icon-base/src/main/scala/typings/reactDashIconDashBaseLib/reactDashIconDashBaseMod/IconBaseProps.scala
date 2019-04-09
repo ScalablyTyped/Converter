@@ -6,15 +6,15 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait IconBaseProps
-  extends reactLib.reactMod.ReactNs.ClassAttributes[reactLib.reactMod.ReactNs.ReactSVGElement] {
+  extends reactLib.reactMod.ClassAttributes[reactLib.reactMod.ReactSVGElement] {
   var size: js.UndefOr[java.lang.String | scala.Double] = js.undefined
 }
 
 object IconBaseProps {
   @scala.inline
   def apply(
-    key: reactLib.reactMod.ReactNs.Key = null,
-    ref: reactLib.reactMod.ReactNs.Ref[reactLib.reactMod.ReactNs.ReactSVGElement] = null,
+    key: reactLib.reactMod.Key = null,
+    ref: reactLib.reactMod.Ref[reactLib.reactMod.ReactSVGElement] = null,
     size: java.lang.String | scala.Double = null
   ): IconBaseProps = {
     val __obj = js.Dynamic.literal()

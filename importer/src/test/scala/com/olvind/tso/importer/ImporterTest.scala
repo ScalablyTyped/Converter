@@ -15,7 +15,7 @@ class ImporterTest extends FunSuite with ImporterHarness {
   test("react-icons")(assertImportsOk("react-icons", pedantic                       = true, update  = update))
   test("vue")(assertImportsOk("vue", pedantic                                       = true, update  = update))
   test("sax")(assertImportsOk("sax", pedantic                                       = true, update  = update))
-  test("serve-static")(assertImportsOk("serve-static", pedantic                     = false, update = update))
+  test("serve-static")(assertImportsOk("serve-static", pedantic                     = true, update  = update))
   test("tstl")(assertImportsOk("tstl", pedantic                                     = true, update  = update))
   test("react-select")(assertImportsOk("react-select", pedantic                     = true, update  = update))
   test("numjs")(assertImportsOk("numjs", pedantic                                   = true, update  = update))

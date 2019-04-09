@@ -6,7 +6,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ReactSelectProps[TValue]
-  extends reactLib.reactMod.ReactNs.Props[ReactSelectClass[TValue]] {
+  extends reactLib.reactMod.Props[ReactSelectClass[TValue]] {
   /**
     * text to display when `allowCreate` is true.
     * @default 'Add "{label}"?'

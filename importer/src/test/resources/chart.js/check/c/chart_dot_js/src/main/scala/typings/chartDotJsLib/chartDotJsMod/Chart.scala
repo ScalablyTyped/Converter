@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Chart extends js.Object {
-  var data: chartDotJsLib.chartDotJsMod.ChartNs.ChartData = js.native
+  var data: ChartData = js.native
   def clear(): js.Object = js.native
   def destroy(): js.Object = js.native
   def generateLegend(): js.Object = js.native

@@ -18,47 +18,14 @@ object DynamoDBNs extends js.Object {
     */
   class DocumentClient ()
     extends awsDashSdkLib.clientsDynamodbMod.DocumentClient {
-    def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration) = this()
+    def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.ClientConfiguration) = this()
   }
   
-  @js.native
-  class Types ()
-    extends awsDashSdkLib.clientsDynamodbMod.Types {
-    def this(options: awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration) = this()
-  }
-  
-  val TypesNs: this.type = js.native
   /* static members */
   @js.native
   object Converter extends js.Object {
-    def input(data: js.Any): awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.AttributeValue = js.native
-    def input(data: js.Any, options: awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions): awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.AttributeValue = js.native
-  }
-  
-  @JSName("DynamoDB")
-  @js.native
-  object DynamoDBNs extends js.Object {
-    @js.native
-    class Converter ()
-      extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.Converter
-    
-    @js.native
-    /**
-      * Creates a DynamoDB document client with a set of configuration options.
-      */
-    class DocumentClient ()
-      extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.DocumentClient {
-      def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration) = this()
-    }
-    
-    val TypesNs: this.type = js.native
-    /* static members */
-    @js.native
-    object Converter extends js.Object {
-      def input(data: js.Any): awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.AttributeValue = js.native
-      def input(data: js.Any, options: awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions): awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.AttributeValue = js.native
-    }
-    
+    def input(data: js.Any): awsDashSdkLib.clientsDynamodbMod.AttributeValue = js.native
+    def input(data: js.Any, options: awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions): awsDashSdkLib.clientsDynamodbMod.AttributeValue = js.native
   }
   
 }

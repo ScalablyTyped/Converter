@@ -13,7 +13,7 @@ object JQLite {
   @scala.inline
   def apply(
     addClass: java.lang.String => JQLite,
-    injector: () => angularLib.angularMod.angularNs.autoNs.IInjectorService,
+    injector: () => angularLib.angularMod.autoNs.IInjectorService,
     NumberDictionary: /* index */ org.scalablytyped.runtime.NumberDictionary[stdLib.HTMLElement] = null
   ): JQLite = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))

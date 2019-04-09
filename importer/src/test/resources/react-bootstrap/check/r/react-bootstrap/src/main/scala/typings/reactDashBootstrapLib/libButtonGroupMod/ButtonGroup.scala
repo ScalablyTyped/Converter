@@ -7,5 +7,5 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait ButtonGroup
-  extends reactLib.reactMod.Component[reactDashBootstrapLib.libButtonGroupMod.ButtonGroupNs.ButtonGroupProps, js.Object]
+  extends reactLib.reactMod.Component[ButtonGroupProps, js.Object]
 
