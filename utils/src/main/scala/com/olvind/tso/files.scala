@@ -16,8 +16,6 @@ object Synced {
 }
 
 final case class InFile(path: Path) {
-  require(path.isFile, s"$path is not a file")
-
   def folder: InFolder =
     InFolder(path / up)
 }
