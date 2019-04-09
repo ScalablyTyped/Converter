@@ -48,6 +48,7 @@ object InferredDependency {
     TsIdent("moment") -> TsIdentLibrarySimple("moment"),
     TsIdent("Backbone") -> TsIdentLibrarySimple("backbone"),
     TsIdent("Leaflet") -> TsIdentLibrarySimple("leaflet"),
+    TsIdent("Plotly") -> TsIdentLibrarySimple("plotly.js"),
   )
 
   private val NodeModules: Set[TsIdentModule] = Set(
