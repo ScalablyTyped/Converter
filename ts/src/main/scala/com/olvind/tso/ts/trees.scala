@@ -200,8 +200,7 @@ final case class TsDeclEnum(comments:     Comments,
     copy(name = newName)
 }
 
-final case class TsEnumMember(comments: Comments, name: TsIdent, literal: Option[Either[TsLiteral, TsIdent]])
-    extends TsTree
+final case class TsEnumMember(comments: Comments, name: TsIdent, expr: Option[TsExpr]) extends TsTree
 
 final case class TsDeclVar(
     comments:   Comments,
@@ -209,7 +208,7 @@ final case class TsDeclVar(
     readOnly:   Boolean,
     name:       TsIdent,
     tpe:        Option[TsType],
-    literal:    Option[TsLiteral],
+    expr:       Option[TsExpr],
     jsLocation: JsLocation,
     codePath:   CodePath,
     isOptional: Boolean
@@ -299,15 +298,6 @@ sealed trait TsTerm extends TsTree
 
 sealed abstract class TsLiteral(repr: String) extends TsTerm {
   def literal = repr
-}
-
-object TsLiteral {
-  def typeOf(tsLiteral: TsLiteral): (Comment, TsTypeRef) =
-    tsLiteral match {
-      case TsLiteralNumber(x)  => (Comment(s"/* $x */"), TsTypeRef.number)
-      case TsLiteralBoolean(x) => (Comment(s"/* $x */"), TsTypeRef.boolean)
-      case TsLiteralString(x)  => (Comment(s"/* $x */"), TsTypeRef.string)
-    }
 }
 
 final case class TsLiteralNumber(value: String) extends TsLiteral(value)
@@ -637,7 +627,7 @@ final case class TsMemberProperty(
     level:      ProtectionLevel,
     name:       TsIdent,
     tpe:        Option[TsType],
-    literal:    Option[TsLiteral],
+    expr:       Option[TsExpr],
     isStatic:   Boolean,
     isReadOnly: Boolean,
     isOptional: Boolean

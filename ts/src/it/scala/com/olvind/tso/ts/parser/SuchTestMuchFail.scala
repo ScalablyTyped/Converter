@@ -38,7 +38,6 @@ final class SuchTestMuchFail extends FunSuite {
         .recursiveListFiles(dtFolder.path)
         .filter(_.isFile)
         .filter(_.toString.endsWith(".d.ts"))
-        .take(4000)
         .toSeq
 
     val parsed: Seq[(Path, Parsers#ParseResult[TsParsedFile])] =

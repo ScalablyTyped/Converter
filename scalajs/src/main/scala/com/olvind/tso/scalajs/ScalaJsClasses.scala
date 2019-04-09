@@ -88,11 +88,44 @@ object ScalaJsClasses {
     )
   }
 
+  val StringDictionary =
+    ClassTree(
+      Seq(ScalaJSDefined, JsGlobalScope),
+      Name("StringDictionary"),
+      Seq(TypeParamTree(Name("T"), None, NoComments)),
+      Nil,
+      Nil,
+      Nil,
+      ClassType.Trait,
+      isSealed = false,
+      NoComments,
+      QualifiedName.StringDictionary
+    )
+
+  val NumberDictionary =
+    ClassTree(
+      Seq(ScalaJSDefined, JsGlobalScope),
+      Name("NumberDictionary"),
+      Seq(TypeParamTree(Name("T"), None, NoComments)),
+      Nil,
+      Nil,
+      Nil,
+      ClassType.Trait,
+      isSealed = false,
+      NoComments,
+      QualifiedName.NumberDictionary
+    )
+
   val Functions: Seq[ClassTree] =
     0 to 22 flatMap (n => List(ScalaJsF(isThis = false, n), ScalaJsF(isThis = true, n)))
 
   val ScalaJsTypes: Map[List[Name], ClassTree] =
-    (Functions :+ ScalaJsFunction :+ ScalaJsArray :+ ObjectMembers.ScalaJsObject :+ ObjectMembers.ScalaObject)
+    (Functions ++ List(ScalaJsFunction,
+                       ScalaJsArray,
+                       ObjectMembers.ScalaJsObject,
+                       ObjectMembers.ScalaObject,
+                       StringDictionary,
+                       NumberDictionary))
       .map(x => x.codePath.parts -> x)
       .toMap
 }

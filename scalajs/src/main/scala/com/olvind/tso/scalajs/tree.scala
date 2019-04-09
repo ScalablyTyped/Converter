@@ -64,7 +64,6 @@ final case class ClassTree(
 ) extends InheritanceTree {
   lazy val index: Map[Name, Seq[MemberTree]] =
     members.groupBy(_.name)
-
 }
 
 sealed trait ModuleType

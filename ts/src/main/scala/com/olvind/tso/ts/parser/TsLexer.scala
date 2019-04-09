@@ -122,11 +122,29 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
       "{", "}", "(", ")", "[", "]", "<", ">",
       ".", ";", ",", "?", ":", "=", "|", "&", "*",
       // TypeScript-specific
-      "...", "=>", "-?"
+      "...", "=>", "-?",
     )
     // format: on
     (delimiters.sortBy(_.length) map parseDelim)
       .foldRight(failure("no matching delimiter"): Parser[Keyword])((x, y) => y | x)
+  }
+
+  val ops = List("+", "-", "^", "|", "*", "/", "%", "as", "<<", ">>")
+
+  val operators: Parser[Keyword] = {
+    /* construct parser for delimiters by |'ing together the parsers for the
+     * individual delimiters, starting with the longest one -- otherwise a
+     * delimiter D will never be matched if there is another delimiter that is
+     * a prefix of D
+     */
+    def parse(s: String): Parser[Keyword] =
+      accept(s.toList) ^^ (_ => Keyword(s))
+
+    /** The set of delimiters (ordering does not matter) */
+    // format: off
+    // format: on
+    (ops.sortBy(_.length) map parse)
+      .foldRight(failure("no matching operator"): Parser[Keyword])((x, y) => y | x)
   }
 
   private val newLine: Parser[Char] =
@@ -187,7 +205,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
 
   override val token: Parser[Token] = {
-    val base = identifier | directive | comment | delim | numericLiteral | stringLiteral | EofCh ^^^ EOF
+    val base = identifier | directive | comment | delim | numericLiteral | stringLiteral | operators | EofCh ^^^ EOF
 
     val ignore = (newLine | whitespaceChar).*
 

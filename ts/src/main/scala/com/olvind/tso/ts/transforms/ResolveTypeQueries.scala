@@ -92,14 +92,12 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
         val newMod = new ReplaceExports(LoopDetector.initial).visitTsDeclModule(scope.`..`)(mod)
         nonEmptyTypeObject(newMod.members)
 
-      case TsDeclVar(_, _, _, _, tpe, literal, _, _, _) =>
-        tpe match {
-          case Some(nested: TsTypeQuery) =>
-            Some(resolve(scope, nested, loopDetector))
-          case Some(other) =>
-            Some(other)
-          case None =>
-            literal map TsTypeLiteral
+      case TsDeclVar(_, _, _, _, tpe, _, _, _, _) =>
+        tpe map {
+          case nested: TsTypeQuery =>
+            resolve(scope, nested, loopDetector)
+          case other =>
+            other
         }
       case _ => None
     }

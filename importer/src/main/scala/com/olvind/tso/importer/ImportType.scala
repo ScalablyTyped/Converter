@@ -10,14 +10,10 @@ object ImportType {
   def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType]): TypeRef =
     ott map apply(wildcards, scope, importName) getOrElse TypeRef.Any
 
-  def orLitOrAny(wildcards:                                                            Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType],
-                                                                                   ol: Option[TsLiteral]): TypeRef =
-    (ott, ol) match {
-      case (Some(x), _) => apply(wildcards, scope, importName)(x)
-      case (None, Some(lit)) =>
-        val (c, tpe) = TsLiteral.typeOf(lit)
-        apply(wildcards, scope, importName)(tpe).withComments(Comments(c))
-      case _ => TypeRef.Any
+  def orExprOrAny(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType]): TypeRef =
+    ott match {
+      case None    => TypeRef.Any
+      case Some(x) => apply(wildcards, scope, importName)(x)
     }
 
   sealed trait Mapping

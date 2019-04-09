@@ -182,18 +182,13 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsDeclVar(_1, _2, _3, _4, _5, _6, _7, _8, _9) =>
-        TsDeclVar(_1, _2, _3, _4, _5 map visitTsType(tt), _6 map visitTsLiteral(tt), _7, _8, _9)
+        TsDeclVar(_1, _2, _3, _4, _5 map visitTsType(tt), _6, _7, _8, _9)
     }
   }
   final def visitTsEnumMember(t: T)(x: TsEnumMember): TsEnumMember = {
     val xx = enterTsEnumMember(withTree(t, x))(x)
-    val tt = withTree(t, xx)
     xx match {
-      case TsEnumMember(_1, _2, _3) =>
-        TsEnumMember(_1, _2, _3 map {
-          case Left(x) => Left(visitTsLiteral(tt)(x))
-          case right   => right
-        })
+      case TsEnumMember(_1, _2, _3) => TsEnumMember(_1, _2, _3)
     }
   }
 
@@ -315,7 +310,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberProperty(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsMemberProperty(_1, _2, _3, _4 map visitTsType(tt), _5 map visitTsLiteral(tt), _6, _7, _8)
+        TsMemberProperty(_1, _2, _3, _4 map visitTsType(tt), _5, _6, _7, _8)
     }
   }
   final def visitTsMemberTypeMapped(t: T)(x: TsMemberTypeMapped): TsMemberTypeMapped = {

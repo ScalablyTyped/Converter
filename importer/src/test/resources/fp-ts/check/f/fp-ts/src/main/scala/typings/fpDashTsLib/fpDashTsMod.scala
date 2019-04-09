@@ -11,7 +11,7 @@ object fpDashTsMod extends js.Object {
   @JSName("either")
   @js.native
   object eitherNs extends js.Object {
-    val URI: /* Either */ java.lang.String = js.native
+    val URI: fpDashTsLib.fpDashTsLibStrings.Either = js.native
   }
   
   @JSName("task")
