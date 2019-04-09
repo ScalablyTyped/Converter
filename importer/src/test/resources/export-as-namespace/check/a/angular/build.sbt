@@ -1,12 +1,11 @@
 organization := "org.scalablytyped"
 name := "angular"
-version := "1.6-49527c"
+version := "1.6-9e8e08"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.olvind" %%% "scalablytyped-runtime" % "1.0.0",
-  "org.scala-js" %%% "scalajs-dom" % "0.9.6",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-5331df")
+  "com.olvind" %%% "scalablytyped-runtime" % "2.0.0",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-da4576")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

@@ -332,23 +332,21 @@ object ImportTree {
             Seq(MemberRet.Inheritance(rewritten))
           case IndexingSingle(name) =>
             val KnownSymbols = Set(
-              "asyncIterator",
               "hasInstance",
               "isConcatSpreadable",
               "iterator",
               "match",
               "replace",
-              "observable",
               "search",
               "species",
               "split",
               "toPrimitive",
               "toStringTag",
-              "unscopables"
+              "unscopables",
             )
             name.parts match {
               case TsIdent.Symbol :: symName :: Nil if KnownSymbols(symName.value) =>
-                val a = Annotation.jsNameSymbol(QualifiedName.Runtime ++ ImportName.skipConversion(name))
+                val a = Annotation.jsNameSymbol(QualifiedName.Symbol + ImportName.skipConversion(symName))
 
                 val fieldType: MemberImpl =
                   (scalaJsDefined, m.isOptional) match {

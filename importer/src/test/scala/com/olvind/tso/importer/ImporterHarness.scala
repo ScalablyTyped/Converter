@@ -21,11 +21,12 @@ import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
   private val testLogger   = logging.stdout.filter(LogLevel.error)
-  private val version      = Versions.`scala 2.12 with scala.js 0.6.25`
+  private val version      = Versions.`scala 2.12 with scala.js 0.6`
   private val bloopFactory = new BloopFactory(testLogger)
+  private val scheduler    = Scheduler(ExecutionContext.Implicits.global)
   // hack: there is some flakiness while resolving scalac/scalajs plugin.
   // We only evaluate it once to make either all or none of the tests fail because of it
-  private val bloop = bloopFactory.forVersion(version)
+  private val bloop = bloopFactory.forVersion(version, scheduler)
 
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
@@ -61,7 +62,7 @@ trait ImporterHarness extends FunSuiteLike {
             organization    = "org.scalablytyped",
             publishFolder   = publishFolder,
             resolve         = resolve,
-            scheduler       = Scheduler(ExecutionContext.Implicits.global),
+            scheduler       = scheduler,
             failureCacheDir = failureCacheDir
           ),
           "build"

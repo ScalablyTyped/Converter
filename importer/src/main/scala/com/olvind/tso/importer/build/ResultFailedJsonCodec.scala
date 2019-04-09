@@ -3,6 +3,7 @@ import java.io.File
 import java.util.Optional
 
 import bloop.Compiler.Result
+import bloop.reporter.ProblemPerPhase
 import io.circe.Decoder.withReattempt
 import io.circe._
 import io.circe.generic.semiauto
@@ -143,9 +144,13 @@ object ResultFailedJsonCodec {
   implicit val OptionThrowableDecoder: Decoder[Option[Throwable]] = _ => Right(None)
   implicit val OptionThrowableEncoder: Encoder[Option[Throwable]] = _ => Json.Null
 
+  implicit val ProblemPerPhaseDecoder: Decoder[ProblemPerPhase] =
+    semiauto.deriveDecoder[ProblemPerPhase]
+  implicit val ProblemPerPhaseEncoder: Encoder[ProblemPerPhase] =
+    semiauto.deriveEncoder[ProblemPerPhase]
+
   implicit val FailedDecoder: Decoder[Result.Failed] =
     semiauto.deriveDecoder[Result.Failed]
-
   implicit val FailedEncoder: Encoder[Result.Failed] =
     semiauto.deriveEncoder[Result.Failed]
 }
