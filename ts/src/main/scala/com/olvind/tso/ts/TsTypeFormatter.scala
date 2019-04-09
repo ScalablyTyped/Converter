@@ -57,7 +57,7 @@ object TsTypeFormatter {
         Some(sig(s))
       ).flatten.mkString(" ")
 
-    case TsMemberProperty(_, l, name, tpe, literal, isStatic, isReadOnly, isOptional) =>
+    case TsMemberProperty(_, l, name, tpe, expr, isStatic, isReadOnly, isOptional) =>
       List[Option[String]](
         level(l),
         Some(if (isStatic) "static" else ""),
@@ -65,7 +65,7 @@ object TsTypeFormatter {
         Some(name.value),
         Some(if (isOptional) "?" else ""),
         tpe.map(apply).map(":" + _),
-        literal.map(l => "= " + lit(l))
+        expr.map(l => "= " + TsExpr.format(l))
       ).flatten.mkString(" ")
 
     // lazy

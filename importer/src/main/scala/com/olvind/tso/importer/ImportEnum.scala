@@ -8,7 +8,7 @@ object ImportEnum {
   def underlyingType(e: TsDeclEnum): TypeRef =
     e.members
       .collectFirst {
-        case TsEnumMember(_, _, Some(Left(lit))) =>
+        case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) =>
           lit match {
             case _: TsLiteralString  => TypeRef.String
             case _: TsLiteralNumber  => TypeRef.Double
@@ -75,7 +75,7 @@ object ImportEnum {
 
       val membersSyms: Seq[Tree] =
         members flatMap {
-          case TsEnumMember(memberCs, importName(memberName), literalOpt) =>
+          case TsEnumMember(memberCs, importName(memberName), exprOpt) =>
             val memberType: Option[ClassTree] =
               if (exportedFrom.nonEmpty) None
               else
@@ -94,10 +94,6 @@ object ImportEnum {
                   )
                 )
 
-            val memberComments = Comments(literalOpt map {
-              case Left(x)  => Comment(s"/* ${x.literal} */")
-              case Right(x) => Comment(s"/* ${x.value} */")
-            })
             val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
 
             val memberValue: Option[FieldTree] =
@@ -106,11 +102,11 @@ object ImportEnum {
                   FieldTree(
                     annotations = Nil,
                     name        = memberName,
-                    impl        = MemberImplNative,
                     tpe         = TypeRef.Intersection(memberTypeRef :: underlying :: Nil),
-                    comments    = memberComments,
+                    impl        = MemberImplNative,
                     isReadOnly  = true,
                     isOverride  = false,
+                    comments    = exprOpt.fold(Comments(Nil))(expr => Comments(Comment(s"/* ${TsExpr.format(expr)} */ "))),
                     codePath    = importedCodePath + memberName
                   )
                 )

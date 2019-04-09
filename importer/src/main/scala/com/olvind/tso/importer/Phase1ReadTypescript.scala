@@ -167,6 +167,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 modules.HandleCommonJsModules.visitTsParsedFile(scope),
                 (
                   T.SimplifyParents >>
+                    T.InferTypeFromExpr >>
                     T.NormalizeFunctions // run before FlattenTrees
                 ).visitTsParsedFile(scope.caching),
                 T.QualifyReferences.visitTsParsedFile(scope.caching),

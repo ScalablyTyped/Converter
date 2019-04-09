@@ -143,11 +143,20 @@ object Companions extends TreeTransformation {
 
   object ByParent {
     def apply(cls: ClassTree, scope: TreeScope): ByParent[MemberTree] = {
-      val parents = ParentsResolver(scope, cls)
+      val parents: ParentsResolver.Parents = ParentsResolver(scope, cls)
+
+      /* treat dictionaries specially, as they have no declared members */
+      val (treatAsUnresolved, keptDirectParents) =
+        parents.directParents.partitionCollect {
+          case ParentsResolver.Parent(ref +: _)
+              if ref.typeName === QualifiedName.StringDictionary ||
+                ref.typeName === QualifiedName.NumberDictionary =>
+            ref
+        }
 
       new ByParent(
-        parents.directParents.map(p => p -> go(p)).toMap,
-        parents.unresolved,
+        keptDirectParents.map(p => p -> go(p)).toMap,
+        parents.unresolved ++ treatAsUnresolved,
         firstValue(cls.index).toSorted,
         scope / cls
       )

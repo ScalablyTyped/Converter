@@ -213,8 +213,8 @@ object ImportTree {
                      newCodePath)
         )
 
-      case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, literalOpt, jsLocation, codePath, isOptional) =>
-        val base = ImportType.orLitOrAny(Wildcards.Prohibit, scope, importName)(tpeOpt, literalOpt)
+      case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
+        val base = ImportType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
 
         if (name === Name.Symbol) {
           Seq(
@@ -508,7 +508,7 @@ object ImportTree {
           }
 
         val importedType =
-          ImportType.orLitOrAny(Wildcards.No, scope, importName)(tpe, m.literal).withOptional(m.isOptional)
+          ImportType.orAny(Wildcards.No, scope, importName)(tpe).withOptional(m.isOptional)
         Seq(
           MemberRet(
             hack(
