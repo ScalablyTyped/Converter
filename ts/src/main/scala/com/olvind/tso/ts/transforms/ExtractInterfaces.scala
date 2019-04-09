@@ -39,28 +39,27 @@ object ExtractInterfaces {
     }
   }
 
+  def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
+    stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || isTypeMapping(obj.members)
+
+  def isTypeMapping(members: Seq[TsMember]): Boolean =
+    members match {
+      case Seq(_: TsMemberTypeMapped) => true
+      case _ => false
+    }
+
+  def isDictionary(members: Seq[TsMember]): Boolean =
+    members match {
+      case Seq(TsMemberIndex(_, _, _, IndexingDict(_, _), _, _)) => true
+      case _                                                     => false
+    }
+
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {
-    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
-      x match {
-        case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeObject(members), cp) if !isTypeMapping(members) =>
-          TsDeclInterface(cs, dec, name, tparams, Nil, members, cp)
-        case other => other
-      }
-
-    def isDictionary(obj: TsTypeObject): Boolean =
-      obj.members forall {
-        case _: TsMemberIndex => true
-        case _ => false
-      }
-
-    def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
-      stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || obj.members.forall(_.isInstanceOf[TsMemberTypeMapped])
-
     override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
       x match {
         case obj: TsTypeObject
             if obj.members.nonEmpty &&
-              !isDictionary(obj) &&
+              !isDictionary(obj.members) &&
               !partOfTypeMapping(scope.stack, obj) &&
               shouldBeExtracted(scope) =>
           val referencedTparams: Seq[TsTypeParam] =
@@ -92,11 +91,5 @@ object ExtractInterfaces {
     t.stack match {
       case List(_, _: TsDeclVar, _: TsParsedFile) => false
       case _ => true
-    }
-
-  def isTypeMapping(members: Seq[TsMember]): Boolean =
-    members.exists {
-      case _: TsMemberTypeMapped => true
-      case _ => false
     }
 }

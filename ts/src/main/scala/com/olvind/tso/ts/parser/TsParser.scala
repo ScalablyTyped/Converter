@@ -288,7 +288,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
 
   lazy val tsEnumMembers: Parser[Seq[TsEnumMember]] = {
     val base: Parser[TsEnumMember] =
-      comments ~ tsIdent ~ ("=" ~> either(tsLiteral, tsIdent)).? ~ delimMaybeComment(',').? ^^ {
+      comments ~ tsIdentLiberal ~ ("=" ~> either(tsLiteral, tsIdent)).? ~ delimMaybeComment(',').? ^^ {
         case cs ~ pn ~ lo ~ oc => TsEnumMember(cs +? oc.flatten, pn, lo)
       }
 
@@ -461,7 +461,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
   lazy val tsMemberNamed: Parser[TsMember] = {
 
     val intro: Parser[(ProtectionLevel, TsIdent, Boolean, Boolean)] =
-      tsIdent.+ ^^ {
+      tsIdentLiberal.+ ^^ {
         case mods :+ name =>
           val level: ProtectionLevel =
             if (mods.contains(TsIdent("protected"))) Protected
@@ -512,10 +512,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     )
 
     val indexedType: Parser[TsType] =
-      typeAnnotation |
-        (comments ~ tsTypeParams ~ ("(" ~> rep(functionParam) <~ ")") ~ (":" ~>! tsType) ^^ {
-          case cs ~ tparams ~ params ~ resultType => TsTypeFunction(TsFunSig(cs, tparams, params, Some(resultType)))
-        })
+      typeAnnotation | (functionSignature ^^ TsTypeFunction)
 
     val tsMemberIndex: Parser[TsMemberIndex] =
       comments ~ "readonly".isDefined ~ protectionLevel ~ indexing ~ "?".isDefined ~ indexedType ^^ TsMemberIndex
@@ -531,7 +528,10 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     }
 
   lazy val tsIdent: Parser[TsIdentSimple] =
-    identifierName ^^ TsIdent.apply | (tsLiteralString ^^ (lit => TsIdentSimple(lit.value)))
+    identifierName ^^ TsIdent.apply
+
+  lazy val tsIdentLiberal: Parser[TsIdentSimple] =
+    tsIdent | ((tsLiteralString | "[" ~> tsLiteralString <~ "]") ^^ (lit => TsIdent(lit.value)))
 
   lazy val tsIdentImport: Parser[TsIdentImport] =
     "import" ~> "(" ~> tsIdentModule <~ ")" ^^ TsIdentImport

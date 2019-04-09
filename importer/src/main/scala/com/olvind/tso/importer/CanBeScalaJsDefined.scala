@@ -13,7 +13,13 @@ object CanBeScalaJsDefined {
       case _:   TsDeclClass => false
       case int: TsDeclInterface if int.name === TsQIdent.Function.parts.head => false
       case int: TsDeclInterface =>
-        int.membersByName forall {
+        val fromUnnamed = int.unnamed.forall {
+          case _: TsMemberTypeMapped => false
+          case TsMemberIndex(_, _, _, IndexingSingle(_), _, _) => false
+          case _                                               => true
+        }
+
+        val fromNamed = int.membersByName.forall {
           case (TsIdent.Apply, _) => false
           case (_, Seq(one)) =>
             one match {
@@ -24,6 +30,8 @@ object CanBeScalaJsDefined {
             }
           case (_, _) => false
         }
+
+        fromUnnamed && fromNamed
       case _ => false
     }
 }

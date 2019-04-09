@@ -23,7 +23,9 @@ package object typesOptionsMod {
     ]) | scala.Unit
   ]
   type Component[Data, Methods, Computed, Props] = vueLib.typesVueMod.VueConstructor[vueLib.typesVueMod.Vue] | (FunctionalComponentOptions[Props, PropsDefinition[Props]]) | (ComponentOptions[vueLib.typesVueMod.Vue, Data, Methods, Computed, Props])
+  type DefaultComputed = org.scalablytyped.runtime.StringDictionary[js.Any]
   type DefaultData[V] = js.Object | (js.ThisFunction0[/* this */ V, js.Object])
+  type DefaultMethods[V] = org.scalablytyped.runtime.StringDictionary[js.ThisFunction1[/* this */ V, /* repeated */ js.Any, js.Any]]
   type DefaultProps = stdLib.Record[java.lang.String, js.Any]
   type DirectiveFunction = js.Function4[
     /* el */ stdLib.HTMLElement, 

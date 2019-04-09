@@ -51,9 +51,10 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
       case _: TsTypeLookup => true
       case _ => false
     }
+
   def isReferencedInIndexType(stack: List[TsTree]): Boolean =
     stack.exists {
-      case _: TsMemberIndex => true
-      case _ => false
+      case TsMemberIndex(_, _, _, IndexingDict(_, _), _, _) => true
+      case _                                                => false
     }
 }
