@@ -184,7 +184,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
         val isFailure: PartialFunction[Result, Result.Failed] = {
           case x: Result.Failed
               /* protect against flaky errors */
-              if !x.problems.exists(_.message().contains("bad option: -P:scalajs:sjsDefinedByDefault")) && x.t.isEmpty =>
+              if !x.problems.exists(_.problem.message().contains("bad option: -P:scalajs:sjsDefinedByDefault")) && x.t.isEmpty =>
             x
         }
 
@@ -200,7 +200,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
         val externalClasspath: Set[AbsolutePath] =
           dependencies.flatMap(
-            dep => DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)
+            dep =>
+              DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)(scheduler)
           )
 
         import ResultFailedJsonCodec._
@@ -230,15 +231,15 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
           case Compiler.Result.Failed(problems, _, _) =>
             problems foreach { p =>
-              val logLevel: LogLevel = p.severity match {
+              val logLevel: LogLevel = p.problem.severity match {
                 case Severity.Info  => LogLevel.info
                 case Severity.Warn  => LogLevel.warn
                 case Severity.Error => LogLevel.error
               }
 
-              implicit val line = sourcecode.Line(p.position.line().orElse(-1))
-              implicit val file = sourcecode.File(p.position.sourcePath.orElse("unknown file"))
-              logger(logLevel, (p.message, Back.LightGray(p.position.lineContent)))
+              implicit val line = sourcecode.Line(p.problem.position.line().orElse(-1))
+              implicit val file = sourcecode.File(p.problem.position.sourcePath.orElse("unknown file"))
+              logger(logLevel, (p.problem.message, Back.LightGray(p.problem.position.lineContent)))
             }
 
             PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))

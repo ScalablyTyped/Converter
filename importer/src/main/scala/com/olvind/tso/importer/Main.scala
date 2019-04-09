@@ -184,7 +184,7 @@ object Main extends App {
       .next(
         new Phase3CompileBloop(
           versions        = config.versions,
-          bloop           = bloopFactory.forVersion(config.versions),
+          bloop           = bloopFactory.forVersion(config.versions, scheduler),
           bloopLogger     = bloopFactory.bloopLogger,
           targetFolder    = targetFolder,
           mainPackageName = config.outputPkg,

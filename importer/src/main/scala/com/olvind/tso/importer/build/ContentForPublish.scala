@@ -113,7 +113,6 @@ object ContentForPublish {
         <dependency org={v.scalaJsOrganization} name={s"scalajs-compiler_${v.scalaVersion}"} rev={v.scalaJsVersion} conf="plugin->default(compile)"/>
         <dependency org={v.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJsVersion} conf="compile->default(compile)"/>
         <dependency org={v.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={v.scalaJsVersion} conf="test->default(compile)"/>
-        <dependency org={v.scalaJsOrganization} name={v.sjs("scalajs-dom")} rev={v.scalaJsDomVersion} conf="compile->default(compile)"/>
         <dependency org={v.RuntimeOrganization} name={v.sjs(v.RuntimeName)} rev={v.RuntimeVersion} conf="compile->default(compile)"/>
         {p.deps.map{case (_, d) =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
@@ -149,11 +148,6 @@ object ContentForPublish {
           <artifactId>{v.s("scalajs-test-interface")}</artifactId>
           <version>{v.scalaJsVersion}</version>
           <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>{v.scalaJsOrganization}</groupId>
-          <artifactId>{v.sjs("scalajs-dom")}</artifactId>
-          <version>{v.scalaJsDomVersion}</version>
         </dependency>
         <dependency>
           <groupId>{v.RuntimeOrganization}</groupId>

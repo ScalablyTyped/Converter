@@ -60,6 +60,7 @@ object UpToDateExternals {
       val KeepExtensions = Set("json", "ts", "lock")
 
       logger.warn("Trimming node_modules")
+
       ls.rec(cacheFolder).foreach {
         case link if link.isSymLink                           => rm(link)
         case file if file.isFile && !KeepExtensions(file.ext) => rm(file)

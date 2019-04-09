@@ -9,7 +9,7 @@ import ammonite.ops.{ls, Path}
 import bloop.Compiler.Result
 import bloop.io.{AbsolutePath, Paths}
 import bloop.logging.DebugFilter
-import bloop.reporter.{Problem, Reporter, ReporterConfig}
+import bloop.reporter.{Problem, ProblemPerPhase, Reporter, ReporterConfig}
 import bloop.{CompileInputs, CompileMode, Compiler, CompilerCache, DependencyResolution, ScalaInstance, SimpleIRStore}
 import ch.epfl.scala.bsp.StatusCode
 import com.olvind.logging.{Formatter, Logger}
@@ -20,6 +20,9 @@ import monix.eval.Task
 import sbt.internal.inc.bloop.ZincInternals
 import xsbti.ComponentProvider
 import xsbti.compile._
+
+import scala.concurrent.{ExecutionContext, Promise}
+import scala.util.Try
 
 class BloopFactory(logger: Logger[Unit]) {
   val irStore = SimpleIRStore(Array())
@@ -67,19 +70,19 @@ class BloopFactory(logger: Logger[Unit]) {
   val singleCompilerCache: CompilerCache =
     new CompilerCache(provider, jars, bloopLogger, Nil)
 
-  def forVersion(v: Versions): BloopCompiler = {
+  def forVersion(v: Versions, ec: ExecutionContext): BloopCompiler = {
     logger.warn(s"Initializing scala compiler ${v.scalaVersion} with scala.js ${v.scalaJsVersion}")
 
     val compilerInstance: ScalaInstance = {
       val allPaths: Array[AbsolutePath] =
-        DependencyResolution.resolve(v.scalaOrganization, "scala-compiler", v.scalaVersion, bloopLogger)
+        DependencyResolution.resolve(v.scalaOrganization, "scala-compiler", v.scalaVersion, bloopLogger)(ec)
 
       val allJars: Array[AbsolutePath] =
         allPaths.collect {
           case path if path.underlying.toString.endsWith(".jar") => path
         }
 
-      ScalaInstance(v.scalaOrganization, "scala-compiler", v.scalaVersion, allJars, bloopLogger)
+      ScalaInstance(v.scalaOrganization, "scala-compiler", v.scalaVersion, allJars, bloopLogger)(ec)
     }
 
     val repos: Array[Repository] =
@@ -93,21 +96,14 @@ class BloopFactory(logger: Logger[Unit]) {
           v.scalaJsVersion,
           bloopLogger,
           repos
-        ),
-        DependencyResolution.resolve(
-          v.scalaJsOrganization,
-          v.sjs("scalajs-dom"),
-          v.scalaJsDomVersion,
-          bloopLogger,
-          repos
-        ),
+        )(ec),
         DependencyResolution.resolve(
           v.RuntimeOrganization,
           v.sjs(v.RuntimeName),
           v.RuntimeVersion,
           bloopLogger,
           repos
-        ),
+        )(ec),
       ).flatten
 
     val scalaJsCompiler =
@@ -118,7 +114,7 @@ class BloopFactory(logger: Logger[Unit]) {
           v.scalaJsVersion,
           bloopLogger,
           repos
-        )
+        )(ec)
         .collectFirst { case f if f.syntax.contains("scalajs-compiler") => f }
         .head
 
@@ -143,17 +139,21 @@ class BloopFactory(logger: Logger[Unit]) {
       object reporter extends Reporter(NoLogger, toAbs(paths.baseDir), identity, ReporterConfig.defaultFormat) {
         override protected def logFull(problem: Problem): Unit = ()
 
-        override def reportStartCompilation(previousProblems: scala.List[xsbti.Problem]): Unit = ()
-
         override def reportEndCompilation(previousAnalysis: Option[CompileAnalysis],
                                           analysis:         Option[CompileAnalysis],
                                           code:             StatusCode): Unit = ()
 
         override def reportStartIncrementalCycle(sources: scala.Seq[File], outputDirs: scala.Seq[File]): Unit = ()
 
-        override def reportEndIncrementalCycle(durationMs: Long): Unit = ()
-
         override def printSummary(): Unit = ()
+
+        override def reportCompilationProgress(progress: Long, total: Long): Unit = ()
+
+        override def reportCancelledCompilation(): Unit = ()
+
+        override def reportStartCompilation(previousProblems: List[ProblemPerPhase]): Unit = ()
+
+        override def reportEndIncrementalCycle(durationMs: Long, result: Try[Unit]): Unit = ()
       }
 
       val scalacOptions = Array("-Xplugin:" + scalaJsCompiler.syntax) ++
@@ -176,10 +176,11 @@ class BloopFactory(logger: Logger[Unit]) {
         reporter               = reporter,
         compileOrder           = CompileOrder.ScalaThenJava,
         previousCompilerResult = Result.Empty,
+        mode                   = CompileMode.Sequential,
+        dependentResults       = Map.empty,
+        store                  = irStore,
+        cancelPromise          = Promise()
 //        mode                   = CompileMode.Parallel(2),
-        mode             = CompileMode.Sequential,
-        dependentResults = Map.empty,
-        store            = irStore
 //        store                  = new EmptyIRStore
       )
     }
