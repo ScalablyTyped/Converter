@@ -24,6 +24,7 @@ case class TsConfig(
 case class PackageJsonDeps(
     version:          Option[String],
     dependencies:     Option[Map[String, String]],
+    devDependencies:  Option[Map[String, String]],
     peerDependencies: Option[Map[String, String]],
     typings:          Option[String],
     types:            Option[String],

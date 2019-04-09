@@ -26,10 +26,9 @@ object UpToDateExternals {
 
     val alreadyAddedExternals: Set[String] =
       packageJson match {
-        case Some(PackageJsonDeps(_, deps, peerDeps, _, _, _)) =>
-          (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty)).map { case (name, _) => name }(
-            collection.breakOut
-          )
+        case Some(PackageJsonDeps(_, deps, _, peerDeps, _, _, _)) =>
+          (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty))
+            .map { case (name, _) => name }(collection.breakOut)
         case None =>
           files.softWrite(packageJsonPath)(_.println("{}"))
           Set.empty

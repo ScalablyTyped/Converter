@@ -125,26 +125,30 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
         val fileSources: Set[Source.TsHelperFile] =
           PathsFromTsLibSource(resolve, source, packageJsonOpt, tsConfig)
 
+        val stdlibSourceOpt: Option[Source] =
+          if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
+
         if (fileSources.isEmpty) {
           logger.warn(s"No typescript definitions found for $source")
           PhaseRes.Ignore()
         } else {
           val declaredDependencies: Set[Source] =
-            packageJsonOpt
-              .to[Set]
-              .flatMap(x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil))
-              .flatMap(
-                depName =>
-                  resolve.lookup(source, depName) match {
-                    case Some((x, _)) => Some(x)
-                    case None =>
-                      logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
-                      None
-                }
-              )
-
-          val stdlibSourceOpt: Option[Source] =
-            if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
+            if (stdlibSourceOpt.isEmpty) Set.empty
+            else
+              packageJsonOpt
+                .to[Set]
+                .flatMap(
+                  x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil)
+                )
+                .flatMap(
+                  depName =>
+                    resolve.lookup(source, depName) match {
+                      case Some((x, _)) => Some(x)
+                      case None =>
+                        logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
+                        None
+                  }
+                )
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
             case Unpack(libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
