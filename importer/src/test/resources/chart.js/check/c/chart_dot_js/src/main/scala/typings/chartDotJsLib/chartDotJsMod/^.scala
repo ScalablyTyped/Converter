@@ -7,17 +7,16 @@ import scala.scalajs.js.annotation._
 
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
-class namespaced protected () extends Chart {
+class ^ protected () extends Chart {
   def this(context: java.lang.String, options: js.Any) = this()
   def this(context: stdLib.ArrayLike[stdLib.CanvasRenderingContext2D | stdLib.HTMLCanvasElement], options: js.Any) = this()
   def this(context: stdLib.CanvasRenderingContext2D, options: js.Any) = this()
   def this(context: stdLib.HTMLCanvasElement, options: js.Any) = this()
 }
 
-/* static members */
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
-object namespaced extends js.Object {
+object ^ extends js.Object {
   val Chart: chartDotJsLib.Anon_Chart = js.native
   var controllers: org.scalablytyped.runtime.StringDictionary[js.Any] = js.native
   var defaults: chartDotJsLib.Anon_Global = js.native

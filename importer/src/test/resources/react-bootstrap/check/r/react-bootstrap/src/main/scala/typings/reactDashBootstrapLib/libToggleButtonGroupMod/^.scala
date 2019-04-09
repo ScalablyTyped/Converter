@@ -7,5 +7,5 @@ import scala.scalajs.js.annotation._
 
 @JSImport("react-bootstrap/lib/ToggleButtonGroup", JSImport.Namespace)
 @js.native
-class namespaced () extends ToggleButtonGroup
+class ^ () extends ToggleButtonGroup
 

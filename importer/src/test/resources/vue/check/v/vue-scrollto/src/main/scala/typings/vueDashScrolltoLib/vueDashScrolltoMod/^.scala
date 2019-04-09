@@ -7,12 +7,11 @@ import scala.scalajs.js.annotation._
 
 @JSImport("vue-scrollto", JSImport.Namespace)
 @js.native
-class namespaced () extends VueScrollTo
+class ^ () extends VueScrollTo
 
-/* static members */
 @JSImport("vue-scrollto", JSImport.Namespace)
 @js.native
-object namespaced extends js.Object {
+object ^ extends js.Object {
   @JSName("install")
   var install_Original: vueLib.typesPluginMod.PluginFunction[scala.Nothing] = js.native
   def install(Vue: vueLib.typesVueMod.VueConstructor[vueLib.typesVueMod.Vue]): scala.Unit = js.native

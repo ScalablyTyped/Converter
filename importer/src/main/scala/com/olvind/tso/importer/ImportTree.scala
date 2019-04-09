@@ -16,7 +16,7 @@ object ImportTree {
 
     val scope = TsTreeScope(lib.name, pedantic = true, deps, logger).caching / lib.parsed
 
-    val ret = ContainerTree.container(
+    val ret = ImportContainer(
       isWithinScalaModule = false,
       importName,
       scope,
@@ -26,7 +26,6 @@ object ImportTree {
       lib.parsed.members,
       lib.parsed.codePath.forceHasPath
     )
-
     val require = {
       val libName = importName(lib.name)
       val name    = libName.withSuffix("Require")
@@ -42,110 +41,11 @@ object ImportTree {
         codePath = QualifiedName(libName :: name :: Nil)
       )
     }
+
     ret match {
       case x: ModuleTree  => x.copy(members = x.members :+ require)
       case x: PackageTree => x.copy(members = x.members :+ require)
       case other => other
-    }
-  }
-
-  object ContainerTree {
-    private def canBeCompact(members: Seq[TsContainerOrDecl]): Boolean =
-      members.forall {
-        case _: TsImport        => true
-        case _: TsDeclVar       => true
-        case _: TsDeclFunction  => true
-        case x: TsDeclNamespace => canBeCompact(x.members)
-        case TsDeclTypeAlias(Comments(Seq(constants.MagicComments.TrivialTypeAlias)), _, _, _, _, _) => true
-        case _                                                                                       => false
-      }
-
-    private def allTypes(members: Seq[TsContainerOrDecl]): Boolean =
-      members.forall {
-        case _: TsImport        => true
-        case _: TsDeclInterface => true
-        case _: TsDeclTypeAlias => true
-        case x: TsDeclEnum      => !x.isValue
-        case x: TsDeclNamespace => allTypes(x.members)
-        case _ => false
-      }
-
-    /* A namespace within a module must end up as a scala module, given that we don't have a way to express the `@JSImport` */
-    private def mustBeCompact(scope: TsTreeScope): Boolean = {
-      var foundNamespace = false
-      var idx            = 0
-      while (idx < scope.stack.length) {
-        scope.stack(idx) match {
-          case x: TsDeclNamespace if !allTypes(x.members) =>
-            foundNamespace = true
-          case _: TsDeclModule if foundNamespace =>
-            return true
-          case _ => ()
-        }
-        idx += 1
-      }
-      false
-    }
-
-    private def avoidPackageObject(members: Seq[Tree]): (Seq[TypeRef], Seq[MemberTree], Seq[Tree]) =
-      members.partitionCollect3(
-        { case x: FieldTree if x.name === Name.namespaced  => x },
-        { case x: MethodTree if x.name === Name.namespaced => x },
-        { case x: MemberTree                               => x }
-      ) match {
-        case (namespacedFields, namespacedMethods, memberSyms, rest) =>
-          val rewrittenMethods = namespacedMethods.map(_.copy(name = Name.APPLY))
-
-          val asParents: Seq[TypeRef] =
-            namespacedFields.map(x => x.tpe).toList.distinct match {
-              case Nil => Nil
-              /* This is a shortcut so we don't have to implement the members */
-              case more => Seq(TypeRef.TopLevel(TypeRef.Intersection(more)))
-            }
-
-          (asParents, memberSyms ++ rewrittenMethods, rest)
-      }
-
-    def container(isWithinScalaModule: Boolean,
-                  importName:          ImportName,
-                  scope:               TsTreeScope,
-                  cs:                  Comments,
-                  name:                TsIdent,
-                  jsLocation:          JsLocation,
-                  members:             Seq[TsContainerOrDecl],
-                  codePath:            CodePath.HasPath): ContainerTree = {
-
-      val newCodePath                        = importName(codePath.codePath)
-      val anns                               = ImportJsLocation(jsLocation, isWithinScalaModule)
-      val inModule                           = scope.stack.length > 1 && (isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope))
-      val (inheritance, liftedMembers, rest) = avoidPackageObject(members flatMap decl(scope, inModule, importName))
-      val scalaName                          = importName(name)
-
-      if (inModule) {
-        val nameAnns: Option[JsName] =
-          name match {
-            case x: TsIdentNamespace if isWithinScalaModule => Option(JsName(Name(x.value)))
-            case _ => None
-          }
-        ModuleTree(anns ++ nameAnns, scalaName, ModuleTypeNative, inheritance, liftedMembers ++ rest, cs, newCodePath)
-      } else {
-        val membersModule =
-          if (liftedMembers.nonEmpty || inheritance.nonEmpty)
-            Some(
-              ModuleTree(
-                anns,
-                Name.hat,
-                ModuleTypeNative,
-                inheritance,
-                liftedMembers.map(m => m.withCodePath(newCodePath + Name.hat + m.name)),
-                NoComments,
-                newCodePath + Name.hat
-              )
-            )
-          else None
-
-        PackageTree(anns, scalaName, rest ++ membersModule, cs, newCodePath)
-      }
     }
   }
 
@@ -157,46 +57,58 @@ object ImportTree {
     t1 match {
       case TsDeclModule(cs, _, name, innerDecls, codePath, jsLocation) =>
         Seq(
-          ContainerTree
-            .container(isWithinScalaModule, importName, scope, cs, name, jsLocation, innerDecls, codePath.forceHasPath)
+          ImportContainer(
+            isWithinScalaModule = isWithinScalaModule,
+            importName          = importName,
+            scope               = scope,
+            cs                  = cs,
+            name                = name,
+            jsLocation          = jsLocation,
+            members             = innerDecls,
+            codePath            = codePath.forceHasPath
+          )
         )
 
       case TsAugmentedModule(name, innerDecls, codePath, jsLocation) =>
         Seq(
-          ContainerTree.container(isWithinScalaModule,
-                                  importName,
-                                  scope,
-                                  NoComments,
-                                  name,
-                                  jsLocation,
-                                  innerDecls,
-                                  codePath.forceHasPath)
+          ImportContainer(
+            isWithinScalaModule = isWithinScalaModule,
+            importName          = importName,
+            scope               = scope,
+            cs                  = NoComments,
+            name                = name,
+            jsLocation          = jsLocation,
+            members             = innerDecls,
+            codePath            = codePath.forceHasPath
+          )
         )
 
       case TsDeclNamespace(cs, _, name, decls, codePath, jsLocation) =>
-        if (decls.nonEmpty) {
-          Seq(
-            ContainerTree.container(isWithinScalaModule,
-                                    importName,
-                                    scope,
-                                    cs,
-                                    name,
-                                    jsLocation,
-                                    decls,
-                                    codePath.forceHasPath)
+        Seq(
+          ImportContainer(
+            isWithinScalaModule = isWithinScalaModule,
+            importName          = importName,
+            scope               = scope,
+            cs                  = cs,
+            name                = name,
+            jsLocation          = jsLocation,
+            members             = decls,
+            codePath            = codePath.forceHasPath
           )
-        } else Nil
+        )
 
       case TsGlobal(cs, _, ms, codePath) =>
         Seq(
-          ContainerTree.container(isWithinScalaModule,
-                                  importName,
-                                  scope,
-                                  cs,
-                                  TsIdent.Global,
-                                  JsLocation.Zero,
-                                  ms,
-                                  codePath.forceHasPath)
+          ImportContainer(
+            isWithinScalaModule = isWithinScalaModule,
+            importName          = importName,
+            scope               = scope,
+            cs                  = cs,
+            name                = TsIdent.Global,
+            jsLocation          = JsLocation.Zero,
+            members             = ms,
+            codePath            = codePath.forceHasPath
+          )
         )
 
       case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(members)), None, location, codePath, false) =>
