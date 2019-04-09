@@ -6,6 +6,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactMod {
+  type ComponentState = js.Object
   type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
   type Key = java.lang.String | scala.Double
   type ReactNode = js.UndefOr[java.lang.String | scala.Double | scala.Boolean | scala.Null]

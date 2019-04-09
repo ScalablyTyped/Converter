@@ -162,12 +162,13 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
     val finalVersion          = makeVersion(digest)
     val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
     val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles)
+
     val sbtProject = SbtProject(
       name,
       organization,
       versions.sjs(name),
       finalVersion
-    )(compilerPaths.baseDir, written, deps)
+    )(compilerPaths.baseDir, deps)
 
     val existing: IvyLayout[Path, Synced] =
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
@@ -177,7 +178,6 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       logger warn s"Using cached build of ${sbtProject.name}"
       PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
     } else {
-
       rm(compilerPaths.classesDir)
 
       val compileWithCachedFailures = {

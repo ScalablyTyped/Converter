@@ -69,6 +69,8 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
                 })
               case x: TsTypeUnion    => Res(Nil, x :: Nil, Map.empty)
               case _: TsTypeFunction => Res(tr :: Nil, Nil, Map.empty)
+              case TsTypeObject(members) if ExtractInterfaces.isDictionary(members) =>
+                Res(List(tr), Nil, Map.empty)
               case TsTypeObject(members) if !ExtractInterfaces.isTypeMapping(members) =>
                 Res(Nil, Nil, Map(tr -> members))
               case dropUnknown => Res(Nil, dropUnknown :: Nil, Map.empty)

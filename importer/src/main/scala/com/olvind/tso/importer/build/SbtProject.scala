@@ -10,7 +10,6 @@ import scala.collection.mutable
 
 case class SbtProject(name: String, organization: String, artifactId: String, version: String)(
     val baseDir:            Path,
-    val written:            Map[Path, Synced],
     val deps:               Map[Source, PublishedSbtProject]
 )
 

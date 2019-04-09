@@ -56,6 +56,7 @@ object GenerateSbtPlugin {
             s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
                 |${ps
                  .to[Seq]
+                 .distinct
                  .sortBy(_.name)
                  .map(
                    p =>

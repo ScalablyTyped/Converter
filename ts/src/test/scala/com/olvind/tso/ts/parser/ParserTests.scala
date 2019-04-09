@@ -1262,24 +1262,21 @@ type Readonly<T> = {
 
   test("literal symbols") {
     shouldParseAs("""["@@transducer/init"](): TResult | void""", TsParser.tsMember)(
-      TsMemberIndex(
-        comments   = NoComments,
-        isReadOnly = false,
-        level      = Default,
-        indexing   = IndexingSingle(TsQIdent(List(TsIdentSimple("@@transducer/init")))),
-        isOptional = false,
-        valueType = TsTypeFunction(
-          TsFunSig(
-            NoComments,
-            Nil,
-            Nil,
-            Some(
-              TsTypeUnion(
-                List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("TResult"))), Nil), TsTypeRef.void)
-              )
-            )
+      TsMemberFunction(
+        NoComments,
+        Default,
+        TsIdentSimple("@@transducer/init"),
+        TsFunSig(
+          NoComments,
+          Nil,
+          Nil,
+          Some(
+            TsTypeUnion(List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("TResult"))), List()), TsTypeRef.void))
           )
-        )
+        ),
+        isStatic   = false,
+        isReadOnly = false,
+        isOptional = false
       )
     )
   }
@@ -1560,8 +1557,8 @@ type Readonly<T> = {
     )(
       TsDeclClass(
         NoComments,
-        false,
-        false,
+        declared   = false,
+        isAbstract = false,
         TsIdentSimple("ManyArray"),
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         Some(TsTypeRef.any),
@@ -2132,8 +2129,8 @@ type Readonly<T> = {
     )(
       TsDeclVar(
         NoComments,
-        false,
-        false,
+        declared = false,
+        readOnly = false,
         TsIdentSimple("foo"),
         Some(
           TsTypeRef(NoComments,
@@ -2143,7 +2140,7 @@ type Readonly<T> = {
         None,
         Zero,
         CodePath.NoPath,
-        false
+        isOptional = false
       )
     )
   }
