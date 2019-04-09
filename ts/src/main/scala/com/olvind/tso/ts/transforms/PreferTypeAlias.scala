@@ -1,7 +1,9 @@
 package com.olvind.tso
 package ts
 package transforms
+
 import scala.collection.mutable
+import seqs._
 
 object PreferTypeAlias extends TreeTransformationScopedChanges {
   override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
@@ -77,16 +79,21 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * trait Foo extends Anon_Bar
         * ```
         *
-        * So we rewrite it early instead
+        * So we rewrite it early instead.
+        *
+        * We also handle `type Bar = {something: number} | {whatever: string}`
+        * and rewrite it into
+        * `interface Bar { something: | undefined, whatever: string | undefined }`
         */
-      case TsDeclTypeAlias(cs, dec, name, tparams, TsTypeObject(members), cp)
-          if members.nonEmpty && !ExtractInterfaces.isTypeMapping(members) && !ExtractInterfaces.isDictionary(
-            members
-          ) =>
+      case TsDeclTypeAlias(cs, dec, name, tparams, AllTypeObjects(members), cp)
+          if members.nonEmpty &&
+            !ExtractInterfaces.isTypeMapping(members) &&
+            !ExtractInterfaces.isDictionary(members) =>
         TsDeclInterface(cs, dec, name, tparams, Nil, members, cp)
 
       case other => other
     }
+
   private object IsFunction {
     def unapply(i: TsDeclInterface): Option[TsDeclTypeAlias] =
       if (i.members.size =/= 1 || i.inheritance.nonEmpty) None
@@ -157,5 +164,33 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         )
         true
     }
+  }
+
+  object AllTypeObjects {
+    def unapply(arg: TsType): Option[Seq[TsMember]] =
+      arg match {
+        case TsTypeObject(members) => Some(members)
+
+        case TsTypeUnion(types) =>
+          types.partitionCollect { case AllTypeObjects(members) => members } match {
+            case (members, Nil) =>
+              members.flatten.partitionCollect {
+                case m: TsMemberFunction => m.copy(isOptional = true)
+                case m: TsMemberIndex    => m.copy(isOptional = true)
+                case x: TsMemberProperty => x.copy(isOptional = true)
+              } match {
+                case (validAsOptionals, Nil) => Some(validAsOptionals)
+                case _                       => None
+              }
+            case _ => None
+          }
+        case TsTypeIntersect(types) =>
+          types.partitionCollect { case AllTypeObjects(members) => members } match {
+            case (members, Nil) => Some(members.flatten)
+            case _              => None
+          }
+        case _ => None
+      }
+
   }
 }
