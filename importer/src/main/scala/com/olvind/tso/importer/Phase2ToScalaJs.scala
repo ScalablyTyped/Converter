@@ -6,6 +6,7 @@ import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.{ContainerTree, Name, TreeScope, transforms => S}
+import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.collection.immutable.SortedSet
 
@@ -23,8 +24,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
         PhaseRes.Ignore()
 
       case lib: LibTs =>
-        val knownLibs: SortedSet[Source] =
-          lib.dependencies.keys.map(x => x: Source).to[SortedSet]
+        val knownLibs = garbageCollectLibs(lib)
 
         val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
         getDeps(knownLibs) map {
@@ -72,4 +72,17 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
             )
         }
     }
+
+  private def garbageCollectLibs(lib: LibTs): SortedSet[Source] = {
+    val all: SortedSet[Source] =
+      lib.dependencies.keys.map(x => x: Source).to[SortedSet]
+
+    val referenced: Set[TsIdentLibrary] = ts.TreeTraverse
+      .collect(lib.parsed) {
+        case x: ts.TsIdentLibrary => x
+      }
+      .toSet
+
+    all.filter(x => referenced(x.libName))
+  }
 }

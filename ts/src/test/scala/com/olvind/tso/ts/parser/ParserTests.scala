@@ -2272,5 +2272,8 @@ type Readonly<T> = {
         List(TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("6")), "+", TsExpr.Literal(TsLiteralNumber("7"))))
       )
     )
+//    shouldParseAs("""(0x000FFFFF + 1) >> 1""", TsParser.expr)(
+//      null
+//    )
   }
 }
