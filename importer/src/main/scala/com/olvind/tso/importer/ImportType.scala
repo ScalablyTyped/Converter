@@ -4,6 +4,7 @@ package importer
 import com.olvind.tso.scalajs._
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts._
+import com.olvind.tso.ts.transforms.ExtractInterfaces
 
 object ImportType {
 
@@ -116,11 +117,35 @@ object ImportType {
             TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base)).withComments(c)
         } getOrElse base.withComments(c)
 
-      case TsTypeObject(Seq(TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType))) =>
-        TypeRef.StringDictionary(apply(wildcards, scope, importName)(valueType).withOptional(isOptional), cs)
+      case TsTypeObject(ms) if ExtractInterfaces.isDictionary(ms) =>
+        val (strings, numbers, Nil) = ms.partitionCollect2(
+          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.string), _, _) => x },
+          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _, _) => x },
+        )
 
-      case TsTypeObject(Seq(TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType))) =>
-        TypeRef.NumberDictionary(apply(wildcards, scope, importName)(valueType).withOptional(isOptional), cs)
+        val translatedStrings = strings.map {
+          case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType) =>
+            (cs, apply(wildcards, scope, importName)(valueType).withOptional(isOptional))
+        }
+        val stringDict = translatedStrings.toList match {
+          case Nil => None
+          case some =>
+            Some(
+              TypeRef.StringDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity))
+            )
+        }
+        val translatedNumbers = numbers.map {
+          case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType) =>
+            (cs, apply(wildcards, scope, importName)(valueType).withOptional(isOptional))
+        }
+        val numberDict = translatedNumbers.toList match {
+          case Nil => None
+          case some =>
+            Some(
+              TypeRef.NumberDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity))
+            )
+        }
+        TypeRef.Intersection(stringDict.toList ++ numberDict)
 
       case TsTypeFunction(sig) =>
         if (sig.params.size > 22) TypeRef.FunctionBase

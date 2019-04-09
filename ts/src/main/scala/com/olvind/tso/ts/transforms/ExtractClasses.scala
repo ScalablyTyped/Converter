@@ -139,7 +139,11 @@ object ExtractClasses extends TransformMembers {
                     )
                 }
 
-              availableTypeName(name) orElse availableTypeName(TsIdentSimple(name.value + "Cls")) map { clsName =>
+              def backupName =
+                if (name === TsIdent.namespaced) TsIdent.namespacedCls
+                else TsIdentSimple(name.value + "Cls")
+
+              availableTypeName(name) orElse availableTypeName(backupName) map { clsName =>
                 TsDeclClass(
                   comments   = NoComments,
                   declared   = declared,

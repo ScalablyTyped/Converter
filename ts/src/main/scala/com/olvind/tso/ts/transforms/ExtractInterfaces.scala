@@ -49,9 +49,9 @@ object ExtractInterfaces {
     }
 
   def isDictionary(members: Seq[TsMember]): Boolean =
-    members match {
-      case Seq(TsMemberIndex(_, _, _, IndexingDict(_, _), _, _)) => true
-      case _                                                     => false
+    members.nonEmpty && members.forall {
+      case TsMemberIndex(_, _, _, IndexingDict(_, _), _, _) => true
+      case _                                                => false
     }
 
   private class LiftTypeObjects(store: ConflictHandlingStore) extends TreeTransformationScopedChanges {
@@ -89,7 +89,7 @@ object ExtractInterfaces {
 
   def shouldBeExtracted(t: TsTreeScope): Boolean =
     t.stack match {
-      case List(_, _: TsDeclVar, _: TsParsedFile) => false
+      case _ :: (_: TsDeclVar) :: _ => false
       case _ => true
     }
 }

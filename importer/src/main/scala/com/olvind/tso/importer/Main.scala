@@ -160,8 +160,9 @@ object Main extends App {
     contribFolder = Some(InFolder(contribFolder))
   )
 
-  val compilePool      = new ForkJoinPool(config.parallelScalas)
-  val scheduler        = Scheduler(compilePool)
+  val compilePool = new ForkJoinPool(config.parallelScalas)
+  val scheduler   = Scheduler(compilePool)
+  logger.warn(s"Indexing ${dtFolder.path / up}")
   val lastChangedIndex = RepoLastChangedIndex(dtFolder.path / up)
 
   val Phase: RecPhase[Source, PublishedSbtProject] =

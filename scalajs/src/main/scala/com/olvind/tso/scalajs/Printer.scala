@@ -186,7 +186,7 @@ object Printer {
 
         print("object ", formatName(name), extendsClause(prefix, parents, isNative, indent))
 
-        val newPrefix = if (name === Name.hat || moduleType === ModuleTypeScala) prefix else prefix :+ name
+        val newPrefix = if (name === Name.namespaced || moduleType === ModuleTypeScala) prefix else prefix :+ name
 
         if (members.nonEmpty) {
           println(" {")
@@ -376,7 +376,9 @@ object Printer {
   }
 
   def paramsIfNeeded(s: String): String =
-    if (s.exists(_.isWhitespace)) s"($s)" else s
+    if (s.exists(_.isWhitespace)) s"($s)"
+    else if (s.last === '^') s"$s "
+    else s
 
   def formatProtectionLevel(p: ProtectionLevel, isCtor: Boolean): String =
     p match {

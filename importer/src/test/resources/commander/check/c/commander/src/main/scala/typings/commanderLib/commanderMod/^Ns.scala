@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("commander", JSImport.Namespace)
 @js.native
-object namespacedNs extends js.Object {
+object `^Ns` extends js.Object {
   @js.native
   /**
     * Initialize a new `Command`.

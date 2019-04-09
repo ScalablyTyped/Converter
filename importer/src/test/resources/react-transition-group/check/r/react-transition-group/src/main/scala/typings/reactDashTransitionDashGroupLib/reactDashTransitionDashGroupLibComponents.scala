@@ -12,7 +12,7 @@ object reactDashTransitionDashGroupLibComponents {
       reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr, 
       js.Any
     ]
-  ] = js.constructorOf[reactDashTransitionDashGroupLib.transitionGroupMod.namespaced].asInstanceOf[reactLib.reactMod.ComponentType[
+  ] = js.constructorOf[reactDashTransitionDashGroupLib.transitionGroupMod.^].asInstanceOf[reactLib.reactMod.ComponentType[
   reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupProps[
     reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr, 
     js.Any

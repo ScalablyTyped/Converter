@@ -111,7 +111,8 @@ object D {
 ### Code away
 After that you should be good to go, and just reference things in your code
 ```scala
-  import typings.d3DashGeoLib.d3DashGeoMod.{GeoContext, GeoPath, GeoPermissibleObjects, GeoProjection}
+  import typings.stdLib.^.console
+  console.warn("Hello, World!")
 ```
 
 ## Contrib libraries
@@ -174,8 +175,8 @@ Test well.
 Users should beware though, that we currently have limited space for published artifacts at Bintray.
 This necessarily means that we'll have to cull old versions of typings to make room for new ones.
 
-We'll probably establish some kind of regime with selected LTS (Long Term Support) releases
- or something, but no promises for now.
+We'll establish some kind of regime with selected LTS (Long Term Support) releases, but the
+exact details are yet to be determined.
 
 If you choose to depend on a typing now, be prepared to do one of the following:
 - keep updating to newest version of typings (breaking old builds)
@@ -208,8 +209,9 @@ A somewhat nice way of handling this is to bundle your commonly used imports som
 ```scala
 package object myapp {
   type Avatar = typings.materialDashUiLib.avatarMod.default
-  val React = typings.reactLib.ReactDsl
+  val React = typings.reactLib.dsl
 }
+
 ```
 
 ### Whatsup with the hats?
@@ -242,6 +244,21 @@ Note that this is the "normal" container format.
 If a container doesn't introduce new types (or if a namespace is exported in a module),
 the "compact" format is used instead where everything goes into an object.
 
+Modules which are classes are also called `^`, for instance:
+```scala
+package awsDashSdkLib.clientsDynamodbMod
+
+@JSImport("aws-sdk/clients/dynamodb", JSImport.Namespace)
+@js.native
+class ^ () extends DynamoDB {
+  def this(options: ClientConfiguration) = this()
+}
+
+//usage:
+import awsDashSdkLib.clientsDynamodbMod.{^ => DynamoDb}
+new DynamoDb(ClientConfiguration(...))
+
+```
 
 ### Whatsup with those version strings?
 
@@ -619,15 +636,18 @@ Into this:
 
 ```scala
 /* Rewritten from type alias, can be one of:
-  BufferSource |
-  Blob |
-  java.lang.String
+  - BufferSource
+  - Blob
+  - java.lang.String
 */
 type BlobPart = _BlobPart | java.lang.String
 
 trait _BlobPart extends js.Object
 
+trait Blob extends _BlobPart
+
 trait BufferSource extends _BlobPart
+
 ```
 
 This mechanism also means that the fake string literals seen above can inherit from traits:
