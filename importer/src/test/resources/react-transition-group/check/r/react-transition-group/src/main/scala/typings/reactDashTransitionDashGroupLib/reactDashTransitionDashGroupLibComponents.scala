@@ -7,16 +7,16 @@ import scala.scalajs.js.annotation._
 
 object reactDashTransitionDashGroupLibComponents {
   @scala.inline
-  def TransitionGroup: reactLib.reactMod.ReactNs.ComponentType[
-    reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupNs.TransitionGroupProps[
+  def TransitionGroup: reactLib.reactMod.ComponentType[
+    reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupProps[
       reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr, 
       js.Any
     ]
-  ] = js.constructorOf[reactDashTransitionDashGroupLib.transitionGroupMod.namespaced].asInstanceOf[reactLib.reactMod.ReactNs.ComponentType[
-  reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupNs.TransitionGroupProps[
+  ] = js.constructorOf[reactDashTransitionDashGroupLib.transitionGroupMod.namespaced].asInstanceOf[reactLib.reactMod.ComponentType[
+  reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupProps[
     reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr, 
     js.Any
   ]]]
-  type TransitionGroupProps[T /* <: reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr | reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate */, V /* <: reactLib.reactMod.ReactNs.ReactType[_] */] = reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupNs.TransitionGroupProps[T, V]
+  type TransitionGroupProps[T /* <: reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr | reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate */, V /* <: reactLib.reactMod.ReactType[_] */] = reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupProps[T, V]
 }
 

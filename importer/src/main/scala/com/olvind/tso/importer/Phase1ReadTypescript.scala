@@ -9,8 +9,7 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
-import com.olvind.tso.ts.modules._
-import com.olvind.tso.ts.{transforms => T, _}
+import com.olvind.tso.ts.{modules, transforms => T, _}
 
 import scala.collection.immutable.SortedMap
 
@@ -103,10 +102,10 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
             /* Resolve all references to other modules in `from` clauses, rename modules */
             withExternals = ResolveExternalReferences(resolve, source.asInstanceOf[TsSource], withoutDirectives, L)
 
-            inferredDepNames = InferredDependency(inLib.libName,
-                                                  withExternals.rewritten,
-                                                  withExternals.unresolvedDeps,
-                                                  L)
+            inferredDepNames = modules.InferredDependency(inLib.libName,
+                                                          withExternals.rewritten,
+                                                          withExternals.unresolvedDeps,
+                                                          L)
             inferredDeps <- PhaseRes sequenceSet (inferredDepNames map (n => resolveDep(n.value)))
 
             /* look up all resulting dependencies */
@@ -158,21 +157,22 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 libParts.to[Seq] map {
                   case (thisSource, file) =>
                     logger.info(s"Preprocessing $thisSource")
-                    val _1 = InferredDefaultModule(file.file, thisSource.moduleName, logger)
+                    val _1 = modules.InferredDefaultModule(file.file, thisSource.moduleName, logger)
                     val _2 = FlattenTrees(_1 +: file.toInline.filterNot(_._2.isModule).to[Seq].map(_._2))
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
               val ProcessAll = List[TsParsedFile => TsParsedFile](
                 T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
+                modules.HandleCommonJsModules.visitTsParsedFile(scope),
                 (
                   T.SimplifyParents >>
                     T.NormalizeFunctions // run before FlattenTrees
                 ).visitTsParsedFile(scope.caching),
                 T.QualifyReferences.visitTsParsedFile(scope.caching),
-                AugmentModules(scope.caching),
+                modules.AugmentModules(scope.caching),
                 T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
-                new ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
+                new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
                 f => FlattenTrees(f :: Nil),
                 T.DefaultedTParams.visitTsParsedFile(scope.caching), //after FlattenTrees
                 (

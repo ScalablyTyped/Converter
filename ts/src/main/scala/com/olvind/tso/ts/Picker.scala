@@ -34,6 +34,15 @@ object Picker {
       }
   }
 
+  object NotClasses extends Picker[TsNamedDecl] {
+    override def unapply(t: TsNamedDecl): Option[TsNamedDecl] =
+      t match {
+        case _:     TsDeclClass => None
+        case other: TsNamedDecl => Some(other)
+        case _ => None
+      }
+  }
+
   object HasClassMemberss extends Picker[TsNamedDecl with HasClassMembers] {
     override def unapply(t: TsNamedDecl): Option[TsNamedDecl with HasClassMembers] = t match {
       case x: TsNamedDecl with HasClassMembers => Some(x)

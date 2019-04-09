@@ -8,5 +8,5 @@ import scala.scalajs.js.annotation._
 @JSGlobal("__MaterialUI.BottomNavigation.BottomNavigationItem")
 @js.native
 class BottomNavigationItem ()
-  extends reactLib.reactMod.ReactNs.Component[BottomNavigationItemProps, js.Object]
+  extends reactLib.reactMod.Component[BottomNavigationItemProps, js.Object]
 

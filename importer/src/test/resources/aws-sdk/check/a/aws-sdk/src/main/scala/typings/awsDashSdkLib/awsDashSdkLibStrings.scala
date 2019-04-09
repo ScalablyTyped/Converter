@@ -8,18 +8,15 @@ import scala.scalajs.js.annotation._
 object awsDashSdkLibStrings {
   @js.native
   sealed trait ADD
-    extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.DocumentClientNs._AttributeAction
-       with awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
+    extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
   
   @js.native
   sealed trait DELETE
-    extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.DocumentClientNs._AttributeAction
-       with awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
+    extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
   
   @js.native
   sealed trait PUT
-    extends awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.DocumentClientNs._AttributeAction
-       with awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
+    extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
   
   @js.native
   sealed trait latest extends js.Object

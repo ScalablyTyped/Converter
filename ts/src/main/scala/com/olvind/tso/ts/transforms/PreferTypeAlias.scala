@@ -40,13 +40,13 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         *  `new` an intersection type
         */
       case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
-        if (hasCircularReference(i.name, mutable.Set(), t, singleInheritance)) i
+        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, singleInheritance)) i
         else {
           t.logger.info("Simplified to type alias")
           TsDeclTypeAlias(comments, declared, name, tparams, singleInheritance, codePath)
         }
       case IsFunction(typeAlias) =>
-        if (hasCircularReference(typeAlias.name, mutable.Set(), t, typeAlias.alias)) x
+        if (hasCircularReference(typeAlias.codePath.forceHasPath.codePath, mutable.Set(), t, typeAlias.alias)) x
         else {
           t.logger.info("Simplified to function type alias")
           typeAlias
@@ -102,9 +102,9 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
     * So to avoid compilation failure after we simplify, we leave it to the user of the generated
     *  code to cast appropriately
     */
-  def hasCircularReference(self: TsIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
+  def hasCircularReference(self: TsQIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
     val minimizedTree = memberHack(tree)
-    TreeTraverse.collect(minimizedTree) { case x: TsIdent if x === self => x } match {
+    TreeTraverse.collect(minimizedTree) { case x: TsQIdent if x === self => x } match {
       case Nil =>
         val refs = TreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.to[Set]
         refs exists { ref =>
@@ -120,7 +120,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         }
       case circularReferences =>
         scope.logger.info(
-          s"Could not simplify ${self.value} to function type alias because of circular references $circularReferences"
+          s"Could not simplify ${TsTypeFormatter.qident(self)} to function type alias because of circular references $circularReferences"
         )
         true
     }

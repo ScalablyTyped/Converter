@@ -132,11 +132,12 @@ object Imports {
                 case _ => newMod
               }
 
-            val (namespaceds, rest) = withAugmented.members.partitionCollect {
-              case x: TsNamedDecl if x.name === TsIdent.namespaced => x
-            }
+            val (namespaceds, rest, _) = withAugmented.members.partitionCollect2(
+              { case x: TsNamedDecl if x.name === TsIdent.namespaced => x },
+              { case x: TsNamedDecl                                  => DeriveCopy(x, None) },
+            )
 
-            ExpandedMod.Whole(Nil, namespaceds, rest, modScope)
+            ExpandedMod.Whole(Nil, namespaceds, rest.flatten, modScope)
           case _ =>
             scope.fatalMaybe(s"Couldn't find expected module $fromModule")
             ExpandedMod.Picked(Nil)
@@ -158,9 +159,10 @@ object Imports {
                 case _ => newMod
               }
 
-            val (defaults, namespaceds, rest) = withAugmented.members.partitionCollect2(
+            val (defaults, namespaceds, rest, _) = withAugmented.members.partitionCollect3(
               { case x: TsNamedDecl if x.name === TsIdent.default    => x },
               { case x: TsNamedDecl if x.name === TsIdent.namespaced => x },
+              { case x: TsNamedDecl                                  => x },
             )
 
             ExpandedMod.Whole(defaults, namespaceds, rest, modScope)

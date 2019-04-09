@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSImport("aws-sdk/lib/config_service_placeholders", "ConfigurationServicePlaceholders")
 @js.native
 abstract class ConfigurationServicePlaceholders () extends js.Object {
-  var dynamodb: js.UndefOr[awsDashSdkLib.clientsDynamodbMod.DynamoDBNs.ClientConfiguration] = js.native
+  var dynamodb: js.UndefOr[awsDashSdkLib.clientsDynamodbMod.ClientConfiguration] = js.native
 }
 

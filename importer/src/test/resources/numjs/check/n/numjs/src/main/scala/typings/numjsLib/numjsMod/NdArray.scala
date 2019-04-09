@@ -17,7 +17,7 @@ object NdArray {
   @scala.inline
   def apply[T](
     T: NdArray[T],
-    data: ndarrayLib.ndarrayMod.ndarrayNs.Data[T],
+    data: ndarrayLib.ndarrayMod.Data[T],
     ndim: scala.Double,
     slice: /* repeated */ scala.Double => NdArray[T]
   ): NdArray[T] = {

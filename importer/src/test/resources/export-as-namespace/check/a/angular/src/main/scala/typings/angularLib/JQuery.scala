@@ -13,14 +13,14 @@ trait JQuery extends js.Object {
     * @see {@link https://api.jquery.com/addClass/#addClass-className}
     */
   def addClass(className: java.lang.String): this.type
-  def injector(): angularLib.angularMod.angularNs.autoNs.IInjectorService
+  def injector(): angularLib.angularMod.autoNs.IInjectorService
 }
 
 object JQuery {
   @scala.inline
   def apply(
     addClass: java.lang.String => JQuery,
-    injector: () => angularLib.angularMod.angularNs.autoNs.IInjectorService
+    injector: () => angularLib.angularMod.autoNs.IInjectorService
   ): JQuery = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
   

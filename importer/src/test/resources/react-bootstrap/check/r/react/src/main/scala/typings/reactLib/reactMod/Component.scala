@@ -7,8 +7,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("react", "Component")
 @js.native
-class Component[P, S] protected ()
-  extends reactLib.reactMod.ReactNs.Component[P, S] {
+class Component[P, S] protected () extends js.Object {
   def this(p: P) = this()
 }
 

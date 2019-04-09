@@ -32,30 +32,13 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
                      loopDetector)
 
             case TsImport(Seq(TsImportedIdent(to)), TsImporteeLocal(from)) =>
-              val ret = scope
-                .lookupInternal(Picker.All, from.parts, loopDetector)
+              scope
+                .lookupInternal(Picker.NotClasses, from.parts, loopDetector)
                 .map { case (d, _) => d.withName(to) }
                 .map(SetCodePath.visitTsNamedDecl(x.codePath.forceHasPath))
 
-              /* yeah, so this happened. aws-sdk defines a namespace that exports itself */
-              ret map {
-                case copy: TsDeclNamespace if copy.codePath === x.codePath || copy.name.value === "Types" =>
-                  TsDeclVar(
-                    NoComments,
-                    declared = false,
-                    readOnly = true,
-                    copy.name,
-                    Some(TsTypeThis()), //todo: need to represent singleton types on typescript side somehow
-                    None,
-                    x.jsLocation,
-                    copy.codePath,
-                    isOptional = false
-                  )
-
-                case other => other
-              }
-
-            case other => scope.logger.fatal(s"Unexpected $other")
+            case other =>
+              scope.logger.fatal(s"Unexpected $other")
           }
         case e: TsExport =>
           scope.fatalMaybe(s"Dropping unexpected export in namespace $e")
