@@ -34,11 +34,11 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
   private def rewriteModuleName(x: TsIdentModule): Name = {
     val shortenedOpt: Option[String] =
       x match {
-        case TsIdentModule(Some(scope), head :: tail) =>
+        case TsIdentModule(Some(scope), head :: tail) if !(tail.size === 1 && tail.head === head) =>
           knownLibraries.collectFirst {
             case TsIdentLibraryScoped(`scope`, Some(`head`)) => tail.mkString("/")
           }
-        case TsIdentModule(None, head :: tail) =>
+        case TsIdentModule(None, head :: tail) if !(tail.size === 1 && tail.head === head) =>
           knownLibraries.collectFirst {
             case TsIdentLibrarySimple(`head`) => tail.mkString("/")
           }

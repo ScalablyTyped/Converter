@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-package object stylisMod {
+package object stylisStylisMod {
   type Plugin = js.ThisFunction9[
     /* this */ Stylis, 
     /* context */ Context, 

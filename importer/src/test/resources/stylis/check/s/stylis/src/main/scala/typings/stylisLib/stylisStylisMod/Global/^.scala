@@ -1,5 +1,5 @@
 package typings
-package stylisLib.stylisMod.Global
+package stylisLib.stylisStylisMod.Global
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSGlobalScope
 @js.native
 object ^ extends js.Object {
-  val stylis: stylisLib.stylisMod.Stylis = js.native
+  val stylis: stylisLib.stylisStylisMod.Stylis = js.native
 }
 
