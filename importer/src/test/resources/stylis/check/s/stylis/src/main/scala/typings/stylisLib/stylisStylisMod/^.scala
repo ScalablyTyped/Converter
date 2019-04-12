@@ -1,5 +1,5 @@
 package typings
-package stylisLib.stylisMod
+package stylisLib.stylisStylisMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
