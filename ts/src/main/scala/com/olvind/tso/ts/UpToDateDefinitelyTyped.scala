@@ -15,7 +15,14 @@ object UpToDateDefinitelyTyped {
     if (!offline)
       Try(
         if (exists(dtTypes)) {
-          %("git", "pull")(dtBase)
+          implicit val wd = dtBase
+          % git 'fetch
+          % git ("clean", "-fdX") // remove ignored files/folders
+          % git ("clean", "-fd")
+          % git ('reset, "--hard", "origin/master")
+          % rm ("-f", ".git/gc.log")
+          % git 'prune
+
         } else
           %("git", "clone", repo.toString)(cacheFolder)
       )
