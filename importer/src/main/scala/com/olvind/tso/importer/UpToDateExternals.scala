@@ -46,13 +46,13 @@ object UpToDateExternals {
 
       missingExternals.toSeq.sorted.grouped(30).foreach { es =>
         logger.warn(s"Adding missing externals $es")
-        %%("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", es)(cacheFolder)
+        %%("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", "--no-bin-links", es)(cacheFolder)
       }
     }
 
     if (!offline) {
       logger.warn("Updating external libraries in node_modules")
-      %%('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit")(cacheFolder)
+      %%('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")(cacheFolder)
     }
 
     if (conserveSpace) {
@@ -60,7 +60,11 @@ object UpToDateExternals {
       val KeepExtensions = Set("json", "ts", "lock")
 
       logger.warn("Trimming node_modules")
-      ls.rec(p => KeepExtensions(p.ext))(cacheFolder).filter(_.isFile).foreach(rm)
+      ls.rec(cacheFolder).foreach {
+        case link if link.isSymLink                           => rm(link)
+        case file if file.isFile && !KeepExtensions(file.ext) => rm(file)
+        case _                                                => ()
+      }
     }
 
     InFolder(cacheFolder / 'node_modules)

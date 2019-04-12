@@ -176,6 +176,10 @@ object Libraries {
       // some new kind of circular dependency causes the phase runner to wait forever
       "mali",
       "apollo-tracing",
-      "playerframework"
+      "playerframework",
+      "@sindresorhus/djb2a",
+      "navigator-permissions",
+      "webassembly-js-api",
+      "w3c-permissions"
     )
 }
