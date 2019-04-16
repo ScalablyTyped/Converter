@@ -31,6 +31,7 @@ object Libraries {
     "ava",
     "@babel/runtime",
     "@babel/types",
+    "blake2s-js",
     "@blueprintjs/core",
     "@blueprintjs/datetime",
     "@blueprintjs/icons",
