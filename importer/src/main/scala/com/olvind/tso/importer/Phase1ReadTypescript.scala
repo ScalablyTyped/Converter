@@ -38,7 +38,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
   ): PhaseRes[Source, Phase1Res] = {
 
     source match {
-      case _:      Source.ContribSource                                => PhaseRes.Ok(Contrib)
+      case _:      Source.FacadeSource                                 => PhaseRes.Ok(Facade)
       case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
       case Source.TsHelperFile(file, _, _) if !file.path.segments.last.endsWith(".d.ts") =>
@@ -153,7 +153,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
             case Unpack(libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
                         deps:     SortedMap[TsLibSource, LibTs],
-                        contribs) =>
+                        facades) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
@@ -218,7 +218,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 finished.comments
               )
 
-              LibTs(source)(version, tsConfig, finished, deps, contribs)
+              LibTs(source)(version, tsConfig, finished, deps, facades)
           }
         }
     }

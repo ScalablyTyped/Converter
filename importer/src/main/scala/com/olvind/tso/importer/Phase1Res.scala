@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import com.olvind.tso.importer.Source.{ContribSource, TsHelperFile, TsLibSource}
+import com.olvind.tso.importer.Source.{FacadeSource, TsHelperFile, TsLibSource}
 import com.olvind.tso.ts.{TsConfig, TsIdentLibrary, TsParsedFile}
 import maps.MapOps
 import scala.collection.immutable.SortedMap
@@ -14,14 +14,14 @@ sealed trait Phase1Res
   */
 object Phase1Res {
 
-  case object Contrib extends Phase1Res
+  case object Facade extends Phase1Res
 
   final case class LibTs(source: Source)(
       val version:               LibraryVersion,
       val tsConfig:              Option[TsConfig],
       val parsed:                TsParsedFile,
       val dependencies:          SortedMap[TsLibSource, LibTs],
-      val contribs:              Set[ContribSource]
+      val facades:               Set[FacadeSource]
   ) extends Phase1Res {
     def name: TsIdentLibrary = source.libName
   }
@@ -46,16 +46,16 @@ object Phase1Res {
   object Unpack {
     def unapply(
         _m: SortedMap[Source, Phase1Res]
-    ): Some[(SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[ContribSource])] =
+    ): Some[(SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[FacadeSource])] =
       Some(apply(_m))
 
     def apply(
         _m: SortedMap[Source, Phase1Res]
-    ): (SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[ContribSource]) = {
+    ): (SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[FacadeSource]) = {
 
       val libParts = mutable.HashMap.empty[TsHelperFile, FileAndInlinesFlat]
       val libs     = mutable.HashMap.empty[TsLibSource, LibTs]
-      val contribs = mutable.HashSet.empty[ContribSource]
+      val facades  = mutable.HashSet.empty[FacadeSource]
 
       def go(m: Map[Source, Phase1Res]): Unit =
         m foreach {
@@ -84,13 +84,13 @@ object Phase1Res {
               libs(s) = lib
               goLibs(libs, lib.dependencies)
             }
-          case (s: ContribSource, Contrib) =>
-            contribs.add(s)
+          case (s: FacadeSource, Facade) =>
+            facades.add(s)
         }
 
       go(_m)
 
-      (libParts.toSorted, libs.toSorted, contribs.to[Set])
+      (libParts.toSorted, libs.toSorted, facades.to[Set])
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibTs], ds: Map[TsLibSource, LibTs]): Unit =

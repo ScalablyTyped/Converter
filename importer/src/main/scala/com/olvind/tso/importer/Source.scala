@@ -11,7 +11,7 @@ sealed trait Source {
       case Source.StdLibSource(InFile(path), _)    => path
       case Source.FromFolder(InFolder(path), _)    => path
       case Source.TsHelperFile(InFile(path), _, _) => path
-      case Source.ContribSource(InFolder(path))    => path
+      case Source.FacadeSource(InFolder(path))     => path
     }
 
   def folder:  InFolder
@@ -42,8 +42,8 @@ object Source {
     override def folder:  InFolder       = file.folder
   }
 
-  final case class ContribSource(folder: InFolder) extends Source {
-    override val libName = TsIdentLibrarySimple(folder.path.name + "-" + "contrib")
+  final case class FacadeSource(folder: InFolder) extends Source {
+    override val libName = TsIdentLibrarySimple(folder.path.name + "-" + "facade")
   }
 
   implicit val SourceKey:                   Key[Source]       = Key.of[Source, String](_.key)
