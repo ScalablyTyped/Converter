@@ -42,4 +42,5 @@ class ImporterTest extends FunSuite with ImporterHarness {
   test("swiz")(assertImportsOk("swiz", pedantic                                     = true, update  = update))
   test("defaulted-tparams")(assertImportsOk("defaulted-tparams", pedantic           = true, update  = update))
   test("union-to-inheritance")(assertImportsOk("union-to-inheritance", pedantic     = true, update  = update))
+  test("expand-type-parameters")(assertImportsOk("expand-type-parameters", pedantic = true, update  = update))
 }

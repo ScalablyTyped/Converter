@@ -343,7 +343,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     comments ~ (isDeclared <~ "type") ~ tsIdent ~ tsTypeParams ~ ("=" ~>! tsType) ~ zeroCodePath ^^ TsDeclTypeAlias
 
   lazy val tsTypeKeyOf: Parser[TsTypeKeyOf] =
-    "keyof" ~>! tsType ^^ TsTypeKeyOf
+    "keyof" ~>! baseTypeDesc ^^ TsTypeKeyOf
 
   lazy val typeParam: Parser[TsTypeParam] =
     comments ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ TsTypeParam.apply
