@@ -184,7 +184,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
 //                      T.ApplyTypeMapping >> //after ResolveTypeLookups
                   T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
-                    T.ExpandKeyOfTypeParams >>
+                    T.ExpandTypeParams >>
                     T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
                     T.UnionTypesFromKeyOf >>
                     T.DropPrototypes >>
