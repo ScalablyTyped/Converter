@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import com.olvind.tso.importer.Source.{ContribSource, TsLibSource}
+import com.olvind.tso.importer.Source.{FacadeSource, TsLibSource}
 import com.olvind.tso.maps.MapOps
 import com.olvind.tso.scalajs.{ContainerTree, TreeScope}
 
@@ -11,7 +11,7 @@ import scala.collection.mutable
 sealed trait Phase2Res
 
 object Phase2Res {
-  case object Contrib extends Phase2Res
+  case object Facade extends Phase2Res
 
   case class LibScalaJs(source: Source)(
       val libName:              String,
@@ -19,18 +19,18 @@ object Phase2Res {
       val packageTree:          ContainerTree,
       val dependencies:         Map[TsLibSource, LibScalaJs],
       val isStdLib:             Boolean,
-      val contribs:             Set[ContribSource]
+      val facades:              Set[FacadeSource]
   ) extends Phase2Res
       with TreeScope.Lib
 
   object Unpack {
-    def unapply(_m: SortedMap[Source, Phase2Res]): Some[(SortedMap[TsLibSource, LibScalaJs], Set[ContribSource])] =
+    def unapply(_m: SortedMap[Source, Phase2Res]): Some[(SortedMap[TsLibSource, LibScalaJs], Set[FacadeSource])] =
       Some(apply(_m))
 
-    def apply(_m: SortedMap[Source, Phase2Res]): (SortedMap[TsLibSource, LibScalaJs], Set[ContribSource]) = {
+    def apply(_m: SortedMap[Source, Phase2Res]): (SortedMap[TsLibSource, LibScalaJs], Set[FacadeSource]) = {
 
-      val libs     = mutable.HashMap.empty[TsLibSource, LibScalaJs]
-      val contribs = mutable.HashSet.empty[ContribSource]
+      val libs    = mutable.HashMap.empty[TsLibSource, LibScalaJs]
+      val facades = mutable.HashSet.empty[FacadeSource]
 
       def go(m: Map[Source, Phase2Res]): Unit =
         m foreach {
@@ -39,13 +39,13 @@ object Phase2Res {
               libs(s) = lib
               goLibs(libs, lib.dependencies)
             }
-          case (s: ContribSource, Contrib) =>
-            contribs.add(s)
+          case (s: FacadeSource, Facade) =>
+            facades.add(s)
         }
 
       go(_m)
 
-      (libs.toSorted, contribs.to[Set])
+      (libs.toSorted, facades.to[Set])
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibScalaJs], ds: Map[TsLibSource, LibScalaJs]): Unit =

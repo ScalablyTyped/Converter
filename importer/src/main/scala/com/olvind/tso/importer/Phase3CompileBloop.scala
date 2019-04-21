@@ -10,7 +10,7 @@ import bloop.io.AbsolutePath
 import bloop.{Compiler, DependencyResolution}
 import bloop.logging.{Logger => BloopLogger}
 import com.olvind.logging.{Formatter, LogLevel, Logger}
-import com.olvind.tso.importer.Phase2Res.{Contrib, LibScalaJs}
+import com.olvind.tso.importer.Phase2Res.{Facade, LibScalaJs}
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
@@ -50,8 +50,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                      v4:      IsCircular,
                      logger:  Logger[Unit]): PhaseRes[Source, PublishedSbtProject] =
     _lib match {
-      case Contrib =>
-        val buildJson = Json[ContribJson](source.path / "build.json")
+      case Facade =>
+        val buildJson = Json[FacadeJson](source.path / "build.json")
 
         val dependencies: PhaseRes[Source, Set[Source]] =
           PhaseRes.sequenceSet(
@@ -99,7 +99,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               name         = source.libName.value,
               version      = VersionHack.TemplateValue,
               localDeps    = deps.values.to[Seq],
-              contribDeps  = buildJson.dependencies,
+              facadeDeps   = buildJson.dependencies,
               scalaFiles   = sourceFiles,
               projectName  = projectName
             )
@@ -129,7 +129,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               name         = lib.libName,
               version      = VersionHack.TemplateValue,
               localDeps    = deps.values.to[Seq],
-              contribDeps  = Set(),
+              facadeDeps   = Set(),
               scalaFiles   = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               projectName  = projectName
             )
@@ -154,7 +154,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
          name:               String,
          sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
          compilerPaths:      CompilerPaths,
-         dependencies:       Set[ContribJson.Dep],
+         dependencies:       Set[FacadeJson.Dep],
          deleteUnknownFiles: Boolean,
          makeVersion:        Digest => String): PhaseRes[Source, PublishedSbtProject] = {
 

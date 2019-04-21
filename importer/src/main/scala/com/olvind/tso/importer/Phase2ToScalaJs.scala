@@ -18,7 +18,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
                      isCircular: IsCircular,
                      logger:     Logger[Unit]): PhaseRes[Source, Phase2Res] =
     current match {
-      case Phase1Res.Contrib => PhaseRes.Ok(Phase2Res.Contrib)
+      case Phase1Res.Facade => PhaseRes.Ok(Phase2Res.Facade)
 
       case _: LibraryPart =>
         PhaseRes.Ignore()
@@ -28,7 +28,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
 
         val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
         getDeps(knownLibs) map {
-          case Phase2Res.Unpack(scalaDeps, contribs) =>
+          case Phase2Res.Unpack(scalaDeps, facades) =>
             val libName = importName(lib.name)
             val scope = new TreeScope.Root(
               libName       = libName,
@@ -68,7 +68,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
               packageTree  = rewrittenTree,
               dependencies = scalaDeps,
               isStdLib     = lib.parsed.isStdLib,
-              contribs     = lib.contribs ++ contribs
+              facades      = lib.facades ++ facades
             )
         }
     }

@@ -34,7 +34,7 @@ object Main extends App {
   val bintrayCacheFolder     = config.cacheFolder / 'bintray
   val compileFailureCacheDir = config.cacheFolder / 'compileFailures
   val failFolder             = targetFolder / 'failures
-  val contribFolder          = targetFolder / 'contrib
+  val facadeFolder           = targetFolder / 'facades
 
   mkdir(targetFolder)
 
@@ -75,7 +75,7 @@ object Main extends App {
 
   rm(failFolder)
   mkdir(failFolder)
-  mkdir(contribFolder)
+  mkdir(facadeFolder)
   mkdir(logsFolder)
   mkdir(bintrayCacheFolder)
   mkdir(compileFailureCacheDir)
@@ -119,11 +119,11 @@ object Main extends App {
     StdLibSource(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
                  TsIdentLibrarySimple("std"))
 
-  val contribSources: Set[Source] =
-    ls(contribFolder).map(path => Source.ContribSource(InFolder(path)): Source).to[Set]
+  val facadeSources: Set[Source] =
+    ls(facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
 
   val tsSources: SortedSet[Source] =
-    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ contribSources, config.wantedLibNames) match {
+    (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ facadeSources, config.wantedLibNames) match {
       case (sources, sets.EmptySet()) => sources
       case (sources, wantedLibsStrings) =>
         val wantedLibNames: Set[TsIdentLibrary] =
@@ -157,7 +157,7 @@ object Main extends App {
   val resolve = new LibraryResolver(
     stdLibSource,
     sourceFolders = Seq(dtFolder, externalsFolder),
-    contribFolder = Some(InFolder(contribFolder))
+    facadesFolder = Some(InFolder(facadeFolder))
   )
 
   val compilePool = new ForkJoinPool(config.parallelScalas)

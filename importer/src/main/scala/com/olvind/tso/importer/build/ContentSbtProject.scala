@@ -13,13 +13,13 @@ object ContentSbtProject {
             name:         String,
             version:      String,
             localDeps:    Seq[PublishedSbtProject],
-            contribDeps:  Set[ContribJson.Dep],
+            facadeDeps:   Set[FacadeJson.Dep],
             scalaFiles:   Map[RelPath, Array[Byte]],
             projectName:  String): SbtProjectLayout[RelPath, Array[Byte]] = {
 
     val buildSbt = {
       val fixed    = List(v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion))
-      val external = contribDeps.map(d => v.%%%(d.org, d.artifact, d.version))
+      val external = facadeDeps.map(d => v.%%%(d.org, d.artifact, d.version))
       val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))
 
       val ds = (external ++ fixed ++ local).sorted.mkString("Seq(\n  ", ",\n  ", ")")

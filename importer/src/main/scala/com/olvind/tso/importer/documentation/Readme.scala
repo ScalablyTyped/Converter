@@ -8,12 +8,13 @@ object Readme {
 # ScalablyTyped - The Javascript ecosystem for Scala.js!
 
 [![Join the chat at https://gitter.im/ScalablyTyped/community](https://badges.gitter.im/ScalablyTyped/community.svg)](https://gitter.im/ScalablyTyped/community)
+[![Checkout the demos at https://github.com/oyvindberg/ScalablyTypedDemos/](https://img.shields.io/badge/Checkout-Demo-success.svg)](https://github.com/oyvindberg/ScalablyTypedDemos/)
 
 ## Warning :collision: :bomb: :sunglasses:
 
 Beware: While these typings generally work, some details of the encoding are still subject to change.
 All currently published artifacts should be considered snapshots and will be deleted without notice.
-Expect the first stable release before May.
+Expect the first stable release early May.
 
 ## While you're here
 There will be a talk about this project at [flatMap(Oslo)](https://2019.flatmap.no/talks/berg) in May,
@@ -64,7 +65,7 @@ a good and educational demo, and some Scala sugar on top.
 
 These are things the community can help out with over time,
 there is already a process setup for contributing "sugar"
-in the form of `contrib` libraries (see below) and demos
+in the form of `facade` libraries (see below) and demos
 
 With that in mind, let's consider what we have now a beginning, not an end.
 The work on this has been a labor of love, so let's continue like that <3
@@ -115,12 +116,12 @@ After that you should be good to go, and just reference things in your code
   console.warn("Hello, World!")
 ```
 
-## Contrib libraries
+## Facade libraries
 As you can imagine with all this casting and other nonsense,
 a more scala-like facade will often be a better way.
 
-For now we just have the following contrib-libs:
-${contribs(summary)}
+For now we just have the following facades:
+${facades(summary)}
 
 These libraries can depend both on typings and external libraries, and
  will be versioned and published alongside ScalablyTyped typings.
@@ -799,16 +800,16 @@ $output
     case None => " with millions of lines of code"
   }
 
-  def contribs(summary: Summary) = {
-    object ContribName {
+  def facades(summary: Summary) = {
+    object FacadeName {
       def unapply(s: TsIdentLibrary): Option[String] =
-        if (s.value.endsWith("-contrib")) Some(s.value.replaceAllLiterally("-contrib", ""))
+        if (s.value.endsWith("-facade")) Some(s.value.replaceAllLiterally("-facade", ""))
         else None
     }
 
     summary.successes
-      .collect { case ContribName(name) => name }
-      .map(x => "- " + s"[$x](contrib/$x)")
+      .collect { case FacadeName(name) => name }
+      .map(x => "- " + s"[$x](facades/$x)")
       .mkString("\n")
   }
 }
