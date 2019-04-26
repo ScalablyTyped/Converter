@@ -65,7 +65,13 @@ object InferredDefaultModule {
     if (moduleName.fragments.size > 1)
       (Nil, file.members)
     else
-      file.members partitionCollect {
-        case x: TsDeclTypeAlias => x
+      file.members.partitionCollect {
+        case x: TsDeclTypeAlias if refersToUnknown(x, file) => x
       }
+
+  def refersToUnknown(x: TsDeclTypeAlias, file: TsParsedFile): Boolean =
+    x.alias match {
+      case TsTypeRef(_, TsQIdent(List(name)), _) => !file.membersByNameMeh.contains(name)
+      case _                                     => false
+    }
 }
