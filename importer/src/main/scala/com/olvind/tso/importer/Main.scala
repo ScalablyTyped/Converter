@@ -144,11 +144,11 @@ object Main extends App {
           .toMap
 
       Some(
-        new BinTrayPublisher(bintrayCacheFolder,
-                             config.ScalablyTypedRepoPublic,
-                             values("user"),
-                             values("password"),
-                             config.projectName)(
+        BinTrayPublisher(bintrayCacheFolder,
+                         config.ScalablyTypedRepoPublic,
+                         values("user"),
+                         values("password"),
+                         config.projectName)(
           ExecutionContext.Implicits.global
         )
       )
@@ -191,6 +191,7 @@ object Main extends App {
           mainPackageName = config.outputPkg,
           projectName     = config.projectName,
           organization    = config.organization,
+          publishUser     = bintray.fold("oyvindberg")(_.user),
           publishFolder   = config.publishFolder,
           resolve         = resolve,
           scheduler       = scheduler,

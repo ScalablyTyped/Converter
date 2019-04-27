@@ -13,6 +13,7 @@ object ContentSbtProject {
             organization:    String,
             name:            String,
             version:         String,
+            publishUser:     String,
             localDeps:       Seq[PublishedSbtProject],
             facadeDeps:      Set[FacadeJson.Dep],
             scalaFiles:      Map[RelPath, Array[Byte]],
@@ -41,6 +42,7 @@ object ContentSbtProject {
           |$scalacOptions
           |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
           |bintrayRepository := ${quote(projectName)}
+          |resolvers += Resolver.bintrayRepo(${quote(publishUser)}, ${quote(projectName)})
         """.stripMargin
     }
 

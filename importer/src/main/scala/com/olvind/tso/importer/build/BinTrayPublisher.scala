@@ -16,8 +16,8 @@ import io.circe.{Decoder, Encoder}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NonFatal
 
-class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, password: String, repoName: String)(
-    implicit ec:                 ExecutionContext
+case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, password: String, repoName: String)(
+    implicit ec:                      ExecutionContext
 ) {
 
   private def builder =
