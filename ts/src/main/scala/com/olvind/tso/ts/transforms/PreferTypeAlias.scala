@@ -23,9 +23,15 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
       case i @ TsDeclInterface(comments, declared, name, tparams, Nil, members, codePath)
           if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head)) i
-        else {
+        else
           TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(members), codePath)
-        }
+
+      /* the opposite of former */
+      case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(members), codePath)
+          if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
+        if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head))
+          TsDeclInterface(comments, declared, name, tparams, Nil, members, codePath)
+        else ta
 
       /**
         * Given this:
@@ -42,7 +48,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * ````
         * Note that we rewrite interfaces which extends one type, not more.
         * The reason is that scala wont't let you `new` an intersection type
-        **/
+        */
       case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, singleInheritance)) i
         else {
