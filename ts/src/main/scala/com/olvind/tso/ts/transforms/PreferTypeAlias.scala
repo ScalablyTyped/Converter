@@ -28,7 +28,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
 
       /* the opposite of former */
       case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(members), codePath)
-          if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
+          if ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head))
           TsDeclInterface(comments, declared, name, tparams, Nil, members, codePath)
         else ta
@@ -45,7 +45,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * ```typescript
         * interface Foo {bar: number}
         * type Bar = Foo
-        * ````
+        * ```
         * Note that we rewrite interfaces which extends one type, not more.
         * The reason is that scala wont't let you `new` an intersection type
         */
@@ -57,9 +57,9 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         }
 
       /**
-        * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo``
+        * We do this rewrite because in Scala we have no way to instantiate a new instance of `Foo`
         *
-        * ```typescript
+        * ``typescript
         * interface Foo {&LT;T extends object&GT;(a: T) => void}
         * ```
         * =>
