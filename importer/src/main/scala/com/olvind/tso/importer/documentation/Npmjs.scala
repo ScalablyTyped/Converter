@@ -19,7 +19,7 @@ object Npmjs {
   type DateString = String
   type URI        = String
 
-  case class Repository(`type`: String, url: String)
+  case class Repository(`type`: Option[String], url: String)
 
   case class Links(npm: Option[URI], homepage: Option[URI], repository: Option[URI], bugs: Option[URI])
 
@@ -29,9 +29,9 @@ object Npmjs {
       name:        String,
       scope:       String,
       version:     String,
-      description: String,
+      description: Option[String],
       keywords:    Option[List[String]],
-      date:        DateString,
+      date:        Option[DateString],
       repository:  Option[Repository],
       links:       Links,
       releases:    List[DatedNumbers]

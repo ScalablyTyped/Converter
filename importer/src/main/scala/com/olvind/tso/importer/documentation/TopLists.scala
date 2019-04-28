@@ -15,18 +15,20 @@ object TopLists {
 
     val byScoreRows = withMetadata.sortBy { case (p, m) => (-m.score.`final`, p.project.name) }.map {
       case (p, m) =>
-        s"| ${m.score.`final`} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description}"
+        s"| ${m.score.`final`} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description
+          .getOrElse("-")}"
     }
-    val byNameRows = withMetadata.sortBy { case (p, m) => p.project.name }.map {
-      case (p, m) =>
-        s"| ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description} |"
+
+    val byNameRows = successes.toArray.sortBy { _.project.name }.map { x =>
+      s"| ${link(x.project.name, s"./${x.project.name.head}/${x.project.name}")} | ${x.project.metadata.flatMap(_.collected.metadata.description).getOrElse("-")} |"
     }
 
     val byDependentsRows = withMetadata
       .sortBy { case (p, m) => (-m.collected.npm.dependentsCount, p.project.name) }
       .map {
         case (p, m) =>
-          s"| ${m.collected.npm.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description}"
+          s"| ${m.collected.npm.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description
+            .getOrElse("-")}"
       }
 
     Lists(

@@ -52,8 +52,7 @@ ${cs.map(_.raw).mkString}
   def renderData(data: Npmjs.Data): String = {
     val Collected(metadata, npm) = data.collected
 
-    s""" ## Library description:
-${metadata.description}
+    s"""${metadata.description.fold("")(d => "## Library description:\n" + d)}
 
 |                    |                 |
 | ------------------ | :-------------: |
