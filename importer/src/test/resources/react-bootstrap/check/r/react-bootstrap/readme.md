@@ -1,3 +1,21 @@
+
+# Scala.js typings for react-bootstrap
+
+Typings are for version 0.32
+
+
+
+## Note
+This library has been generated from typescript code from first party type definitions.
+
+Provided with :purple_heart: from [ScalablyTyped](https://github.com/oyvindberg/ScalablyTyped)
+
+## Usage
+See [the main readme](../../readme.md) for instructions.
+
+## Comments
+
+These comments are from the typescript definitions and might be useful:
 ```
 // Type definitions for react-bootstrap 0.32
 // Project: https://github.com/react-bootstrap/react-bootstrap
@@ -17,4 +35,6 @@
 //                 Duong Tran <https://github.com/t49tran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
 ```
+

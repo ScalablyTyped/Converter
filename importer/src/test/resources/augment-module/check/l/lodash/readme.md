@@ -1,3 +1,21 @@
+
+# Scala.js typings for lodash
+
+Typings are for version 4.14
+
+
+
+## Note
+This library has been generated from typescript code from first party type definitions.
+
+Provided with :purple_heart: from [ScalablyTyped](https://github.com/oyvindberg/ScalablyTyped)
+
+## Usage
+See [the main readme](../../readme.md) for instructions.
+
+## Comments
+
+These comments are from the typescript definitions and might be useful:
 ```
 // AUTO-GENERATED: do not modify this file directly.
 // If you need to make changes, modify generate-fp.ts (if necessary), then open a terminal in types/lodash/scripts, and do:
@@ -15,4 +33,6 @@
 //                 Dominique Rau <https://github.com/DomiR>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
+
 ```
+

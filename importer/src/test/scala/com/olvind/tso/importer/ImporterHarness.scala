@@ -9,6 +9,7 @@ import ammonite.ops.{mkdir, root, up, Path}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.Source.TsLibSource
 import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Versions}
+import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts._
@@ -63,6 +64,7 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             resolve         = resolve,
             scheduler       = scheduler,
+            metadataFetcher = Npmjs.No,
             failureCacheDir = failureCacheDir
           ),
           "build"

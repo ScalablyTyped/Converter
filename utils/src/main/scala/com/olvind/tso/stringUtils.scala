@@ -1,4 +1,6 @@
 package com.olvind.tso
+import java.net.URLEncoder
+
 import scala.annotation.switch
 
 object stringUtils {
@@ -76,4 +78,16 @@ object stringUtils {
       chars(0) = chars(0).toLower
       new String(chars)
     }
+
+  // https://stackoverflow.com/a/611117
+  def encodeURIComponent(s: String): String =
+    URLEncoder
+      .encode(s, "UTF-8")
+      .replaceAll("\\+", "%20")
+      .replaceAll("\\%21", "!")
+      .replaceAll("\\%27", "'")
+      .replaceAll("\\%28", "(")
+      .replaceAll("\\%29", ")")
+      .replaceAll("\\%7E", "~")
+
 }

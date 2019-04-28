@@ -20,20 +20,18 @@ final case class SbtProjectLayout[F, V](
     buildSbt:        (F, V),
     buildProperties: (F, V),
     pluginsSbt:      (F, V),
-    readmeMd:        Option[(F, V)],
+    readmeMd:        (F, V),
     sourcesDir:      Map[F, V]
 ) extends Layout[F, V] {
   override type Self[f, v] = SbtProjectLayout[f, v]
   override def all: Map[F, V] =
-    (Seq(buildSbt, buildProperties, pluginsSbt) ++ readmeMd).toMap ++
+    (Seq(buildSbt, buildProperties, pluginsSbt, readmeMd)).toMap ++
       sourcesDir
 
   override def map[FF, VV](f: (F, V) => (FF, VV)): SbtProjectLayout[FF, VV] =
     this match {
-      case SbtProjectLayout((_1k, _1v), (_2k, _2v), (_3k, _3v), _4, sources) =>
-        SbtProjectLayout(f(_1k, _1v), f(_2k, _2v), f(_3k, _3v), _4.map { case (k, v) => f(k, v) }, sources map {
-          case (k, v) => f(k, v)
-        })
+      case SbtProjectLayout((_1k, _1v), (_2k, _2v), (_3k, _3v), (_4k, _4v), sources) =>
+        SbtProjectLayout(f(_1k, _1v), f(_2k, _2v), f(_3k, _3v), f(_4k, _4v), sources map { case (k, v) => f(k, v) })
     }
 }
 
