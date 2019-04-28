@@ -22,8 +22,7 @@ object CalculateLibraryVersion {
       if (isStdLib) v.substring(0, v.lastIndexOf(".")) else v
 
     val libraryVersion = packageJsonOpt.flatMap(_.version) map ignoreStdLibMinorVersion orElse
-      DefinitelyTypedVersion.from(comments) getOrElse
-      "0.0-unknown"
+      DefinitelyTypedVersion.from(comments)
 
     val localCommit: String = BuildInfo.gitSha
 
@@ -39,7 +38,7 @@ object CalculateLibraryVersion {
         case _ => None
       }
 
-    new LibraryVersion(libraryVersion, inGit, localCommit)
+    LibraryVersion(libraryVersion, inGit, localCommit)
   }
 
   /**

@@ -12,7 +12,7 @@ import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
 import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer.build._
-import com.olvind.tso.importer.documentation.Readme
+import com.olvind.tso.importer.documentation.{Npmjs, Readme, TopLists}
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.sets.SetOps
@@ -33,6 +33,7 @@ object Main extends App {
   val targetFolder           = config.cacheFolder / config.projectName
   val bintrayCacheFolder     = config.cacheFolder / 'bintray
   val compileFailureCacheDir = config.cacheFolder / 'compileFailures
+  val npmjsCacheDir          = config.cacheFolder / 'npmjs
   val failFolder             = targetFolder / 'failures
   val facadeFolder           = targetFolder / 'facades
 
@@ -193,7 +194,8 @@ object Main extends App {
           publishFolder   = config.publishFolder,
           resolve         = resolve,
           scheduler       = scheduler,
-          failureCacheDir = compileFailureCacheDir
+          failureCacheDir = compileFailureCacheDir,
+          metadataFetcher = Npmjs.GigahorseFetcher(npmjsCacheDir)(scheduler)
         ),
         "build"
       )
@@ -247,9 +249,17 @@ object Main extends App {
     results.collect { case PhaseRes.Ok(res) => go(res) }.flatten.to[Set]
   }
 
-  val readme    = targetFolder / "readme.md"
+  val lists                 = TopLists(successes)
+  val readme                = targetFolder / "readme.md"
+  val librariesByName       = targetFolder / "libraries_by_name.md"
+  val librariesByScore      = targetFolder / "libraries_by_score.md"
+  val librariesByDependents = targetFolder / "libraries_by_dependents.md"
+
   val locOutput = Try(%%('loc)(targetFolder)).toOption.map(_.out.string)
   files.softWrite(readme)(_.print(Readme(summary, RunId, locOutput)))
+  files.softWrite(librariesByName)(_.print(lists.byName))
+  files.softWrite(librariesByScore)(_.print(lists.byScore))
+  files.softWrite(librariesByDependents)(_.print(lists.byDependents))
 
   if (config.debugMode && !config.forceCommit) {
     logger error s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
@@ -269,7 +279,9 @@ object Main extends App {
 
     logger error "Committing..."
     val summaryString =
-      CommitChanges(summary, successes.map(_.project.baseDir).to[Seq], Seq(sbtProjectDir, failFolder, readme))(
+      CommitChanges(summary,
+                    successes.map(_.project.baseDir).to[Seq],
+                    Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents))(
         targetFolder
       )
     logger error summaryString

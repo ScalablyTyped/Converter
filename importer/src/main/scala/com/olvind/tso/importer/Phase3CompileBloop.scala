@@ -12,6 +12,7 @@ import bloop.logging.{Logger => BloopLogger}
 import com.olvind.logging.{Formatter, LogLevel, Logger}
 import com.olvind.tso.importer.Phase2Res.{Facade, LibScalaJs}
 import com.olvind.tso.importer.build._
+import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.sets.SetOps
@@ -23,7 +24,7 @@ import xsbti.Severity
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
-import scala.concurrent.duration.Duration
+import scala.concurrent.duration._
 
 class Phase3CompileBloop(resolve:         LibraryResolver,
                          versions:        Versions,
@@ -35,6 +36,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                          organization:    String,
                          publishFolder:   Path,
                          scheduler:       Scheduler,
+                         metadataFetcher: Npmjs.Fetcher,
                          failureCacheDir: Path)
     extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
@@ -92,16 +94,19 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                   if (acc isBefore instant) instant else acc
               }
 
+            val metadataOpt = None
             val sbtLayout = ContentSbtProject(
-              v            = versions,
-              comments     = NoComments,
-              organization = organization,
-              name         = source.libName.value,
-              version      = VersionHack.TemplateValue,
-              localDeps    = deps.values.to[Seq],
-              facadeDeps   = buildJson.dependencies,
-              scalaFiles   = sourceFiles,
-              projectName  = projectName
+              v               = versions,
+              comments        = NoComments,
+              organization    = organization,
+              name            = source.libName.value,
+              version         = VersionHack.TemplateValue,
+              localDeps       = deps.values.to[Seq],
+              facadeDeps      = buildJson.dependencies,
+              scalaFiles      = sourceFiles,
+              projectName     = projectName,
+              metadataOpt     = metadataOpt,
+              declaredVersion = None
             )
 
             go(
@@ -113,25 +118,30 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               compilerPaths      = CompilerPaths(versions, source.path),
               dependencies       = buildJson.dependencies,
               deleteUnknownFiles = false,
-              makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}"
+              makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}",
+              metadataOpt        = metadataOpt
             )
         }
 
       case lib: LibScalaJs =>
         getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
-            val scalaFiles = Printer(lib.packageTree, mainPackageName)
-            val sourcesDir = RelPath("src") / 'main / 'scala
+            val scalaFiles  = Printer(lib.packageTree, mainPackageName)
+            val sourcesDir  = RelPath("src") / 'main / 'scala
+            val metadataOpt = Await.result(metadataFetcher(lib.source, logger), 2.seconds)
+
             val sbtLayout = ContentSbtProject(
-              v            = versions,
-              comments     = lib.packageTree.comments,
-              organization = organization,
-              name         = lib.libName,
-              version      = VersionHack.TemplateValue,
-              localDeps    = deps.values.to[Seq],
-              facadeDeps   = Set(),
-              scalaFiles   = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
-              projectName  = projectName
+              v               = versions,
+              comments        = lib.packageTree.comments,
+              organization    = organization,
+              name            = lib.libName,
+              version         = VersionHack.TemplateValue,
+              localDeps       = deps.values.to[Seq],
+              facadeDeps      = Set(),
+              scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
+              projectName     = projectName,
+              metadataOpt     = metadataOpt,
+              declaredVersion = Some(lib.libVersion)
             )
 
             go(
@@ -143,7 +153,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               compilerPaths      = CompilerPaths.of(versions, targetFolder, lib.libName),
               dependencies       = Set(),
               deleteUnknownFiles = true,
-              makeVersion        = lib.libVersion.version
+              makeVersion        = lib.libVersion.version,
+              metadataOpt        = metadataOpt
             )
         }
     }
@@ -156,7 +167,8 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
          compilerPaths:      CompilerPaths,
          dependencies:       Set[FacadeJson.Dep],
          deleteUnknownFiles: Boolean,
-         makeVersion:        Digest => String): PhaseRes[Source, PublishedSbtProject] = {
+         makeVersion:        Digest => String,
+         metadataOpt:        Option[Npmjs.Data]): PhaseRes[Source, PublishedSbtProject] = {
 
     val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
     val finalVersion          = makeVersion(digest)
@@ -168,7 +180,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       organization,
       versions.sjs(name),
       finalVersion
-    )(compilerPaths.baseDir, deps)
+    )(compilerPaths.baseDir, deps, metadataOpt)
 
     val existing: IvyLayout[Path, Synced] =
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)

@@ -3,19 +3,22 @@ package importer
 package build
 
 import ammonite.ops.RelPath
+import com.olvind.tso.importer.documentation.{Npmjs, ProjectReadme}
 import com.olvind.tso.stringUtils.quote
 import sets.SetOps
 
 object ContentSbtProject {
-  def apply(v:            Versions,
-            comments:     Comments,
-            organization: String,
-            name:         String,
-            version:      String,
-            localDeps:    Seq[PublishedSbtProject],
-            facadeDeps:   Set[FacadeJson.Dep],
-            scalaFiles:   Map[RelPath, Array[Byte]],
-            projectName:  String): SbtProjectLayout[RelPath, Array[Byte]] = {
+  def apply(v:               Versions,
+            comments:        Comments,
+            organization:    String,
+            name:            String,
+            version:         String,
+            localDeps:       Seq[PublishedSbtProject],
+            facadeDeps:      Set[FacadeJson.Dep],
+            scalaFiles:      Map[RelPath, Array[Byte]],
+            projectName:     String,
+            metadataOpt:     Option[Npmjs.Data],
+            declaredVersion: Option[LibraryVersion]): SbtProjectLayout[RelPath, Array[Byte]] = {
 
     val buildSbt = {
       val fixed    = List(v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion))
@@ -46,11 +49,8 @@ object ContentSbtProject {
           |addSbtPlugin(${v.sbtBintray})
           |""".stripMargin
 
-    val readme: Option[(RelPath, Array[Byte])] =
-      comments.cs match {
-        case Nil => None
-        case cs  => Some(RelPath("readme.md") -> cs.map(_.raw).mkString("```\n", "", "```").getBytes(constants.Utf8))
-      }
+    val readme: (RelPath, Array[Byte]) =
+      RelPath("readme.md") -> ProjectReadme(name, declaredVersion, metadataOpt, comments).getBytes(constants.Utf8)
 
     SbtProjectLayout(
       RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
