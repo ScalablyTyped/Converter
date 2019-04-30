@@ -1,12 +1,19 @@
-package com.olvind.tso.importer.documentation
+package com.olvind.tso
+package importer.documentation
 
-import com.olvind.tso.Set
 import com.olvind.tso.importer.build.PublishedSbtProject
 
 object TopLists {
   case class Lists(byScore: String, byName: String, byDependents: String)
 
   def link(title: String, url: String): String = s"[$title]($url)"
+
+  val TakeUntilChr = Set('#', '!', '[', '\n', '|')
+
+  def desc(m: Npmjs.Data): String =
+    m.collected.metadata.description.fold("-") { d =>
+      d.replaceAllLiterally("`", "").takeWhile(x => !TakeUntilChr(x))
+    }
 
   def apply(successes: Set[PublishedSbtProject]): Lists = {
     val withMetadata = successes.toArray.collect {
@@ -15,20 +22,18 @@ object TopLists {
 
     val byScoreRows = withMetadata.sortBy { case (p, m) => (-m.score.`final`, p.project.name) }.map {
       case (p, m) =>
-        s"| ${m.score.`final`} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description
-          .getOrElse("-")}"
+        s"| ${m.score.`final`} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${desc(m)}"
     }
 
     val byNameRows = successes.toArray.sortBy { _.project.name }.map { x =>
-      s"| ${link(x.project.name, s"./${x.project.name.head}/${x.project.name}")} | ${x.project.metadata.flatMap(_.collected.metadata.description).getOrElse("-")} |"
+      s"| ${link(x.project.name, s"./${x.project.name.head}/${x.project.name}")} | ${x.project.metadata.fold("-")(desc)} |"
     }
 
     val byDependentsRows = withMetadata
       .sortBy { case (p, m) => (-m.collected.npm.dependentsCount, p.project.name) }
       .map {
         case (p, m) =>
-          s"| ${m.collected.npm.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${m.collected.metadata.description
-            .getOrElse("-")}"
+          s"| ${m.collected.npm.dependentsCount} | ${link(p.project.name, s"./${p.project.name.head}/${p.project.name}")} | ${desc(m)}"
       }
 
     Lists(
@@ -37,7 +42,7 @@ object TopLists {
  ------| :-------------: | :----------:
 ${byScoreRows.mkString("\n")} |
 """,
-      byName       = s"""# Libraries by stars
+      byName       = s"""# All Libraries
  Library | Description
  :-----: | :---------:
 ${byNameRows.mkString("\n")}

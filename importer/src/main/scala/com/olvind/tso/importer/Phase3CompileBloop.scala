@@ -25,6 +25,7 @@ import xsbti.Severity
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.util.Try
 
 class Phase3CompileBloop(resolve:         LibraryResolver,
                          versions:        Versions,
@@ -128,7 +129,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
           case PublishedSbtProject.Unpack(deps) =>
             val scalaFiles  = Printer(lib.packageTree, mainPackageName)
             val sourcesDir  = RelPath("src") / 'main / 'scala
-            val metadataOpt = Await.result(metadataFetcher(lib.source, logger), 2.seconds)
+            val metadataOpt = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
 
             val sbtLayout = ContentSbtProject(
               v               = versions,

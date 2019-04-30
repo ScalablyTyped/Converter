@@ -180,7 +180,7 @@ object CollectReactComponents {
     if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, props +: _, _), _) if Names.isComponent(qname)=>
+        case (TypeRef(qname, props +: _, _), _) if Names.isComponent(qname) =>
           Component(
             componentName(cls.annotations, cls.codePath),
             tparams         = cls.tparams,
