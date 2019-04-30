@@ -177,11 +177,10 @@ object CollectReactComponents {
   }
 
   def maybeClassComponent(cls: ClassTree, scope: TreeScope): Option[Component] =
-    if (Names.inReact(cls.codePath)) None
-    else if (cls.classType =/= ClassType.Class) None
+    if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(Names.Component, props +: _, _), _) =>
+        case (TypeRef(qname, props +: _, _), _) if Names.isComponent(qname)=>
           Component(
             componentName(cls.annotations, cls.codePath),
             tparams         = cls.tparams,
@@ -223,16 +222,30 @@ object CollectReactComponents {
     }
 
   private object Names {
-    val React             = List(Name("reactLib"), Name("reactMod"))
-    val Component         = QualifiedName(React :+ Name("Component"))
-    val ComponentClass    = QualifiedName(React :+ Name("ComponentClass"))
-    val ClassType         = QualifiedName(React :+ Name("ClassType"))
-    val ComponentType     = QualifiedName(React :+ Name("ComponentType"))
-    val FunctionComponent = QualifiedName(React :+ Name("FunctionComponent"))
-    val Element           = QualifiedName(React :+ Name("ReactElement"))
+    val React         = List(Name("reactLib"), Name("reactMod"))
+    val Component     = QualifiedName(React :+ Name("Component"))
+    val ComponentType = QualifiedName(React :+ Name("ComponentType"))
 
-    val isComponent = Set(Component, ClassType, ComponentType, ComponentClass, FunctionComponent)
+    val ComponentNames: Set[String] =
+      Set(
+        "ClassicComponent",
+        "ClassicComponentClass",
+        "Component",
+        "ComponentClass",
+        "ComponentType",
+        "ExoticComponent",
+        "FC",
+        "FunctionComponent",
+        "LazyExoticComponent",
+        "MemoExoticComponent",
+        "NamedExoticComponent",
+        "ProviderExoticComponent",
+        "PureComponent",
+        "RefForwardingComponent",
+        "SFC",
+        "StatelessComponent",
+      )
 
-    def inReact(cp: QualifiedName): Boolean = cp.parts startsWith React
+    val isComponent: Set[QualifiedName] = ComponentNames.map(n => QualifiedName(React :+ Name(n)))
   }
 }
