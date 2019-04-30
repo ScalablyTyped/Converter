@@ -197,7 +197,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                 T.ExtractInterfaces(source.libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
                 (
                   T.ExtractClasses >> // after DefaultedTParams
-                    T.ExpandCallables((tpe, _) => !IsFunctionalComponent(tpe)) // after DefaultedTParams
+                    T.ExpandCallables((tpe, scope) => !IsReactComponent(scope, tpe)) // after DefaultedTParams
                 ).visitTsParsedFile(scope.caching),
                 (
                   T.SplitMethodsOnUnionTypes >> // after ExpandCallables
