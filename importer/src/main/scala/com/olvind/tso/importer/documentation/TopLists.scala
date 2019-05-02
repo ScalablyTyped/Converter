@@ -6,14 +6,21 @@ import com.olvind.tso.importer.build.PublishedSbtProject
 object TopLists {
   case class Lists(byScore: String, byName: String, byDependents: String)
 
-  def link(title: String, url: String): String = s"[$title]($url)"
+  def link(title: String, url: String): String = s"[${title.take(25)}]($url)"
 
-  val TakeUntilChr = Set('#', '!', '[', '\n', '|')
+  val TakeUntilChr = Set('#', '!', '[', '\n')
 
   def desc(m: Npmjs.Data): String =
-    m.collected.metadata.description.fold("-") { d =>
-      d.replaceAllLiterally("`", "").takeWhile(x => !TakeUntilChr(x))
-    }
+    m.collected.metadata.description
+      .map(
+        _.replaceAllLiterally("`", "")
+          .replaceAllLiterally("|", "")
+          .replaceAll("<[^>]+>", "") // remove html
+          .takeWhile(x => !TakeUntilChr(x))
+          .take(50)
+      )
+      .filter(_.nonEmpty)
+      .getOrElse("-")
 
   def apply(successes: Set[PublishedSbtProject]): Lists = {
     val withMetadata = successes.toArray.collect {
@@ -26,7 +33,14 @@ object TopLists {
     }
 
     val byNameRows = successes.toArray.sortBy { _.project.name }.map { x =>
-      s"| ${link(x.project.name, s"./${x.project.name.head}/${x.project.name}")} | ${x.project.metadata.fold("-")(desc)} |"
+      val nameLink    = link(x.project.name, s"./${x.project.name.head}/${x.project.name}")
+      val description = x.project.metadata.fold("-")(desc)
+      val keywords = x.project.metadata
+        .flatMap(_.collected.metadata.keywords)
+        .map(_.mkString(", "))
+        .filter(_.nonEmpty)
+        .getOrElse("-")
+      s"| $nameLink | $description | $keywords |"
     }
 
     val byDependentsRows = withMetadata
@@ -38,18 +52,18 @@ object TopLists {
 
     Lists(
       byScore      = s"""# Libraries by score
- Score | Library         | Description
- ------| :-------------: | :----------:
+ Score | Library | Description
+ ---| --- | ---
 ${byScoreRows.mkString("\n")} |
 """,
       byName       = s"""# All Libraries
- Library | Description
- :-----: | :---------:
+ Library | Description | keywords
+ --- | --- | ---
 ${byNameRows.mkString("\n")}
 """,
       byDependents = s"""# Libraries by number of dependents
  Number of dependents | Library  | Description
- -------------------- | :------: | :---------:
+ --- | --- | ---
 ${byDependentsRows.mkString("\n")} |
 """
     )
