@@ -19,7 +19,9 @@ class DefaultedHasTParamsTest extends FunSuite with DiffingAssertions {
 
     val parsed: TsParsedFile = TsParser(content).force
     val actual =
-      DefaultedTParams.visitTsParsedFile(TsTreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout))(parsed)
+      DefaultedTypeArguments.visitTsParsedFile(TsTreeScope(TsIdent.dummy, pedantic = true, Map.empty, logging.stdout))(
+        parsed
+      )
 
     val expected = TsParsedFile(
       NoComments,

@@ -15,7 +15,7 @@ object FlattenTrees {
   def apply(files: Traversable[TsParsedFile]): TsParsedFile =
     files.foldLeft(Empty)(mergeFile)
 
-  def file(file: TsParsedFile): TsParsedFile =
+  def apply(file: TsParsedFile): TsParsedFile =
     mergeFile(Empty, file)
 
   def mergeCodePath(one: CodePath, two: CodePath): CodePath =

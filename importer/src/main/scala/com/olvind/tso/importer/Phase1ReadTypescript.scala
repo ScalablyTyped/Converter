@@ -169,19 +169,15 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
               val ProcessAll = List[TsParsedFile => TsParsedFile](
                 T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
                 modules.HandleCommonJsModules.visitTsParsedFile(scope),
-                (
-                  T.SimplifyParents >>
-                    T.InferTypeFromExpr >>
-                    T.NormalizeFunctions // run before FlattenTrees
-                ).visitTsParsedFile(scope.caching),
+                (T.SimplifyParents >> T.InferTypeFromExpr >> T.NormalizeFunctions /* run before FlattenTrees */ )
+                  .visitTsParsedFile(scope.caching),
                 T.QualifyReferences.visitTsParsedFile(scope.caching),
                 modules.AugmentModules(scope.caching),
                 T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
                 new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
-                f => FlattenTrees(f :: Nil),
-                T.DefaultedTParams.visitTsParsedFile(scope.caching), //after FlattenTrees
+                FlattenTrees.apply,
+                T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
                 (
-//                      T.ApplyTypeMapping >> //after ResolveTypeLookups
                   T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
                     T.ExpandTypeParams >>
@@ -190,18 +186,18 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                     T.DropPrototypes >>
                     T.InferReturnTypes >>
                     T.RewriteTypeThis >>
-                    T.InlineTrivialTypeAlias //after DefaultedTParams
+                    T.InlineTrivialTypeAlias //after DefaultedTypeArguments
                 ).visitTsParsedFile(scope.caching),
                 T.ResolveTypeLookups
                   .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias
                 T.ExtractInterfaces(source.libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
                 (
-                  T.ExtractClasses >> // after DefaultedTParams
-                    T.ExpandCallables((tpe, scope) => !IsReactComponent(scope, tpe)) // after DefaultedTParams
+                  T.ExtractClasses >> // after DefaultedTypeArguments
+                    T.ExpandCallables((tpe, scope) => !IsReactComponent(scope, tpe)) // after DefaultedTypeArguments
                 ).visitTsParsedFile(scope.caching),
                 (
                   T.SplitMethodsOnUnionTypes >> // after ExpandCallables
-                    T.RemoveDifficultInheritance // after DefaultedTParams
+                    T.RemoveDifficultInheritance // after DefaultedTypeArguments
                 ).visitTsParsedFile(scope.caching),
                 T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
               )
