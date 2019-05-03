@@ -60,6 +60,7 @@ object Libraries {
     "io-ts",
     "jcore-react-native",
     "js-joda",
+    "@jupyterlab/metapackage",
     "@material-ui/core",
     "@material-ui/icons",
     "@material-ui/lab",
