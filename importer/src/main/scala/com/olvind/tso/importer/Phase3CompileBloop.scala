@@ -195,6 +195,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
     } else {
       rm(compilerPaths.classesDir)
+      mkdir(compilerPaths.classesDir)
 
       val compileWithCachedFailures = {
         val isFailure: PartialFunction[Result, Result.Failed] = {
