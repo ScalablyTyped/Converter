@@ -5,13 +5,21 @@ package transforms
 import seqs._
 
 object CollectReactComponents {
+  sealed trait ComponentType
+
+  object ComponentType {
+    case object Class extends ComponentType
+    case object Function extends ComponentType
+    case object Field extends ComponentType
+  }
+
   final case class Component(
       name:            Name,
       tparams:         Seq[TypeParamTree],
       props:           TypeRef,
       scalaLocation:   QualifiedName,
       isGlobal:        Boolean,
-      isClass:         Boolean,
+      componentType:   ComponentType,
       isAbstractProps: Boolean,
   )
 
@@ -99,14 +107,28 @@ object CollectReactComponents {
             val loc = Printer.formatTypeRef(Nil, 0)(
               TypeRef(comp.scalaLocation, TypeParamTree.asTypeArgs(comp.tparams), NoComments)
             )
+
+            val ref = comp.componentType match {
+              case ComponentType.Class => s"js.constructorOf[$loc]"
+              case ComponentType.Field => loc
+              case ComponentType.Function =>
+                val owner = Printer.formatTypeRef(Nil, 0)(
+                  TypeRef(comp.scalaLocation.copy(parts = comp.scalaLocation.parts.dropRight(1)),
+                          TypeParamTree.asTypeArgs(comp.tparams),
+                          NoComments)
+                )
+                s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${comp.scalaLocation.parts.last.unescaped}")"""
+            }
+
             MethodTree(
               Inline :: Nil,
               Default,
               comp.name,
               comp.tparams,
               Nil,
-              MemberImplCustom(s"${if (comp.isClass) s"js.constructorOf[$loc]" else loc}.asInstanceOf[${Printer
-                .formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]"),
+              MemberImplCustom(
+                s"$ref.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]"
+              ),
               TypeRef(Names.ComponentType, comp.props :: Nil, NoComments),
               isOverride = false,
               NoComments,
@@ -141,7 +163,53 @@ object CollectReactComponents {
     go(p, scope)
   }
 
-  def maybeMethodComponent(tree: MethodTree, scope: TreeScope): Option[Component] = None
+  def maybeMethodComponent(method: MethodTree, scope: TreeScope): Option[Component] = {
+    def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
+      if (current.typeName === Names.Element) Some(current)
+      else {
+        scope
+          .lookup(current.typeName)
+          .firstDefined {
+            case (x: TypeAliasTree, newScope) =>
+              val rewritten = FillInTParams(x, newScope, current.targs, Nil)
+              returnsElement(scope, rewritten.alias)
+            case _ => None
+          }
+      }
+
+    val flattenedParams = method.params.flatten
+
+    flattenedParams.length match {
+      case 1 | 2 =>
+        /* props and maybe context */
+        val isTopLevel = scope.stack.forall {
+          case _: ClassTree => false
+          case _ => true
+        }
+        val propsParam      = flattenedParams.head
+        val isAbstractProps = scope.isAbstract(propsParam.tpe)
+
+        /* this is clearly insufficient, but WFM right now */
+        val mentionsProps =
+          propsParam.name.unescaped.toLowerCase.contains("props") ||
+            propsParam.tpe.name.unescaped.toLowerCase.contains("props")
+
+        if (!isTopLevel || isAbstractProps || !mentionsProps) None
+        else
+          returnsElement(scope, method.resultType).map { _ =>
+            Component(
+              componentName(method.annotations, QualifiedName(method.name :: Nil)),
+              tparams         = method.tparams,
+              props           = propsParam.tpe,
+              scalaLocation   = method.codePath,
+              isGlobal        = isGlobal(method.annotations),
+              componentType   = ComponentType.Function,
+              isAbstractProps = isAbstractProps
+            )
+          }
+      case _ => None
+    }
+  }
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
@@ -170,7 +238,7 @@ object CollectReactComponents {
         props           = props,
         scalaLocation   = tree.codePath,
         isGlobal        = isGlobal(tree.annotations),
-        isClass         = false,
+        componentType   = ComponentType.Field,
         isAbstractProps = scope.isAbstract(props)
       )
     }
@@ -187,7 +255,7 @@ object CollectReactComponents {
             props           = props,
             scalaLocation   = cls.codePath,
             isGlobal        = isGlobal(cls.annotations),
-            isClass         = true,
+            componentType   = ComponentType.Class,
             isAbstractProps = scope.isAbstract(props)
           )
       }
@@ -225,6 +293,8 @@ object CollectReactComponents {
     val React         = List(Name("reactLib"), Name("reactMod"))
     val Component     = QualifiedName(React :+ Name("Component"))
     val ComponentType = QualifiedName(React :+ Name("ComponentType"))
+
+    val Element = QualifiedName(React :+ Name("ReactElement"))
 
     val ComponentNames: Set[String] =
       Set(
