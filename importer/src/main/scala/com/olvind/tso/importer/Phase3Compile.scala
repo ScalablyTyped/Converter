@@ -5,11 +5,8 @@ import java.nio.file.attribute.FileTime
 import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops._
-import bloop.Compiler.Result
 import bloop.io.AbsolutePath
-import bloop.{Compiler, DependencyResolution}
-import bloop.logging.{Logger => BloopLogger}
-import com.olvind.logging.{Formatter, LogLevel, Logger}
+import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.importer.Phase2Res.{Facade, LibScalaJs}
 import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
@@ -17,33 +14,24 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrarySimple
-import fansi.Back
-import io.circe.parser.decode
-import io.circe.{Decoder, Encoder}
-import monix.eval.Task
-import monix.execution.Scheduler
-import xsbti.Severity
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.Try
 
-class Phase3CompileBloop(
-    resolve:          LibraryResolver,
-    versions:         Versions,
-    bloopCompiler:    BloopCompiler,
-    bloopLogger:      BloopLogger,
-    targetFolder:     Path,
-    mainPackageName:  Name,
-    projectName:      String,
-    organization:     String,
-    publishUser:      String,
-    publishFolder:    Path,
-    scheduler:        Scheduler,
-    compileScheduler: Scheduler,
-    metadataFetcher:  Npmjs.Fetcher,
-    failureCacheDir:  Path,
+class Phase3Compile(
+    resolve:         LibraryResolver,
+    versions:        Versions,
+    compiler:        BloopCompiler,
+    targetFolder:    Path,
+    mainPackageName: Name,
+    projectName:     String,
+    organization:    String,
+    publishUser:     String,
+    publishFolder:   Path,
+    metadataFetcher: Npmjs.Fetcher,
+    softWrites:      Boolean,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
@@ -79,7 +67,7 @@ class Phase3CompileBloop(
           case PublishedSbtProject.Unpack(deps) =>
             val sourceFilesBase: Map[RelPath, (Array[Byte], FileTime)] =
               ls.rec(source.path / 'src)
-                .filter(_.isFile)
+                .collect { case files.IsNormalFile(path) => path }
                 .map { path =>
                   val relPath = path relativeTo source.path
                   val bytes   = files contentBytes InFile(path)
@@ -121,11 +109,11 @@ class Phase3CompileBloop(
             go(
               logger             = logger,
               deps               = deps,
+              externalDeps       = buildJson.dependencies,
               source             = source,
               name               = source.libName.value,
               sbtLayout          = sbtLayout,
               compilerPaths      = CompilerPaths(versions, source.path),
-              dependencies       = buildJson.dependencies,
               deleteUnknownFiles = false,
               makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}",
               metadataOpt        = metadataOpt,
@@ -157,11 +145,11 @@ class Phase3CompileBloop(
             go(
               logger             = logger,
               deps               = deps,
+              externalDeps       = Set(),
               source             = source,
               name               = lib.libName,
               sbtLayout          = sbtLayout,
               compilerPaths      = CompilerPaths.of(versions, targetFolder, lib.libName),
-              dependencies       = Set(),
               deleteUnknownFiles = true,
               makeVersion        = lib.libVersion.version,
               metadataOpt        = metadataOpt,
@@ -172,11 +160,11 @@ class Phase3CompileBloop(
   def go(
       logger:             Logger[Unit],
       deps:               Map[Source, PublishedSbtProject],
+      externalDeps:       Set[FacadeJson.Dep],
       source:             Source,
       name:               String,
       sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
       compilerPaths:      CompilerPaths,
-      dependencies:       Set[FacadeJson.Dep],
       deleteUnknownFiles: Boolean,
       makeVersion:        Digest => String,
       metadataOpt:        Option[Npmjs.Data],
@@ -185,14 +173,10 @@ class Phase3CompileBloop(
     val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
     val finalVersion          = makeVersion(digest)
     val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
-    val written               = files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles)
+    files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
 
-    val sbtProject = SbtProject(
-      name,
-      organization,
-      versions.sjs(name),
-      finalVersion,
-    )(compilerPaths.baseDir, deps, metadataOpt)
+    val sbtProject =
+      SbtProject(name, organization, versions.sjs(name), finalVersion)(compilerPaths.baseDir, deps, metadataOpt)
 
     val existing: IvyLayout[Path, Synced] =
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
@@ -200,109 +184,59 @@ class Phase3CompileBloop(
 
     if (existing.all.keys forall exists) {
       logger warn s"Using cached build of ${sbtProject.name}"
-      PhaseRes.Ok(PublishedSbtProject(sbtProject)(existing, None))
+      PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
     } else {
-      rm(compilerPaths.classesDir)
+      {
+        implicit val wd = home
+        % rm ("-Rf", compilerPaths.classesDir)
+      }
       mkdir(compilerPaths.classesDir)
 
-      val compileWithCachedFailures = {
-        val isFailure: PartialFunction[Result, Result.Failed] = {
-          case x: Result.Failed
-              /* protect against flaky errors */
-              if !x.problems.exists(_.problem.message().contains("bad option: -P:scalajs:sjsDefinedByDefault")) && x.t.isEmpty =>
-            x
-        }
-
-        val localClassPath: Seq[AbsolutePath] =
-          deps.values.to[Seq] map { x =>
-            x.localIvyFiles.all
-              .collectFirst {
-                case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
-                  AbsolutePath(path.toIO)
-              }
-              .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
+      val jarDeps = deps.values.to[Seq] map { x =>
+        x.localIvyFiles.all
+          .collectFirst {
+            case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
+              BloopCompiler.InternalDepJar(AbsolutePath(path.toIO))
           }
-
-        val externalClasspath: Set[AbsolutePath] =
-          dependencies.flatMap(
-            dep =>
-              DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)(scheduler),
-          )
-
-        import ResultFailedJsonCodec._
-
-        Phase3CompileBloop.taskPartial(
-          failureCacheDir / name / finalVersion,
-          logger,
-          bloopCompiler.compileLib(compilerPaths, localClassPath ++ externalClasspath),
-          extract = isFailure,
-        )
+          .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
       }
 
-      val ret: Task[PhaseRes[Source, PublishedSbtProject]] =
-        compileWithCachedFailures.map {
-          case Compiler.Result.Success(_, _, elapsed) =>
+      logger warn s"Building ${sbtProject.name}..."
+      val t0 = System.currentTimeMillis()
+      val ret: PhaseRes[Source, PublishedSbtProject] =
+        compiler.compile(name, digest, compilerPaths, jarDeps, externalDeps) match {
+          case Right(()) =>
+            val elapsed = System.currentTimeMillis - t0
             logger warn s"Built ${sbtProject.name} in $elapsed ms"
 
             val writtenIvyFiles: IvyLayout[Path, Synced] =
               build
-                .ContentForPublish(versions, compilerPaths, sbtProject, ZonedDateTime.now(), allFilesProperVersion)
+                .ContentForPublish(
+                  versions,
+                  compilerPaths,
+                  sbtProject,
+                  ZonedDateTime.now(),
+                  allFilesProperVersion,
+                  externalDeps,
+                )
                 .mapFiles(p => publishFolder / p)
                 .mapValues(files.softWriteBytes)
 
             logger.info(("published local", writtenIvyFiles.all.keys))
 
-            PhaseRes.Ok(PublishedSbtProject(sbtProject)(writtenIvyFiles, None))
+            PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, writtenIvyFiles, None))
 
-          case Compiler.Result.Failed(problems, _, _) =>
-            problems foreach { p =>
-              val logLevel: LogLevel = p.problem.severity match {
-                case Severity.Info  => LogLevel.info
-                case Severity.Warn  => LogLevel.warn
-                case Severity.Error => LogLevel.error
-              }
-
-              implicit val line = sourcecode.Line(p.problem.position.line().orElse(-1))
-              implicit val file = sourcecode.File(p.problem.position.sourcePath.orElse("unknown file"))
-              logger(logLevel, (p.problem.message, Back.LightGray(p.problem.position.lineContent)))
-            }
-
+          case Left(err) =>
+            logger.error(err)
             PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
-
-          case other => logger.fatal(other.toString)
         }
 
-      Await.result(
-        ret
-          .doOnFinish(_ => Task(rm(compilerPaths.classesDir)))
-          .runAsync(compileScheduler),
-        Duration.Inf,
-      )
+      {
+        implicit val wd = home
+        % rm ("-Rf", compilerPaths.targetDir)
+      }
+
+      ret
     }
   }
-}
-private object Phase3CompileBloop {
-  def taskPartial[K, V, VV <: V: Encoder: Decoder](
-      cachedFile: Path,
-      logger:     Logger[Unit],
-      run:        Task[V],
-      extract:    PartialFunction[V, VV],
-  ): Task[V] = {
-    def persisted(v: V): V = {
-      extract.lift(v).foreach(vv => Json.persist(cachedFile)(vv))
-      v
-    }
-    cachedFile match {
-      case files.Exists(existingFile) =>
-        decode[VV](files content InFile(existingFile)) match {
-          case Left(error) =>
-            logger.warn(s"Couldn't decode cached file $existingFile: $error")
-            run.map(persisted)
-          case Right(file) => Task.pure(file)
-        }
-
-      case _ => run.map(persisted)
-    }
-  }
-
 }

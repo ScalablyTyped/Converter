@@ -17,22 +17,18 @@ import com.olvind.tso.phases.{PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts._
 import com.olvind.tso.ts.parser.parseFile
-import monix.execution.Scheduler
 
 import scala.collection.immutable.SortedSet
 import scala.collection.parallel.ForkJoinTaskSupport
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, Future}
+import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.Try
 
 class Main(config: Config) {
   import Main._
 
-  private val pool             = new ForkJoinPool(config.parallelLibraries)
-  private val scheduler        = Scheduler(pool)
-  private val compilePool      = new ForkJoinPool(config.parallelScalas)
-  private val compileScheduler = Scheduler(compilePool)
-
+  private val pool               = new ForkJoinPool(config.parallelLibraries)
+  private val ec                 = ExecutionContext.fromExecutorService(pool)
   private val storingErrorLogger = logging.storing()
   private val logsFolder         = existing(config.cacheFolder / 'logs)
 
@@ -79,24 +75,27 @@ class Main(config: Config) {
         failFolder   = existingEmpty(targetFolder / 'failures),
         facadeFolder = existing(targetFolder / 'facades),
       )
-    }(scheduler)
+    }(ec)
 
-    val bloopFactoryF = Future {
-      val factory  = new BloopFactory(logger.filter(LogLevel.debug).void)
-      val compiler = factory.forVersion(config.versions, scheduler)
-      (compiler, factory.bloopLogger)
-    }(scheduler)
+    val compilerF = Future(
+      BloopCompiler(
+        logger.filter(LogLevel.debug).void,
+        config.versions,
+        ec,
+        config.cacheFolder / 'compileFailures,
+      ),
+    )(ec)
 
     val dtFolderF: Future[InFolder] = Future(
       UpToDateDefinitelyTyped(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo),
-    )(scheduler)
+    )(ec)
 
     val localCleaningF: Future[Unit] = Future {
       if (config.conserveSpace) {
         interfaceLogger.warn(s"Cleaning old artifacts in ${config.publishFolder}")
         LocalCleanup(config.publishFolder, config.organization, keepNum = 2)
       }
-    }(scheduler)
+    }(ec)
 
     val externalsFolderF: Future[InFolder] = dtFolderF.map { dtFolder =>
       val external: NotNeededPackages =
@@ -111,15 +110,15 @@ class Main(config: Config) {
         config.conserveSpace,
         config.offline,
       )
-    }(scheduler)
+    }(ec)
 
     val lastChangedIndexF = dtFolderF.map { dtFolder =>
       interfaceLogger.warn(s"Indexing ${dtFolder.path / up}")
       RepoLastChangedIndex(interfaceCmd, dtFolder.path / up)
-    }(scheduler)
+    }(ec)
 
     val tsSourcesF: Future[SortedSet[Source]] = {
-      implicit val s = scheduler
+      implicit val s = ec
       for {
         externalsFolder <- externalsFolderF
         dtFolder <- dtFolderF
@@ -147,7 +146,7 @@ class Main(config: Config) {
     val dtFolder                                           = Await.result(dtFolderF, Duration.Inf)
     val lastChangedIndex                                   = Await.result(lastChangedIndexF, Duration.Inf)
     val TargetDirs(targetFolder, failFolder, facadeFolder) = Await.result(updatedTargetDirF, Duration.Inf)
-    val (bloopCompiler, bloopLogger)                       = Await.result(bloopFactoryF, Duration.Inf)
+    val compiler                                           = Await.result(compilerF, Duration.Inf)
     val tsSources                                          = Await.result(tsSourcesF, Duration.Inf)
 
     val stdLibSource: Source =
@@ -164,7 +163,7 @@ class Main(config: Config) {
           user,
           password,
           config.projectName,
-        )(scheduler)
+        )(ec)
     }
 
     val resolve = new LibraryResolver(
@@ -191,21 +190,18 @@ class Main(config: Config) {
         )
         .next(new Phase2ToScalaJs(config.pedantic, config.outputPkg), "scala.js")
         .next(
-          new Phase3CompileBloop(
-            resolve          = resolve,
-            versions         = config.versions,
-            bloopCompiler    = bloopCompiler,
-            bloopLogger      = bloopLogger,
-            targetFolder     = targetFolder,
-            mainPackageName  = config.outputPkg,
-            projectName      = config.projectName,
-            organization     = config.organization,
-            publishUser      = bintray.fold("oyvindberg")(_.user),
-            publishFolder    = config.publishFolder,
-            scheduler        = scheduler,
-            compileScheduler = compileScheduler,
-            metadataFetcher  = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(scheduler),
-            failureCacheDir  = existing(config.cacheFolder / 'compileFailures),
+          new Phase3Compile(
+            resolve         = resolve,
+            versions        = config.versions,
+            compiler        = compiler,
+            targetFolder    = targetFolder,
+            mainPackageName = config.outputPkg,
+            projectName     = config.projectName,
+            organization    = config.organization,
+            publishUser     = bintray.fold("oyvindberg")(_.user),
+            publishFolder   = config.publishFolder,
+            metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
+            softWrites      = config.softWrites,
           ),
           "build",
         )
@@ -228,7 +224,6 @@ class Main(config: Config) {
     val summary = interface.finish()
 
     pool.shutdown()
-    compilePool.shutdown()
 
     interfaceLogger warn "Writing logs"
 
@@ -263,6 +258,7 @@ class Main(config: Config) {
     }
 
     val lists                 = TopLists(successes)
+    val gitIgnore             = targetFolder / ".gitignore"
     val readme                = targetFolder / "readme.md"
     val librariesByName       = targetFolder / "libraries_by_name.md"
     val librariesByScore      = targetFolder / "libraries_by_score.md"
@@ -273,6 +269,11 @@ class Main(config: Config) {
     files.softWrite(librariesByName)(_.print(lists.byName))
     files.softWrite(librariesByScore)(_.print(lists.byScore))
     files.softWrite(librariesByDependents)(_.print(lists.byDependents))
+    files.softWrite(gitIgnore)(_.println("""
+target/
+.idea/
+.bloop/
+"""))
 
     if (config.debugMode && !config.forceCommit) {
       interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
@@ -294,7 +295,7 @@ class Main(config: Config) {
         interfaceCmd,
         summary,
         successes.map(_.project.baseDir).to[Seq],
-        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents),
+        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents, gitIgnore),
       )(
         targetFolder,
       )
@@ -303,9 +304,12 @@ class Main(config: Config) {
     System.exit(0)
   }
 }
+
 object Main {
   def main(args: Array[String]): Unit = {
     val Config(config) = args
+    /* I havent found a way to configure bloop to customize the global ExecutionContext, so this is it */
+    System.setProperty("scala.concurrent.context.numThreads", config.parallelScalas.toString)
     new Main(config).run()
   }
 

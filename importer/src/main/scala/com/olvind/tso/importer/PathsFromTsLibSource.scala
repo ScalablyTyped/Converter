@@ -84,7 +84,7 @@ object PathsFromTsLibSource {
 
     if (base.nonEmpty || fromFolder.libName === TsIdentLibrarySimple("typescript")) base
     else {
-      ls.rec(_.name === "node_modules")(fromFolder.folder.path)
+      ls.rec(_.segments.last === "node_modules")(fromFolder.folder.path)
         .filter(_.last.endsWith("d.ts"))
         .to[Seq]
         .map(InFile.apply)

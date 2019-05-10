@@ -48,40 +48,27 @@ object files {
     name === ".idea" || name === "target"
   }
 
-  def sync(fs: Map[RelPath, Array[Byte]], folder: Path, deleteUnknowns: Boolean): Map[Path, Synced] = {
+  def sync(fs: Map[RelPath, Array[Byte]], folder: Path, deleteUnknowns: Boolean, soft: Boolean): Unit = {
 
     val absolutePathFiles: Map[Path, Array[Byte]] = fs.map {
       case (relPath, content) => folder / relPath -> content
     }
 
-    val deleted: Map[Path, Synced] =
-      if (!deleteUnknowns) Map.empty
-      else
-        folder match {
-          case Exists(f) =>
-            ls.rec(IgnoreProjectFiles)(f)
-              .filterNot(absolutePathFiles.contains)
-              .filter(_.isFile)
-              .map { p: Path =>
-                rm(p)
-                p -> Synced.Deleted
-              }
-              .toMap
-          case _ => Map.empty
-        }
-
-    val writtenFiles: Map[Path, Synced] =
-      absolutePathFiles.map {
-        case (file, content) => (file, softWriteBytes(file, content))
+    if (soft && deleteUnknowns)
+      folder match {
+        case Exists(f) =>
+          ls.rec(IgnoreProjectFiles)(f).foreach {
+            case files.IsNormalFile(p) if !absolutePathFiles.contains(p) => rm(p)
+            case _                                                       => ()
+          }
+        case _ => ()
       }
 
-    deleted ++ writtenFiles
-  }
-
-  def write(fs: Map[Path, Array[Byte]]): Map[Path, Synced] =
-    fs.map {
-      case (file, content) => (file, softWriteBytes(file, content))
+    absolutePathFiles.foreach {
+      case (file, content) =>
+        if (soft) softWriteBytes(file, content) else writeBytes(file, content)
     }
+  }
 
   def softWrite[T](path: Path)(f: PrintWriter => T): Synced = {
     val baos: ByteArrayOutputStream =
@@ -97,10 +84,7 @@ object files {
 
   def softWriteBytes[T](path: Path, newContent: Array[Byte]): Synced =
     (if (exists(path)) Some(contentBytes(InFile(path))) else None) match {
-      case None =>
-        mkdir(path / up)
-        Files.write(path.toNIO, newContent, CREATE)
-        Synced.New
+      case None => writeBytes(path, newContent)
       case Some(existingContent) if !util.Arrays.equals(existingContent, newContent) =>
         Files.write(path.toNIO, newContent, TRUNCATE_EXISTING)
         Synced.Changed
@@ -108,8 +92,29 @@ object files {
         Synced.Unchanged
     }
 
+  def writeBytes[T](path: Path, newContent: Array[Byte]): Synced = {
+    mkdir(path / up)
+    Files.write(path.toNIO, newContent, CREATE)
+    Synced.New
+  }
+
   object Exists {
     def unapply(path: Path): Option[Path] =
       Some(path) filter exists
+  }
+
+  object IsNormalFile {
+    def apply(path: Path): Boolean =
+      Files.isRegularFile(path.toNIO)
+
+    def unapply(path: Path): Option[Path] =
+      if (IsNormalFile(path)) Some(path) else None
+  }
+
+  object IsDirectory {
+    def apply(path: Path): Boolean =
+      Files.isDirectory(path.toNIO)
+    def unapply(path: Path): Option[Path] =
+      if (IsDirectory(path)) Some(path) else None
   }
 }

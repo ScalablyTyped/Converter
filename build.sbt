@@ -43,9 +43,7 @@ val importer = project
     ),
     libraryDependencies ++= Deps.circe ++ Seq(
       Deps.bloop,
-      Deps.bsp4s,
       Deps.bintry,
-      Deps.dispatch,
       Deps.asyncHttpClient,
       Deps.scalatest % Test
     ),

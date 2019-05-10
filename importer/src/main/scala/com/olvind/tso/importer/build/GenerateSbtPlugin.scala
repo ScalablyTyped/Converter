@@ -15,11 +15,12 @@ object GenerateSbtPlugin {
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
       action:        String,
-  ) = {
+  ): Unit = {
     files.sync(
       contents(versions, organization, projectName, projects, pluginVersion),
       projectDir,
       deleteUnknowns = true,
+      soft           = true,
     )
     implicit val wd = projectDir
     % sbt action
@@ -37,7 +38,6 @@ object GenerateSbtPlugin {
       |organization := ${quote(organization)}
       |version := ${quote(pluginVersion)}
       |sbtPlugin := true
-      |scalaVersion := ${quote(v.scalaVersion)}
       |bintrayRepository := ${quote(projectName)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |publishMavenStyle := true

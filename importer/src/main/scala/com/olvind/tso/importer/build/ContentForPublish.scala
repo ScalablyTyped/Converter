@@ -7,24 +7,26 @@ import java.time.format.DateTimeFormatter
 import java.util.jar.{JarEntry, JarOutputStream, Manifest}
 
 import ammonite.ops.{ls, read, Path, RelPath}
+import com.olvind.tso.importer.FacadeJson
 
 import scala.collection.mutable
 import scala.xml.Elem
 
 object ContentForPublish {
   def apply(
-      v:           Versions,
-      paths:       CompilerPaths,
-      p:           SbtProject,
-      publication: ZonedDateTime,
-      sourceFiles: Layout[RelPath, Array[Byte]],
+      v:            Versions,
+      paths:        CompilerPaths,
+      p:            SbtProject,
+      publication:  ZonedDateTime,
+      sourceFiles:  Layout[RelPath, Array[Byte]],
+      externalDeps: Set[FacadeJson.Dep],
   ): IvyLayout[RelPath, Array[Byte]] =
     IvyLayout(
       p          = p,
-      jarFile    = createJar(paths.classesDir),
+      jarFile    = createJar(paths.classesDir, publication),
       sourceFile = createJar(sourceFiles, publication),
-      ivyFile    = fromXml(ivy(v, p, publication)),
-      pomFile    = fromXml(pom(v, p)),
+      ivyFile    = fromXml(ivy(v, p, publication, externalDeps)),
+      pomFile    = fromXml(pom(v, p, externalDeps)),
     )
 
   private def fromXml(xml: Elem): Array[Byte] = {
@@ -40,18 +42,18 @@ object ContentForPublish {
   }
 
   // adapted from mill
-  private def createJar(fromFolder: Path): Array[Byte] = {
+  private def createJar(fromFolder: Path, publication: ZonedDateTime): Array[Byte] = {
     val seen = mutable.Set[RelPath](RelPath("META-INF") / "MANIFEST.MF")
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 
     try {
-      ls.rec(fromFolder).filter(_.isFile).foreach { file =>
+      ls.rec(fromFolder).collect { case files.IsNormalFile(file) => file }.foreach { file =>
         val mapping = file.relativeTo(fromFolder)
         if (!seen(mapping)) {
           seen.add(mapping)
           val entry = new JarEntry(mapping.toString)
-          entry.setTime(file.mtime.toMillis)
+          entry.setTime(publication.toEpochSecond)
           jar.putNextEntry(entry)
           jar.write(read.bytes(file))
           jar.closeEntry()
@@ -80,7 +82,7 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime): Elem =
+  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[FacadeJson.Dep]): Elem =
     <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
       <info organisation={p.organization}
             module={p.artifactId}
@@ -121,11 +123,15 @@ object ContentForPublish {
         case (_, d) =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
       }
+    }{
+      externalDeps.map { d =>
+        <dependency org={d.org} name={v.sjs(d.artifact)} rev={d.version} conf="compile->default(compile)"/>
+      }
     }
       </dependencies>
     </ivy-module>
 
-  def pom(v: Versions, p: SbtProject): Elem =
+  def pom(v: Versions, p: SbtProject, externalDeps: Set[FacadeJson.Dep]): Elem =
     <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
       <modelVersion>4.0.0</modelVersion>
       <groupId>{p.organization}</groupId>
@@ -168,6 +174,12 @@ object ContentForPublish {
           <version>{d.project.version}</version>
         </dependency>
       }
+    }
+        {
+      externalDeps.map(
+        d =>
+          <dependency><groupId>{d.org}</groupId><artifactId>{v.sjs(d.artifact)}</artifactId><version>{d.version}</version></dependency>,
+      )
     }
       </dependencies>
     </project>

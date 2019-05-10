@@ -5,15 +5,14 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{mkdir, root, up, Path}
+import ammonite.ops.{Path, mkdir, root, up}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.Source.TsLibSource
-import com.olvind.tso.importer.build.{BloopFactory, PublishedSbtProject, Versions}
+import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versions}
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
 import com.olvind.tso.ts._
-import monix.execution.Scheduler
 import org.scalatest.{Assertion, FunSuiteLike}
 
 import scala.collection.immutable.{SortedMap, TreeMap}
@@ -21,19 +20,16 @@ import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
-  private val testLogger   = logging.stdout.filter(LogLevel.error)
-  private val testCmd      = new Cmd(testLogger, None)
-  private val version      = Versions.`scala 2.12 with scala.js 0.6`
-  private val bloopFactory = new BloopFactory(testLogger)
-  private val scheduler    = Scheduler(ExecutionContext.Implicits.global)
-  // hack: there is some flakiness while resolving scalac/scalajs plugin.
-  // We only evaluate it once to make either all or none of the tests fail because of it
-  private val bloop = bloopFactory.forVersion(version, scheduler)
+  val failureCacheDir = root / 'tmp / 'tso / 'compileFailures
+  mkdir(failureCacheDir)
+
+  private val testLogger = logging.stdout.filter(LogLevel.error)
+  private val testCmd    = new Cmd(testLogger, None)
+  private val version    = Versions.`scala 2.13 with scala.js 1`
+  private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, failureCacheDir)
 
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
-  val failureCacheDir = root / 'tmp / 'tso / 'compileFailures
-  mkdir(failureCacheDir)
 
   private def runImport(
       source:        InFolder,
@@ -63,21 +59,18 @@ trait ImporterHarness extends FunSuiteLike {
         )
         .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
         .next(
-          new Phase3CompileBloop(
-            resolve          = resolve,
-            versions         = version,
-            bloopCompiler    = bloop,
-            bloopLogger      = bloopFactory.bloopLogger,
-            targetFolder     = targetFolder,
-            mainPackageName  = OutputPkg,
-            projectName      = "ScalablyTyped",
-            organization     = "org.scalablytyped",
-            publishUser      = "oyvindberg",
-            publishFolder    = publishFolder,
-            scheduler        = scheduler,
-            compileScheduler = scheduler,
-            metadataFetcher  = Npmjs.No,
-            failureCacheDir  = failureCacheDir,
+          new Phase3Compile(
+            resolve         = resolve,
+            versions        = version,
+            compiler        = bloop,
+            targetFolder    = targetFolder,
+            mainPackageName = OutputPkg,
+            projectName     = "ScalablyTyped",
+            organization    = "org.scalablytyped",
+            publishUser     = "oyvindberg",
+            publishFolder   = publishFolder,
+            metadataFetcher = Npmjs.No,
+            softWrites      = false,
           ),
           "build",
         )
@@ -116,6 +109,12 @@ trait ImporterHarness extends FunSuiteLike {
         import ammonite.ops._
         import ImplicitWd.implicitCwd
 
+        /* we don't checkin these files, so also don't compare them */
+        ls.rec(targetFolder).foreach {
+          case x if x.segments.last == ".bloop" => rm(x)
+          case _ => ()
+        }
+
         if (update) {
           rm(checkFolder)
           cp(targetFolder, checkFolder)
@@ -124,15 +123,10 @@ trait ImporterHarness extends FunSuiteLike {
 
         Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
           case Success(_) => if (update) pending else succeed
-          case Failure(th: ShelloutException) => {
-            import ImplicitWd.implicitCwd
-            rm(checkFolder)
-            cp(targetFolder, checkFolder)
-            synchronized(%("git", "add", checkFolder))
-          }
-          val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
-          fail(s"Output for test $testFolder was not as expected : $diff", th)
-        case Failure(th) => throw th
+          case Failure(th: ShelloutException) =>
+            val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
+            fail(s"Output for test $testFolder was not as expected : $diff", th)
+          case Failure(th) => throw th
         }
 
       case PhaseRes.Failure(errors) =>

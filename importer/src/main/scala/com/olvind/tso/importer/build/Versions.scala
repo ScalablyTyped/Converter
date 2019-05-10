@@ -11,15 +11,17 @@ object Versions {
     val scalaJsOrganization = "org.scala-js"
     val scalaJsVersion      = "0.6.28"
     val scalaJsBinVersion   = "0.6"
+    val scalacOptions       = List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
   }
 
   object `scala 2.13 with scala.js 1` extends Versions {
     val scalaOrganization   = "org.scala-lang"
-    val scalaVersion        = "2.13.0-RC1"
-    val binVersion          = "2.13.0-RC1"
+    val scalaVersion        = "2.13.0"
+    val binVersion          = "2.13"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "1.0.0-M7"
-    val scalaJsBinVersion   = "1.0.0-M7"
+    val scalaJsVersion      = "1.0.0-M8"
+    val scalaJsBinVersion   = "1.0.0-M8"
+    val scalacOptions       = List("-g:notailcalls")
   }
 }
 
@@ -30,10 +32,11 @@ trait Versions {
   val scalaJsOrganization: String
   val scalaJsVersion:      String
   val scalaJsBinVersion:   String
+  val scalacOptions:       List[String]
 
   val RuntimeOrganization = "com.olvind"
   val RuntimeName         = "scalablytyped-runtime"
-  val RuntimeVersion      = "2.0.0"
+  val RuntimeVersion      = "2.1.0"
   val sbtVersion          = "1.2.8"
   val sbtBintray          = %("org.foundweekends", "sbt-bintray", "0.5.4")
 

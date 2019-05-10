@@ -41,10 +41,12 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
     }
 
   def file(folder: InFolder, fragment: String): Option[InFile] =
-    resolve(folder.path, fragment, fragment + ".ts", fragment + ".d.ts", fragment + "/index.d.ts") find (_.isFile) map InFile.apply
+    resolve(folder.path, fragment, fragment + ".ts", fragment + ".d.ts", fragment + "/index.d.ts") collectFirst {
+      case files.IsNormalFile(file) => InFile(file)
+    }
 
   def folder(folder: InFolder, fragment: String): Option[InFolder] =
-    resolve(folder.path, fragment) find (_.isDir) map InFolder.apply
+    resolve(folder.path, fragment) collectFirst { case files.IsDirectory(dir) => InFolder(dir) }
 
   private def resolve(path: Path, frags: String*): Seq[Path] =
     frags.to[Seq].flatMap(frag => Option(path / RelPath(frag.dropWhile(_ === '/'))) filter exists)

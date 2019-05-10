@@ -1,15 +1,15 @@
 organization := "org.scalablytyped"
 name := "storybook__vue"
-version := "3.3-c5ddcb"
-scalaVersion := "2.12.8"
+version := "3.3-ef828d"
+scalaVersion := "2.13.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.olvind" %%% "scalablytyped-runtime" % "2.0.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-9467c5",
-  "org.scalablytyped" %%% "vue" % "2.5.13-e71eb8",
-  "org.scalablytyped" %%% "webpack-env" % "1.13-0df6ea")
+  "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-b6b5ea",
+  "org.scalablytyped" %%% "vue" % "2.5.13-9ddd50",
+  "org.scalablytyped" %%% "webpack-env" % "1.13-0a06e8")
 publishArtifact in packageDoc := false
-scalacOptions += "-P:scalajs:sjsDefinedByDefault"
+scalacOptions ++= List("-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
