@@ -11,7 +11,6 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 case class Phase4Publish(publisher: BinTrayPublisher) extends Phase[Source, PublishedSbtProject, PublishedSbtProject] {
-
   override def apply(
       source:  Source,
       lib:     PublishedSbtProject,
@@ -32,6 +31,6 @@ case class Phase4Publish(publisher: BinTrayPublisher) extends Phase[Source, Publ
 
       val published: Unit =
         Await.result(publisher.publish(lib.project, alreadyWrittenMavenFiles), Duration.Inf)
-      PhaseRes.Ok(PublishedSbtProject(lib.project)(lib.localIvyFiles, Some(published)))
+      PhaseRes.Ok(PublishedSbtProject(lib.project)(lib.classfileDir, lib.localIvyFiles, Some(published)))
     }
 }

@@ -16,8 +16,7 @@ object TypescriptSources {
 
   def forFolder(folder: InFolder, ignored: Set[String]): Set[TsLibSource] =
     ls(folder.path)
-      .filter(_.isDir)
-      .filterNot(x => ignored(x.name))
+      .collect { case files.IsDirectory(dir) if !ignored(dir.name) => dir }
       .flatMap[TsLibSource, Set[TsLibSource]] {
         case path if path.name === "@types" => Nil
         case path if path.name.startsWith("@") =>

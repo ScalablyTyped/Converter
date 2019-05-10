@@ -87,16 +87,16 @@ object UpToDateExternals {
       )(folder)
     }
 
-    if (conserveSpace) {
+    if (conserveSpace && exists(folder)) {
       /* only keep some files within npm folder*/
       val KeepExtensions = Set("json", "ts", "lock")
 
       logger.warn(s"Trimming $nodeModulesPath")
 
       ls.rec(folder).foreach {
-        case link if link.isSymLink                           => rm(link)
-        case file if file.isFile && !KeepExtensions(file.ext) => rm(file)
-        case _                                                => ()
+        case link if link.isSymLink                                => rm(link)
+        case files.IsNormalFile(file) if !KeepExtensions(file.ext) => rm(file)
+        case _                                                     => ()
       }
     }
 

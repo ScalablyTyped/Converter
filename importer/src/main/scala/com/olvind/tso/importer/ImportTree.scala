@@ -52,7 +52,7 @@ object ImportTree {
     val scope: TsTreeScope = _scope / t1
 
     t1 match {
-      case TsDeclModule(cs, _, name, innerDecls, codePath, jsLocation) =>
+      case TsDeclModule(cs, _, name, decls, codePath, jsLocation) =>
         Seq(
           ImportContainer(
             isWithinScalaModule = isWithinScalaModule,
@@ -61,12 +61,12 @@ object ImportTree {
             cs                  = cs,
             name                = name,
             jsLocation          = jsLocation,
-            members             = innerDecls,
+            members             = decls,
             codePath            = codePath,
           ),
         )
 
-      case TsAugmentedModule(name, innerDecls, codePath, jsLocation) =>
+      case TsAugmentedModule(name, decls, codePath, jsLocation) =>
         Seq(
           ImportContainer(
             isWithinScalaModule = isWithinScalaModule,
@@ -75,7 +75,7 @@ object ImportTree {
             cs                  = NoComments,
             name                = name,
             jsLocation          = jsLocation,
-            members             = innerDecls,
+            members             = decls,
             codePath            = codePath,
           ),
         )
@@ -110,14 +110,19 @@ object ImportTree {
 
       case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(_, members)), None, location, codePath, false) =>
         val newCodePath = importName(codePath)
-        val MemberRet(ctors, ms, inheritance, Nil) =
+        val MemberRet(ctors, ms, inheritance, statics) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
+
+        if (statics.nonEmpty || ctors.nonEmpty) {
+          scope.logger.warn(s"Dropping static members from var ${statics.map(_.codePath)}")
+        }
+
         Seq(
           ModuleTree(
             ImportJsLocation(location, isWithinScalaModule),
             name,
             inheritance,
-            ms ++ ctors,
+            ms,
             cs,
             newCodePath,
           ),

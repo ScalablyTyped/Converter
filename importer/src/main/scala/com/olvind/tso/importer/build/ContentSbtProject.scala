@@ -30,10 +30,6 @@ object ContentSbtProject {
 
       val ds = (external ++ fixed ++ local).sorted.mkString("Seq(\n  ", ",\n  ", ")")
 
-      val scalacOptions =
-        if (v.scalaJsBinVersion === "0.6") s"scalacOptions += ${quote("-P:scalajs:sjsDefinedByDefault")}"
-        else ""
-
       s"""|organization := ${quote(organization)}
           |name := ${quote(name)}
           |version := ${quote(version)}
@@ -41,7 +37,7 @@ object ContentSbtProject {
           |enablePlugins(ScalaJSPlugin)
           |libraryDependencies ++= $ds
           |publishArtifact in packageDoc := false
-          |$scalacOptions
+          |scalacOptions ++= ${v.scalacOptions.map(quote).mkString("List(", ", ", ")")}
           |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
           |bintrayRepository := ${quote(projectName)}
           |resolvers += Resolver.bintrayRepo(${quote(publishUser)}, ${quote(projectName)})

@@ -21,7 +21,10 @@ case class Config(
     conserveSpace:    Boolean,
     enableParseCache: Boolean,
     dontCleanProject: Boolean,
-    wantedLibNames:   Set[String],
+    /* only overwrite changed files to play better with tooling like intellij */
+    softWrites:     Boolean,
+    wantedLibNames: Set[String],
+    versions:       Versions,
 ) {
 
   def debugMode = wantedLibNames.nonEmpty
@@ -30,12 +33,11 @@ case class Config(
   val outputPkg         = Name("typings")
   val projectName       = "ScalablyTyped"
   val organization      = "org.scalablytyped"
-  val versions          = Versions.`scala 2.12 with scala.js 0.6`
   val cacheFolder       = home / 'tmp / "tso-cache"
   val publishFolder     = home / ".ivy2" / "local"
   val ScalablyTypedRepo = "https://github.com/oyvindberg/ScalablyTyped.git"
-  val parallelScalas    = Runtime.getRuntime.availableProcessors / 2
   val parallelLibraries = 100
+  val parallelScalas    = 4
 }
 
 object Config {
@@ -65,7 +67,11 @@ object Config {
             conserveSpace    = flags contains "-conserveSpace",
             enableParseCache = flags contains "-enableParseCache",
             dontCleanProject = flags contains "-dontCleanProject",
+            softWrites       = flags contains "-softWrites",
             wantedLibNames   = rest.to[Set],
+            versions =
+              if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
+              else Versions.`scala 2.12 with scala.js 0.6`,
           ),
         )
     }

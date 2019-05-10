@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "defaulted-tparams"
-version := "0.0-unknown-b4c1ed"
-scalaVersion := "2.12.8"
+version := "0.0-unknown-d3dbe2"
+scalaVersion := "2.13.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.olvind" %%% "scalablytyped-runtime" % "2.0.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-e42124")
+  "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-29dd97")
 publishArtifact in packageDoc := false
-scalacOptions += "-P:scalajs:sjsDefinedByDefault"
+scalacOptions ++= List("-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
