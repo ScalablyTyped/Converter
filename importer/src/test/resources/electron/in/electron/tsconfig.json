@@ -16,8 +16,5 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
-    "files": [
-        "electron.d.ts",
-        "../stdlib.d.ts"
-    ]
+    "files": ["electron.d.ts"]
 }

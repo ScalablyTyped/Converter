@@ -56,98 +56,99 @@ object CollectReactComponents {
       val moduleName     = Name(tree.name.unescaped + "Components")
       val moduleCodePath = tree.codePath + moduleName
 
-      val propsPointers: Seq[Tree] =
+      val members: Seq[Tree] =
         components
-          .filterNot(_.isAbstractProps)
-          .groupBy(_.props.name)
-          .collect { case (name, xs) if xs.map(_.props.typeName).distinct.length === 1 => name -> xs.head }
-          .to[Seq]
-          .sortBy(_._1)
-          .flatMap {
-            case (_, comp) =>
-              val alias = scope.lookup(comp.props.typeName).collectFirst {
-                case (x: TypeAliasTree, _) => x.tparams
-                case (x: ClassTree, _)     => x.tparams
-              } map { tps =>
-                TypeAliasTree(comp.props.name,
-                              tps,
-                              comp.props.copy(targs = TypeParamTree.asTypeArgs(tps)),
-                              NoComments,
-                              moduleCodePath + comp.props.name)
-              }
-
-              val reference = scope.lookup(comp.props.typeName).collectFirst {
-                case (generatedPropsCompanion: ModuleTree, _)
-                    if generatedPropsCompanion.moduleType === ModuleTypeScala =>
-                  MethodTree(
-                    Inline :: Nil,
-                    Default,
-                    generatedPropsCompanion.name,
-                    Nil,
-                    Nil,
-                    MemberImplCustom(Printer.formatQN(Nil, generatedPropsCompanion.codePath)),
-                    TypeRef.Singleton(comp.props.copy(targs = Nil)),
-                    isOverride = false,
-                    NoComments,
-                    moduleCodePath + generatedPropsCompanion.name
-                  )
-              }
-
-              reference.toList ++ alias
-          }
-
-      val componentPointers: Seq[Tree] =
-        components
-          .collect { case comp => (comp.name, comp) }
-          .toMap
-          .values
-          .to[Seq]
-          .sortBy(_.name)
-          .map { comp =>
-            val loc = Printer.formatTypeRef(Nil, 0)(
-              TypeRef(comp.scalaLocation, TypeParamTree.asTypeArgs(comp.tparams), NoComments)
-            )
-
-            val ref = comp.componentType match {
-              case ComponentType.Class => s"js.constructorOf[$loc]"
-              case ComponentType.Field => loc
-              case ComponentType.Function =>
-                val owner = Printer.formatTypeRef(Nil, 0)(
-                  TypeRef(comp.scalaLocation.copy(parts = comp.scalaLocation.parts.dropRight(1)),
-                          TypeParamTree.asTypeArgs(comp.tparams),
-                          NoComments)
-                )
-                s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${comp.scalaLocation.parts.last.unescaped}")"""
+          .sortBy(_.name.unescaped)
+          .flatMap(
+            comp =>
+              if (comp.isAbstractProps) List(genComponentRef(comp, moduleCodePath))
+              else {
+                val propsName = Name(comp.name.unescaped + "Props")
+                List(genComponentRef(comp, moduleCodePath)) ++
+                  genPropsRef(scope, comp, moduleCodePath, propsName) ++
+                  genPropsAlias(scope, comp, moduleCodePath, propsName)
             }
-
-            MethodTree(
-              Inline :: Nil,
-              Default,
-              comp.name,
-              comp.tparams,
-              Nil,
-              MemberImplCustom(
-                s"$ref.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]"
-              ),
-              TypeRef(Names.ComponentType, comp.props :: Nil, NoComments),
-              isOverride = false,
-              NoComments,
-              moduleCodePath + comp.name
-            )
-          }
+          )
 
       val module = ModuleTree(
         Nil,
         moduleName,
         ModuleTypeScala,
         Nil,
-        componentPointers ++ propsPointers,
+        members,
         NoComments,
         moduleCodePath
       )
 
       tree.withMembers(tree.members :+ module)
     }
+  }
+
+  def genPropsAlias(scope:          TreeScope,
+                    comp:           Component,
+                    moduleCodePath: QualifiedName,
+                    propsName:      Name): Option[TypeAliasTree] =
+    scope.lookup(comp.props.typeName).collectFirst {
+      case (x: TypeAliasTree, _) => x.tparams
+      case (x: ClassTree, _)     => x.tparams
+    } map { tps =>
+      TypeAliasTree(propsName,
+                    tps,
+                    comp.props.copy(targs = TypeParamTree.asTypeArgs(tps)),
+                    NoComments,
+                    moduleCodePath + propsName)
+    }
+
+  def genPropsRef(scope:          TreeScope,
+                  comp:           Component,
+                  moduleCodePath: QualifiedName,
+                  propsName:      Name): Option[MethodTree] =
+    scope.lookup(comp.props.typeName).collectFirst {
+      case (generatedPropsCompanion: ModuleTree, _) if generatedPropsCompanion.moduleType === ModuleTypeScala =>
+        MethodTree(
+          Inline :: Nil,
+          Default,
+          propsName,
+          Nil,
+          Nil,
+          MemberImplCustom(Printer.formatQN(Nil, generatedPropsCompanion.codePath)),
+          TypeRef.Singleton(comp.props.copy(targs = Nil)),
+          isOverride = false,
+          NoComments,
+          moduleCodePath + propsName
+        )
+    }
+
+  def genComponentRef(comp: Component, moduleCodePath: QualifiedName): MethodTree = {
+    val loc = Printer.formatTypeRef(Nil, 0)(
+      TypeRef(comp.scalaLocation, TypeParamTree.asTypeArgs(comp.tparams), NoComments)
+    )
+
+    val ref = comp.componentType match {
+      case ComponentType.Class => s"js.constructorOf[$loc]"
+      case ComponentType.Field => loc
+      case ComponentType.Function =>
+        comp.scalaLocation.parts match {
+          case ownerQName :+ name =>
+            val owner = Printer.formatQN(Nil, QualifiedName(ownerQName))
+            s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${name.unescaped}")"""
+        }
+    }
+
+    MethodTree(
+      Inline :: Nil,
+      Default,
+      comp.name,
+      comp.tparams,
+      Nil,
+      MemberImplCustom(
+        s"$ref.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]"
+      ),
+      TypeRef(Names.ComponentType, comp.props :: Nil, NoComments),
+      isOverride = false,
+      NoComments,
+      moduleCodePath + comp.name
+    )
   }
 
   def identify(scope: TreeScope, p: ContainerTree): Seq[Component] = {
@@ -196,9 +197,12 @@ object CollectReactComponents {
 
         if (!isTopLevel || isAbstractProps || !mentionsProps) None
         else
-          returnsElement(scope, method.resultType).map { _ =>
+          for {
+            _ <- returnsElement(scope, method.resultType)
+            compName <- componentName(method.annotations, QualifiedName(method.name :: Nil))
+          } yield
             Component(
-              componentName(method.annotations, QualifiedName(method.name :: Nil)),
+              compName,
               tparams         = method.tparams,
               props           = propsParam.tpe,
               scalaLocation   = method.codePath,
@@ -206,7 +210,6 @@ object CollectReactComponents {
               componentType   = ComponentType.Function,
               isAbstractProps = isAbstractProps
             )
-          }
       case _ => None
     }
   }
@@ -230,10 +233,13 @@ object CollectReactComponents {
           }
       }
 
-    pointsAtComponentType(scope, tree.tpe).map { tr =>
-      val props = tr.targs.head
+    for {
+      tr <- pointsAtComponentType(scope, tree.tpe)
+      props = tr.targs.head
+      name <- componentName(owner.annotations, QualifiedName(tree.name :: Nil))
+    } yield
       Component(
-        componentName(owner.annotations, QualifiedName(tree.name :: Nil)),
+        name            = name,
         tparams         = Nil,
         props           = props,
         scalaLocation   = tree.codePath,
@@ -241,7 +247,6 @@ object CollectReactComponents {
         componentType   = ComponentType.Field,
         isAbstractProps = scope.isAbstract(props)
       )
-    }
   }
 
   def maybeClassComponent(cls: ClassTree, scope: TreeScope): Option[Component] =
@@ -249,18 +254,21 @@ object CollectReactComponents {
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
         case (TypeRef(qname, props +: _, _), _) if Names.isComponent(qname) =>
-          Component(
-            componentName(cls.annotations, cls.codePath),
-            tparams         = cls.tparams,
-            props           = props,
-            scalaLocation   = cls.codePath,
-            isGlobal        = isGlobal(cls.annotations),
-            componentType   = ComponentType.Class,
-            isAbstractProps = scope.isAbstract(props)
+          componentName(cls.annotations, cls.codePath).map(
+            compName =>
+              Component(
+                compName,
+                tparams         = cls.tparams,
+                props           = props,
+                scalaLocation   = cls.codePath,
+                isGlobal        = isGlobal(cls.annotations),
+                componentType   = ComponentType.Class,
+                isAbstractProps = scope.isAbstract(props)
+            )
           )
-      }
+      }.flatten
 
-  def componentName(annotations: Seq[Annotation], codePath: QualifiedName): Name = {
+  def componentName(annotations: Seq[Annotation], codePath: QualifiedName): Option[Name] = {
     val fromCodePath = codePath.parts.last match {
       case Name.Default | Name.namespaced =>
         None
@@ -277,9 +285,7 @@ object CollectReactComponents {
           Name(prettyString(fragment.capitalize, "", forceCamelCase = false))
       }
 
-    fromCodePath orElse fromAnnotation getOrElse sys.error(
-      s"Couldn't find component name for $annotations and $codePath"
-    )
+    fromCodePath orElse fromAnnotation
   }
 
   def isGlobal(as: Seq[Annotation]): Boolean =
