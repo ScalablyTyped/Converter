@@ -8,11 +8,18 @@ import com.olvind.tso.ts.transforms.SetCodePath
 
 /* Skip traversing the entire tree if the module is cached */
 object CachedReplaceExports {
+  val Unique = TsIdent("__CachedReplaceExports__")
   def apply(scope: TsTreeScope, loopDetector: LoopDetector, x: TsDeclModule): TsDeclModule =
     if (scope.root.cache.isDefined && scope.root.cache.get.replaceExports.contains(x.name))
       scope.root.cache.get.replaceExports(x.name)
     else if (x.exports.isEmpty) x
-    else new ReplaceExports(loopDetector).visitTsDeclModule(scope)(x)
+    else
+      /* bugfix for wrongly combined modules in @angular/core/testing */
+      loopDetector.including(List(Unique, x.name), scope) match {
+        case Right(newLoopDetector) =>
+          new ReplaceExports(newLoopDetector).visitTsDeclModule(scope)(x)
+        case Left(()) => x.copy(members = Nil)
+      }
 }
 
 class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScopedChanges {
