@@ -595,7 +595,7 @@ final case class TsMemberIndex(
     level:      ProtectionLevel,
     indexing:   Indexing,
     isOptional: Boolean,
-    valueType:  TsType
+    valueType:  Option[TsType]
 ) extends TsMember
 
 sealed trait OptionalModifier {

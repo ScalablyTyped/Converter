@@ -181,7 +181,7 @@ final class ParserTests extends FunSuite {
                                       isReadOnly = false,
                                       level      = Default,
                                       indexing   = IndexingDict(TsIdent("key"), TsTypeRef.string),
-                                      valueType  = TsTypeRef.any,
+                                      valueType  = Some(TsTypeRef.any),
                                       isOptional = false)
                       )
                     )
@@ -1005,7 +1005,7 @@ final class ParserTests extends FunSuite {
           isReadOnly = true,
           level      = Default,
           indexing   = IndexingDict(TsIdent("index"), TsTypeRef(NoComments, TsQIdent.number, Nil)),
-          valueType  = TsTypeRef.string,
+          valueType  = Some(TsTypeRef.string),
           isOptional = false
         )
       )
@@ -1252,7 +1252,7 @@ type Readonly<T> = {
             level      = Default,
             indexing   = IndexingSingle(TsQIdent(List(TsIdent("Symbol"), TsIdent("toStringTag")))),
             isOptional = false,
-            valueType  = TsTypeLiteral(TsLiteralString("Symbol"))
+            valueType  = Some(TsTypeLiteral(TsLiteralString("Symbol")))
           )
         ),
         CodePath.NoPath
@@ -2071,7 +2071,7 @@ type Readonly<T> = {
             isReadOnly = false,
             level      = Default,
             indexing   = IndexingSingle(TsQIdent(List(TsIdentSimple("nominalTypeHack")))),
-            valueType  = T,
+            valueType  = Some(T),
             isOptional = true
           )
         ),
@@ -2234,6 +2234,22 @@ export {};
                    List(),
                    List(TsExport(NoComments, ExportType.Named, TsExporteeNames(List(), None))),
                    CodePath.NoPath)
+    )
+  }
+
+  test("new bug") {
+    shouldParseAs(
+      """private readonly [kChannel]""",
+      TsParser.tsMember
+    )(
+      TsMemberIndex(
+        NoComments,
+        false,
+        Private,
+        IndexingSingle(TsQIdent(List(TsIdentSimple("kChannel")))),
+        false,
+        None
+      )
     )
   }
 

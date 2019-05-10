@@ -125,7 +125,7 @@ object ImportType {
 
         val translatedStrings = strings.map {
           case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType) =>
-            (cs, apply(wildcards, scope, importName)(valueType).withOptional(isOptional))
+            (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
         val stringDict = translatedStrings.toList match {
           case Nil => None
@@ -136,7 +136,7 @@ object ImportType {
         }
         val translatedNumbers = numbers.map {
           case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType) =>
-            (cs, apply(wildcards, scope, importName)(valueType).withOptional(isOptional))
+            (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
         val numberDict = translatedNumbers.toList match {
           case Nil => None

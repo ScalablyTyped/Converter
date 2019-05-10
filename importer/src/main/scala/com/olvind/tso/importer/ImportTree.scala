@@ -320,7 +320,7 @@ object ImportTree {
         m.indexing match {
           case IndexingDict(indexName, indexType) =>
             val indexTpe = ImportType(Wildcards.No, scope, importName)(indexType)
-            val valueTpe = ImportType(Wildcards.No, scope, importName)(m.valueType)
+            val valueTpe = ImportType.orAny(Wildcards.No, scope, importName)(m.valueType)
 
             val rewritten: TypeRef =
               if (indexTpe === TypeRef.String)
@@ -362,7 +362,7 @@ object ImportTree {
                     FieldTree(
                       annotations = Seq(a),
                       name        = codeName,
-                      tpe         = ImportType(Wildcards.No, scope, importName)(m.valueType).withOptional(m.isOptional),
+                      tpe         = ImportType.orAny(Wildcards.No, scope, importName)(m.valueType).withOptional(m.isOptional),
                       impl        = fieldType,
                       isReadOnly  = m.isReadOnly,
                       isOverride  = false,

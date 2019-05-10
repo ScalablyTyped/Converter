@@ -302,7 +302,7 @@ trait TreeTransformation[T] { self =>
           case IndexingDict(name, tpe) => IndexingDict(name, visitTsType(tt)(tpe))
           case IndexingSingle(name)    => IndexingSingle(visitTsQIdent(tt)(name))
         }
-        TsMemberIndex(_1, _2, _3, indexed, _5, visitTsType(tt)(_6))
+        TsMemberIndex(_1, _2, _3, indexed, _5, _6.map(visitTsType(tt)))
     }
   }
   final def visitTsMemberProperty(t: T)(x: TsMemberProperty): TsMemberProperty = {

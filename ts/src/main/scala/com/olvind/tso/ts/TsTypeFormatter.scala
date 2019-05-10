@@ -78,8 +78,7 @@ object TsTypeFormatter {
           case IndexingSingle(name)    => s"[${qident(name)}]"
         }),
         if (isOptional) Some("?") else None,
-        Some(":"),
-        Some(apply(valueType))
+        valueType.map(tpe => s": ${apply(tpe)}")
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
 
     case TsMemberTypeMapped(_, l, isReadOnly, key, from, optionalize, to) =>

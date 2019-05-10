@@ -152,7 +152,7 @@ object FlattenTrees {
           case existing: TsMemberIndex if that.indexing === existing.indexing =>
             existing.copy(
               comments   = mergeComments(existing.comments, that.comments),
-              valueType  = TsTypeIntersect.simplified(Seq(existing.valueType, that.valueType)),
+              valueType  = Some(TsTypeIntersect.simplified(Seq(existing.valueType, that.valueType).flatten)),
               isOptional = existing.isOptional || that.isOptional
             )
         }
