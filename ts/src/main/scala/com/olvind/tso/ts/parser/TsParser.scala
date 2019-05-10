@@ -115,8 +115,12 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
   lazy val directives: Parser[Seq[Directive]] =
     (comments ~> directive).* named "directives"
 
+  lazy val shebang = accept("Shebang", {
+    case lexical.Shebang(chars) => ()
+  })
+
   lazy val parsedTsFile: Parser[TsParsedFile] =
-    comments ~ directives ~ tsContainerOrDecls ~ success(CodePath.NoPath) ^^ TsParsedFile
+    shebang.? ~> comments ~ directives ~ tsContainerOrDecls ~ success(CodePath.NoPath) ^^ TsParsedFile
 
   lazy val tsNamedDecl: Parser[TsNamedDecl] =
     tsDeclInterface |

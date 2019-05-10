@@ -21,6 +21,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   final case class DirectiveToken(name: String, key: String, value: String) extends Token {
     override def chars: String = s"$name $key=$value"
   }
+  final case class Shebang(chars: String) extends Token
 
   implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
     (str: String) => p.apply(new CharSequenceReader(str))
@@ -37,6 +38,10 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     "static", "super", "symbol", "switch", "this", "throw", "true", "try", "type", "typeof", "undefined",
     "unique", "var", "void", "while", "with", "yield"
   )
+
+  val shebang = '#' ~ chrExcept('\n', EofCh).+ ^^ {
+    case hash ~ rest => Shebang(hash.toString + chars2string(rest))
+  }
 
   val hexDigit: Parser[Int] =
     accept("hex digit", {
@@ -205,7 +210,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   }
 
   override val token: Parser[Token] = {
-    val base = identifier | directive | comment | delim | numericLiteral | stringLiteral | operators | EofCh ^^^ EOF
+    val base = identifier | directive | comment | delim | numericLiteral | stringLiteral | operators | shebang | EofCh ^^^ EOF
 
     val ignore = (newLine | whitespaceChar).*
 

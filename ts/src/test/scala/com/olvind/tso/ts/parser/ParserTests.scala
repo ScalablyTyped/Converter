@@ -2223,6 +2223,20 @@ type Readonly<T> = {
     )
   }
 
+  test("initial shebang") {
+    shouldParseAs(
+      """#!/usr/bin/env node
+export {};
+""",
+      TsParser.parsedTsFile
+    )(
+      TsParsedFile(NoComments,
+                   List(),
+                   List(TsExport(NoComments, ExportType.Named, TsExporteeNames(List(), None))),
+                   CodePath.NoPath)
+    )
+  }
+
   test("expr") {
     shouldParseAs(
       """export declare const start = ActionTypes.Start""",
