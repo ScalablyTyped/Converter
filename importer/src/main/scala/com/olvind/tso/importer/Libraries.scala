@@ -38,6 +38,7 @@ object Libraries {
     "@blueprintjs/select",
     "@blueprintjs/table",
     "@blueprintjs/timezone",
+    "csw-aas-js",
     "downshift",
     "dva",
     "emotion",

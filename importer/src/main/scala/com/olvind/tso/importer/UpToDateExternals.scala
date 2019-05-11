@@ -39,10 +39,6 @@ object UpToDateExternals {
 
     if (missingExternals.isEmpty) logger.warn("All external libraries present in node_modules")
     else {
-      if (offline) {
-        logger.fatal(s"Is in offline mode but is missing externals $missingExternals")
-      }
-
       missingExternals.toSeq.sorted.grouped(30).foreach { es =>
         logger.warn(s"Adding missing externals $es")
         %%("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", "--no-bin-links", es)(cacheFolder)
