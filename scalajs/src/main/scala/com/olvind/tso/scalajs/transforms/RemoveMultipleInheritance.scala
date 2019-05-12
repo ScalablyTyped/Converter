@@ -58,13 +58,15 @@ object RemoveMultipleInheritance extends TreeTransformation {
         p.transitiveParents.exists {
           case (_, cs) => cs.classType === ClassType.Class || cs.classType === ClassType.AbstractClass
           case _       => false
-      }
+        },
     )
 
-  def step(included:   List[Parent],
-           newParents: List[TypeRef],
-           dropped:    List[Dropped],
-           remaining:  List[Parent]): (List[Dropped], List[TypeRef]) =
+  def step(
+      included:   List[Parent],
+      newParents: List[TypeRef],
+      dropped:    List[Dropped],
+      remaining:  List[Parent],
+  ): (List[Dropped], List[TypeRef]) =
     remaining match {
       case Nil =>
         (dropped, newParents)
@@ -73,16 +75,18 @@ object RemoveMultipleInheritance extends TreeTransformation {
           h.transitiveParents.collectFirst {
             case (_, c)
                 if included.nonEmpty && c.classType =/= ClassType.Trait && !included.exists(
-                  _.transitiveParents.exists(_._2 === c)
+                  _.transitiveParents.exists(_._2 === c),
                 ) =>
               val includedFields: Seq[Name] =
                 (/* baseMembers ++ */ dropped.flatMap(_.members) ++ included.flatMap(_.fields)).map(_.name)
 
               val inlined = h.classTree.members.filterNot(m => includedFields.contains(m.name))
 
-              Dropped(h.refs.last,
-                      s"Inheritance from two classes. Inlined ${inlined.map(_.name.value).mkString(", ")}",
-                      inlined)
+              Dropped(
+                h.refs.last,
+                s"Inheritance from two classes. Inlined ${inlined.map(_.name.value).mkString(", ")}",
+                inlined,
+              )
           }
 
         def alreadyInherits: Option[Dropped] =
@@ -91,7 +95,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
               i =>
                 if (h.refs.exists(_.typeName === i.typeName))
                   Some(Dropped(h.refs.last, "Already inherited", Nil))
-                else None
+                else None,
             ))
 
         def alreadyInheritsUnresolved: Option[Dropped] =
@@ -120,8 +124,8 @@ object RemoveMultipleInheritance extends TreeTransformation {
                 Dropped(
                   h.refs.last,
                   s"var conflicts: $conflictString. Inlined ${inlined.map(_.name.value).mkString(", ")}",
-                  inlined
-                )
+                  inlined,
+                ),
               )
           }
         }

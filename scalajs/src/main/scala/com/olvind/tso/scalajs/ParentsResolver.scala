@@ -28,7 +28,7 @@ object ParentsResolver {
       val classTree:      ClassTree,
       val foundIn:        TreeScope,
       val parents:        Seq[Parent],
-      val unresolved:     Seq[TypeRef]
+      val unresolved:     Seq[TypeRef],
   ) extends ParentTree {
 
     lazy val members: Seq[MemberTree] =
@@ -88,10 +88,12 @@ object ParentsResolver {
   /* A primitive doesn't resolve to a `ClassTree`, for instance */
   case class Unresolved(tr: Seq[TypeRef]) extends Res
 
-  private def recurse(scope:      TreeScope,
-                      typeRefs:   List[TypeRef],
-                      ld:         LoopDetector,
-                      newTParams: Seq[TypeParamTree]): Res =
+  private def recurse(
+      scope:      TreeScope,
+      typeRefs:   List[TypeRef],
+      ld:         LoopDetector,
+      newTParams: Seq[TypeParamTree],
+  ): Res =
     ld.including(typeRefs.head.typeName.parts, scope) match {
       case Left(()) =>
         Circular
@@ -111,8 +113,8 @@ object ParentsResolver {
                   rewritten,
                   foundInScope,
                   parents.map(_.nr),
-                  unresolved.flatMap(_.tr)
-                )
+                  unresolved.flatMap(_.tr),
+                ),
               )
 
           case (ta: TypeAliasTree, foundInScope) =>

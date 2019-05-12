@@ -24,7 +24,7 @@ object ImportTree {
       lib.name,
       JsLocation.Zero,
       lib.parsed.members,
-      lib.parsed.codePath.forceHasPath
+      lib.parsed.codePath.forceHasPath,
     )
     val require = {
       val libName = importName(lib.name)
@@ -38,7 +38,7 @@ object ImportTree {
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath = QualifiedName(libName :: name :: Nil)
+        codePath = QualifiedName(libName :: name :: Nil),
       )
     }
 
@@ -50,7 +50,7 @@ object ImportTree {
   }
 
   def decl(_scope: TsTreeScope, isWithinScalaModule: Boolean, importName: ImportName)(
-      t1:          TsContainerOrDecl
+      t1:          TsContainerOrDecl,
   ): Seq[Tree] = {
     val scope: TsTreeScope = _scope / t1
 
@@ -65,8 +65,8 @@ object ImportTree {
             name                = name,
             jsLocation          = jsLocation,
             members             = innerDecls,
-            codePath            = codePath.forceHasPath
-          )
+            codePath            = codePath.forceHasPath,
+          ),
         )
 
       case TsAugmentedModule(name, innerDecls, codePath, jsLocation) =>
@@ -79,8 +79,8 @@ object ImportTree {
             name                = name,
             jsLocation          = jsLocation,
             members             = innerDecls,
-            codePath            = codePath.forceHasPath
-          )
+            codePath            = codePath.forceHasPath,
+          ),
         )
 
       case TsDeclNamespace(cs, _, name, decls, codePath, jsLocation) =>
@@ -93,8 +93,8 @@ object ImportTree {
             name                = name,
             jsLocation          = jsLocation,
             members             = decls,
-            codePath            = codePath.forceHasPath
-          )
+            codePath            = codePath.forceHasPath,
+          ),
         )
 
       case TsGlobal(cs, _, ms, codePath) =>
@@ -107,8 +107,8 @@ object ImportTree {
             name                = TsIdent.Global,
             jsLocation          = JsLocation.Zero,
             members             = ms,
-            codePath            = codePath.forceHasPath
-          )
+            codePath            = codePath.forceHasPath,
+          ),
         )
 
       case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(members)), None, location, codePath, false) =>
@@ -116,13 +116,15 @@ object ImportTree {
         val MemberRet(ctors, ms, inheritance, Nil) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
         Seq(
-          ModuleTree(ImportJsLocation(location, isWithinScalaModule),
-                     name,
-                     ModuleTypeNative,
-                     inheritance,
-                     ms ++ ctors,
-                     cs,
-                     newCodePath)
+          ModuleTree(
+            ImportJsLocation(location, isWithinScalaModule),
+            name,
+            ModuleTypeNative,
+            inheritance,
+            ms ++ ctors,
+            cs,
+            newCodePath,
+          ),
         )
 
       case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
@@ -137,8 +139,8 @@ object ImportTree {
               parents     = Seq(base.withOptional(isOptional)),
               members     = Nil,
               comments    = cs,
-              codePath    = importName(codePath.forceHasPath.codePath)
-            )
+              codePath    = importName(codePath.forceHasPath.codePath),
+            ),
           )
         } else
           Seq(
@@ -150,8 +152,8 @@ object ImportTree {
               isReadOnly  = readOnly,
               isOverride  = false,
               comments    = cs,
-              codePath    = importName(codePath.forceHasPath.codePath)
-            )
+              codePath    = importName(codePath.forceHasPath.codePath),
+            ),
           )
 
       case e: TsDeclEnum =>
@@ -176,19 +178,21 @@ object ImportTree {
           classType   = classType,
           isSealed    = false,
           comments    = cs,
-          codePath    = newCodePath
+          codePath    = newCodePath,
         )
 
         val module: Option[ModuleTree] =
           if (statics.nonEmpty)
             Some(
-              ModuleTree(anns,
-                         name,
-                         ModuleTypeNative,
-                         Nil,
-                         statics,
-                         Comments(Comment("/* static members */\n")),
-                         newCodePath)
+              ModuleTree(
+                anns,
+                name,
+                ModuleTypeNative,
+                Nil,
+                statics,
+                Comments(Comment("/* static members */\n")),
+                newCodePath,
+              ),
             )
           else None
 
@@ -213,8 +217,8 @@ object ImportTree {
             classType   = ClassType.Trait,
             isSealed    = false,
             comments    = cs,
-            codePath    = newCodePath
-          )
+            codePath    = newCodePath,
+          ),
         )
 
       case TsDeclTypeAlias(cs, _, importName(name), tparams, alias, codePath) =>
@@ -224,8 +228,8 @@ object ImportTree {
             tparams  = tparams map typeParam(scope, importName),
             alias    = ImportType(Wildcards.Prohibit, scope, importName)(alias),
             comments = cs,
-            codePath = importName(codePath.forceHasPath.codePath)
-          )
+            codePath = importName(codePath.forceHasPath.codePath),
+          ),
         )
 
       case TsDeclFunction(cs, _, importName(name), sig, _, codePath) =>
@@ -238,8 +242,8 @@ object ImportTree {
             cs             = cs,
             sig            = sig,
             scalaJsDefined = false,
-            importName(codePath.forceHasPath.codePath)
-          )
+            importName(codePath.forceHasPath.codePath),
+          ),
         )
       case _: TsExportAsNamespace => Nil
       case _: TsImport            => Nil
@@ -281,7 +285,7 @@ object ImportTree {
   }
 
   def tsMember(_scope: TsTreeScope, scalaJsDefined: Boolean, importName: ImportName, ownerCP: QualifiedName)(
-      t1:              TsMember
+      t1:              TsMember,
   ): Seq[MemberRet] = {
     lazy val scope = _scope / t1
     t1 match {
@@ -289,15 +293,17 @@ object ImportTree {
         Seq(
           MemberRet(
             tsMethod(scope, importName, level, Name.APPLY, cs, signature, scalaJsDefined, ownerCP),
-            isStatic = false
-          )
+            isStatic = false,
+          ),
         )
       case TsMemberCtor(cs, _, _sig) =>
         Seq(MemberRet.Inheritance(ImportType.newableFunction(scope, importName, _sig, cs)))
 
       case TsMemberFunction(cs, level, TsIdent.constructor, sig, false, _, _) =>
         Seq(
-          MemberRet.Ctor(CtorTree(level, tsFunParams(scope / sig, importName, params = sig.params), cs ++ sig.comments))
+          MemberRet.Ctor(
+            CtorTree(level, tsFunParams(scope / sig, importName, params = sig.params), cs ++ sig.comments),
+          ),
         )
 
       case m: TsMemberProperty =>
@@ -311,8 +317,10 @@ object ImportTree {
           tsMemberProperty(scope.`..`, scalaJsDefined, importName, ownerCP)(asFunction)
         } else {
           Seq(
-            MemberRet(tsMethod(scope, importName, level, importName(name), cs, signature, scalaJsDefined, ownerCP),
-                      isStatic)
+            MemberRet(
+              tsMethod(scope, importName, level, importName(name), cs, signature, scalaJsDefined, ownerCP),
+              isStatic,
+            ),
           )
         }
 
@@ -367,10 +375,10 @@ object ImportTree {
                       isReadOnly  = m.isReadOnly,
                       isOverride  = false,
                       comments    = m.comments,
-                      codePath    = ownerCP + codeName
+                      codePath    = ownerCP + codeName,
                     ),
-                    isStatic = false
-                  )
+                    isStatic = false,
+                  ),
                 )
               case other =>
                 scope.logger.warn(s"Dropping $other")
@@ -385,7 +393,7 @@ object ImportTree {
   }
 
   def tsMemberProperty(scope: TsTreeScope, scalaJsDefined: Boolean, importName: ImportName, ownerCP: QualifiedName)(
-      m:                      TsMemberProperty
+      m:                      TsMemberProperty,
   ): Seq[MemberRet] =
     (m.name, m.tpe) match {
       case (_, Some(TsTypeQuery(_))) =>
@@ -397,17 +405,19 @@ object ImportTree {
         members.collect { case x: TsMemberCall => x } map (
             call =>
               MemberRet(
-                tsMethod(scope / call,
-                         importName,
-                         call.level,
-                         name,
-                         call.comments,
-                         call.signature,
-                         scalaJsDefined,
-                         ownerCP),
-                m.isStatic
-              )
-        )
+                tsMethod(
+                  scope / call,
+                  importName,
+                  call.level,
+                  name,
+                  call.comments,
+                  call.signature,
+                  scalaJsDefined,
+                  ownerCP,
+                ),
+                m.isStatic,
+              ),
+          )
 
       case (importName(name), tpe: Option[TsType]) =>
         val fieldType: MemberImpl =
@@ -430,11 +440,11 @@ object ImportTree {
                 isReadOnly  = m.isReadOnly,
                 isOverride  = false,
                 comments    = m.comments,
-                codePath    = ownerCP + name
-              )
+                codePath    = ownerCP + name,
+              ),
             ),
-            m.isStatic
-          )
+            m.isStatic,
+          ),
         )
       case (name, _) =>
         scope.logger.info(s"dropping member $name")
@@ -451,7 +461,7 @@ object ImportTree {
     TypeParamTree(
       name       = importName(tp.name),
       upperBound = tp.upperBound map ImportType(Wildcards.No, scope / tp, importName),
-      comments   = tp.comments
+      comments   = tp.comments,
     )
 
   def tsFunParams(scope: TsTreeScope, importName: ImportName, params: Seq[TsFunParam]): Seq[ParamTree] =
@@ -461,14 +471,16 @@ object ImportTree {
       ParamTree(importName(param.name), undefType, None, param.comments)
     }
 
-  def tsMethod(scope:          TsTreeScope,
-               importName:     ImportName,
-               level:          ProtectionLevel,
-               name:           Name,
-               cs:             Comments,
-               sig:            TsFunSig,
-               scalaJsDefined: Boolean,
-               ownerCP:        QualifiedName): MethodTree = {
+  def tsMethod(
+      scope:          TsTreeScope,
+      importName:     ImportName,
+      level:          ProtectionLevel,
+      name:           Name,
+      cs:             Comments,
+      sig:            TsFunSig,
+      scalaJsDefined: Boolean,
+      ownerCP:        QualifiedName,
+  ): MethodTree = {
 
     val as = Annotation.method(name, isBracketAccess = false)
 
@@ -494,7 +506,7 @@ object ImportTree {
       resultType  = resultType,
       isOverride  = false,
       comments    = cs ++ sig.comments,
-      codePath    = ownerCP + name
+      codePath    = ownerCP + name,
     )
 
     containedLiterals.distinct.toList match {

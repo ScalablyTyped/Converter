@@ -24,7 +24,7 @@ object UpToDateDefinitelyTyped {
           % git 'prune
 
         } else
-          %("git", "clone", repo.toString)(cacheFolder)
+          %("git", "clone", repo.toString)(cacheFolder),
       )
     InFolder(dtTypes)
   }

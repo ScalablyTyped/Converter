@@ -16,10 +16,12 @@ object ExtractInterfaces {
   class ConflictHandlingStore(inLibrary: TsIdent) {
     val interfaces = mutable.Map.empty[TsIdent, TsDeclInterface]
 
-    def addInterface(scope:     TsTreeScope,
-                     prefix:    String,
-                     members:   Seq[TsTree],
-                     construct: TsIdent => TsDeclInterface): CodePath.HasPath = {
+    def addInterface(
+        scope:     TsTreeScope,
+        prefix:    String,
+        members:   Seq[TsTree],
+        construct: TsIdent => TsDeclInterface,
+    ): CodePath.HasPath = {
       val interface = DeriveNonConflictingName(prefix, members) { name =>
         val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent.of(name))
 
@@ -77,8 +79,8 @@ object ExtractInterfaces {
                 referencedTparams,
                 Nil,
                 obj.members,
-                CodePath.NoPath
-            )
+                CodePath.NoPath,
+              ),
           )
 
           TsTypeRef(NoComments, codePath.codePath, TsTypeParam.asTypeArgs(referencedTparams))

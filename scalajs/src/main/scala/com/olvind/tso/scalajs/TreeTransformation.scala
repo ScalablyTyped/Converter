@@ -44,7 +44,7 @@ class TreeTransformation { self =>
         parents  = transformed.parents map visitTypeRef(childrenScope),
         ctors    = transformed.ctors map visitCtorTree(childrenScope),
         members  = transformed.members map visitMemberTree(childrenScope),
-        comments = transformed.comments
+        comments = transformed.comments,
       )
 
     leaveClassTree(scope)(updatedChildren)
@@ -88,7 +88,7 @@ class TreeTransformation { self =>
         tparams    = transformed.tparams map visitTypeParamTree(childrenScope),
         params     = transformed.params.map(_.map(visitParamTree(childrenScope))),
         resultType = visitTypeRef(childrenScope)(transformed.resultType),
-        comments   = transformed.comments
+        comments   = transformed.comments,
       )
 
     leaveMethodTree(scope)(updatedChildren)
@@ -102,9 +102,11 @@ class TreeTransformation { self =>
       scope / transformed
 
     val updatedChildren =
-      transformed.copy(parents  = transformed.parents map visitTypeRef(childrenScope),
-                       members  = transformed.members map visitTree(childrenScope),
-                       comments = transformed.comments)
+      transformed.copy(
+        parents  = transformed.parents map visitTypeRef(childrenScope),
+        members  = transformed.members map visitTree(childrenScope),
+        comments = transformed.comments,
+      )
 
     leaveModuleTree(scope)(updatedChildren)
   }
@@ -119,7 +121,7 @@ class TreeTransformation { self =>
     val updatedChildren =
       transformed.copy(
         members  = transformed.members map visitTree(childrenScope),
-        comments = transformed.comments
+        comments = transformed.comments,
       )
 
     leavePackageTree(scope)(updatedChildren)
@@ -146,9 +148,11 @@ class TreeTransformation { self =>
       scope / transformed
 
     val updatedChildren =
-      transformed.copy(tparams  = transformed.tparams map visitTypeParamTree(childrenScope),
-                       alias    = visitTypeRef(childrenScope)(transformed.alias),
-                       comments = transformed.comments)
+      transformed.copy(
+        tparams  = transformed.tparams map visitTypeParamTree(childrenScope),
+        alias    = visitTypeRef(childrenScope)(transformed.alias),
+        comments = transformed.comments,
+      )
 
     leaveTypeAliasTree(scope)(updatedChildren)
   }
@@ -161,8 +165,10 @@ class TreeTransformation { self =>
       scope / transformed
 
     val updatedChildren =
-      transformed.copy(upperBound = transformed.upperBound map visitTypeRef(childrenScope),
-                       comments   = transformed.comments)
+      transformed.copy(
+        upperBound = transformed.upperBound map visitTypeRef(childrenScope),
+        comments   = transformed.comments,
+      )
 
     leaveTypeParamTree(scope)(updatedChildren)
   }
@@ -185,7 +191,7 @@ class TreeTransformation { self =>
       enterContainerTree(scope / s)(s) match {
         case x: PackageTree => visitPackageTree(scope)(x)
         case x: ModuleTree  => visitModuleTree(scope)(x)
-      }
+      },
     )
 
   final def visitMemberTree(scope: TreeScope)(s: MemberTree): MemberTree =
@@ -205,7 +211,7 @@ class TreeTransformation { self =>
         case x: TypeAliasTree => visitTypeAliasTree(scope)(x)
         case x: TypeParamTree => visitTypeParamTree(scope)(x)
         case x: TypeRef       => visitTypeRef(scope)(x)
-      }
+      },
     )
 
   final def >>(that: TreeTransformation): TreeTransformation =

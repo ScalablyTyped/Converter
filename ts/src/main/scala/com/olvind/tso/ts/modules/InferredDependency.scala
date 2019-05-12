@@ -10,10 +10,12 @@ import com.olvind.tso.sets.{EmptySet, NonEmptySet}
   *  declaring it. This infers such use
   */
 object InferredDependency {
-  def apply(libName:            TsIdentLibrary,
-            file:               TsParsedFile,
-            nonResolvedModules: Set[TsIdentModule],
-            logger:             Logger[Unit]): Set[TsIdentLibrary] =
+  def apply(
+      libName:            TsIdentLibrary,
+      file:               TsParsedFile,
+      nonResolvedModules: Set[TsIdentModule],
+      logger:             Logger[Unit],
+  ): Set[TsIdentLibrary] =
     Set.empty[TsIdentLibrary] ++ inferNode(nonResolvedModules) ++ inferFromPrefixes(file) - libName match {
       case e @ EmptySet() => e
       case inferred =>

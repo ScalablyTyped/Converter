@@ -19,7 +19,7 @@ case class LibraryVersion(libraryVersion: Option[String], inGit: Option[InGit], 
     Seq(
       Some(libraryVersionOrDefault),
       inGit.map(_.format),
-      Some(digest.hexString.take(6))
+      Some(digest.hexString.take(6)),
     ).flatten.mkString("-")
 }
 

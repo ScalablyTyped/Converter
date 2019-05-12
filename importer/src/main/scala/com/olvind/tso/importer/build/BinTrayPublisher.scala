@@ -16,7 +16,7 @@ import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NonFatal
 
 case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, password: String, repoName: String)(
-    implicit ec:                      ExecutionContext
+    implicit ec:                      ExecutionContext,
 ) {
 
   private def builder =
@@ -44,11 +44,13 @@ case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, pa
 
   def close(): Unit = http.shutdown()
 
-  private def ensurePackage(packageName: String,
-                            desc:        String,
-                            vcs:         String,
-                            lics:        Seq[String],
-                            labels:      Seq[String]): Future[repo.Package] = {
+  private def ensurePackage(
+      packageName: String,
+      desc:        String,
+      vcs:         String,
+      lics:        Seq[String],
+      labels:      Seq[String],
+  ): Future[repo.Package] = {
     val pkgRepo = repo.get(packageName)
 
     pkgRepo(Handle.asFound).flatMap {

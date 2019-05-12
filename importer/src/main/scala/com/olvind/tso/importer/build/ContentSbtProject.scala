@@ -8,18 +8,20 @@ import com.olvind.tso.stringUtils.quote
 import sets.SetOps
 
 object ContentSbtProject {
-  def apply(v:               Versions,
-            comments:        Comments,
-            organization:    String,
-            name:            String,
-            version:         String,
-            publishUser:     String,
-            localDeps:       Seq[PublishedSbtProject],
-            facadeDeps:      Set[FacadeJson.Dep],
-            scalaFiles:      Map[RelPath, Array[Byte]],
-            projectName:     String,
-            metadataOpt:     Option[Npmjs.Data],
-            declaredVersion: Option[LibraryVersion]): SbtProjectLayout[RelPath, Array[Byte]] = {
+  def apply(
+      v:               Versions,
+      comments:        Comments,
+      organization:    String,
+      name:            String,
+      version:         String,
+      publishUser:     String,
+      localDeps:       Seq[PublishedSbtProject],
+      facadeDeps:      Set[FacadeJson.Dep],
+      scalaFiles:      Map[RelPath, Array[Byte]],
+      projectName:     String,
+      metadataOpt:     Option[Npmjs.Data],
+      declaredVersion: Option[LibraryVersion],
+  ): SbtProjectLayout[RelPath, Array[Byte]] = {
 
     val buildSbt = {
       val fixed    = List(v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion))
@@ -59,7 +61,7 @@ object ContentSbtProject {
       RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
       RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
       readme,
-      scalaFiles.map { case (relPath, content) => relPath -> content }
+      scalaFiles.map { case (relPath, content) => relPath -> content },
     )
   }
 }

@@ -13,7 +13,7 @@ object CompilerPaths {
     new CompilerPaths(
       thisBaseDir,
       sourcesDir = thisBaseDir / "src" / 'main / 'scala,
-      classesDir = thisBaseDir / "target" / s"scala-${v.binVersion}" / 'classes
+      classesDir = thisBaseDir / "target" / s"scala-${v.binVersion}" / 'classes,
     )
 
   def of(v: Versions, baseDir: Path, libName: String) =

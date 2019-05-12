@@ -15,7 +15,7 @@ object ScalaJsClasses {
       ClassType.Class,
       isSealed = false,
       NoComments,
-      QualifiedName.Array
+      QualifiedName.Array,
     )
   // format: on
 
@@ -27,7 +27,7 @@ object ScalaJsClasses {
       Nil,
       Nil,
       Seq(
-        CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments)
+        CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments),
       ),
       Seq(
         FieldTree(Nil, Name("length"), TypeRef.Int, MemberImplNative, isReadOnly = false, isOverride = false, NoComments, QualifiedName.Function + Name("length")),
@@ -37,7 +37,7 @@ object ScalaJsClasses {
       ClassType.Class,
       isSealed = false,
       NoComments,
-      QualifiedName.Function
+      QualifiedName.Function,
     )
   // format: on
 
@@ -62,7 +62,7 @@ object ScalaJsClasses {
         resultType  = R,
         isOverride  = false,
         comments    = NoComments,
-        codePath    = codePath + Name.APPLY
+        codePath    = codePath + Name.APPLY,
       )
 
     val ThisTParam: Seq[TypeParamTree] =
@@ -84,7 +84,7 @@ object ScalaJsClasses {
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,
-      codePath
+      codePath,
     )
   }
 
@@ -99,7 +99,7 @@ object ScalaJsClasses {
       ClassType.Trait,
       isSealed = false,
       NoComments,
-      QualifiedName.StringDictionary
+      QualifiedName.StringDictionary,
     )
 
   val NumberDictionary =
@@ -113,19 +113,19 @@ object ScalaJsClasses {
       ClassType.Trait,
       isSealed = false,
       NoComments,
-      QualifiedName.NumberDictionary
+      QualifiedName.NumberDictionary,
     )
 
   val Functions: Seq[ClassTree] =
     0 to 22 flatMap (n => List(ScalaJsF(isThis = false, n), ScalaJsF(isThis = true, n)))
 
   val ScalaJsTypes: Map[List[Name], ClassTree] =
-    (Functions ++ List(ScalaJsFunction,
-                       ScalaJsArray,
-                       ObjectMembers.ScalaJsObject,
-                       ObjectMembers.ScalaObject,
-                       StringDictionary,
-                       NumberDictionary))
-      .map(x => x.codePath.parts -> x)
-      .toMap
+    (Functions ++ List(
+      ScalaJsFunction,
+      ScalaJsArray,
+      ObjectMembers.ScalaJsObject,
+      ObjectMembers.ScalaObject,
+      StringDictionary,
+      NumberDictionary,
+    )).map(x => x.codePath.parts -> x).toMap
 }

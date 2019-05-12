@@ -9,10 +9,12 @@ object FillInTParams {
       TypeRewriter(refToRef).visitClassTree(scope)(x)
     }.copy(tparams = newTParams)
 
-  def apply(x:               TypeAliasTree,
-            scope:           TreeScope,
-            providedTParams: Seq[TypeRef],
-            newTParams:      Seq[TypeParamTree]): TypeAliasTree =
+  def apply(
+      x:               TypeAliasTree,
+      scope:           TreeScope,
+      providedTParams: Seq[TypeRef],
+      newTParams:      Seq[TypeParamTree],
+  ): TypeAliasTree =
     if (providedTParams.isEmpty) x
     else {
       val refToRef = rewrites(x.tparams, providedTParams)

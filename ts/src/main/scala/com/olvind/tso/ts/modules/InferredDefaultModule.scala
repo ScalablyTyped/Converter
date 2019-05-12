@@ -33,7 +33,7 @@ object InferredDefaultModule {
           name       = moduleName,
           members    = moveInside,
           codePath   = CodePath.NoPath,
-          jsLocation = JsLocation.Module(moduleName, ModuleSpec.Defaulted)
+          jsLocation = JsLocation.Module(moduleName, ModuleSpec.Defaulted),
         )
 
         logger.info(s"Inferred module $moduleName")
@@ -60,8 +60,10 @@ object InferredDefaultModule {
     * Note that we cannot do this in arbitrary modules, as we might leave
     *  conflicting definitions in the same scope (2x `type Props = ...` for instance)
     */
-  private def keepTopLevelTypeAliasesOutside(moduleName: TsIdentModule,
-                                             file:       TsParsedFile): (Seq[TsDeclTypeAlias], Seq[TsContainerOrDecl]) =
+  private def keepTopLevelTypeAliasesOutside(
+      moduleName: TsIdentModule,
+      file:       TsParsedFile,
+  ): (Seq[TsDeclTypeAlias], Seq[TsContainerOrDecl]) =
     if (moduleName.fragments.size > 1)
       (Nil, file.members)
     else

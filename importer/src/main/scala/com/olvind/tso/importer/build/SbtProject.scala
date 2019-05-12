@@ -12,12 +12,12 @@ import scala.collection.mutable
 case class SbtProject(name: String, organization: String, artifactId: String, version: String)(
     val baseDir:            Path,
     val deps:               Map[Source, PublishedSbtProject],
-    val metadata:           Option[Npmjs.Data]
+    val metadata:           Option[Npmjs.Data],
 )
 
 case class PublishedSbtProject(project: SbtProject)(
     val localIvyFiles:                  IvyLayout[Path, Synced],
-    val publishedOpt:                   Option[Unit]
+    val publishedOpt:                   Option[Unit],
 )
 
 object PublishedSbtProject {

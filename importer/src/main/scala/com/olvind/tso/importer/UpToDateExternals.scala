@@ -7,12 +7,14 @@ import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.ts.PackageJsonDeps
 
 object UpToDateExternals {
-  def apply(logger:                Logger[Unit],
-            cacheFolder:           Path,
-            ensurePresentPackages: Set[String],
-            ignored:               Set[String],
-            conserveSpace:         Boolean,
-            offline:               Boolean): InFolder = {
+  def apply(
+      logger:                Logger[Unit],
+      cacheFolder:           Path,
+      ensurePresentPackages: Set[String],
+      ignored:               Set[String],
+      conserveSpace:         Boolean,
+      offline:               Boolean,
+  ): InFolder = {
     mkdir(cacheFolder)
 
     val ensurePresentPackagesFixes = ensurePresentPackages.map {

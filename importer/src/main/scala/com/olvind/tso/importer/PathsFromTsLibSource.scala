@@ -1,14 +1,16 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{RelPath, ls, up}
+import ammonite.ops.{ls, up, RelPath}
 import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
-  def apply(resolve:        LibraryResolver,
-            source:         Source.TsLibSource,
-            packageJsonOpt: Option[PackageJsonDeps],
-            tsConfig:       Option[TsConfig]): Set[Source.TsHelperFile] = {
+  def apply(
+      resolve:        LibraryResolver,
+      source:         Source.TsLibSource,
+      packageJsonOpt: Option[PackageJsonDeps],
+      tsConfig:       Option[TsConfig],
+  ): Set[Source.TsHelperFile] = {
 
     val foundAndShorten: Map[InFile, Boolean] =
       source match {
@@ -21,7 +23,7 @@ object PathsFromTsLibSource {
             fromFilesEntry(resolve, f, packageJsonOpt.flatMap(_.files)).map(x  => (x, false)),
             fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.types)).map(x   => (x, true)),
             fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-            fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x        => (x, true))
+            fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x        => (x, true)),
           ).flatten
 
           base match {
@@ -54,14 +56,18 @@ object PathsFromTsLibSource {
       case _ => Nil
     }
 
-  private def fromFileEntry(resolve:    LibraryResolver,
-                            fromFolder: Source.FromFolder,
-                            fileOpt:    Option[String]): Seq[InFile] =
+  private def fromFileEntry(
+      resolve:    LibraryResolver,
+      fromFolder: Source.FromFolder,
+      fileOpt:    Option[String],
+  ): Seq[InFile] =
     fileOpt.flatMap(file => resolve.file(fromFolder.folder, file)).to[Seq]
 
-  private def fromFilesEntry(resolve:    LibraryResolver,
-                             fromFolder: Source.FromFolder,
-                             filesOpt:   Option[Seq[String]]): Seq[InFile] =
+  private def fromFilesEntry(
+      resolve:    LibraryResolver,
+      fromFolder: Source.FromFolder,
+      filesOpt:   Option[Seq[String]],
+  ): Seq[InFile] =
     filesOpt match {
       case Some(files) =>
         files

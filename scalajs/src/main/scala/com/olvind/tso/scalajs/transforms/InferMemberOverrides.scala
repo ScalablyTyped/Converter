@@ -21,15 +21,17 @@ object InferMemberOverrides extends TreeTransformation {
       s.copy(members = newMembers(scope, s, s.members, fieldType))
     } else s
 
-  private def newMembers[S >: MemberTree <: Tree](scope:     TreeScope,
-                                                  tree:      InheritanceTree,
-                                                  members:   Seq[S],
-                                                  fieldType: MemberImpl): Seq[S] = {
+  private def newMembers[S >: MemberTree <: Tree](
+      scope:     TreeScope,
+      tree:      InheritanceTree,
+      members:   Seq[S],
+      fieldType: MemberImpl,
+  ): Seq[S] = {
     val root = ParentsResolver(scope, tree)
 
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x }
+      { case x: FieldTree  => x },
     )
     val fieldsByName: Map[Name, Seq[FieldTree]] =
       fields.groupBy(_.name)
@@ -43,8 +45,8 @@ object InferMemberOverrides extends TreeTransformation {
           branch =>
             branch.transitiveParents.flatMap {
               case (parentRef, p) => p.members collect { case c: FieldTree => c.name -> (c -> parentRef) }
-          }
-        )
+            },
+        ),
       ).filter {
         case (_, containedFields) => containedFields.map(_._2).distinct.size > 1
       }
@@ -59,7 +61,7 @@ object InferMemberOverrides extends TreeTransformation {
             tpe        = newType,
             isReadOnly = true,
             impl       = updatedFieldType(head.impl, fieldType, Some(newType)),
-            comments   = head.comments + Comment("/* InferMemberOverrides */\n")
+            comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
 
@@ -73,7 +75,7 @@ object InferMemberOverrides extends TreeTransformation {
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType)),
             impl       = updatedFieldType(fs.head.impl, fieldType, None),
-            comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n")
+            comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
 

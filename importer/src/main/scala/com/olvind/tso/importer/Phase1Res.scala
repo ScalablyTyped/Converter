@@ -21,7 +21,7 @@ object Phase1Res {
       val tsConfig:              Option[TsConfig],
       val parsed:                TsParsedFile,
       val dependencies:          SortedMap[TsLibSource, LibTs],
-      val facades:               Set[FacadeSource]
+      val facades:               Set[FacadeSource],
   ) extends Phase1Res {
     def name: TsIdentLibrary = source.libName
   }
@@ -45,12 +45,12 @@ object Phase1Res {
 
   object Unpack {
     def unapply(
-        _m: SortedMap[Source, Phase1Res]
+        _m: SortedMap[Source, Phase1Res],
     ): Some[(SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[FacadeSource])] =
       Some(apply(_m))
 
     def apply(
-        _m: SortedMap[Source, Phase1Res]
+        _m: SortedMap[Source, Phase1Res],
     ): (SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[FacadeSource]) = {
 
       val libParts = mutable.HashMap.empty[TsHelperFile, FileAndInlinesFlat]

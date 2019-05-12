@@ -10,11 +10,13 @@ import scala.util.{Success, Try}
 
 class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommit: String) {
 
-  def apply(sourceFolder:     InFolder,
-            isStdLib:         Boolean,
-            sourceFiles:      Seq[InFile],
-            packageJsonOpt:   Option[PackageJsonDeps],
-            comments:         Comments): LibraryVersion = {
+  def apply(
+      sourceFolder:   InFolder,
+      isStdLib:       Boolean,
+      sourceFiles:    Seq[InFile],
+      packageJsonOpt: Option[PackageJsonDeps],
+      comments:       Comments,
+  ): LibraryVersion = {
     implicit val wd = sourceFolder.path
 
     def ignoreStdLibMinorVersion(v: String): String =
@@ -28,7 +30,7 @@ class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommi
         case Success(uri) =>
           val lastModified = ZonedDateTime.ofInstant(
             Instant.ofEpochSecond(lastChangedIndex.values(sourceFolder.path)),
-            constants.TimeZone
+            constants.TimeZone,
           )
 
           Some(InGit(uri, uri === constants.DefinitelyTypedRepo, lastModified))

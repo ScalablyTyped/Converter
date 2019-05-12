@@ -34,7 +34,7 @@ object Npmjs {
       date:        Option[DateString],
       repository:  Option[Repository],
       links:       Links,
-      releases:    List[DatedNumbers]
+      releases:    List[DatedNumbers],
   )
   case class Npm(downloads: List[DatedNumbers], dependentsCount: Int, starsCount: Int)
 
@@ -80,7 +80,7 @@ object Npmjs {
     val client: HttpClient = Gigahorse.http(
       Gigahorse.config
         .withMaxConnections(10)
-        .withMaxRequestRetry(3)
+        .withMaxRequestRetry(3),
     )
 
     override def apply[L](source: Source, logger: Logger[L]): Future[Option[Data]] = {
@@ -99,8 +99,10 @@ object Npmjs {
             case Some(x) => Future.successful(Some(x))
             case None =>
               client
-                .run(Gigahorse.url(s"https://api.npms.io/v2/package/${encodeURIComponent(lib.value)}").get,
-                     Gigahorse.asString)
+                .run(
+                  Gigahorse.url(s"https://api.npms.io/v2/package/${encodeURIComponent(lib.value)}").get,
+                  Gigahorse.asString,
+                )
                 .transform {
                   case Failure(th) =>
                     logger.warn(s"Could't fetch metadata for $lib", th)

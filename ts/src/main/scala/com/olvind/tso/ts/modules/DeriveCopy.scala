@@ -20,7 +20,7 @@ object DeriveCopy {
           },
           declared   = true,
           implements = Nil,
-          parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)))
+          parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
         )
 
         List(`class`)
@@ -33,8 +33,8 @@ object DeriveCopy {
             name     = rename getOrElse x.name,
             tparams  = x.tparams,
             alias    = TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
-            codePath = x.codePath
-          )
+            codePath = x.codePath,
+          ),
         )
 
       case x: TsDeclEnum =>
@@ -43,7 +43,7 @@ object DeriveCopy {
             name         = rename getOrElse x.name,
             isValue      = true,
             exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Nil)),
-          )
+          ),
         )
 
       case x: TsDeclVar =>
@@ -81,8 +81,8 @@ object DeriveCopy {
             name,
             newMembers,
             x.codePath,
-            x.jsLocation
-          )
+            x.jsLocation,
+          ),
         )
 
       case x: TsAugmentedModule =>
@@ -101,8 +101,8 @@ object DeriveCopy {
             rename getOrElse x.name,
             x.tparams,
             TsTypeRef(NoComments, x.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(x.tparams)),
-            x.codePath
-          )
+            x.codePath,
+          ),
         )
     }
   }

@@ -19,7 +19,7 @@ object CompleteClass extends TreeTransformation {
 
   override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     mod.copy(
-      members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod))
+      members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod)),
     )
 
   override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
@@ -42,9 +42,11 @@ object CompleteClass extends TreeTransformation {
         }
     }
 
-  private def implementations(scope:   TreeScope,
-                              c:       InheritanceTree,
-                              parents: ParentsResolver.Parents): Seq[MemberTree] = {
+  private def implementations(
+      scope:   TreeScope,
+      c:       InheritanceTree,
+      parents: ParentsResolver.Parents,
+  ): Seq[MemberTree] = {
 
     val ret = parents.pruneClasses.transitiveParents
       .flatMap(_._2.members)

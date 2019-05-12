@@ -38,7 +38,7 @@ object Printer {
       mainPkg      = mainPkg,
       scalaPrefix  = List(tree.name),
       targetFolder = RelPath(mainPkg.value) / tree.name.value,
-      tree         = tree
+      tree         = tree,
     )
 
     reg.result
@@ -120,7 +120,7 @@ object Printer {
   }
 
   def printTree(reg: Registry, w: Indenter, mainPkg: Name, prefix: List[Name], folder: RelPath, indent: Int)(
-      tree:          Tree
+      tree:          Tree,
   ): Unit = {
 
     val printSym: Tree => Unit =
@@ -220,7 +220,7 @@ object Printer {
           if (isOverride) "override " else "",
           if (isReadOnly) "val" else "var",
           " ",
-          typeAnnotation(formatName(name), prefix, indent, tpe, name)
+          typeAnnotation(formatName(name), prefix, indent, tpe, name),
         )
 
         fieldType match {
@@ -247,7 +247,7 @@ object Printer {
         }
 
         print(
-          typeAnnotation(formatName(name) + tparamString + paramString.mkString, prefix, indent, resultType, name)
+          typeAnnotation(formatName(name) + tparamString + paramString.mkString, prefix, indent, resultType, name),
         )
         fieldType match {
           case MemberImplNotImplemented => println()
@@ -257,11 +257,13 @@ object Printer {
 
       case CtorTree(level, params, comments) =>
         print(formatComments(comments))
-        println("",
-                formatProtectionLevel(level, isCtor = true),
-                "def this(",
-                (params map formatParamTree(prefix, indent)) mkString ", ",
-                ") = this()")
+        println(
+          "",
+          formatProtectionLevel(level, isCtor = true),
+          "def this(",
+          (params map formatParamTree(prefix, indent)) mkString ", ",
+          ") = this()",
+        )
 
       case tree @ ParamTree(_, _, _, comments) =>
         print(formatComments(comments))
@@ -295,7 +297,7 @@ object Printer {
     Seq(
       formatComments(tree.comments),
       typeAnnotation(formatName(tree.name), prefix, indent + 2, tree.tpe, Name.WILDCARD),
-      tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(prefix, indent)(d)}")
+      tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(prefix, indent)(d)}"),
     ).mkString
 
   def formatDefaultedTypeRef(prefix: List[Name], indent: Int)(ref: TypeRef): String =
@@ -430,9 +432,9 @@ object Printer {
         comment =>
           stringUtils.formatComment(
             stringUtils.escapeUnicodeEscapes(
-              stringUtils.escapeNestedComments(comment.raw)
-            )
-        )
+              stringUtils.escapeNestedComments(comment.raw),
+            ),
+          ),
       )
       .mkString("")
 }

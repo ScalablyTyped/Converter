@@ -46,15 +46,15 @@ class JsonTests extends FunSuite {
           typeRoots                        = Some(Vector(RelPath("../"))),
           types                            = Some(Vector()),
           noEmit                           = Some(true),
-          forceConsistentCasingInFileNames = Some(true)
-        )
+          forceConsistentCasingInFileNames = Some(true),
+        ),
       ),
       Some(
         Vector(
           "index.d.ts",
-          "range-parser-tests.ts"
-        )
-      )
+          "range-parser-tests.ts",
+        ),
+      ),
     )
     assert(decode[TsConfig](content) === Right(expected))
   }
@@ -79,8 +79,8 @@ class JsonTests extends FunSuite {
       NotNeededPackages(
         Vector(
           NotNeededPackage("ajv", "ajv", "https://github.com/epoberezkin/ajv", "1.0.0"),
-          NotNeededPackage("antd", "antd", "git@github.com:KyleAMathews/deepmerge.git", "1.0.0")
-        )
+          NotNeededPackage("antd", "antd", "git@github.com:KyleAMathews/deepmerge.git", "1.0.0"),
+        ),
       )
 
     assert(decode[NotNeededPackages](content) === Right(expected))
@@ -99,7 +99,7 @@ class JsonTests extends FunSuite {
         "phaser",
         "phaser.comments.d.ts",
         List("pixi.comments.d.ts", "p2.d.ts"),
-        true
+        true,
       )
 
     assert(decode[TypingsJson](content) === Right(expected))

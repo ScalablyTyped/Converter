@@ -53,10 +53,12 @@ object AllMembersFor {
         }
     }
 
-  def forInterface(loopDetector: TsTreeScope.LoopDetector,
-                   x:            TsDeclInterface,
-                   newScope:     TsTreeScope,
-                   tparams:      Seq[TsType]): Seq[TsMember] =
+  def forInterface(
+      loopDetector: TsTreeScope.LoopDetector,
+      x:            TsDeclInterface,
+      newScope:     TsTreeScope,
+      tparams:      Seq[TsType],
+  ): Seq[TsMember] =
     FillInTParams(x, tparams) match {
       case TsDeclInterface(_, _, _, _, inheritance, members, _) =>
         handleOverridingFields(members, inheritance flatMap AllMembersFor(newScope, loopDetector))

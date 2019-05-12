@@ -43,7 +43,7 @@ final case class TsParsedFile(
     comments:   Comments,
     directives: Seq[Directive],
     members:    Seq[TsContainerOrDecl],
-    codePath:   CodePath
+    codePath:   CodePath,
 ) extends TsContainer {
 
   lazy val isStdLib: Boolean =
@@ -66,7 +66,7 @@ final case class TsDeclNamespace(
     name:       TsIdentNamespace,
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
-    jsLocation: JsLocation
+    jsLocation: JsLocation,
 ) extends TsDeclNamespaceOrModule {
 
   override def withCodePath(newCodePath: CodePath): TsDeclNamespace =
@@ -89,7 +89,7 @@ final case class TsDeclModule(
     name:       TsIdentModule,
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
-    jsLocation: JsLocation
+    jsLocation: JsLocation,
 ) extends TsDeclNamespaceOrModule {
 
   override def withName(name: TsIdent): TsNamedDecl =
@@ -109,7 +109,7 @@ final case class TsAugmentedModule(
     name:       TsIdentModule,
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
-    jsLocation: JsLocation
+    jsLocation: JsLocation,
 ) extends TsDeclNamespaceOrModule {
   override def withMembers(newMembers: Seq[TsContainerOrDecl]): TsAugmentedModule =
     copy(members = newMembers)
@@ -128,7 +128,7 @@ final case class TsGlobal(
     comments: Comments,
     declared: Boolean,
     members:  Seq[TsContainerOrDecl],
-    codePath: CodePath
+    codePath: CodePath,
 ) extends TsContainer
     with HasCodePath {
   override def withMembers(newMembers: Seq[TsContainerOrDecl]): TsGlobal =
@@ -147,7 +147,7 @@ final case class TsDeclClass(
     implements: Seq[TsTypeRef],
     members:    Seq[TsMember],
     jsLocation: JsLocation,
-    codePath:   CodePath
+    codePath:   CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
     with HasClassMembers
@@ -170,7 +170,7 @@ final case class TsDeclInterface(
     tparams:     Seq[TsTypeParam],
     inheritance: Seq[TsTypeRef],
     members:     Seq[TsMember],
-    codePath:    CodePath
+    codePath:    CodePath,
 ) extends TsNamedDecl
     with HasClassMembers
     with HasCodePath {
@@ -192,7 +192,7 @@ final case class TsDeclEnum(
     isValue:      Boolean,
     exportedFrom: Option[TsTypeRef],
     jsLocation:   JsLocation,
-    codePath:     CodePath
+    codePath:     CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
     with HasCodePath {
@@ -218,7 +218,7 @@ final case class TsDeclVar(
     expr:       Option[TsExpr],
     jsLocation: JsLocation,
     codePath:   CodePath,
-    isOptional: Boolean
+    isOptional: Boolean,
 ) extends TsNamedValueDecl
     with HasJsLocation
     with HasCodePath {
@@ -239,7 +239,7 @@ final case class TsDeclFunction(
     name:       TsIdent,
     signature:  TsFunSig,
     jsLocation: JsLocation,
-    codePath:   CodePath
+    codePath:   CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
     with HasCodePath {
@@ -260,7 +260,7 @@ final case class TsDeclTypeAlias(
     name:     TsIdent,
     tparams:  Seq[TsTypeParam],
     alias:    TsType,
-    codePath: CodePath
+    codePath: CodePath,
 ) extends TsNamedDecl
     with HasCodePath {
   override def withCodePath(newCodePath: CodePath): TsDeclTypeAlias =
@@ -276,7 +276,7 @@ final case class TsFunSig(
     comments:   Comments,
     tparams:    Seq[TsTypeParam],
     params:     Seq[TsFunParam],
-    resultType: Option[TsType]
+    resultType: Option[TsType],
 ) extends TsTree
 
 final case class TsFunParam(comments: Comments, name: TsIdent, tpe: Option[TsType], isOptional: Boolean)
@@ -297,7 +297,7 @@ final case class TsTypeParam(
     comments:   Comments,
     name:       TsIdent,
     upperBound: Option[TsType],
-    default:    Option[TsType]
+    default:    Option[TsType],
 ) extends TsTree
 
 object TsTypeParam {
@@ -583,11 +583,9 @@ object TsMember {
   }
 }
 
-final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig)
-    extends TsMember
+final case class TsMemberCall(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
 
-final case class TsMemberCtor(comments: Comments, level: ProtectionLevel, signature: TsFunSig)
-    extends TsMember
+final case class TsMemberCtor(comments: Comments, level: ProtectionLevel, signature: TsFunSig) extends TsMember
 
 final case class TsMemberFunction(
     comments:   Comments,
@@ -596,7 +594,7 @@ final case class TsMemberFunction(
     signature:  TsFunSig,
     isStatic:   Boolean,
     isReadOnly: Boolean,
-    isOptional: Boolean
+    isOptional: Boolean,
 ) extends TsMember
 
 sealed trait Indexing extends TsTree
@@ -609,7 +607,7 @@ final case class TsMemberIndex(
     level:      ProtectionLevel,
     indexing:   Indexing,
     isOptional: Boolean,
-    valueType:  Option[TsType]
+    valueType:  Option[TsType],
 ) extends TsMember
 
 sealed trait OptionalModifier {
@@ -634,7 +632,7 @@ final case class TsMemberTypeMapped(
     key:         TsIdent,
     from:        TsType,
     optionalize: OptionalModifier,
-    to:          TsType
+    to:          TsType,
 ) extends TsMember
 
 final case class TsMemberProperty(
@@ -645,7 +643,7 @@ final case class TsMemberProperty(
     expr:       Option[TsExpr],
     isStatic:   Boolean,
     isReadOnly: Boolean,
-    isOptional: Boolean
+    isOptional: Boolean,
 ) extends TsMember
 
 //imports

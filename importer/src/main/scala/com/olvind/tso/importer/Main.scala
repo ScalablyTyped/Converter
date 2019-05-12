@@ -92,7 +92,7 @@ object Main extends App {
   val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
     logger.filter(LogLevel.warn).syncAccess.void,
     _.libName,
-    _ => logging.storing()
+    _ => logging.storing(),
   )
 
   val dtFolder: InFolder =
@@ -113,13 +113,13 @@ object Main extends App {
       external.packages.map(_.typingsPackageName).to[Set] + "typescript" ++ Libraries.extraExternals,
       Libraries.ignored,
       config.conserveSpace,
-      config.offline
+      config.offline,
     )
 
   val stdLibSource: Source =
     StdLibSource(
       InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
-      TsIdentLibrarySimple("std")
+      TsIdentLibrarySimple("std"),
     )
 
   val facadeSources: Set[Source] =
@@ -151,10 +151,10 @@ object Main extends App {
           config.ScalablyTypedRepoPublic,
           values("user"),
           values("password"),
-          config.projectName
+          config.projectName,
         )(
-          ExecutionContext.Implicits.global
-        )
+          ExecutionContext.Implicits.global,
+        ),
       )
     } else None
 
@@ -162,7 +162,7 @@ object Main extends App {
   val resolve = new LibraryResolver(
     stdLibSource,
     sourceFolders = Seq(dtFolder, externalsFolder),
-    facadesFolder = Some(InFolder(facadeFolder))
+    facadesFolder = Some(InFolder(facadeFolder)),
   )
 
   val compilePool = new ForkJoinPool(config.parallelScalas)
@@ -181,9 +181,9 @@ object Main extends App {
           pedantic                = config.pedantic,
           parser =
             if (config.enableParseCache) PersistingFunction(nameAndMtimeUnder(parseCacheFolder), logger.void)(parseFile)
-            else parseFile
+            else parseFile,
         ),
-        "typescript"
+        "typescript",
       )
       .next(new Phase2ToScalaJs(config.pedantic, config.outputPkg), "scala.js")
       .next(
@@ -200,9 +200,9 @@ object Main extends App {
           resolve         = resolve,
           scheduler       = scheduler,
           failureCacheDir = compileFailureCacheDir,
-          metadataFetcher = Npmjs.GigahorseFetcher(npmjsCacheDir)(scheduler)
+          metadataFetcher = Npmjs.GigahorseFetcher(npmjsCacheDir)(scheduler),
         ),
-        "build"
+        "build",
       )
       .nextOpt(bintray.map(Phase4Publish), "publish")
 
@@ -279,7 +279,7 @@ object Main extends App {
       projectDir    = sbtProjectDir,
       projects      = successes,
       pluginVersion = RunId,
-      action        = if (bintray.isDefined) "^publish" else "publishLocal"
+      action        = if (bintray.isDefined) "^publish" else "publishLocal",
     )
 
     logger error "Committing..."
@@ -287,9 +287,9 @@ object Main extends App {
       CommitChanges(
         summary,
         successes.map(_.project.baseDir).to[Seq],
-        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents)
+        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents),
       )(
-        targetFolder
+        targetFolder,
       )
     logger error summaryString
   }

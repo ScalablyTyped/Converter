@@ -7,11 +7,12 @@ sealed trait ExpandedMod {
 }
 
 object ExpandedMod {
-  final case class Whole(defaults:   Seq[TsNamedDecl],
-                         namespaced: Seq[TsNamedDecl],
-                         rest:       Seq[TsNamedDecl],
-                         scope:      TsTreeScope)
-      extends ExpandedMod {
+  final case class Whole(
+      defaults:   Seq[TsNamedDecl],
+      namespaced: Seq[TsNamedDecl],
+      rest:       Seq[TsNamedDecl],
+      scope:      TsTreeScope,
+  ) extends ExpandedMod {
     override def nonEmpty: Boolean = defaults.nonEmpty || namespaced.nonEmpty || rest.nonEmpty
   }
 

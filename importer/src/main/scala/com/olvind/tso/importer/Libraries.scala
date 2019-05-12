@@ -225,6 +225,6 @@ object Libraries {
       "@sindresorhus/djb2a",
       "navigator-permissions",
       "webassembly-js-api",
-      "w3c-permissions"
+      "w3c-permissions",
     )
 }

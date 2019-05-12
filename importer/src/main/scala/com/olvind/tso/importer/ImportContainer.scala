@@ -49,7 +49,7 @@ object ImportContainer {
       { case x: FieldTree if x.name === Name.namespaced     => x },
       { case x: MethodTree if x.name === Name.namespaced    => x },
       { case x: ContainerTree if x.name === Name.namespaced => x },
-      { case x: MemberTree                                  => x }
+      { case x: MemberTree                                  => x },
     ) match {
       case (namespacedFields, namespacedMethods, containers, memberSyms, rest) =>
         val rewrittenMethods = namespacedMethods.map(_.copy(name = Name.APPLY))
@@ -81,14 +81,16 @@ object ImportContainer {
       case x => x
     }
 
-  def apply(isWithinScalaModule: Boolean,
-            importName:          ImportName,
-            scope:               TsTreeScope,
-            cs:                  Comments,
-            name:                TsIdent,
-            jsLocation:          JsLocation,
-            members:             Seq[TsContainerOrDecl],
-            codePath:            CodePath.HasPath): ContainerTree = {
+  def apply(
+      isWithinScalaModule: Boolean,
+      importName:          ImportName,
+      scope:               TsTreeScope,
+      cs:                  Comments,
+      name:                TsIdent,
+      jsLocation:          JsLocation,
+      members:             Seq[TsContainerOrDecl],
+      codePath:            CodePath.HasPath,
+  ): ContainerTree = {
 
     val newCodePath = importName(codePath.codePath)
     val anns        = ImportJsLocation(jsLocation, isWithinScalaModule)
@@ -119,8 +121,8 @@ object ImportContainer {
               inheritance,
               liftedMembers,
               NoComments,
-              newCodePath + Name.namespaced
-            )
+              newCodePath + Name.namespaced,
+            ),
           )
         else None
 

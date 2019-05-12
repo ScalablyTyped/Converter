@@ -6,22 +6,26 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
 object Hoisting {
   val declared = false
 
-  def fromType(scope:    TsTreeScope,
-               ownerCp:  CodePath,
-               ownerLoc: JsLocation,
-               ld:       LoopDetector,
-               tpe:      TsType): Seq[TsNamedValueDecl] =
+  def fromType(
+      scope:    TsTreeScope,
+      ownerCp:  CodePath,
+      ownerLoc: JsLocation,
+      ld:       LoopDetector,
+      tpe:      TsType,
+  ): Seq[TsNamedValueDecl] =
     tpe match {
       case ref: TsTypeRef => fromRef(scope, ownerCp, ownerLoc, ld, ref)
       case TsTypeObject(ms) => ms.flatMap(memberToDecl(ownerCp, ownerLoc))
       case _                => Nil
     }
 
-  def fromRef(scope:    TsTreeScope,
-              ownerCp:  CodePath,
-              ownerLoc: JsLocation,
-              ld:       LoopDetector,
-              typeRef:  TsTypeRef): Seq[TsNamedValueDecl] =
+  def fromRef(
+      scope:    TsTreeScope,
+      ownerCp:  CodePath,
+      ownerLoc: JsLocation,
+      ld:       LoopDetector,
+      typeRef:  TsTypeRef,
+  ): Seq[TsNamedValueDecl] =
     AllMembersFor(scope, ld)(typeRef) flatMap memberToDecl(ownerCp, ownerLoc)
 
   def memberToDecl(ownerCp: CodePath, ownerLoc: JsLocation)(x: TsMember): Option[TsNamedValueDecl] =

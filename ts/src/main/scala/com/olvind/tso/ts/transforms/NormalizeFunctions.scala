@@ -27,14 +27,16 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
     x.members.map {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
-        TsMemberProperty(comments,
-                         level,
-                         name,
-                         Some(TsTypeFunction(signature)),
-                         None,
-                         isStatic,
-                         m.isReadOnly,
-                         m.isOptional)
+        TsMemberProperty(
+          comments,
+          level,
+          name,
+          Some(TsTypeFunction(signature)),
+          None,
+          isStatic,
+          m.isReadOnly,
+          m.isOptional,
+        )
       case TsMemberProperty(cs, level, name, Some(TsTypeFunction(sig)), None, isStatic, isReadOnly, isOptional) =>
         TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional)
       case other => other

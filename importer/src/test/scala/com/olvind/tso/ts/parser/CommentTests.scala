@@ -14,14 +14,14 @@ final class CommentTests extends FunSuite with Matchers {
         | * Width of the tangible instance, length on the X-axis in 3D.
         | */""".stripMargin
     shouldParseAs(content, TsParser.lexical.comment)(
-      TsParser.lexical.CommentBlockToken(content)
+      TsParser.lexical.CommentBlockToken(content),
     )
   }
 
   test("line comment") {
     val content = " //asdasdasd\n"
     shouldParseAs(content, TsParser.lexical.comment)(
-      TsParser.lexical.CommentLineToken(content)
+      TsParser.lexical.CommentLineToken(content),
     )
   }
 
@@ -66,7 +66,7 @@ final class CommentTests extends FunSuite with Matchers {
         """/**
           |         * A react component that renders a row of the grid
           |         */
-          |""".stripMargin
+          |""".stripMargin,
       )
 
     value.comments.cs zip expecteds.cs foreach {
@@ -76,35 +76,35 @@ final class CommentTests extends FunSuite with Matchers {
 
   test("directive one") {
     shouldParseAs("/// <reference path=\"../react/react.d.ts\"/>", TsParser.lexical.directive)(
-      TsParser.lexical.DirectiveToken("reference", "path", "../react/react.d.ts")
+      TsParser.lexical.DirectiveToken("reference", "path", "../react/react.d.ts"),
     )
   }
 
   test("directive two") {
     shouldParseAs(
       "/// <reference path=\"../bluebird/bluebird-2.0.d.ts\" />",
-      TsParser.lexical.directive
+      TsParser.lexical.directive,
     )(DirectiveToken("reference", "path", "../bluebird/bluebird-2.0.d.ts"))
   }
 
   test("directive three") {
     shouldParseAs(
       "/// <reference path='../bluebird/bluebird-2.0.d.ts' />",
-      TsParser.lexical.directive
+      TsParser.lexical.directive,
     )(DirectiveToken("reference", "path", "../bluebird/bluebird-2.0.d.ts"))
   }
 
   test("directive lib") {
     shouldParseAs(
       """/// <reference lib="dom.iterable" />""",
-      TsParser.lexical.directive
+      TsParser.lexical.directive,
     )(DirectiveToken("reference", "lib", "dom.iterable"))
   }
 
   test("directive no-default-lib") {
     shouldParseAs(
       """/// <reference no-default-lib="true"/>""",
-      TsParser.lexical.directive
+      TsParser.lexical.directive,
     )(DirectiveToken("reference", "no-default-lib", "true"))
   }
 
@@ -139,7 +139,7 @@ final class CommentTests extends FunSuite with Matchers {
           |        FilesOnly = 2, //arne
           |    }
           |""".stripMargin,
-        TsParser.tsDeclEnum
+        TsParser.tsDeclEnum,
       )
 
     val cs: Traversable[Seq[Comment]] =
@@ -154,22 +154,22 @@ final class CommentTests extends FunSuite with Matchers {
       Seq(
         Seq(Comment("/** A */\n"), Comment("        //asd\n")),
         Seq(Comment("/** B */\n"), Comment(" //bjarne\n")),
-        Seq(Comment("/** C */\n"), Comment(" //arne\n"))
-      )
+        Seq(Comment("/** C */\n"), Comment(" //arne\n")),
+      ),
     )
   }
 
   test("comments after comma on same line ") {
     shouldParseAs(", //arne2\n", TsParser.lexical.comment)(
-      CommentLineTokenAfterDelim(',', " //arne2\n")
+      CommentLineTokenAfterDelim(',', " //arne2\n"),
     )
     shouldParseAs(", /*arne2*/\n", TsParser.lexical.comment)(
-      CommentLineTokenAfterDelim(',', " /*arne2*/")
+      CommentLineTokenAfterDelim(',', " /*arne2*/"),
     )
     notParse(", /*arne2\n*/\n", TsParser.lexical.comment)
     shouldParseAs("//arne2\n", TsParser.lexical.comment)(CommentLineToken("//arne2\n"))
     shouldParseAs(", //arne2\n".stripMargin, TsParser.delimMaybeComment(','))(
-      Some(Comment(" //arne2\n"))
+      Some(Comment(" //arne2\n")),
     )
 
     shouldParseAs("""
@@ -177,15 +177,17 @@ final class CommentTests extends FunSuite with Matchers {
                     |member: any, //arne2
                     |}""".stripMargin, TsParser.tsMembers)(
       List(
-        TsMemberProperty(NoComments,
-                         Default,
-                         TsIdent("member"),
-                         Some(TsTypeRef.any),
-                         None,
-                         isStatic   = false,
-                         isReadOnly = false,
-                         isOptional = false)
-      )
+        TsMemberProperty(
+          NoComments,
+          Default,
+          TsIdent("member"),
+          Some(TsTypeRef.any),
+          None,
+          isStatic   = false,
+          isReadOnly = false,
+          isOptional = false,
+        ),
+      ),
     )
   }
 
@@ -196,28 +198,32 @@ final class CommentTests extends FunSuite with Matchers {
         |    size: number;
         |    // Not guaranteed to have, since it's a non-mandatory option
         |}""".stripMargin,
-      TsParser.tsType
+      TsParser.tsType,
     )(
       TsTypeObject(
         List(
-          TsMemberProperty(NoComments,
-                           Default,
-                           TsIdent("id"),
-                           Some(TsTypeRef.string),
-                           None,
-                           isStatic   = false,
-                           isReadOnly = false,
-                           isOptional = false),
-          TsMemberProperty(NoComments,
-                           Default,
-                           TsIdent("size"),
-                           Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
-                           None,
-                           isStatic   = false,
-                           isReadOnly = false,
-                           isOptional = false)
-        )
-      )
+          TsMemberProperty(
+            NoComments,
+            Default,
+            TsIdent("id"),
+            Some(TsTypeRef.string),
+            None,
+            isStatic   = false,
+            isReadOnly = false,
+            isOptional = false,
+          ),
+          TsMemberProperty(
+            NoComments,
+            Default,
+            TsIdent("size"),
+            Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
+            None,
+            isStatic   = false,
+            isReadOnly = false,
+            isOptional = false,
+          ),
+        ),
+      ),
     )
   }
 
@@ -234,35 +240,40 @@ final class CommentTests extends FunSuite with Matchers {
             TsIdent("Map"),
             TsFunSig(
               NoComments,
-              List(TsTypeParam(NoComments, TsIdent("K"), None, None),
-                   TsTypeParam(NoComments, TsIdent("V"), None, None)),
+              List(
+                TsTypeParam(NoComments, TsIdent("K"), None, None),
+                TsTypeParam(NoComments, TsIdent("V"), None, None),
+              ),
               List(
                 TsFunParam(
                   NoComments,
                   TsIdent("iter"),
                   Some(
-                    TsTypeRef(NoComments,
-                              TsQIdent(List(TsIdent("Iterable"))),
-                              List(TsTypeRef.any,
-                                   TsTypeRef(NoComments, TsQIdent(List(TsIdent("Array"))), List(TsTypeRef.any))))
+                    TsTypeRef(
+                      NoComments,
+                      TsQIdent(List(TsIdent("Iterable"))),
+                      List(TsTypeRef.any, TsTypeRef(NoComments, TsQIdent(List(TsIdent("Array"))), List(TsTypeRef.any))),
+                    ),
                   ),
-                  isOptional = false
-                )
+                  isOptional = false,
+                ),
               ),
               Some(
                 TsTypeRef(
                   NoComments,
                   TsQIdent(List(TsIdent("Map"))),
-                  List(TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Nil),
-                       TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Nil))
-                )
-              )
+                  List(
+                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Nil),
+                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Nil),
+                  ),
+                ),
+              ),
             ),
             JsLocation.Zero,
             CodePath.NoPath,
-          )
-        )
-      )
+          ),
+        ),
+      ),
     )
   }
 
@@ -358,14 +369,16 @@ final class CommentTests extends FunSuite with Matchers {
     shouldParseAs(
       """F<A, /* foo */
         B>""",
-      TsParser.tsTypeRef
+      TsParser.tsTypeRef,
     )(
       TsTypeRef(
         NoComments,
         TsQIdent(List(TsIdentSimple("F"))),
-        List(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), List()),
-             TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), List()))
-      )
+        List(
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), List()),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), List()),
+        ),
+      ),
     )
   }
 

@@ -12,7 +12,7 @@ object ResolveExternalReferences {
   case class Result(
       rewritten:      TsParsedFile,
       resolvedDeps:   Set[Source],
-      unresolvedDeps: Set[TsIdentModule]
+      unresolvedDeps: Set[TsIdentModule],
   )
 
   def apply(resolve: LibraryResolver, source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {

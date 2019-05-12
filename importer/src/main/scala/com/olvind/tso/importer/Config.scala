@@ -48,8 +48,8 @@ object Config {
             conserveSpace    = flags contains "-conserveSpace",
             enableParseCache = flags contains "-enableParseCache",
             dontCleanProject = flags contains "-dontCleanProject",
-            wantedLibNames   = rest.to[Set]
-          )
+            wantedLibNames   = rest.to[Set],
+          ),
         )
     }
 }

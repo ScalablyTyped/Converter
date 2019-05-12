@@ -8,13 +8,13 @@ import io.circe.{Decoder, Encoder}
 
 case class Summary(
     successes: Set[TsIdentLibrary],
-    failures:  Set[TsIdentLibrary]
+    failures:  Set[TsIdentLibrary],
 )
 case class SummaryDiff(
     sha:          String,
     newSuccesses: Set[TsIdentLibrary],
     newFailures:  Set[TsIdentLibrary],
-    oldFailures:  Set[TsIdentLibrary]
+    oldFailures:  Set[TsIdentLibrary],
 )
 
 object Summary {
@@ -36,7 +36,7 @@ object Summary {
           sha,
           newSuccesses = current.successes -- existing.successes,
           newFailures  = newFailures,
-          oldFailures  = current.failures -- newFailures
+          oldFailures  = current.failures -- newFailures,
         )
       case None =>
         SummaryDiff(sha, current.successes, current.failures, Set.empty)

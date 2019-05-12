@@ -21,12 +21,12 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             i
           case Ok(newMembers, true) =>
             val notices = Comments(
-              i.inheritance.toList.map(i => Comment("/* Inlined parent " + TsTypeFormatter(i) + " */\n"))
+              i.inheritance.toList.map(i => Comment("/* Inlined parent " + TsTypeFormatter(i) + " */\n")),
             )
             i.copy(
               comments    = i.comments ++ notices,
               members     = newMembers,
-              inheritance = Nil
+              inheritance = Nil,
             )
           case _ => x
         }
@@ -49,7 +49,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
               tparams,
               Nil,
               newMembers,
-              codePath
+              codePath,
             )
           case _ => x
         }
@@ -136,7 +136,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                   case TsMemberProperty(_, _, TsIdent(`name`), tpeOpt, _, false, _, isOptional) =>
                     ResolveTypeLookups.optional(
                       tpeOpt.fold[TsType](TsTypeRef.any)(visitTsType(scope)),
-                      isOptional
+                      isOptional,
                     )
                 }
               case Problems(ps) =>
@@ -243,7 +243,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                 expr       = None,
                 isStatic   = false,
                 isReadOnly = isReadOnly,
-                isOptional = optionalize(false)
+                isOptional = optionalize(false),
               )
             }
 
@@ -252,7 +252,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                 case Some(TsTypeRef.never)  => false
                 case Some(TsTypeUnion(tps)) => !tps.contains(TsTypeRef.never)
                 case _                      => true
-              }
+              },
             )
           }.withIsRewritten
         case x: TsTypeObject => Ok(x.members, false)

@@ -36,7 +36,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     "instanceof", "infer", "interface", "is", "keyof", "let", "module", "namespace", "never",
     "new", "null", "package", "private", "protected", "public", "readonly", "require", "return",
     "static", "super", "symbol", "switch", "this", "throw", "true", "try", "type", "typeof", "undefined",
-    "unique", "var", "void", "while", "with", "yield"
+    "unique", "var", "void", "while", "with", "yield",
   )
 
   val shebang = '#' ~ chrExcept('\n', EofCh).+ ^^ {
@@ -94,7 +94,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
   val numericLiteral: Parser[NumericLit] = {
     val hexNumericLiteral: Parser[NumericLit] =
       '0' ~> (Parser('x') | 'X') ~> stringOf1(
-        digit | 'a' | 'A' | 'b' | 'B' | 'c' | 'C' | 'd' | 'D' | 'e' | 'E' | 'f' | 'F'
+        digit | 'a' | 'A' | 'b' | 'B' | 'c' | 'C' | 'd' | 'D' | 'e' | 'E' | 'f' | 'F',
       ) ^^ (s => NumericLit("0x" + s))
 
     val decimal = stringOf1(digit | '.' | '-') ^^ NumericLit // yeah yeah, good enough for us
@@ -171,7 +171,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
     val asd: Parser[List[Char] ~ List[Char] ~ List[Char]] =
       '/' ~> '/' ~> '/' ~> whitespace.? ~> '<' ~> chrExcept(' ').* ~ (' ' ~> chrExcept('=').* <~ '=' <~ quote) ~ chrExcept(
         '"',
-        '\''
+        '\'',
       ).* <~ quote <~ ' '.? <~ '/' <~ '>'
 
     asd ^^ {

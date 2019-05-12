@@ -55,7 +55,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
         case TsMemberProperty(_, _, TsIdent(Wanted), tpeOpt, _, NonStatic, _, isOptional) =>
           optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
         case TsMemberFunction(_, _, TsIdent(Wanted), sig, NonStatic, _, _) => TsTypeFunction(sig)
-      }
+      },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {
       case Nil      => None

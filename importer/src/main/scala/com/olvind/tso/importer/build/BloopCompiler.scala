@@ -95,14 +95,14 @@ class BloopFactory(logger: Logger[Unit]) {
           v.s("scalajs-library"),
           v.scalaJsVersion,
           bloopLogger,
-          repos
+          repos,
         )(ec),
         DependencyResolution.resolve(
           v.RuntimeOrganization,
           v.sjs(v.RuntimeName),
           v.RuntimeVersion,
           bloopLogger,
-          repos
+          repos,
         )(ec),
       ).flatten
 
@@ -113,7 +113,7 @@ class BloopFactory(logger: Logger[Unit]) {
           s"scalajs-compiler_${v.scalaVersion}",
           v.scalaJsVersion,
           bloopLogger,
-          repos
+          repos,
         )(ec)
         .collectFirst { case f if f.syntax.contains("scalajs-compiler") => f }
         .head
@@ -139,9 +139,11 @@ class BloopFactory(logger: Logger[Unit]) {
       object reporter extends Reporter(NoLogger, toAbs(paths.baseDir), identity, ReporterConfig.defaultFormat) {
         override protected def logFull(problem: Problem): Unit = ()
 
-        override def reportEndCompilation(previousAnalysis: Option[CompileAnalysis],
-                                          analysis:         Option[CompileAnalysis],
-                                          code:             StatusCode): Unit = ()
+        override def reportEndCompilation(
+            previousAnalysis: Option[CompileAnalysis],
+            analysis:         Option[CompileAnalysis],
+            code:             StatusCode,
+        ): Unit = ()
 
         override def reportStartIncrementalCycle(sources: scala.Seq[File], outputDirs: scala.Seq[File]): Unit = ()
 
@@ -179,7 +181,7 @@ class BloopFactory(logger: Logger[Unit]) {
         mode                   = CompileMode.Sequential,
         dependentResults       = Map.empty,
         store                  = irStore,
-        cancelPromise          = Promise()
+        cancelPromise          = Promise(),
 //        mode                   = CompileMode.Parallel(2),
 //        store                  = new EmptyIRStore
       )

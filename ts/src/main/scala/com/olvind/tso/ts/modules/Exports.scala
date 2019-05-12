@@ -6,11 +6,13 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
 import com.olvind.tso.ts.transforms.SetCodePath
 
 object Exports {
-  def expandExport(scope:        TsTreeScope,
-                   jsLocation:   ModuleSpec => JsLocation,
-                   e:            TsExport,
-                   loopDetector: LoopDetector,
-                   owner:        TsDeclNamespaceOrModule): Seq[TsNamedDecl] = {
+  def expandExport(
+      scope:        TsTreeScope,
+      jsLocation:   ModuleSpec => JsLocation,
+      e:            TsExport,
+      loopDetector: LoopDetector,
+      owner:        TsDeclNamespaceOrModule,
+  ): Seq[TsNamedDecl] = {
 
     lazy val key = (scope.toString, e)
 
@@ -38,14 +40,16 @@ object Exports {
                     }
 
                   case ExpandedMod.Whole(defaults, namespaceds, rest, newScope) =>
-                    val restNs = TsDeclNamespace(NoComments,
-                                                 false,
-                                                 TsIdentNamespace(ident.value),
-                                                 rest,
-                                                 CodePath.NoPath,
-                                                 JsLocation.Zero)
+                    val restNs = TsDeclNamespace(
+                      NoComments,
+                      false,
+                      TsIdentNamespace(ident.value),
+                      rest,
+                      CodePath.NoPath,
+                      JsLocation.Zero,
+                    )
                     (defaults ++ namespaceds :+ restNs).flatMap(
-                      m => export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
+                      m => export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector),
                     )
                 }
 
@@ -107,13 +111,15 @@ object Exports {
     ret2
   }
 
-  def export(ownerCp:      CodePath.HasPath,
-             jsLocation:   ModuleSpec => JsLocation,
-             scope:        TsTreeScope,
-             exportType:   ExportType,
-             _namedDecl:   TsNamedDecl,
-             renamedOpt:   Option[TsIdent],
-             loopDetector: LoopDetector): Seq[TsNamedDecl] = {
+  def export(
+      ownerCp:      CodePath.HasPath,
+      jsLocation:   ModuleSpec => JsLocation,
+      scope:        TsTreeScope,
+      exportType:   ExportType,
+      _namedDecl:   TsNamedDecl,
+      renamedOpt:   Option[TsIdent],
+      loopDetector: LoopDetector,
+  ): Seq[TsNamedDecl] = {
     val rewritten = _namedDecl match {
       case x: TsDeclModule if x.exports.nonEmpty    => CachedReplaceExports(scope.`..`, loopDetector, x)
       case x: TsDeclNamespace if x.exports.nonEmpty => new ReplaceExports(loopDetector).visitTsNamedDecl(scope.`..`)(x)
@@ -225,11 +231,13 @@ object Exports {
     case (JsLocation.Zero, _)                                      => JsLocation.Zero
   }
 
-  def lookupExportFrom[T <: TsNamedDecl](scope:        TsTreeScope.Scoped,
-                                         Pick:         Picker[T],
-                                         wanted:       List[TsIdent],
-                                         loopDetector: LoopDetector,
-                                         owner:        TsDeclNamespaceOrModule): Seq[(T, TsTreeScope)] =
+  def lookupExportFrom[T <: TsNamedDecl](
+      scope:        TsTreeScope.Scoped,
+      Pick:         Picker[T],
+      wanted:       List[TsIdent],
+      loopDetector: LoopDetector,
+      owner:        TsDeclNamespaceOrModule,
+  ): Seq[(T, TsTreeScope)] =
     pickExports(scope.exports, wanted).flatMap {
       case PickedExport(e, newWanteds) =>
         expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner) match {

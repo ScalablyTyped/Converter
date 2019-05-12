@@ -69,12 +69,12 @@ object Companions extends TreeTransformation {
       else {
         val (optionals, inLiterals, Nil) = params.partitionCollect2(
           { case Param(_, _, Right(f))  => f },
-          { case Param(_, _, Left(str)) => str }
+          { case Param(_, _, Left(str)) => str },
         )
         val applyRet = TypeRef(
           QualifiedName(cls.name :: Nil),
           cls.tparams.map(tp => TypeRef(QualifiedName(tp.name :: Nil), Nil, NoComments)),
-          NoComments
+          NoComments,
         )
 
         List(
@@ -98,12 +98,12 @@ object Companions extends TreeTransformation {
                 applyRet,
                 isOverride = false,
                 NoComments,
-                cls.codePath + Name.APPLY
-              )
+                cls.codePath + Name.APPLY,
+              ),
             ),
             NoComments,
-            cls.codePath
-          )
+            cls.codePath,
+          ),
         )
       }
 
@@ -114,16 +114,18 @@ object Companions extends TreeTransformation {
     * The type parameter is mostly smoke and mirrors, it's one of two types.
     * This type exists to have a nice way to write `compressInto`
     */
-  case class ByParent[T](directParents: Map[Parent, Map[Name, T]],
-                         unresolved:    Seq[TypeRef],
-                         own:           SortedMap[Name, T],
-                         ownScope:      TreeScope) {
+  case class ByParent[T](
+      directParents: Map[Parent, Map[Name, T]],
+      unresolved:    Seq[TypeRef],
+      own:           SortedMap[Name, T],
+      ownScope:      TreeScope,
+  ) {
     def mapNotNone[U](f: (TreeScope, T) => Option[U]): ByParent[U] =
       ByParent(
         directParents.map { case (p, values) => p -> values.mapNotNone(x => f(ownScope / p.classTree, x)) },
         unresolved,
         own.mapNotNone(x => f(ownScope, x)),
-        ownScope
+        ownScope,
       )
 
     def skipParentInlineIfMoreMembersThan(maxNum: Int)(f: Parent => (Name, T)): ByParent[T] = {
@@ -159,7 +161,7 @@ object Companions extends TreeTransformation {
         keptDirectParents.map(p => p -> go(p)).toMap,
         parents.unresolved ++ treatAsUnresolved,
         firstValue(cls.index).toSorted,
-        scope / cls
+        scope / cls,
       )
     }
 
@@ -178,8 +180,8 @@ object Companions extends TreeTransformation {
       Right(
         obj =>
           if (isRequired) s"if ($obj != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
-          else s"js.Dynamic.global.Object.assign($obj, ${name.value})"
-      )
+          else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
+      ),
     )
   }
 
@@ -206,9 +208,9 @@ object Companions extends TreeTransformation {
             isOptional = true,
             Right(
               obj =>
-                s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast.Cast})"""
-            )
-          )
+                s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast.Cast})""",
+            ),
+          ),
         )
       case FieldTree(anns, name, OptionalType(tpe), _, _, _, _, _) if !CanBeNull(tpe, scope / x) =>
         val originalName = findOriginalName(name, anns)
@@ -221,10 +223,10 @@ object Companions extends TreeTransformation {
               obj =>
                 s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(
                   scope,
-                  tpe
-                )})"""
-            )
-          )
+                  tpe,
+                )})""",
+            ),
+          ),
         )
 
       case FieldTree(anns, name, OptionalType(TypeRef.Function(paramTypes, retType)), _, _, _, _, _) =>
@@ -236,9 +238,10 @@ object Companions extends TreeTransformation {
             ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), Some(TypeRef.`null`), NoComments),
             isOptional = true,
             Right(
-              obj => s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")($convertedTarget)"""
-            )
-          )
+              obj =>
+                s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")($convertedTarget)""",
+            ),
+          ),
         )
 
       case FieldTree(anns, name, OptionalType(_tpe), _, _, _, _, _) =>
@@ -253,10 +256,10 @@ object Companions extends TreeTransformation {
               obj =>
                 s"""if (${name.value} != null) $obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(
                   scope,
-                  tpe
-                )})"""
-            )
-          )
+                  tpe,
+                )})""",
+            ),
+          ),
         )
 
       case FieldTree(anns, name, TypeRef.Function(paramTypes, retType), _, _, _, _, _) =>
@@ -271,9 +274,9 @@ object Companions extends TreeTransformation {
               Left(s"""${name.value} = $convertedTarget""")
             else
               Right(
-                obj => s"""$obj.updateDynamic("${originalName.unescaped}")($convertedTarget)"""
-              )
-          )
+                obj => s"""$obj.updateDynamic("${originalName.unescaped}")($convertedTarget)""",
+              ),
+          ),
         )
 
       case FieldTree(anns, name, tpe, _, _, _, _, _) =>
@@ -286,9 +289,9 @@ object Companions extends TreeTransformation {
               Left(s"""${name.value} = ${name.value}${OptionalCast(scope, tpe)}""")
             else
               Right(
-                obj => s"""$obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(scope, tpe)})"""
-              )
-          )
+                obj => s"""$obj.updateDynamic("${originalName.unescaped}")(${name.value}${OptionalCast(scope, tpe)})""",
+              ),
+          ),
         )
 
       case _m: MethodTree =>
@@ -298,16 +301,18 @@ object Companions extends TreeTransformation {
 
         Some(
           Param(
-            ParamTree(m.name,
-                      TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
-                      None,
-                      NoComments),
+            ParamTree(
+              m.name,
+              TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
+              None,
+              NoComments,
+            ),
             isOptional = false,
             if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && originalName === m.name)
               Left(s"""${m.name.value} = $convertedTarget""")
             else
-              Right(obj => s"""$obj.updateDynamic("${originalName.unescaped}")($convertedTarget)""")
-          )
+              Right(obj => s"""$obj.updateDynamic("${originalName.unescaped}")($convertedTarget)"""),
+          ),
         )
       case _ => None
     }
@@ -318,7 +323,9 @@ object Companions extends TreeTransformation {
     val Cast = ".asInstanceOf[js.Any]"
 
     def apply(scope: TreeScope, tpe: TypeRef): String =
-      if (resolvesToUnionOrAbstract(tpe, scope)) { Cast } else ""
+      if (resolvesToUnionOrAbstract(tpe, scope)) {
+        Cast
+      } else ""
 
     def resolvesToUnionOrAbstract(tpe: TypeRef, scope: TreeScope): Boolean =
       tpe match {

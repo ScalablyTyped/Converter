@@ -27,7 +27,7 @@ object FilterMemberOverrides extends TreeTransformation {
   private def newMembers[S >: MemberTree <: Tree](scope: TreeScope, owner: Tree, members: Seq[S]): Seq[S] = {
     val (methods, fields, other) = members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x }
+      { case x: FieldTree  => x },
     )
     val methodsByName: Map[Name, Seq[MethodTree]] =
       methods groupBy (_.name)
@@ -44,7 +44,7 @@ object FilterMemberOverrides extends TreeTransformation {
     val (inheritedMethods, inheritedFields, _) =
       (ObjectMembers.members ++ parents.flatMap(_._2.members)).partitionCollect2(
         { case x: MethodTree => x },
-        { case x: FieldTree  => x }
+        { case x: FieldTree  => x },
       )
 
     val inheritedFieldsByName: Map[Name, Seq[FieldTree]] =

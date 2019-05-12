@@ -19,7 +19,7 @@ class Phase1ReadTypescript(
     ignored:                 Set[String],
     stdlibSource:            Source,
     pedantic:                Boolean,
-    parser:                  InFile => Either[String, TsParsedFile]
+    parser:                  InFile => Either[String, TsParsedFile],
 ) extends Phase[Source, Source, Phase1Res] {
 
   import jsonCodecs._
@@ -35,7 +35,7 @@ class Phase1ReadTypescript(
       _1:         Source,
       getDeps:    GetDeps[Source, Phase1Res],
       isCircular: IsCircular,
-      logger:     Logger[Unit]
+      logger:     Logger[Unit],
   ): PhaseRes[Source, Phase1Res] = {
 
     source match {
@@ -52,7 +52,7 @@ class Phase1ReadTypescript(
           PhaseRes.fromOption(
             source,
             resolve.lookup(s, value).map(_._1),
-            Right(s"Couldn't resolve $value")
+            Right(s"Couldn't resolve $value"),
           )
 
         def assertPartsOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibraryPart] =
@@ -66,7 +66,7 @@ class Phase1ReadTypescript(
             pathRefsR: Set[PhaseRes[Source, Source]],
             typeRefsR: Set[PhaseRes[Source, Source]],
             libRefsR:  Set[PhaseRes[Source, Source]],
-            remaining: Set[Directive]
+            remaining: Set[Directive],
           ) =
             parsed.directives
               .to[Set]
@@ -87,9 +87,9 @@ class Phase1ReadTypescript(
                     PhaseRes.fromOption(
                       source,
                       resolve.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
-                      Right(s"Couldn't resolve $r")
+                      Right(s"Couldn't resolve $r"),
                     )
-                }
+                },
               )
 
           for {
@@ -110,7 +110,7 @@ class Phase1ReadTypescript(
               inLib.libName,
               withExternals.rewritten,
               withExternals.unresolvedDeps,
-              L
+              L,
             )
             inferredDeps <- PhaseRes sequenceSet (inferredDepNames map (n => resolveDep(n.value)))
 
@@ -144,7 +144,7 @@ class Phase1ReadTypescript(
               packageJsonOpt
                 .to[Set]
                 .flatMap(
-                  x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil)
+                  x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
                 )
                 .flatMap(
                   depName =>
@@ -153,14 +153,14 @@ class Phase1ReadTypescript(
                       case None =>
                         logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
                         None
-                    }
+                    },
                 )
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
             case Unpack(
                 libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
                 deps:     SortedMap[TsLibSource, LibTs],
-                facades
+                facades,
                 ) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
@@ -212,7 +212,7 @@ class Phase1ReadTypescript(
                   T.SplitMethodsOnUnionTypes >> // after ExpandCallables
                     T.RemoveDifficultInheritance // after DefaultedTypeArguments
                 ).visitTsParsedFile(scope.caching),
-                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching)
+                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
               )
 
               logger.warn(s"Processing ${source.libName}")
@@ -223,7 +223,7 @@ class Phase1ReadTypescript(
                 source.isInstanceOf[Source.StdLibSource],
                 libParts.keys.map(_.file).to[Seq],
                 packageJsonOpt,
-                finished.comments
+                finished.comments,
               )
 
               LibTs(source)(version, tsConfig, finished, deps, facades)
