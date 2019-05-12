@@ -18,6 +18,8 @@ import com.olvind.tso.scalajs._
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrarySimple
 import fansi.Back
+import io.circe.parser.decode
+import io.circe.{Decoder, Encoder}
 import monix.eval.Task
 import monix.execution.Scheduler
 import xsbti.Severity
@@ -223,7 +225,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
         import ResultFailedJsonCodec._
 
-        PersistingFunction.taskPartial(
+        Phase3CompileBloop.taskPartial(
           failureCacheDir / name / finalVersion,
           logger,
           bloop.compileLib(compilerPaths, localClassPath ++ externalClasspath),
@@ -272,4 +274,27 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       )
     }
   }
+}
+private object Phase3CompileBloop {
+  def taskPartial[K, V, VV <: V: Encoder: Decoder](cachedFile: Path,
+                                                   logger:  Logger[Unit],
+                                                   run:     Task[V],
+                                                   extract: PartialFunction[V, VV]): Task[V] = {
+    def persisted(v: V): V = {
+      extract.lift(v).foreach(vv => Json.persist(cachedFile)(vv))
+      v
+    }
+    cachedFile match {
+      case files.Exists(existingFile) =>
+        decode[VV](files content InFile(existingFile)) match {
+          case Left(error) =>
+            logger.warn(s"Couldn't decode cached file $existingFile: $error")
+            run.map(persisted)
+          case Right(file) => Task.pure(file)
+        }
+
+      case _ => run.map(persisted)
+    }
+  }
+
 }

@@ -229,7 +229,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
   }
 
   test("history") {
-    withTsFile("history.d.ts") { contents: String =>
+    withTsFile("parsertests/history.d.ts") { contents: String =>
       parseAs(contents, TsParser.parsedTsFile)
     }
   }

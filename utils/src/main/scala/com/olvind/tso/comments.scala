@@ -9,7 +9,7 @@ object Comment {
     Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
 }
 
-sealed class Comments(val cs: List[Comment]) {
+sealed class Comments(val cs: List[Comment]) extends Serializable {
   override val hashCode: Int = 0
 
   override def equals(obj: Any): Boolean =

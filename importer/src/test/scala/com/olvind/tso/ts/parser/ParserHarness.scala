@@ -1,6 +1,7 @@
-package com.olvind.tso
+package com.olvind.tso.ts.parser
 
 import ammonite.ops.Path
+import com.olvind.tso.{InFile, files}
 import org.scalatest.Assertion
 import org.scalatest.Matchers._
 

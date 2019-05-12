@@ -2,10 +2,11 @@ package com.olvind.tso.importer
 
 import ammonite.ops.RelPath
 import com.olvind.tso.ts._
+import com.olvind.tso.importer.jsonCodecs._
 import io.circe.parser._
 import org.scalatest.FunSuite
 
-class JsonTests extends FunSuite with MetadataCodecs {
+class JsonTests extends FunSuite {
 
   test("tsconfig") {
 

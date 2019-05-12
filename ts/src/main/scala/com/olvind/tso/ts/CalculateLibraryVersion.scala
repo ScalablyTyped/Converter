@@ -8,12 +8,11 @@ import ammonite.ops.%%
 
 import scala.util.{Success, Try}
 
-object CalculateLibraryVersion {
+class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommit: String) {
 
   def apply(sourceFolder:     InFolder,
             isStdLib:         Boolean,
             sourceFiles:      Seq[InFile],
-            lastChangedIndex: RepoLastChangedIndex,
             packageJsonOpt:   Option[PackageJsonDeps],
             comments:         Comments): LibraryVersion = {
     implicit val wd = sourceFolder.path
@@ -23,8 +22,6 @@ object CalculateLibraryVersion {
 
     val libraryVersion = packageJsonOpt.flatMap(_.version) map ignoreStdLibMinorVersion orElse
       DefinitelyTypedVersion.from(comments)
-
-    val localCommit: String = BuildInfo.gitSha
 
     val inGit: Option[InGit] =
       Try(new URI((%% git ('remote, "get-url", 'origin)).out.string.trim)) match {
