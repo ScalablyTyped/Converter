@@ -34,11 +34,11 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
               TsTypeRef(
                 NoComments,
                 cls.codePath.forceHasPath.codePath,
-                TsTypeParam.asTypeArgs(cls.tparams)
-              )
-            )
-          )
-        )
+                TsTypeParam.asTypeArgs(cls.tparams),
+              ),
+            ),
+          ),
+        ),
       )
 
     def unapply(decl: TsContainerOrDecl): Option[(TsDeclClass, TsType)] =
@@ -52,9 +52,9 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
               .map(
                 tp =>
                   TsTypeRef.of(tp.name) -> TsTypeRef.any
-                    .copy(comments = Comments(Comment.warning(s"was tparam ${tp.name.value}")))
+                    .copy(comments = Comments(Comment.warning(s"was tparam ${tp.name.value}"))),
               )
-              .toMap
+              .toMap,
           )(_cls)
 
           val existingCtorOpt: Option[TsTypeConstructor] =
@@ -151,28 +151,32 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
           None,
           isStatic   = false,
           isReadOnly = true,
-          isOptional = false
+          isOptional = false,
         )
       case TsDeclFunction(cs, _, name, sig, _, _) =>
         TsMemberFunction(cs, Default, name, sig, isStatic = false, isReadOnly = true, isOptional = false)
       case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _, isOptional) =>
-        TsMemberProperty(cs,
-                         Default,
-                         name,
-                         tpe,
-                         lit,
-                         isStatic   = false,
-                         isReadOnly = isReadOnly,
-                         isOptional = isOptional)
+        TsMemberProperty(
+          cs,
+          Default,
+          name,
+          tpe,
+          lit,
+          isStatic   = false,
+          isReadOnly = isReadOnly,
+          isOptional = isOptional,
+        )
       case RewrittenClass((cls, tpe)) =>
-        TsMemberProperty(cls.comments,
-                         Default,
-                         cls.name,
-                         Some(tpe),
-                         None,
-                         isStatic   = false,
-                         isReadOnly = false,
-                         isOptional = false)
+        TsMemberProperty(
+          cls.comments,
+          Default,
+          cls.name,
+          Some(tpe),
+          None,
+          isStatic   = false,
+          isReadOnly = false,
+          isOptional = false,
+        )
     }
     if (rewritten.isEmpty) None else Some(TsTypeObject(rewritten))
   }

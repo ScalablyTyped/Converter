@@ -39,7 +39,7 @@ trait ImporterHarness extends FunSuiteLike {
       targetFolder:  Path,
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
-      publishFolder: Path
+      publishFolder: Path,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
@@ -56,9 +56,9 @@ trait ImporterHarness extends FunSuiteLike {
             Set.empty,
             stdLibSource,
             pedantic,
-            parser.parseFile
+            parser.parseFile,
           ),
-          "typescript"
+          "typescript",
         )
         .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
         .next(
@@ -75,9 +75,9 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             scheduler       = scheduler,
             metadataFetcher = Npmjs.No,
-            failureCacheDir = failureCacheDir
+            failureCacheDir = failureCacheDir,
           ),
-          "build"
+          "build",
         )
 
     val found: Set[TsLibSource] =
@@ -85,7 +85,7 @@ trait ImporterHarness extends FunSuiteLike {
 
     PhaseRes.sequenceMap(
       TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ found
-        .map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s))
+        .map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)),
     )
   }
 
@@ -104,7 +104,7 @@ trait ImporterHarness extends FunSuiteLike {
       new LogRegistry[Source, TsIdentLibrary, StringWriter](
         testLogger,
         _.libName,
-        _ => logging.appendable(new StringWriter())
+        _ => logging.appendable(new StringWriter()),
       )
 
     val publishFolder = root / 'tmp / "tso-published-tests" / testName

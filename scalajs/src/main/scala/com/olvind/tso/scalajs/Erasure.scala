@@ -11,7 +11,7 @@ object Erasure {
     val newScope = _scope / s
     MethodBase(
       s.name,
-      s.params.flatten.map(param => simplify(newScope, param.tpe))
+      s.params.flatten.map(param => simplify(newScope, param.tpe)),
     )
   }
   def erasure(_scope: TreeScope)(s: MethodTree): MethodErasure = {
@@ -19,7 +19,7 @@ object Erasure {
     MethodErasure(
       s.name,
       s.params.flatten.map(param => simplify(newScope, param.tpe)),
-      simplify(newScope, s.resultType)
+      simplify(newScope, s.resultType),
     )
   }
 
@@ -37,7 +37,7 @@ object Erasure {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
         }
         primitive.getOrElse(
-          simplify(scope, tpe.targs.filterNot(_.typeName === QualifiedName.Object).head)
+          simplify(scope, tpe.targs.filterNot(_.typeName === QualifiedName.Object).head),
         )
 
       // if this is a type parameter

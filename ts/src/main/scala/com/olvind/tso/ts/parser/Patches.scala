@@ -16,22 +16,22 @@ object Patches {
       Patch(
         "handle ambiguity because of non-whitespace aware parser",
         "): Store<S & StateExt, A> & Ext",
-        "): Store<S & StateExt, A> & Ext,"
-      )
+        "): Store<S & StateExt, A> & Ext,",
+      ),
     ),
     "downshift" / 'typings / "index.d.ts" -> List(
       Patch(
         "handle ambiguity because of non-whitespace aware parser",
         "refKey?: string",
         "refKey?: string;",
-      )
+      ),
     ),
     "@emotion" / 'serialize / 'types / "index.d.ts" -> List(
       Patch(
         "resolve circular set of type aliases",
         "export type FunctionInterpolation<MP> = (mergedProps: MP) => Interpolation<MP>",
         "/* break circular type alias by converting to interface*/ export interface FunctionInterpolation<MP>{(mergedProps: MP): Interpolation<MP>}",
-      )
+      ),
     ),
     "styled-components" / "index.d.ts" -> List(
       Patch(
@@ -43,7 +43,7 @@ object Patches {
         "resolve circular set of type aliases",
         "export type InterpolationFunction<P> = (props: P) => Interpolation<P>;",
         "/* break circular type alias by converting to interface*/ export interface InterpolationFunction<P>{(props: P): Interpolation<P>}",
-      )
+      ),
     ),
     "react" / "index.d.ts" -> List(
       Patch(

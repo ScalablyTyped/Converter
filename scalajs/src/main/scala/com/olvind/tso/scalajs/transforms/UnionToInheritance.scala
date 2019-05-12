@@ -93,9 +93,11 @@ object UnionToInheritance {
     ta.copy(name = newName, codePath = QualifiedName(ta.codePath.parts.init :+ newName))
   }
 
-  def typesToInterfaces(c:                    ContainerTree,
-                        indexedRewrites:      Map[QualifiedName, Rewrite],
-                        newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]]): ContainerTree = {
+  def typesToInterfaces(
+      c:                    ContainerTree,
+      indexedRewrites:      Map[QualifiedName, Rewrite],
+      newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]],
+  ): ContainerTree = {
     val newMembers = c.members.flatMap {
       case p: ContainerTree =>
         typesToInterfaces(p, indexedRewrites, newParentsByCodePath) :: Nil
@@ -120,7 +122,7 @@ object UnionToInheritance {
               ClassType.Trait,
               isSealed = false,
               ta.comments +? comment,
-              ta.codePath
+              ta.codePath,
             )
 
             cls :: Nil
@@ -136,14 +138,14 @@ object UnionToInheritance {
               ClassType.Trait,
               isSealed = false,
               NoComments,
-              patchedTa.codePath
+              patchedTa.codePath,
             )
             val newTa = ta.copy(
               alias = TypeRef.Union(
                 TypeRef(patchedTa.codePath, TypeParamTree.asTypeArgs(patchedTa.tparams), NoComments) +: noRewrites,
-                sort = false
+                sort = false,
               ),
-              comments = ta.comments +? comment
+              comments = ta.comments +? comment,
             )
             cls :: newTa :: Nil
         }
@@ -153,8 +155,10 @@ object UnionToInheritance {
     c.withMembers(newMembers)
   }
 
-  def addedInheritance(c:                    ContainerTree,
-                       newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]]): ContainerTree =
+  def addedInheritance(
+      c:                    ContainerTree,
+      newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]],
+  ): ContainerTree =
     c.withMembers(c.members.map {
       case p: PackageTree =>
         addedInheritance(p, newParentsByCodePath)
@@ -197,7 +201,7 @@ private object Rewrite {
       }
 
     all.map(
-      r => r.copy(unchanged = r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(recursiveUnchanged).distinct)
+      r => r.copy(unchanged = r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(recursiveUnchanged).distinct),
     )
   }
 
@@ -239,7 +243,7 @@ case class InvertingTypeParamRef(codePath: QualifiedName, tParamRefs: Seq[(TypeP
         case (_, Some(idx)) => TypeRef(tparams(idx).name)
         case (_, None)      => TypeRef.Any
       }.toList,
-      NoComments
+      NoComments,
     )
 }
 
@@ -255,10 +259,10 @@ object InvertingTypeParamRef {
             tparam =>
               tparam -> newParent.targs.zipWithIndex.collectFirst {
                 case (x, idx) if x.name === tparam.name => idx
-            }
+              },
           )
         newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
-      }
+      },
     )
   }
 }

@@ -19,19 +19,19 @@ object CombineOverloads extends TreeTransformation {
   override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
     val (methods, fields, Nil) = s.members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x }
+      { case x: FieldTree  => x },
     )
 
     s.copy(
       ctors   = ctorHack(scope, s.ctors),
-      members = combineOverloads(scope, methods) ++ unifyFields(fields)
+      members = combineOverloads(scope, methods) ++ unifyFields(fields),
     )
   }
 
   override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
     val (methods, fields, rest) = s.members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x }
+      { case x: FieldTree  => x },
     )
 
     s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
@@ -40,7 +40,7 @@ object CombineOverloads extends TreeTransformation {
   override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
     val (methods, fields, rest) = s.members.partitionCollect2(
       { case x: MethodTree => x },
-      { case x: FieldTree  => x }
+      { case x: FieldTree  => x },
     )
     s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
   }
@@ -61,7 +61,7 @@ object CombineOverloads extends TreeTransformation {
 
     val combined = methods.head.copy(
       params   = newParamss,
-      comments = Comments.flatten(methods)(_.comments)
+      comments = Comments.flatten(methods)(_.comments),
     )
 
     renameSuffix.foldLeft(combined) {
@@ -80,7 +80,7 @@ object CombineOverloads extends TreeTransformation {
       grouped drop 1 flatMap {
         case (_, methods) if methods.head.name === Name.APPLY =>
           scope.logger.info(
-            s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope"
+            s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",
           )
           Nil
         case ((tparams: Seq[TypeParamTree], retType), methods) =>
@@ -149,16 +149,18 @@ object CombineOverloads extends TreeTransformation {
     val asMethods: Seq[MethodTree] =
       members.map(
         ctor =>
-          MethodTree(Nil,
-                     ctor.level,
-                     ctor.name,
-                     Nil,
-                     Seq(ctor.params),
-                     MemberImplNative,
-                     TypeRef.Nothing,
-                     false,
-                     ctor.comments,
-                     QualifiedName(Nil))
+          MethodTree(
+            Nil,
+            ctor.level,
+            ctor.name,
+            Nil,
+            Seq(ctor.params),
+            MemberImplNative,
+            TypeRef.Nothing,
+            false,
+            ctor.comments,
+            QualifiedName(Nil),
+          ),
       )
     val ret = combineOverloads(scope, asMethods)
     ret.map {

@@ -35,7 +35,7 @@ object FlattenTrees {
       comments   = mergeComments(one.comments, two.comments),
       directives = (one.directives ++ two.directives).distinct,
       members    = newMembers(one.members, two.members),
-      codePath   = mergeCodePath(one.codePath, two.codePath)
+      codePath   = mergeCodePath(one.codePath, two.codePath),
     )
 
   def newMembers(these: Seq[TsContainerOrDecl], thats: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = {
@@ -48,7 +48,7 @@ object FlattenTrees {
     thatsUnnamed foreach {
       case that: TsGlobal =>
         rets.addOrUpdateMatching(that)(
-          x => x.copy(members = newMembers(Seq.empty, x.members))
+          x => x.copy(members = newMembers(Seq.empty, x.members)),
         ) {
           case existing: TsGlobal => mergeGlobal(that, existing)
         }
@@ -97,7 +97,7 @@ object FlattenTrees {
             existing.copy(
               comments   = mergeComments(existing.comments, that.comments),
               tpe        = bothTypes(existing.tpe, that.tpe),
-              isOptional = existing.isOptional || that.isOptional
+              isOptional = existing.isOptional || that.isOptional,
             )
         }
 
@@ -121,7 +121,7 @@ object FlattenTrees {
               name     = existing.name,
               tparams  = mergeTypeParams(existing.tparams, that.tparams),
               alias    = TsTypeIntersect.simplified(existing.alias :: that.alias :: Nil),
-              codePath = mergeCodePath(existing.codePath, that.codePath)
+              codePath = mergeCodePath(existing.codePath, that.codePath),
             )
 
         }
@@ -143,7 +143,7 @@ object FlattenTrees {
             existing.copy(
               comments   = mergeComments(existing.comments, that.comments),
               tpe        = bothTypes(existing.tpe, that.tpe),
-              isOptional = existing.isOptional || that.isOptional
+              isOptional = existing.isOptional || that.isOptional,
             )
         }
 
@@ -153,7 +153,7 @@ object FlattenTrees {
             existing.copy(
               comments   = mergeComments(existing.comments, that.comments),
               valueType  = Some(TsTypeIntersect.simplified(Seq(existing.valueType, that.valueType).flatten)),
-              isOptional = existing.isOptional || that.isOptional
+              isOptional = existing.isOptional || that.isOptional,
             )
         }
 
@@ -183,7 +183,7 @@ object FlattenTrees {
       name       = existing.name,
       members    = newMembers(existing.members, that.members),
       codePath   = mergeCodePath(existing.codePath, that.codePath),
-      jsLocation = that.jsLocation
+      jsLocation = that.jsLocation,
     )
 
   def mergeInterface(that: TsDeclInterface, existing: TsDeclInterface) =
@@ -210,7 +210,7 @@ object FlattenTrees {
       codePath     = existing.codePath,
       isValue      = existing.isValue || that.isValue,
       exportedFrom = exportedFrom,
-      jsLocation   = mergeJsLocation(existing.jsLocation, that.jsLocation)
+      jsLocation   = mergeJsLocation(existing.jsLocation, that.jsLocation),
     )
   }
 
@@ -229,7 +229,7 @@ object FlattenTrees {
       implements = inheritance.drop(1),
       members    = newClassMembers(existing.members, that.members),
       jsLocation = mergeJsLocation(existing.jsLocation, that.jsLocation),
-      codePath   = mergeCodePath(existing.codePath, that.codePath)
+      codePath   = mergeCodePath(existing.codePath, that.codePath),
     )
   }
   def mergeModule(that: TsDeclModule, existing: TsDeclModule) =

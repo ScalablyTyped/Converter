@@ -29,7 +29,7 @@ object RemoveDuplicateInheritance extends TreeTransformation {
           TypeRef(
             name,
             sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, true)),
-            Comments.flatten(sameParentRef)(_.comments)
+            Comments.flatten(sameParentRef)(_.comments),
           )
       }
 
@@ -53,14 +53,14 @@ object RemoveDuplicateInheritance extends TreeTransformation {
     val allParentRefs: Set[TypeRef] =
       ParentsResolver(scope, cls).transitiveParents
         .foldLeft(Set.empty[TypeRef])(
-          _ ++ _._2.parents.map(_.copy(targs = Nil))
+          _ ++ _._2.parents.map(_.copy(targs = Nil)),
         )
 
     cls.parents.partition(p => allParentRefs(p.copy(targs = Nil))) match {
       case (Nil, _) => cls
       case (dropped, keep) =>
         scope.logger.info(
-          s"Dropped parents ${dropped map (_.typeName) mkString ","} at $scope because allParentRefs = $allParentRefs"
+          s"Dropped parents ${dropped map (_.typeName) mkString ","} at $scope because allParentRefs = $allParentRefs",
         )
         cls.copy(parents = keep)
     }

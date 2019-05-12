@@ -49,16 +49,18 @@ object FakeLiterals {
               val name     = nameFor(underlying)
               val codePath = _s.codePath + moduleName + name
               val `trait` =
-                ClassTree(Seq(JsNative),
-                          name,
-                          Nil,
-                          Nil,
-                          Nil,
-                          Nil,
-                          ClassType.Trait,
-                          isSealed = true,
-                          NoComments,
-                          codePath)
+                ClassTree(
+                  Seq(JsNative),
+                  name,
+                  Nil,
+                  Nil,
+                  Nil,
+                  Nil,
+                  ClassType.Trait,
+                  isSealed = true,
+                  NoComments,
+                  codePath,
+                )
               val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
                 MethodTree(
@@ -71,7 +73,7 @@ object FakeLiterals {
                   TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
                   isOverride = false,
                   comments   = NoComments,
-                  codePath
+                  codePath,
                 )
               Seq(`trait`, `def`)
             }

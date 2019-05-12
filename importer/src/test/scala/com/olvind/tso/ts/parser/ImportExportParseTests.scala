@@ -25,7 +25,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
   test("allow select expressions in export") {
     parseAs(
       """declare module "3d-bin-packing" {export = bws.packer;}""",
-      TsParser.tsContainerOrDecls
+      TsParser.tsContainerOrDecls,
     )
   }
 
@@ -34,18 +34,20 @@ final class ImportExportParseTests extends FunSuite with Matchers {
       TsExport(
         NoComments,
         ExportType.Namespaced,
-        TsExporteeNames(List(
-                          (TsQIdent(List(TsIdent("AuthenticationContext"))), None),
-                          (TsQIdent(List(TsIdent("Logging"))), None)
-                        ),
-                        None)
+        TsExporteeNames(
+          List(
+            (TsQIdent(List(TsIdent("AuthenticationContext"))), None),
+            (TsQIdent(List(TsIdent("Logging"))), None),
+          ),
+          None,
+        ),
       )
     }
   }
 
   test("export default") {
     shouldParseAs("export default Abs", TsParser.tsExport)(
-      TsExport(NoComments, ExportType.Defaulted, TsExporteeNames(Seq((TsQIdent(List(TsIdent("Abs"))), None)), None))
+      TsExport(NoComments, ExportType.Defaulted, TsExporteeNames(Seq((TsQIdent(List(TsIdent("Abs"))), None)), None)),
     )
   }
 
@@ -57,17 +59,17 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         TsExporteeNames(
           List(
             (TsQIdent(List(TsIdent("Pool"))), None),
-            (TsQIdent(List(TsIdent("PoolConfig"))), None)
+            (TsQIdent(List(TsIdent("PoolConfig"))), None),
           ),
-          Some(TsIdentModule.simple("pg"))
-        )
-      )
+          Some(TsIdentModule.simple("pg")),
+        ),
+      ),
     )
   }
 
   test("export alias") {
     shouldParseAs("""export * from "aphrodite"""", TsParser.tsExport)(
-      TsExport(NoComments, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"), None))
+      TsExport(NoComments, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"), None)),
     )
   }
 
@@ -77,22 +79,24 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         NoComments,
         ExportType.Named,
         TsExporteeTree(
-          TsDeclEnum(NoComments,
-                     declared = false,
-                     TsIdent("RoundingMode"),
-                     Nil,
-                     isValue      = true,
-                     exportedFrom = None,
-                     Zero,
-                     CodePath.NoPath)
-        )
-      )
+          TsDeclEnum(
+            NoComments,
+            declared = false,
+            TsIdent("RoundingMode"),
+            Nil,
+            isValue      = true,
+            exportedFrom = None,
+            Zero,
+            CodePath.NoPath,
+          ),
+        ),
+      ),
     )
   }
 
   test("import require") {
     shouldParseAs("import http = require('http')", TsParser.tsImport)(
-      TsImport(Seq(TsImportedIdent(TsIdent("http"))), TsImporteeRequired(TsIdentModule.simple("http")))
+      TsImport(Seq(TsImportedIdent(TsIdent("http"))), TsImporteeRequired(TsIdentModule.simple("http"))),
     )
   }
 
@@ -100,14 +104,14 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import {EventEmitter} from "events"""", TsParser.tsImport)(
       TsImport(
         Seq(TsImportedDestructured(List((TsIdent("EventEmitter"), None)))),
-        TsImporteeFrom(TsIdentModule.simple("events"))
-      )
+        TsImporteeFrom(TsIdentModule.simple("events")),
+      ),
     )
   }
 
   test("import * from ") {
     shouldParseAs("""import * as e from 'express'""", TsParser.tsImport)(
-      TsImport(Seq(TsImportedStar(Some(TsIdent("e")))), TsImporteeFrom(TsIdentModule.simple("express")))
+      TsImport(Seq(TsImportedStar(Some(TsIdent("e")))), TsImporteeFrom(TsIdentModule.simple("express"))),
     )
   }
 
@@ -115,8 +119,8 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import ng = angular.dynamicLocale""", TsParser.tsImport)(
       TsImport(
         Seq(TsImportedIdent(TsIdent("ng"))),
-        TsImporteeLocal(TsQIdent(List(TsIdent("angular"), TsIdent("dynamicLocale"))))
-      )
+        TsImporteeLocal(TsQIdent(List(TsIdent("angular"), TsIdent("dynamicLocale")))),
+      ),
     )
   }
 
@@ -124,8 +128,8 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import ng = angular""", TsParser.tsImport)(
       TsImport(
         Seq(TsImportedIdent(TsIdent("ng"))),
-        TsImporteeLocal(TsQIdent(List(TsIdent("angular"))))
-      )
+        TsImporteeLocal(TsQIdent(List(TsIdent("angular")))),
+      ),
     )
   }
 
@@ -133,8 +137,8 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import traverse, {Visitor} from "babel-traverse"""", TsParser.tsImport)(
       TsImport(
         Seq(TsImportedIdent(TsIdent("traverse")), TsImportedDestructured(List((TsIdent("Visitor"), None)))),
-        TsImporteeFrom(TsIdentModule.simple("babel-traverse"))
-      )
+        TsImporteeFrom(TsIdentModule.simple("babel-traverse")),
+      ),
     )
   }
 
@@ -144,16 +148,18 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         NoComments,
         ExportType.Named,
         TsExporteeTree(
-          TsImport(List(TsImportedIdent(TsIdent("AppBar"))),
-                   TsImporteeLocal(TsQIdent(List(TsIdent("__MaterialUI"), TsIdent("AppBar")))))
-        )
-      )
+          TsImport(
+            List(TsImportedIdent(TsIdent("AppBar"))),
+            TsImporteeLocal(TsQIdent(List(TsIdent("__MaterialUI"), TsIdent("AppBar")))),
+          ),
+        ),
+      ),
     )
   }
 
   test("export as namespace") {
     shouldParseAs("""export as namespace History""", TsParser.exportAsNamespace)(
-      TsExportAsNamespace(TsIdent("History"))
+      TsExportAsNamespace(TsIdent("History")),
     )
   }
 
@@ -161,8 +167,8 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import { default as SidebarPushable } from './SidebarPushable'""", TsParser.tsImport)(
       TsImport(
         List(TsImportedDestructured(List((TsIdent("default"), Some(TsIdent("SidebarPushable")))))),
-        TsImporteeFrom(TsIdentModule(None, "." :: "SidebarPushable" :: Nil))
-      )
+        TsImporteeFrom(TsIdentModule(None, "." :: "SidebarPushable" :: Nil)),
+      ),
     )
   }
 
@@ -180,12 +186,12 @@ final class ImportExportParseTests extends FunSuite with Matchers {
             List(
               (TsIdent("ValidationOptions"), Some(TsIdent("JoiValidationOptions"))),
               (TsIdent("SchemaMap"), Some(TsIdent("JoiSchemaMap"))),
-              (TsIdent("Schema"), Some(TsIdent("JoiSchema")))
-            )
-          )
+              (TsIdent("Schema"), Some(TsIdent("JoiSchema"))),
+            ),
+          ),
         ),
-        TsImporteeFrom(TsIdentModule.simple("joi"))
-      )
+        TsImporteeFrom(TsIdentModule.simple("joi")),
+      ),
     )
   }
 
@@ -205,26 +211,32 @@ final class ImportExportParseTests extends FunSuite with Matchers {
               NoComments,
               List(),
               List(
-                TsFunParam(NoComments,
-                           TsIdent("engine"),
-                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), List())),
-                           isOptional = false),
-                TsFunParam(NoComments,
-                           TsIdent("whitelist"),
-                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), List())),
-                           isOptional = true),
-                TsFunParam(NoComments,
-                           TsIdent("blacklist"),
-                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), List())),
-                           isOptional = true)
+                TsFunParam(
+                  NoComments,
+                  TsIdent("engine"),
+                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), List())),
+                  isOptional = false,
+                ),
+                TsFunParam(
+                  NoComments,
+                  TsIdent("whitelist"),
+                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), List())),
+                  isOptional = true,
+                ),
+                TsFunParam(
+                  NoComments,
+                  TsIdent("blacklist"),
+                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), List())),
+                  isOptional = true,
+                ),
               ),
-              Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), List()))
+              Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), List())),
             ),
             Zero,
-            CodePath.NoPath
-          )
-        )
-      )
+            CodePath.NoPath,
+          ),
+        ),
+      ),
     )
   }
 
@@ -236,10 +248,10 @@ final class ImportExportParseTests extends FunSuite with Matchers {
 
   test("import 'foo'") {
     shouldParseAs("""import 'jquery'""", TsParser.tsImport)(
-      TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("jquery")))
+      TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("jquery"))),
     )
     shouldParseAs("""import "../index"""", TsParser.tsImport)(
-      TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule(None, ".." :: "index" :: Nil)))
+      TsImport(List(TsImportedStar(None)), TsImporteeFrom(TsIdentModule(None, ".." :: "index" :: Nil))),
     )
   }
 
@@ -270,21 +282,21 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                         None,
                         isStatic   = false,
                         isReadOnly = false,
-                        isOptional = false
-                      )
-                    )
+                        isOptional = false,
+                      ),
+                    ),
                   ),
-                  TsTypeObject(List())
-                )
-              )
+                  TsTypeObject(List()),
+                ),
+              ),
             ),
             List(),
             List(),
             Zero,
-            CodePath.NoPath
-          )
-        )
-      )
+            CodePath.NoPath,
+          ),
+        ),
+      ),
     )
   }
 }

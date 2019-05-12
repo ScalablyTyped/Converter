@@ -30,13 +30,15 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
         case TsExport(_, ExportType.Named, TsExporteeTree(tree)) =>
           tree match {
             case namedExport: TsNamedDecl =>
-              export(x.codePath.forceHasPath,
-                     _ => x.jsLocation / namedExport, //todo
-                     scope,
-                     ExportType.Named,
-                     namedExport,
-                     None,
-                     loopDetector)
+              export(
+                x.codePath.forceHasPath,
+                _ => x.jsLocation / namedExport, //todo
+                scope,
+                ExportType.Named,
+                namedExport,
+                None,
+                loopDetector,
+              )
 
             case TsImport(Seq(TsImportedIdent(to)), TsImporteeLocal(from)) =>
               scope
@@ -102,7 +104,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   }
 
   def newMember(scope: TsTreeScope, owner: TsDeclNamespaceOrModule, jsLocation: ModuleSpec => JsLocation)(
-      decl:            TsContainerOrDecl
+      decl:            TsContainerOrDecl,
   ): Seq[TsContainerOrDecl] = {
     lazy val hasExportedValues: Boolean =
       owner.exports.exists {

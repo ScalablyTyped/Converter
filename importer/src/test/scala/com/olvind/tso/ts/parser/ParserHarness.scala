@@ -1,7 +1,7 @@
 package com.olvind.tso.ts.parser
 
 import ammonite.ops.Path
-import com.olvind.tso.{InFile, files}
+import com.olvind.tso.{files, InFile}
 import org.scalatest.Assertion
 import org.scalatest.Matchers._
 
@@ -13,7 +13,7 @@ object ParserHarness {
       res getOrElse sys.error(
         "Parse error at %s\n".format(res.next.pos.toString) +
           res.asInstanceOf[Parsers#NoSuccess].msg + "\n" +
-          res.next.pos.longString
+          res.next.pos.longString,
       )
   }
 

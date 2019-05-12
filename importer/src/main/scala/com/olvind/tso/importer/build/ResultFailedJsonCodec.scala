@@ -45,9 +45,9 @@ object ResultFailedJsonCodec {
   implicit val PositionDecoder: Decoder[Position] =
     Decoder
       .forProduct13[Position, Optional[Integer], String, Optional[Integer], Optional[Integer], Optional[String], Optional[
-        String
+        String,
       ], Optional[File], Optional[Integer], Optional[Integer], Optional[Integer], Optional[Integer], Optional[Integer], Optional[
-        Integer
+        Integer,
       ]](
         "line",
         "lineContent",
@@ -61,21 +61,23 @@ object ResultFailedJsonCodec {
         "startLine",
         "startColumn",
         "endLine",
-        "endColumn"
+        "endColumn",
       )(
-        (_line,
-         _lineContent,
-         _offset,
-         _pointer,
-         _pointerSpace,
-         _sourcePath,
-         _sourceFile,
-         _startOffset,
-         _endOffset,
-         _startLine,
-         _startColumn,
-         _endLine,
-         _endColumn) =>
+        (
+            _line,
+            _lineContent,
+            _offset,
+            _pointer,
+            _pointerSpace,
+            _sourcePath,
+            _sourceFile,
+            _startOffset,
+            _endOffset,
+            _startLine,
+            _startColumn,
+            _endLine,
+            _endColumn,
+        ) =>
           new Position {
             override def line():         Optional[Integer] = _line
             override def lineContent():  String            = _lineContent
@@ -90,7 +92,7 @@ object ResultFailedJsonCodec {
             override def startColumn():  Optional[Integer] = _startColumn
             override def endLine():      Optional[Integer] = _endLine
             override def endColumn():    Optional[Integer] = _endColumn
-        }
+          },
       )
 
   implicit val PositionEncoder: Encoder[Position] =
@@ -107,22 +109,24 @@ object ResultFailedJsonCodec {
       "startLine",
       "startColumn",
       "endLine",
-      "endColumn"
+      "endColumn",
     )(
       (p: Position) =>
-        (p.line,
-         p.lineContent,
-         p.offset,
-         p.pointer,
-         p.pointerSpace,
-         p.sourcePath,
-         p.sourceFile,
-         p.startOffset,
-         p.endOffset,
-         p.startLine,
-         p.startColumn,
-         p.endLine,
-         p.endColumn)
+        (
+          p.line,
+          p.lineContent,
+          p.offset,
+          p.pointer,
+          p.pointerSpace,
+          p.sourcePath,
+          p.sourceFile,
+          p.startOffset,
+          p.endOffset,
+          p.startLine,
+          p.startColumn,
+          p.endLine,
+          p.endColumn,
+        ),
     )
 
   implicit val ProblemDecoder: Decoder[Problem] =
@@ -133,12 +137,12 @@ object ResultFailedJsonCodec {
           override def severity(): Severity = _severity
           override def message():  String   = _message
           override def position(): Position = _position
-      }
+        },
     )
 
   implicit val ProblemEncoder: Encoder[Problem] =
     Encoder.forProduct4("category", "severity", "message", "position")(
-      (p: Problem) => (p.category(), p.severity(), p.message(), p.position())
+      (p: Problem) => (p.category(), p.severity(), p.message(), p.position()),
     )
 
   implicit val OptionThrowableDecoder: Decoder[Option[Throwable]] = _ => Right(None)

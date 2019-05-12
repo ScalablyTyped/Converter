@@ -23,7 +23,7 @@ object TypescriptSources {
         case path if path.name.startsWith("@") =>
           ls(path).map(
             nestedPath =>
-              FromFolder(InFolder(nestedPath), TsIdentLibraryScoped(path.name.drop(1), Some(nestedPath.name)))
+              FromFolder(InFolder(nestedPath), TsIdentLibraryScoped(path.name.drop(1), Some(nestedPath.name))),
           )
         case path if path.name.contains("__") =>
           val Array(one, two) = path.name.split("__")

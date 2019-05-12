@@ -21,7 +21,7 @@ final case class SbtProjectLayout[F, V](
     buildProperties: (F, V),
     pluginsSbt:      (F, V),
     readmeMd:        (F, V),
-    sourcesDir:      Map[F, V]
+    sourcesDir:      Map[F, V],
 ) extends Layout[F, V] {
   override type Self[f, v] = SbtProjectLayout[f, v]
   override def all: Map[F, V] =
@@ -53,7 +53,7 @@ object IvyLayout {
       jarFile    = libraryPath / 'jars / s"${p.artifactId}.jar" -> jarFile,
       sourceFile = libraryPath / 'srcs / s"${p.artifactId}-sources.jar" -> sourceFile,
       ivyFile    = libraryPath / 'ivys / "ivy.xml" -> ivyFile,
-      pomFile    = libraryPath / 'poms / s"${p.artifactId}.pom" -> pomFile
+      pomFile    = libraryPath / 'poms / s"${p.artifactId}.pom" -> pomFile,
     )
   }
 }
@@ -78,7 +78,7 @@ object MavenLayout {
     MavenLayout(
       jarFile    = baseFile(".jar") -> jarFile,
       sourceFile = baseFile("-sources.jar") -> sourceFile,
-      pomFile    = baseFile(".pom") -> pomFile
+      pomFile    = baseFile(".pom") -> pomFile,
     )
   }
 }

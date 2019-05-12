@@ -60,7 +60,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
           fail
         case other =>
           other
-    }
+      }
 
   private val identifierName: Parser[String] =
     accept(
@@ -68,14 +68,14 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
         case lexical.Identifier(chars)                                  => chars
         case lexical.Keyword(chars) if chars.forall(Character.isLetter) => chars
         case lexical.NumericLit(chars)                                  => chars
-      }
+      },
     )
 
   val operator: Parser[String] =
     accept(
       "Operator", {
         case lexical.Keyword(chars) if lexical.ops.contains(chars) => chars
-      }
+      },
     )
 
   val comment: Parser[Comment] =
@@ -84,7 +84,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
         case lexical.CommentBlockToken(chars)             => Comment(chars)
         case lexical.CommentLineToken(chars)              => Comment(chars)
         case lexical.CommentLineTokenAfterDelim(_, chars) => Comment(chars)
-      }
+      },
     )
 
   lazy val comments: Parser[Comments] =
@@ -97,7 +97,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
           Some(Comment(chars))
         case lexical.Keyword(chars) if chars.length === 1 && delims.contains(chars.head) =>
           None
-      }
+      },
     )
 
   lazy val directive: Parser[Directive] =
@@ -109,7 +109,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
           DirectiveTypesRef(value) // not sure if it's a typo, but we'll retain the hint
         case lexical.DirectiveToken("reference", "path", value)            => DirectivePathRef(value)
         case lexical.DirectiveToken("reference", "no-default-lib", "true") => DirectiveNoStdLib
-      }
+      },
     ) named "directive"
 
   lazy val directives: Parser[Seq[Directive]] =
@@ -148,14 +148,16 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     comments ~ (isDeclared <~ "namespace") ~ rep1sep(tsIdent, ".") ~ tsContainerOrDeclBody ^^ {
       case (cs ~ declared ~ (initNameParts :+ lastNamePart)) ~ body =>
         initNameParts.foldRight(
-          TsDeclNamespace(cs, declared, TsIdentNamespace(lastNamePart.value), body, CodePath.NoPath, JsLocation.Zero)
+          TsDeclNamespace(cs, declared, TsIdentNamespace(lastNamePart.value), body, CodePath.NoPath, JsLocation.Zero),
         ) { (name: TsIdentSimple, inner: TsDeclNamespace) =>
-          TsDeclNamespace(NoComments,
-                          declared,
-                          TsIdentNamespace(name.value),
-                          inner :: Nil,
-                          CodePath.NoPath,
-                          JsLocation.Zero)
+          TsDeclNamespace(
+            NoComments,
+            declared,
+            TsIdentNamespace(name.value),
+            inner :: Nil,
+            CodePath.NoPath,
+            JsLocation.Zero,
+          )
         }
     }
 
@@ -169,19 +171,23 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
             val initNameParts :+ lastNamePart = idents
 
             initNameParts.foldRight(
-              TsDeclNamespace(cs,
-                              declared,
-                              TsIdentNamespace(lastNamePart.value),
-                              body.getOrElse(Nil),
-                              CodePath.NoPath,
-                              JsLocation.Zero)
+              TsDeclNamespace(
+                cs,
+                declared,
+                TsIdentNamespace(lastNamePart.value),
+                body.getOrElse(Nil),
+                CodePath.NoPath,
+                JsLocation.Zero,
+              ),
             ) { (name: TsIdentSimple, inner: TsDeclNamespace) =>
-              TsDeclNamespace(NoComments,
-                              declared,
-                              TsIdentNamespace(name.value),
-                              inner :: Nil,
-                              CodePath.NoPath,
-                              JsLocation.Zero)
+              TsDeclNamespace(
+                NoComments,
+                declared,
+                TsIdentNamespace(name.value),
+                inner :: Nil,
+                CodePath.NoPath,
+                JsLocation.Zero,
+              )
             }
         }
     }
@@ -199,7 +205,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
         "*" ~> rename ^^ (r => TsImportedStar(Some(r))) |
           "{" ~> rep(tsIdent ~ rename.? <~ ",".? ^^ { case x1 ~ x2 => (x1, x2) }) <~ "}" ^^ TsImportedDestructured |
           tsIdent ^^ TsImportedIdent,
-        ","
+        ",",
       )
     }
 
@@ -294,7 +300,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
 
   lazy val tsDeclEnum: Parser[TsDeclEnum] =
     comments ~ (isDeclared <~ ("const".? ~> "enum")) ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ success(true) ~ success(
-      None
+      None,
     ) ~ zeroLocation ~ zeroCodePath ^^ TsDeclEnum
 
   lazy val tsEnumMembers: Parser[Seq[TsEnumMember]] = {
@@ -362,16 +368,18 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     /* Represent in tree? */
     lazy val destructuredObj: Parser[TsIdent] =
       "{" ~>! rep((tsIdent | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
-          ids => TsIdent("has" + ids.map(_.value.capitalize).mkString(""))
-      )
+          ids =>
+            TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
+        )
     lazy val destructuredArray: Parser[TsIdent] =
       "[" ~>! repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
-          ids => TsIdent("has" + ids.map(_.value.capitalize).mkString(""))
-      )
+          ids =>
+            TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
+        )
     lazy val destructured = destructuredArray | destructuredObj
 
     comments ~ "...".isDefined ~ (tsIdent | destructured) ~ "?".isDefined ~ typeAnnotationOpt ~ delimMaybeComment(
-      ','
+      ',',
     ).? ^^ {
       case cs ~ false ~ i ~ o ~ t ~ oc =>
         TsFunParam(cs +? oc.flatten, i, t, o)

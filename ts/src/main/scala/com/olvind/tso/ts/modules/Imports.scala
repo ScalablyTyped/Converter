@@ -11,7 +11,7 @@ object Imports {
       Pick:         Picker[T],
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
-      imports:      Seq[TsImport]
+      imports:      Seq[TsImport],
   ): Seq[(T, TsTreeScope)] = {
     lazy val key: (String, Picker[T], List[TsIdent]) = (scope.toString, Pick, wanted)
 
@@ -37,7 +37,7 @@ object Imports {
                     TsIdentNamespace(renamed.value),
                     rest ++ defaults,
                     CodePath.NoPath,
-                    JsLocation.Zero
+                    JsLocation.Zero,
                   )
 
                   ns +: namespaceds.map(n => n.withName(renamed))
@@ -63,12 +63,14 @@ object Imports {
                 case ExpandedMod.Whole(defaults, _, _, _) if defaults.nonEmpty =>
                   defaults.map(_.withName(ident))
                 case ExpandedMod.Whole(_, namespaceds, rest, _) =>
-                  val ns = TsDeclNamespace(NoComments,
-                                           false,
-                                           TsIdentNamespace(ident.value),
-                                           rest,
-                                           CodePath.NoPath,
-                                           JsLocation.Zero)
+                  val ns = TsDeclNamespace(
+                    NoComments,
+                    false,
+                    TsIdentNamespace(ident.value),
+                    rest,
+                    CodePath.NoPath,
+                    JsLocation.Zero,
+                  )
                   namespaceds.map(_.withName(ident)) :+ ns
               }
 

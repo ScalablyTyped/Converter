@@ -23,7 +23,7 @@ object ImportEnum {
 
     val baseInterface: TypeRef =
       ImportType(Wildcards.No, scope, importName)(
-        TsTypeRef(NoComments, exportedFrom.fold(codePath.codePath)(_.name), Nil)
+        TsTypeRef(NoComments, exportedFrom.fold(codePath.codePath)(_.name), Nil),
       )
 
     val underlying = underlyingType(e)
@@ -36,7 +36,7 @@ object ImportEnum {
             tparams  = Nil,
             alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Nil)),
             comments = Comments(constants.MagicComments.TrivialTypeAlias),
-            codePath = importedCodePath
+            codePath = importedCodePath,
           )
         case None =>
           ClassTree(
@@ -49,7 +49,7 @@ object ImportEnum {
             classType   = ClassType.Trait,
             isSealed    = true,
             comments    = NoComments,
-            codePath    = importedCodePath
+            codePath    = importedCodePath,
           )
       }
 
@@ -68,8 +68,8 @@ object ImportEnum {
               resultType  = TypeRef.Intersection(baseInterface :: underlying :: Nil).withOptional(true),
               isOverride  = false,
               comments    = NoComments,
-              codePath    = importedCodePath + Name.APPLY
-            )
+              codePath    = importedCodePath + Name.APPLY,
+            ),
           )
         } else None
 
@@ -90,8 +90,8 @@ object ImportEnum {
                     classType   = ClassType.Trait,
                     isSealed    = true,
                     comments    = memberCs,
-                    codePath    = importedCodePath + memberName
-                  )
+                    codePath    = importedCodePath + memberName,
+                  ),
                 )
 
             val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
@@ -107,21 +107,23 @@ object ImportEnum {
                     isReadOnly  = true,
                     isOverride  = false,
                     comments    = exprOpt.fold(Comments(Nil))(expr => Comments(Comment(s"/* ${TsExpr.format(expr)} */ "))),
-                    codePath    = importedCodePath + memberName
-                  )
+                    codePath    = importedCodePath + memberName,
+                  ),
                 )
               } else None
 
             Seq() ++ memberType ++ memberValue
         }
 
-      ModuleTree(anns,
-                 name,
-                 ModuleTypeNative,
-                 parents  = Nil,
-                 members  = membersSyms ++ applyMethod,
-                 comments = cs,
-                 codePath = importedCodePath)
+      ModuleTree(
+        anns,
+        name,
+        ModuleTypeNative,
+        parents  = Nil,
+        members  = membersSyms ++ applyMethod,
+        comments = cs,
+        codePath = importedCodePath,
+      )
     }
 
     Seq(moduleTree, typeTree)

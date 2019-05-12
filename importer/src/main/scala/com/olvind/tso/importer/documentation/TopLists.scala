@@ -17,7 +17,7 @@ object TopLists {
           .replaceAllLiterally("|", "")
           .replaceAll("<[^>]+>", "") // remove html
           .takeWhile(x => !TakeUntilChr(x))
-          .take(50)
+          .take(50),
       )
       .filter(_.nonEmpty)
       .getOrElse("-")
@@ -65,7 +65,7 @@ ${byNameRows.mkString("\n")}
  Number of dependents | Library  | Description
  --- | --- | ---
 ${byDependentsRows.mkString("\n")} |
-"""
+""",
     )
   }
 }

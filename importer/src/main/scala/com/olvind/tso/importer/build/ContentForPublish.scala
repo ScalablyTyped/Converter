@@ -12,17 +12,19 @@ import scala.collection.mutable
 import scala.xml.Elem
 
 object ContentForPublish {
-  def apply(v:           Versions,
-            paths:       CompilerPaths,
-            p:           SbtProject,
-            publication: ZonedDateTime,
-            sourceFiles: Layout[RelPath, Array[Byte]]): IvyLayout[RelPath, Array[Byte]] =
+  def apply(
+      v:           Versions,
+      paths:       CompilerPaths,
+      p:           SbtProject,
+      publication: ZonedDateTime,
+      sourceFiles: Layout[RelPath, Array[Byte]],
+  ): IvyLayout[RelPath, Array[Byte]] =
     IvyLayout(
       p          = p,
       jarFile    = createJar(paths.classesDir),
       sourceFile = createJar(sourceFiles, publication),
       ivyFile    = fromXml(ivy(v, p, publication)),
-      pomFile    = fromXml(pom(v, p))
+      pomFile    = fromXml(pom(v, p)),
     )
 
   private def fromXml(xml: Elem): Array[Byte] = {
@@ -114,9 +116,12 @@ object ContentForPublish {
         <dependency org={v.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJsVersion} conf="compile->default(compile)"/>
         <dependency org={v.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={v.scalaJsVersion} conf="test->default(compile)"/>
         <dependency org={v.RuntimeOrganization} name={v.sjs(v.RuntimeName)} rev={v.RuntimeVersion} conf="compile->default(compile)"/>
-        {p.deps.map{case (_, d) =>
+        {
+      p.deps.map {
+        case (_, d) =>
           <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
-      }}
+      }
+    }
       </dependencies>
     </ivy-module>
 
@@ -154,13 +159,16 @@ object ContentForPublish {
           <artifactId>{v.sjs(v.RuntimeName)}</artifactId>
           <version>{v.RuntimeVersion}</version>
         </dependency>
-        {p.deps.map{case (_, d) =>
-        <dependency>
+        {
+      p.deps.map {
+        case (_, d) =>
+          <dependency>
           <groupId>{d.project.organization}</groupId>
           <artifactId>{d.project.artifactId}</artifactId>
           <version>{d.project.version}</version>
         </dependency>
-      }}
+      }
+    }
       </dependencies>
     </project>
 }

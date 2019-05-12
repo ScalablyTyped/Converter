@@ -67,7 +67,7 @@ object CollectReactComponents {
                 List(genComponentRef(comp, moduleCodePath)) ++
                   genPropsRef(scope, comp, moduleCodePath, propsName) ++
                   genPropsAlias(scope, comp, moduleCodePath, propsName)
-            }
+              },
           )
 
       val module = ModuleTree(
@@ -77,32 +77,38 @@ object CollectReactComponents {
         Nil,
         members,
         NoComments,
-        moduleCodePath
+        moduleCodePath,
       )
 
       tree.withMembers(tree.members :+ module)
     }
   }
 
-  def genPropsAlias(scope:          TreeScope,
-                    comp:           Component,
-                    moduleCodePath: QualifiedName,
-                    propsName:      Name): Option[TypeAliasTree] =
+  def genPropsAlias(
+      scope:          TreeScope,
+      comp:           Component,
+      moduleCodePath: QualifiedName,
+      propsName:      Name,
+  ): Option[TypeAliasTree] =
     scope.lookup(comp.props.typeName).collectFirst {
       case (x: TypeAliasTree, _) => x.tparams
       case (x: ClassTree, _)     => x.tparams
     } map { tps =>
-      TypeAliasTree(propsName,
-                    tps,
-                    comp.props.copy(targs = TypeParamTree.asTypeArgs(tps)),
-                    NoComments,
-                    moduleCodePath + propsName)
+      TypeAliasTree(
+        propsName,
+        tps,
+        comp.props.copy(targs = TypeParamTree.asTypeArgs(tps)),
+        NoComments,
+        moduleCodePath + propsName,
+      )
     }
 
-  def genPropsRef(scope:          TreeScope,
-                  comp:           Component,
-                  moduleCodePath: QualifiedName,
-                  propsName:      Name): Option[MethodTree] =
+  def genPropsRef(
+      scope:          TreeScope,
+      comp:           Component,
+      moduleCodePath: QualifiedName,
+      propsName:      Name,
+  ): Option[MethodTree] =
     scope.lookup(comp.props.typeName).collectFirst {
       case (generatedPropsCompanion: ModuleTree, _) if generatedPropsCompanion.moduleType === ModuleTypeScala =>
         MethodTree(
@@ -115,13 +121,13 @@ object CollectReactComponents {
           TypeRef.Singleton(comp.props.copy(targs = Nil)),
           isOverride = false,
           NoComments,
-          moduleCodePath + propsName
+          moduleCodePath + propsName,
         )
     }
 
   def genComponentRef(comp: Component, moduleCodePath: QualifiedName): MethodTree = {
     val loc = Printer.formatTypeRef(Nil, 0)(
-      TypeRef(comp.scalaLocation, TypeParamTree.asTypeArgs(comp.tparams), NoComments)
+      TypeRef(comp.scalaLocation, TypeParamTree.asTypeArgs(comp.tparams), NoComments),
     )
 
     val ref = comp.componentType match {
@@ -142,12 +148,12 @@ object CollectReactComponents {
       comp.tparams,
       Nil,
       MemberImplCustom(
-        s"$ref.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]"
+        s"$ref.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]",
       ),
       TypeRef(Names.ComponentType, comp.props :: Nil, NoComments),
       isOverride = false,
       NoComments,
-      moduleCodePath + comp.name
+      moduleCodePath + comp.name,
     )
   }
 
@@ -208,7 +214,7 @@ object CollectReactComponents {
               scalaLocation   = method.codePath,
               isGlobal        = isGlobal(method.annotations),
               componentType   = ComponentType.Function,
-              isAbstractProps = isAbstractProps
+              isAbstractProps = isAbstractProps,
             )
       case _ => None
     }
@@ -245,7 +251,7 @@ object CollectReactComponents {
         scalaLocation   = tree.codePath,
         isGlobal        = isGlobal(tree.annotations),
         componentType   = ComponentType.Field,
-        isAbstractProps = scope.isAbstract(props)
+        isAbstractProps = scope.isAbstract(props),
       )
   }
 
@@ -263,8 +269,8 @@ object CollectReactComponents {
                 scalaLocation   = cls.codePath,
                 isGlobal        = isGlobal(cls.annotations),
                 componentType   = ComponentType.Class,
-                isAbstractProps = scope.isAbstract(props)
-            )
+                isAbstractProps = scope.isAbstract(props),
+              ),
           )
       }.flatten
 

@@ -20,7 +20,7 @@ object Formatter {
   }
 
   implicit def Tuple4Formatter[T1: Formatter, T2: Formatter, T3: Formatter, T4: Formatter]
-    : Formatter[(T1, T2, T3, T4)] = {
+      : Formatter[(T1, T2, T3, T4)] = {
     case (t1, t2, t3, t4) => Str.join(Formatter(t1), ", ", Formatter(t2), ", ", Formatter(t3), ", ", Formatter(t4))
   }
 
@@ -43,7 +43,7 @@ object Formatter {
 
         arr(idx - 1) = "]"
         Str.join(arr: _*)
-    }
+      }
 
   implicit def ArrayFormatter[T: Formatter]: Formatter[Array[T]] =
     ts =>
@@ -61,7 +61,7 @@ object Formatter {
 
         arr(idx - 1) = "]"
         Str.join(arr: _*)
-    }
+      }
 
   implicit def MapFormatter[K: Formatter, V: Formatter]: Formatter[Map[K, V]] =
     kvs =>
@@ -82,7 +82,7 @@ object Formatter {
 
         arr(idx - 1) = "]"
         Str.join(arr: _*)
-    }
+      }
 
   implicit val StrFormatter:    Formatter[Str]    = x => x
   implicit val StringFormatter: Formatter[String] = x => x

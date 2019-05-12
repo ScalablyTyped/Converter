@@ -54,11 +54,12 @@ sealed abstract class TreeScope { outer =>
 object TreeScope {
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
-  class Root[Source](val libName:   Name,
-                     _dependencies: Map[Name, ContainerTree],
-                     val logger:    Logger[Unit],
-                     val pedantic:  Boolean)
-      extends TreeScope {
+  class Root[Source](
+      val libName:   Name,
+      _dependencies: Map[Name, ContainerTree],
+      val logger:    Logger[Unit],
+      val pedantic:  Boolean,
+  ) extends TreeScope {
 
     lazy val dependencies: Map[Name, TreeScope] =
       _dependencies.mapValues(x => this / x)

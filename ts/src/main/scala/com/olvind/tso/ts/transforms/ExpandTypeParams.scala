@@ -103,7 +103,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
         p.tpe.exists {
           case TsTypeRef(_, TsQIdent(Seq(tp.name)), _) => true
           case _                                       => false
-      }
+        },
     )
 
     tp.upperBound flatMap { bound =>
@@ -120,9 +120,11 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     def unapply[T](ts: Seq[T]): Some[Seq[T]] = Some(ts.distinct)
   }
 
-  final case class ExpandableTypeParam(typeParam:      TsIdent,
-                                       toKeepInBounds: Option[Seq[TsType]],
-                                       toExpand:       Seq[Either[TsTypeRef, TsTypeKeyOf]])
+  final case class ExpandableTypeParam(
+      typeParam:      TsIdent,
+      toKeepInBounds: Option[Seq[TsType]],
+      toExpand:       Seq[Either[TsTypeRef, TsTypeKeyOf]],
+  )
 
   val KeyOf: PartialFunction[TsType, Right[TsTypeRef, TsTypeKeyOf]] = {
     case x @ TsTypeKeyOf(_: TsTypeRef) => Right(x)
@@ -164,7 +166,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
           case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _, _) =>
             val rewrites = Map[TsType, TsType](
               TsTypeRef.of(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
-              TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe
+              TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe,
             )
 
             new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned)

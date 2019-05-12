@@ -42,16 +42,18 @@ object SplitMethodsOnUnionTypes extends TransformMembers with TransformClassMemb
   }
 
   @tailrec
-  private def generateNewSignatures(origin:     TsFunSig,
-                                    newParamss: Seq[Seq[TsFunParam]],
-                                    remaining:  Seq[Seq[TsFunParam]]): Seq[TsFunSig] =
+  private def generateNewSignatures(
+      origin:     TsFunSig,
+      newParamss: Seq[Seq[TsFunParam]],
+      remaining:  Seq[Seq[TsFunParam]],
+  ): Seq[TsFunSig] =
     remaining match {
       case Nil => newParamss.map(currents => origin.copy(params = currents))
       case heads :: tail =>
         generateNewSignatures(
           origin,
           heads.flatMap(head => newParamss.map(_ :+ head)),
-          tail
+          tail,
         )
     }
 }

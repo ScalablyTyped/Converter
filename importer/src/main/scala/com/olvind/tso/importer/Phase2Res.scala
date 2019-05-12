@@ -19,7 +19,7 @@ object Phase2Res {
       val packageTree:          ContainerTree,
       val dependencies:         Map[TsLibSource, LibScalaJs],
       val isStdLib:             Boolean,
-      val facades:              Set[FacadeSource]
+      val facades:              Set[FacadeSource],
   ) extends Phase2Res
       with TreeScope.Lib
 

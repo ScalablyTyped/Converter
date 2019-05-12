@@ -31,12 +31,12 @@ object ExtractClasses extends TransformMembers {
         level,
         name,
         Some(
-          TsTypeConstructor(TsTypeFunction(TsFunSig(cs1, tparams, params, Some(resultType: TsTypeRef))))
+          TsTypeConstructor(TsTypeFunction(TsFunSig(cs1, tparams, params, Some(resultType: TsTypeRef)))),
         ),
         None,
         isStatic,
         isReadOnly,
-        false
+        false,
         ) =>
       TsDeclClass(
         cs,
@@ -54,18 +54,20 @@ object ExtractClasses extends TransformMembers {
             TsFunSig(NoComments, Nil, params, None),
             isStatic,
             isReadOnly,
-            isOptional = false
-          )
+            isOptional = false,
+          ),
         ),
         ownerLoc + name,
-        ownerCp + name
+        ownerCp + name,
       )
 
   }
 
-  private def extractClasses(scope:    TsTreeScope,
-                             sameName: Seq[TsNamedDecl],
-                             index:    Map[TsIdent, Seq[TsNamedDecl]]): Option[List[TsNamedDecl]] = {
+  private def extractClasses(
+      scope:    TsTreeScope,
+      sameName: Seq[TsNamedDecl],
+      index:    Map[TsIdent, Seq[TsNamedDecl]],
+  ): Option[List[TsNamedDecl]] = {
     val (vars, rest: Seq[TsNamedDecl]) =
       sameName.partitionCollect { case x: TsDeclVar => x }
 
@@ -135,7 +137,7 @@ object ExtractClasses extends TransformMembers {
                       TsFunSig(NoComments, Nil, ctor.signature.params, None),
                       isStatic   = false,
                       isReadOnly = false,
-                      isOptional = false
+                      isOptional = false,
                     )
                 }
 
@@ -154,7 +156,7 @@ object ExtractClasses extends TransformMembers {
                   implements = Nil,
                   members    = ctors,
                   jsLocation = jsLocation,
-                  codePath   = cp replaceLast clsName
+                  codePath   = cp replaceLast clsName,
                 )
               }
 

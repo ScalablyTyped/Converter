@@ -12,11 +12,13 @@ import scala.collection.immutable.SortedSet
 
 class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, Phase1Res, Phase2Res] {
 
-  override def apply(source:     Source,
-                     current:    Phase1Res,
-                     getDeps:    GetDeps[Source, Phase2Res],
-                     isCircular: IsCircular,
-                     logger:     Logger[Unit]): PhaseRes[Source, Phase2Res] =
+  override def apply(
+      source:     Source,
+      current:    Phase1Res,
+      getDeps:    GetDeps[Source, Phase2Res],
+      isCircular: IsCircular,
+      logger:     Logger[Unit],
+  ): PhaseRes[Source, Phase2Res] =
     current match {
       case Phase1Res.Facade => PhaseRes.Ok(Phase2Res.Facade)
 
@@ -34,7 +36,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
               libName       = libName,
               _dependencies = scalaDeps.map { case (_, l) => l.packageTree.name -> l.packageTree },
               logger        = logger,
-              pedantic      = pedantic
+              pedantic      = pedantic,
             )
 
             logger.warn(s"Processing ${lib.name.value}")
@@ -68,7 +70,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
               packageTree  = rewrittenTree,
               dependencies = scalaDeps,
               isStdLib     = lib.parsed.isStdLib,
-              facades      = lib.facades ++ facades
+              facades      = lib.facades ++ facades,
             )
         }
     }

@@ -61,7 +61,7 @@ object Pattern {
         throwable match {
           case None     => ""
           case Some(th) => Subtle(formatThrowable(th))
-        }
+        },
       )
     }
   }

@@ -5,10 +5,12 @@ import com.olvind.tso.importer.documentation.Npmjs.Collected
 
 object ProjectReadme {
 
-  def apply(name:            String,
-            declaredVersion: Option[LibraryVersion],
-            dataOpt:         Option[Npmjs.Data],
-            comments:        Comments): String =
+  def apply(
+      name:            String,
+      declaredVersion: Option[LibraryVersion],
+      dataOpt:         Option[Npmjs.Data],
+      comments:        Comments,
+  ): String =
     s"""
 # Scala.js typings for $name
 
@@ -17,7 +19,7 @@ ${dataOpt.fold("")(renderData)}
 
 ## Note
 This library has been generated from typescript code from ${if (declaredVersion.exists(
-                                                                  _.inGit.exists(_.isDefinitelyTyped)
+                                                                  _.inGit.exists(_.isDefinitelyTyped),
                                                                 ))
       link("DefinitelyTyped", "https://definitelytyped.org")
     else "first party type definitions"}.
@@ -68,7 +70,7 @@ ${optList(
       optLink("Homepage", metadata.links.homepage),
       optLink("Bugs", metadata.links.bugs),
       optLink("Repository", metadata.links.repository),
-      optLink("Npm", metadata.links.npm)
+      optLink("Npm", metadata.links.npm),
     )}
     
 """

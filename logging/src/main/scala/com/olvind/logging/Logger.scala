@@ -130,10 +130,12 @@ object Logger {
   case class LoggedException(message: Str) extends Throwable(message.plainText)
 
   implicit final class LoggingOps[U](private val self: Logger[U]) extends AnyVal {
-    @inline def apply[T: Formatter](logLevel: LogLevel,
-                                    t:         => Text[T],
-                                    throwable: Option[Throwable] = None,
-                                    instant:   Instant = Instant.now)(implicit l: Line, f: File, e: Enclosing): Unit =
+    @inline def apply[T: Formatter](
+        logLevel:  LogLevel,
+        t:         => Text[T],
+        throwable: Option[Throwable] = None,
+        instant:   Instant = Instant.now,
+    )(implicit l:  Line, f: File, e: Enclosing): Unit =
       self.log(t, throwable, new Metadata(instant, logLevel, l, f, e))
 
     @inline def trace[T: Formatter](t: => Text[T])(implicit l: Line, f: File, e: Enclosing): Unit =

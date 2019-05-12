@@ -40,7 +40,7 @@ final case class PackageTree(
     name:        Name,
     members:     Seq[Tree],
     comments:    Comments,
-    codePath:    QualifiedName
+    codePath:    QualifiedName,
 ) extends ContainerTree
 
 object PackageTree {
@@ -60,7 +60,7 @@ final case class ClassTree(
     classType:   ClassType,
     isSealed:    Boolean,
     comments:    Comments,
-    codePath:    QualifiedName
+    codePath:    QualifiedName,
 ) extends InheritanceTree {
   lazy val index: Map[Name, Seq[MemberTree]] =
     members.groupBy(_.name)
@@ -77,7 +77,7 @@ final case class ModuleTree(
     parents:     Seq[TypeRef],
     members:     Seq[Tree],
     comments:    Comments,
-    codePath:    QualifiedName
+    codePath:    QualifiedName,
 ) extends ContainerTree
     with InheritanceTree
 
@@ -86,7 +86,7 @@ final case class TypeAliasTree(
     tparams:  Seq[TypeParamTree],
     alias:    TypeRef,
     comments: Comments,
-    codePath: QualifiedName
+    codePath: QualifiedName,
 ) extends Tree
     with HasCodePath
 
@@ -110,7 +110,7 @@ final case class FieldTree(
     isReadOnly:  Boolean,
     isOverride:  Boolean,
     comments:    Comments,
-    codePath:    QualifiedName
+    codePath:    QualifiedName,
 ) extends MemberTree {
 
   def withSuffix[T: ToSuffix](t: T): FieldTree =
@@ -121,7 +121,7 @@ final case class FieldTree(
       name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
       isOverride  = false,
-      codePath    = QualifiedName(codePath.parts.init :+ newName)
+      codePath    = QualifiedName(codePath.parts.init :+ newName),
     )
 
   def withCodePath(newCodePath: QualifiedName): FieldTree = copy(codePath = newCodePath)
@@ -137,7 +137,7 @@ final case class MethodTree(
     resultType:  TypeRef,
     isOverride:  Boolean,
     comments:    Comments,
-    codePath:    QualifiedName
+    codePath:    QualifiedName,
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name withSuffix t)
@@ -147,7 +147,7 @@ final case class MethodTree(
       name        = newName,
       annotations = Annotation.renamedFrom(name)(annotations),
       isOverride  = false,
-      codePath    = QualifiedName(codePath.parts.init :+ newName)
+      codePath    = QualifiedName(codePath.parts.init :+ newName),
     )
 
   def withCodePath(newCodePath: QualifiedName): MethodTree = copy(codePath = newCodePath)
@@ -173,7 +173,7 @@ object TypeParamTree {
       Suffix(
         tparams
           .map(tp => tp.name.unescaped + tp.upperBound.fold("")(_.name.unescaped))
-          .mkString("")
+          .mkString(""),
       )
   }
 }

@@ -33,11 +33,12 @@ object RecPhase {
 
   final case class Initial[Id: Key]() extends RecPhase[Id, Id]
 
-  final case class Next[Id: Key, T, TT](prev: RecPhase[Id, T],
-                                        trans: Phase[Id, T, TT],
-                                        cache: PhaseCache[Id, TT],
-                                        name:  String)
-      extends RecPhase[Id, TT] {
+  final case class Next[Id: Key, T, TT](
+      prev:  RecPhase[Id, T],
+      trans: Phase[Id, T, TT],
+      cache: PhaseCache[Id, TT],
+      name:  String,
+  ) extends RecPhase[Id, TT] {
     type _TT = TT
   }
 }

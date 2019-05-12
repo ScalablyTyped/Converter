@@ -60,7 +60,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
       case EqualsExport(((export, target :: Nil), notExports)) =>
         val (namespaces, toplevel, rest) = notExports.partitionCollect2(
           { case x: TsDeclNamespace if x.name.value === target.value => x },
-          { case x: TsNamedDecl if x.name === target                 => x }
+          { case x: TsNamedDecl if x.name === target                 => x },
         )
 
         if (namespaces.isEmpty) mod
@@ -78,12 +78,14 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
 
           /* handle (3) */
           val patchedRest = rest.filter {
-            case TsDeclTypeAlias(_,
-                                 _,
-                                 typeName,
-                                 Nil,
-                                 TsTypeRef(_, TsQIdent(`target` :: referredName :: Nil), Nil),
-                                 _) =>
+            case TsDeclTypeAlias(
+                _,
+                _,
+                typeName,
+                Nil,
+                TsTypeRef(_, TsQIdent(`target` :: referredName :: Nil), Nil),
+                _,
+                ) =>
               typeName =/= referredName
             case _ => true
           }
@@ -92,11 +94,13 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
           /* this is essentially a hack to make aws-sdk work, (2) */
           val patchedNewMembers =
             newMembers.map {
-              case TsExport(_,
-                            ExportType.Named,
-                            TsExporteeTree(
-                              TsImport(Seq(TsImportedIdent(newName)), TsImporteeLocal(TsQIdent(List(name))))
-                            )) if name.value === target.value =>
+              case TsExport(
+                  _,
+                  ExportType.Named,
+                  TsExporteeTree(
+                    TsImport(Seq(TsImportedIdent(newName)), TsImporteeLocal(TsQIdent(List(name)))),
+                  ),
+                  ) if name.value === target.value =>
                 TsExport(
                   NoComments,
                   ExportType.Named,
@@ -110,9 +114,9 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                       None,
                       mod.jsLocation + newName,
                       mod.codePath + newName,
-                      isOptional = false
+                      isOptional = false,
                     ),
-                  )
+                  ),
                 )
               case other => other
             }

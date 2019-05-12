@@ -40,7 +40,7 @@ class PhaseCache[Id, U](initialCapacity: Int = 1000) {
       try compute(p)
       catch {
         case th: Throwable => p.failure(th)
-      }
+      },
     })
 
     ret

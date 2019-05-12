@@ -14,15 +14,17 @@ object PhaseRunner {
   def apply[Id: Formatter: Ordering, T](
       phase:     RecPhase[Id, T],
       getLogger: Id => Logger[Unit],
-      listener:  PhaseListener[Id]
+      listener:  PhaseListener[Id],
   )(initial:     phase._Id): PhaseRes[phase._Id, phase._T] =
     go(phase, initial, Nil, getLogger, listener)
 
-  def go[Id: Formatter: Ordering, TT](phase: RecPhase[Id, TT],
-                                      id:             Id,
-                                      circuitBreaker: List[Id],
-                                      getLogger:      Id => Logger[Unit],
-                                      listener:       PhaseListener[Id]): PhaseRes[Id, TT] =
+  def go[Id: Formatter: Ordering, TT](
+      phase:          RecPhase[Id, TT],
+      id:             Id,
+      circuitBreaker: List[Id],
+      getLogger:      Id => Logger[Unit],
+      listener:       PhaseListener[Id],
+  ): PhaseRes[Id, TT] =
     phase match {
       case _:    RecPhase.Initial[Id]     => PhaseRes.Ok[Id, TT](id)
       case next: RecPhase.Next[Id, t, TT] => doNext[Id, t, TT](next, id, circuitBreaker, getLogger, listener)
@@ -58,8 +60,8 @@ object PhaseRunner {
               PhaseRes.sequenceMap(
                 newRequestedIds
                   .map(thisId => thisId -> go(next, thisId, id :: circuitBreaker, getLogger, listener))(
-                    collection.breakOut
-                  )
+                    collection.breakOut,
+                  ),
               )
 
             listener.on(next.name, id, PhaseListener.Started(next.name))
@@ -73,7 +75,7 @@ object PhaseRunner {
 
           val result: PhaseRes[Id, TT] =
             resLastPhase.flatMap(
-              lastValue => PhaseRes.attempt(id, logger, next.trans(id, lastValue, calculateDeps, isCircular, logger))
+              lastValue => PhaseRes.attempt(id, logger, next.trans(id, lastValue, calculateDeps, isCircular, logger)),
             )
 
           result match {
@@ -97,7 +99,7 @@ object PhaseRunner {
             p.success(PhaseRes.Failure(Map(id -> Left(e))))
         }
       },
-      Duration.Inf
+      Duration.Inf,
     )
   }
 }

@@ -13,12 +13,12 @@ case class CompilerOptions(
     typeRoots:                        Option[Seq[RelPath]],
     types:                            Option[Seq[String]],
     noEmit:                           Option[Boolean],
-    forceConsistentCasingInFileNames: Option[Boolean]
+    forceConsistentCasingInFileNames: Option[Boolean],
 )
 
 case class TsConfig(
     compilerOptions: Option[CompilerOptions],
-    files:           Option[Seq[String]]
+    files:           Option[Seq[String]],
 )
 
 case class PackageJsonDeps(
@@ -28,20 +28,20 @@ case class PackageJsonDeps(
     peerDependencies: Option[Map[String, String]],
     typings:          Option[String],
     types:            Option[String],
-    files:            Option[Seq[String]]
+    files:            Option[Seq[String]],
 )
 
 case class NotNeededPackage(
     libraryName:        String,
     typingsPackageName: String,
     sourceRepoURL:      String,
-    asOfVersion:        String
+    asOfVersion:        String,
 )
 case class TypingsJson(
     name:   String,
     main:   String,
     files:  Seq[String],
-    global: Boolean
+    global: Boolean,
 )
 
 case class NotNeededPackages(packages: Seq[NotNeededPackage])

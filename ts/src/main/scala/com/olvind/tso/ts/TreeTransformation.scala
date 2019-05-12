@@ -88,16 +88,18 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsDeclClass(_1, _2, _3, _4, _5, _6, _7, _8, _9, _10) =>
-        TsDeclClass(_1,
-                    _2,
-                    _3,
-                    _4,
-                    _5 map visitTsTypeParam(tt),
-                    _6 map visitTsTypeRef(tt),
-                    _7 map visitTsTypeRef(tt),
-                    _8 map visitTsMember(tt),
-                    _9,
-                    _10)
+        TsDeclClass(
+          _1,
+          _2,
+          _3,
+          _4,
+          _5 map visitTsTypeParam(tt),
+          _6 map visitTsTypeRef(tt),
+          _7 map visitTsTypeRef(tt),
+          _8 map visitTsMember(tt),
+          _9,
+          _10,
+        )
     }
     leaveTsDeclClass(tt)(xxx)
   }
@@ -130,13 +132,15 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     val xxx = xx match {
       case TsDeclInterface(_1, _2, _3, _4, _5, _6, _7) =>
-        TsDeclInterface(_1,
-                        _2,
-                        _3,
-                        _4 map visitTsTypeParam(tt),
-                        _5 map visitTsTypeRef(tt),
-                        _6 map visitTsMember(tt),
-                        _7)
+        TsDeclInterface(
+          _1,
+          _2,
+          _3,
+          _4 map visitTsTypeParam(tt),
+          _5 map visitTsTypeRef(tt),
+          _6 map visitTsMember(tt),
+          _7,
+        )
     }
     leaveTsDeclInterface(tt)(xxx)
   }
@@ -240,7 +244,7 @@ trait TreeTransformation[T] { self =>
   }
 
   final def visitTsImportedDestructured(
-      t: T
+      t: T,
   )(x:   TsImportedDestructured): TsImportedDestructured =
     enterTsImportedDestructured(withTree(t, x))(x)
   final def visitTsImportedIdent(t: T)(x: TsImportedIdent): TsImportedIdent =

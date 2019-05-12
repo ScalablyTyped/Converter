@@ -61,9 +61,11 @@ sealed trait TsTreeScope {
   final def lookupTypeIncludeScope(qname: TsQIdent, skipValidation: Boolean = false): Seq[(TsNamedDecl, TsTreeScope)] =
     lookupBase(Picker.Types, qname, skipValidation)
 
-  final def lookupBase[T <: TsNamedDecl](picker:         Picker[T],
-                                         qname:          TsQIdent,
-                                         skipValidation: Boolean = false): Seq[(T, TsTreeScope)] = {
+  final def lookupBase[T <: TsNamedDecl](
+      picker:         Picker[T],
+      qname:          TsQIdent,
+      skipValidation: Boolean = false,
+  ): Seq[(T, TsTreeScope)] = {
     if ((TsQIdent Primitive qname) || isAbstract(qname))
       return Nil
 
@@ -77,9 +79,11 @@ sealed trait TsTreeScope {
     } else res
   }
 
-  final def lookupInternal[T <: TsNamedDecl](picker:       Picker[T],
-                                             wanted:       List[TsIdent],
-                                             loopDetector: LoopDetector): Seq[(T, TsTreeScope)] =
+  final def lookupInternal[T <: TsNamedDecl](
+      picker:       Picker[T],
+      wanted:       List[TsIdent],
+      loopDetector: LoopDetector,
+  ): Seq[(T, TsTreeScope)] =
     loopDetector.including(wanted, this) match {
       case Left(_) =>
         Nil
@@ -90,9 +94,11 @@ sealed trait TsTreeScope {
         }
     }
 
-  def lookupImpl[T <: TsNamedDecl](picker:       Picker[T],
-                                   fragments:    List[TsIdent],
-                                   loopDetector: LoopDetector): Seq[(T, TsTreeScope)]
+  def lookupImpl[T <: TsNamedDecl](
+      picker:       Picker[T],
+      fragments:    List[TsIdent],
+      loopDetector: LoopDetector,
+  ): Seq[(T, TsTreeScope)]
 
   final override lazy val toString: String =
     s"TreeScope(${stack.reverse.map(_.asString).mkString(" / ")})"
@@ -117,10 +123,12 @@ object TsTreeScope {
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
-  def apply(libName:  TsIdentLibrary,
-            pedantic: Boolean,
-            deps:     Map[TsIdentLibrary, TsParsedFile],
-            logger:   Logger[Unit]): TsTreeScope.Root =
+  def apply(
+      libName:  TsIdentLibrary,
+      pedantic: Boolean,
+      deps:     Map[TsIdentLibrary, TsParsedFile],
+      logger:   Logger[Unit],
+  ): TsTreeScope.Root =
     new Root(libName, pedantic, deps, logger)
 
   class LoopDetector private (val stack: List[(List[TsIdent], String)]) {
@@ -137,12 +145,13 @@ object TsTreeScope {
     val initial = new LoopDetector()
   }
 
-  final class Root private[TsTreeScope] (val libName:  TsIdentLibrary,
-                                         val pedantic: Boolean,
-                                         _deps:        Map[TsIdentLibrary, TsParsedFile],
-                                         val logger:   Logger[Unit],
-                                         val cache:    Option[Cache] = None)
-      extends TsTreeScope {
+  final class Root private[TsTreeScope] (
+      val libName:  TsIdentLibrary,
+      val pedantic: Boolean,
+      _deps:        Map[TsIdentLibrary, TsParsedFile],
+      val logger:   Logger[Unit],
+      val cache:    Option[Cache] = None,
+  ) extends TsTreeScope {
     override val root          = this
     override def stack         = Nil
     override def tparams       = Map.empty
@@ -168,13 +177,15 @@ object TsTreeScope {
       depScopes.values.foldLeft(Map.empty[TsIdentModule, TsTreeScope.Scoped]) {
         case (mods, (dep, depScope)) =>
           mods ++ dep.augmentedModulesMap.mapValues(
-            mod => depScope / mod.reduce(FlattenTrees.mergeAugmentedModule)
+            mod => depScope / mod.reduce(FlattenTrees.mergeAugmentedModule),
           )
       }
 
-    override def lookupImpl[T <: TsNamedDecl](picker:       Picker[T],
-                                              fragments:    List[TsIdent],
-                                              loopDetector: LoopDetector): Seq[(T, TsTreeScope)] =
+    override def lookupImpl[T <: TsNamedDecl](
+        picker:       Picker[T],
+        fragments:    List[TsIdent],
+        loopDetector: LoopDetector,
+    ): Seq[(T, TsTreeScope)] =
       fragments match {
         case (depName: TsIdentLibrary) :: tail =>
           depScopes.get(depName) match {
@@ -239,16 +250,18 @@ object TsTreeScope {
       val ret = outer.moduleAuxScopes ++ (current match {
         case x: TsContainer =>
           x.augmentedModulesMap.mapValues(
-            mods => this / mods.reduce(FlattenTrees.mergeAugmentedModule)
+            mods => this / mods.reduce(FlattenTrees.mergeAugmentedModule),
           )
         case _ => Map.empty
       })
       ret
     }
 
-    override def lookupImpl[T <: TsNamedDecl](Pick:         Picker[T],
-                                              wanted:       List[TsIdent],
-                                              loopDetector: LoopDetector): Seq[(T, TsTreeScope)] = {
+    override def lookupImpl[T <: TsNamedDecl](
+        Pick:         Picker[T],
+        wanted:       List[TsIdent],
+        loopDetector: LoopDetector,
+    ): Seq[(T, TsTreeScope)] = {
 
       def local: Seq[(T, TsTreeScope)] =
         (wanted, current) match {
@@ -311,7 +324,7 @@ object TsTreeScope {
                   case Some(found) =>
                     found
                       .flatMap(
-                        member => Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member)
+                        member => Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member),
                       )
                       .collect {
                         case Pick(x) => (x, newScope)
@@ -348,11 +361,13 @@ object TsTreeScope {
     }
   }
 
-  def search[T <: TsNamedDecl](scope:        TsTreeScope,
-                               Pick:         Picker[T],
-                               c:            TsTree,
-                               wanted:       List[TsIdent],
-                               loopDetector: LoopDetector): Seq[(T, TsTreeScope)] =
+  def search[T <: TsNamedDecl](
+      scope:        TsTreeScope,
+      Pick:         Picker[T],
+      c:            TsTree,
+      wanted:       List[TsIdent],
+      loopDetector: LoopDetector,
+  ): Seq[(T, TsTreeScope)] =
     wanted match {
       case Nil =>
         c match {
@@ -410,10 +425,12 @@ object TsTreeScope {
   *  so far, but this enabled us to look for a similar entity up-tree to resolve names.
   */
 object ExtendingScope {
-  def apply[T <: TsNamedDecl](scope:        TsTreeScope.Scoped,
-                              Pick:         Picker[T],
-                              wanted:       List[TsIdent],
-                              loopDetector: LoopDetector): Seq[(T, TsTreeScope)] =
+  def apply[T <: TsNamedDecl](
+      scope:        TsTreeScope.Scoped,
+      Pick:         Picker[T],
+      wanted:       List[TsIdent],
+      loopDetector: LoopDetector,
+  ): Seq[(T, TsTreeScope)] =
     scope.current match {
       case x: TsDeclNamespace =>
         val p: Picker[TsDeclNamespace] = {

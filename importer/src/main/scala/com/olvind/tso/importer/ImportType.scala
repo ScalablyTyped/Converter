@@ -131,7 +131,8 @@ object ImportType {
           case Nil => None
           case some =>
             Some(
-              TypeRef.StringDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity))
+              TypeRef
+                .StringDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity)),
             )
         }
         val translatedNumbers = numbers.map {
@@ -142,7 +143,8 @@ object ImportType {
           case Nil => None
           case some =>
             Some(
-              TypeRef.NumberDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity))
+              TypeRef
+                .NumberDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity)),
             )
         }
         TypeRef.Intersection(stringDict.toList ++ numberDict)
@@ -170,10 +172,12 @@ object ImportType {
                 (None, all)
             }
 
-          TypeRef.Function(thisType,
-                           restParams map funParam(wildcards, scope, importName),
-                           orAny(wildcards.maybeAllow, scope, importName)(newSig.resultType),
-                           newSig.comments)
+          TypeRef.Function(
+            thisType,
+            restParams map funParam(wildcards, scope, importName),
+            orAny(wildcards.maybeAllow, scope, importName)(newSig.resultType),
+            newSig.comments,
+          )
         }
       case TsTypeUnion(types) =>
         types.partitionCollect { case TsTypeRef.undefined => } match {
@@ -195,7 +199,7 @@ object ImportType {
         TypeRef(
           QualifiedName.Array,
           List(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope, importName), false)),
-          NoComments
+          NoComments,
         )
 
       case TsTypeTuple(targs) =>
@@ -240,10 +244,12 @@ object ImportType {
       case other           => other
     }
 
-  def newableFunction(scope:      TsTreeScope.Scoped,
-                      importName: ImportName,
-                      _sig:       TsFunSig,
-                      comments:   Comments): TypeRef = {
+  def newableFunction(
+      scope:      TsTreeScope.Scoped,
+      importName: ImportName,
+      _sig:       TsFunSig,
+      comments:   Comments,
+  ): TypeRef = {
     /* get rid of type parameters and fill them with bound / object */
     val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
     val sig   = ts.FillInTParams(_sig, targs)
@@ -269,13 +275,13 @@ object ImportType {
     TypeRef(
       QualifiedName.Instantiable(sig.params.length),
       params :+ ret,
-      comments
+      comments,
     )
   }
 
   private def funParam(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(param: TsFunParam): TypeRef =
     orAny(wildcards, scope / param, importName)(param.tpe) withOptional param.isOptional withComments Comments(
-      s"/* ${param.name.value} */"
+      s"/* ${param.name.value} */",
     )
 
   private object StrippedRepeat {

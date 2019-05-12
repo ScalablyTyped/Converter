@@ -166,7 +166,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         }
       case circularReferences =>
         scope.logger.info(
-          s"Could not simplify ${TsTypeFormatter.qident(self)} to function type alias because of circular references $circularReferences"
+          s"Could not simplify ${TsTypeFormatter.qident(self)} to function type alias because of circular references $circularReferences",
         )
         true
     }

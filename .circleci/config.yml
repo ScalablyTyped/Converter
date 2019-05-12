@@ -43,4 +43,4 @@ jobs:
       - run: cat /dev/null | sbt test:test
 
       # run scalafmt!
-      - run: cat /dev/null | sbt scalafmtCheck
+#      - run: cat /dev/null | sbt scalafmtCheck

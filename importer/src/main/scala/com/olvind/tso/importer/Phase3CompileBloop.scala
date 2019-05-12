@@ -29,20 +29,21 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.Try
 
-class Phase3CompileBloop(resolve:         LibraryResolver,
-                         versions:        Versions,
-                         bloop:           BloopCompiler,
-                         bloopLogger:     BloopLogger,
-                         targetFolder:    Path,
-                         mainPackageName: Name,
-                         projectName:     String,
-                         organization:    String,
-                         publishUser:     String,
-                         publishFolder:   Path,
-                         scheduler:       Scheduler,
-                         metadataFetcher: Npmjs.Fetcher,
-                         failureCacheDir: Path)
-    extends Phase[Source, Phase2Res, PublishedSbtProject] {
+class Phase3CompileBloop(
+    resolve:         LibraryResolver,
+    versions:        Versions,
+    bloop:           BloopCompiler,
+    bloopLogger:     BloopLogger,
+    targetFolder:    Path,
+    mainPackageName: Name,
+    projectName:     String,
+    organization:    String,
+    publishUser:     String,
+    publishFolder:   Path,
+    scheduler:       Scheduler,
+    metadataFetcher: Npmjs.Fetcher,
+    failureCacheDir: Path,
+) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
     case (path, value) if path.ext === "scala" || path.ext === "sbt" => value
@@ -50,11 +51,13 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
 
   implicit val PathFormatter: Formatter[Path] = _.toString
 
-  override def apply(source:  Source,
-                     _lib:    Phase2Res,
-                     getDeps: GetDeps[Source, PublishedSbtProject],
-                     v4:      IsCircular,
-                     logger:  Logger[Unit]): PhaseRes[Source, PublishedSbtProject] =
+  override def apply(
+      source:  Source,
+      _lib:    Phase2Res,
+      getDeps: GetDeps[Source, PublishedSbtProject],
+      v4:      IsCircular,
+      logger:  Logger[Unit],
+  ): PhaseRes[Source, PublishedSbtProject] =
     _lib match {
       case Facade =>
         val buildJson = Json[FacadeJson](source.path / "build.json")
@@ -66,9 +69,9 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
                 PhaseRes.fromOption(
                   source,
                   resolve.global(TsIdentLibrarySimple(t)),
-                  Right(s"Couldn't resolve $t")
-              )
-            )
+                  Right(s"Couldn't resolve $t"),
+                ),
+            ),
           )
 
         dependencies flatMap (x => getDeps(x.sorted)) flatMap {
@@ -111,7 +114,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               scalaFiles      = sourceFiles,
               projectName     = projectName,
               metadataOpt     = metadataOpt,
-              declaredVersion = None
+              declaredVersion = None,
             )
 
             go(
@@ -124,7 +127,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               dependencies       = buildJson.dependencies,
               deleteUnknownFiles = false,
               makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}",
-              metadataOpt        = metadataOpt
+              metadataOpt        = metadataOpt,
             )
         }
 
@@ -147,7 +150,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               projectName     = projectName,
               metadataOpt     = metadataOpt,
-              declaredVersion = Some(lib.libVersion)
+              declaredVersion = Some(lib.libVersion),
             )
 
             go(
@@ -160,21 +163,23 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
               dependencies       = Set(),
               deleteUnknownFiles = true,
               makeVersion        = lib.libVersion.version,
-              metadataOpt        = metadataOpt
+              metadataOpt        = metadataOpt,
             )
         }
     }
 
-  def go(logger:             Logger[Unit],
-         deps:               Map[Source, PublishedSbtProject],
-         source:             Source,
-         name:               String,
-         sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
-         compilerPaths:      CompilerPaths,
-         dependencies:       Set[FacadeJson.Dep],
-         deleteUnknownFiles: Boolean,
-         makeVersion:        Digest => String,
-         metadataOpt:        Option[Npmjs.Data]): PhaseRes[Source, PublishedSbtProject] = {
+  def go(
+      logger:             Logger[Unit],
+      deps:               Map[Source, PublishedSbtProject],
+      source:             Source,
+      name:               String,
+      sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
+      compilerPaths:      CompilerPaths,
+      dependencies:       Set[FacadeJson.Dep],
+      deleteUnknownFiles: Boolean,
+      makeVersion:        Digest => String,
+      metadataOpt:        Option[Npmjs.Data],
+  ): PhaseRes[Source, PublishedSbtProject] = {
 
     val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
     val finalVersion          = makeVersion(digest)
@@ -185,7 +190,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
       name,
       organization,
       versions.sjs(name),
-      finalVersion
+      finalVersion,
     )(compilerPaths.baseDir, deps, metadataOpt)
 
     val existing: IvyLayout[Path, Synced] =
@@ -220,7 +225,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
         val externalClasspath: Set[AbsolutePath] =
           dependencies.flatMap(
             dep =>
-              DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)(scheduler)
+              DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)(scheduler),
           )
 
         import ResultFailedJsonCodec._
@@ -229,7 +234,7 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
           failureCacheDir / name / finalVersion,
           logger,
           bloop.compileLib(compilerPaths, localClassPath ++ externalClasspath),
-          extract = isFailure
+          extract = isFailure,
         )
       }
 
@@ -270,16 +275,18 @@ class Phase3CompileBloop(resolve:         LibraryResolver,
         ret
           .doOnFinish(_ => Task(rm(compilerPaths.classesDir)))
           .runAsync(scheduler),
-        Duration.Inf
+        Duration.Inf,
       )
     }
   }
 }
 private object Phase3CompileBloop {
-  def taskPartial[K, V, VV <: V: Encoder: Decoder](cachedFile: Path,
-                                                   logger:  Logger[Unit],
-                                                   run:     Task[V],
-                                                   extract: PartialFunction[V, VV]): Task[V] = {
+  def taskPartial[K, V, VV <: V: Encoder: Decoder](
+      cachedFile: Path,
+      logger:     Logger[Unit],
+      run:        Task[V],
+      extract:    PartialFunction[V, VV],
+  ): Task[V] = {
     def persisted(v: V): V = {
       extract.lift(v).foreach(vv => Json.persist(cachedFile)(vv))
       v

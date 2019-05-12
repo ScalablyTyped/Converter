@@ -28,7 +28,7 @@ object ObjectMembers {
       ClassType.Class,
       isSealed = false,
       NoComments,
-      QualifiedName.JObject
+      QualifiedName.JObject,
     )
 
   val ScalaJsObject =

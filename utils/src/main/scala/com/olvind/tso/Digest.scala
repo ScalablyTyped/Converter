@@ -29,6 +29,6 @@ object Digest {
             digest.update(Digestable[T].bytesFrom(t))
             digest
         }
-        .digest()
+        .digest(),
     )
 }

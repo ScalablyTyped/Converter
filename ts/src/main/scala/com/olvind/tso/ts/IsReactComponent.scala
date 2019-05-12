@@ -25,7 +25,7 @@ object IsReactComponent {
 
   val FunctionalComponent: Set[TsQIdent] =
     ComponentNames.flatMap(
-      name => List(TsQIdent(React :+ TsIdentNamespace("React") :+ TsIdent(name)), TsQIdent(React :+ TsIdent(name)))
+      name => List(TsQIdent(React :+ TsIdentNamespace("React") :+ TsIdent(name)), TsQIdent(React :+ TsIdent(name))),
     )
 
   def apply(scope: TsTreeScope, tpe: TsType): Boolean = FollowAliases(scope)(tpe) match {

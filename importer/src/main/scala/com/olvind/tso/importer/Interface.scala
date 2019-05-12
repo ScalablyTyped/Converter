@@ -96,7 +96,7 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
       println(
         stored.ctx.get("id").fold("")(Color.Red(_).render + ": ") + stored.message.render
           .takeWhile(_ =/= '\n')
-          .take(200)
+          .take(200),
       )
     }
     System.out.println(sb)

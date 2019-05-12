@@ -13,7 +13,7 @@ trait MemberCache {
     members.partitionCollect3(
       { case m: TsNamedDecl => m },
       { case x: TsExport    => x },
-      { case x: TsImport    => x }
+      { case x: TsImport    => x },
     )
 
   lazy val isModule: Boolean =

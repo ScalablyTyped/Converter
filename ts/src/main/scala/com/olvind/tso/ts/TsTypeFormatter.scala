@@ -9,7 +9,7 @@ object TsTypeFormatter {
     List[Option[String]](
       tparams(sig.tparams)(tparam),
       Some(sig.params.map(param).mkString("(", ", ", ")")),
-      sig.resultType.map(apply).map(": " + _)
+      sig.resultType.map(apply).map(": " + _),
     ).flatten.mkString("")
 
   def tparam(tparam: TsTypeParam): String =
@@ -18,7 +18,7 @@ object TsTypeFormatter {
         List[Option[String]](
           Some(name.value),
           bound.map(b   => s"extends ${apply(b)}"),
-          default.map(d => s"= " + apply(d))
+          default.map(d => s"= " + apply(d)),
         ).flatten.mkString(" ")
     }
 
@@ -54,7 +54,7 @@ object TsTypeFormatter {
         if (isReadOnly) Some("readonly") else None,
         Some(name.value),
         if (isOptional) Some("?") else None,
-        Some(sig(s))
+        Some(sig(s)),
       ).flatten.mkString(" ")
 
     case TsMemberProperty(_, l, name, tpe, expr, isStatic, isReadOnly, isOptional) =>
@@ -65,7 +65,7 @@ object TsTypeFormatter {
         Some(name.value),
         Some(if (isOptional) "?" else ""),
         tpe.map(apply).map(":" + _),
-        expr.map(l => "= " + TsExpr.format(l))
+        expr.map(l => "= " + TsExpr.format(l)),
       ).flatten.mkString(" ")
 
     // lazy
@@ -78,7 +78,7 @@ object TsTypeFormatter {
           case IndexingSingle(name)    => s"[${qident(name)}]"
         }),
         if (isOptional) Some("?") else None,
-        valueType.map(tpe => s": ${apply(tpe)}")
+        valueType.map(tpe => s": ${apply(tpe)}"),
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
 
     case TsMemberTypeMapped(_, l, isReadOnly, key, from, optionalize, to) =>
@@ -95,7 +95,7 @@ object TsTypeFormatter {
           case OptionalModifier.Optionalize   => Some("?")
           case OptionalModifier.Deoptionalize => Some("-?")
         },
-        Some(apply(to))
+        Some(apply(to)),
       ).flatten
         .mkString(" ")
         .replaceAllLiterally(" ?", "?")

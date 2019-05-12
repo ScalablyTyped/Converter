@@ -21,7 +21,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
           parent     = keep.headOption,
           implements = keep.drop(1),
           comments   = s.comments +? summarizeChanges(drop, lifted),
-          members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq])
+          members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]),
         )
     }
 
@@ -29,9 +29,11 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
     Res.combine(s.inheritance map cleanParentRef(scope)) match {
       case Res(keep, _, _) if s.inheritance === keep => s
       case Res(keep, drop, lifted) =>
-        s.copy(inheritance = keep,
-               comments    = s.comments +? summarizeChanges(drop, lifted),
-               members     = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]))
+        s.copy(
+          inheritance = keep,
+          comments    = s.comments +? summarizeChanges(drop, lifted),
+          members     = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]),
+        )
     }
 
   final case class Res(keep: List[TsTypeRef], drop: List[TsType], lift: Map[TsTypeRef, Seq[TsMember]])
