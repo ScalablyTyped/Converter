@@ -29,7 +29,7 @@ object Main extends App {
   val Config(config)         = args
   val RunId                  = constants.DateTimePattern format LocalDateTime.now
   val logsFolder             = config.cacheFolder / 'logs
-  val parseCacheFolder       = config.cacheFolder / 'parse / BuildInfo.parserHash.toString
+  val parseCacheFolder       = config.cacheFolder / 'parse
   val targetFolder           = config.cacheFolder / config.projectName
   val bintrayCacheFolder     = config.cacheFolder / 'bintray
   val compileFailureCacheDir = config.cacheFolder / 'compileFailures
@@ -117,8 +117,10 @@ object Main extends App {
     )
 
   val stdLibSource: Source =
-    StdLibSource(InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
-                 TsIdentLibrarySimple("std"))
+    StdLibSource(
+      InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
+      TsIdentLibrarySimple("std")
+    )
 
   val facadeSources: Set[Source] =
     ls(facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
@@ -144,11 +146,13 @@ object Main extends App {
           .toMap
 
       Some(
-        BinTrayPublisher(bintrayCacheFolder,
-                         config.ScalablyTypedRepoPublic,
-                         values("user"),
-                         values("password"),
-                         config.projectName)(
+        BinTrayPublisher(
+          bintrayCacheFolder,
+          config.ScalablyTypedRepoPublic,
+          values("user"),
+          values("password"),
+          config.projectName
+        )(
           ExecutionContext.Implicits.global
         )
       )
@@ -170,11 +174,11 @@ object Main extends App {
     RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          lastChangedIndex = lastChangedIndex,
-          resolve          = resolve,
-          ignored          = Libraries.ignored,
-          stdlibSource     = stdLibSource,
-          pedantic         = config.pedantic,
+          calculateLibraryVersion = new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha),
+          resolve                 = resolve,
+          ignored                 = Libraries.ignored,
+          stdlibSource            = stdLibSource,
+          pedantic                = config.pedantic,
           parser =
             if (config.enableParseCache) PersistingFunction(nameAndMtimeUnder(parseCacheFolder), logger.void)(parseFile)
             else parseFile
@@ -280,9 +284,11 @@ object Main extends App {
 
     logger error "Committing..."
     val summaryString =
-      CommitChanges(summary,
-                    successes.map(_.project.baseDir).to[Seq],
-                    Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents))(
+      CommitChanges(
+        summary,
+        successes.map(_.project.baseDir).to[Seq],
+        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents)
+      )(
         targetFolder
       )
     logger error summaryString

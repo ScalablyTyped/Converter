@@ -13,13 +13,14 @@ import com.olvind.tso.ts.{modules, transforms => T, _}
 
 import scala.collection.immutable.SortedMap
 
-class Phase1ReadTypescript(resolve:          LibraryResolver,
-                           lastChangedIndex: RepoLastChangedIndex,
-                           ignored:          Set[String],
-                           stdlibSource:     Source,
-                           pedantic:         Boolean,
-                           parser:           InFile => Either[String, TsParsedFile])
-    extends Phase[Source, Source, Phase1Res] {
+class Phase1ReadTypescript(
+    resolve:                 LibraryResolver,
+    calculateLibraryVersion: CalculateLibraryVersion,
+    ignored:                 Set[String],
+    stdlibSource:            Source,
+    pedantic:                Boolean,
+    parser:                  InFile => Either[String, TsParsedFile]
+) extends Phase[Source, Source, Phase1Res] {
 
   import jsonCodecs._
 
@@ -52,7 +53,7 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
             source,
             resolve.lookup(s, value).map(_._1),
             Right(s"Couldn't resolve $value")
-        )
+          )
 
         def assertPartsOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibraryPart] =
           m.map {
@@ -61,10 +62,12 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
           }
 
         PhaseRes.fromEither(source, parser(file)) flatMap { parsed: TsParsedFile =>
-          val (pathRefsR: Set[PhaseRes[Source, Source]],
-               typeRefsR: Set[PhaseRes[Source, Source]],
-               libRefsR:  Set[PhaseRes[Source, Source]],
-               remaining: Set[Directive]) =
+          val (
+            pathRefsR: Set[PhaseRes[Source, Source]],
+            typeRefsR: Set[PhaseRes[Source, Source]],
+            libRefsR:  Set[PhaseRes[Source, Source]],
+            remaining: Set[Directive]
+          ) =
             parsed.directives
               .to[Set]
               .partitionCollect3(
@@ -73,18 +76,19 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                     def src(f: InFile): Source =
                       Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
 
-                    PhaseRes.fromOption(source,
-                                        resolve.file(file.folder, value).map(src),
-                                        Right(s"Couldn't resolve $r"))
+                    PhaseRes
+                      .fromOption(source, resolve.file(file.folder, value).map(src), Right(s"Couldn't resolve $r"))
                 },
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
                     def src(f: InFile): Source =
                       Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
 
-                    PhaseRes.fromOption(source,
-                                        resolve.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
-                                        Right(s"Couldn't resolve $r"))
+                    PhaseRes.fromOption(
+                      source,
+                      resolve.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
+                      Right(s"Couldn't resolve $r")
+                    )
                 }
               )
 
@@ -102,10 +106,12 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
             /* Resolve all references to other modules in `from` clauses, rename modules */
             withExternals = ResolveExternalReferences(resolve, source.asInstanceOf[TsSource], withoutDirectives, L)
 
-            inferredDepNames = modules.InferredDependency(inLib.libName,
-                                                          withExternals.rewritten,
-                                                          withExternals.unresolvedDeps,
-                                                          L)
+            inferredDepNames = modules.InferredDependency(
+              inLib.libName,
+              withExternals.rewritten,
+              withExternals.unresolvedDeps,
+              L
+            )
             inferredDeps <- PhaseRes sequenceSet (inferredDepNames map (n => resolveDep(n.value)))
 
             /* look up all resulting dependencies */
@@ -147,13 +153,15 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                       case None =>
                         logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
                         None
-                  }
+                    }
                 )
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
-            case Unpack(libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
-                        deps:     SortedMap[TsLibSource, LibTs],
-                        facades) =>
+            case Unpack(
+                libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
+                deps:     SortedMap[TsLibSource, LibTs],
+                facades
+                ) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
 
@@ -204,17 +212,16 @@ class Phase1ReadTypescript(resolve:          LibraryResolver,
                   T.SplitMethodsOnUnionTypes >> // after ExpandCallables
                     T.RemoveDifficultInheritance // after DefaultedTypeArguments
                 ).visitTsParsedFile(scope.caching),
-                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
+                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching)
               )
 
               logger.warn(s"Processing ${source.libName}")
               val finished = ProcessAll.foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
-              val version = CalculateLibraryVersion(
+              val version = calculateLibraryVersion(
                 source.folder,
                 source.isInstanceOf[Source.StdLibSource],
                 libParts.keys.map(_.file).to[Seq],
-                lastChangedIndex,
                 packageJsonOpt,
                 finished.comments
               )

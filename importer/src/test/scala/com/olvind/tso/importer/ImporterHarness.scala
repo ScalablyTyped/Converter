@@ -49,8 +49,17 @@ trait ImporterHarness extends FunSuiteLike {
 
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
-        .next(new Phase1ReadTypescript(resolve, lastChangedIndex, Set.empty, stdLibSource, pedantic, parser.parseFile),
-              "typescript")
+        .next(
+          new Phase1ReadTypescript(
+            resolve,
+            new CalculateLibraryVersion(lastChangedIndex, "test"),
+            Set.empty,
+            stdLibSource,
+            pedantic,
+            parser.parseFile
+          ),
+          "typescript"
+        )
         .next(new Phase2ToScalaJs(pedantic, OutputPkg), "scala.js")
         .next(
           new Phase3CompileBloop(
@@ -108,7 +117,7 @@ trait ImporterHarness extends FunSuiteLike {
         if (update) {
           rm(checkFolder)
           cp(targetFolder, checkFolder)
-          %("git", "add", checkFolder)
+          synchronized(%("git", "add", checkFolder))
         }
 
         Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {
@@ -117,7 +126,7 @@ trait ImporterHarness extends FunSuiteLike {
             import ImplicitWd.implicitCwd
             rm(checkFolder)
             cp(targetFolder, checkFolder)
-            %("git", "add", checkFolder)
+            synchronized(%("git", "add", checkFolder))
           }
           val diff = %%("diff", "-r", checkFolder, targetFolder).out.string
           fail(s"Output for test $testFolder was not as expected : $diff", th)
@@ -131,7 +140,7 @@ trait ImporterHarness extends FunSuiteLike {
 
           rm(checkFolder)
           cp(targetFolder, checkFolder)
-          %("git", "add", checkFolder)
+          synchronized(%("git", "add", checkFolder))
         }
         errors foreach {
           case (fromSource, detail) =>

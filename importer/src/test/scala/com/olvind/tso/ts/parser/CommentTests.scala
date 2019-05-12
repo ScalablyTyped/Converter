@@ -305,19 +305,19 @@ final class CommentTests extends FunSuite with Matchers {
   }
 
   test("handle stray references") {
-    withTsFile("graphql.d.ts") { content =>
+    withTsFile("parsertests/graphql.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }
 
   test("trailing comments") {
-    withTsFile("egg.d.ts") { content =>
+    withTsFile("parsertests/egg.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }
 
   test("trailing comments (2)") {
-    withTsFile("emissary.d.ts") { content =>
+    withTsFile("parsertests/emissary.d.ts") { content =>
       parseAs(content, TsParser.parsedTsFile)
     }
   }
@@ -336,7 +336,7 @@ final class CommentTests extends FunSuite with Matchers {
   }
 
   test("handle trailing comments in block") {
-    withTsFile("knockout.d.ts") { content =>
+    withTsFile("parsertests/knockout.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }

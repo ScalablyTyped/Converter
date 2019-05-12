@@ -1,7 +1,7 @@
 package com.olvind.tso.importer
 
 import ammonite.ops.{%%, Path}
-import com.olvind.tso.ts.BuildInfo
+import com.olvind.tso.BuildInfo
 
 import scala.util.Try
 

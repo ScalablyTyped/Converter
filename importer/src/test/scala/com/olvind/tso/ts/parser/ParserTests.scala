@@ -13,7 +13,7 @@ final class ParserTests extends FunSuite {
   import ParserHarness._
 
   test("whole file") {
-    withTsFile("path-case.d.ts") { content =>
+    withTsFile("parsertests/path-case.d.ts") { content =>
       val expected =
         TsParsedFile(
           NoComments,
@@ -66,7 +66,7 @@ final class ParserTests extends FunSuite {
   }
 
   test("handle byte order mark") {
-    withTsFile("adm-zip.d.ts") { content =>
+    withTsFile("parsertests/adm-zip.d.ts") { content =>
       parseAs(content, TsParser.tsContainerOrDecls)
     }
   }
@@ -86,7 +86,7 @@ final class ParserTests extends FunSuite {
   }
 
   test("windows line separators and mixed newlines/whitespace") {
-    withTsFile("adal.d.ts") { content =>
+    withTsFile("parsertests/adal.d.ts") { content =>
       parseAs(content, TsParser.parsedTsFile)
     }
   }

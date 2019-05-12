@@ -8,7 +8,6 @@ import ammonite.ops.{mkdir, up, Path, RelPath}
 import bintry.Client
 import com.ning.http.client._
 import com.ning.http.client.listenable.AbstractListenableFuture
-import com.olvind.tso.ts.BuildInfo
 import dispatch.{FunctionHandler, Http, StatusCode}
 import gigahorse.Status
 import io.circe.{Decoder, Encoder}
@@ -22,7 +21,6 @@ case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, pa
 
   private def builder =
     new AsyncHttpClientConfig.Builder()
-      .setUserAgent(s"Tso/${BuildInfo.version}")
       .setRequestTimeout(-1)
 
   private lazy val http   = new Http(Caching.Client(cacheDir, builder.build()))

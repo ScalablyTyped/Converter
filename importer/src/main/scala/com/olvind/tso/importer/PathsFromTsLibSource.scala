@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{ls, up, RelPath}
+import ammonite.ops.{RelPath, ls, up}
 import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
