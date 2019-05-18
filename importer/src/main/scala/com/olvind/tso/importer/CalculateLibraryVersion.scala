@@ -1,10 +1,11 @@
 package com.olvind.tso
-package ts
+package importer
 
 import java.net.URI
 import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops.%%
+import com.olvind.tso.ts.PackageJsonDeps
 
 import scala.util.{Success, Try}
 
