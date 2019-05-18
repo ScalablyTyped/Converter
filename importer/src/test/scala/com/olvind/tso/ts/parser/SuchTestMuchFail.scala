@@ -4,8 +4,8 @@ package parser
 import ammonite.ops._
 import com.olvind.logging
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
-import com.olvind.tso.importer.{Config, PersistingFunction}
-import com.olvind.tso.{constants, InFile, InFolder}
+import com.olvind.tso.importer.{Cmd, Config, PersistingFunction, UpToDateDefinitelyTyped}
+import com.olvind.tso.{InFile, InFolder, constants}
 
 object SuchTestMuchFail extends App {
   val logger = logging.stdout
@@ -16,7 +16,7 @@ object SuchTestMuchFail extends App {
   mkdir(config.cacheFolder)
 
   val dtFolder: InFolder =
-    UpToDateDefinitelyTyped(config.offline, config.cacheFolder, constants.DefinitelyTypedRepo)
+    UpToDateDefinitelyTyped(new Cmd(logger, None), config.offline, config.cacheFolder, constants.DefinitelyTypedRepo)
 
   val criterion: Double =
     99.5

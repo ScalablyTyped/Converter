@@ -1,4 +1,4 @@
-package com.olvind.tso.ts
+package com.olvind.tso.importer
 
 import ammonite.ops._
 
@@ -30,10 +30,10 @@ object RepoLastChangedIndex {
       RelPath(relPath.segments.take(n), 0)
     }
 
-  def apply(repo: Path): RepoLastChangedIndex = {
+  def apply(cmd: Cmd, repo: Path): RepoLastChangedIndex = {
     implicit val wd = repo
 
-    val res         = %% git ('log, "--raw", "--pretty=format:%ct")
+    val res         = cmd.run git ('log, "--raw", "--pretty=format:%ct")
     var changedTime = System.currentTimeMillis() / 1000L
     val lastChanged = mutable.Map.empty[RelPath, Long]
 

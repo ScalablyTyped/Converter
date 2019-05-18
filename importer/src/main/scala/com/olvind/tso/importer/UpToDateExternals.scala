@@ -8,14 +8,14 @@ import com.olvind.tso.ts.PackageJsonDeps
 
 object UpToDateExternals {
   def apply(
-      logger:                Logger[Unit],
-      cacheFolder:           Path,
+      logger:                Logger[_],
+      cmd:                   Cmd,
+      folder:                Path,
       ensurePresentPackages: Set[String],
       ignored:               Set[String],
       conserveSpace:         Boolean,
       offline:               Boolean,
   ): InFolder = {
-    mkdir(cacheFolder)
 
     val ensurePresentPackagesFixes = ensurePresentPackages.map {
       // you can apparently not resolve scoped packages with this syntax
@@ -23,7 +23,8 @@ object UpToDateExternals {
       case other                 => other
     }
 
-    val packageJsonPath = cacheFolder / "package.json"
+    val packageJsonPath = folder / "package.json"
+    val nodeModulesPath = folder / "node_modules"
     val packageJson     = Json.opt[PackageJsonDeps](packageJsonPath, error => logger.warn(error))
 
     val alreadyAddedExternals: Set[String] =
@@ -39,32 +40,34 @@ object UpToDateExternals {
     val missingExternals: Set[String] =
       ensurePresentPackagesFixes -- alreadyAddedExternals -- ignored
 
-    if (missingExternals.isEmpty) logger.warn("All external libraries present in node_modules")
+    if (missingExternals.isEmpty) logger.warn(s"All external libraries present in $nodeModulesPath")
     else {
+      logger.warn(s"Adding ${missingExternals.size} missing libraries to $nodeModulesPath")
       missingExternals.toSeq.sorted.grouped(30).foreach { es =>
-        logger.warn(s"Adding missing externals $es")
-        %%("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", "--no-bin-links", es)(cacheFolder)
+        cmd.runVerbose("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", "--no-bin-links", es)(folder)
       }
     }
 
     if (!offline) {
-      logger.warn("Updating external libraries in node_modules")
-      %%('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")(cacheFolder)
+      logger.warn(s"Updating libraries in $nodeModulesPath")
+      cmd.runVerbose('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")(
+        folder,
+      )
     }
 
     if (conserveSpace) {
       /* only keep some files within npm folder*/
       val KeepExtensions = Set("json", "ts", "lock")
 
-      logger.warn("Trimming node_modules")
+      logger.warn(s"Trimming $nodeModulesPath")
 
-      ls.rec(cacheFolder).foreach {
+      ls.rec(folder).foreach {
         case link if link.isSymLink                           => rm(link)
         case file if file.isFile && !KeepExtensions(file.ext) => rm(file)
         case _                                                => ()
       }
     }
 
-    InFolder(cacheFolder / 'node_modules)
+    InFolder(nodeModulesPath)
   }
 }

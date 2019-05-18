@@ -49,7 +49,7 @@ object Formatter {
     ts =>
       if (ts.isEmpty) ""
       else {
-        val arr = Array.ofDim[Str]((ts.size * /* t, comma */ 2) - /* comma */ 1 + /* brackets */ 2)
+        val arr = Array.ofDim[Str]((ts.length * /* t, comma */ 2) - /* comma */ 1 + /* brackets */ 2)
         var idx = 0
         arr(idx) = "["
         idx += 1

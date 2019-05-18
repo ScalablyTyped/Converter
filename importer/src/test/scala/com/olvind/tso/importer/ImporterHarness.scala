@@ -22,6 +22,7 @@ import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
   private val testLogger   = logging.stdout.filter(LogLevel.error)
+  private val testCmd      = new Cmd(testLogger, None)
   private val version      = Versions.`scala 2.12 with scala.js 0.6`
   private val bloopFactory = new BloopFactory(testLogger)
   private val scheduler    = Scheduler(ExecutionContext.Implicits.global)
@@ -45,7 +46,7 @@ trait ImporterHarness extends FunSuiteLike {
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
 
     val resolve          = new LibraryResolver(stdLibSource, Seq(source), None)
-    val lastChangedIndex = RepoLastChangedIndex(source.path)
+    val lastChangedIndex = RepoLastChangedIndex(testCmd, source.path)
 
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
