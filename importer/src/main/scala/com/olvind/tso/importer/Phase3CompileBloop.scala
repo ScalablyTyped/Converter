@@ -30,19 +30,20 @@ import scala.concurrent.duration._
 import scala.util.Try
 
 class Phase3CompileBloop(
-    resolve:         LibraryResolver,
-    versions:        Versions,
-    bloop:           BloopCompiler,
-    bloopLogger:     BloopLogger,
-    targetFolder:    Path,
-    mainPackageName: Name,
-    projectName:     String,
-    organization:    String,
-    publishUser:     String,
-    publishFolder:   Path,
-    scheduler:       Scheduler,
-    metadataFetcher: Npmjs.Fetcher,
-    failureCacheDir: Path,
+    resolve:          LibraryResolver,
+    versions:         Versions,
+    bloopCompiler:    BloopCompiler,
+    bloopLogger:      BloopLogger,
+    targetFolder:     Path,
+    mainPackageName:  Name,
+    projectName:      String,
+    organization:     String,
+    publishUser:      String,
+    publishFolder:    Path,
+    scheduler:        Scheduler,
+    compileScheduler: Scheduler,
+    metadataFetcher:  Npmjs.Fetcher,
+    failureCacheDir:  Path,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
@@ -233,7 +234,7 @@ class Phase3CompileBloop(
         Phase3CompileBloop.taskPartial(
           failureCacheDir / name / finalVersion,
           logger,
-          bloop.compileLib(compilerPaths, localClassPath ++ externalClasspath),
+          bloopCompiler.compileLib(compilerPaths, localClassPath ++ externalClasspath),
           extract = isFailure,
         )
       }
@@ -274,7 +275,7 @@ class Phase3CompileBloop(
       Await.result(
         ret
           .doOnFinish(_ => Task(rm(compilerPaths.classesDir)))
-          .runAsync(scheduler),
+          .runAsync(compileScheduler),
         Duration.Inf,
       )
     }
