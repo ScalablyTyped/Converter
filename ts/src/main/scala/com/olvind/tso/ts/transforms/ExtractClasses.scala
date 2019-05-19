@@ -84,7 +84,7 @@ object ExtractClasses extends TransformMembers {
           val isCollision = existings.exists {
             case _: TsDeclInterface => true;
             case _: TsDeclClass     => true;
-            case x: TsDeclTypeAlias => true
+            case _: TsDeclTypeAlias => true
             case _ => false
           }
           if (isCollision) None else Some(potentialName)

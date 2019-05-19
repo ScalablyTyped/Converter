@@ -178,6 +178,12 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("material-ui", _) => true
                 case _                                      => false
               }
+
+              val involvesReact = {
+                val react = TsIdentLibrarySimple("react")
+                source.libName === react || deps.exists { case (s, _) => s.libName === react }
+              }
+
               val ProcessAll = List[TsParsedFile => TsParsedFile](
                 T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
                 modules.HandleCommonJsModules.visitTsParsedFile(scope),
@@ -205,8 +211,8 @@ class Phase1ReadTypescript(
                   .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
                 T.ExtractInterfaces(source.libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
                 (
-                  T.ExtractClasses >> // after DefaultedTypeArguments
-                    T.ExpandCallables((tpe, scope) => !IsReactComponent(scope, tpe)) // after DefaultedTypeArguments
+                  if (involvesReact) T.ExtractClasses
+                  else T.ExtractClasses >> T.ExpandCallables
                 ).visitTsParsedFile(scope.caching),
                 (
                   T.SplitMethodsOnUnionTypes >> // after ExpandCallables

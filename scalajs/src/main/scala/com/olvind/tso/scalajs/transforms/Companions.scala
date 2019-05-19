@@ -54,7 +54,7 @@ object Companions extends TreeTransformation {
         .skipParentInlineIfMoreMembersThan(MaxParamsForMethod) { parent =>
           val isRequired = parent.classTree.members.exists {
             case _: MethodTree => true
-            case FieldTree(_, _, OptionalType(_), _, _, _, _, _) => false
+            case FieldTree(_, _, NullType(_), _, _, _, _, _) => false
             case _: FieldTree => true
           }
           parentParameter(parent.refs.head, isRequired)
@@ -131,7 +131,18 @@ object Companions extends TreeTransformation {
     def skipParentInlineIfMoreMembersThan(maxNum: Int)(f: Parent => (Name, T)): ByParent[T] = {
       val numParentMembers = directParents.foldLeft(0)((acc, p) => acc + p._2.size)
       if (own.size + numParentMembers + unresolved.length > maxNum) {
-        val shortened  = own.take(maxNum - directParents.size - unresolved.length)
+
+        /**
+          * hack: react exposes just too many props for intrinsics (`div`, `a`, etc) to cross the 254
+          * parameter limit for *many* components. I've personally never needed the `*Capture` props,
+          * and they are easy to filter out en masse.
+          */
+        val ownWithoutReactCaptures =
+          if (own.contains(Name("onCompositionEnd")) && own.contains(Name("onCompositionEndCapture")))
+            own.filterKeys(!_.unescaped.endsWith("Capture"))
+          else own
+
+        val shortened  = ownWithoutReactCaptures.take(maxNum - directParents.size - unresolved.length)
         val compressed = directParents.map { case (k, _) => f(k) }
         ByParent[T](Map.empty, unresolved, shortened ++ compressed, ownScope)
       } else this
@@ -198,7 +209,7 @@ object Companions extends TreeTransformation {
     /* yeah, i know. We'll refactor if we'll do many more rewrites */
     patched match {
       /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
-      case FieldTree(anns, name, OptionalType(TypeRef.Double), _, _, _, _, _) =>
+      case FieldTree(anns, name, NullType(TypeRef.Double), _, _, _, _, _) =>
         val tpe          = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
         val originalName = findOriginalName(name, anns)
 
@@ -212,7 +223,7 @@ object Companions extends TreeTransformation {
             ),
           ),
         )
-      case FieldTree(anns, name, OptionalType(tpe), _, _, _, _, _) if !CanBeNull(tpe, scope / x) =>
+      case FieldTree(anns, name, NullType(tpe), _, _, _, _, _) if !CanBeNull(tpe, scope / x) =>
         val originalName = findOriginalName(name, anns)
 
         Some(
@@ -229,7 +240,7 @@ object Companions extends TreeTransformation {
           ),
         )
 
-      case FieldTree(anns, name, OptionalType(TypeRef.Function(paramTypes, retType)), _, _, _, _, _) =>
+      case FieldTree(anns, name, NullType(TypeRef.Function(paramTypes, retType)), _, _, _, _, _) =>
         val originalName    = findOriginalName(name, anns)
         val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
@@ -244,7 +255,7 @@ object Companions extends TreeTransformation {
           ),
         )
 
-      case FieldTree(anns, name, OptionalType(_tpe), _, _, _, _, _) =>
+      case FieldTree(anns, name, NullType(_tpe), _, _, _, _, _) =>
         val originalName = findOriginalName(name, anns)
         val tpe          = if (_tpe === TypeRef.Wildcard) TypeRef.Any else _tpe
 
@@ -355,15 +366,15 @@ object Companions extends TreeTransformation {
       }
   }
 
-  object OptionalType {
+  object NullType {
     val undefineds = Set[TypeRef](TypeRef.Null)
 
     def unapply(tpe: TypeRef): Option[TypeRef] =
       tpe match {
         case TypeRef.UndefOr(tpe) =>
           tpe match {
-            case OptionalType(tpe2) => Some(tpe2)
-            case _                  => Some(tpe)
+            case NullType(tpe2) => Some(tpe2)
+            case _              => Some(tpe)
           }
 
         case TypeRef.Union(types) =>

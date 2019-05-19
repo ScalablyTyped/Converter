@@ -46,20 +46,6 @@ object SplitMethodsOnOptionalParams extends TransformMembers with TransformClass
     (ts.dropRight(b.size), b.reverse.to[Seq])
   }
 
-  object OptionalType {
-    val undefineds = Set[TsType](TsTypeRef.undefined, TsTypeRef.`null`)
-
-    def unapply(tpe: Option[TsType]): Option[TsType] =
-      tpe match {
-        case Some(TsTypeUnion(types)) =>
-          types partition undefineds match {
-            case (Nil, _)       => None
-            case (_, remaining) => Some(TsTypeUnion.simplified(remaining))
-          }
-        case _ => None
-      }
-  }
-
   private def split(origin: TsFunSig): Seq[TsFunSig] = {
     val (repParamOpt, paramsNoRep) =
       origin.params.lastOption match {
@@ -70,8 +56,9 @@ object SplitMethodsOnOptionalParams extends TransformMembers with TransformClass
 
     val (requiredParams: Seq[TsFunParam], optionalParams: Seq[TsFunParam]) =
       collectRightWhile(paramsNoRep) {
-        case x @ TsFunParam(_, _, OptionalType(simplified), _) => x.copy(tpe        = Some(simplified), isOptional = false)
-        case x if x.isOptional                                 => x.copy(isOptional = false)
+        case x @ TsFunParam(_, _, Some(OptionalType(simplified)), _) =>
+          x.copy(tpe = Some(simplified), isOptional = false)
+        case x if x.isOptional => x.copy(isOptional = false)
       }
 
     if (optionalParams.length > 5) Seq(origin)

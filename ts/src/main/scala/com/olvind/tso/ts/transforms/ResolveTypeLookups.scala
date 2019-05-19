@@ -21,7 +21,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
     else tpe
 
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
-    ExpandTypeMappings.evaluateKeys(scope, LoopDetector.initial)(lookup.key) match {
+    ExpandTypeMappings.evaluateKeys(scope)(lookup.key) match {
       case ExpandTypeMappings.Ok(strings, _) =>
         FollowAliases(scope)(lookup.from) match {
           case TsTypeRef(_, name, _) if scope isAbstract name => None
