@@ -419,16 +419,15 @@ object ImportTree {
               ),
           )
 
-      case (importName(name), tpe: Option[TsType]) =>
-        val fieldType: MemberImpl =
-          (scalaJsDefined, m.isOptional) match {
-            case (true, true)  => MemberImplCustom("js.undefined")
-            case (true, false) => MemberImplNotImplemented
-            case _             => MemberImplNative
+      case (importName(name), tpeOpt: Option[TsType]) =>
+        val importedType = ImportType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
+        val impl: MemberImpl =
+          (scalaJsDefined, importedType) match {
+            case (true, TypeRef.UndefOr(_)) => MemberImplCustom("js.undefined")
+            case (true, _)                  => MemberImplNotImplemented
+            case (false, _)                 => MemberImplNative
           }
 
-        val importedType =
-          ImportType.orAny(Wildcards.No, scope, importName)(tpe).withOptional(m.isOptional)
         Seq(
           MemberRet(
             hack(
@@ -436,7 +435,7 @@ object ImportTree {
                 annotations = Annotation.jsName(name),
                 name        = name,
                 tpe         = importedType,
-                impl        = fieldType,
+                impl        = impl,
                 isReadOnly  = m.isReadOnly,
                 isOverride  = false,
                 comments    = m.comments,

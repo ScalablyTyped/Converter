@@ -5,6 +5,11 @@ package transforms
 import seqs._
 
 object CollectReactComponents {
+  /* Let's not torture the scala compiler too much, because there *will* be a revenge
+   * in the form of difficult-to-diagnose autoslaying
+   */
+  val MaxNumComponents = 4000
+
   sealed trait ComponentType
 
   object ComponentType {
@@ -44,12 +49,14 @@ object CollectReactComponents {
   def apply(_scope: TreeScope, tree: ContainerTree): ContainerTree = {
     val scope = _scope / tree
 
-    val components: Seq[Component] =
+    val allComponents: Seq[Component] =
       identify(scope, tree)
         .groupBy(_.name)
         .map { case (_, sameName) => sameName.max }
         .to[Seq]
         .sortBy(_.name)
+
+    val components = allComponents take MaxNumComponents
 
     if (components.isEmpty) tree
     else {
@@ -70,13 +77,18 @@ object CollectReactComponents {
               },
           )
 
+      val comments = allComponents.length - components.length match {
+        case 0          => NoComments
+        case numDropped => Comments(Comment(s"/* Dropped $numDropped components to please scalac */\n"))
+      }
+
       val module = ModuleTree(
         Nil,
         moduleName,
         ModuleTypeScala,
         Nil,
         members,
-        NoComments,
+        comments,
         moduleCodePath,
       )
 
