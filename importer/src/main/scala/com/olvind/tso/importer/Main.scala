@@ -22,7 +22,7 @@ import monix.execution.Scheduler
 import scala.collection.immutable.SortedSet
 import scala.collection.parallel.ForkJoinTaskSupport
 import scala.concurrent.duration.Duration
-import scala.concurrent.{Await, ExecutionContext, Future}
+import scala.concurrent.{Await, Future}
 import scala.util.Try
 
 object Main {
@@ -44,7 +44,7 @@ object Main {
   def run(config: Config): Unit = {
     val logsFolder       = existing(config.cacheFolder / 'logs)
     val pool             = new ForkJoinPool(config.parallelLibraries)
-    val ec               = ExecutionContext.fromExecutor(pool)
+    val scheduler        = Scheduler(pool)
     val compilePool      = new ForkJoinPool(config.parallelScalas)
     val compileScheduler = Scheduler(compilePool)
 
@@ -67,6 +67,12 @@ object Main {
     )
 
     case class TargetDir(targetFolder: Path, failFolder: Path, facadeFolder: Path)
+
+    val bloopFactoryF = Future {
+      val factory  = new BloopFactory(logger.filter(LogLevel.debug).void)
+      val compiler = factory.forVersion(config.versions, scheduler)
+      (compiler, factory.bloopLogger)
+    }(scheduler)
 
     val updatedTargetDirF: Future[TargetDir] = Future {
       val targetFolder = config.cacheFolder / config.projectName
@@ -93,19 +99,19 @@ object Main {
         failFolder   = existingEmpty(targetFolder / 'failures),
         facadeFolder = existing(targetFolder / 'facades),
       )
-    }(ec)
+    }(scheduler)
 
     val dtFolderF: Future[InFolder] =
       Future(UpToDateDefinitelyTyped(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo))(
-        ec,
+        scheduler,
       )
 
-    val localCleaning: Future[Unit] = Future {
+    val localCleaningF: Future[Unit] = Future {
       if (config.conserveSpace) {
         interfaceLogger.warn(s"Cleaning old artifacts in ${config.publishFolder}")
         LocalCleanup(config.publishFolder, config.organization, keepNum = 2)
-      } else ()
-    }(ec)
+      }
+    }(scheduler)
 
     val externalsFolderF: Future[InFolder] = dtFolderF.map { dtFolder =>
       val external: NotNeededPackages =
@@ -120,21 +126,19 @@ object Main {
         config.conserveSpace,
         config.offline,
       )
-    }(ec)
+    }(scheduler)
 
     val lastChangedIndexF = dtFolderF.map { dtFolder =>
       interfaceLogger.warn(s"Indexing ${dtFolder.path / up}")
       RepoLastChangedIndex(interfaceCmd, dtFolder.path / up)
-    }(ec)
-
-    val bloopFactoryF = Future(new BloopFactory(logger.filter(LogLevel.debug).void))(ec)
+    }(scheduler)
 
     val externalsFolder                                   = Await.result(externalsFolderF, Duration.Inf)
-    val ()                                                = Await.result(localCleaning, Duration.Inf)
+    val ()                                                = Await.result(localCleaningF, Duration.Inf)
     val dtFolder                                          = Await.result(dtFolderF, Duration.Inf)
     val lastChangedIndex                                  = Await.result(lastChangedIndexF, Duration.Inf)
     val TargetDir(targetFolder, failFolder, facadeFolder) = Await.result(updatedTargetDirF, Duration.Inf)
-    val bloopFactory                                      = Await.result(bloopFactoryF, Duration.Inf)
+    val (bloopCompiler, bloopLogger)                      = Await.result(bloopFactoryF, Duration.Inf)
 
     val stdLibSource: Source =
       StdLibSource(
@@ -155,19 +159,16 @@ object Main {
           sources.filter(s => wantedLibNames(s.libName))
       }
 
-    val bintray: Option[BinTrayPublisher] =
-      config.publish.map {
-        case PublishConfig(user, password) =>
-          BinTrayPublisher(
-            existing(config.cacheFolder / 'bintray),
-            config.ScalablyTypedRepo,
-            user,
-            password,
-            config.projectName,
-          )(
-            ExecutionContext.Implicits.global,
-          )
-      }
+    val bintray: Option[BinTrayPublisher] = config.publish.map {
+      case PublishConfig(user, password) =>
+        BinTrayPublisher(
+          existing(config.cacheFolder / 'bintray),
+          config.ScalablyTypedRepo,
+          user,
+          password,
+          config.projectName,
+        )(scheduler)
+    }
 
     val resolve = new LibraryResolver(
       stdLibSource,
@@ -194,19 +195,20 @@ object Main {
         .next(new Phase2ToScalaJs(config.pedantic, config.outputPkg), "scala.js")
         .next(
           new Phase3CompileBloop(
-            versions        = config.versions,
-            bloop           = bloopFactory.forVersion(config.versions, compileScheduler),
-            bloopLogger     = bloopFactory.bloopLogger,
-            targetFolder    = targetFolder,
-            mainPackageName = config.outputPkg,
-            projectName     = config.projectName,
-            organization    = config.organization,
-            publishUser     = bintray.fold("oyvindberg")(_.user),
-            publishFolder   = config.publishFolder,
-            resolve         = resolve,
-            scheduler       = compileScheduler,
-            failureCacheDir = existing(config.cacheFolder / 'compileFailures),
-            metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(compileScheduler),
+            resolve          = resolve,
+            versions         = config.versions,
+            bloopCompiler    = bloopCompiler,
+            bloopLogger      = bloopLogger,
+            targetFolder     = targetFolder,
+            mainPackageName  = config.outputPkg,
+            projectName      = config.projectName,
+            organization     = config.organization,
+            publishUser      = bintray.fold("oyvindberg")(_.user),
+            publishFolder    = config.publishFolder,
+            scheduler        = scheduler,
+            compileScheduler = compileScheduler,
+            metadataFetcher  = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(scheduler),
+            failureCacheDir  = existing(config.cacheFolder / 'compileFailures),
           ),
           "build",
         )
