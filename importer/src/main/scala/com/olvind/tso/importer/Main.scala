@@ -66,15 +66,15 @@ object Main {
       _ => logging.storing(),
     )
 
-    case class TargetDir(targetFolder: Path, failFolder: Path, facadeFolder: Path)
-
     val bloopFactoryF = Future {
       val factory  = new BloopFactory(logger.filter(LogLevel.debug).void)
       val compiler = factory.forVersion(config.versions, scheduler)
       (compiler, factory.bloopLogger)
     }(scheduler)
 
-    val updatedTargetDirF: Future[TargetDir] = Future {
+    case class TargetDirs(targetFolder: Path, failFolder: Path, facadeFolder: Path)
+
+    val updatedTargetDirF: Future[TargetDirs] = Future {
       val targetFolder = config.cacheFolder / config.projectName
       if (exists(targetFolder)) {
         implicit val wd = targetFolder
@@ -94,17 +94,16 @@ object Main {
         interfaceCmd.runVerbose git ('clone, config.ScalablyTypedRepo)
       }
 
-      TargetDir(
+      TargetDirs(
         targetFolder = targetFolder,
         failFolder   = existingEmpty(targetFolder / 'failures),
         facadeFolder = existing(targetFolder / 'facades),
       )
     }(scheduler)
 
-    val dtFolderF: Future[InFolder] =
-      Future(UpToDateDefinitelyTyped(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo))(
-        scheduler,
-      )
+    val dtFolderF: Future[InFolder] = Future(
+      UpToDateDefinitelyTyped(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo),
+    )(scheduler)
 
     val localCleaningF: Future[Unit] = Future {
       if (config.conserveSpace) {
@@ -133,31 +132,43 @@ object Main {
       RepoLastChangedIndex(interfaceCmd, dtFolder.path / up)
     }(scheduler)
 
-    val externalsFolder                                   = Await.result(externalsFolderF, Duration.Inf)
-    val ()                                                = Await.result(localCleaningF, Duration.Inf)
-    val dtFolder                                          = Await.result(dtFolderF, Duration.Inf)
-    val lastChangedIndex                                  = Await.result(lastChangedIndexF, Duration.Inf)
-    val TargetDir(targetFolder, failFolder, facadeFolder) = Await.result(updatedTargetDirF, Duration.Inf)
-    val (bloopCompiler, bloopLogger)                      = Await.result(bloopFactoryF, Duration.Inf)
+    val tsSourcesF: Future[SortedSet[Source]] = {
+      implicit val s = scheduler
+      for {
+        externalsFolder <- externalsFolderF
+        dtFolder <- dtFolderF
+        target <- updatedTargetDirF
+      } yield {
+        val facadeSources: Set[Source] =
+          ls(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
+
+        (
+          TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ facadeSources,
+          config.wantedLibNames,
+        ) match {
+          case (sources, sets.EmptySet()) => sources
+          case (sources, wantedLibsStrings) =>
+            val wantedLibNames: Set[TsIdentLibrary] =
+              wantedLibsStrings.map(libName => ModuleNameParser(TsLiteralString(libName)).inLibrary)
+
+            sources.filter(s => wantedLibNames(s.libName))
+        }
+      }
+    }
+
+    val externalsFolder                                    = Await.result(externalsFolderF, Duration.Inf)
+    val ()                                                 = Await.result(localCleaningF, Duration.Inf)
+    val dtFolder                                           = Await.result(dtFolderF, Duration.Inf)
+    val lastChangedIndex                                   = Await.result(lastChangedIndexF, Duration.Inf)
+    val TargetDirs(targetFolder, failFolder, facadeFolder) = Await.result(updatedTargetDirF, Duration.Inf)
+    val (bloopCompiler, bloopLogger)                       = Await.result(bloopFactoryF, Duration.Inf)
+    val tsSources                                          = Await.result(tsSourcesF, Duration.Inf)
 
     val stdLibSource: Source =
       StdLibSource(
         InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
         TsIdentLibrarySimple("std"),
       )
-
-    val facadeSources: Set[Source] =
-      ls(facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
-
-    val tsSources: SortedSet[Source] =
-      (TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ facadeSources, config.wantedLibNames) match {
-        case (sources, sets.EmptySet()) => sources
-        case (sources, wantedLibsStrings) =>
-          val wantedLibNames: Set[TsIdentLibrary] =
-            wantedLibsStrings.map(libName => ModuleNameParser(TsLiteralString(libName)).inLibrary)
-
-          sources.filter(s => wantedLibNames(s.libName))
-      }
 
     val bintray: Option[BinTrayPublisher] = config.publish.map {
       case PublishConfig(user, password) =>
@@ -217,11 +228,18 @@ object Main {
     val interface = new Interface(config.debugMode, storingErrorLogger)
     interface.start()
 
-    val par = tsSources.toVector.par
-    par.tasksupport = new ForkJoinTaskSupport(pool)
-    val summary = interface.finish()
     val results: Seq[PhaseRes[Source, PublishedSbtProject]] =
-      par.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface)).seq
+      if (config.sequential)
+        tsSources.toVector.map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface))
+      else {
+        val par = tsSources.toVector.par
+        par.tasksupport = new ForkJoinTaskSupport(pool)
+        par
+          .map(source => PhaseRunner.go(Phase, source, Nil, logRegistry.get, interface))
+          .seq
+      }
+
+    val summary = interface.finish()
 
     pool.shutdown()
     compilePool.shutdown()

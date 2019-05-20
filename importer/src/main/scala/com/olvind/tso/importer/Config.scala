@@ -34,8 +34,8 @@ case class Config(
   val cacheFolder       = home / 'tmp / "tso-cache"
   val publishFolder     = home / ".ivy2" / "local"
   val ScalablyTypedRepo = "https://github.com/oyvindberg/ScalablyTyped.git"
-  val parallelScalas    = if (sequential) 1 else Runtime.getRuntime.availableProcessors / 2
-  val parallelLibraries = if (sequential) 1 else 100
+  val parallelScalas    = Runtime.getRuntime.availableProcessors / 2
+  val parallelLibraries = 100
 }
 
 object Config {
