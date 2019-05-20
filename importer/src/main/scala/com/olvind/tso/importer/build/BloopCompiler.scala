@@ -158,7 +158,11 @@ class BloopFactory(logger: Logger[Unit]) {
         override def reportEndIncrementalCycle(durationMs: Long, result: Try[Unit]): Unit = ()
       }
 
-      val scalacOptions = Array("-Xplugin:" + scalaJsCompiler.syntax) ++
+      val scalacOptions = Array(
+        "-Xplugin:" + scalaJsCompiler.syntax,
+        "-g:notailcalls",
+        "-opt:l:none",
+      ) ++
         Array("-P:scalajs:sjsDefinedByDefault").filter(_ => v.scalaJsBinVersion === "0.6")
 
       val foo: Array[AbsolutePath] =
