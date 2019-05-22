@@ -174,9 +174,11 @@ class Phase1ReadTypescript(
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
-              val isMaterialUi = source.libName match {
-                case TsIdentLibraryScoped("material-ui", _) => true
-                case _                                      => false
+              val enableExpandTypeMappings = source.libName match {
+                case TsIdentLibraryScoped("material-ui", _)    => true
+                case TsIdentLibrarySimple("styled-components") => true
+                case TsIdentLibrarySimple("antd")              => true
+                case _                                         => false
               }
 
               val involvesReact = {
@@ -195,7 +197,7 @@ class Phase1ReadTypescript(
                 new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
                 FlattenTrees.apply,
                 T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
-                if (isMaterialUi) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
+                if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
                 (
                   T.SimplifyConditionals >>
                     T.PreferTypeAlias >>

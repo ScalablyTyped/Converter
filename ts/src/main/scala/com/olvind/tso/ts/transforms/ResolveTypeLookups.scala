@@ -8,6 +8,7 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
 object ResolveTypeLookups extends TreeTransformationScopedChanges {
   override def leaveTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
+      case TsTypeLookup(TsTypeTuple(tparams), TsTypeRef.number) => TsTypeUnion(tparams)
       case lookup: TsTypeLookup =>
         expandLookupType(scope, lookup) getOrElse x
 

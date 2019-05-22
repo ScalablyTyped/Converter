@@ -6,6 +6,8 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.ts.PackageJsonDeps
 
+import scala.util.{Failure, Success, Try}
+
 object UpToDateExternals {
   def apply(
       logger:                Logger[_],
@@ -50,9 +52,13 @@ object UpToDateExternals {
 
     if (!offline) {
       logger.warn(s"Updating libraries in $nodeModulesPath")
-      cmd.runVerbose('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")(
-        folder,
-      )
+      implicit val wd = folder
+      Try(cmd.runVerbose('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")) match {
+        case Failure(x: ShelloutException) if x.toString.contains("Maximum call stack size exceeded") =>
+          cmd.runVerbose('npm, 'cache, 'clean, "--force")
+          cmd.runVerbose('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")
+        case Success(_) => ()
+      }
     }
 
     if (conserveSpace) {
