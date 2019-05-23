@@ -9,6 +9,65 @@ import com.olvind.tso.ts.TsTreeScope.LoopDetector
 object ExpandTypeMappings extends TreeTransformationScopedChanges {
   val Debug = false
 
+  object After extends TreeTransformationScopedChanges {
+
+    def apply(inLibrary: TsIdentLibrary, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
+      val store = new ExtractInterfaces.ConflictHandlingStore(inLibrary)
+      val V     = new V(store)
+      val asd   = V.visitTsParsedFile(scope)(file)
+
+      asd.copy(members = asd.members ++ store.interfaces.values)
+    }
+
+    class V(store: ExtractInterfaces.ConflictHandlingStore) extends TreeTransformationScopedChanges {
+
+      object Unqualify extends TreeTransformationUnit {
+        override def enterTsQIdent(t: Unit)(x: TsQIdent): TsQIdent =
+          x.copy(parts = x.parts.last :: Nil)
+      }
+
+      override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
+        AllMembersFor.forType(scope)(x) match {
+          case Problems(problems) =>
+            if (Debug) {
+              AllMembersFor.forType(scope)(x)
+              problems.foreach(p => scope.logger.warn(p.toString))
+            }
+            x
+
+          case Ok(newMembers, true) =>
+            val obj = TsTypeObject(newMembers)
+
+            val referencedTparams: Seq[TsTypeParam] =
+              TypeParamsReferencedInTree(scope.tparams, obj)
+
+            val notices = Comments(Comment("/* Inlined " + TsTypeFormatter(x) + " */\n") :: Nil)
+
+            val codePath = store.addInterface(
+              scope,
+              TsTypeFormatter(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit).take(50),
+              obj.members,
+              minNumParts = 1,
+              name =>
+                TsDeclInterface(
+                  notices,
+                  declared = true,
+                  name,
+                  referencedTparams,
+                  Nil,
+                  obj.members,
+                  CodePath.NoPath,
+                ),
+            )
+
+            TsTypeRef(NoComments, codePath.codePath, TsTypeParam.asTypeArgs(referencedTparams))
+
+          case _ => x
+        }
+
+    }
+  }
+
   override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
     x match {
       case i: TsDeclInterface =>

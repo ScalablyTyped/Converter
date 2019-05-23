@@ -17,12 +17,13 @@ object ExtractInterfaces {
     val interfaces = mutable.Map.empty[TsIdent, TsDeclInterface]
 
     def addInterface(
-        scope:     TsTreeScope,
-        prefix:    String,
-        members:   Seq[TsTree],
-        construct: TsIdent => TsDeclInterface,
+        scope:       TsTreeScope,
+        prefix:      String,
+        members:     Seq[TsTree],
+        minNumParts: Int,
+        construct:   TsIdent => TsDeclInterface,
     ): CodePath.HasPath = {
-      val interface = DeriveNonConflictingName(prefix, members) { name =>
+      val interface = DeriveNonConflictingName(prefix, minNumParts, members) { name =>
         val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent.of(name))
 
         interfaces get name match {
@@ -71,6 +72,7 @@ object ExtractInterfaces {
             scope,
             "Anon_",
             obj.members,
+            minNumParts = 2,
             name =>
               TsDeclInterface(
                 NoComments,

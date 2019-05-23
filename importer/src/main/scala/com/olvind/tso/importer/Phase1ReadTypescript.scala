@@ -198,6 +198,7 @@ class Phase1ReadTypescript(
                 FlattenTrees.apply,
                 T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
                 if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
+                if (enableExpandTypeMappings) T.ExpandTypeMappings.After(source.libName, scope) else identity, // before ExtractInterfaces
                 (
                   T.SimplifyConditionals >>
                     T.PreferTypeAlias >>
