@@ -6,8 +6,6 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.ts.PackageJsonDeps
 
-import scala.util.{Failure, Success, Try}
-
 object UpToDateExternals {
   def apply(
       logger:                Logger[_],
@@ -42,23 +40,52 @@ object UpToDateExternals {
     val missingExternals: Set[String] =
       ensurePresentPackagesFixes -- alreadyAddedExternals -- ignored
 
+    /* graalvm bundles a botched version which fails with SOE */
+    val nodeCommand = sys.env.get("NVM_BIN").fold("node")(_ + "/node")
+    val npmCommand = sys.env.get("NVM_BIN").fold("npm")(_ + "/npm")
+
     if (missingExternals.isEmpty) logger.warn(s"All external libraries present in $nodeModulesPath")
     else {
       logger.warn(s"Adding ${missingExternals.size} missing libraries to $nodeModulesPath")
-      missingExternals.toSeq.sorted.grouped(30).foreach { es =>
-        cmd.runVerbose("npm", "add", "--ignore-scripts", "--no-cache", "--no-audit", "--no-bin-links", es)(folder)
+      missingExternals.toSeq.sorted.grouped(100).foreach { es =>
+        cmd.runVerbose(
+          nodeCommand,
+          npmCommand,
+          "add",
+          "--ignore-scripts",
+          "--no-cache",
+          "--no-audit",
+          "--no-bin-links",
+          es,
+        )(folder)
       }
     }
 
     if (!offline) {
       logger.warn(s"Updating libraries in $nodeModulesPath")
-      implicit val wd = folder
-      Try(cmd.runVerbose('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")) match {
-        case Failure(x: ShelloutException) if x.toString.contains("Maximum call stack size exceeded") =>
-          cmd.runVerbose('npm, 'cache, 'clean, "--force")
-          cmd.runVerbose('npm, 'upgrade, "--latest", "--no-cache", "--ignore-scripts", "--no-audit", "--no-bin-links")
-        case Success(_) => ()
-      }
+      cmd.runVerbose(
+        nodeCommand,
+        npmCommand,
+        'upgrade,
+        "--latest",
+        "--no-cache",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-bin-links",
+      )(folder)
+    }
+
+    if (missingExternals.exists(_.startsWith("@material-ui")) || !offline) {
+      cmd.runVerbose(
+        nodeCommand,
+        npmCommand,
+        "add",
+        "@material-ui/core@3.9.3",
+        "--no-cache",
+        "--ignore-scripts",
+        "--no-audit",
+        "--no-bin-links",
+      )(folder)
     }
 
     if (conserveSpace) {
