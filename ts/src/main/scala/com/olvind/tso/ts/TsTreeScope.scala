@@ -131,18 +131,27 @@ object TsTreeScope {
   ): TsTreeScope.Root =
     new Root(libName, pedantic, deps, logger)
 
-  class LoopDetector private (val stack: List[(List[TsIdent], String)]) {
-    def this() = this(Nil)
-
+  class LoopDetector private (val stack: List[Entry]) {
     def including(wanted: List[TsIdent], scope: TsTreeScope): Either[Unit, LoopDetector] = {
-      val tuple = (wanted, scope.toString)
-      if (stack.contains(tuple)) Left(())
-      else Right(new LoopDetector(tuple :: stack))
+      val e = Entry.Idents(wanted, scope.toString)
+      if (stack.contains(e)) Left(())
+      else Right(new LoopDetector(e :: stack))
+    }
+    def including(ref: TsTypeRef, scope: TsTreeScope): Either[Unit, LoopDetector] = {
+      val e = Entry.Ref(ref, scope.toString)
+      if (stack.contains(e)) Left(())
+      else Right(new LoopDetector(e :: stack))
     }
   }
 
+  sealed trait Entry
+  object Entry {
+    final case class Idents(strings: List[TsIdent], scope: String) extends Entry
+    final case class Ref(ref: TsTypeRef, scope: String) extends Entry
+  }
+
   object LoopDetector {
-    val initial = new LoopDetector()
+    val initial = new LoopDetector(Nil)
   }
 
   final class Root private[TsTreeScope] (

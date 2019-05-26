@@ -33,10 +33,10 @@ object AllMembersFor {
   }
 
   def apply(scope: TsTreeScope, _loopDetector: LoopDetector)(typeRef: TsTypeRef): Seq[TsMember] =
-    _loopDetector.including(typeRef.name.parts, scope) match {
+    _loopDetector.including(typeRef, scope) match {
       case Left(()) => Nil
       case Right(newLoopDetector) =>
-        scope.lookupInternal(Picker.Types, typeRef.name.parts, LoopDetector.initial) flatMap {
+        scope.lookupInternal(Picker.Types, typeRef.name.parts, newLoopDetector) flatMap {
           case (x: TsDeclInterface, newScope) =>
             forInterface(newLoopDetector, x, newScope, typeRef.tparams)
 
@@ -64,3 +64,18 @@ object AllMembersFor {
         handleOverridingFields(members, inheritance flatMap AllMembersFor(newScope, loopDetector))
     }
 }
+
+class LoopDetectorFull private (val stack: List[(TsTypeRef, String)]) {
+  def this() = this(Nil)
+
+  def including(wanted: TsTypeRef, scope: TsTreeScope): Either[Unit, LoopDetectorFull] = {
+    val tuple = (wanted, scope.toString)
+    if (stack.contains(tuple)) Left(())
+    else Right(new LoopDetectorFull(tuple :: stack))
+  }
+}
+
+object LoopDetectorFull {
+  val initial = new LoopDetectorFull()
+}
+
