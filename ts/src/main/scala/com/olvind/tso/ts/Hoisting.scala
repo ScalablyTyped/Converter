@@ -15,8 +15,8 @@ object Hoisting {
   ): Seq[TsNamedValueDecl] =
     tpe match {
       case ref: TsTypeRef => fromRef(scope, ownerCp, ownerLoc, ld, ref)
-      case TsTypeObject(ms) => ms.flatMap(memberToDecl(ownerCp, ownerLoc))
-      case _                => Nil
+      case TsTypeObject(_, ms) => ms.flatMap(memberToDecl(ownerCp, ownerLoc))
+      case _                   => Nil
     }
 
   def fromRef(

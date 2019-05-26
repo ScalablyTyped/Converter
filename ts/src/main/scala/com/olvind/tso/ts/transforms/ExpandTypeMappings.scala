@@ -36,32 +36,15 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             x
 
           case Ok(newMembers, true) =>
-            val obj = TsTypeObject(newMembers)
+            val nameHint = TsTypeFormatter(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit).take(50)
 
-            val referencedTparams: Seq[TsTypeParam] =
-              TypeParamsReferencedInTree(scope.tparams, obj)
-
-            val notices = Comments(Comment("/* Inlined " + TsTypeFormatter(x) + " */\n") :: Nil)
-
-            val codePath = store.addInterface(
-              scope,
-              TsTypeFormatter(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit).take(50),
-              obj.members,
-              minNumParts = 1,
-              name =>
-                TsDeclInterface(
-                  notices,
-                  declared = true,
-                  name,
-                  referencedTparams,
-                  Nil,
-                  obj.members,
-                  CodePath.NoPath,
-                ),
+            val notices = Comments(
+              List(
+                Comment("/* Inlined " + TsTypeFormatter(x) + " */\n"),
+                CommentData(Markers.NameHint(nameHint)),
+              ),
             )
-
-            TsTypeRef(NoComments, codePath.codePath, TsTypeParam.asTypeArgs(referencedTparams))
-
+            TsTypeObject(notices, newMembers)
           case _ => x
         }
 
@@ -91,7 +74,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         }
 
       case TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
-          if !comments.cs.exists(_ === constants.MagicComments.TrivialTypeAlias)
+          if comments.extract({ case Markers.IsTrivial => () }).isEmpty
             && !pointsToConcreteType(scope, alias) =>
         AllMembersFor.forType(scope)(alias) match {
           case Problems(problems) =>
@@ -249,7 +232,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       case TsTypeLiteral(literal) => Ok(Set(stringUtils.unquote(literal.literal)), wasRewritten = false)
       case TsTypeKeyOf(key) =>
         AllMembersFor.forType(scope)(key).map(ms => keysFor(ms).to[Set])
-      case TsTypeObject(members) => Ok(keysFor(members).to[Set], wasRewritten = false)
+      case TsTypeObject(_, members) => Ok(keysFor(members).to[Set], wasRewritten = false)
       case TsTypeUnion(types) =>
         Res
           .sequence(types.filterNot(_ === TsTypeRef.never).map(evaluateKeys(scope)))
@@ -289,7 +272,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       tpe match {
         case x: TsTypeRef => apply(scope)(x)
         case x: TsTypeIntersect =>
-          Res.sequence(x.types.map(forType(scope))).map(_.flatten)
+          Res.sequence(x.types.map(forType(scope))).map(_.flatten).withIsRewritten
         case x: TsTypeUnion =>
           Res
             .sequence(x.types.map(forType(scope)))
@@ -436,7 +419,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
   object IsTypeMapping {
     def unapply(tpe: TsType): Option[TsMemberTypeMapped] =
       tpe match {
-        case TsTypeObject(Seq(x: TsMemberTypeMapped)) => Some(x)
+        case TsTypeObject(_, Seq(x: TsMemberTypeMapped)) => Some(x)
         case _ => None
       }
   }

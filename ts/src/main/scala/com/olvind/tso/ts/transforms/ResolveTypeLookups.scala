@@ -30,8 +30,8 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
             val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
             pick(members, strings)
 
-          case TsTypeObject(members) => pick(members, strings)
-          case _                     => None
+          case TsTypeObject(_, members) => pick(members, strings)
+          case _                        => None
         }
       case _ => None
     }
@@ -61,7 +61,8 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
     val combinedFunctions: Option[TsType] = functions.distinct match {
       case Nil      => None
       case Seq(one) => Some(TsTypeFunction(one))
-      case more     => Some(TsTypeObject(more.map(sig => TsMemberCall(NoComments, Default, sig))))
+      case more =>
+        Some(TsTypeObject(NoComments, more.map(sig => TsMemberCall(NoComments, Default, sig))))
     }
 
     TsTypeIntersect.simplified(combinedFunctions.foldLeft(fields)(_ :+ _) filterNot toIgnore)

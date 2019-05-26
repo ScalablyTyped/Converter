@@ -2,8 +2,6 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import com.olvind.tso.seqs.TraversableOps
-
 /**
   * This is the second part of a two step process to rid ourselves of the myriad of
   *  type aliases resulting from the resolution of modules.
@@ -37,13 +35,19 @@ object CleanupTypeAliases extends TreeTransformation {
   def removeTrivialTypeAlias(scope: TreeScope, members: Seq[Tree]): Seq[Tree] =
     members.flatMap {
       case ta: TypeAliasTree =>
-        ta.comments.cs.partitionCollect { case constants.MagicComments.TrivialTypeAlias => () } match {
-          case (Nil, _)       => Some(ta)
-          case (_, Nil)       => None
-          case (_, remaining) => Some(ta.copy(comments = Comments(remaining)))
+        ta.comments.extract { case Markers.IsTrivial => () } match {
+          case None => Some(ta)
+          case Some((_, restCs)) =>
+            if (restCs.cs.nonEmpty)
+              Some(ta.copy(comments = restCs))
+            None
         }
+
       case x: FieldTree =>
-        if (x.comments.cs.exists(_ === constants.MagicComments.TrivialTypeAlias)) None else Some(x)
+        x.comments.extract { case Markers.IsTrivial => () } match {
+          case Some(_) => None
+          case None    => Some(x)
+        }
       case other => Some(other)
     }
 }

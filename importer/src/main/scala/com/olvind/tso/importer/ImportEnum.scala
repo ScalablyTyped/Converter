@@ -35,7 +35,7 @@ object ImportEnum {
             name     = name,
             tparams  = Nil,
             alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Nil)),
-            comments = Comments(constants.MagicComments.TrivialTypeAlias),
+            comments = Comments(CommentData(Markers.IsTrivial)),
             codePath = importedCodePath,
           )
         case None =>

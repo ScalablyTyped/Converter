@@ -418,7 +418,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
       }
 
     ((tsIdent <~ "is") ~ tsType ^^ TsTypeIs
-      | tsMembers ^^ TsTypeObject
+      | comments ~ tsMembers ^^ TsTypeObject
       | tsTypeFunction
       | "new" ~> tsTypeFunction ^^ TsTypeConstructor
       | "unique" ~> "symbol" ~> success(TsTypeRef(NoComments, TsQIdent.symbol, Nil))

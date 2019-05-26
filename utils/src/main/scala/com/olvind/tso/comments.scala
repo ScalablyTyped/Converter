@@ -1,15 +1,32 @@
 package com.olvind.tso
 
 import scala.collection.mutable
+import seqs._
 
-final case class Comment(raw: String) extends AnyVal
+sealed trait Comment
+final case class CommentRaw(raw:   String) extends Comment
+final case class CommentData(data: Comment.Data) extends Comment
 
 object Comment {
+  trait Data
+
+  def apply(raw: String): Comment = CommentRaw(raw)
+
   def warning(s: String)(implicit e: sourcecode.Enclosing): Comment =
     Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
 }
 
 sealed class Comments(val cs: List[Comment]) extends Serializable {
+  def rawCs = cs collect { case CommentRaw(raw) => raw }
+
+  def extract[T](pf: PartialFunction[Comment.Data, T]): Option[(T, Comments)] =
+    cs.partitionCollect {
+      case CommentData(data) if pf.isDefinedAt(data) => pf(data)
+    } match {
+      case (Nil, _)     => None
+      case (some, rest) => Some((some.head, Comments(rest)))
+    }
+
   override val hashCode: Int = 0
 
   override def equals(obj: Any): Boolean =

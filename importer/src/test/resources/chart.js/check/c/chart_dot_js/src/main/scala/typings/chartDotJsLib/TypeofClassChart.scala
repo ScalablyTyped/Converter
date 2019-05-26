@@ -6,7 +6,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait Anon_Chart
+trait TypeofClassChart
   extends org.scalablytyped.runtime.Instantiable2[
       (/* context */ stdLib.ArrayLike[stdLib.CanvasRenderingContext2D | stdLib.HTMLCanvasElement]) | (/* context */ stdLib.CanvasRenderingContext2D) | (/* context */ stdLib.HTMLCanvasElement) | (/* context */ java.lang.String), 
       /* options */ js.Any, 

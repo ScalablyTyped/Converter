@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package transforms
 
-import seqs._
+import com.olvind.tso.seqs._
 
 /**
   * This is the first part of a two step process to rid ourselves of the myriad of
@@ -33,8 +33,9 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
 
   def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
     cur match {
-      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(_, nextName, _), codePath)
-          if cs.cs.exists(_ === constants.MagicComments.TrivialTypeAlias) =>
+      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(_, nextName, _), codePath) if cs.extract {
+            case Markers.IsTrivial => ()
+          }.isDefined =>
         scope
           .lookupTypeIncludeScope(nextName)
           .collectFirst {

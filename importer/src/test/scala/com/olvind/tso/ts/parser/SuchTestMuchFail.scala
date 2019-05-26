@@ -52,7 +52,7 @@ object SuchTestMuchFail extends App {
 
   val successes: Seq[Path] =
     parsed collect {
-      case (path, Right(res)) => path
+      case (path, Right(_)) => path
     } sortBy (_.toString)
 
   val failures: Seq[(Path, String)] =

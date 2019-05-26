@@ -147,7 +147,7 @@ object TsTreeScope {
   sealed trait Entry
   object Entry {
     final case class Idents(strings: List[TsIdent], scope: String) extends Entry
-    final case class Ref(ref: TsTypeRef, scope: String) extends Entry
+    final case class Ref(ref:        TsTypeRef, scope:     String) extends Entry
   }
 
   object LoopDetector {

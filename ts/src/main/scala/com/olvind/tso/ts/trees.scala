@@ -495,7 +495,7 @@ object TsTypeRef {
 
 final case class TsTypeLiteral(literal: TsLiteral) extends TsType
 
-final case class TsTypeObject(members: Seq[TsMember]) extends TsType with HasClassMembers
+final case class TsTypeObject(comments: Comments, members: Seq[TsMember]) extends TsType with HasClassMembers
 
 final case class TsTypeFunction(signature: TsFunSig) extends TsType
 
@@ -530,7 +530,7 @@ object TsTypeIntersect {
     } match {
       case (Nil, all)      => all
       case (Seq(_), _)     => types // just keep order
-      case (objects, rest) => TsTypeObject(objects.flatMap(_.members)) +: rest
+      case (objects, rest) => TsTypeObject(NoComments, objects.flatMap(_.members)) +: rest
     }
     flatten(withCombinedObjects.to[List]).distinct match {
       case Nil      => TsTypeRef.never

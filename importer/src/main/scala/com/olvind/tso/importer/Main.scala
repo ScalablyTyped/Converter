@@ -25,54 +25,34 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
 import scala.util.Try
 
-object Main {
+class Main(config: Config) {
+  import Main._
 
-  def main(args: Array[String]): Unit = {
-    val Config(config) = args
-    run(config)
+  private val pool             = new ForkJoinPool(config.parallelLibraries)
+  private val scheduler        = Scheduler(pool)
+  private val compilePool      = new ForkJoinPool(config.parallelScalas)
+  private val compileScheduler = Scheduler(compilePool)
+
+  private val storingErrorLogger = logging.storing()
+  private val logsFolder         = existing(config.cacheFolder / 'logs)
+
+  private val logger = {
+    val logFile = new FileWriter((logsFolder / s"${config.runId}.log").toIO)
+    val base    = logging appendable logFile zipWith (storingErrorLogger filter LogLevel.error)
+    if (config.debugMode) base zipWith logging.stdout else base
   }
 
-  def existing(p: Path): Path = {
-    mkdir(p)
-    p
-  }
-  def existingEmpty(p: Path): Path = {
-    Try(rm(p))
-    existing(p)
-  }
+  /* we use this to always output to stdout during initialization (before the user interface comes up) */
+  private val interfaceLogger = if (config.debugMode) logger.void else logging.stdout
+  private val interfaceCmd    = new Cmd(interfaceLogger, None)
 
-  def run(config: Config): Unit = {
-    val logsFolder       = existing(config.cacheFolder / 'logs)
-    val pool             = new ForkJoinPool(config.parallelLibraries)
-    val scheduler        = Scheduler(pool)
-    val compilePool      = new ForkJoinPool(config.parallelScalas)
-    val compileScheduler = Scheduler(compilePool)
+  val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
+    logger.filter(LogLevel.warn).syncAccess.void,
+    _.libName,
+    _ => logging.storing(),
+  )
 
-    val storingErrorLogger = logging.storing()
-
-    val logger = {
-      val logFile = new FileWriter((logsFolder / s"${config.runId}.log").toIO)
-      val base    = logging appendable logFile zipWith (storingErrorLogger filter LogLevel.error)
-      if (config.debugMode) base zipWith logging.stdout else base
-    }
-
-    /* we use this to always output to stdout during initialization (before the user interface comes up) */
-    val interfaceLogger = if (config.debugMode) logger.void else logging.stdout
-    val interfaceCmd    = new Cmd(interfaceLogger, None)
-
-    val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
-      logger.filter(LogLevel.warn).syncAccess.void,
-      _.libName,
-      _ => logging.storing(),
-    )
-
-    val bloopFactoryF = Future {
-      val factory  = new BloopFactory(logger.filter(LogLevel.debug).void)
-      val compiler = factory.forVersion(config.versions, scheduler)
-      (compiler, factory.bloopLogger)
-    }(scheduler)
-
-    case class TargetDirs(targetFolder: Path, failFolder: Path, facadeFolder: Path)
+  def run(): Unit = {
 
     val updatedTargetDirF: Future[TargetDirs] = Future {
       val targetFolder = config.cacheFolder / config.projectName
@@ -99,6 +79,12 @@ object Main {
         failFolder   = existingEmpty(targetFolder / 'failures),
         facadeFolder = existing(targetFolder / 'facades),
       )
+    }(scheduler)
+
+    val bloopFactoryF = Future {
+      val factory  = new BloopFactory(logger.filter(LogLevel.debug).void)
+      val compiler = factory.forVersion(config.versions, scheduler)
+      (compiler, factory.bloopLogger)
     }(scheduler)
 
     val dtFolderF: Future[InFolder] = Future(
@@ -316,4 +302,21 @@ object Main {
 
     System.exit(0)
   }
+}
+object Main {
+  def main(args: Array[String]): Unit = {
+    val Config(config) = args
+    new Main(config).run()
+  }
+
+  def existing(p: Path): Path = {
+    mkdir(p)
+    p
+  }
+  def existingEmpty(p: Path): Path = {
+    Try(rm(p))
+    existing(p)
+  }
+
+  case class TargetDirs(targetFolder: Path, failFolder: Path, facadeFolder: Path)
 }

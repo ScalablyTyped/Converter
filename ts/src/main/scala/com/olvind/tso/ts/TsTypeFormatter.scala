@@ -111,7 +111,7 @@ object TsTypeFormatter {
     tpe match {
       case TsTypeRef(_, name, ts)                   => qident(name) + tparams(ts)(apply).getOrElse("")
       case TsTypeLiteral(l)                         => lit(l)
-      case TsTypeObject(members)                    => s"{${members.map(member).mkString(", ")}}"
+      case TsTypeObject(_, members)                 => s"{${members.map(member).mkString(", ")}}"
       case TsTypeFunction(s)                        => s"${sig(s)}"
       case TsTypeConstructor(f)                     => s"new ${apply(f)}"
       case TsTypeIs(ident, x)                       => s"${ident.value} is ${apply(x)}"

@@ -415,7 +415,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsTypeObject(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsTypeObject(_1) => TsTypeObject(_1 map visitTsMember(tt))
+      case TsTypeObject(_1, _2) => TsTypeObject(_1, _2 map visitTsMember(tt))
     }
   }
   final def visitTsTypeParam(t: T)(x: TsTypeParam): TsTypeParam = {

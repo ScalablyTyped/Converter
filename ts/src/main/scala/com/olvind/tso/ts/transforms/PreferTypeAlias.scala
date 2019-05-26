@@ -24,10 +24,10 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head)) i
         else
-          TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(members), codePath)
+          TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(NoComments, members), codePath)
 
       /* the opposite of former */
-      case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(members), codePath)
+      case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(_, members), codePath)
           if ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head))
           TsDeclInterface(comments, declared, name, tparams, Nil, members, codePath)
@@ -175,7 +175,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
   object AllTypeObjects {
     def unapply(arg: TsType): Option[Seq[TsMember]] =
       arg match {
-        case TsTypeObject(members) => Some(members)
+        case TsTypeObject(_, members) => Some(members)
 
         case TsTypeUnion(types) =>
           types.partitionCollect { case AllTypeObjects(members) => members } match {

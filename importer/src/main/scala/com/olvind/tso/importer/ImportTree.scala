@@ -4,8 +4,6 @@ package importer
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, UnpackLibs}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.seqs._
-import com.olvind.tso.ts.transforms.ExpandCallables
 import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
@@ -111,7 +109,7 @@ object ImportTree {
           ),
         )
 
-      case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(members)), None, location, codePath, false) =>
+      case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(_, members)), None, location, codePath, false) =>
         val newCodePath = importName(codePath.forceHasPath.codePath)
         val MemberRet(ctors, ms, inheritance, Nil) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
@@ -399,7 +397,7 @@ object ImportTree {
       case (_, Some(TsTypeQuery(_))) =>
         scope.logger.info(s"Dropping $m")
         Nil
-      case (importName(name), Some(TsTypeObject(members)))
+      case (importName(name), Some(TsTypeObject(_, members)))
           if !m.isOptional && members.forall(_.isInstanceOf[TsMemberCall]) =>
         // alternative notation for overload methods
         members.collect { case x: TsMemberCall => x } map (
@@ -451,9 +449,9 @@ object ImportTree {
     }
 
   def hack(fs: FieldTree): FieldTree =
-    fs.comments.cs.partitionCollect { case c if c === ExpandCallables.MarkerComment => c } match {
-      case (Nil, _)  => fs
-      case (_, rest) => fs.withSuffix("_Original").copy(comments = Comments(rest))
+    fs.comments.extract { case Markers.ExpandedComments => () } match {
+      case None              => fs
+      case Some((_, restCs)) => fs.withSuffix("_Original").copy(comments = restCs)
     }
 
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =

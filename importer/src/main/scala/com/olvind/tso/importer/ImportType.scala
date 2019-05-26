@@ -90,7 +90,7 @@ object ImportType {
             }
         }
 
-      case TsTypeObject(Nil) =>
+      case TsTypeObject(_, Nil) =>
         TypeRef(QualifiedName.Object, Nil, NoComments)
 
       /* Proper handling (of static) cases will be done in `ApplyTypeMapping`.
@@ -99,7 +99,7 @@ object ImportType {
        * It is crucial that this "logic" live here in the importer, since it needs to be exported
        *  in it's original form to dependencies
        */
-      case tpe @ TsTypeObject(Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
+      case tpe @ TsTypeObject(_, Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
         val lookups: Seq[TsTypeRef] =
           TreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
 
@@ -117,7 +117,7 @@ object ImportType {
             TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base)).withComments(c)
         } getOrElse base.withComments(c)
 
-      case TsTypeObject(ms) if ExtractInterfaces.isDictionary(ms) =>
+      case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
         val (strings, numbers, Nil) = ms.partitionCollect2(
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.string), _, _) => x },
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _, _) => x },

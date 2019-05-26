@@ -427,14 +427,13 @@ object Printer {
     }
 
   def formatComments(comments: Comments): String =
-    comments.cs
-      .map(
-        comment =>
-          stringUtils.formatComment(
-            stringUtils.escapeUnicodeEscapes(
-              stringUtils.escapeNestedComments(comment.raw),
-            ),
+    comments.rawCs
+      .map { raw =>
+        stringUtils.formatComment(
+          stringUtils.escapeUnicodeEscapes(
+            stringUtils.escapeNestedComments(raw),
           ),
-      )
+        )
+      }
       .mkString("")
 }

@@ -201,6 +201,7 @@ final class CommentTests extends FunSuite with Matchers {
       TsParser.tsType,
     )(
       TsTypeObject(
+        NoComments,
         List(
           TsMemberProperty(
             NoComments,

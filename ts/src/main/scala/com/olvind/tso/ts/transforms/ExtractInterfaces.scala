@@ -5,6 +5,7 @@ package transforms
 import scala.collection.mutable
 
 object ExtractInterfaces {
+
   def apply(inLibrary: TsIdentLibrary, scope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
     val store = new ConflictHandlingStore(inLibrary)
     val V     = new LiftTypeObjects(store)
@@ -68,14 +69,20 @@ object ExtractInterfaces {
           val referencedTparams: Seq[TsTypeParam] =
             TypeParamsReferencedInTree(scope.tparams, obj)
 
+          val nameHint = obj.comments.extract {
+            case Markers.NameHint(hint) => hint
+          }
+
+          def isFunction = obj.members.forall { case _: TsMemberCall => true; case _ => false }
+
           val codePath = store.addInterface(
             scope,
-            "Anon_",
+            nameHint.fold(if (isFunction) "Fn_" else "Anon_")(_._1),
             obj.members,
-            minNumParts = 2,
+            minNumParts = nameHint.fold(2)(_ => 1),
             name =>
               TsDeclInterface(
-                NoComments,
+                nameHint.fold(obj.comments)(_._2),
                 declared = true,
                 name,
                 referencedTparams,

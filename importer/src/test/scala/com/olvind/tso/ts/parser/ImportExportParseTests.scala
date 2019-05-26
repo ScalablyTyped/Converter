@@ -273,6 +273,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                 TsQIdent(List(TsIdent("React"), TsIdent("Component"))),
                 List(
                   TsTypeObject(
+                    NoComments,
                     List(
                       TsMemberProperty(
                         NoComments,
@@ -286,7 +287,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                       ),
                     ),
                   ),
-                  TsTypeObject(List()),
+                  TsTypeObject(NoComments, List()),
                 ),
               ),
             ),

@@ -33,14 +33,14 @@ ${renderComments(comments)}
 """
 
   def renderComments(comments: Comments): String =
-    comments.cs.distinct match {
+    comments.rawCs.distinct match {
       case Nil => ""
       case cs =>
         s"""## Comments
 
 These comments are from the typescript definitions and might be useful:
 ```
-${cs.map(_.raw).mkString}
+${cs.mkString}
 ```
 """
     }

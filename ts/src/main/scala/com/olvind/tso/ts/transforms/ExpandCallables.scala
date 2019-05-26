@@ -34,7 +34,8 @@ object ExpandCallables extends TransformClassMembers {
         callableTypes(scope)(tpe) match {
           case Expand(callables, keepOriginalMember) if callables.nonEmpty =>
             val keptOpt: Option[TsMemberProperty] =
-              if (keepOriginalMember || !isReadonly) Some(m.copy(comments = m.comments + MarkerComment))
+              if (keepOriginalMember || !isReadonly)
+                Some(m.copy(comments = m.comments + CommentData(Markers.ExpandedComments)))
               else None
 
             val fs: Seq[TsMemberFunction] =
@@ -52,11 +53,6 @@ object ExpandCallables extends TransformClassMembers {
 
       case other => other :: Nil
     }
-
-  /* yeah, sorry. This is out of band information because we cannot
-      rename the original member until we reach scala :/
-   */
-  val MarkerComment = Comment("/* Expanded */")
 
   sealed trait Result
   object Result {

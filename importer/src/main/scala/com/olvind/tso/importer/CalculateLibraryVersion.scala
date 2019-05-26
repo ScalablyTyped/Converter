@@ -48,7 +48,7 @@ class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommi
     private val Version = "^\\/\\/ Type definitions for .+ ([a-zA-Z\\d][a-zA-Z\\d.\\-]*)$".r
 
     def from(comments: Comments): Option[String] = {
-      val lines = comments.cs.flatMap(_.raw.split("\n"))
+      val lines = comments.rawCs.flatMap(_.split("\n"))
       lines.collectFirst {
         case Version(v) if v.exists(_.isDigit) => v
       }

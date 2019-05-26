@@ -73,8 +73,10 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
           }
 
           statics match {
-            case Nil  => Some((cls, ctor))
-            case some => Some((cls, TsTypeObject(some :+ TsMemberCtor(NoComments, Default, ctor.signature.signature))))
+            case Nil => Some((cls, ctor))
+            case some =>
+              val nameHint = Comments(CommentData(Markers.NameHint(s"TypeofClass${cls.name.value}")))
+              Some((cls, TsTypeObject(nameHint, some :+ TsMemberCtor(NoComments, Default, ctor.signature.signature))))
           }
 
         case _ => None
@@ -87,10 +89,10 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
       case RewrittenClass((_, typeConstructor)) => Some(typeConstructor)
       case ns: TsDeclNamespace =>
         val newNs = new ReplaceExports(LoopDetector.initial).visitTsDeclNamespace(scope.`..`)(ns)
-        nonEmptyTypeObject(newNs.members)
+        nonEmptyTypeObject(newNs)
       case mod: TsDeclModule =>
         val newMod = new ReplaceExports(LoopDetector.initial).visitTsDeclModule(scope.`..`)(mod)
-        nonEmptyTypeObject(newMod.members)
+        nonEmptyTypeObject(newMod)
 
       case TsDeclVar(_, _, _, _, tpe, _, _, _, _) =>
         tpe map {
@@ -130,7 +132,8 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
                   case (Seq(one), rest) if one.signature.tparams.isEmpty && rest.size <= 1 =>
                     one +: rest
                   case (fns, rest) =>
-                    val overloads = TsTypeObject(fns.map(fn => TsMemberCall(NoComments, Default, fn.signature)))
+                    val overloads =
+                      TsTypeObject(NoComments, fns.map(fn => TsMemberCall(NoComments, Default, fn.signature)))
                     overloads +: rest
                 }
                 scope.logger.info(s"Resolved $target")
@@ -140,14 +143,14 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
 
     }
 
-  private def nonEmptyTypeObject(members: Seq[TsContainerOrDecl]): Option[TsTypeObject] = {
-    val rewritten = members collect {
+  private def nonEmptyTypeObject(from: TsDeclNamespaceOrModule): Option[TsTypeObject] = {
+    val rewritten = from.members collect {
       case ns: TsDeclNamespace =>
         TsMemberProperty(
           ns.comments,
           Default,
           ns.name,
-          nonEmptyTypeObject(ns.members),
+          nonEmptyTypeObject(ns),
           None,
           isStatic   = false,
           isReadOnly = true,
@@ -178,6 +181,14 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
           isOptional = false,
         )
     }
-    if (rewritten.isEmpty) None else Some(TsTypeObject(rewritten))
+    if (rewritten.isEmpty) None
+    else {
+      val namehint = from match {
+        case TsDeclNamespace(_, _, name, _, _, _) => s"Typeof${name.value}"
+        case TsDeclModule(_, _, name, _, _, _)    => s"Typeof${name.value}"
+        case TsAugmentedModule(name, _, _, _)     => s"Typeof${name.value}"
+      }
+      Some(TsTypeObject(Comments(CommentData(Markers.NameHint(namehint))), rewritten))
+    }
   }
 }

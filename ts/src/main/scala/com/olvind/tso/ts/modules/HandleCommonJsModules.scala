@@ -106,7 +106,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   ExportType.Named,
                   TsExporteeTree(
                     TsDeclVar(
-                      Comments(constants.MagicComments.TrivialTypeAlias),
+                      Comments(CommentData(Markers.IsTrivial)),
                       declared = true,
                       readOnly = true,
                       newName,

@@ -186,46 +186,10 @@ class Phase1ReadTypescript(
                 source.libName === react || deps.exists { case (s, _) => s.libName === react }
               }
 
-              val ProcessAll = List[TsParsedFile => TsParsedFile](
-                T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
-                modules.HandleCommonJsModules.visitTsParsedFile(scope),
-                (T.SimplifyParents >> T.InferTypeFromExpr >> T.NormalizeFunctions /* run before FlattenTrees */ )
-                  .visitTsParsedFile(scope.caching),
-                T.QualifyReferences.visitTsParsedFile(scope.caching),
-                modules.AugmentModules(scope.caching),
-                T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
-                new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
-                FlattenTrees.apply,
-                T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
-                if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
-                if (enableExpandTypeMappings) T.ExpandTypeMappings.After(source.libName, scope) else identity, // before ExtractInterfaces
-                (
-                  T.SimplifyConditionals >>
-                    T.PreferTypeAlias >>
-                    T.ExpandTypeParams >>
-                    T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
-                    T.UnionTypesFromKeyOf >>
-                    T.DropPrototypes >>
-                    T.InferReturnTypes >>
-                    T.RewriteTypeThis >>
-                    T.InlineTrivialTypeAlias //after DefaultedTypeArguments
-                ).visitTsParsedFile(scope.caching),
-                T.ResolveTypeLookups
-                  .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
-                T.ExtractInterfaces(source.libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
-                (
-                  if (involvesReact) T.ExtractClasses
-                  else T.ExtractClasses >> T.ExpandCallables
-                ).visitTsParsedFile(scope.caching),
-                (
-                  T.SplitMethodsOnUnionTypes >> // after ExpandCallables
-                    T.RemoveDifficultInheritance // after DefaultedTypeArguments
-                ).visitTsParsedFile(scope.caching),
-                T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
-              )
-
               logger.warn(s"Processing ${source.libName}")
-              val finished = ProcessAll.foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
+              val finished = Phase1ReadTypescript
+                .Pipeline(scope, source.libName, enableExpandTypeMappings, involvesReact)
+                .foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
               val version = calculateLibraryVersion(
                 source.folder,
@@ -240,4 +204,50 @@ class Phase1ReadTypescript(
         }
     }
   }
+}
+
+object Phase1ReadTypescript {
+  def Pipeline(
+      scope:                    TsTreeScope.Root,
+      libName:                  TsIdentLibrary,
+      enableExpandTypeMappings: Boolean,
+      enableExpandCallables:    Boolean,
+  ): List[TsParsedFile => TsParsedFile] =
+    List(
+      T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
+      modules.HandleCommonJsModules.visitTsParsedFile(scope),
+      (T.SimplifyParents >> T.InferTypeFromExpr >> T.NormalizeFunctions /* run before FlattenTrees */ )
+        .visitTsParsedFile(scope.caching),
+      T.QualifyReferences.visitTsParsedFile(scope.caching),
+      modules.AugmentModules(scope.caching),
+      T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
+      new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
+      FlattenTrees.apply,
+      T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
+      if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
+      if (enableExpandTypeMappings) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
+      (
+        T.SimplifyConditionals >>
+          T.PreferTypeAlias >>
+          T.ExpandTypeParams >>
+          T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
+          T.UnionTypesFromKeyOf >>
+          T.DropPrototypes >>
+          T.InferReturnTypes >>
+          T.RewriteTypeThis >>
+          T.InlineTrivialTypeAlias
+      ).visitTsParsedFile(scope.caching),
+      T.ResolveTypeLookups
+        .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
+      T.ExtractInterfaces(libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
+      (
+        if (enableExpandCallables) T.ExtractClasses
+        else T.ExtractClasses >> T.ExpandCallables
+      ).visitTsParsedFile(scope.caching),
+      (
+        T.SplitMethodsOnUnionTypes >> // after ExpandCallables
+          T.RemoveDifficultInheritance
+      ).visitTsParsedFile(scope.caching),
+      T.SplitMethodsOnOptionalParams.visitTsParsedFile(scope.caching),
+    )
 }

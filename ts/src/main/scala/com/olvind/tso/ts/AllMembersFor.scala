@@ -78,4 +78,3 @@ class LoopDetectorFull private (val stack: List[(TsTypeRef, String)]) {
 object LoopDetectorFull {
   val initial = new LoopDetectorFull()
 }
-

@@ -17,7 +17,7 @@ class ^ protected () extends Chart {
 @JSImport("chart.js", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  val Chart: chartDotJsLib.Anon_Chart = js.native
+  val Chart: chartDotJsLib.TypeofClassChart = js.native
   var controllers: org.scalablytyped.runtime.StringDictionary[js.Any] = js.native
   var defaults: chartDotJsLib.Anon_Global = js.native
 }

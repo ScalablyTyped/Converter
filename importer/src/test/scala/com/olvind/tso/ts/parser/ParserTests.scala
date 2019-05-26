@@ -180,6 +180,7 @@ final class ParserTests extends FunSuite {
                   TsIdent("params"),
                   tpe = Some(
                     TsTypeObject(
+                      NoComments,
                       members = List(
                         TsMemberIndex(
                           NoComments,
@@ -446,6 +447,7 @@ final class ParserTests extends FunSuite {
                   name = TsIdent("Domain"),
                   upperBound = Some(
                     TsTypeObject(
+                      NoComments,
                       members = List(
                         TsMemberFunction(
                           NoComments,
@@ -522,6 +524,7 @@ final class ParserTests extends FunSuite {
                 ),
               ),
               TsTypeObject(
+                NoComments,
                 List(
                   TsMemberProperty(
                     NoComments,
@@ -673,7 +676,12 @@ final class ParserTests extends FunSuite {
             TsFunSig(
               NoComments,
               List(
-                TsTypeParam(NoComments, TsIdent("T"), Some(TsTypeQuery(TsQIdent(List(TsIdent("FormComponent"))))), None),
+                TsTypeParam(
+                  NoComments,
+                  TsIdent("T"),
+                  Some(TsTypeQuery(TsQIdent(List(TsIdent("FormComponent"))))),
+                  None,
+                ),
               ),
               List(
                 TsFunParam(
@@ -702,7 +710,7 @@ final class ParserTests extends FunSuite {
           NoComments,
           List(TsTypeParam(NoComments, TsIdent("P"), None, None)),
           List(
-            TsFunParam(NoComments, TsIdent("object"), Some(TsTypeObject(Nil)), isOptional = false),
+            TsFunParam(NoComments, TsIdent("object"), Some(TsTypeObject(NoComments, Nil)), isOptional = false),
           ),
           Some(
             TsTypeIs(
@@ -894,7 +902,15 @@ final class ParserTests extends FunSuite {
             NoComments,
             declared = false,
             List(
-              TsDeclInterface(NoComments, declared = false, TsIdent("Window"), Nil, Nil, windowMembers, CodePath.NoPath),
+              TsDeclInterface(
+                NoComments,
+                declared = false,
+                TsIdent("Window"),
+                Nil,
+                Nil,
+                windowMembers,
+                CodePath.NoPath,
+              ),
             ),
             CodePath.NoPath,
           ),
@@ -1163,6 +1179,7 @@ final class ParserTests extends FunSuite {
         TsIdent("Partial"),
         List(TsTypeParam(NoComments, TsIdent("T"), None, None)),
         TsTypeObject(
+          NoComments,
           List(
             TsMemberTypeMapped(
               NoComments,
@@ -1194,6 +1211,7 @@ final class ParserTests extends FunSuite {
           TsTypeParam(NoComments, TsIdent("K"), Some(TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Nil))), None),
         ),
         TsTypeObject(
+          NoComments,
           List(
             TsMemberTypeMapped(
               comments    = NoComments,
@@ -1222,6 +1240,7 @@ final class ParserTests extends FunSuite {
         TsIdent("Proxify"),
         List(TsTypeParam(NoComments, TsIdent("T"), None, None)),
         TsTypeObject(
+          NoComments,
           List(
             TsMemberTypeMapped(
               NoComments,
@@ -1231,6 +1250,7 @@ final class ParserTests extends FunSuite {
               from        = TsTypeKeyOf(T),
               optionalize = OptionalModifier.Noop,
               to = TsTypeObject(
+                NoComments,
                 List(
                   TsMemberFunction(
                     NoComments,
@@ -1287,6 +1307,7 @@ type Readonly<T> = {
         TsIdentSimple("Readonly"),
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         TsTypeObject(
+          NoComments,
           List(
             TsMemberTypeMapped(
               comments    = NoComments,
@@ -1468,8 +1489,8 @@ type Readonly<T> = {
         declared = false,
         TsIdent("Component"),
         List(
-          TsTypeParam(NoComments, TsIdent("P"), None, Some(TsTypeObject(Nil))),
-          TsTypeParam(NoComments, TsIdent("S"), None, Some(TsTypeObject(Nil))),
+          TsTypeParam(NoComments, TsIdent("P"), None, Some(TsTypeObject(NoComments, Nil))),
+          TsTypeParam(NoComments, TsIdent("S"), None, Some(TsTypeObject(NoComments, Nil))),
         ),
         List(
           TsTypeRef(
@@ -1499,7 +1520,7 @@ type Readonly<T> = {
           List(
             TsFunParam(NoComments, TsIdent("obj"), Some(TsTypeRef.any), isOptional = false),
           ),
-          Some(TsTypeIs(TsIdent("obj"), TsTypeObject(Nil))),
+          Some(TsTypeIs(TsIdent("obj"), TsTypeObject(NoComments, Nil))),
         ),
         isStatic   = false,
         isReadOnly = false,
@@ -1715,6 +1736,7 @@ type Readonly<T> = {
                 TsTypeIntersect(
                   List(
                     TsTypeObject(
+                      NoComments,
                       List(
                         TsMemberProperty(
                           NoComments,
@@ -1821,6 +1843,7 @@ type Readonly<T> = {
         ),
         TsTypeLookup(
           TsTypeObject(
+            NoComments,
             List(
               TsMemberFunction(
                 NoComments,
@@ -1987,7 +2010,12 @@ type Readonly<T> = {
                 NoComments,
                 Nil,
                 List(
-                  TsFunParam(NoComments, TsIdentSimple("args"), Some(TsTypeRepeated(TsTypeRef.any)), isOptional = false),
+                  TsFunParam(
+                    NoComments,
+                    TsIdentSimple("args"),
+                    Some(TsTypeRepeated(TsTypeRef.any)),
+                    isOptional = false,
+                  ),
                 ),
                 Some(TsTypeInfer(TsTypeParam(NoComments, TsIdentSimple("R"), None, None))),
               ),
@@ -2076,6 +2104,7 @@ type Readonly<T> = {
         TsIdentSimple("Required"),
         List(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
         TsTypeObject(
+          NoComments,
           List(
             TsMemberTypeMapped(
               NoComments,

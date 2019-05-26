@@ -28,7 +28,7 @@ object DeriveCopy {
       case x: TsDeclInterface =>
         List(
           TsDeclTypeAlias(
-            comments = Comments(constants.MagicComments.TrivialTypeAlias),
+            comments = Comments(CommentData(Markers.IsTrivial)),
             declared = true,
             name     = rename getOrElse x.name,
             tparams  = x.tparams,
@@ -96,7 +96,7 @@ object DeriveCopy {
       case x: TsDeclTypeAlias =>
         List(
           TsDeclTypeAlias(
-            Comments(constants.MagicComments.TrivialTypeAlias),
+            Comments(CommentData(Markers.IsTrivial)),
             declared = false,
             rename getOrElse x.name,
             x.tparams,
