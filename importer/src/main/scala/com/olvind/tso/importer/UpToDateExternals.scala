@@ -41,15 +41,16 @@ object UpToDateExternals {
       ensurePresentPackagesFixes -- alreadyAddedExternals -- ignored
 
     /* graalvm bundles a botched version which fails with SOE */
-    val nodeCommand = sys.env.get("NVM_BIN").fold("node")(_ + "/node")
-    val npmCommand = sys.env.get("NVM_BIN").fold("npm")(_ + "/npm")
+    val npmCommand = sys.env.get("NVM_BIN") match {
+      case None       => List("npm")
+      case Some(path) => List(s"$path/node", s"$path/npm")
+    }
 
     if (missingExternals.isEmpty) logger.warn(s"All external libraries present in $nodeModulesPath")
     else {
       logger.warn(s"Adding ${missingExternals.size} missing libraries to $nodeModulesPath")
       missingExternals.toSeq.sorted.grouped(100).foreach { es =>
         cmd.runVerbose(
-          nodeCommand,
           npmCommand,
           "add",
           "--ignore-scripts",
@@ -64,7 +65,6 @@ object UpToDateExternals {
     if (!offline) {
       logger.warn(s"Updating libraries in $nodeModulesPath")
       cmd.runVerbose(
-        nodeCommand,
         npmCommand,
         'upgrade,
         "--latest",
@@ -77,7 +77,6 @@ object UpToDateExternals {
 
     if (missingExternals.exists(_.startsWith("@material-ui")) || !offline) {
       cmd.runVerbose(
-        nodeCommand,
         npmCommand,
         "add",
         "@material-ui/core@3.9.3",
