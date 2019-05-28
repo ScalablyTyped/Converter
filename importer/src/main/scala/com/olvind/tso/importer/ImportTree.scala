@@ -464,7 +464,7 @@ object ImportTree {
   def tsFunParams(scope: TsTreeScope, importName: ImportName, params: Seq[TsFunParam]): Seq[ParamTree] =
     params map { param =>
       val tpe       = ImportType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
-      val undefType = if (param.isOptional) TypeRef.UndefOr(tpe) else tpe
+      val undefType = tpe.withOptional(param.isOptional)
       ParamTree(importName(param.name), undefType, None, param.comments)
     }
 

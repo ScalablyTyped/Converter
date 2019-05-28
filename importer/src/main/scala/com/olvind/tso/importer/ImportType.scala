@@ -180,11 +180,18 @@ object ImportType {
           )
         }
       case TsTypeUnion(types) =>
-        types.partitionCollect { case TsTypeRef.undefined => } match {
-          case (Nil, ts)     => TypeRef.Union(ts map apply(wildcards, scope, importName), sort = false)
-          case (_, Seq(one)) => TypeRef.UndefOr(apply(wildcards.maybeAllow, scope, importName)(one))
-          case (_, ts)       => TypeRef.UndefOr(TypeRef.Union(ts map apply(wildcards, scope, importName), sort = false))
-        }
+        val patched =
+          if (!types.contains(TsTypeRef.boolean)) types
+          else {
+            types.partitionCollect {
+              case TsTypeLiteral(TsLiteralString("true" | "false")) => ()
+              case TsTypeLiteral(TsLiteralBoolean(true | false))    => ()
+            } match {
+              case (_, rest) => rest
+            }
+          }
+
+        TypeRef.Union(patched map apply(wildcards, scope, importName), sort = false)
 
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types map apply(Wildcards.No, scope, importName))

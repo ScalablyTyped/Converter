@@ -184,11 +184,7 @@ final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments:
   override val name: Name = typeName.parts.last
 
   def withOptional(optional: Boolean): TypeRef =
-    (typeName, optional) match {
-      case (QualifiedName.UndefOr, _) => this
-      case (_, true)                  => TypeRef(QualifiedName.UndefOr, Seq(this), comments)
-      case _                          => this
-    }
+    if (optional) TypeRef.UndefOr(this) else this
 
   def withComments(cs: Comments): TypeRef =
     TypeRef(typeName, targs, comments ++ cs)
@@ -319,20 +315,26 @@ object TypeRef {
   }
 
   object UndefOr {
-    def apply(tpe: TypeRef): TypeRef = TypeRef(QualifiedName.UndefOr, Seq(tpe), NoComments)
+    def apply(tpe: TypeRef): TypeRef =
+      Union(List(undefined, tpe), sort = false)
 
     def unapply(typeRef: TypeRef): Option[TypeRef] =
       typeRef match {
-        case TypeRef(QualifiedName.UndefOr, Seq(tpe), _) =>
-          Some(tpe)
+        case Union(types) if types.contains(undefined) =>
+          val rest = types.filterNot(x => x === undefined || x === TypeRef.Nothing) match {
+            case Nil      => TypeRef.Nothing
+            case Seq(one) => one
+            case more     => Union(more, sort = false)
+          }
+          Some(rest)
         case _ => None
       }
   }
 
   object Union {
-    private def flattened(types: List[TypeRef]): List[TypeRef] =
+    private def flatten(types: List[TypeRef]): List[TypeRef] =
       types flatMap {
-        case Union(inner) => flattened(inner.toList)
+        case Union(inner) => flatten(inner.toList)
         case other        => List(other)
       }
 
@@ -343,12 +345,28 @@ object TypeRef {
       *  and when we encounter an existing we don't change it
       */
     def apply(types: Seq[TypeRef], sort: Boolean): TypeRef = {
-      val distinct = flattened(types.to[List]).distinct match {
+      val flattened = flatten(types.to[List]) match {
         case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
         case otherwise      => otherwise
       }
 
-      distinct match {
+      /* "a" | "a" | Foo[A] | Foo[B] => "a" | Foo[A | B] */
+      val compressed: List[TypeRef] = {
+        val byName = flattened.filterNot(tr => Name.Internal(tr.name)).groupBy(_.typeName)
+
+        flattened.zipWithIndex.flatMap {
+          case (tr, idx) =>
+            byName.get(tr.typeName) match {
+              case Some(more) if more.length > 1 =>
+                val isFirst = flattened.indexWhere(_.typeName === tr.typeName) === idx
+                if (isFirst) List(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, sort = true))))
+                else Nil
+              case _ => List(tr)
+            }
+        }.distinct
+      }
+
+      compressed match {
         case Nil        => TypeRef.Nothing
         case one :: Nil => one
         case more       => TypeRef(QualifiedName.UNION, more, NoComments)

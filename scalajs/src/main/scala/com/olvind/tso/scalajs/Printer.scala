@@ -352,6 +352,9 @@ object Printer {
         case TypeRef.Intersection(types) =>
           types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " with "
 
+        case TypeRef.UndefOr(tpe) =>
+          formatTypeRef(prefix, indent)(TypeRef(QualifiedName.UndefOr, List(tpe), NoComments))
+
         case TypeRef.Union(types) =>
           types map formatTypeRef(prefix, indent) map paramsIfNeeded mkString " | "
 
