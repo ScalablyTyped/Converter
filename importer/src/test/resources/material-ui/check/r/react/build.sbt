@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "react"
-version := "0.0-unknown-209609"
+version := "0.0-unknown-1dcac7"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.0.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-93fc82")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-976cb3")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

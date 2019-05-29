@@ -220,6 +220,8 @@ object Libraries {
       "yfiles",
       "chromecast-caf-receiver",
       "snoowrap",
+      // bundles junk files
+      "bottleneck",
       // some new kind of circular dependency causes the phase runner to wait forever
       "mali",
       "apollo-tracing",

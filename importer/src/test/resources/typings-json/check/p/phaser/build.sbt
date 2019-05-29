@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "phaser"
-version := "2.6.2-e6c5e6"
+version := "2.6.2-c58ed8"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.0.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-60d4be")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-b2dca5")
 publishArtifact in packageDoc := false
 scalacOptions += "-P:scalajs:sjsDefinedByDefault"
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

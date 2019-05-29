@@ -9,7 +9,7 @@ object Versions {
     val scalaVersion        = "2.12.8"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "0.6.27"
+    val scalaJsVersion      = "0.6.28"
     val scalaJsBinVersion   = "0.6"
   }
 
