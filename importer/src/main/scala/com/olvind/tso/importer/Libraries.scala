@@ -75,6 +75,8 @@ object Libraries {
     "meteor-typings",
     "@microsoft/load-themed-styles",
     "@mindbox/redux-helpers",
+    "minecraft-scripting-types-client",
+    "minecraft-scripting-types-server",
     "mobx-react",
     "mobx-react-devtools",
     "mobx-remotedev",
