@@ -481,9 +481,6 @@ object ImportTree {
 
     val as = Annotation.method(name, isBracketAccess = false)
 
-    val containedLiterals: Seq[TsLiteralString] =
-      TreeTraverse.collectSeq(sig.params) { case x: TsLiteralString => x }
-
     val fieldType: MemberImpl =
       if (scalaJsDefined) MemberImplNotImplemented else MemberImplNative
 
@@ -506,10 +503,18 @@ object ImportTree {
       codePath    = ownerCP + name,
     )
 
-    containedLiterals.distinct.toList match {
-      case _ if name === Name.APPLY || name === Name.namespaced => ret
-      case oneLit :: Nil if !oneLit.value.contains("$")         => ret withSuffix "_" withSuffix oneLit
-      case _                                                    => ret
+    if (name === Name.APPLY || name === Name.namespaced) ret
+    else {
+      val containedLiterals: Seq[String] =
+        TreeTraverse.collectSeq(sig.params) {
+          case x: TsLiteral => stringUtils.unquote(x.literal)
+        }
+
+      containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
+        case suffix :: Nil =>
+          ret withSuffix "_" withSuffix suffix
+        case _ => ret
+      }
     }
   }
 }

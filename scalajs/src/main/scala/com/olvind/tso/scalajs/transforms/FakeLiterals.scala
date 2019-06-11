@@ -88,8 +88,10 @@ object FakeLiterals {
           TypeRef(QualifiedName(List(_s.name, StringModuleName, nameFor(underlying))), Nil, LiteralTokenComment)
 
         case TypeRef.Literal(underlying) =>
-          collectedNumbers += underlying
-          TypeRef(QualifiedName(List(_s.name, NumbersModuleName, nameFor(underlying))), Nil, LiteralTokenComment)
+          val fixed =
+            if (underlying.forall(_.isDigit) && underlying.toLong > Int.MaxValue) "_" + underlying else underlying
+          collectedNumbers += fixed
+          TypeRef(QualifiedName(List(_s.name, NumbersModuleName, nameFor(fixed))), Nil, LiteralTokenComment)
         case other =>
           other
       }

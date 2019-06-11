@@ -244,6 +244,7 @@ final class ParserTests extends FunSuite {
       TsDeclEnum(
         NoComments,
         declared = false,
+        isConst = false,
         TsIdent("LoggingLevel"),
         List(
           TsEnumMember(NoComments, TsIdent("ERROR"), Some(TsExpr.Literal(TsLiteralNumber("0")))),
@@ -263,6 +264,7 @@ final class ParserTests extends FunSuite {
       TsDeclEnum(
         NoComments,
         declared = false,
+        isConst = true,
         TsIdent("ErrorCode"),
         List(
           TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteralNumber("-1")))),
@@ -283,6 +285,7 @@ final class ParserTests extends FunSuite {
       TsDeclEnum(
         NoComments,
         declared = false,
+        isConst = false,
         TsIdent("HitType"),
         List(
           TsEnumMember(NoComments, TsIdent("pageview"), None),
@@ -1900,6 +1903,7 @@ type Readonly<T> = {
       TsDeclEnum(
         NoComments,
         declared = false,
+        isConst = true,
         TsIdentSimple("Button"),
         List(
           TsEnumMember(NoComments, TsIdentSimple("MINUS"), Some(TsExpr.Literal(TsLiteralNumber("0x00000004")))),

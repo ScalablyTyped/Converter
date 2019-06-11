@@ -205,6 +205,7 @@ object FlattenTrees {
     TsDeclEnum(
       comments     = mergeComments(existing.comments, that.comments),
       declared     = existing.declared || that.declared,
+      isConst      = existing.isConst,
       name         = existing.name,
       members      = existing.members,
       codePath     = existing.codePath,

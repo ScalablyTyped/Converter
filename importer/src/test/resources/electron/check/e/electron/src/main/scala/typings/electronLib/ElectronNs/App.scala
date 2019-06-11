@@ -15,6 +15,6 @@ trait App extends EventEmitter {
     * details.
     */
   @JSName("on")
-  def `on_accessibility-support-changed`(event: electronLib.electronLibStrings.`accessibility-support-changed`, listener: js.Any): java.lang.String = js.native
+  def on_accessibilitysupportchanged(event: electronLib.electronLibStrings.`accessibility-support-changed`, listener: js.Any): java.lang.String = js.native
 }
 

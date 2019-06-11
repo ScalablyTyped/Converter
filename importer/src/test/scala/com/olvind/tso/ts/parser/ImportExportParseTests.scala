@@ -82,6 +82,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
           TsDeclEnum(
             NoComments,
             declared = false,
+            isConst = true,
             TsIdent("RoundingMode"),
             Nil,
             isValue      = true,

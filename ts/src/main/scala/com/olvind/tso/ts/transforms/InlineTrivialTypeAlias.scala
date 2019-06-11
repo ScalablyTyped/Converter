@@ -20,7 +20,7 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
     x match {
       case ref @ TsTypeRef(_, target, tparams) if !TsQIdent.Primitive(target) =>
         scope lookupTypeIncludeScope target firstDefined {
-          case (TsDeclEnum(_, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>
+          case (TsDeclEnum(_, _, _, _, _, _, Some(exportedFrom), _, _), _) if tparams.isEmpty =>
             Some(ref.copy(name = exportedFrom.name))
           case (next: TsDeclTypeAlias, newScope) =>
             followTrivialAliases(newScope)(next).map(newName => ref.copy(name = newName))

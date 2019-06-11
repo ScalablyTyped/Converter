@@ -4,6 +4,8 @@ package ts
 sealed trait TsExpr
 
 object TsExpr {
+  val Default = TsTypeUnion.simplified(List(TsTypeRef.string, TsTypeRef.number))
+
   case class Ref(value:     TsTypeRef) extends TsExpr
   case class Literal(value: TsLiteral) extends TsExpr
   case class Call(function: TsExpr, params: List[TsExpr]) extends TsExpr
@@ -30,10 +32,17 @@ object TsExpr {
       case BinaryOp(e, _, _) => widen(typeOf(e))
     }
 
+  def typeOfOpt(exprOpt: Option[TsExpr]): TsType =
+    exprOpt match {
+      case Some(expr) => typeOf(expr)
+      case None       => Default
+    }
+
   def widen(tpe: TsType): TsType =
     tpe match {
       case TsTypeLiteral(TsLiteralString(_))  => TsTypeRef.string
       case TsTypeLiteral(TsLiteralNumber(_))  => TsTypeRef.number
       case TsTypeLiteral(TsLiteralBoolean(_)) => TsTypeRef.boolean
+      case _                                  => Default
     }
 }
