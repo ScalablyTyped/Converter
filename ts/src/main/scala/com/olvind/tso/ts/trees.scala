@@ -187,6 +187,7 @@ final case class TsDeclInterface(
 final case class TsDeclEnum(
     comments:     Comments,
     declared:     Boolean,
+    isConst:      Boolean,
     name:         TsIdent,
     members:      Seq[TsEnumMember],
     isValue:      Boolean,
@@ -315,14 +316,6 @@ sealed abstract class TsLiteral(repr: String) extends TsTerm {
 final case class TsLiteralNumber(value: String) extends TsLiteral(value)
 
 final case class TsLiteralString(value: String) extends TsLiteral(stringUtils.quote(value))
-
-object TsLiteralString {
-
-  implicit object TsLiteralStringSuffix extends ToSuffix[TsLiteralString] {
-    override def to(t: TsLiteralString): Suffix = Suffix(t.value.replaceAll("\\.", ""))
-  }
-
-}
 
 final case class TsLiteralBoolean(value: Boolean) extends TsLiteral(value.toString)
 

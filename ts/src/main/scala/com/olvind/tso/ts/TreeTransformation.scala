@@ -108,8 +108,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsDeclEnum(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsDeclEnum(_1, _2, _3, _4, _5, _6, _7, _8) =>
-        TsDeclEnum(_1, _2, _3, _4 map visitTsEnumMember(tt), _5, _6.map(visitTsTypeRef(tt)), _7, _8)
+      case TsDeclEnum(_1, _2, _3, _4, _5, _6, _7, _8, _9) =>
+        TsDeclEnum(_1, _2, _3, _4, _5 map visitTsEnumMember(tt), _6, _7.map(visitTsTypeRef(tt)), _8, _9)
     }
   }
   final def visitTsDeclFunction(t: T)(x: TsDeclFunction): TsDeclFunction = {

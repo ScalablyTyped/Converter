@@ -299,7 +299,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     comments ~ (isDeclared <~ "function") ~ identifierOrDefault ~ functionSignature ~ zeroLocation ~ zeroCodePath ^^ TsDeclFunction
 
   lazy val tsDeclEnum: Parser[TsDeclEnum] =
-    comments ~ (isDeclared <~ ("const".? ~> "enum")) ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ success(true) ~ success(
+    comments ~ isDeclared ~ ("const".isDefined <~ "enum") ~ tsIdent ~ ("{" ~> tsEnumMembers <~ "}") ~ success(true) ~ success(
       None,
     ) ~ zeroLocation ~ zeroCodePath ^^ TsDeclEnum
 

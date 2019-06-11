@@ -388,7 +388,6 @@ object TsTreeScope {
         c match {
           case cc: TsContainer =>
             cc.membersByNameMeh get one match {
-              case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
               case Some(decls) => decls collect { case Pick(x) => (x, scope / x) }
               case None        => Nil
             }
@@ -405,9 +404,27 @@ object TsTreeScope {
         c match {
           case cc: TsContainer =>
             cc.membersByNameMeh get h match {
-              case Some(Seq(Pick(x: TsDeclEnum with T))) => Seq((x, scope / x))
               case Some(decls) =>
                 decls flatMap {
+
+                  /** Yeah, enums aren't too well integrated with the rest.
+                    *  On the positive side it feels almost as hacked in in typescript
+                    */
+                  case x: TsDeclEnum if t.length === 1 =>
+                    val member = x.members.find(_.name === t.head).toList.flatMap { m =>
+                      val cp = x.codePath + m.name
+                      val fakeTa =
+                        TsDeclTypeAlias(NoComments, false, m.name, Nil, TsExpr.typeOfOpt(m.expr), cp)
+                      def fakeVar = {
+                        val loc = x.jsLocation + m.name
+                        TsDeclVar(NoComments, false, true, m.name, None, m.expr, loc, cp, false)
+                      }
+                      if (x.isConst) List(fakeTa) else List(fakeTa, fakeVar)
+                    }
+
+                    member.collect {
+                      case Pick(x) => x -> scope
+                    }
                   case x: TsContainer =>
                     (scope / x).lookupInternal(Pick, t, loopDetector)
                   case TsDeclVar(_, _, _, _, Some(_: TsTypeThis), _, _, _, false) =>

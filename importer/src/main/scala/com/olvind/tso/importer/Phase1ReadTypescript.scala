@@ -235,6 +235,7 @@ object Phase1ReadTypescript {
           T.DropPrototypes >>
           T.InferReturnTypes >>
           T.RewriteTypeThis >>
+          T.InlineConstEnum >>
           T.InlineTrivialTypeAlias
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
