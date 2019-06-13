@@ -89,10 +89,10 @@ object ImportContainer {
       name:                TsIdent,
       jsLocation:          JsLocation,
       members:             Seq[TsContainerOrDecl],
-      codePath:            CodePath.HasPath,
+      codePath:            CodePath,
   ): ContainerTree = {
 
-    val newCodePath = importName(codePath.codePath)
+    val newCodePath = importName(codePath)
     val anns        = ImportJsLocation(jsLocation, isWithinScalaModule)
     val inModule    = scope.stack.length > 1 && (isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope))
 

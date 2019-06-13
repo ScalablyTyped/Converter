@@ -8,16 +8,16 @@ import scala.scalajs.js.annotation._
 @JSImport("swiz-test-foo", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  val SERIALIZATION_JSON: swizLib.swizMod.SERIALIZATION.SERIALIZATION_JSON with java.lang.String = js.native
-  val SERIALIZATION_XML: swizLib.swizMod.SERIALIZATION.SERIALIZATION_XML with java.lang.String = js.native
-  val `_`: swizLib.swizMod.SERIALIZATION.`_` with java.lang.String = js.native
-  @JSName("java")
-  val java_ : swizLib.swizMod.SERIALIZATION.java with java.lang.String = js.native
-  @JSName("js")
-  val js_ : swizLib.swizMod.SERIALIZATION.js with java.lang.String = js.native
-  @JSName("notify")
-  val `notify_F^`: swizLib.swizMod.SERIALIZATION.notify with java.lang.String = js.native
+  /* 4 */ val SERIALIZATION_JSON: swizLib.swizMod.SERIALIZATION.SERIALIZATION_JSON with scala.Double = js.native
+  /* 5 */ val SERIALIZATION_XML: swizLib.swizMod.SERIALIZATION.SERIALIZATION_XML with scala.Double = js.native
+  /* 0 */ val `_`: swizLib.swizMod.SERIALIZATION.`_` with scala.Double = js.native
+  /* 3 */ @JSName("java")
+  val java_ : swizLib.swizMod.SERIALIZATION.java with scala.Double = js.native
+  /* 2 */ @JSName("js")
+  val js_ : swizLib.swizMod.SERIALIZATION.js with scala.Double = js.native
+  /* 1 */ @JSName("notify")
+  val `notify_F^`: swizLib.swizMod.SERIALIZATION.notify with scala.Double = js.native
   @JSBracketAccess
-  def apply(value: java.lang.String): js.UndefOr[swizLib.swizMod.SERIALIZATION with java.lang.String] = js.native
+  def apply(value: scala.Double): js.UndefOr[swizLib.swizMod.SERIALIZATION with scala.Double] = js.native
 }
 

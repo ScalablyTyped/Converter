@@ -18,6 +18,9 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
   def apply(ident: TsQIdent): QualifiedName =
     QualifiedName(ident.parts map apply)
 
+  def apply(cp: CodePath): QualifiedName =
+    QualifiedName(cp.forceHasPath.codePath.parts map apply)
+
   def apply(i: TsIdent): Name =
     i match {
       case TsIdent.Apply           => Name.APPLY

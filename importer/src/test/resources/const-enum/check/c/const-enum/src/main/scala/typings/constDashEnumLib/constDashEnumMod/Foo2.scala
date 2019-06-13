@@ -6,19 +6,19 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - constDashEnumLib.constDashEnumLibNumbers.`1`
+  - constDashEnumLib.constDashEnumLibNumbers.`0`
   - constDashEnumLib.constDashEnumLibNumbers.`22`
-  - constDashEnumLib.constDashEnumLibStrings.C
+  - constDashEnumLib.constDashEnumLibNumbers.`1`
 */
-trait Foo extends js.Object
+trait Foo2 extends js.Object
 
-object Foo {
+object Foo2 {
   @scala.inline
-  def A: constDashEnumLib.constDashEnumLibNumbers.`1` = this.cast(1)
+  def A: constDashEnumLib.constDashEnumLibNumbers.`0` = this.cast(0)
   @scala.inline
   def B: constDashEnumLib.constDashEnumLibNumbers.`22` = this.cast(22)
   @scala.inline
-  def C: constDashEnumLib.constDashEnumLibStrings.C = this.cast("C")
+  def C: constDashEnumLib.constDashEnumLibNumbers.`1` = this.cast(0 + 1)
   @scala.inline
   /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
 }
