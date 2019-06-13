@@ -412,12 +412,16 @@ object TsTreeScope {
                     */
                   case x: TsDeclEnum if t.length === 1 =>
                     val member = x.members.find(_.name === t.head).toList.flatMap { m =>
-                      val cp = x.codePath + m.name
-                      val fakeTa =
-                        TsDeclTypeAlias(NoComments, false, m.name, Nil, TsExpr.typeOfOpt(m.expr), cp)
+                      val fakeTa = {
+                        val codePath = x.exportedFrom.fold(x.codePath.forceHasPath.codePath)(_.name).parts match {
+                          case libName :: rest => CodePath.HasPath(libName, TsQIdent(rest :+ m.name))
+                        }
+                        TsDeclTypeAlias(NoComments, false, m.name, Nil, TsExpr.typeOfOpt(m.expr), codePath)
+                      }
+
                       def fakeVar = {
                         val loc = x.jsLocation + m.name
-                        TsDeclVar(NoComments, false, true, m.name, None, m.expr, loc, cp, false)
+                        TsDeclVar(NoComments, false, true, m.name, None, m.expr, loc, x.codePath + m.name, false)
                       }
                       if (x.isConst) List(fakeTa) else List(fakeTa, fakeVar)
                     }

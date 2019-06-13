@@ -216,7 +216,7 @@ object Phase1ReadTypescript {
     List(
       T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
       modules.HandleCommonJsModules.visitTsParsedFile(scope),
-      (T.SimplifyParents >> T.InferTypeFromExpr >> T.NormalizeFunctions /* run before FlattenTrees */ )
+      (T.SimplifyParents >> T.InferTypeFromExpr >> T.InferEnumTypes /* before InlineConstEnum */ >> T.NormalizeFunctions /* before FlattenTrees */ )
         .visitTsParsedFile(scope.caching),
       T.QualifyReferences.visitTsParsedFile(scope.caching),
       modules.AugmentModules(scope.caching),

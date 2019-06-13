@@ -19,9 +19,9 @@ object blendModes extends js.Object {
   sealed trait NORMAL
     extends phaserLib.PIXINs.blendModes
   
-  val ADD: ADD with java.lang.String = js.native
-  val NORMAL: NORMAL with java.lang.String = js.native
+  /* 1 */ val ADD: ADD with scala.Double = js.native
+  /* 0 */ val NORMAL: NORMAL with scala.Double = js.native
   @JSBracketAccess
-  def apply(value: java.lang.String): js.UndefOr[phaserLib.PIXINs.blendModes with java.lang.String] = js.native
+  def apply(value: scala.Double): js.UndefOr[phaserLib.PIXINs.blendModes with scala.Double] = js.native
 }
 

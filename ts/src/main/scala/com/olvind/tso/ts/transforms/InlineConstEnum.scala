@@ -5,6 +5,7 @@ package transforms
 import seqs._
 
 object InlineConstEnum extends TreeTransformationScopedChanges {
+
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
       case TsTypeRef(_, TsQIdent(parts), Nil) =>

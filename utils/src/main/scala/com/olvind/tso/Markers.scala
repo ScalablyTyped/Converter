@@ -6,6 +6,6 @@ package com.olvind.tso
  */
 object Markers {
   case object IsTrivial extends Comment.Data
-  case object ExpandedComments extends Comment.Data
+  case object ExpandedCallables extends Comment.Data
   case class NameHint(value: String) extends Comment.Data
 }
