@@ -16,31 +16,59 @@ object TsExpr {
     expr match {
       case Ref(value)                      => TsTypeFormatter(value)
       case Literal(TsLiteralString(value)) => stringUtils.quote(value)
-      case Literal(TsLiteralNumber(value)) =>
-        if (value.toLong > Int.MaxValue) value + ".0" // long's wont work in scala.js, so we'll just YOLO this
-        else value
+      case Literal(Num.Long(long)) =>
+        if (long > Int.MaxValue) long + ".0" // long's wont work in scala.js, so we'll just YOLO this
+        else long.toString
+      case Literal(TsLiteralNumber(value))  => value
       case Literal(TsLiteralBoolean(value)) => value.toString
       case Call(function, params)           => s"${format(function)}(${params map format mkString ", "})"
       case Unary(op, expr)                  => s"$op${format(expr)}"
       case BinaryOp(one, op, two)           => s"${format(one)} $op ${format(two)}"
     }
 
+  object Num {
+    def unapply(x: TsType): Option[BigDecimal] =
+      x match {
+        case TsTypeLiteral(Num(num)) => Some(num)
+        case _                       => None
+      }
+
+    def unapply(x: TsLiteral): Option[BigDecimal] =
+      x match {
+        case TsLiteralNumber(value) if value.forall(c => c.isDigit || c === '.') => Some(BigDecimal(value))
+        case _ => None
+      }
+
+    object Long {
+      def unapply(x: TsType): Option[Long] =
+        x match {
+          case TsTypeLiteral(Long(long)) => Some(long)
+          case _                         => None
+        }
+      def unapply(x: TsLiteral): Option[Long] =
+        x match {
+          case TsLiteralNumber(value) if value.forall(c => c.isDigit) => Some(value.toLong)
+          case _ => None
+        }
+    }
+  }
+
   def typeOf(expr: TsExpr): TsType =
     expr match {
-      case Ref(value)   => Default
+      case Ref(_)       => Default
       case Literal(lit) => TsTypeLiteral(lit)
       case Call(_, _)   => TsTypeRef.any
       case Unary(_, e)  => widen(typeOf(e))
       case BinaryOp(e1, op, e2) =>
         (typeOf(e1), op, typeOf(e2)) match {
-          case (TsTypeLiteral(TsLiteralNumber(n1)), "+", TsTypeLiteral(TsLiteralNumber(n2))) =>
-            TsTypeLiteral(TsLiteralNumber((n1.toLong + n2.toLong).toString))
-          case (TsTypeLiteral(TsLiteralNumber(n1)), "*", TsTypeLiteral(TsLiteralNumber(n2))) =>
-            TsTypeLiteral(TsLiteralNumber((n1.toLong * n2.toLong).toString))
-          case (TsTypeLiteral(TsLiteralNumber(n1)), "<<", TsTypeLiteral(TsLiteralNumber(n2))) =>
-            TsTypeLiteral(TsLiteralNumber((n1.toInt << n2.toInt).toString))
-          case (TsTypeLiteral(TsLiteralNumber(n1)), ">>", TsTypeLiteral(TsLiteralNumber(n2))) =>
-            TsTypeLiteral(TsLiteralNumber((n1.toInt >> n2.toInt).toString))
+          case (Num(n1), "+", Num(n2)) =>
+            TsTypeLiteral(TsLiteralNumber((n1 + n2).toString))
+          case (Num(n1), "*", Num(n2)) =>
+            TsTypeLiteral(TsLiteralNumber((n1 * n2).toString))
+          case (Num.Long(n1), "<<", Num.Long(n2)) =>
+            TsTypeLiteral(TsLiteralNumber((n1 << n2).toString))
+          case (Num.Long(n1), ">>", Num.Long(n2)) =>
+            TsTypeLiteral(TsLiteralNumber((n1 >> n2).toString))
           case (t, _, _) => widen(t)
         }
     }
