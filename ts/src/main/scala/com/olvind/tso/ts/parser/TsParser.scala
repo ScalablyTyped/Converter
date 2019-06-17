@@ -378,7 +378,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
         )
     lazy val destructured = destructuredArray | destructuredObj
 
-    comments ~ "...".isDefined ~ (tsIdent | destructured) ~ "?".isDefined ~ typeAnnotationOpt ~ delimMaybeComment(
+    comments ~ "...".isDefined ~ (tsIdent | destructured) ~ "?".isDefined ~ (typeAnnotationOpt <~ ("=" ~ expr).?) ~ delimMaybeComment(
       ',',
     ).? ^^ {
       case cs ~ false ~ i ~ o ~ t ~ oc =>
@@ -429,6 +429,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
       | "this" ~> success(TsTypeThis())
       | tsTypeKeyOf
       | "infer" ~> typeParam ^^ TsTypeInfer
+      | "readonly" ~> tsType
       | tsTypeRef)
   }
 
@@ -459,7 +460,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
         case _1 ~ _ ~ _2 ~ _ ~ _3 => TsTypeConditional(_1, _2, _3)
       }
 
-    "readonly".? ~> (conditional | _extends | intersect)
+    conditional | _extends | intersect
   }
 
   lazy val tsTypeTuple: Parser[TsTypeTuple] = {

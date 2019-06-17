@@ -244,7 +244,7 @@ final class ParserTests extends FunSuite {
       TsDeclEnum(
         NoComments,
         declared = false,
-        isConst = false,
+        isConst  = false,
         TsIdent("LoggingLevel"),
         List(
           TsEnumMember(NoComments, TsIdent("ERROR"), Some(TsExpr.Literal(TsLiteralNumber("0")))),
@@ -264,7 +264,7 @@ final class ParserTests extends FunSuite {
       TsDeclEnum(
         NoComments,
         declared = false,
-        isConst = true,
+        isConst  = true,
         TsIdent("ErrorCode"),
         List(
           TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteralNumber("-1")))),
@@ -285,7 +285,7 @@ final class ParserTests extends FunSuite {
       TsDeclEnum(
         NoComments,
         declared = false,
-        isConst = false,
+        isConst  = false,
         TsIdent("HitType"),
         List(
           TsEnumMember(NoComments, TsIdent("pageview"), None),
@@ -607,6 +607,10 @@ final class ParserTests extends FunSuite {
     shouldParseAs("OTHER_CAUSE = -1", TsParser.tsEnumMembers.map(_.head))(
       TsEnumMember(NoComments, TsIdent("OTHER_CAUSE"), Some(TsExpr.Literal(TsLiteralNumber("-1")))),
     )
+  }
+
+  test("bigint literals") {
+    shouldParseAs("-1n", TsParser.tsLiteral)(TsLiteralNumber("-1"))
   }
 
   test("this type") {
@@ -1903,7 +1907,7 @@ type Readonly<T> = {
       TsDeclEnum(
         NoComments,
         declared = false,
-        isConst = true,
+        isConst  = true,
         TsIdentSimple("Button"),
         List(
           TsEnumMember(NoComments, TsIdentSimple("MINUS"), Some(TsExpr.Literal(TsLiteralNumber("0x00000004")))),
@@ -2418,6 +2422,33 @@ export {};
     )
   }
 
+  test("readonly again") {
+    shouldParseAs("""{ [attributeName: string]: string | number | boolean | readonly string[]; }""", TsParser.tsType)(
+      TsTypeObject(
+        NoComments,
+        List(
+          TsMemberIndex(
+            NoComments,
+            false,
+            Default,
+            IndexingDict(TsIdentSimple("attributeName"), TsTypeRef.string),
+            false,
+            Some(
+              TsTypeUnion(
+                List(
+                  TsTypeRef.string,
+                  TsTypeRef.number,
+                  TsTypeRef.boolean,
+                  TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("Array"))), List(TsTypeRef.string)),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    )
+  }
+
   test("expr") {
     shouldParseAs(
       """export declare const start = ActionTypes.Start""",
@@ -2465,6 +2496,26 @@ export {};
           TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR"))), Nil),
         ),
         List(TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("6")), "+", TsExpr.Literal(TsLiteralNumber("7")))),
+      ),
+    )
+
+    shouldParseAs("""public expire(key: string, ms: number = 0): void""", TsParser.tsMemberNamed)(
+      TsMemberFunction(
+        NoComments,
+        Default,
+        TsIdentSimple("expire"),
+        TsFunSig(
+          NoComments,
+          List(),
+          List(
+            TsFunParam(NoComments, TsIdentSimple("key"), Some(TsTypeRef.string), false),
+            TsFunParam(NoComments, TsIdentSimple("ms"), Some(TsTypeRef.number), false),
+          ),
+          Some(TsTypeRef.void),
+        ),
+        false,
+        false,
+        false,
       ),
     )
 //    shouldParseAs("""(0x000FFFFF + 1) >> 1""", TsParser.expr)(
