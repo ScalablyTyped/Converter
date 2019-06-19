@@ -46,8 +46,7 @@ object Logger {
 
     override def log[T: Formatter](t: => Text[T], throwable: Option[Throwable], metadata: Metadata): Unit = {
       val formatted = pattern(t, throwable, metadata, context)
-      underlying.append(formatted.render)
-      underlying.append("\n")
+      underlying.append(formatted.render + "\n")
       ()
     }
 

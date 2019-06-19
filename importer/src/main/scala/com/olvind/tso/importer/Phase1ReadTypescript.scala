@@ -214,6 +214,7 @@ object Phase1ReadTypescript {
       enableExpandCallables:    Boolean,
   ): List[TsParsedFile => TsParsedFile] =
     List(
+      T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),
       T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
       modules.HandleCommonJsModules.visitTsParsedFile(scope),
       (T.SimplifyParents >> T.InferTypeFromExpr >> T.InferEnumTypes /* before InlineConstEnum */ >> T.NormalizeFunctions /* before FlattenTrees */ )

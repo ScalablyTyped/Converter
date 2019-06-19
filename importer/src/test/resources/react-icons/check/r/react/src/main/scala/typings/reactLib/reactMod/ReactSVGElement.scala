@@ -15,7 +15,7 @@ trait ReactSVGElement
 object ReactSVGElement {
   @scala.inline
   def apply(
-    props: SVGAttributes[reactLib.SVGElement],
+    props: js.Any,
     ref: Ref[reactLib.SVGElement],
     `type`: reactLib.reactLibStrings.animate | reactLib.reactLibStrings.circle | reactLib.reactLibStrings.clipPath,
     key: Key = null

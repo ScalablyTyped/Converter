@@ -72,6 +72,14 @@ object ImportType {
   def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: ImportName)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
+      case TsTypeRef(cs, TsQIdent.Std.Readonly, Seq(one)) =>
+        val withComments = one match {
+          case ref: TsTypeRef => ref.copy(comments = cs ++ ref.comments)
+          case other => other
+        }
+
+        apply(wildcards, scope, importName)(withComments)
+
       case TsTypeRef(cs, base: TsQIdent, targs: Seq[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>

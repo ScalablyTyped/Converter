@@ -21,7 +21,7 @@ package object typeDashMappingsLib {
   type Proxify[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
     */ typeDashMappingsLib.typeDashMappingsLibStrings.Proxify with js.Any
-  type ReadonlyPerson = stdLib.Readonly[Person]
+  type ReadonlyPerson = Person
   type RequiredPerson = stdLib.Required[Person]
   type ReturnedPerson = stdLib.ReturnType[js.Function0[Person]]
   type T = stdLib.Pick[

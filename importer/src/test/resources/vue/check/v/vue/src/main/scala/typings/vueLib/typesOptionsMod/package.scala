@@ -48,21 +48,19 @@ package object typesOptionsMod {
     */ vueLib.vueLibStrings.RecordPropsDefinition with T
   type ThisTypedComponentOptionsWithArrayProps[V /* <: vueLib.typesVueMod.Vue */, Data, Methods, Computed, PropNames /* <: java.lang.String */] = js.Object with (ComponentOptions[
     V, 
-    Data | (js.ThisFunction0[/* this */ (stdLib.Readonly[stdLib.Record[PropNames, _]]) with V, Data]), 
+    Data | (js.ThisFunction0[/* this */ (stdLib.Record[PropNames, _]) with V, Data]), 
     Methods, 
     Computed, 
     js.Array[PropNames]
   ]) with (stdLib.ThisType[
-    vueLib.typesVueMod.CombinedVueInstance[V, Data, Methods, Computed, stdLib.Readonly[stdLib.Record[PropNames, _]]]
+    vueLib.typesVueMod.CombinedVueInstance[V, Data, Methods, Computed, stdLib.Record[PropNames, _]]
   ])
   type ThisTypedComponentOptionsWithRecordProps[V /* <: vueLib.typesVueMod.Vue */, Data, Methods, Computed, Props] = js.Object with (ComponentOptions[
     V, 
-    Data | (js.ThisFunction0[/* this */ stdLib.Readonly[Props] with V, Data]), 
+    Data | (js.ThisFunction0[/* this */ Props with V, Data]), 
     Methods, 
     Computed, 
     RecordPropsDefinition[Props]
-  ]) with (stdLib.ThisType[
-    vueLib.typesVueMod.CombinedVueInstance[V, Data, Methods, Computed, stdLib.Readonly[Props]]
-  ])
+  ]) with (stdLib.ThisType[vueLib.typesVueMod.CombinedVueInstance[V, Data, Methods, Computed, Props]])
   type WatchHandler[T] = js.Function2[/* val */ T, /* oldVal */ T, scala.Unit]
 }

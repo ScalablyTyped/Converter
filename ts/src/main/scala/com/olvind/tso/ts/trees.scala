@@ -456,6 +456,7 @@ object TsQIdent {
     val Object        = TsQIdent(List(std, TsIdent("Object")))
     val Promise       = TsQIdent(List(std, TsIdent("Promise")))
     val PromiseLike   = TsQIdent(List(std, TsIdent("PromiseLike")))
+    val Readonly      = TsQIdent(List(std, TsIdent("Readonly")))
     val ReadonlyArray = TsQIdent(List(std, TsIdent("ReadonlyArray")))
     val String        = TsQIdent(List(std, TsIdent("String")))
   }

@@ -45,13 +45,6 @@ object Patches {
         "/* break circular type alias by converting to interface*/ export interface InterpolationFunction<P>{(props: P): Interpolation<P>}",
       ),
     ),
-    "react" / "index.d.ts" -> List(
-      Patch(
-        "drop a type parameter (that surprisingly works well) to resolve circular set of type aliases",
-        "interface ReactElement<P = any, T extends string | JSXElementConstructor<any> = string | JSXElementConstructor<any>> {",
-        "interface ReactElement<P = any> {",
-      ),
-    ),
   )
 
   def apply(inFile: InFile, content: String): String = {

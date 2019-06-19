@@ -5,19 +5,19 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait ReactElement[P] extends js.Object {
+trait ReactElement extends js.Object {
   var key: Key | scala.Null
-  var props: P
-  var `type`: java.lang.String | ComponentClass[P] | SFC[P]
+  var props: js.Any
+  var `type`: java.lang.String | ComponentClass[_] | SFC[_]
 }
 
 object ReactElement {
   @scala.inline
-  def apply[P](props: P, `type`: java.lang.String | ComponentClass[P] | SFC[P], key: Key = null): ReactElement[P] = {
-    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
+  def apply(props: js.Any, `type`: java.lang.String | ComponentClass[_] | SFC[_], key: Key = null): ReactElement = {
+    val __obj = js.Dynamic.literal(props = props)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    __obj.asInstanceOf[ReactElement[P]]
+    __obj.asInstanceOf[ReactElement]
   }
 }
 
