@@ -109,7 +109,7 @@ object ImportContainer {
         }
 
       val allMembers = liftedMembers ++ rest
-      ModuleTree(anns ++ nameAnns, scalaName, ModuleTypeNative, inheritance, allMembers, cs, newCodePath)
+      ModuleTree(anns ++ nameAnns, scalaName, inheritance, allMembers, cs, newCodePath)
     } else {
       val membersModule =
         if (liftedMembers.nonEmpty || inheritance.nonEmpty)
@@ -117,7 +117,6 @@ object ImportContainer {
             ModuleTree(
               anns,
               Name.namespaced,
-              ModuleTypeNative,
               inheritance,
               liftedMembers,
               NoComments,

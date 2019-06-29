@@ -31,7 +31,7 @@ object ParentsResolver {
       val unresolved:     Seq[TypeRef],
   ) extends ParentTree {
 
-    lazy val members: Seq[MemberTree] =
+    lazy val members: Seq[Tree] =
       parents.flatMap(_.members) ++ classTree.members
 
     lazy val fields: Seq[FieldTree] =

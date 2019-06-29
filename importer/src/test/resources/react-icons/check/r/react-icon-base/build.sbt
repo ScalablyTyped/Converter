@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "react-icon-base"
-version := "2.1-141a82"
+version := "2.1-a9efad"
 scalaVersion := "2.12.8"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

@@ -81,7 +81,7 @@ object ImportEnum {
                 importedCodePath + memberName,
               )
           }
-          ModuleTree(Nil, name, ModuleTypeScala, Nil, cast +: newMembers, NoComments, importedCodePath)
+          ModuleTree(Nil, name, Nil, cast +: newMembers, NoComments, importedCodePath)
         }
 
         if (isWithinScalaModule) List(ta) else List(ta, module)
@@ -188,7 +188,6 @@ object ImportEnum {
           ModuleTree(
             anns,
             name,
-            ModuleTypeNative,
             parents  = Nil,
             members  = membersSyms ++ applyMethod,
             comments = cs,

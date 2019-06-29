@@ -8,7 +8,7 @@ import seqs._
 object ExtractClasses extends TransformMembers {
   override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] = {
     val byNames = x.membersByName.flatMap {
-      case (name, sameName: Seq[TsNamedDecl]) =>
+      case (_, sameName: Seq[TsNamedDecl]) =>
         extractClasses(scope, sameName, x.membersByName).getOrElse(sameName)
     }
 
@@ -167,7 +167,7 @@ object ExtractClasses extends TransformMembers {
         val newVar: TsDeclVar =
           namespaceOpt match {
             case None => v
-            case Some(x) =>
+            case Some(_) =>
               val msg = s"""/* Extracted nested Instantiables into classes in ${name.value}Ns */\n"""
               v.copy(comments = v.comments + Comment(msg))
           }

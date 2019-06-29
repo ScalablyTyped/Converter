@@ -30,7 +30,6 @@ object ImportTree {
       ModuleTree(
         Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
         name,
-        ModuleTypeNative,
         Nil,
         Nil,
         Comments("""/* This can be used to `require` the library as a side effect.
@@ -117,7 +116,6 @@ object ImportTree {
           ModuleTree(
             ImportJsLocation(location, isWithinScalaModule),
             name,
-            ModuleTypeNative,
             inheritance,
             ms ++ ctors,
             cs,
@@ -133,7 +131,6 @@ object ImportTree {
             ModuleTree(
               annotations = ImportJsLocation(jsLocation, isWithinScalaModule),
               name        = name,
-              moduleType  = ModuleTypeNative,
               parents     = Seq(base.withOptional(isOptional)),
               members     = Nil,
               comments    = cs,
@@ -185,7 +182,6 @@ object ImportTree {
               ModuleTree(
                 anns,
                 name,
-                ModuleTypeNative,
                 Nil,
                 statics,
                 Comments(Comment("/* static members */\n")),

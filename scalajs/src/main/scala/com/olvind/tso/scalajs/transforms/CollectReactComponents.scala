@@ -8,7 +8,7 @@ object CollectReactComponents {
   /* Let's not torture the scala compiler too much, because there *will* be a revenge
    * in the form of difficult-to-diagnose autoslaying
    */
-  val MaxNumComponents = 4000
+  val MaxNumComponents = 3500
 
   sealed trait ComponentType
 
@@ -60,39 +60,52 @@ object CollectReactComponents {
 
     if (components.isEmpty) tree
     else {
-      val moduleName     = Name(tree.name.unescaped + "Components")
-      val moduleCodePath = tree.codePath + moduleName
-
-      val members: Seq[Tree] =
-        components
-          .sortBy(_.name.unescaped)
-          .flatMap(
-            comp =>
-              if (comp.isAbstractProps) List(genComponentRef(comp, moduleCodePath))
-              else {
-                val propsName = Name(comp.name.unescaped + "Props")
-                List(genComponentRef(comp, moduleCodePath)) ++
-                  genPropsRef(scope, comp, moduleCodePath, propsName) ++
-                  genPropsAlias(scope, comp, moduleCodePath, propsName)
-              },
-          )
-
       val comments = allComponents.length - components.length match {
         case 0          => NoComments
         case numDropped => Comments(Comment(s"/* Dropped $numDropped components to please scalac */\n"))
       }
 
-      val module = ModuleTree(
-        Nil,
-        moduleName,
-        ModuleTypeScala,
-        Nil,
-        members,
-        comments,
-        moduleCodePath,
-      )
+      val traitName     = Name(tree.name.unescaped + "Props")
+      val traitCodePath = tree.codePath + traitName
+      val `trait` = {
+        val forwarders: Seq[Tree] =
+          components
+            .sortBy(_.name.unescaped)
+            .flatMap {
+              case comp if comp.isAbstractProps => Nil
+              case comp =>
+                val propsName = Name(comp.name.unescaped + "Props")
+                genPropsRef(scope, comp, traitCodePath, propsName) ++
+                  genPropsAlias(scope, comp, traitCodePath, propsName)
+            }
 
-      tree.withMembers(tree.members :+ module)
+        ClassTree(
+          annotations = Nil,
+          name        = traitName,
+          tparams     = Nil,
+          parents     = Nil,
+          ctors       = Nil,
+          members     = forwarders,
+          classType   = ClassType.Trait,
+          isSealed    = false,
+          comments    = NoComments,
+          codePath    = traitCodePath,
+        )
+      }
+      val module = {
+        val moduleName     = Name(tree.name.unescaped + "Components")
+        val moduleCodePath = tree.codePath + moduleName
+        ModuleTree(
+          annotations = Nil,
+          name        = moduleName,
+          parents     = List(TypeRef(traitCodePath)),
+          members     = components.sortBy(_.name.unescaped).map(comp => genComponentRef(comp, moduleCodePath)),
+          comments    = comments,
+          codePath    = moduleCodePath,
+        )
+      }
+
+      tree.withMembers(tree.members :+ module :+ `trait`)
     }
   }
 
@@ -102,7 +115,7 @@ object CollectReactComponents {
       moduleCodePath: QualifiedName,
       propsName:      Name,
   ): Option[TypeAliasTree] =
-    scope.lookup(comp.props.typeName).collectFirst {
+    scope lookup comp.props.typeName collectFirst {
       case (x: TypeAliasTree, _) => x.tparams
       case (x: ClassTree, _)     => x.tparams
     } map { tps =>
@@ -122,7 +135,7 @@ object CollectReactComponents {
       propsName:      Name,
   ): Option[MethodTree] =
     scope.lookup(comp.props.typeName).collectFirst {
-      case (generatedPropsCompanion: ModuleTree, _) if generatedPropsCompanion.moduleType === ModuleTypeScala =>
+      case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
         MethodTree(
           Inline :: Nil,
           Default,

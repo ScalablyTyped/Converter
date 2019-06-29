@@ -12,7 +12,7 @@ import com.olvind.tso.seqs._
   */
 object RemoveMultipleInheritance extends TreeTransformation {
 
-  final case class Dropped(typeRef: TypeRef, because: String, members: Seq[MemberTree])
+  final case class Dropped(typeRef: TypeRef, because: String, members: Seq[Tree])
 
   override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
@@ -30,7 +30,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     mod.copy(comments = newComments, parents = newParents, members = mod.members ++ newMembers)
   }
 
-  def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, List[TypeRef], List[MemberTree]) = {
+  def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, List[TypeRef], List[Tree]) = {
     val allParents    = ParentsResolver(scope, c)
     val first         = firstReferringToClass(allParents) orElse longestInheritance(allParents)
     val remaining     = first ++ (allParents.directParents filterNot first.contains)

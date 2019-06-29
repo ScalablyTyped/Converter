@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object reactDashTransitionDashGroupLibComponents {
+object reactDashTransitionDashGroupLibComponents extends reactDashTransitionDashGroupLibProps {
   @scala.inline
   def TransitionGroup: reactLib.reactMod.ComponentType[
     reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupProps[
@@ -17,6 +17,5 @@ object reactDashTransitionDashGroupLibComponents {
     reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr, 
     js.Any
   ]]]
-  type TransitionGroupProps[T /* <: reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr | reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate */, V /* <: reactLib.reactMod.ReactType[_] */] = reactDashTransitionDashGroupLib.transitionGroupMod.TransitionGroupProps[T, V]
 }
 

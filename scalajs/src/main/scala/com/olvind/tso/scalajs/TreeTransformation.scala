@@ -43,7 +43,7 @@ class TreeTransformation { self =>
         tparams  = transformed.tparams map visitTypeParamTree(childrenScope),
         parents  = transformed.parents map visitTypeRef(childrenScope),
         ctors    = transformed.ctors map visitCtorTree(childrenScope),
-        members  = transformed.members map visitMemberTree(childrenScope),
+        members  = transformed.members map visitTree(childrenScope),
         comments = transformed.comments,
       )
 

@@ -52,10 +52,10 @@ object ObjectMembers {
     )
   // format: on
 
-  val members: Seq[MemberTree] =
+  val members: Seq[Tree] =
     ScalaObject.members ++ ScalaJsObject.members
 
-  val byName: Map[Name, Seq[MemberTree]] =
+  val byName: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 
 }

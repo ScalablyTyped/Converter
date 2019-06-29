@@ -81,7 +81,6 @@ object Companions extends TreeTransformation {
           ModuleTree(
             Nil,
             cls.name,
-            ModuleTypeScala,
             Nil,
             Seq(
               MethodTree(
@@ -156,7 +155,7 @@ object Companions extends TreeTransformation {
   }
 
   object ByParent {
-    def apply(cls: ClassTree, scope: TreeScope): ByParent[MemberTree] = {
+    def apply(cls: ClassTree, scope: TreeScope): ByParent[Tree] = {
       val parents: ParentsResolver.Parents = ParentsResolver(scope, cls)
 
       /* treat dictionaries specially, as they have no declared members */
@@ -179,7 +178,7 @@ object Companions extends TreeTransformation {
     def firstValue[K, V](x: Map[K, Seq[V]]): Map[K, V] =
       x.mapNotNone(_.headOption)
 
-    def go(p: Parent): Map[Name, MemberTree] =
+    def go(p: Parent): Map[Name, Tree] =
       p.parents.flatMap(go).toMap ++ firstValue(p.classTree.index)
   }
 
@@ -196,9 +195,9 @@ object Companions extends TreeTransformation {
     )
   }
 
-  def memberParameter(parentRef: TypeRef)(scope: TreeScope, x: MemberTree): Option[Param] = {
+  def memberParameter(parentRef: TypeRef)(scope: TreeScope, x: Tree): Option[Param] = {
     /* this is our own fault... */
-    val patched = TypeRewriter(Map(TypeRef.ThisType(NoComments) -> parentRef)).visitMemberTree(scope)(x)
+    val patched = TypeRewriter(Map(TypeRef.ThisType(NoComments) -> parentRef)).visitTree(scope)(x)
 
     /* not really sure if this actually matters, but let's keep it safe :/ */
     def findOriginalName(current: Name, annotations: Seq[Annotation]): Name =

@@ -138,7 +138,7 @@ object Printer {
       case tree: PackageTree =>
         apply(reg, mainPkg, prefix :+ tree.name, folder / RelPath(tree.name.value), tree)
 
-      case ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
+      case cls @ ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -160,7 +160,7 @@ object Printer {
           print((defaultCtor.params map formatParamTree(prefix, indent)).mkString("(", ", ", ")"))
         }
 
-        print(extendsClause(prefix, parents, isNative = true, indent))
+        print(extendsClause(prefix, parents, isNative = cls.isNative, indent))
 
         if (members.nonEmpty || restCtors.nonEmpty) {
           println(" {")
@@ -175,18 +175,13 @@ object Printer {
 
         println()
 
-      case ModuleTree(anns, name, moduleType, parents, members, comments, _) =>
+      case m @ ModuleTree(anns, name, parents, members, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
-        val isNative = moduleType match {
-          case ModuleTypeNative => true
-          case ModuleTypeScala  => false
-        }
+        print("object ", formatName(name), extendsClause(prefix, parents, m.isNative, indent))
 
-        print("object ", formatName(name), extendsClause(prefix, parents, isNative, indent))
-
-        val newPrefix = if (name === Name.namespaced || moduleType === ModuleTypeScala) prefix else prefix :+ name
+        val newPrefix = if (name === Name.namespaced || !m.isNative) prefix else prefix :+ name
 
         if (members.nonEmpty) {
           println(" {")

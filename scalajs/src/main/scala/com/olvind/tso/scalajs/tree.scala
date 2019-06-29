@@ -29,7 +29,7 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 }
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
-  lazy val memberIndex: Map[Name, Seq[MemberTree]] = this match {
+  lazy val memberIndex: Map[Name, Seq[Tree]] = this match {
     case x: ClassTree  => x.index
     case x: ModuleTree => x.index.mapValues(_.collect { case x: MemberTree => x })
   }
@@ -56,30 +56,29 @@ final case class ClassTree(
     tparams:     Seq[TypeParamTree],
     parents:     Seq[TypeRef],
     ctors:       Seq[CtorTree],
-    members:     Seq[MemberTree],
+    members:     Seq[Tree],
     classType:   ClassType,
     isSealed:    Boolean,
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends InheritanceTree {
-  lazy val index: Map[Name, Seq[MemberTree]] =
+  lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
-}
 
-sealed trait ModuleType
-case object ModuleTypeNative extends ModuleType
-case object ModuleTypeScala extends ModuleType
+  def isNative: Boolean = annotations.nonEmpty
+}
 
 final case class ModuleTree(
     annotations: Seq[ClassAnnotation],
     name:        Name,
-    moduleType:  ModuleType,
     parents:     Seq[TypeRef],
     members:     Seq[Tree],
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends ContainerTree
-    with InheritanceTree
+    with InheritanceTree {
+  def isNative: Boolean = annotations.nonEmpty
+}
 
 final case class TypeAliasTree(
     name:     Name,
