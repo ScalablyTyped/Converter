@@ -42,7 +42,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
             case TsImport(Seq(TsImportedIdent(to)), TsImporteeLocal(from)) =>
               scope
-                .lookupInternal(Picker.NotClasses, from.parts, loopDetector)
+                .lookupInternal(Picker.All, from.parts, loopDetector)
                 .map { case (d, _) => d.withName(to) }
                 .map(SetCodePath.visitTsNamedDecl(x.codePath.forceHasPath))
 

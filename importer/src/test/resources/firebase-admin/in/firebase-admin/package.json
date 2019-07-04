@@ -1,0 +1,155 @@
+{
+  "_from": "firebase-admin",
+  "_id": "firebase-admin@8.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-SiF4ivEknRWvwtFLgUxfxN7kR6/3bcoNd7pXVKPcszW6lHcMXe5qY58MwKIfDTN1JlayBiwkZjealnGZ2G8/Yg==",
+  "_location": "/firebase-admin",
+  "_phantomChildren": {
+    "jws": "3.2.2",
+    "lodash.includes": "4.3.0",
+    "lodash.isboolean": "3.0.3",
+    "lodash.isinteger": "4.0.4",
+    "lodash.isnumber": "3.0.3",
+    "lodash.isplainobject": "4.0.6",
+    "lodash.isstring": "4.0.1",
+    "lodash.once": "4.1.1",
+    "ms": "2.1.1",
+    "xtend": "4.0.1"
+  },
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "firebase-admin",
+    "name": "firebase-admin",
+    "escapedName": "firebase-admin",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/firebase-admin/-/firebase-admin-8.2.0.tgz",
+  "_shasum": "d2ff17fc427f7db5e9b1ee897bdf9c0c26773cc0",
+  "_spec": "firebase-admin",
+  "_where": "/home/olvind/tmp/tso-cache/npm",
+  "author": {
+    "name": "Firebase",
+    "email": "firebase-support@google.com",
+    "url": "https://firebase.google.com/"
+  },
+  "bugs": {
+    "url": "https://github.com/firebase/firebase-admin-node/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "@google-cloud/firestore": "^2.0.0"
+  },
+  "deprecated": false,
+  "description": "Firebase admin SDK for Node.js",
+  "devDependencies": {
+    "@firebase/auth": "^0.11.3",
+    "@types/bcrypt": "^2.0.0",
+    "@types/chai": "^3.4.34",
+    "@types/chai-as-promised": "0.0.29",
+    "@types/firebase-token-generator": "^2.0.28",
+    "@types/jsonwebtoken": "^7.2.8",
+    "@types/lodash": "^4.14.104",
+    "@types/minimist": "^1.2.0",
+    "@types/mocha": "^2.2.48",
+    "@types/nock": "^9.1.0",
+    "@types/request": "^2.47.0",
+    "@types/request-promise": "^4.1.41",
+    "@types/scrypt": "^6.0.0",
+    "@types/sinon": "^4.1.3",
+    "@types/sinon-chai": "^2.7.27",
+    "bcrypt": "^3.0.0",
+    "chai": "^3.5.0",
+    "chai-as-promised": "^6.0.0",
+    "chalk": "^1.1.3",
+    "child-process-promise": "^2.2.1",
+    "del": "^2.2.1",
+    "firebase-token-generator": "^2.0.0",
+    "gulp": "^4.0.0",
+    "gulp-header": "^1.8.8",
+    "gulp-replace": "^0.5.4",
+    "gulp-typescript": "^5.0.1",
+    "http-message-parser": "^0.0.34",
+    "jsdom": "^15.0.0",
+    "lodash": "^4.17.5",
+    "minimist": "^1.2.0",
+    "mocha": "^5.2.0",
+    "mz": "^2.7.0",
+    "nock": "^9.6.0",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^14.1.0",
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1",
+    "run-sequence": "^1.1.5",
+    "scrypt": "^6.0.3",
+    "sinon": "^4.5.0",
+    "sinon-chai": "^2.14.0",
+    "ts-node": "^3.3.0",
+    "tslint": "^5.17.0",
+    "typedoc": "^0.14.2",
+    "typescript": "^3.1.0",
+    "yargs": "^13.2.2"
+  },
+  "engines": {
+    "node": "^8.13.0 || >=10.10.0"
+  },
+  "files": [
+    "lib/",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
+  "homepage": "https://firebase.google.com/",
+  "keywords": [
+    "admin",
+    "database",
+    "Firebase",
+    "realtime",
+    "authentication"
+  ],
+  "license": "Apache-2.0",
+  "main": "lib/index.js",
+  "name": "firebase-admin",
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "all": true
+  },
+  "optionalDependencies": {
+    "@google-cloud/firestore": "^2.0.0",
+    "@google-cloud/storage": "^2.5.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firebase/firebase-admin-node.git"
+  },
+  "scripts": {
+    "apidocs": "node docgen/generate-docs.js --api node",
+    "build": "gulp build",
+    "integration": "run-s build test:integration",
+    "lint": "run-p lint:src lint:unit lint:integration",
+    "lint:integration": "tslint -c tslint-test.json --format stylish test/integration/*.ts",
+    "lint:src": "tslint --format stylish -p tsconfig.json",
+    "lint:unit": "tslint -c tslint-test.json --format stylish test/unit/*.ts test/unit/**/*.ts",
+    "prepare": "npm run build",
+    "test": "run-s lint test:unit",
+    "test:coverage": "nyc npm run test:unit",
+    "test:integration": "mocha test/integration/*.ts --slow 5000 --timeout 20000 --require ts-node/register",
+    "test:unit": "mocha test/unit/*.spec.ts --require ts-node/register"
+  },
+  "types": "./lib/index.d.ts",
+  "version": "8.2.0"
+}

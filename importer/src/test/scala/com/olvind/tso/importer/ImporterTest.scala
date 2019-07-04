@@ -43,5 +43,6 @@ class ImporterTest extends FunSuite with ImporterHarness {
   test("defaulted-tparams")(assertImportsOk("defaulted-tparams", pedantic           = true, update  = update))
   test("union-to-inheritance")(assertImportsOk("union-to-inheritance", pedantic     = true, update  = update))
   test("expand-type-parameters")(assertImportsOk("expand-type-parameters", pedantic = true, update  = update))
-  test("const-enum")(assertImportsOk("const-enum", pedantic = true, update  = update))
+  test("const-enum")(assertImportsOk("const-enum", pedantic                         = true, update  = update))
+  test("firebase-admin")(assertImportsOk("firebase-admin", pedantic                 = true, update  = update))
 }

@@ -120,9 +120,15 @@ object Exports {
       renamedOpt:   Option[TsIdent],
       loopDetector: LoopDetector,
   ): Seq[TsNamedDecl] = {
+    val limitedScope = scope match {
+      case TsTreeScope.Scoped(outer, `_namedDecl`) => outer
+      case other                                   => other
+    }
+
     val rewritten = _namedDecl match {
-      case x: TsDeclModule if x.exports.nonEmpty    => CachedReplaceExports(scope.`..`, loopDetector, x)
-      case x: TsDeclNamespace if x.exports.nonEmpty => new ReplaceExports(loopDetector).visitTsNamedDecl(scope.`..`)(x)
+      case x: TsDeclModule if x.exports.nonEmpty => CachedReplaceExports(limitedScope, loopDetector, x)
+      case x: TsDeclNamespace if x.exports.nonEmpty =>
+        new ReplaceExports(loopDetector).visitTsNamedDecl(limitedScope)(x)
       case other => other
     }
 
