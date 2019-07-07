@@ -17,11 +17,7 @@ object Readme {
 
 Beware: While these typings generally work, some details of the encoding are still subject to change.
 All currently published artifacts should be considered snapshots and will be deleted without notice.
-Expect the first stable release early May.
-
-## While you're here
-There will be a talk about this project at [flatMap(Oslo)](https://2019.flatmap.no/talks/berg) in May,
-which will be available online shortly after.
+Expect the first stable release soon.
 
 ## About
 
@@ -29,6 +25,8 @@ This is the home of Scala.js typings for **${summary.successes.size}** Javascrip
  which should span more or less the entire set of modern and popular libraries.
 
 This should make it one of the biggest Scala repos on the planet${describeSize(locOutput)}
+
+The project was introduced in a talk at [flatMap(Oslo) 2019](https://www.youtube.com/watch?v=R1Z_u2rEDj4)
 
 ## Typing?
 
