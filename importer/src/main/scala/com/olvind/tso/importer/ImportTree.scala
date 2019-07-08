@@ -148,7 +148,7 @@ object ImportTree {
               annotations = Annotation.jsName(name),
               name        = name,
               tpe         = base.withOptional(isOptional),
-              impl        = MemberImplNative,
+              impl        = MemberImpl.Native,
               isReadOnly  = readOnly,
               isOverride  = false,
               comments    = cs,
@@ -357,9 +357,9 @@ object ImportTree {
 
                 val fieldType: MemberImpl =
                   (scalaJsDefined, m.isOptional) match {
-                    case (true, true)  => MemberImplCustom("js.undefined")
-                    case (true, false) => MemberImplNotImplemented
-                    case _             => MemberImplNative
+                    case (true, true)  => MemberImpl.Undefined
+                    case (true, false) => MemberImpl.NotImplemented
+                    case _             => MemberImpl.Native
                   }
 
                 val codeName = importName(symName)
@@ -422,9 +422,9 @@ object ImportTree {
         val importedType = ImportType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: MemberImpl =
           (scalaJsDefined, importedType) match {
-            case (true, TypeRef.UndefOr(_)) => MemberImplCustom("js.undefined")
-            case (true, _)                  => MemberImplNotImplemented
-            case (false, _)                 => MemberImplNative
+            case (true, TypeRef.UndefOr(_)) => MemberImpl.Undefined
+            case (true, _)                  => MemberImpl.NotImplemented
+            case (false, _)                 => MemberImpl.Native
           }
 
         Seq(
@@ -483,7 +483,7 @@ object ImportTree {
     val as = Annotation.method(name, isBracketAccess = false)
 
     val fieldType: MemberImpl =
-      if (scalaJsDefined) MemberImplNotImplemented else MemberImplNative
+      if (scalaJsDefined) MemberImpl.NotImplemented else MemberImpl.Native
 
     val resultType: TypeRef = (
       sig.resultType filter (_ =/= TsTypeRef.any)

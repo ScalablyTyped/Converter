@@ -61,7 +61,6 @@ object FakeLiterals {
                   NoComments,
                   codePath,
                 )
-              val impl = s"$underlying.asInstanceOf[${name.value}]"
               val `def` =
                 MethodTree(
                   Annotation.jsName(name) :+ Inline,
@@ -69,7 +68,7 @@ object FakeLiterals {
                   name,
                   Nil,
                   Nil,
-                  MemberImplCustom(impl),
+                  MemberImpl.Custom(s"$underlying.asInstanceOf[${name.value}]"),
                   TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
                   isOverride = false,
                   comments   = NoComments,

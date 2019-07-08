@@ -206,7 +206,7 @@ object Printer {
         }
         println(s" = ", formattedType)
 
-      case FieldTree(anns, name, tpe, fieldType, isReadOnly, isOverride, comments, _) =>
+      case FieldTree(anns, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -218,13 +218,14 @@ object Printer {
           typeAnnotation(formatName(name), prefix, indent, tpe, name),
         )
 
-        fieldType match {
-          case MemberImplNotImplemented => println()
-          case MemberImplNative         => println(" = js.native")
-          case MemberImplCustom(impl)   => println(" = ", impl)
+        impl match {
+          case MemberImpl.NotImplemented => println()
+          case MemberImpl.Undefined      => println(" = js.undefined")
+          case MemberImpl.Native         => println(" = js.native")
+          case MemberImpl.Custom(impl)   => println(" = ", impl)
         }
 
-      case MethodTree(anns, level, name, tparams, params, fieldType, resultType, isOverride, comments, _) =>
+      case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _) =>
         print(formatComments(comments))
         print(formatAnns(prefix, anns))
 
@@ -244,10 +245,11 @@ object Printer {
         print(
           typeAnnotation(formatName(name) + tparamString + paramString.mkString, prefix, indent, resultType, name),
         )
-        fieldType match {
-          case MemberImplNotImplemented => println()
-          case MemberImplNative         => println(" = js.native")
-          case MemberImplCustom(impl)   => println(" = ", impl)
+        impl match {
+          case MemberImpl.NotImplemented => println()
+          case MemberImpl.Native         => println(" = js.native")
+          case MemberImpl.Undefined      => println(" = js.undefined")
+          case MemberImpl.Custom(impl)   => println(" = ", impl)
         }
 
       case CtorTree(level, params, comments) =>

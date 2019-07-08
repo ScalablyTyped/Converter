@@ -89,7 +89,7 @@ object Companions extends TreeTransformation {
                 Name.APPLY,
                 cls.tparams,
                 params.map(_.parameter) :: Nil,
-                MemberImplCustom(s"""{
+                MemberImpl.Custom(s"""{
                   |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
                   |${optionals.map(f => "  " + f("__obj")).mkString("\n")}
                   |  __obj.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(applyRet)}]

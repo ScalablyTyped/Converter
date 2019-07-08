@@ -11,23 +11,20 @@ import com.olvind.tso.seqs.TraversableOps
   */
 object InferMemberOverrides extends TreeTransformation {
 
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    if (s.parents.lengthCompare(1) > 0) s.copy(members = newMembers(scope, s, s.members, MemberImplNative))
-    else s
+  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
+    if (mod.parents.length > 1 && mod.isNative)
+      mod.copy(members = newMembers(scope, mod, mod.members))
+    else mod
 
-  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
-    if (s.parents.lengthCompare(1) > 0) {
-      val fieldType = if (s.annotations.contains(JsNative)) MemberImplNative else MemberImplNotImplemented
-      s.copy(members = newMembers(scope, s, s.members, fieldType))
-    } else s
+  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree =
+    if (cls.parents.length > 1 && cls.isNative)
+      cls.copy(members = newMembers(scope, cls, cls.members))
+    else cls
 
-  private def newMembers[S >: MemberTree <: Tree](
-      scope:     TreeScope,
-      tree:      InheritanceTree,
-      members:   Seq[S],
-      fieldType: MemberImpl,
-  ): Seq[S] = {
+  private def newMembers(scope: TreeScope, tree: InheritanceTree, members: Seq[Tree]): Seq[Tree] = {
     val root = ParentsResolver(scope, tree)
+
+    val isScalaJsDefined: Boolean = tree.annotations contains ScalaJSDefined
 
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },
@@ -59,8 +56,8 @@ object InferMemberOverrides extends TreeTransformation {
           head.copy(
             isOverride = true,
             tpe        = newType,
-            isReadOnly = true,
-            impl       = updatedFieldType(head.impl, fieldType, Some(newType)),
+            isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
+            impl       = updatedImpl(fs.map(_._1.impl), Some(newType), isScalaJsDefined),
             comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
@@ -74,7 +71,7 @@ object InferMemberOverrides extends TreeTransformation {
           fs.head.copy(
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType)),
-            impl       = updatedFieldType(fs.head.impl, fieldType, None),
+            impl       = updatedImpl(fs.map(_.impl), None, isScalaJsDefined),
             comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
@@ -95,10 +92,20 @@ object InferMemberOverrides extends TreeTransformation {
       case _                                    => false
     }
 
-  private def updatedFieldType(original: MemberImpl, `override`: MemberImpl, newType: Option[TypeRef]): MemberImpl =
-    original match {
-      case MemberImplNative | MemberImplNotImplemented => `override`
-      case MemberImplCustom("js.undefined") if newType.fold(false)(x => !canBeUndefined(x)) => `override`
-      case other => other
-    }
+  private def updatedImpl(
+      fieldTypes:       Seq[MemberImpl],
+      typeOpt:          Option[TypeRef],
+      isScalaJsDefined: Boolean,
+  ): MemberImpl =
+    if (isScalaJsDefined) {
+      fieldTypes.partitionCollect3(
+        { case MemberImpl.Native         => MemberImpl.Native },
+        { case MemberImpl.NotImplemented => MemberImpl.NotImplemented },
+        { case MemberImpl.Undefined      => MemberImpl.Undefined },
+      ) match {
+        case (Nil, _, Nil, Nil)                                     => MemberImpl.NotImplemented
+        case (Nil, _, _, Nil) if typeOpt.fold(true)(canBeUndefined) => MemberImpl.Undefined
+        case _                                                      => MemberImpl.Native
+      }
+    } else MemberImpl.Native
 }

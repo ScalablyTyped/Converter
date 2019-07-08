@@ -2413,10 +2413,10 @@ export {};
     )(
       TsMemberIndex(
         NoComments,
-        false,
+        isReadOnly = false,
         Private,
         IndexingSingle(TsQIdent(List(TsIdentSimple("kChannel")))),
-        false,
+        isOptional = false,
         None,
       ),
     )
@@ -2429,10 +2429,10 @@ export {};
         List(
           TsMemberIndex(
             NoComments,
-            false,
+            isReadOnly = false,
             Default,
             IndexingDict(TsIdentSimple("attributeName"), TsTypeRef.string),
-            false,
+            isOptional = false,
             Some(
               TsTypeUnion(
                 List(
@@ -2449,6 +2449,28 @@ export {};
     )
   }
 
+  test("({}: {}, {}: {}) workaround") {
+    shouldParseAs("""protected _Handle_insert({}: {}, {}: {}): void""", TsParser.tsMemberNamed)(
+      TsMemberFunction(
+        NoComments,
+        Protected,
+        TsIdentSimple("_Handle_insert"),
+        TsFunSig(
+          NoComments,
+          List(),
+          List(
+            TsFunParam(NoComments, TsIdentSimple("has0"), Some(TsTypeObject(NoComments, List())), isOptional = false),
+            TsFunParam(NoComments, TsIdentSimple("has1"), Some(TsTypeObject(NoComments, List())), isOptional = false),
+          ),
+          Some(TsTypeRef.void),
+        ),
+        isStatic = false,
+        isReadOnly = false,
+        isOptional = false,
+      ),
+    )
+  }
+
   test("expr") {
     shouldParseAs(
       """export declare const start = ActionTypes.Start""",
@@ -2460,8 +2482,8 @@ export {};
         TsExporteeTree(
           TsDeclVar(
             NoComments,
-            true,
-            true,
+            declared = true,
+            readOnly = true,
             TsIdentSimple("start"),
             None,
             Some(
@@ -2470,7 +2492,7 @@ export {};
             ),
             Zero,
             CodePath.NoPath,
-            false,
+            isOptional = false,
           ),
         ),
       ),
@@ -2508,16 +2530,19 @@ export {};
           NoComments,
           List(),
           List(
-            TsFunParam(NoComments, TsIdentSimple("key"), Some(TsTypeRef.string), false),
-            TsFunParam(NoComments, TsIdentSimple("ms"), Some(TsTypeRef.number), false),
+            TsFunParam(NoComments, TsIdentSimple("key"), Some(TsTypeRef.string), isOptional = false),
+            TsFunParam(NoComments, TsIdentSimple("ms"), Some(TsTypeRef.number), isOptional = false),
           ),
           Some(TsTypeRef.void),
         ),
-        false,
-        false,
-        false,
+        isStatic = false,
+        isReadOnly = false,
+        isOptional = false,
       ),
     )
+
+    shouldParseAs("""1e-7""", TsParser.expr)(TsExpr.Literal(TsLiteralNumber("1e-7")))
+
 //    shouldParseAs("""(0x000FFFFF + 1) >> 1""", TsParser.expr)(
 //      null
 //    )

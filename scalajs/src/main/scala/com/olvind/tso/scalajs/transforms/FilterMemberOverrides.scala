@@ -24,10 +24,11 @@ object FilterMemberOverrides extends TreeTransformation {
   override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
     s.copy(members = newMembers(scope, s, s.members))
 
-  private def newMembers[S >: MemberTree <: Tree](scope: TreeScope, owner: Tree, members: Seq[S]): Seq[S] = {
-    val (methods, fields, other) = members.partitionCollect2(
+  private def newMembers(scope: TreeScope, owner: Tree, members: Seq[Tree]): Seq[Tree] = {
+    val (methods, fields, modules, other) = members.partitionCollect3(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
+      { case x: ModuleTree => x },
     )
     val methodsByName: Map[Name, Seq[MethodTree]] =
       methods groupBy (_.name)
@@ -81,6 +82,14 @@ object FilterMemberOverrides extends TreeTransformation {
       }
     }
 
+    val newModules: Seq[ModuleTree] = modules.flatMap { m =>
+      allMethods.get(m.name) match {
+        case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === m.name) =>
+          Nil
+        case _ => Seq(m)
+      }
+    }
+
     val newMethods: Seq[MethodTree] = methods.flatMap { m =>
 //        val mErasure = Erasure.erasure(scope)(m)
 
@@ -106,6 +115,6 @@ object FilterMemberOverrides extends TreeTransformation {
       }
     }
 
-    newFields ++ newMethods ++ other
+    newFields ++ newMethods ++ newModules ++ other
   }
 }
