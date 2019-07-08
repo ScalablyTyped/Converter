@@ -29,6 +29,8 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 }
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
+  def annotations: Seq[ClassAnnotation]
+
   lazy val memberIndex: Map[Name, Seq[Tree]] = this match {
     case x: ClassTree  => x.index
     case x: ModuleTree => x.index.mapValues(_.collect { case x: MemberTree => x })
@@ -96,10 +98,12 @@ sealed trait MemberTree extends Tree {
 }
 
 sealed trait MemberImpl
-
-case object MemberImplNative extends MemberImpl
-case object MemberImplNotImplemented extends MemberImpl
-final case class MemberImplCustom(impl: String) extends MemberImpl
+object MemberImpl {
+  case object Native extends MemberImpl
+  case object NotImplemented extends MemberImpl
+  case object Undefined extends MemberImpl
+  final case class Custom(impl: String) extends MemberImpl
+}
 
 final case class FieldTree(
     annotations: Seq[MemberAnnotation],

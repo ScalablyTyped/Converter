@@ -18,8 +18,9 @@ object RemoveMultipleInheritance extends TreeTransformation {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
     val patchedNewMembers =
       if (cls.annotations.contains(JsNative)) newMembers.map {
-        case x: MethodTree => x.copy(impl = MemberImplNative)
-        case x: FieldTree  => x.copy(impl = MemberImplNative)
+        case x: MethodTree => x.copy(impl = MemberImpl.Native)
+        case x: FieldTree  => x.copy(impl = MemberImpl.Native)
+        case other => other
       } else newMembers
 
     cls.copy(comments = newComments, parents = newParents, members = cls.members ++ patchedNewMembers)
@@ -109,17 +110,28 @@ object RemoveMultipleInheritance extends TreeTransformation {
           })
 
         def inheritsConflictingVars: Option[Dropped] = {
-          val includedMembers: Seq[Name] =
-            (/* baseMembers ++ */ dropped.flatMap(_.members) ++ included.flatMap(_.members)).map(_.name)
+          val includedMembersByName: Map[Name, Tree] =
+            (dropped.flatMap(_.members) ++ included.flatMap(_.members)).map(x => x.name -> x).toMap
 
-          val nextMutables: Seq[Name] =
-            h.mutableFields.map(_.name)
+          val conflictingFields: Seq[FieldTree] = h.fields.flatMap {
+            case f if !f.isReadOnly && includedMembersByName.contains(f.name) => List(f)
+            case f =>
+              includedMembersByName.get(f.name) match {
+                case Some(existing) =>
+                  existing match {
+                    case existingField: FieldTree => if (existingField.isReadOnly) Nil else List(f)
+                    case _ => List(f)
+                  }
+                case None => Nil
+              }
+          }
 
-          includedMembers intersect nextMutables match {
+          conflictingFields match {
             case Nil => None
             case conflict =>
-              val conflictString = conflict.distinct.sortBy(_.unescaped).map(Printer.formatName).mkString(", ")
-              val inlined        = h.classTree.members.filterNot(m => includedMembers.contains(m.name))
+              val conflictString =
+                conflict.map(_.name).distinct.sortBy(_.unescaped).map(Printer.formatName).mkString(", ")
+              val inlined = h.classTree.members.filterNot(m => includedMembersByName.contains(m.name))
               Some(
                 Dropped(
                   h.refs.last,

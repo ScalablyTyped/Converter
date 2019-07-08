@@ -2518,6 +2518,9 @@ export {};
         false,
       ),
     )
+
+    shouldParseAs("""1e-7""", TsParser.expr)(TsExpr.Literal(TsLiteralNumber("1e-7")))
+
 //    shouldParseAs("""(0x000FFFFF + 1) >> 1""", TsParser.expr)(
 //      null
 //    )
