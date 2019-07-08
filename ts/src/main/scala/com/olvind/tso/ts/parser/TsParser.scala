@@ -361,8 +361,18 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
   lazy val tsTypeParams: Parser[List[TsTypeParam]] =
     "<" ~>! rep1sep(typeParam, ",") <~! ",".? <~! ">" | success(Nil)
 
+  val tsFunctionParams: Parser[List[TsFunParam]] = rep(functionParam) ^^ {
+    /* */
+    case ps if ps.count(_.name.value === "has") > 1 =>
+      ps.zipWithIndex.map {
+        case (p @ TsFunParam(_, TsIdentSimple("has"), _, _), idx) => p.copy(name = TsIdent("has" + idx))
+        case (other, _)                                                => other
+      }
+    case ok => ok
+  }
+
   lazy val functionSignature: Parser[TsFunSig] =
-    comments ~ tsTypeParams ~ ("(" ~>! rep(functionParam) <~ ")") ~ typeAnnotationOpt ^^ TsFunSig
+    comments ~ tsTypeParams ~ ("(" ~>! tsFunctionParams <~ ")") ~ typeAnnotationOpt ^^ TsFunSig
 
   lazy val functionParam: Parser[TsFunParam] = {
     /* Represent in tree? */
@@ -413,7 +423,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
 
   lazy val baseTypeDesc: Parser[TsType] = {
     val tsTypeFunction: Parser[TsTypeFunction] =
-      comments ~ tsTypeParams ~ ("(" ~> rep(functionParam) <~ ")") ~ ("=>" ~> tsType) ^^ {
+      comments ~ tsTypeParams ~ ("(" ~> tsFunctionParams <~ ")") ~ ("=>" ~> tsType) ^^ {
         case cs ~ tparams ~ params ~ resultType => TsTypeFunction(TsFunSig(cs, tparams, params, Some(resultType)))
       }
 
