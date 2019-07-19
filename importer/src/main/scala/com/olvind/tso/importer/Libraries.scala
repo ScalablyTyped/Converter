@@ -19,6 +19,15 @@ object Libraries {
     "@angular/platform-browser",
     "@angular/platform-browser-dynamic",
     "@angular/router",
+    "@ant-design/icons",
+    "@ant-design/icons-react",
+    "@ant-design/colors",
+    "@ant-design/react-native",
+    "@ant-design/icons-vue",
+    "@ant-design/icons-angular",
+    "@ant-design/icons-react-native",
+    "@ant-design/dark-theme",
+    "@ant-design/pro-layout",
     "antd-mobile",
     "antd-mobile-rn",
     "api-service",
@@ -240,4 +249,5 @@ object Libraries {
       "webassembly-js-api",
       "w3c-permissions",
     )
+
 }
