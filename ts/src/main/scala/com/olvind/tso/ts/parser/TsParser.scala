@@ -366,7 +366,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     case ps if ps.count(_.name.value === "has") > 1 =>
       ps.zipWithIndex.map {
         case (p @ TsFunParam(_, TsIdentSimple("has"), _, _), idx) => p.copy(name = TsIdent("has" + idx))
-        case (other, _)                                                => other
+        case (other, _)                                           => other
       }
     case ok => ok
   }

@@ -13,7 +13,7 @@ import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.sets.SetOps
-import com.olvind.tso.ts.TsIdentLibrarySimple
+import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
@@ -57,7 +57,7 @@ class Phase3Compile(
               t =>
                 PhaseRes.fromOption(
                   source,
-                  resolve.global(TsIdentLibrarySimple(t)),
+                  resolve.global(TsIdentLibrary(t)),
                   Right(s"Couldn't resolve $t"),
                 ),
             ),

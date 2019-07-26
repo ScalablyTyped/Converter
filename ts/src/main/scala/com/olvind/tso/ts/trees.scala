@@ -374,6 +374,15 @@ sealed trait TsIdentLibrary extends TsIdent {
 object TsIdentLibrary {
   implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
     i => i.value
+  val Scoped   = "@([/]+)/(.+)".r
+  val Scoped__ = "(.+)__(.+)".r
+
+  def apply(str: String): TsIdentLibrary =
+    str match {
+      case Scoped(scope, name)   => TsIdentLibraryScoped(scope, Some(name))
+      case Scoped__(scope, name) => TsIdentLibraryScoped(scope, Some(name))
+      case other                 => TsIdentLibrarySimple(other)
+    }
 }
 
 final case class TsIdentLibrarySimple(value: String) extends TsIdentLibrary
