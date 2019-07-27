@@ -5,7 +5,7 @@ package importer
 import java.io.StringWriter
 import java.nio.file.Files
 
-import ammonite.ops.{Path, mkdir, root, up}
+import ammonite.ops.{%, %%, ShelloutException}
 import com.olvind.logging.{LogLevel, LogRegistry}
 import com.olvind.tso.importer.Source.TsLibSource
 import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versions}
@@ -20,8 +20,8 @@ import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success, Try}
 
 trait ImporterHarness extends FunSuiteLike {
-  val failureCacheDir = root / 'tmp / 'tso / 'compileFailures
-  mkdir(failureCacheDir)
+  val failureCacheDir = os.root / 'tmp / 'tso / 'compileFailures
+  os.makeDir.all(failureCacheDir)
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
   private val testCmd    = new Cmd(testLogger, None)
@@ -33,10 +33,10 @@ trait ImporterHarness extends FunSuiteLike {
 
   private def runImport(
       source:        InFolder,
-      targetFolder:  Path,
+      targetFolder:  os.Path,
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
-      publishFolder: Path,
+      publishFolder: os.Path,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
@@ -89,10 +89,10 @@ trait ImporterHarness extends FunSuiteLike {
       case null  => sys.error(s"Could not find test resource folder $testName")
       case other =>
         // The test can be run from various working directories, so find the correct directory this way :/
-        InFolder(Path(other.getFile) / up / up / up / up / 'src / 'test / 'resources / testName)
+        InFolder(os.Path(other.getFile) / os.up / os.up / os.up / os.up / 'src / 'test / 'resources / testName)
     }
     val source       = InFolder(testFolder.path / 'in)
-    val targetFolder = Path(Files.createTempDirectory("tso-test-"))
+    val targetFolder = os.Path(Files.createTempDirectory("tso-test-"))
     val checkFolder  = testFolder.path / 'check
 
     val logRegistry =
@@ -102,22 +102,21 @@ trait ImporterHarness extends FunSuiteLike {
         _ => logging.appendable(new StringWriter()),
       )
 
-    val publishFolder = root / 'tmp / "tso-published-tests" / testName
+    val publishFolder = os.root / 'tmp / "tso-published-tests" / testName
 
     runImport(source, targetFolder, pedantic, logRegistry, publishFolder) match {
       case PhaseRes.Ok(_) =>
-        import ammonite.ops._
-        import ImplicitWd.implicitCwd
+        implicit val wd = os.pwd
 
         /* we don't checkin these files, so also don't compare them */
-        ls.rec(targetFolder).foreach {
-          case x if x.segments.last == ".bloop" => rm(x)
-          case _ => ()
+        os.walk(targetFolder).foreach {
+          case x if x.last == ".bloop" => os.remove.all(x)
+          case _                       => ()
         }
 
         if (update) {
-          rm(checkFolder)
-          cp(targetFolder, checkFolder)
+          os.remove.all(checkFolder)
+          os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
         }
 
@@ -131,11 +130,9 @@ trait ImporterHarness extends FunSuiteLike {
 
       case PhaseRes.Failure(errors) =>
         if (update) {
-          import ammonite.ops._
-          import ImplicitWd.implicitCwd
-
-          rm(checkFolder)
-          cp(targetFolder, checkFolder)
+          implicit val wd = os.pwd
+          os.remove.all(checkFolder)
+          os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
         }
         errors foreach {

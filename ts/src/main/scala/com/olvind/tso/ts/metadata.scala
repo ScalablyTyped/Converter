@@ -1,16 +1,14 @@
 package com.olvind.tso
 package ts
 
-import ammonite.ops.RelPath
-
 case class CompilerOptions(
     module:                           Option[String],
     lib:                              Option[Seq[String]],
     noImplicitAny:                    Option[Boolean],
     noImplicitThis:                   Option[Boolean],
     strictNullChecks:                 Option[Boolean],
-    baseUrl:                          Option[RelPath],
-    typeRoots:                        Option[Seq[RelPath]],
+    baseUrl:                          Option[os.RelPath],
+    typeRoots:                        Option[Seq[os.RelPath]],
     types:                            Option[Seq[String]],
     noEmit:                           Option[Boolean],
     forceConsistentCasingInFileNames: Option[Boolean],

@@ -1,6 +1,5 @@
 package com.olvind.tso.importer
 
-import ammonite.ops.RelPath
 import com.olvind.tso.ts._
 import com.olvind.tso.importer.jsonCodecs._
 import io.circe.parser._
@@ -42,8 +41,8 @@ class JsonTests extends FunSuite {
           noImplicitAny                    = Option(true),
           noImplicitThis                   = Option(true),
           strictNullChecks                 = Option(true),
-          baseUrl                          = Some(RelPath("../")),
-          typeRoots                        = Some(Vector(RelPath("../"))),
+          baseUrl                          = Some(os.RelPath("../")),
+          typeRoots                        = Some(Vector(os.RelPath("../"))),
           types                            = Some(Vector()),
           noEmit                           = Some(true),
           forceConsistentCasingInFileNames = Some(true),

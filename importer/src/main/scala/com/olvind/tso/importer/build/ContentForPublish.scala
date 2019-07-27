@@ -6,7 +6,6 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.jar.{JarEntry, JarOutputStream, Manifest}
 
-import ammonite.ops.{ls, read, Path, RelPath}
 import com.olvind.tso.importer.FacadeJson
 
 import scala.collection.mutable
@@ -18,9 +17,9 @@ object ContentForPublish {
       paths:        CompilerPaths,
       p:            SbtProject,
       publication:  ZonedDateTime,
-      sourceFiles:  Layout[RelPath, Array[Byte]],
+      sourceFiles:  Layout[os.RelPath, Array[Byte]],
       externalDeps: Set[FacadeJson.Dep],
-  ): IvyLayout[RelPath, Array[Byte]] =
+  ): IvyLayout[os.RelPath, Array[Byte]] =
     IvyLayout(
       p          = p,
       jarFile    = createJar(paths.classesDir, publication),
@@ -42,20 +41,20 @@ object ContentForPublish {
   }
 
   // adapted from mill
-  private def createJar(fromFolder: Path, publication: ZonedDateTime): Array[Byte] = {
-    val seen = mutable.Set[RelPath](RelPath("META-INF") / "MANIFEST.MF")
+  private def createJar(fromFolder: os.Path, publication: ZonedDateTime): Array[Byte] = {
+    val seen = mutable.Set[os.RelPath](os.RelPath("META-INF") / "MANIFEST.MF")
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 
     try {
-      ls.rec(fromFolder).collect { case files.IsNormalFile(file) => file }.foreach { file =>
+      os.walk(fromFolder).collect { case file if os.isFile(file) => file }.foreach { file =>
         val mapping = file.relativeTo(fromFolder)
         if (!seen(mapping)) {
           seen.add(mapping)
           val entry = new JarEntry(mapping.toString)
           entry.setTime(publication.toEpochSecond)
           jar.putNextEntry(entry)
-          jar.write(read.bytes(file))
+          jar.write(os.read.bytes(file))
           jar.closeEntry()
         }
       }
@@ -64,7 +63,7 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  private def createJar(sourceFiles: Layout[RelPath, Array[Byte]], publication: ZonedDateTime): Array[Byte] = {
+  private def createJar(sourceFiles: Layout[os.RelPath, Array[Byte]], publication: ZonedDateTime): Array[Byte] = {
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 

@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops._
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.build._
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
@@ -21,7 +20,7 @@ case class Phase4Publish(publisher: BinTrayPublisher) extends Phase[Source, Publ
     getDeps(lib.project.deps.keys.to[SortedSet]) flatMap { deps: Map[Source, PublishedSbtProject] =>
       /** This is somewhat annoying. The bintry thing we deploy with insists on
         *  receiving already written files. We just wrote them locally for ivy, so... */
-      val alreadyWrittenMavenFiles: MavenLayout[RelPath, Path] =
+      val alreadyWrittenMavenFiles: MavenLayout[os.RelPath, os.Path] =
         MavenLayout(
           lib.project,
           lib.localIvyFiles.jarFile._1,

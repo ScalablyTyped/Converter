@@ -13,7 +13,7 @@ val baseSettings: Project => Project =
 
 val utils = project
   .configure(baseSettings)
-  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.sourcecode))
+  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode))
 
 val logging = project
   .configure(baseSettings)

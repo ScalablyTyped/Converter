@@ -1,6 +1,5 @@
 package com.olvind.tso.ts.parser
 
-import ammonite.ops.Path
 import com.olvind.tso.{files, InFile}
 import org.scalatest.Assertion
 import org.scalatest.Matchers._
@@ -18,7 +17,7 @@ object ParserHarness {
   }
 
   def withTsFile[T](resourceName: String)(f: String => T): T =
-    f(files content InFile(Path(getClass.getResource(s"/$resourceName").getFile)))
+    f(files content InFile(os.Path(getClass.getResource(s"/$resourceName").getFile)))
 
   def parseAs[T](input: String, parser: String => Parsers#ParseResult[T]): T =
     parser(input).force

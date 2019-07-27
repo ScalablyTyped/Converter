@@ -5,8 +5,6 @@ import java.nio.file.Files
 import java.nio.file.StandardOpenOption.{CREATE, TRUNCATE_EXISTING}
 import java.util
 
-import ammonite.ops.{exists, ls, mkdir, rm, up, Path, RelPath}
-
 sealed trait Synced
 object Synced {
   case object New extends Synced
@@ -15,16 +13,16 @@ object Synced {
   case object Deleted extends Synced
 }
 
-final case class InFile(path: Path) {
+final case class InFile(path: os.Path) {
   def folder: InFolder =
-    InFolder(path / up)
+    InFolder(path / os.up)
 }
 
 object InFile {
   implicit object InFileKey extends IsKey[InFile]
 }
 
-final case class InFolder(path: Path) {
+final case class InFolder(path: os.Path) {
   def name: String = path.last
 }
 
@@ -35,31 +33,28 @@ trait Layout[F, V] {
 object files {
   val BOM = "\uFEFF"
 
-  def contentBytes(file: InFile): Array[Byte] =
-    Files readAllBytes file.path.toNIO
-
   def content(file: InFile): String = {
-    val ret = new String(contentBytes(file), constants.Utf8)
+    val ret = new String(os.read.bytes(file.path), constants.Utf8)
     if (ret.startsWith(BOM)) ret.replace(BOM, "") else ret
   }
 
-  val IgnoreProjectFiles: Path => Boolean = p => {
-    val name = p.segments.last
+  val IgnoreProjectFiles: os.Path => Boolean = p => {
+    val name = p.last
     name === ".idea" || name === "target"
   }
 
-  def sync(fs: Map[RelPath, Array[Byte]], folder: Path, deleteUnknowns: Boolean, soft: Boolean): Unit = {
+  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit = {
 
-    val absolutePathFiles: Map[Path, Array[Byte]] = fs.map {
+    val absolutePathFiles: Map[os.Path, Array[Byte]] = fs.map {
       case (relPath, content) => folder / relPath -> content
     }
 
     if (soft && deleteUnknowns)
       folder match {
-        case Exists(f) =>
-          ls.rec(IgnoreProjectFiles)(f).foreach {
-            case files.IsNormalFile(p) if !absolutePathFiles.contains(p) => rm(p)
-            case _                                                       => ()
+        case f if os.exists(f) =>
+          os.walk(f, IgnoreProjectFiles).foreach {
+            case p if os.isFile(p) && !absolutePathFiles.contains(p) => os.remove.all(p)
+            case _                                                   => ()
           }
         case _ => ()
       }
@@ -70,7 +65,7 @@ object files {
     }
   }
 
-  def softWrite[T](path: Path)(f: PrintWriter => T): Synced = {
+  def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced = {
     val baos: ByteArrayOutputStream =
       new ByteArrayOutputStream(1024 * 1024)
 
@@ -82,8 +77,8 @@ object files {
     softWriteBytes(path, baos.toByteArray)
   }
 
-  def softWriteBytes[T](path: Path, newContent: Array[Byte]): Synced =
-    (if (exists(path)) Some(contentBytes(InFile(path))) else None) match {
+  def softWriteBytes[T](path: os.Path, newContent: Array[Byte]): Synced =
+    (if (os.exists(path)) Some(os.read.bytes(path)) else None) match {
       case None => writeBytes(path, newContent)
       case Some(existingContent) if !util.Arrays.equals(existingContent, newContent) =>
         Files.write(path.toNIO, newContent, TRUNCATE_EXISTING)
@@ -92,29 +87,9 @@ object files {
         Synced.Unchanged
     }
 
-  def writeBytes[T](path: Path, newContent: Array[Byte]): Synced = {
-    mkdir(path / up)
+  def writeBytes[T](path: os.Path, newContent: Array[Byte]): Synced = {
+    os.makeDir.all(path / os.up)
     Files.write(path.toNIO, newContent, CREATE)
     Synced.New
-  }
-
-  object Exists {
-    def unapply(path: Path): Option[Path] =
-      Some(path) filter exists
-  }
-
-  object IsNormalFile {
-    def apply(path: Path): Boolean =
-      Files.isRegularFile(path.toNIO)
-
-    def unapply(path: Path): Option[Path] =
-      if (IsNormalFile(path)) Some(path) else None
-  }
-
-  object IsDirectory {
-    def apply(path: Path): Boolean =
-      Files.isDirectory(path.toNIO)
-    def unapply(path: Path): Option[Path] =
-      if (IsDirectory(path)) Some(path) else None
   }
 }

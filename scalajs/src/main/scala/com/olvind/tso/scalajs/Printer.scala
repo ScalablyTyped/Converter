@@ -3,7 +3,6 @@ package scalajs
 
 import java.io._
 
-import ammonite.ops.RelPath
 import com.olvind.tso.stringUtils.quote
 
 import scala.collection.mutable
@@ -12,9 +11,9 @@ object Printer {
 
   private class Registry() {
 
-    private val fs = mutable.Map.empty[RelPath, Array[Byte]]
+    private val fs = mutable.Map.empty[os.RelPath, Array[Byte]]
 
-    def write(file: RelPath)(f: PrintWriter => Unit): Unit = {
+    def write(file: os.RelPath)(f: PrintWriter => Unit): Unit = {
       val w  = new StringWriter()
       val pw = new PrintWriter(w)
 
@@ -26,18 +25,18 @@ object Printer {
       }
     }
 
-    def result: Map[RelPath, Array[Byte]] =
+    def result: Map[os.RelPath, Array[Byte]] =
       fs.toMap
   }
 
-  def apply(tree: ContainerTree, mainPkg: Name): Map[RelPath, Array[Byte]] = {
+  def apply(tree: ContainerTree, mainPkg: Name): Map[os.RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
       reg          = reg,
       mainPkg      = mainPkg,
       scalaPrefix  = List(tree.name),
-      targetFolder = RelPath(mainPkg.value) / tree.name.value,
+      targetFolder = os.RelPath(mainPkg.value) / tree.name.value,
       tree         = tree,
     )
 
@@ -49,7 +48,13 @@ object Printer {
        |import scala.scalajs.js.`|`
        |import scala.scalajs.js.annotation._""".stripMargin
 
-  def apply(reg: Registry, mainPkg: Name, scalaPrefix: List[Name], targetFolder: RelPath, tree: ContainerTree): Unit = {
+  def apply(
+      reg:          Registry,
+      mainPkg:      Name,
+      scalaPrefix:  List[Name],
+      targetFolder: os.RelPath,
+      tree:         ContainerTree,
+  ): Unit = {
     val files: Map[ScalaOutput, Seq[Tree]] = tree match {
       case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
       case other => Map(ScalaOutput.File(other.name) -> Seq(other))
@@ -57,7 +62,7 @@ object Printer {
 
     files foreach {
       case (ScalaOutput.File(name), members: Seq[Tree]) =>
-        reg.write(targetFolder / RelPath(s"${name.unescaped}.scala")) { writer =>
+        reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
           writer println s"package ${formatName(mainPkg)}"
           writer println s"package ${formatQN(Nil, QualifiedName(scalaPrefix))}"
           writer.println("")
@@ -69,7 +74,7 @@ object Printer {
       case (ScalaOutput.Package(name), pkgs) =>
         pkgs foreach {
           case pkg: PackageTree =>
-            apply(reg, mainPkg, scalaPrefix :+ name, targetFolder / RelPath(name.unescaped), pkg)
+            apply(reg, mainPkg, scalaPrefix :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
           case _ => sys.error("i was too lazy to prove this with types")
         }
 
@@ -119,7 +124,7 @@ object Printer {
     }
   }
 
-  def printTree(reg: Registry, w: Indenter, mainPkg: Name, prefix: List[Name], folder: RelPath, indent: Int)(
+  def printTree(reg: Registry, w: Indenter, mainPkg: Name, prefix: List[Name], folder: os.RelPath, indent: Int)(
       tree:          Tree,
   ): Unit = {
 
@@ -136,7 +141,7 @@ object Printer {
 
     tree match {
       case tree: PackageTree =>
-        apply(reg, mainPkg, prefix :+ tree.name, folder / RelPath(tree.name.value), tree)
+        apply(reg, mainPkg, prefix :+ tree.name, folder / os.RelPath(tree.name.value), tree)
 
       case cls @ ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(formatComments(comments))

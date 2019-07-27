@@ -2,7 +2,6 @@ package com.olvind.tso
 package importer
 package build
 
-import ammonite.ops.Path
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.maps.MapOps
 
@@ -10,14 +9,14 @@ import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
 case class SbtProject(name: String, organization: String, artifactId: String, version: String)(
-    val baseDir:            Path,
+    val baseDir:            os.Path,
     val deps:               Map[Source, PublishedSbtProject],
     val metadata:           Option[Npmjs.Data],
 )
 
 case class PublishedSbtProject(project: SbtProject)(
-    val classfileDir:                   Path,
-    val localIvyFiles:                  IvyLayout[Path, Synced],
+    val classfileDir:                   os.Path,
+    val localIvyFiles:                  IvyLayout[os.Path, Synced],
     val publishedOpt:                   Option[Unit],
 )
 

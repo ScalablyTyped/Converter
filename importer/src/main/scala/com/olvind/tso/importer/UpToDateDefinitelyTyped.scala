@@ -2,16 +2,15 @@ package com.olvind.tso.importer
 
 import java.net.URI
 
-import ammonite.ops.{exists, Path}
 import com.olvind.tso.InFolder
 
 import scala.util.Try
 
 object UpToDateDefinitelyTyped {
-  def apply(cmd: Cmd, offline: Boolean, cacheFolder: Path, repo: URI): InFolder = {
-    val clonedDir: Path = cacheFolder / 'DefinitelyTyped
+  def apply(cmd: Cmd, offline: Boolean, cacheFolder: os.Path, repo: URI): InFolder = {
+    val clonedDir: os.Path = cacheFolder / 'DefinitelyTyped
     Try(
-      if (exists(clonedDir)) {
+      if (os.exists(clonedDir)) {
         if (!offline) {
           implicit val wd = clonedDir
           cmd.runVerbose git 'fetch

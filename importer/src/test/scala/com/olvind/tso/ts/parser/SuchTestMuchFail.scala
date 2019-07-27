@@ -1,7 +1,6 @@
 package com.olvind.tso.ts
 package parser
 
-import ammonite.ops._
 import com.olvind.logging
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
 import com.olvind.tso.importer.{Cmd, Config, PersistingFunction, UpToDateDefinitelyTyped}
@@ -12,8 +11,8 @@ object SuchTestMuchFail extends App {
 
   val Config(config)  = args
   val parseTempFolder = config.cacheFolder / 'parseTemp
-  mkdir(parseTempFolder)
-  mkdir(config.cacheFolder)
+  os.makeDir.all(parseTempFolder)
+  os.makeDir.all(config.cacheFolder)
 
   val dtFolder: InFolder =
     UpToDateDefinitelyTyped(new Cmd(logger, None), config.offline, config.cacheFolder, constants.DefinitelyTypedRepo)
@@ -30,17 +29,16 @@ object SuchTestMuchFail extends App {
     banner()
   }
 
-  val allFiles: Seq[Path] =
-    ls.rec(skip = _.name == ".git")
-      .recursiveListFiles(dtFolder.path)
-      .filter(_.isFile)
+  val allFiles: Seq[os.Path] =
+    os.walk.stream(dtFolder.path, _.last == ".git")
+      .filter(os.isFile)
       .filter(_.toString.endsWith(".d.ts"))
       .toSeq
 
   val parser = PersistingFunction(nameAndMtimeUnder(parseTempFolder), logger.void)(parseFile)
 
-  val parsed: Seq[(Path, Either[String, TsParsedFile])] =
-    allFiles.par.map { path: Path =>
+  val parsed: Seq[(os.Path, Either[String, TsParsedFile])] =
+    allFiles.par.map { path: os.Path =>
       val t0 = System.currentTimeMillis
       val res = try parser(InFile(path))
       catch {
@@ -50,12 +48,12 @@ object SuchTestMuchFail extends App {
       (path, res)
     }.seq
 
-  val successes: Seq[Path] =
+  val successes: Seq[os.Path] =
     parsed collect {
       case (path, Right(_)) => path
     } sortBy (_.toString)
 
-  val failures: Seq[(Path, String)] =
+  val failures: Seq[(os.Path, String)] =
     parsed collect {
       case (path, Left(error)) => path -> error
     } sortBy (_._1.toString)

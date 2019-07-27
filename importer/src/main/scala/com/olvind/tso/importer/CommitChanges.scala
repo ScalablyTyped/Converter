@@ -1,13 +1,14 @@
 package com.olvind.tso.importer
 
-import ammonite.ops.Path
 import com.olvind.tso.BuildInfo
 
 import scala.util.Try
 
 /* calculate difference from last run (if any) and commit new changes */
 object CommitChanges {
-  def apply(cmd: Cmd, summary: Summary, mainFolders: Seq[Path], otherDirs: Seq[Path])(implicit wd: Path): String = {
+  def apply(cmd:   Cmd, summary: Summary, mainFolders: Seq[os.Path], otherDirs: Seq[os.Path])(
+      implicit wd: os.Path,
+  ): String = {
 
     val summaryFile = wd / Summary.path
     val existingOpt = Try(Json[Summary](summaryFile)).toOption

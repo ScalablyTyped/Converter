@@ -1,12 +1,11 @@
 package com.olvind.tso.importer
 
-import ammonite.ops.Path
 import com.olvind.logging.Formatter
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsIdentModule}
 import com.olvind.tso.{InFile, InFolder, Key}
 
 sealed trait Source {
-  final def path: Path =
+  final def path: os.Path =
     this match {
       case Source.StdLibSource(InFile(path), _)    => path
       case Source.FromFolder(InFolder(path), _)    => path
@@ -43,7 +42,7 @@ object Source {
   }
 
   final case class FacadeSource(folder: InFolder) extends Source {
-    override val libName = TsIdentLibrarySimple(folder.path.name + "-" + "facade")
+    override val libName = TsIdentLibrarySimple(folder.path.last + "-" + "facade")
   }
 
   implicit val SourceKey:                   Key[Source]       = Key.of[Source, String](_.key)

@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.home
 import bintry.{Client, Message, PackageSummary}
 import monix.execution.atomic.AtomicLong
 
@@ -12,7 +11,7 @@ object BintrayCleanup extends App {
 
   val values: Map[String, String] =
     files
-      .content(InFile(home / ".bintray" / ".credentials"))
+      .content(InFile(os.home / ".bintray" / ".credentials"))
       .split("\n")
       .map(_.split("=").map(_.trim).filter(_.nonEmpty).toList)
       .collect { case List(k, v) => (k, v) }

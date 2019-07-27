@@ -3,7 +3,6 @@ package importer
 
 import java.io._
 
-import ammonite.ops.Path
 import com.olvind.logging.Logger
 
 import scala.util.{Failure, Success, Try}
@@ -29,10 +28,10 @@ object PersistingFunction {
     }
   }
 
-  def apply[K, V <: Serializable](cachedFileFor: K => Path, logger: Logger[Unit])(f: K => V): K => V = { key: K =>
+  def apply[K, V <: Serializable](cachedFileFor: K => os.Path, logger: Logger[Unit])(f: K => V): K => V = { key: K =>
     cachedFileFor(key) match {
-      case files.Exists(cachedFile) =>
-        Serializer.deserialize[V](files contentBytes InFile(cachedFile)) match {
+      case cachedFile if os.exists(cachedFile) =>
+        Serializer.deserialize[V](os.read.bytes(cachedFile)) match {
           case Failure(error) =>
             logger.warn(s"Couldn't decode cached file $cachedFile for $key: $error")
             val ret = f(key)
@@ -48,10 +47,10 @@ object PersistingFunction {
     }
   }
 
-  def nameAndMtimeUnder(path: Path): InFile => Path =
+  def nameAndMtimeUnder(path: os.Path): InFile => os.Path =
     (file: InFile) =>
       path /
         file.path.toString().replaceAll("/", "_") /
-        file.path.mtime.toMillis.toString
+        os.mtime(file.path).toString
 
 }
