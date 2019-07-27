@@ -2,7 +2,7 @@ package com.olvind.tso
 package importer
 package build
 
-import ammonite.ops._
+import ammonite.ops.%
 import com.olvind.tso.scalajs.{Name, ObjectMembers, ScalaNameEscape}
 import com.olvind.tso.stringUtils.quote
 
@@ -11,7 +11,7 @@ object GenerateSbtPlugin {
       versions:      Versions,
       organization:  String,
       projectName:   String,
-      projectDir:    Path,
+      projectDir:    os.Path,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
       action:        String,
@@ -32,7 +32,7 @@ object GenerateSbtPlugin {
       projectName:   String,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-  ): Map[RelPath, Array[Byte]] = {
+  ): Map[os.RelPath, Array[Byte]] = {
 
     val buildSbt = s"""name := "sbt-$projectName"
       |organization := ${quote(organization)}
@@ -90,12 +90,12 @@ object GenerateSbtPlugin {
       |  }
       |}""".stripMargin
 
-    val pluginSourcePath = RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
+    val pluginSourcePath = os.RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
 
     Map(
-      RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${v.sbtBintray})""".getBytes(constants.Utf8),
-      RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
+      os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
+      os.RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${v.sbtBintray})""".getBytes(constants.Utf8),
+      os.RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
       pluginSourcePath -> pluginSource.getBytes(constants.Utf8),
     )
   }

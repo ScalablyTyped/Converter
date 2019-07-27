@@ -4,7 +4,6 @@ package build
 
 import java.util.concurrent.TimeUnit
 
-import ammonite.ops.{mkdir, up, Path, RelPath}
 import bintry.Client
 import com.ning.http.client._
 import com.ning.http.client.listenable.AbstractListenableFuture
@@ -15,7 +14,7 @@ import io.circe.{Decoder, Encoder}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NonFatal
 
-case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, password: String, repoName: String)(
+case class BinTrayPublisher(cacheDir: os.Path, repoPublic: String, user: String, password: String, repoName: String)(
     implicit ec:                      ExecutionContext,
 ) {
 
@@ -77,7 +76,7 @@ case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, pa
       case NonFatal(_) if n > 0 => retry(n - 1)(thunk)
     }
 
-  def publish(p: SbtProject, layout: Layout[RelPath, Path]): Future[Unit] = {
+  def publish(p: SbtProject, layout: Layout[os.RelPath, os.Path]): Future[Unit] = {
     def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
       layout.all.map {
         case (relPath, src) =>
@@ -98,13 +97,13 @@ case class BinTrayPublisher(cacheDir: Path, repoPublic: String, user: String, pa
   * This, however, was very easy
   */
 private object Caching {
-  def fileFor(cacheDir: Path, request: Request): Path =
-    cacheDir / RelPath(request.getUrl) / (request.getMethod + ".json")
+  def fileFor(cacheDir: os.Path, request: Request): os.Path =
+    cacheDir / os.RelPath(request.getUrl) / (request.getMethod + ".json")
 
   final case class Handler[T](underlying: AsyncHandler[T])(implicit val encoder: Encoder[T], val decoder: Decoder[T])
       extends WrappedHandler[T](underlying)
 
-  final case class Client(cacheDir: Path, config: AsyncHttpClientConfig) extends AsyncHttpClient(config) {
+  final case class Client(cacheDir: os.Path, config: AsyncHttpClientConfig) extends AsyncHttpClient(config) {
     override def executeRequest[T](request: Request, handler: AsyncHandler[T]): ListenableFuture[T] =
       handler match {
         case x: Handler[T] =>
@@ -114,7 +113,7 @@ private object Caching {
               object StoringHandler extends WrappedHandler[T](handler) {
                 override def onCompleted(): T = {
                   val ret = super.onCompleted()
-                  mkdir(file / up)
+                  os.makeDir.all(file / os.up)
                   Json.persist(file)(ret)(x.encoder)
                   ret
                 }

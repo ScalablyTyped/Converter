@@ -2,8 +2,6 @@ package com.olvind.tso
 package ts
 package parser
 
-import ammonite.ops.Path
-
 import scala.util.parsing.combinator.syntactical._
 import scala.util.parsing.input.{OffsetPosition, Reader}
 
@@ -15,7 +13,8 @@ object TsParser extends TsParser(None)
   *
   * @param path with length of file
   */
-class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHelpers with ImplicitConversions1 { self =>
+class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with ParserHelpers with ImplicitConversions1 {
+  self =>
   type Tokens = TsLexer.type
   override val lexical: TsLexer.type = TsLexer
 
@@ -116,7 +115,7 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
     (comments ~> directive).* named "directives"
 
   lazy val shebang = accept("Shebang", {
-    case lexical.Shebang(chars) => ()
+    case lexical.Shebang(_) => ()
   })
 
   lazy val parsedTsFile: Parser[TsParsedFile] =

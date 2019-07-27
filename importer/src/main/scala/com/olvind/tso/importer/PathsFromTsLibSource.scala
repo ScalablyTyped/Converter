@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{ls, up, RelPath}
 import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
@@ -50,9 +49,9 @@ object PathsFromTsLibSource {
     fileOpt match {
       case Some(path) if path.endsWith("typings.json") =>
         import jsonCodecs._
-        val typingsJsonPath = fromFolder.folder.path / RelPath(path)
+        val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
         val typingsJson     = Json[TypingsJson](typingsJsonPath)
-        Seq(InFile(typingsJsonPath / up / typingsJson.main))
+        Seq(InFile(typingsJsonPath / os.up / typingsJson.main))
       case _ => Nil
     }
 
@@ -77,14 +76,15 @@ object PathsFromTsLibSource {
     }
 
   private def whateverIsThere(fromFolder: Source.FromFolder): Seq[InFile] = {
-    val base = ls(fromFolder.folder.path)
+    val base = os
+      .list(fromFolder.folder.path)
       .filter(_.last.endsWith("d.ts"))
       .to[Seq]
       .map(InFile.apply)
 
     if (base.nonEmpty || fromFolder.libName === TsIdentLibrarySimple("typescript")) base
     else {
-      ls.rec(_.segments.last === "node_modules")(fromFolder.folder.path)
+      os.walk(fromFolder.folder.path, _.last === "node_modules")
         .filter(_.last.endsWith("d.ts"))
         .to[Seq]
         .map(InFile.apply)

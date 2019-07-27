@@ -4,7 +4,6 @@ package build
 
 import java.io.{ByteArrayOutputStream, OutputStream, PrintStream}
 
-import ammonite.ops.{exists, mkdir, Path}
 import bloop.DependencyResolution.resolve
 import bloop.cli.{CliOptions, Commands, CommonOptions, ExitStatus}
 import bloop.config.{Config => BloopConfig}
@@ -39,7 +38,7 @@ object BloopCompiler {
 
   implicit val AbsolutePathFormatter: Formatter[AbsolutePath] = x => x.syntax
 
-  def apply(logger: Logger[Unit], v: Versions, ec: ExecutionContext, failureCacheFolder: Path): BloopCompiler = {
+  def apply(logger: Logger[Unit], v: Versions, ec: ExecutionContext, failureCacheFolder: os.Path): BloopCompiler = {
     val bloopLogger: BloopLogger = new LoggerAdapter(logger)
 
     logger.warn(s"Initializing scala compiler ${v.scalaVersion} with scala.js ${v.scalaJsVersion}")
@@ -74,7 +73,7 @@ object BloopCompiler {
 
 class BloopCompiler private (
     ec:                 ExecutionContext,
-    failureCacheFolder: Path,
+    failureCacheFolder: os.Path,
     versions:           Versions,
     globalClassPath:    Array[AbsolutePath],
     scalaJars:          Array[AbsolutePath],
@@ -136,7 +135,7 @@ class BloopCompiler private (
         resolution = None,
       ),
     )
-    mkdir(bloopFolder)
+    os.makeDir.all(bloopFolder)
     bloop.config.write(projectFile, (bloopFolder / (name + ".json")).toNIO)
 
     val errorStream    = new ByteArrayOutputStream
@@ -144,7 +143,7 @@ class BloopCompiler private (
 
     val cacheFile = failureCacheFolder / name / digest.hexString
 
-    if (exists(cacheFile)) Left(files.content(InFile(cacheFile)))
+    if (os.exists(cacheFile)) Left(files.content(InFile(cacheFile)))
     else {
       val status = Cli.run(
         bloop.engine.Run(

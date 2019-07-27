@@ -1,5 +1,5 @@
 package com.olvind.tso.importer.build
-import ammonite.ops.RelPath
+
 import com.olvind.tso.Seq
 
 trait Layout[F, V] {
@@ -47,8 +47,8 @@ final case class IvyLayout[F, V](jarFile: (F, V), sourceFile: (F, V), ivyFile: (
 }
 
 object IvyLayout {
-  def apply[T](p: SbtProject, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[RelPath, T] = {
-    val libraryPath = RelPath(p.organization) / p.artifactId / p.version
+  def apply[T](p: SbtProject, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
+    val libraryPath = os.RelPath(p.organization) / p.artifactId / p.version
     IvyLayout(
       jarFile    = libraryPath / 'jars / s"${p.artifactId}.jar" -> jarFile,
       sourceFile = libraryPath / 'srcs / s"${p.artifactId}-sources.jar" -> sourceFile,
@@ -68,11 +68,11 @@ final case class MavenLayout[F, V](jarFile: (F, V), sourceFile: (F, V), pomFile:
 }
 
 object MavenLayout {
-  def apply[T](p: SbtProject, jarFile: T, sourceFile: T, pomFile: T): MavenLayout[RelPath, T] = {
-    val org: RelPath =
-      p.organization.split("\\.").foldLeft(RelPath(""))(_ / _)
+  def apply[T](p: SbtProject, jarFile: T, sourceFile: T, pomFile: T): MavenLayout[os.RelPath, T] = {
+    val org: os.RelPath =
+      p.organization.split("\\.").foldLeft(os.RelPath(""))(_ / _)
 
-    def baseFile(ext: String): RelPath =
+    def baseFile(ext: String): os.RelPath =
       org / p.artifactId / p.version / s"${p.artifactId}-${p.version}$ext"
 
     MavenLayout(

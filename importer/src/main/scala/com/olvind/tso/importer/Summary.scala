@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.RelPath
 import com.olvind.tso.ts.TsIdentLibrary
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder}
@@ -26,7 +25,7 @@ object Summary {
   implicit val DecoderSummary:        Decoder[Summary]        = deriveDecoder[Summary]
   implicit val DecoderSummaryDiff:    Decoder[SummaryDiff]    = deriveDecoder[SummaryDiff]
 
-  val path = RelPath("summary.json")
+  val path = os.RelPath("summary.json")
 
   def diff(sha: String, existingOpt: Option[Summary], current: Summary): SummaryDiff =
     existingOpt match {

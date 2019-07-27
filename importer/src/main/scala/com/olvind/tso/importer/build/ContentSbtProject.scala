@@ -2,7 +2,6 @@ package com.olvind.tso
 package importer
 package build
 
-import ammonite.ops.RelPath
 import com.olvind.tso.importer.documentation.{Npmjs, ProjectReadme}
 import com.olvind.tso.stringUtils.quote
 import sets.SetOps
@@ -17,11 +16,11 @@ object ContentSbtProject {
       publishUser:     String,
       localDeps:       Seq[PublishedSbtProject],
       facadeDeps:      Set[FacadeJson.Dep],
-      scalaFiles:      Map[RelPath, Array[Byte]],
+      scalaFiles:      Map[os.RelPath, Array[Byte]],
       projectName:     String,
       metadataOpt:     Option[Npmjs.Data],
       declaredVersion: Option[LibraryVersion],
-  ): SbtProjectLayout[RelPath, Array[Byte]] = {
+  ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
 
     val buildSbt = {
       val fixed    = List(v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion))
@@ -49,13 +48,13 @@ object ContentSbtProject {
           |addSbtPlugin(${v.sbtBintray})
           |""".stripMargin
 
-    val readme: (RelPath, Array[Byte]) =
-      RelPath("readme.md") -> ProjectReadme(name, declaredVersion, metadataOpt, comments).getBytes(constants.Utf8)
+    val readme: (os.RelPath, Array[Byte]) =
+      os.RelPath("readme.md") -> ProjectReadme(name, declaredVersion, metadataOpt, comments).getBytes(constants.Utf8)
 
     SbtProjectLayout(
-      RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
-      RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
+      os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
+      os.RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
+      os.RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
       readme,
       scalaFiles.map { case (relPath, content) => relPath -> content },
     )

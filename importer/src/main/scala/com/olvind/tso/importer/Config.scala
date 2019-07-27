@@ -3,7 +3,6 @@ package importer
 
 import java.time.LocalDateTime
 
-import ammonite.ops.home
 import com.olvind.tso.importer.build.Versions
 import com.olvind.tso.scalajs.Name
 
@@ -33,8 +32,8 @@ case class Config(
   val outputPkg         = Name("typings")
   val projectName       = "ScalablyTyped"
   val organization      = "org.scalablytyped"
-  val cacheFolder       = home / 'tmp / "tso-cache"
-  val publishFolder     = home / ".ivy2" / "local"
+  val cacheFolder       = os.home / 'tmp / "tso-cache"
+  val publishFolder     = os.home / ".ivy2" / "local"
   val ScalablyTypedRepo = "https://github.com/oyvindberg/ScalablyTyped.git"
   val parallelLibraries = 100
   val parallelScalas    = 4
@@ -47,7 +46,7 @@ object Config {
         val publish: Option[PublishConfig] = if (flags contains "-publish") {
           val values: Map[String, String] =
             files
-              .content(InFile(home / ".bintray" / ".credentials"))
+              .content(InFile(os.home / ".bintray" / ".credentials"))
               .split("\n")
               .map(_.split("=").map(_.trim).filter(_.nonEmpty).toList)
               .collect { case List(k, v) => (k, v) }

@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.up
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.importer.Phase1Res._
 import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
@@ -27,7 +26,7 @@ class Phase1ReadTypescript(
   implicit val InFileFormatter: Formatter[InFile] =
     inFile =>
       if (inFile.path.segments.length > 3)
-        inFile.path.segments.takeRight(3).mkString("../", "/", "")
+        inFile.path.segments.toList.takeRight(3).mkString("../", "/", "")
       else inFile.path.segments.mkString("/")
 
   override def apply(
@@ -42,7 +41,7 @@ class Phase1ReadTypescript(
       case _:      Source.FacadeSource                                 => PhaseRes.Ok(Facade)
       case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
-      case Source.TsHelperFile(file, _, _) if !file.path.segments.last.endsWith(".d.ts") =>
+      case Source.TsHelperFile(file, _, _) if !file.path.last.endsWith(".d.ts") =>
         PhaseRes.Ignore()
 
       case s @ Source.TsHelperFile(file, inLib, _) =>
@@ -123,7 +122,7 @@ class Phase1ReadTypescript(
         val packageJsonOpt: Option[PackageJsonDeps] =
           Json.opt[PackageJsonDeps](source.folder.path / "package.json", logger.warn(_)) orElse
             /* discover stdlib package.json as well */
-            Json.opt[PackageJsonDeps](source.folder.path / up / "package.json", logger.warn(_))
+            Json.opt[PackageJsonDeps](source.folder.path / os.up / "package.json", logger.warn(_))
 
         val tsConfig: Option[TsConfig] =
           Json.opt[TsConfig](source.folder.path / "tsconfig.json", logger.warn(_))

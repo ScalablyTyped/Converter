@@ -68,7 +68,7 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
     //move cursor to start of screen
     println("\u001b[H")
 
-    def row[N: Numeric](title: String, num: N): Unit =
+    def row[N: Numeric](title: String, num: N) =
       println(fansi.Str.join(title, ": ", fansi.Bold.On(num.toString)).render)
 
     row("Successes", numSucceded)

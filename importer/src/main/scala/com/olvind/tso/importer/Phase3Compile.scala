@@ -1,10 +1,9 @@
 package com.olvind.tso
 package importer
 
-import java.nio.file.attribute.FileTime
 import java.time.{Instant, ZonedDateTime}
 
-import ammonite.ops._
+import ammonite.ops.%
 import bloop.io.AbsolutePath
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.importer.Phase2Res.{Facade, LibScalaJs}
@@ -24,21 +23,21 @@ class Phase3Compile(
     resolve:         LibraryResolver,
     versions:        Versions,
     compiler:        BloopCompiler,
-    targetFolder:    Path,
+    targetFolder:    os.Path,
     mainPackageName: Name,
     projectName:     String,
     organization:    String,
     publishUser:     String,
-    publishFolder:   Path,
+    publishFolder:   os.Path,
     metadataFetcher: Npmjs.Fetcher,
     softWrites:      Boolean,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
-  val ScalaFiles: PartialFunction[(RelPath, Array[Byte]), Array[Byte]] = {
+  val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
     case (path, value) if path.ext === "scala" || path.ext === "sbt" => value
   }
 
-  implicit val PathFormatter: Formatter[Path] = _.toString
+  implicit val PathFormatter: Formatter[os.Path] = _.toString
 
   override def apply(
       source:  Source,
@@ -65,28 +64,27 @@ class Phase3Compile(
 
         dependencies flatMap (x => getDeps(x.sorted)) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
-            val sourceFilesBase: Map[RelPath, (Array[Byte], FileTime)] =
-              ls.rec(source.path / 'src)
-                .collect { case files.IsNormalFile(path) => path }
+            val sourceFilesBase: Map[os.RelPath, (Array[Byte], Instant)] =
+              os.walk(source.path / 'src)
+                .collect { case path if os.isFile(path) => path }
                 .map { path =>
                   val relPath = path relativeTo source.path
-                  val bytes   = files contentBytes InFile(path)
-                  val mtime   = path.mtime
-                  relPath -> ((bytes, mtime))
+                  val bytes   = os.read.bytes(path)
+                  val mtime   = os.mtime(path)
+                  relPath -> ((bytes, Instant.ofEpochMilli(mtime)))
                 }
                 .toMap
 
             require(sourceFilesBase.nonEmpty, "no files found")
 
-            val sourceFiles: Map[RelPath, Array[Byte]] =
+            val sourceFiles: Map[os.RelPath, Array[Byte]] =
               sourceFilesBase mapValues {
                 case (bytes, _) => bytes
               }
 
             val newestChange: Instant =
               sourceFilesBase.foldLeft(Instant.MIN) {
-                case (acc, (_, (_, time))) =>
-                  val instant = time.toInstant
+                case (acc, (_, (_, instant))) =>
                   if (acc isBefore instant) instant else acc
               }
 
@@ -124,7 +122,7 @@ class Phase3Compile(
         getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
             val scalaFiles  = Printer(lib.packageTree, mainPackageName)
-            val sourcesDir  = RelPath("src") / 'main / 'scala
+            val sourcesDir  = os.RelPath("src") / 'main / 'scala
             val metadataOpt = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
 
             val sbtLayout = ContentSbtProject(
@@ -163,7 +161,7 @@ class Phase3Compile(
       externalDeps:       Set[FacadeJson.Dep],
       source:             Source,
       name:               String,
-      sbtLayout:          SbtProjectLayout[RelPath, Array[Byte]],
+      sbtLayout:          SbtProjectLayout[os.RelPath, Array[Byte]],
       compilerPaths:      CompilerPaths,
       deleteUnknownFiles: Boolean,
       makeVersion:        Digest => String,
@@ -178,24 +176,24 @@ class Phase3Compile(
     val sbtProject =
       SbtProject(name, organization, versions.sjs(name), finalVersion)(compilerPaths.baseDir, deps, metadataOpt)
 
-    val existing: IvyLayout[Path, Synced] =
+    val existing: IvyLayout[os.Path, Synced] =
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
         .mapFiles(publishFolder / _)
 
-    if (existing.all.keys forall exists) {
+    if (existing.all.keys forall os.exists) {
       logger warn s"Using cached build of ${sbtProject.name}"
       PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
     } else {
       {
-        implicit val wd = home
+        implicit val wd = os.home
         % rm ("-Rf", compilerPaths.classesDir)
       }
-      mkdir(compilerPaths.classesDir)
+      os.makeDir.all(compilerPaths.classesDir)
 
       val jarDeps = deps.values.to[Seq] map { x =>
         x.localIvyFiles.all
           .collectFirst {
-            case (path, _) if path.name.endsWith(".jar") && !path.name.contains("sources") =>
+            case (path, _) if path.last.endsWith(".jar") && !path.last.contains("sources") =>
               BloopCompiler.InternalDepJar(AbsolutePath(path.toIO))
           }
           .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
@@ -209,7 +207,7 @@ class Phase3Compile(
             val elapsed = System.currentTimeMillis - t0
             logger warn s"Built ${sbtProject.name} in $elapsed ms"
 
-            val writtenIvyFiles: IvyLayout[Path, Synced] =
+            val writtenIvyFiles: IvyLayout[os.Path, Synced] =
               build
                 .ContentForPublish(
                   versions,
@@ -232,7 +230,7 @@ class Phase3Compile(
         }
 
       {
-        implicit val wd = home
+        implicit val wd = os.home
         % rm ("-Rf", compilerPaths.targetDir)
       }
 

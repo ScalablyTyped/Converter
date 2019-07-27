@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer.documentation
 
-import ammonite.ops.Path
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.{Json, Source}
 import com.olvind.tso.stringUtils.encodeURIComponent
@@ -76,7 +75,7 @@ object Npmjs {
       Future.successful(None)
   }
 
-  case class GigahorseFetcher(cacheDir: Path)(implicit ec: ExecutionContext) extends Fetcher {
+  case class GigahorseFetcher(cacheDir: os.Path)(implicit ec: ExecutionContext) extends Fetcher {
     val client: HttpClient = Gigahorse.http(
       Gigahorse.config
         .withMaxConnections(10)

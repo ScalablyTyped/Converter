@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{Command, CommandResult, Path, Shellout, ShelloutException}
+import ammonite.ops.{Command, CommandResult, Shellout, ShelloutException}
 import com.olvind.logging.Logger
 
 class Cmd(logger: Logger[_], maxLengthOpt: Option[Int]) {
@@ -10,7 +10,7 @@ class Cmd(logger: Logger[_], maxLengthOpt: Option[Int]) {
 
   private val MaxLength = maxLengthOpt.getOrElse(Int.MaxValue)
 
-  def executeStream(verbose: Boolean)(wd: Path, cmd: Command[_]): CommandResult = {
+  def executeStream(verbose: Boolean)(wd: os.Path, cmd: Command[_]): CommandResult = {
     lazy val cmdStr = s"'$wd: ${cmd.cmd.mkString(" ")}'" match {
       case tooLong if tooLong.length > MaxLength => tooLong.take(MaxLength - 3) + "..."
       case other                                 => other

@@ -1,5 +1,4 @@
 package com.olvind.tso.ts.parser
-import ammonite.ops.{RelPath, _}
 import com.olvind.tso.InFile
 
 /**
@@ -11,29 +10,29 @@ import com.olvind.tso.InFile
 object Patches {
   final case class Patch(comment: String, from: String, to: String)
 
-  private val Patches = Map[RelPath, Seq[Patch]](
-    "redux" / "index.d.ts" -> List(
+  private val Patches = Map[os.RelPath, Seq[Patch]](
+    os.RelPath("redux") / "index.d.ts" -> List(
       Patch(
         "handle ambiguity because of non-whitespace aware parser",
         "): Store<S & StateExt, A> & Ext",
         "): Store<S & StateExt, A> & Ext,",
       ),
     ),
-    "downshift" / 'typings / "index.d.ts" -> List(
+    os.RelPath("downshift") / 'typings / "index.d.ts" -> List(
       Patch(
         "handle ambiguity because of non-whitespace aware parser",
         "refKey?: string",
         "refKey?: string;",
       ),
     ),
-    "@emotion" / 'serialize / 'types / "index.d.ts" -> List(
+    os.RelPath("@emotion") / 'serialize / 'types / "index.d.ts" -> List(
       Patch(
         "resolve circular set of type aliases",
         "export type FunctionInterpolation<MP> = (mergedProps: MP) => Interpolation<MP>",
         "/* break circular type alias by converting to interface*/ export interface FunctionInterpolation<MP>{(mergedProps: MP): Interpolation<MP>}",
       ),
     ),
-    "styled-components" / "index.d.ts" -> List(
+    os.RelPath("styled-components") / "index.d.ts" -> List(
       Patch(
         "resolve double Omit",
         "type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, \"theme\"> & {\n    theme?: T;\n};",
@@ -49,7 +48,7 @@ object Patches {
 
   def apply(inFile: InFile, content: String): String = {
     val rewritten = Patches.collectFirst {
-      case (path, patches) if inFile.path.segments.endsWith(path.segments) =>
+      case (path, patches) if inFile.path.endsWith(path.segments) =>
         patches.foldLeft(content) {
           case (c, p) => c.replace(p.from, p.to)
         }

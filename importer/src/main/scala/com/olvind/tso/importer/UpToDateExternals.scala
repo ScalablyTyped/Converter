@@ -1,7 +1,6 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops._
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.jsonCodecs._
 import com.olvind.tso.ts.PackageJsonDeps
@@ -10,7 +9,7 @@ object UpToDateExternals {
   def apply(
       logger:                Logger[_],
       cmd:                   Cmd,
-      folder:                Path,
+      folder:                os.Path,
       ensurePresentPackages: Set[String],
       ignored:               Set[String],
       conserveSpace:         Boolean,
@@ -87,16 +86,16 @@ object UpToDateExternals {
       )(folder)
     }
 
-    if (conserveSpace && exists(folder)) {
+    if (conserveSpace && os.exists(folder)) {
       /* only keep some files within npm folder*/
       val KeepExtensions = Set("json", "ts", "lock")
 
       logger.warn(s"Trimming $nodeModulesPath")
 
-      ls.rec(folder).foreach {
-        case link if link.isSymLink                                => rm(link)
-        case files.IsNormalFile(file) if !KeepExtensions(file.ext) => rm(file)
-        case _                                                     => ()
+      os.walk(folder).foreach {
+        case link if os.isLink(link)                              => os.remove.all(link)
+        case file if os.isFile(file) && !KeepExtensions(file.ext) => os.remove.all(file)
+        case _                                                    => ()
       }
     }
 

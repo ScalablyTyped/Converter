@@ -4,7 +4,6 @@ package importer
 import java.io.FileWriter
 import java.util.concurrent._
 
-import ammonite.ops._
 import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
@@ -52,7 +51,7 @@ class Main(config: Config) {
 
     val updatedTargetDirF: Future[TargetDirs] = Future {
       val targetFolder = config.cacheFolder / config.projectName
-      if (exists(targetFolder)) {
+      if (os.exists(targetFolder)) {
         implicit val wd = targetFolder
         if (!config.offline) {
           interfaceCmd.runVerbose git 'fetch
@@ -99,7 +98,7 @@ class Main(config: Config) {
 
     val externalsFolderF: Future[InFolder] = dtFolderF.map { dtFolder =>
       val external: NotNeededPackages =
-        Json[NotNeededPackages](dtFolder.path / up / "notNeededPackages.json")
+        Json[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
 
       UpToDateExternals(
         interfaceLogger,
@@ -113,8 +112,8 @@ class Main(config: Config) {
     }(ec)
 
     val lastChangedIndexF = dtFolderF.map { dtFolder =>
-      interfaceLogger.warn(s"Indexing ${dtFolder.path / up}")
-      RepoLastChangedIndex(interfaceCmd, dtFolder.path / up)
+      interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
+      RepoLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
     }(ec)
 
     val tsSourcesF: Future[SortedSet[Source]] = {
@@ -125,7 +124,7 @@ class Main(config: Config) {
         target <- updatedTargetDirF
       } yield {
         val facadeSources: Set[Source] =
-          ls(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
+          os.list(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
 
         (
           TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ facadeSources,
@@ -229,7 +228,7 @@ class Main(config: Config) {
 
     logRegistry.logs.foreach {
       case (libName, storeds) =>
-        val failLog = failFolder / RelPath(libName.`__value` + ".log")
+        val failLog = failFolder / os.RelPath(libName.`__value` + ".log")
 
         if (summary.failures.contains(libName)) {
           files.softWrite(failLog) { w1 =>
@@ -239,9 +238,9 @@ class Main(config: Config) {
               w1.append("\n")
             }
           }
-        } else Try(rm(failLog))
+        } else Try(os.remove.all(failLog))
 
-        files.softWrite(logsFolder / RelPath(libName.`__value` + ".log")) { w1 =>
+        files.softWrite(logsFolder / os.RelPath(libName.`__value` + ".log")) { w1 =>
           storeds.underlying.foreach { stored =>
             val str = LogPatternLibrary(stored.message, stored.throwable, stored.metadata, stored.ctx).plainText
             w1.append(str)
@@ -313,14 +312,14 @@ object Main {
     new Main(config).run()
   }
 
-  def existing(p: Path): Path = {
-    mkdir(p)
+  def existing(p: os.Path): os.Path = {
+    os.makeDir.all(p)
     p
   }
-  def existingEmpty(p: Path): Path = {
-    Try(rm(p))
+  def existingEmpty(p: os.Path): os.Path = {
+    Try(os.remove.all(p))
     existing(p)
   }
 
-  case class TargetDirs(targetFolder: Path, failFolder: Path, facadeFolder: Path)
+  case class TargetDirs(targetFolder: os.Path, failFolder: os.Path, facadeFolder: os.Path)
 }

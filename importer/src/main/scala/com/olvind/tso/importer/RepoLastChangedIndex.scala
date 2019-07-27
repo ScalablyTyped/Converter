@@ -1,10 +1,8 @@
 package com.olvind.tso.importer
 
-import ammonite.ops._
-
 import scala.collection.mutable
 
-final case class RepoLastChangedIndex private (values: Map[Path, Long])
+final case class RepoLastChangedIndex private (values: Map[os.Path, Long])
 
 /**
   * It's pretty ridiculous that this is needed, but here we are...
@@ -25,17 +23,17 @@ object RepoLastChangedIndex {
       if (s.nonEmpty && s.forall(_.isDigit)) Some(s.toLong) else None
   }
 
-  private def withParentParts(relPath: RelPath): Seq[RelPath] =
+  private def withParentParts(relPath: os.RelPath): Seq[os.RelPath] =
     0 to relPath.segments.length map { n =>
-      RelPath(relPath.segments.take(n), 0)
+      os.RelPath(relPath.segments.take(n), 0)
     }
 
-  def apply(cmd: Cmd, repo: Path): RepoLastChangedIndex = {
+  def apply(cmd: Cmd, repo: os.Path): RepoLastChangedIndex = {
     implicit val wd = repo
 
     val res         = cmd.run git ('log, "--raw", "--pretty=format:%ct")
     var changedTime = System.currentTimeMillis() / 1000L
-    val lastChanged = mutable.Map.empty[RelPath, Long]
+    val lastChanged = mutable.Map.empty[os.RelPath, Long]
 
     res.out.lines.map(_.split(" ")).foreach {
       // empty
@@ -55,7 +53,7 @@ object RepoLastChangedIndex {
           */
         val filename = filenamesString.split("\\t").last
 
-        withParentParts(RelPath(filename)).foreach { path =>
+        withParentParts(os.RelPath(filename)).foreach { path =>
           if (!lastChanged.contains(path)) {
             lastChanged(path) = changedTime
           }

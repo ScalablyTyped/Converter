@@ -1,13 +1,12 @@
 package com.olvind.tso
 package importer
 
-import ammonite.ops.{exists, Path, RelPath}
 import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.{ModuleNameParser, TsIdent, TsIdentLibrary, TsIdentModule}
 
 class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolder: Option[InFolder]) {
-  def inferredModule(path: Path, inLib: TsLibSource): TsIdentModule =
+  def inferredModule(path: os.Path, inLib: TsLibSource): TsIdentModule =
     ModuleNameParser(inLib.libName.`__value` +: path.relativeTo(inLib.folder.path).segments.to[List])
 
   def lookup(current: TsSource, value: String): Option[(Source, TsIdentModule)] =
@@ -42,14 +41,14 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
 
   def file(folder: InFolder, fragment: String): Option[InFile] =
     resolve(folder.path, fragment, fragment + ".ts", fragment + ".d.ts", fragment + "/index.d.ts") collectFirst {
-      case files.IsNormalFile(file) => InFile(file)
+      case file if os.isFile(file) => InFile(file)
     }
 
   def folder(folder: InFolder, fragment: String): Option[InFolder] =
-    resolve(folder.path, fragment) collectFirst { case files.IsDirectory(dir) => InFolder(dir) }
+    resolve(folder.path, fragment) collectFirst { case dir if os.isDir(dir) => InFolder(dir) }
 
-  private def resolve(path: Path, frags: String*): Seq[Path] =
-    frags.to[Seq].flatMap(frag => Option(path / RelPath(frag.dropWhile(_ === '/'))) filter exists)
+  private def resolve(path: os.Path, frags: String*): Seq[os.Path] =
+    frags.to[Seq].flatMap(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter os.exists)
 
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None
