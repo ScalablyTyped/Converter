@@ -57,8 +57,6 @@ object Name {
 
   val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, WILDCARD, REPEATED, APPLY)
 
-  val Primitive = Set(Any, Double, Int, Long, Boolean, Unit, Null, Nothing, String, Array)
-
   implicit val NameSuffix: ToSuffix[Name] = new ToSuffix[Name] {
     override def to(t: Name): Suffix = t match {
       case UNION        => Suffix("Union")

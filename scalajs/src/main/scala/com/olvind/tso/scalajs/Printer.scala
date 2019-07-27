@@ -162,7 +162,7 @@ object Printer {
         if (classType =/= ClassType.Trait) {
           print(" ")
           print(formatProtectionLevel(defaultCtor.level, isCtor = true))
-          print((defaultCtor.params map formatParamTree(prefix, indent)).mkString("(", ", ", ")"))
+          print(formatParams(prefix, indent + 2)(defaultCtor.params))
         }
 
         print(extendsClause(prefix, parents, isNative = cls.isNative, indent))
@@ -262,9 +262,9 @@ object Printer {
         println(
           "",
           formatProtectionLevel(level, isCtor = true),
-          "def this(",
-          (params map formatParamTree(prefix, indent)) mkString ", ",
-          ") = this()",
+          "def this",
+          formatParams(prefix, indent + 2)(params),
+          " = this()",
         )
 
       case tree @ ParamTree(_, _, _, comments) =>
@@ -279,6 +279,15 @@ object Printer {
         print(formatComments(comments))
         print(formatTypeRef(prefix, indent)(tree))
     }
+  }
+
+  def formatParams(prefix: List[Name], indent: Int)(ps: Seq[ParamTree]): String = {
+    val base        = ps.map(formatParamTree(prefix, indent))
+    var paramString = base.mkString("(", ", ", ")")
+    if (paramString.length > 100 && ps.length > 1) {
+      paramString = base.mkString("(\n  ", ",\n  ", "\n)")
+    }
+    paramString
   }
 
   def extendsClause(prefix: List[Name], parents: Seq[TypeRef], isNative: Boolean, indent: Int): String =
@@ -389,39 +398,39 @@ object Printer {
 
   def formatProtectionLevel(p: ProtectionLevel, isCtor: Boolean): String =
     p match {
-      case Default             => ""
-      case Private if isCtor   => "protected "
-      case Private             => "/* private */ "
-      case Protected if isCtor => "protected "
-      case Protected           => "/* protected */ "
+      case ProtectionLevel.Default             => ""
+      case ProtectionLevel.Private if isCtor   => "protected "
+      case ProtectionLevel.Private             => "/* private */ "
+      case ProtectionLevel.Protected if isCtor => "protected "
+      case ProtectionLevel.Protected           => "/* protected */ "
     }
 
   def formatAnn(prefix: List[Name])(a: Annotation): String =
     a match {
-      case Inline =>
+      case Annotation.Inline =>
         "@scala.inline"
-      case JsBracketAccess =>
+      case Annotation.JsBracketAccess =>
         "@JSBracketAccess"
-      case JsBracketCall =>
+      case Annotation.JsBracketCall =>
         "@JSBracketCall"
-      case JsNative =>
+      case Annotation.JsNative =>
         "@js.native"
-      case JsName(name: Name) =>
+      case Annotation.JsName(name: Name) =>
         s"@JSName(${quote(name.unescaped)})"
-      case JsNameSymbol(name) =>
+      case Annotation.JsNameSymbol(name) =>
         s"@JSName(${formatQN(prefix, name)})"
-      case JsImport(module, imported) =>
+      case Annotation.JsImport(module, imported) =>
         val importedString = imported match {
           case Imported.Namespace   => "JSImport.Namespace"
           case Imported.Default     => "JSImport.Default"
           case Imported.Named(name) => quote(name.unescaped)
         }
         s"@JSImport(${quote(module)}, $importedString)"
-      case ScalaJSDefined =>
+      case Annotation.ScalaJSDefined =>
         "" //"@ScalaJSDefined"
-      case JsGlobal(name: QualifiedName) =>
+      case Annotation.JsGlobal(name: QualifiedName) =>
         s"@JSGlobal(${quote(name.parts.map(_.unescaped).mkString("."))})"
-      case JsGlobalScope =>
+      case Annotation.JsGlobalScope =>
         s"@JSGlobalScope"
     }
 

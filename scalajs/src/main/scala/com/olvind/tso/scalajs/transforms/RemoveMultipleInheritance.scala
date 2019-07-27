@@ -17,7 +17,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
   override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
     val patchedNewMembers =
-      if (cls.annotations.contains(JsNative)) newMembers.map {
+      if (cls.annotations.contains(Annotation.JsNative)) newMembers.map {
         case x: MethodTree => x.copy(impl = MemberImpl.Native)
         case x: FieldTree  => x.copy(impl = MemberImpl.Native)
         case other => other
@@ -57,7 +57,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     parents.directParents.find(
       p =>
         p.transitiveParents.exists {
-          case (_, cs) => cs.classType === ClassType.Class || cs.classType === ClassType.AbstractClass
+          case (_, cs) => cs.classType =/= ClassType.Trait
           case _       => false
         },
     )

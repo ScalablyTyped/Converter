@@ -52,8 +52,8 @@ object ImportEnum {
             val castName = Name("cast")
             val T        = Name("T")
             MethodTree(
-              List(Inline),
-              Private,
+              List(Annotation.Inline),
+              ProtectionLevel.Private,
               castName,
               List(TypeParamTree(T, None, NoComments)),
               List(List(ParamTree(Name("in"), TypeRef.Any, None, NoComments))),
@@ -69,8 +69,8 @@ object ImportEnum {
               val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
               val tpe  = ImportType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
               MethodTree(
-                List(Inline),
-                Default,
+                List(Annotation.Inline),
+                ProtectionLevel.Default,
                 memberName,
                 Nil,
                 Nil,
@@ -109,7 +109,7 @@ object ImportEnum {
               )
             case None =>
               ClassTree(
-                annotations = Seq(JsNative),
+                annotations = Seq(Annotation.JsNative),
                 name        = name,
                 tparams     = Nil,
                 parents     = Nil,
@@ -129,7 +129,7 @@ object ImportEnum {
               Some(
                 MethodTree(
                   annotations = Annotation.method(name, isBracketAccess = true),
-                  level       = Default,
+                  level       = ProtectionLevel.Default,
                   name        = Name.APPLY,
                   tparams     = Nil,
                   params      = Seq(Seq(applyParam)),
@@ -150,7 +150,7 @@ object ImportEnum {
                   else
                     Some(
                       ClassTree(
-                        annotations = Seq(JsNative),
+                        annotations = Seq(Annotation.JsNative),
                         name        = memberName,
                         tparams     = Nil,
                         parents     = Seq(baseInterface),

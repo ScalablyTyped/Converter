@@ -76,7 +76,15 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
             case Nil => Some((cls, ctor))
             case some =>
               val nameHint = Comments(CommentData(Markers.NameHint(s"TypeofClass${cls.name.value}")))
-              Some((cls, TsTypeObject(nameHint, some :+ TsMemberCtor(NoComments, Default, ctor.signature.signature))))
+              Some(
+                (
+                  cls,
+                  TsTypeObject(
+                    nameHint,
+                    some :+ TsMemberCtor(NoComments, ProtectionLevel.Default, ctor.signature.signature),
+                  ),
+                ),
+              )
           }
 
         case _ => None
@@ -133,7 +141,10 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
                     one +: rest
                   case (fns, rest) =>
                     val overloads =
-                      TsTypeObject(NoComments, fns.map(fn => TsMemberCall(NoComments, Default, fn.signature)))
+                      TsTypeObject(
+                        NoComments,
+                        fns.map(fn => TsMemberCall(NoComments, ProtectionLevel.Default, fn.signature)),
+                      )
                     overloads +: rest
                 }
                 scope.logger.info(s"Resolved $target")
@@ -148,7 +159,7 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
       case ns: TsDeclNamespace =>
         TsMemberProperty(
           ns.comments,
-          Default,
+          ProtectionLevel.Default,
           ns.name,
           nonEmptyTypeObject(ns),
           None,
@@ -157,11 +168,19 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
           isOptional = false,
         )
       case TsDeclFunction(cs, _, name, sig, _, _) =>
-        TsMemberFunction(cs, Default, name, sig, isStatic = false, isReadOnly = true, isOptional = false)
+        TsMemberFunction(
+          cs,
+          ProtectionLevel.Default,
+          name,
+          sig,
+          isStatic   = false,
+          isReadOnly = true,
+          isOptional = false,
+        )
       case TsDeclVar(cs, _, isReadOnly, name, tpe, lit, _, _, isOptional) =>
         TsMemberProperty(
           cs,
-          Default,
+          ProtectionLevel.Default,
           name,
           tpe,
           lit,
@@ -172,7 +191,7 @@ object ResolveTypeQueries extends TreeTransformationScopedChanges {
       case RewrittenClass((cls, tpe)) =>
         TsMemberProperty(
           cls.comments,
-          Default,
+          ProtectionLevel.Default,
           cls.name,
           Some(tpe),
           None,

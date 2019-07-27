@@ -114,7 +114,7 @@ final class ParserTests extends FunSuite {
         members = List(
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("algorithm"),
             tpe        = Some(TsTypeRef.string),
             expr       = None,
@@ -124,7 +124,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("saltLength"),
             tpe        = Some(TsTypeRef.number),
             expr       = None,
@@ -134,7 +134,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("iterations"),
             tpe        = Some(TsTypeRef.number),
             expr       = None,
@@ -169,7 +169,7 @@ final class ParserTests extends FunSuite {
         members = List(
           TsMemberFunction(
             NoComments,
-            level = Default,
+            level = ProtectionLevel.Default,
             name  = TsIdent.constructor,
             signature = TsFunSig(
               NoComments,
@@ -185,7 +185,7 @@ final class ParserTests extends FunSuite {
                         TsMemberIndex(
                           NoComments,
                           isReadOnly = false,
-                          level      = Default,
+                          level      = ProtectionLevel.Default,
                           indexing   = IndexingDict(TsIdent("key"), TsTypeRef.string),
                           valueType  = Some(TsTypeRef.any),
                           isOptional = false,
@@ -204,7 +204,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberFunction(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("destroy"),
             signature  = TsFunSig(NoComments, tparams = Nil, params = Nil, resultType = Some(TsTypeRef.void)),
             isStatic   = false,
@@ -317,7 +317,7 @@ final class ParserTests extends FunSuite {
         |     */
         |    private instanceArray;
         |    /**
-        |     * Default Constructor.
+        |     * ProtectionLevel.Default Constructor.
         |     */
         |    constructor();
         |}""".stripMargin
@@ -335,7 +335,7 @@ final class ParserTests extends FunSuite {
     TreeTraverse.collect(tree) {
       case TsMemberProperty(_, level, _, _, _, false, _, _)                => level
       case TsMemberFunction(_, level, TsIdent.constructor, _, false, _, _) => level
-    } should be(List(Protected, Private, Default))
+    } should be(List(ProtectionLevel.Protected, ProtectionLevel.Private, ProtectionLevel.Default))
 
     TreeTraverse
       .collect(tree) {
@@ -454,7 +454,7 @@ final class ParserTests extends FunSuite {
                       members = List(
                         TsMemberFunction(
                           NoComments,
-                          level = Default,
+                          level = ProtectionLevel.Default,
                           name  = TsIdent("toString"),
                           signature =
                             TsFunSig(NoComments, tparams = Nil, params = Nil, resultType = Some(TsTypeRef.string)),
@@ -531,7 +531,7 @@ final class ParserTests extends FunSuite {
                 List(
                   TsMemberProperty(
                     NoComments,
-                    level = Default,
+                    level = ProtectionLevel.Default,
                     name  = TsIdent("errors"),
                     tpe = Some(
                       TsTypeRef(
@@ -558,15 +558,15 @@ final class ParserTests extends FunSuite {
   }
 
   test("string expr types") {
-    shouldParseAs("""toolbarPlacement?: "default" | "top" | "bottom"""", TsParser.tsMemberNamed)(
+    shouldParseAs("""toolbarPlacement?: "ProtectionLevel.Default" | "top" | "bottom"""", TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        level = Default,
+        level = ProtectionLevel.Default,
         name  = TsIdent("toolbarPlacement"),
         tpe = Some(
           TsTypeUnion(
             Seq(
-              TsTypeLiteral(TsLiteralString("default")),
+              TsTypeLiteral(TsLiteralString("ProtectionLevel.Default")),
               TsTypeLiteral(TsLiteralString("top")),
               TsTypeLiteral(TsLiteralString("bottom")),
             ),
@@ -584,7 +584,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs("""primary_key?: 0 | 1 | boolean""", TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        level = Default,
+        level = ProtectionLevel.Default,
         name  = TsIdent("primary_key"),
         tpe = Some(
           TsTypeUnion(
@@ -617,7 +617,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs("useBasicAuth(apiKey: string): this", TsParser.tsMemberNamed)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("useBasicAuth"),
         TsFunSig(
           NoComments,
@@ -636,7 +636,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs("static: boolean", TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("static"),
         Some(TsTypeRef(NoComments, TsQIdent.boolean, Nil)),
         expr       = None,
@@ -651,7 +651,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs("0?: string", TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        level      = Default,
+        level      = ProtectionLevel.Default,
         name       = TsIdent("0"),
         tpe        = Some(TsTypeRef.string),
         expr       = None,
@@ -679,7 +679,7 @@ final class ParserTests extends FunSuite {
         List(
           TsMemberCall(
             NoComments,
-            Default,
+            ProtectionLevel.Default,
             TsFunSig(
               NoComments,
               List(
@@ -739,7 +739,7 @@ final class ParserTests extends FunSuite {
     )(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("when"),
         TsFunSig(
           NoComments,
@@ -846,7 +846,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs("public: boolean", TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("public"),
         Some(TsTypeRef(NoComments, TsQIdent.boolean, Nil)),
         expr       = None,
@@ -859,7 +859,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs("static public?: private", TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("public"),
         Some(TsTypeRef(NoComments, TsQIdent.of("private"), Nil)),
         expr       = None,
@@ -889,7 +889,7 @@ final class ParserTests extends FunSuite {
     val windowMembers = List(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("i"),
         Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
         expr       = None,
@@ -985,7 +985,7 @@ final class ParserTests extends FunSuite {
         List(
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("name"),
             tpe        = Some(TsTypeRef.string),
             expr       = None,
@@ -995,7 +995,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("size"),
             tpe        = Some(TsTypeRef.number),
             expr       = None,
@@ -1005,7 +1005,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("type"),
             tpe        = Some(TsTypeRef.number),
             expr       = None,
@@ -1039,7 +1039,7 @@ final class ParserTests extends FunSuite {
         List(
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("default"),
             tpe        = Some(TsTypeRef.string),
             expr       = None,
@@ -1049,7 +1049,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("hue-1"),
             tpe        = Some(TsTypeRef.string),
             expr       = None,
@@ -1059,7 +1059,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("hue-2"),
             tpe        = Some(TsTypeRef.string),
             expr       = None,
@@ -1069,7 +1069,7 @@ final class ParserTests extends FunSuite {
           ),
           TsMemberProperty(
             NoComments,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             name       = TsIdent("hue-3"),
             tpe        = Some(TsTypeRef.string),
             expr       = None,
@@ -1090,7 +1090,7 @@ final class ParserTests extends FunSuite {
         TsMemberIndex(
           comments   = NoComments,
           isReadOnly = true,
-          level      = Default,
+          level      = ProtectionLevel.Default,
           indexing   = IndexingDict(TsIdent("index"), TsTypeRef(NoComments, TsQIdent.number, Nil)),
           valueType  = Some(TsTypeRef.string),
           isOptional = false,
@@ -1107,7 +1107,7 @@ final class ParserTests extends FunSuite {
     shouldParseAs(addEventListener, TsParser.tsMemberNamed)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("addEventListener"),
         TsFunSig(
           NoComments,
@@ -1190,7 +1190,7 @@ final class ParserTests extends FunSuite {
           List(
             TsMemberTypeMapped(
               NoComments,
-              level       = Default,
+              level       = ProtectionLevel.Default,
               isReadOnly  = false,
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Nil)),
@@ -1222,7 +1222,7 @@ final class ParserTests extends FunSuite {
           List(
             TsMemberTypeMapped(
               comments    = NoComments,
-              level       = Default,
+              level       = ProtectionLevel.Default,
               isReadOnly  = false,
               key         = TsIdent("P"),
               from        = TsTypeRef(NoComments, TsQIdent.of("K"), Nil),
@@ -1251,7 +1251,7 @@ final class ParserTests extends FunSuite {
           List(
             TsMemberTypeMapped(
               NoComments,
-              level       = Default,
+              level       = ProtectionLevel.Default,
               isReadOnly  = false,
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(T),
@@ -1261,7 +1261,7 @@ final class ParserTests extends FunSuite {
                 List(
                   TsMemberFunction(
                     NoComments,
-                    level = Default,
+                    level = ProtectionLevel.Default,
                     name  = TsIdent("get"),
                     signature = TsFunSig(
                       NoComments,
@@ -1275,7 +1275,7 @@ final class ParserTests extends FunSuite {
                   ),
                   TsMemberFunction(
                     NoComments,
-                    Default,
+                    ProtectionLevel.Default,
                     TsIdent("set"),
                     TsFunSig(
                       NoComments,
@@ -1318,7 +1318,7 @@ type Readonly<T> = {
           List(
             TsMemberTypeMapped(
               comments    = NoComments,
-              level       = Default,
+              level       = ProtectionLevel.Default,
               isReadOnly  = true,
               key         = TsIdentSimple("P"),
               from        = TsTypeKeyOf(T),
@@ -1351,7 +1351,7 @@ type Readonly<T> = {
           ts.TsMemberIndex(
             comments   = NoComments,
             isReadOnly = true,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             indexing   = IndexingSingle(TsQIdent(List(TsIdent("Symbol"), TsIdent("toStringTag")))),
             isOptional = false,
             valueType  = Some(TsTypeLiteral(TsLiteralString("Symbol"))),
@@ -1366,7 +1366,7 @@ type Readonly<T> = {
     shouldParseAs("""["@@transducer/init"](): TResult | void""", TsParser.tsMember)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdentSimple("@@transducer/init"),
         TsFunSig(
           NoComments,
@@ -1452,7 +1452,7 @@ type Readonly<T> = {
     shouldParseAs("trueSpeed: boolean", TsParser.tsMember)(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("trueSpeed"),
         Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("boolean"))), Nil)),
         expr       = None,
@@ -1467,7 +1467,7 @@ type Readonly<T> = {
     shouldParseAs("static delegating({ token }: TokenAuthData): TokenHandshake", TsParser.tsMemberNamed)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("delegating"),
         TsFunSig(
           NoComments,
@@ -1489,7 +1489,7 @@ type Readonly<T> = {
     )
   }
 
-  test("default type parameter") {
+  test("ProtectionLevel.Default type parameter") {
     shouldParseAs("interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }", TsParser.tsDeclInterface)(
       TsDeclInterface(
         NoComments,
@@ -1519,7 +1519,7 @@ type Readonly<T> = {
     shouldParseAs("isEmptyObject(obj: any): obj is {}", TsParser.tsMemberNamed)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("isEmptyObject"),
         TsFunSig(
           NoComments,
@@ -1545,7 +1545,7 @@ type Readonly<T> = {
     shouldParseAs(content, TsParser.tsMemberNamed)(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdent("loadOptions"),
         Some(
           TsTypeUnion(
@@ -1650,7 +1650,7 @@ type Readonly<T> = {
     shouldParseAs("swipeVelocityThreshold: 0.25", TsParser.tsMember)(
       TsMemberProperty(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdentSimple("swipeVelocityThreshold"),
         Some(TsTypeLiteral(TsLiteralNumber("0.25"))),
         expr       = None,
@@ -1730,7 +1730,7 @@ type Readonly<T> = {
     shouldParseAs(content, TsParser.tsMember)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdentSimple("searchForFacetValues"),
         TsFunSig(
           NoComments,
@@ -1747,7 +1747,7 @@ type Readonly<T> = {
                       List(
                         TsMemberProperty(
                           NoComments,
-                          Default,
+                          ProtectionLevel.Default,
                           TsIdentSimple("facetName"),
                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("string"))), Nil)),
                           expr       = None,
@@ -1757,7 +1757,7 @@ type Readonly<T> = {
                         ),
                         TsMemberProperty(
                           NoComments,
-                          Default,
+                          ProtectionLevel.Default,
                           TsIdentSimple("facetQuery"),
                           Some(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("string"))), Nil)),
                           expr       = None,
@@ -1803,7 +1803,7 @@ type Readonly<T> = {
         List(
           TsMemberFunction(
             NoComments,
-            Default,
+            ProtectionLevel.Default,
             TsIdentSimple("apply"),
             TsFunSig(
               NoComments,
@@ -1854,7 +1854,7 @@ type Readonly<T> = {
             List(
               TsMemberFunction(
                 NoComments,
-                Default,
+                ProtectionLevel.Default,
                 TsIdentSimple("bivarianceHack"),
                 TsFunSig(
                   NoComments,
@@ -2116,7 +2116,7 @@ type Readonly<T> = {
           List(
             TsMemberTypeMapped(
               NoComments,
-              Default,
+              ProtectionLevel.Default,
               isReadOnly = false,
               TsIdentSimple("P"),
               TsTypeKeyOf(T),
@@ -2137,7 +2137,7 @@ type Readonly<T> = {
     )(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdentSimple("mutate"),
         TsFunSig(
           NoComments,
@@ -2228,7 +2228,7 @@ type Readonly<T> = {
           ts.TsMemberIndex(
             comments   = NoComments,
             isReadOnly = false,
-            level      = Default,
+            level      = ProtectionLevel.Default,
             indexing   = IndexingSingle(TsQIdent(List(TsIdentSimple("nominalTypeHack")))),
             valueType  = Some(T),
             isOptional = true,
@@ -2414,7 +2414,7 @@ export {};
       TsMemberIndex(
         NoComments,
         isReadOnly = false,
-        Private,
+        ProtectionLevel.Private,
         IndexingSingle(TsQIdent(List(TsIdentSimple("kChannel")))),
         isOptional = false,
         None,
@@ -2430,7 +2430,7 @@ export {};
           TsMemberIndex(
             NoComments,
             isReadOnly = false,
-            Default,
+            ProtectionLevel.Default,
             IndexingDict(TsIdentSimple("attributeName"), TsTypeRef.string),
             isOptional = false,
             Some(
@@ -2453,7 +2453,7 @@ export {};
     shouldParseAs("""protected _Handle_insert({}: {}, {}: {}): void""", TsParser.tsMemberNamed)(
       TsMemberFunction(
         NoComments,
-        Protected,
+        ProtectionLevel.Protected,
         TsIdentSimple("_Handle_insert"),
         TsFunSig(
           NoComments,
@@ -2524,7 +2524,7 @@ export {};
     shouldParseAs("""public expire(key: string, ms: number = 0): void""", TsParser.tsMemberNamed)(
       TsMemberFunction(
         NoComments,
-        Default,
+        ProtectionLevel.Default,
         TsIdentSimple("expire"),
         TsFunSig(
           NoComments,

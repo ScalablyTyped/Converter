@@ -278,7 +278,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                     List(
                       TsMemberProperty(
                         NoComments,
-                        Default,
+                        ProtectionLevel.Default,
                         TsIdent("statusCode"),
                         Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("number"))), List())),
                         None,

@@ -5,7 +5,7 @@ object ScalaJsClasses {
   // format: off
   val ScalaJsArray =
     ClassTree(
-      Seq(JsNative, JsGlobalScope),
+      Seq(Annotation.JsNative, Annotation.JsGlobalScope),
       Name("Array"),
       Seq(TypeParamTree(Name("T"), None, NoComments)),
       // todo: fill in
@@ -22,17 +22,17 @@ object ScalaJsClasses {
   // format: off
   val ScalaJsFunction =
     ClassTree(
-      Seq(JsNative, JsGlobalScope),
+      Seq(Annotation.JsNative, Annotation.JsGlobalScope),
       Name("Function"),
       Nil,
       Nil,
       Seq(
-        CtorTree(Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments),
+        CtorTree(ProtectionLevel.Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments),
       ),
       Seq(
         FieldTree(Nil, Name("length"), TypeRef.Int, MemberImpl.Native, isReadOnly = false, isOverride = false, NoComments, QualifiedName.Function + Name("length")),
-        MethodTree(Nil, Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call")),
-        MethodTree(Nil, Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind")),
+        MethodTree(Nil, ProtectionLevel.Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call")),
+        MethodTree(Nil, ProtectionLevel.Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind")),
       ),
       ClassType.Class,
       isSealed = false,
@@ -54,7 +54,7 @@ object ScalaJsClasses {
     val Apply: MethodTree =
       MethodTree(
         annotations = Nil,
-        level       = Default,
+        level       = ProtectionLevel.Default,
         name        = Name.APPLY,
         tparams     = Nil,
         params      = Seq(ThisParam ++ inputParams),
@@ -75,7 +75,7 @@ object ScalaJsClasses {
       Seq(TypeParamTree(R.name, None, NoComments))
 
     ClassTree(
-      annotations = Seq(JsNative),
+      annotations = Seq(Annotation.JsNative),
       name        = codePath.parts.last,
       tparams     = ThisTParam ++ inputTParams ++ outputTParams,
       parents     = Seq(TypeRef(QualifiedName.Function)),
@@ -90,7 +90,7 @@ object ScalaJsClasses {
 
   val StringDictionary =
     ClassTree(
-      Seq(ScalaJSDefined, JsGlobalScope),
+      Seq(Annotation.ScalaJSDefined, Annotation.JsGlobalScope),
       Name("StringDictionary"),
       Seq(TypeParamTree(Name("T"), None, NoComments)),
       Nil,
@@ -104,7 +104,7 @@ object ScalaJsClasses {
 
   val NumberDictionary =
     ClassTree(
-      Seq(ScalaJSDefined, JsGlobalScope),
+      Seq(Annotation.ScalaJSDefined, Annotation.JsGlobalScope),
       Name("NumberDictionary"),
       Seq(TypeParamTree(Name("T"), None, NoComments)),
       Nil,

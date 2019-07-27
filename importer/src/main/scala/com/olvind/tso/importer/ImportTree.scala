@@ -28,7 +28,7 @@ object ImportTree {
       val libName = importName(lib.name)
       val name    = Name(libName.unescaped + "Require")
       ModuleTree(
-        Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
+        Seq(Annotation.JsImport(lib.name.value, Imported.Namespace), Annotation.JsNative),
         name,
         Nil,
         Nil,
@@ -207,7 +207,7 @@ object ImportTree {
 
         Seq(
           ClassTree(
-            annotations = Seq(if (scalaJsDefined) ScalaJSDefined else JsNative),
+            annotations = Seq(if (scalaJsDefined) Annotation.ScalaJSDefined else Annotation.JsNative),
             name        = name,
             tparams     = tparams map typeParam(scope, importName),
             parents     = parents ++ extraInheritance,
@@ -236,7 +236,7 @@ object ImportTree {
           tsMethod(
             scope = scope,
             importName,
-            level          = Default,
+            level          = ProtectionLevel.Default,
             name           = name,
             cs             = cs,
             sig            = sig,

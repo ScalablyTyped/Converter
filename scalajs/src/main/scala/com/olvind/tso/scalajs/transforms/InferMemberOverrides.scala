@@ -24,7 +24,7 @@ object InferMemberOverrides extends TreeTransformation {
   private def newMembers(scope: TreeScope, tree: InheritanceTree, members: Seq[Tree]): Seq[Tree] = {
     val root = ParentsResolver(scope, tree)
 
-    val isScalaJsDefined: Boolean = tree.annotations contains ScalaJSDefined
+    val isScalaJsDefined: Boolean = tree.annotations contains Annotation.ScalaJSDefined
 
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },

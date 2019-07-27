@@ -52,7 +52,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   override def Parser[T](f: Input => ParseResult[T]): Parser[T] =
     (in: Reader[lexical.Token]) =>
       f(in) match {
-        case Failure(msg, next: Input)
+        case Failure(_, next: Input)
             if next.first.isInstanceOf[lexical.CommentToken] || next.first.isInstanceOf[Directive] =>
           f(next.rest)
         case fail: Failure =>
@@ -507,9 +507,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       tsIdentLiberal.+ ^^ {
         case mods :+ name =>
           val level: ProtectionLevel =
-            if (mods.contains(TsIdent("protected"))) Protected
-            else if (mods.contains(TsIdent("private"))) Private
-            else Default
+            if (mods.contains(TsIdent("protected"))) ProtectionLevel.Protected
+            else if (mods.contains(TsIdent("private"))) ProtectionLevel.Private
+            else ProtectionLevel.Default
 
           val static   = mods.contains(TsIdent("static"))
           val readonly = mods.contains(TsIdent("readonly"))
@@ -565,9 +565,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val protectionLevel: Parser[ProtectionLevel] =
     ("private" | "protected" | "public").? ^^ {
-      case Some("private")   => Private
-      case Some("protected") => Protected
-      case _                 => Default
+      case Some("private")   => ProtectionLevel.Private
+      case Some("protected") => ProtectionLevel.Protected
+      case _                 => ProtectionLevel.Default
     }
 
   lazy val tsIdent: Parser[TsIdentSimple] =

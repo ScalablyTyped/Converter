@@ -179,7 +179,7 @@ final class CommentTests extends FunSuite with Matchers {
       List(
         TsMemberProperty(
           NoComments,
-          Default,
+          ProtectionLevel.Default,
           TsIdent("member"),
           Some(TsTypeRef.any),
           None,
@@ -205,7 +205,7 @@ final class CommentTests extends FunSuite with Matchers {
         List(
           TsMemberProperty(
             NoComments,
-            Default,
+            ProtectionLevel.Default,
             TsIdent("id"),
             Some(TsTypeRef.string),
             None,
@@ -215,7 +215,7 @@ final class CommentTests extends FunSuite with Matchers {
           ),
           TsMemberProperty(
             NoComments,
-            Default,
+            ProtectionLevel.Default,
             TsIdent("size"),
             Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
             None,
