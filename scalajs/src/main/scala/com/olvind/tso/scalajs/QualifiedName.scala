@@ -79,7 +79,5 @@ object QualifiedName {
       case n     => scala_js + Name("Tuple" + n.toString)
     }
 
-  implicit object QualifiedNameSuffix extends ToSuffix[QualifiedName] {
-    override def to(t: QualifiedName): Suffix = ToSuffix(t.parts.last)
-  }
+  implicit val QualifiedNameSuffix: ToSuffix[QualifiedName] = t => ToSuffix(t.parts.last)
 }

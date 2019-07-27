@@ -2,9 +2,9 @@ package com.olvind
 package tso
 package importer
 
-import org.scalatest.FunSuite
+import org.scalatest.{FunSuite, ParallelTestExecution}
 
-class ImporterTest extends FunSuite with ImporterHarness {
+class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecution {
   val update = sys.env.get("CIRCLECI").isEmpty
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))

@@ -171,14 +171,7 @@ object TypeParamTree {
   def asTypeArgs(tps: Seq[TypeParamTree]): Seq[TypeRef] =
     tps.map(x => TypeRef(x.name))
 
-  implicit object TypeParamsToSuffix extends ToSuffix[Seq[TypeParamTree]] {
-    override def to(tparams: Seq[TypeParamTree]): Suffix =
-      Suffix(
-        tparams
-          .map(tp => tp.name.unescaped + tp.upperBound.fold("")(_.name.unescaped))
-          .mkString(""),
-      )
-  }
+  implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
 }
 
 final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
@@ -436,7 +429,6 @@ object TypeRef {
       }
   }
 
-  implicit object TypeRefSuffix extends ToSuffix[TypeRef] {
-    override def to(t: TypeRef): Suffix = ToSuffix(t.typeName) ++ t.targs.map(to)
-  }
+  implicit val TypeRefSuffix: ToSuffix[TypeRef] =
+    t => ToSuffix(t.typeName) ++ t.targs.map(x => ToSuffix(x))
 }
