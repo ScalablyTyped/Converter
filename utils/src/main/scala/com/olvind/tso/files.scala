@@ -49,7 +49,7 @@ object files {
       case (relPath, content) => folder / relPath -> content
     }
 
-    if (soft && deleteUnknowns)
+    if (deleteUnknowns)
       folder match {
         case f if os.exists(f) =>
           os.walk(f, IgnoreProjectFiles).foreach {
@@ -89,7 +89,7 @@ object files {
 
   def writeBytes[T](path: os.Path, newContent: Array[Byte]): Synced = {
     os.makeDir.all(path / os.up)
-    Files.write(path.toNIO, newContent, CREATE)
+    Files.write(path.toNIO, newContent, CREATE, TRUNCATE_EXISTING)
     Synced.New
   }
 }
