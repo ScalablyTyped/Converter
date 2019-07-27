@@ -1,7 +1,6 @@
-package typings
-package mongooseDashSimpleDashRandomLib.mongooseDashSimpleDashRandomMod
+package typings.mongooseDashSimpleDashRandomLib.mongooseDashSimpleDashRandomMod
 
-import mongooseLib.mongooseMod.Schema
+import typings.mongooseLib.mongooseMod.Schema
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

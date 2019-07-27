@@ -1,9 +1,8 @@
-package typings
-package reactLib.reactMod.Global
+package typings.reactLib.reactMod.Global
 
-import reactLib.reactMod.Attributes
-import reactLib.reactMod.ClassAttributes
-import reactLib.reactMod.ReactElement
+import typings.reactLib.reactMod.Attributes
+import typings.reactLib.reactMod.ClassAttributes
+import typings.reactLib.reactMod.ReactElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

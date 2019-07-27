@@ -1,5 +1,4 @@
-package typings
-package fpDashTsLib.libEitherTMod
+package typings.fpDashTsLib.libEitherTMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,9 +1,8 @@
-package typings
-package awsDashSdkLib.libServicesDynamodbMod
+package typings.awsDashSdkLib.libServicesDynamodbMod
 
-import awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
-import awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions
 import org.scalablytyped.runtime.Instantiable1
+import typings.awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
+import typings.awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -22,7 +21,7 @@ object DynamoDBCustomizations extends js.Object {
     */
   var DocumentClient: Instantiable1[
     js.UndefOr[/* options */ DocumentClientOptions with ClientConfiguration], 
-    awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClient
+    typings.awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClient
   ] = js.native
 }
 

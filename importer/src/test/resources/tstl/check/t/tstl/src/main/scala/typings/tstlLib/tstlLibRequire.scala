@@ -1,5 +1,4 @@
-package typings
-package tstlLib
+package typings.tstlLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

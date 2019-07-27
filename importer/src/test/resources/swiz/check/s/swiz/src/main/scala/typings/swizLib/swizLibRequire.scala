@@ -1,5 +1,4 @@
-package typings
-package swizLib
+package typings.swizLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

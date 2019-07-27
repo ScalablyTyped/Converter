@@ -1,8 +1,7 @@
-package typings
-package reactLib.reactMod.Global.JSXNs
+package typings.reactLib.reactMod.Global.JSXNs
 
-import reactLib.reactMod.Component
-import reactLib.reactMod.ReactNode
+import typings.reactLib.reactMod.Component
+import typings.reactLib.reactMod.ReactNode
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

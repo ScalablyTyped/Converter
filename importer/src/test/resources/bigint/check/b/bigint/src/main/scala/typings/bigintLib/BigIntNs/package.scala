@@ -1,5 +1,4 @@
-package typings
-package bigintLib
+package typings.bigintLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

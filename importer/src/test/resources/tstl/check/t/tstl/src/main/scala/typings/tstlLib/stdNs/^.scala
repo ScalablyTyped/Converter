@@ -1,5 +1,4 @@
-package typings
-package tstlLib.stdNs
+package typings.tstlLib.stdNs
 
 import org.scalablytyped.runtime.Instantiable0
 import scala.scalajs.js

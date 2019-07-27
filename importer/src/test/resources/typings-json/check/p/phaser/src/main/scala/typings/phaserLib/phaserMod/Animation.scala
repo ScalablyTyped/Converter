@@ -1,5 +1,4 @@
-package typings
-package phaserLib.phaserMod
+package typings.phaserLib.phaserMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -13,5 +12,5 @@ import scala.scalajs.js.annotation._
 @JSImport("phaser", "Animation")
 @js.native
 class Animation ()
-  extends phaserLib.PhaserNs.Animation
+  extends typings.phaserLib.PhaserNs.Animation
 

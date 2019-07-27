@@ -1,5 +1,4 @@
-package typings
-package constDashEnumLib
+package typings.constDashEnumLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

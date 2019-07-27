@@ -1,9 +1,8 @@
-package typings
-package vueLib.typesVueMod
+package typings.vueLib.typesVueMod
 
 import org.scalablytyped.runtime.StringDictionary
-import stdLib.Error
-import stdLib.RegExp
+import typings.stdLib.Error
+import typings.stdLib.RegExp
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

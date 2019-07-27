@@ -84,13 +84,13 @@ object FakeLiterals {
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
           collectedStrings += underlying
-          TypeRef(QualifiedName(List(_s.name, StringModuleName, nameFor(underlying))), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(ScalaConfig.outputPkg, _s.name, StringModuleName, nameFor(underlying))), Nil, LiteralTokenComment)
 
         case TypeRef.Literal(underlying) =>
           val fixed =
             if (underlying.forall(_.isDigit) && underlying.toLong > Int.MaxValue) "_" + underlying else underlying
           collectedNumbers += fixed
-          TypeRef(QualifiedName(List(_s.name, NumbersModuleName, nameFor(fixed))), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(ScalaConfig.outputPkg, _s.name, NumbersModuleName, nameFor(fixed))), Nil, LiteralTokenComment)
         case other =>
           other
       }

@@ -1,5 +1,4 @@
-package typings
-package cldrjsLib
+package typings.cldrjsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

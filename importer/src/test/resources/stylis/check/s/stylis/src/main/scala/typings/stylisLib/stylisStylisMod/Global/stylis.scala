@@ -1,8 +1,7 @@
-package typings
-package stylisLib.stylisStylisMod.Global
+package typings.stylisLib.stylisStylisMod.Global
 
-import stylisLib.stylisStylisMod.Options
-import stylisLib.stylisStylisMod.Stylis
+import typings.stylisLib.stylisStylisMod.Options
+import typings.stylisLib.stylisStylisMod.Stylis
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

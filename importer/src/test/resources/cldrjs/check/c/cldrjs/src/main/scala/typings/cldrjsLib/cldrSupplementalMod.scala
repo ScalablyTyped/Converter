@@ -1,8 +1,7 @@
-package typings
-package cldrjsLib
+package typings.cldrjsLib
 
-import cldrjsLib.cldrjsMod.CldrFactory
 import org.scalablytyped.runtime.TopLevel
+import typings.cldrjsLib.cldrjsMod.CldrFactory
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

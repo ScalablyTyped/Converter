@@ -1,5 +1,4 @@
-package typings
-package monacoDashEditorLib
+package typings.monacoDashEditorLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

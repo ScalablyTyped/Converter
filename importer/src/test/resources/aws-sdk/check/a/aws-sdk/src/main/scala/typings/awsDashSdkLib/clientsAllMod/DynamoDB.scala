@@ -1,8 +1,7 @@
-package typings
-package awsDashSdkLib.clientsAllMod
+package typings.awsDashSdkLib.clientsAllMod
 
-import awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
-import awsDashSdkLib.clientsDynamodbMod.^
+import typings.awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
+import typings.awsDashSdkLib.clientsDynamodbMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

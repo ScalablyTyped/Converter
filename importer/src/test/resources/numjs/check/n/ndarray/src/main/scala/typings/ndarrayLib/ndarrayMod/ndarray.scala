@@ -1,5 +1,4 @@
-package typings
-package ndarrayLib.ndarrayMod
+package typings.ndarrayLib.ndarrayMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

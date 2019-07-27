@@ -1,8 +1,7 @@
-package typings
-package awsDashSdkLib.libDynamodbConverterMod
+package typings.awsDashSdkLib.libDynamodbConverterMod
 
-import awsDashSdkLib.clientsDynamodbMod.AttributeValue
-import awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
+import typings.awsDashSdkLib.clientsDynamodbMod.AttributeValue
+import typings.awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,7 +1,6 @@
-package typings
-package defaultedDashTparamsLib
+package typings.defaultedDashTparamsLib
 
-import stdLib.Iterable
+import typings.stdLib.Iterable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

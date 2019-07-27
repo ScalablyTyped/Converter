@@ -1,5 +1,4 @@
-package typings
-package reactDashIconsLib.fa500pxMod
+package typings.reactDashIconsLib.fa500pxMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

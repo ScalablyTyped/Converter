@@ -1,8 +1,7 @@
-package typings
-package awsDashSdkLib
+package typings.awsDashSdkLib
 
-import awsDashSdkLib.awsDashSdkLibStrings.latest
-import awsDashSdkLib.libServicesDynamodbMod.DynamoDBCustomizations
+import typings.awsDashSdkLib.awsDashSdkLibStrings.latest
+import typings.awsDashSdkLib.libServicesDynamodbMod.DynamoDBCustomizations
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

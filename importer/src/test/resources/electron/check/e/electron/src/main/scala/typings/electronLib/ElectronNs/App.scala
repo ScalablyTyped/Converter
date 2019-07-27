@@ -1,7 +1,6 @@
-package typings
-package electronLib.ElectronNs
+package typings.electronLib.ElectronNs
 
-import electronLib.electronLibStrings.`accessibility-support-changed`
+import typings.electronLib.electronLibStrings.`accessibility-support-changed`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

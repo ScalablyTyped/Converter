@@ -1,5 +1,4 @@
-package typings
-package virtualDashDomLib
+package typings.virtualDashDomLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

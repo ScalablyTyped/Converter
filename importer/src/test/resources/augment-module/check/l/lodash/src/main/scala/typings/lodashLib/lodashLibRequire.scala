@@ -1,5 +1,4 @@
-package typings
-package lodashLib
+package typings.lodashLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

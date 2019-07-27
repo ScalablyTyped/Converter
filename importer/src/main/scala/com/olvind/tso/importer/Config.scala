@@ -4,7 +4,6 @@ package importer
 import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
-import com.olvind.tso.scalajs.Name
 
 case class PublishConfig(
     username: String,
@@ -29,7 +28,6 @@ case class Config(
   def debugMode = wantedLibNames.nonEmpty
 
   // change in source code for now, lazy...
-  val outputPkg         = Name("typings")
   val projectName       = "ScalablyTyped"
   val organization      = "org.scalablytyped"
   val cacheFolder       = os.home / 'tmp / "tso-cache"

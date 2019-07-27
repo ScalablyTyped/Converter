@@ -1,5 +1,4 @@
-package typings
-package cldrjsLib.cldrjsMod
+package typings.cldrjsLib.cldrjsMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

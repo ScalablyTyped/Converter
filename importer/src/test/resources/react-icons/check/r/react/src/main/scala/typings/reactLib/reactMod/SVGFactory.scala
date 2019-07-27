@@ -1,7 +1,6 @@
-package typings
-package reactLib.reactMod
+package typings.reactLib.reactMod
 
-import reactLib.SVGElement
+import typings.reactLib.SVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

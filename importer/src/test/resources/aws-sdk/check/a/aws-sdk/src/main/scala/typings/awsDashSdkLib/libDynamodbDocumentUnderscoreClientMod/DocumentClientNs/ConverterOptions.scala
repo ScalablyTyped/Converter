@@ -1,5 +1,4 @@
-package typings
-package awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs
+package typings.awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

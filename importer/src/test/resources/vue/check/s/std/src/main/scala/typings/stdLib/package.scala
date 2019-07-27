@@ -10,6 +10,6 @@ package object stdLib {
   type HTMLElement = Element
   type Readonly[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {readonly [ P in keyof T ]: T[P]}
-    */ stdLib.stdLibStrings.Readonly with T
+    */ typings.stdLib.stdLibStrings.Readonly with T
   type Record[K /* <: String */, T] = StringDictionary[K]
 }

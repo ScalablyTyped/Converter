@@ -1,8 +1,7 @@
-package typings
-package vueLib.typesVnodeMod
+package typings.vueLib.typesVnodeMod
 
 import org.scalablytyped.runtime.StringDictionary
-import vueLib.Anon_Render
+import typings.vueLib.Anon_Render
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

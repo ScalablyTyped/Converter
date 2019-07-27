@@ -1,12 +1,11 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
-- nodeLib.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end */ @JSImport("stream", "Duplex")
+- typings.nodeLib.streamMod.Writable because Inheritance from two classes. Inlined writable, emit, emit, end, end, end */ @JSImport("stream", "Duplex")
 @js.native
 class Duplex () extends Readable {
   var writable: Boolean = js.native

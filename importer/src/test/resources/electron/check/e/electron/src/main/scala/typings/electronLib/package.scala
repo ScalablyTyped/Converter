@@ -1,6 +1,6 @@
 package typings
 
-import stdLib.Event
+import typings.stdLib.Event
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

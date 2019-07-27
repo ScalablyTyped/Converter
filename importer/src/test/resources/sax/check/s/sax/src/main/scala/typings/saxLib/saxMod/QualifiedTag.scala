@@ -1,5 +1,4 @@
-package typings
-package saxLib.saxMod
+package typings.saxLib.saxMod
 
 import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js
@@ -7,7 +6,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
-- saxLib.saxMod.BaseTag because var conflicts: name. Inlined isSelfClosing */ trait QualifiedTag extends QualifiedName {
+- typings.saxLib.saxMod.BaseTag because var conflicts: name. Inlined isSelfClosing */ trait QualifiedTag extends QualifiedName {
   var attributes: StringDictionary[QualifiedAttribute]
   var isSelfClosing: Boolean
   var ns: StringDictionary[String]

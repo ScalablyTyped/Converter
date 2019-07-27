@@ -1,5 +1,4 @@
-package typings
-package winstonLib
+package typings.winstonLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package voidDashElementsLib
+package typings.voidDashElementsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

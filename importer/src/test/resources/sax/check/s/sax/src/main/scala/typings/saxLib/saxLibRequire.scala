@@ -1,5 +1,4 @@
-package typings
-package saxLib
+package typings.saxLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

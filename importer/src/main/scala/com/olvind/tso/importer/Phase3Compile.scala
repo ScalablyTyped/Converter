@@ -24,7 +24,6 @@ class Phase3Compile(
     versions:        Versions,
     compiler:        BloopCompiler,
     targetFolder:    os.Path,
-    mainPackageName: Name,
     projectName:     String,
     organization:    String,
     publishUser:     String,
@@ -128,7 +127,7 @@ class Phase3Compile(
               pedantic      = false,
             )
 
-            val scalaFiles  = Printer(scope, lib.packageTree, mainPackageName)
+            val scalaFiles  = Printer(scope, lib.packageTree)
             val sourcesDir  = os.RelPath("src") / 'main / 'scala
             val metadataOpt = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
 

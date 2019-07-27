@@ -1,8 +1,7 @@
-package typings
-package numjsLib
+package typings.numjsLib
 
-import ndarrayLib.ndarrayMod.Data
-import ndarrayLib.ndarrayMod.DataType
+import typings.ndarrayLib.ndarrayMod.Data
+import typings.ndarrayLib.ndarrayMod.DataType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

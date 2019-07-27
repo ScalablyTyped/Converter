@@ -1,5 +1,4 @@
-package typings
-package angularDashAgilityLib
+package typings.angularDashAgilityLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

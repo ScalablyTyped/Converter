@@ -1,9 +1,8 @@
-package typings
-package vueLib.typesPluginMod
+package typings.vueLib.typesPluginMod
 
 import org.scalablytyped.runtime.StringDictionary
-import vueLib.typesVueMod.Vue
-import vueLib.typesVueMod.VueConstructor
+import typings.vueLib.typesVueMod.Vue
+import typings.vueLib.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

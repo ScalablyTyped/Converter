@@ -1,5 +1,4 @@
-package typings
-package winstonLib
+package typings.winstonLib
 
 import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js

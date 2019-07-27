@@ -1,5 +1,4 @@
-package typings
-package commanderLib.commanderMod
+package typings.commanderLib.commanderMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,13 +14,13 @@ object `^Ns` extends js.Object {
     * @param {string} [name]
     */
   class Command ()
-    extends commanderLib.commanderMod.localNs.Command {
+    extends typings.commanderLib.commanderMod.localNs.Command {
     def this(name: String) = this()
   }
   
   @js.native
   class Option protected ()
-    extends commanderLib.commanderMod.localNs.Option {
+    extends typings.commanderLib.commanderMod.localNs.Option {
     /**
       * Initialize a new `Option` with the given `flags` and `description`.
       *

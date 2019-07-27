@@ -1,5 +1,4 @@
-package typings
-package fullcalendarLib.eventPeriodMod
+package typings.fullcalendarLib.eventPeriodMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package defaultedDashTparamsLib
+package typings.defaultedDashTparamsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

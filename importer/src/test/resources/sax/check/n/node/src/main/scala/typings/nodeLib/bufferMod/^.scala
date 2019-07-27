@@ -1,5 +1,4 @@
-package typings
-package nodeLib.bufferMod
+package typings.nodeLib.bufferMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

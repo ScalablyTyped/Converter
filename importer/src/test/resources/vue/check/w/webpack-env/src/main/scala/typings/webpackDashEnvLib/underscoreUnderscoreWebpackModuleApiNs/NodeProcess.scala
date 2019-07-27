@@ -1,5 +1,4 @@
-package typings
-package webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs
+package typings.webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

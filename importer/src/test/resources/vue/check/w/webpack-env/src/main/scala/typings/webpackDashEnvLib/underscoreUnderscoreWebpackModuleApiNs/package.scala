@@ -1,5 +1,4 @@
-package typings
-package webpackDashEnvLib
+package typings.webpackDashEnvLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

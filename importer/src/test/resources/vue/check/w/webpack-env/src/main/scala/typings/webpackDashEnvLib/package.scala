@@ -1,7 +1,7 @@
 package typings
 
-import webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.Module
-import webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.RequireFunction
+import typings.webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.Module
+import typings.webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.RequireFunction
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

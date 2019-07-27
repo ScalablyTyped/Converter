@@ -1,5 +1,4 @@
-package typings
-package mongooseLib.mongooseMod
+package typings.mongooseLib.mongooseMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

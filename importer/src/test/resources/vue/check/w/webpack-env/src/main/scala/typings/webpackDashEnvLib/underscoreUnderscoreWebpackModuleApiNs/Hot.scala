@@ -1,7 +1,6 @@
-package typings
-package webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs
+package typings.webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs
 
-import stdLib.Error
+import typings.stdLib.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

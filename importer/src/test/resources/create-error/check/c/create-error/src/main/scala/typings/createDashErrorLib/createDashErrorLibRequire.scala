@@ -1,5 +1,4 @@
-package typings
-package createDashErrorLib
+package typings.createDashErrorLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

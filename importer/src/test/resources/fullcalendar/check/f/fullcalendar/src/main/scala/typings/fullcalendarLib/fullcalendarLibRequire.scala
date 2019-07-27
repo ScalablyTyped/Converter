@@ -1,5 +1,4 @@
-package typings
-package fullcalendarLib
+package typings.fullcalendarLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

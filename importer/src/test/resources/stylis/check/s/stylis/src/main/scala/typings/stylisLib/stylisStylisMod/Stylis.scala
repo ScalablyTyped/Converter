@@ -1,5 +1,4 @@
-package typings
-package stylisLib.stylisStylisMod
+package typings.stylisLib.stylisStylisMod
 
 import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1

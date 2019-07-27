@@ -1,15 +1,14 @@
-package typings
-package atStorybookVueLib
+package typings.atStorybookVueLib
 
-import atStorybookVueLib.Anon_Kind
 import org.scalablytyped.runtime.StringDictionary
-import vueLib.typesOptionsMod.ComponentOptions
-import vueLib.typesOptionsMod.DefaultComputed
-import vueLib.typesOptionsMod.DefaultData
-import vueLib.typesOptionsMod.DefaultMethods
-import vueLib.typesOptionsMod.DefaultProps
-import vueLib.typesOptionsMod.PropsDefinition
-import vueLib.typesVueMod.Vue
+import typings.atStorybookVueLib.Anon_Kind
+import typings.vueLib.typesOptionsMod.ComponentOptions
+import typings.vueLib.typesOptionsMod.DefaultComputed
+import typings.vueLib.typesOptionsMod.DefaultData
+import typings.vueLib.typesOptionsMod.DefaultMethods
+import typings.vueLib.typesOptionsMod.DefaultProps
+import typings.vueLib.typesOptionsMod.PropsDefinition
+import typings.vueLib.typesVueMod.Vue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

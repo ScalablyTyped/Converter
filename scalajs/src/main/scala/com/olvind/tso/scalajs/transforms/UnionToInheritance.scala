@@ -213,7 +213,7 @@ object UnionToInheritance {
             }
 
           val InLibrary: PartialFunction[TypeRef, TypeRef] = {
-            case tr @ TypeRef(QualifiedName(`inLib` :: _), _, _) if legalTarget(tr) => tr
+            case tr @ TypeRef(QualifiedName(_ :: `inLib` :: _), _, _) if legalTarget(tr) => tr
           }
 
           val HasIllegalTypeParams: PartialFunction[TypeRef, TypeRef] = {

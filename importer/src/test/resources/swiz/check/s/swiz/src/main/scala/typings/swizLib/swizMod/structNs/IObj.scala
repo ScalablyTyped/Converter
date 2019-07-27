@@ -1,5 +1,4 @@
-package typings
-package swizLib.swizMod.structNs
+package typings.swizLib.swizMod.structNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

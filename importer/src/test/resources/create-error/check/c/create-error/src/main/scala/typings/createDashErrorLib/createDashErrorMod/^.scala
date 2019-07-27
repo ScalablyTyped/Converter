@@ -1,7 +1,6 @@
-package typings
-package createDashErrorLib.createDashErrorMod
+package typings.createDashErrorLib.createDashErrorMod
 
-import createDashErrorLib.Err
+import typings.createDashErrorLib.Err
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

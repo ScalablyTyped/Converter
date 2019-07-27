@@ -1,5 +1,4 @@
-package typings
-package atStorybookVueLib
+package typings.atStorybookVueLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

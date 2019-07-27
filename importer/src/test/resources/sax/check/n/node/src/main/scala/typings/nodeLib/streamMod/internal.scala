@@ -1,9 +1,8 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
-import nodeLib.Anon_End
-import nodeLib.NodeJSNs.WritableStream
-import nodeLib.eventsMod.EventEmitter
+import typings.nodeLib.Anon_End
+import typings.nodeLib.NodeJSNs.WritableStream
+import typings.nodeLib.eventsMod.EventEmitter
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

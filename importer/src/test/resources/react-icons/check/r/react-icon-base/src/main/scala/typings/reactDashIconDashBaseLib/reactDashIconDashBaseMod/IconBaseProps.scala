@@ -1,10 +1,9 @@
-package typings
-package reactDashIconDashBaseLib.reactDashIconDashBaseMod
+package typings.reactDashIconDashBaseLib.reactDashIconDashBaseMod
 
-import reactLib.reactMod.ClassAttributes
-import reactLib.reactMod.Key
-import reactLib.reactMod.ReactSVGElement
-import reactLib.reactMod.Ref
+import typings.reactLib.reactMod.ClassAttributes
+import typings.reactLib.reactMod.Key
+import typings.reactLib.reactMod.ReactSVGElement
+import typings.reactLib.reactMod.Ref
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

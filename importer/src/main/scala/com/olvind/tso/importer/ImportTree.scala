@@ -7,7 +7,7 @@ import com.olvind.tso.scalajs._
 import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
-  def apply(lib: LibTs, logger: Logger[Unit], importName: ImportName): ContainerTree = {
+  def apply(lib: LibTs, logger: Logger[Unit], importName: ImportName): PackageTree = {
     val deps = UnpackLibs(lib.dependencies).map {
       case (_, depLib) => depLib.name -> depLib.parsed
     }
@@ -24,6 +24,7 @@ object ImportTree {
       lib.parsed.members,
       lib.parsed.codePath,
     )
+
     val require = {
       val libName = importName(lib.name)
       val name    = Name(libName.unescaped + "Require")
@@ -35,15 +36,17 @@ object ImportTree {
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath = QualifiedName(libName :: name :: Nil),
+        codePath = QualifiedName(ScalaConfig.outputPkg :: libName :: name :: Nil),
       )
     }
 
-    ret match {
+    val withRequire = ret match {
       case x: ModuleTree  => x.copy(members = x.members :+ require)
       case x: PackageTree => x.copy(members = x.members :+ require)
       case other => other
     }
+
+    PackageTree(Nil, ScalaConfig.outputPkg, List(withRequire), NoComments, QualifiedName(List(ScalaConfig.outputPkg)))
   }
 
   def decl(_scope: TsTreeScope, isWithinScalaModule: Boolean, importName: ImportName)(

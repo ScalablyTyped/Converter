@@ -1,5 +1,4 @@
-package typings
-package withDashThemeLib
+package typings.withDashThemeLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package nodeLib.eventsMod
+package typings.nodeLib.eventsMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

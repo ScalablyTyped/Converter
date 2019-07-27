@@ -1,9 +1,8 @@
-package typings
-package expandDashTypeDashParametersLib
+package typings.expandDashTypeDashParametersLib
 
-import expandDashTypeDashParametersLib.expandDashTypeDashParametersLibStrings.a
-import expandDashTypeDashParametersLib.expandDashTypeDashParametersLibStrings.b
-import expandDashTypeDashParametersLib.expandDashTypeDashParametersLibStrings.c
+import typings.expandDashTypeDashParametersLib.expandDashTypeDashParametersLibStrings.a
+import typings.expandDashTypeDashParametersLib.expandDashTypeDashParametersLibStrings.b
+import typings.expandDashTypeDashParametersLib.expandDashTypeDashParametersLibStrings.c
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

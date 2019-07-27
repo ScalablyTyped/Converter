@@ -1,7 +1,6 @@
-package typings
-package awsDashSdkLib.libConfigMod
+package typings.awsDashSdkLib.libConfigMod
 
-import awsDashSdkLib.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders
+import typings.awsDashSdkLib.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

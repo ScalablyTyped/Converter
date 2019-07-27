@@ -1,7 +1,6 @@
-package typings
-package reactDashTransitionDashGroupLib.reactDashTransitionDashGroupMod
+package typings.reactDashTransitionDashGroupLib.reactDashTransitionDashGroupMod
 
-import reactDashTransitionDashGroupLib.transitionGroupMod.^
+import typings.reactDashTransitionDashGroupLib.transitionGroupMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,8 +1,7 @@
-package typings
-package vueLib
+package typings.vueLib
 
 import org.scalablytyped.runtime.Instantiable1
-import vueLib.typesOptionsMod.Prop
+import typings.vueLib.typesOptionsMod.Prop
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

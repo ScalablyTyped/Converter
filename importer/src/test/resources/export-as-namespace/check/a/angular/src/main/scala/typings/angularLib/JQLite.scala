@@ -1,9 +1,8 @@
-package typings
-package angularLib
+package typings.angularLib
 
-import angularLib.angularMod.autoNs.IInjectorService
 import org.scalablytyped.runtime.NumberDictionary
-import stdLib.HTMLElement
+import typings.angularLib.angularMod.autoNs.IInjectorService
+import typings.stdLib.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

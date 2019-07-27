@@ -1,15 +1,14 @@
-package typings
-package vueLib.typesVueMod
+package typings.vueLib.typesVueMod
 
-import vueLib.typesOptionsMod.AsyncComponent
-import vueLib.typesOptionsMod.Component
-import vueLib.typesOptionsMod.DefaultComputed
-import vueLib.typesOptionsMod.DefaultData
-import vueLib.typesOptionsMod.DefaultMethods
-import vueLib.typesOptionsMod.DefaultProps
-import vueLib.typesVnodeMod.VNode
-import vueLib.typesVnodeMod.VNodeChildren
-import vueLib.typesVnodeMod.VNodeData
+import typings.vueLib.typesOptionsMod.AsyncComponent
+import typings.vueLib.typesOptionsMod.Component
+import typings.vueLib.typesOptionsMod.DefaultComputed
+import typings.vueLib.typesOptionsMod.DefaultData
+import typings.vueLib.typesOptionsMod.DefaultMethods
+import typings.vueLib.typesOptionsMod.DefaultProps
+import typings.vueLib.typesVnodeMod.VNode
+import typings.vueLib.typesVnodeMod.VNodeChildren
+import typings.vueLib.typesVnodeMod.VNodeData
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

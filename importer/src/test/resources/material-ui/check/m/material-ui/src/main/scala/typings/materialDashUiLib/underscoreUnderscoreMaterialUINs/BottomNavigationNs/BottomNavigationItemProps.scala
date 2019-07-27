@@ -1,5 +1,4 @@
-package typings
-package materialDashUiLib.underscoreUnderscoreMaterialUINs.BottomNavigationNs
+package typings.materialDashUiLib.underscoreUnderscoreMaterialUINs.BottomNavigationNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,12 +1,11 @@
-package typings
-package electronLib.ElectronNs
+package typings.electronLib.ElectronNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Event
-  extends stdLib.Event {
+  extends typings.stdLib.Event {
   var altKey: js.UndefOr[Boolean] = js.undefined
   var ctrlKey: js.UndefOr[Boolean] = js.undefined
   var metaKey: js.UndefOr[Boolean] = js.undefined

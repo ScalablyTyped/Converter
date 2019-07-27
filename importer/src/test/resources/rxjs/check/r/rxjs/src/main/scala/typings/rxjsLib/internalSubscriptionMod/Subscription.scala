@@ -1,7 +1,6 @@
-package typings
-package rxjsLib.internalSubscriptionMod
+package typings.rxjsLib.internalSubscriptionMod
 
-import rxjsLib.internalTypesMod.SubscriptionLike
+import typings.rxjsLib.internalTypesMod.SubscriptionLike
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

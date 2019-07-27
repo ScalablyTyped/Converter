@@ -1,5 +1,4 @@
-package typings
-package mongooseDashSimpleDashRandomLib
+package typings.mongooseDashSimpleDashRandomLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

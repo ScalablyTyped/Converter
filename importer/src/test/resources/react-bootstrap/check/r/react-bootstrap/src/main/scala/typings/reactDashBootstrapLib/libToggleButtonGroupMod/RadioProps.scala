@@ -1,7 +1,6 @@
-package typings
-package reactDashBootstrapLib.libToggleButtonGroupMod
+package typings.reactDashBootstrapLib.libToggleButtonGroupMod
 
-import reactDashBootstrapLib.reactDashBootstrapLibStrings.radio
+import typings.reactDashBootstrapLib.reactDashBootstrapLibStrings.radio
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

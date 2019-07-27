@@ -221,7 +221,7 @@ object IdentifyReactComponents {
     }
 
   object Names {
-    val React         = List(Name("reactLib"), Name("reactMod"))
+    val React         = List(ScalaConfig.outputPkg, Name("react"), Name("reactMod"))
     val Component     = QualifiedName(React :+ Name("Component"))
     val ComponentType = QualifiedName(React :+ Name("ComponentType"))
 

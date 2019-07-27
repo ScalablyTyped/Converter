@@ -1,5 +1,4 @@
-package typings
-package expressDashServeDashStaticDashCoreLib
+package typings.expressDashServeDashStaticDashCoreLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

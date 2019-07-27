@@ -1,5 +1,4 @@
-package typings
-package unionDashToDashInheritanceLib
+package typings.unionDashToDashInheritanceLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

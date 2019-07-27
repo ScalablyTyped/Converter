@@ -1,17 +1,16 @@
-package typings
-package constDashEnumLib.constDashEnumMod
+package typings.constDashEnumLib.constDashEnumMod
 
-import constDashEnumLib.constDashEnumLibNumbers.`0`
-import constDashEnumLib.constDashEnumLibNumbers.`1`
-import constDashEnumLib.constDashEnumLibNumbers.`22`
+import typings.constDashEnumLib.constDashEnumLibNumbers.`0`
+import typings.constDashEnumLib.constDashEnumLibNumbers.`1`
+import typings.constDashEnumLib.constDashEnumLibNumbers.`22`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - constDashEnumLib.constDashEnumLibNumbers.`0`
-  - constDashEnumLib.constDashEnumLibNumbers.`22`
-  - constDashEnumLib.constDashEnumLibNumbers.`1`
+  - typings.constDashEnumLib.constDashEnumLibNumbers.`0`
+  - typings.constDashEnumLib.constDashEnumLibNumbers.`22`
+  - typings.constDashEnumLib.constDashEnumLibNumbers.`1`
 */
 trait Foo2 extends js.Object
 

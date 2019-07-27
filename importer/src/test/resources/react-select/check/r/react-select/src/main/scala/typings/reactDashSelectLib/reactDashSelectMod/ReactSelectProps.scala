@@ -1,7 +1,6 @@
-package typings
-package reactDashSelectLib.reactDashSelectMod
+package typings.reactDashSelectLib.reactDashSelectMod
 
-import reactLib.reactMod.Props
+import typings.reactLib.reactMod.Props
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,5 +1,4 @@
-package typings
-package materialDashUiLib
+package typings.materialDashUiLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

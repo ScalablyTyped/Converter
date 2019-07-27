@@ -1,5 +1,4 @@
-package typings
-package reactDashSelectLib.reactDashSelectMod
+package typings.reactDashSelectLib.reactDashSelectMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

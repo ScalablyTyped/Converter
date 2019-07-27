@@ -1,9 +1,8 @@
-package typings
-package angularLib.angularMod.autoNs
+package typings.angularLib.angularMod.autoNs
 
-import angularLib.Anon_Args
-import angularLib.angularMod.Global.Function
-import angularLib.angularMod.Injectable
+import typings.angularLib.Anon_Args
+import typings.angularLib.angularMod.Global.Function
+import typings.angularLib.angularMod.Injectable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

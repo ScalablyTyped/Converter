@@ -5,12 +5,12 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.scalajs.{ContainerTree, Name, TreeScope, transforms => S}
+import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
 import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.collection.immutable.SortedSet
 
-class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -26,38 +26,49 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
         PhaseRes.Ignore()
 
       case lib: LibTs =>
-        val knownLibs = garbageCollectLibs(lib)
-
+        val knownLibs  = garbageCollectLibs(lib)
         val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
+
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>
             val scalaName = importName(lib.name)
+
             val scope = new TreeScope.Root(
               libName       = scalaName,
-              _dependencies = scalaDeps.map { case (_, l) => l.packageTree.name -> l.packageTree },
+              _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic,
             )
 
             logger.warn(s"Processing ${lib.name.value}")
 
-            val ScalaTransforms = List[ContainerTree => ContainerTree](
+            /** Some of the transformations were written before we added the `typings` outermost package.
+              *  This maintains that somewhat simpler world view */
+            object Adapter {
+              def apply(scope: TreeScope)(f: (ContainerTree, TreeScope) => ContainerTree): PackageTree => PackageTree = {
+                case pkg @ PackageTree(_, _, List(one: ContainerTree), _, _) =>
+                  pkg.copy(members = List(f(one, scope / pkg)))
+                case other => sys.error(s"Expected top level package, got: ${other}")
+              }
+            }
+
+            val ScalaTransforms = List[PackageTree => PackageTree](
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
-                S.CleanIllegalNames(OutputPkg) >>
+                S.CleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>
-                S.Deduplicator visitContainerTree scope,
-              S.FakeLiterals(scope),
-              S.UnionToInheritance(scope, _, scalaName), // after FakeLiterals
-              S.LimitUnionLength visitContainerTree scope, // after UnionToInheritance
+                S.Deduplicator visitPackageTree scope,
+              Adapter(scope)((tree, s) => S.FakeLiterals(s)(tree)),
+              Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
+              S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
               S.Companions >>
-                S.RemoveMultipleInheritance visitContainerTree scope,
-              S.CombineOverloads visitContainerTree scope, //must have stable types, so FakeLiterals run before
-              S.FilterMemberOverrides visitContainerTree scope, //
-              S.InferMemberOverrides visitContainerTree scope, //runs in phase after FilterMemberOverrides
+                S.RemoveMultipleInheritance visitPackageTree scope,
+              S.CombineOverloads visitPackageTree scope, //must have stable types, so FakeLiterals run before
+              S.FilterMemberOverrides visitPackageTree scope, //
+              S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
-                S.Sorter visitContainerTree scope,
-              S.CollectReactComponents(scope, _),
+                S.Sorter visitPackageTree scope,
+              Adapter(scope)((tree, s) => S.CollectReactComponents(s, tree)),
             )
 
             val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger, importName)) {

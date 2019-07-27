@@ -1,9 +1,8 @@
-package typings
-package fpDashTsLib.libEitherTMod
+package typings.fpDashTsLib.libEitherTMod
 
-import fpDashTsLib.libEitherMod.Either
-import fpDashTsLib.libEitherMod.URI
-import fpDashTsLib.libHKTMod.HKT
+import typings.fpDashTsLib.libEitherMod.Either
+import typings.fpDashTsLib.libEitherMod.URI
+import typings.fpDashTsLib.libHKTMod.HKT
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

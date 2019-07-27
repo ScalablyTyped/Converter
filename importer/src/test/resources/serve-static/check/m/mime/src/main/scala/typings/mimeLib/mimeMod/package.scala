@@ -1,5 +1,4 @@
-package typings
-package mimeLib
+package typings.mimeLib
 
 import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js

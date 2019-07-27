@@ -1,15 +1,14 @@
-package typings
-package vueLib.typesOptionsMod
+package typings.vueLib.typesOptionsMod
 
 import org.scalablytyped.runtime.StringDictionary
-import stdLib.Element
-import stdLib.Error
-import stdLib.Record
-import vueLib.Anon_Event
-import vueLib.typesVnodeMod.VNode
-import vueLib.typesVueMod.CreateElement
-import vueLib.typesVueMod.Vue
-import vueLib.typesVueMod.VueConstructor
+import typings.stdLib.Element
+import typings.stdLib.Error
+import typings.stdLib.Record
+import typings.vueLib.Anon_Event
+import typings.vueLib.typesVnodeMod.VNode
+import typings.vueLib.typesVueMod.CreateElement
+import typings.vueLib.typesVueMod.Vue
+import typings.vueLib.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

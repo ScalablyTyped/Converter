@@ -1,5 +1,4 @@
-package typings
-package reactDashIconDashBaseLib.reactDashIconDashBaseMod
+package typings.reactDashIconDashBaseLib.reactDashIconDashBaseMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

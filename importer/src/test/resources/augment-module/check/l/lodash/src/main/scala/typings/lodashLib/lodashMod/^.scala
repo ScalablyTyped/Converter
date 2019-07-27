@@ -1,5 +1,4 @@
-package typings
-package lodashLib.lodashMod
+package typings.lodashLib.lodashMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

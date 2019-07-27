@@ -1,5 +1,4 @@
-package typings
-package saxLib.saxMod
+package typings.saxLib.saxMod
 
 import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js

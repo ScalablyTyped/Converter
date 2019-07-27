@@ -1,5 +1,4 @@
-package typings
-package lodashLib.fpCurryMod
+package typings.lodashLib.fpCurryMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

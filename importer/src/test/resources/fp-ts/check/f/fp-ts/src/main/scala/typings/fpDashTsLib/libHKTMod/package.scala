@@ -1,5 +1,4 @@
-package typings
-package fpDashTsLib
+package typings.fpDashTsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package reactDashBootstrapLib.libUtilsBootstrapUtilsMod
+package typings.reactDashBootstrapLib.libUtilsBootstrapUtilsMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package typeDashMappingsLib
+package typings.typeDashMappingsLib
 
 import org.scalablytyped.runtime.Instantiable0
 import scala.scalajs.js

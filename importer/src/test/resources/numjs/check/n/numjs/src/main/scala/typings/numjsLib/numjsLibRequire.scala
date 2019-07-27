@@ -1,5 +1,4 @@
-package typings
-package numjsLib
+package typings.numjsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

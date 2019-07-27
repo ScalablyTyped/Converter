@@ -1,7 +1,6 @@
-package typings
-package nodeLib.fsMod
+package typings.nodeLib.fsMod
 
-import nodeLib.streamMod.Writable
+import typings.nodeLib.streamMod.Writable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

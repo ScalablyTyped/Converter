@@ -1,7 +1,6 @@
-package typings
-package angularDashAgilityLib.aaNs
+package typings.angularDashAgilityLib.aaNs
 
-import angularLib.angularMod.IServiceProvider
+import typings.angularLib.angularMod.IServiceProvider
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

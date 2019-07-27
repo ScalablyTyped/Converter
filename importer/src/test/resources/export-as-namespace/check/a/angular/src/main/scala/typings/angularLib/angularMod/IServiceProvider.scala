@@ -1,5 +1,4 @@
-package typings
-package angularLib.angularMod
+package typings.angularLib.angularMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

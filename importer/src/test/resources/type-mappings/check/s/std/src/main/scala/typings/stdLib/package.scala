@@ -28,22 +28,22 @@ package object stdLib {
     */
   type Partial[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ P in keyof T ]:? T[P]}
-    */ stdLib.stdLibStrings.Partial with T
+    */ typings.stdLib.stdLibStrings.Partial with T
   /**
     * From T pick a set of properties K
     */
   type Pick[T, K /* <: String */] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ P in K ]: T[P]}
-    */ stdLib.stdLibStrings.Pick with T
+    */ typings.stdLib.stdLibStrings.Pick with T
   type Proxify[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
-    */ stdLib.stdLibStrings.Proxify with js.Any
+    */ typings.stdLib.stdLibStrings.Proxify with js.Any
   /**
     * Make all properties in T readonly
     */
   type Readonly[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {readonly [ P in keyof T ]: T[P]}
-    */ stdLib.stdLibStrings.Readonly with T
+    */ typings.stdLib.stdLibStrings.Readonly with T
   /**
     * Construct a type with a set of properties K of type T
     */
@@ -53,7 +53,7 @@ package object stdLib {
     */
   type Required[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ P in keyof T ]: -? T[P]}
-    */ stdLib.stdLibStrings.Required with T
+    */ typings.stdLib.stdLibStrings.Required with T
   /**
     * Obtain the return type of a function type
     */

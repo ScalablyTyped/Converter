@@ -1,9 +1,8 @@
-package typings
-package reactLib.reactMod
+package typings.reactLib.reactMod
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import stdLib.Partial
+import typings.stdLib.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

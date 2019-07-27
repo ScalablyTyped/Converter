@@ -1,5 +1,4 @@
-package typings
-package insightLib
+package typings.insightLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

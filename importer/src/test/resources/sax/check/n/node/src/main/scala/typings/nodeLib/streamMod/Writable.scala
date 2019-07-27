@@ -1,8 +1,7 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
-import nodeLib.NodeJSNs.WritableStream
-import nodeLib.nodeLibStrings.close
+import typings.nodeLib.NodeJSNs.WritableStream
+import typings.nodeLib.nodeLibStrings.close
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

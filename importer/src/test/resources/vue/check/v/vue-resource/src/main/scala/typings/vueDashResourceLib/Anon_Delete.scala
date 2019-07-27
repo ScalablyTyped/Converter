@@ -1,9 +1,8 @@
-package typings
-package vueDashResourceLib
+package typings.vueDashResourceLib
 
-import vueDashResourceLib.vuejsNs.$http
-import vueDashResourceLib.vuejsNs.HttpOptions
-import vueDashResourceLib.vuejsNs.HttpResponse
+import typings.vueDashResourceLib.vuejsNs.$http
+import typings.vueDashResourceLib.vuejsNs.HttpOptions
+import typings.vueDashResourceLib.vuejsNs.HttpResponse
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

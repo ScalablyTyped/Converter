@@ -1,7 +1,6 @@
-package typings
-package awsDashSdkLib.clientsDynamodbMod
+package typings.awsDashSdkLib.clientsDynamodbMod
 
-import awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
+import typings.awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,7 +8,7 @@ import scala.scalajs.js.annotation._
 @JSImport("aws-sdk/clients/dynamodb", "Converter")
 @js.native
 class Converter ()
-  extends awsDashSdkLib.libDynamodbConverterMod.Converter
+  extends typings.awsDashSdkLib.libDynamodbConverterMod.Converter
 
 /* static members */
 @JSImport("aws-sdk/clients/dynamodb", "Converter")

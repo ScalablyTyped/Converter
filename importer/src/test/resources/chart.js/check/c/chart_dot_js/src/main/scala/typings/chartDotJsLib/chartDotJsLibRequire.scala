@@ -1,5 +1,4 @@
-package typings
-package chartDotJsLib
+package typings.chartDotJsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

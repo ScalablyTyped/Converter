@@ -1,7 +1,6 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
-import nodeLib.Error
+import typings.nodeLib.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
