@@ -88,11 +88,6 @@ object UnionToInheritance {
     addedInheritance(withRewrittenTypes, newParentsByCodePath)
   }
 
-  def patchCodePath(ta: TypeAliasTree): TypeAliasTree = {
-    val newName = Name("_" + ta.name.unescaped)
-    ta.copy(name = newName, codePath = QualifiedName(ta.codePath.parts.init :+ newName))
-  }
-
   def typesToInterfaces(
       c:                    ContainerTree,
       indexedRewrites:      Map[QualifiedName, Rewrite],
@@ -113,7 +108,7 @@ object UnionToInheritance {
         indexedRewrites(ta.codePath) match {
           case Rewrite(_, _, Nil) =>
             val cls = ClassTree(
-              List(ScalaJSDefined),
+              List(Annotation.ScalaJSDefined),
               ta.name,
               ta.tparams,
               Nil,
@@ -129,7 +124,7 @@ object UnionToInheritance {
           case Rewrite(_, _, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
-              List(ScalaJSDefined),
+              List(Annotation.ScalaJSDefined),
               patchedTa.name,
               ta.tparams,
               newParentsByCodePath.getOrElse(ta.codePath, Nil).map(_.instantiate(ta.tparams)),
@@ -155,6 +150,11 @@ object UnionToInheritance {
     c.withMembers(newMembers)
   }
 
+  def patchCodePath(ta: TypeAliasTree): TypeAliasTree = {
+    val newName = Name("_" + ta.name.unescaped)
+    ta.copy(name = newName, codePath = QualifiedName(ta.codePath.parts.init :+ newName))
+  }
+
   def addedInheritance(
       c:                    ContainerTree,
       newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]],
@@ -172,97 +172,95 @@ object UnionToInheritance {
         }
       case other => other
     })
-}
 
-private final case class Rewrite(original: TypeAliasTree, asInheritance: Seq[TypeRef], unchanged: Seq[TypeRef])
+  final case class Rewrite(original: TypeAliasTree, asInheritance: Seq[TypeRef], unchanged: Seq[TypeRef])
 
-private object Rewrite {
-  def identify(inLib: Name, p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
-    def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] =
-      p.members.flatMap {
-        case p:  ContainerTree => identify(inLib, p, scope / p)
-        case ta: TypeAliasTree => canRewrite(inLib, ta, scope / ta).toList
-        case _ => Nil
-      }
+  object Rewrite {
+    def identify(inLib: Name, p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
+      def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] =
+        p.members.flatMap {
+          case p:  ContainerTree => identify(inLib, p, scope / p)
+          case ta: TypeAliasTree => canRewrite(inLib, ta, scope / ta).toList
+          case _ => Nil
+        }
 
-    val all = go(p, scope)
+      val all = go(p, scope)
 
-    includeUnchangeds(all)
-  }
+      includeUnchangeds(all)
+    }
 
-  private def includeUnchangeds(all: Seq[Rewrite]) = {
-    val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head)
+    private def includeUnchangeds(all: Seq[Rewrite]): Seq[Rewrite] = {
+      val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head)
 
-    def recursiveUnchanged(name: QualifiedName): Seq[TypeRef] =
-      allIndexed.get(name) match {
-        case None => Nil
-        case Some(Rewrite(_, asInheritance, unchanged)) =>
-          unchanged ++ asInheritance.flatMap(u => recursiveUnchanged(u.typeName))
-      }
+      def go(name: QualifiedName): Seq[TypeRef] =
+        allIndexed.get(name) match {
+          case None => Nil
+          case Some(Rewrite(_, asInheritance, unchanged)) =>
+            unchanged ++ asInheritance.flatMap(u => go(u.typeName))
+        }
 
-    all.map(
-      r => r.copy(unchanged = r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(recursiveUnchanged).distinct),
-    )
-  }
+      all.map(r => r.copy(unchanged = r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(go).distinct))
+    }
 
-  def canRewrite(inLib: Name, ta: TypeAliasTree, scope: TreeScope): Option[Rewrite] =
-    ta.alias match {
-      case TypeRef.Union(types) =>
-        def legalTarget(tr: TypeRef): Boolean =
-          scope.lookup(tr.typeName).exists {
-            case (_:  ClassTree, _)     => true
-            case (ta: TypeAliasTree, _) => canRewrite(inLib, ta, scope).isDefined
-            case _ => false
+    def canRewrite(inLib: Name, ta: TypeAliasTree, scope: TreeScope): Option[Rewrite] =
+      ta.alias match {
+        case TypeRef.Union(types) =>
+          def legalTarget(tr: TypeRef): Boolean =
+            scope.lookup(tr.typeName).exists {
+              case (_:  ClassTree, _)     => true
+              case (ta: TypeAliasTree, _) => canRewrite(inLib, ta, scope).isDefined
+              case _ => false
+            }
+
+          val InLibrary: PartialFunction[TypeRef, TypeRef] = {
+            case tr @ TypeRef(QualifiedName(`inLib` :: _), _, _) if legalTarget(tr) => tr
           }
 
-        val InLibrary: PartialFunction[TypeRef, TypeRef] = {
-          case tr @ TypeRef(QualifiedName(`inLib` :: _), _, _) if legalTarget(tr) => tr
-        }
+          val HasIllegalTypeParams: PartialFunction[TypeRef, TypeRef] = {
+            case tr @ TypeRef(_, targs, _)
+                if targs.exists(x => !scope.isAbstract(x)) || targs.toSet.size =/= targs.size =>
+              tr
+          }
 
-        val HasIllegalTypeParams: PartialFunction[TypeRef, TypeRef] = {
-          case tr @ TypeRef(_, targs, _)
-              if targs.exists(x => !scope.isAbstract(x)) || targs.toSet.size =/= targs.size =>
-            tr
-        }
+          types.partitionCollect2(HasIllegalTypeParams, InLibrary) match {
+            case (_, inLibrary, _) if inLibrary.size <= 1 => None
+            case (illegalTParams, inLibrary, outsideLib) =>
+              Some(Rewrite(ta, inLibrary, illegalTParams ++ outsideLib))
+          }
 
-        types.partitionCollect2(HasIllegalTypeParams, InLibrary) match {
-          case (_, inLibrary, _) if inLibrary.size <= 1 => None
-          case (illegalTParams, inLibrary, outsideLib) =>
-            Some(Rewrite(ta, inLibrary, illegalTParams ++ outsideLib))
-        }
+        case _ => None
+      }
+  }
 
-      case _ => None
+  case class InvertingTypeParamRef(codePath: QualifiedName, tParamRefs: Seq[(TypeParamTree, Option[Int])]) {
+    def instantiate(tparams: Seq[TypeParamTree]): TypeRef =
+      TypeRef(
+        codePath,
+        tParamRefs.map {
+          case (_, Some(idx)) => TypeRef(tparams(idx).name)
+          case (_, None)      => TypeRef.Any
+        }.toList,
+        NoComments,
+      )
+  }
+
+  object InvertingTypeParamRef {
+    def apply(r: Rewrite): Seq[(QualifiedName, InvertingTypeParamRef)] = {
+      val parentType: TypeAliasTree =
+        if (r.unchanged.isEmpty) r.original else patchCodePath(r.original)
+
+      r.asInheritance.map(
+        (newParent: TypeRef) => {
+          val tParamReferencedAt: Seq[(TypeParamTree, Option[Int])] =
+            parentType.tparams.map(
+              tparam =>
+                tparam -> newParent.targs.zipWithIndex.collectFirst {
+                  case (x, idx) if x.name === tparam.name => idx
+                },
+            )
+          newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
+        },
+      )
     }
-}
-
-case class InvertingTypeParamRef(codePath: QualifiedName, tParamRefs: Seq[(TypeParamTree, Option[Int])]) {
-  def instantiate(tparams: Seq[TypeParamTree]): TypeRef =
-    TypeRef(
-      codePath,
-      tParamRefs.map {
-        case (_, Some(idx)) => TypeRef(tparams(idx).name)
-        case (_, None)      => TypeRef.Any
-      }.toList,
-      NoComments,
-    )
-}
-
-object InvertingTypeParamRef {
-  def apply(r: Rewrite): Seq[(QualifiedName, InvertingTypeParamRef)] = {
-    val parentType: TypeAliasTree =
-      if (r.unchanged.isEmpty) r.original else UnionToInheritance.patchCodePath(r.original)
-
-    r.asInheritance.map(
-      (newParent: TypeRef) => {
-        val tParamReferencedAt: Seq[(TypeParamTree, Option[Int])] =
-          parentType.tparams.map(
-            tparam =>
-              tparam -> newParent.targs.zipWithIndex.collectFirst {
-                case (x, idx) if x.name === tparam.name => idx
-              },
-          )
-        newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
-      },
-    )
   }
 }

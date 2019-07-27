@@ -9,17 +9,20 @@ import scala.scalajs.js.annotation._
 @js.native
 class Promise[T, TProgress] protected () extends js.Object {
   def this(executor: js.Function3[
-      /* resolve */ js.Function1[/* value */ T | js.Thenable[T], scala.Unit], 
-      /* reject */ js.Function1[/* reason */ js.Any, scala.Unit], 
-      /* progress */ js.Function1[/* progress */ TProgress, scala.Unit], 
-      scala.Unit
-    ]) = this()
-  def this(executor: js.Function3[
-      /* resolve */ js.Function1[/* value */ T | js.Thenable[T], scala.Unit], 
-      /* reject */ js.Function1[/* reason */ js.Any, scala.Unit], 
-      /* progress */ js.Function1[/* progress */ TProgress, scala.Unit], 
-      scala.Unit
-    ], oncancel: js.Function0[scala.Unit]) = this()
+        /* resolve */ js.Function1[/* value */ T | js.Thenable[T], scala.Unit], 
+        /* reject */ js.Function1[/* reason */ js.Any, scala.Unit], 
+        /* progress */ js.Function1[/* progress */ TProgress, scala.Unit], 
+        scala.Unit
+      ]) = this()
+  def this(
+    executor: js.Function3[
+        /* resolve */ js.Function1[/* value */ T | js.Thenable[T], scala.Unit], 
+        /* reject */ js.Function1[/* reason */ js.Any, scala.Unit], 
+        /* progress */ js.Function1[/* progress */ TProgress, scala.Unit], 
+        scala.Unit
+      ],
+    oncancel: js.Function0[scala.Unit]
+  ) = this()
 }
 
 /* static members */

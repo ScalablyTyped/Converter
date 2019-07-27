@@ -19,6 +19,8 @@ import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success, Try}
 
+private object GitLock
+
 trait ImporterHarness extends FunSuiteLike {
   val failureCacheDir = os.root / 'tmp / 'tso / 'compileFailures
   os.makeDir.all(failureCacheDir)
@@ -117,7 +119,7 @@ trait ImporterHarness extends FunSuiteLike {
         if (update) {
           os.remove.all(checkFolder)
           os.copy(targetFolder, checkFolder)
-          synchronized(%("git", "add", checkFolder))
+          GitLock.synchronized(%("git", "add", checkFolder))
         }
 
         Try(%%("diff", "-Naur", checkFolder, targetFolder)) match {

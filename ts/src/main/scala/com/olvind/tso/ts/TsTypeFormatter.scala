@@ -37,9 +37,9 @@ object TsTypeFormatter {
 
   def level(l: ProtectionLevel): Option[String] =
     l match {
-      case Default   => None
-      case Private   => Some("private")
-      case Protected => Some("protected")
+      case ProtectionLevel.Default   => None
+      case ProtectionLevel.Private   => Some("private")
+      case ProtectionLevel.Protected => Some("protected")
     }
 
   def member(m: TsMember): String = m match {

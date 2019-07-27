@@ -50,7 +50,7 @@ object FakeLiterals {
               val codePath = _s.codePath + moduleName + name
               val `trait` =
                 ClassTree(
-                  Seq(JsNative),
+                  Seq(Annotation.JsNative),
                   name,
                   Nil,
                   Nil,
@@ -63,8 +63,8 @@ object FakeLiterals {
                 )
               val `def` =
                 MethodTree(
-                  Annotation.jsName(name) :+ Inline,
-                  Default,
+                  Annotation.jsName(name) :+ Annotation.Inline,
+                  ProtectionLevel.Default,
                   name,
                   Nil,
                   Nil,

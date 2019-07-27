@@ -102,9 +102,9 @@ object ImportContainer {
     val scalaName = importName(name)
 
     val container: ContainerTree = if (inModule) {
-      val nameAnns: Option[JsName] =
+      val nameAnns: Option[Annotation.JsName] =
         name match {
-          case x: TsIdentNamespace if isWithinScalaModule => Option(JsName(Name(x.value)))
+          case x: TsIdentNamespace if isWithinScalaModule => Option(Annotation.JsName(Name(x.value)))
           case _ => None
         }
 

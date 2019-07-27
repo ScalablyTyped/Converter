@@ -67,7 +67,11 @@ final case class ClassTree(
   lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 
-  def isNative: Boolean = annotations.nonEmpty
+  def isNative: Boolean = annotations.exists {
+    case Annotation.JsNative       => true
+    case Annotation.ScalaJSDefined => true
+    case _                         => false
+  }
 }
 
 final case class ModuleTree(
@@ -79,7 +83,11 @@ final case class ModuleTree(
     codePath:    QualifiedName,
 ) extends ContainerTree
     with InheritanceTree {
-  def isNative: Boolean = annotations.nonEmpty
+  def isNative: Boolean = annotations.exists {
+    case Annotation.JsNative       => true
+    case Annotation.ScalaJSDefined => true
+    case _                         => false
+  }
 }
 
 final case class TypeAliasTree(
@@ -119,6 +127,9 @@ final case class FieldTree(
   def withSuffix[T: ToSuffix](t: T): FieldTree =
     renamed(name withSuffix t)
 
+  def originalName: Name =
+    annotations.collectFirst { case Annotation.JsName(name) => name } getOrElse name
+
   def renamed(newName: Name): FieldTree =
     copy(
       name        = newName,
@@ -145,6 +156,9 @@ final case class MethodTree(
   def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name withSuffix t)
 
+  def originalName: Name =
+    annotations.collectFirst { case Annotation.JsName(name) => name } getOrElse name
+
   def renamed(newName: Name): MethodTree =
     copy(
       name        = newName,
@@ -161,8 +175,8 @@ final case class CtorTree(level: ProtectionLevel, params: Seq[ParamTree], commen
 }
 
 object CtorTree {
-  val defaultPublic    = CtorTree(Default, Seq(), NoComments)
-  val defaultProtected = CtorTree(Protected, Seq(), NoComments)
+  val defaultPublic    = CtorTree(ProtectionLevel.Default, Seq(), NoComments)
+  val defaultProtected = CtorTree(ProtectionLevel.Protected, Seq(), NoComments)
 }
 
 final case class TypeParamTree(name: Name, upperBound: Option[TypeRef], comments: Comments) extends Tree
@@ -210,6 +224,8 @@ object TypeRef {
 
   val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
   val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)
+
+  val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
   def StringDictionary(typeParam: TypeRef, comments: Comments): TypeRef =
     TypeRef(QualifiedName.StringDictionary, Seq(typeParam), comments)

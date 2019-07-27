@@ -62,7 +62,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
       case Nil      => None
       case Seq(one) => Some(TsTypeFunction(one))
       case more =>
-        Some(TsTypeObject(NoComments, more.map(sig => TsMemberCall(NoComments, Default, sig))))
+        Some(TsTypeObject(NoComments, more.map(sig => TsMemberCall(NoComments, ProtectionLevel.Default, sig))))
     }
 
     TsTypeIntersect.simplified(combinedFunctions.foldLeft(fields)(_ :+ _) filterNot toIgnore)
