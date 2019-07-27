@@ -235,7 +235,7 @@ object Phase1ReadTypescript {
           T.ExpandTypeParams >>
           T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
           T.UnionTypesFromKeyOf >>
-          T.DropPrototypes >>
+          T.DropProperties >>
           T.InferReturnTypes >>
           T.RewriteTypeThis >>
           T.InlineConstEnum >>
