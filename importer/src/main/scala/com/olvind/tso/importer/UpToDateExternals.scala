@@ -63,6 +63,13 @@ object UpToDateExternals {
 
     if (!offline) {
       logger.warn(s"Updating libraries in $nodeModulesPath")
+
+      /* because of course *cough* somebody distributes their whole history, and `npm` refuses to update when that happens */
+      os.walk.stream(folder).foreach {
+        case dir if os.isDir(dir) && dir.last === ".git" => os.remove.all(dir)
+        case _                                           => ()
+      }
+
       cmd.runVerbose(
         npmCommand,
         'upgrade,
@@ -92,9 +99,10 @@ object UpToDateExternals {
 
       logger.warn(s"Trimming $nodeModulesPath")
 
-      os.walk(folder).foreach {
+      os.walk.stream(folder).foreach {
         case link if os.isLink(link)                              => os.remove.all(link)
         case file if os.isFile(file) && !KeepExtensions(file.ext) => os.remove.all(file)
+        case dir if os.isDir(dir) && dir.last === ".git"          => os.remove.all(dir)
         case _                                                    => ()
       }
     }
