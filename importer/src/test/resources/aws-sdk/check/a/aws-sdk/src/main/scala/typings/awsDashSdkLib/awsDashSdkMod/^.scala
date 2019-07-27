@@ -1,6 +1,7 @@
 package typings
 package awsDashSdkLib.awsDashSdkMod
 
+import awsDashSdkLib.libConfigMod.Config
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,6 +9,6 @@ import scala.scalajs.js.annotation._
 @JSImport("aws-sdk", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  val config: awsDashSdkLib.libConfigMod.Config = js.native
+  val config: Config = js.native
 }
 

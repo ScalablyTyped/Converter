@@ -25,6 +25,6 @@ class Firestore () extends js.Object {
     * @param {object} settings The settings to use for all Firestore
     * operations.
     */
-  def settings(settings: Settings): scala.Unit = js.native
+  def settings(settings: Settings): Unit = js.native
 }
 

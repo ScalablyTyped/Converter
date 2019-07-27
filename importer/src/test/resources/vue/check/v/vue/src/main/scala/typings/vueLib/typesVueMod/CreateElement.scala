@@ -1,83 +1,47 @@
 package typings
 package vueLib.typesVueMod
 
+import vueLib.typesOptionsMod.AsyncComponent
+import vueLib.typesOptionsMod.Component
+import vueLib.typesOptionsMod.DefaultComputed
+import vueLib.typesOptionsMod.DefaultData
+import vueLib.typesOptionsMod.DefaultMethods
+import vueLib.typesOptionsMod.DefaultProps
+import vueLib.typesVnodeMod.VNode
+import vueLib.typesVnodeMod.VNodeChildren
+import vueLib.typesVnodeMod.VNodeData
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait CreateElement extends js.Object {
-  def apply(): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: java.lang.String): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: java.lang.String, children: vueLib.typesVnodeMod.VNodeChildren): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: java.lang.String, data: vueLib.typesVnodeMod.VNodeData): vueLib.typesVnodeMod.VNode = js.native
+  def apply(): VNode = js.native
+  def apply(tag: String): VNode = js.native
+  def apply(tag: String, children: VNodeChildren): VNode = js.native
+  def apply(tag: String, data: VNodeData): VNode = js.native
+  def apply(tag: String, data: VNodeData, children: VNodeChildren): VNode = js.native
+  def apply(tag: js.Function0[Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]]): VNode = js.native
   def apply(
-    tag: java.lang.String,
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
+    tag: js.Function0[Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]],
+    children: VNodeChildren
+  ): VNode = js.native
   def apply(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ]
-  ): vueLib.typesVnodeMod.VNode = js.native
+    tag: js.Function0[Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]],
+    data: VNodeData
+  ): VNode = js.native
   def apply(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ],
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  def apply(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ],
-    data: vueLib.typesVnodeMod.VNodeData
-  ): vueLib.typesVnodeMod.VNode = js.native
-  def apply(
-    tag: js.Function0[
-      vueLib.typesOptionsMod.Component[
-        vueLib.typesOptionsMod.DefaultData[Vue], 
-        vueLib.typesOptionsMod.DefaultMethods[Vue], 
-        vueLib.typesOptionsMod.DefaultComputed, 
-        vueLib.typesOptionsMod.DefaultProps
-      ]
-    ],
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _]): vueLib.typesVnodeMod.VNode = js.native
-  def apply(
-    tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _],
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _], data: vueLib.typesVnodeMod.VNodeData): vueLib.typesVnodeMod.VNode = js.native
-  def apply(
-    tag: vueLib.typesOptionsMod.AsyncComponent[_, _, _, _],
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: vueLib.typesOptionsMod.Component[_, _, _, _]): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: vueLib.typesOptionsMod.Component[_, _, _, _], children: vueLib.typesVnodeMod.VNodeChildren): vueLib.typesVnodeMod.VNode = js.native
-  def apply(tag: vueLib.typesOptionsMod.Component[_, _, _, _], data: vueLib.typesVnodeMod.VNodeData): vueLib.typesVnodeMod.VNode = js.native
-  def apply(
-    tag: vueLib.typesOptionsMod.Component[_, _, _, _],
-    data: vueLib.typesVnodeMod.VNodeData,
-    children: vueLib.typesVnodeMod.VNodeChildren
-  ): vueLib.typesVnodeMod.VNode = js.native
+    tag: js.Function0[Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]],
+    data: VNodeData,
+    children: VNodeChildren
+  ): VNode = js.native
+  def apply(tag: AsyncComponent[_, _, _, _]): VNode = js.native
+  def apply(tag: AsyncComponent[_, _, _, _], children: VNodeChildren): VNode = js.native
+  def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData): VNode = js.native
+  def apply(tag: AsyncComponent[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
+  def apply(tag: Component[_, _, _, _]): VNode = js.native
+  def apply(tag: Component[_, _, _, _], children: VNodeChildren): VNode = js.native
+  def apply(tag: Component[_, _, _, _], data: VNodeData): VNode = js.native
+  def apply(tag: Component[_, _, _, _], data: VNodeData, children: VNodeChildren): VNode = js.native
 }
 

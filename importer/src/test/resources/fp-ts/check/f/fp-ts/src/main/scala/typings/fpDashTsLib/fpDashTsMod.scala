@@ -1,6 +1,7 @@
 package typings
 package fpDashTsLib
 
+import fpDashTsLib.fpDashTsLibStrings.Either
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +12,7 @@ object fpDashTsMod extends js.Object {
   @JSName("either")
   @js.native
   object eitherNs extends js.Object {
-    val URI: fpDashTsLib.fpDashTsLibStrings.Either = js.native
+    val URI: Either = js.native
   }
   
   @JSName("task")

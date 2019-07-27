@@ -1,6 +1,7 @@
 package typings
 package nodeLib
 
+import nodeLib.NodeJSNs.Global
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,6 +14,6 @@ object ^ extends js.Object {
   *                   GLOBAL                      *
   *                                               *
   ************************************************/
-  var global: nodeLib.NodeJSNs.Global = js.native
+  var global: Global = js.native
 }
 

@@ -1,6 +1,7 @@
 package typings
 package atStorybookVueLib.atStorybookVueMod
 
+import webpackDashEnvLib.NodeModule
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,10 +9,10 @@ import scala.scalajs.js.annotation._
 @JSImport("@storybook/vue", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  def addDecorator(decorator: StoryDecorator): scala.Unit = js.native
-  def configure(loaders: js.Function0[scala.Unit], module: webpackDashEnvLib.NodeModule): scala.Unit = js.native
+  def addDecorator(decorator: StoryDecorator): Unit = js.native
+  def configure(loaders: js.Function0[Unit], module: NodeModule): Unit = js.native
   def getStorybook(): js.Array[StoryStore] = js.native
-  def setAddon(addon: Addon): scala.Unit = js.native
-  def storiesOf(kind: java.lang.String, module: webpackDashEnvLib.NodeModule): Story = js.native
+  def setAddon(addon: Addon): Unit = js.native
+  def storiesOf(kind: String, module: NodeModule): Story = js.native
 }
 

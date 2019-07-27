@@ -8,10 +8,10 @@ import scala.scalajs.js.annotation._
 @JSImport("mime", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  val default_type: java.lang.String = js.native
-  def define(mimes: TypeMap): scala.Unit = js.native
-  def define(mimes: TypeMap, force: scala.Boolean): scala.Unit = js.native
-  def getExtension(mime: java.lang.String): java.lang.String | scala.Null = js.native
-  def getType(path: java.lang.String): java.lang.String | scala.Null = js.native
+  val default_type: String = js.native
+  def define(mimes: TypeMap): Unit = js.native
+  def define(mimes: TypeMap, force: Boolean): Unit = js.native
+  def getExtension(mime: String): String | Null = js.native
+  def getType(path: String): String | Null = js.native
 }
 

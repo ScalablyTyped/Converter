@@ -17,11 +17,11 @@ trait LoDashStatic extends js.Object {
     * @param addend The second number to add.
     * @return Returns the sum.
     */
-  def add(augend: scala.Double, addend: scala.Double): scala.Double = js.native
+  def add(augend: Double, addend: Double): Double = js.native
   /**
     * @see _.at
     */
-  def at[T /* <: js.Object */](`object`: T, props: Many[java.lang.String]*): js.Array[/* import warning: ImportType.apply Failed type conversion: T[keyof T] */ js.Any] = js.native
+  def at[T /* <: js.Object */](`object`: T, props: Many[String]*): js.Array[/* import warning: ImportType.apply Failed type conversion: T[keyof T] */ js.Any] = js.native
   /**
     * Creates an array of elements corresponding to the given keys, or indexes, of collection. Keys may be
     * specified as individual arguments or as arrays of keys.
@@ -33,6 +33,6 @@ trait LoDashStatic extends js.Object {
   def at[T](`object`: List[T], props: PropertyPath*): js.Array[T] = js.native
   def at[T](props: PropertyPath*): js.Array[T] = js.native
   @JSName("at")
-  def at_T_Object[T /* <: js.Object */](props: Many[java.lang.String]*): js.Array[/* import warning: ImportType.apply Failed type conversion: T[keyof T] */ js.Any] = js.native
+  def at_T_Object[T /* <: js.Object */](props: Many[String]*): js.Array[/* import warning: ImportType.apply Failed type conversion: T[keyof T] */ js.Any] = js.native
 }
 

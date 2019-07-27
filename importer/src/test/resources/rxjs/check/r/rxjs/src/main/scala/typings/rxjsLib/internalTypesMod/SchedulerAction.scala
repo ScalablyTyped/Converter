@@ -1,15 +1,15 @@
 package typings
 package rxjsLib.internalTypesMod
 
+import rxjsLib.internalSubscriptionMod.Subscription
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait SchedulerAction[T]
-  extends rxjsLib.internalSubscriptionMod.Subscription {
-  def schedule(): rxjsLib.internalSubscriptionMod.Subscription = js.native
-  def schedule(state: T): rxjsLib.internalSubscriptionMod.Subscription = js.native
-  def schedule(state: T, delay: scala.Double): rxjsLib.internalSubscriptionMod.Subscription = js.native
+trait SchedulerAction[T] extends Subscription {
+  def schedule(): Subscription = js.native
+  def schedule(state: T): Subscription = js.native
+  def schedule(state: T, delay: Double): Subscription = js.native
 }
 

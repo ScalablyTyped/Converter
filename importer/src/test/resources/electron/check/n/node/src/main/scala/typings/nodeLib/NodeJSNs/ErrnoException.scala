@@ -1,26 +1,26 @@
 package typings
 package nodeLib.NodeJSNs
 
+import nodeLib.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait ErrnoException
-  extends nodeLib.Error {
-  var code: js.UndefOr[java.lang.String] = js.undefined
-  var errno: js.UndefOr[scala.Double] = js.undefined
-  var path: js.UndefOr[java.lang.String] = js.undefined
-  var syscall: js.UndefOr[java.lang.String] = js.undefined
+trait ErrnoException extends Error {
+  var code: js.UndefOr[String] = js.undefined
+  var errno: js.UndefOr[Double] = js.undefined
+  var path: js.UndefOr[String] = js.undefined
+  var syscall: js.UndefOr[String] = js.undefined
 }
 
 object ErrnoException {
   @scala.inline
   def apply(
-    code: java.lang.String = null,
-    errno: scala.Int | scala.Double = null,
-    path: java.lang.String = null,
-    stack: java.lang.String = null,
-    syscall: java.lang.String = null
+    code: String = null,
+    errno: Int | Double = null,
+    path: String = null,
+    stack: String = null,
+    syscall: String = null
   ): ErrnoException = {
     val __obj = js.Dynamic.literal()
     if (code != null) __obj.updateDynamic("code")(code)

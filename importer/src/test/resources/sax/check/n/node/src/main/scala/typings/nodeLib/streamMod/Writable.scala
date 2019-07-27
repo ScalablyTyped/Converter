@@ -1,6 +1,8 @@
 package typings
 package nodeLib.streamMod
 
+import nodeLib.NodeJSNs.WritableStream
+import nodeLib.nodeLibStrings.close
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,19 +11,19 @@ import scala.scalajs.js.annotation._
 @js.native
 class Writable ()
   extends Stream
-     with nodeLib.NodeJSNs.WritableStream {
+     with WritableStream {
   def this(opts: WritableOptions) = this()
-  def end(): scala.Unit = js.native
-  def end(cb: js.Function): scala.Unit = js.native
-  def end(chunk: js.Any): scala.Unit = js.native
-  def end(chunk: js.Any, cb: js.Function): scala.Unit = js.native
-  def end(chunk: js.Any, encoding: java.lang.String): scala.Unit = js.native
-  def end(chunk: js.Any, encoding: java.lang.String, cb: js.Function): scala.Unit = js.native
+  def end(): Unit = js.native
+  def end(cb: js.Function): Unit = js.native
+  def end(chunk: js.Any): Unit = js.native
+  def end(chunk: js.Any, cb: js.Function): Unit = js.native
+  def end(chunk: js.Any, encoding: String): Unit = js.native
+  def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
   /* InferMemberOverrides */
-  override def on(event: java.lang.String, listener: js.Function1[/* repeated */ js.Any, scala.Unit]): this.type = js.native
+  override def on(event: String, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
   /* InferMemberOverrides */
-  override def on(event: js.Symbol, listener: js.Function1[/* repeated */ js.Any, scala.Unit]): this.type = js.native
+  override def on(event: js.Symbol, listener: js.Function1[/* repeated */ js.Any, Unit]): this.type = js.native
   @JSName("on")
-  def on_close(event: nodeLib.nodeLibStrings.close, listener: js.Function0[scala.Unit]): this.type = js.native
+  def on_close(event: close, listener: js.Function0[Unit]): this.type = js.native
 }
 

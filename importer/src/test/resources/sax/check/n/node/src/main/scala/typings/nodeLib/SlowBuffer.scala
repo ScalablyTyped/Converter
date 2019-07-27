@@ -1,6 +1,9 @@
 package typings
 package nodeLib
 
+import org.scalablytyped.runtime.Instantiable1
+import org.scalablytyped.runtime.Instantiable2
+import stdLib.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,24 +12,24 @@ import scala.scalajs.js.annotation._
 @js.native
 class SlowBuffer protected () extends Buffer {
   def this(array: js.Array[_]) = this()
-  def this(size: scala.Double) = this()
-  def this(size: stdLib.Uint8Array) = this()
-  def this(str: java.lang.String) = this()
-  def this(str: java.lang.String, encoding: java.lang.String) = this()
+  def this(size: Double) = this()
+  def this(size: Uint8Array) = this()
+  def this(str: String) = this()
+  def this(str: String, encoding: String) = this()
 }
 
 @JSGlobal("SlowBuffer")
 @js.native
 object SlowBuffer
-  extends org.scalablytyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ java.lang.String, Buffer]
-     with org.scalablytyped.runtime.Instantiable1[
-      (/* array */ js.Array[js.Any]) | (/* size */ scala.Double) | (/* str */ java.lang.String) | (/* size */ stdLib.Uint8Array), 
+  extends Instantiable2[/* str */ String, /* encoding */ String, Buffer]
+     with Instantiable1[
+      (/* array */ js.Array[js.Any]) | (/* size */ Double) | (/* str */ String) | (/* size */ Uint8Array), 
       Buffer
     ] {
-  def byteLength(string: java.lang.String): scala.Double = js.native
-  def byteLength(string: java.lang.String, encoding: java.lang.String): scala.Double = js.native
-  def concat(list: js.Array[nodeLib.Buffer]): nodeLib.Buffer = js.native
-  def concat(list: js.Array[nodeLib.Buffer], totalLength: scala.Double): nodeLib.Buffer = js.native
-  def isBuffer(obj: js.Any): scala.Boolean = js.native
+  def byteLength(string: String): Double = js.native
+  def byteLength(string: String, encoding: String): Double = js.native
+  def concat(list: js.Array[Buffer]): Buffer = js.native
+  def concat(list: js.Array[Buffer], totalLength: Double): Buffer = js.native
+  def isBuffer(obj: js.Any): Boolean = js.native
 }
 

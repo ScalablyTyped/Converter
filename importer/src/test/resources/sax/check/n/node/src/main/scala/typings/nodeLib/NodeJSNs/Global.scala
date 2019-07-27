@@ -1,18 +1,19 @@
 package typings
 package nodeLib.NodeJSNs
 
+import stdLib.ArrayConstrucor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Global extends js.Object {
-  var Array: stdLib.ArrayConstrucor
+  var Array: ArrayConstrucor
   var global: Global
 }
 
 object Global {
   @scala.inline
-  def apply(Array: stdLib.ArrayConstrucor, global: Global): Global = {
+  def apply(Array: ArrayConstrucor, global: Global): Global = {
     val __obj = js.Dynamic.literal(Array = Array, global = global)
   
     __obj.asInstanceOf[Global]

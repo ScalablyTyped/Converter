@@ -13,6 +13,6 @@ class Phaser () extends js.Object
 @JSGlobal("Phaser")
 @js.native
 object Phaser extends js.Object {
-  var VERSION: java.lang.String = js.native
+  var VERSION: String = js.native
 }
 

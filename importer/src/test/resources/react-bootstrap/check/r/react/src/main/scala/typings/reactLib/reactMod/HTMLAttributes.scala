@@ -1,20 +1,21 @@
 package typings
 package reactLib.reactMod
 
+import reactLib.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait HTMLAttributes[T] extends DOMAttributes[T] {
-  var defaultChecked: js.UndefOr[scala.Boolean] = js.undefined
+  var defaultChecked: js.UndefOr[Boolean] = js.undefined
 }
 
 object HTMLAttributes {
   @scala.inline
   def apply[T](
     children: ReactNode = null,
-    dangerouslySetInnerHTML: reactLib.Anon_Html = null,
-    defaultChecked: js.UndefOr[scala.Boolean] = js.undefined
+    dangerouslySetInnerHTML: Anon_Html = null,
+    defaultChecked: js.UndefOr[Boolean] = js.undefined
   ): HTMLAttributes[T] = {
     val __obj = js.Dynamic.literal()
     if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])

@@ -1,6 +1,7 @@
 package typings
 package awsDashSdkLib.clientsDynamodbMod
 
+import awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,6 +13,6 @@ import scala.scalajs.js.annotation._
   */
 class DocumentClient ()
   extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClient {
-  def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with ClientConfiguration) = this()
+  def this(options: DocumentClientOptions with ClientConfiguration) = this()
 }
 

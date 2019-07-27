@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 package object expressDashServeDashStaticDashCoreMod {
   type Handler = RequestHandler
-  type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], scala.Unit]
+  type NextFunction = js.Function1[/* err */ js.UndefOr[js.Any], Unit]
   type RequestHandler = js.Function3[/* req */ Request, /* res */ Response, /* next */ NextFunction, js.Any]
 }

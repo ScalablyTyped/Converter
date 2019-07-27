@@ -1,6 +1,7 @@
 package typings
 package serveDashStaticLib.serveDashStaticMod
 
+import expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Handler
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,9 +9,9 @@ import scala.scalajs.js.annotation._
 @JSImport("serve-static", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  def apply(root: java.lang.String): expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Handler = js.native
-  def apply(root: java.lang.String, options: ServeStaticOptions): expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Handler = js.native
-  def serveStatic(root: java.lang.String): expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Handler = js.native
-  def serveStatic(root: java.lang.String, options: ServeStaticOptions): expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Handler = js.native
+  def apply(root: String): Handler = js.native
+  def apply(root: String, options: ServeStaticOptions): Handler = js.native
+  def serveStatic(root: String): Handler = js.native
+  def serveStatic(root: String, options: ServeStaticOptions): Handler = js.native
 }
 

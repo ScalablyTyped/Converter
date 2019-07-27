@@ -1,10 +1,11 @@
 package typings
 package winstonLib
 
+import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object libWinstonConfigMod {
-  type AbstractConfigSetLevels = org.scalablytyped.runtime.StringDictionary[scala.Double]
+  type AbstractConfigSetLevels = StringDictionary[Double]
 }

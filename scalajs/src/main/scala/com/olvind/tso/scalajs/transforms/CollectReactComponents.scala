@@ -103,7 +103,7 @@ object CollectReactComponents {
           propsName,
           Nil,
           Nil,
-          MemberImpl.Custom(Printer.formatQN(Nil, generatedPropsCompanion.codePath)),
+          MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
           TypeRef.Singleton(comp.props.copy(targs = Nil)),
           isOverride = false,
           NoComments,
@@ -120,7 +120,7 @@ object CollectReactComponents {
       Nil,
       MemberImpl.Custom(
         s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer
-          .formatTypeRef(Nil, 0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]",
+          .formatTypeRef(0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]",
       ),
       TypeRef(Names.ComponentType, comp.props :: Nil, NoComments),
       isOverride = false,

@@ -7,20 +7,20 @@ import scala.scalajs.js.annotation._
 
 trait IConfigstore extends js.Object {
   var all: js.Any
-  var path: java.lang.String
-  def del(key: java.lang.String): scala.Unit
-  def get(key: java.lang.String): js.Any
-  def set(key: java.lang.String, `val`: js.Any): scala.Unit
+  var path: String
+  def del(key: String): Unit
+  def get(key: String): js.Any
+  def set(key: String, `val`: js.Any): Unit
 }
 
 object IConfigstore {
   @scala.inline
   def apply(
     all: js.Any,
-    del: java.lang.String => scala.Unit,
-    get: java.lang.String => js.Any,
-    path: java.lang.String,
-    set: (java.lang.String, js.Any) => scala.Unit
+    del: String => Unit,
+    get: String => js.Any,
+    path: String,
+    set: (String, js.Any) => Unit
   ): IConfigstore = {
     val __obj = js.Dynamic.literal(all = all, del = js.Any.fromFunction1(del), get = js.Any.fromFunction1(get), path = path, set = js.Any.fromFunction2(set))
   

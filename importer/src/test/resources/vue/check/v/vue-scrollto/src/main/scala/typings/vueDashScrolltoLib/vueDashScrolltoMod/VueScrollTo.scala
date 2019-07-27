@@ -1,6 +1,7 @@
 package typings
 package vueDashScrolltoLib.vueDashScrolltoMod
 
+import stdLib.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,14 +10,14 @@ import scala.scalajs.js.annotation._
 trait VueScrollTo extends js.Object {
   @JSName("scrollTo")
   var scrollTo_Original: VueStatic = js.native
-  def scrollTo(element: java.lang.String): scala.Unit = js.native
-  def scrollTo(element: java.lang.String, duration: scala.Double): scala.Unit = js.native
-  def scrollTo(element: java.lang.String, duration: scala.Double, options: Options): scala.Unit = js.native
-  def scrollTo(element: java.lang.String, options: Options): scala.Unit = js.native
-  def scrollTo(element: stdLib.Element): scala.Unit = js.native
-  def scrollTo(element: stdLib.Element, duration: scala.Double): scala.Unit = js.native
-  def scrollTo(element: stdLib.Element, duration: scala.Double, options: Options): scala.Unit = js.native
-  def scrollTo(element: stdLib.Element, options: Options): scala.Unit = js.native
-  def scrollTo(options: Options): scala.Unit = js.native
+  def scrollTo(element: String): Unit = js.native
+  def scrollTo(element: String, duration: Double): Unit = js.native
+  def scrollTo(element: String, duration: Double, options: Options): Unit = js.native
+  def scrollTo(element: String, options: Options): Unit = js.native
+  def scrollTo(element: Element): Unit = js.native
+  def scrollTo(element: Element, duration: Double): Unit = js.native
+  def scrollTo(element: Element, duration: Double, options: Options): Unit = js.native
+  def scrollTo(element: Element, options: Options): Unit = js.native
+  def scrollTo(options: Options): Unit = js.native
 }
 

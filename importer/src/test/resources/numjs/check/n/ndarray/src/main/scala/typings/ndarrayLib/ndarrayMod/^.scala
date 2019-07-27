@@ -9,8 +9,8 @@ import scala.scalajs.js.annotation._
 @js.native
 object ^ extends js.Object {
   def apply[T](data: Data[T]): ndarray[T] = js.native
-  def apply[T](data: Data[T], shape: js.Array[scala.Double]): ndarray[T] = js.native
-  def apply[T](data: Data[T], shape: js.Array[scala.Double], stride: js.Array[scala.Double]): ndarray[T] = js.native
-  def apply[T](data: Data[T], shape: js.Array[scala.Double], stride: js.Array[scala.Double], offset: scala.Double): ndarray[T] = js.native
+  def apply[T](data: Data[T], shape: js.Array[Double]): ndarray[T] = js.native
+  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double]): ndarray[T] = js.native
+  def apply[T](data: Data[T], shape: js.Array[Double], stride: js.Array[Double], offset: Double): ndarray[T] = js.native
 }
 

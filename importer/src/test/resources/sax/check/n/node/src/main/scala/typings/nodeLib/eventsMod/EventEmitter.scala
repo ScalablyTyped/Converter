@@ -13,7 +13,7 @@ class EventEmitter () extends internal
 @JSImport("events", "EventEmitter")
 @js.native
 object EventEmitter extends js.Object {
-  def listenerCount(emitter: nodeLib.eventsMod.EventEmitter, event: java.lang.String): scala.Double = js.native
-  def listenerCount(emitter: nodeLib.eventsMod.EventEmitter, event: js.Symbol): scala.Double = js.native
+  def listenerCount(emitter: EventEmitter, event: String): Double = js.native
+  def listenerCount(emitter: EventEmitter, event: js.Symbol): Double = js.native
 }
 

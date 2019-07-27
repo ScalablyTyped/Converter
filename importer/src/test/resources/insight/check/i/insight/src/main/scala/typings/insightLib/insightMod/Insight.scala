@@ -1,25 +1,21 @@
 package typings
 package insightLib.insightMod
 
+import insightLib.insightMod.insightNs.IConfigstore
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Insight extends js.Object {
-  var clientId: java.lang.String
-  var config: insightLib.insightMod.insightNs.IConfigstore
-  var optOut: scala.Boolean
-  def track(args: java.lang.String*): scala.Unit
+  var clientId: String
+  var config: IConfigstore
+  var optOut: Boolean
+  def track(args: String*): Unit
 }
 
 object Insight {
   @scala.inline
-  def apply(
-    clientId: java.lang.String,
-    config: insightLib.insightMod.insightNs.IConfigstore,
-    optOut: scala.Boolean,
-    track: /* repeated */ java.lang.String => scala.Unit
-  ): Insight = {
+  def apply(clientId: String, config: IConfigstore, optOut: Boolean, track: /* repeated */ String => Unit): Insight = {
     val __obj = js.Dynamic.literal(clientId = clientId, config = config, optOut = optOut, track = js.Any.fromFunction1(track))
   
     __obj.asInstanceOf[Insight]

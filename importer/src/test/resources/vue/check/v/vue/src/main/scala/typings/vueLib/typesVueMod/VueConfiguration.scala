@@ -1,34 +1,37 @@
 package typings
 package vueLib.typesVueMod
 
+import org.scalablytyped.runtime.StringDictionary
+import stdLib.Error
+import stdLib.RegExp
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait VueConfiguration extends js.Object {
-  var devtools: scala.Boolean
-  var ignoredElements: js.Array[java.lang.String | stdLib.RegExp]
-  var keyCodes: org.scalablytyped.runtime.StringDictionary[scala.Double | js.Array[scala.Double]]
+  var devtools: Boolean
+  var ignoredElements: js.Array[String | RegExp]
+  var keyCodes: StringDictionary[Double | js.Array[Double]]
   var optionMergeStrategies: js.Any
-  var performance: scala.Boolean
-  var productionTip: scala.Boolean
-  var silent: scala.Boolean
-  def errorHandler(err: stdLib.Error, vm: Vue, info: java.lang.String): scala.Unit
-  def warnHandler(msg: java.lang.String, vm: Vue, trace: java.lang.String): scala.Unit
+  var performance: Boolean
+  var productionTip: Boolean
+  var silent: Boolean
+  def errorHandler(err: Error, vm: Vue, info: String): Unit
+  def warnHandler(msg: String, vm: Vue, trace: String): Unit
 }
 
 object VueConfiguration {
   @scala.inline
   def apply(
-    devtools: scala.Boolean,
-    errorHandler: (stdLib.Error, Vue, java.lang.String) => scala.Unit,
-    ignoredElements: js.Array[java.lang.String | stdLib.RegExp],
-    keyCodes: org.scalablytyped.runtime.StringDictionary[scala.Double | js.Array[scala.Double]],
+    devtools: Boolean,
+    errorHandler: (Error, Vue, String) => Unit,
+    ignoredElements: js.Array[String | RegExp],
+    keyCodes: StringDictionary[Double | js.Array[Double]],
     optionMergeStrategies: js.Any,
-    performance: scala.Boolean,
-    productionTip: scala.Boolean,
-    silent: scala.Boolean,
-    warnHandler: (java.lang.String, Vue, java.lang.String) => scala.Unit
+    performance: Boolean,
+    productionTip: Boolean,
+    silent: Boolean,
+    warnHandler: (String, Vue, String) => Unit
   ): VueConfiguration = {
     val __obj = js.Dynamic.literal(devtools = devtools, errorHandler = js.Any.fromFunction3(errorHandler), ignoredElements = ignoredElements, keyCodes = keyCodes, optionMergeStrategies = optionMergeStrategies, performance = performance, productionTip = productionTip, silent = silent, warnHandler = js.Any.fromFunction3(warnHandler))
   

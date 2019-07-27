@@ -1,6 +1,8 @@
 package typings
 package insightLib.insightMod
 
+import insightLib.insightMod.insightNs.IConfigstore
+import insightLib.insightMod.insightNs.IOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,14 +10,14 @@ import scala.scalajs.js.annotation._
 @JSImport("insight", JSImport.Namespace)
 @js.native
 class ^ protected () extends Insight {
-  def this(options: insightLib.insightMod.insightNs.IOptions) = this()
+  def this(options: IOptions) = this()
   /* CompleteClass */
-  override var clientId: java.lang.String = js.native
+  override var clientId: String = js.native
   /* CompleteClass */
-  override var config: insightLib.insightMod.insightNs.IConfigstore = js.native
+  override var config: IConfigstore = js.native
   /* CompleteClass */
-  override var optOut: scala.Boolean = js.native
+  override var optOut: Boolean = js.native
   /* CompleteClass */
-  override def track(args: java.lang.String*): scala.Unit = js.native
+  override def track(args: String*): Unit = js.native
 }
 

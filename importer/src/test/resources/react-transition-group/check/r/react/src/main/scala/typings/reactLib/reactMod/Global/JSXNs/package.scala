@@ -1,15 +1,18 @@
 package typings
 package reactLib.reactMod.Global
 
+import reactLib.reactMod.Attributes
+import reactLib.reactMod.ClassAttributes
+import reactLib.reactMod.ReactElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object JSXNs {
   // tslint:disable-next-line:no-empty-interface
-  type Element = reactLib.reactMod.ReactElement
+  type Element = ReactElement
   // tslint:disable-next-line:no-empty-interface
-  type IntrinsicAttributes = reactLib.reactMod.Attributes
+  type IntrinsicAttributes = Attributes
   // tslint:disable-next-line:no-empty-interface
-  type IntrinsicClassAttributes[T] = reactLib.reactMod.ClassAttributes[T]
+  type IntrinsicClassAttributes[T] = ClassAttributes[T]
 }

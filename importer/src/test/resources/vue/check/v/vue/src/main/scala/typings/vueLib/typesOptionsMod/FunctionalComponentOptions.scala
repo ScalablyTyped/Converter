@@ -1,29 +1,27 @@
 package typings
 package vueLib.typesOptionsMod
 
+import vueLib.typesVnodeMod.VNode
+import vueLib.typesVueMod.CreateElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
-  var functional: scala.Boolean
+  var functional: Boolean
   var inject: js.UndefOr[InjectOptions] = js.undefined
-  var name: js.UndefOr[java.lang.String] = js.undefined
+  var name: js.UndefOr[String] = js.undefined
   var props: js.UndefOr[PropDefs] = js.undefined
-  def render(
-    `this`: js.UndefOr[scala.Nothing],
-    createElement: vueLib.typesVueMod.CreateElement,
-    context: RenderContext[Props]
-  ): vueLib.typesVnodeMod.VNode
+  def render(`this`: js.UndefOr[scala.Nothing], createElement: CreateElement, context: RenderContext[Props]): VNode
 }
 
 object FunctionalComponentOptions {
   @scala.inline
   def apply[Props, PropDefs](
-    functional: scala.Boolean,
-    render: (js.UndefOr[scala.Nothing], vueLib.typesVueMod.CreateElement, RenderContext[Props]) => vueLib.typesVnodeMod.VNode,
+    functional: Boolean,
+    render: (js.UndefOr[scala.Nothing], CreateElement, RenderContext[Props]) => VNode,
     inject: InjectOptions = null,
-    name: java.lang.String = null,
+    name: String = null,
     props: PropDefs = null
   ): FunctionalComponentOptions[Props, PropDefs] = {
     val __obj = js.Dynamic.literal(functional = functional, render = js.Any.fromFunction3(render))

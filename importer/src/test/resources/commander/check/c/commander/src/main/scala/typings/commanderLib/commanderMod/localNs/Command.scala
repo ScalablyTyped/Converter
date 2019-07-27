@@ -1,15 +1,20 @@
 package typings
 package commanderLib.commanderMod.localNs
 
+import commanderLib.commanderMod.CommandOptions
+import commanderLib.commanderMod.ParseOptionsResult
+import nodeLib.NodeJSNs.EventEmitter
+import org.scalablytyped.runtime.StringDictionary
+import stdLib.RegExp
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait Command
-  extends nodeLib.NodeJSNs.EventEmitter
-     with /* key */ org.scalablytyped.runtime.StringDictionary[js.Any] {
-  var args: js.Array[java.lang.String] = js.native
+  extends EventEmitter
+     with /* key */ StringDictionary[js.Any] {
+  var args: js.Array[String] = js.native
   /**
     * Register callback `fn` for the command.
     *
@@ -24,30 +29,30 @@ trait Command
     * @param {(...args: any[]) => void} fn
     * @returns {Command} for chaining
     */
-  def action(fn: js.Function1[/* repeated */ js.Any, scala.Unit]): Command = js.native
-  def alias(): java.lang.String = js.native
+  def action(fn: js.Function1[/* repeated */ js.Any, Unit]): commanderLib.commanderMod.localNs.Command = js.native
+  def alias(): String = js.native
   /**
     * Set an alias for the command.
     *
     * @param {string} alias
     * @return {(Command | string)}
     */
-  def alias(alias: java.lang.String): Command = js.native
+  def alias(alias: String): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Allow unknown options on the command line.
     *
     * @param {boolean} [arg] if `true` or omitted, no error will be thrown for unknown options.
     * @returns {Command} for chaining
     */
-  def allowUnknownOption(): Command = js.native
-  def allowUnknownOption(arg: scala.Boolean): Command = js.native
+  def allowUnknownOption(): commanderLib.commanderMod.localNs.Command = js.native
+  def allowUnknownOption(arg: Boolean): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Define argument syntax for the top-level command.
     *
     * @param {string} desc
     * @returns {Command} for chaining
     */
-  def arguments(desc: java.lang.String): Command = js.native
+  def arguments(desc: String): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Add command `name`.
     *
@@ -107,36 +112,36 @@ trait Command
     * @param {CommandOptions} [opts] command options
     * @returns {Command} the new command
     */
-  def command(name: java.lang.String): Command = js.native
-  def command(name: java.lang.String, desc: java.lang.String): Command = js.native
-  def command(name: java.lang.String, desc: java.lang.String, opts: commanderLib.commanderMod.CommandOptions): Command = js.native
-  def description(): java.lang.String = js.native
+  def command(name: String): commanderLib.commanderMod.localNs.Command = js.native
+  def command(name: String, desc: String): commanderLib.commanderMod.localNs.Command = js.native
+  def command(name: String, desc: String, opts: CommandOptions): commanderLib.commanderMod.localNs.Command = js.native
+  def description(): String = js.native
   /**
     * Set the description to `str`.
     *
     * @param {string} str
     * @return {(Command | string)}
     */
-  def description(str: java.lang.String): Command = js.native
+  def description(str: String): commanderLib.commanderMod.localNs.Command = js.native
   /** Output help information and exit.
     *
     * @param {(str: string) => string} [cb]
     */
-  def help(): scala.Unit = js.native
-  def help(cb: js.Function1[/* str */ java.lang.String, java.lang.String]): scala.Unit = js.native
+  def help(): Unit = js.native
+  def help(cb: js.Function1[/* str */ String, String]): Unit = js.native
   /**
     * Get the name of the command.
     *
     * @return {string}
     */
-  def name(): java.lang.String = js.native
+  def name(): String = js.native
   /**
     * Set the name of the command.
     *
     * @param {string} str
     * @return {Command}
     */
-  def name(str: java.lang.String): Command = js.native
+  def name(str: String): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Define option with `flags`, `description` and optional
     * coercion `fn`.
@@ -183,42 +188,38 @@ trait Command
     * @param {*} [defaultValue]
     * @returns {Command} for chaining
     */
-  def option(flags: java.lang.String): Command = js.native
-  def option(flags: java.lang.String, description: java.lang.String): Command = js.native
-  def option(flags: java.lang.String, description: java.lang.String, defaultValue: js.Any): Command = js.native
+  def option(flags: String): commanderLib.commanderMod.localNs.Command = js.native
+  def option(flags: String, description: String): commanderLib.commanderMod.localNs.Command = js.native
+  def option(flags: String, description: String, defaultValue: js.Any): commanderLib.commanderMod.localNs.Command = js.native
+  def option(flags: String, description: String, fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit]): commanderLib.commanderMod.localNs.Command = js.native
   def option(
-    flags: java.lang.String,
-    description: java.lang.String,
-    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit]
-  ): Command = js.native
-  def option(
-    flags: java.lang.String,
-    description: java.lang.String,
-    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, scala.Unit],
+    flags: String,
+    description: String,
+    fn: js.Function2[/* arg1 */ js.Any, /* arg2 */ js.Any, Unit],
     defaultValue: js.Any
-  ): Command = js.native
-  def option(flags: java.lang.String, description: java.lang.String, fn: stdLib.RegExp): Command = js.native
-  def option(flags: java.lang.String, description: java.lang.String, fn: stdLib.RegExp, defaultValue: js.Any): Command = js.native
+  ): commanderLib.commanderMod.localNs.Command = js.native
+  def option(flags: String, description: String, fn: RegExp): commanderLib.commanderMod.localNs.Command = js.native
+  def option(flags: String, description: String, fn: RegExp, defaultValue: js.Any): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Return an object containing options as key-value pairs
     *
     * @returns {{[key: string]: string}}
     */
-  def opts(): org.scalablytyped.runtime.StringDictionary[java.lang.String] = js.native
+  def opts(): StringDictionary[String] = js.native
   /**
     * Output help information for this command.
     *
     * @param {(str: string) => string} [cb]
     */
-  def outputHelp(): scala.Unit = js.native
-  def outputHelp(cb: js.Function1[/* str */ java.lang.String, java.lang.String]): scala.Unit = js.native
+  def outputHelp(): Unit = js.native
+  def outputHelp(cb: js.Function1[/* str */ String, String]): Unit = js.native
   /**
     * Parse `argv`, settings options and invoking commands when defined.
     *
     * @param {string[]} argv
     * @returns {Command} for chaining
     */
-  def parse(argv: js.Array[java.lang.String]): Command = js.native
+  def parse(argv: js.Array[String]): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Parse expected `args`.
     *
@@ -227,22 +228,22 @@ trait Command
     * @param {string[]} args
     * @returns {Command} for chaining
     */
-  def parseExpectedArgs(args: js.Array[java.lang.String]): Command = js.native
+  def parseExpectedArgs(args: js.Array[String]): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Parse options from `argv` returning `argv` void of these options.
     *
     * @param {string[]} argv
     * @returns {ParseOptionsResult}
     */
-  def parseOptions(argv: js.Array[java.lang.String]): commanderLib.commanderMod.ParseOptionsResult = js.native
-  def usage(): java.lang.String = js.native
+  def parseOptions(argv: js.Array[String]): ParseOptionsResult = js.native
+  def usage(): String = js.native
   /**
     * Set or get the command usage.
     *
     * @param {string} str
     * @return {(Command | string)}
     */
-  def usage(str: java.lang.String): Command = js.native
+  def usage(str: String): commanderLib.commanderMod.localNs.Command = js.native
   /**
     * Set the program version to `str`.
     *
@@ -253,7 +254,7 @@ trait Command
     * @param {string} [flags]
     * @returns {Command} for chaining
     */
-  def version(str: java.lang.String): Command = js.native
-  def version(str: java.lang.String, flags: java.lang.String): Command = js.native
+  def version(str: String): commanderLib.commanderMod.localNs.Command = js.native
+  def version(str: String, flags: String): commanderLib.commanderMod.localNs.Command = js.native
 }
 

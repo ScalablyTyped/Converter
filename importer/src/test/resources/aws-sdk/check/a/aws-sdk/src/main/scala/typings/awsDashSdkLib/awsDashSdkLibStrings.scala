@@ -1,22 +1,20 @@
 package typings
 package awsDashSdkLib
 
+import awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object awsDashSdkLibStrings {
   @js.native
-  sealed trait ADD
-    extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
+  sealed trait ADD extends _AttributeAction
   
   @js.native
-  sealed trait DELETE
-    extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
+  sealed trait DELETE extends _AttributeAction
   
   @js.native
-  sealed trait PUT
-    extends awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs._AttributeAction
+  sealed trait PUT extends _AttributeAction
   
   @js.native
   sealed trait latest extends js.Object

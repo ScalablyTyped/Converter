@@ -9,15 +9,15 @@ package object stylisStylisMod {
   type Plugin = js.ThisFunction9[
     /* this */ Stylis, 
     /* context */ Context, 
-    /* content */ java.lang.String, 
+    /* content */ String, 
     /* selector */ Selectors, 
     /* parent */ Selectors, 
-    /* line */ scala.Double, 
-    /* column */ scala.Double, 
-    /* length */ scala.Double, 
-    /* at */ scala.Double, 
-    /* depth */ scala.Double, 
-    scala.Null | scala.Unit | java.lang.String
+    /* line */ Double, 
+    /* column */ Double, 
+    /* length */ Double, 
+    /* at */ Double, 
+    /* depth */ Double, 
+    Null | Unit | String
   ]
-  type Selectors = js.Array[java.lang.String]
+  type Selectors = js.Array[String]
 }

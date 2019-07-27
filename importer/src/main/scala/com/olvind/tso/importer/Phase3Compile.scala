@@ -121,7 +121,14 @@ class Phase3Compile(
       case lib: LibScalaJs =>
         getDeps(lib.dependencies.keys.map(x => x: Source).to[SortedSet]) flatMap {
           case PublishedSbtProject.Unpack(deps) =>
-            val scalaFiles  = Printer(lib.packageTree, mainPackageName)
+            val scope = new TreeScope.Root(
+              libName       = lib.scalaName,
+              _dependencies = lib.dependencies.map{case (_, lib) => lib.scalaName -> lib.packageTree},
+              logger        = logger,
+              pedantic      = false,
+            )
+
+            val scalaFiles  = Printer(scope, lib.packageTree, mainPackageName)
             val sourcesDir  = os.RelPath("src") / 'main / 'scala
             val metadataOpt = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
 

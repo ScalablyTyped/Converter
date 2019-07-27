@@ -1,6 +1,7 @@
 package typings
 package reactDashBootstrapLib
 
+import reactDashBootstrapLib.libUtilsBootstrapUtilsMod.BSProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,7 +13,7 @@ object libUtilsMod extends js.Object {
   @JSName("bootstrapUtils")
   @js.native
   object bootstrapUtilsNs extends js.Object {
-    def getBsProps(props: js.Any): reactDashBootstrapLib.libUtilsBootstrapUtilsMod.BSProps = js.native
+    def getBsProps(props: js.Any): BSProps = js.native
   }
   
 }

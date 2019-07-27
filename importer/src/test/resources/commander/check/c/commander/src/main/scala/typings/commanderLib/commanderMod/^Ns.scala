@@ -16,7 +16,7 @@ object `^Ns` extends js.Object {
     */
   class Command ()
     extends commanderLib.commanderMod.localNs.Command {
-    def this(name: java.lang.String) = this()
+    def this(name: String) = this()
   }
   
   @js.native
@@ -28,20 +28,20 @@ object `^Ns` extends js.Object {
       * @param {string} flags
       * @param {string} [description]
       */
-    def this(flags: java.lang.String) = this()
-    def this(flags: java.lang.String, description: java.lang.String) = this()
+    def this(flags: String) = this()
+    def this(flags: String, description: String) = this()
     /* CompleteClass */
-    override var bool: scala.Boolean = js.native
+    override var bool: Boolean = js.native
     /* CompleteClass */
-    override var description: java.lang.String = js.native
+    override var description: String = js.native
     /* CompleteClass */
-    override var flags: java.lang.String = js.native
+    override var flags: String = js.native
     /* CompleteClass */
-    override var long: java.lang.String = js.native
+    override var long: String = js.native
     /* CompleteClass */
-    override var optional: scala.Boolean = js.native
+    override var optional: Boolean = js.native
     /* CompleteClass */
-    override var required: scala.Boolean = js.native
+    override var required: Boolean = js.native
   }
   
 }

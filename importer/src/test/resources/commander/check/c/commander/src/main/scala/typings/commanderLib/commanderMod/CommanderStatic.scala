@@ -1,6 +1,8 @@
 package typings
 package commanderLib.commanderMod
 
+import org.scalablytyped.runtime.Instantiable1
+import org.scalablytyped.runtime.Instantiable2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,11 +10,11 @@ import scala.scalajs.js.annotation._
 @js.native
 trait CommanderStatic
   extends commanderLib.commanderMod.localNs.Command {
-  var Command: org.scalablytyped.runtime.Instantiable1[js.UndefOr[/* name */ java.lang.String], commanderLib.commanderMod.localNs.Command] = js.native
+  var Command: Instantiable1[js.UndefOr[/* name */ String], commanderLib.commanderMod.localNs.Command] = js.native
   var CommandOptions: commanderLib.commanderMod.CommandOptions = js.native
-  var Option: org.scalablytyped.runtime.Instantiable2[
-    /* flags */ java.lang.String, 
-    js.UndefOr[/* description */ java.lang.String], 
+  var Option: Instantiable2[
+    /* flags */ String, 
+    js.UndefOr[/* description */ String], 
     commanderLib.commanderMod.localNs.Option
   ] = js.native
   var ParseOptionsResult: commanderLib.commanderMod.ParseOptionsResult = js.native

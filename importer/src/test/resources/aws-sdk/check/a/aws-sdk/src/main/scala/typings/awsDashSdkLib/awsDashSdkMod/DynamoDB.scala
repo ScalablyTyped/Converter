@@ -1,6 +1,7 @@
 package typings
 package awsDashSdkLib.awsDashSdkMod
 
+import awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,6 +10,6 @@ import scala.scalajs.js.annotation._
 @js.native
 class DynamoDB ()
   extends awsDashSdkLib.clientsAllMod.DynamoDB {
-  def this(options: awsDashSdkLib.clientsDynamodbMod.ClientConfiguration) = this()
+  def this(options: ClientConfiguration) = this()
 }
 

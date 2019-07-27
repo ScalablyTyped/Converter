@@ -1,5 +1,7 @@
 package typings
 
+import stdLib.HTMLInputElement
+import stdLib.TwoFoo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -10,52 +12,52 @@ package object unionDashToDashInheritanceLib {
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.a2
     - java.lang.String
   */
-  type A = _A | java.lang.String
+  type A = _A | String
   /* Rewritten from type alias, can be one of: 
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.b1
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.b2
     - scala.Double
-    - A
+    - unionDashToDashInheritanceLib.A
   */
-  type B = _B | scala.Double | java.lang.String
+  type B = _B | Double | String
   /* Rewritten from type alias, can be one of: 
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibNumbers.`1`
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibNumbers.`2`
     - stdLib.HTMLInputElement
-    - js.Array[B]
-    - B
+    - js.Array[unionDashToDashInheritanceLib.B]
+    - unionDashToDashInheritanceLib.B
   */
-  type C = _C | js.Array[B] | stdLib.HTMLInputElement | scala.Double | java.lang.String
+  type C = _C | js.Array[B] | HTMLInputElement | Double | String
   /* Rewritten from type alias, can be one of: 
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.foo
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.bar
-    - Foo[java.lang.String]
+    - unionDashToDashInheritanceLib.Foo[java.lang.String]
   */
-  type Illegal1 = _Illegal1 | Foo[java.lang.String]
+  type Illegal1 = _Illegal1 | Foo[String]
   /* Rewritten from type alias, can be one of: 
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.foo
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.bar
-    - Foo[A]
+    - unionDashToDashInheritanceLib.Foo[unionDashToDashInheritanceLib.A]
   */
   type Illegal2 = _Illegal2 | Foo[A]
   /* Rewritten from type alias, can be one of: 
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.foo
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.bar
-    - Foo2[T, T]
+    - unionDashToDashInheritanceLib.Foo2[T, T]
   */
   type Illegal3[T] = _Illegal3[T] | (Foo2[T, T])
   /* Rewritten from type alias, can be one of: 
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.foo
     - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.bar
     - stdLib.TwoFoo[T3, T1]
-    - Either[T2, T3]
-    - Foo2[T1, T3]
+    - unionDashToDashInheritanceLib.Either[T2, T3]
+    - unionDashToDashInheritanceLib.Foo2[T1, T3]
   */
-  type Test[T1, T2, T3] = (_Test[T1, T2, T3]) | (stdLib.TwoFoo[T3, T1])
+  type Test[T1, T2, T3] = (_Test[T1, T2, T3]) | (TwoFoo[T3, T1])
   /* Rewritten from type alias, can be one of: 
-    - Test[O1, O1, O2]
-    - Either[O2, O1]
-    - Legal1[O2]
+    - unionDashToDashInheritanceLib.Test[O1, O1, O2]
+    - unionDashToDashInheritanceLib.Either[O2, O1]
+    - unionDashToDashInheritanceLib.Legal1[O2]
   */
   type Test2[O1, O2] = (_Test2[O1, O2]) | (Test[O1, O1, O2])
 }

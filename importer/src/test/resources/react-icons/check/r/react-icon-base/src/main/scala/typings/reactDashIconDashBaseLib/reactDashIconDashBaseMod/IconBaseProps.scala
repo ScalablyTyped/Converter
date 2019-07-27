@@ -1,22 +1,21 @@
 package typings
 package reactDashIconDashBaseLib.reactDashIconDashBaseMod
 
+import reactLib.reactMod.ClassAttributes
+import reactLib.reactMod.Key
+import reactLib.reactMod.ReactSVGElement
+import reactLib.reactMod.Ref
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait IconBaseProps
-  extends reactLib.reactMod.ClassAttributes[reactLib.reactMod.ReactSVGElement] {
-  var size: js.UndefOr[java.lang.String | scala.Double] = js.undefined
+trait IconBaseProps extends ClassAttributes[ReactSVGElement] {
+  var size: js.UndefOr[String | Double] = js.undefined
 }
 
 object IconBaseProps {
   @scala.inline
-  def apply(
-    key: reactLib.reactMod.Key = null,
-    ref: reactLib.reactMod.Ref[reactLib.reactMod.ReactSVGElement] = null,
-    size: java.lang.String | scala.Double = null
-  ): IconBaseProps = {
+  def apply(key: Key = null, ref: Ref[ReactSVGElement] = null, size: String | Double = null): IconBaseProps = {
     val __obj = js.Dynamic.literal()
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])

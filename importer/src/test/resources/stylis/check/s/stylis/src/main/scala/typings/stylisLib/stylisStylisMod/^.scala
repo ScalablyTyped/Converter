@@ -1,6 +1,7 @@
 package typings
 package stylisLib.stylisStylisMod
 
+import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,6 +14,5 @@ class ^ () extends Stylis {
 
 @JSImport("stylis/stylis", JSImport.Namespace)
 @js.native
-object ^
-  extends org.scalablytyped.runtime.TopLevel[Stylis]
+object ^ extends TopLevel[Stylis]
 

@@ -1,6 +1,7 @@
 package typings
 package vueDashResourceLib.vuejsNs
 
+import vueDashResourceLib.Anon_Root
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,36 +16,36 @@ trait Http extends js.Object {
   var interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]] = js.native
   @JSName("jsonp")
   var jsonp_Original: $http = js.native
-  var options: HttpOptions with vueDashResourceLib.Anon_Root = js.native
+  var options: HttpOptions with Anon_Root = js.native
   @JSName("patch")
   var patch_Original: $http = js.native
   @JSName("post")
   var post_Original: $http = js.native
   @JSName("put")
   var put_Original: $http = js.native
-  def delete(url: java.lang.String): js.Thenable[HttpResponse] = js.native
-  def delete(url: java.lang.String, data: js.Any): js.Thenable[HttpResponse] = js.native
-  def delete(url: java.lang.String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def delete(url: java.lang.String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def get(url: java.lang.String): js.Thenable[HttpResponse] = js.native
-  def get(url: java.lang.String, data: js.Any): js.Thenable[HttpResponse] = js.native
-  def get(url: java.lang.String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def get(url: java.lang.String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def jsonp(url: java.lang.String): js.Thenable[HttpResponse] = js.native
-  def jsonp(url: java.lang.String, data: js.Any): js.Thenable[HttpResponse] = js.native
-  def jsonp(url: java.lang.String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def jsonp(url: java.lang.String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def patch(url: java.lang.String): js.Thenable[HttpResponse] = js.native
-  def patch(url: java.lang.String, data: js.Any): js.Thenable[HttpResponse] = js.native
-  def patch(url: java.lang.String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def patch(url: java.lang.String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def post(url: java.lang.String): js.Thenable[HttpResponse] = js.native
-  def post(url: java.lang.String, data: js.Any): js.Thenable[HttpResponse] = js.native
-  def post(url: java.lang.String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def post(url: java.lang.String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def put(url: java.lang.String): js.Thenable[HttpResponse] = js.native
-  def put(url: java.lang.String, data: js.Any): js.Thenable[HttpResponse] = js.native
-  def put(url: java.lang.String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
-  def put(url: java.lang.String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def delete(url: String): js.Thenable[HttpResponse] = js.native
+  def delete(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def delete(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def delete(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def get(url: String): js.Thenable[HttpResponse] = js.native
+  def get(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def get(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def get(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def patch(url: String): js.Thenable[HttpResponse] = js.native
+  def patch(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def patch(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def patch(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def post(url: String): js.Thenable[HttpResponse] = js.native
+  def post(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def post(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def post(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def put(url: String): js.Thenable[HttpResponse] = js.native
+  def put(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def put(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def put(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
 }
 

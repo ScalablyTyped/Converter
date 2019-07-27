@@ -52,10 +52,10 @@ object CompleteClass extends TreeTransformation {
     val ret = parents.pruneClasses.transitiveParents
       .flatMap(_._2.members)
       .collect {
-        case x: FieldTree if x.impl === MemberImpl.NotImplemented && !c.memberIndex.contains(x.name) =>
+        case x: FieldTree if x.impl === MemberImpl.NotImplemented && !c.index.contains(x.name) =>
           x.copy(isOverride = true, impl = MemberImpl.Native, comments = x.comments + Comment("/* CompleteClass */\n"))
         case x: MethodTree
-            if x.impl === MemberImpl.NotImplemented && !isAlreadyImplemented(scope, x, c.memberIndex.get(x.name)) =>
+            if x.impl === MemberImpl.NotImplemented && !isAlreadyImplemented(scope, x, c.index.get(x.name)) =>
           x.copy(isOverride = true, impl = MemberImpl.Native, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
       .to[Seq]

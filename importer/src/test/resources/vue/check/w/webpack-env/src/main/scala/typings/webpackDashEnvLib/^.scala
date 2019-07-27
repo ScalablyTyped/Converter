@@ -1,6 +1,8 @@
 package typings
 package webpackDashEnvLib
 
+import webpackDashEnvLib.NodeJSNs.Process
+import webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.RequireLambda
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +13,7 @@ object ^ extends js.Object {
   /**
     * Equals the config option debug
     */
-  var DEBUG: scala.Boolean = js.native
+  var DEBUG: Boolean = js.native
   /**
     * Generates a require function that is not parsed by webpack. Can be used to do cool stuff with a global require function if available.
     */
@@ -21,7 +23,7 @@ object ^ extends js.Object {
     *
     * e.g. __resourceQuery === "?test" // Inside "file.js?test"
     */
-  var __resourceQuery: java.lang.String = js.native
+  var __resourceQuery: String = js.native
   /**
     * The internal chunk loading function
     *
@@ -30,11 +32,8 @@ object ^ extends js.Object {
     */
   var __webpack_chunk_load__ : js.Function2[
     /* chunkId */ js.Any, 
-    /* callback */ js.Function1[
-      /* require */ webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.RequireLambda, 
-      scala.Unit
-    ], 
-    scala.Unit
+    /* callback */ js.Function1[/* require */ RequireLambda, Unit], 
+    Unit
   ] = js.native
   /**
     * Access to the hash of the compilation.
@@ -49,13 +48,13 @@ object ^ extends js.Object {
   /**
     * Equals the config options output.publicPath.
     */
-  var __webpack_public_path__ : java.lang.String = js.native
+  var __webpack_public_path__ : String = js.native
   /**
     * The raw require function. This expression isn’t parsed by the Parser for dependencies.
     */
   var __webpack_require__ : js.Any = js.native
   var module: NodeModule = js.native
-  var process: webpackDashEnvLib.NodeJSNs.Process = js.native
+  var process: Process = js.native
   var require: NodeRequire = js.native
 }
 

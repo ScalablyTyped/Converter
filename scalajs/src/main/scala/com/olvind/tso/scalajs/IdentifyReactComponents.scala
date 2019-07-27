@@ -29,7 +29,7 @@ object IdentifyReactComponents {
 
   object Component {
     def formatReferenceTo(ref: TypeRef, componentType: ComponentType): String = {
-      val loc = Printer.formatTypeRef(Nil, 0)(ref)
+      val loc = Printer.formatTypeRef(0)(ref)
 
       componentType match {
         case ComponentType.Class => s"js.constructorOf[$loc]"
@@ -37,7 +37,7 @@ object IdentifyReactComponents {
         case ComponentType.Function =>
           ref.typeName.parts match {
             case ownerQName :+ name =>
-              val owner = Printer.formatQN(Nil, QualifiedName(ownerQName))
+              val owner = Printer.formatQN(QualifiedName(ownerQName))
               s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${name.unescaped}")"""
           }
       }

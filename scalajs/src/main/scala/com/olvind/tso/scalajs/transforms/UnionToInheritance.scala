@@ -100,7 +100,7 @@ object UnionToInheritance {
       case ta: TypeAliasTree if indexedRewrites.contains(ta.codePath) =>
         val comment = ta.alias match {
           case TypeRef.Union(tps) =>
-            val strings = tps.map(Printer.formatTypeRef(ta.codePath.parts.dropRight(1), 0)).map("  - " + _)
+            val strings = tps.map(Printer.formatTypeRef(0)).map("  - " + _)
             Some(Comment(s"/* Rewritten from type alias, can be one of: \n${strings.mkString("\n")}\n*/\n"))
           case _ => None
         }

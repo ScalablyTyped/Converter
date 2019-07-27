@@ -1,6 +1,7 @@
 package typings
 package defaultedDashTparamsLib
 
+import stdLib.Iterable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,15 +12,15 @@ class Queue[S, T] () extends js.Object {
   /**
     * Whether the queue is empty
     */
-  val empty: scala.Boolean = js.native
+  val empty: Boolean = js.native
   /**
     * Whether the queue is full
     */
-  val full: scala.Boolean = js.native
+  val full: Boolean = js.native
   /**
     * The length of the queue
     */
-  val length: scala.Double = js.native
+  val length: Double = js.native
   /**
     * Removes and returns an element from the beginning
     */
@@ -34,7 +35,7 @@ class Queue[S, T] () extends js.Object {
 @JSGlobal("Queue")
 @js.native
 object Queue extends js.Object {
-  def from[T](iterable: stdLib.Iterable[T]): defaultedDashTparamsLib.Queue[T, T] = js.native
-  def from[T](iterable: stdLib.Iterable[T], length: scala.Double): defaultedDashTparamsLib.Queue[T, T] = js.native
+  def from[T](iterable: Iterable[T]): Queue[T, T] = js.native
+  def from[T](iterable: Iterable[T], length: Double): Queue[T, T] = js.native
 }
 

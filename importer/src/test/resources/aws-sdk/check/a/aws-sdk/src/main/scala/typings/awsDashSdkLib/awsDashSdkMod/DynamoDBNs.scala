@@ -1,6 +1,10 @@
 package typings
 package awsDashSdkLib.awsDashSdkMod
 
+import awsDashSdkLib.clientsDynamodbMod.AttributeValue
+import awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
+import awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
+import awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -18,14 +22,14 @@ object DynamoDBNs extends js.Object {
     */
   class DocumentClient ()
     extends awsDashSdkLib.clientsAllMod.DynamoDBNs.DocumentClient {
-    def this(options: awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions with awsDashSdkLib.clientsDynamodbMod.ClientConfiguration) = this()
+    def this(options: DocumentClientOptions with ClientConfiguration) = this()
   }
   
   /* static members */
   @js.native
   object Converter extends js.Object {
-    def input(data: js.Any): awsDashSdkLib.clientsDynamodbMod.AttributeValue = js.native
-    def input(data: js.Any, options: awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions): awsDashSdkLib.clientsDynamodbMod.AttributeValue = js.native
+    def input(data: js.Any): AttributeValue = js.native
+    def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
   }
   
 }

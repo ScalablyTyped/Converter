@@ -1,11 +1,12 @@
 package typings
 package vueLib.typesOptionsMod
 
+import org.scalablytyped.runtime.Instantiable1
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait Constructor
-  extends org.scalablytyped.runtime.Instantiable1[/* args (repeated) */ js.Any, js.Any]
+  extends Instantiable1[/* args (repeated) */ js.Any, js.Any]
 

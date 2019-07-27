@@ -1,16 +1,16 @@
 package typings
 package nodeLib
 
+import stdLib.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait NodeBuffer
-  extends stdLib.Uint8Array {
-  def write(string: java.lang.String): scala.Double = js.native
-  def write(string: java.lang.String, offset: scala.Double): scala.Double = js.native
-  def write(string: java.lang.String, offset: scala.Double, length: scala.Double): scala.Double = js.native
-  def write(string: java.lang.String, offset: scala.Double, length: scala.Double, encoding: java.lang.String): scala.Double = js.native
+trait NodeBuffer extends Uint8Array {
+  def write(string: String): Double = js.native
+  def write(string: String, offset: Double): Double = js.native
+  def write(string: String, offset: Double, length: Double): Double = js.native
+  def write(string: String, offset: Double, length: Double, encoding: String): Double = js.native
 }
 

@@ -1,6 +1,7 @@
 package typings
 package nodeLib.streamMod
 
+import nodeLib.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,19 +9,19 @@ import scala.scalajs.js.annotation._
 trait DuplexOptions
   extends ReadableOptions
      with WritableOptions {
-  var allowHalfOpen: js.UndefOr[scala.Boolean] = js.undefined
+  var allowHalfOpen: js.UndefOr[Boolean] = js.undefined
 }
 
 object DuplexOptions {
   @scala.inline
   def apply(
-    allowHalfOpen: js.UndefOr[scala.Boolean] = js.undefined,
-    destroy: /* error */ js.UndefOr[nodeLib.Error] => _ = null,
-    encoding: java.lang.String = null,
-    `final`: /* callback */ js.Function1[/* error */ js.UndefOr[nodeLib.Error], scala.Unit] => scala.Unit = null,
-    highWaterMark: scala.Int | scala.Double = null,
-    objectMode: js.UndefOr[scala.Boolean] = js.undefined,
-    read: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[scala.Double], _] = null
+    allowHalfOpen: js.UndefOr[Boolean] = js.undefined,
+    destroy: /* error */ js.UndefOr[Error] => _ = null,
+    encoding: String = null,
+    `final`: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit = null,
+    highWaterMark: Int | Double = null,
+    objectMode: js.UndefOr[Boolean] = js.undefined,
+    read: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _] = null
   ): DuplexOptions = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(allowHalfOpen)) __obj.updateDynamic("allowHalfOpen")(allowHalfOpen)

@@ -10,12 +10,12 @@ import scala.scalajs.js.annotation._
 @js.native
 class Duplex () extends Readable {
   def this(opts: DuplexOptions) = this()
-  var writable: scala.Boolean = js.native
-  def end(): scala.Unit = js.native
-  def end(cb: js.Function): scala.Unit = js.native
-  def end(chunk: js.Any): scala.Unit = js.native
-  def end(chunk: js.Any, cb: js.Function): scala.Unit = js.native
-  def end(chunk: js.Any, encoding: java.lang.String): scala.Unit = js.native
-  def end(chunk: js.Any, encoding: java.lang.String, cb: js.Function): scala.Unit = js.native
+  var writable: Boolean = js.native
+  def end(): Unit = js.native
+  def end(cb: js.Function): Unit = js.native
+  def end(chunk: js.Any): Unit = js.native
+  def end(chunk: js.Any, cb: js.Function): Unit = js.native
+  def end(chunk: js.Any, encoding: String): Unit = js.native
+  def end(chunk: js.Any, encoding: String, cb: js.Function): Unit = js.native
 }
 

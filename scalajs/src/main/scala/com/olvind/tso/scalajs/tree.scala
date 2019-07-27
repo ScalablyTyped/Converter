@@ -31,10 +31,7 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: Seq[ClassAnnotation]
 
-  lazy val memberIndex: Map[Name, Seq[Tree]] = this match {
-    case x: ClassTree  => x.index
-    case x: ModuleTree => x.index.mapValues(_.collect { case x: MemberTree => x })
-  }
+  val index: Map[Name, Seq[Tree]]
 }
 
 final case class PackageTree(
