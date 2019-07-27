@@ -19,7 +19,7 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
     ident match {
       /* hack/shortcut: all qualified idents are fully qualified, which means only abstract things should have length one */
       case TsQIdent(one :: Nil) => QualifiedName(List(apply(one)))
-      case TsQIdent(parts) => QualifiedName(ScalaConfig.outputPkg +: (parts map apply))
+      case TsQIdent(parts)      => QualifiedName(ScalaConfig.outputPkg +: (parts map apply))
     }
 
   def apply(cp: CodePath): QualifiedName =
@@ -30,7 +30,7 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
       case TsIdent.Apply           => Name.APPLY
       case TsIdentSimple(value)    => Name(value)
       case TsIdentNamespace(value) => Name(prettyString(value, "Ns", forceCamelCase = false))
-      case x: TsIdentLibrary => Name(prettyString(x.value, "Lib", forceCamelCase = true))
+      case x: TsIdentLibrary => Name(prettyString(x.value, "", forceCamelCase = true))
       case x: TsIdentModule  => rewriteModuleName(x)
       case x: TsIdentImport  => sys.error(s"Unexpected: $x")
     }

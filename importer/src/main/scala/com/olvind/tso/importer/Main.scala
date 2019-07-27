@@ -198,7 +198,7 @@ class Main(config: Config) {
             organization    = config.organization,
             publishUser     = bintray.fold("oyvindberg")(_.user),
             publishFolder   = config.publishFolder,
-            metadataFetcher = Npmjs.GigahorseFetcher( existing(config.cacheFolder / 'npmjs))(ec),
+            metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
           ),
           "build",

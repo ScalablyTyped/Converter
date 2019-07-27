@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "ndarray"
-version := "0.0-unknown-c4fc2e"
+version := "0.0-unknown-d1647d"
 scalaVersion := "2.13.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-e73934")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-5fe3f3")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

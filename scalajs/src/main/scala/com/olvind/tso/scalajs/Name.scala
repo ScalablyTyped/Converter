@@ -34,7 +34,6 @@ object Name {
   val Object:     Name = Name("Object")
   val Function:   Name = Name("Function")
   val Default:    Name = Name("default")
-  val StdLib:     Name = Name("StdLib")
   val Symbol:     Name = Name("Symbol")
   val This:       Name = Name("This")
   val UndefOr:    Name = Name("UndefOr")
