@@ -65,7 +65,7 @@ object Config {
             enableParseCache = flags contains "-enableParseCache",
             dontCleanProject = flags contains "-dontCleanProject",
             softWrites       = flags contains "-softWrites",
-            wantedLibNames   = rest.to[Set],
+            wantedLibNames   = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest,
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
