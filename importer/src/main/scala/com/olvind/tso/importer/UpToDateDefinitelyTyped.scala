@@ -20,7 +20,7 @@ object UpToDateDefinitelyTyped {
           cmd.runVerbose rm ("-f", ".git/gc.log")
           cmd.runVerbose git 'prune
           // use first party definitions instead. model better if there are more cases like this
-          cmd.runVerbose rm ("-f", "types/highcharts")
+          cmd.runVerbose rm ("-Rf", "types/highcharts")
         }
       } else
         cmd.runVerbose("git", "clone", repo.toString)(cacheFolder),
