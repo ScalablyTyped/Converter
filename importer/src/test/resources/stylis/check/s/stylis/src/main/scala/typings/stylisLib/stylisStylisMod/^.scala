@@ -1,5 +1,4 @@
-package typings
-package stylisLib.stylisStylisMod
+package typings.stylisLib.stylisStylisMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

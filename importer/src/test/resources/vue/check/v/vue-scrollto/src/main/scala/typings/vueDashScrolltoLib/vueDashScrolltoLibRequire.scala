@@ -1,5 +1,4 @@
-package typings
-package vueDashScrolltoLib
+package typings.vueDashScrolltoLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,8 +1,7 @@
-package typings
-package constDashEnumLib
+package typings.constDashEnumLib
 
-import constDashEnumLib.constDashEnumMod.Foo
-import constDashEnumLib.constDashEnumMod.Foo2
+import typings.constDashEnumLib.constDashEnumMod.Foo
+import typings.constDashEnumLib.constDashEnumMod.Foo2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

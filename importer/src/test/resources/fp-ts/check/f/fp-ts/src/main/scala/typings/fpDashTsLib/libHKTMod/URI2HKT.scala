@@ -1,5 +1,4 @@
-package typings
-package fpDashTsLib.libHKTMod
+package typings.fpDashTsLib.libHKTMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

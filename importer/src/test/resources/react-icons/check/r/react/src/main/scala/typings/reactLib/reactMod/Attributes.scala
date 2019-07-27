@@ -1,5 +1,4 @@
-package typings
-package reactLib.reactMod
+package typings.reactLib.reactMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

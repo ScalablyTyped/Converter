@@ -1,7 +1,6 @@
-package typings
-package vueDashResourceLib.vuejsNs
+package typings.vueDashResourceLib.vuejsNs
 
-import vueDashResourceLib.Anon_Headers
+import typings.vueDashResourceLib.Anon_Headers
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,13 +1,12 @@
-package typings
-package reactDashBootstrapLib
+package typings.reactDashBootstrapLib
 
-import reactDashBootstrapLib.libButtonGroupMod.ButtonGroupProps
-import reactDashBootstrapLib.reactDashBootstrapLibStrings.`type`
-import reactDashBootstrapLib.reactDashBootstrapLibStrings.defaultValue
-import reactDashBootstrapLib.reactDashBootstrapLibStrings.onChange
-import reactDashBootstrapLib.reactDashBootstrapLibStrings.value
-import reactDashBootstrapLib.reactDashBootstrapMod.Omit
-import reactLib.reactMod.HTMLProps
+import typings.reactDashBootstrapLib.libButtonGroupMod.ButtonGroupProps
+import typings.reactDashBootstrapLib.reactDashBootstrapLibStrings.`type`
+import typings.reactDashBootstrapLib.reactDashBootstrapLibStrings.defaultValue
+import typings.reactDashBootstrapLib.reactDashBootstrapLibStrings.onChange
+import typings.reactDashBootstrapLib.reactDashBootstrapLibStrings.value
+import typings.reactDashBootstrapLib.reactDashBootstrapMod.Omit
+import typings.reactLib.reactMod.HTMLProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

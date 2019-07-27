@@ -1,7 +1,6 @@
-package typings
-package phaserLib.p2Ns
+package typings.phaserLib.p2Ns
 
-import phaserLib.Anon_LowerBound
+import typings.phaserLib.Anon_LowerBound
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

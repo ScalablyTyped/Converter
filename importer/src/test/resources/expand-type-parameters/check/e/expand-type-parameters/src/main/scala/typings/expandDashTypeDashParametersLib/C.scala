@@ -1,5 +1,4 @@
-package typings
-package expandDashTypeDashParametersLib
+package typings.expandDashTypeDashParametersLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

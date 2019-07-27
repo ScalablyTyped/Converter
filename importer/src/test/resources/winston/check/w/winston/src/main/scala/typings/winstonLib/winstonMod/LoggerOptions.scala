@@ -1,7 +1,6 @@
-package typings
-package winstonLib.winstonMod
+package typings.winstonLib.winstonMod
 
-import winstonLib.libWinstonConfigMod.AbstractConfigSetLevels
+import typings.winstonLib.libWinstonConfigMod.AbstractConfigSetLevels
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

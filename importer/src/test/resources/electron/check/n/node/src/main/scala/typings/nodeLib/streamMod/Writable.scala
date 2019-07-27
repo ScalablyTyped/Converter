@@ -1,12 +1,11 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
-- nodeLib.NodeJSNs.WritableStream because Inheritance from two classes. Inlined writable */ @JSImport("stream", "Writable")
+- typings.nodeLib.NodeJSNs.WritableStream because Inheritance from two classes. Inlined writable */ @JSImport("stream", "Writable")
 @js.native
 class Writable () extends Stream {
   var writable: Boolean = js.native

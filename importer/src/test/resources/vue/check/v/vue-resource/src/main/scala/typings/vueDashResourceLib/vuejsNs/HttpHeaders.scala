@@ -1,5 +1,4 @@
-package typings
-package vueDashResourceLib.vuejsNs
+package typings.vueDashResourceLib.vuejsNs
 
 import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js

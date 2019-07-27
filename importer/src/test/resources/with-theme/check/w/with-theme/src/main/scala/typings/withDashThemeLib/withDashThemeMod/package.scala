@@ -1,7 +1,6 @@
-package typings
-package withDashThemeLib
+package typings.withDashThemeLib
 
-import stdLib.Pick
+import typings.stdLib.Pick
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

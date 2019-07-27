@@ -1,12 +1,11 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
-- nodeLib.NodeJSNs.ReadableStream because Inheritance from two classes. Inlined readable */ @JSImport("stream", "Readable")
+- typings.nodeLib.NodeJSNs.ReadableStream because Inheritance from two classes. Inlined readable */ @JSImport("stream", "Readable")
 @js.native
 class Readable () extends Stream {
   var readable: Boolean = js.native

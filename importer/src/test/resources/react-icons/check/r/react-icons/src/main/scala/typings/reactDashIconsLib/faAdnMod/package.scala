@@ -1,8 +1,7 @@
-package typings
-package reactDashIconsLib
+package typings.reactDashIconsLib
 
-import reactDashIconDashBaseLib.reactDashIconDashBaseMod.IconBaseProps
-import reactLib.reactMod.Component
+import typings.reactDashIconDashBaseLib.reactDashIconDashBaseMod.IconBaseProps
+import typings.reactLib.reactMod.Component
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

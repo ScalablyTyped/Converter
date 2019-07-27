@@ -1,7 +1,6 @@
-package typings
-package electronLib.electronMod
+package typings.electronLib.electronMod
 
-import electronLib.ElectronNs.App
+import typings.electronLib.ElectronNs.App
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

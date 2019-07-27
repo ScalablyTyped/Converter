@@ -1,5 +1,4 @@
-package typings
-package phaserLib.PIXINs
+package typings.phaserLib.PIXINs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

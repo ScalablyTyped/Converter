@@ -1,5 +1,4 @@
-package typings
-package vueLib.typesVnodeMod
+package typings.vueLib.typesVnodeMod
 
 import org.scalablytyped.runtime.NumberDictionary
 import scala.scalajs.js

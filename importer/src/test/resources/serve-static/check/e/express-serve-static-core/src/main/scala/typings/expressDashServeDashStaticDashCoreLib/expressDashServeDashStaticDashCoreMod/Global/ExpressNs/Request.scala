@@ -1,5 +1,4 @@
-package typings
-package expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Global.ExpressNs
+package typings.expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Global.ExpressNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package typeDashMappingsLib
+package typings.typeDashMappingsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

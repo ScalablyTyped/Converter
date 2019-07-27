@@ -1,8 +1,7 @@
-package typings
-package vueLib
+package typings.vueLib
 
-import vueLib.typesVueMod.Vue
-import vueLib.typesVueMod.VueConstructor
+import typings.vueLib.typesVueMod.Vue
+import typings.vueLib.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

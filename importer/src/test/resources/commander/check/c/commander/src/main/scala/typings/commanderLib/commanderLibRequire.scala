@@ -1,5 +1,4 @@
-package typings
-package commanderLib
+package typings.commanderLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

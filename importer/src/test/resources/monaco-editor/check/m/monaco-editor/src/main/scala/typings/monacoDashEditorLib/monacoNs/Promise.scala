@@ -1,7 +1,6 @@
-package typings
-package monacoDashEditorLib.monacoNs
+package typings.monacoDashEditorLib.monacoNs
 
-import monacoDashEditorLib.Anon_Key
+import typings.monacoDashEditorLib.Anon_Key
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,5 +1,4 @@
-package typings
-package ndarrayLib
+package typings.ndarrayLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

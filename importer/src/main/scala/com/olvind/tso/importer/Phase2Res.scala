@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.tso.importer.Source.{FacadeSource, TsLibSource}
 import com.olvind.tso.maps.MapOps
-import com.olvind.tso.scalajs.{ContainerTree, Name, TreeScope}
+import com.olvind.tso.scalajs.{Name, PackageTree, TreeScope}
 
 import scala.collection.immutable.SortedMap
 import scala.collection.mutable
@@ -17,7 +17,7 @@ object Phase2Res {
       val libName:              String,
       val scalaName:            Name,
       val libVersion:           LibraryVersion,
-      val packageTree:          ContainerTree,
+      val packageTree:          PackageTree,
       val dependencies:         Map[TsLibSource, LibScalaJs],
       val isStdLib:             Boolean,
       val facades:              Set[FacadeSource],

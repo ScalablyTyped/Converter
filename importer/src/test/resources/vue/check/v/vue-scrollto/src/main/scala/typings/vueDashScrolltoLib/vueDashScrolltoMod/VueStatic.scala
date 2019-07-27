@@ -1,7 +1,6 @@
-package typings
-package vueDashScrolltoLib.vueDashScrolltoMod
+package typings.vueDashScrolltoLib.vueDashScrolltoMod
 
-import stdLib.Element
+import typings.stdLib.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

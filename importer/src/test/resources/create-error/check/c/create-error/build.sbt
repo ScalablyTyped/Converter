@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "create-error"
-version := "0.3.1-2ea474"
+version := "0.3.1-231af8"
 scalaVersion := "2.13.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-fed3ef")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-be5534")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

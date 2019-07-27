@@ -1,8 +1,7 @@
-package typings
-package awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs
+package typings.awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs
 
-import awsDashSdkLib.clientsDynamodbMod.^
 import org.scalablytyped.runtime.StringDictionary
+import typings.awsDashSdkLib.clientsDynamodbMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

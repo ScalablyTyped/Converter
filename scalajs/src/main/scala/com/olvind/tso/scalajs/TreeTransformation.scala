@@ -196,8 +196,8 @@ class TreeTransformation { self =>
 
   final def visitMemberTree(scope: TreeScope)(s: MemberTree): MemberTree =
     leaveMemberTree(scope / s)(enterMemberTree(scope / s)(s) match {
-      case x: MethodTree => visitMethodTree(scope / s)(x)
-      case x: FieldTree  => visitFieldTree(scope / s)(x)
+      case x: MethodTree => visitMethodTree(scope)(x)
+      case x: FieldTree  => visitFieldTree(scope)(x)
     })
 
   final def visitTree(scope: TreeScope)(s: Tree): Tree =

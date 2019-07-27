@@ -1,13 +1,12 @@
-package typings
-package angularLib.angularMod
+package typings.angularLib.angularMod
 
-import angularLib.JQLite
-import angularLib.JQuery
-import angularLib.JQueryStatic
-import angularLib.angularMod.autoNs.IInjectorService
-import stdLib.ArrayLike
-import stdLib.Document
-import stdLib.Element
+import typings.angularLib.JQLite
+import typings.angularLib.JQuery
+import typings.angularLib.JQueryStatic
+import typings.angularLib.angularMod.autoNs.IInjectorService
+import typings.stdLib.ArrayLike
+import typings.stdLib.Document
+import typings.stdLib.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -30,7 +29,6 @@ trait IAngularStatic extends js.Object {
     * @param extraModules An optional array of modules that should be added to the original list of modules that the app was about to be bootstrapped with.
     */
   var resumeBootstrap: js.UndefOr[js.Function1[/* extraModules */ js.UndefOr[js.Array[String]], IInjectorService]] = js.native
-  def element(element: JQuery): JQLite = js.native
   /**
     * Wraps a raw DOM element or HTML string as a jQuery element.
     *
@@ -38,6 +36,7 @@ trait IAngularStatic extends js.Object {
     */
   def element(element: String): JQLite = js.native
   def element(element: js.Function0[Unit]): JQLite = js.native
+  def element(element: JQuery): JQLite = js.native
   def element(element: ArrayLike[Element]): JQLite = js.native
   def element(element: Document): JQLite = js.native
   def element(element: Element): JQLite = js.native

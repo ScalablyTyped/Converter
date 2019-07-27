@@ -1,7 +1,6 @@
-package typings
-package insightLib.insightMod
+package typings.insightLib.insightMod
 
-import insightLib.insightMod.insightNs.IConfigstore
+import typings.insightLib.insightMod.insightNs.IConfigstore
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

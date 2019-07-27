@@ -1,7 +1,6 @@
-package typings
-package reactDashBootstrapLib
+package typings.reactDashBootstrapLib
 
-import reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+import typings.reactDashBootstrapLib.reactDashBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

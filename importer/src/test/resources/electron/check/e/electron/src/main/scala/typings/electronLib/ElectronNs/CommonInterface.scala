@@ -1,5 +1,4 @@
-package typings
-package electronLib.ElectronNs
+package typings.electronLib.ElectronNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package awsDashSdkLib.clientsDynamodbMod
+package typings.awsDashSdkLib.clientsDynamodbMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

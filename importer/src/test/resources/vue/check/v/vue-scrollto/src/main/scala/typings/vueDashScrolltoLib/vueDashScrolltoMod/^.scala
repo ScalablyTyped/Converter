@@ -1,9 +1,8 @@
-package typings
-package vueDashScrolltoLib.vueDashScrolltoMod
+package typings.vueDashScrolltoLib.vueDashScrolltoMod
 
-import vueLib.typesPluginMod.PluginFunction
-import vueLib.typesVueMod.Vue
-import vueLib.typesVueMod.VueConstructor
+import typings.vueLib.typesPluginMod.PluginFunction
+import typings.vueLib.typesVueMod.Vue
+import typings.vueLib.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

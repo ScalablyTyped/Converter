@@ -1,10 +1,9 @@
-package typings
-package voidDashElementsLib
+package typings.voidDashElementsLib
 
 import org.scalablytyped.runtime.TopLevel
-import stdLib.Partial
-import stdLib.Record
-import voidDashElementsLib.voidDashElementsLibNumbers.`true`
+import typings.stdLib.Partial
+import typings.stdLib.Record
+import typings.voidDashElementsLib.voidDashElementsLibNumbers.`true`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

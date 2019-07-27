@@ -1,5 +1,4 @@
-package typings
-package vueDashResourceLib.vuejsNs
+package typings.vueDashResourceLib.vuejsNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

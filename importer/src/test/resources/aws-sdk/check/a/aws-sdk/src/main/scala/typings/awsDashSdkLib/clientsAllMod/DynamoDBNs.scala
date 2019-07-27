@@ -1,10 +1,9 @@
-package typings
-package awsDashSdkLib.clientsAllMod
+package typings.awsDashSdkLib.clientsAllMod
 
-import awsDashSdkLib.clientsDynamodbMod.AttributeValue
-import awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
-import awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
-import awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions
+import typings.awsDashSdkLib.clientsDynamodbMod.AttributeValue
+import typings.awsDashSdkLib.clientsDynamodbMod.ClientConfiguration
+import typings.awsDashSdkLib.libDynamodbConverterMod.ConverterNs.ConverterOptions
+import typings.awsDashSdkLib.libDynamodbDocumentUnderscoreClientMod.DocumentClientNs.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -14,14 +13,14 @@ import scala.scalajs.js.annotation._
 object DynamoDBNs extends js.Object {
   @js.native
   class Converter ()
-    extends awsDashSdkLib.clientsDynamodbMod.Converter
+    extends typings.awsDashSdkLib.clientsDynamodbMod.Converter
   
   @js.native
   /**
     * Creates a DynamoDB document client with a set of configuration options.
     */
   class DocumentClient ()
-    extends awsDashSdkLib.clientsDynamodbMod.DocumentClient {
+    extends typings.awsDashSdkLib.clientsDynamodbMod.DocumentClient {
     def this(options: DocumentClientOptions with ClientConfiguration) = this()
   }
   

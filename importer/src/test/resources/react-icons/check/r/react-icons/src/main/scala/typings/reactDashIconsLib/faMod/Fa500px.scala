@@ -1,7 +1,6 @@
-package typings
-package reactDashIconsLib.faMod
+package typings.reactDashIconsLib.faMod
 
-import reactDashIconsLib.fa500pxMod.default
+import typings.reactDashIconsLib.fa500pxMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

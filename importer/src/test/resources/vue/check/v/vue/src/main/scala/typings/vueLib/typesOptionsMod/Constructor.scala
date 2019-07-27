@@ -1,5 +1,4 @@
-package typings
-package vueLib.typesOptionsMod
+package typings.vueLib.typesOptionsMod
 
 import org.scalablytyped.runtime.Instantiable1
 import scala.scalajs.js

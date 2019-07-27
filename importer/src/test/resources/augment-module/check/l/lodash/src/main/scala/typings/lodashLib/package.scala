@@ -1,6 +1,6 @@
 package typings
 
-import stdLib.Partial
+import typings.stdLib.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

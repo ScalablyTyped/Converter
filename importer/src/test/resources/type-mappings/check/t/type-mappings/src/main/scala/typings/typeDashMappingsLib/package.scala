@@ -1,23 +1,23 @@
 package typings
 
 import org.scalablytyped.runtime.Instantiable0
-import stdLib.Exclude
-import stdLib.InstanceType
-import stdLib.NonNullable
-import stdLib.Partial
-import stdLib.Pick
-import stdLib.Record
-import stdLib.Required
-import stdLib.ReturnType
-import typeDashMappingsLib.typeDashMappingsLibStrings.age
-import typeDashMappingsLib.typeDashMappingsLibStrings.color
-import typeDashMappingsLib.typeDashMappingsLibStrings.fontFamily
-import typeDashMappingsLib.typeDashMappingsLibStrings.fontSize
-import typeDashMappingsLib.typeDashMappingsLibStrings.fontWeight
-import typeDashMappingsLib.typeDashMappingsLibStrings.letterSpacing
-import typeDashMappingsLib.typeDashMappingsLibStrings.lineHeight
-import typeDashMappingsLib.typeDashMappingsLibStrings.name
-import typeDashMappingsLib.typeDashMappingsLibStrings.textTransform
+import typings.stdLib.Exclude
+import typings.stdLib.InstanceType
+import typings.stdLib.NonNullable
+import typings.stdLib.Partial
+import typings.stdLib.Pick
+import typings.stdLib.Record
+import typings.stdLib.Required
+import typings.stdLib.ReturnType
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.age
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.color
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.fontFamily
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.fontSize
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.fontWeight
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.letterSpacing
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.lineHeight
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.name
+import typings.typeDashMappingsLib.typeDashMappingsLibStrings.textTransform
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -35,13 +35,13 @@ package object typeDashMappingsLib {
   type ProxiedPerson = Proxify[Person]
   type Proxify[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
-    */ typeDashMappingsLib.typeDashMappingsLibStrings.Proxify with js.Any
+    */ typings.typeDashMappingsLib.typeDashMappingsLibStrings.Proxify with js.Any
   type ReadonlyPerson = Person
   type RequiredPerson = Required[Person]
   type ReturnedPerson = ReturnType[js.Function0[Person]]
   type T = Pick[Anon_Name | Anon_Age, name with age]
   type TypographyStyle = (Required[Pick[CSSProperties, fontFamily | fontSize | fontWeight | color]]) with (Partial[Pick[CSSProperties, letterSpacing | lineHeight | textTransform]])
-  type TypographyStyleOptions = /* InlineNestedIdentityAlias: stdLib.Partial*/ TypographyStyle
+  type TypographyStyleOptions = /* InlineNestedIdentityAlias: typings.stdLib.Partial*/ TypographyStyle
   type U = Pick[Anon_AgeName, name | age]
   type V = Pick[Anon_AgeName, age]
 }

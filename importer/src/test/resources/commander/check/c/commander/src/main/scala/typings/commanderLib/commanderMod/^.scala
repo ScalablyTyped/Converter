@@ -1,5 +1,4 @@
-package typings
-package commanderLib.commanderMod
+package typings.commanderLib.commanderMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

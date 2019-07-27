@@ -1,7 +1,6 @@
-package typings
-package materialDashUiLib.svgDashIconsActionAccessibilityMod
+package typings.materialDashUiLib.svgDashIconsActionAccessibilityMod
 
-import materialDashUiLib.underscoreUnderscoreMaterialUINs.SvgIcon
+import typings.materialDashUiLib.underscoreUnderscoreMaterialUINs.SvgIcon
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

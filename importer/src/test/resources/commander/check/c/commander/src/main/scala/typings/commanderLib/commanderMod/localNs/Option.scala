@@ -1,5 +1,4 @@
-package typings
-package commanderLib.commanderMod.localNs
+package typings.commanderLib.commanderMod.localNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

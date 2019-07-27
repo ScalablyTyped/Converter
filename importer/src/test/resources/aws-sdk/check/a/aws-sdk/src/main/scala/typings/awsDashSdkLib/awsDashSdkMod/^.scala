@@ -1,7 +1,6 @@
-package typings
-package awsDashSdkLib.awsDashSdkMod
+package typings.awsDashSdkLib.awsDashSdkMod
 
-import awsDashSdkLib.libConfigMod.Config
+import typings.awsDashSdkLib.libConfigMod.Config
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

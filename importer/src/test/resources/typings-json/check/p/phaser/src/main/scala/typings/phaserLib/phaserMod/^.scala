@@ -1,7 +1,6 @@
-package typings
-package phaserLib.phaserMod
+package typings.phaserLib.phaserMod
 
-import phaserLib.Phaser
+import typings.phaserLib.Phaser
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

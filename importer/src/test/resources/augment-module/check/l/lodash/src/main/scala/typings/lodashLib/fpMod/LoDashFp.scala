@@ -1,9 +1,8 @@
-package typings
-package lodashLib.fpMod
+package typings.lodashLib.fpMod
 
-import lodashLib.fpCurryMod.Curry
-import lodashLib.lodashMod.CurriedFunction1
-import lodashLib.lodashMod.CurriedFunction2
+import typings.lodashLib.fpCurryMod.Curry
+import typings.lodashLib.lodashMod.CurriedFunction1
+import typings.lodashLib.lodashMod.CurriedFunction2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

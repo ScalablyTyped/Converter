@@ -30,15 +30,14 @@ object Printer {
       fs.toMap
   }
 
-  def apply(scope: TreeScope, tree: ContainerTree, mainPkg: Name): Map[os.RelPath, Array[Byte]] = {
+  def apply(scope: TreeScope, tree: ContainerTree): Map[os.RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
       _scope       = scope,
       reg          = reg,
-      mainPkg      = mainPkg,
       packages     = List(tree.name),
-      targetFolder = os.RelPath(mainPkg.value) / tree.name.value,
+      targetFolder = os.RelPath(tree.name.value),
       tree         = tree,
     )
 
@@ -53,7 +52,6 @@ object Printer {
   def apply(
       _scope:       TreeScope,
       reg:          Registry,
-      mainPkg:      Name,
       packages:     List[Name],
       targetFolder: os.RelPath,
       tree:         ContainerTree,
@@ -68,19 +66,18 @@ object Printer {
       case (ScalaOutput.File(name), members: Seq[Tree]) =>
         reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
           val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
-          writer println s"package ${formatName(mainPkg)}"
           writer println s"package ${formatQN(QualifiedName(packages))}"
           writer.println("")
           imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
           writer.println(Imports)
           writer.println("")
-          shortenedMembers foreach printTree(scope, reg, Indenter(writer), mainPkg, packages, targetFolder, 0)
+          shortenedMembers foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 0)
         }
 
       case (ScalaOutput.Package(name), pkgs) =>
         pkgs foreach {
           case pkg: PackageTree =>
-            apply(scope / pkg, reg, mainPkg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
+            apply(scope, reg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
           case _ => sys.error("i was too lazy to prove this with types")
         }
 
@@ -88,7 +85,6 @@ object Printer {
         reg.write(targetFolder / "package.scala") { writer =>
           val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
 
-          writer println s"package ${formatName(mainPkg)}"
           packages.dropRight(1) match {
             case Nil => ()
             case remaining =>
@@ -101,7 +97,7 @@ object Printer {
           writer.println("")
           writer.println("package object " + formatName(tree.name) + " {")
 
-          shortenedMembers foreach printTree(scope, reg, Indenter(writer), mainPkg, packages, targetFolder, 2)
+          shortenedMembers foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 2)
           writer.println("}")
         }
     }
@@ -134,20 +130,19 @@ object Printer {
   }
 
   def printTree(
-      _scope:  TreeScope,
-      reg:     Registry,
-      w:       Indenter,
-      mainPkg: Name,
-      prefix:  List[Name],
-      folder:  os.RelPath,
-      indent:  Int,
+      _scope:       TreeScope,
+      reg:          Registry,
+      w:            Indenter,
+      packageNames: List[Name],
+      folder:       os.RelPath,
+      indent:       Int,
   )(
       tree: Tree,
   ): Unit = {
     val scope = _scope / tree
 
     val printSym: Tree => Unit =
-      printTree(scope, reg, w, mainPkg, prefix, folder, indent + 2)
+      printTree(scope, reg, w, packageNames, folder, indent + 2)
 
     def print(ss: String*): Unit =
       ss foreach w.print(indent)
@@ -159,7 +154,7 @@ object Printer {
 
     tree match {
       case tree: PackageTree =>
-        apply(scope, reg, mainPkg, prefix :+ tree.name, folder / os.RelPath(tree.name.value), tree)
+        apply(scope, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
 
       case cls @ ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(formatComments(comments))
@@ -204,12 +199,10 @@ object Printer {
 
         print("object ", formatName(name), extendsClause(parents, m.isNative, indent))
 
-        val newPrefix = if (name === Name.namespaced || !m.isNative) prefix else prefix :+ name
-
         if (members.nonEmpty) {
           println(" {")
 
-          members foreach printTree(scope, reg, w, mainPkg, newPrefix, folder, indent + 2)
+          members foreach printTree(scope, reg, w, packageNames, folder, indent + 2)
           println("}")
         } else
           println()

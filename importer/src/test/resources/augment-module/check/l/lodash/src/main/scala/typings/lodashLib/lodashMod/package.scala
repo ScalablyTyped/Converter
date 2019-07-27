@@ -1,8 +1,7 @@
-package typings
-package lodashLib
+package typings.lodashLib
 
-import lodashLib.GlobalPartial
-import stdLib.ArrayLike
+import typings.lodashLib.GlobalPartial
+import typings.stdLib.ArrayLike
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,5 +1,4 @@
-package typings
-package rxjsLib
+package typings.rxjsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

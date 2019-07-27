@@ -1,5 +1,4 @@
-package typings
-package reactLib.ReactNs
+package typings.reactLib.ReactNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

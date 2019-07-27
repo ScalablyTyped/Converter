@@ -1,5 +1,4 @@
-package typings
-package materialDashUiLib.underscoreUnderscoreMaterialUINs.StylesNs
+package typings.materialDashUiLib.underscoreUnderscoreMaterialUINs.StylesNs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,5 +1,4 @@
-package typings
-package awsDashSdkLib
+package typings.awsDashSdkLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

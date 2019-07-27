@@ -1,7 +1,6 @@
-package typings
-package vueDashResourceLib.vuejsNs
+package typings.vueDashResourceLib.vuejsNs
 
-import stdLib.Blob
+import typings.stdLib.Blob
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

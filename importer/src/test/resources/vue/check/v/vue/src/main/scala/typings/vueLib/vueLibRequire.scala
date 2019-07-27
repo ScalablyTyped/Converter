@@ -1,5 +1,4 @@
-package typings
-package vueLib
+package typings.vueLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

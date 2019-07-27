@@ -1,8 +1,7 @@
-package typings
-package rxjsLib.internalObservableMod
+package typings.rxjsLib.internalObservableMod
 
-import rxjsLib.internalTypesMod.OperatorFunction
-import rxjsLib.internalTypesMod.Subscribable
+import typings.rxjsLib.internalTypesMod.OperatorFunction
+import typings.rxjsLib.internalTypesMod.Subscribable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

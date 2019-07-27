@@ -1,10 +1,9 @@
-package typings
-package nodeLib.bufferMod
+package typings.nodeLib.bufferMod
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import stdLib.ArrayBuffer
-import stdLib.Uint8Array
+import typings.stdLib.ArrayBuffer
+import typings.stdLib.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,7 +11,7 @@ import scala.scalajs.js.annotation._
 @JSImport("buffer", "Buffer")
 @js.native
 class Buffer protected ()
-  extends nodeLib.Buffer {
+  extends typings.nodeLib.Buffer {
   /**
     * Produces a Buffer backed by the same allocated memory as
     * the given {ArrayBuffer}.
@@ -38,7 +37,7 @@ class Buffer protected ()
     *
     * @param buffer The buffer to copy.
     */
-  def this(buffer: nodeLib.Buffer) = this()
+  def this(buffer: typings.nodeLib.Buffer) = this()
   /**
     * Allocates a new buffer of {size} octets.
     *
@@ -58,7 +57,7 @@ class Buffer protected ()
 @JSImport("buffer", "Buffer")
 @js.native
 object Buffer
-  extends Instantiable2[/* str */ String, /* encoding */ String, nodeLib.Buffer]
+  extends Instantiable2[/* str */ String, /* encoding */ String, typings.nodeLib.Buffer]
      with /**
   * Allocates a new buffer containing the given {str}.
   *
@@ -88,12 +87,12 @@ object Buffer
   * @param buffer The buffer to copy.
   */
 Instantiable1[
-      (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ ArrayBuffer) | (/* buffer */ nodeLib.Buffer) | (/* size */ Double) | (/* str */ String) | (/* array */ Uint8Array), 
-      nodeLib.Buffer
+      (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ ArrayBuffer) | (/* buffer */ typings.nodeLib.Buffer) | (/* size */ Double) | (/* str */ String) | (/* array */ Uint8Array), 
+      typings.nodeLib.Buffer
     ] {
   /**
     * Allocates a new Buffer using an {array} of octets.
     */
-  def from(array: js.Array[_]): nodeLib.Buffer = js.native
+  def from(array: js.Array[_]): typings.nodeLib.Buffer = js.native
 }
 

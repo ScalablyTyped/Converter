@@ -1,7 +1,6 @@
-package typings
-package webpackDashEnvLib
+package typings.webpackDashEnvLib
 
-import webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.NodeProcess
+import typings.webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs.NodeProcess
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

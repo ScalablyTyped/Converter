@@ -1,5 +1,4 @@
-package typings
-package materialDashUiLib.svgDashIconsActionAccessibilityMod
+package typings.materialDashUiLib.svgDashIconsActionAccessibilityMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

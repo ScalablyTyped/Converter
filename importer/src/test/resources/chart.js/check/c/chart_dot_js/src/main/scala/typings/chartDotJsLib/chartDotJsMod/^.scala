@@ -1,12 +1,11 @@
-package typings
-package chartDotJsLib.chartDotJsMod
+package typings.chartDotJsLib.chartDotJsMod
 
-import chartDotJsLib.Anon_Global
-import chartDotJsLib.TypeofClassChart
 import org.scalablytyped.runtime.StringDictionary
-import stdLib.ArrayLike
-import stdLib.CanvasRenderingContext2D
-import stdLib.HTMLCanvasElement
+import typings.chartDotJsLib.Anon_Global
+import typings.chartDotJsLib.TypeofClassChart
+import typings.stdLib.ArrayLike
+import typings.stdLib.CanvasRenderingContext2D
+import typings.stdLib.HTMLCanvasElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

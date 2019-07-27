@@ -1,5 +1,4 @@
-package typings
-package atGoogleDashCloudFirestoreLib
+package typings.atGoogleDashCloudFirestoreLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

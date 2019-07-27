@@ -1,5 +1,4 @@
-package typings
-package serveDashStaticLib
+package typings.serveDashStaticLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

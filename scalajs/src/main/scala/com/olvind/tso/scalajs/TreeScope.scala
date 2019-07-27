@@ -71,9 +71,9 @@ object TreeScope {
 
     override def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
       fragments match {
-        case head :: tail =>
+        case ScalaConfig.outputPkg :: head :: tail =>
           dependencies.get(head) match {
-            case Some(dep) => dep.lookupNoBacktrack(head :: tail)
+            case Some(dep) => dep.lookupNoBacktrack(ScalaConfig.outputPkg :: head :: tail)
             case None      => Seq.empty
           }
         case _ => Seq.empty

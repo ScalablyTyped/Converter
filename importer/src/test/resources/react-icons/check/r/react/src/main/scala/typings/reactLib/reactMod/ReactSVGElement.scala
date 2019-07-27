@@ -1,10 +1,9 @@
-package typings
-package reactLib.reactMod
+package typings.reactLib.reactMod
 
-import reactLib.SVGElement
-import reactLib.reactLibStrings.animate
-import reactLib.reactLibStrings.circle
-import reactLib.reactLibStrings.clipPath
+import typings.reactLib.SVGElement
+import typings.reactLib.reactLibStrings.animate
+import typings.reactLib.reactLibStrings.circle
+import typings.reactLib.reactLibStrings.clipPath
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

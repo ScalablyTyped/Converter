@@ -1,7 +1,6 @@
-package typings
-package fpDashTsLib
+package typings.fpDashTsLib
 
-import fpDashTsLib.libEitherMod.Either
+import typings.fpDashTsLib.libEitherMod.Either
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

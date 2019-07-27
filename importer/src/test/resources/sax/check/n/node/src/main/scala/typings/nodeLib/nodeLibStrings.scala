@@ -1,5 +1,4 @@
-package typings
-package nodeLib
+package typings.nodeLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

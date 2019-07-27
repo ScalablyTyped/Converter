@@ -1,7 +1,6 @@
-package typings
-package vueDashResourceLib
+package typings.vueDashResourceLib
 
-import vueDashResourceLib.vuejsNs.VueStatic
+import typings.vueDashResourceLib.vuejsNs.VueStatic
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

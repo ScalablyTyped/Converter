@@ -1,9 +1,8 @@
-package typings
-package webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs
+package typings.webpackDashEnvLib.underscoreUnderscoreWebpackModuleApiNs
 
 import org.scalablytyped.runtime.StringDictionary
-import stdLib.RegExp
-import webpackDashEnvLib.NodeRequire
+import typings.stdLib.RegExp
+import typings.webpackDashEnvLib.NodeRequire
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

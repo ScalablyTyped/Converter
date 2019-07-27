@@ -1,7 +1,6 @@
-package typings
-package saxLib.saxMod
+package typings.saxLib.saxMod
 
-import nodeLib.streamMod.Duplex
+import typings.nodeLib.streamMod.Duplex
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

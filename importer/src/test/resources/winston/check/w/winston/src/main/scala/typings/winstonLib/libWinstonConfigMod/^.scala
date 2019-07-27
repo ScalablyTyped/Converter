@@ -1,5 +1,4 @@
-package typings
-package winstonLib.libWinstonConfigMod
+package typings.winstonLib.libWinstonConfigMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

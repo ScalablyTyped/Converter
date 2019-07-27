@@ -1,5 +1,4 @@
-package typings
-package angularLib.angularMod
+package typings.angularLib.angularMod
 
 import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js

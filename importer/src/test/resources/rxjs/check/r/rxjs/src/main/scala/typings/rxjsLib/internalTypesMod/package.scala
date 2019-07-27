@@ -1,7 +1,6 @@
-package typings
-package rxjsLib
+package typings.rxjsLib
 
-import rxjsLib.internalObservableMod.Observable
+import typings.rxjsLib.internalObservableMod.Observable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

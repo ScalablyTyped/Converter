@@ -1,7 +1,6 @@
-package typings
-package winstonLib.libWinstonConfigMod
+package typings.winstonLib.libWinstonConfigMod
 
-import winstonLib.winstonLibStrings.bar
+import typings.winstonLib.winstonLibStrings.bar
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

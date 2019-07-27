@@ -1,7 +1,6 @@
-package typings
-package angularLib
+package typings.angularLib
 
-import angularLib.angularMod.Global.Function
+import typings.angularLib.angularMod.Global.Function
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

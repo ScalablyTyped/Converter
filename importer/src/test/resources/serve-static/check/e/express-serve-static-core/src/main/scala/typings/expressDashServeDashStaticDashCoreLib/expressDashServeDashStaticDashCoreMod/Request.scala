@@ -1,12 +1,11 @@
-package typings
-package expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod
+package typings.expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Request
-  extends expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Global.ExpressNs.Request {
+  extends typings.expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Global.ExpressNs.Request {
   var url: String
 }
 

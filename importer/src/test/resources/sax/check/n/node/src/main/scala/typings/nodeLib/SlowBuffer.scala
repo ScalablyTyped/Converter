@@ -1,9 +1,8 @@
-package typings
-package nodeLib
+package typings.nodeLib
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
-import stdLib.Uint8Array
+import typings.stdLib.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

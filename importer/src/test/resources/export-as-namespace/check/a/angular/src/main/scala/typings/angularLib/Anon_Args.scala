@@ -1,5 +1,4 @@
-package typings
-package angularLib
+package typings.angularLib
 
 import org.scalablytyped.runtime.Instantiable1
 import scala.scalajs.js

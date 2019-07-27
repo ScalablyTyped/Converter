@@ -11,7 +11,7 @@ import ConstructObjectOfType.Param
 object Companions extends TreeTransformation {
   override def enterContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
-    if (scope.stack.dropRight(1).exists { case mod: ModuleTree => mod.isNative; case _ => false })
+    if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
       container
     else {
       def nameConflict(name: Name): Boolean =

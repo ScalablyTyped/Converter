@@ -1,5 +1,4 @@
-package typings
-package lodashLib.lodashMod.Global
+package typings.lodashLib.lodashMod.Global
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

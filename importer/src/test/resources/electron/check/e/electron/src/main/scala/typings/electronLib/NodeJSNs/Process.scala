@@ -1,8 +1,7 @@
-package typings
-package electronLib.NodeJSNs
+package typings.electronLib.NodeJSNs
 
-import electronLib.electronLibStrings.bar
-import nodeLib.NodeJSNs.EventEmitter
+import typings.electronLib.electronLibStrings.bar
+import typings.nodeLib.NodeJSNs.EventEmitter
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

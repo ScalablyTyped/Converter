@@ -1,7 +1,6 @@
-package typings
-package serveDashStaticLib.serveDashStaticMod
+package typings.serveDashStaticLib.serveDashStaticMod
 
-import expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Response
+import typings.expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Response
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

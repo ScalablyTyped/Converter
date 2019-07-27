@@ -1,8 +1,8 @@
 package typings
 
-import stdLib.ArrayLike
-import stdLib.Document
-import stdLib.Element
+import typings.stdLib.ArrayLike
+import typings.stdLib.Document
+import typings.stdLib.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

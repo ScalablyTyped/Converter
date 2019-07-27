@@ -1,8 +1,7 @@
-package typings
-package reactLib.reactMod
+package typings.reactLib.reactMod
 
-import reactLib.Anon_Children
-import stdLib.Partial
+import typings.reactLib.Anon_Children
+import typings.stdLib.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

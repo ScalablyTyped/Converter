@@ -1,5 +1,4 @@
-package typings
-package nodeLib.streamMod
+package typings.nodeLib.streamMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

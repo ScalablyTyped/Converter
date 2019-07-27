@@ -1,11 +1,10 @@
-package typings
-package reactDashTransitionDashGroupLib
+package typings.reactDashTransitionDashGroupLib
 
-import reactDashTransitionDashGroupLib.Anon_Child
-import reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr
-import reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate
-import reactLib.reactMod.Component
-import reactLib.reactMod.ReactType
+import typings.reactDashTransitionDashGroupLib.Anon_Child
+import typings.reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr
+import typings.reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate
+import typings.reactLib.reactMod.Component
+import typings.reactLib.reactMod.ReactType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

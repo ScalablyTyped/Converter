@@ -1,5 +1,4 @@
-package typings
-package reactDashIconsLib
+package typings.reactDashIconsLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

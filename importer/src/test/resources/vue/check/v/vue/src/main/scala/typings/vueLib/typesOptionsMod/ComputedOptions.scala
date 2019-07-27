@@ -1,5 +1,4 @@
-package typings
-package vueLib.typesOptionsMod
+package typings.vueLib.typesOptionsMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

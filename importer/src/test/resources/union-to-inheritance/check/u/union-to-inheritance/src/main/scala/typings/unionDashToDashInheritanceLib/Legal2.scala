@@ -1,15 +1,14 @@
-package typings
-package unionDashToDashInheritanceLib
+package typings.unionDashToDashInheritanceLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.foo
-  - unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.bar
-  - unionDashToDashInheritanceLib.Foo[P]
-  - unionDashToDashInheritanceLib.Foo2[T, P]
+  - typings.unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.foo
+  - typings.unionDashToDashInheritanceLib.unionDashToDashInheritanceLibStrings.bar
+  - typings.unionDashToDashInheritanceLib.Foo[P]
+  - typings.unionDashToDashInheritanceLib.Foo2[T, P]
 */
 trait Legal2[P, T] extends js.Object
 

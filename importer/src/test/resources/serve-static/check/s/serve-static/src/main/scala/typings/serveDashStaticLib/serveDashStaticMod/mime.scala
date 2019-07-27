@@ -1,7 +1,6 @@
-package typings
-package serveDashStaticLib.serveDashStaticMod
+package typings.serveDashStaticLib.serveDashStaticMod
 
-import mimeLib.mimeMod.TypeMap
+import typings.mimeLib.mimeMod.TypeMap
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

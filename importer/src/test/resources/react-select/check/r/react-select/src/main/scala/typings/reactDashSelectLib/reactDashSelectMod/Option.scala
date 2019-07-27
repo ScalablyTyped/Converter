@@ -1,5 +1,4 @@
-package typings
-package reactDashSelectLib.reactDashSelectMod
+package typings.reactDashSelectLib.reactDashSelectMod
 
 import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js

@@ -1,5 +1,4 @@
-package typings
-package rxjsLib.internalTypesMod
+package typings.rxjsLib.internalTypesMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

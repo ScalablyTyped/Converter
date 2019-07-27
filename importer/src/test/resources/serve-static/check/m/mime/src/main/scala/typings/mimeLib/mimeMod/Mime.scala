@@ -1,5 +1,4 @@
-package typings
-package mimeLib.mimeMod
+package typings.mimeLib.mimeMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

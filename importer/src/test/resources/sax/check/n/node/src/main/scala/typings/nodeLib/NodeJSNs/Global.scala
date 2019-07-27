@@ -1,7 +1,6 @@
-package typings
-package nodeLib.NodeJSNs
+package typings.nodeLib.NodeJSNs
 
-import stdLib.ArrayConstrucor
+import typings.stdLib.ArrayConstrucor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

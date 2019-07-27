@@ -1,5 +1,4 @@
-package typings
-package firebaseDashAdminLib
+package typings.firebaseDashAdminLib
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

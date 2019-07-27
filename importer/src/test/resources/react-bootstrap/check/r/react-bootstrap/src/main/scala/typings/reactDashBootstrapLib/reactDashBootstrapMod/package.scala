@@ -1,7 +1,6 @@
-package typings
-package reactDashBootstrapLib
+package typings.reactDashBootstrapLib
 
-import stdLib.Pick
+import typings.stdLib.Pick
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

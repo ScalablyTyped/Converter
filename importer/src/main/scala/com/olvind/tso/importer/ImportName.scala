@@ -1,7 +1,7 @@
 package com.olvind.tso
 package importer
 
-import com.olvind.tso.scalajs.{Name, QualifiedName}
+import com.olvind.tso.scalajs.{Name, QualifiedName, ScalaConfig}
 import com.olvind.tso.ts._
 
 /**
@@ -16,10 +16,14 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
     Some(apply(x))
 
   def apply(ident: TsQIdent): QualifiedName =
-    QualifiedName(ident.parts map apply)
+    ident match {
+      /* hack/shortcut: all qualified idents are fully qualified, which means only abstract things should have length one */
+      case TsQIdent(one :: Nil) => QualifiedName(List(apply(one)))
+      case TsQIdent(parts) => QualifiedName(ScalaConfig.outputPkg +: (parts map apply))
+    }
 
   def apply(cp: CodePath): QualifiedName =
-    QualifiedName(cp.forceHasPath.codePath.parts map apply)
+    QualifiedName(ScalaConfig.outputPkg +: (cp.forceHasPath.codePath.parts map apply))
 
   def apply(i: TsIdent): Name =
     i match {
