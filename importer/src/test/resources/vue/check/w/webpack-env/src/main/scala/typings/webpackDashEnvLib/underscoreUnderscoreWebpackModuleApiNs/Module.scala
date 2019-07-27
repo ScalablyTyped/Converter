@@ -16,6 +16,6 @@ trait Module extends js.Object {
   var parent: js.Any = js.native
   def require(id: java.lang.String): js.Any = js.native
   @JSName("require")
-  def require_TT[T](id: java.lang.String): T = js.native
+  def require_T_T[T](id: java.lang.String): T = js.native
 }
 

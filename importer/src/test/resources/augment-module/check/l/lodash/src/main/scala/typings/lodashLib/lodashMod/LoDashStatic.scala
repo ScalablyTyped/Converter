@@ -33,6 +33,6 @@ trait LoDashStatic extends js.Object {
   def at[T](`object`: List[T], props: PropertyPath*): js.Array[T] = js.native
   def at[T](props: PropertyPath*): js.Array[T] = js.native
   @JSName("at")
-  def at_TObject[T /* <: js.Object */](props: Many[java.lang.String]*): js.Array[/* import warning: ImportType.apply Failed type conversion: T[keyof T] */ js.Any] = js.native
+  def at_T_Object[T /* <: js.Object */](props: Many[java.lang.String]*): js.Array[/* import warning: ImportType.apply Failed type conversion: T[keyof T] */ js.Any] = js.native
 }
 

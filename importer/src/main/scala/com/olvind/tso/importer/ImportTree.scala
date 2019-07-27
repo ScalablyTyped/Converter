@@ -26,7 +26,7 @@ object ImportTree {
     )
     val require = {
       val libName = importName(lib.name)
-      val name    = libName.withSuffix("Require")
+      val name    = Name(libName.unescaped + "Require")
       ModuleTree(
         Seq(JsImport(lib.name.value, Imported.Namespace), JsNative),
         name,
@@ -452,7 +452,7 @@ object ImportTree {
   def hack(fs: FieldTree): FieldTree =
     fs.comments.extract { case Markers.ExpandedCallables => () } match {
       case None              => fs
-      case Some((_, restCs)) => fs.withSuffix("_Original").copy(comments = restCs)
+      case Some((_, restCs)) => fs.withSuffix("Original").copy(comments = restCs)
     }
 
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =
@@ -513,7 +513,7 @@ object ImportTree {
 
       containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {
         case suffix :: Nil =>
-          ret withSuffix "_" withSuffix suffix
+          ret withSuffix suffix
         case _ => ret
       }
     }

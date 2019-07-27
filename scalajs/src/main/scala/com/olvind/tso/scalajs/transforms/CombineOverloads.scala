@@ -65,7 +65,7 @@ object CombineOverloads extends TreeTransformation {
     )
 
     renameSuffix.foldLeft(combined) {
-      case (ret, suffix) => ret withSuffix "_" withSuffix suffix
+      case (ret, suffix) => ret withSuffix suffix
     }
   }
 

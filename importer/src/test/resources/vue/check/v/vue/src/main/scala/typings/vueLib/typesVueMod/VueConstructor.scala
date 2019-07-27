@@ -44,19 +44,19 @@ org.scalablytyped.runtime.Instantiable0[
     definition: vueLib.typesOptionsMod.AsyncComponent[Data, Methods, Computed, Props]
   ): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
   @JSName("component")
-  def component_DataMethodsComputedPropNamesString[Data, Methods, Computed, PropNames /* <: java.lang.String */](
+  def component_DataMethodsComputedPropNames_String[Data, Methods, Computed, PropNames /* <: java.lang.String */](
     id: java.lang.String,
     definition: vueLib.typesOptionsMod.ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames]
   ): ExtendedVue[V, Data, Methods, Computed, stdLib.Record[PropNames, _]] = js.native
   @JSName("component")
-  def component_DataMethodsComputedPropNamesStringExtendedVue[Data, Methods, Computed, PropNames /* <: java.lang.String */](id: java.lang.String): ExtendedVue[V, Data, Methods, Computed, stdLib.Record[PropNames, _]] = js.native
+  def component_DataMethodsComputedPropNames_String_ExtendedVue[Data, Methods, Computed, PropNames /* <: java.lang.String */](id: java.lang.String): ExtendedVue[V, Data, Methods, Computed, stdLib.Record[PropNames, _]] = js.native
   @JSName("component")
   def component_DataMethodsComputedProps[Data, Methods, Computed, Props](
     id: java.lang.String,
     definition: vueLib.typesOptionsMod.ThisTypedComponentOptionsWithRecordProps[V, Data, Methods, Computed, Props]
   ): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
   @JSName("component")
-  def component_DataMethodsComputedPropsExtendedVue[Data, Methods, Computed, Props](id: java.lang.String): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
+  def component_DataMethodsComputedProps_ExtendedVue[Data, Methods, Computed, Props](id: java.lang.String): ExtendedVue[V, Data, Methods, Computed, Props] = js.native
   @JSName("component")
   def component_ExtendedVue(id: java.lang.String): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
   @JSName("component")
@@ -83,9 +83,9 @@ org.scalablytyped.runtime.Instantiable0[
     definition: vueLib.typesOptionsMod.FunctionalComponentOptions[stdLib.Record[PropNames, _], js.Array[PropNames]]
   ): ExtendedVue[V, js.Object, js.Object, js.Object, stdLib.Record[PropNames, _]] = js.native
   @JSName("extend")
-  def extend_DataMethodsComputedPropNamesString[Data, Methods, Computed, PropNames /* <: java.lang.String */](): ExtendedVue[V, Data, Methods, Computed, stdLib.Record[PropNames, _]] = js.native
+  def extend_DataMethodsComputedPropNames_String[Data, Methods, Computed, PropNames /* <: java.lang.String */](): ExtendedVue[V, Data, Methods, Computed, stdLib.Record[PropNames, _]] = js.native
   @JSName("extend")
-  def extend_DataMethodsComputedPropNamesString[Data, Methods, Computed, PropNames /* <: java.lang.String */](
+  def extend_DataMethodsComputedPropNames_String[Data, Methods, Computed, PropNames /* <: java.lang.String */](
     options: vueLib.typesOptionsMod.ThisTypedComponentOptionsWithArrayProps[V, Data, Methods, Computed, PropNames]
   ): ExtendedVue[V, Data, Methods, Computed, stdLib.Record[PropNames, _]] = js.native
   @JSName("extend")

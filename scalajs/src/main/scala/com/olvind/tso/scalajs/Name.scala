@@ -4,7 +4,7 @@ package scalajs
 final case class Name(unescaped: String) extends AnyVal {
 
   def withSuffix[T: ToSuffix](t: T): Name =
-    new Name(unescaped + ToSuffix(t).unescaped)
+    new Name(unescaped + "_" + ToSuffix(t).unescaped)
 
   def value: String =
     ScalaNameEscape(unescaped)
@@ -59,8 +59,18 @@ object Name {
 
   val Primitive = Set(Any, Double, Int, Long, Boolean, Unit, Null, Nothing, String, Array)
 
-  implicit object NameSuffix extends ToSuffix[Name] {
-    override def to(t: Name): Suffix = Suffix(t.unescaped)
+  implicit val NameSuffix: ToSuffix[Name] = new ToSuffix[Name] {
+    override def to(t: Name): Suffix = t match {
+      case UNION        => Suffix("Union")
+      case INTERSECTION => Suffix("Intersection")
+      case SINGLETON    => Suffix("Singleton")
+      case LITERAL      => Suffix("Literal")
+      case THIS_TYPE    => Suffix("This")
+      case WILDCARD     => Suffix("Wildcard")
+      case REPEATED     => Suffix("Repeated")
+      case APPLY        => Suffix("Apply")
+      case other        => Suffix(other.unescaped)
+    }
   }
 
   implicit val OrderedName = Ordering[String].on[Name](_.unescaped)

@@ -230,7 +230,7 @@ object Phase1ReadTypescript {
       if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       if (enableExpandTypeMappings) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
       (
-        T.SimplifyConditionals >>
+        T.SimplifyConditionals >> // after ExpandTypeMappings
           T.PreferTypeAlias >>
           T.ExpandTypeParams >>
           T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
