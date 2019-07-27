@@ -9,8 +9,9 @@ import scala.scalajs.js.annotation._
 trait SVGFactory
   extends DOMFactory[SVGAttributes[reactLib.SVGElement], reactLib.SVGElement] {
   def apply(): ReactSVGElement = js.native
+  def apply(children: ReactNode*): ReactSVGElement = js.native
   def apply(
-    props: ClassAttributes[reactLib.SVGElement] with (SVGAttributes[reactLib.SVGElement] | scala.Null),
+    props: ClassAttributes[reactLib.SVGElement] with SVGAttributes[reactLib.SVGElement],
     children: ReactNode*
   ): ReactSVGElement = js.native
 }

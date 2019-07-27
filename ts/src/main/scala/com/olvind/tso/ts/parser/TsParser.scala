@@ -454,23 +454,23 @@ class TsParser(path: Option[(Path, Int)]) extends StdTokenParsers with ParserHel
       }
     }
 
-    val union: Parser[TsType] =
-      "|".? ~> rep1sep(tsTypeLookupAndArray, "|") ^^ TsTypeUnion.simplified
-
-    val intersect = "&".? ~> rep1sep(union, "&") ^^ {
+    val intersect = "&".? ~> rep1sep(tsTypeLookupAndArray, "&") ^^ {
       case head :: Nil => head
       case more        => TsTypeIntersect.simplified(more)
     }
 
+    val union: Parser[TsType] =
+      "|".? ~> rep1sep(intersect, "|") ^^ TsTypeUnion.simplified
+
     val _extends =
-      intersect ~ "extends" ~ tsType ^^ { case _1 ~ _ ~ _2 => TsTypeExtends(_1, _2) }
+      union ~ "extends" ~ tsType ^^ { case _1 ~ _ ~ _2 => TsTypeExtends(_1, _2) }
 
     lazy val conditional: Parser[TsType] =
       _extends ~ "?" ~ tsType ~ ":" ~ tsType ^^ {
         case _1 ~ _ ~ _2 ~ _ ~ _3 => TsTypeConditional(_1, _2, _3)
       }
 
-    conditional | _extends | intersect
+    conditional | _extends | union
   }
 
   lazy val tsTypeTuple: Parser[TsTypeTuple] = {
