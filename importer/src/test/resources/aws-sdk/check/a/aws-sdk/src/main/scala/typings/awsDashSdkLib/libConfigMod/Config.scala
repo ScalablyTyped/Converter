@@ -1,6 +1,7 @@
 package typings
 package awsDashSdkLib.libConfigMod
 
+import awsDashSdkLib.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,7 +13,7 @@ import scala.scalajs.js.annotation._
   * This is the object that passes option data along to service requests, including credentials, security, region information, and some service specific settings.
   */
 class Config () extends js.Object {
-  def this(options: awsDashSdkLib.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders with APIVersions) = this()
+  def this(options: ConfigurationServicePlaceholders with APIVersions) = this()
   /**
     * Loads configuration data from a JSON file into this config object.
     * Loading configuration willr eset all existing configuration on the object.
@@ -20,6 +21,6 @@ class Config () extends js.Object {
     *
     * @param {string} path - the path relative to your process's current working directory to load configuration from.
     */
-  def loadFromPath(path: java.lang.String): Config with awsDashSdkLib.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders with APIVersions = js.native
+  def loadFromPath(path: String): Config with ConfigurationServicePlaceholders with APIVersions = js.native
 }
 

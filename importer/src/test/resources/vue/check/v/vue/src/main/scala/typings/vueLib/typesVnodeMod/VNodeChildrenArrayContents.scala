@@ -1,18 +1,16 @@
 package typings
 package vueLib.typesVnodeMod
 
+import org.scalablytyped.runtime.NumberDictionary
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait VNodeChildrenArrayContents
-  extends /* x */ org.scalablytyped.runtime.NumberDictionary[VNode | java.lang.String | VNodeChildren]
+trait VNodeChildrenArrayContents extends /* x */ NumberDictionary[VNode | String | VNodeChildren]
 
 object VNodeChildrenArrayContents {
   @scala.inline
-  def apply(
-    NumberDictionary: /* x */ org.scalablytyped.runtime.NumberDictionary[VNode | java.lang.String | VNodeChildren] = null
-  ): VNodeChildrenArrayContents = {
+  def apply(NumberDictionary: /* x */ NumberDictionary[VNode | String | VNodeChildren] = null): VNodeChildrenArrayContents = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[VNodeChildrenArrayContents]

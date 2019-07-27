@@ -12,28 +12,22 @@ sealed trait SERIALIZATION extends js.Object
 @js.native
 object SERIALIZATION extends js.Object {
   @js.native
-  sealed trait SERIALIZATION_JSON
-    extends swizLib.swizMod.SERIALIZATION
+  sealed trait SERIALIZATION_JSON extends SERIALIZATION
   
   @js.native
-  sealed trait SERIALIZATION_XML
-    extends swizLib.swizMod.SERIALIZATION
+  sealed trait SERIALIZATION_XML extends SERIALIZATION
   
   @js.native
-  sealed trait `_`
-    extends swizLib.swizMod.SERIALIZATION
+  sealed trait `_` extends SERIALIZATION
   
   @js.native
-  sealed trait java
-    extends swizLib.swizMod.SERIALIZATION
+  sealed trait java extends SERIALIZATION
   
   @js.native
-  sealed trait js
-    extends swizLib.swizMod.SERIALIZATION
+  sealed trait js extends SERIALIZATION
   
   @js.native
-  sealed trait notify
-    extends swizLib.swizMod.SERIALIZATION
+  sealed trait notify extends SERIALIZATION
   
 }
 

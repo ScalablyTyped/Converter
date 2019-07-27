@@ -15,9 +15,6 @@ object Sorter extends TreeTransformation {
     s.copy(members = s.members.sorted(TreeOrdering))
 
   private object TreeOrdering extends Ordering[Tree] {
-    // todo: should consider prefix (see Printer)
-    val NoPrefix = Nil
-
     override def compare(x: Tree, y: Tree): Int =
       (x, y) match {
         case (m1: MethodTree, m2: MethodTree) =>
@@ -30,11 +27,11 @@ object Sorter extends TreeTransformation {
                       // well, the rest was fast enough, so... :)
                       val p1: String =
                         m1.params.flatten
-                          .map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName))
+                          .map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName))
                           .mkString
                       val p2: String =
                         m2.params.flatten
-                          .map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName))
+                          .map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName))
                           .mkString
                       p1.compareTo(p2)
                     case other => other
@@ -48,9 +45,9 @@ object Sorter extends TreeTransformation {
           (c1.params.size.compareTo(c2.params.size): @switch) match {
             case 0 =>
               val p1: String =
-                c1.params.map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName)).mkString
+                c1.params.map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName)).mkString
               val p2: String =
-                c2.params.map(p => p.name.unescaped + Printer.formatQN(NoPrefix, p.tpe.typeName)).mkString
+                c2.params.map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName)).mkString
 
               p1.compareTo(p2)
             case other => other

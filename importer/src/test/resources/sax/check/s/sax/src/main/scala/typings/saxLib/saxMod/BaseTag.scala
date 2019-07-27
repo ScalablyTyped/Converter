@@ -6,13 +6,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait BaseTag extends js.Object {
-  var isSelfClosing: scala.Boolean
-  var name: java.lang.String
+  var isSelfClosing: Boolean
+  var name: String
 }
 
 object BaseTag {
   @scala.inline
-  def apply(isSelfClosing: scala.Boolean, name: java.lang.String): BaseTag = {
+  def apply(isSelfClosing: Boolean, name: String): BaseTag = {
     val __obj = js.Dynamic.literal(isSelfClosing = isSelfClosing, name = name)
   
     __obj.asInstanceOf[BaseTag]

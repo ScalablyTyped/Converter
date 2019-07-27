@@ -9,11 +9,11 @@ import scala.scalajs.js.annotation._
 - nodeLib.NodeJSNs.WritableStream because Inheritance from two classes. Inlined writable */ @JSImport("stream", "Writable")
 @js.native
 class Writable () extends Stream {
-  var writable: scala.Boolean = js.native
-  def emit(event: java.lang.String, args: js.Any*): scala.Boolean = js.native
-  def emit(event: js.Symbol, args: js.Any*): scala.Boolean = js.native
-  def end(str: java.lang.String): scala.Unit = js.native
-  def end(str: java.lang.String, encoding: java.lang.String): scala.Unit = js.native
-  def end(str: java.lang.String, encoding: java.lang.String, cb: js.Function): scala.Unit = js.native
+  var writable: Boolean = js.native
+  def emit(event: String, args: js.Any*): Boolean = js.native
+  def emit(event: js.Symbol, args: js.Any*): Boolean = js.native
+  def end(str: String): Unit = js.native
+  def end(str: String, encoding: String): Unit = js.native
+  def end(str: String, encoding: String, cb: js.Function): Unit = js.native
 }
 

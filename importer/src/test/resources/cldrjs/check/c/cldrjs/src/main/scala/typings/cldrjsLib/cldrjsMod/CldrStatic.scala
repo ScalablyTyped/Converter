@@ -17,20 +17,11 @@ import scala.scalajs.js.annotation._
 trait CldrStatic extends js.Object {
   @JSName("supplemental")
   var supplemental_Original: SupplementalStatic = js.native
-  def get(path: java.lang.String): js.Any = js.native
-  def off(
-    event: java.lang.String,
-    listener: js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]
-  ): scala.Unit = js.native
-  def on(
-    event: java.lang.String,
-    listener: js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]
-  ): scala.Unit = js.native
-  def once(
-    event: java.lang.String,
-    listener: js.Function2[/* path */ java.lang.String, /* value */ js.Any, scala.Unit]
-  ): scala.Unit = js.native
-  def supplemental(path: java.lang.String): js.Any = js.native
-  def supplemental(paths: js.Array[java.lang.String]): js.Any = js.native
+  def get(path: String): js.Any = js.native
+  def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+  def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+  def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+  def supplemental(path: String): js.Any = js.native
+  def supplemental(paths: js.Array[String]): js.Any = js.native
 }
 

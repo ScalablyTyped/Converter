@@ -17,15 +17,15 @@ class default () extends Default
 @JSImport("fullcalendar/Mixin", "Default")
 @js.native
 object Default extends js.Object {
-  def mixInto(destClass: js.Any): scala.Unit = js.native
-  def mixOver(destClass: js.Any): scala.Unit = js.native
+  def mixInto(destClass: js.Any): Unit = js.native
+  def mixOver(destClass: js.Any): Unit = js.native
 }
 
 /* static members */
 @JSImport("fullcalendar/Mixin", JSImport.Default)
 @js.native
 object default extends js.Object {
-  def mixInto(destClass: js.Any): scala.Unit = js.native
-  def mixOver(destClass: js.Any): scala.Unit = js.native
+  def mixInto(destClass: js.Any): Unit = js.native
+  def mixOver(destClass: js.Any): Unit = js.native
 }
 

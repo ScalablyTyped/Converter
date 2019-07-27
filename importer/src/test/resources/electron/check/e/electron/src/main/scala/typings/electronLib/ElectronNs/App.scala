@@ -1,6 +1,7 @@
 package typings
 package electronLib.ElectronNs
 
+import electronLib.electronLibStrings.`accessibility-support-changed`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,6 +16,6 @@ trait App extends EventEmitter {
     * details.
     */
   @JSName("on")
-  def on_accessibilitysupportchanged(event: electronLib.electronLibStrings.`accessibility-support-changed`, listener: js.Any): java.lang.String = js.native
+  def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: js.Any): String = js.native
 }
 

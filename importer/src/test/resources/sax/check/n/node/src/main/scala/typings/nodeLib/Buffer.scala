@@ -1,6 +1,10 @@
 package typings
 package nodeLib
 
+import org.scalablytyped.runtime.Instantiable1
+import org.scalablytyped.runtime.Instantiable2
+import stdLib.ArrayBuffer
+import stdLib.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +19,7 @@ class BufferCls protected () extends Buffer {
     *
     * @param arrayBuffer The ArrayBuffer with which to share memory.
     */
-  def this(arrayBuffer: stdLib.ArrayBuffer) = this()
+  def this(arrayBuffer: ArrayBuffer) = this()
   /**
     * Allocates a new buffer containing the given {array} of octets.
     *
@@ -27,7 +31,7 @@ class BufferCls protected () extends Buffer {
     *
     * @param array The octets to store.
     */
-  def this(array: stdLib.Uint8Array) = this()
+  def this(array: Uint8Array) = this()
   /**
     * Copies the passed {buffer} data onto a new {Buffer} instance.
     *
@@ -39,15 +43,15 @@ class BufferCls protected () extends Buffer {
     *
     * @param size count of octets to allocate.
     */
-  def this(size: scala.Double) = this()
+  def this(size: Double) = this()
   /**
     * Allocates a new buffer containing the given {str}.
     *
     * @param str String to store in buffer.
     * @param encoding encoding to use, optional.  Default is 'utf8'
     */
-  def this(str: java.lang.String) = this()
-  def this(str: java.lang.String, encoding: java.lang.String) = this()
+  def this(str: String) = this()
+  def this(str: String, encoding: String) = this()
 }
 
 /**
@@ -58,7 +62,7 @@ class BufferCls protected () extends Buffer {
 @JSGlobal("Buffer")
 @js.native
 object Buffer
-  extends org.scalablytyped.runtime.Instantiable2[/* str */ java.lang.String, /* encoding */ java.lang.String, Buffer]
+  extends Instantiable2[/* str */ String, /* encoding */ String, Buffer]
      with /**
   * Allocates a new buffer containing the given {str}.
   *
@@ -87,13 +91,13 @@ object Buffer
   *
   * @param buffer The buffer to copy.
   */
-org.scalablytyped.runtime.Instantiable1[
-      (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ stdLib.ArrayBuffer) | (/* buffer */ Buffer) | (/* size */ scala.Double) | (/* str */ java.lang.String) | (/* array */ stdLib.Uint8Array), 
+Instantiable1[
+      (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ ArrayBuffer) | (/* buffer */ Buffer) | (/* size */ Double) | (/* str */ String) | (/* array */ Uint8Array), 
       Buffer
     ] {
   /**
     * Allocates a new Buffer using an {array} of octets.
     */
-  def from(array: js.Array[_]): nodeLib.Buffer = js.native
+  def from(array: js.Array[_]): Buffer = js.native
 }
 

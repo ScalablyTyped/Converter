@@ -1,11 +1,12 @@
 package typings
 package reactDashBootstrapLib.libButtonGroupMod
 
+import reactLib.reactMod.Component
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait ButtonGroup
-  extends reactLib.reactMod.Component[ButtonGroupProps, js.Object]
+  extends Component[ButtonGroupProps, js.Object]
 

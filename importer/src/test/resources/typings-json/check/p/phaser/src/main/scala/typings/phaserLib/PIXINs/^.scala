@@ -8,8 +8,8 @@ import scala.scalajs.js.annotation._
 @JSGlobal("PIXI")
 @js.native
 object ^ extends js.Object {
-  var CANVAS_RENDERER: scala.Double = js.native
-  var VERSION: java.lang.String = js.native
-  var WEBGL_RENDERER: scala.Double = js.native
+  var CANVAS_RENDERER: Double = js.native
+  var VERSION: String = js.native
+  var WEBGL_RENDERER: Double = js.native
 }
 

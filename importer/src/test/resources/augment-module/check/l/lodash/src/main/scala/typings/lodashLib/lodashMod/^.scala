@@ -1,12 +1,12 @@
 package typings
 package lodashLib.lodashMod
 
+import org.scalablytyped.runtime.TopLevel
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @JSImport("lodash", JSImport.Namespace)
 @js.native
-object ^
-  extends org.scalablytyped.runtime.TopLevel[LoDashStatic]
+object ^ extends TopLevel[LoDashStatic]
 

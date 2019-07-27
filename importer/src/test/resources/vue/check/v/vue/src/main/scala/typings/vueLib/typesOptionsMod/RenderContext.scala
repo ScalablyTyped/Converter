@@ -1,15 +1,18 @@
 package typings
 package vueLib.typesOptionsMod
 
+import vueLib.typesVnodeMod.VNode
+import vueLib.typesVnodeMod.VNodeData
+import vueLib.typesVueMod.Vue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait RenderContext[Props] extends js.Object {
-  var children: js.Array[vueLib.typesVnodeMod.VNode]
-  var data: vueLib.typesVnodeMod.VNodeData
+  var children: js.Array[VNode]
+  var data: VNodeData
   var injections: js.Any
-  var parent: vueLib.typesVueMod.Vue
+  var parent: Vue
   var props: Props
   def slots(): js.Any
 }
@@ -17,10 +20,10 @@ trait RenderContext[Props] extends js.Object {
 object RenderContext {
   @scala.inline
   def apply[Props](
-    children: js.Array[vueLib.typesVnodeMod.VNode],
-    data: vueLib.typesVnodeMod.VNodeData,
+    children: js.Array[VNode],
+    data: VNodeData,
     injections: js.Any,
-    parent: vueLib.typesVueMod.Vue,
+    parent: Vue,
     props: Props,
     slots: () => js.Any
   ): RenderContext[Props] = {

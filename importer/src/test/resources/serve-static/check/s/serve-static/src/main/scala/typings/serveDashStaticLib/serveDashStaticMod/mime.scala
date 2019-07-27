@@ -1,6 +1,7 @@
 package typings
 package serveDashStaticLib.serveDashStaticMod
 
+import mimeLib.mimeMod.TypeMap
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,10 +9,10 @@ import scala.scalajs.js.annotation._
 @JSImport("serve-static", "mime")
 @js.native
 object mime extends js.Object {
-  val default_type: java.lang.String = js.native
-  def define(mimes: mimeLib.mimeMod.TypeMap): scala.Unit = js.native
-  def define(mimes: mimeLib.mimeMod.TypeMap, force: scala.Boolean): scala.Unit = js.native
-  def getExtension(mime: java.lang.String): java.lang.String | scala.Null = js.native
-  def getType(path: java.lang.String): java.lang.String | scala.Null = js.native
+  val default_type: String = js.native
+  def define(mimes: TypeMap): Unit = js.native
+  def define(mimes: TypeMap, force: Boolean): Unit = js.native
+  def getExtension(mime: String): String | Null = js.native
+  def getType(path: String): String | Null = js.native
 }
 

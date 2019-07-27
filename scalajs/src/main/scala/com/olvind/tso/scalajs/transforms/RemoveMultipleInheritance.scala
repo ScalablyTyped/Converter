@@ -3,7 +3,6 @@ package scalajs
 package transforms
 
 import com.olvind.tso.scalajs.ParentsResolver.{Parent, Parents}
-import com.olvind.tso.scalajs.Printer.formatQN
 import com.olvind.tso.seqs._
 
 /**
@@ -40,7 +39,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     val newComments: Comments =
       if (changes.nonEmpty) {
         val msg =
-          s"Dropped parents ${changes.map(x => s"- ${formatQN(Nil, x.typeRef.typeName)} because ${x.because}").mkString("\n", "", "")}"
+          s"Dropped parents ${changes.map(x => s"- ${Printer.formatQN(x.typeRef.typeName)} because ${x.because}").mkString("\n", "", "")}"
         scope.logger.info(msg)
         c.comments + Comment.warning(msg)
       } else c.comments
@@ -104,7 +103,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
             h.transitiveUnresolved.filter(_.typeName === u.typeName) match {
               case Nil => None
               case some =>
-                val someString = some.map(Printer.formatTypeRef(Nil, 0)).mkString(", ")
+                val someString = some.map(Printer.formatTypeRef(0)).mkString(", ")
                 Some(Dropped(h.refs.last, s"Already inherited $someString", Nil))
             }
           })

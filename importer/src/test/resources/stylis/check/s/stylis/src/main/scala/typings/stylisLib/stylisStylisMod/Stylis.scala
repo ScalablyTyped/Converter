@@ -1,19 +1,21 @@
 package typings
 package stylisLib.stylisStylisMod
 
+import org.scalablytyped.runtime.Instantiable0
+import org.scalablytyped.runtime.Instantiable1
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait Stylis
-  extends org.scalablytyped.runtime.Instantiable0[Stylis]
-     with org.scalablytyped.runtime.Instantiable1[/* options */ Options, Stylis] {
+  extends Instantiable0[Stylis]
+     with Instantiable1[/* options */ Options, Stylis] {
   @JSName("set")
   var set_Original: Set = js.native
   @JSName("use")
   var use_Original: Use = js.native
-  def apply(namescope: java.lang.String, input: java.lang.String): java.lang.String | js.Any = js.native
+  def apply(namescope: String, input: String): String | js.Any = js.native
   def set(): Set = js.native
   def set(options: Options): Set = js.native
   def use(): Use = js.native

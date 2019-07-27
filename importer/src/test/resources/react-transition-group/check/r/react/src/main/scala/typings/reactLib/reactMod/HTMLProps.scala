@@ -1,6 +1,7 @@
 package typings
 package reactLib.reactMod
 
+import reactLib.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,11 +13,11 @@ trait HTMLProps[T]
 object HTMLProps {
   @scala.inline
   def apply[T](
-    accept: java.lang.String = null,
-    acceptCharset: java.lang.String = null,
+    accept: String = null,
+    acceptCharset: String = null,
     children: ReactNode = null,
-    dangerouslySetInnerHTML: reactLib.Anon_Html = null,
-    defaultChecked: js.UndefOr[scala.Boolean] = js.undefined,
+    dangerouslySetInnerHTML: Anon_Html = null,
+    defaultChecked: js.UndefOr[Boolean] = js.undefined,
     key: Key = null,
     ref: Ref[T] = null
   ): HTMLProps[T] = {

@@ -1,6 +1,7 @@
 package typings
 package firebaseDashAdminLib.firebaseDashAdminMod
 
+import atGoogleDashCloudFirestoreLib.FirebaseFirestoreNs.Settings
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +16,7 @@ object firestoreNs extends js.Object {
     */
   class Firestore ()
     extends atGoogleDashCloudFirestoreLib.FirebaseFirestoreNs.Firestore {
-    def this(settings: atGoogleDashCloudFirestoreLib.FirebaseFirestoreNs.Settings) = this()
+    def this(settings: Settings) = this()
   }
   
 }

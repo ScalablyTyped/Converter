@@ -12,5 +12,5 @@ package object DocumentClientNs {
     - awsDashSdkLib.awsDashSdkLibStrings.DELETE
     - java.lang.String
   */
-  type AttributeAction = _AttributeAction | java.lang.String
+  type AttributeAction = _AttributeAction | String
 }

@@ -1,6 +1,8 @@
 package typings
 package reactLib.reactMod
 
+import reactLib.Anon_Html
+import reactLib.reactLibStrings.foo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,24 +10,24 @@ import scala.scalajs.js.annotation._
 trait HTMLProps[T]
   extends AllHTMLAttributes[T]
      with ClassAttributes[T] {
-  var defaultValue: reactLib.reactLibStrings.foo
-  var onChange: reactLib.reactLibStrings.foo
-  var `type`: reactLib.reactLibStrings.foo
-  var value: reactLib.reactLibStrings.foo
+  var defaultValue: foo
+  var onChange: foo
+  var `type`: foo
+  var value: foo
 }
 
 object HTMLProps {
   @scala.inline
   def apply[T](
-    defaultValue: reactLib.reactLibStrings.foo,
-    onChange: reactLib.reactLibStrings.foo,
-    `type`: reactLib.reactLibStrings.foo,
-    value: reactLib.reactLibStrings.foo,
-    accept: java.lang.String = null,
-    acceptCharset: java.lang.String = null,
+    defaultValue: foo,
+    onChange: foo,
+    `type`: foo,
+    value: foo,
+    accept: String = null,
+    acceptCharset: String = null,
     children: ReactNode = null,
-    dangerouslySetInnerHTML: reactLib.Anon_Html = null,
-    defaultChecked: js.UndefOr[scala.Boolean] = js.undefined,
+    dangerouslySetInnerHTML: Anon_Html = null,
+    defaultChecked: js.UndefOr[Boolean] = js.undefined,
     key: Key = null,
     ref: Ref[T] = null
   ): HTMLProps[T] = {

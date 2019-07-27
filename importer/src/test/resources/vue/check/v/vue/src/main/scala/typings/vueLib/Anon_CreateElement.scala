@@ -1,21 +1,20 @@
 package typings
 package vueLib
 
+import vueLib.typesVnodeMod.VNode
+import vueLib.typesVueMod.CreateElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Anon_CreateElement extends js.Object {
-  var staticRenderFns: js.Array[js.Function0[vueLib.typesVnodeMod.VNode]]
-  def render(createElement: vueLib.typesVueMod.CreateElement): vueLib.typesVnodeMod.VNode
+  var staticRenderFns: js.Array[js.Function0[VNode]]
+  def render(createElement: CreateElement): VNode
 }
 
 object Anon_CreateElement {
   @scala.inline
-  def apply(
-    render: vueLib.typesVueMod.CreateElement => vueLib.typesVnodeMod.VNode,
-    staticRenderFns: js.Array[js.Function0[vueLib.typesVnodeMod.VNode]]
-  ): Anon_CreateElement = {
+  def apply(render: CreateElement => VNode, staticRenderFns: js.Array[js.Function0[VNode]]): Anon_CreateElement = {
     val __obj = js.Dynamic.literal(render = js.Any.fromFunction1(render), staticRenderFns = staticRenderFns)
   
     __obj.asInstanceOf[Anon_CreateElement]

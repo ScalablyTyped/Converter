@@ -6,23 +6,23 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait SAXOptions extends js.Object {
-  var lowercase: js.UndefOr[scala.Boolean] = js.undefined
-  var normalize: js.UndefOr[scala.Boolean] = js.undefined
-  var noscript: js.UndefOr[scala.Boolean] = js.undefined
-  var position: js.UndefOr[scala.Boolean] = js.undefined
-  var trim: js.UndefOr[scala.Boolean] = js.undefined
-  var xmlns: js.UndefOr[scala.Boolean] = js.undefined
+  var lowercase: js.UndefOr[Boolean] = js.undefined
+  var normalize: js.UndefOr[Boolean] = js.undefined
+  var noscript: js.UndefOr[Boolean] = js.undefined
+  var position: js.UndefOr[Boolean] = js.undefined
+  var trim: js.UndefOr[Boolean] = js.undefined
+  var xmlns: js.UndefOr[Boolean] = js.undefined
 }
 
 object SAXOptions {
   @scala.inline
   def apply(
-    lowercase: js.UndefOr[scala.Boolean] = js.undefined,
-    normalize: js.UndefOr[scala.Boolean] = js.undefined,
-    noscript: js.UndefOr[scala.Boolean] = js.undefined,
-    position: js.UndefOr[scala.Boolean] = js.undefined,
-    trim: js.UndefOr[scala.Boolean] = js.undefined,
-    xmlns: js.UndefOr[scala.Boolean] = js.undefined
+    lowercase: js.UndefOr[Boolean] = js.undefined,
+    normalize: js.UndefOr[Boolean] = js.undefined,
+    noscript: js.UndefOr[Boolean] = js.undefined,
+    position: js.UndefOr[Boolean] = js.undefined,
+    trim: js.UndefOr[Boolean] = js.undefined,
+    xmlns: js.UndefOr[Boolean] = js.undefined
   ): SAXOptions = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(lowercase)) __obj.updateDynamic("lowercase")(lowercase)

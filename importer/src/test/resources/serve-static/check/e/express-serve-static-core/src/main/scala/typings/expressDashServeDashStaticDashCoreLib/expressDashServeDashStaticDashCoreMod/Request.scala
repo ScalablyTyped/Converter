@@ -7,12 +7,12 @@ import scala.scalajs.js.annotation._
 
 trait Request
   extends expressDashServeDashStaticDashCoreLib.expressDashServeDashStaticDashCoreMod.Global.ExpressNs.Request {
-  var url: java.lang.String
+  var url: String
 }
 
 object Request {
   @scala.inline
-  def apply(url: java.lang.String): Request = {
+  def apply(url: String): Request = {
     val __obj = js.Dynamic.literal(url = url)
   
     __obj.asInstanceOf[Request]

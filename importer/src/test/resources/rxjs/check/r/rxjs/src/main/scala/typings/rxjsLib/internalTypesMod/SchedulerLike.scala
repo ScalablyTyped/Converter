@@ -1,22 +1,23 @@
 package typings
 package rxjsLib.internalTypesMod
 
+import rxjsLib.internalSubscriptionMod.Subscription
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait SchedulerLike extends js.Object {
-  def now(): scala.Double = js.native
-  def schedule[T](work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit]): rxjsLib.internalSubscriptionMod.Subscription = js.native
+  def now(): Double = js.native
+  def schedule[T](work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], Unit]): Subscription = js.native
   def schedule[T](
-    work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit],
-    delay: scala.Double
-  ): rxjsLib.internalSubscriptionMod.Subscription = js.native
+    work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], Unit],
+    delay: Double
+  ): Subscription = js.native
   def schedule[T](
-    work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], scala.Unit],
-    delay: scala.Double,
+    work: js.ThisFunction1[/* this */ SchedulerAction[T], /* state */ js.UndefOr[T], Unit],
+    delay: Double,
     state: T
-  ): rxjsLib.internalSubscriptionMod.Subscription = js.native
+  ): Subscription = js.native
 }
 

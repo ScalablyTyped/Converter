@@ -1,10 +1,12 @@
 package typings
 package numjsLib
 
+import ndarrayLib.ndarrayMod.Data
+import ndarrayLib.ndarrayMod.DataType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object numjsMod {
-  type NdType[T] = ndarrayLib.ndarrayMod.DataType | ndarrayLib.ndarrayMod.Data[T]
+  type NdType[T] = DataType | Data[T]
 }

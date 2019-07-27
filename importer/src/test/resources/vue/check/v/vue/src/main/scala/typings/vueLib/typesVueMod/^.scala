@@ -8,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSImport("vue/types/vue", JSImport.Namespace)
 @js.native
 object ^ extends js.Object {
-  val Vue: VueConstructor[Vue] = js.native
+  val Vue: VueConstructor[vueLib.typesVueMod.Vue] = js.native
 }
 

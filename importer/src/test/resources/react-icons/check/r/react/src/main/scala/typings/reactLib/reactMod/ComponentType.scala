@@ -6,8 +6,8 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - ComponentClass[P]
-  - StatelessComponent[P]
+  - reactLib.reactMod.ComponentClass[P]
+  - reactLib.reactMod.StatelessComponent[P]
 */
 trait ComponentType[P] extends js.Object
 

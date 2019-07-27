@@ -6,9 +6,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - NextObserver[T]
-  - ErrorObserver[T]
-  - CompletionObserver[T]
+  - rxjsLib.internalTypesMod.NextObserver[T]
+  - rxjsLib.internalTypesMod.ErrorObserver[T]
+  - rxjsLib.internalTypesMod.CompletionObserver[T]
 */
 trait PartialObserver[T] extends js.Object
 

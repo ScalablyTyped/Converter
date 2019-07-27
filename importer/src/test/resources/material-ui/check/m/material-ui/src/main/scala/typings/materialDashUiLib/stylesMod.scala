@@ -1,6 +1,7 @@
 package typings
 package materialDashUiLib
 
+import materialDashUiLib.underscoreUnderscoreMaterialUINs.StylesNs.MuiTheme
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,6 +13,6 @@ object stylesMod extends js.Object {
   var transitions: js.Any = js.native
   var typography: js.Any = js.native
   var zIndex: js.Any = js.native
-  def getMuiTheme(muiTheme: materialDashUiLib.underscoreUnderscoreMaterialUINs.StylesNs.MuiTheme*): materialDashUiLib.underscoreUnderscoreMaterialUINs.StylesNs.MuiTheme = js.native
+  def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = js.native
 }
 

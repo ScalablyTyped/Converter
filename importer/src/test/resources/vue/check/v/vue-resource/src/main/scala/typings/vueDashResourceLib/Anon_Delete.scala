@@ -1,6 +1,9 @@
 package typings
 package vueDashResourceLib
 
+import vueDashResourceLib.vuejsNs.$http
+import vueDashResourceLib.vuejsNs.HttpOptions
+import vueDashResourceLib.vuejsNs.HttpResponse
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,41 +11,41 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Anon_Delete extends js.Object {
   @JSName("delete")
-  var delete_Original: vueDashResourceLib.vuejsNs.$http = js.native
+  var delete_Original: $http = js.native
   @JSName("get")
-  var get_Original: vueDashResourceLib.vuejsNs.$http = js.native
+  var get_Original: $http = js.native
   @JSName("jsonp")
-  var jsonp_Original: vueDashResourceLib.vuejsNs.$http = js.native
+  var jsonp_Original: $http = js.native
   @JSName("patch")
-  var patch_Original: vueDashResourceLib.vuejsNs.$http = js.native
+  var patch_Original: $http = js.native
   @JSName("post")
-  var post_Original: vueDashResourceLib.vuejsNs.$http = js.native
+  var post_Original: $http = js.native
   @JSName("put")
-  var put_Original: vueDashResourceLib.vuejsNs.$http = js.native
-  def apply(options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def delete(url: java.lang.String): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def delete(url: java.lang.String, data: js.Any): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def delete(url: java.lang.String, data: js.Any, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def delete(url: java.lang.String, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def get(url: java.lang.String): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def get(url: java.lang.String, data: js.Any): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def get(url: java.lang.String, data: js.Any, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def get(url: java.lang.String, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def jsonp(url: java.lang.String): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def jsonp(url: java.lang.String, data: js.Any): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def jsonp(url: java.lang.String, data: js.Any, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def jsonp(url: java.lang.String, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def patch(url: java.lang.String): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def patch(url: java.lang.String, data: js.Any): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def patch(url: java.lang.String, data: js.Any, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def patch(url: java.lang.String, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def post(url: java.lang.String): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def post(url: java.lang.String, data: js.Any): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def post(url: java.lang.String, data: js.Any, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def post(url: java.lang.String, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def put(url: java.lang.String): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def put(url: java.lang.String, data: js.Any): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def put(url: java.lang.String, data: js.Any, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
-  def put(url: java.lang.String, options: vueDashResourceLib.vuejsNs.HttpOptions): js.Thenable[vueDashResourceLib.vuejsNs.HttpResponse] = js.native
+  var put_Original: $http = js.native
+  def apply(options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def delete(url: String): js.Thenable[HttpResponse] = js.native
+  def delete(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def delete(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def delete(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def get(url: String): js.Thenable[HttpResponse] = js.native
+  def get(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def get(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def get(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def jsonp(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def patch(url: String): js.Thenable[HttpResponse] = js.native
+  def patch(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def patch(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def patch(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def post(url: String): js.Thenable[HttpResponse] = js.native
+  def post(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def post(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def post(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def put(url: String): js.Thenable[HttpResponse] = js.native
+  def put(url: String, data: js.Any): js.Thenable[HttpResponse] = js.native
+  def put(url: String, data: js.Any, options: HttpOptions): js.Thenable[HttpResponse] = js.native
+  def put(url: String, options: HttpOptions): js.Thenable[HttpResponse] = js.native
 }
 

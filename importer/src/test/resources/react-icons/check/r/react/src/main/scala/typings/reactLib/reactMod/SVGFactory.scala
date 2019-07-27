@@ -1,18 +1,15 @@
 package typings
 package reactLib.reactMod
 
+import reactLib.SVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait SVGFactory
-  extends DOMFactory[SVGAttributes[reactLib.SVGElement], reactLib.SVGElement] {
+trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement] {
   def apply(): ReactSVGElement = js.native
   def apply(children: ReactNode*): ReactSVGElement = js.native
-  def apply(
-    props: ClassAttributes[reactLib.SVGElement] with SVGAttributes[reactLib.SVGElement],
-    children: ReactNode*
-  ): ReactSVGElement = js.native
+  def apply(props: ClassAttributes[SVGElement] with SVGAttributes[SVGElement], children: ReactNode*): ReactSVGElement = js.native
 }
 

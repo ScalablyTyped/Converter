@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 @js.native
 object ^ extends js.Object {
   def add(x: BigInt, y: BigInt): BigInt = js.native
-  def setRandom(random: IRandom): scala.Unit = js.native
+  def setRandom(random: IRandom): Unit = js.native
 }
 

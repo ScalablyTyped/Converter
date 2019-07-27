@@ -58,7 +58,7 @@ object Companions extends TreeTransformation {
                 MemberImpl.Custom(s"""{
                                        |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
                                        |${optionals.map(f => "  " + f("__obj")).mkString("\n")}
-                                       |  __obj.asInstanceOf[${Printer.formatTypeRef(Nil, 0)(applyRet)}]
+                                       |  __obj.asInstanceOf[${Printer.formatTypeRef(0)(applyRet)}]
                                        |}""".stripMargin),
                 applyRet,
                 isOverride = false,

@@ -1,28 +1,29 @@
 package typings
 package vueDashResourceLib.vuejsNs
 
+import vueDashResourceLib.Anon_Method
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ResourceActions extends js.Object {
-  var delete: vueDashResourceLib.Anon_Method
-  var get: vueDashResourceLib.Anon_Method
-  var query: vueDashResourceLib.Anon_Method
-  var remove: vueDashResourceLib.Anon_Method
-  var save: vueDashResourceLib.Anon_Method
-  var update: vueDashResourceLib.Anon_Method
+  var delete: Anon_Method
+  var get: Anon_Method
+  var query: Anon_Method
+  var remove: Anon_Method
+  var save: Anon_Method
+  var update: Anon_Method
 }
 
 object ResourceActions {
   @scala.inline
   def apply(
-    delete: vueDashResourceLib.Anon_Method,
-    get: vueDashResourceLib.Anon_Method,
-    query: vueDashResourceLib.Anon_Method,
-    remove: vueDashResourceLib.Anon_Method,
-    save: vueDashResourceLib.Anon_Method,
-    update: vueDashResourceLib.Anon_Method
+    delete: Anon_Method,
+    get: Anon_Method,
+    query: Anon_Method,
+    remove: Anon_Method,
+    save: Anon_Method,
+    update: Anon_Method
   ): ResourceActions = {
     val __obj = js.Dynamic.literal(delete = delete, get = get, query = query, remove = remove, save = save, update = update)
   

@@ -1,6 +1,7 @@
 package typings
 package reactDashBootstrapLib
 
+import reactDashBootstrapLib.reactDashBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,16 +14,13 @@ object reactDashBootstrapLibStrings {
   sealed trait defaultValue extends js.Object
   
   @js.native
-  sealed trait large
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait large extends Sizes
   
   @js.native
-  sealed trait lg
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait lg extends Sizes
   
   @js.native
-  sealed trait medium
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait medium extends Sizes
   
   @js.native
   sealed trait onChange extends js.Object
@@ -31,12 +29,10 @@ object reactDashBootstrapLibStrings {
   sealed trait radio extends js.Object
   
   @js.native
-  sealed trait sm
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait sm extends Sizes
   
   @js.native
-  sealed trait small
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait small extends Sizes
   
   @js.native
   sealed trait `type` extends js.Object
@@ -45,12 +41,10 @@ object reactDashBootstrapLibStrings {
   sealed trait value extends js.Object
   
   @js.native
-  sealed trait xs
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait xs extends Sizes
   
   @js.native
-  sealed trait xsmall
-    extends reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+  sealed trait xsmall extends Sizes
   
   @scala.inline
   def checkbox: checkbox = "checkbox".asInstanceOf[checkbox]

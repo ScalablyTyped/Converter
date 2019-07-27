@@ -1,18 +1,24 @@
 package typings
 package chartDotJsLib
 
+import chartDotJsLib.chartDotJsMod.Chart
+import org.scalablytyped.runtime.Instantiable2
+import org.scalablytyped.runtime.StringDictionary
+import stdLib.ArrayLike
+import stdLib.CanvasRenderingContext2D
+import stdLib.HTMLCanvasElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait TypeofClassChart
-  extends org.scalablytyped.runtime.Instantiable2[
-      (/* context */ stdLib.ArrayLike[stdLib.CanvasRenderingContext2D | stdLib.HTMLCanvasElement]) | (/* context */ stdLib.CanvasRenderingContext2D) | (/* context */ stdLib.HTMLCanvasElement) | (/* context */ java.lang.String), 
+  extends Instantiable2[
+      (/* context */ ArrayLike[CanvasRenderingContext2D | HTMLCanvasElement]) | (/* context */ CanvasRenderingContext2D) | (/* context */ HTMLCanvasElement) | (/* context */ String), 
       /* options */ js.Any, 
-      chartDotJsLib.chartDotJsMod.Chart
+      Chart
     ] {
-  var controllers: org.scalablytyped.runtime.StringDictionary[js.Any] = js.native
+  var controllers: StringDictionary[js.Any] = js.native
   var defaults: Anon_Global = js.native
 }
 

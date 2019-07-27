@@ -1,46 +1,48 @@
 package typings
 package vueLib.typesVnodeMod
 
+import stdLib.Node
+import vueLib.typesVueMod.Vue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait VNode extends js.Object {
   var children: js.UndefOr[js.Array[VNode]] = js.undefined
-  var componentInstance: js.UndefOr[vueLib.typesVueMod.Vue] = js.undefined
+  var componentInstance: js.UndefOr[Vue] = js.undefined
   var componentOptions: js.UndefOr[VNodeComponentOptions] = js.undefined
-  var context: js.UndefOr[vueLib.typesVueMod.Vue] = js.undefined
+  var context: js.UndefOr[Vue] = js.undefined
   var data: js.UndefOr[VNodeData] = js.undefined
-  var elm: js.UndefOr[stdLib.Node] = js.undefined
-  var isComment: scala.Boolean
-  var isRootInsert: scala.Boolean
-  var isStatic: js.UndefOr[scala.Boolean] = js.undefined
-  var key: js.UndefOr[java.lang.String | scala.Double] = js.undefined
-  var ns: js.UndefOr[java.lang.String] = js.undefined
+  var elm: js.UndefOr[Node] = js.undefined
+  var isComment: Boolean
+  var isRootInsert: Boolean
+  var isStatic: js.UndefOr[Boolean] = js.undefined
+  var key: js.UndefOr[String | Double] = js.undefined
+  var ns: js.UndefOr[String] = js.undefined
   var parent: js.UndefOr[VNode] = js.undefined
-  var raw: js.UndefOr[scala.Boolean] = js.undefined
-  var tag: js.UndefOr[java.lang.String] = js.undefined
-  var text: js.UndefOr[java.lang.String] = js.undefined
+  var raw: js.UndefOr[Boolean] = js.undefined
+  var tag: js.UndefOr[String] = js.undefined
+  var text: js.UndefOr[String] = js.undefined
 }
 
 object VNode {
   @scala.inline
   def apply(
-    isComment: scala.Boolean,
-    isRootInsert: scala.Boolean,
+    isComment: Boolean,
+    isRootInsert: Boolean,
     children: js.Array[VNode] = null,
-    componentInstance: vueLib.typesVueMod.Vue = null,
+    componentInstance: Vue = null,
     componentOptions: VNodeComponentOptions = null,
-    context: vueLib.typesVueMod.Vue = null,
+    context: Vue = null,
     data: VNodeData = null,
-    elm: stdLib.Node = null,
-    isStatic: js.UndefOr[scala.Boolean] = js.undefined,
-    key: java.lang.String | scala.Double = null,
-    ns: java.lang.String = null,
+    elm: Node = null,
+    isStatic: js.UndefOr[Boolean] = js.undefined,
+    key: String | Double = null,
+    ns: String = null,
     parent: VNode = null,
-    raw: js.UndefOr[scala.Boolean] = js.undefined,
-    tag: java.lang.String = null,
-    text: java.lang.String = null
+    raw: js.UndefOr[Boolean] = js.undefined,
+    tag: String = null,
+    text: String = null
   ): VNode = {
     val __obj = js.Dynamic.literal(isComment = isComment, isRootInsert = isRootInsert)
     if (children != null) __obj.updateDynamic("children")(children)

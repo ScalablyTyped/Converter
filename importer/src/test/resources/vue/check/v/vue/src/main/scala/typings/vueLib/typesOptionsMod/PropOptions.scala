@@ -6,19 +6,19 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait PropOptions[T] extends _PropValidator[T] {
-  var default: js.UndefOr[T | scala.Null | js.Function0[js.Object]] = js.undefined
-  var required: js.UndefOr[scala.Boolean] = js.undefined
+  var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.undefined
+  var required: js.UndefOr[Boolean] = js.undefined
   var `type`: js.UndefOr[Prop[T] | js.Array[Prop[T]]] = js.undefined
-  var validator: js.UndefOr[js.Function1[/* value */ T, scala.Boolean]] = js.undefined
+  var validator: js.UndefOr[js.Function1[/* value */ T, Boolean]] = js.undefined
 }
 
 object PropOptions {
   @scala.inline
   def apply[T](
     default: T | js.Function0[js.Object] = null,
-    required: js.UndefOr[scala.Boolean] = js.undefined,
+    required: js.UndefOr[Boolean] = js.undefined,
     `type`: Prop[T] | js.Array[Prop[T]] = null,
-    validator: /* value */ T => scala.Boolean = null
+    validator: /* value */ T => Boolean = null
   ): PropOptions[T] = {
     val __obj = js.Dynamic.literal()
     if (default != null) __obj.updateDynamic("default")(default.asInstanceOf[js.Any])

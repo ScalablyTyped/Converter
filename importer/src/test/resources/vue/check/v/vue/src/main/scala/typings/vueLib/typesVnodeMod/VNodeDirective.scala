@@ -1,15 +1,16 @@
 package typings
 package vueLib.typesVnodeMod
 
+import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait VNodeDirective extends js.Object {
-  val arg: java.lang.String
+  val arg: String
   val expression: js.Any
-  val modifiers: org.scalablytyped.runtime.StringDictionary[scala.Boolean]
-  val name: java.lang.String
+  val modifiers: StringDictionary[Boolean]
+  val name: String
   val oldValue: js.Any
   val value: js.Any
 }
@@ -17,10 +18,10 @@ trait VNodeDirective extends js.Object {
 object VNodeDirective {
   @scala.inline
   def apply(
-    arg: java.lang.String,
+    arg: String,
     expression: js.Any,
-    modifiers: org.scalablytyped.runtime.StringDictionary[scala.Boolean],
-    name: java.lang.String,
+    modifiers: StringDictionary[Boolean],
+    name: String,
     oldValue: js.Any,
     value: js.Any
   ): VNodeDirective = {

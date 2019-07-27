@@ -50,5 +50,5 @@ object InlineNestedIdentityAlias extends TreeTransformation {
   }
 
   private def inlineComment(maybeIdentityWrapper: QualifiedName) =
-    Comment(s"/* InlineNestedIdentityAlias: ${Printer.formatQN(Nil, maybeIdentityWrapper)}*/ ")
+    Comment(s"/* InlineNestedIdentityAlias: ${Printer.formatQN(maybeIdentityWrapper)}*/ ")
 }

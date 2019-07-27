@@ -31,9 +31,9 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
         val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>
-            val libName = importName(lib.name)
+            val scalaName = importName(lib.name)
             val scope = new TreeScope.Root(
-              libName       = libName,
+              libName       = scalaName,
               _dependencies = scalaDeps.map { case (_, l) => l.packageTree.name -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic,
@@ -48,7 +48,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
                 S.InlineNestedIdentityAlias >>
                 S.Deduplicator visitContainerTree scope,
               S.FakeLiterals(scope),
-              S.UnionToInheritance(scope, _, libName), // after FakeLiterals
+              S.UnionToInheritance(scope, _, scalaName), // after FakeLiterals
               S.LimitUnionLength visitContainerTree scope, // after UnionToInheritance
               S.Companions >>
                 S.RemoveMultipleInheritance visitContainerTree scope,
@@ -66,6 +66,7 @@ class Phase2ToScalaJs(pedantic: Boolean, OutputPkg: Name) extends Phase[Source, 
 
             LibScalaJs(lib.source)(
               libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),
+              scalaName    = scalaName,
               libVersion   = lib.version,
               packageTree  = rewrittenTree,
               dependencies = scalaDeps,

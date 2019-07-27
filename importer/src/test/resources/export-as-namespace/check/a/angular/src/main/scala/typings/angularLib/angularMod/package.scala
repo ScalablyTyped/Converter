@@ -1,10 +1,11 @@
 package typings
 package angularLib
 
+import angularLib.angularMod.Global.Function
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object angularMod {
-  type Injectable[T /* <: angularLib.angularMod.Global.Function */] = T | (js.Array[java.lang.String | T])
+  type Injectable[T /* <: Function */] = T | (js.Array[String | T])
 }

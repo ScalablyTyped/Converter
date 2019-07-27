@@ -1,38 +1,44 @@
 package typings
 package reactDashBootstrapLib.libButtonGroupMod
 
+import reactDashBootstrapLib.reactDashBootstrapMod.Sizes
+import reactLib.Anon_Html
+import reactLib.reactLibStrings.foo
+import reactLib.reactMod.HTMLProps
+import reactLib.reactMod.Key
+import reactLib.reactMod.ReactNode
+import reactLib.reactMod.Ref
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait ButtonGroupProps
-  extends reactLib.reactMod.HTMLProps[ButtonGroup] {
-  var block: js.UndefOr[scala.Boolean] = js.undefined
-  var bsSize: js.UndefOr[reactDashBootstrapLib.reactDashBootstrapMod.Sizes] = js.undefined
-  var bsStyle: js.UndefOr[java.lang.String] = js.undefined
-  var justified: js.UndefOr[scala.Boolean] = js.undefined
-  var vertical: js.UndefOr[scala.Boolean] = js.undefined
+trait ButtonGroupProps extends HTMLProps[ButtonGroup] {
+  var block: js.UndefOr[Boolean] = js.undefined
+  var bsSize: js.UndefOr[Sizes] = js.undefined
+  var bsStyle: js.UndefOr[String] = js.undefined
+  var justified: js.UndefOr[Boolean] = js.undefined
+  var vertical: js.UndefOr[Boolean] = js.undefined
 }
 
 object ButtonGroupProps {
   @scala.inline
   def apply(
-    defaultValue: reactLib.reactLibStrings.foo,
-    onChange: reactLib.reactLibStrings.foo,
-    `type`: reactLib.reactLibStrings.foo,
-    value: reactLib.reactLibStrings.foo,
-    accept: java.lang.String = null,
-    acceptCharset: java.lang.String = null,
-    block: js.UndefOr[scala.Boolean] = js.undefined,
-    bsSize: reactDashBootstrapLib.reactDashBootstrapMod.Sizes = null,
-    bsStyle: java.lang.String = null,
-    children: reactLib.reactMod.ReactNode = null,
-    dangerouslySetInnerHTML: reactLib.Anon_Html = null,
-    defaultChecked: js.UndefOr[scala.Boolean] = js.undefined,
-    justified: js.UndefOr[scala.Boolean] = js.undefined,
-    key: reactLib.reactMod.Key = null,
-    ref: reactLib.reactMod.Ref[ButtonGroup] = null,
-    vertical: js.UndefOr[scala.Boolean] = js.undefined
+    defaultValue: foo,
+    onChange: foo,
+    `type`: foo,
+    value: foo,
+    accept: String = null,
+    acceptCharset: String = null,
+    block: js.UndefOr[Boolean] = js.undefined,
+    bsSize: Sizes = null,
+    bsStyle: String = null,
+    children: ReactNode = null,
+    dangerouslySetInnerHTML: Anon_Html = null,
+    defaultChecked: js.UndefOr[Boolean] = js.undefined,
+    justified: js.UndefOr[Boolean] = js.undefined,
+    key: Key = null,
+    ref: Ref[ButtonGroup] = null,
+    vertical: js.UndefOr[Boolean] = js.undefined
   ): ButtonGroupProps = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
     __obj.updateDynamic("type")(`type`)
