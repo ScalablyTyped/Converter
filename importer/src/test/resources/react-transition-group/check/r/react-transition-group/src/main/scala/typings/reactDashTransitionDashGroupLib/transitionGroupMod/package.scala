@@ -13,5 +13,5 @@ package object transitionGroupMod {
     ], 
     js.Object
   ]
-  type TransitionGroupProps[T /* <: reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr | reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate */, V /* <: reactLib.reactMod.ReactType[_] */] = ((IntrinsicTransitionGroupProps[T] with (/* import warning: ImportType.apply Failed type conversion: react.react.Global.JSX.IntrinsicElements[T] */ js.Any)) | ComponentTransitionGroupProps[V]) with reactDashTransitionDashGroupLib.Anon_Child
+  type TransitionGroupProps[T /* <: reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.abbr | reactDashTransitionDashGroupLib.reactDashTransitionDashGroupLibStrings.animate */, V /* <: reactLib.reactMod.ReactType[_] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: ImportType.apply Failed type conversion: react.react.Global.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with reactDashTransitionDashGroupLib.Anon_Child)
 }

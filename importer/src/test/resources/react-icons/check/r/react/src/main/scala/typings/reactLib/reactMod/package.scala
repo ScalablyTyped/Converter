@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 package object reactMod {
   type ComponentState = js.Object
   type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: reactLib.Element */] = js.Function2[
-    /* props */ js.UndefOr[ClassAttributes[T] with (P | scala.Null)], 
+    /* props */ js.UndefOr[(ClassAttributes[T] with P) | scala.Null], 
     /* repeated */ ReactNode, 
     DOMElement[P, T]
   ]
