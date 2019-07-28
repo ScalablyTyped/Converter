@@ -246,6 +246,7 @@ object Libraries {
       "mali",
       "apollo-tracing",
       "playerframework",
+      "koa-compose",
       // these are referenced in notNeededPackages.json but don't exist
       "@sindresorhus/djb2a",
       "navigator-permissions",
