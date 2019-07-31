@@ -1,45 +1,75 @@
 # Tso - Typescript to Scala converter
 
-### Haven't people already tried this?
+## Running
+`Tso` is written to run in batch mode, and you can run the [main](importer/src/main/scala/com/olvind/tso/importer/Main.scala) 
+ directly from from sbt (`importer/run`) or intellij. Since it's used both for development and for CI,
+ it supports a bunch of command line options.
 
-There are heaps of other projects which does this for different languages, 
-with different levels of effort put into them, and different degrees of success.
+All parameters without a leading dash will be taken to be names of libraries to convert.
 
-This is a small sample:
-- [DefinitelyScala](https://definitelyscala.com/)
-- [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-importer)
-- [Retyped for C#](https://retyped.com)
-- [ts2k for Kotlin](https://github.com/Kotlin/ts2kt)
-- [ReasonablyTyped for Reason ML](https://rrdelaney.github.io/ReasonablyTyped/)
-- [typescript2java](https://github.com/ltearno/typescript2java)
+Specifying one or more libraries will put the converter in "debug mode". The only
+ difference is that the UI is different, and no sbt plugin and commit is created.
+For development you'll always use "debug mode".
+ 
+`Main` supports a bunch of command line options:
 
-You'll see there are two projects which target Scala.
-`scala-js-ts-importer` is Sebastien's original attempt from some years ago,
- which forms the basis for both `DefinitelyScala` and `ScalablyTyped`.
-  
-`DefinitelyScala` is an awesome project, but it's not finished. 
-This project tries to pick up where it left off and finish the task.   
+| option | description |
+| --- | --- |
+| `-conserveSpace`    | The CI server (and perhaps your developer laptop) doesn't have much hard drive space. This thins out the `node_modules` folder resulting from installing all the libraries outside DefinitelyTyped and keeps only what we need
+| `-demoSet`          | Adds the set of all libraries used in the [demos](https://github.com/oyvindberg/ScalablyTypedDemos/)
+| `-dontCleanProject` | Normally the CI build aggressively resets the ScalablyTyped git repo. Enabling this will skip that
+| `-enableParseCache` | The Typescript parser is somewhat slow. Enabling this uses java serialization to cache when possible 
+| `-forceCommit`      | Commit and build sbt plugin in debug mode 
+| `-nextVersions`     | Build libraries with Scala 2.13 and Scala.js 1.0.0-M8 instead
+| `-offline`          | Skip pulling newest DefinitelyTyped and running `npm update`
+| `-pedantic`         | Make the converter more strict. Most things don't work yet in this mode
+| `-publish`          | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
+| `-sequential`       | We have some [issues](https://github.com/oyvindberg/tso/issues/74) with parallel conversion. For now it's a must for consistent CI builds
+| `-softWrites`       | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
 
-`tso` powers `ScalablyTyped` with a huge set of features not frequently found elsewhere:
-- Parser for ~all of Typescript
-- Keeps ~all comments
-- Full handling of dependencies between libraries, including those outside of `DefinitelyTyped`
-- Full implementation of the module system, which all useful javascript libraries rely on
-- ~All types and values are fully resolved, across library boundaries
-- A naming scheme to avoid name collisions
-- Scala.js must abide by JVM rules, so we handle erasure, overloads, overrides, default parameters, `var` conflicts, inheritance conflicts, etc.
-- Better user convenience by converting to `@ScalaJSDefined` traits
-- Bridges gap between structural and nominal typing somewhat by a strong bias towards type aliases instead of traits
-- Answers `typeof` queries and type lookups (`React.Props["children"]`) 
-- Fills in defaulted type parameters
+## Directories
+By default, all files will be written to `~/tmp/tso-cache`. The only exception is the ivy artifacts, which are local-published
+ to `~/.ivy2/local`.
 
-All these features combined enable us to rewrite a very high percentage of all typings, 
-somewhere around 97-98% of the newest version of all libraries in the current set.  
+## Development
+Developing a compiler is complex. Testing it well is expensive, so we focus on getting as wide testing as possible for the time spent.
 
-### Derived work
+For that reason we have a few levels of testing:
+
+### Unit tests
+Only really used for the parser, but utterly necessary to write one. All changes to the parser should come with a corresponding unit test.
+
+### [ImporterTest](importer/src/test/scala/com/olvind/tso/importer/ImporterTest.scala)
+Built in the same spirit as the scala compiler's `partest`, this takes smallish [pieces of typescript](importer/src/test/resources) 
+ code and run it through the entire pipeline, including `scalac`. These are relatively cheap (~30 seconds for all tests 
+ if they all recompile), and covers a *lot* of ground. If you're making changes, you'll get quite a few answers here. 
+ 
+Note that for non-CI machines we update the checked in conversion results directly, as long as `scalac` is happy.
+This means that after successfully running the test, the next step is to review the git changes in `importer/src/test/resources/*/check`.
+In CI it's enforced that the checked in results are current, so we know which commit introduces which change.  
+
+### Demo set
+Do your changes look good when running `ImporterTest`? The next step is to run `tso` on the demo set. 
+A good command to run might be:
+```
+sbt:tso-public> importer/runMain com.olvind.tso.importer.Main -softWrites -parseCache -offline -dontCleanProject -forceCommit -demoSet
+```
+
+Does any library fail? Fix it.
+
+Does all libraries convert successfully? Inspect git changes.
+
+### Full set
+Did you make small innocent change and passed the demo set without problems? Skip this, it takes an hour or two, depending. 
+ 
+Larger change? Run the command for demo set without the `-demoSet` option and go for a walk. 
+
+### Pull request.
+All changes go through a PR.   
+
+## Derived work
 This project took [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-importer/) as a starting point,
 and inherited a lot of decisions from it.
 
 ## License
-
 Tso is distributed under the [Scala License](http://www.scala-lang.org/license.html).
