@@ -71,12 +71,13 @@ sealed trait TsTreeScope {
 
     val res = lookupInternal(picker, qname.parts, LoopDetector.initial)
 
-    if (res.isEmpty && !skipValidation && root.pedantic) {
+    if (res.isEmpty && !skipValidation) {
       //unused, it's just for easier debugging
       lookupInternal(picker, qname.parts, LoopDetector.initial)
 
-      logger.fatal(s"Cannot resolve $qname")
-    } else res
+      logger.fatalMaybe(s"Cannot resolve $qname", root.pedantic)
+    }
+    res
   }
 
   final def lookupInternal[T <: TsNamedDecl](
