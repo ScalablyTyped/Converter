@@ -154,7 +154,7 @@ object ImportTree {
               impl        = MemberImpl.Native,
               isReadOnly  = readOnly,
               isOverride  = false,
-              comments    = cs,
+              comments    = cs +? nameHint(name, jsLocation),
               codePath    = importName(codePath),
             ),
           )
@@ -234,17 +234,17 @@ object ImportTree {
           ),
         )
 
-      case TsDeclFunction(cs, _, importName(name), sig, _, codePath) =>
+      case TsDeclFunction(cs, _, importName(name), sig, jsLocation, codePath) =>
         Seq(
           tsMethod(
-            scope = scope,
-            importName,
+            scope          = scope,
+            importName     = importName,
             level          = ProtectionLevel.Default,
             name           = name,
-            cs             = cs,
+            cs             = cs +? nameHint(name, jsLocation),
             sig            = sig,
             scalaJsDefined = false,
-            importName(codePath),
+            ownerCP        = importName(codePath),
           ),
         )
       case _: TsExportAsNamespace => Nil
@@ -254,6 +254,17 @@ object ImportTree {
         scope.fatalMaybe(s"Unexpected: $other")
         Nil
     }
+  }
+
+  def nameHint(name: Name, jsLocation: JsLocation): Option[CommentData] = {
+    val strOpt = (name, jsLocation) match {
+      case (name, _) if name =/= Name.Default && name =/= Name.APPLY && name =/= Name.namespaced => None
+      case (_, JsLocation.Global(TsQIdent(parts))) if parts.nonEmpty                             => Some(parts.head.value)
+      case (_, JsLocation.Module(_, ModuleSpec.Specified(parts))) if parts.nonEmpty              => Some(parts.last.value)
+      case (_, JsLocation.Module(modName, _))                                                    => Some(modName.fragments.last)
+      case _                                                                                     => None
+    }
+    strOpt map (h => CommentData(Markers.NameHint(h)))
   }
 
   sealed trait MemberRet

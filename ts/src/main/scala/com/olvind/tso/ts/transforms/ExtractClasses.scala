@@ -17,13 +17,15 @@ object ExtractClasses extends TransformMembers {
 
   /* avoid generating a class extending from a type parameter, say */
   def isSimpleType(ref: TsTypeRef, s: TsTreeScope): Boolean =
-    s.lookupTypeIncludeScope(ref.name).headOption match {
-      case Some((_: TsDeclClass | _: TsDeclInterface, _)) =>
-        true
-      case Some((TsDeclTypeAlias(_, _, _, _, alias: TsTypeRef, _), newScope)) =>
-        isSimpleType(alias, newScope)
-      case _ => false
-    }
+    if (s.isAbstract(ref.name)) false
+    else
+      s.lookupTypeIncludeScope(ref.name).headOption match {
+        case Some((_: TsDeclClass | _: TsDeclInterface, _)) =>
+          true
+        case Some((TsDeclTypeAlias(_, _, _, _, alias: TsTypeRef, _), newScope)) =>
+          isSimpleType(alias, newScope)
+        case _ => false
+      }
 
   def typeCtorToClass(ownerLoc: JsLocation, ownerCp: CodePath): PartialFunction[TsMember, TsDeclClass] = {
     case TsMemberProperty(
@@ -110,7 +112,9 @@ object ExtractClasses extends TransformMembers {
         object ValidCtors {
           def unapply(arg: List[TsMemberCtor]): Option[List[(TsMemberCtor, TsTypeRef)]] =
             arg.collect {
-              case x @ TsMemberCtor(_, _, TsFunSig(_, _, _, Some(rt: TsTypeRef))) if isSimpleType(rt, scope) => x -> rt
+              case x @ TsMemberCtor(_, _, sig @ TsFunSig(_, _, _, Some(rt: TsTypeRef)))
+                  if isSimpleType(rt, scope / sig) =>
+                x -> rt
             }.nonEmptyOpt
         }
 

@@ -81,6 +81,8 @@ object IdentifyReactComponents {
       .to[Seq]
       .sortBy(_.name)
 
+  val Unnamed = Set(Name.Default, Name.namespaced)
+
   def maybeMethodComponent(method: MethodTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (current.typeName === Names.Element) Some(current)
@@ -98,25 +100,21 @@ object IdentifyReactComponents {
     val flattenedParams = method.params.flatten
 
     flattenedParams.length match {
+      /* props and maybe context */
       case 1 | 2 =>
-        /* props and maybe context */
-        val isTopLevel = scope.stack.forall {
+        def isTopLevel = scope.stack.forall {
           case _: ClassTree => false
           case _ => true
         }
         val propsParam      = flattenedParams.head
-        val isAbstractProps = scope.isAbstract(propsParam.tpe)
+        def isAbstractProps = scope.isAbstract(propsParam.tpe)
+        def validName       = method.name.value.head.isUpper || Unnamed(method.name)
 
-        /* this is clearly insufficient, but WFM right now */
-        val mentionsProps =
-          propsParam.name.unescaped.toLowerCase.contains("props") ||
-            propsParam.tpe.name.unescaped.toLowerCase.contains("props")
-
-        if (!isTopLevel || isAbstractProps || !mentionsProps) None
+        if (!validName || !isTopLevel || isAbstractProps) None
         else
           for {
             _ <- returnsElement(scope, method.resultType)
-            compName <- componentName(method.annotations, QualifiedName(method.name :: Nil))
+            compName <- componentName(method.annotations, QualifiedName(method.name :: Nil), method.comments)
           } yield
             Component(
               compName,
@@ -155,7 +153,7 @@ object IdentifyReactComponents {
     for {
       tr <- pointsAtComponentType(scope, tree.tpe)
       props = tr.targs.head
-      name <- componentName(owner.annotations, QualifiedName(tree.name :: Nil))
+      name <- componentName(owner.annotations, QualifiedName(tree.name :: Nil), tree.comments)
     } yield
       Component(
         name             = name,
@@ -175,7 +173,7 @@ object IdentifyReactComponents {
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
         case (TypeRef(qname, props +: _, _), _) if Names.isComponent(qname) =>
-          componentName(cls.annotations, cls.codePath).map(
+          componentName(cls.annotations, cls.codePath, cls.comments).map(
             compName =>
               Component(
                 compName,
@@ -193,7 +191,7 @@ object IdentifyReactComponents {
           )
       }.flatten
 
-  def componentName(annotations: Seq[Annotation], codePath: QualifiedName): Option[Name] = {
+  def componentName(annotations: Seq[Annotation], codePath: QualifiedName, comments: Comments): Option[Name] = {
     val fromCodePath = codePath.parts.last match {
       case Name.Default | Name.namespaced =>
         None
@@ -210,7 +208,10 @@ object IdentifyReactComponents {
           Name(prettyString(fragment.capitalize, "", forceCamelCase = false))
       }
 
-    fromCodePath orElse fromAnnotation
+    val fromNameHint: Option[Name] =
+      comments.extract { case Markers.NameHint(hint) => Name(hint) }.map(_._1)
+
+    fromCodePath orElse fromAnnotation orElse fromNameHint
   }
 
   def isGlobal(as: Seq[Annotation]): Boolean =
