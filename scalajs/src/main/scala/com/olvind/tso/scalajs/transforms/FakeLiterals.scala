@@ -3,6 +3,7 @@ package scalajs
 package transforms
 
 import scala.collection.mutable
+import scala.util.{Failure, Success, Try}
 
 object FakeLiterals {
   def apply(scope: TreeScope)(s: ContainerTree): ContainerTree = LiteralRewriter(s, scope).output
@@ -90,8 +91,13 @@ object FakeLiterals {
           )
 
         case TypeRef.Literal(underlying) =>
-          val fixed =
-            if (underlying.forall(_.isDigit) && underlying.toLong > Int.MaxValue) "_" + underlying else underlying
+          def isTooBigForInt(strNum: String) = Try(java.lang.Long.decode(strNum)) match {
+            case Failure(_)     => false
+            case Success(value) => value > Int.MaxValue
+          }
+
+          val fixed = if (isTooBigForInt(underlying)) "_" + underlying else underlying
+
           collectedNumbers += fixed
           TypeRef(
             QualifiedName(List(ScalaConfig.outputPkg, _s.name, NumbersModuleName, nameFor(fixed))),
