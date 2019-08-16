@@ -1,28 +1,29 @@
 package typings
 
-import org.scalablytyped.runtime.Instantiable0
-import typings.std.Exclude
-import typings.std.InstanceType
-import typings.std.NonNullable
-import typings.std.Partial
-import typings.std.Pick
-import typings.std.Record
-import typings.std.Required
-import typings.std.ReturnType
-import typings.typeDashMappings.typeDashMappingsStrings.age
-import typings.typeDashMappings.typeDashMappingsStrings.color
-import typings.typeDashMappings.typeDashMappingsStrings.fontFamily
-import typings.typeDashMappings.typeDashMappingsStrings.fontSize
-import typings.typeDashMappings.typeDashMappingsStrings.fontWeight
-import typings.typeDashMappings.typeDashMappingsStrings.letterSpacing
-import typings.typeDashMappings.typeDashMappingsStrings.lineHeight
-import typings.typeDashMappings.typeDashMappingsStrings.name
-import typings.typeDashMappings.typeDashMappingsStrings.textTransform
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object typeDashMappings {
+  import org.scalablytyped.runtime.Instantiable0
+  import typings.std.Exclude
+  import typings.std.InstanceType
+  import typings.std.NonNullable
+  import typings.std.Partial
+  import typings.std.Pick
+  import typings.std.Record
+  import typings.std.Required
+  import typings.std.ReturnType
+  import typings.typeDashMappings.typeDashMappingsStrings.age
+  import typings.typeDashMappings.typeDashMappingsStrings.color
+  import typings.typeDashMappings.typeDashMappingsStrings.fontFamily
+  import typings.typeDashMappings.typeDashMappingsStrings.fontSize
+  import typings.typeDashMappings.typeDashMappingsStrings.fontWeight
+  import typings.typeDashMappings.typeDashMappingsStrings.letterSpacing
+  import typings.typeDashMappings.typeDashMappingsStrings.lineHeight
+  import typings.typeDashMappings.typeDashMappingsStrings.name
+  import typings.typeDashMappings.typeDashMappingsStrings.textTransform
+
   type Excluded = Omit[CSSProperties, color]
   type IPersonRecord = PersonRecord
   type IProxiedPerson = Proxify[Person]

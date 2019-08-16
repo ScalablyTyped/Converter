@@ -1,13 +1,14 @@
 package typings.react.reactMod.Global
 
-import typings.react.reactMod.Attributes
-import typings.react.reactMod.ClassAttributes
-import typings.react.reactMod.ReactElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object JSXNs {
+  import typings.react.reactMod.Attributes
+  import typings.react.reactMod.ClassAttributes
+  import typings.react.reactMod.ReactElement
+
   // tslint:disable-next-line:no-empty-interface
   type Element = ReactElement
   // tslint:disable-next-line:no-empty-interface

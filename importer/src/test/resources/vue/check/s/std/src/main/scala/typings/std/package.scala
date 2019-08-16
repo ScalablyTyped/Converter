@@ -1,11 +1,12 @@
 package typings
 
-import org.scalablytyped.runtime.StringDictionary
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object std {
+  import org.scalablytyped.runtime.StringDictionary
+
   type Element = Node
   type HTMLElement = Element
   type Readonly[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
