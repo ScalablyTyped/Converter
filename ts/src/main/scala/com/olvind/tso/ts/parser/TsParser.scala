@@ -256,7 +256,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       }
 
       val exporteeStar: Parser[TsExporteeStar] =
-        "*" ~> from ~ asNameOpt ^^ TsExporteeStar
+        "*" ~> from ^^ TsExporteeStar
 
       val exporteeTree: Parser[TsExporteeTree] =
         tsDecl ^^ TsExporteeTree

@@ -69,7 +69,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
 
   test("export alias") {
     shouldParseAs("""export * from "aphrodite"""", TsParser.tsExport)(
-      TsExport(NoComments, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"), None)),
+      TsExport(NoComments, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"))),
     )
   }
 
