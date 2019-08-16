@@ -76,18 +76,21 @@ object CollectReactComponents {
       moduleCodePath: QualifiedName,
       propsName:      Name,
   ): Option[TypeAliasTree] =
-    scope lookup comp.props.typeName collectFirst {
-      case (x: TypeAliasTree, _) => x.tparams
-      case (x: ClassTree, _)     => x.tparams
-    } map { tps =>
-      TypeAliasTree(
-        propsName,
-        tps,
-        comp.props.copy(targs = TypeParamTree.asTypeArgs(tps)),
-        NoComments,
-        moduleCodePath + propsName,
-      )
-    }
+    comp.props.flatMap(
+      propsType =>
+        scope lookup propsType.typeName collectFirst {
+          case (x: TypeAliasTree, _) => x.tparams
+          case (x: ClassTree, _)     => x.tparams
+        } map { tps =>
+          TypeAliasTree(
+            propsName,
+            tps,
+            propsType.copy(targs = TypeParamTree.asTypeArgs(tps)),
+            NoComments,
+            moduleCodePath + propsName,
+          )
+        },
+    )
 
   def genPropsRef(
       scope:          TreeScope,
@@ -95,23 +98,27 @@ object CollectReactComponents {
       moduleCodePath: QualifiedName,
       propsName:      Name,
   ): Option[MethodTree] =
-    scope.lookup(comp.props.typeName).collectFirst {
-      case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
-        MethodTree(
-          Annotation.Inline :: Nil,
-          ProtectionLevel.Default,
-          propsName,
-          Nil,
-          Nil,
-          MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
-          TypeRef.Singleton(comp.props.copy(targs = Nil)),
-          isOverride = false,
-          NoComments,
-          moduleCodePath + propsName,
-        )
-    }
+    comp.props.flatMap(
+      propsType =>
+        scope.lookup(propsType.typeName).collectFirst {
+          case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
+            MethodTree(
+              Annotation.Inline :: Nil,
+              ProtectionLevel.Default,
+              propsName,
+              Nil,
+              Nil,
+              MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
+              TypeRef.Singleton(propsType.copy(targs = Nil)),
+              isOverride = false,
+              NoComments,
+              moduleCodePath + propsName,
+            )
+        },
+    )
 
-  def genComponentRef(comp: Component, moduleCodePath: QualifiedName): MethodTree =
+  def genComponentRef(comp: Component, moduleCodePath: QualifiedName): MethodTree = {
+    val ret = TypeRef(Names.ComponentType, comp.props.getOrElse(TypeRef.Object) :: Nil, NoComments)
     MethodTree(
       Annotation.Inline :: Nil,
       ProtectionLevel.Default,
@@ -119,12 +126,12 @@ object CollectReactComponents {
       comp.tparams,
       Nil,
       MemberImpl.Custom(
-        s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer
-          .formatTypeRef(0)(TypeRef(Names.ComponentType, comp.props :: Nil, NoComments))}]",
+        s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(ret)}]",
       ),
-      TypeRef(Names.ComponentType, comp.props :: Nil, NoComments),
+      ret,
       isOverride = false,
       NoComments,
       moduleCodePath + comp.name,
     )
+  }
 }
