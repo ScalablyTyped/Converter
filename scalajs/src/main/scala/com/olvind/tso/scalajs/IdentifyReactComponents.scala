@@ -16,7 +16,7 @@ object IdentifyReactComponents {
   final case class Component(
       name:             Name,
       tparams:          Seq[TypeParamTree],
-      props:            TypeRef,
+      props:            Option[TypeRef],
       scalaLocation:    QualifiedName,
       isGlobal:         Boolean,
       componentType:    ComponentType,
@@ -50,7 +50,7 @@ object IdentifyReactComponents {
     implicit val ComponentOrdering: Ordering[Component] = Ordering.by { c =>
       val preferModule = !c.isGlobal
       /* because for instance mui ships with icons called `List` and `Tab` */
-      val preferPropsMatchesName = c.props.name.unescaped.startsWith(c.name.unescaped)
+      val preferPropsMatchesName = c.props.fold(false)(_.name.unescaped.startsWith(c.name.unescaped))
       /* because for instance mui declares both a default and a names export, where only the former exists */
       val preferDefault = c.scalaLocation.parts.last === Name.Default
       /* because some libraries expect you to use top-level imports. shame for the tree shakers */
@@ -81,11 +81,12 @@ object IdentifyReactComponents {
       .to[Seq]
       .sortBy(_.name)
 
-  val Unnamed = Set(Name.Default, Name.namespaced)
+  val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
   def maybeMethodComponent(method: MethodTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (current.typeName === Names.Element) Some(current)
+      else if (scope.isAbstract(current)) None
       else {
         scope
           .lookup(current.typeName)
@@ -100,14 +101,14 @@ object IdentifyReactComponents {
     val flattenedParams = method.params.flatten
 
     flattenedParams.length match {
-      /* props and maybe context */
-      case 1 | 2 =>
+      /* optional props and context */
+      case 0 | 1 | 2 =>
         def isTopLevel = scope.stack.forall {
           case _: ClassTree => false
           case _ => true
         }
-        val propsParam      = flattenedParams.head
-        def isAbstractProps = scope.isAbstract(propsParam.tpe)
+        val propsTypeOpt    = flattenedParams.headOption.map(_.tpe)
+        def isAbstractProps = propsTypeOpt.exists(scope.isAbstract)
         def validName       = method.name.value.head.isUpper || Unnamed(method.name)
 
         if (!validName || !isTopLevel || isAbstractProps) None
@@ -119,7 +120,7 @@ object IdentifyReactComponents {
             Component(
               compName,
               tparams          = method.tparams,
-              props            = propsParam.tpe,
+              props            = propsTypeOpt,
               scalaLocation    = method.codePath,
               isGlobal         = isGlobal(method.annotations),
               componentType    = ComponentType.Function,
@@ -158,7 +159,7 @@ object IdentifyReactComponents {
       Component(
         name             = name,
         tparams          = Nil,
-        props            = props,
+        props            = Some(props).filterNot(_ === TypeRef.Object),
         scalaLocation    = tree.codePath,
         isGlobal         = isGlobal(tree.annotations),
         componentType    = ComponentType.Field,
@@ -178,7 +179,7 @@ object IdentifyReactComponents {
               Component(
                 compName,
                 tparams         = cls.tparams,
-                props           = props,
+                props           = Some(props).filterNot(_ === TypeRef.Object),
                 scalaLocation   = cls.codePath,
                 isGlobal        = isGlobal(cls.annotations),
                 componentType   = ComponentType.Class,
@@ -201,10 +202,13 @@ object IdentifyReactComponents {
 
     val fromAnnotation: Option[Name] =
       annotations.collectFirst {
-        case Annotation.JsImport(_, Imported.Named(name)) if name =/= Name.Default && name =/= Name.namespaced => name
+        case Annotation.JsImport(_, Imported.Named(name)) if !Unnamed(name) => name
         case Annotation.JsImport(mod, _) =>
           val fragment =
-            mod.split("/").filterNot(x => x === Name.Default.unescaped || x === Name.namespaced.unescaped).last
+            mod
+              .split("/")
+              .filterNot(x => Unnamed(Name(x)))
+              .last
           Name(prettyString(fragment.capitalize, "", forceCamelCase = false))
       }
 
