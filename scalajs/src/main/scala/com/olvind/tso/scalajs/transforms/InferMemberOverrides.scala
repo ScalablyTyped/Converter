@@ -24,8 +24,6 @@ object InferMemberOverrides extends TreeTransformation {
   private def newMembers(scope: TreeScope, tree: InheritanceTree, members: Seq[Tree]): Seq[Tree] = {
     val root = ParentsResolver(scope, tree)
 
-    val isScalaJsDefined: Boolean = tree.annotations contains Annotation.ScalaJSDefined
-
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
@@ -53,11 +51,12 @@ object InferMemberOverrides extends TreeTransformation {
         case (name, fs) if !fieldsByName.contains(name) =>
           val head    = fs.head._1
           val newType = TypeRef.Intersection(fs.map(_._1.tpe))
+
           head.copy(
             isOverride = true,
             tpe        = newType,
             isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
-            impl       = updatedImpl(fs.map(_._1.impl), Some(newType), isScalaJsDefined),
+            impl       = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
             comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
@@ -71,7 +70,7 @@ object InferMemberOverrides extends TreeTransformation {
           fs.head.copy(
             isOverride = true,
             resultType = TypeRef.Intersection(fs.map(_.resultType)),
-            impl       = updatedImpl(fs.map(_.impl), None, isScalaJsDefined),
+            impl       = updatedImpl(fs.map(_.impl), None, tree.isScalaJsDefined),
             comments   = fs.head.comments + Comment("/* InferMemberOverrides */\n"),
           )
       }
@@ -88,7 +87,9 @@ object InferMemberOverrides extends TreeTransformation {
   def canBeUndefined(tpe: TypeRef): Boolean =
     tpe match {
       case TypeRef(QualifiedName.UndefOr, _, _) => true
+      case TypeRef.undefined                    => true
       case TypeRef.Intersection(types)          => types forall canBeUndefined
+      case TypeRef.Union(types)                 => types exists canBeUndefined
       case _                                    => false
     }
 
