@@ -74,17 +74,19 @@ final class ParserTests extends FunSuite {
   }
 
   test("handle nbsp") {
-    shouldParseAs("\u00a0var _: string", TsParser.tsDeclVar)(
-      TsDeclVar(
-        NoComments,
-        declared = false,
-        readOnly = false,
-        TsIdent("_"),
-        Some(TsTypeRef.string),
-        None,
-        Zero,
-        CodePath.NoPath,
-        isOptional = false,
+    shouldParseAs("\u00a0var _: string", TsParser.tsDeclVars)(
+      List(
+        TsDeclVar(
+          NoComments,
+          declared = false,
+          readOnly = false,
+          TsIdent("_"),
+          Some(TsTypeRef.string),
+          None,
+          Zero,
+          CodePath.NoPath,
+          isOptional = false,
+        ),
       ),
     )
   }
@@ -2170,18 +2172,20 @@ type Readonly<T> = {
   test("unique symbol") {
     shouldParseAs(
       "const foo: unique symbol",
-      TsParser.tsDeclVar,
+      TsParser.tsDeclVars,
     )(
-      TsDeclVar(
-        NoComments,
-        declared = false,
-        readOnly = true,
-        TsIdentSimple("foo"),
-        Some(TsTypeRef.Symbol),
-        None,
-        Zero,
-        CodePath.NoPath,
-        isOptional = false,
+      List(
+        TsDeclVar(
+          NoComments,
+          declared = false,
+          readOnly = true,
+          TsIdentSimple("foo"),
+          Some(TsTypeRef.Symbol),
+          None,
+          Zero,
+          CodePath.NoPath,
+          isOptional = false,
+        ),
       ),
     )
   }
@@ -2242,35 +2246,37 @@ type Readonly<T> = {
   test("destructured array parameter") {
     shouldParseAs(
       " const keyValsToObjectR: (accum: any, [key, val]: [any, any]) => any",
-      TsParser.tsDeclVar,
+      TsParser.tsDeclVars,
     )(
-      TsDeclVar(
-        NoComments,
-        declared = false,
-        readOnly = true,
-        TsIdentSimple("keyValsToObjectR"),
-        Some(
-          TsTypeFunction(
-            TsFunSig(
-              NoComments,
-              Nil,
-              List(
-                TsFunParam(NoComments, TsIdentSimple("accum"), Some(TsTypeRef.any), isOptional = false),
-                TsFunParam(
-                  NoComments,
-                  TsIdentSimple("hasKeyVal"),
-                  Some(TsTypeTuple(List(TsTypeRef.any, TsTypeRef.any))),
-                  isOptional = false,
+      List(
+        TsDeclVar(
+          NoComments,
+          declared = false,
+          readOnly = true,
+          TsIdentSimple("keyValsToObjectR"),
+          Some(
+            TsTypeFunction(
+              TsFunSig(
+                NoComments,
+                Nil,
+                List(
+                  TsFunParam(NoComments, TsIdentSimple("accum"), Some(TsTypeRef.any), isOptional = false),
+                  TsFunParam(
+                    NoComments,
+                    TsIdentSimple("hasKeyVal"),
+                    Some(TsTypeTuple(List(TsTypeRef.any, TsTypeRef.any))),
+                    isOptional = false,
+                  ),
                 ),
+                Some(TsTypeRef.any),
               ),
-              Some(TsTypeRef.any),
             ),
           ),
+          None,
+          Zero,
+          CodePath.NoPath,
+          isOptional = false,
         ),
-        None,
-        Zero,
-        CodePath.NoPath,
-        isOptional = false,
       ),
     )
   }
@@ -2278,24 +2284,26 @@ type Readonly<T> = {
   test("import types") {
     shouldParseAs(
       "var foo: import('@babel/types').Foo",
-      TsParser.tsDeclVar,
+      TsParser.tsDeclVars,
     )(
-      TsDeclVar(
-        NoComments,
-        declared = false,
-        readOnly = false,
-        TsIdentSimple("foo"),
-        Some(
-          TsTypeRef(
-            NoComments,
-            TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))),
-            Nil,
+      List(
+        TsDeclVar(
+          NoComments,
+          declared = false,
+          readOnly = false,
+          TsIdentSimple("foo"),
+          Some(
+            TsTypeRef(
+              NoComments,
+              TsQIdent(List(TsIdentImport(TsIdentModule(Some("babel"), List("types"))), TsIdentSimple("Foo"))),
+              Nil,
+            ),
           ),
+          None,
+          Zero,
+          CodePath.NoPath,
+          isOptional = false,
         ),
-        None,
-        Zero,
-        CodePath.NoPath,
-        isOptional = false,
       ),
     )
   }
@@ -2327,18 +2335,20 @@ type Readonly<T> = {
   test("typeof import()") {
     shouldParseAs(
       "const sdk: typeof import(\"aws-sdk\")",
-      TsParser.tsDeclVar,
+      TsParser.tsDeclVars,
     )(
-      TsDeclVar(
-        NoComments,
-        declared = false,
-        readOnly = true,
-        TsIdentSimple("sdk"),
-        Some(TsTypeQuery(TsQIdent(List(TsIdentImport(TsIdentModule(None, List("aws-sdk"))))))),
-        None,
-        Zero,
-        CodePath.NoPath,
-        isOptional = false,
+      List(
+        TsDeclVar(
+          NoComments,
+          declared = false,
+          readOnly = true,
+          TsIdentSimple("sdk"),
+          Some(TsTypeQuery(TsQIdent(List(TsIdentImport(TsIdentModule(None, List("aws-sdk"))))))),
+          None,
+          Zero,
+          CodePath.NoPath,
+          isOptional = false,
+        ),
       ),
     )
   }

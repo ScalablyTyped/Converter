@@ -119,7 +119,7 @@ final class CommentTests extends FunSuite with Matchers {
                     |""".stripMargin
 
     TreeTraverse
-      .collect(parseAs(content, TsParser.tsDeclVar)) {
+      .collectSeq(parseAs(content, TsParser.tsDeclVars)) {
         case s: TsDeclVar  => s.comments
         case s: TsFunParam => s.comments
       }

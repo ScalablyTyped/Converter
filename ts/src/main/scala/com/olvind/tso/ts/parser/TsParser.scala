@@ -278,6 +278,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   @deprecated("properly support multiple vars in one statement")
   lazy val tsDeclVar: Parser[TsDeclVar] = tsDeclVars ^^ {
+    case Nil => sys.error("Impossible")
     case first :: Nil  => first
     case first :: rest => first.copy(comments = Comments(Comment.warning(s"Dropped ${rest.map(_.name.value)}")))
   }
@@ -285,7 +286,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsDeclVars: Parser[List[TsDeclVar]] = {
     val variable = ("var" | "let") ^^ (_ => false)
     val constant = "const" ^^ (_         => true)
-    comments ~ isDeclared ~ (variable | constant) ~ repsep(tsIdent ~ typeAnnotationOpt ~ ("=" ~> expr).?, ",") ^^ {
+    comments ~ isDeclared ~ (variable | constant) ~ rep1sep(tsIdent ~ typeAnnotationOpt ~ ("=" ~> expr).?, ",") ^^ {
       case cs ~ declared ~ isReadonly ~ vars =>
         vars.map {
           case name ~ tpe ~ expr =>

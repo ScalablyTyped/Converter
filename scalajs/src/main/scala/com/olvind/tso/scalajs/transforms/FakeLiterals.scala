@@ -16,7 +16,6 @@ object FakeLiterals {
     val NumbersModuleName = Name(_s.name.unescaped + "Numbers")
     val collectedNumbers  = mutable.HashSet.empty[String]
 
-    @deprecated("find a... less ad hoc approach here", "")
     def nameFor(underlying: String): Name = {
       val base =
         stringUtils unquote underlying flatMap {
