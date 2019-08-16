@@ -1,11 +1,12 @@
 package typings.react
 
-import typings.react.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactMod {
+  import typings.react.Element
+
   type ComponentState = js.Object
   type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
     /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 

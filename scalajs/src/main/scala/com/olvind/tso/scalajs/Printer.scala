@@ -92,11 +92,12 @@ object Printer {
           }
 
           writer.println("")
-          imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
           writer.println(Imports)
           writer.println("")
           writer.println("package object " + formatName(tree.name) + " {")
-
+          imports.foreach(i => writer.println(s"  import ${formatQN(i.imported)}"))
+          if (imports.nonEmpty)
+            writer.println("")
           shortenedMembers foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 2)
           writer.println("}")
         }

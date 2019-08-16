@@ -1,12 +1,13 @@
 package typings
 
-import typings.std.HTMLInputElement
-import typings.std.TwoFoo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object unionDashToDashInheritance {
+  import typings.std.HTMLInputElement
+  import typings.std.TwoFoo
+
   /* Rewritten from type alias, can be one of: 
     - typings.unionDashToDashInheritance.unionDashToDashInheritanceStrings.a1
     - typings.unionDashToDashInheritance.unionDashToDashInheritanceStrings.a2
