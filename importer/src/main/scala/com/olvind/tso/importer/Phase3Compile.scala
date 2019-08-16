@@ -12,7 +12,7 @@ import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.sets.SetOps
-import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
+import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await

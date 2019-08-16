@@ -42,6 +42,8 @@ object Phase2Res {
             }
           case (s: FacadeSource, Facade) =>
             facades.add(s)
+
+          case other => sys.error(s"Unexpected $other")
         }
 
       go(_m)

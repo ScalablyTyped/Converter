@@ -217,6 +217,9 @@ object Exports {
           case TsExporteeTree(x: TsNamedDecl) =>
             if (wanted.headOption.contains(x.name)) Some(PickedExport(e, wanted)) else None
 
+          case TsExporteeTree(other) =>
+            sys.error(s"Unexpected $other")
+
           case TsExporteeStar(_) =>
             Some(PickedExport(e, wanted))
         }
@@ -229,6 +232,7 @@ object Exports {
   def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation = (jsLocation, ms) match {
     case (m: JsLocation.Module, spec) => m.copy(spec = spec)
     case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
+    case (JsLocation.Global(jsPath), other)                        => sys.error(s"Unexpected $jsPath and $other")
     case (JsLocation.Zero, _)                                      => JsLocation.Zero
   }
 

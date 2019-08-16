@@ -133,7 +133,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
       case g @ TsGlobal(_, _, ms, _) =>
         val ret: Seq[TsNamedDecl] =
-          ms map {
+          ms collect {
             case x: TsNamedDecl => x
             case TsExport(_, _, TsExporteeTree(x: TsNamedDecl)) => x
           } map (x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))

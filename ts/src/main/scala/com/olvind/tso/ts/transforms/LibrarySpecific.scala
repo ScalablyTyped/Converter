@@ -27,24 +27,27 @@ object LibrarySpecific {
     override def enterTsDeclTypeAlias(t: TsTreeScope)(x: TsDeclTypeAlias): TsDeclTypeAlias =
       x.name match {
         case ReactFragment =>
-          val dropObject = x.alias match {
+          x.alias match {
             case TsTypeUnion(types) =>
-              types.filter {
+              val dropObject = types.filter {
                 case TsTypeRef.`object` => false
                 case _                  => true
               }
+              x.copy(alias = TsTypeUnion.simplified(dropObject))
+            case _ => x
           }
-          x.copy(alias = TsTypeUnion.simplified(dropObject))
 
         case ReactNode =>
-          val dropUseless = x.alias match {
+          x.alias match {
             case TsTypeUnion(types) =>
-              types.filter {
+              val dropUseless = types.filter {
                 case TsTypeRef.`null` => false
                 case _                => true
               }
+              x.copy(alias = TsTypeUnion.simplified(dropUseless))
+            case _ => x
           }
-          x.copy(alias = TsTypeUnion.simplified(dropUseless))
+
         case _ => x
       }
 

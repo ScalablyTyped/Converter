@@ -59,8 +59,10 @@ trait TreeTransformation[T] { self =>
   def enterTsTypeThis(t:             T)(x: TsTypeThis):             TsTypeThis             = x
   def enterTsTypeTuple(t:            T)(x: TsTypeTuple):            TsTypeTuple            = x
   def enterTsTypeUnion(t:            T)(x: TsTypeUnion):            TsTypeUnion            = x
-  def enterTsTree(t:                 T)(x: TsTree):                 TsTree                 = x
+  def enterIndexingDict(t:           T)(x: IndexingDict):           IndexingDict           = x
+  def enterIndexingSingle(t:         T)(x: IndexingSingle):         IndexingSingle         = x
 
+  def enterTsTree(t:            T)(x: TsTree):            TsTree            = x
   def enterTsDecl(t:            T)(x: TsDecl):            TsDecl            = x
   def enterTsNamedDecl(t:       T)(x: TsNamedDecl):       TsNamedDecl       = x
   def enterTsContainer(t:       T)(x: TsContainer):       TsContainer       = x
@@ -72,6 +74,7 @@ trait TreeTransformation[T] { self =>
   def enterTsImported(t:        T)(x: TsImported):        TsImported        = x
   def enterTsImportee(t:        T)(x: TsImportee):        TsImportee        = x
   def enterTsExportee(t:        T)(x: TsExportee):        TsExportee        = x
+  def enterIndexing(t:          T)(x: Indexing):          Indexing          = x
 
   //lazy
   def leaveTsParsedFile(t:      T)(x: TsParsedFile):      TsParsedFile      = x
@@ -302,11 +305,7 @@ trait TreeTransformation[T] { self =>
     val tt = withTree(t, xx)
     xx match {
       case TsMemberIndex(_1, _2, _3, _4, _5, _6) =>
-        val indexed = _4 match {
-          case IndexingDict(name, tpe) => IndexingDict(name, visitTsType(tt)(tpe))
-          case IndexingSingle(name)    => IndexingSingle(visitTsQIdent(tt)(name))
-        }
-        TsMemberIndex(_1, _2, _3, indexed, _5, _6.map(visitTsType(tt)))
+        TsMemberIndex(_1, _2, _3, visitIndexing(tt)(_4), _5, _6.map(visitTsType(tt)))
     }
   }
   final def visitTsMemberProperty(t: T)(x: TsMemberProperty): TsMemberProperty = {
@@ -465,6 +464,21 @@ trait TreeTransformation[T] { self =>
     }
   }
 
+  final def visitIndexingDict(t: T)(x: IndexingDict): IndexingDict = {
+    val xx = enterIndexingDict(withTree(t, x))(x)
+    val tt = withTree(t, xx)
+    xx match {
+      case IndexingDict(_1, _2) => IndexingDict(_1, visitTsType(tt)(_2))
+    }
+  }
+  final def visitIndexingSingle(t: T)(x: IndexingSingle): IndexingSingle = {
+    val xx = enterIndexingSingle(withTree(t, x))(x)
+    val tt = withTree(t, xx)
+    xx match {
+      case IndexingSingle(_1) => IndexingSingle(visitTsQIdent(tt)(_1))
+    }
+  }
+
   final def visitTsTree(t: T)(x: TsTree): TsTree =
     enterTsTree(withTree(t, x))(x) match {
       case x: TsContainerOrDecl => visitTsContainerOrDecl(t)(x)
@@ -479,6 +493,7 @@ trait TreeTransformation[T] { self =>
       case x: TsExportee        => visitTsExportee(t)(x)
       case x: TsImported        => visitTsImported(t)(x)
       case x: TsImportee        => visitTsImportee(t)(x)
+      case x: Indexing          => visitIndexing(t)(x)
     }
 
   final def visitTsDecl(t: T)(x: TsDecl): TsDecl =
@@ -580,6 +595,12 @@ trait TreeTransformation[T] { self =>
       case x: TsImporteeRequired => visitTsImporteeRequired(t)(x)
       case x: TsImporteeFrom     => visitTsImporteeFrom(t)(x)
       case x: TsImporteeLocal    => visitTsImporteeLocal(t)(x)
+    }
+
+  final def visitIndexing(t: T)(x: Indexing): Indexing =
+    enterIndexing(withTree(t, x))(x) match {
+      case x: IndexingDict   => visitIndexingDict(t)(x)
+      case x: IndexingSingle => visitIndexingSingle(t)(x)
     }
 
   final def >>(that: TreeTransformation[T]): TreeTransformation[T] =

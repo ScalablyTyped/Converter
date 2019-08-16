@@ -131,7 +131,7 @@ object ImportType {
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _, _) => x },
         )
 
-        val translatedStrings = strings.map {
+        val translatedStrings = strings.collect {
           case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
@@ -143,7 +143,7 @@ object ImportType {
                 .StringDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity)),
             )
         }
-        val translatedNumbers = numbers.map {
+        val translatedNumbers = numbers.collect {
           case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
