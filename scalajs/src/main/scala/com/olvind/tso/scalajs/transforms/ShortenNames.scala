@@ -5,7 +5,7 @@ package transforms
 import scala.collection.mutable
 
 object ShortenNames {
-  val Forbidden: Set[Name] = Set(Name("|"), Name("scala"), Name("js"))
+  val Forbidden: Set[Name] = Set(Name("|"), Name("scala"), Name("js"), Name("com"), Name("org"))
 
   case class ImportTree(imported: QualifiedName)
 
