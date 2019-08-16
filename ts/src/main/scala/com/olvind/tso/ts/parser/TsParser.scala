@@ -278,7 +278,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   @deprecated("properly support multiple vars in one statement")
   lazy val tsDeclVar: Parser[TsDeclVar] = tsDeclVars ^^ {
-    case Nil => sys.error("Impossible")
+    case Nil           => sys.error("Impossible")
     case first :: Nil  => first
     case first :: rest => first.copy(comments = Comments(Comment.warning(s"Dropped ${rest.map(_.name.value)}")))
   }
@@ -533,8 +533,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   }
 
   lazy val tsMemberTypeMapped: Parser[TsMemberTypeMapped] = {
-    val opt: Parser[OptionalModifier] = ("-?" | "?").? ^^ {
+    val opt: Parser[OptionalModifier] = ("-?" | "+?" | "?").? ^^ {
       case Some("?")  => OptionalModifier.Optionalize
+      case Some("+?") => OptionalModifier.Optionalize
       case Some("-?") => OptionalModifier.Deoptionalize
       case _          => OptionalModifier.Noop
     }

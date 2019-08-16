@@ -78,7 +78,7 @@ object CombineOverloads extends TreeTransformation {
 
     val suffixed: Seq[MethodTree] =
       grouped drop 1 flatMap {
-        case (_, methods) if methods.head.name === Name.APPLY =>
+        case (_, methods) if methods.head.name === Name.APPLY || methods.head.name === Name.namespaced =>
           scope.logger.info(
             s"Dropping ${methods.length} incompatible `apply` overloads (have no way to express this) at $scope",
           )

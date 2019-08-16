@@ -25,25 +25,6 @@ object Patches {
         "refKey?: string;",
       ),
     ),
-    os.RelPath("@emotion") / 'serialize / 'types / "index.d.ts" -> List(
-      Patch(
-        "resolve circular set of type aliases",
-        "export type FunctionInterpolation<MP> = (mergedProps: MP) => Interpolation<MP>",
-        "/* break circular type alias by converting to interface*/ export interface FunctionInterpolation<MP>{(mergedProps: MP): Interpolation<MP>}",
-      ),
-    ),
-    os.RelPath("styled-components") / "index.d.ts" -> List(
-      Patch(
-        "resolve double Omit",
-        "type WithOptionalTheme<P extends { theme?: T }, T> = Omit<P, \"theme\"> & {\n    theme?: T;\n};",
-        "type WithOptionalTheme<P extends { theme?: T }, T> = P & {\n    theme?: T;\n};",
-      ),
-      Patch(
-        "resolve circular set of type aliases",
-        "export type InterpolationFunction<P> = (props: P) => Interpolation<P>;",
-        "/* break circular type alias by converting to interface*/ export interface InterpolationFunction<P>{(props: P): Interpolation<P>}",
-      ),
-    ),
   )
 
   def apply(inFile: InFile, content: String): String = {

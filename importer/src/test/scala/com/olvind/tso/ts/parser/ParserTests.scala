@@ -2409,8 +2409,8 @@ export {};
     )(
       TsParsedFile(
         NoComments,
-        List(),
-        List(TsExport(NoComments, ExportType.Named, TsExporteeNames(List(), None))),
+        Nil,
+        List(TsExport(NoComments, ExportType.Named, TsExporteeNames(Nil, None))),
         CodePath.NoPath,
       ),
     )
@@ -2467,16 +2467,33 @@ export {};
         TsIdentSimple("_Handle_insert"),
         TsFunSig(
           NoComments,
-          List(),
+          Nil,
           List(
             TsFunParam(NoComments, TsIdentSimple("has0"), Some(TsTypeObject(NoComments, List())), isOptional = false),
             TsFunParam(NoComments, TsIdentSimple("has1"), Some(TsTypeObject(NoComments, List())), isOptional = false),
           ),
           Some(TsTypeRef.void),
         ),
-        isStatic = false,
+        isStatic   = false,
         isReadOnly = false,
         isOptional = false,
+      ),
+    )
+  }
+
+  test("[...]+?:") {
+    val key = TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("key"))), List())
+    val T   = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("T"))), List()))
+
+    shouldParseAs("""[key in keyof T]+?: T[key]""", TsParser.tsMemberTypeMapped)(
+      TsMemberTypeMapped(
+        NoComments,
+        ProtectionLevel.Default,
+        isReadOnly = false,
+        TsIdentSimple("key"),
+        T,
+        OptionalModifier.Optionalize,
+        TsTypeLookup(TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("T"))), List()), key),
       ),
     )
   }
@@ -2538,14 +2555,14 @@ export {};
         TsIdentSimple("expire"),
         TsFunSig(
           NoComments,
-          List(),
+          Nil,
           List(
             TsFunParam(NoComments, TsIdentSimple("key"), Some(TsTypeRef.string), isOptional = false),
-            TsFunParam(NoComments, TsIdentSimple("ms"), Some(TsTypeRef.number), isOptional = false),
+            TsFunParam(NoComments, TsIdentSimple("ms"), Some(TsTypeRef.number), isOptional  = false),
           ),
           Some(TsTypeRef.void),
         ),
-        isStatic = false,
+        isStatic   = false,
         isReadOnly = false,
         isOptional = false,
       ),

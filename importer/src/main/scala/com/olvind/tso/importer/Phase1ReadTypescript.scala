@@ -177,6 +177,8 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("material-ui", _)    => true
                 case TsIdentLibrarySimple("styled-components") => true
                 case TsIdentLibrarySimple("antd")              => true
+                case TsIdentLibrarySimple("amap-js-api")       => true
+                case TsIdentLibraryScoped("uifabric", _)       => true
                 case TsIdentLibraryScoped("tensorflow", _)     => true
                 case TsIdentLibraryScoped("ant-design", _)     => true
                 case _                                         => false
