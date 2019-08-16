@@ -78,20 +78,18 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
       case other => Seq(other)
     }
 
-  def expandTParams(scope: TsTreeScope, sig: TsFunSig): Option[Seq[TsFunSig]] =
-    sig.tparams.flatMap(expandable(scope, sig)) match {
-      case expandables =>
-        val expanded = expandables
-          .foldLeft(List(sig)) {
-            case (currentSigs, exp) => currentSigs.flatMap(expandSignature(scope, exp))
-          }
+  def expandTParams(scope: TsTreeScope, sig: TsFunSig): Option[Seq[TsFunSig]] = {
+    val expandables = sig.tparams.flatMap(expandable(scope, sig))
+    val expanded = expandables
+      .foldLeft(List(sig)) {
+        case (currentSigs, exp) => currentSigs.flatMap(expandSignature(scope, exp))
+      }
 
-        expanded.length match {
-          case n if n === 0 || n > 200 => None
-          case ok                      => Some(expanded)
-        }
-      case _ => None
+    expanded.length match {
+      case n if n === 0 || n > 200 => None
+      case _                       => Some(expanded)
     }
+  }
 
   def expandable(scope: TsTreeScope, sig: TsFunSig)(tp: TsTypeParam): Option[ExpandableTypeParam] = {
     def flatPick(tpe: TsType): Seq[TsType] =

@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.importer.Phase1Res._
-import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
+import com.olvind.tso.importer.Source.TsSource
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.sets.SetOps
@@ -20,8 +20,6 @@ class Phase1ReadTypescript(
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
 ) extends Phase[Source, Source, Phase1Res] {
-
-  import jsonCodecs._
 
   implicit val InFileFormatter: Formatter[InFile] =
     inFile =>
@@ -119,16 +117,8 @@ class Phase1ReadTypescript(
         }
 
       case source: Source.TsLibSource =>
-        val packageJsonOpt: Option[PackageJsonDeps] =
-          Json.opt[PackageJsonDeps](source.folder.path / "package.json", logger.warn(_)) orElse
-            /* discover stdlib package.json as well */
-            Json.opt[PackageJsonDeps](source.folder.path / os.up / "package.json", logger.warn(_))
-
-        val tsConfig: Option[TsConfig] =
-          Json.opt[TsConfig](source.folder.path / "tsconfig.json", logger.warn(_))
-
         val fileSources: Set[Source.TsHelperFile] =
-          PathsFromTsLibSource(resolve, source, packageJsonOpt, tsConfig)
+          PathsFromTsLibSource(resolve, source)
 
         val stdlibSourceOpt: Option[Source] =
           if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
@@ -140,7 +130,7 @@ class Phase1ReadTypescript(
           val declaredDependencies: Set[Source] =
             if (stdlibSourceOpt.isEmpty) Set.empty
             else
-              packageJsonOpt
+              source.packageJsonOpt
                 .to[Set]
                 .flatMap(
                   x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
@@ -158,11 +148,11 @@ class Phase1ReadTypescript(
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
             case Unpack(
                 libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
-                deps:     SortedMap[TsLibSource, LibTs],
+                deps:     SortedMap[Source.TsLibSource, LibTs],
                 facades,
                 ) =>
               val scope: TsTreeScope.Root =
-                TsTreeScope(source.libName, pedantic, deps.map { case (_, lib) => lib.name -> lib.parsed }, logger)
+                TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
 
               val preprocessed: Seq[TsParsedFile] =
                 libParts.to[Seq] map {
@@ -198,11 +188,11 @@ class Phase1ReadTypescript(
                 source.folder,
                 source.isInstanceOf[Source.StdLibSource],
                 libParts.keys.map(_.file).to[Seq],
-                packageJsonOpt,
+                source.packageJsonOpt,
                 finished.comments,
               )
 
-              LibTs(source)(version, tsConfig, finished, deps, facades)
+              LibTs(source)(version, finished, deps, facades)
           }
         }
     }

@@ -1,7 +1,7 @@
 package com.olvind.tso.importer
 
 import com.olvind.logging.Formatter
-import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsIdentModule}
+import com.olvind.tso.ts._
 import com.olvind.tso.{InFile, InFolder, Key}
 
 sealed trait Source {
@@ -28,7 +28,27 @@ object Source {
       }
   }
 
-  sealed trait TsLibSource extends TsSource
+  sealed trait TsLibSource extends TsSource with TsTreeScope.TsLib {
+    import jsonCodecs._
+
+    override lazy val packageJsonOpt: Option[PackageJsonDeps] =
+      Json.opt[PackageJsonDeps](folder.path / "package.json", println(_)) orElse
+        /* discover stdlib package.json as well */
+        Json.opt[PackageJsonDeps](folder.path / os.up / "package.json", println(_))
+
+    override lazy val tsConfig: Option[TsConfig] =
+      Json.opt[TsConfig](folder.path / "tsconfig.json", println(_))
+
+    override lazy val impliedPath: Option[os.RelPath] = {
+      packageJsonOpt.flatMap(_.types) orElse packageJsonOpt.flatMap(_.typings) flatMap { value =>
+        val typingsFolder = folder.path / os.RelPath(value) / os.up
+        typingsFolder relativeTo folder.path match {
+          case empty if empty.segments.isEmpty => None
+          case other                           => Some(other)
+        }
+      }
+    }
+  }
 
   final case class StdLibSource(file: InFile, libName: TsIdentLibrary) extends TsLibSource {
     override def folder: InFolder = file.folder

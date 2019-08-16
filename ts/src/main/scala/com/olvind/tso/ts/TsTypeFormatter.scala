@@ -109,9 +109,9 @@ object TsTypeFormatter {
 
   def apply(tpe: TsType): String =
     tpe match {
-      case TsTypeRef(_, name, ts)                   => qident(name) + tparams(ts)(apply).getOrElse("")
+      case TsTypeRef(cs, name, ts)                  => Comments.format(cs) + qident(name) + tparams(ts)(apply).getOrElse("")
       case TsTypeLiteral(l)                         => lit(l)
-      case TsTypeObject(_, members)                 => s"{${members.map(member).mkString(", ")}}"
+      case TsTypeObject(cs, members)                => Comments.format(cs) + s"{${members.map(member).mkString(", ")}}"
       case TsTypeFunction(s)                        => s"${sig(s)}"
       case TsTypeConstructor(f)                     => s"new ${apply(f)}"
       case TsTypeIs(ident, x)                       => s"${ident.value} is ${apply(x)}"
