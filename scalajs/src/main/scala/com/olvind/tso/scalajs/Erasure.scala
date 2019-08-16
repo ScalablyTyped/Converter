@@ -45,13 +45,14 @@ object Erasure {
 
       // if run after FakeSingletons
       case name @ QualifiedName(_ :: _ :: _) if tpe.comments eq FakeLiterals.LiteralTokenComment => name
+
       case other =>
         scope
           .lookup(other)
           .collectFirst {
             case (x: TypeAliasTree, s) =>
               if (x.alias.typeName === other) QualifiedName.JObject
-              else simplify(s, x.alias)
+              else simplify(s, FillInTParams(x, s, tpe.targs, Nil).alias)
             case (x: ClassTree, _) => x.codePath
           }
           .getOrElse(other)

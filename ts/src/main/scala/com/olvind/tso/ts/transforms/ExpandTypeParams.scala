@@ -80,15 +80,17 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
 
   def expandTParams(scope: TsTreeScope, sig: TsFunSig): Option[Seq[TsFunSig]] =
     sig.tparams.flatMap(expandable(scope, sig)) match {
-      case Nil => None
       case expandables =>
-        expandables
+        val expanded = expandables
           .foldLeft(List(sig)) {
-            case (currentSigs, exp) if currentSigs.length < 200 => currentSigs.flatMap(expandSignature(scope, exp))
-            case (currentSigs, _)                               => currentSigs
-
+            case (currentSigs, exp) => currentSigs.flatMap(expandSignature(scope, exp))
           }
-          .nonEmptyOpt
+
+        expanded.length match {
+          case n if n === 0 || n > 200 => None
+          case ok                      => Some(expanded)
+        }
+      case _ => None
     }
 
   def expandable(scope: TsTreeScope, sig: TsFunSig)(tp: TsTypeParam): Option[ExpandableTypeParam] = {
