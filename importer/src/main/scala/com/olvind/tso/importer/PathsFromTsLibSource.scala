@@ -5,10 +5,8 @@ import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
   def apply(
-      resolve:        LibraryResolver,
-      source:         Source.TsLibSource,
-      packageJsonOpt: Option[PackageJsonDeps],
-      tsConfig:       Option[TsConfig],
+      resolve: LibraryResolver,
+      source:  Source.TsLibSource,
   ): Set[Source.TsHelperFile] = {
 
     val foundAndShorten: Map[InFile, Boolean] =
@@ -18,11 +16,11 @@ object PathsFromTsLibSource {
 
         case f: Source.FromFolder =>
           val base = Seq(
-            fromFilesEntry(resolve, f, tsConfig.flatMap(_.files)).map(x        => (x, false)),
-            fromFilesEntry(resolve, f, packageJsonOpt.flatMap(_.files)).map(x  => (x, false)),
-            fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.types)).map(x   => (x, true)),
-            fromFileEntry(resolve, f, packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-            fromTypingsJson(f, packageJsonOpt.flatMap(_.typings)).map(x        => (x, true)),
+            fromFilesEntry(resolve, f, source.tsConfig.flatMap(_.files)).map(x        => (x, false)),
+            fromFilesEntry(resolve, f, source.packageJsonOpt.flatMap(_.files)).map(x  => (x, false)),
+            fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.types)).map(x   => (x, true)),
+            fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
+            fromTypingsJson(f, source.packageJsonOpt.flatMap(_.typings)).map(x        => (x, true)),
           ).flatten
 
           base match {

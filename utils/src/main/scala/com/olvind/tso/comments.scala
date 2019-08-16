@@ -89,5 +89,17 @@ object Comments {
     ts.foreach(t => buf ++= f(t).cs)
     apply(buf.distinct.toList)
   }
+
   def unapply(c: Comments): Some[List[Comment]] = Some(c.cs)
+
+  def format(comments: Comments): String =
+    comments.rawCs
+      .map { raw =>
+        stringUtils.formatComment(
+          stringUtils.escapeUnicodeEscapes(
+            stringUtils.escapeNestedComments(raw),
+          ),
+        )
+      }
+      .mkString("")
 }

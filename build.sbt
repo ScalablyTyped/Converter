@@ -13,7 +13,7 @@ val baseSettings: Project => Project =
 
 val utils = project
   .configure(baseSettings)
-  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode))
+  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
 
 val logging = project
   .configure(baseSettings)
@@ -41,7 +41,7 @@ val importer = project
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim
     ),
-    libraryDependencies ++= Deps.circe ++ Seq(
+    libraryDependencies ++= Seq(
       Deps.bloop,
       Deps.bintry,
       Deps.asyncHttpClient,

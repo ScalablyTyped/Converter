@@ -158,7 +158,7 @@ object Printer {
         apply(scope, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
 
       case cls @ ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print(formatAnns(anns))
 
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
@@ -167,7 +167,7 @@ object Printer {
           case all                                 => (CtorTree.defaultProtected, all)
         }
 
-        print(formatComments(defaultCtor.comments))
+        print(Comments.format(defaultCtor.comments))
         print(if (isSealed) "sealed " else "", classType.asString, " ", formatName(name))
 
         if (tparams.nonEmpty)
@@ -195,7 +195,7 @@ object Printer {
         println()
 
       case m @ ModuleTree(anns, name, parents, members, comments, _) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print(formatAnns(anns))
 
         print("object ", formatName(name), extendsClause(parents, m.isNative, indent))
@@ -210,7 +210,7 @@ object Printer {
         println()
 
       case TypeAliasTree(name, tparams, alias, comments, _) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty)
           print("[", tparams map formatTypeParamTree(indent) mkString ", ", "]")
@@ -218,7 +218,7 @@ object Printer {
         println(s" = ", formatTypeRef(indent)(alias))
 
       case FieldTree(anns, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print(formatAnns(anns))
 
         print(
@@ -237,7 +237,7 @@ object Printer {
         }
 
       case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print(formatAnns(anns))
 
         print(formatProtectionLevel(level, isCtor = false))
@@ -264,7 +264,7 @@ object Printer {
         }
 
       case CtorTree(level, params, comments) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         println(
           "",
           formatProtectionLevel(level, isCtor = true),
@@ -274,15 +274,15 @@ object Printer {
         )
 
       case tree @ ParamTree(_, _, _, comments) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         println(formatParamTree(indent)(tree))
 
       case tree @ TypeParamTree(_, _, comments) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print(formatTypeParamTree(indent)(tree))
 
       case tree @ TypeRef(_, _, comments) =>
-        print(formatComments(comments))
+        print(Comments.format(comments))
         print(formatTypeRef(indent)(tree))
     }
   }
@@ -306,13 +306,13 @@ object Printer {
     }
 
   def formatTypeParamTree(indent: Int)(tree: TypeParamTree): String =
-    formatComments(tree.comments) |+|
+    Comments.format(tree.comments) |+|
       formatName(tree.name) |+|
       tree.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(indent)(bound) |+| " */")
 
   def formatParamTree(indent: Int)(tree: ParamTree): String =
     Seq(
-      formatComments(tree.comments),
+      Comments.format(tree.comments),
       typeAnnotation(formatName(tree.name), indent + 2, tree.tpe, Name.WILDCARD),
       tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(indent)(d)}"),
     ).mkString
@@ -386,7 +386,7 @@ object Printer {
           formatQN(typeName) |+| targsStr
       }
 
-    formatComments(t1.comments) |+| ret
+    Comments.format(t1.comments) |+| ret
   }
 
   def paramsIfNeeded(s: String): String =
@@ -437,15 +437,4 @@ object Printer {
       case Nil       => ""
       case formatted => formatted.sorted.mkString("", "\n", "\n")
     }
-
-  def formatComments(comments: Comments): String =
-    comments.rawCs
-      .map { raw =>
-        stringUtils.formatComment(
-          stringUtils.escapeUnicodeEscapes(
-            stringUtils.escapeNestedComments(raw),
-          ),
-        )
-      }
-      .mkString("")
 }

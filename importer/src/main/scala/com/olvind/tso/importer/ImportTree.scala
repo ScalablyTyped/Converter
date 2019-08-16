@@ -9,7 +9,7 @@ import com.olvind.tso.ts.{ParentsResolver, _}
 object ImportTree {
   def apply(lib: LibTs, logger: Logger[Unit], importName: ImportName): PackageTree = {
     val deps = UnpackLibs(lib.dependencies).map {
-      case (_, depLib) => depLib.name -> depLib.parsed
+      case (source, depLib) => source -> depLib.parsed
     }
 
     val scope = TsTreeScope(lib.name, pedantic = true, deps, logger).caching / lib.parsed

@@ -2,8 +2,9 @@ package com.olvind.tso
 package importer
 
 import com.olvind.tso.importer.Source.{FacadeSource, TsHelperFile, TsLibSource}
-import com.olvind.tso.ts.{TsConfig, TsIdentLibrary, TsParsedFile}
-import maps.MapOps
+import com.olvind.tso.maps.MapOps
+import com.olvind.tso.ts.{TsIdentLibrary, TsParsedFile}
+
 import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
@@ -18,7 +19,6 @@ object Phase1Res {
 
   final case class LibTs(source: Source)(
       val version:               LibraryVersion,
-      val tsConfig:              Option[TsConfig],
       val parsed:                TsParsedFile,
       val dependencies:          SortedMap[TsLibSource, LibTs],
       val facades:               Set[FacadeSource],

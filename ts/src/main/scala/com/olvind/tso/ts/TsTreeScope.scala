@@ -113,6 +113,27 @@ sealed trait TsTreeScope {
 }
 
 object TsTreeScope {
+  trait TsLib {
+    def libName: TsIdentLibrary
+
+    /** the module resolution in typescript is somehow able to sometimes, maybe,
+      *  use a module path discovered through `typings` in package.json:
+      *
+      *  in a given library foo:
+      *  /package.json <-- {typings: typings/index.d.ts}
+      *  /typings/index.d.ts <-- includes /typings/bar.d.ts
+      *  /typings/bar.d.ts
+      *
+      *  in a downstream library you can then, sometimes, maybe, require `foo/bar` even though the module doesn't exist.
+      *  Note that requiring `foo/typings/bar` will always work, even though *that* doesn't necessary refer to any javascript code!
+      *
+      *  utter madness.
+      */
+    def impliedPath:    Option[os.RelPath]
+    def packageJsonOpt: Option[PackageJsonDeps]
+    def tsConfig:       Option[TsConfig]
+  }
+
   type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
   case class Cache(
       applyTypeMapping:  mutable.Map[TsTypeRef, ExpandTypeMappings.Res[Seq[TsMember]]] = mutable.Map.empty,
@@ -127,7 +148,7 @@ object TsTreeScope {
   def apply(
       libName:  TsIdentLibrary,
       pedantic: Boolean,
-      deps:     Map[TsIdentLibrary, TsParsedFile],
+      deps:     Map[_ <: TsLib, TsParsedFile],
       logger:   Logger[Unit],
   ): TsTreeScope.Root =
     new Root(libName, pedantic, deps, logger)
@@ -158,38 +179,68 @@ object TsTreeScope {
   final class Root private[TsTreeScope] (
       val libName:  TsIdentLibrary,
       val pedantic: Boolean,
-      _deps:        Map[TsIdentLibrary, TsParsedFile],
+      _deps:        Map[_ <: TsLib, TsParsedFile],
       val logger:   Logger[Unit],
       val cache:    Option[Cache] = None,
   ) extends TsTreeScope {
-    override val root          = this
-    override def stack         = Nil
-    override def tparams       = Map.empty
-    override def `..`          = this
-    override def tkeys         = Set.empty
-    override def exports       = Nil
-    private lazy val depScopes = _deps mapValues (f => (f, this / f))
+    override val root    = this
+    override def stack   = Nil
+    override def tparams = Map.empty
+    override def `..`    = this
+    override def tkeys   = Set.empty
+    override def exports = Nil
+
+    private lazy val depScopes = _deps.map { case (s, file) => s.libName -> ((s, file, this / file)) }
 
     def caching: Root = new Root(libName, pedantic, _deps, logger, Some(Cache()))
 
     override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
       depScopes.values.foreach {
-        case (dep: TsParsedFile, depScope: Scoped) =>
+        case (libSource, dep: TsParsedFile, depScope: Scoped) =>
           dep.modules.foreach {
-            case (modName, mod) => ret += (modName -> depScope / mod)
+            case (modName, mod) =>
+              val modScope = depScope / mod
+              ret += (modName -> modScope)
+
+              libSource.impliedPath.foreach { impliedPath =>
+                modName match {
+                  case TsIdentModule(scopeOpt, libName :: rest) if rest.startsWith(impliedPath) =>
+                    val shortenedModuleName = TsIdentModule(scopeOpt, libName :: rest.drop(impliedPath.segments.length))
+                    if (!ret.contains(shortenedModuleName))
+                      ret += (shortenedModuleName -> modScope)
+
+                  case _ => ()
+                }
+              }
           }
       }
       ret.toMap
     }
 
-    override lazy val moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped] =
-      depScopes.values.foldLeft(Map.empty[TsIdentModule, TsTreeScope.Scoped]) {
-        case (mods, (dep, depScope)) =>
-          mods ++ dep.augmentedModulesMap.mapValues(
-            mod => depScope / mod.reduce(FlattenTrees.mergeAugmentedModule),
-          )
+    override lazy val moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
+      val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
+      depScopes.values.foreach {
+        case (libSource, dep: TsParsedFile, depScope: Scoped) =>
+          dep.augmentedModulesMap.foreach {
+            case (modName, mod) =>
+              val modScope = depScope / mod.reduce(FlattenTrees.mergeAugmentedModule)
+              ret += (modName -> modScope)
+
+              libSource.impliedPath.foreach { impliedPath =>
+                modName match {
+                  case TsIdentModule(scopeOpt, libName :: rest) if rest.startsWith(impliedPath) =>
+                    val shortenedModuleName = TsIdentModule(scopeOpt, libName :: rest.drop(impliedPath.segments.length))
+                    if (!ret.contains(shortenedModuleName))
+                      ret += (shortenedModuleName -> modScope)
+
+                  case _ => ()
+                }
+              }
+          }
       }
+      ret.toMap
+    }
 
     override def lookupImpl[T <: TsNamedDecl](
         picker:       Picker[T],
@@ -199,18 +250,18 @@ object TsTreeScope {
       fragments match {
         case (depName: TsIdentLibrary) :: tail =>
           depScopes.get(depName) match {
-            case Some((dep, libScope)) => search(libScope, picker, dep, tail, loopDetector)
-            case None                  => Nil
+            case Some((_, dep, libScope)) => search(libScope, picker, dep, tail, loopDetector)
+            case None                     => Nil
           }
 
         case _ =>
           depScopes
             .find(_._1 === TsIdent.std)
-            .map { case (_, (lib, libScope)) => search(libScope, picker, lib, fragments, loopDetector) }
+            .map { case (_, (_, lib, libScope)) => search(libScope, picker, lib, fragments, loopDetector) }
             .getOrElse(Nil) match {
             case Nil =>
               depScopes.values.to[Seq] flatMap {
-                case (lib, libScope) =>
+                case (_, lib, libScope) =>
                   search(libScope, picker, lib, fragments, loopDetector)
               }
             case found => found
