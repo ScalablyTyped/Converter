@@ -678,7 +678,7 @@ final case class TsExporteeNames(idents: Seq[(TsQIdent, Option[TsIdent])], fromO
 
 final case class TsExporteeTree(decl: TsDecl) extends TsExportee
 
-final case class TsExporteeStar(from: TsIdentModule, renamedOpt: Option[TsIdent]) extends TsExportee
+final case class TsExporteeStar(from: TsIdentModule) extends TsExportee
 
 sealed trait ExportType
 

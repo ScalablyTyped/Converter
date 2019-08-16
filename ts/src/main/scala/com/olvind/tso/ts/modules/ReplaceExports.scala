@@ -115,7 +115,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
     decl match {
       /* fix for @angular/core */
-      case TsExport(NoComments, _, TsExporteeStar(name, None)) if owner.name === name => Nil
+      case TsExport(NoComments, _, TsExporteeStar(name)) if owner.name === name => Nil
       case e: TsExport =>
         val ret = Exports.expandExport(scope, jsLocation, e, loopDetector, owner)
         if (ret.isEmpty && scope.root.pedantic) {

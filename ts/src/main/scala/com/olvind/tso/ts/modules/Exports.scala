@@ -86,7 +86,7 @@ object Exports {
             }
         }
 
-      case TsExport(_, exportType, TsExporteeStar(from, None /* todo*/ )) =>
+      case TsExport(_, exportType, TsExporteeStar(from)) =>
         scope.moduleScopes get from match {
           case Some(TsTreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
@@ -217,12 +217,7 @@ object Exports {
           case TsExporteeTree(x: TsNamedDecl) =>
             if (wanted.headOption.contains(x.name)) Some(PickedExport(e, wanted)) else None
 
-          case TsExporteeStar(_, Some(renamed)) =>
-            if (wanted.headOption.contains(renamed)) {
-              Some(PickedExport(e, wanted.tail))
-            } else None
-
-          case TsExporteeStar(_, None) =>
+          case TsExporteeStar(_) =>
             Some(PickedExport(e, wanted))
         }
     }
