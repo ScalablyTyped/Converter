@@ -21,9 +21,7 @@ object Companions extends TreeTransformation {
         }
 
       container.withMembers(container.members.flatMap {
-        case cls: ClassTree
-            if cls.classType === ClassType.Trait && cls.annotations
-              .contains(Annotation.ScalaJSDefined) && !nameConflict(cls.name) =>
+        case cls: ClassTree if cls.classType === ClassType.Trait && cls.isScalaJsDefined && !nameConflict(cls.name) =>
           List(cls) ++ generateModule(scope, cls)
         case other => List(other)
       })

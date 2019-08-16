@@ -30,7 +30,7 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: Seq[ClassAnnotation]
-
+  def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
   val index: Map[Name, Seq[Tree]]
 }
 
