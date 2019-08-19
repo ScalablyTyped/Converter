@@ -8,7 +8,7 @@ trait TreeTransformation[T] { self =>
   def enterTsDeclClass(t:            T)(x: TsDeclClass):            TsDeclClass            = x
   def enterTsDeclEnum(t:             T)(x: TsDeclEnum):             TsDeclEnum             = x
   def enterTsDeclFunction(t:         T)(x: TsDeclFunction):         TsDeclFunction         = x
-  def enterTsDeclGlobal(t:           T)(x: TsGlobal):               TsGlobal               = x
+  def enterTsGlobal(t:               T)(x: TsGlobal):               TsGlobal               = x
   def enterTsDeclInterface(t:        T)(x: TsDeclInterface):        TsDeclInterface        = x
   def enterTsDeclModule(t:           T)(x: TsDeclModule):           TsDeclModule           = x
   def enterTsAugmentedModule(t:      T)(x: TsAugmentedModule):      TsAugmentedModule      = x
@@ -83,8 +83,10 @@ trait TreeTransformation[T] { self =>
   def leaveTsDeclInterface(t:   T)(x: TsDeclInterface):   TsDeclInterface   = x
   def leaveTsAugmentedModule(t: T)(x: TsAugmentedModule): TsAugmentedModule = x
   def leaveTsDeclNamespace(t:   T)(x: TsDeclNamespace):   TsDeclNamespace   = x
+  def leaveTsGlobal(t:          T)(x: TsGlobal):          TsGlobal          = x
   def leaveTsType(t:            T)(x: TsType):            TsType            = x
   def leaveTsTypeRef(t:         T)(x: TsTypeRef):         TsTypeRef         = x
+  def leaveTsTypeObject(t:      T)(x: TsTypeObject):      TsTypeObject      = x
 
   final def visitTsDeclClass(t: T)(x: TsDeclClass): TsDeclClass = {
     val xx = enterTsDeclClass(withTree(t, x))(x)
@@ -124,11 +126,12 @@ trait TreeTransformation[T] { self =>
     }
   }
   final def visitTsDeclGlobal(t: T)(x: TsGlobal): TsGlobal = {
-    val xx = enterTsDeclGlobal(withTree(t, x))(x)
+    val xx = enterTsGlobal(withTree(t, x))(x)
     val tt = withTree(t, xx)
-    xx match {
+    val xxx = xx match {
       case TsGlobal(_1, _2, _3, _4) => TsGlobal(_1, _2, _3 map visitTsContainerOrDecl(tt), _4)
     }
+    leaveTsGlobal(tt)(xxx)
   }
   final def visitTsDeclInterface(t: T)(x: TsDeclInterface): TsDeclInterface = {
     val xx = enterTsDeclInterface(withTree(t, x))(x)
@@ -413,9 +416,10 @@ trait TreeTransformation[T] { self =>
   final def visitTsTypeObject(t: T)(x: TsTypeObject): TsTypeObject = {
     val xx = enterTsTypeObject(withTree(t, x))(x)
     val tt = withTree(t, xx)
-    xx match {
+    val xxx = xx match {
       case TsTypeObject(_1, _2) => TsTypeObject(_1, _2 map visitTsMember(tt))
     }
+    leaveTsTypeObject(withTree(t, xxx))(xxx)
   }
   final def visitTsTypeParam(t: T)(x: TsTypeParam): TsTypeParam = {
     val xx = enterTsTypeParam(withTree(t, x))(x)
@@ -616,8 +620,8 @@ trait TreeTransformation[T] { self =>
         self.enterTsDeclEnum(t)(that.enterTsDeclEnum(t)(x))
       override def enterTsDeclFunction(t: T)(x: TsDeclFunction): TsDeclFunction =
         self.enterTsDeclFunction(t)(that.enterTsDeclFunction(t)(x))
-      override def enterTsDeclGlobal(t: T)(x: TsGlobal): TsGlobal =
-        self.enterTsDeclGlobal(t)(that.enterTsDeclGlobal(t)(x))
+      override def enterTsGlobal(t: T)(x: TsGlobal): TsGlobal =
+        self.enterTsGlobal(t)(that.enterTsGlobal(t)(x))
       override def enterTsDeclInterface(t: T)(x: TsDeclInterface): TsDeclInterface =
         self.enterTsDeclInterface(t)(that.enterTsDeclInterface(t)(x))
       override def enterTsDeclModule(t: T)(x: TsDeclModule): TsDeclModule =
@@ -751,5 +755,7 @@ trait TreeTransformation[T] { self =>
         self.leaveTsType(t)(that.leaveTsType(t)(x))
       override def leaveTsTypeRef(t: T)(x: TsTypeRef): TsTypeRef =
         self.leaveTsTypeRef(t)(that.leaveTsTypeRef(t)(x))
+      override def leaveTsGlobal(t: T)(x: TsGlobal): TsGlobal =
+        self.leaveTsGlobal(t)(that.leaveTsGlobal(t)(x))
     }
 }

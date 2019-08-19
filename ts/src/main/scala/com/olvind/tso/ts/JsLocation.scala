@@ -8,7 +8,6 @@ trait HasJsLocation {
 
 sealed trait JsLocation {
   def /(tree: TsTree): JsLocation
-  def isTopLevel: Boolean
 
   def +(tsIdent: TsIdent): JsLocation =
     this match {
@@ -35,8 +34,13 @@ object ModuleSpec {
 
 object JsLocation {
   case object Zero extends JsLocation {
-    override def /(tree: TsTree): JsLocation = Zero
-    override def isTopLevel: Boolean = true
+    override def /(tree: TsTree): JsLocation =
+      tree match {
+        case x: TsDeclModule => Module(x.name, ModuleSpec.Namespaced)
+        case x: TsNamedDecl  => Global(TsQIdent(List(x.name)))
+        case _: TsGlobal     => Zero
+        case _ => this
+      }
   }
 
   case class Global(jsPath: TsQIdent) extends JsLocation {
@@ -44,11 +48,9 @@ object JsLocation {
       tree match {
         case x: TsDeclModule => Module(x.name, ModuleSpec.Namespaced)
         case x: TsNamedDecl  => Global(jsPath + x.name)
-        case _: TsGlobal     => Global(TsQIdent.empty)
+        case _: TsGlobal     => Zero
         case _ => this
       }
-    override def isTopLevel: Boolean =
-      jsPath === TsQIdent.empty
   }
 
   case class Module private (module: TsIdentModule, spec: ModuleSpec) extends JsLocation {
@@ -58,8 +60,5 @@ object JsLocation {
         case x: TsNamedDecl  => Module(module, spec + x.name)
         case _ => this
       }
-
-    override def isTopLevel: Boolean =
-      spec === ModuleSpec.Defaulted || spec === ModuleSpec.Namespaced
   }
 }
