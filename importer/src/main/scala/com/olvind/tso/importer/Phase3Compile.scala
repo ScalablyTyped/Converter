@@ -196,14 +196,8 @@ class Phase3Compile(
       }
       os.makeDir.all(compilerPaths.classesDir)
 
-      val jarDeps = deps.values.to[Seq] map { x =>
-        x.localIvyFiles.all
-          .collectFirst {
-            case (path, _) if path.last.endsWith(".jar") && !path.last.contains("sources") =>
-              BloopCompiler.InternalDepJar(AbsolutePath(path.toIO))
-          }
-          .getOrElse(logger.fatal(s"Couldn't resolve jar for ${x.project.name} ${x.localIvyFiles}"))
-      }
+      val jarDeps =
+        deps.values.to[Seq].map(x => BloopCompiler.InternalDepJar(AbsolutePath(x.localIvyFiles.jarFile._1.toIO)))
 
       logger warn s"Building ${sbtProject.name}..."
       val t0 = System.currentTimeMillis()
