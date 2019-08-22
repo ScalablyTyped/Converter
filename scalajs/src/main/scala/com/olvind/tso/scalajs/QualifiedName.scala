@@ -53,7 +53,7 @@ object QualifiedName {
   val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
 
   object Std {
-    private val std = QualifiedName(ScalaConfig.outputPkg :: Name("std") :: Nil)
+    private val std = QualifiedName(ScalaConfig.outputPkg :: ScalaConfig.std :: Nil)
 
     val Array:         QualifiedName = std + Name.Array
     val Boolean:       QualifiedName = std + Name.Boolean

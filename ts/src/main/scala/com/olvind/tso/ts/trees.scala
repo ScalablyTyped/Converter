@@ -456,18 +456,16 @@ object TsQIdent {
   val String:   TsQIdent = TsQIdent.of("String")
 
   object Std {
-    private val std = TsIdentLibrarySimple("std")
-
-    val Array         = TsQIdent(List(std, TsIdent("Array")))
-    val Boolean       = TsQIdent(List(std, TsIdent("Boolean")))
-    val ConcatArray   = TsQIdent(List(std, TsIdent("ConcatArray")))
-    val Function      = TsQIdent(List(std, TsIdent("Function")))
-    val Object        = TsQIdent(List(std, TsIdent("Object")))
-    val Promise       = TsQIdent(List(std, TsIdent("Promise")))
-    val PromiseLike   = TsQIdent(List(std, TsIdent("PromiseLike")))
-    val Readonly      = TsQIdent(List(std, TsIdent("Readonly")))
-    val ReadonlyArray = TsQIdent(List(std, TsIdent("ReadonlyArray")))
-    val String        = TsQIdent(List(std, TsIdent("String")))
+    val Array         = TsQIdent(List(TsIdent.std, TsIdent("Array")))
+    val Boolean       = TsQIdent(List(TsIdent.std, TsIdent("Boolean")))
+    val ConcatArray   = TsQIdent(List(TsIdent.std, TsIdent("ConcatArray")))
+    val Function      = TsQIdent(List(TsIdent.std, TsIdent("Function")))
+    val Object        = TsQIdent(List(TsIdent.std, TsIdent("Object")))
+    val Promise       = TsQIdent(List(TsIdent.std, TsIdent("Promise")))
+    val PromiseLike   = TsQIdent(List(TsIdent.std, TsIdent("PromiseLike")))
+    val Readonly      = TsQIdent(List(TsIdent.std, TsIdent("Readonly")))
+    val ReadonlyArray = TsQIdent(List(TsIdent.std, TsIdent("ReadonlyArray")))
+    val String        = TsQIdent(List(TsIdent.std, TsIdent("String")))
   }
 }
 

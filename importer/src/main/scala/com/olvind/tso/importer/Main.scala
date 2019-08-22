@@ -151,7 +151,7 @@ class Main(config: Config) {
     val stdLibSource: Source =
       StdLibSource(
         InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
-        TsIdentLibrarySimple("std"),
+        TsIdent.std,
       )
 
     val bintray: Option[BinTrayPublisher] = config.publish.map {
