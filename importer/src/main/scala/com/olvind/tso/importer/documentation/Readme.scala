@@ -93,10 +93,13 @@ ScalablyTyped is hosted at bintray, so make sure to include the resolver
 ```
 
 ### `build.sbt`
-You'll have to include both the typing and the javascript dependency, and the resolver again.
 ```scala
-  resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped"),
+  /* reference the typing library */
   libraryDependencies ++= Seq(ScalablyTyped.D.d3),
+  /* If the library is typed up in `DefinitelyTyped` (has `-dt-` in the version string) you'll also need this.
+   * The reason why is that versions strings there are just comments, and frequently wrong. Automatically including
+   *  that would break your build.
+   */
   npmDependencies in Compile ++= Seq("d3" -> "5.5.0"),
 ```
 The version of the typing normally includes the relevant version of the library,

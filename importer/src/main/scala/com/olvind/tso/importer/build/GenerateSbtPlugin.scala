@@ -14,10 +14,11 @@ object GenerateSbtPlugin {
       projectDir:    os.Path,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
+      publishUser:   String,
       action:        String,
   ): Unit = {
     files.sync(
-      contents(versions, organization, projectName, projects, pluginVersion),
+      contents(versions, organization, projectName, projects, pluginVersion, publishUser),
       projectDir,
       deleteUnknowns = true,
       soft           = true,
@@ -32,6 +33,7 @@ object GenerateSbtPlugin {
       projectName:   String,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
+      publishUser:   String,
   ): Map[os.RelPath, Array[Byte]] = {
 
     val buildSbt = s"""name := "sbt-$projectName"
@@ -82,6 +84,9 @@ object GenerateSbtPlugin {
       |object ${projectName}Plugin extends AutoPlugin {
       |  override def trigger = allRequirements
       |  override def requires = sbt.plugins.JvmPlugin
+      |  override def globalSettings = List(
+      |    resolvers += Resolver.bintrayRepo(${quote(publishUser)}, ${quote(projectName)})
+      |  )
       |
       |  object autoImport {
       |    object $projectName {

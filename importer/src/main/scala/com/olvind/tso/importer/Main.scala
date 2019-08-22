@@ -171,6 +171,8 @@ class Main(config: Config) {
       facadesFolder = Some(InFolder(facadeFolder)),
     )
 
+    val publishUser = bintray.fold("oyvindberg")(_.user)
+
     val Phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
         .next(
@@ -196,7 +198,7 @@ class Main(config: Config) {
             targetFolder    = targetFolder,
             projectName     = config.projectName,
             organization    = config.organization,
-            publishUser     = bintray.fold("oyvindberg")(_.user),
+            publishUser     = publishUser,
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
@@ -286,6 +288,7 @@ target/
         projectDir    = sbtProjectDir,
         projects      = successes,
         pluginVersion = config.runId,
+        publishUser   = publishUser,
         action        = if (bintray.isDefined) "^publish" else "publishLocal",
       )
 
