@@ -8,7 +8,6 @@ import com.olvind.tso.ts.TsIdentLibrarySimple
 import dispatch._
 import gigahorse.HttpClient
 import gigahorse.support.okhttp.Gigahorse
-import io.circe.parser.decode
 import io.circe.{Decoder, Encoder}
 
 import scala.concurrent.ExecutionContext
@@ -94,7 +93,7 @@ object Npmjs {
         case Some(lib) =>
           val cacheFile = cacheDir / lib.`__value`
 
-          Json.opt[Data](cacheFile, logger.error(_)) match {
+          Json.opt[Data](cacheFile) match {
             case Some(x) => Future.successful(Some(x))
             case None =>
               client
@@ -107,7 +106,7 @@ object Npmjs {
                     logger.warn(s"Could't fetch metadata for $lib", th)
                     Success(None)
                   case Success(jsonStr) =>
-                    decode[Data](jsonStr) match {
+                    Json.CustomJacksonParser.decode[Data](jsonStr) match {
                       case Left(err) =>
                         logger.error(s"Could't decode json for $lib, $jsonStr", err)
                         Success(None)

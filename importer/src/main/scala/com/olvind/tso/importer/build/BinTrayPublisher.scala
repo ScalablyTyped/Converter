@@ -108,7 +108,7 @@ private object Caching {
       handler match {
         case x: Handler[T] =>
           val file = fileFor(cacheDir, request)
-          Json.opt[T](file, _ => ())(x.decoder) match {
+          Json.opt[T](file)(x.decoder) match {
             case None =>
               object StoringHandler extends WrappedHandler[T](handler) {
                 override def onCompleted(): T = {

@@ -32,12 +32,12 @@ object Source {
     import jsonCodecs._
 
     override lazy val packageJsonOpt: Option[PackageJsonDeps] =
-      Json.opt[PackageJsonDeps](folder.path / "package.json", println(_)) orElse
+      Json.opt[PackageJsonDeps](folder.path / "package.json") orElse
         /* discover stdlib package.json as well */
-        Json.opt[PackageJsonDeps](folder.path / os.up / "package.json", println(_))
+        Json.opt[PackageJsonDeps](folder.path / os.up / "package.json")
 
     override lazy val tsConfig: Option[TsConfig] =
-      Json.opt[TsConfig](folder.path / "tsconfig.json", println(_))
+      Json.opt[TsConfig](folder.path / "tsconfig.json")
 
     override lazy val impliedPath: Option[os.RelPath] = {
       packageJsonOpt.flatMap(_.types) orElse packageJsonOpt.flatMap(_.typings) flatMap { value =>

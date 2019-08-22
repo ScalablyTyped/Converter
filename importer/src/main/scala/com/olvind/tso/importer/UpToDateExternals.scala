@@ -24,7 +24,7 @@ object UpToDateExternals {
 
     val packageJsonPath = folder / "package.json"
     val nodeModulesPath = folder / "node_modules"
-    val packageJson     = Json.opt[PackageJsonDeps](packageJsonPath, error => logger.warn(error))
+    val packageJson     = Json.opt[PackageJsonDeps](packageJsonPath)
 
     val alreadyAddedExternals: Set[String] =
       packageJson match {

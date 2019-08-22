@@ -12,5 +12,5 @@ object Deps {
   val asyncHttpClient   = "com.ning" % "async-http-client" % "1.8.17"
 
   val circe: Seq[ModuleID] =
-    Seq("core", "generic", "parser").map(s => "io.circe" %% s"circe-$s" % "0.11.1")
+    Seq("core", "generic", "parser", "jackson29").map(s => "io.circe" %% s"circe-$s" % "0.11.1")
 }
