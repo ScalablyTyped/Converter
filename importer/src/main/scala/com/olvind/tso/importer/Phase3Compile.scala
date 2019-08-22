@@ -33,7 +33,11 @@ class Phase3Compile(
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
-    case (path, value) if path.ext === "scala" || path.ext === "sbt" => value
+    case (path, value)
+        if path.ext === "scala" ||
+          path.ext === "sbt" ||
+          path.last === ScalaJsBundlerDepFile.manifestFileName =>
+      value
   }
 
   implicit val PathFormatter: Formatter[os.Path] = _.toString
@@ -113,6 +117,7 @@ class Phase3Compile(
               compilerPaths      = CompilerPaths(versions, source.path),
               deleteUnknownFiles = false,
               makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}",
+              postCompile        = None,
               metadataOpt        = metadataOpt,
             )
         }
@@ -146,6 +151,7 @@ class Phase3Compile(
               declaredVersion = Some(lib.libVersion),
             )
 
+            val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
             go(
               logger             = logger,
               deps               = deps,
@@ -153,10 +159,12 @@ class Phase3Compile(
               source             = source,
               name               = lib.libName,
               sbtLayout          = sbtLayout,
-              compilerPaths      = CompilerPaths.of(versions, targetFolder, lib.libName),
+              compilerPaths      = compilerPaths,
               deleteUnknownFiles = true,
               makeVersion        = lib.libVersion.version,
-              metadataOpt        = metadataOpt,
+              postCompile =
+                Some(() => ScalaJsBundlerDepFile.write(compilerPaths.classesDir, lib.source.libName, lib.libVersion)),
+              metadataOpt = metadataOpt,
             )
         }
     }
@@ -171,6 +179,7 @@ class Phase3Compile(
       compilerPaths:      CompilerPaths,
       deleteUnknownFiles: Boolean,
       makeVersion:        Digest => String,
+      postCompile:        Option[() => Unit],
       metadataOpt:        Option[Npmjs.Data],
   ): PhaseRes[Source, PublishedSbtProject] = {
 
@@ -206,6 +215,7 @@ class Phase3Compile(
           case Right(()) =>
             val elapsed = System.currentTimeMillis - t0
             logger warn s"Built ${sbtProject.name} in $elapsed ms"
+            postCompile.foreach(_.apply())
 
             val writtenIvyFiles: IvyLayout[os.Path, Synced] =
               build

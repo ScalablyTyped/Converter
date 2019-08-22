@@ -13,7 +13,7 @@ sealed trait Phase2Res
 object Phase2Res {
   case object Facade extends Phase2Res
 
-  case class LibScalaJs(source: Source)(
+  case class LibScalaJs(source: TsLibSource)(
       val libName:              String,
       val scalaName:            Name,
       val libVersion:           LibraryVersion,

@@ -17,7 +17,7 @@ object Phase1Res {
 
   case object Facade extends Phase1Res
 
-  final case class LibTs(source: Source)(
+  final case class LibTs(source: TsLibSource)(
       val version:               LibraryVersion,
       val parsed:                TsParsedFile,
       val dependencies:          SortedMap[TsLibSource, LibTs],
