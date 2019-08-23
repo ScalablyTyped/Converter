@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "google-cloud__firestore"
-version := "2.2.3-daf7c3"
+version := "2.2.3-50f27b"
 scalaVersion := "2.13.0"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

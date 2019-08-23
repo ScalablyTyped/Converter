@@ -3,7 +3,13 @@ package tso
 package importer
 package build
 
-case class CompilerPaths private (baseDir: os.Path, sourcesDir: os.Path, targetDir: os.Path, classesDir: os.Path)
+case class CompilerPaths private (
+    baseDir:      os.Path,
+    sourcesDir:   os.Path,
+    resourcesDir: os.Path,
+    targetDir:    os.Path,
+    classesDir:   os.Path,
+)
 
 object CompilerPaths {
   //changing this? Have a look at `CommitRun` as well - i was lazy
@@ -11,9 +17,10 @@ object CompilerPaths {
     val targetDir = thisBaseDir / "target"
     new CompilerPaths(
       thisBaseDir,
-      sourcesDir = thisBaseDir / "src" / 'main / 'scala,
-      targetDir  = targetDir,
-      classesDir = targetDir / s"scala-${v.binVersion}" / 'classes,
+      sourcesDir   = thisBaseDir / "src" / 'main / 'scala,
+      resourcesDir = thisBaseDir / "src" / 'main / 'resources,
+      targetDir    = targetDir,
+      classesDir   = targetDir / s"scala-${v.binVersion}" / 'classes,
     )
   }
 

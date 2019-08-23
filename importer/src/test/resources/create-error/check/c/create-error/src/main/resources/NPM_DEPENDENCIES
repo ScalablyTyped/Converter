@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "create-error" : "0.3.1"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "create-error" : "0.3.1"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

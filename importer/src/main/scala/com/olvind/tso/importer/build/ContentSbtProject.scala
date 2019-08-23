@@ -17,6 +17,7 @@ object ContentSbtProject {
       localDeps:       Seq[PublishedSbtProject],
       facadeDeps:      Set[FacadeJson.Dep],
       scalaFiles:      Map[os.RelPath, Array[Byte]],
+      resources:       Map[os.RelPath, Array[Byte]],
       projectName:     String,
       metadataOpt:     Option[Npmjs.Data],
       declaredVersion: Option[LibraryVersion],
@@ -56,7 +57,8 @@ object ContentSbtProject {
       os.RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
       os.RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
       readme,
-      scalaFiles.map { case (relPath, content) => relPath -> content },
+      scalaFiles,
+      resources,
     )
   }
 }

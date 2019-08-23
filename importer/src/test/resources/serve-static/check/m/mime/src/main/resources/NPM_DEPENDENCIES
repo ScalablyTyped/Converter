@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "mime" : "2.0"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "mime" : "2.0"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

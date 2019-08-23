@@ -4,6 +4,7 @@ package importer
 import com.olvind.tso.ts.TsIdentLibrary
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder}
+import io.circe.syntax._
 
 object ScalaJsBundlerDepFile {
 
@@ -24,19 +25,19 @@ object ScalaJsBundlerDepFile {
     implicit val Decoder: Decoder[NpmDependencies] = deriveDecoder[NpmDependencies]
   }
 
-  def write(dir: os.Path, libName: TsIdentLibrary, v: LibraryVersion): Unit =
+  def apply(dir: os.Path, libName: TsIdentLibrary, v: LibraryVersion): Map[os.RelPath, Array[Byte]] =
     (v.libraryVersion, v.inGit) match {
       case (Some(version), None) if libName =/= ts.TsIdent.std =>
         val deps = List(Map(libName.value -> version))
-        Json.persist(dir / manifestFileName)(
-          NpmDependencies(
-            `compile-dependencies`    = deps,
-            `test-dependencies`       = deps,
-            `compile-devDependencies` = Nil,
-            `test-devDependencies`    = Nil,
-          ),
+        Map(
+          os.RelPath(ScalaJsBundlerDepFile.manifestFileName) ->
+            NpmDependencies(
+              `compile-dependencies`    = deps,
+              `test-dependencies`       = deps,
+              `compile-devDependencies` = Nil,
+              `test-devDependencies`    = Nil,
+            ).asJson.spaces2.getBytes(constants.Utf8),
         )
-        ()
-      case _ => ()
+      case _ => Map.empty
     }
 }

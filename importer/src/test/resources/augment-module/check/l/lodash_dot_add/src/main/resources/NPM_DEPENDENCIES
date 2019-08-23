@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "lodash.add" : "3.7"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "lodash.add" : "3.7"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

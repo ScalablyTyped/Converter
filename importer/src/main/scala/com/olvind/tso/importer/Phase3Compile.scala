@@ -102,6 +102,7 @@ class Phase3Compile(
               localDeps       = deps.values.to[Seq],
               facadeDeps      = buildJson.dependencies,
               scalaFiles      = sourceFiles,
+              resources       = Map(),
               projectName     = projectName,
               metadataOpt     = metadataOpt,
               declaredVersion = None,
@@ -117,7 +118,6 @@ class Phase3Compile(
               compilerPaths      = CompilerPaths(versions, source.path),
               deleteUnknownFiles = false,
               makeVersion        = digest => s"${constants.DateTimePattern.format(newestChange)}-${digest.hexString.take(6)}",
-              postCompile        = None,
               metadataOpt        = metadataOpt,
             )
         }
@@ -132,9 +132,12 @@ class Phase3Compile(
               pedantic      = false,
             )
 
-            val scalaFiles  = Printer(scope, lib.packageTree)
-            val sourcesDir  = os.RelPath("src") / 'main / 'scala
-            val metadataOpt = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
+            val scalaFiles    = Printer(scope, lib.packageTree)
+            val sourcesDir    = os.RelPath("src") / 'main / 'scala
+            val resourcesDir  = os.RelPath("src") / 'main / 'resources
+            val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
+            val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
+            val resources     = ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
 
             val sbtLayout = ContentSbtProject(
               v               = versions,
@@ -146,12 +149,12 @@ class Phase3Compile(
               localDeps       = deps.values.to[Seq],
               facadeDeps      = Set(),
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
+              resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
               projectName     = projectName,
               metadataOpt     = metadataOpt,
               declaredVersion = Some(lib.libVersion),
             )
 
-            val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
             go(
               logger             = logger,
               deps               = deps,
@@ -162,9 +165,7 @@ class Phase3Compile(
               compilerPaths      = compilerPaths,
               deleteUnknownFiles = true,
               makeVersion        = lib.libVersion.version,
-              postCompile =
-                Some(() => ScalaJsBundlerDepFile.write(compilerPaths.classesDir, lib.source.libName, lib.libVersion)),
-              metadataOpt = metadataOpt,
+              metadataOpt        = metadataOpt,
             )
         }
     }
@@ -179,7 +180,6 @@ class Phase3Compile(
       compilerPaths:      CompilerPaths,
       deleteUnknownFiles: Boolean,
       makeVersion:        Digest => String,
-      postCompile:        Option[() => Unit],
       metadataOpt:        Option[Npmjs.Data],
   ): PhaseRes[Source, PublishedSbtProject] = {
 
@@ -208,6 +208,9 @@ class Phase3Compile(
       val jarDeps =
         deps.values.to[Seq].map(x => BloopCompiler.InternalDepJar(AbsolutePath(x.localIvyFiles.jarFile._1.toIO)))
 
+      if (os.exists(compilerPaths.resourcesDir))
+        os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
+
       logger warn s"Building ${sbtProject.name}..."
       val t0 = System.currentTimeMillis()
       val ret: PhaseRes[Source, PublishedSbtProject] =
@@ -215,7 +218,6 @@ class Phase3Compile(
           case Right(()) =>
             val elapsed = System.currentTimeMillis - t0
             logger warn s"Built ${sbtProject.name} in $elapsed ms"
-            postCompile.foreach(_.apply())
 
             val writtenIvyFiles: IvyLayout[os.Path, Synced] =
               build

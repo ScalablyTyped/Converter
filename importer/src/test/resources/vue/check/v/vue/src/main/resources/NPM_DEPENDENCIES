@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "vue" : "2.5.13"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "vue" : "2.5.13"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

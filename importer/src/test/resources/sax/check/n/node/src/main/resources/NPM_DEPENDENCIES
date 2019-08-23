@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "node" : "9.6.x"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "node" : "9.6.x"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

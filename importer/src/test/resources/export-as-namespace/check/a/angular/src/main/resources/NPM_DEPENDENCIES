@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "angular" : "1.6"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "angular" : "1.6"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "void-elements" : "3.1"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "void-elements" : "3.1"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}
