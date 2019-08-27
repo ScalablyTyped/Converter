@@ -13,7 +13,7 @@ object Comment {
   def apply(raw: String): Comment = CommentRaw(raw)
 
   def warning(s: String)(implicit e: sourcecode.Enclosing): Comment =
-    Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
+    Comment(s"/* import warning: ${e.value.takeWhile(!_.isWhitespace).split("\\.").takeRight(2).mkString(".")} $s */")
 }
 
 sealed class Comments(val cs: List[Comment]) extends Serializable {

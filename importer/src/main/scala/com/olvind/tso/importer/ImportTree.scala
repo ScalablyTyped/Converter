@@ -113,7 +113,7 @@ object ImportTree {
         Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath))
 
       case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
-        val tpe = ImportType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
+        val tpe = ImportType.orAny(Wildcards.Prohibit, scope, importName, isOptional)(tpeOpt)
 
         if (name === Name.Symbol) {
           Seq(
@@ -149,7 +149,7 @@ object ImportTree {
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
 
         val anns    = ImportJsLocation(location)
-        val parents = parent.to[Seq] ++ implements map ImportType(Wildcards.Prohibit, scope, importName)
+        val parents = parent.to[Seq] ++ implements map ImportType(Wildcards.Prohibit, scope, importName, isOptional = false)
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassTree(
@@ -187,7 +187,7 @@ object ImportTree {
         val newCodePath    = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, Nil) =
           members flatMap tsMember(scope, scalaJsDefined, importName, newCodePath)
-        val parents = inheritance.map(ImportType(Wildcards.Prohibit, scope, importName))
+        val parents = inheritance.map(ImportType(Wildcards.Prohibit, scope, importName, isOptional = false))
 
         Seq(
           ClassTree(
@@ -209,7 +209,7 @@ object ImportTree {
           TypeAliasTree(
             name     = name,
             tparams  = tparams map typeParam(scope, importName),
-            alias    = ImportType(Wildcards.Prohibit, scope, importName)(alias),
+            alias    = ImportType(Wildcards.Prohibit, scope, importName, isOptional = false)(alias),
             comments = cs,
             codePath = importName(codePath),
           ),
@@ -329,8 +329,8 @@ object ImportTree {
       case m: TsMemberIndex =>
         m.indexing match {
           case IndexingDict(indexName, indexType) =>
-            val indexTpe = ImportType(Wildcards.No, scope, importName)(indexType)
-            val valueTpe = ImportType.orAny(Wildcards.No, scope, importName)(m.valueType)
+            val indexTpe = ImportType(Wildcards.No, scope, importName, isOptional       = false)(indexType)
+            val valueTpe = ImportType.orAny(Wildcards.No, scope, importName, isOptional = false)(m.valueType)
 
             val rewritten: TypeRef =
               if (indexTpe === TypeRef.String)
@@ -372,7 +372,7 @@ object ImportTree {
                     FieldTree(
                       annotations = Seq(a),
                       name        = codeName,
-                      tpe         = ImportType.orAny(Wildcards.No, scope, importName)(m.valueType).withOptional(m.isOptional),
+                      tpe         = ImportType.orAny(Wildcards.No, scope, importName, m.isOptional)(m.valueType),
                       impl        = fieldType,
                       isReadOnly  = m.isReadOnly,
                       isOverride  = false,
@@ -422,12 +422,12 @@ object ImportTree {
           )
 
       case (importName(name), tpeOpt: Option[TsType]) =>
-        val importedType = ImportType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
+        val importedType = ImportType.orAny(Wildcards.No, scope, importName, m.isOptional)(tpeOpt)
         val impl: MemberImpl =
           (scalaJsDefined, importedType) match {
-            case (true, TypeRef.UndefOr(_)) => MemberImpl.Undefined
-            case (true, _)                  => MemberImpl.NotImplemented
-            case (false, _)                 => MemberImpl.Native
+            case (true, Optional.IsUndefined(_)) => MemberImpl.Undefined
+            case (true, _)                       => MemberImpl.NotImplemented
+            case (false, _)                      => MemberImpl.Native
           }
 
         hack(
@@ -458,15 +458,14 @@ object ImportTree {
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =
     TypeParamTree(
       name       = importName(tp.name),
-      upperBound = tp.upperBound map ImportType(Wildcards.No, scope / tp, importName),
+      upperBound = tp.upperBound map ImportType(Wildcards.No, scope / tp, importName, isOptional = false),
       comments   = tp.comments,
     )
 
   def tsFunParams(scope: TsTreeScope, importName: ImportName, params: Seq[TsFunParam]): Seq[ParamTree] =
     params map { param =>
-      val tpe       = ImportType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
-      val undefType = tpe.withOptional(param.isOptional)
-      ParamTree(importName(param.name), undefType, None, param.comments)
+      val tpe = ImportType.orAny(Wildcards.No, scope / param, importName, param.isOptional)(param.tpe)
+      ParamTree(importName(param.name), tpe, None, param.comments)
     }
 
   def tsMethod(
@@ -487,7 +486,7 @@ object ImportTree {
 
     val resultType: TypeRef = (
       sig.resultType filter (_ =/= TsTypeRef.any)
-        map ImportType(Wildcards.No, scope, importName)
+        map ImportType(Wildcards.No, scope, importName, isOptional = false)
         getOrElse TypeRef.Any
     )
 

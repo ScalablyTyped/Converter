@@ -6,6 +6,7 @@ import scala.scalajs.js.annotation._
 
 package object typesOptionsMod {
   import org.scalablytyped.runtime.StringDictionary
+  import org.scalablytyped.runtime.UndefOr
   import typings.std.HTMLElement
   import typings.std.Record
   import typings.std.ThisType
@@ -16,13 +17,13 @@ package object typesOptionsMod {
   import typings.vue.typesVueMod.Vue
   import typings.vue.typesVueMod.VueConstructor
 
-  type Accessors[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
+  type Accessors[T] = /* import warning: ImportType.apply Unsupported type mapping: 
   {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
     */ typings.vue.vueStrings.Accessors with js.Any
   type ArrayPropsDefinition[T] = js.Array[String]
   type AsyncComponent[Data, Methods, Computed, Props] = js.Function2[
     /* resolve */ js.Function1[/* component */ Component[Data, Methods, Computed, Props], Unit], 
-    /* reject */ js.Function1[/* reason */ js.UndefOr[js.Any], Unit], 
+    /* reject */ js.Function1[UndefOr[js.Any], Unit], 
     (js.Promise[
       (Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]) | EsModuleComponent
     ]) | Unit
@@ -48,7 +49,7 @@ package object typesOptionsMod {
   */
   type PropValidator[T] = _PropValidator[T] | js.Array[Prop[T]]
   type PropsDefinition[T] = ArrayPropsDefinition[T] | RecordPropsDefinition[T]
-  type RecordPropsDefinition[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
+  type RecordPropsDefinition[T] = /* import warning: ImportType.apply Unsupported type mapping: 
   {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
     */ typings.vue.vueStrings.RecordPropsDefinition with T
   type ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */] = js.Object with (ComponentOptions[

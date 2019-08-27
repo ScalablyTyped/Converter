@@ -1,6 +1,7 @@
 package typings.vueDashResource
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.UndefOr
 import typings.vueDashResource.vuejs.HttpHeaders
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -8,7 +9,7 @@ import scala.scalajs.js.annotation._
 
 trait Anon_Headers
   extends /* key */ StringDictionary[js.Any] {
-  var headers: js.UndefOr[HttpHeaders] = js.undefined
+  var headers: UndefOr[HttpHeaders] = js.undefined
 }
 
 object Anon_Headers {

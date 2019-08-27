@@ -1,6 +1,7 @@
 package typings.awsDashSdk
 
 import org.scalablytyped.runtime.Instantiable1
+import org.scalablytyped.runtime.UndefOr
 import typings.awsDashSdk.clientsDynamodbMod.ClientConfiguration
 import typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient.DocumentClientOptions
 import scala.scalajs.js
@@ -21,7 +22,7 @@ object libServicesDynamodbMod extends js.Object {
       * This abstraction annotates native JavaScript types supplied as input parameters, as well as converts annotated response data to native JavaScript types.
       */
     var DocumentClient: Instantiable1[
-        js.UndefOr[/* options */ DocumentClientOptions with ClientConfiguration], 
+        UndefOr[DocumentClientOptions with ClientConfiguration], 
         typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient
       ] = js.native
   }

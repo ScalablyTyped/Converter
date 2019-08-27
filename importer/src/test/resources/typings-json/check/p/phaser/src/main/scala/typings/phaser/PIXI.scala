@@ -1,5 +1,6 @@
 package typings.phaser
 
+import org.scalablytyped.runtime.UndefOr
 import typings.phaser.PIXI.blendModes
 import typings.phaser.PIXI.scaleModes
 import scala.scalajs.js
@@ -29,7 +30,7 @@ object PIXI extends js.Object {
     /* 1 */ val ADD: typings.phaser.PIXI.blendModes.ADD with Double = js.native
     /* 0 */ val NORMAL: typings.phaser.PIXI.blendModes.NORMAL with Double = js.native
     @JSBracketAccess
-    def apply(value: Double): js.UndefOr[blendModes with Double] = js.native
+    def apply(value: Double): UndefOr[blendModes with Double] = js.native
   }
   
   @js.native
@@ -47,7 +48,7 @@ object PIXI extends js.Object {
     /* 1 */ val LINEAR: typings.phaser.PIXI.scaleModes.LINEAR with Double = js.native
     /* 2 */ val NEAREST: typings.phaser.PIXI.scaleModes.NEAREST with Double = js.native
     @JSBracketAccess
-    def apply(value: Double): js.UndefOr[scaleModes with Double] = js.native
+    def apply(value: Double): UndefOr[scaleModes with Double] = js.native
   }
   
 }

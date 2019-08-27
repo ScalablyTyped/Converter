@@ -1,11 +1,12 @@
 package typings.typeDashMappings
 
+import org.scalablytyped.runtime.NullUndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Person extends js.Object {
-  var age: js.UndefOr[Double | Null] = js.undefined
+  var age: NullUndefOr[Double] = js.undefined
   var name: String
 }
 

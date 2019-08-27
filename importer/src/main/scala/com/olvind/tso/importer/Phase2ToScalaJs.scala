@@ -5,7 +5,7 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
+import com.olvind.tso.scalajs.{ContainerTree, Optional, PackageTree, TreeScope, transforms => S}
 import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.collection.immutable.SortedSet
@@ -56,6 +56,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
               S.RemoveDuplicateInheritance >>
+                Optional.InferFromUnion >>
                 S.CleanupTypeAliases >>
                 S.CleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>

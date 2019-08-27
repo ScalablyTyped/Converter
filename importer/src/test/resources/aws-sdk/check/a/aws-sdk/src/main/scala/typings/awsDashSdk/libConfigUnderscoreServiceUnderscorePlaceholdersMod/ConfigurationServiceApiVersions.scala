@@ -1,12 +1,13 @@
 package typings.awsDashSdk.libConfigUnderscoreServiceUnderscorePlaceholdersMod
 
+import org.scalablytyped.runtime.UndefOr
 import typings.awsDashSdk.clientsDynamodbMod.apiVersion
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ConfigurationServiceApiVersions extends js.Object {
-  var dynamodb: js.UndefOr[apiVersion] = js.undefined
+  var dynamodb: UndefOr[apiVersion] = js.undefined
 }
 
 object ConfigurationServiceApiVersions {

@@ -1,6 +1,7 @@
 package typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.UndefOr
 import typings.awsDashSdk.clientsDynamodbMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,20 +11,20 @@ trait DocumentClientOptions extends ConverterOptions {
   /**
     * An optional map of parameters to bind to every request sent by this service object.
     */
-  var params: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+  var params: UndefOr[StringDictionary[js.Any]] = js.undefined
   /**
     * An optional pre-configured instance of the AWS.DynamoDB service object to use for requests. The object may bound parameters used by the document client.
     */
-  var service: js.UndefOr[^] = js.undefined
+  var service: UndefOr[^] = js.undefined
 }
 
 object DocumentClientOptions {
   @scala.inline
   def apply(
-    convertEmptyValues: js.UndefOr[Boolean] = js.undefined,
+    convertEmptyValues: `<undefined>` | Boolean = js.undefined,
     params: StringDictionary[js.Any] = null,
     service: ^ = null,
-    wrapNumbers: js.UndefOr[Boolean] = js.undefined
+    wrapNumbers: `<undefined>` | Boolean = js.undefined
   ): DocumentClientOptions = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(convertEmptyValues)) __obj.updateDynamic("convertEmptyValues")(convertEmptyValues)

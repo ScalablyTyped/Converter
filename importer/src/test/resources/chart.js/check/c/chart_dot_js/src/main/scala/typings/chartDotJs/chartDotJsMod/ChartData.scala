@@ -1,11 +1,12 @@
 package typings.chartDotJs.chartDotJsMod
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ChartData extends js.Object {
-  var labels: js.UndefOr[js.Array[String | js.Array[String]]] = js.undefined
+  var labels: UndefOr[js.Array[String | js.Array[String]]] = js.undefined
 }
 
 object ChartData {

@@ -1,11 +1,12 @@
 package typings.react.reactMod
 
+import org.scalablytyped.runtime.NullOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ReactElement extends js.Object {
-  var key: Key | Null
+  var key: NullOr[Key]
   var props: js.Any
   var `type`: String | ComponentClass[_] | SFC[_]
 }

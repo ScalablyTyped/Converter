@@ -1,12 +1,13 @@
 package typings.winston.winstonMod
 
+import org.scalablytyped.runtime.UndefOr
 import typings.winston.libWinstonConfigMod.AbstractConfigSetLevels
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait LoggerOptions extends js.Object {
-  var levels: js.UndefOr[AbstractConfigSetLevels] = js.undefined
+  var levels: UndefOr[AbstractConfigSetLevels] = js.undefined
 }
 
 object LoggerOptions {

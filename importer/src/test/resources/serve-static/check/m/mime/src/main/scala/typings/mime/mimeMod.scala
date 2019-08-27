@@ -1,5 +1,6 @@
 package typings.mime
 
+import org.scalablytyped.runtime.NullOr
 import org.scalablytyped.runtime.StringDictionary
 import typings.mime.mimeMod.Mime
 import typings.mime.mimeMod.TypeMap
@@ -14,8 +15,8 @@ object mimeMod extends js.Object {
   trait Mime extends js.Object {
     def define(mimes: TypeMap): Unit = js.native
     def define(mimes: TypeMap, force: Boolean): Unit = js.native
-    def getExtension(mime: String): String | Null = js.native
-    def getType(path: String): String | Null = js.native
+    def getExtension(mime: String): NullOr[String] = js.native
+    def getType(path: String): NullOr[String] = js.native
   }
   
   @js.native
@@ -26,8 +27,8 @@ object mimeMod extends js.Object {
   val default_type: String = js.native
   def define(mimes: TypeMap): Unit = js.native
   def define(mimes: TypeMap, force: Boolean): Unit = js.native
-  def getExtension(mime: String): String | Null = js.native
-  def getType(path: String): String | Null = js.native
+  def getExtension(mime: String): NullOr[String] = js.native
+  def getType(path: String): NullOr[String] = js.native
   type TypeMap = StringDictionary[js.Array[String]]
 }
 

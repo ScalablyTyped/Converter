@@ -1,20 +1,21 @@
 package typings.vueDashResource.vuejs
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait HttpOptions extends js.Object {
-  var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.undefined
-  var body: js.UndefOr[js.Any] = js.undefined
-  var credentials: js.UndefOr[Boolean] = js.undefined
-  var emulateHTTP: js.UndefOr[Boolean] = js.undefined
-  var emulateJSON: js.UndefOr[Boolean] = js.undefined
-  var headers: js.UndefOr[js.Any] = js.undefined
-  var method: js.UndefOr[String] = js.undefined
-  var params: js.UndefOr[js.Any] = js.undefined
-  var progress: js.UndefOr[js.Function1[/* event */ js.Any, _]] = js.undefined
-  var url: js.UndefOr[String] = js.undefined
+  var before: UndefOr[js.Function1[/* request */ js.Any, _]] = js.undefined
+  var body: UndefOr[js.Any] = js.undefined
+  var credentials: UndefOr[Boolean] = js.undefined
+  var emulateHTTP: UndefOr[Boolean] = js.undefined
+  var emulateJSON: UndefOr[Boolean] = js.undefined
+  var headers: UndefOr[js.Any] = js.undefined
+  var method: UndefOr[String] = js.undefined
+  var params: UndefOr[js.Any] = js.undefined
+  var progress: UndefOr[js.Function1[/* event */ js.Any, _]] = js.undefined
+  var url: UndefOr[String] = js.undefined
 }
 
 object HttpOptions {
@@ -22,9 +23,9 @@ object HttpOptions {
   def apply(
     before: /* request */ js.Any => _ = null,
     body: js.Any = null,
-    credentials: js.UndefOr[Boolean] = js.undefined,
-    emulateHTTP: js.UndefOr[Boolean] = js.undefined,
-    emulateJSON: js.UndefOr[Boolean] = js.undefined,
+    credentials: `<undefined>` | Boolean = js.undefined,
+    emulateHTTP: `<undefined>` | Boolean = js.undefined,
+    emulateJSON: `<undefined>` | Boolean = js.undefined,
     headers: js.Any = null,
     method: String = null,
     params: js.Any = null,

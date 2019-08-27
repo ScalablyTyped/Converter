@@ -10,14 +10,15 @@ object LimitUnionLength extends TreeTransformation {
   override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
     s match {
       case TypeRef.Union(types) if types.length > 50 =>
-        val (undefineds, rest) = types.partition(_ === TypeRef.undefined)
+        val (undefineds, rest) = types.partition(_ === Optional.UndefinedMarker)
 
         val base =
           if (rest.forall(x => TypeRef.Literal.unapply(x).exists(_.startsWith("\"")))) TypeRef.String else TypeRef.Any
 
-        base
-          .withComments(Comments(Comment.warning(s"Was union type with length ${types.length}")))
-          .withOptional(undefineds.nonEmpty)
+        val withComment = base.withComments(Comments(Comment.warning(s"Was union type with length ${types.length}")))
+
+        if (undefineds.nonEmpty) TypeRef.UndefOr(withComment) else withComment
+
       case other => other
     }
 }

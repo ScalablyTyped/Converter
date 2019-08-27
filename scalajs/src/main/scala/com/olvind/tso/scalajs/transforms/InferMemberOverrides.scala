@@ -86,11 +86,10 @@ object InferMemberOverrides extends TreeTransformation {
 
   def canBeUndefined(tpe: TypeRef): Boolean =
     tpe match {
-      case TypeRef(QualifiedName.UndefOr, _, _) => true
-      case TypeRef.undefined                    => true
-      case TypeRef.Intersection(types)          => types forall canBeUndefined
-      case TypeRef.Union(types)                 => types exists canBeUndefined
-      case _                                    => false
+      case Optional.UndefinedMarker     => true
+      case TypeRef.Intersection(types) => types forall canBeUndefined
+      case TypeRef.Union(types)        => types exists canBeUndefined
+      case _                           => false
     }
 
   private def updatedImpl(

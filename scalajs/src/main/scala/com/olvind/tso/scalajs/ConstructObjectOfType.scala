@@ -63,7 +63,7 @@ object ConstructObjectOfType {
       .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
         val isRequired = parent.classTree.members.exists {
           case _: MethodTree => true
-          case FieldTree(_, _, Nullable(_), _, _, _, _, _) => false
+          case FieldTree(_, _, Optional.IsNullableOrUndefined(_), _, _, _, _, _) => false
           case _: FieldTree => true
           case _ => false
         }
@@ -113,7 +113,7 @@ object ConstructObjectOfType {
 
   def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Param) =
     ref.name -> Param(
-      ParamTree(ref.name, ref, Some(TypeRef.`null`), NoComments),
+      ParamTree(ref.name, ref, Some(TermRef.`null`), NoComments),
       !isRequired,
       Right(
         obj =>

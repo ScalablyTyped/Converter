@@ -36,7 +36,7 @@ trait Versions {
 
   val RuntimeOrganization = "com.olvind"
   val RuntimeName         = "scalablytyped-runtime"
-  val RuntimeVersion      = "2.1.0"
+  val RuntimeVersion      = "2.2.0-M1"
   val sbtVersion          = "1.3.2"
   val sbtBintray          = %("org.foundweekends", "sbt-bintray", "0.5.4")
 

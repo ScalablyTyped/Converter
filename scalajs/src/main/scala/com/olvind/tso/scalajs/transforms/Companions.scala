@@ -4,6 +4,7 @@ package transforms
 
 import com.olvind.tso.seqs._
 import ConstructObjectOfType.Param
+import com.olvind.tso.scalajs.Optional.IsNullableOrUndefined
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
@@ -71,16 +72,18 @@ object Companions extends TreeTransformation {
     }
 
   /* yeah, i know. We'll refactor if we'll do many more rewrites */
-  def memberParameter(scope: TreeScope, x: MemberTree): Some[Param] =
+  def memberParameter(scope: TreeScope, x: MemberTree): Option[Param] =
     x match {
+      case FieldTree(_, _, IsNullableOrUndefined(TypeRef.Nothing), _, _, _, _, _) =>
+        None
       /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
       case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
         FollowAliases(scope)(origTpe) match {
-          case Nullable(TypeRef.Double) =>
+          case IsNullableOrUndefined(TypeRef.Double) =>
             val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
             Some(
               Param(
-                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                ParamTree(name, tpe, Some(TermRef.`null`), NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -91,10 +94,10 @@ object Companions extends TreeTransformation {
                 ),
               ),
             )
-          case Nullable(tpe) if IsPrimitive(tpe, scope / x) =>
+          case IsNullableOrUndefined(tpe) if IsPrimitive(tpe, scope / x) =>
             Some(
               Param(
-                ParamTree(name, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
+                ParamTree(name, TypeRef.UndefOr(tpe), Some(TermRef.undefined), NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -105,7 +108,7 @@ object Companions extends TreeTransformation {
                 ),
               ),
             )
-          case Nullable(TypeRef.Function(paramTypes, retType)) =>
+          case IsNullableOrUndefined(TypeRef.Function(paramTypes, retType)) =>
             val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
             Some(
@@ -113,7 +116,7 @@ object Companions extends TreeTransformation {
                 ParamTree(
                   name,
                   TypeRef.ScalaFunction(paramTypes, retType, NoComments),
-                  Some(TypeRef.`null`),
+                  Some(TermRef.`null`),
                   NoComments,
                 ),
                 isOptional = true,
@@ -123,16 +126,16 @@ object Companions extends TreeTransformation {
                 ),
               ),
             )
-          case Nullable(_) =>
+          case IsNullableOrUndefined(_) =>
             /* Undo effect of FollowAliases above */
-            val tpe = Nullable.unapply(origTpe).getOrElse(origTpe) match {
+            val tpe = IsNullableOrUndefined.unapply(origTpe).getOrElse(origTpe) match {
               case TypeRef.Wildcard => TypeRef.Any
               case other            => other
             }
 
             Some(
               Param(
-                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                ParamTree(name, tpe, Some(TermRef.`null`), NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -200,15 +203,12 @@ object Companions extends TreeTransformation {
     private val Cast = ".asInstanceOf[js.Any]"
 
     def apply(scope: TreeScope, tpe: TypeRef): String =
-      if (resolvesToUnionOrAbstract(tpe, scope)) {
-        Cast
-      } else ""
+      if (resolvesToUnionOrAbstract(tpe, scope)) Cast else ""
 
     def resolvesToUnionOrAbstract(tpe: TypeRef, scope: TreeScope): Boolean =
       tpe match {
         case x if scope.tparams.contains(x.typeName.parts.last) => true
         case TypeRef.Union(_)                                   => true
-        case TypeRef.UndefOr(_)                                 => true
         case TypeRef.Intersection(types)                        => resolvesToUnionOrAbstract(types.head, scope)
         case other =>
           scope.lookup(other.typeName) collectFirst {

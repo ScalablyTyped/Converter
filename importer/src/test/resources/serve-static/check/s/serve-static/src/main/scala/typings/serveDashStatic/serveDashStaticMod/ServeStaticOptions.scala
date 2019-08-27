@@ -1,12 +1,13 @@
 package typings.serveDashStatic.serveDashStaticMod
 
+import org.scalablytyped.runtime.UndefOr
 import typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod.Response
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ServeStaticOptions extends js.Object {
-  var setHeaders: js.UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, _]] = js.undefined
+  var setHeaders: UndefOr[js.Function3[/* res */ Response, /* path */ String, /* stat */ js.Any, _]] = js.undefined
 }
 
 object ServeStaticOptions {

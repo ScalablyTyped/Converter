@@ -1,31 +1,32 @@
 package typings.stylis.stylisStylisMod
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Options extends js.Object {
-  var cascade: js.UndefOr[Boolean] = js.undefined
-  var compress: js.UndefOr[Boolean] = js.undefined
-  var global: js.UndefOr[Boolean] = js.undefined
-  var keyframe: js.UndefOr[Boolean] = js.undefined
-  var prefix: js.UndefOr[
+  var cascade: UndefOr[Boolean] = js.undefined
+  var compress: UndefOr[Boolean] = js.undefined
+  var global: UndefOr[Boolean] = js.undefined
+  var keyframe: UndefOr[Boolean] = js.undefined
+  var prefix: UndefOr[
     Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
   ] = js.undefined
-  var preserve: js.UndefOr[Boolean] = js.undefined
-  var semicolon: js.UndefOr[Boolean] = js.undefined
+  var preserve: UndefOr[Boolean] = js.undefined
+  var semicolon: UndefOr[Boolean] = js.undefined
 }
 
 object Options {
   @scala.inline
   def apply(
-    cascade: js.UndefOr[Boolean] = js.undefined,
-    compress: js.UndefOr[Boolean] = js.undefined,
-    global: js.UndefOr[Boolean] = js.undefined,
-    keyframe: js.UndefOr[Boolean] = js.undefined,
+    cascade: `<undefined>` | Boolean = js.undefined,
+    compress: `<undefined>` | Boolean = js.undefined,
+    global: `<undefined>` | Boolean = js.undefined,
+    keyframe: `<undefined>` | Boolean = js.undefined,
     prefix: Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean]) = null,
-    preserve: js.UndefOr[Boolean] = js.undefined,
-    semicolon: js.UndefOr[Boolean] = js.undefined
+    preserve: `<undefined>` | Boolean = js.undefined,
+    semicolon: `<undefined>` | Boolean = js.undefined
   ): Options = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(cascade)) __obj.updateDynamic("cascade")(cascade)

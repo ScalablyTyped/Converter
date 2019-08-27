@@ -1,5 +1,6 @@
 package typings.commander.commanderMod.local
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +12,7 @@ trait Option extends js.Object {
   var long: String
   var optional: Boolean
   var required: Boolean
-  var short: js.UndefOr[String] = js.undefined
+  var short: UndefOr[String] = js.undefined
 }
 
 object Option {

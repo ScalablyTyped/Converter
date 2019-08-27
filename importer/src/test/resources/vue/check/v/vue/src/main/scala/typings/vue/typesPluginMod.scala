@@ -1,6 +1,7 @@
 package typings.vue
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.UndefOr
 import typings.vue.typesPluginMod.PluginFunction
 import typings.vue.typesVueMod.Vue
 import typings.vue.typesVueMod.VueConstructor
@@ -20,6 +21,6 @@ object typesPluginMod extends js.Object {
     def install(Vue: VueConstructor[Vue], options: T): Unit = js.native
   }
   
-  type PluginFunction[T] = js.Function2[/* Vue */ VueConstructor[Vue], /* options */ js.UndefOr[T], Unit]
+  type PluginFunction[T] = js.Function2[/* Vue */ VueConstructor[Vue], UndefOr[T], Unit]
 }
 

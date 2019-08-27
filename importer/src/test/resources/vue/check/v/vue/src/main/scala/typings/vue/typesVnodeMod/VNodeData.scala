@@ -1,32 +1,33 @@
 package typings.vue.typesVnodeMod
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.UndefOr
 import typings.vue.Anon_Render
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait VNodeData extends js.Object {
-  var attrs: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var `class`: js.UndefOr[js.Any] = js.undefined
-  var directives: js.UndefOr[js.Array[VNodeDirective]] = js.undefined
-  var domProps: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var hook: js.UndefOr[StringDictionary[js.Function]] = js.undefined
-  var inlineTemplate: js.UndefOr[Anon_Render] = js.undefined
-  var keepAlive: js.UndefOr[Boolean] = js.undefined
-  var key: js.UndefOr[String | Double] = js.undefined
-  var nativeOn: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
-  var on: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
-  var props: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var ref: js.UndefOr[String] = js.undefined
-  var scopedSlots: js.UndefOr[StringDictionary[ScopedSlot]] = js.undefined
-  var show: js.UndefOr[Boolean] = js.undefined
-  var slot: js.UndefOr[String] = js.undefined
-  var staticClass: js.UndefOr[String] = js.undefined
-  var staticStyle: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var style: js.UndefOr[js.Array[js.Object] | js.Object] = js.undefined
-  var tag: js.UndefOr[String] = js.undefined
-  var transition: js.UndefOr[js.Object] = js.undefined
+  var attrs: UndefOr[StringDictionary[js.Any]] = js.undefined
+  var `class`: UndefOr[js.Any] = js.undefined
+  var directives: UndefOr[js.Array[VNodeDirective]] = js.undefined
+  var domProps: UndefOr[StringDictionary[js.Any]] = js.undefined
+  var hook: UndefOr[StringDictionary[js.Function]] = js.undefined
+  var inlineTemplate: UndefOr[Anon_Render] = js.undefined
+  var keepAlive: UndefOr[Boolean] = js.undefined
+  var key: UndefOr[String | Double] = js.undefined
+  var nativeOn: UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
+  var on: UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
+  var props: UndefOr[StringDictionary[js.Any]] = js.undefined
+  var ref: UndefOr[String] = js.undefined
+  var scopedSlots: UndefOr[StringDictionary[ScopedSlot]] = js.undefined
+  var show: UndefOr[Boolean] = js.undefined
+  var slot: UndefOr[String] = js.undefined
+  var staticClass: UndefOr[String] = js.undefined
+  var staticStyle: UndefOr[StringDictionary[js.Any]] = js.undefined
+  var style: UndefOr[js.Array[js.Object] | js.Object] = js.undefined
+  var tag: UndefOr[String] = js.undefined
+  var transition: UndefOr[js.Object] = js.undefined
 }
 
 object VNodeData {
@@ -38,14 +39,14 @@ object VNodeData {
     domProps: StringDictionary[js.Any] = null,
     hook: StringDictionary[js.Function] = null,
     inlineTemplate: Anon_Render = null,
-    keepAlive: js.UndefOr[Boolean] = js.undefined,
+    keepAlive: `<undefined>` | Boolean = js.undefined,
     key: String | Double = null,
     nativeOn: StringDictionary[js.Function | js.Array[js.Function]] = null,
     on: StringDictionary[js.Function | js.Array[js.Function]] = null,
     props: StringDictionary[js.Any] = null,
     ref: String = null,
     scopedSlots: StringDictionary[ScopedSlot] = null,
-    show: js.UndefOr[Boolean] = js.undefined,
+    show: `<undefined>` | Boolean = js.undefined,
     slot: String = null,
     staticClass: String = null,
     staticStyle: StringDictionary[js.Any] = null,

@@ -16,14 +16,14 @@ object HTMLProps {
     acceptCharset: String = null,
     children: ReactNode = null,
     dangerouslySetInnerHTML: Anon_Html = null,
-    defaultChecked: js.UndefOr[Boolean] = js.undefined,
+    defaultChecked: `<undefined>` | Boolean = js.undefined,
     key: Key = null,
     ref: Ref[T] = null
   ): HTMLProps[T] = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])

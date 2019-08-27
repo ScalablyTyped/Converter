@@ -1,18 +1,19 @@
 package typings.vueDashResource.vuejs
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait HttpHeaders
   extends /* key */ StringDictionary[js.Any] {
-  var common: js.UndefOr[StringDictionary[String]] = js.undefined
-  var custom: js.UndefOr[StringDictionary[String]] = js.undefined
-  var delete: js.UndefOr[StringDictionary[String]] = js.undefined
-  var patch: js.UndefOr[StringDictionary[String]] = js.undefined
-  var post: js.UndefOr[StringDictionary[String]] = js.undefined
-  var put: js.UndefOr[StringDictionary[String]] = js.undefined
+  var common: UndefOr[StringDictionary[String]] = js.undefined
+  var custom: UndefOr[StringDictionary[String]] = js.undefined
+  var delete: UndefOr[StringDictionary[String]] = js.undefined
+  var patch: UndefOr[StringDictionary[String]] = js.undefined
+  var post: UndefOr[StringDictionary[String]] = js.undefined
+  var put: UndefOr[StringDictionary[String]] = js.undefined
 }
 
 object HttpHeaders {

@@ -1,11 +1,12 @@
 package typings.node
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Error extends js.Object {
-  var stack: js.UndefOr[String] = js.undefined
+  var stack: UndefOr[String] = js.undefined
 }
 
 object Error {

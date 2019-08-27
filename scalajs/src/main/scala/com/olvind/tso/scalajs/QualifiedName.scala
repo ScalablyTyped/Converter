@@ -38,7 +38,6 @@ object QualifiedName {
   val `|`             : QualifiedName = scala_js + Name("|")
   val Function:         QualifiedName = scala_js + Name.Function
   val Symbol:           QualifiedName = scala_js + Name.Symbol
-  val UndefOr:          QualifiedName = scala_js + Name.UndefOr
   val Dynamic:          QualifiedName = scala_js + Name.Dynamic
   val NumberDictionary: QualifiedName = Runtime + Name("NumberDictionary")
   val StringDictionary: QualifiedName = Runtime + Name("StringDictionary")

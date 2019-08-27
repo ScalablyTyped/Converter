@@ -189,13 +189,17 @@ object TypeParamTree {
   implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
 }
 
-final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
+final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TermRef], comments: Comments) extends Tree
+
+sealed trait TermRef
+
+object TermRef {
+  object `null` extends TermRef
+  object undefined extends TermRef
+}
 
 final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
-
-  def withOptional(optional: Boolean): TypeRef =
-    if (optional) TypeRef.UndefOr(this) else this
 
   def withComments(cs: Comments): TypeRef =
     TypeRef(typeName, targs, comments ++ cs)
@@ -222,9 +226,6 @@ object TypeRef {
   val Symbol       = TypeRef(QualifiedName.Symbol, Nil, NoComments)
   val Unit         = TypeRef(QualifiedName.Unit, Nil, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Nil, NoComments)
-
-  val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
-  val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)
 
   val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
@@ -327,22 +328,8 @@ object TypeRef {
       }
   }
 
-  object UndefOr {
-    def apply(tpe: TypeRef): TypeRef =
-      Union(List(undefined, tpe), sort = false)
-
-    def unapply(typeRef: TypeRef): Option[TypeRef] =
-      typeRef match {
-        case Union(types) if types.contains(undefined) =>
-          val rest = types.filterNot(x => x === undefined || x === TypeRef.Nothing) match {
-            case Nil      => TypeRef.Nothing
-            case Seq(one) => one
-            case more     => Union(more, sort = false)
-          }
-          Some(rest)
-        case _ => None
-      }
-  }
+  def UndefOr(tpe: TypeRef): TypeRef =
+    Union(List(Optional.UndefinedMarker, tpe), sort = false)
 
   object Union {
     private def flatten(types: List[TypeRef]): List[TypeRef] =

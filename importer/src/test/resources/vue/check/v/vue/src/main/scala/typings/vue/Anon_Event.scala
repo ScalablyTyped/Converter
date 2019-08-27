@@ -1,12 +1,13 @@
 package typings.vue
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Anon_Event extends js.Object {
-  var event: js.UndefOr[String] = js.undefined
-  var prop: js.UndefOr[String] = js.undefined
+  var event: UndefOr[String] = js.undefined
+  var prop: UndefOr[String] = js.undefined
 }
 
 object Anon_Event {

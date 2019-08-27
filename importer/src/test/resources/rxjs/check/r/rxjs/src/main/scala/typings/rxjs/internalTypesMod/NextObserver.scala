@@ -1,13 +1,14 @@
 package typings.rxjs.internalTypesMod
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait NextObserver[T] extends PartialObserver[T] {
-  var closed: js.UndefOr[Boolean] = js.undefined
-  var complete: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
+  var closed: UndefOr[Boolean] = js.undefined
+  var complete: UndefOr[js.Function0[Unit]] = js.undefined
+  var error: UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
   def next(value: T): Unit
 }
 
@@ -15,7 +16,7 @@ object NextObserver {
   @scala.inline
   def apply[T](
     next: T => Unit,
-    closed: js.UndefOr[Boolean] = js.undefined,
+    closed: `<undefined>` | Boolean = js.undefined,
     complete: () => Unit = null,
     error: /* err */ js.Any => Unit = null
   ): NextObserver[T] = {

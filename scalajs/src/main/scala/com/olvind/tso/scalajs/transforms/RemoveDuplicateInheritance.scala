@@ -28,7 +28,7 @@ object RemoveDuplicateInheritance extends TreeTransformation {
         case (name, sameParentRef: Seq[TypeRef]) =>
           TypeRef(
             name,
-            sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, true)),
+            sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, sort = true)),
             Comments.flatten(sameParentRef)(_.comments),
           )
       }

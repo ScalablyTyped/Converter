@@ -1,11 +1,12 @@
 package typings.react.reactMod
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Props[T] extends js.Object {
-  var key: js.UndefOr[String] = js.undefined
+  var key: UndefOr[String] = js.undefined
 }
 
 object Props {

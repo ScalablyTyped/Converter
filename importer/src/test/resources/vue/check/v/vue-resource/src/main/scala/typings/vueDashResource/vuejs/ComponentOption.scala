@@ -1,12 +1,13 @@
 package typings.vueDashResource.vuejs
 
+import org.scalablytyped.runtime.UndefOr
 import typings.vueDashResource.Anon_Headers
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ComponentOption extends js.Object {
-  var http: js.UndefOr[Anon_Headers with HttpOptions] = js.undefined
+  var http: UndefOr[Anon_Headers with HttpOptions] = js.undefined
 }
 
 object ComponentOption {

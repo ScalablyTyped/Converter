@@ -26,16 +26,18 @@ object ImportEnum {
     e match {
       /* exported const enum? type alias */
       case TsDeclEnum(cs, _, true, importName(name), _, _, Some(exportedFrom), _, codePath) =>
-        val tpe = ImportType(Wildcards.No, scope, importName)(exportedFrom)
+        val tpe = ImportType(Wildcards.No, scope, importName, isOptional = false)(exportedFrom)
         List(TypeAliasTree(name, Nil, tpe, cs, importName(codePath)))
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
       case TsDeclEnum(cs, _, true, importName(name), members, _, None, _, codePath) =>
         val importedCodePath = importName(codePath)
         val ta = TypeAliasTree(
-          name     = name,
-          tparams  = Nil,
-          alias    = ImportType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
+          name    = name,
+          tparams = Nil,
+          alias = ImportType(Wildcards.No, scope, importName, isOptional = false)(
+            TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr))),
+          ),
           comments = cs,
           codePath = importedCodePath,
         )
@@ -60,7 +62,7 @@ object ImportEnum {
           val newMembers = members.map {
             case TsEnumMember(memberCs, importName(memberName), exprOpt) =>
               val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
-              val tpe  = ImportType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
+              val tpe  = ImportType(Wildcards.No, scope, importName, isOptional = false)(TsExpr.typeOf(expr))
               MethodTree(
                 List(Annotation.Inline),
                 ProtectionLevel.Default,
@@ -84,7 +86,7 @@ object ImportEnum {
         val importedCodePath = importName(codePath)
 
         val baseInterface: TypeRef =
-          ImportType(Wildcards.No, scope, importName)(
+          ImportType(Wildcards.No, scope, importName, isOptional = false)(
             TsTypeRef(NoComments, exportedFrom.fold(codePath.forceHasPath.codePath)(_.name), Nil),
           )
 
@@ -94,9 +96,10 @@ object ImportEnum {
           exportedFrom match {
             case Some(ef) =>
               scalajs.TypeAliasTree(
-                name     = name,
-                tparams  = Nil,
-                alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Nil)),
+                name    = name,
+                tparams = Nil,
+                alias =
+                  ImportType(Wildcards.No, scope, importName, isOptional = false)(TsTypeRef(NoComments, ef.name, Nil)),
                 comments = Comments(CommentData(Markers.IsTrivial)),
                 codePath = importedCodePath,
               )
@@ -127,7 +130,7 @@ object ImportEnum {
                   tparams     = Nil,
                   params      = Seq(Seq(applyParam)),
                   impl        = MemberImpl.Native,
-                  resultType  = TypeRef.Intersection(baseInterface :: underlying :: Nil).withOptional(true),
+                  resultType  = TypeRef.UndefOr(TypeRef.Intersection(baseInterface :: underlying :: Nil)),
                   isOverride  = false,
                   comments    = NoComments,
                   codePath    = importedCodePath + Name.APPLY,

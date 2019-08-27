@@ -1,5 +1,6 @@
 package typings.vue.typesVnodeMod
 
+import org.scalablytyped.runtime.UndefOr
 import typings.vue.typesVueMod.Vue
 import typings.vue.typesVueMod.VueConstructor
 import scala.scalajs.js
@@ -8,10 +9,10 @@ import scala.scalajs.js.annotation._
 
 trait VNodeComponentOptions extends js.Object {
   var Ctor: VueConstructor[Vue]
-  var children: js.UndefOr[VNodeChildren] = js.undefined
-  var listeners: js.UndefOr[js.Object] = js.undefined
-  var propsData: js.UndefOr[js.Object] = js.undefined
-  var tag: js.UndefOr[String] = js.undefined
+  var children: UndefOr[VNodeChildren] = js.undefined
+  var listeners: UndefOr[js.Object] = js.undefined
+  var propsData: UndefOr[js.Object] = js.undefined
+  var tag: UndefOr[String] = js.undefined
 }
 
 object VNodeComponentOptions {

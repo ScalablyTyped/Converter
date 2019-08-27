@@ -1,5 +1,6 @@
 package typings.swiz
 
+import org.scalablytyped.runtime.UndefOr
 import typings.swiz.swizMod.SERIALIZATION
 import typings.swiz.swizMod.SERIALIZATION.java
 import typings.swiz.swizMod.SERIALIZATION.notify
@@ -22,7 +23,7 @@ object swizDashTestDashDefaultMod extends js.Object {
     /* 1 */ @JSName("notify")
     val notify_Fdefault: notify with Double = js.native
     @JSBracketAccess
-    def apply(value: Double): js.UndefOr[SERIALIZATION with Double] = js.native
+    def apply(value: Double): UndefOr[SERIALIZATION with Double] = js.native
   }
   
 }

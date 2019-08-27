@@ -1,13 +1,14 @@
 package typings.vue
 
+import org.scalablytyped.runtime.UndefOr
 import typings.vue.typesOptionsMod.InjectKey
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Anon_Default extends js.Object {
-  var default: js.UndefOr[js.Any] = js.undefined
-  var from: js.UndefOr[InjectKey] = js.undefined
+  var default: UndefOr[js.Any] = js.undefined
+  var from: UndefOr[InjectKey] = js.undefined
 }
 
 object Anon_Default {

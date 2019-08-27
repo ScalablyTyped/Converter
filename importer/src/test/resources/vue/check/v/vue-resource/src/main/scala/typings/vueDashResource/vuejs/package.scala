@@ -5,11 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object vuejs {
+  import org.scalablytyped.runtime.UndefOr
+
   type $resource = js.Function4[
     /* url */ String, 
-    /* params */ js.UndefOr[js.Object], 
-    /* actions */ js.UndefOr[js.Any], 
-    /* options */ js.UndefOr[HttpOptions], 
+    UndefOr[js.Object], 
+    UndefOr[js.Any], 
+    UndefOr[HttpOptions], 
     ResourceMethods
   ]
 }

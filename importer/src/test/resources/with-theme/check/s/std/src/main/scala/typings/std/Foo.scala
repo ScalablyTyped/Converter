@@ -1,11 +1,12 @@
 package typings.std
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Foo extends js.Object {
-  var f: js.UndefOr[js.Function1[/* n */ Double, String]] = js.undefined
+  var f: UndefOr[js.Function1[/* n */ Double, String]] = js.undefined
 }
 
 object Foo {

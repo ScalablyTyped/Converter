@@ -8,8 +8,6 @@ object FollowAliases {
         TypeRef.Union(types map FollowAliases(scope), sort = false)
       case other if TypeRef.Primitive(other) => other
       case other if scope.isAbstract(other)  => other
-      case TypeRef.undefined                 => TypeRef.undefined
-      case TypeRef.`null`                    => TypeRef.`null`
       case ref =>
         scope
           .lookup(ref.typeName)

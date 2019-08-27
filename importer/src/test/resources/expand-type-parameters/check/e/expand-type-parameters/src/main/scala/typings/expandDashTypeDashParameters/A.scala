@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
+/* import warning: RemoveMultipleInheritance.findNewParents Dropped parents 
 - typings.expandDashTypeDashParameters.TA because Already inherited */ trait A extends B {
   var a: Double
 }

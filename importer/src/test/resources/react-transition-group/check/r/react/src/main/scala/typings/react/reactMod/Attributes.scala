@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +12,7 @@ import scala.scalajs.js.annotation._
 //     nativeEvent: NativeAnimationEvent;
 // }
 trait Attributes extends js.Object {
-  var key: js.UndefOr[Key] = js.undefined
+  var key: UndefOr[Key] = js.undefined
 }
 
 object Attributes {

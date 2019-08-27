@@ -1,5 +1,6 @@
 package typings.vue.typesOptionsMod
 
+import org.scalablytyped.runtime.UndefOr
 import typings.vue.typesVnodeMod.VNode
 import typings.vue.typesVueMod.CreateElement
 import scala.scalajs.js
@@ -8,17 +9,17 @@ import scala.scalajs.js.annotation._
 
 trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
   var functional: Boolean
-  var inject: js.UndefOr[InjectOptions] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
-  var props: js.UndefOr[PropDefs] = js.undefined
-  def render(`this`: js.UndefOr[scala.Nothing], createElement: CreateElement, context: RenderContext[Props]): VNode
+  var inject: UndefOr[InjectOptions] = js.undefined
+  var name: UndefOr[String] = js.undefined
+  var props: UndefOr[PropDefs] = js.undefined
+  def render(`this`: UndefOr[scala.Nothing], createElement: CreateElement, context: RenderContext[Props]): VNode
 }
 
 object FunctionalComponentOptions {
   @scala.inline
   def apply[Props, PropDefs](
     functional: Boolean,
-    render: (js.UndefOr[scala.Nothing], CreateElement, RenderContext[Props]) => VNode,
+    render: (UndefOr[scala.Nothing], CreateElement, RenderContext[Props]) => VNode,
     inject: InjectOptions = null,
     name: String = null,
     props: PropDefs = null

@@ -1,5 +1,6 @@
 package typings.defaultedDashTparams
 
+import org.scalablytyped.runtime.UndefOr
 import typings.std.Iterable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -23,7 +24,7 @@ class Queue[S, T] () extends js.Object {
   /**
     * Removes and returns an element from the beginning
     */
-  def pop(): js.UndefOr[T] = js.native
+  def pop(): UndefOr[T] = js.native
   /**
     * Inserts a new element at the end
     */

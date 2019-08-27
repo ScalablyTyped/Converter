@@ -1,6 +1,7 @@
 package typings.vue.typesOptionsMod
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalablytyped.runtime.UndefOr
 import typings.std.Element
 import typings.std.Error
 import typings.std.Record
@@ -14,24 +15,24 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extends js.Object {
-  var activated: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var beforeCreate: js.UndefOr[js.ThisFunction0[/* this */ V, Unit]] = js.undefined
-  var beforeDestroy: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var beforeMount: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var beforeUpdate: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var comments: js.UndefOr[Boolean] = js.undefined
-  var components: js.UndefOr[StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]] = js.undefined
-  var computed: js.UndefOr[Accessors[Computed]] = js.undefined
-  var created: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var data: js.UndefOr[Data] = js.undefined
-  var deactivated: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var delimiters: js.UndefOr[js.Tuple2[String, String]] = js.undefined
-  var destroyed: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var directives: js.UndefOr[StringDictionary[DirectiveFunction | DirectiveOptions]] = js.undefined
-  var el: js.UndefOr[Element | String] = js.undefined
-  var errorCaptured: js.UndefOr[js.Function0[Boolean | Unit]] = js.undefined
+  var activated: UndefOr[js.Function0[Unit]] = js.undefined
+  var beforeCreate: UndefOr[js.ThisFunction0[/* this */ V, Unit]] = js.undefined
+  var beforeDestroy: UndefOr[js.Function0[Unit]] = js.undefined
+  var beforeMount: UndefOr[js.Function0[Unit]] = js.undefined
+  var beforeUpdate: UndefOr[js.Function0[Unit]] = js.undefined
+  var comments: UndefOr[Boolean] = js.undefined
+  var components: UndefOr[StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]] = js.undefined
+  var computed: UndefOr[Accessors[Computed]] = js.undefined
+  var created: UndefOr[js.Function0[Unit]] = js.undefined
+  var data: UndefOr[Data] = js.undefined
+  var deactivated: UndefOr[js.Function0[Unit]] = js.undefined
+  var delimiters: UndefOr[js.Tuple2[String, String]] = js.undefined
+  var destroyed: UndefOr[js.Function0[Unit]] = js.undefined
+  var directives: UndefOr[StringDictionary[DirectiveFunction | DirectiveOptions]] = js.undefined
+  var el: UndefOr[Element | String] = js.undefined
+  var errorCaptured: UndefOr[js.Function0[Boolean | Unit]] = js.undefined
   // TODO: support properly inferred 'extends'
-  var `extends`: js.UndefOr[
+  var `extends`: UndefOr[
     (ComponentOptions[
       Vue, 
       DefaultData[Vue], 
@@ -40,11 +41,11 @@ trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extend
       PropsDefinition[DefaultProps]
     ]) | VueConstructor[Vue]
   ] = js.undefined
-  var filters: js.UndefOr[StringDictionary[js.Function]] = js.undefined
-  var inheritAttrs: js.UndefOr[Boolean] = js.undefined
-  var inject: js.UndefOr[InjectOptions] = js.undefined
-  var methods: js.UndefOr[Methods] = js.undefined
-  var mixins: js.UndefOr[
+  var filters: UndefOr[StringDictionary[js.Function]] = js.undefined
+  var inheritAttrs: UndefOr[Boolean] = js.undefined
+  var inject: UndefOr[InjectOptions] = js.undefined
+  var methods: UndefOr[Methods] = js.undefined
+  var mixins: UndefOr[
     js.Array[
       (ComponentOptions[
         Vue, 
@@ -55,20 +56,20 @@ trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extend
       ]) | VueConstructor[Vue]
     ]
   ] = js.undefined
-  var model: js.UndefOr[Anon_Event] = js.undefined
-  var mounted: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
-  var parent: js.UndefOr[Vue] = js.undefined
-  var props: js.UndefOr[PropsDef] = js.undefined
-  var propsData: js.UndefOr[js.Object] = js.undefined
-  var provide: js.UndefOr[js.Object | js.Function0[js.Object]] = js.undefined
-  var render: js.UndefOr[js.Function1[/* createElement */ CreateElement, VNode]] = js.undefined
-  var renderError: js.UndefOr[js.Function2[/* h */ js.Function0[VNode], /* err */ Error, VNode]] = js.undefined
-  var staticRenderFns: js.UndefOr[js.Array[js.Function1[/* createElement */ CreateElement, VNode]]] = js.undefined
-  var template: js.UndefOr[String] = js.undefined
-  var transitions: js.UndefOr[StringDictionary[js.Object]] = js.undefined
-  var updated: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var watch: js.UndefOr[Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]] = js.undefined
+  var model: UndefOr[Anon_Event] = js.undefined
+  var mounted: UndefOr[js.Function0[Unit]] = js.undefined
+  var name: UndefOr[String] = js.undefined
+  var parent: UndefOr[Vue] = js.undefined
+  var props: UndefOr[PropsDef] = js.undefined
+  var propsData: UndefOr[js.Object] = js.undefined
+  var provide: UndefOr[js.Object | js.Function0[js.Object]] = js.undefined
+  var render: UndefOr[js.Function1[/* createElement */ CreateElement, VNode]] = js.undefined
+  var renderError: UndefOr[js.Function2[/* h */ js.Function0[VNode], /* err */ Error, VNode]] = js.undefined
+  var staticRenderFns: UndefOr[js.Array[js.Function1[/* createElement */ CreateElement, VNode]]] = js.undefined
+  var template: UndefOr[String] = js.undefined
+  var transitions: UndefOr[StringDictionary[js.Object]] = js.undefined
+  var updated: UndefOr[js.Function0[Unit]] = js.undefined
+  var watch: UndefOr[Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]] = js.undefined
 }
 
 object ComponentOptions {
@@ -79,7 +80,7 @@ object ComponentOptions {
     beforeDestroy: () => Unit = null,
     beforeMount: () => Unit = null,
     beforeUpdate: () => Unit = null,
-    comments: js.UndefOr[Boolean] = js.undefined,
+    comments: `<undefined>` | Boolean = js.undefined,
     components: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])] = null,
     computed: Accessors[Computed] = null,
     created: () => Unit = null,
@@ -98,7 +99,7 @@ object ComponentOptions {
       PropsDefinition[DefaultProps]
     ]) | VueConstructor[Vue] = null,
     filters: StringDictionary[js.Function] = null,
-    inheritAttrs: js.UndefOr[Boolean] = js.undefined,
+    inheritAttrs: `<undefined>` | Boolean = js.undefined,
     inject: InjectOptions = null,
     methods: Methods = null,
     mixins: js.Array[

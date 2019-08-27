@@ -1,5 +1,6 @@
 package typings.angular.angularMod
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +12,7 @@ object Global extends js.Object {
   @js.native
   trait Function extends js.Object {
     @JSName("$inject")
-    var $inject: js.UndefOr[js.Array[String]] = js.native
+    var $inject: UndefOr[js.Array[String]] = js.native
   }
   
 }

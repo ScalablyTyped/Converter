@@ -1,11 +1,12 @@
 package typings.atGoogleDashCloudFirestore.FirebaseFirestore
 
+import org.scalablytyped.runtime.UndefOr
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Settings extends js.Object {
-  var projectId: js.UndefOr[String] = js.undefined
+  var projectId: UndefOr[String] = js.undefined
 }
 
 object Settings {

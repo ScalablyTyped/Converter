@@ -314,14 +314,13 @@ object Printer {
     Seq(
       Comments.format(tree.comments),
       typeAnnotation(formatName(tree.name), indent + 2, tree.tpe, Name.WILDCARD),
-      tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(indent)(d)}"),
+      tree.default.fold("")(d => s" = ${formatTermRef(d)}"),
     ).mkString
 
-  def formatDefaultedTypeRef(indent: Int)(ref: TypeRef): String =
+  def formatTermRef(ref: TermRef): String =
     ref match {
-      case TypeRef.`null`    => "null"
-      case TypeRef.undefined => "js.undefined"
-      case other             => formatTypeRef(indent + 2)(other)
+      case TermRef.`null`    => "null"
+      case TermRef.undefined => "js.undefined"
     }
 
   def formatQN(q: QualifiedName): String =
@@ -360,9 +359,6 @@ object Printer {
 
         case TypeRef.Intersection(types) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
-
-        case TypeRef.UndefOr(tpe) =>
-          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, List(tpe), NoComments))
 
         case TypeRef.Union(types) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "

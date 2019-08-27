@@ -49,12 +49,13 @@ object Name {
   val LITERAL:      Name = Name("<literal>")
   val THIS_TYPE:    Name = Name("<this>")
   val WILDCARD:     Name = Name("<wildcard>")
+  val UNDEFINED:    Name = Name("<undefined>")
   val REPEATED:     Name = Name("*")
 
   def FunctionArity(isThis: Boolean, arity: Int): Name =
     Name((if (isThis) This.unescaped else "") + "Function" + arity.toString)
 
-  val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, WILDCARD, REPEATED, APPLY)
+  val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, WILDCARD, REPEATED, APPLY, UNDEFINED)
 
   implicit val NameSuffix: ToSuffix[Name] = new ToSuffix[Name] {
     override def to(t: Name): Suffix = t match {
@@ -66,6 +67,7 @@ object Name {
       case WILDCARD     => Suffix("Wildcard")
       case REPEATED     => Suffix("Repeated")
       case APPLY        => Suffix("Apply")
+      case UNDEFINED    => Suffix("Undefined")
       case other        => Suffix(other.unescaped)
     }
   }

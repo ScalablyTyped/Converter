@@ -1,5 +1,6 @@
 package typings.vue.typesVnodeMod
 
+import org.scalablytyped.runtime.UndefOr
 import typings.std.Node
 import typings.vue.typesVueMod.Vue
 import scala.scalajs.js
@@ -7,21 +8,21 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait VNode extends js.Object {
-  var children: js.UndefOr[js.Array[VNode]] = js.undefined
-  var componentInstance: js.UndefOr[Vue] = js.undefined
-  var componentOptions: js.UndefOr[VNodeComponentOptions] = js.undefined
-  var context: js.UndefOr[Vue] = js.undefined
-  var data: js.UndefOr[VNodeData] = js.undefined
-  var elm: js.UndefOr[Node] = js.undefined
+  var children: UndefOr[js.Array[VNode]] = js.undefined
+  var componentInstance: UndefOr[Vue] = js.undefined
+  var componentOptions: UndefOr[VNodeComponentOptions] = js.undefined
+  var context: UndefOr[Vue] = js.undefined
+  var data: UndefOr[VNodeData] = js.undefined
+  var elm: UndefOr[Node] = js.undefined
   var isComment: Boolean
   var isRootInsert: Boolean
-  var isStatic: js.UndefOr[Boolean] = js.undefined
-  var key: js.UndefOr[String | Double] = js.undefined
-  var ns: js.UndefOr[String] = js.undefined
-  var parent: js.UndefOr[VNode] = js.undefined
-  var raw: js.UndefOr[Boolean] = js.undefined
-  var tag: js.UndefOr[String] = js.undefined
-  var text: js.UndefOr[String] = js.undefined
+  var isStatic: UndefOr[Boolean] = js.undefined
+  var key: UndefOr[String | Double] = js.undefined
+  var ns: UndefOr[String] = js.undefined
+  var parent: UndefOr[VNode] = js.undefined
+  var raw: UndefOr[Boolean] = js.undefined
+  var tag: UndefOr[String] = js.undefined
+  var text: UndefOr[String] = js.undefined
 }
 
 object VNode {
@@ -35,11 +36,11 @@ object VNode {
     context: Vue = null,
     data: VNodeData = null,
     elm: Node = null,
-    isStatic: js.UndefOr[Boolean] = js.undefined,
+    isStatic: `<undefined>` | Boolean = js.undefined,
     key: String | Double = null,
     ns: String = null,
     parent: VNode = null,
-    raw: js.UndefOr[Boolean] = js.undefined,
+    raw: `<undefined>` | Boolean = js.undefined,
     tag: String = null,
     text: String = null
   ): VNode = {

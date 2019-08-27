@@ -1,15 +1,16 @@
 package typings.node.NodeJS
 
+import org.scalablytyped.runtime.UndefOr
 import typings.node.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait ErrnoException extends Error {
-  var code: js.UndefOr[String] = js.undefined
-  var errno: js.UndefOr[Double] = js.undefined
-  var path: js.UndefOr[String] = js.undefined
-  var syscall: js.UndefOr[String] = js.undefined
+  var code: UndefOr[String] = js.undefined
+  var errno: UndefOr[Double] = js.undefined
+  var path: UndefOr[String] = js.undefined
+  var syscall: UndefOr[String] = js.undefined
 }
 
 object ErrnoException {
