@@ -4,7 +4,7 @@ package transforms
 
 import com.olvind.tso.scalajs.IdentifyReactComponents.{Component, Names}
 
-object CollectReactComponents {
+object GenerateReactComponentsObject {
   /* Let's not torture the scala compiler too much, because there *will* be a revenge
    * in the form of difficult-to-diagnose autoslaying
    */
@@ -30,11 +30,11 @@ object CollectReactComponents {
       val `trait` = {
         val forwarders: Seq[Tree] =
           components
-            .sortBy(_.name.unescaped)
+            .sortBy(_.fullName.unescaped)
             .flatMap {
               case comp if comp.isAbstractProps => Nil
               case comp =>
-                val propsName = Name(comp.name.unescaped + "Props")
+                val propsName = Name(comp.fullName.unescaped + "Props")
                 genPropsRef(scope, comp, traitCodePath, propsName) ++
                   genPropsAlias(scope, comp, traitCodePath, propsName)
             }
@@ -60,7 +60,7 @@ object CollectReactComponents {
           annotations = Nil,
           name        = moduleName,
           parents     = List(TypeRef(traitCodePath)),
-          members     = components.sortBy(_.name.unescaped).map(comp => genComponentRef(comp, moduleCodePath)),
+          members     = components.sortBy(_.fullName.unescaped).map(comp => genComponentRef(comp, moduleCodePath)),
           comments    = comments,
           codePath    = moduleCodePath,
         )
@@ -103,35 +103,35 @@ object CollectReactComponents {
         scope.lookup(propsType.typeName).collectFirst {
           case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
             MethodTree(
-              Annotation.Inline :: Nil,
-              ProtectionLevel.Default,
-              propsName,
-              Nil,
-              Nil,
-              MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
-              TypeRef.Singleton(propsType.copy(targs = Nil)),
-              isOverride = false,
-              NoComments,
-              moduleCodePath + propsName,
+              annotations = Annotation.Inline :: Nil,
+              level       = ProtectionLevel.Default,
+              name        = propsName,
+              tparams     = Nil,
+              params      = Nil,
+              impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
+              resultType  = TypeRef.Singleton(propsType.copy(targs = Nil)),
+              isOverride  = false,
+              comments    = NoComments,
+              codePath    = moduleCodePath + propsName,
             )
         },
     )
 
   def genComponentRef(comp: Component, moduleCodePath: QualifiedName): MethodTree = {
-    val ret = TypeRef(Names.ComponentType, comp.props.getOrElse(TypeRef.Object) :: Nil, NoComments)
+    val retType = TypeRef(Names.ComponentType, comp.props.getOrElse(TypeRef.Object) :: Nil, NoComments)
     MethodTree(
-      Annotation.Inline :: Nil,
-      ProtectionLevel.Default,
-      comp.name,
-      comp.tparams,
-      Nil,
-      MemberImpl.Custom(
-        s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(ret)}]",
+      annotations = Annotation.Inline :: Nil,
+      level       = ProtectionLevel.Default,
+      name        = comp.fullName,
+      tparams     = comp.tparams,
+      params      = Nil,
+      impl = MemberImpl.Custom(
+        s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(retType)}]",
       ),
-      ret,
+      resultType = retType,
       isOverride = false,
-      NoComments,
-      moduleCodePath + comp.name,
+      comments   = NoComments,
+      codePath   = moduleCodePath + comp.fullName,
     )
   }
 }

@@ -68,7 +68,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.CollectReactComponents(s, tree)),
+              Adapter(scope)((tree, s) => S.GenerateReactComponentsObject(s, tree)),
             )
 
             val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger, importName)) {
