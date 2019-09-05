@@ -14,6 +14,7 @@ object IdentifyReactComponents {
   }
 
   final case class Component(
+      prefix:           List[Name],
       name:             Name,
       tparams:          Seq[TypeParamTree],
       props:            Option[TypeRef],
@@ -24,7 +25,8 @@ object IdentifyReactComponents {
       componentMembers: Seq[MemberTree],
       knownRef:         Option[TypeRef],
   ) {
-    def ref = TypeRef(scalaLocation, TypeParamTree.asTypeArgs(tparams), NoComments)
+    val ref      = TypeRef(scalaLocation, TypeParamTree.asTypeArgs(tparams), NoComments)
+    val fullName = Name(prefix.map(_.unescaped).mkString("") + name.unescaped)
   }
 
   object Component {
@@ -76,10 +78,10 @@ object IdentifyReactComponents {
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
   def limited(scope: TreeScope, tree: ContainerTree): Seq[Component] =
     all(scope, tree)
-      .groupBy(_.name)
+      .groupBy(_.fullName)
       .map { case (_, sameName) => sameName.max }
       .to[Seq]
-      .sortBy(_.name)
+      .sortBy(_.fullName)
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
@@ -118,7 +120,8 @@ object IdentifyReactComponents {
             compName <- componentName(method.annotations, QualifiedName(method.name :: Nil), method.comments)
           } yield
             Component(
-              compName,
+              prefix           = extractPrefix(scope),
+              name             = compName,
               tparams          = method.tparams,
               props            = propsTypeOpt,
               scalaLocation    = method.codePath,
@@ -131,6 +134,11 @@ object IdentifyReactComponents {
       case _ => None
     }
   }
+
+  private def extractPrefix(scope: TreeScope) =
+    scope.stack.collect {
+      case x: ModuleTree if !Unnamed(x.name) => x.name
+    }.reverse
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
@@ -154,10 +162,11 @@ object IdentifyReactComponents {
     for {
       tr <- pointsAtComponentType(scope, tree.tpe)
       props = tr.targs.head
-      name <- componentName(owner.annotations, QualifiedName(tree.name :: Nil), tree.comments)
+      compName <- componentName(owner.annotations, QualifiedName(tree.name :: Nil), tree.comments)
     } yield
       Component(
-        name             = name,
+        prefix           = extractPrefix(scope),
+        name             = compName,
         tparams          = Nil,
         props            = Some(props).filterNot(_ === TypeRef.Object),
         scalaLocation    = tree.codePath,
@@ -173,11 +182,12 @@ object IdentifyReactComponents {
     if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, props +: _, _), _) if Names.isComponent(qname) =>
+        case (TypeRef(qname, props +: _, _), _) if Names isComponent qname =>
           componentName(cls.annotations, cls.codePath, cls.comments).map(
             compName =>
               Component(
-                compName,
+                prefix          = extractPrefix(scope),
+                name            = compName,
                 tparams         = cls.tparams,
                 props           = Some(props).filterNot(_ === TypeRef.Object),
                 scalaLocation   = cls.codePath,
@@ -197,7 +207,7 @@ object IdentifyReactComponents {
       case Name.Default | Name.namespaced =>
         None
       case other =>
-        Some(Annotation.realName(annotations, other))
+        Some(other)
     }
 
     val fromAnnotation: Option[Name] =
