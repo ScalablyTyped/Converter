@@ -15,7 +15,9 @@ object ConstructObjectOfType {
   implicit val ParamOrdering: Ordering[Param] =
     Ordering.by((p: Param) => (p.isOptional, p.parameter.name))
 
-  def apply(cls: ClassTree, _scope: TreeScope)(_handleMember: (TreeScope, MemberTree) => Param): Seq[Param] = {
+  def apply(cls:     ClassTree, _scope: TreeScope, maxNum: Int = MaxParamsForMethod)(
+      _handleMember: (TreeScope, MemberTree) => Option[Param],
+  ): Seq[Param] = {
     val scope = _scope / cls
 
     val parents = ParentsResolver(scope, cls)
@@ -30,21 +32,35 @@ object ConstructObjectOfType {
 
     val clsRef = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments)
 
-    def handleMember(member: MemberTree): Param =
+    def handleMember(member: MemberTree): Option[Param] =
       _handleMember(scope, TypeRewriter(Map(TypeRef.ThisType(NoComments) -> clsRef)).visitMemberTree(scope)(member))
 
     def go(p: ParentsResolver.Parent): Map[Name, Param] =
       p.parents.flatMap(go).toMap ++ p.classTree.index
-        .mapNotNone(ms => ms.collectFirst { case m: MemberTree => handleMember(m) })
+        .mapNotNone(
+          ms =>
+            ms.firstDefined {
+              case m: MemberTree => handleMember(m)
+              case _ => None
+            },
+        )
 
     val builder = Builder(
       keptDirectParents.map(p => p -> go(p)).toMap,
       parents.unresolved ++ treatAsUnresolved,
-      cls.index.mapNotNone(ms => ms.collectFirst { case m: MemberTree => handleMember(m) }).toSorted,
+      cls.index
+        .mapNotNone(
+          ms =>
+            ms.firstDefined {
+              case m: MemberTree => handleMember(m)
+              case _ => None
+            },
+        )
+        .toSorted,
     )
 
     builder
-      .skipParentInlineIfMoreMembersThan(MaxParamsForMethod) { parent =>
+      .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
         val isRequired = parent.classTree.members.exists {
           case _: MethodTree => true
           case FieldTree(_, _, Nullable(_), _, _, _, _, _) => false

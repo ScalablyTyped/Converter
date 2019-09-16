@@ -18,6 +18,5 @@ object FollowAliases {
               apply(newScope)(FillInTParams(ta, scope, ref.targs, Nil).alias)
           }
           .getOrElse(ref)
-      case other => other
     }
 }
