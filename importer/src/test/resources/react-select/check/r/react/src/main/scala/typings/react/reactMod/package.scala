@@ -9,4 +9,5 @@ package object reactMod {
   type Key = String | Double
   type ReactNode = js.UndefOr[String | Double | Boolean]
   type SFC[P] = StatelessComponent[P]
+  type SVGAttributes[T] = DOMAttributes[T]
 }
