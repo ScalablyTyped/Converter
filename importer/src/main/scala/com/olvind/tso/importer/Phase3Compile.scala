@@ -12,7 +12,7 @@ import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
 import com.olvind.tso.sets.SetOps
-import com.olvind.tso.ts.TsIdentLibrary
+import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
@@ -139,6 +139,14 @@ class Phase3Compile(
             val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
             val resources     = ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
 
+            val involvesReact = {
+              val react = TsIdentLibrarySimple("react")
+              source.libName === react || deps.exists { case (s, _) => s.libName === react }
+            }
+
+            val externalDeps: Set[FacadeJson.Dep] =
+              if (involvesReact) Set(FacadeJson.Dep("me.shadaj", "slinky-web", "0.6.2")) else Set()
+
             val sbtLayout = ContentSbtProject(
               v               = versions,
               comments        = lib.packageTree.comments,
@@ -147,7 +155,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = Set(),
+              facadeDeps      = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
               projectName     = projectName,
@@ -158,7 +166,7 @@ class Phase3Compile(
             go(
               logger             = logger,
               deps               = deps,
-              externalDeps       = Set(),
+              externalDeps       = externalDeps,
               source             = source,
               name               = lib.libName,
               sbtLayout          = sbtLayout,
