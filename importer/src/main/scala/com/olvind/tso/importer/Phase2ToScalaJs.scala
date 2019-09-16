@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
-import com.olvind.tso.ts.TsIdentLibrary
+import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
 import scala.collection.immutable.SortedSet
 
@@ -52,6 +52,11 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               }
             }
 
+            val involvesReact: Boolean = {
+              val react = TsIdentLibrarySimple("react")
+              source.libName === react || scalaDeps.exists(_._1.libName === react)
+            }
+
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
@@ -68,7 +73,12 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.GenerateReactComponentsObject(s, tree)),
+              Adapter(scope) { (tree, s) =>
+                if (involvesReact) {
+                  val newTree = S.GenerateReactComponentsObject(s, tree)
+                  S.SlinkyComponents(s, newTree)
+                } else tree
+              },
             )
 
             val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger, importName)) {

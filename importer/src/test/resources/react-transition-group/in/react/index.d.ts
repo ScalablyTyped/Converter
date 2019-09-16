@@ -76,6 +76,9 @@ declare namespace React {
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
     }
 
+    interface SVGAttributes<T> extends DOMAttributes<T> {
+    }
+
     type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
 
     interface SVGProps<T> extends ClassAttributes<T> {
