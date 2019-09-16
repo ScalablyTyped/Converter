@@ -218,6 +218,7 @@ object TypeRef {
   val Symbol       = TypeRef(QualifiedName.Symbol, Nil, NoComments)
   val Unit         = TypeRef(QualifiedName.Unit, Nil, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Nil, NoComments)
+  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
 
   val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
   val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)

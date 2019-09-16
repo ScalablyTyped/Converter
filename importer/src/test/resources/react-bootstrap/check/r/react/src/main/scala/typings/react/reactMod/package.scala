@@ -10,4 +10,5 @@ package object reactMod {
   type ReactNode = js.UndefOr[String | Double | Boolean]
   type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
   type SFC[P] = StatelessComponent[P]
+  type SVGAttributes[T] = DOMAttributes[T]
 }
