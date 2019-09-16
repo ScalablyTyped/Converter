@@ -12,5 +12,6 @@ package object reactMod {
   type ReactType[P] = String | ComponentType[P]
   type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
   type SFC[P] = StatelessComponent[P]
+  type SVGAttributes[T] = DOMAttributes[T]
   type SVGProps[T] = ClassAttributes[T]
 }

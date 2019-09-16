@@ -44,6 +44,9 @@ declare namespace React {
         value: "foo"
     }
 
+    interface SVGAttributes<T> extends DOMAttributes<T> {
+    }
+
     type ComponentState = {};
     type SFC<P = {}> = StatelessComponent<P>;
     type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
