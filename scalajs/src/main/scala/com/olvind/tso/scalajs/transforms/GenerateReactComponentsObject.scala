@@ -2,7 +2,7 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import com.olvind.tso.scalajs.IdentifyReactComponents.{Component, Names}
+import com.olvind.tso.scalajs.IdentifyReactComponents.Component
 
 object GenerateReactComponentsObject {
   /* Let's not torture the scala compiler too much, because there *will* be a revenge
@@ -109,7 +109,7 @@ object GenerateReactComponentsObject {
       case None     => comp.props getOrElse TypeRef.Object
     }
 
-    val retType = TypeRef(Names.ComponentType, List(shortenedProps), NoComments)
+    val retType = TypeRef(QualifiedName.React.ComponentType, List(shortenedProps), NoComments)
     MethodTree(
       annotations = Annotation.Inline :: Nil,
       level       = ProtectionLevel.Default,
