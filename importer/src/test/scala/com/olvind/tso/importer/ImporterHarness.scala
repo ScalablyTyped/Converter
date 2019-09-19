@@ -39,6 +39,7 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
+      reactBinding:  Option[ReactBinding],
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
@@ -51,7 +52,7 @@ trait ImporterHarness extends FunSuiteLike {
         .next(
           new Phase1ReadTypescript(
             resolve,
-            new CalculateLibraryVersion(lastChangedIndex, "test"),
+            Option(new CalculateLibraryVersion(lastChangedIndex, "test")),
             Set.empty,
             stdLibSource,
             pedantic,
@@ -59,7 +60,7 @@ trait ImporterHarness extends FunSuiteLike {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic, reactBinding), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -72,6 +73,7 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             metadataFetcher = Npmjs.No,
             softWrites      = false,
+            reactBinding    = reactBinding,
           ),
           "build",
         )
@@ -85,7 +87,12 @@ trait ImporterHarness extends FunSuiteLike {
     )
   }
 
-  def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean): Assertion = {
+  def assertImportsOk(
+      testName:     String,
+      pedantic:     Boolean,
+      update:       Boolean,
+      reactBinding: Option[ReactBinding] = None,
+  ): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
       case other =>
@@ -105,7 +112,7 @@ trait ImporterHarness extends FunSuiteLike {
 
     val publishFolder = os.root / 'tmp / "tso-published-tests" / testName
 
-    runImport(source, targetFolder, pedantic, logRegistry, publishFolder) match {
+    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, reactBinding) match {
       case PhaseRes.Ok(_) =>
         implicit val wd = os.pwd
 
@@ -116,6 +123,9 @@ trait ImporterHarness extends FunSuiteLike {
         }
 
         if (update) {
+          if (!os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
+            fail("There is nothing to copy from target into check, something failed upstream")
+          }
           os.remove.all(checkFolder)
           os.copy(targetFolder, checkFolder)
           GitLock.synchronized(%("git", "add", checkFolder))
@@ -132,6 +142,9 @@ trait ImporterHarness extends FunSuiteLike {
       case PhaseRes.Failure(errors) =>
         if (update) {
           implicit val wd = os.pwd
+          if (os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
+            fail("There is nothing to copy from target into check, something failed upstream")
+          }
           os.remove.all(checkFolder)
           os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
