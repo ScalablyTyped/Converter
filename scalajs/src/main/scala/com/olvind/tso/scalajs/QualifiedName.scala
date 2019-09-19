@@ -69,6 +69,40 @@ object QualifiedName {
     val Symbol:        QualifiedName = std + Name.Symbol
   }
 
+  object React {
+    val mod = QualifiedName(List(ScalaConfig.outputPkg, Name("react"), Name("reactMod")))
+
+    val ReactNode         = mod + Name("ReactNode")
+    val ReactElement      = mod + Name("ReactElement")
+    val ReactType         = mod + Name("ReactType")
+    val AllHTMLAttributes = mod + Name("AllHTMLAttributes")
+    val SVGAttributes     = mod + Name("SVGAttributes")
+    val Component         = mod + Name("Component")
+    val ComponentType     = mod + Name("ComponentType")
+
+    val ComponentNames: Set[String] =
+      Set(
+        "ClassicComponent",
+        "ClassicComponentClass",
+        "Component",
+        "ComponentClass",
+        "ComponentType",
+        "ExoticComponent",
+        "FC",
+        "FunctionComponent",
+        "LazyExoticComponent",
+        "MemoExoticComponent",
+        "NamedExoticComponent",
+        "ProviderExoticComponent",
+        "PureComponent",
+        "RefForwardingComponent",
+        "SFC",
+        "StatelessComponent",
+      )
+
+    val isComponent: Set[QualifiedName] = ComponentNames.map(mod + Name(_))
+  }
+
   def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")
   def FunctionArity(isThis:     Boolean, arity: Int): QualifiedName = scala_js + Name.FunctionArity(isThis, arity)
   def ScalaFunctionArity(arity: Int): QualifiedName = scala + Name.FunctionArity(isThis = false, arity)

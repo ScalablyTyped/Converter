@@ -10,67 +10,78 @@ import com.olvind.tso.seqs._
 import scala.collection.mutable
 
 object SlinkyComponents {
-  val Slinky                   = Name("Slinky")
-  val Props                    = Name("Props")
-  val Element                  = Name("Element")
-  val RefType                  = Name("RefType")
-  val component                = Name("component")
-  val ref                      = Name("ref")
-  val Ignore                   = Set(Name("key"), Name("children"))
-  val SlinkyCore               = QualifiedName(List(Name("slinky"), Name("core")))
-  val ExternalComponentProps   = SlinkyCore + Name("ExternalComponentWithAttributesWithRefType")
-  val ExternalComponentNoProps = SlinkyCore + Name("ExternalComponentNoPropsWithAttributesWithRefType")
-  val BuildingComponent        = SlinkyCore + Name("BuildingComponent")
-  val TagElement               = SlinkyCore + Name("TagElement")
-  val SlinkyCoreFacade         = SlinkyCore + Name("facade")
-  val SlinkyWeb                = QualifiedName(List(Name("slinky"), Name("web")))
-  val SlinkyWebSvg             = SlinkyWeb + Name("svg")
-  val SlinkyWebHtml            = SlinkyWeb + Name("html")
+  val IgnoredProps = Set(Name("key"), Name("children"))
 
-  val ExternalComponentPropsCls = ClassTree(
-    Nil,
-    ExternalComponentProps.parts.last,
-    Seq(
-      TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
-      TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
-    ),
-    Nil,
-    Nil,
-    List(
-      TypeAliasTree(Props, Nil, TypeRef.Any, NoComments, ExternalComponentProps + Props),
-      TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentProps + Element),
-      TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentProps + RefType),
-    ),
-    ClassType.Class,
-    isSealed = false,
-    NoComments,
-    ExternalComponentProps,
-  )
+  object slinky {
+    val Slinky    = Name("Slinky")
+    val Props     = Name("Props")
+    val Element   = Name("Element")
+    val RefType   = Name("RefType")
+    val component = Name("component")
 
-  val ExternalComponentNoPropsCls = ClassTree(
-    Nil,
-    ExternalComponentNoProps.parts.last,
-    Seq(
-      TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
-      TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
-    ),
-    Nil,
-    Nil,
-    List(
-      TypeAliasTree(Props, Nil, TypeRef.Any, NoComments, ExternalComponentNoProps + Props),
-      TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentNoProps + Element),
-      TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentNoProps + RefType),
-    ),
-    ClassType.Class,
-    isSealed = false,
-    NoComments,
-    ExternalComponentNoProps,
-  )
+    val slinky                   = QualifiedName(List(Name("slinky")))
+    val slinkyCore               = slinky + Name("core")
+    val ReactComponentClass      = slinkyCore + Name("ReactComponentClass")
+    val TagMod                   = slinkyCore + Name("TagMod")
+    val ExternalComponentProps   = slinkyCore + Name("ExternalComponentWithAttributesWithRefType")
+    val ExternalComponentNoProps = slinkyCore + Name("ExternalComponentNoPropsWithAttributesWithRefType")
+    val BuildingComponent        = slinkyCore + Name("BuildingComponent")
+    val TagElement               = slinkyCore + Name("TagElement")
+    val SlinkyCoreFacade         = slinkyCore + Name("facade")
+    val ReactElement             = SlinkyCoreFacade + Name("ReactElement")
+    val slinkyWeb                = slinky + Name("web")
+    val slinkyWebSvg             = slinkyWeb + Name("svg")
+    val slinkyWebHtml            = slinkyWeb + Name("html")
+  }
+
+  /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
+  object classDefs {
+    import slinky._
+
+    val ExternalComponentPropsCls = ClassTree(
+      Nil,
+      ExternalComponentProps.parts.last,
+      Seq(
+        TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
+        TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
+      ),
+      Nil,
+      Nil,
+      List(
+        TypeAliasTree(Props, Nil, TypeRef.Any, NoComments, ExternalComponentProps + Props),
+        TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentProps + Element),
+        TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentProps + RefType),
+      ),
+      ClassType.Class,
+      isSealed = false,
+      NoComments,
+      ExternalComponentProps,
+    )
+
+    val ExternalComponentNoPropsCls = ClassTree(
+      Nil,
+      ExternalComponentNoProps.parts.last,
+      Seq(
+        TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
+        TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
+      ),
+      Nil,
+      Nil,
+      List(
+        TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentNoProps + Element),
+        TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentNoProps + RefType),
+      ),
+      ClassType.Class,
+      isSealed = false,
+      NoComments,
+      ExternalComponentNoProps,
+    )
+  }
 
   def SlinkyElement(isSvg: Boolean, name: String): TypeRef =
     TypeRef.Singleton(
       TypeRef(
-        (if (isSvg) SlinkyWebSvg else SlinkyWebHtml) + Name(name) + Name("tag"),
+        (if (isSvg) slinky.slinkyWebSvg else slinky.slinkyWebHtml) + Name(name) + Name("tag"),
         Nil,
         NoComments,
       ),
@@ -79,22 +90,12 @@ object SlinkyComponents {
   val AnyHtmlElement: TypeRef = SlinkyElement(isSvg = false, "*")
   val AnySvgElement:  TypeRef = SlinkyElement(isSvg = true, "*")
 
-  def React(name: String, tparams: Seq[TypeRef] = Nil): QualifiedName =
-    QualifiedName(List(ScalaConfig.outputPkg, Name("react"), Name("reactMod"), Name(name)))
-
-  val ReactNode         = React("ReactNode")
-  val ReactElement      = React("ReactElement")
-  val ReactType         = React("ReactType")
-  val AllHTMLAttributes = React("AllHTMLAttributes")
-  val SVGAttributes     = React("SVGAttributes")
-
   val SlinkyReplacements: TypeRef => TypeRef = {
-    case TypeRef(ReactNode, _, cs)    => TypeRef(SlinkyCore + Name("TagMod"), List(TypeRef.ScalaAny), cs)
-    case TypeRef(ReactElement, _, cs) => TypeRef(SlinkyCoreFacade + Name("ReactElement"), Nil, cs)
-    case TypeRef(ReactType, Seq(one), cs) =>
-      TypeRef(SlinkyCore + Name("ReactComponentClass"), Seq(one), cs)
-    case TypeRef(name, targs, cs) if IdentifyReactComponents.Names.isComponent(name) =>
-      TypeRef(SlinkyCore + Name("ReactComponentClass"), targs.take(1), cs)
+    case TypeRef(QualifiedName.React.ReactNode, _, cs)        => TypeRef(slinky.TagMod, List(TypeRef.ScalaAny), cs)
+    case TypeRef(QualifiedName.React.ReactElement, _, cs)     => TypeRef(slinky.ReactElement, Nil, cs)
+    case TypeRef(QualifiedName.React.ReactType, Seq(one), cs) => TypeRef(slinky.ReactComponentClass, Seq(one), cs)
+    case TypeRef(name, targs, cs) if QualifiedName.React.isComponent(name) =>
+      TypeRef(slinky.ReactComponentClass, targs.take(1), cs)
     case other => other
   }
 
@@ -104,19 +105,20 @@ object SlinkyComponents {
   def apply(_scope: TreeScope, tree: ContainerTree): ContainerTree = {
     val scope = _scope / tree
 
-    val domFields: Map[Name, TypeRef] = fieldsFor(scope, AllHTMLAttributes) ++ fieldsFor(scope, SVGAttributes)
+    val domFields: Map[Name, TypeRef] = fieldsFor(scope, QualifiedName.React.AllHTMLAttributes) ++
+      fieldsFor(scope, QualifiedName.React.SVGAttributes)
 
     val allComponents: Seq[Component] =
       IdentifyReactComponents.oneOfEach(scope, tree)
 
-    val slinkyModCp = tree.codePath + Slinky
+    val slinkyModCp = tree.codePath + slinky.Slinky
 
     val slinkyMembers = allComponents.flatMap { c =>
       val componentCp = slinkyModCp + c.fullName
 
       val componentField = FieldTree(
         Nil,
-        component,
+        slinky.component,
         TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
         MemberImpl.Custom(
           Component.formatReferenceTo(stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
@@ -124,12 +126,12 @@ object SlinkyComponents {
         isReadOnly = true,
         isOverride = true,
         NoComments,
-        componentCp + component,
+        componentCp + slinky.component,
       )
       val props = c.props getOrElse TypeRef.Object
 
       def propsAlias(props: TypeRef) =
-        TypeAliasTree(Props, Nil, stripTargs(props), NoComments, componentCp + Props)
+        TypeAliasTree(slinky.Props, Nil, stripTargs(props), NoComments, componentCp + slinky.Props)
 
       scope lookup FollowAliases(scope)(props).typeName firstDefined {
         case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
@@ -141,7 +143,7 @@ object SlinkyComponents {
             case (scope, fieldTree: FieldTree) =>
               val isDom = domFields.get(fieldTree.name) match {
                 case Some(tpe) =>
-                  fieldTree.tpe match {
+                  FollowAliases(scope)(fieldTree.tpe) match {
                     case Nullable(ftpe) => ftpe.typeName === tpe.typeName
                     case ftpe           => ftpe.typeName === tpe.typeName
                   }
@@ -157,22 +159,22 @@ object SlinkyComponents {
             case params =>
               val domType = domParams
                 .firstDefined {
-                  case FieldTree(_, _, TypeRef(typeName, Seq(elemType), _), _, _, _, _, _)
-                      if typeName.parts.last.unescaped.endsWith("Event") =>
-                    ElementMapping.get(elemType.name.unescaped)
+                  case FieldTree(_, _, TypeRef(typeName, tparams, _), _, _, _, _, _)
+                      if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
+                    ElementMapping.get(tparams.head.name.unescaped)
                   case _ => None
                 }
                 .getOrElse(AnyHtmlElement)
 
               val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
-                { case Param(ParamTree(`ref`, tpe, _, _), _, _)                      => tpe },
-                { case Param(ParamTree(propName, _, _, _), _, _) if Ignore(propName) => () },
-                { case Param(p, _, Right(f))                                         => p -> f },
-                { case Param(p, _, Left(str))                                        => p -> str },
+                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
+                { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
+                { case Param(p, _, Right(f))                                               => p -> f },
+                { case Param(p, _, Left(str))                                              => p -> str },
               )
 
               def genApply(elem: TypeRef, ref: TypeRef) = {
-                val ret  = TypeRef(BuildingComponent, List(elem, ref), NoComments)
+                val ret  = TypeRef(slinky.BuildingComponent, List(elem, ref), NoComments)
                 val cast = if (ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
 
                 MethodTree(
@@ -198,10 +200,10 @@ object SlinkyComponents {
                 c.props match {
                   case Some(props) =>
                     (
-                      TypeRef(ExternalComponentProps, List(domType, refType), NoComments),
+                      TypeRef(slinky.ExternalComponentProps, List(domType, refType), NoComments),
                       List(genApply(domType, refType), propsAlias(props)),
                     )
-                  case None => (TypeRef(ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+                  case None => (TypeRef(slinky.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
                 }
               }
 
@@ -232,8 +234,11 @@ object SlinkyComponents {
             val domType = AnyHtmlElement
             c.props match {
               case Some(props) =>
-                (TypeRef(ExternalComponentProps, List(domType, refType), NoComments), List(propsAlias(props)))
-              case None => (TypeRef(ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+                (
+                  TypeRef(slinky.ExternalComponentProps, List(domType, refType), NoComments),
+                  List(propsAlias(props)),
+                )
+              case None => (TypeRef(slinky.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
             }
           }
 
@@ -252,8 +257,9 @@ object SlinkyComponents {
     }
 
     slinkyMembers match {
-      case Nil      => tree
-      case nonEmpty => tree.withMembers(tree.members :+ PackageTree(Nil, Slinky, nonEmpty, NoComments, slinkyModCp))
+      case Nil => tree
+      case nonEmpty =>
+        tree.withMembers(tree.members :+ PackageTree(Nil, slinky.Slinky, nonEmpty, NoComments, slinkyModCp))
     }
   }
 
@@ -263,8 +269,8 @@ object SlinkyComponents {
       .collectFirst {
         case (x: ClassTree, newScope) =>
           ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-            case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> tpe
-            case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> tpe
+            case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+            case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
           }
       }
       .fold(Map.empty[Name, TypeRef])(_.toMap)
