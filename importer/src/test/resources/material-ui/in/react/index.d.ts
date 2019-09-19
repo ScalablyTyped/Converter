@@ -31,4 +31,30 @@ declare namespace React {
         displayName?: string;
     }
 
+    interface DOMAttributes<T> {
+        children?: ReactNode;
+        dangerouslySetInnerHTML?: {
+            __html: string;
+        };
+    }
+
+    interface HTMLAttributes<T> extends DOMAttributes<T> {
+        defaultChecked?: boolean;
+    }
+
+    interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
+        accept?: string;
+        acceptCharset?: string;
+    }
+
+    interface HTMLProps<T> extends AllHTMLAttributes<T>{
+        onChange: "foo"
+        defaultValue: "foo"
+        type: "foo"
+        value: "foo"
+    }
+
+    interface SVGAttributes<T> extends DOMAttributes<T> {
+    }
+
 }

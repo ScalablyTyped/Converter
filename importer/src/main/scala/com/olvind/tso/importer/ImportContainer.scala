@@ -12,8 +12,8 @@ object ImportContainer {
       case _: TsDeclVar       => true
       case _: TsDeclFunction  => true
       case x: TsDeclNamespace => canBeCompact(x.members)
-      case TsDeclTypeAlias(cs, _, _, _, _, _) if cs.extract { case Markers.IsTrivial => () }.nonEmpty => true
-      case _ => false
+      case TsDeclTypeAlias(cs, _, _, _, _, _) if cs has Markers.IsTrivial => true
+      case _                                                              => false
     }
 
   private def allTypes(members: Seq[TsContainerOrDecl]): Boolean =

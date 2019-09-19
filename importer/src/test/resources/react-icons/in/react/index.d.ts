@@ -49,6 +49,15 @@ declare namespace React {
         defaultChecked?: boolean;
     }
 
+    interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
+        accept?: string;
+        acceptCharset?: string;
+    }
+
+    interface HTMLAttributes<T> extends DOMAttributes<T> {
+        defaultChecked?: boolean;
+    }
+
     interface SVGProps<T> extends ClassAttributes<T> {
     }
 

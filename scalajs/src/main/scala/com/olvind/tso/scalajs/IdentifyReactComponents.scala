@@ -76,7 +76,7 @@ object IdentifyReactComponents {
   }
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
-  def limited(scope: TreeScope, tree: ContainerTree): Seq[Component] =
+  def oneOfEach(scope: TreeScope, tree: ContainerTree): Seq[Component] =
     all(scope, tree)
       .groupBy(_.fullName)
       .map { case (_, sameName) => sameName.max }
@@ -135,9 +135,11 @@ object IdentifyReactComponents {
     }
   }
 
-  private def extractPrefix(scope: TreeScope) =
+  private def extractPrefix(scope: TreeScope): List[Name] =
     scope.stack.collect {
-      case x: ModuleTree if !Unnamed(x.name) => x.name
+      case x: ModuleTree if x.name.value.endsWith("NS") && x.name.value != "defaultNS" =>
+        Name(x.name.unescaped.dropRight(2))
+      case x: ModuleTree if !Unnamed(x.name) && !x.name.value.endsWith("Mod") => x.name
     }.reverse
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
