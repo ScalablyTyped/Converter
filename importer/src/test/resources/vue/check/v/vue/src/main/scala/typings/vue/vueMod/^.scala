@@ -1,4 +1,4 @@
-package typings.vue
+package typings.vue.vueMod
 
 import typings.vue.typesVueMod.Vue
 import typings.vue.typesVueMod.VueConstructor
@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("vue", JSImport.Namespace)
 @js.native
-object vueMod extends js.Object {
+object ^ extends js.Object {
   val default: VueConstructor[Vue] = js.native
 }
 

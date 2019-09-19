@@ -214,7 +214,7 @@ object IdentifyReactComponents {
 
     val fromAnnotation: Option[Name] =
       annotations.collectFirst {
-        case Annotation.JsImport(_, Imported.Named(name)) if !Unnamed(name) => name
+        case Annotation.JsImport(_, Imported.Named(names)) if !Unnamed(names.last) => names.last
         case Annotation.JsImport(mod, _) =>
           val fragment =
             mod

@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "stylis"
-version := "0.0-unknown-1b5f04"
-scalaVersion := "2.12.9"
+version := "0.0-unknown-c27f22"
+scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-0ebaf1")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-d299f9")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

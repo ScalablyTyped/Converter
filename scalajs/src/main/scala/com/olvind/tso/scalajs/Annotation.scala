@@ -9,7 +9,7 @@ sealed trait Imported
 object Imported {
   case object Namespace extends Imported
   case object Default extends Imported
-  case class Named(name: Name) extends Imported
+  case class Named(name: Seq[Name]) extends Imported
 }
 
 object Annotation {
@@ -56,8 +56,8 @@ object Annotation {
 
   def realName(anns: Seq[Annotation], fallback: Name): Name =
     anns collectFirst {
-      case JsName(name)                      => name
-      case JsImport(_, Imported.Named(name)) => name
-      case JsGlobal(qname)                   => qname.parts.last
+      case JsName(name)                       => name
+      case JsImport(_, Imported.Named(names)) => names.last
+      case JsGlobal(qname)                    => qname.parts.last
     } getOrElse fallback
 }
