@@ -16,6 +16,7 @@ For development you'll always use "debug mode".
 | option | description |
 | --- | --- |
 | `-conserveSpace`    | The CI server (and perhaps your developer laptop) doesn't have much hard drive space. This thins out the `node_modules` folder resulting from installing all the libraries outside DefinitelyTyped and keeps only what we need
+| `-debugMode`        | Force debugMode
 | `-demoSet`          | Adds the set of all libraries used in the [demos](https://github.com/oyvindberg/ScalablyTypedDemos/)
 | `-dontCleanProject` | Normally the CI build aggressively resets the ScalablyTyped git repo. Enabling this will skip that
 | `-enableParseCache` | The Typescript parser is somewhat slow. Enabling this uses java serialization to cache when possible 
