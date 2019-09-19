@@ -2,7 +2,7 @@ import scala.sys.process.stringToProcess
 
 val baseSettings: Project => Project =
   _.settings(
-    scalaVersion := "2.12.9",
+    scalaVersion := "2.12.10",
     organization := "com.olvind",
     version := "0.1-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
