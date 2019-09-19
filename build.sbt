@@ -2,13 +2,16 @@ import scala.sys.process.stringToProcess
 
 val baseSettings: Project => Project =
   _.settings(
-    scalaVersion := "2.12.9",
+    scalaVersion := "2.12.10",
     organization := "com.olvind",
     version := "0.1-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings")
-    ))
+    )),
+    /* disable scaladoc */
+    sources in (Compile,doc) := Seq.empty,
+    publishArtifact in (Compile, packageDoc) := false
   )
 
 val utils = project
@@ -54,3 +57,17 @@ val importer = project
     fork in Test := true,
     testOptions in Test += Tests.Argument("-P4")
   )
+
+val `sbt-tso` = project
+  .dependsOn(importer)
+  .enablePlugins(ScriptedPlugin)
+  .configure(baseSettings)
+  .settings(
+    sbtPlugin := true,
+    name := "sbt-tso",
+    // set up 'scripted; sbt plugin for testing sbt plugins
+    scriptedBufferLog := false,
+    scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
+    watchSources       ++= { (sourceDirectory.value ** "*").get },
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6")
+)
