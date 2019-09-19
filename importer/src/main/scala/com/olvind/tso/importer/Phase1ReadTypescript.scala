@@ -12,9 +12,20 @@ import com.olvind.tso.ts.{transforms => T, _}
 
 import scala.collection.immutable.SortedMap
 
+/**
+  * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
+  * For instance defaulted parameters are filled in. The point is to go from a complex tree to a simpler tree
+  *
+  * @param resolve
+  * @param calculateLibraryVersion
+  * @param ignored
+  * @param stdlibSource
+  * @param pedantic
+  * @param parser
+  */
 class Phase1ReadTypescript(
     resolve:                 LibraryResolver,
-    calculateLibraryVersion: CalculateLibraryVersion,
+    calculateLibraryVersion: Option[CalculateLibraryVersion],
     ignored:                 Set[String],
     stdlibSource:            Source,
     pedantic:                Boolean,
@@ -183,15 +194,17 @@ class Phase1ReadTypescript(
 
               logger.warn(s"Processing ${source.libName}")
               val finished = Phase1ReadTypescript
-                .Pipeline(scope, source.libName, enableExpandTypeMappings, enableExpandCallables = !involvesReact)
+                .Pipeline(scope, source.libName, enableExpandTypeMappings, involvesReact)
                 .foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
-              val version = calculateLibraryVersion(
-                source.folder,
-                source.isInstanceOf[Source.StdLibSource],
-                libParts.keys.map(_.file).to[Seq],
-                source.packageJsonOpt,
-                finished.comments,
+              val version = calculateLibraryVersion.fold(LibraryVersion(None, None, ""))(
+                _(
+                  source.folder,
+                  source.isInstanceOf[Source.StdLibSource],
+                  libParts.keys.map(_.file).to[Seq],
+                  source.packageJsonOpt,
+                  finished.comments,
+                ),
               )
 
               LibTs(source)(version, finished, deps, facades)
@@ -206,7 +219,7 @@ object Phase1ReadTypescript {
       scope:                    TsTreeScope.Root,
       libName:                  TsIdentLibrary,
       enableExpandTypeMappings: Boolean,
-      enableExpandCallables:    Boolean,
+      involvesReact:            Boolean,
   ): List[TsParsedFile => TsParsedFile] =
     List(
       T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),
@@ -242,8 +255,8 @@ object Phase1ReadTypescript {
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
       T.ExtractInterfaces(libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
       (
-        if (enableExpandCallables) T.ExtractClasses >> T.ExpandCallables
-        else T.ExtractClasses
+        if (involvesReact) T.ExtractClasses
+        else T.ExtractClasses >> T.ExpandCallables
       ).visitTsParsedFile(scope.caching),
       (
         T.SplitMethodsOnUnionTypes >> // after ExpandCallables
