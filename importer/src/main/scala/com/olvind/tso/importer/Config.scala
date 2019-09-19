@@ -4,8 +4,6 @@ package importer
 import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
-import com.olvind.tso.scalajs.transforms.{GenerateReactComponentsObject, ScalaJsReactComponents, SlinkyComponents}
-import com.olvind.tso.scalajs.{ContainerTree, TreeScope}
 
 case class PublishConfig(
     username: String,
@@ -25,7 +23,7 @@ case class Config(
     softWrites:     Boolean,
     wantedLibNames: Set[String],
     versions:       Versions,
-    reactBinding: ReactBinding
+    reactBinding: ReactBinding,
 ) {
 
   def debugMode = wantedLibNames.nonEmpty
@@ -38,8 +36,6 @@ case class Config(
   val ScalablyTypedRepo = "https://github.com/oyvindberg/ScalablyTyped.git"
   val parallelLibraries = 100
   val parallelScalas    = 4
-  val reactBinding = ReactBinding.native
-
 }
 
 object Config {
@@ -74,6 +70,7 @@ object Config {
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
+            reactBinding =  ReactBinding.native
           ),
         )
     }

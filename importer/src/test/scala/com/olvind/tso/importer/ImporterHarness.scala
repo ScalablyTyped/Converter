@@ -39,6 +39,7 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
+      reactBinding: ReactBinding = ReactBinding.native
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
@@ -59,7 +60,7 @@ trait ImporterHarness extends FunSuiteLike {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic, reactBinding), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -72,6 +73,7 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             metadataFetcher = Npmjs.No,
             softWrites      = false,
+            reactBinding = reactBinding
           ),
           "build",
         )
