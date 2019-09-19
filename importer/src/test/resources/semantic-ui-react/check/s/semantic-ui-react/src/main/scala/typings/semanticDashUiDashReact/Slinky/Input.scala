@@ -1,7 +1,12 @@
-package typings.semanticDashUiDashReact.inputInputMod
+package typings.semanticDashUiDashReact.Slinky
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.reactMod.ReactNode
+import slinky.core.BuildingComponent
+import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.web.html.`*`.tag
+import typings.semanticDashUiDashReact.inputInputMod.InputOnChangeData
+import typings.semanticDashUiDashReact.inputInputMod.InputProps
+import typings.semanticDashUiDashReact.inputMod.default
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -16,18 +21,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait InputProps
-  extends StrictInputProps
-     with /* key */ StringDictionary[js.Any]
-
-object InputProps {
-  @scala.inline
+/* The following DOM/SVG props were specified: children */
+object Input
+  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+  override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.inputMod.default].asInstanceOf[String | js.Object]
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     action: js.Any | Boolean = null,
     actionPosition: left = null,
     as: js.Any = null,
-    children: ReactNode = null,
     className: String = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     error: js.UndefOr[Boolean] = js.undefined,
@@ -45,13 +47,12 @@ object InputProps {
     tabIndex: Double | String = null,
     transparent: js.UndefOr[Boolean] = js.undefined,
     `type`: String = null
-  ): InputProps = {
+  ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
     if (actionPosition != null) __obj.updateDynamic("actionPosition")(actionPosition)
     if (as != null) __obj.updateDynamic("as")(as)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className)
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(error)) __obj.updateDynamic("error")(error)
@@ -69,7 +70,8 @@ object InputProps {
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)
     if (`type` != null) __obj.updateDynamic("type")(`type`)
-    __obj.asInstanceOf[InputProps]
+    super.apply(__obj.asInstanceOf[Props])
   }
+  type Props = InputProps
 }
 
