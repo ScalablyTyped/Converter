@@ -87,7 +87,7 @@ object IdentifyReactComponents {
 
   def maybeMethodComponent(method: MethodTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (current.typeName === Names.Element) Some(current)
+      if (current.typeName === QualifiedName.React.ReactElement) Some(current)
       else if (scope.isAbstract(current)) None
       else {
         scope
@@ -144,7 +144,7 @@ object IdentifyReactComponents {
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (Names.isComponent(current.typeName)) Some(current)
+      if (QualifiedName.React.isComponent(current.typeName)) Some(current)
       else {
         scope
           .lookup(current.typeName)
@@ -184,7 +184,7 @@ object IdentifyReactComponents {
     if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, props +: _, _), _) if Names isComponent qname =>
+        case (TypeRef(qname, props +: _, _), _) if QualifiedName.React isComponent qname =>
           componentName(cls.annotations, cls.codePath, cls.comments).map(
             compName =>
               Component(
@@ -236,34 +236,4 @@ object IdentifyReactComponents {
       case Annotation.JsGlobalScope => true
       case _                        => false
     }
-
-  object Names {
-    val React         = List(ScalaConfig.outputPkg, Name("react"), Name("reactMod"))
-    val Component     = QualifiedName(React :+ Name("Component"))
-    val ComponentType = QualifiedName(React :+ Name("ComponentType"))
-
-    val Element = QualifiedName(React :+ Name("ReactElement"))
-
-    val ComponentNames: Set[String] =
-      Set(
-        "ClassicComponent",
-        "ClassicComponentClass",
-        "Component",
-        "ComponentClass",
-        "ComponentType",
-        "ExoticComponent",
-        "FC",
-        "FunctionComponent",
-        "LazyExoticComponent",
-        "MemoExoticComponent",
-        "NamedExoticComponent",
-        "ProviderExoticComponent",
-        "PureComponent",
-        "RefForwardingComponent",
-        "SFC",
-        "StatelessComponent",
-      )
-
-    val isComponent: Set[QualifiedName] = ComponentNames.map(n => QualifiedName(React :+ Name(n)))
-  }
 }

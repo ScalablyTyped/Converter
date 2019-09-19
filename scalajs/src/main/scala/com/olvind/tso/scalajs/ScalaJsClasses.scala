@@ -127,7 +127,7 @@ object ScalaJsClasses {
       ObjectMembers.ScalaObject,
       StringDictionary,
       NumberDictionary,
-      transforms.SlinkyComponents.ExternalComponentNoPropsCls,
-      transforms.SlinkyComponents.ExternalComponentPropsCls,
+      transforms.SlinkyComponents.classDefs.ExternalComponentNoPropsCls,
+      transforms.SlinkyComponents.classDefs.ExternalComponentPropsCls,
     )).map(x => x.codePath.parts -> x).toMap
 }
