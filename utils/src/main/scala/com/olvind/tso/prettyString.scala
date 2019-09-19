@@ -15,15 +15,13 @@ object SimplifyingPrettyString extends PrettyString {
       .flatMap {
         case '\\'  => "#backslash#" //be safe
         case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
-        case '_'   => "#" // will be erased otherwise
+        case '_'   => "#underscore#" // will be erased otherwise
         case '@'   => "#at#"
         case '$'   => "#dollar#"
-        case '-'   => "#" //causes `` in scala code
+        case '-'   => "#dash#" //causes `` in scala code
         case other => other.toString()
       }
       .split("[#/]")
-      //Some paths names that are probably superfluous and just cause noise.
-      .filter(!Set("src", "dist", "bin").contains(_))
       .filterNot(_.isEmpty)
       .zipWithIndex
       .map[String, Array[String]] {
@@ -49,6 +47,7 @@ object SimplifyingPrettyString extends PrettyString {
       case "_"       => "Underscore"
       case "^"       => "`^`" // todo: think this might be solved in the printer
       case ""        => "Empty"
+      case "Empty"   => "Empty_"
       case "package" => "PACKAGE"
       case "js"      => "JS"
       case "scala"   => "SCALA"
@@ -95,7 +94,6 @@ object RegularPrettyString extends PrettyString {
       case "_"       => "Underscore"
       case "^"       => "`^`" // todo: think this might be solved in the printer
       case ""        => "Empty"
-      case "Empty"   => "Empty_"
       case "package" => "PACKAGE"
       case "js"      => "JS"
       case "scala"   => "SCALA"
