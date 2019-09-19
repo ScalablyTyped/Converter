@@ -17,7 +17,8 @@ object ReactBinding {
       SlinkyComponents(s, GenerateReactComponentsObject(s, tree))
   }
   val scalajsReact = new ReactBinding {
-    override def dependencies: Set[FacadeJson.Dep] = ???
+    override def dependencies: Set[FacadeJson.Dep] =
+      Set(FacadeJson.Dep("com.github.japgolly.scalajs-react", "core", "1.4.2"))
     override def generateReactComponents(s: TreeScope, tree: ContainerTree): ContainerTree =
       ScalaJsReactComponents(s, GenerateReactComponentsObject(s, tree))
   }

@@ -18,7 +18,6 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBinding: ReactBinding) extends Pha
       getDeps:    GetDeps[Source, Phase2Res],
       isCircular: IsCircular,
       logger:     Logger[Unit],
-
   ): PhaseRes[Source, Phase2Res] =
     current match {
       case Phase1Res.Facade => PhaseRes.Ok(Phase2Res.Facade)

@@ -202,7 +202,7 @@ class Main(config: Config) {
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
-            reactBinding    = config.reactBinding
+            reactBinding    = config.reactBinding,
           ),
           "build",
         )

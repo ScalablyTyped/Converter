@@ -24,7 +24,7 @@ case class Config(
     debugMode:      Boolean,
     wantedLibNames: Set[String],
     versions:       Versions,
-    reactBinding: ReactBinding,
+    reactBinding:   ReactBinding,
 ) {
 
   // change in source code for now, lazy...
@@ -77,11 +77,10 @@ object Config {
                 ReactBinding.slinky
               } else if (flags contains "-reactScalaJsReact") {
                 ReactBinding.scalajsReact
-              }
-              else {
+              } else {
                 ReactBinding.native
               }
-            }
+            },
           ),
         )
     }
