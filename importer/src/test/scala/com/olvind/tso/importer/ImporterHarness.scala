@@ -116,6 +116,9 @@ trait ImporterHarness extends FunSuiteLike {
         }
 
         if (update) {
+          if(!os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
+            fail("There is nothing to copy from target into check, something failed upstream")
+          }
           os.remove.all(checkFolder)
           os.copy(targetFolder, checkFolder)
           GitLock.synchronized(%("git", "add", checkFolder))
@@ -132,6 +135,9 @@ trait ImporterHarness extends FunSuiteLike {
       case PhaseRes.Failure(errors) =>
         if (update) {
           implicit val wd = os.pwd
+          if(os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
+            fail("There is nothing to copy from target into check, something failed upstream")
+          }
           os.remove.all(checkFolder)
           os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
