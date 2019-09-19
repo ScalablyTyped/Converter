@@ -10,7 +10,7 @@ import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
 import scala.collection.immutable.SortedSet
 
-class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, reactBinding: ReactBinding) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -18,7 +18,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
       getDeps:    GetDeps[Source, Phase2Res],
       isCircular: IsCircular,
       logger:     Logger[Unit],
-      reactBinding: ReactBinding
+
   ): PhaseRes[Source, Phase2Res] =
     current match {
       case Phase1Res.Facade => PhaseRes.Ok(Phase2Res.Facade)

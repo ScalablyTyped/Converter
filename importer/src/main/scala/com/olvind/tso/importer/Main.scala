@@ -189,7 +189,7 @@ class Main(config: Config) {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(config.pedantic, config.reactBinding), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
