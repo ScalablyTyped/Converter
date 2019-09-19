@@ -10,7 +10,12 @@ import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
 import scala.collection.immutable.SortedSet
 
-class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
+/**
+  * This phase starts by going from the typescript AST to the scala AST.
+  * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
+  */
+class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding])
+    extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -52,7 +57,6 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
                   sys.error(s"Expected top level package, got: ${other}")
               }
             }
-
             val involvesReact: Boolean = {
               val react = TsIdentLibrarySimple("react")
               source.libName === react || scalaDeps.exists(_._1.libName === react)
@@ -77,8 +81,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
                 S.Sorter visitPackageTree scope,
               Adapter(scope) { (tree, s) =>
                 if (involvesReact) {
-                  val newTree = S.GenerateReactComponentsObject(s, tree)
-                  S.SlinkyComponents(s, newTree)
+                  reactBinding.fold(tree)(_.generateReactComponents(s, tree))
                 } else tree
               },
             )

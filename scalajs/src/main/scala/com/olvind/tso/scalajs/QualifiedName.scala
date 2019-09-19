@@ -10,9 +10,15 @@ final case class QualifiedName(parts: List[Name]) {
 
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
+
+  def toClass = Class.forName(parts.map(_.value).mkString("."))
+
 }
 
 object QualifiedName {
+
+  def apply(str: String): QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
+
   val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
   val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)
   val scala_scalajs: QualifiedName = scala + Name.scalajs
@@ -78,6 +84,7 @@ object QualifiedName {
     val SVGAttributes     = mod + Name("SVGAttributes")
     val Component         = mod + Name("Component")
     val ComponentType     = mod + Name("ComponentType")
+    val ChangeEvent       = mod + Name("ChangeEvent")
 
     val ComponentNames: Set[String] =
       Set(

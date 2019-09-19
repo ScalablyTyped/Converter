@@ -19,6 +19,9 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.Try
 
+/**
+  * This phase goes from scala AST to compiled jar files on the local file system
+  */
 class Phase3Compile(
     resolve:         LibraryResolver,
     versions:        Versions,
@@ -30,6 +33,7 @@ class Phase3Compile(
     publishFolder:   os.Path,
     metadataFetcher: Npmjs.Fetcher,
     softWrites:      Boolean,
+    reactBinding:    Option[ReactBinding],
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -145,7 +149,7 @@ class Phase3Compile(
             }
 
             val externalDeps: Set[FacadeJson.Dep] =
-              if (involvesReact) Set(FacadeJson.Dep("me.shadaj", "slinky-web", "0.6.2")) else Set()
+              if (involvesReact) reactBinding.fold(Set.empty[FacadeJson.Dep])(_.dependencies) else Set.empty
 
             val sbtLayout = ContentSbtProject(
               v               = versions,
@@ -194,6 +198,7 @@ class Phase3Compile(
     val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
     val finalVersion          = makeVersion(digest)
     val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
+    //Next line is that actually spits out files
     files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
 
     val sbtProject =

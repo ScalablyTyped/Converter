@@ -83,6 +83,9 @@ object LibrarySpecific {
     val ReactNode     = TsIdent("ReactNode")
     val Readonly      = TsQIdent(List(TsIdent("Readonly")))
 
+    //Somewhere in here we need to take a look at the component, and if it has an "as" member with a known mapping and we don't have
+    //an inheritance tree already, we should add that.
+
     override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
       x.name match {
         /* drop useless type parameters */
