@@ -1,8 +1,9 @@
-package typings.react.reactMod
+package typings
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait Component[P, S] extends js.Object
-
+package object std {
+  type Partial[T] = T
+}

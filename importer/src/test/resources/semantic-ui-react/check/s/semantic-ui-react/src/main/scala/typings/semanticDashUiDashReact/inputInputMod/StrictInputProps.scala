@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.inputInputMod
 
+import typings.react.reactMod.ReactNode
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -22,9 +23,7 @@ trait StrictInputProps extends js.Object {
   /** An element type to render as (string or function). */
   var as: js.UndefOr[js.Any] = js.undefined
   /** Primary content. */
-  var children: js.UndefOr[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify React.ReactNode */ js.Any
-  ] = js.undefined
+  var children: js.UndefOr[ReactNode] = js.undefined
   /** Additional classes. */
   var className: js.UndefOr[String] = js.undefined
   /** An Input field can show that it is disabled. */
@@ -82,7 +81,7 @@ object StrictInputProps {
     action: js.Any | Boolean = null,
     actionPosition: left = null,
     as: js.Any = null,
-    children: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify React.ReactNode */ js.Any = null,
+    children: ReactNode = null,
     className: String = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     error: js.UndefOr[Boolean] = js.undefined,
@@ -105,7 +104,7 @@ object StrictInputProps {
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
     if (actionPosition != null) __obj.updateDynamic("actionPosition")(actionPosition)
     if (as != null) __obj.updateDynamic("as")(as)
-    if (children != null) __obj.updateDynamic("children")(children)
+    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className)
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(error)) __obj.updateDynamic("error")(error)
