@@ -1,4 +1,4 @@
-package typings.voidDashElements
+package typings.voidDashElements.voidDashElementsMod
 
 import org.scalablytyped.runtime.TopLevel
 import typings.std.Partial
@@ -10,5 +10,5 @@ import scala.scalajs.js.annotation._
 
 @JSImport("void-elements", JSImport.Namespace)
 @js.native
-object voidDashElementsMod extends TopLevel[Partial[Record[String, `true`]]]
+object ^ extends TopLevel[Partial[Record[String, `true`]]]
 
