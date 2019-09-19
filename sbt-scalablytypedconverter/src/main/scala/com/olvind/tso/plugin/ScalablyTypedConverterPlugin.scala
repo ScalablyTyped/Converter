@@ -35,6 +35,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val npmDeps        = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
         val ignored        = tsoIgnore.value.to[Set]
         val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val prettyStringType = tsoPrettyStringType.value
 
         val config = ImportTypings.Input(
           os.read(packageJson).hashCode,
@@ -42,6 +43,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
           nodeModules,
           targetFolder,
           flavour,
+          prettyStringType,
           stdLib,
           ignored,
           minimize,
@@ -99,6 +101,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val npmDeps        = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
         val ignored        = tsoIgnore.value.to[Set]
         val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val prettyStringType = tsoPrettyStringType.value
 
         val config = ImportTypings.Input(
           os.read(os.Path(packageJson)).hashCode,
@@ -106,6 +109,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           nodeModules,
           targetFolder,
           flavour,
+          prettyStringType,
           stdLib,
           ignored,
           minimize,
@@ -143,10 +147,15 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val Selection = com.olvind.tso.plugin.Selection
     type Flavour = com.olvind.tso.plugin.Flavour
     val Flavour = com.olvind.tso.plugin.Flavour
+    type PrettyStringType = com.olvind.tso.plugin.PrettyStringType
+    val PrettyStringType = com.olvind.tso.plugin.PrettyStringType
 
     val tsoImport  = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
     val tsoIgnore  = settingKey[List[String]]("completely ignore libs")
     val tsoFlavour = settingKey[Flavour]("The type of react binding to use")
+    val tsoPrettyStringType = settingKey[PrettyStringType](
+      "Temporary, don't use unless you know what you're doing. Used to choose which name prettyfier will be used",
+    )
 
     /**
       * A list of library names you don't care too much about.
@@ -236,6 +245,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     import autoImport._
     Seq(
       tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
+      tsoPrettyStringType := com.olvind.tso.plugin.PrettyStringType.Regular,
       tsoTypescriptVersion := "3.7.2",
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),

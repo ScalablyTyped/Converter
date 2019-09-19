@@ -22,6 +22,7 @@ object ImportTypings {
       fromFolder:      InFolder,
       targetFolder:    os.Path,
       chosenFlavour:   Flavour,
+      prettyStringType: PrettyStringType,
       libs:            List[String],
       ignore:          Set[String],
       minimize:        Selection[TsIdentLibrary],
@@ -53,6 +54,11 @@ object ImportTypings {
       case Flavour.Japgolly => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
     }
 
+    val prettyString = prettyStringType match {
+      case PrettyStringType.Regular     => PrettyString.Regular
+      case PrettyStringType.Simplifying => PrettyString.Simplifying
+    }
+
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
@@ -79,8 +85,8 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false), "scala.js")
-      .next(new PhaseFlavour(flavour), flavour.toString)
+      .next(new Phase2ToScalaJs(pedantic = false, prettyString), "scala.js")
+      .next(new PhaseFlavour(flavour, prettyString), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -153,6 +159,7 @@ object ImportTypings {
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
+          PrettyStringType.Regular,
           List("es5", "dom"),
           Set("typescript", "csstype"),
           minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),

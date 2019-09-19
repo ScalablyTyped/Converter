@@ -15,7 +15,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -32,7 +32,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
 
       case lib: LibTs =>
         val knownLibs  = garbageCollectLibs(lib)
-        val importName = new ImportName(Name.typings, knownLibs.map(_.libName) + lib.name)
+        val importName = new ImportName(Name.typings, knownLibs.map(_.libName) + lib.name, prettyString)
 
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>

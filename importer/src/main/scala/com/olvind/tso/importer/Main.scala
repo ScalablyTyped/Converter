@@ -192,7 +192,7 @@ class Main(config: Config) {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
+      .next(new Phase2ToScalaJs(config.pedantic, PrettyString.Regular), "scala.js")
 
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)
@@ -206,7 +206,7 @@ class Main(config: Config) {
 
       val Pipeline: RecPhase[Source, PublishedSbtProject] =
         CommonPhases
-          .next(new PhaseFlavour(flavour), flavour.toString)
+          .next(new PhaseFlavour(flavour, PrettyString.Regular), flavour.toString)
           .next(
             new Phase3Compile(
               resolve         = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
