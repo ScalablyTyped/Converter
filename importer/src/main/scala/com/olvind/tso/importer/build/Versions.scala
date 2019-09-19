@@ -25,6 +25,7 @@ object Versions {
   }
 }
 
+
 trait Versions {
   val scalaOrganization:   String
   val scalaVersion:        String

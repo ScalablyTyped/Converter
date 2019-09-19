@@ -18,6 +18,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
       getDeps:    GetDeps[Source, Phase2Res],
       isCircular: IsCircular,
       logger:     Logger[Unit],
+      reactBinding: ReactBinding
   ): PhaseRes[Source, Phase2Res] =
     current match {
       case Phase1Res.Facade => PhaseRes.Ok(Phase2Res.Facade)
@@ -77,8 +78,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
                 S.Sorter visitPackageTree scope,
               Adapter(scope) { (tree, s) =>
                 if (involvesReact) {
-                  val newTree = S.GenerateReactComponentsObject(s, tree)
-                  S.SlinkyComponents(s, newTree)
+                  reactBinding.generateReactComponents(s, tree)
                 } else tree
               },
             )
