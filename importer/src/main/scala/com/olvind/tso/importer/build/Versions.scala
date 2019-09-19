@@ -6,10 +6,10 @@ import com.olvind.tso.stringUtils.quote
 object Versions {
   object `scala 2.12 with scala.js 0.6` extends Versions {
     val scalaOrganization   = "org.scala-lang"
-    val scalaVersion        = "2.12.9"
+    val scalaVersion        = "2.12.10"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "0.6.28"
+    val scalaJsVersion      = "0.6.29"
     val scalaJsBinVersion   = "0.6"
     val scalacOptions       = List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
   }
