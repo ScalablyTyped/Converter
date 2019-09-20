@@ -12,92 +12,32 @@ import scala.collection.mutable
   * Generate a package with japgolly's scalajs-react compatible react components
   */
 object ScalaJsReactComponents {
-  val IgnoredProps = Set(Name("key"), Name("children"))
+  private val IgnoredProps = Set(Name("key"), Name("children"))
 
-  private object scalaJsReact {
+  object scalaJsReact {
+
     val ScalaJsReact = Name("ScalaJsReact")
     val Props        = Name("Props")
     val Element      = Name("Element")
-    val RefType      = Name("RefType")
     val component    = Name("component")
 
     /* Fully qualified references to slinky types */
     val japgolly                      = QualifiedName(List(Name("japgolly")))
-    val japgollyScalajs               = japgolly + Name("scalajs")
-    val japgollyScalajsReact          = japgollyScalajs + Name("react")
-    val japgollyScalajsReactRaw       = japgollyScalajsReact + Name("raw")
-    val japgollyScalajsReactVDom      = japgollyScalajs + Name("vdom")
-    val TagMod                        = japgollyScalajsReactVDom + Name("TagMod")
-    val TagElement                    = japgollyScalajsReactVDom + Name("VdomElement")
-    val ReactElement                  = japgollyScalajsReactVDom + Name("VdomElement")
-    val japgollyScalajsReactComponent = japgollyScalajsReact + Name("component")
-    val ReactComponentClass           = japgollyScalajsReactComponent + Name("Component")
-    val japgollyScalajsReactChildren  = japgollyScalajsReact + Name("Children")
-    val childArgs                     = japgollyScalajsReact + Name("CtorType") + Name("ChildArg")
+    val japgollyScalajs: QualifiedName = japgolly + Name("scalajs")
+    val japgollyScalajsReact: QualifiedName = japgollyScalajs + Name("react")
+    val japgollyScalajsReactVDom: QualifiedName = japgollyScalajs + Name("vdom")
+    val TagMod: QualifiedName = japgollyScalajsReactVDom + Name("TagMod")
+    val ReactElement: QualifiedName = japgollyScalajsReactVDom + Name("VdomElement")
+    val japgollyScalajsReactComponent: QualifiedName = japgollyScalajsReact + Name("component")
+    val ReactComponentClass: QualifiedName = japgollyScalajsReactComponent + Name("Component")
+    val Children: QualifiedName = japgollyScalajsReact + Name("Children")
+    val ChildArg: QualifiedName = japgollyScalajsReact + Name("CtorType") + Name("ChildArg")
+    val UnmountedWithRoot: QualifiedName = japgollyScalajsReactComponent + Name("JsForwardRef") + Name("UnmountedWithRoot")
 
     //This is probably crap
-    val japgollyScalajsWeb       = japgollyScalajs + Name("web")
-    val japgollyScalajsWebSvg    = japgollyScalajsWeb + Name("svg")
-    val japgollyScalajsWebHtml   = japgollyScalajsWeb + Name("html")
-    val ExternalComponentProps   = japgolly + Name("ExternalComponentWithAttributesWithRefType")
-    val ExternalComponentNoProps = japgolly + Name("ExternalComponentNoPropsWithAttributesWithRefType")
-    //    val scalajsReact = QualifiedName(List(Name("scalaJsReact")))
-    //    val scalaJsReactCore = scalajsReact + Name("core")
-    //    val ReactComponentClass = scalaJsReactCore + Name("ReactComponentClass")
-    //    val TagMod = scalaJsReactCore + Name("TagMod")
-    //    val ExternalComponentProps = scalaJsReactCore + Name("ExternalComponentWithAttributesWithRefType")
-    //    val ExternalComponentNoProps = scalaJsReactCore + Name("ExternalComponentNoPropsWithAttributesWithRefType")
-    //    val BuildingComponent = scalaJsReactCore + Name("BuildingComponent")
-    //    val TagElement = scalaJsReactCore + Name("TagElement")
-    //    val scalaJsReactCoreFacade = scalaJsReactCore + Name("facade")
-    //    val ReactElement = scalaJsReactCoreFacade + Name("ReactElement")
-    //    val scalaJsReactWeb = scalajsReact + Name("web")
-    //    val scalaJsReactWebSvg = scalaJsReactWeb + Name("svg")
-    //    val scalaJsReactWebHtml = scalaJsReactWeb + Name("html")
-
-  }
-
-  /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
-  object classDefs {
-
-    //    val ExternalComponentPropsCls = ClassTree(
-    //      Nil,
-    //      ExternalComponentProps.parts.last,
-    //      Seq(
-    //        TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
-    //        TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
-    //      ),
-    //      Nil,
-    //      Nil,
-    //      List(
-    //        TypeAliasTree(Props, Nil, TypeRef.Any, NoComments, ExternalComponentProps + Props),
-    //        TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentProps + Element),
-    //        TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentProps + RefType),
-    //      ),
-    //      ClassType.Class,
-    //      isSealed = false,
-    //      NoComments,
-    //      ExternalComponentProps,
-    //    )
-
-    //    val ExternalComponentNoPropsCls = ClassTree(
-    //      Nil,
-    //      ExternalComponentNoProps.parts.last,
-    //      Seq(
-    //        TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
-    //        TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
-    //      ),
-    //      Nil,
-    //      Nil,
-    //      List(
-    //        TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentNoProps + Element),
-    //        TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentNoProps + RefType),
-    //      ),
-    //      ClassType.Class,
-    //      isSealed = false,
-    //      NoComments,
-    //      ExternalComponentNoProps,
-    //    )
+    val japgollyScalajsWeb: QualifiedName = japgollyScalajs + Name("web")
+    val japgollyScalajsWebSvg: QualifiedName = japgollyScalajsWeb + Name("svg")
+    val japgollyScalajsWebHtml: QualifiedName = japgollyScalajsWeb + Name("html")
   }
 
   def ScalaJsReactElement(isSvg: Boolean, name: String): TypeRef =
@@ -151,18 +91,6 @@ object ScalaJsReactComponents {
     val scalaJsReactMembers = allComponents.flatMap { c =>
       val componentCp = scalaJsReactModCp + c.fullName
 
-      val componentField = FieldTree(
-        Nil,
-        scalaJsReact.component,
-        TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
-        MemberImpl.Custom(
-          Component.formatReferenceTo(stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
-        ),
-        isReadOnly = true,
-        isOverride = true,
-        NoComments,
-        componentCp + scalaJsReact.component,
-      )
       val props = c.props getOrElse TypeRef.Object
 
       def propsAlias(props: TypeRef) =
@@ -209,25 +137,24 @@ object ScalaJsReactComponents {
                 { case Param(p, _, Left(str))                                              => p -> str },
               )
 
-              /**
-                *  The `apply` method that the slinky method would normally construct.
-                *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
-                *  a case class and suffer macro execution time.
-                */
               val childrenParam = domParams
                 .find(_.name.value == "children")
                 .map(
                   p =>
                     ParamTree(
                       name     = p.name,
-                      tpe      = TypeRef(scalaJsReact.childArgs),
+                      tpe = TypeRef.Repeated(TypeRef(scalaJsReact.ChildArg), p.comments),
                       default  = None,
-                      comments = p.comments,
+                      comments = NoComments,
                     ),
                 )
+              /**
+               *  The `apply` method that the slinky method would normally construct.
+               *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
+               *  a case class and suffer macro execution time.
+               */
               def genApply(elem: TypeRef, ref: TypeRef) = {
-                val ret  = TypeRef(scalaJsReact.ReactComponentClass, List(elem, ref), NoComments)
-                val cast = if (ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
+                val ret = TypeRef(scalaJsReact.UnmountedWithRoot, List(props, ref, TypeRef.Unit, props), NoComments)
 
                 MethodTree(
                   annotations = Nil,
@@ -240,21 +167,22 @@ object ScalaJsReactComponents {
                   ),
                   impl = MemberImpl.Custom(
                     s"""{
-                                         |  import japgolly.scalajs.react._
-                                         |
-                                         |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
-                                         |
-                                         |  type ${c.name.value}Type = ${ref.typeName.parts.map(_.value).mkString(".")}
-                                         |
-                                         |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-                                         |
-                                         |  val props = __obj.asInstanceOf[Props]
-                                         |  val f = JsForwardRefComponent.force[Props, ${childrenParam.fold(
+                       |  import japgolly.scalajs.react._
+                       |
+                       |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
+                       |
+                       |  type ${c.name.value}Type = ${ref.typeName.parts.map(_.value).mkString(".")}
+                       |
+                       |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+                       |
+                       |  val props = __obj.asInstanceOf[Props]
+                       |  val f = JsForwardRefComponent.force[Props, ${
+                      childrenParam.fold(
                          "Children.None",
                        )(p => "Children.Varargs")}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
-                                         |
-                                         |  f(props)(children: _*)$cast
-                                         |}""".stripMargin,
+                       |
+                       |  f(props)(children: _*)
+                       |}""".stripMargin,
                   ),
                   resultType = ret,
                   isOverride = false,
@@ -263,16 +191,13 @@ object ScalaJsReactComponents {
                 )
               }
 
-              val (parent, members) = {
+              val members = {
                 val refType = stripTargs(c.knownRef orElse refTypes.headOption getOrElse TypeRef.Object)
                 c.props match {
                   case Some(props) =>
-                    (
-                      TypeRef(scalaJsReact.ExternalComponentProps, List(domType, refType), NoComments),
-                      List(genApply(domType, refType), propsAlias(props)),
+                    List(genApply(domType, refType), propsAlias(props))
                       //TODO add objectType alias here
-                    )
-                  case None => (TypeRef(scalaJsReact.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+                  case None => Nil
                 }
               }
 
@@ -287,8 +212,8 @@ object ScalaJsReactComponents {
                 ModuleTree(
                   annotations = Nil,
                   name        = c.fullName,
-                  parents     = List(parent),
-                  members     = List(componentField) ++ members,
+                  parents = Nil,
+                  members = members,
                   comments    = domWarning,
                   codePath    = componentCp,
                 ),
@@ -297,24 +222,16 @@ object ScalaJsReactComponents {
 
         /* This is a fallback when the props type is complicated. I'm not convinced the result is very useful */
         case (_: ClassTree | _: TypeAliasTree, _) =>
-          val (parent, propsAliasOpt) = {
-            val refType = stripTargs(c.knownRef getOrElse TypeRef.Object)
-            val domType = AnyHtmlElement
-            c.props match {
-              case Some(props) =>
-                (
-                  TypeRef(scalaJsReact.ExternalComponentProps, List(domType, refType), NoComments),
-                  List(propsAlias(props)),
-                )
-              case None => (TypeRef(scalaJsReact.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+          val propsAliasOpt = c.props match {
+            case Some(props) => List(propsAlias(props))
+            case None => Nil
             }
-          }
 
           val mod = ModuleTree(
             annotations = Nil,
             name        = c.name,
-            parents     = List(parent),
-            members     = List(componentField) ++ propsAliasOpt,
+            parents = Nil,
+            members = propsAliasOpt,
             comments    = NoComments,
             codePath    = componentCp,
           )
