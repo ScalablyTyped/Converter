@@ -2,7 +2,6 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import com.olvind.tso
 import com.olvind.tso.scalajs.ConstructObjectOfType.Param
 import com.olvind.tso.scalajs.IdentifyReactComponents.Component
 import com.olvind.tso.seqs._
@@ -34,6 +33,7 @@ object ScalaJsReactComponents {
     val japgollyScalajsReactComponent = japgollyScalajsReact + Name("component")
     val ReactComponentClass           = japgollyScalajsReactComponent + Name("Component")
     val japgollyScalajsReactChildren  = japgollyScalajsReact + Name("Children")
+    val childArgs                     = japgollyScalajsReact + Name("CtorType") + Name("ChildArg")
 
     //This is probably crap
     val japgollyScalajsWeb       = japgollyScalajs + Name("web")
@@ -54,6 +54,7 @@ object ScalaJsReactComponents {
     //    val scalaJsReactWeb = scalajsReact + Name("web")
     //    val scalaJsReactWebSvg = scalaJsReactWeb + Name("svg")
     //    val scalaJsReactWebHtml = scalaJsReactWeb + Name("html")
+
   }
 
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
@@ -213,8 +214,17 @@ object ScalaJsReactComponents {
                 *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
                 *  a case class and suffer macro execution time.
                 */
-              val hasChildren = domParams.exists(_.name.value == "children")
-
+              val childrenParam = domParams
+                .find(_.name.value == "children")
+                .map(
+                  p =>
+                    ParamTree(
+                      name     = p.name,
+                      tpe      = TypeRef(scalaJsReact.childArgs),
+                      default  = None,
+                      comments = p.comments,
+                    ),
+                )
               def genApply(elem: TypeRef, ref: TypeRef) = {
                 val ret  = TypeRef(scalaJsReact.ReactComponentClass, List(elem, ref), NoComments)
                 val cast = if (ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
@@ -224,24 +234,28 @@ object ScalaJsReactComponents {
                   level       = ProtectionLevel.Default,
                   name        = Name.APPLY,
                   tparams     = cls.tparams,
-                  params      = List(inLiterals.map(_._1) ++ optionals.map(_._1)),
-                  impl =
-                    MemberImpl.Custom(s"""{
-                       |  import japgolly.scalajs.react._
-                       |
-                       |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
-                       |
-                       |  type ${c.name.value}Type = ${ref.typeName.parts.map(_.value).mkString(".")}
-                       |
-                       |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-                       |
-                       |  val props = __obj.asInstanceOf[Props]
-                       |  val f = JsForwardRefComponent.force[Props, ${if (hasChildren) "Children.Varargs"
-                                         else
-                                           "Children.None"}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
-                       |
-                       |  f(props)(children: _*)$cast
-                       |}""".stripMargin),
+                  params = List(
+                    inLiterals.map(_._1) ++ optionals.map(_._1),
+                    childrenParam.fold(List.empty[ParamTree])(p => List(p)),
+                  ),
+                  impl = MemberImpl.Custom(
+                    s"""{
+                                         |  import japgolly.scalajs.react._
+                                         |
+                                         |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
+                                         |
+                                         |  type ${c.name.value}Type = ${ref.typeName.parts.map(_.value).mkString(".")}
+                                         |
+                                         |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+                                         |
+                                         |  val props = __obj.asInstanceOf[Props]
+                                         |  val f = JsForwardRefComponent.force[Props, ${childrenParam.fold(
+                         "Children.None",
+                       )(p => "Children.Varargs")}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
+                                         |
+                                         |  f(props)(children: _*)$cast
+                                         |}""".stripMargin,
+                  ),
                   resultType = ret,
                   isOverride = false,
                   comments   = NoComments,
