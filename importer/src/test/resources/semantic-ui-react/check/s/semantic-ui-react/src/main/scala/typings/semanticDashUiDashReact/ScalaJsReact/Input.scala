@@ -1,9 +1,9 @@
-package typings.semanticDashUiDashReact.Slinky
+package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.ExternalComponentWithAttributesWithRefType
+import japgolly.scalajs.react.component.Component
+import japgolly.scalajs.web.html.`*`.tag
 import org.scalablytyped.runtime.StringDictionary
-import slinky.core.BuildingComponent
-import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.inputInputMod.InputOnChangeData
 import typings.semanticDashUiDashReact.inputInputMod.InputProps
 import typings.semanticDashUiDashReact.inputMod.default
@@ -47,9 +47,14 @@ object Input
     tabIndex: Double | String = null,
     transparent: js.UndefOr[Boolean] = js.undefined,
     `type`: String = null
-  ): BuildingComponent[tag.type, default] = {
+  ): Component[tag.type, default] = {
+    import japgolly.scalajs.react._
+  
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+  
+    type InputType = typings.semanticDashUiDashReact.inputMod.default
+  
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
     if (actionPosition != null) __obj.updateDynamic("actionPosition")(actionPosition)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -70,7 +75,11 @@ object Input
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)
     if (`type` != null) __obj.updateDynamic("type")(`type`)
-    super.apply(__obj.asInstanceOf[Props])
+  
+    val props = __obj.asInstanceOf[Props]
+    val f = JsForwardRefComponent.force[Props, Children.Varargs, InputType](js.constructorOf[InputType])
+  
+    f(props)(children: _*)
   }
   type Props = InputProps
 }
