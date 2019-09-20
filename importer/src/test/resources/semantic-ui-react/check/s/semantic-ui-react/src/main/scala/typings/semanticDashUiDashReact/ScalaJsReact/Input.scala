@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.ExternalComponentWithAttributesWithRefType
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Component
 import japgolly.scalajs.web.html.`*`.tag
 import org.scalablytyped.runtime.StringDictionary
@@ -47,6 +48,9 @@ object Input
     tabIndex: Double | String = null,
     transparent: js.UndefOr[Boolean] = js.undefined,
     `type`: String = null
+  )(
+    /** Primary content. */
+  children: ChildArg
   ): Component[tag.type, default] = {
     import japgolly.scalajs.react._
   
