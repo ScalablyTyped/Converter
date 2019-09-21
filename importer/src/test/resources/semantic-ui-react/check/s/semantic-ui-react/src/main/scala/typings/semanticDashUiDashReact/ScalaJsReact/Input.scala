@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -39,7 +40,7 @@ object Input {
     label: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandItem<LabelProps> */ js.Any = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,
-    onChange: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify React.ChangeEvent<HTMLInputElement> */ /* event */ js.Any, /* data */ InputOnChangeData) => Unit = null,
+    onChange: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify React.ChangeEvent<HTMLInputElement> */ /* event */ js.Any, /* data */ InputOnChangeData) => Callback = null,
     size: mini | small | large | big | huge | massive = null,
     tabIndex: Double | String = null,
     transparent: js.UndefOr[Boolean] = js.undefined,
