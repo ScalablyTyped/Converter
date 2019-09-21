@@ -15,7 +15,6 @@ object ScalaJsReactComponents {
   private val IgnoredProps = Set(Name("key"), Name("children"))
 
   object scalaJsReact {
-
     val ScalaJsReact = Name("ScalaJsReact")
     val Props        = Name("Props")
     val Element      = Name("Element")
@@ -33,6 +32,7 @@ object ScalaJsReactComponents {
     val Children: QualifiedName = japgollyScalajsReact + Name("Children")
     val ChildArg: QualifiedName = japgollyScalajsReact + Name("CtorType") + Name("ChildArg")
     val UnmountedWithRoot: QualifiedName = japgollyScalajsReactComponent + Name("JsForwardRef") + Name("UnmountedWithRoot")
+    val callback: QualifiedName = japgollyScalajsReact + Name("Callback")
 
     //This is probably crap
     val japgollyScalajsWeb: QualifiedName = japgollyScalajs + Name("web")
@@ -77,6 +77,16 @@ object ScalaJsReactComponents {
   /* ScalaJs doesnt really support generic components. We hack it in in the `apply` method */
   def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
 
+  def memberParameter(scope: TreeScope, fieldTree: FieldTree): Option[Param] = {
+    //TODO hook up here to rewrite the member parameters
+    val ret = Companions.memberParameter(scope, fieldTree)
+    ret match {
+      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType), default, comments), isOptional, asString)) =>
+        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
+      case _ => ret
+    }
+  }
+
   def apply(_scope: TreeScope, tree: ContainerTree): ContainerTree = {
     val scope = _scope / tree
 
@@ -116,7 +126,7 @@ object ScalaJsReactComponents {
               if (isDom) {
                 domParams += fieldTree
                 None
-              } else Companions.memberParameter(scope, fieldTree)
+              } else memberParameter(scope, fieldTree)
             case (scope, tree) => Companions.memberParameter(scope, tree)
           } match {
             case Nil => None
@@ -181,7 +191,7 @@ object ScalaJsReactComponents {
                          "Children.None",
                        )(p => "Children.Varargs")}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
                        |
-                       |  f(props)(children: _*)
+                       |  f(props)${childrenParam.fold("")(_ => "(children: _*)")}
                        |}""".stripMargin,
                   ),
                   resultType = ret,
