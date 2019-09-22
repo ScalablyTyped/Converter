@@ -6,9 +6,9 @@ import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.react.HTMLInputElement
 import typings.react.reactMod.ChangeEvent
-import typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputOnChangeData
-import typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps
-import typings.semanticDashUiDashReact.elementsButtonInputMod.default
+import typings.semanticDashUiDashReact.elementsInputInputMod.InputOnChangeData
+import typings.semanticDashUiDashReact.elementsInputInputMod.InputProps
+import typings.semanticDashUiDashReact.elementsInputMod.default
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -52,7 +52,7 @@ object Input {
   
     val __obj = js.Dynamic.literal()
   
-    type InputType = typings.semanticDashUiDashReact.elementsButtonInputMod.default
+    type InputType = typings.semanticDashUiDashReact.elementsInputMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
