@@ -3,7 +3,7 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps
+import typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
@@ -12,7 +12,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children */
+/* The following DOM/SVG props were specified: children, className */
 object ButtonGroup {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -20,7 +20,6 @@ object ButtonGroup {
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     buttons: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandCollection<ButtonProps> */ js.Any = null,
-    className: String = null,
     color: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticCOLORS */ js.Any = null,
     compact: js.UndefOr[Boolean] = js.undefined,
     content: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandContent */ js.Any = null,
@@ -52,7 +51,6 @@ object ButtonGroup {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (buttons != null) __obj.updateDynamic("buttons")(buttons)
-    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)
     if (content != null) __obj.updateDynamic("content")(content)

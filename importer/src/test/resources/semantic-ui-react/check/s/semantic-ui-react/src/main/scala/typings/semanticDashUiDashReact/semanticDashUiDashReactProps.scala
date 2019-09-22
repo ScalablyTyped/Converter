@@ -6,28 +6,28 @@ import scala.scalajs.js.annotation._
 
 trait semanticDashUiDashReactProps {
   @scala.inline
-  def ButtonProps: typings.semanticDashUiDashReact.buttonButtonMod.ButtonProps.type = typings.semanticDashUiDashReact.buttonButtonMod.ButtonProps
-  type ButtonProps = typings.semanticDashUiDashReact.buttonButtonMod.ButtonProps
+  def ButtonProps: typings.semanticDashUiDashReact.elementsButtonButtonMod.ButtonProps.type = typings.semanticDashUiDashReact.elementsButtonButtonMod.ButtonProps
+  type ButtonProps = typings.semanticDashUiDashReact.elementsButtonButtonMod.ButtonProps
   @scala.inline
-  def ButtonContentProps: typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps.type = typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps
-  type ButtonContentProps = typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps
+  def ButtonContentProps: typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps.type = typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps
+  type ButtonContentProps = typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps
   @scala.inline
-  def ButtonGroupProps: typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps.type = typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps
-  type ButtonGroupProps = typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps
+  def ButtonGroupProps: typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps.type = typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps
+  type ButtonGroupProps = typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps
   @scala.inline
-  def ButtonOrProps: typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps.type = typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps
-  type ButtonOrProps = typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps
+  def ButtonOrProps: typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps.type = typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps
+  type ButtonOrProps = typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps
   @scala.inline
-  def ContentProps: typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps.type = typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps
-  type ContentProps = typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps
+  def ContentProps: typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps.type = typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps
+  type ContentProps = typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps
   @scala.inline
-  def GroupProps: typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps.type = typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps
-  type GroupProps = typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps
+  def GroupProps: typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps.type = typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps
+  type GroupProps = typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps
   @scala.inline
-  def InputProps: typings.semanticDashUiDashReact.inputInputMod.InputProps.type = typings.semanticDashUiDashReact.inputInputMod.InputProps
-  type InputProps = typings.semanticDashUiDashReact.inputInputMod.InputProps
+  def InputProps: typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps.type = typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps
+  type InputProps = typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps
   @scala.inline
-  def OrProps: typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps.type = typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps
-  type OrProps = typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps
+  def OrProps: typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps.type = typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps
+  type OrProps = typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps
 }
 

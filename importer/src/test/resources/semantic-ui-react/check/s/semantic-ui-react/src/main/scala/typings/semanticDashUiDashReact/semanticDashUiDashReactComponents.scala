@@ -7,20 +7,26 @@ import scala.scalajs.js.annotation._
 
 object semanticDashUiDashReactComponents extends semanticDashUiDashReactProps {
   @scala.inline
-  def Button: ComponentType[typings.semanticDashUiDashReact.buttonButtonMod.ButtonProps] = js.constructorOf[typings.semanticDashUiDashReact.buttonMod.default].asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonMod.ButtonProps]]
+  def Button: ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonMod.ButtonProps] = js.constructorOf[typings.semanticDashUiDashReact.elementsButtonMod.default].asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonMod.ButtonProps]]
   @scala.inline
-  def ButtonContent: ComponentType[typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps] = typings.semanticDashUiDashReact.buttonButtonContentMod.^.default.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps]]
+  def ButtonContent: ComponentType[
+    typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps
+  ] = typings.semanticDashUiDashReact.elementsButtonButtonContentMod.^.default.asInstanceOf[typings.react.reactMod.ComponentType[
+  typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps]]
   @scala.inline
-  def ButtonGroup: ComponentType[typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps] = typings.semanticDashUiDashReact.buttonButtonGroupMod.^.default.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps]]
+  def ButtonGroup: ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps] = typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.^.default.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps]]
   @scala.inline
-  def ButtonOr: ComponentType[typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps] = typings.semanticDashUiDashReact.buttonButtonOrMod.^.default.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps]]
+  def ButtonOr: ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps] = typings.semanticDashUiDashReact.elementsButtonButtonOrMod.^.default.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps]]
   @scala.inline
-  def Content: ComponentType[typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps] = typings.semanticDashUiDashReact.buttonMod.default.Content.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonContentMod.ButtonContentProps]]
+  def Content: ComponentType[
+    typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps
+  ] = typings.semanticDashUiDashReact.elementsButtonMod.default.Content.asInstanceOf[typings.react.reactMod.ComponentType[
+  typings.semanticDashUiDashReact.elementsButtonButtonContentMod.ButtonContentProps]]
   @scala.inline
-  def Group: ComponentType[typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps] = typings.semanticDashUiDashReact.buttonMod.default.Group.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonGroupMod.ButtonGroupProps]]
+  def Group: ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps] = typings.semanticDashUiDashReact.elementsButtonMod.default.Group.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps]]
   @scala.inline
-  def Input: ComponentType[typings.semanticDashUiDashReact.inputInputMod.InputProps] = js.constructorOf[typings.semanticDashUiDashReact.inputMod.default].asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.inputInputMod.InputProps]]
+  def Input: ComponentType[typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps] = js.constructorOf[typings.semanticDashUiDashReact.elementsButtonInputMod.default].asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps]]
   @scala.inline
-  def Or: ComponentType[typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps] = typings.semanticDashUiDashReact.buttonMod.default.Or.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps]]
+  def Or: ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps] = typings.semanticDashUiDashReact.elementsButtonMod.default.Or.asInstanceOf[typings.react.reactMod.ComponentType[typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps]]
 }
 
