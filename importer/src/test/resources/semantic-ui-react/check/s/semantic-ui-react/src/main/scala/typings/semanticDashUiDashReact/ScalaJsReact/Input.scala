@@ -4,9 +4,11 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.inputInputMod.InputOnChangeData
-import typings.semanticDashUiDashReact.inputInputMod.InputProps
-import typings.semanticDashUiDashReact.inputMod.default
+import typings.react.HTMLInputElement
+import typings.react.reactMod.ChangeEvent
+import typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputOnChangeData
+import typings.semanticDashUiDashReact.elementsButtonInputInputMod.InputProps
+import typings.semanticDashUiDashReact.elementsButtonInputMod.default
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -21,15 +23,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children */
+/* The following DOM/SVG props were specified: children, className, disabled, type */
 object Input {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     action: js.Any | Boolean = null,
     actionPosition: left = null,
     as: js.Any = null,
-    className: String = null,
-    disabled: js.UndefOr[Boolean] = js.undefined,
     error: js.UndefOr[Boolean] = js.undefined,
     fluid: js.UndefOr[Boolean] = js.undefined,
     focus: js.UndefOr[Boolean] = js.undefined,
@@ -40,11 +40,10 @@ object Input {
     label: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandItem<LabelProps> */ js.Any = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,
-    onChange: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify React.ChangeEvent<HTMLInputElement> */ /* event */ js.Any, /* data */ InputOnChangeData) => Callback = null,
+    onChange: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Callback = null,
     size: mini | small | large | big | huge | massive = null,
     tabIndex: Double | String = null,
-    transparent: js.UndefOr[Boolean] = js.undefined,
-    `type`: String = null
+    transparent: js.UndefOr[Boolean] = js.undefined
   )(
     children: /** Primary content. */
   ChildArg*
@@ -53,14 +52,12 @@ object Input {
   
     val __obj = js.Dynamic.literal()
   
-    type InputType = typings.semanticDashUiDashReact.inputMod.default
+    type InputType = typings.semanticDashUiDashReact.elementsButtonInputMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
     if (actionPosition != null) __obj.updateDynamic("actionPosition")(actionPosition)
     if (as != null) __obj.updateDynamic("as")(as)
-    if (className != null) __obj.updateDynamic("className")(className)
-    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(error)) __obj.updateDynamic("error")(error)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(focus)) __obj.updateDynamic("focus")(focus)
@@ -75,7 +72,6 @@ object Input {
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)
-    if (`type` != null) __obj.updateDynamic("type")(`type`)
   
     val props = __obj.asInstanceOf[Props]
     val f = JsForwardRefComponent.force[Props, Children.Varargs, InputType](js.constructorOf[InputType])

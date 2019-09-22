@@ -1,6 +1,7 @@
 
 # Scala.js typings for react
 
+Typings are for version 16.9.2
 
 
 

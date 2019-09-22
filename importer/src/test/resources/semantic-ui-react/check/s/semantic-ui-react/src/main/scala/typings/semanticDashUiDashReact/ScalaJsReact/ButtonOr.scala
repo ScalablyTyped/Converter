@@ -2,16 +2,16 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.buttonButtonOrMod.ButtonOrProps
+import typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+/* The following DOM/SVG props were specified: className */
 object ButtonOr {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
-    className: String = null,
     text: Double | String = null
   )(
     
@@ -24,7 +24,6 @@ object ButtonOr {
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
-    if (className != null) __obj.updateDynamic("className")(className)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
   
     val props = __obj.asInstanceOf[Props]
