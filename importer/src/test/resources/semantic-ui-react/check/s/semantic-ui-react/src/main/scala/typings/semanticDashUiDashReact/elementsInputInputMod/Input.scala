@@ -1,4 +1,4 @@
-package typings.semanticDashUiDashReact.elementsButtonInputInputMod
+package typings.semanticDashUiDashReact.elementsInputInputMod
 
 import typings.react.reactMod.Component
 import scala.scalajs.js

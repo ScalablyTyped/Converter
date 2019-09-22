@@ -1,4 +1,4 @@
-package typings.semanticDashUiDashReact.elementsButtonInputInputMod
+package typings.semanticDashUiDashReact.elementsInputInputMod
 
 import org.scalablytyped.runtime.StringDictionary
 import typings.react.HTMLInputElement

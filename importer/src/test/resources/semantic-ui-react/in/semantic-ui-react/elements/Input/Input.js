@@ -15,7 +15,7 @@ import {
   useKeyOnly,
   useValueAndKey,
 } from '../../lib'
-import Button from '../index'
+import Button from '../Button'
 import Icon from '../Icon'
 import Label from '../Label'
 
