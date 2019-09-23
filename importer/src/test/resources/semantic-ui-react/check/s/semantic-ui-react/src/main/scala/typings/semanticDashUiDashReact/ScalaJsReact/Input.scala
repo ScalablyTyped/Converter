@@ -6,9 +6,6 @@ import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.react.HTMLInputElement
 import typings.react.reactMod.ChangeEvent
-import typings.semanticDashUiDashReact.elementsInputInputMod.InputOnChangeData
-import typings.semanticDashUiDashReact.elementsInputInputMod.InputProps
-import typings.semanticDashUiDashReact.elementsInputMod.default
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -19,6 +16,12 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.massive
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
+import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData
+import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
+import typings.semanticDashUiDashReact.srcElementsInputMod.default
+import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
+import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -33,11 +36,11 @@ object Input {
     error: js.UndefOr[Boolean] = js.undefined,
     fluid: js.UndefOr[Boolean] = js.undefined,
     focus: js.UndefOr[Boolean] = js.undefined,
-    icon: js.Any = null,
+    icon: js.Any | SemanticShorthandItem[InputProps] = null,
     iconPosition: left = null,
-    input: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandItem<HtmlInputrops> */ js.Any = null,
+    input: SemanticShorthandItem[HtmlInputrops] = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    label: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandItem<LabelProps> */ js.Any = null,
+    label: SemanticShorthandItem[LabelProps] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     onChange: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Callback = null,
@@ -52,7 +55,7 @@ object Input {
   
     val __obj = js.Dynamic.literal()
   
-    type InputType = typings.semanticDashUiDashReact.elementsInputMod.default
+    type InputType = typings.semanticDashUiDashReact.srcElementsInputMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
@@ -61,11 +64,11 @@ object Input {
     if (!js.isUndefined(error)) __obj.updateDynamic("error")(error)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(focus)) __obj.updateDynamic("focus")(focus)
-    if (icon != null) __obj.updateDynamic("icon")(icon)
+    if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (iconPosition != null) __obj.updateDynamic("iconPosition")(iconPosition)
-    if (input != null) __obj.updateDynamic("input")(input)
+    if (input != null) __obj.updateDynamic("input")(input.asInstanceOf[js.Any])
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
-    if (label != null) __obj.updateDynamic("label")(label)
+    if (label != null) __obj.updateDynamic("label")(label.asInstanceOf[js.Any])
     if (labelPosition != null) __obj.updateDynamic("labelPosition")(labelPosition.asInstanceOf[js.Any])
     if (!js.isUndefined(loading)) __obj.updateDynamic("loading")(loading)
     if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(onChange))

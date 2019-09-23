@@ -3,11 +3,18 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.elementsButtonButtonGroupMod.ButtonGroupProps
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
+import typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
+import typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -19,11 +26,11 @@ object ButtonGroup {
     as: js.Any = null,
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
-    buttons: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandCollection<ButtonProps> */ js.Any = null,
-    color: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticCOLORS */ js.Any = null,
+    buttons: SemanticShorthandCollection[ButtonProps] = null,
+    color: SemanticCOLORS = null,
     compact: js.UndefOr[Boolean] = js.undefined,
-    content: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticShorthandContent */ js.Any = null,
-    floated: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticFLOATS */ js.Any = null,
+    content: SemanticShorthandContent = null,
+    floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
     icon: js.UndefOr[Boolean] = js.undefined,
     inverted: js.UndefOr[Boolean] = js.undefined,
@@ -32,10 +39,10 @@ object ButtonGroup {
     positive: js.UndefOr[Boolean] = js.undefined,
     primary: js.UndefOr[Boolean] = js.undefined,
     secondary: js.UndefOr[Boolean] = js.undefined,
-    size: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticSIZES */ js.Any = null,
+    size: SemanticSIZES = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify SemanticWIDTHS */ js.Any = null
+    widths: SemanticWIDTHS = null
   )(
     children: /** Primary content. */
   ChildArg*
@@ -53,7 +60,7 @@ object ButtonGroup {
     if (buttons != null) __obj.updateDynamic("buttons")(buttons)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)
-    if (content != null) __obj.updateDynamic("content")(content)
+    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(icon)) __obj.updateDynamic("icon")(icon)
