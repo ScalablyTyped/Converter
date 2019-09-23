@@ -2,7 +2,7 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.elementsButtonButtonOrMod.ButtonOrProps
+import typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -65,13 +65,38 @@ object ScalaJsReactComponents {
     *
     * todo: these two approaches should be refactored into one
     */
+
+  val reactSyntheticEvents = Set(
+    "AnimationEvent",
+    "ClipboardEvent",
+    "CompositionEvent",
+    "DragEvent",
+    "FocusEvent",
+    "KeyboardEvent",
+    "MouseEvent",
+    "TouchEvent",
+    "PointerEvent",
+    "TransitionEvent",
+    "UIEvent",
+    "WheelEvent"
+  )
+
+  def typingsToDomType(src: TypeRef):TypeRef = {
+    TypeRef(QualifiedName(List(Name("org"), Name("scalajs"), Name("dom"), Name("raw"), src.name)))
+  }
+
   val ScalaJsReactReplacements: TypeRef => TypeRef = {
     case TypeRef(QualifiedName.React.ReactNode, _, cs)        => TypeRef(scalaJsReact.TagMod, List(TypeRef.ScalaAny), cs)
     case TypeRef(QualifiedName.React.ReactElement, _, cs)     => TypeRef(scalaJsReact.ReactElement, Nil, cs)
     case TypeRef(QualifiedName.React.ReactType, Seq(one), cs) => TypeRef(scalaJsReact.ReactComponentClass, Seq(one), cs)
     case TypeRef(name, targs, cs) if QualifiedName.React.isComponent(name) =>
       TypeRef(scalaJsReact.ReactComponentClass, targs.take(1), cs)
-    case other => other
+    case TypeRef(name, targs, cs) if name.parts.lastOption.fold(false)(e => reactSyntheticEvents.contains(e.unescaped)) => {
+      val nodeType = targs.find(_.name.value.contains("Element")).map(a=>Seq(typingsToDomType(a))).getOrElse(Nil)
+      TypeRef(scalaJsReact.japgollyScalajsReact + Name(s"React${name.parts.lastOption.fold("")(_.value)}From"), nodeType, cs)
+    }
+    case TypeRef(name, targs, cs) =>
+      TypeRef(name, targs, cs)
   }
 
   /* ScalaJs doesnt really support generic components. We hack it in in the `apply` method */
@@ -82,7 +107,7 @@ object ScalaJsReactComponents {
     val ret = Companions.memberParameter(scope, fieldTree)
     ret match {
       case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType), default, comments), isOptional, asString)) =>
-        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
+        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(ScalaJsReactReplacements), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
       case _ => ret
     }
   }

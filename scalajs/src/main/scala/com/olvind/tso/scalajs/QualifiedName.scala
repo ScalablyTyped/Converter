@@ -78,6 +78,7 @@ object QualifiedName {
     val SVGAttributes     = mod + Name("SVGAttributes")
     val Component         = mod + Name("Component")
     val ComponentType     = mod + Name("ComponentType")
+    val ChangeEvent       = mod + Name("ChangeEvent")
 
     val ComponentNames: Set[String] =
       Set(
