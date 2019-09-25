@@ -186,6 +186,7 @@ class Main(config: Config) {
               if (config.enableParseCache)
                 PersistingFunction(nameAndMtimeUnder(existing(config.cacheFolder / 'parse)), logger.void)(parseFile)
               else parseFile,
+            reactBinding = config.reactBinding
           ),
           "typescript",
         )

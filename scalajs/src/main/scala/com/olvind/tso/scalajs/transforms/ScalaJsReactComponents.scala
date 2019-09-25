@@ -82,7 +82,7 @@ object ScalaJsReactComponents {
   )
 
   def typingsToDomType(src: TypeRef):TypeRef = {
-    TypeRef(QualifiedName(List(Name("org"), Name("scalajs"), Name("dom"), Name("raw"), src.name)))
+    TypeRef(QualifiedName("org.scalajs.dom.raw") + src.name)
   }
 
   val ScalaJsReactReplacements: TypeRef => TypeRef = {
@@ -103,10 +103,9 @@ object ScalaJsReactComponents {
   def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
 
   def memberParameter(scope: TreeScope, fieldTree: FieldTree): Option[Param] = {
-    //TODO hook up here to rewrite the member parameters
     val ret = Companions.memberParameter(scope, fieldTree)
     ret match {
-      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType), default, comments), isOptional, asString)) =>
+      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType@_), default, comments), isOptional, asString)) =>
         Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(ScalaJsReactReplacements), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
       case _ => ret
     }
@@ -160,7 +159,7 @@ object ScalaJsReactComponents {
                 .firstDefined {
                   case FieldTree(_, _, TypeRef(typeName, tparams, _), _, _, _, _, _)
                       if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
-                    ElementMapping.get(tparams.head.name.unescaped)
+                    ElementMapping(tparams.head.name.unescaped)
                   case _ => None
                 }
                 .getOrElse(AnyHtmlElement)
@@ -299,151 +298,192 @@ object ScalaJsReactComponents {
       .fold(Map.empty[Name, TypeRef])(_.toMap)
 
   // todo: this was all the mapping i had the energy to do.
-  private val ElementMapping = Map(
-    "HTMLAnchorElement" -> ScalaJsReactElement(isSvg = false, "a"),
-    "HTMLAppletElement" -> AnyHtmlElement,
-    "HTMLAreaElement" -> ScalaJsReactElement(isSvg  = false, "area"),
-    "HTMLAudioElement" -> ScalaJsReactElement(isSvg = false, "audio"),
-    "HTMLBaseElement" -> ScalaJsReactElement(isSvg  = false, "base"),
-    "HTMLBaseFontElement" -> AnyHtmlElement,
-    "HTMLBodyElement" -> ScalaJsReactElement(isSvg     = false, "body"),
-    "HTMLBRElement" -> ScalaJsReactElement(isSvg       = false, "br"),
-    "HTMLButtonElement" -> ScalaJsReactElement(isSvg   = false, "button"),
-    "HTMLCanvasElement" -> ScalaJsReactElement(isSvg   = false, "canvas"),
-    "HTMLDataElement" -> ScalaJsReactElement(isSvg     = false, "data"),
-    "HTMLDataListElement" -> ScalaJsReactElement(isSvg = false, "datalist"),
-    "HTMLDetailsElement" -> ScalaJsReactElement(isSvg  = false, "details"),
-    "HTMLDialogElement" -> ScalaJsReactElement(isSvg   = false, "dialog"),
-    "HTMLDirectoryElement" -> AnyHtmlElement,
-    "HTMLDivElement" -> ScalaJsReactElement(isSvg   = false, "div"),
-    "HTMLDListElement" -> ScalaJsReactElement(isSvg = false, "dl"),
-    "HTMLElement" -> AnyHtmlElement,
-    "HTMLEmbedElement" -> ScalaJsReactElement(isSvg    = false, "embed"),
-    "HTMLFieldSetElement" -> ScalaJsReactElement(isSvg = false, "fieldset"),
-    "HTMLFontElement" -> AnyHtmlElement,
-    "HTMLFormElement" -> ScalaJsReactElement(isSvg = false, "form"),
-    "HTMLFrameElement" -> AnyHtmlElement,
-    "HTMLFrameSetElement" -> AnyHtmlElement,
-    "HTMLHeadElement" -> ScalaJsReactElement(isSvg = false, "head"),
-    "HTMLHeadingElement" -> AnyHtmlElement,
-    "HTMLHRElement" -> ScalaJsReactElement(isSvg     = false, "hr"),
-    "HTMLHtmlElement" -> ScalaJsReactElement(isSvg   = false, "html"),
-    "HTMLIFrameElement" -> ScalaJsReactElement(isSvg = false, "iframe"),
-    "HTMLImageElement" -> ScalaJsReactElement(isSvg  = false, "img"),
-    "HTMLInputElement" -> ScalaJsReactElement(isSvg  = false, "input"),
-    "HTMLLabelElement" -> ScalaJsReactElement(isSvg  = false, "label"),
-    "HTMLLegendElement" -> ScalaJsReactElement(isSvg = false, "legend"),
-    "HTMLLIElement" -> ScalaJsReactElement(isSvg     = false, "li"),
-    "HTMLLinkElement" -> ScalaJsReactElement(isSvg   = false, "link"),
-    "HTMLMapElement" -> ScalaJsReactElement(isSvg    = false, "map"),
-    "HTMLMarqueeElement" -> AnyHtmlElement,
-    "HTMLMediaElement" -> AnyHtmlElement,
-    "HTMLMenuElement" -> ScalaJsReactElement(isSvg  = false, "menu"),
-    "HTMLMetaElement" -> ScalaJsReactElement(isSvg  = false, "meta"),
-    "HTMLMeterElement" -> ScalaJsReactElement(isSvg = false, "meter"),
-    "HTMLModElement" -> AnyHtmlElement,
-    "HTMLObjectElement" -> ScalaJsReactElement(isSvg    = false, "object"),
-    "HTMLOListElement" -> ScalaJsReactElement(isSvg     = false, "ol"),
-    "HTMLOptGroupElement" -> ScalaJsReactElement(isSvg  = false, "optgroup"),
-    "HTMLOptionElement" -> ScalaJsReactElement(isSvg    = false, "option"),
-    "HTMLOutputElement" -> ScalaJsReactElement(isSvg    = false, "output"),
-    "HTMLParagraphElement" -> ScalaJsReactElement(isSvg = false, "p"),
-    "HTMLParamElement" -> ScalaJsReactElement(isSvg     = false, "param"),
-    "HTMLPictureElement" -> ScalaJsReactElement(isSvg   = false, "picture"),
-    "HTMLPreElement" -> ScalaJsReactElement(isSvg       = false, "pre"),
-    "HTMLProgressElement" -> ScalaJsReactElement(isSvg  = false, "progress"),
-    "HTMLQuoteElement" -> ScalaJsReactElement(isSvg     = false, "q"),
-    "HTMLScriptElement" -> ScalaJsReactElement(isSvg    = false, "script"),
-    "HTMLSelectElement" -> ScalaJsReactElement(isSvg    = false, "select"),
-    "HTMLSlotElement" -> AnyHtmlElement,
-    "HTMLSourceElement" -> ScalaJsReactElement(isSvg = false, "source"),
-    "HTMLSpanElement" -> ScalaJsReactElement(isSvg   = false, "span"),
-    "HTMLStyleElement" -> ScalaJsReactElement(isSvg  = false, "style"),
-    "HTMLTableCaptionElement" -> AnyHtmlElement,
-    "HTMLTableCellElement" -> AnyHtmlElement,
-    "HTMLTableColElement" -> AnyHtmlElement,
-    "HTMLTableDataCellElement" -> AnyHtmlElement,
-    "HTMLTableElement" -> ScalaJsReactElement(isSvg = false, "table"),
-    "HTMLTableHeaderCellElement" -> AnyHtmlElement,
-    "HTMLTableRowElement" -> AnyHtmlElement,
-    "HTMLTableSectionElement" -> AnyHtmlElement,
-    "HTMLTemplateElement" -> AnyHtmlElement,
-    "HTMLTextAreaElement" -> AnyHtmlElement,
-    "HTMLTimeElement" -> AnyHtmlElement,
-    "HTMLTitleElement" -> AnyHtmlElement,
-    "HTMLTrackElement" -> AnyHtmlElement,
-    "HTMLUListElement" -> ScalaJsReactElement(isSvg = false, "ul"),
-    "HTMLVideoElement" -> AnyHtmlElement,
-    "SVGAElement" -> ScalaJsReactElement(isSvg                = true, "a"),
-    "SVGAnimateElement" -> ScalaJsReactElement(isSvg          = true, "animate"),
-    "SVGAnimateMotionElement" -> ScalaJsReactElement(isSvg    = true, "animateMotion"),
-    "SVGAnimateTransformElement" -> ScalaJsReactElement(isSvg = true, "animateTransform"),
-    "SVGAnimationElement" -> AnySvgElement,
-    "SVGCircleElement" -> ScalaJsReactElement(isSvg   = true, "circle"),
-    "SVGClipPathElement" -> ScalaJsReactElement(isSvg = true, "clipPath"),
-    "SVGComponentTransferFunctionElement" -> AnySvgElement,
-    "SVGCursorElement" -> ScalaJsReactElement(isSvg = true, "cursor"),
-    "SVGDefsElement" -> ScalaJsReactElement(isSvg   = true, "defs"),
-    "SVGDescElement" -> ScalaJsReactElement(isSvg   = true, "desc"),
-    "SVGElement" -> AnySvgElement,
-    "SVGEllipseElement" -> ScalaJsReactElement(isSvg       = true, "ellipse"),
-    "SVGFEBlendElement" -> ScalaJsReactElement(isSvg       = true, "feBlend"),
-    "SVGFEColorMatrixElement" -> ScalaJsReactElement(isSvg = true, "feColorMatrix"),
-    "SVGFEComponentTransferElement" -> AnySvgElement,
-    "SVGFECompositeElement" -> AnySvgElement,
-    "SVGFEConvolveMatrixElement" -> AnySvgElement,
-    "SVGFEDiffuseLightingElement" -> AnySvgElement,
-    "SVGFEDisplacementMapElement" -> AnySvgElement,
-    "SVGFEDistantLightElement" -> AnySvgElement,
-    "SVGFEDropShadowElement" -> AnySvgElement,
-    "SVGFEFloodElement" -> AnySvgElement,
-    "SVGFEFuncAElement" -> AnySvgElement,
-    "SVGFEFuncBElement" -> AnySvgElement,
-    "SVGFEFuncGElement" -> AnySvgElement,
-    "SVGFEFuncRElement" -> AnySvgElement,
-    "SVGFEGaussianBlurElement" -> AnySvgElement,
-    "SVGFEImageElement" -> AnySvgElement,
-    "SVGFEMergeElement" -> AnySvgElement,
-    "SVGFEMergeNodeElement" -> AnySvgElement,
-    "SVGFEMorphologyElement" -> AnySvgElement,
-    "SVGFEOffsetElement" -> AnySvgElement,
-    "SVGFEPointLightElement" -> AnySvgElement,
-    "SVGFESpecularLightingElement" -> AnySvgElement,
-    "SVGFESpotLightElement" -> AnySvgElement,
-    "SVGFETileElement" -> AnySvgElement,
-    "SVGFETurbulenceElement" -> AnySvgElement,
-    "SVGFilterElement" -> AnySvgElement,
-    "SVGForeignObjectElement" -> AnySvgElement,
-    "SVGGElement" -> AnySvgElement,
-    "SVGGeometryElement" -> AnySvgElement,
-    "SVGGradientElement" -> AnySvgElement,
-    "SVGGraphicsElement" -> AnySvgElement,
-    "SVGImageElement" -> AnySvgElement,
-    "SVGLinearGradientElement" -> AnySvgElement,
-    "SVGLineElement" -> AnySvgElement,
-    "SVGMarkerElement" -> AnySvgElement,
-    "SVGMaskElement" -> AnySvgElement,
-    "SVGMetadataElement" -> AnySvgElement,
-    "SVGPathElement" -> AnySvgElement,
-    "SVGPatternElement" -> AnySvgElement,
-    "SVGPolygonElement" -> AnySvgElement,
-    "SVGPolylineElement" -> AnySvgElement,
-    "SVGRadialGradientElement" -> AnySvgElement,
-    "SVGRectElement" -> AnySvgElement,
-    "SVGScriptElement" -> AnySvgElement,
-    "SVGStopElement" -> AnySvgElement,
-    "SVGStyleElement" -> AnySvgElement,
-    "SVGSVGElement" -> AnySvgElement,
-    "SVGSwitchElement" -> AnySvgElement,
-    "SVGSymbolElement" -> AnySvgElement,
-    "SVGTextContentElement" -> AnySvgElement,
-    "SVGTextElement" -> AnySvgElement,
-    "SVGTextPathElement" -> AnySvgElement,
-    "SVGTextPositioningElement" -> AnySvgElement,
-    "SVGTitleElement" -> AnySvgElement,
-    "SVGTSpanElement" -> AnySvgElement,
-    "SVGUseElement" -> AnySvgElement,
-    "SVGViewElement" -> AnySvgElement,
-  )
+  private def ElementMapping(str: String): Option[TypeRef] = {
+    val map = Map(
+      "HTMLAnchorElement" -> ScalaJsReactElement(isSvg = false, "a"),
+      "HTMLAppletElement" -> AnyHtmlElement,
+      "HTMLAreaElement" -> ScalaJsReactElement(isSvg = false, "area"),
+      "HTMLAudioElement" -> ScalaJsReactElement(isSvg = false, "audio"),
+      "HTMLBaseElement" -> ScalaJsReactElement(isSvg = false, "base"),
+      "HTMLBaseFontElement" -> AnyHtmlElement,
+      "HTMLBodyElement" -> ScalaJsReactElement(isSvg = false, "body"),
+      "HTMLBRElement" -> ScalaJsReactElement(isSvg = false, "br"),
+      "HTMLButtonElement" -> ScalaJsReactElement(isSvg = false, "button"),
+      "HTMLCanvasElement" -> ScalaJsReactElement(isSvg = false, "canvas"),
+      "HTMLDataElement" -> ScalaJsReactElement(isSvg = false, "data"),
+      "HTMLDataListElement" -> ScalaJsReactElement(isSvg = false, "datalist"),
+      "HTMLDetailsElement" -> ScalaJsReactElement(isSvg = false, "details"),
+      "HTMLDialogElement" -> ScalaJsReactElement(isSvg = false, "dialog"),
+      "HTMLDirectoryElement" -> AnyHtmlElement,
+      "HTMLDivElement" -> ScalaJsReactElement(isSvg = false, "div"),
+      "HTMLDListElement" -> ScalaJsReactElement(isSvg = false, "dl"),
+      "HTMLElement" -> AnyHtmlElement,
+      "HTMLEmbedElement" -> ScalaJsReactElement(isSvg = false, "embed"),
+      "HTMLFieldSetElement" -> ScalaJsReactElement(isSvg = false, "fieldset"),
+      "HTMLFontElement" -> AnyHtmlElement,
+      "HTMLFormElement" -> ScalaJsReactElement(isSvg = false, "form"),
+      "HTMLFrameElement" -> AnyHtmlElement,
+      "HTMLFrameSetElement" -> AnyHtmlElement,
+      "HTMLHeadElement" -> ScalaJsReactElement(isSvg = false, "head"),
+      "HTMLHeadingElement" -> AnyHtmlElement,
+      "HTMLHRElement" -> ScalaJsReactElement(isSvg = false, "hr"),
+      "HTMLHtmlElement" -> ScalaJsReactElement(isSvg = false, "html"),
+      "HTMLIFrameElement" -> ScalaJsReactElement(isSvg = false, "iframe"),
+      "HTMLImageElement" -> ScalaJsReactElement(isSvg = false, "img"),
+      "HTMLInputElement" -> ScalaJsReactElement(isSvg = false, "input"),
+      "HTMLLabelElement" -> ScalaJsReactElement(isSvg = false, "label"),
+      "HTMLLegendElement" -> ScalaJsReactElement(isSvg = false, "legend"),
+      "HTMLLIElement" -> ScalaJsReactElement(isSvg = false, "li"),
+      "HTMLLinkElement" -> ScalaJsReactElement(isSvg = false, "link"),
+      "HTMLMapElement" -> ScalaJsReactElement(isSvg = false, "map"),
+      "HTMLMarqueeElement" -> AnyHtmlElement,
+      "HTMLMediaElement" -> AnyHtmlElement,
+      "HTMLMenuElement" -> ScalaJsReactElement(isSvg = false, "menu"),
+      "HTMLMetaElement" -> ScalaJsReactElement(isSvg = false, "meta"),
+      "HTMLMeterElement" -> ScalaJsReactElement(isSvg = false, "meter"),
+      "HTMLModElement" -> AnyHtmlElement,
+      "HTMLObjectElement" -> ScalaJsReactElement(isSvg = false, "object"),
+      "HTMLOListElement" -> ScalaJsReactElement(isSvg = false, "ol"),
+      "HTMLOptGroupElement" -> ScalaJsReactElement(isSvg = false, "optgroup"),
+      "HTMLOptionElement" -> ScalaJsReactElement(isSvg = false, "option"),
+      "HTMLOutputElement" -> ScalaJsReactElement(isSvg = false, "output"),
+      "HTMLParagraphElement" -> ScalaJsReactElement(isSvg = false, "p"),
+      "HTMLParamElement" -> ScalaJsReactElement(isSvg = false, "param"),
+      "HTMLPictureElement" -> ScalaJsReactElement(isSvg = false, "picture"),
+      "HTMLPreElement" -> ScalaJsReactElement(isSvg = false, "pre"),
+      "HTMLProgressElement" -> ScalaJsReactElement(isSvg = false, "progress"),
+      "HTMLQuoteElement" -> ScalaJsReactElement(isSvg = false, "q"),
+      "HTMLScriptElement" -> ScalaJsReactElement(isSvg = false, "script"),
+      "HTMLSelectElement" -> ScalaJsReactElement(isSvg = false, "select"),
+      "HTMLSlotElement" -> AnyHtmlElement,
+      "HTMLSourceElement" -> ScalaJsReactElement(isSvg = false, "source"),
+      "HTMLSpanElement" -> ScalaJsReactElement(isSvg = false, "span"),
+      "HTMLStyleElement" -> ScalaJsReactElement(isSvg = false, "style"),
+      "HTMLTableCaptionElement" -> AnyHtmlElement,
+      "HTMLTableCellElement" -> AnyHtmlElement,
+      "HTMLTableColElement" -> AnyHtmlElement,
+      "HTMLTableDataCellElement" -> AnyHtmlElement,
+      "HTMLTableElement" -> ScalaJsReactElement(isSvg = false, "table"),
+      "HTMLTableHeaderCellElement" -> AnyHtmlElement,
+      "HTMLTableRowElement" -> AnyHtmlElement,
+      "HTMLTableSectionElement" -> AnyHtmlElement,
+      "HTMLTemplateElement" -> AnyHtmlElement,
+      "HTMLTextAreaElement" -> AnyHtmlElement,
+      "HTMLTimeElement" -> AnyHtmlElement,
+      "HTMLTitleElement" -> AnyHtmlElement,
+      "HTMLTrackElement" -> AnyHtmlElement,
+      "HTMLUListElement" -> ScalaJsReactElement(isSvg = false, "ul"),
+      "HTMLVideoElement" -> AnyHtmlElement,
+      "SVGAElement" -> ScalaJsReactElement(isSvg = true, "a"),
+      "SVGAnimateElement" -> ScalaJsReactElement(isSvg = true, "animate"),
+      "SVGAnimateMotionElement" -> ScalaJsReactElement(isSvg = true, "animateMotion"),
+      "SVGAnimateTransformElement" -> ScalaJsReactElement(isSvg = true, "animateTransform"),
+      "SVGAnimationElement" -> AnySvgElement,
+      "SVGCircleElement" -> ScalaJsReactElement(isSvg = true, "circle"),
+      "SVGClipPathElement" -> ScalaJsReactElement(isSvg = true, "clipPath"),
+      "SVGComponentTransferFunctionElement" -> AnySvgElement,
+      "SVGCursorElement" -> ScalaJsReactElement(isSvg = true, "cursor"),
+      "SVGDefsElement" -> ScalaJsReactElement(isSvg = true, "defs"),
+      "SVGDescElement" -> ScalaJsReactElement(isSvg = true, "desc"),
+      "SVGElement" -> AnySvgElement,
+      "SVGEllipseElement" -> ScalaJsReactElement(isSvg = true, "ellipse"),
+      "SVGFEBlendElement" -> ScalaJsReactElement(isSvg = true, "feBlend"),
+      "SVGFEColorMatrixElement" -> ScalaJsReactElement(isSvg = true, "feColorMatrix"),
+      "SVGFEComponentTransferElement" -> AnySvgElement,
+      "SVGFECompositeElement" -> AnySvgElement,
+      "SVGFEConvolveMatrixElement" -> AnySvgElement,
+      "SVGFEDiffuseLightingElement" -> AnySvgElement,
+      "SVGFEDisplacementMapElement" -> AnySvgElement,
+      "SVGFEDistantLightElement" -> AnySvgElement,
+      "SVGFEDropShadowElement" -> AnySvgElement,
+      "SVGFEFloodElement" -> AnySvgElement,
+      "SVGFEFuncAElement" -> AnySvgElement,
+      "SVGFEFuncBElement" -> AnySvgElement,
+      "SVGFEFuncGElement" -> AnySvgElement,
+      "SVGFEFuncRElement" -> AnySvgElement,
+      "SVGFEGaussianBlurElement" -> AnySvgElement,
+      "SVGFEImageElement" -> AnySvgElement,
+      "SVGFEMergeElement" -> AnySvgElement,
+      "SVGFEMergeNodeElement" -> AnySvgElement,
+      "SVGFEMorphologyElement" -> AnySvgElement,
+      "SVGFEOffsetElement" -> AnySvgElement,
+      "SVGFEPointLightElement" -> AnySvgElement,
+      "SVGFESpecularLightingElement" -> AnySvgElement,
+      "SVGFESpotLightElement" -> AnySvgElement,
+      "SVGFETileElement" -> AnySvgElement,
+      "SVGFETurbulenceElement" -> AnySvgElement,
+      "SVGFilterElement" -> AnySvgElement,
+      "SVGForeignObjectElement" -> AnySvgElement,
+      "SVGGElement" -> AnySvgElement,
+      "SVGGeometryElement" -> AnySvgElement,
+      "SVGGradientElement" -> AnySvgElement,
+      "SVGGraphicsElement" -> AnySvgElement,
+      "SVGImageElement" -> AnySvgElement,
+      "SVGLinearGradientElement" -> AnySvgElement,
+      "SVGLineElement" -> AnySvgElement,
+      "SVGMarkerElement" -> AnySvgElement,
+      "SVGMaskElement" -> AnySvgElement,
+      "SVGMetadataElement" -> AnySvgElement,
+      "SVGPathElement" -> AnySvgElement,
+      "SVGPatternElement" -> AnySvgElement,
+      "SVGPolygonElement" -> AnySvgElement,
+      "SVGPolylineElement" -> AnySvgElement,
+      "SVGRadialGradientElement" -> AnySvgElement,
+      "SVGRectElement" -> AnySvgElement,
+      "SVGScriptElement" -> AnySvgElement,
+      "SVGStopElement" -> AnySvgElement,
+      "SVGStyleElement" -> AnySvgElement,
+      "SVGSVGElement" -> AnySvgElement,
+      "SVGSwitchElement" -> AnySvgElement,
+      "SVGSymbolElement" -> AnySvgElement,
+      "SVGTextContentElement" -> AnySvgElement,
+      "SVGTextElement" -> AnySvgElement,
+      "SVGTextPathElement" -> AnySvgElement,
+      "SVGTextPositioningElement" -> AnySvgElement,
+      "SVGTitleElement" -> AnySvgElement,
+      "SVGTSpanElement" -> AnySvgElement,
+      "SVGUseElement" -> AnySvgElement,
+      "SVGViewElement" -> AnySvgElement,
+    )
+    map.get(str)
+  }
 
 }
+
+/*
+//TODO
+
+Replace
+typings.react.HTMLAnchorElement -> org.scalajs.dom.raw.HTMLAnchorElement
+typings.react.HTMLButtonElement -> org.scalajs.dom.raw.HTMLButtonElement
+typings.react.HTMLElement -> org.scalajs.dom.raw.HTMLElement
+typings.react.HTMLInputElement -> org.scalajs.dom.raw.HTMLInputElement
+typings.react.NativeMouseEvent -> japgolly.scalajs.react.raw.SyntheticMouseEvent
+typings.react.reactMod.Component -> japgolly.scalajs.react.raw.React.Component
+typings.react.reactMod.ComponentClass -> japgolly.scalajs.react.raw.React.ComponentClass
+typings.react.reactMod.ReactDOM -> japgolly.scalajs.react.raw.React.ReactDOM
+typings.react.reactMod.ComponentState
+typings.react.reactMod.ComponentType
+typings.react.reactMod.ChangeEvent
+typings.react.reactMod.FunctionComponent
+typings.react.reactMod.MouseEvent -> japgolly.scalajs.react.ReactMouseEvent
+typings.react.reactMod.Event -> japgolly.scalajs.react.ReactEvent
+typings.react.reactMod.ClipboardEvent -> japgolly.scalajs.react.ReactClipboardEvent
+typings.react.reactMod.CompositionEvent -> japgolly.scalajs.react.ReactCompositionEvent
+typings.react.reactMod.DragEvent -> japgolly.scalajs.react.ReactDragEvent
+typings.react.reactMod.FocusEvent -> japgolly.scalajs.react.ReactFocusEvent
+typings.react.reactMod.KeyboardEvent -> japgolly.scalajs.react.ReactKeyboardEvent
+typings.react.reactMod.TouchEvent -> japgolly.scalajs.react.ReactTouchEvent
+typings.react.reactMod.UIEvent -> japgolly.scalajs.react.ReactUIEvent
+typings.react.reactMod.WheelEvent -> japgolly.scalajs.react.ReactWheelEvent
+typings.react.reactMod.PureComponent
+
+typings.react.reactMod.ReactElement ->  japgolly.scalajs.react.vdom.VdomElement
+typings.react.reactMod.ReactNode -> japgolly.scalajs.react.vdom.VdomNode
+typings.react.reactMod.ReactNodeArray -> japgolly.scalajs.react.vdom.VdomArray
+typings.react.reactMod.Attributes -> japgolly.scalajs.react.vdom.VdomAttr
+
+typings.react.reactMod.ReactType
+typings.react.reactMod.StatelessComponent
+
+*/
