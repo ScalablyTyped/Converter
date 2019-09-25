@@ -13,6 +13,8 @@ final case class QualifiedName(parts: List[Name]) {
 }
 
 object QualifiedName {
+  def apply(str: String):QualifiedName = QualifiedName(str.split(".").map(Name(_)).toList)
+
   val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
   val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)
   val scala_scalajs: QualifiedName = scala + Name.scalajs

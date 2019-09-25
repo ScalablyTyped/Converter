@@ -57,6 +57,7 @@ trait ImporterHarness extends FunSuiteLike {
             stdLibSource,
             pedantic,
             parser.parseFile,
+            reactBinding = reactBinding
           ),
           "typescript",
         )
