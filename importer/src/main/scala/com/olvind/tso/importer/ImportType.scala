@@ -99,7 +99,7 @@ object ImportType {
         }
 
       case TsTypeObject(_, Nil) =>
-        TypeRef(QualifiedName.Object, Nil, NoComments)
+        TypeRef.Object
 
       /* Proper handling (of static) cases will be done in `ApplyTypeMapping`.
        * This piece of code just ignores the effect of the type mapping.
@@ -243,7 +243,7 @@ object ImportType {
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
-        TypeRef(QualifiedName.Any, Nil, Comments(Comment.warning(msg)))
+        TypeRef.Any.withComments(Comments(Comment.warning(msg)))
     }
   }
 

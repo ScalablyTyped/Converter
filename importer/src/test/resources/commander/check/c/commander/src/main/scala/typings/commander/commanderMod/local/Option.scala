@@ -1,8 +1,8 @@
 package typings.commander.commanderMod.local
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Option extends js.Object {
   var bool: Boolean
@@ -15,7 +15,7 @@ trait Option extends js.Object {
 }
 
 object Option {
-  @scala.inline
+  @inline
   def apply(
     bool: Boolean,
     description: String,

@@ -1,10 +1,10 @@
 package typings.angular.angularMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.angular.Anon_Args
 import typings.angular.angularMod._Global_.Function
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("angular", "auto")
 @js.native

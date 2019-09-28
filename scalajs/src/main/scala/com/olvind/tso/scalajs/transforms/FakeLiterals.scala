@@ -50,7 +50,7 @@ object FakeLiterals {
               val codePath = _s.codePath + moduleName + name
               val `trait` =
                 ClassTree(
-                  Seq(Annotation.JsNative),
+                  Seq(AnnotationTree.JsNative.get),
                   name,
                   Nil,
                   Nil,
@@ -63,13 +63,13 @@ object FakeLiterals {
                 )
               val `def` =
                 MethodTree(
-                  Annotation.jsName(name) :+ Annotation.Inline,
+                  AnnotationTree.jsName(name) :+ AnnotationTree.Inline.get,
                   ProtectionLevel.Default,
                   name,
                   Nil,
                   Nil,
-                  MemberImpl.Custom(s"$underlying.asInstanceOf[${name.value}]"),
-                  TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
+                  ExprTree.Custom(s"$underlying.asInstanceOf[${name.value}]"),
+                  TypeRef(name),
                   isOverride = false,
                   comments   = NoComments,
                   codePath,
@@ -85,7 +85,7 @@ object FakeLiterals {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
           collectedStrings += underlying
           TypeRef(
-            QualifiedName(List(ScalaConfig.outputPkg, _s.name, StringModuleName, nameFor(underlying))),
+            QualifiedName(ScalaConfig.outputPkg, _s.name, StringModuleName, nameFor(underlying)),
             Nil,
             LiteralTokenComment,
           )
@@ -100,7 +100,7 @@ object FakeLiterals {
 
           collectedNumbers += fixed
           TypeRef(
-            QualifiedName(List(ScalaConfig.outputPkg, _s.name, NumbersModuleName, nameFor(fixed))),
+            QualifiedName(ScalaConfig.outputPkg, _s.name, NumbersModuleName, nameFor(fixed)),
             Nil,
             LiteralTokenComment,
           )

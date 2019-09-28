@@ -224,7 +224,7 @@ final class CommentTests extends FunSuite with Matchers {
             NoComments,
             ProtectionLevel.Default,
             TsIdent("size"),
-            Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
+            Some(TsTypeRef.number),
             None,
             isStatic   = false,
             isReadOnly = false,
@@ -270,10 +270,7 @@ final class CommentTests extends FunSuite with Matchers {
                 TsTypeRef(
                   NoComments,
                   TsQIdent(List(TsIdent("Map"))),
-                  List(
-                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Nil),
-                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Nil),
-                  ),
+                  List(TsTypeRef(TsIdent("K")), TsTypeRef(TsIdent("V"))),
                 ),
               ),
             ),
@@ -382,10 +379,7 @@ final class CommentTests extends FunSuite with Matchers {
       TsTypeRef(
         NoComments,
         TsQIdent(List(TsIdentSimple("F"))),
-        List(
-          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), List()),
-          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), List()),
-        ),
+        List(TsTypeRef(TsIdentSimple("A")), TsTypeRef(TsIdentSimple("B"))),
       ),
     )
   }

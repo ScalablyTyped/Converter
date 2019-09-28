@@ -31,8 +31,8 @@ object FillInTParams {
   private def rewrites(expectedTParams: Seq[TypeParamTree], providedTParams: Seq[TypeRef]): Map[TypeRef, TypeRef] =
     (expectedTParams zip providedTParams).map {
       case (TypeParamTree(expected, _, _), provided) if provided.targs.nonEmpty =>
-        TypeRef(QualifiedName(expected :: Nil), Nil, NoComments) -> provided
+        TypeRef(expected) -> provided
       case (TypeParamTree(expected, _, _), provided) =>
-        TypeRef(QualifiedName(expected :: Nil), Nil, NoComments) -> provided
+        TypeRef(expected) -> provided
     }.toMap
 }

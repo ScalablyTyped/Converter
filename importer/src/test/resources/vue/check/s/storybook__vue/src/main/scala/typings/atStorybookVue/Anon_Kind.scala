@@ -1,8 +1,8 @@
 package typings.atStorybookVue
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Anon_Kind extends js.Object {
   var kind: String
@@ -10,7 +10,7 @@ trait Anon_Kind extends js.Object {
 }
 
 object Anon_Kind {
-  @scala.inline
+  @inline
   def apply(kind: String, story: String): Anon_Kind = {
     val __obj = js.Dynamic.literal(kind = kind, story = story)
   

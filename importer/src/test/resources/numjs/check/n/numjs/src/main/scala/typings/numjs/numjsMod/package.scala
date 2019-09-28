@@ -2,7 +2,6 @@ package typings.numjs
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object numjsMod {
   import typings.ndarray.ndarrayMod.Data

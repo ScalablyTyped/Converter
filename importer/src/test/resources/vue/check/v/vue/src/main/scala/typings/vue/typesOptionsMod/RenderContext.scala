@@ -1,11 +1,11 @@
 package typings.vue.typesOptionsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.vue.typesVnodeMod.VNode
 import typings.vue.typesVnodeMod.VNodeData
 import typings.vue.typesVueMod.Vue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait RenderContext[Props] extends js.Object {
   var children: js.Array[VNode]
@@ -17,7 +17,7 @@ trait RenderContext[Props] extends js.Object {
 }
 
 object RenderContext {
-  @scala.inline
+  @inline
   def apply[Props](
     children: js.Array[VNode],
     data: VNodeData,

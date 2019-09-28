@@ -155,7 +155,7 @@ object CombineOverloads extends TreeTransformation {
             ctor.name,
             Nil,
             Seq(ctor.params),
-            MemberImpl.Native,
+            ExprTree.native,
             TypeRef.Nothing,
             false,
             ctor.comments,

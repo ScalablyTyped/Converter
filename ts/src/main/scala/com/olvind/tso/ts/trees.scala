@@ -302,7 +302,7 @@ final case class TsTypeParam(
 
 object TsTypeParam {
   def asTypeArgs(tps: Seq[TsTypeParam]): Seq[TsTypeRef] =
-    tps.map(tp => TsTypeRef.of(tp.name))
+    tps.map(tp => TsTypeRef(tp.name))
 }
 // terms
 
@@ -414,7 +414,6 @@ final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
 }
 
 object TsQIdent {
-
   def of(ss:      String*) = TsQIdent(ss.toList.map(TsIdent.apply))
   def of(tsIdent: TsIdent) = TsQIdent(tsIdent :: Nil)
 
@@ -461,22 +460,24 @@ sealed abstract class TsType extends TsTree
 final case class TsTypeRef(comments: Comments, name: TsQIdent, tparams: Seq[TsType]) extends TsType
 
 object TsTypeRef {
-  def of(tsIdent: TsIdent): TsTypeRef =
-    TsTypeRef(NoComments, TsQIdent.of(tsIdent), Nil)
+  def apply(name: TsIdent): TsTypeRef =
+    TsTypeRef(NoComments, TsQIdent.of(name), Nil)
+  def apply(name: TsQIdent): TsTypeRef =
+    TsTypeRef(NoComments, name, Nil)
 
-  val any       = TsTypeRef(NoComments, TsQIdent.any, Nil)
-  val boolean   = TsTypeRef(NoComments, TsQIdent.boolean, Nil)
-  val Boolean   = TsTypeRef(NoComments, TsQIdent.Boolean, Nil)
-  val Symbol    = TsTypeRef(NoComments, TsQIdent.symbol, Nil)
-  val `object`  = TsTypeRef(NoComments, TsQIdent.`object`, Nil)
-  val Object    = TsTypeRef(NoComments, TsQIdent.Object, Nil)
-  val string    = TsTypeRef(NoComments, TsQIdent.string, Nil)
-  val String    = TsTypeRef(NoComments, TsQIdent.String, Nil)
-  val never     = TsTypeRef(NoComments, TsQIdent.never, Nil)
-  val number    = TsTypeRef(NoComments, TsQIdent.number, Nil)
-  val `null`    = TsTypeRef(NoComments, TsQIdent.`null`, Nil)
-  val void      = TsTypeRef(NoComments, TsQIdent.void, Nil)
-  val undefined = TsTypeRef(NoComments, TsQIdent.undefined, Nil)
+  val any       = TsTypeRef(TsQIdent.any)
+  val boolean   = TsTypeRef(TsQIdent.boolean)
+  val Boolean   = TsTypeRef(TsQIdent.Boolean)
+  val Symbol    = TsTypeRef(TsQIdent.symbol)
+  val `object`  = TsTypeRef(TsQIdent.`object`)
+  val Object    = TsTypeRef(TsQIdent.Object)
+  val string    = TsTypeRef(TsQIdent.string)
+  val String    = TsTypeRef(TsQIdent.String)
+  val never     = TsTypeRef(TsQIdent.never)
+  val number    = TsTypeRef(TsQIdent.number)
+  val `null`    = TsTypeRef(TsQIdent.`null`)
+  val void      = TsTypeRef(TsQIdent.void)
+  val undefined = TsTypeRef(TsQIdent.undefined)
 }
 
 final case class TsTypeLiteral(literal: TsLiteral) extends TsType

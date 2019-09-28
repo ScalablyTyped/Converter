@@ -1,8 +1,8 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ReactSVG extends js.Object {
   var animate: SVGFactory
@@ -11,7 +11,7 @@ trait ReactSVG extends js.Object {
 }
 
 object ReactSVG {
-  @scala.inline
+  @inline
   def apply(animate: SVGFactory, circle: SVGFactory, clipPath: SVGFactory): ReactSVG = {
     val __obj = js.Dynamic.literal(animate = animate, circle = circle, clipPath = clipPath)
   

@@ -1,8 +1,8 @@
 package typings.reactDashBootstrap.libToggleButtonGroupMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait BaseProps extends js.Object {
   /**
@@ -18,7 +18,7 @@ trait BaseProps extends js.Object {
 }
 
 object BaseProps {
-  @scala.inline
+  @inline
   def apply(defaultValue: js.Any = null, value: js.Any = null): BaseProps = {
     val __obj = js.Dynamic.literal()
     if (defaultValue != null) __obj.updateDynamic("defaultValue")(defaultValue)

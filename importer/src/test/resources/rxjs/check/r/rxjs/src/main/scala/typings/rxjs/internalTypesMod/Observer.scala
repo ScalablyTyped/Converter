@@ -1,8 +1,8 @@
 package typings.rxjs.internalTypesMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Observer[T] extends js.Object {
   var closed: js.UndefOr[Boolean] = js.undefined
@@ -12,7 +12,7 @@ trait Observer[T] extends js.Object {
 }
 
 object Observer {
-  @scala.inline
+  @inline
   def apply[T](
     complete: () => Unit,
     error: js.Any => Unit,

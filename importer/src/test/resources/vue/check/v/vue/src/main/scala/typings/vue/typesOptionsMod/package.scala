@@ -2,7 +2,6 @@ package typings.vue
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object typesOptionsMod {
   import org.scalablytyped.runtime.StringDictionary

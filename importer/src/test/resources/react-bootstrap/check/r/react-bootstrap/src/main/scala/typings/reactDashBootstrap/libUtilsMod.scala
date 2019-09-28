@@ -1,11 +1,12 @@
 package typings.reactDashBootstrap
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.reactDashBootstrap.libUtilsBootstrapUtilsMod.BSProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("react-bootstrap/lib/utils", JSImport.Namespace)
+@JSImport("react-bootstrap/lib/utils", Namespace)
 @js.native
 object libUtilsMod extends js.Object {
   def createChainedFunction(funcs: js.Function*): js.Function = js.native

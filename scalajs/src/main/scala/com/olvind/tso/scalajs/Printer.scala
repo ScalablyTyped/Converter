@@ -4,7 +4,6 @@ package scalajs
 import java.io._
 
 import com.olvind.tso.scalajs.transforms.ShortenNames
-import com.olvind.tso.stringUtils.quote
 
 import scala.collection.mutable
 
@@ -46,8 +45,7 @@ object Printer {
 
   val Imports: String =
     """|import scala.scalajs.js
-       |import scala.scalajs.js.`|`
-       |import scala.scalajs.js.annotation._""".stripMargin
+       |import scala.scalajs.js.`|`""".stripMargin
 
   def apply(
       _scope:       TreeScope,
@@ -159,7 +157,7 @@ object Printer {
 
       case cls @ ClassTree(anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(Comments.format(comments))
-        print(formatAnns(anns))
+        print(formatAnns(indent, anns))
 
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
           case Nil                                 => (CtorTree.defaultPublic, Nil)
@@ -196,7 +194,7 @@ object Printer {
 
       case m @ ModuleTree(anns, name, parents, members, comments, _) =>
         print(Comments.format(comments))
-        print(formatAnns(anns))
+        print(formatAnns(indent, anns))
 
         print("object ", formatName(name), extendsClause(parents, m.isNative, indent))
 
@@ -207,6 +205,7 @@ object Printer {
           println("}")
         } else
           println()
+
         println()
 
       case TypeAliasTree(name, tparams, alias, comments, _) =>
@@ -219,7 +218,7 @@ object Printer {
 
       case FieldTree(anns, name, tpe, impl, isReadOnly, isOverride, comments, _) =>
         print(Comments.format(comments))
-        print(formatAnns(anns))
+        print(formatAnns(indent, anns))
 
         print(
           "",
@@ -228,17 +227,11 @@ object Printer {
           " ",
           typeAnnotation(formatName(name), indent, tpe, name),
         )
-
-        impl match {
-          case MemberImpl.NotImplemented => println()
-          case MemberImpl.Undefined      => println(" = js.undefined")
-          case MemberImpl.Native         => println(" = js.native")
-          case MemberImpl.Custom(impl)   => println(" = ", impl)
-        }
+        println(formatImpl(impl))
 
       case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _) =>
         print(Comments.format(comments))
-        print(formatAnns(anns))
+        print(formatAnns(indent, anns))
 
         print(formatProtectionLevel(level, isCtor = false))
         print(s"${if (isOverride) "override " else ""}def ")
@@ -256,12 +249,7 @@ object Printer {
         print(
           typeAnnotation(formatName(name) + tparamString + paramString.mkString, indent, resultType, name),
         )
-        impl match {
-          case MemberImpl.NotImplemented => println()
-          case MemberImpl.Native         => println(" = js.native")
-          case MemberImpl.Undefined      => println(" = js.undefined")
-          case MemberImpl.Custom(impl)   => println(" = ", impl)
-        }
+        println(formatImpl(impl))
 
       case CtorTree(level, params, comments) =>
         print(Comments.format(comments))
@@ -284,25 +272,29 @@ object Printer {
       case tree @ TypeRef(_, _, comments) =>
         print(Comments.format(comments))
         print(formatTypeRef(indent)(tree))
+
+      case tree: ImplTree =>
+        println(formatImpl(tree))
+
+      case tree: AnnotationTree =>
+        println(formatAnn(indent)(tree))
     }
   }
 
   def formatParams(indent: Int)(ps: Seq[ParamTree]): String = {
-    val base        = ps.map(formatParamTree(indent))
-    var paramString = base.mkString("(", ", ", ")")
-    if (paramString.length > 100 && ps.length > 1) {
-      paramString = base.mkString("(\n  ", ",\n  ", "\n)")
+    val base = ps.map(formatParamTree(indent))
+    base.mkString("(", ", ", ")") match {
+      case paramString if paramString.length > 100 && ps.length > 1 =>
+        base.mkString("(\n  ", ",\n  ", "\n)")
+      case other => other
     }
-    paramString
   }
 
   def extendsClause(parents: Seq[TypeRef], isNative: Boolean, indent: Int): String =
     parents.toList.map(parent => formatTypeRef(indent + 6)(parent)) match {
-      case Nil if isNative                    => " extends js.Object"
-      case Nil                                => ""
-      case head :: Nil if !head.contains(".") => " extends " + head
-      case head :: Nil                        => "\n  extends " + head
-      case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
+      case Nil          => ""
+      case head :: Nil  => " extends " + head
+      case head :: tail => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
     }
 
   def formatTypeParamTree(indent: Int)(tree: TypeParamTree): String =
@@ -314,15 +306,8 @@ object Printer {
     Seq(
       Comments.format(tree.comments),
       typeAnnotation(formatName(tree.name), indent + 2, tree.tpe, Name.WILDCARD),
-      tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(indent)(d)}"),
+      formatImpl(tree.default),
     ).mkString
-
-  def formatDefaultedTypeRef(indent: Int)(ref: TypeRef): String =
-    ref match {
-      case TypeRef.`null`    => "null"
-      case TypeRef.undefined => "js.undefined"
-      case other             => formatTypeRef(indent + 2)(other)
-    }
 
   def formatQN(q: QualifiedName): String =
     q.parts match {
@@ -361,8 +346,8 @@ object Printer {
         case TypeRef.Intersection(types) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
 
-        case TypeRef.UndefOr(tpe) =>
-          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, List(tpe), NoComments))
+//        case TypeRef.UndefOr(tpe) =>
+//          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, List(tpe), NoComments))
 
         case TypeRef.Union(types) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
@@ -403,37 +388,36 @@ object Printer {
       case ProtectionLevel.Protected           => "/* protected */ "
     }
 
-  def formatAnn(a: Annotation): String =
+  def formatAnn(indent: Int)(a: AnnotationTree): String =
     a match {
-      case Annotation.Inline =>
-        "@scala.inline"
-      case Annotation.JsBracketAccess =>
-        "@JSBracketAccess"
-      case Annotation.JsBracketCall =>
-        "@JSBracketCall"
-      case Annotation.JsNative =>
-        "@js.native"
-      case Annotation.JsName(name: Name) =>
-        s"@JSName(${quote(name.unescaped)})"
-      case Annotation.JsNameSymbol(name) =>
-        s"@JSName(${formatQN(name)})"
-      case Annotation.JsImport(module, imported) =>
-        val importedString = imported match {
-          case Imported.Namespace    => "JSImport.Namespace"
-          case Imported.Default      => "JSImport.Default"
-          case Imported.Named(names) => quote(names.map(_.unescaped).mkString("."))
+      case AnnotationTree.ScalaJSDefined() => ""
+      case AnnotationTree(ref, params) =>
+        ("@" + formatTypeRef(indent)(ref), params) match {
+          case (base, Nil)    => base
+          case (base, params) => base + (params.map(formatExpr).mkString("(", ", ", ")"))
         }
-        s"@JSImport(${quote(module)}, $importedString)"
-      case Annotation.ScalaJSDefined =>
-        "" //"@ScalaJSDefined"
-      case Annotation.JsGlobal(name: QualifiedName) =>
-        s"@JSGlobal(${quote(name.parts.map(_.unescaped).mkString("."))})"
-      case Annotation.JsGlobalScope =>
-        s"@JSGlobalScope"
     }
 
-  def formatAnns(anns: Seq[Annotation]): String =
-    anns map formatAnn filterNot (_.isEmpty) match {
+  def formatExpr(e: ExprTree): String =
+    e match {
+      case ExprTree.Ref(value)       => formatQN(value)
+      case ExprTree.StringLit(value) => stringUtils.quote(value)
+      case ExprTree.Cast(one, as)    => formatExpr(one) + s".asInstanceOf[${formatQN(as.value)}]"
+      case ExprTree.Custom(impl)     => impl
+      case ExprTree.`null`           => "null"
+      //      case ExprTree.Call(function, params) =>
+      //      case ExprTree.Unary(op, expr) =>
+      //      case ExprTree.BinaryOp(one, op, two) =>
+    }
+
+  def formatImpl(e: ImplTree): String =
+    e match {
+      case NotImplemented => ""
+      case e: ExprTree => " = " + formatExpr(e)
+    }
+
+  def formatAnns(indent: Int, anns: Seq[AnnotationTree]): String =
+    anns map formatAnn(indent) filterNot (_.isEmpty) match {
       case Nil       => ""
       case formatted => formatted.sorted.mkString("", "\n", "\n")
     }

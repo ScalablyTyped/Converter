@@ -1,10 +1,10 @@
 package typings.node
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.std.ArrayBuffer
 import typings.std.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("Buffer")
 @js.native

@@ -1,10 +1,10 @@
 package typings.awsDashSdk.libConfigMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.awsDashSdk.awsDashSdkStrings.latest
 import typings.awsDashSdk.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServiceApiVersions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait APIVersions extends js.Object {
   /**
@@ -18,7 +18,7 @@ trait APIVersions extends js.Object {
 }
 
 object APIVersions {
-  @scala.inline
+  @inline
   def apply(apiVersion: latest | String = null, apiVersions: ConfigurationServiceApiVersions = null): APIVersions = {
     val __obj = js.Dynamic.literal()
     if (apiVersion != null) __obj.updateDynamic("apiVersion")(apiVersion.asInstanceOf[js.Any])

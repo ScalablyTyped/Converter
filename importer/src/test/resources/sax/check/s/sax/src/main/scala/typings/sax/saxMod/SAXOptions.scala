@@ -1,8 +1,8 @@
 package typings.sax.saxMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait SAXOptions extends js.Object {
   var lowercase: js.UndefOr[Boolean] = js.undefined
@@ -14,7 +14,7 @@ trait SAXOptions extends js.Object {
 }
 
 object SAXOptions {
-  @scala.inline
+  @inline
   def apply(
     lowercase: js.UndefOr[Boolean] = js.undefined,
     normalize: js.UndefOr[Boolean] = js.undefined,

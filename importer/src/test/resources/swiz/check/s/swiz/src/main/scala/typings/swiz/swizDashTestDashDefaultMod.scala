@@ -1,13 +1,17 @@
 package typings.swiz
 
+import scala.scalajs.js.annotation.JSBracketAccess
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
+import scala.scalajs.js.annotation.JSName
 import typings.swiz.swizMod.SERIALIZATION
 import typings.swiz.swizMod.SERIALIZATION.java
+import typings.swiz.swizMod.SERIALIZATION.js
 import typings.swiz.swizMod.SERIALIZATION.notify
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("swiz-test-default", JSImport.Namespace)
+@JSImport("swiz-test-default", Namespace)
 @js.native
 object swizDashTestDashDefaultMod extends js.Object {
   @js.native
@@ -18,7 +22,7 @@ object swizDashTestDashDefaultMod extends js.Object {
     /* 3 */ @JSName("java")
     val java_ : java with Double = js.native
     /* 2 */ @JSName("js")
-    val js_ : typings.swiz.swizMod.SERIALIZATION.js with Double = js.native
+    val js_ : js with Double = js.native
     /* 1 */ @JSName("notify")
     val notify_Fdefault: notify with Double = js.native
     @JSBracketAccess

@@ -67,7 +67,7 @@ object IdentifyReactComponents {
     def go(p: ContainerTree, scope: TreeScope): List[Component] = {
       val fromSelf = p match {
         case ModuleTree(_, name, Seq(TypeRef(QualifiedName.TopLevel, Seq(tpe), _)), _, comments, codePath) =>
-          maybeFieldComponent(FieldTree(Nil, name, tpe, MemberImpl.Native, true, false, comments, codePath), p, scope)
+          maybeFieldComponent(FieldTree(Nil, name, tpe, ExprTree.native, true, false, comments, codePath), p, scope)
         case _ => None
       }
       val fromMembers = p.members.flatMap {
@@ -182,7 +182,7 @@ object IdentifyReactComponents {
       props = tr.targs.head
     } yield
       Component(
-        fullName         = componentName(scope, owner.annotations, QualifiedName(tree.name :: Nil), tree.comments),
+        fullName         = componentName(scope, owner.annotations, QualifiedName(tree.name), tree.comments),
         tparams          = Nil,
         props            = Some(props).filterNot(_ === TypeRef.Object),
         scalaLocation    = tree.codePath,
@@ -202,7 +202,7 @@ object IdentifyReactComponents {
               level       = ProtectionLevel.Default,
               name        = tree.name,
               tparams     = Nil,
-              params      = List(params.map(p => ParamTree(Name.dummy, p, None, NoComments))),
+              params      = List(params.map(p => ParamTree(Name.dummy, p, NotImplemented, NoComments))),
               impl        = tree.impl,
               resultType  = ret,
               isOverride  = false,
@@ -241,7 +241,7 @@ object IdentifyReactComponents {
   object componentName {
     def apply(
         scope:    TreeScope,
-        anns:     Seq[Annotation],
+        anns:     Seq[AnnotationTree],
         codePath: QualifiedName,
         comments: Comments,
     ): Name = {
@@ -300,34 +300,34 @@ object IdentifyReactComponents {
       kept.reverse.toList
     }
 
-    def fromAnnotations(anns: Seq[Annotation]): Option[Name] =
+    def fromAnnotations(anns: Seq[AnnotationTree]): Option[Name] =
       anns collectFirst {
-        case Annotation.JsName(name)                                               => name
-        case Annotation.JsImport(_, Imported.Named(names)) if !Unnamed(names.last) => names.last
-        case Annotation.JsImport(mod, _) =>
+        case AnnotationTree.JsName(name)                                     => name
+        case AnnotationTree.JsImport.Named(_, names) if !Unnamed(names.last) => names.last
+        case AnnotationTree.JsImport(mod, _) =>
           val fragment =
             mod
               .split("/")
               .filterNot(x => Unnamed(Name(x)))
               .last
           Name(prettyString(fragment, "", forceCamelCase = false))
-        case Annotation.JsGlobal(qname) => qname.parts.last
+        case AnnotationTree.JsGlobal(qname) => qname.parts.last
       }
   }
 
-  def isGlobal(as: Seq[Annotation]): Boolean =
+  def isGlobal(as: Seq[AnnotationTree]): Boolean =
     as exists {
-      case Annotation.JsGlobal(_)   => true
-      case Annotation.JsGlobalScope => true
-      case _                        => false
+      case AnnotationTree.JsGlobal(_)     => true
+      case AnnotationTree.JsGlobalScope() => true
+      case _                              => false
     }
 
   object Names {
-    val React         = List(ScalaConfig.outputPkg, Name("react"), Name("reactMod"))
-    val Component     = QualifiedName(React :+ Name("Component"))
-    val ComponentType = QualifiedName(React :+ Name("ComponentType"))
+    val React         = QualifiedName(ScalaConfig.outputPkg, Name("react"), Name("reactMod"))
+    val Component     = React + Name("Component")
+    val ComponentType = React + Name("ComponentType")
 
-    val Element = QualifiedName(React :+ Name("ReactElement"))
+    val Element = React + Name("ReactElement")
 
     val ComponentNames: Set[String] =
       Set(
@@ -349,7 +349,7 @@ object IdentifyReactComponents {
         "StatelessComponent",
       )
 
-    val isComponent: Set[QualifiedName] = ComponentNames.map(n => QualifiedName(React :+ Name(n)))
+    val isComponent: Set[QualifiedName] = ComponentNames.map(n => React + Name(n))
   }
 
   def isUpper(n: Name): Boolean = n.value.head.isUpper

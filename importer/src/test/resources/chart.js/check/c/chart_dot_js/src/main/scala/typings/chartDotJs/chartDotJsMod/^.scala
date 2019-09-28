@@ -1,6 +1,8 @@
 package typings.chartDotJs.chartDotJsMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.chartDotJs.Anon_Global
 import typings.chartDotJs.TypeofClassChart
 import typings.std.ArrayLike
@@ -8,9 +10,8 @@ import typings.std.CanvasRenderingContext2D
 import typings.std.HTMLCanvasElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("chart.js", JSImport.Namespace)
+@JSImport("chart.js", Namespace)
 @js.native
 class ^ protected () extends Chart {
   def this(context: String, options: js.Any) = this()
@@ -19,7 +20,7 @@ class ^ protected () extends Chart {
   def this(context: HTMLCanvasElement, options: js.Any) = this()
 }
 
-@JSImport("chart.js", JSImport.Namespace)
+@JSImport("chart.js", Namespace)
 @js.native
 object ^ extends js.Object {
   val Chart: TypeofClassChart = js.native

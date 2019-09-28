@@ -1,10 +1,10 @@
 package typings.webpackDashEnv
 
 import org.scalablytyped.runtime.TopLevel
+import scala.scalajs.js.annotation.JSGlobal
 import typings.webpackDashEnv.NodeJS.Process
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("process")
 @js.native

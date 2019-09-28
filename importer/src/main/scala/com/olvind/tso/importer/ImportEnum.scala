@@ -17,12 +17,7 @@ object ImportEnum {
     TypeRef.Union(found, sort = true)
   }
 
-  def apply(
-      e:          TsDeclEnum,
-      anns:       Seq[ClassAnnotation],
-      scope:      TsTreeScope,
-      importName: ImportName,
-  ): Seq[Tree] =
+  def apply(e: TsDeclEnum, anns: Seq[AnnotationTree], scope: TsTreeScope, importName: ImportName): Seq[Tree] =
     e match {
       /* exported const enum? type alias */
       case TsDeclEnum(cs, _, true, importName(name), _, _, Some(exportedFrom), _, codePath) =>
@@ -45,12 +40,12 @@ object ImportEnum {
             val castName = Name("cast")
             val T        = Name("T")
             MethodTree(
-              List(Annotation.Inline),
+              List(AnnotationTree.Inline.get),
               ProtectionLevel.Private,
               castName,
               List(TypeParamTree(T, None, NoComments)),
-              List(List(ParamTree(Name("in"), TypeRef.Any, None, NoComments))),
-              MemberImpl.Custom("in.asInstanceOf[T]"),
+              List(List(ParamTree(Name("in"), TypeRef.Any, NotImplemented, NoComments))),
+              ExprTree.Cast(ExprTree.Ref(QualifiedName(Name("in"))), ExprTree.Ref(QualifiedName(Name("T")))),
               TypeRef(T),
               isOverride = false,
               NoComments,
@@ -62,12 +57,12 @@ object ImportEnum {
               val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
               val tpe  = ImportType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
               MethodTree(
-                List(Annotation.Inline),
+                List(AnnotationTree.Inline.get),
                 ProtectionLevel.Default,
                 memberName,
                 Nil,
                 Nil,
-                MemberImpl.Custom(s"this.cast(${TsExpr.format(expr)})"),
+                ExprTree.Custom(s"this.cast(${TsExpr.format(expr)})"),
                 tpe,
                 isOverride = false,
                 memberCs,
@@ -96,13 +91,13 @@ object ImportEnum {
               scalajs.TypeAliasTree(
                 name     = name,
                 tparams  = Nil,
-                alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Nil)),
+                alias    = ImportType(Wildcards.No, scope, importName)(TsTypeRef(ef.name)),
                 comments = Comments(CommentData(Markers.IsTrivial)),
                 codePath = importedCodePath,
               )
             case None =>
               ClassTree(
-                annotations = Seq(Annotation.JsNative),
+                annotations = Seq(AnnotationTree.JsNative.get),
                 name        = name,
                 tparams     = Nil,
                 parents     = Nil,
@@ -118,15 +113,15 @@ object ImportEnum {
         val moduleTree: ModuleTree = {
           val applyMethod: Option[MethodTree] =
             if (isValue) {
-              val applyParam = ParamTree(Name.value, underlying, None, NoComments)
+              val applyParam = ParamTree(Name.value, underlying, NotImplemented, NoComments)
               Some(
                 MethodTree(
-                  annotations = Annotation.method(name, isBracketAccess = true),
+                  annotations = AnnotationTree.method(name, isBracketAccess = true),
                   level       = ProtectionLevel.Default,
                   name        = Name.APPLY,
                   tparams     = Nil,
                   params      = Seq(Seq(applyParam)),
-                  impl        = MemberImpl.Native,
+                  impl        = ExprTree.native,
                   resultType  = TypeRef.Intersection(baseInterface :: underlying :: Nil).withOptional(true),
                   isOverride  = false,
                   comments    = NoComments,
@@ -143,7 +138,7 @@ object ImportEnum {
                   else
                     Some(
                       ClassTree(
-                        annotations = Seq(Annotation.JsNative),
+                        annotations = Seq(AnnotationTree.JsNative.get),
                         name        = memberName,
                         tparams     = Nil,
                         parents     = Seq(baseInterface),
@@ -165,7 +160,7 @@ object ImportEnum {
                         annotations = Nil,
                         name        = memberName,
                         tpe         = TypeRef.Intersection(memberTypeRef :: underlying :: Nil),
-                        impl        = MemberImpl.Native,
+                        impl        = ExprTree.native,
                         isReadOnly  = true,
                         isOverride  = false,
                         comments =

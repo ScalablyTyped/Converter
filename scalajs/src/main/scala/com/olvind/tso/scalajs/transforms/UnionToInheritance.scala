@@ -108,7 +108,7 @@ object UnionToInheritance {
         indexedRewrites(ta.codePath) match {
           case Rewrite(_, _, Nil) =>
             val cls = ClassTree(
-              List(Annotation.ScalaJSDefined),
+              List(AnnotationTree.ScalaJSDefined.get),
               ta.name,
               ta.tparams,
               Nil,
@@ -124,7 +124,7 @@ object UnionToInheritance {
           case Rewrite(_, _, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
-              List(Annotation.ScalaJSDefined),
+              List(AnnotationTree.ScalaJSDefined.get),
               patchedTa.name,
               ta.tparams,
               newParentsByCodePath.getOrElse(ta.codePath, Nil).map(_.instantiate(ta.tparams)),
@@ -212,7 +212,7 @@ object UnionToInheritance {
       ta.alias match {
         case TypeRef.Union(types) =>
           def legalTarget(tr: TypeRef): Boolean =
-            scope.lookup(tr.typeName).exists {
+            scope lookup tr.typeName exists {
               case (_:  ClassTree, _)     => true
               case (ta: TypeAliasTree, _) => canRewrite(inLib, ta, scope).isDefined
               case _ => false

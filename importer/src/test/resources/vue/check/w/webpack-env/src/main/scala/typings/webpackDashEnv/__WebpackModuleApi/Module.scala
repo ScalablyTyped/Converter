@@ -1,8 +1,8 @@
 package typings.webpackDashEnv.__WebpackModuleApi
 
+import scala.scalajs.js.annotation.JSName
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Module extends js.Object {

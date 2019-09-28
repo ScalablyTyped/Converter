@@ -1,5 +1,6 @@
 package typings.atStorybookVue.atStorybookVueMod
 
+import scala.scalajs.js.annotation.JSName
 import typings.vue.typesOptionsMod.ComponentOptions
 import typings.vue.typesOptionsMod.DefaultComputed
 import typings.vue.typesOptionsMod.DefaultData
@@ -9,7 +10,6 @@ import typings.vue.typesOptionsMod.PropsDefinition
 import typings.vue.typesVueMod.Vue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait StoryObject extends js.Object {

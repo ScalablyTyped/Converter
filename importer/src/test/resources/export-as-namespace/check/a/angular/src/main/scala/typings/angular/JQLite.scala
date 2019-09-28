@@ -1,18 +1,18 @@
 package typings.angular
 
 import org.scalablytyped.runtime.NumberDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.angular.angularMod.auto.IInjectorService
 import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait JQLite
   extends JQuery
      with /* index */ NumberDictionary[HTMLElement]
 
 object JQLite {
-  @scala.inline
+  @inline
   def apply(
     addClass: String => JQLite,
     injector: () => IInjectorService,

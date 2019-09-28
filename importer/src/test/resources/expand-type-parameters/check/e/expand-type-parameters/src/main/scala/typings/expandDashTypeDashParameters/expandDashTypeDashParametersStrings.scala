@@ -2,7 +2,6 @@ package typings.expandDashTypeDashParameters
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object expandDashTypeDashParametersStrings {
   @js.native
@@ -14,11 +13,11 @@ object expandDashTypeDashParametersStrings {
   @js.native
   sealed trait c extends TA
   
-  @scala.inline
+  @inline
   def a: a = "a".asInstanceOf[a]
-  @scala.inline
+  @inline
   def b: b = "b".asInstanceOf[b]
-  @scala.inline
+  @inline
   def c: c = "c".asInstanceOf[c]
 }
 

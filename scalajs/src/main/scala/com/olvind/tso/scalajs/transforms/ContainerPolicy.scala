@@ -11,7 +11,7 @@ import scala.collection.mutable
 
 object ContainerPolicy extends TreeTransformation {
   /* sneak import annotations through fields/methods which otherwise don't have them */
-  case class ClassAnnotations(value: Seq[ClassAnnotation]) extends Comment.Data
+  case class ClassAnnotations(value: Seq[AnnotationTree]) extends Comment.Data
 
   override def leaveContainerTree(scope: TreeScope)(_s: ContainerTree): ContainerTree = {
     val s = combineModules(_s)
@@ -96,17 +96,14 @@ object ContainerPolicy extends TreeTransformation {
       }
 
       def requiresCustomImport = {
-        def check(anns: Seq[Annotation], name: Name) =
+        def check(anns: Seq[AnnotationTree], name: Name) =
           anns exists {
-            case Annotation.JsGlobalScope => true
-            case Annotation.JsImport(_, i) =>
-              i match {
-                case Imported.Namespace => true
-                case Imported.Default   => name =/= Name.Default
-                case Imported.Named(x)  => x.last =/= name
-              }
-            case Annotation.JsGlobal(x) => x.parts.last =/= name
-            case _                      => false
+            case AnnotationTree.JsGlobalScope()       => true
+            case AnnotationTree.JsImport.Namespace(_) => true
+            case AnnotationTree.JsImport.Default(_)   => name =/= Name.Default
+            case AnnotationTree.JsImport.Named(_, x)  => x.last =/= name
+            case AnnotationTree.JsGlobal(x)           => x.parts.last =/= name
+            case _                                    => false
           }
 
         mod.members.exists {
@@ -137,14 +134,11 @@ object ContainerPolicy extends TreeTransformation {
   }
 
   def stripLocationAnns(tree: Tree): Tree = {
-    def filterAnns(anns: Seq[ClassAnnotation]): Seq[ClassAnnotation] =
+    def filterAnns(anns: Seq[AnnotationTree]): Seq[AnnotationTree] =
       anns.filter {
-        case Annotation.JsNative       => true
-        case Annotation.ScalaJSDefined => true
-        case Annotation.JsGlobalScope  => false
-        case Annotation.JsName(_)      => false
-        case Annotation.JsImport(_, _) => false
-        case Annotation.JsGlobal(_)    => false
+        case AnnotationTree.JsNative()       => true
+        case AnnotationTree.ScalaJSDefined() => true
+        case _                               => false
       }
 
     tree match {

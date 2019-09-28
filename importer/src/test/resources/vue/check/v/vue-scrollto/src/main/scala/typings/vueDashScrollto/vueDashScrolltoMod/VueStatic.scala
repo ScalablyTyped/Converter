@@ -3,7 +3,6 @@ package typings.vueDashScrollto.vueDashScrolltoMod
 import typings.std.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait VueStatic extends js.Object {

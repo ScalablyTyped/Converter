@@ -1,10 +1,10 @@
 package typings.vue.typesOptionsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.vue.typesVnodeMod.VNode
 import typings.vue.typesVueMod.CreateElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
   var functional: Boolean
@@ -15,7 +15,7 @@ trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
 }
 
 object FunctionalComponentOptions {
-  @scala.inline
+  @inline
   def apply[Props, PropDefs](
     functional: Boolean,
     render: (js.UndefOr[scala.Nothing], CreateElement, RenderContext[Props]) => VNode,

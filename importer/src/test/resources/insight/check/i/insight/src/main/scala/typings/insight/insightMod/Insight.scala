@@ -1,9 +1,9 @@
 package typings.insight.insightMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.insight.insightMod.insight.IConfigstore
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Insight extends js.Object {
   var clientId: String
@@ -13,7 +13,7 @@ trait Insight extends js.Object {
 }
 
 object Insight {
-  @scala.inline
+  @inline
   def apply(clientId: String, config: IConfigstore, optOut: Boolean, track: /* repeated */ String => Unit): Insight = {
     val __obj = js.Dynamic.literal(clientId = clientId, config = config, optOut = optOut, track = js.Any.fromFunction1(track))
   

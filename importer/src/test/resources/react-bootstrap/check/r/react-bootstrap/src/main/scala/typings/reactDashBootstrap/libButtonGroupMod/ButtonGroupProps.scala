@@ -1,5 +1,6 @@
 package typings.reactDashBootstrap.libButtonGroupMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.react.Anon_Html
 import typings.react.reactMod.HTMLProps
 import typings.react.reactMod.Key
@@ -9,7 +10,6 @@ import typings.react.reactStrings.foo
 import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ButtonGroupProps extends HTMLProps[ButtonGroup] {
   var block: js.UndefOr[Boolean] = js.undefined
@@ -20,12 +20,17 @@ trait ButtonGroupProps extends HTMLProps[ButtonGroup] {
 }
 
 object ButtonGroupProps {
-  @scala.inline
+  @inline
   def apply(
     defaultValue: foo,
+    hasOwnProperty: String => Boolean,
+    isPrototypeOf: js.Object => Boolean,
     onChange: foo,
+    propertyIsEnumerable: String => Boolean,
+    toLocaleString: () => String,
     `type`: foo,
     value: foo,
+    valueOf: () => js.Any,
     accept: String = null,
     acceptCharset: String = null,
     block: js.UndefOr[Boolean] = js.undefined,
@@ -39,7 +44,7 @@ object ButtonGroupProps {
     ref: Ref[ButtonGroup] = null,
     vertical: js.UndefOr[Boolean] = js.undefined
   ): ButtonGroupProps = {
-    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
+    val __obj = js.Dynamic.literal(defaultValue = defaultValue, hasOwnProperty = js.Any.fromFunction1(hasOwnProperty), isPrototypeOf = js.Any.fromFunction1(isPrototypeOf), onChange = onChange, propertyIsEnumerable = js.Any.fromFunction1(propertyIsEnumerable), toLocaleString = js.Any.fromFunction0(toLocaleString), value = value, valueOf = js.Any.fromFunction0(valueOf))
     __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)

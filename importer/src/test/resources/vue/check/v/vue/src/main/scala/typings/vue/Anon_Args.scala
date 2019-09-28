@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.Instantiable1
 import typings.vue.typesOptionsMod.Prop
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Anon_Args[T]

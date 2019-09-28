@@ -33,7 +33,7 @@ object FillInTParams {
               if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
               else default getOrElse sys.error("Type parameter not provided")
 
-            TsTypeRef.of(expected) -> provided
+            TsTypeRef(expected) -> provided
         }.toMap
 
       /* in case the type params refer to each other. This is probably not perfect, but it was quick to write */

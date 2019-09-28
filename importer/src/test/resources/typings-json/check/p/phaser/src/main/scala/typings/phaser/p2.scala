@@ -1,9 +1,9 @@
 package typings.phaser
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.phaser.p2.AABB
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("p2")
 @js.native

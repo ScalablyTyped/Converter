@@ -13,12 +13,15 @@ final case class QualifiedName(parts: List[Name]) {
 }
 
 object QualifiedName {
-  val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
-  val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)
+  def apply(x:  Name):  QualifiedName = QualifiedName(List(x))
+  def apply(xs: Name*): QualifiedName = QualifiedName(xs.toList)
+
+  val java_lang:     QualifiedName = QualifiedName(Name.java, Name.lang)
+  val scala:         QualifiedName = QualifiedName(Name.scala)
   val scala_scalajs: QualifiedName = scala + Name.scalajs
   val scala_js:      QualifiedName = scala_scalajs + Name.js
-  val scala_js_ann:  QualifiedName = scala_js + Name("annotation")
-  val Runtime:       QualifiedName = QualifiedName(List(Name("org"), Name("scalablytyped"), Name("runtime")))
+
+  val Runtime: QualifiedName = QualifiedName(Name("org"), Name("scalablytyped"), Name("runtime"))
 
   val String:           QualifiedName = java_lang + Name.String
   val JArray:           QualifiedName = java_lang + Name.Array
@@ -43,16 +46,16 @@ object QualifiedName {
   val NumberDictionary: QualifiedName = Runtime + Name("NumberDictionary")
   val StringDictionary: QualifiedName = Runtime + Name("StringDictionary")
   val TopLevel:         QualifiedName = Runtime + Name("TopLevel")
-  val UNION:            QualifiedName = QualifiedName(Name.UNION :: Nil)
-  val INTERSECTION:     QualifiedName = QualifiedName(Name.INTERSECTION :: Nil)
-  val LITERAL:          QualifiedName = QualifiedName(Name.LITERAL :: Nil)
-  val THIS_TYPE:        QualifiedName = QualifiedName(Name.THIS_TYPE :: Nil)
-  val WILDCARD:         QualifiedName = QualifiedName(Name.WILDCARD :: Nil)
-  val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
-  val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
+  val UNION:            QualifiedName = QualifiedName(Name.UNION)
+  val INTERSECTION:     QualifiedName = QualifiedName(Name.INTERSECTION)
+  val LITERAL:          QualifiedName = QualifiedName(Name.LITERAL)
+  val THIS_TYPE:        QualifiedName = QualifiedName(Name.THIS_TYPE)
+  val WILDCARD:         QualifiedName = QualifiedName(Name.WILDCARD)
+  val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED)
+  val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON)
 
   object Std {
-    private val std = QualifiedName(ScalaConfig.outputPkg :: ScalaConfig.std :: Nil)
+    private val std = QualifiedName(ScalaConfig.outputPkg, ScalaConfig.std)
 
     val Array:         QualifiedName = std + Name.Array
     val Boolean:       QualifiedName = std + Name.Boolean

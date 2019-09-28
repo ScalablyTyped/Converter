@@ -1,9 +1,10 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.JSName
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.react.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 // string fallback for custom web-components
 trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] extends ReactElement {
@@ -13,7 +14,7 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 }
 
 object DOMElement {
-  @scala.inline
+  @inline
   def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, ref: Ref[T], `type`: String, key: Key = null): DOMElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props, ref = ref.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`)

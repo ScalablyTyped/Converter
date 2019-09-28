@@ -1,12 +1,13 @@
 package typings.insight.insightMod
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.insight.insightMod.insight.IConfigstore
 import typings.insight.insightMod.insight.IOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("insight", JSImport.Namespace)
+@JSImport("insight", Namespace)
 @js.native
 class ^ protected () extends Insight {
   def this(options: IOptions) = this()

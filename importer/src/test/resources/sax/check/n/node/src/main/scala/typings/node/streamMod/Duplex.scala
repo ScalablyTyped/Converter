@@ -1,8 +1,8 @@
 package typings.node.streamMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
 - typings.node.NodeJS.EventEmitter because Already inherited

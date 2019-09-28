@@ -1,9 +1,9 @@
 package typings.sax.saxMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
 - typings.sax.saxMod.BaseTag because var conflicts: name. Inlined isSelfClosing */ trait QualifiedTag extends QualifiedName {
@@ -13,7 +13,7 @@ import scala.scalajs.js.annotation._
 }
 
 object QualifiedTag {
-  @scala.inline
+  @inline
   def apply(
     attributes: StringDictionary[QualifiedAttribute],
     isSelfClosing: Boolean,

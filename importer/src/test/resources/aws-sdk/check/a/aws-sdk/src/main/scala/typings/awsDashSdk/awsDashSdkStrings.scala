@@ -3,7 +3,6 @@ package typings.awsDashSdk
 import typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient._AttributeAction
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object awsDashSdkStrings {
   @js.native
@@ -18,13 +17,13 @@ object awsDashSdkStrings {
   @js.native
   sealed trait latest extends js.Object
   
-  @scala.inline
+  @inline
   def ADD: ADD = "ADD".asInstanceOf[ADD]
-  @scala.inline
+  @inline
   def DELETE: DELETE = "DELETE".asInstanceOf[DELETE]
-  @scala.inline
+  @inline
   def PUT: PUT = "PUT".asInstanceOf[PUT]
-  @scala.inline
+  @inline
   def latest: latest = "latest".asInstanceOf[latest]
 }
 

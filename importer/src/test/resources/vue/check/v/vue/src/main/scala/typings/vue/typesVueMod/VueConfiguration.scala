@@ -1,11 +1,11 @@
 package typings.vue.typesVueMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.std.Error
 import typings.std.RegExp
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait VueConfiguration extends js.Object {
   var devtools: Boolean
@@ -20,7 +20,7 @@ trait VueConfiguration extends js.Object {
 }
 
 object VueConfiguration {
-  @scala.inline
+  @inline
   def apply(
     devtools: Boolean,
     errorHandler: (Error, Vue, String) => Unit,

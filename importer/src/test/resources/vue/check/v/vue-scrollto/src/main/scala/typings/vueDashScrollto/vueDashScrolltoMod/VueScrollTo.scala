@@ -1,9 +1,9 @@
 package typings.vueDashScrollto.vueDashScrolltoMod
 
+import scala.scalajs.js.annotation.JSName
 import typings.std.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait VueScrollTo extends js.Object {

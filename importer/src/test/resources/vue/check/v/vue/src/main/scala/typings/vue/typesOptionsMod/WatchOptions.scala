@@ -1,8 +1,8 @@
 package typings.vue.typesOptionsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait WatchOptions extends js.Object {
   var deep: js.UndefOr[Boolean] = js.undefined
@@ -10,7 +10,7 @@ trait WatchOptions extends js.Object {
 }
 
 object WatchOptions {
-  @scala.inline
+  @inline
   def apply(deep: js.UndefOr[Boolean] = js.undefined, immediate: js.UndefOr[Boolean] = js.undefined): WatchOptions = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(deep)) __obj.updateDynamic("deep")(deep)

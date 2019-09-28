@@ -3,7 +3,6 @@ package typings.reactDashBootstrap
 import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object reactDashBootstrapStrings {
   @js.native
@@ -45,31 +44,31 @@ object reactDashBootstrapStrings {
   @js.native
   sealed trait xsmall extends Sizes
   
-  @scala.inline
+  @inline
   def checkbox: checkbox = "checkbox".asInstanceOf[checkbox]
-  @scala.inline
+  @inline
   def defaultValue: defaultValue = "defaultValue".asInstanceOf[defaultValue]
-  @scala.inline
+  @inline
   def large: large = "large".asInstanceOf[large]
-  @scala.inline
+  @inline
   def lg: lg = "lg".asInstanceOf[lg]
-  @scala.inline
+  @inline
   def medium: medium = "medium".asInstanceOf[medium]
-  @scala.inline
+  @inline
   def onChange: onChange = "onChange".asInstanceOf[onChange]
-  @scala.inline
+  @inline
   def radio: radio = "radio".asInstanceOf[radio]
-  @scala.inline
+  @inline
   def sm: sm = "sm".asInstanceOf[sm]
-  @scala.inline
+  @inline
   def small: small = "small".asInstanceOf[small]
-  @scala.inline
+  @inline
   def `type`: `type` = "type".asInstanceOf[`type`]
-  @scala.inline
+  @inline
   def value: value = "value".asInstanceOf[value]
-  @scala.inline
+  @inline
   def xs: xs = "xs".asInstanceOf[xs]
-  @scala.inline
+  @inline
   def xsmall: xsmall = "xsmall".asInstanceOf[xsmall]
 }
 

@@ -1,9 +1,9 @@
 package typings.webpackDashEnv.__WebpackModuleApi
 
+import scala.scalajs.js.annotation.JSName
 import typings.std.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Hot extends js.Object {

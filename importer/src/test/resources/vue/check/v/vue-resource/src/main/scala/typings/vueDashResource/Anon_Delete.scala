@@ -1,11 +1,11 @@
 package typings.vueDashResource
 
+import scala.scalajs.js.annotation.JSName
 import typings.vueDashResource.vuejs.$http
 import typings.vueDashResource.vuejs.HttpOptions
 import typings.vueDashResource.vuejs.HttpResponse
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Anon_Delete extends js.Object {

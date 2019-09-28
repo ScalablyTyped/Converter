@@ -1,8 +1,8 @@
 package typings.typeDashMappings
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait CSSProperties extends js.Object {
   var color: String
@@ -15,7 +15,7 @@ trait CSSProperties extends js.Object {
 }
 
 object CSSProperties {
-  @scala.inline
+  @inline
   def apply(
     color: String,
     fontFamily: String,

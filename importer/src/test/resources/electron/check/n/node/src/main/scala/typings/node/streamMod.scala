@@ -1,12 +1,13 @@
 package typings.node
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.node.streamMod.Readable
 import typings.node.streamMod.Stream
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("stream", JSImport.Namespace)
+@JSImport("stream", Namespace)
 @js.native
 object streamMod extends js.Object {
   /* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 

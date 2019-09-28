@@ -48,3 +48,15 @@ type TypographyStyleOptions = Partial<TypographyStyle>
 type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
 type Excluded = Omit<CSSProperties, 'color'>
+
+type problematicStrings = "js" | "com" | "scala"
+
+declare namespace js2 {
+    export const foo: number;
+}
+declare namespace com {
+    export const bar: number;
+}
+declare namespace scala {
+    export const foobar: number;
+}

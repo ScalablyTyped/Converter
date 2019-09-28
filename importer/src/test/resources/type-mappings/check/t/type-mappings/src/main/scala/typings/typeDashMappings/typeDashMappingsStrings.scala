@@ -2,17 +2,25 @@ package typings.typeDashMappings
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object typeDashMappingsStrings {
   @js.native
+  sealed trait JS extends problematicStrings
+  
+  @js.native
   sealed trait Proxify extends js.Object
+  
+  @js.native
+  sealed trait SCALA extends problematicStrings
   
   @js.native
   sealed trait age extends js.Object
   
   @js.native
   sealed trait color extends js.Object
+  
+  @js.native
+  sealed trait com extends problematicStrings
   
   @js.native
   sealed trait fontFamily extends js.Object
@@ -35,25 +43,31 @@ object typeDashMappingsStrings {
   @js.native
   sealed trait textTransform extends js.Object
   
-  @scala.inline
+  @inline
+  def JS: JS = "js".asInstanceOf[JS]
+  @inline
   def Proxify: Proxify = "Proxify".asInstanceOf[Proxify]
-  @scala.inline
+  @inline
+  def SCALA: SCALA = "scala".asInstanceOf[SCALA]
+  @inline
   def age: age = "age".asInstanceOf[age]
-  @scala.inline
+  @inline
   def color: color = "color".asInstanceOf[color]
-  @scala.inline
+  @inline
+  def com: com = "com".asInstanceOf[com]
+  @inline
   def fontFamily: fontFamily = "fontFamily".asInstanceOf[fontFamily]
-  @scala.inline
+  @inline
   def fontSize: fontSize = "fontSize".asInstanceOf[fontSize]
-  @scala.inline
+  @inline
   def fontWeight: fontWeight = "fontWeight".asInstanceOf[fontWeight]
-  @scala.inline
+  @inline
   def letterSpacing: letterSpacing = "letterSpacing".asInstanceOf[letterSpacing]
-  @scala.inline
+  @inline
   def lineHeight: lineHeight = "lineHeight".asInstanceOf[lineHeight]
-  @scala.inline
+  @inline
   def name: name = "name".asInstanceOf[name]
-  @scala.inline
+  @inline
   def textTransform: textTransform = "textTransform".asInstanceOf[textTransform]
 }
 

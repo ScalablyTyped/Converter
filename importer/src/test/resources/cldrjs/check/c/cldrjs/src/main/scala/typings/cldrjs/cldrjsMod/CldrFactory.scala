@@ -1,8 +1,8 @@
 package typings.cldrjs.cldrjsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait CldrFactory extends js.Object {
   def load(json: js.Any, otherJson: js.Any*): Unit
@@ -12,7 +12,7 @@ trait CldrFactory extends js.Object {
 }
 
 object CldrFactory {
-  @scala.inline
+  @inline
   def apply(
     load: (js.Any, /* repeated */ js.Any) => Unit,
     off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit,

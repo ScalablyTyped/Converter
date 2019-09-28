@@ -1,9 +1,9 @@
 package typings.serveDashStatic.serveDashStaticMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.mime.mimeMod.TypeMap
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("serve-static", "mime")
 @js.native

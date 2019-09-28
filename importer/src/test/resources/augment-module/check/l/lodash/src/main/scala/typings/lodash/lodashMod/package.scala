@@ -2,7 +2,6 @@ package typings.lodash
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object lodashMod {
   import typings.lodash.GlobalPartial

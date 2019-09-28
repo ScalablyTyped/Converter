@@ -1,10 +1,11 @@
 package typings.electron.Electron
 
 import org.scalablytyped.runtime.TopLevel
+import scala.scalajs.js.annotation.JSGlobal
+import scala.scalajs.js.annotation.JSName
 import typings.electron.electronStrings.`accessibility-support-changed`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait App extends EventEmitter {

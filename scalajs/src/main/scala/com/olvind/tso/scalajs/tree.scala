@@ -15,7 +15,7 @@ sealed trait HasCodePath {
 }
 
 sealed trait ContainerTree extends Tree with HasCodePath {
-  val annotations: Seq[ClassAnnotation]
+  val annotations: Seq[AnnotationTree]
   val members:     Seq[Tree]
 
   def withMembers(members: Seq[Tree]): ContainerTree =
@@ -29,19 +29,19 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 }
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
-  def annotations: Seq[ClassAnnotation]
-  def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
+  def annotations: Seq[AnnotationTree]
+  def isScalaJsDefined: Boolean = annotations contains AnnotationTree.ScalaJSDefined.get
   val index: Map[Name, Seq[Tree]]
 
   def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
+    case AnnotationTree.JsNative()       => true
+    case AnnotationTree.ScalaJSDefined() => true
+    case _                               => false
   }
 }
 
 final case class PackageTree(
-    annotations: Seq[ClassAnnotation],
+    annotations: Seq[AnnotationTree],
     name:        Name,
     members:     Seq[Tree],
     comments:    Comments,
@@ -56,7 +56,7 @@ object PackageTree {
 }
 
 final case class ClassTree(
-    annotations: Seq[ClassAnnotation],
+    annotations: Seq[AnnotationTree],
     name:        Name,
     tparams:     Seq[TypeParamTree],
     parents:     Seq[TypeRef],
@@ -73,7 +73,7 @@ final case class ClassTree(
   def renamed(newName: Name): ClassTree =
     copy(
       name        = newName,
-      annotations = Annotation.classRenamedFrom(name)(annotations),
+      annotations = AnnotationTree.classRenamedFrom(name)(annotations),
       codePath    = QualifiedName(codePath.parts.init :+ newName),
     )
 
@@ -82,7 +82,7 @@ final case class ClassTree(
 }
 
 final case class ModuleTree(
-    annotations: Seq[ClassAnnotation],
+    annotations: Seq[AnnotationTree],
     name:        Name,
     parents:     Seq[TypeRef],
     members:     Seq[Tree],
@@ -106,19 +106,11 @@ sealed trait MemberTree extends Tree {
   def withCodePath(newCodePath: QualifiedName): MemberTree
 }
 
-sealed trait MemberImpl
-object MemberImpl {
-  case object Native extends MemberImpl
-  case object NotImplemented extends MemberImpl
-  case object Undefined extends MemberImpl
-  final case class Custom(impl: String) extends MemberImpl
-}
-
 final case class FieldTree(
-    annotations: Seq[MemberAnnotation],
+    annotations: Seq[AnnotationTree],
     name:        Name,
     tpe:         TypeRef,
-    impl:        MemberImpl,
+    impl:        ImplTree,
     isReadOnly:  Boolean,
     isOverride:  Boolean,
     comments:    Comments,
@@ -129,12 +121,12 @@ final case class FieldTree(
     renamed(name withSuffix t)
 
   def originalName: Name =
-    annotations.collectFirst { case Annotation.JsName(name) => name } getOrElse name
+    annotations.collectFirst { case AnnotationTree.JsName(name) => name } getOrElse name
 
   def renamed(newName: Name): FieldTree =
     copy(
       name        = newName,
-      annotations = Annotation.renamedFrom(name)(annotations),
+      annotations = AnnotationTree.renamedFrom(name)(annotations),
       isOverride  = false,
       codePath    = QualifiedName(codePath.parts.init :+ newName),
     )
@@ -143,12 +135,12 @@ final case class FieldTree(
 }
 
 final case class MethodTree(
-    annotations: Seq[MemberAnnotation],
+    annotations: Seq[AnnotationTree],
     level:       ProtectionLevel,
     name:        Name,
     tparams:     Seq[TypeParamTree],
     params:      Seq[Seq[ParamTree]],
-    impl:        MemberImpl,
+    impl:        ImplTree,
     resultType:  TypeRef,
     isOverride:  Boolean,
     comments:    Comments,
@@ -158,12 +150,12 @@ final case class MethodTree(
     renamed(name withSuffix t)
 
   def originalName: Name =
-    annotations.collectFirst { case Annotation.JsName(name) => name } getOrElse name
+    annotations.collectFirst { case AnnotationTree.JsName(name) => name } getOrElse name
 
   def renamed(newName: Name): MethodTree =
     copy(
       name        = newName,
-      annotations = Annotation.renamedFrom(name)(annotations),
+      annotations = AnnotationTree.renamedFrom(name)(annotations),
       isOverride  = false,
       codePath    = QualifiedName(codePath.parts.init :+ newName),
     )
@@ -189,7 +181,7 @@ object TypeParamTree {
   implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
 }
 
-final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
+final case class ParamTree(name: Name, tpe: TypeRef, default: ImplTree, comments: Comments) extends Tree
 
 final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
@@ -203,28 +195,27 @@ final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments:
 
 object TypeRef {
   def apply(n: Name): TypeRef =
-    TypeRef(QualifiedName(List(n)), Nil, NoComments)
+    TypeRef(QualifiedName(n), Nil, NoComments)
   def apply(qn: QualifiedName): TypeRef =
     TypeRef(qn, Nil, NoComments)
 
-  val Wildcard     = TypeRef(QualifiedName.WILDCARD, Nil, NoComments)
-  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
-  val Any          = TypeRef(QualifiedName.Any, Nil, NoComments)
-  val Boolean      = TypeRef(QualifiedName.Boolean, Nil, NoComments)
-  val Double       = TypeRef(QualifiedName.Double, Nil, NoComments)
-  val Dynamic      = TypeRef(QualifiedName.Dynamic, Nil, NoComments)
-  val Int          = TypeRef(QualifiedName.Int, Nil, NoComments)
-  val Long         = TypeRef(QualifiedName.Long, Nil, NoComments)
-  val Nothing      = TypeRef(QualifiedName.Nothing, Nil, NoComments)
-  val Null         = TypeRef(QualifiedName.Null, Nil, NoComments)
-  val Object       = TypeRef(QualifiedName.Object, Nil, NoComments)
-  val String       = TypeRef(QualifiedName.String, Nil, NoComments)
-  val Symbol       = TypeRef(QualifiedName.Symbol, Nil, NoComments)
-  val Unit         = TypeRef(QualifiedName.Unit, Nil, NoComments)
-  val FunctionBase = TypeRef(QualifiedName.Function, Nil, NoComments)
+  val Wildcard     = TypeRef(QualifiedName.WILDCARD)
+  val ScalaAny     = TypeRef(QualifiedName.ScalaAny)
+  val Any          = TypeRef(QualifiedName.Any)
+  val Boolean      = TypeRef(QualifiedName.Boolean)
+  val Double       = TypeRef(QualifiedName.Double)
+  val Dynamic      = TypeRef(QualifiedName.Dynamic)
+  val Int          = TypeRef(QualifiedName.Int)
+  val Long         = TypeRef(QualifiedName.Long)
+  val Nothing      = TypeRef(QualifiedName.Nothing)
+  val Null         = TypeRef(QualifiedName.Null)
+  val Object       = TypeRef(QualifiedName.Object)
+  val String       = TypeRef(QualifiedName.String)
+  val Symbol       = TypeRef(QualifiedName.Symbol)
+  val Unit         = TypeRef(QualifiedName.Unit)
+  val FunctionBase = TypeRef(QualifiedName.Function)
 
-  val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
-  val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)
+  val undefined = TypeRef(Name("js.undefined"))
 
   val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
@@ -283,13 +274,19 @@ object TypeRef {
     private val F = "Function(\\d+)".r
 
     def unapply(tr: TypeRef): Option[(Seq[TypeRef], TypeRef)] =
-      tr.typeName.parts match {
+      tr.typeName match {
+        case ScalaFunction() => Some((tr.targs.init, tr.targs.last))
+        case _               => None
+      }
+
+    def unapply(qname: QualifiedName): Boolean =
+      qname.parts match {
         case Name.scala :: f :: Nil =>
           f.unescaped match {
-            case F(_) => Some((tr.targs.init, tr.targs.last))
-            case _    => None
+            case F(_) => true
+            case _    => false
           }
-        case _ => None
+        case _ => false
       }
   }
 
@@ -333,6 +330,7 @@ object TypeRef {
 
     def unapply(typeRef: TypeRef): Option[TypeRef] =
       typeRef match {
+        case TypeRef(QualifiedName.UndefOr, Seq(one), _) => Some(one)
         case Union(types) if types.contains(undefined) =>
           val rest = types.filterNot(x => x === undefined || x === TypeRef.Nothing) match {
             case Nil      => TypeRef.Nothing
@@ -397,7 +395,7 @@ object TypeRef {
 
   object Literal {
     def apply(underlying: String): TypeRef =
-      TypeRef(QualifiedName.LITERAL, Seq(TypeRef(QualifiedName(List(Name(underlying))), Nil, NoComments)), NoComments)
+      TypeRef(QualifiedName.LITERAL, Seq(TypeRef(Name(underlying))), NoComments)
 
     def unapply(typeRef: TypeRef): Option[String] =
       typeRef match {
@@ -448,4 +446,193 @@ object TypeRef {
 
   implicit val TypeRefSuffix: ToSuffix[TypeRef] =
     t => ToSuffix(t.typeName) ++ t.targs.map(x => ToSuffix(x))
+}
+
+sealed trait ImplTree extends Tree {
+  override val name:     Name     = Name("ImplTree")
+  override val comments: Comments = NoComments
+}
+
+case object NotImplemented extends ImplTree
+sealed trait ExprTree extends ImplTree
+
+object ExprTree {
+  val undefined = Ref(QualifiedName.scala_js + Name("undefined"))
+  val native    = Ref(QualifiedName.scala_js + Name("native"))
+  case object `null` extends ExprTree
+  case class Custom(impl:     String) extends ExprTree
+  case class Ref(value:       QualifiedName) extends ExprTree
+  case class StringLit(value: String) extends ExprTree
+  //  case class Call(function:   ExprTree, params: List[ExprTree]) extends ExprTree
+  //  case class Unary(op:        String, expr: ExprTree) extends ExprTree
+  //  case class BinaryOp(one:    ExprTree, op: String, two: ExprTree) extends ExprTree
+  case class Cast(one: ExprTree, as: Ref) extends ExprTree
+}
+
+final case class AnnotationTree(ref: TypeRef, params: Seq[ExprTree])(val original: TypeRef) extends Tree {
+  override val name = Name("annotation")
+  override val comments: Comments = NoComments
+}
+
+object AnnotationTree {
+  val jsAnnotation = QualifiedName.scala_js + Name("annotation")
+
+  sealed abstract class NoArg(Ref: TypeRef) {
+    val get: AnnotationTree = AnnotationTree(Ref, Nil)(Ref)
+    def unapply(a: AnnotationTree): Boolean = a.original === Ref
+  }
+
+  object JsBracketAccess extends NoArg(TypeRef(jsAnnotation + Name("JSBracketAccess")))
+  object JsBracketCall extends NoArg(TypeRef(jsAnnotation + Name("JSBracketCall")))
+  object JsNative extends NoArg(TypeRef(QualifiedName.scala_js + Name("native")))
+  object ScalaJSDefined extends NoArg(TypeRef(jsAnnotation + Name("ScalaJSDefined")))
+  object JsGlobalScope extends NoArg(TypeRef(jsAnnotation + Name("JSGlobalScope")))
+  object Inline extends NoArg(TypeRef(QualifiedName.scala + Name("inline")))
+
+  object JsName {
+    val Ref = TypeRef(jsAnnotation + Name("JSName"))
+
+    def apply(name: Name): AnnotationTree =
+      AnnotationTree(Ref, List(ExprTree.StringLit(name.unescaped)))(Ref)
+
+    def unapply(a: AnnotationTree): Option[Name] =
+      a match {
+        case AnnotationTree(_, Seq(ExprTree.StringLit(value))) if a.original === Ref => Some(Name(value))
+        case _                                                                       => None
+      }
+  }
+
+  object JsNameSymbol {
+    val Ref = TypeRef(jsAnnotation + Name("JSName"))
+
+    def apply(name: QualifiedName): AnnotationTree =
+      AnnotationTree(Ref, List(ExprTree.Ref(name)))(Ref)
+
+    def unapply(a: AnnotationTree): Option[QualifiedName] =
+      a match {
+        case AnnotationTree(_, Seq(ExprTree.Ref(name))) if a.original === Ref => Some(name)
+        case _                                                                => None
+      }
+  }
+
+  object JsImport {
+    val Ref = TypeRef(jsAnnotation + Name("JSImport"))
+
+    object Namespace {
+      val JSImportNamespace = Ref.typeName + Name("Namespace")
+
+      def apply(module: String): AnnotationTree =
+        AnnotationTree(Ref, List(ExprTree.StringLit(module), ExprTree.Ref(JSImportNamespace)))(Ref)
+
+      def unapply(a: AnnotationTree): Option[String] =
+        a match {
+          case AnnotationTree(_, Seq(ExprTree.StringLit(module), ExprTree.Ref(JSImportNamespace)))
+              if a.original === Ref =>
+            Some(module)
+          case _ => None
+        }
+    }
+    object Default {
+      val JSImportDefault = Ref.typeName + Name("Default")
+
+      def apply(module: String): AnnotationTree =
+        AnnotationTree(Ref, List(ExprTree.StringLit(module), ExprTree.Ref(JSImportDefault)))(Ref)
+
+      def unapply(a: AnnotationTree): Option[String] =
+        a match {
+          case AnnotationTree(_, Seq(ExprTree.StringLit(module), ExprTree.Ref(JSImportDefault)))
+              if a.original === Ref =>
+            Some(module)
+          case _ => None
+        }
+    }
+    object Named {
+      def apply(module: String, target: Seq[Name]): AnnotationTree =
+        AnnotationTree(
+          Ref,
+          List(ExprTree.StringLit(module), ExprTree.StringLit(target.map(_.unescaped).mkString("."))),
+        )(
+          Ref,
+        )
+
+      def unapply(a: AnnotationTree): Option[(String, Seq[Name])] =
+        a match {
+          case AnnotationTree(_, Seq(ExprTree.StringLit(module), ExprTree.StringLit(target))) if a.original === Ref =>
+            Some((module, target.split("\\.").map(Name.apply).to[Seq]))
+          case _ => None
+        }
+    }
+
+    def unapply(a: AnnotationTree): Option[(String, ExprTree)] =
+      a match {
+        case AnnotationTree(_, Seq(ExprTree.StringLit(module), target)) if a.original === Ref =>
+          Some((module, target))
+        case _ => None
+      }
+  }
+
+  object JsGlobal {
+    val AnnName = TypeRef(jsAnnotation + Name("JSGlobal"))
+
+    def apply(name: QualifiedName): AnnotationTree =
+      AnnotationTree(AnnName, List(ExprTree.StringLit(name.parts.map(_.unescaped).mkString("."))))(AnnName)
+
+    def unapply(a: AnnotationTree): Option[QualifiedName] =
+      a match {
+        case AnnotationTree(_, Seq(ExprTree.StringLit(name))) if a.original === AnnName =>
+          Some(QualifiedName(name.split("\\.").map(Name.apply).to[List]))
+        case _ => None
+      }
+  }
+
+  def jsName(name: Name): Seq[AnnotationTree] =
+    if (name.unescaped.contains("$")) Seq(JsName(name))
+    else if (name.unescaped === "apply") Seq(JsName(name))
+    else Nil
+
+  def method(name: Name, isBracketAccess: Boolean): Seq[AnnotationTree] =
+    if (isBracketAccess) jsName(name) :+ JsBracketAccess.get
+    else jsName(name)
+
+  def renamedFrom(newName: Name)(oldAnnotations: Seq[AnnotationTree]): Seq[AnnotationTree] = {
+    val (names, others) =
+      oldAnnotations partition {
+        case JsName(_) | JsNameSymbol(_) | JsBracketCall() => true
+        case _                                             => false
+      }
+
+    val updatedNames: Seq[AnnotationTree] =
+      (names, newName) match {
+        case (Nil, n @ (Name.APPLY | Name.namespaced)) => sys.error(s"Cannot rename `$n`")
+        case (Nil, old)                                => Seq(JsName(old))
+        case (existing, _)                             => existing
+      }
+
+    others ++ updatedNames
+  }
+
+  def classRenamedFrom(oldName: Name)(oldAnnotations: Seq[AnnotationTree]): Seq[AnnotationTree] = {
+    val (names, others) =
+      oldAnnotations partition {
+        case JsName(_)      => true
+        case JsImport(_, _) => true
+        case JsGlobal(_)    => true
+        case _              => false
+      }
+
+    val updatedNames: Seq[AnnotationTree] =
+      (names, oldName) match {
+        case (Nil, old)    => Seq(JsName(old))
+        case (existing, _) => existing
+      }
+
+    others ++ updatedNames
+  }
+
+  def realName(anns: Seq[AnnotationTree], fallback: Name): Name =
+    anns collectFirst {
+      case JsName(name)             => name
+      case JsImport.Named(_, names) => names.last
+      case JsGlobal(qname)          => qname.parts.last
+    } getOrElse fallback
 }

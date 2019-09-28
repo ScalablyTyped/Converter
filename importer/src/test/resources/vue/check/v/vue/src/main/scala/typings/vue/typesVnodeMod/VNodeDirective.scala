@@ -1,9 +1,9 @@
 package typings.vue.typesVnodeMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait VNodeDirective extends js.Object {
   val arg: String
@@ -15,7 +15,7 @@ trait VNodeDirective extends js.Object {
 }
 
 object VNodeDirective {
-  @scala.inline
+  @inline
   def apply(
     arg: String,
     expression: js.Any,

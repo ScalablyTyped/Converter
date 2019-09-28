@@ -1,10 +1,10 @@
 package typings.vue.typesVnodeMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.std.Node
 import typings.vue.typesVueMod.Vue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait VNode extends js.Object {
   var children: js.UndefOr[js.Array[VNode]] = js.undefined
@@ -25,7 +25,7 @@ trait VNode extends js.Object {
 }
 
 object VNode {
-  @scala.inline
+  @inline
   def apply(
     isComment: Boolean,
     isRootInsert: Boolean,

@@ -5,22 +5,24 @@ import com.olvind.tso.scalajs._
 import com.olvind.tso.ts.{JsLocation, ModuleSpec}
 
 object ImportJsLocation {
-  def apply(location: JsLocation): Seq[ClassAnnotation] =
+  def apply(location: JsLocation): Seq[AnnotationTree] =
     location match {
-      case JsLocation.Zero => Seq(Annotation.JsNative, Annotation.JsGlobalScope)
+      case JsLocation.Zero => Seq(AnnotationTree.JsNative.get, AnnotationTree.JsGlobalScope.get)
       case JsLocation.Global(jsPath) =>
-        Seq(Annotation.JsGlobal(ImportName.skipConversion(jsPath)), Annotation.JsNative)
+        Seq(AnnotationTree.JsGlobal(ImportName.skipConversion(jsPath)), AnnotationTree.JsNative.get)
       case JsLocation.Module(lit, spec) =>
         spec match {
-          case ModuleSpec.Defaulted  => Seq(Annotation.JsImport(lit.value, Imported.Default), Annotation.JsNative)
-          case ModuleSpec.Namespaced => Seq(Annotation.JsImport(lit.value, Imported.Namespace), Annotation.JsNative)
+          case ModuleSpec.Defaulted =>
+            Seq(AnnotationTree.JsImport.Default(lit.value), AnnotationTree.JsNative.get)
+          case ModuleSpec.Namespaced =>
+            Seq(
+              AnnotationTree.JsImport.Namespace(lit.value),
+              AnnotationTree.JsNative.get,
+            )
           case ModuleSpec.Specified(idents) =>
             Seq(
-              Annotation.JsImport(
-                module   = lit.value,
-                imported = Imported.Named(idents map ImportName.skipConversion),
-              ),
-              Annotation.JsNative,
+              AnnotationTree.JsImport.Named(lit.value, idents.map(ImportName.skipConversion)),
+              AnnotationTree.JsNative.get,
             )
         }
     }

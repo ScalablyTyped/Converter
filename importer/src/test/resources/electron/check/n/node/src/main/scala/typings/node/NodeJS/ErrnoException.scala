@@ -1,9 +1,9 @@
 package typings.node.NodeJS
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.node.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ErrnoException extends Error {
   var code: js.UndefOr[String] = js.undefined
@@ -13,7 +13,7 @@ trait ErrnoException extends Error {
 }
 
 object ErrnoException {
-  @scala.inline
+  @inline
   def apply(
     code: String = null,
     errno: Int | Double = null,

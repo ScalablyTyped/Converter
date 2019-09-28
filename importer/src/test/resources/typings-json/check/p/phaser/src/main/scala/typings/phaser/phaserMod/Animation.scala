@@ -1,8 +1,8 @@
 package typings.phaser.phaserMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /**
   * An Animation instance contains a single animation and the controls to play it.
@@ -11,6 +11,5 @@ import scala.scalajs.js.annotation._
   */
 @JSImport("phaser", "Animation")
 @js.native
-class Animation ()
-  extends typings.phaser.Phaser.Animation
+class Animation () extends typings.phaser.Phaser.Animation
 

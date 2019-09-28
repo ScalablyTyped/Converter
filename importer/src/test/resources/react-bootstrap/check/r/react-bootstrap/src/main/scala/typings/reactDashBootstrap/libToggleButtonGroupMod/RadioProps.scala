@@ -1,9 +1,9 @@
 package typings.reactDashBootstrap.libToggleButtonGroupMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.reactDashBootstrap.reactDashBootstrapStrings.radio
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait RadioProps extends js.Object {
   /** Required if `type` is set to "radio" */
@@ -13,7 +13,7 @@ trait RadioProps extends js.Object {
 }
 
 object RadioProps {
-  @scala.inline
+  @inline
   def apply(name: String, `type`: radio, onChange: /* value */ js.Any => Unit = null): RadioProps = {
     val __obj = js.Dynamic.literal(name = name)
     __obj.updateDynamic("type")(`type`)

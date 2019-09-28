@@ -1,9 +1,9 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.react.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait DOMAttributes[T] extends js.Object {
   var children: js.UndefOr[ReactNode] = js.undefined
@@ -11,7 +11,7 @@ trait DOMAttributes[T] extends js.Object {
 }
 
 object DOMAttributes {
-  @scala.inline
+  @inline
   def apply[T](children: ReactNode = null, dangerouslySetInnerHTML: Anon_Html = null): DOMAttributes[T] = {
     val __obj = js.Dynamic.literal()
     if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])

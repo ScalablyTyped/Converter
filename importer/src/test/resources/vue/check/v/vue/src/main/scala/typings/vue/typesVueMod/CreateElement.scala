@@ -11,7 +11,6 @@ import typings.vue.typesVnodeMod.VNodeChildren
 import typings.vue.typesVnodeMod.VNodeData
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait CreateElement extends js.Object {

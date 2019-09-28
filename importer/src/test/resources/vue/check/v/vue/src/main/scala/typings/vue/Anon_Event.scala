@@ -1,8 +1,8 @@
 package typings.vue
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Anon_Event extends js.Object {
   var event: js.UndefOr[String] = js.undefined
@@ -10,7 +10,7 @@ trait Anon_Event extends js.Object {
 }
 
 object Anon_Event {
-  @scala.inline
+  @inline
   def apply(event: String = null, prop: String = null): Anon_Event = {
     val __obj = js.Dynamic.literal()
     if (event != null) __obj.updateDynamic("event")(event)

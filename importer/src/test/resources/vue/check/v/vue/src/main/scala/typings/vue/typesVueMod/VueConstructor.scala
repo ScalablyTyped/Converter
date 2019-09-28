@@ -2,6 +2,7 @@ package typings.vue.typesVueMod
 
 import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1
+import scala.scalajs.js.annotation.JSName
 import typings.std.Record
 import typings.vue.Anon_CreateElement
 import typings.vue.typesOptionsMod.AsyncComponent
@@ -21,7 +22,6 @@ import typings.vue.typesPluginMod.PluginFunction
 import typings.vue.typesPluginMod.PluginObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait VueConstructor[V /* <: Vue */]

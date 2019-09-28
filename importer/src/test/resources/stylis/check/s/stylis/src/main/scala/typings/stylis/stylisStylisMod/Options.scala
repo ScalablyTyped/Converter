@@ -1,8 +1,8 @@
 package typings.stylis.stylisStylisMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Options extends js.Object {
   var cascade: js.UndefOr[Boolean] = js.undefined
@@ -17,7 +17,7 @@ trait Options extends js.Object {
 }
 
 object Options {
-  @scala.inline
+  @inline
   def apply(
     cascade: js.UndefOr[Boolean] = js.undefined,
     compress: js.UndefOr[Boolean] = js.undefined,

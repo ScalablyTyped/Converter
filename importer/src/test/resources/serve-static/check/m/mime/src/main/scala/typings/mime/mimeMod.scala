@@ -1,13 +1,14 @@
 package typings.mime
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.mime.mimeMod.Mime
 import typings.mime.mimeMod.TypeMap
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("mime", JSImport.Namespace)
+@JSImport("mime", Namespace)
 @js.native
 object mimeMod extends js.Object {
   @js.native

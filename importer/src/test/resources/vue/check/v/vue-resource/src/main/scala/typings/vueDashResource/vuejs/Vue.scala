@@ -1,9 +1,9 @@
 package typings.vueDashResource.vuejs
 
+import scala.scalajs.js.annotation.JSName
 import typings.vueDashResource.Anon_Delete
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Vue extends js.Object {

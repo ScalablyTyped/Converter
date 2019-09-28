@@ -1,9 +1,9 @@
 package typings.webpackDashEnv
 
 import org.scalablytyped.runtime.TopLevel
+import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /**
   * Access to the hash of the compilation.
@@ -12,6 +12,5 @@ import scala.scalajs.js.annotation._
   */
 @JSGlobal("__webpack_hash__")
 @js.native
-object __webpack_hash__
-  extends TopLevel[js.Any]
+object __webpack_hash__ extends TopLevel[js.Any]
 

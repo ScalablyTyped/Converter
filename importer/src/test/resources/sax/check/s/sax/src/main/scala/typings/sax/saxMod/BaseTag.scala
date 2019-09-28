@@ -1,8 +1,8 @@
 package typings.sax.saxMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait BaseTag extends js.Object {
   var isSelfClosing: Boolean
@@ -10,7 +10,7 @@ trait BaseTag extends js.Object {
 }
 
 object BaseTag {
-  @scala.inline
+  @inline
   def apply(isSelfClosing: Boolean, name: String): BaseTag = {
     val __obj = js.Dynamic.literal(isSelfClosing = isSelfClosing, name = name)
   

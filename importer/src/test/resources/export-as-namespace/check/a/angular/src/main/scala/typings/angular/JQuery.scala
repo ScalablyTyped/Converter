@@ -1,9 +1,9 @@
 package typings.angular
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.angular.angularMod.auto.IInjectorService
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait JQuery extends js.Object {
   /**
@@ -17,7 +17,7 @@ trait JQuery extends js.Object {
 }
 
 object JQuery {
-  @scala.inline
+  @inline
   def apply(addClass: String => JQuery, injector: () => IInjectorService): JQuery = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
   

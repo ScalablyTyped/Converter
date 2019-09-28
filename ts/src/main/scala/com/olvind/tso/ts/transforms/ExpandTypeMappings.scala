@@ -285,7 +285,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case IsTypeMapping(TsMemberTypeMapped(_, level, isReadOnly, keyRef, from, optionalize, to)) =>
           evaluateKeys(scope)(from).map { keys =>
             val all = keys.to[Seq].map { key =>
-              val replaced   = Replace(TsTypeRef.of(keyRef), key).visitTsType(scope)(to)
+              val replaced   = Replace(TsTypeRef(keyRef), key).visitTsType(scope)(to)
               val memberType = ResolveTypeLookups.visitTsType(scope)(replaced)
               val (base, wasOptional) = memberType match {
                 case OptionalType(unwrapped) => (unwrapped, true)

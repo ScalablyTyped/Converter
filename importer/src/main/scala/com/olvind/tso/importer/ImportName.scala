@@ -18,7 +18,7 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
   def apply(ident: TsQIdent): QualifiedName =
     ident match {
       /* hack/shortcut: all qualified idents are fully qualified, which means only abstract things should have length one */
-      case TsQIdent(one :: Nil) => QualifiedName(List(apply(one)))
+      case TsQIdent(one :: Nil) => QualifiedName(apply(one))
       case TsQIdent(parts)      => QualifiedName(ScalaConfig.outputPkg +: (parts map apply))
     }
 

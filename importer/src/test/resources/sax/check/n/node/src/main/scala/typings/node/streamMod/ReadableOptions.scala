@@ -1,9 +1,9 @@
 package typings.node.streamMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.node.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ReadableOptions extends js.Object {
   var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], _]] = js.undefined
@@ -14,7 +14,7 @@ trait ReadableOptions extends js.Object {
 }
 
 object ReadableOptions {
-  @scala.inline
+  @inline
   def apply(
     destroy: /* error */ js.UndefOr[Error] => _ = null,
     encoding: String = null,

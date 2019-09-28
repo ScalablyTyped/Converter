@@ -1,9 +1,9 @@
 package typings.vueDashResource.vuejs
 
+import scala.scalajs.js.annotation.JSName
 import typings.vueDashResource.Anon_Root
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Http extends js.Object {

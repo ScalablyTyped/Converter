@@ -1,10 +1,11 @@
 package typings.ndarray.ndarrayMod
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("ndarray", JSImport.Namespace)
+@JSImport("ndarray", Namespace)
 @js.native
 object ^ extends js.Object {
   def apply[T](data: Data[T]): typings.ndarray.ndarrayMod.ndarray[T] = js.native

@@ -1,9 +1,9 @@
 package typings.constDashEnum.constDashEnumMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.constDashEnum.constDashEnumNumbers.`1`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("const-enum", "foo")
 @js.native

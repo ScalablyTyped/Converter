@@ -1,10 +1,10 @@
 package typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.awsDashSdk.clientsDynamodbMod.^
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait DocumentClientOptions extends ConverterOptions {
   /**
@@ -18,7 +18,7 @@ trait DocumentClientOptions extends ConverterOptions {
 }
 
 object DocumentClientOptions {
-  @scala.inline
+  @inline
   def apply(
     convertEmptyValues: js.UndefOr[Boolean] = js.undefined,
     params: StringDictionary[js.Any] = null,

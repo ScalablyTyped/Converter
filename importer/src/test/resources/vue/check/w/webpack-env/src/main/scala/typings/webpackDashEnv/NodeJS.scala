@@ -1,9 +1,9 @@
 package typings.webpackDashEnv
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.webpackDashEnv.__WebpackModuleApi.NodeProcess
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /**
 * Declare process variable

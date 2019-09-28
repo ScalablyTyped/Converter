@@ -1,10 +1,10 @@
 package typings.vue.typesVnodeMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.vue.typesVueMod.Vue
 import typings.vue.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait VNodeComponentOptions extends js.Object {
   var Ctor: VueConstructor[Vue]
@@ -15,7 +15,7 @@ trait VNodeComponentOptions extends js.Object {
 }
 
 object VNodeComponentOptions {
-  @scala.inline
+  @inline
   def apply(
     Ctor: VueConstructor[Vue],
     children: VNodeChildren = null,

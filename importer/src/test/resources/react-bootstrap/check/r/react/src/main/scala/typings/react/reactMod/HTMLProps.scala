@@ -1,10 +1,10 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait HTMLProps[T]
   extends AllHTMLAttributes[T]
@@ -16,7 +16,7 @@ trait HTMLProps[T]
 }
 
 object HTMLProps {
-  @scala.inline
+  @inline
   def apply[T](
     defaultValue: foo,
     onChange: foo,

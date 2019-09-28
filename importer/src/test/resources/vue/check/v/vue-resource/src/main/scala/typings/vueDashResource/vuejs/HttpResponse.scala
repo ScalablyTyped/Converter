@@ -1,9 +1,9 @@
 package typings.vueDashResource.vuejs
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.std.Blob
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait HttpResponse extends js.Object {
   var data: js.Object
@@ -17,7 +17,7 @@ trait HttpResponse extends js.Object {
 }
 
 object HttpResponse {
-  @scala.inline
+  @inline
   def apply(
     blob: () => Blob,
     data: js.Object,

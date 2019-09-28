@@ -89,12 +89,12 @@ object GenerateReactComponentsObject {
         scope.lookup(propsType.typeName).collectFirst {
           case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
             MethodTree(
-              annotations = Annotation.Inline :: Nil,
+              annotations = AnnotationTree.Inline.get :: Nil,
               level       = ProtectionLevel.Default,
               name        = comp.shortenedPropsName,
               tparams     = Nil,
               params      = Nil,
-              impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
+              impl        = ExprTree.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
               resultType  = TypeRef.Singleton(propsType.copy(targs = Nil)),
               isOverride  = false,
               comments    = NoComments,
@@ -111,12 +111,12 @@ object GenerateReactComponentsObject {
 
     val retType = TypeRef(Names.ComponentType, List(shortenedProps), NoComments)
     MethodTree(
-      annotations = Annotation.Inline :: Nil,
+      annotations = AnnotationTree.Inline.get :: Nil,
       level       = ProtectionLevel.Default,
       name        = comp.fullName,
       tparams     = comp.tparams,
       params      = Nil,
-      impl = MemberImpl.Custom(
+      impl = ExprTree.Custom(
         s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(retType)}]",
       ),
       resultType = retType,

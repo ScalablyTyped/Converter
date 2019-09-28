@@ -2,7 +2,6 @@ package typings.react
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object reactStrings {
   @js.native
@@ -14,11 +13,11 @@ object reactStrings {
   @js.native
   sealed trait clipPath extends js.Object
   
-  @scala.inline
+  @inline
   def animate: animate = "animate".asInstanceOf[animate]
-  @scala.inline
+  @inline
   def circle: circle = "circle".asInstanceOf[circle]
-  @scala.inline
+  @inline
   def clipPath: clipPath = "clipPath".asInstanceOf[clipPath]
 }
 

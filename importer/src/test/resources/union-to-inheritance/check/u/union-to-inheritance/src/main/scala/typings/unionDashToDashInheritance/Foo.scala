@@ -1,8 +1,8 @@
 package typings.unionDashToDashInheritance
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Foo[U]
   extends Legal1[U]
@@ -12,7 +12,7 @@ trait Foo[U]
 }
 
 object Foo {
-  @scala.inline
+  @inline
   def apply[U](value: U): Foo[U] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
   

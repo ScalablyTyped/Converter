@@ -1,10 +1,11 @@
 package typings.fpDashTs
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("fp-ts/lib/Either", JSImport.Namespace)
+@JSImport("fp-ts/lib/Either", Namespace)
 @js.native
 object libEitherMod extends js.Object {
   val URI: typings.fpDashTs.fpDashTsStrings.Either = js.native

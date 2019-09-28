@@ -1,13 +1,14 @@
 package typings.awsDashSdk
 
 import org.scalablytyped.runtime.Instantiable1
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.awsDashSdk.clientsDynamodbMod.ClientConfiguration
 import typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("aws-sdk/lib/services/dynamodb", JSImport.Namespace)
+@JSImport("aws-sdk/lib/services/dynamodb", Namespace)
 @js.native
 object libServicesDynamodbMod extends js.Object {
   @js.native

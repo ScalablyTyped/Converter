@@ -1,12 +1,11 @@
 package typings.vueDashResource.vuejs
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-trait HttpHeaders
-  extends /* key */ StringDictionary[js.Any] {
+trait HttpHeaders extends /* key */ StringDictionary[js.Any] {
   var common: js.UndefOr[StringDictionary[String]] = js.undefined
   var custom: js.UndefOr[StringDictionary[String]] = js.undefined
   var delete: js.UndefOr[StringDictionary[String]] = js.undefined
@@ -16,7 +15,7 @@ trait HttpHeaders
 }
 
 object HttpHeaders {
-  @scala.inline
+  @inline
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     common: StringDictionary[String] = null,

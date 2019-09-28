@@ -1,10 +1,10 @@
 package typings.vueDashScrollto.vueDashScrolltoMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.std.Element
 import typings.vueDashScrollto.vueDashScrolltoNumbers.`false`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Options extends js.Object {
   // Indicates if user can cancel the scroll or not. Default: true
@@ -32,7 +32,7 @@ trait Options extends js.Object {
 }
 
 object Options {
-  @scala.inline
+  @inline
   def apply(
     cancelable: js.UndefOr[Boolean] = js.undefined,
     container: String | Element = null,

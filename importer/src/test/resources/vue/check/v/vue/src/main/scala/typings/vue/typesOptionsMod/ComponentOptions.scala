@@ -1,6 +1,7 @@
 package typings.vue.typesOptionsMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.std.Element
 import typings.std.Error
 import typings.std.Record
@@ -11,7 +12,6 @@ import typings.vue.typesVueMod.Vue
 import typings.vue.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extends js.Object {
   var activated: js.UndefOr[js.Function0[Unit]] = js.undefined
@@ -72,7 +72,7 @@ trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extend
 }
 
 object ComponentOptions {
-  @scala.inline
+  @inline
   def apply[V /* <: Vue */, Data, Methods, Computed, PropsDef](
     activated: () => Unit = null,
     beforeCreate: js.ThisFunction0[/* this */ V, Unit] = null,

@@ -1,8 +1,8 @@
 package typings.swiz.swizMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ISwizOptions extends js.Object {
   var `for`: js.UndefOr[String] = js.undefined
@@ -11,7 +11,7 @@ trait ISwizOptions extends js.Object {
 }
 
 object ISwizOptions {
-  @scala.inline
+  @inline
   def apply(
     `for`: String = null,
     stripNulls: js.UndefOr[Boolean] = js.undefined,

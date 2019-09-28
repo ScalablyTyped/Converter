@@ -1,8 +1,8 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 // interface SyntheticEvent<T> {
 //     currentTarget: EventTarget & T;
@@ -15,7 +15,7 @@ trait Attributes extends js.Object {
 }
 
 object Attributes {
-  @scala.inline
+  @inline
   def apply(key: Key = null): Attributes = {
     val __obj = js.Dynamic.literal()
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])

@@ -1,11 +1,12 @@
 package typings.fullcalendar
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.fullcalendar.mixinMod.Default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("fullcalendar/Mixin", JSImport.Namespace)
+@JSImport("fullcalendar/Mixin", Namespace)
 @js.native
 object mixinMod extends js.Object {
   @js.native

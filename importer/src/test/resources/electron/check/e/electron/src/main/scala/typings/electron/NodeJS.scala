@@ -1,10 +1,10 @@
 package typings.electron
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.electron.electronStrings.bar
 import typings.node.NodeJS.EventEmitter
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("NodeJS")
 @js.native

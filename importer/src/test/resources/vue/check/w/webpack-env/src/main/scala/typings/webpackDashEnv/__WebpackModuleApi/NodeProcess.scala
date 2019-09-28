@@ -1,8 +1,8 @@
 package typings.webpackDashEnv.__WebpackModuleApi
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /**
   * Inside env you can pass any variable
@@ -12,7 +12,7 @@ trait NodeProcess extends js.Object {
 }
 
 object NodeProcess {
-  @scala.inline
+  @inline
   def apply(env: js.Any = null): NodeProcess = {
     val __obj = js.Dynamic.literal()
     if (env != null) __obj.updateDynamic("env")(env)

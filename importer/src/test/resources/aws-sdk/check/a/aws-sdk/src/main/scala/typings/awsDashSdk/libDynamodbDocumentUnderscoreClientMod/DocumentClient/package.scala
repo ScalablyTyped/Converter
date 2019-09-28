@@ -2,7 +2,6 @@ package typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object DocumentClient {
   /* Rewritten from type alias, can be one of: 

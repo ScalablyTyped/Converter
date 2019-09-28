@@ -3,7 +3,6 @@ package typings.react.reactMod
 import typings.react.SVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait SVGFactory extends DOMFactory[SVGAttributes[SVGElement], SVGElement] {

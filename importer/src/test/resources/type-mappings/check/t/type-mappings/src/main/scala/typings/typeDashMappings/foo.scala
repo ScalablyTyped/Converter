@@ -1,8 +1,8 @@
 package typings.typeDashMappings
 
+import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("foo")
 @js.native

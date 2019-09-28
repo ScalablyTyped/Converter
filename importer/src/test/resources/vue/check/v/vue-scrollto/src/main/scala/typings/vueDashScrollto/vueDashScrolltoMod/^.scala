@@ -1,17 +1,19 @@
 package typings.vueDashScrollto.vueDashScrolltoMod
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
+import scala.scalajs.js.annotation.JSName
 import typings.vue.typesPluginMod.PluginFunction
 import typings.vue.typesVueMod.Vue
 import typings.vue.typesVueMod.VueConstructor
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("vue-scrollto", JSImport.Namespace)
+@JSImport("vue-scrollto", Namespace)
 @js.native
 class ^ () extends VueScrollTo
 
-@JSImport("vue-scrollto", JSImport.Namespace)
+@JSImport("vue-scrollto", Namespace)
 @js.native
 object ^ extends js.Object {
   @JSName("install")

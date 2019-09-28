@@ -1,10 +1,11 @@
 package typings.phaser
 
+import scala.scalajs.js.annotation.JSBracketAccess
+import scala.scalajs.js.annotation.JSGlobal
 import typings.phaser.PIXI.blendModes
 import typings.phaser.PIXI.scaleModes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("PIXI")
 @js.native

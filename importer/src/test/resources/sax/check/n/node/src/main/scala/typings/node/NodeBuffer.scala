@@ -3,7 +3,6 @@ package typings.node
 import typings.std.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait NodeBuffer extends Uint8Array {

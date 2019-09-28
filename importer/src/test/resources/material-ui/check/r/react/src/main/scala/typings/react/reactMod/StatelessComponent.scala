@@ -4,7 +4,6 @@ import typings.react.Anon_Children
 import typings.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait StatelessComponent[P] extends ComponentType[P] {

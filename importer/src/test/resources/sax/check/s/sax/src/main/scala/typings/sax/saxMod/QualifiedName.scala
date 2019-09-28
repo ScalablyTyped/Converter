@@ -1,8 +1,8 @@
 package typings.sax.saxMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait QualifiedName extends js.Object {
   var local: String
@@ -12,7 +12,7 @@ trait QualifiedName extends js.Object {
 }
 
 object QualifiedName {
-  @scala.inline
+  @inline
   def apply(local: String, name: String, prefix: String, uri: String): QualifiedName = {
     val __obj = js.Dynamic.literal(local = local, name = name, prefix = prefix, uri = uri)
   

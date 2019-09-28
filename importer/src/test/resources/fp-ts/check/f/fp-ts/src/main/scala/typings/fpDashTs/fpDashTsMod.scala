@@ -1,11 +1,12 @@
 package typings.fpDashTs
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.fpDashTs.fpDashTsStrings.Either
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("fp-ts", JSImport.Namespace)
+@JSImport("fp-ts", Namespace)
 @js.native
 object fpDashTsMod extends js.Object {
   @js.native

@@ -93,20 +93,16 @@ object InferMemberOverrides extends TreeTransformation {
       case _                                    => false
     }
 
-  private def updatedImpl(
-      fieldTypes:       Seq[MemberImpl],
-      typeOpt:          Option[TypeRef],
-      isScalaJsDefined: Boolean,
-  ): MemberImpl =
+  private def updatedImpl(fieldTypes: Seq[ImplTree], typeOpt: Option[TypeRef], isScalaJsDefined: Boolean): ImplTree =
     if (isScalaJsDefined) {
       fieldTypes.partitionCollect3(
-        { case MemberImpl.Native         => MemberImpl.Native },
-        { case MemberImpl.NotImplemented => MemberImpl.NotImplemented },
-        { case MemberImpl.Undefined      => MemberImpl.Undefined },
+        { case ExprTree.`native`    => ExprTree.native },
+        { case NotImplemented       => NotImplemented },
+        { case ExprTree.`undefined` => ExprTree.undefined },
       ) match {
-        case (Nil, _, Nil, Nil)                                     => MemberImpl.NotImplemented
-        case (Nil, _, _, Nil) if typeOpt.fold(true)(canBeUndefined) => MemberImpl.Undefined
-        case _                                                      => MemberImpl.Native
+        case (Nil, _, Nil, Nil)                                     => NotImplemented
+        case (Nil, _, _, Nil) if typeOpt.fold(true)(canBeUndefined) => ExprTree.undefined
+        case _                                                      => ExprTree.native
       }
-    } else MemberImpl.Native
+    } else ExprTree.native
 }

@@ -1,15 +1,15 @@
 package typings.rxjs
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("rxjs", JSImport.Namespace)
+@JSImport("rxjs", Namespace)
 @js.native
 object rxjsMod extends js.Object {
   @js.native
-  class Observable[T] ()
-    extends typings.rxjs.internalObservableMod.Observable[T]
+  class Observable[T] () extends typings.rxjs.internalObservableMod.Observable[T]
   
 }
 

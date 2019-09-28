@@ -1,11 +1,11 @@
 package typings.vue.typesOptionsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.std.HTMLElement
 import typings.vue.typesVnodeMod.VNode
 import typings.vue.typesVnodeMod.VNodeDirective
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait DirectiveOptions extends js.Object {
   var bind: js.UndefOr[DirectiveFunction] = js.undefined
@@ -16,7 +16,7 @@ trait DirectiveOptions extends js.Object {
 }
 
 object DirectiveOptions {
-  @scala.inline
+  @inline
   def apply(
     bind: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit = null,
     componentUpdated: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit = null,

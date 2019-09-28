@@ -2,7 +2,6 @@ package typings.electron
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object electronStrings {
   @js.native
@@ -11,9 +10,9 @@ object electronStrings {
   @js.native
   sealed trait bar extends js.Object
   
-  @scala.inline
+  @inline
   def `accessibility-support-changed`: `accessibility-support-changed` = "accessibility-support-changed".asInstanceOf[`accessibility-support-changed`]
-  @scala.inline
+  @inline
   def bar: bar = "bar".asInstanceOf[bar]
 }
 

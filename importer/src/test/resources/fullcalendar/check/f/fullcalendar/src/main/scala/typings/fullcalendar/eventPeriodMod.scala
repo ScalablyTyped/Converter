@@ -1,11 +1,13 @@
 package typings.fullcalendar
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
+import scala.scalajs.js.annotation.JSName
 import typings.fullcalendar.eventPeriodMod.Default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("fullcalendar/EventPeriod", JSImport.Namespace)
+@JSImport("fullcalendar/EventPeriod", Namespace)
 @js.native
 object eventPeriodMod extends js.Object {
   @js.native

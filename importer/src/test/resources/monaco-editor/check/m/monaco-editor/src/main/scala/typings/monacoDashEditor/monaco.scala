@@ -1,9 +1,9 @@
 package typings.monacoDashEditor
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.monacoDashEditor.monaco.Promise
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("monaco")
 @js.native

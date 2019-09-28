@@ -1,8 +1,8 @@
 package typings.commander.commanderMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ParseOptionsResult extends js.Object {
   var args: js.Array[String]
@@ -10,7 +10,7 @@ trait ParseOptionsResult extends js.Object {
 }
 
 object ParseOptionsResult {
-  @scala.inline
+  @inline
   def apply(args: js.Array[String], unknown: js.Array[String]): ParseOptionsResult = {
     val __obj = js.Dynamic.literal(args = args, unknown = unknown)
   

@@ -63,7 +63,7 @@ object DeriveCopy {
             x.copy(
               name         = name,
               isValue      = true,
-              exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Nil)),
+              exportedFrom = x.exportedFrom orElse Some(TsTypeRef(origin)),
               codePath     = codePath,
             )
 

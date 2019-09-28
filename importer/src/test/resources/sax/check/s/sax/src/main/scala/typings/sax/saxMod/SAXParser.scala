@@ -1,8 +1,8 @@
 package typings.sax.saxMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("sax", "SAXParser")
 @js.native

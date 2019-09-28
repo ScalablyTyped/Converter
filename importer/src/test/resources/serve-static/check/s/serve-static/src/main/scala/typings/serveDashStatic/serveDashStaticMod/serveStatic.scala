@@ -1,9 +1,9 @@
 package typings.serveDashStatic.serveDashStaticMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod.Handler
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("serve-static", "serveStatic")
 @js.native

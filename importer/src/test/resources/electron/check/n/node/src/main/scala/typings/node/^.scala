@@ -1,9 +1,9 @@
 package typings.node
 
+import scala.scalajs.js.annotation.JSGlobalScope
 import typings.node.NodeJS.Process
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobalScope
 @js.native

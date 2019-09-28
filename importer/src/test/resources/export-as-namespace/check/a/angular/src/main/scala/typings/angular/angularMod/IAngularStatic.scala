@@ -1,5 +1,6 @@
 package typings.angular.angularMod
 
+import scala.scalajs.js.annotation.JSName
 import typings.angular.JQLite
 import typings.angular.JQuery
 import typings.angular.JQueryStatic
@@ -9,7 +10,6 @@ import typings.std.Document
 import typings.std.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 ///////////////////////////////////////////////////////////////////////////
 // AngularStatic

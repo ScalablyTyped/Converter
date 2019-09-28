@@ -53,7 +53,7 @@ object ScalaNameEscape {
       "if",
       "implicit",
       "import",
-      "inline",
+//      "inline",
       "lazy",
       "macro",
       "match",

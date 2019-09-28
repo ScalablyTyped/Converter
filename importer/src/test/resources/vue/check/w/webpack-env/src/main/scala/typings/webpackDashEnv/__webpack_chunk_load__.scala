@@ -1,10 +1,10 @@
 package typings.webpackDashEnv
 
 import org.scalablytyped.runtime.TopLevel
+import scala.scalajs.js.annotation.JSGlobal
 import typings.webpackDashEnv.__WebpackModuleApi.RequireLambda
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /**
   * The internal chunk loading function
@@ -14,8 +14,7 @@ import scala.scalajs.js.annotation._
   */
 @JSGlobal("__webpack_chunk_load__")
 @js.native
-object __webpack_chunk_load__
-  extends TopLevel[
+object __webpack_chunk_load__ extends TopLevel[
       js.Function2[
         /* chunkId */ js.Any, 
         /* callback */ js.Function1[/* require */ RequireLambda, Unit], 

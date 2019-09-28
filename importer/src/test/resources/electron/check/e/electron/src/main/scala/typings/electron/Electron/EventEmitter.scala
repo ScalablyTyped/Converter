@@ -1,8 +1,8 @@
 package typings.electron.Electron
 
+import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("Electron.EventEmitter")
 @js.native

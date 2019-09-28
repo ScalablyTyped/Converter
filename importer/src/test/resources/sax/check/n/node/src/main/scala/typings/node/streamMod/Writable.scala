@@ -1,10 +1,11 @@
 package typings.node.streamMod
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSName
 import typings.node.NodeJS.WritableStream
 import typings.node.nodeStrings.close
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("stream", "Writable")
 @js.native

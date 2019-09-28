@@ -1,8 +1,8 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("react", "Component")
 @js.native

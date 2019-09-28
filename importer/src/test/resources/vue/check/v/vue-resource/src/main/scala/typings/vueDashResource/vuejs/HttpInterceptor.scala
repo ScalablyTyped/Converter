@@ -1,8 +1,8 @@
 package typings.vueDashResource.vuejs
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait HttpInterceptor extends js.Object {
   var request: js.UndefOr[js.Function1[/* request */ HttpOptions, HttpOptions]] = js.undefined
@@ -10,7 +10,7 @@ trait HttpInterceptor extends js.Object {
 }
 
 object HttpInterceptor {
-  @scala.inline
+  @inline
   def apply(
     request: /* request */ HttpOptions => HttpOptions = null,
     response: /* response */ HttpResponse => HttpResponse = null

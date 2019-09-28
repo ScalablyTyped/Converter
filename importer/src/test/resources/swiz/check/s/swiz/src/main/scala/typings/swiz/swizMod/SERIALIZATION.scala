@@ -1,8 +1,8 @@
 package typings.swiz.swizMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 sealed trait SERIALIZATION extends js.Object

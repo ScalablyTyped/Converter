@@ -3,7 +3,6 @@ package typings.rxjs.internalTypesMod
 import typings.rxjs.internalSubscriptionMod.Subscription
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait SchedulerAction[T] extends Subscription {

@@ -2,7 +2,6 @@ package typings.unionDashToDashInheritance
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object unionDashToDashInheritanceStrings {
   @js.native
@@ -37,17 +36,17 @@ object unionDashToDashInheritanceStrings {
        with _Illegal3[js.Any]
        with _Test[js.Any, js.Any, js.Any]
   
-  @scala.inline
+  @inline
   def a1: a1 = "a1".asInstanceOf[a1]
-  @scala.inline
+  @inline
   def a2: a2 = "a2".asInstanceOf[a2]
-  @scala.inline
+  @inline
   def b1: b1 = "b1".asInstanceOf[b1]
-  @scala.inline
+  @inline
   def b2: b2 = "b2".asInstanceOf[b2]
-  @scala.inline
+  @inline
   def bar: bar = "bar".asInstanceOf[bar]
-  @scala.inline
+  @inline
   def foo: foo = "foo".asInstanceOf[foo]
 }
 

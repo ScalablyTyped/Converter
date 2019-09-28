@@ -1,8 +1,8 @@
 package typings.typeDashMappings
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Anon_AgeName extends js.Object {
   var age: Double
@@ -10,7 +10,7 @@ trait Anon_AgeName extends js.Object {
 }
 
 object Anon_AgeName {
-  @scala.inline
+  @inline
   def apply(age: Double, name: String): Anon_AgeName = {
     val __obj = js.Dynamic.literal(age = age, name = name)
   

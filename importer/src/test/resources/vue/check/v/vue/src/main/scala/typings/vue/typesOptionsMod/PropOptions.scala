@@ -1,8 +1,8 @@
 package typings.vue.typesOptionsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait PropOptions[T] extends _PropValidator[T] {
   var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.undefined
@@ -12,7 +12,7 @@ trait PropOptions[T] extends _PropValidator[T] {
 }
 
 object PropOptions {
-  @scala.inline
+  @inline
   def apply[T](
     default: T | js.Function0[js.Object] = null,
     required: js.UndefOr[Boolean] = js.undefined,

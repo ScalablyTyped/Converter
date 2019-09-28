@@ -1,8 +1,8 @@
-package com.olvind.tso.scalajs
+package com.olvind.tso
+package scalajs
 
 import com.olvind.tso.maps._
 import com.olvind.tso.seqs._
-import com.olvind.tso.{NoComments, Seq}
 
 import scala.collection.immutable.SortedMap
 
@@ -113,7 +113,7 @@ object ConstructObjectOfType {
 
   def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Param) =
     ref.name -> Param(
-      ParamTree(ref.name, ref, Some(TypeRef.`null`), NoComments),
+      ParamTree(ref.name, ref, ExprTree.`null`, NoComments),
       !isRequired,
       Right(
         obj =>

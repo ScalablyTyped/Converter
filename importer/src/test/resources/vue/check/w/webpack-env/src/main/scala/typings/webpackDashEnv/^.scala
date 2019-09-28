@@ -1,10 +1,10 @@
 package typings.webpackDashEnv
 
+import scala.scalajs.js.annotation.JSGlobalScope
 import typings.webpackDashEnv.NodeJS.Process
 import typings.webpackDashEnv.__WebpackModuleApi.RequireLambda
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobalScope
 @js.native

@@ -2,7 +2,6 @@ package typings.webpackDashEnv
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object __WebpackModuleApi {
   type ModuleId = String | Double

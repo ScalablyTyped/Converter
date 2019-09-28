@@ -2,7 +2,6 @@ package typings.std
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object stdStrings {
   @js.native
@@ -11,9 +10,9 @@ object stdStrings {
   @js.native
   sealed trait Pick extends js.Object
   
-  @scala.inline
+  @inline
   def Partial: Partial = "Partial".asInstanceOf[Partial]
-  @scala.inline
+  @inline
   def Pick: Pick = "Pick".asInstanceOf[Pick]
 }
 

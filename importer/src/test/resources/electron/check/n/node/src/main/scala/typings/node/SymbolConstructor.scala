@@ -1,8 +1,8 @@
 package typings.node
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait SymbolConstructor extends js.Object {
   val asyncIterator: js.Symbol
@@ -10,7 +10,7 @@ trait SymbolConstructor extends js.Object {
 }
 
 object SymbolConstructor {
-  @scala.inline
+  @inline
   def apply(asyncIterator: js.Symbol, iterator: js.Symbol): SymbolConstructor = {
     val __obj = js.Dynamic.literal(asyncIterator = asyncIterator, iterator = iterator)
   

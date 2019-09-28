@@ -5,7 +5,6 @@ import typings.node.NodeJS.WritableStream
 import typings.node.eventsMod.EventEmitter
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait internal extends EventEmitter {

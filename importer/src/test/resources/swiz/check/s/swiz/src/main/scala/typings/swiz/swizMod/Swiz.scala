@@ -1,10 +1,10 @@
 package typings.swiz.swizMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.swiz.swizMod.struct.IField
 import typings.swiz.swizMod.struct.IObj
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("swiz", "Swiz")
 @js.native

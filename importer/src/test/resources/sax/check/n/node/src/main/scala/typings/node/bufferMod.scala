@@ -2,23 +2,23 @@ package typings.node
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.std.ArrayBuffer
 import typings.std.Uint8Array
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /************************************************
 *                                               *
 *                   MODULES                     *
 *                                               *
 ************************************************/
-@JSImport("buffer", JSImport.Namespace)
+@JSImport("buffer", Namespace)
 @js.native
 object bufferMod extends js.Object {
   @js.native
-  class Buffer protected ()
-    extends typings.node.Buffer {
+  class Buffer protected () extends typings.node.Buffer {
     /**
       * Produces a Buffer backed by the same allocated memory as
       * the given {ArrayBuffer}.
@@ -62,8 +62,7 @@ object bufferMod extends js.Object {
   }
   
   @js.native
-  class SlowBuffer protected ()
-    extends typings.node.Buffer {
+  class SlowBuffer protected () extends typings.node.Buffer {
     def this(array: js.Array[_]) = this()
     def this(size: Double) = this()
     def this(size: Uint8Array) = this()

@@ -2,7 +2,6 @@ package typings.atStorybookVue
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object atStorybookVueMod {
   import org.scalablytyped.runtime.StringDictionary

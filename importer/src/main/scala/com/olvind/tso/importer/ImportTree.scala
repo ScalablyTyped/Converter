@@ -29,20 +29,20 @@ object ImportTree {
       val libName = importName(lib.name)
       val name    = Name(libName.unescaped + "Require")
       ModuleTree(
-        Seq(Annotation.JsImport(lib.name.value, Imported.Namespace), Annotation.JsNative),
+        Seq(AnnotationTree.JsImport.Namespace(lib.name.value), AnnotationTree.JsNative.get),
         name,
         Nil,
         Nil,
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath = QualifiedName(ScalaConfig.outputPkg :: libName :: name :: Nil),
+        codePath = QualifiedName(ScalaConfig.outputPkg, libName, name),
       )
     }
 
     val withRequire = ret.copy(members = ret.members :+ require)
 
-    PackageTree(Nil, ScalaConfig.outputPkg, List(withRequire), NoComments, QualifiedName(List(ScalaConfig.outputPkg)))
+    PackageTree(Nil, ScalaConfig.outputPkg, List(withRequire), NoComments, QualifiedName(ScalaConfig.outputPkg))
   }
 
   def decl(_scope: TsTreeScope, importName: ImportName)(t1: TsContainerOrDecl): Seq[Tree] = {
@@ -129,10 +129,10 @@ object ImportTree {
         } else
           Seq(
             FieldTree(
-              annotations = Annotation.jsName(name),
+              annotations = AnnotationTree.jsName(name),
               name        = name,
               tpe         = tpe,
-              impl        = MemberImpl.Native,
+              impl        = ExprTree.native,
               isReadOnly  = readOnly,
               isOverride  = false,
               comments    = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
@@ -191,7 +191,7 @@ object ImportTree {
 
         Seq(
           ClassTree(
-            annotations = Seq(if (scalaJsDefined) Annotation.ScalaJSDefined else Annotation.JsNative),
+            annotations = Seq(if (scalaJsDefined) AnnotationTree.ScalaJSDefined.get else AnnotationTree.JsNative.get),
             name        = name,
             tparams     = tparams map typeParam(scope, importName),
             parents     = parents ++ extraInheritance,
@@ -356,13 +356,13 @@ object ImportTree {
             )
             name.parts match {
               case TsIdent.Symbol :: symName :: Nil if KnownSymbols(symName.value) =>
-                val a = Annotation.jsNameSymbol(QualifiedName.Symbol + ImportName.skipConversion(symName))
+                val a = AnnotationTree.JsNameSymbol(QualifiedName.Symbol + ImportName.skipConversion(symName))
 
-                val fieldType: MemberImpl =
+                val fieldType: ImplTree =
                   (scalaJsDefined, m.isOptional) match {
-                    case (true, true)  => MemberImpl.Undefined
-                    case (true, false) => MemberImpl.NotImplemented
-                    case _             => MemberImpl.Native
+                    case (true, true)  => ExprTree.undefined
+                    case (true, false) => NotImplemented
+                    case _             => ExprTree.native
                   }
 
                 val codeName = importName(symName)
@@ -423,16 +423,16 @@ object ImportTree {
 
       case (importName(name), tpeOpt: Option[TsType]) =>
         val importedType = ImportType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
-        val impl: MemberImpl =
+        val impl: ImplTree =
           (scalaJsDefined, importedType) match {
-            case (true, TypeRef.UndefOr(_)) => MemberImpl.Undefined
-            case (true, _)                  => MemberImpl.NotImplemented
-            case (false, _)                 => MemberImpl.Native
+            case (true, TypeRef.UndefOr(_)) => ExprTree.undefined
+            case (true, _)                  => NotImplemented
+            case (false, _)                 => ExprTree.native
           }
 
         hack(
           FieldTree(
-            annotations = Annotation.jsName(name),
+            annotations = AnnotationTree.jsName(name),
             name        = name,
             tpe         = importedType,
             impl        = impl,
@@ -466,7 +466,7 @@ object ImportTree {
     params map { param =>
       val tpe       = ImportType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
       val undefType = tpe.withOptional(param.isOptional)
-      ParamTree(importName(param.name), undefType, None, param.comments)
+      ParamTree(importName(param.name), undefType, NotImplemented, param.comments)
     }
 
   def tsMethod(
@@ -480,10 +480,7 @@ object ImportTree {
       ownerCP:        QualifiedName,
   ): MethodTree = {
 
-    val as = Annotation.method(name, isBracketAccess = false)
-
-    val fieldType: MemberImpl =
-      if (scalaJsDefined) MemberImpl.NotImplemented else MemberImpl.Native
+    val as = AnnotationTree.method(name, isBracketAccess = false)
 
     val resultType: TypeRef = (
       sig.resultType filter (_ =/= TsTypeRef.any)
@@ -497,7 +494,7 @@ object ImportTree {
       name        = name,
       tparams     = sig.tparams map typeParam(scope, importName),
       params      = Seq(tsFunParams(scope, importName, sig.params)),
-      impl        = fieldType,
+      impl        = if (scalaJsDefined) NotImplemented else ExprTree.native,
       resultType  = resultType,
       isOverride  = false,
       comments    = cs ++ sig.comments,

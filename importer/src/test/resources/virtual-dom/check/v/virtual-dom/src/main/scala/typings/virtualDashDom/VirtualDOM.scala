@@ -1,8 +1,8 @@
 package typings.virtualDashDom
 
+import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("VirtualDOM")
 @js.native

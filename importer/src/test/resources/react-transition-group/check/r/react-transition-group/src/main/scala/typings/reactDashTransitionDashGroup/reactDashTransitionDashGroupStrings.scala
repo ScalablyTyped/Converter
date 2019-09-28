@@ -2,7 +2,6 @@ package typings.reactDashTransitionDashGroup
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object reactDashTransitionDashGroupStrings {
   @js.native
@@ -11,9 +10,9 @@ object reactDashTransitionDashGroupStrings {
   @js.native
   sealed trait animate extends js.Object
   
-  @scala.inline
+  @inline
   def abbr: abbr = "abbr".asInstanceOf[abbr]
-  @scala.inline
+  @inline
   def animate: animate = "animate".asInstanceOf[animate]
 }
 

@@ -1,9 +1,9 @@
 package typings.bigint
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.bigint.BigInt.IRandom
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("BigInt")
 @js.native

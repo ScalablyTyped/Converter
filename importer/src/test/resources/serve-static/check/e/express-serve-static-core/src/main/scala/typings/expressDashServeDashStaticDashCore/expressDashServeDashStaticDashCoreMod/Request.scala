@@ -1,16 +1,15 @@
 package typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-trait Request
-  extends typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod._Global_.Express.Request {
+trait Request extends typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod._Global_.Express.Request {
   var url: String
 }
 
 object Request {
-  @scala.inline
+  @inline
   def apply(url: String): Request = {
     val __obj = js.Dynamic.literal(url = url)
   

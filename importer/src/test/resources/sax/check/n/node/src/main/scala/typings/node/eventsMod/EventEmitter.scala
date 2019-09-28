@@ -1,13 +1,12 @@
 package typings.node.eventsMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("events", "EventEmitter")
 @js.native
-class EventEmitter ()
-  extends typings.node.NodeJS.EventEmitter
+class EventEmitter () extends typings.node.NodeJS.EventEmitter
 
 /* static members */
 @JSImport("events", "EventEmitter")

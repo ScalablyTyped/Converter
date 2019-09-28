@@ -1,9 +1,9 @@
 package typings.chartDotJs.chartDotJsMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ChartOptions extends js.Object {
   // Plugins can require any options
@@ -12,7 +12,7 @@ trait ChartOptions extends js.Object {
 }
 
 object ChartOptions {
-  @scala.inline
+  @inline
   def apply(plugins: StringDictionary[js.Any] = null, responsive: js.UndefOr[Boolean] = js.undefined): ChartOptions = {
     val __obj = js.Dynamic.literal()
     if (plugins != null) __obj.updateDynamic("plugins")(plugins)

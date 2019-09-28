@@ -1,9 +1,9 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.react.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait SVGAttributes[T] extends DOMAttributes[T] {
   // Attributes which also defined in HTMLAttributes
@@ -14,7 +14,7 @@ trait SVGAttributes[T] extends DOMAttributes[T] {
 }
 
 object SVGAttributes {
-  @scala.inline
+  @inline
   def apply[T](
     children: ReactNode = null,
     className: String = null,

@@ -4,7 +4,6 @@ import typings.lodash.lodashMod.CurriedFunction1
 import typings.lodash.lodashMod.CurriedFunction2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Curry extends js.Object {

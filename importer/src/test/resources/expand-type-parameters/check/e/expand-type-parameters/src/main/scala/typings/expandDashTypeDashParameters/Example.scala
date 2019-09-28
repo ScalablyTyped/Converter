@@ -1,11 +1,11 @@
 package typings.expandDashTypeDashParameters
 
+import scala.scalajs.js.annotation.JSName
 import typings.expandDashTypeDashParameters.expandDashTypeDashParametersStrings.a
 import typings.expandDashTypeDashParameters.expandDashTypeDashParametersStrings.b
 import typings.expandDashTypeDashParameters.expandDashTypeDashParametersStrings.c
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Example extends js.Object {

@@ -2,7 +2,6 @@ package typings.vue
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object vueStrings {
   @js.native
@@ -11,9 +10,9 @@ object vueStrings {
   @js.native
   sealed trait RecordPropsDefinition extends js.Object
   
-  @scala.inline
+  @inline
   def Accessors: Accessors = "Accessors".asInstanceOf[Accessors]
-  @scala.inline
+  @inline
   def RecordPropsDefinition: RecordPropsDefinition = "RecordPropsDefinition".asInstanceOf[RecordPropsDefinition]
 }
 

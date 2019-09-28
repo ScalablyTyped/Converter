@@ -1,8 +1,8 @@
 package typings.stylis.stylisStylisMod
 
+import scala.scalajs.js.annotation.JSGlobalScope
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobalScope
 @js.native

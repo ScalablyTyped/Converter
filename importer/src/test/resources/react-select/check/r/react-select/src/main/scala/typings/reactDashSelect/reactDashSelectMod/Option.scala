@@ -1,12 +1,11 @@
 package typings.reactDashSelect.reactDashSelectMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-trait Option[TValue]
-  extends /**
+trait Option[TValue] extends /**
   * In the event that a custom menuRenderer is provided, Option should be able
   * to accept arbitrary key-value pairs. See react-virtualized-select.
   */
@@ -16,7 +15,7 @@ trait Option[TValue]
 }
 
 object Option {
-  @scala.inline
+  @inline
   def apply[TValue](
     StringDictionary: /**
     * In the event that a custom menuRenderer is provided, Option should be able

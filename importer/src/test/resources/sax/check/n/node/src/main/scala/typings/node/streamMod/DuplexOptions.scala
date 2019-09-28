@@ -1,9 +1,9 @@
 package typings.node.streamMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.node.Error
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait DuplexOptions
   extends ReadableOptions
@@ -12,7 +12,7 @@ trait DuplexOptions
 }
 
 object DuplexOptions {
-  @scala.inline
+  @inline
   def apply(
     allowHalfOpen: js.UndefOr[Boolean] = js.undefined,
     destroy: /* error */ js.UndefOr[Error] => _ = null,

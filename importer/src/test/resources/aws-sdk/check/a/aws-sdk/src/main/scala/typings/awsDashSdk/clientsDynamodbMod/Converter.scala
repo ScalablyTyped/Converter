@@ -1,14 +1,13 @@
 package typings.awsDashSdk.clientsDynamodbMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.awsDashSdk.libDynamodbConverterMod.Converter.ConverterOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("aws-sdk/clients/dynamodb", "Converter")
 @js.native
-class Converter ()
-  extends typings.awsDashSdk.libDynamodbConverterMod.Converter
+class Converter () extends typings.awsDashSdk.libDynamodbConverterMod.Converter
 
 /* static members */
 @JSImport("aws-sdk/clients/dynamodb", "Converter")

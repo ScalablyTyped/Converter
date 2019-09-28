@@ -1,12 +1,13 @@
 package typings.rxjs
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.rxjs.internalSubscriptionMod.Subscription
 import typings.rxjs.internalTypesMod.SubscriptionLike
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("rxjs/internal/Subscription", JSImport.Namespace)
+@JSImport("rxjs/internal/Subscription", Namespace)
 @js.native
 object internalSubscriptionMod extends js.Object {
   @js.native

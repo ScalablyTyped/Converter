@@ -1,9 +1,9 @@
 package typings.vueDashResource.vuejs
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.vueDashResource.Anon_Method
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ResourceActions extends js.Object {
   var delete: Anon_Method
@@ -15,7 +15,7 @@ trait ResourceActions extends js.Object {
 }
 
 object ResourceActions {
-  @scala.inline
+  @inline
   def apply(
     delete: Anon_Method,
     get: Anon_Method,

@@ -2,6 +2,8 @@ package typings.vue.typesVueMod
 
 import org.scalablytyped.runtime.StringDictionary
 import org.scalablytyped.runtime.TopLevel
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSName
 import typings.std.Element
 import typings.std.HTMLElement
 import typings.std.Record
@@ -22,7 +24,6 @@ import typings.vue.typesVnodeMod.VNodeChildren
 import typings.vue.typesVnodeMod.VNodeData
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Vue extends js.Object {

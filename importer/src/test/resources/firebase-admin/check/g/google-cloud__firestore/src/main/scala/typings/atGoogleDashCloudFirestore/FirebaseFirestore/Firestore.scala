@@ -1,8 +1,8 @@
 package typings.atGoogleDashCloudFirestore.FirebaseFirestore
 
+import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("FirebaseFirestore.Firestore")
 @js.native

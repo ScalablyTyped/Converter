@@ -1,8 +1,8 @@
 package typings.unionDashToDashInheritance
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait _Illegal2 extends js.Object
 

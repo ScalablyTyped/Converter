@@ -5,7 +5,6 @@ import typings.reactDashTransitionDashGroup.reactDashTransitionDashGroupStrings.
 import typings.reactDashTransitionDashGroup.reactDashTransitionDashGroupStrings.animate
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait reactDashTransitionDashGroupProps {
   type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[_] */] = typings.reactDashTransitionDashGroup.transitionGroupMod.TransitionGroupProps[T, V]

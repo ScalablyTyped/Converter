@@ -1,8 +1,8 @@
 package typings.rxjs.internalTypesMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait CompletionObserver[T] extends PartialObserver[T] {
   var closed: js.UndefOr[Boolean] = js.undefined
@@ -12,7 +12,7 @@ trait CompletionObserver[T] extends PartialObserver[T] {
 }
 
 object CompletionObserver {
-  @scala.inline
+  @inline
   def apply[T](
     complete: () => Unit,
     closed: js.UndefOr[Boolean] = js.undefined,

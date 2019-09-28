@@ -2,7 +2,6 @@ package typings.webpackDashEnv.__WebpackModuleApi
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait RequireContext extends js.Object {

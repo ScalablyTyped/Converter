@@ -1,11 +1,11 @@
 package typings.lodash.fpMod
 
+import scala.scalajs.js.annotation.JSName
 import typings.lodash.fpCurryMod.Curry
 import typings.lodash.lodashMod.CurriedFunction1
 import typings.lodash.lodashMod.CurriedFunction2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait LoDashFp extends js.Object {

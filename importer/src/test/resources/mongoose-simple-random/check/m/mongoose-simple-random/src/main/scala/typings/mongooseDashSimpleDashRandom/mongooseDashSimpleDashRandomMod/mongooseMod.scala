@@ -1,14 +1,15 @@
 package typings.mongooseDashSimpleDashRandom.mongooseDashSimpleDashRandomMod
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
 import typings.mongoose.mongooseMod.Document
 import typings.mongoose.mongooseMod.ModelProperties
 import typings.node.NodeJS.EventEmitter
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 /* augmented module */
-@JSImport("mongoose", JSImport.Namespace)
+@JSImport("mongoose", Namespace)
 @js.native
 object mongooseMod extends js.Object {
   @js.native

@@ -1,8 +1,8 @@
 package typings.vueDashResource.vuejs
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait HttpOptions extends js.Object {
   var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.undefined
@@ -18,7 +18,7 @@ trait HttpOptions extends js.Object {
 }
 
 object HttpOptions {
-  @scala.inline
+  @inline
   def apply(
     before: /* request */ js.Any => _ = null,
     body: js.Any = null,

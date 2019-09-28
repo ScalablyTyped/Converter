@@ -1,9 +1,9 @@
 package typings.awsDashSdk.libConfigMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.awsDashSdk.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("aws-sdk/lib/config", "Config")
 @js.native

@@ -1,9 +1,9 @@
 package typings.vue
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.vue.typesOptionsMod.InjectKey
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Anon_Default extends js.Object {
   var default: js.UndefOr[js.Any] = js.undefined
@@ -11,7 +11,7 @@ trait Anon_Default extends js.Object {
 }
 
 object Anon_Default {
-  @scala.inline
+  @inline
   def apply(default: js.Any = null, from: InjectKey = null): Anon_Default = {
     val __obj = js.Dynamic.literal()
     if (default != null) __obj.updateDynamic("default")(default)

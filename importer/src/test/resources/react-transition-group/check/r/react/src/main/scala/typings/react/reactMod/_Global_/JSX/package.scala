@@ -2,7 +2,6 @@ package typings.react.reactMod._Global_
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object JSX {
   import typings.react.reactMod.Attributes

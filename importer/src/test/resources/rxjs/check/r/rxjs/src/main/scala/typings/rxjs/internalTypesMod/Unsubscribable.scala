@@ -1,15 +1,15 @@
 package typings.rxjs.internalTypesMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Unsubscribable extends js.Object {
   def unsubscribe(): Unit
 }
 
 object Unsubscribable {
-  @scala.inline
+  @inline
   def apply(unsubscribe: () => Unit): Unsubscribable = {
     val __obj = js.Dynamic.literal(unsubscribe = js.Any.fromFunction0(unsubscribe))
   

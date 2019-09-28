@@ -1,8 +1,8 @@
 package typings.atStorybookVue.atStorybookVueMod
 
+import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("@storybook/vue", "addDecorator")
 @js.native

@@ -1,8 +1,8 @@
 package typings.fpDashTs.libHKTMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait HKT[URI, A] extends js.Object {
   val _A: A
@@ -10,7 +10,7 @@ trait HKT[URI, A] extends js.Object {
 }
 
 object HKT {
-  @scala.inline
+  @inline
   def apply[URI, A](_A: A, _URI: URI): HKT[URI, A] = {
     val __obj = js.Dynamic.literal(_A = _A.asInstanceOf[js.Any], _URI = _URI.asInstanceOf[js.Any])
   

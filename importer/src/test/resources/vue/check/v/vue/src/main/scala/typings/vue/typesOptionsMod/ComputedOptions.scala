@@ -1,8 +1,8 @@
 package typings.vue.typesOptionsMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ComputedOptions[T] extends js.Object {
   var cache: js.UndefOr[Boolean] = js.undefined
@@ -11,7 +11,7 @@ trait ComputedOptions[T] extends js.Object {
 }
 
 object ComputedOptions {
-  @scala.inline
+  @inline
   def apply[T](cache: js.UndefOr[Boolean] = js.undefined, get: () => T = null, set: /* value */ T => Unit = null): ComputedOptions[T] = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(cache)) __obj.updateDynamic("cache")(cache)

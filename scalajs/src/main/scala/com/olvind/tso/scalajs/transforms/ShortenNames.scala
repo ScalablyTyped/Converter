@@ -5,62 +5,95 @@ package transforms
 import scala.collection.mutable
 
 object ShortenNames {
-  val Forbidden: Set[Name] = Set(Name("|"), Name("scala"), Name("js"), Name("com"), Name("org"))
+  case class Import(imported: QualifiedName)
 
-  case class ImportTree(imported: QualifiedName)
-
-  def apply(owner: ContainerTree, scope: TreeScope)(members: Seq[Tree]): (Seq[ImportTree], Seq[Tree]) = {
+  def apply(owner: ContainerTree, scope: TreeScope)(members: Seq[Tree]): (Seq[Import], Seq[Tree]) = {
     val collectedImports = mutable.Map.empty[Name, QualifiedName]
 
     object V extends TreeTransformation {
-      override def leaveTypeRef(scope: TreeScope)(tr: TypeRef): TypeRef = {
-        val shortName = tr.name
-        val longName  = tr.typeName
-
-        lazy val isSingleton = scope.stack match {
-          case _ :: TypeRef.Singleton(_) :: _ => true
-          case _                              => false
+      override def leaveExprRefTree(scope: TreeScope)(s: ExprTree.Ref): ExprTree.Ref =
+        maybeImport(scope, fullName = s.value) match {
+          case Some(rewritten) => s.copy(value = rewritten)
+          case None            => s
         }
 
-        val rewrittenOpt: Option[TypeRef] = {
-          if (!Name.Internal(shortName) &&
-              !Forbidden.contains(shortName) &&
-              owner.name =/= shortName &&
-              tr.typeName.parts.length > 1 &&
-              /* the printer has special logic for these */
-              tr =/= TypeRef.Nothing &&
-              TypeRef.ScalaFunction.unapply(tr).isEmpty &&
-              !tr.typeName.startsWith(QualifiedName.scala_js) &&
-              /* keep more expensive checks last */
-              !nameCollision.among(owner.index, longName, methodsAreConflict = isSingleton) &&
-              !nameCollision.inScope(scope, longName, methodsAreConflict     = isSingleton)) {
+      override def leaveTypeRef(scope: TreeScope)(tr: TypeRef): TypeRef =
+        maybeImport(scope, fullName = tr.typeName) match {
+          case Some(rewritten) => tr.copy(typeName = rewritten)
+          case None            => tr
+        }
 
-            collectedImports.get(shortName) match {
-              case Some(alreadyImported) =>
-                if (alreadyImported === tr.typeName) Some(tr.copy(typeName = QualifiedName(List(shortName))))
-                else None
-              case None =>
-                val importNecessary = tr.typeName.parts.dropRight(1) =/= owner.codePath.parts
-                if (importNecessary)
-                  collectedImports += ((shortName, tr.typeName))
-                Some(tr.copy(typeName = QualifiedName(List(shortName))))
+      override def leaveExprTree(scope: TreeScope)(s: ExprTree): ExprTree =
+        s match {
+          case ExprTree.Ref(value) =>
+            maybeImport(scope, fullName = value) match {
+              case Some(rewritten) => ExprTree.Ref(rewritten)
+              case None            => s
             }
-          } else None
+          case _ => s
         }
 
-        rewrittenOpt getOrElse tr
+      def maybeImport(scope: TreeScope, fullName: QualifiedName): Option[QualifiedName] = {
+        lazy val membersAreConflict = {
+          def isSingleton = scope.stack match {
+            case _ :: TypeRef.Singleton(_) :: _ => true
+            case _                              => false
+          }
+          def isRef = scope.stack.exists {
+            case _: ExprTree.Ref => true
+            case _ => false
+          }
+          isSingleton || isRef
+        }
+
+        val (left: QualifiedName, right: QualifiedName) =
+          fullName match {
+//            case scalajsName
+//                if scalajsName.startsWith(QualifiedName.scala_js) &&
+//                  (scalajsName.parts.length === QualifiedName.scala_js.parts.length + 1) =>
+//              val short = QualifiedName(Name.js, scalajsName.parts.last)
+//              (short, QualifiedName.scala_js)
+            case _ =>
+              val short = QualifiedName(fullName.parts.takeRight(1))
+              (short, fullName)
+          }
+
+        val leftFirst = left.parts.head
+
+        if (!Name.Internal(leftFirst) &&
+            owner.name =/= leftFirst &&
+            right.parts.length > 1 &&
+            /* the printer has special logic for these */
+            right =/= QualifiedName.Nothing &&
+            !TypeRef.ScalaFunction.unapply(right) &&
+            !(right.startsWith(QualifiedName.scala_js) && right.parts.length === QualifiedName.scala_js.parts.length + 1) &&
+            /* keep more expensive checks last */
+            !nameCollision.among(owner.index, right, membersAreConflict) &&
+            !nameCollision.inScope(scope, right, membersAreConflict)) {
+
+          collectedImports get leftFirst match {
+            case Some(alreadyImported) =>
+              if (alreadyImported === right) Some(left)
+              else None
+            case None =>
+              val importNecessary = right.parts.dropRight(left.parts.length) =/= owner.codePath.parts
+              if (importNecessary)
+                collectedImports += ((leftFirst, right))
+              Some(left)
+          }
+        } else None
       }
     }
 
     val newMembers = members.map(V.visitTree(scope))
 
-    val imports: Seq[ImportTree] =
+    val imports: Seq[Import] =
       collectedImports.values
-        .filterNot(_.startsWith(QualifiedName.scala))
+        .filterNot(x => x.startsWith(QualifiedName.scala) && x.parts.length === 2)
         .filterNot(_.startsWith(QualifiedName.java_lang))
         .to[Seq]
         .sortBy(Printer.formatQN)
-        .map(ImportTree.apply)
+        .map(Import.apply)
 
     (imports, newMembers)
   }
@@ -88,22 +121,22 @@ object ShortenNames {
         scope:              TreeScope,
         x:                  InheritanceTree,
         longName:           QualifiedName,
-        methodsAreConflict: Boolean,
+        membersAreConflict: Boolean,
     ): Boolean =
       ParentsResolver(scope, x).transitiveParents.exists {
-        case (_, cls) => among(cls.index, longName, methodsAreConflict)
+        case (_, cls) => among(cls.index, longName, membersAreConflict)
       }
 
-    def among(index: Map[Name, Seq[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
+    def among(index: Map[Name, Seq[Tree]], longName: QualifiedName, membersAreConflict: Boolean): Boolean =
       index get longName.parts.last match {
         case Some(trees) =>
           trees exists {
             case x: ClassTree     => x.codePath =/= longName
-            case _: ModuleTree    => methodsAreConflict
+            case _: ModuleTree    => membersAreConflict
             case x: PackageTree   => x.codePath =/= longName
             case x: TypeAliasTree => x.codePath =/= longName
-            case x: FieldTree     => x.isReadOnly
-            case _: MethodTree    => methodsAreConflict
+            case x: FieldTree     => x.isReadOnly || membersAreConflict
+            case _: MethodTree    => membersAreConflict
             case _ => false
           }
         case None => false

@@ -1,8 +1,8 @@
 package typings.lodash.lodashMod
 
+import scala.scalajs.js.annotation.JSName
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 // tslint:disable-next-line no-empty-interface (This will be augmented)
 // add

@@ -1,9 +1,9 @@
 package typings.atStorybookVue.atStorybookVueMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.webpackDashEnv.NodeModule
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("@storybook/vue", "configure")
 @js.native

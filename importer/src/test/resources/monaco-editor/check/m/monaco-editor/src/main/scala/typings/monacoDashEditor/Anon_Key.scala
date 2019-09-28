@@ -1,9 +1,9 @@
 package typings.monacoDashEditor
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.monacoDashEditor.monaco.Promise
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Anon_Key[T] extends js.Object {
   var key: String
@@ -11,7 +11,7 @@ trait Anon_Key[T] extends js.Object {
 }
 
 object Anon_Key {
-  @scala.inline
+  @inline
   def apply[T](key: String, value: Promise[T, _]): Anon_Key[T] = {
     val __obj = js.Dynamic.literal(key = key, value = value)
   

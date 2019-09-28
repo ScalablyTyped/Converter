@@ -2,7 +2,6 @@ package typings.lodash.lodashMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait CurriedFunction2[T1, T2, R] extends js.Object {

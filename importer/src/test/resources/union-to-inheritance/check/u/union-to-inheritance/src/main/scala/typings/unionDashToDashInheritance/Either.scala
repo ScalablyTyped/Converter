@@ -1,8 +1,8 @@
 package typings.unionDashToDashInheritance
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait Either[L, R]
   extends Legal3[js.Any, L, R]
@@ -12,7 +12,7 @@ trait Either[L, R]
 }
 
 object Either {
-  @scala.inline
+  @inline
   def apply[L, R](value: R): Either[L, R] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
   

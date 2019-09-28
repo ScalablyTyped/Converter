@@ -1,8 +1,8 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ReactElement extends js.Object {
   var key: Key | Null
@@ -11,7 +11,7 @@ trait ReactElement extends js.Object {
 }
 
 object ReactElement {
-  @scala.inline
+  @inline
   def apply(props: js.Any, `type`: String | ComponentClass[_] | SFC[_], key: Key = null): ReactElement = {
     val __obj = js.Dynamic.literal(props = props)
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])

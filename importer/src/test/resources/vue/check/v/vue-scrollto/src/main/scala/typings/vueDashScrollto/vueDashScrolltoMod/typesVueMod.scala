@@ -1,11 +1,13 @@
 package typings.vueDashScrollto.vueDashScrolltoMod
 
+import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.JSImport.Namespace
+import scala.scalajs.js.annotation.JSName
 import typings.std.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
-@JSImport("vue/types/vue", JSImport.Namespace)
+@JSImport("vue/types/vue", Namespace)
 @js.native
 object typesVueMod extends js.Object {
   @js.native

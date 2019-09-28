@@ -31,15 +31,12 @@ object Companions extends TreeTransformation {
     ConstructObjectOfType(cls, scope)(memberParameter) match {
       case Nil => None
       case params =>
-        val (optionals, inLiterals, Nil) = params.partitionCollect2(
+        val (optionals, requireds, Nil) = params.partitionCollect2(
           { case Param(_, _, Right(f))  => f },
           { case Param(_, _, Left(str)) => str },
         )
-        val applyRet = TypeRef(
-          QualifiedName(cls.name :: Nil),
-          cls.tparams.map(tp => TypeRef(QualifiedName(tp.name :: Nil), Nil, NoComments)),
-          NoComments,
-        )
+
+        val applyRet = TypeRef(QualifiedName(cls.name), TypeParamTree.asTypeArgs(cls.tparams), NoComments)
 
         Some(
           ModuleTree(
@@ -48,20 +45,20 @@ object Companions extends TreeTransformation {
             Nil,
             Seq(
               MethodTree(
-                Annotation.Inline :: Nil,
-                ProtectionLevel.Default,
-                Name.APPLY,
-                cls.tparams,
-                params.map(_.parameter) :: Nil,
-                MemberImpl.Custom(s"""{
-                                       |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
-                                       |${optionals.map(f => "  " + f("__obj")).mkString("\n")}
-                                       |  __obj.asInstanceOf[${Printer.formatTypeRef(0)(applyRet)}]
-                                       |}""".stripMargin),
-                applyRet,
-                isOverride = false,
-                NoComments,
-                cls.codePath + Name.APPLY,
+                annotations = AnnotationTree.Inline.get :: Nil,
+                level       = ProtectionLevel.Default,
+                name        = Name.APPLY,
+                tparams     = cls.tparams,
+                params      = params.map(_.parameter) :: Nil,
+                impl        = ExprTree.Custom(s"""{
+                     |  val __obj = js.Dynamic.literal(${requireds.mkString(", ")})
+                     |${optionals.map(f => "  " + f("__obj")).mkString("\n")}
+                     |  __obj.asInstanceOf[${Printer.formatTypeRef(0)(applyRet)}]
+                     |}""".stripMargin),
+                resultType  = applyRet,
+                isOverride  = false,
+                comments    = NoComments,
+                codePath    = cls.codePath + Name.APPLY,
               ),
             ),
             NoComments,
@@ -80,7 +77,7 @@ object Companions extends TreeTransformation {
             val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
             Some(
               Param(
-                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                ParamTree(name, tpe, ExprTree.`null`, NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -94,7 +91,7 @@ object Companions extends TreeTransformation {
           case Nullable(tpe) if IsPrimitive(tpe, scope / x) =>
             Some(
               Param(
-                ParamTree(name, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
+                ParamTree(name, TypeRef.UndefOr(tpe), ExprTree.undefined, NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -113,7 +110,7 @@ object Companions extends TreeTransformation {
                 ParamTree(
                   name,
                   TypeRef.ScalaFunction(paramTypes, retType, NoComments),
-                  Some(TypeRef.`null`),
+                  ExprTree.`null`,
                   NoComments,
                 ),
                 isOptional = true,
@@ -132,7 +129,7 @@ object Companions extends TreeTransformation {
 
             Some(
               Param(
-                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                ParamTree(name, tpe, ExprTree.`null`, NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -148,7 +145,7 @@ object Companions extends TreeTransformation {
 
             Some(
               Param(
-                ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
+                ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), NotImplemented, NoComments),
                 isOptional = false,
                 if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                   Left(s"""${name.value} = $convertedTarget""")
@@ -161,7 +158,7 @@ object Companions extends TreeTransformation {
           case _ =>
             Some(
               Param(
-                ParamTree(name, origTpe, None, NoComments),
+                ParamTree(name, origTpe, NotImplemented, NoComments),
                 isOptional = false,
                 if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                   Left(s"""${name.value} = ${name.value}${OptionalCast(scope, origTpe)}""")
@@ -183,7 +180,7 @@ object Companions extends TreeTransformation {
             ParamTree(
               m.name,
               TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
-              None,
+              NotImplemented,
               NoComments,
             ),
             isOptional = false,

@@ -1,10 +1,10 @@
 package typings.vue.typesVnodeMod
 
 import org.scalablytyped.runtime.StringDictionary
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.vue.Anon_Render
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait VNodeData extends js.Object {
   var attrs: js.UndefOr[StringDictionary[js.Any]] = js.undefined
@@ -30,7 +30,7 @@ trait VNodeData extends js.Object {
 }
 
 object VNodeData {
-  @scala.inline
+  @inline
   def apply(
     attrs: StringDictionary[js.Any] = null,
     `class`: js.Any = null,

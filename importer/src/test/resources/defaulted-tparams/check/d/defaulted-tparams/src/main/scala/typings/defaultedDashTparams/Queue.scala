@@ -1,9 +1,9 @@
 package typings.defaultedDashTparams
 
+import scala.scalajs.js.annotation.JSGlobal
 import typings.std.Iterable
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("Queue")
 @js.native

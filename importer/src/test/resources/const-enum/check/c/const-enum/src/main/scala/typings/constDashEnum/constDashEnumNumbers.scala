@@ -4,7 +4,6 @@ import typings.constDashEnum.constDashEnumMod.Foo
 import typings.constDashEnum.constDashEnumMod.Foo2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 object constDashEnumNumbers {
   @js.native
@@ -20,11 +19,11 @@ object constDashEnumNumbers {
     extends Foo
        with Foo2
   
-  @scala.inline
+  @inline
   def `0`: `0` = 0.asInstanceOf[`0`]
-  @scala.inline
+  @inline
   def `1`: `1` = 1.asInstanceOf[`1`]
-  @scala.inline
+  @inline
   def `22`: `22` = 22.asInstanceOf[`22`]
 }
 

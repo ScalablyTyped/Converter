@@ -1,16 +1,16 @@
 package typings.react.reactMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import typings.react.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait HTMLProps[T]
   extends AllHTMLAttributes[T]
      with ClassAttributes[T]
 
 object HTMLProps {
-  @scala.inline
+  @inline
   def apply[T](
     accept: String = null,
     acceptCharset: String = null,

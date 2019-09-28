@@ -2,7 +2,6 @@ package typings.vueDashResource
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 package object vuejs {
   type $resource = js.Function4[

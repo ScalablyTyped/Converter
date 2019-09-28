@@ -2,7 +2,6 @@ package typings.chartDotJs.chartDotJsMod
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @js.native
 trait Chart extends js.Object {

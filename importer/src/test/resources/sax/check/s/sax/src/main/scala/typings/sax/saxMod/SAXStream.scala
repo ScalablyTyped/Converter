@@ -1,9 +1,9 @@
 package typings.sax.saxMod
 
+import scala.scalajs.js.annotation.JSImport
 import typings.node.streamMod.Duplex
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSImport("sax", "SAXStream")
 @js.native

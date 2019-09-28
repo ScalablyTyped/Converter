@@ -1,8 +1,8 @@
 package typings.insight.insightMod.insight
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait IConfigstore extends js.Object {
   var all: js.Any
@@ -13,7 +13,7 @@ trait IConfigstore extends js.Object {
 }
 
 object IConfigstore {
-  @scala.inline
+  @inline
   def apply(
     all: js.Any,
     del: String => Unit,

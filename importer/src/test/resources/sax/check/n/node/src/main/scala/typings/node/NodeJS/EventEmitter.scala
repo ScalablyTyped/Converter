@@ -1,8 +1,8 @@
 package typings.node.NodeJS
 
+import scala.scalajs.js.annotation.JSGlobal
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("NodeJS.EventEmitter")
 @js.native

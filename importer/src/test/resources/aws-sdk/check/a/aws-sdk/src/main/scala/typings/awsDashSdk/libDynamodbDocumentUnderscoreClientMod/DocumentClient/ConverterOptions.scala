@@ -1,8 +1,8 @@
 package typings.awsDashSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ConverterOptions extends js.Object {
   /**
@@ -19,7 +19,7 @@ trait ConverterOptions extends js.Object {
 }
 
 object ConverterOptions {
-  @scala.inline
+  @inline
   def apply(
     convertEmptyValues: js.UndefOr[Boolean] = js.undefined,
     wrapNumbers: js.UndefOr[Boolean] = js.undefined

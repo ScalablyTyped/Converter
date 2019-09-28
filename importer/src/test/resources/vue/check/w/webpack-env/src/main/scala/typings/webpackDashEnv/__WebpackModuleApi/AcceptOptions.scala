@@ -1,8 +1,8 @@
 package typings.webpackDashEnv.__WebpackModuleApi
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait AcceptOptions extends js.Object {
   /**
@@ -16,7 +16,7 @@ trait AcceptOptions extends js.Object {
 }
 
 object AcceptOptions {
-  @scala.inline
+  @inline
   def apply(
     autoApply: js.UndefOr[Boolean] = js.undefined,
     ignoreUnaccepted: js.UndefOr[Boolean] = js.undefined

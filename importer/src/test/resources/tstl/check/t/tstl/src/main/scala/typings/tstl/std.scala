@@ -1,10 +1,10 @@
 package typings.tstl
 
 import org.scalablytyped.runtime.Instantiable0
+import scala.scalajs.js.annotation.JSGlobal
 import typings.tstl.std.Queue
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 @JSGlobal("std")
 @js.native

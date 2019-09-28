@@ -1,15 +1,15 @@
 package typings.swiz.swizMod
 
+import scala.scalajs.js.annotation.ScalaJSDefined
 import scala.scalajs.js
 import scala.scalajs.js.`|`
-import scala.scalajs.js.annotation._
 
 trait ISerializable extends js.Object {
   def getSerializerType(): String
 }
 
 object ISerializable {
-  @scala.inline
+  @inline
   def apply(getSerializerType: () => String): ISerializable = {
     val __obj = js.Dynamic.literal(getSerializerType = js.Any.fromFunction0(getSerializerType))
   
