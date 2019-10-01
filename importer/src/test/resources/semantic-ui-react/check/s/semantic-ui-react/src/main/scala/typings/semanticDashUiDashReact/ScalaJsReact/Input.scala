@@ -4,7 +4,7 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLInputElement
+import org.scalajs.dom.raw.HTMLInputElement
 import typings.react.reactMod.ChangeEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
