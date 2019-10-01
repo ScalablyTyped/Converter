@@ -16,12 +16,12 @@ object ScalaJsReactComponents {
 
   object scalaJsReact {
     val ScalaJsReact = Name("ScalaJsReact")
-    val Props        = Name("Props")
-    val Element      = Name("Element")
-    val component    = Name("component")
+    val Props = Name("Props")
+    val Element = Name("Element")
+    val component = Name("component")
 
     /* Fully qualified references to slinky types */
-    val japgolly                      = QualifiedName(List(Name("japgolly")))
+    val japgolly = QualifiedName(List(Name("japgolly")))
     val japgollyScalajs: QualifiedName = japgolly + Name("scalajs")
     val japgollyScalajsReact: QualifiedName = japgollyScalajs + Name("react")
     val japgollyScalajsReactVDom: QualifiedName = japgollyScalajs + Name("vdom")
@@ -38,6 +38,7 @@ object ScalaJsReactComponents {
     val japgollyScalajsWeb: QualifiedName = japgollyScalajs + Name("web")
     val japgollyScalajsWebSvg: QualifiedName = japgollyScalajsWeb + Name("svg")
     val japgollyScalajsWebHtml: QualifiedName = japgollyScalajsWeb + Name("html")
+
   }
 
   def ScalaJsReactElement(isSvg: Boolean, name: String): TypeRef =
@@ -52,51 +53,58 @@ object ScalaJsReactComponents {
     )
 
   val AnyHtmlElement: TypeRef = ScalaJsReactElement(isSvg = false, "*")
-  val AnySvgElement:  TypeRef = ScalaJsReactElement(isSvg = true, "*")
+  val AnySvgElement: TypeRef = ScalaJsReactElement(isSvg = true, "*")
 
   /**
-    * We do type rewriting in two phases (for now). The initial rewrite is done in `Companions.memberParameter` below.
-    * As can be see from the name, we just reuse what was written for `Companions`.
-    *
-    * As it stands now, those rewrites are not recursive (ie will rewrite `foo: T`, but not `foo: Promise<T>`), but
-    *  are more powerful because we can specify how to convert (implicit conversions and whatnot)
-    *
-    * In addition these here are rewrites here are done recursively, but with the demand that the conversion is a cast.
-    *
-    * todo: these two approaches should be refactored into one
-    */
+   * We do type rewriting in two phases (for now). The initial rewrite is done in `Companions.memberParameter` below.
+   * As can be see from the name, we just reuse what was written for `Companions`.
+   *
+   * As it stands now, those rewrites are not recursive (ie will rewrite `foo: T`, but not `foo: Promise<T>`), but
+   * are more powerful because we can specify how to convert (implicit conversions and whatnot)
+   *
+   * In addition these here are rewrites here are done recursively, but with the demand that the conversion is a cast.
+   *
+   * todo: these two approaches should be refactored into one
+   */
+  def typeMapper(in: TypeRef): TypeRef = {
+    val map = Map(
+      QualifiedName("typings.react.reactMod.AnimationEvent") -> QualifiedName("japgolly.scalajs.react.ReactAnimationEventFrom"),
+      QualifiedName("typings.react.reactMod.ClipboardEvent") -> QualifiedName("japgolly.scalajs.react.ReactClipboardEventFrom"),
+      QualifiedName("typings.react.reactMod.CompositionEvent") -> QualifiedName("japgolly.scalajs.react.ReactCompositionEventFrom"),
+      QualifiedName("typings.react.reactMod.DragEvent") -> QualifiedName("japgolly.scalajs.react.ReactDragEventFrom"),
+      QualifiedName("typings.react.reactMod.FocusEvent") -> QualifiedName("japgolly.scalajs.react.ReactFocusEventFrom"),
+      QualifiedName("typings.react.reactMod.KeyboardEvent") -> QualifiedName("japgolly.scalajs.react.ReactKeyboardEventFrom"),
+      QualifiedName("typings.react.reactMod.MouseEvent") -> QualifiedName("japgolly.scalajs.react.ReactMouseEventFrom"),
+      QualifiedName("typings.react.reactMod.TouchEvent") -> QualifiedName("japgolly.scalajs.react.ReactTouchEventFrom"),
+      QualifiedName("typings.react.reactMod.PointerEvent") -> QualifiedName("japgolly.scalajs.react.ReactPointerEventFrom"),
+      QualifiedName("typings.react.reactMod.TransitionEvent") -> QualifiedName("japgolly.scalajs.react.ReactTransitionEventFrom"),
+      QualifiedName("typings.react.reactMod.UIEvent") -> QualifiedName("japgolly.scalajs.react.ReactUIEventFrom"),
+      QualifiedName("typings.react.reactMod.WheelEvent") -> QualifiedName("japgolly.scalajs.react.ReactWheelEventFrom"),
+      QualifiedName("typings.react.NativeMouseEvent") -> QualifiedName("japgolly.scalajs.react.raw.SyntheticMouseEvent"),
+      QualifiedName("typings.react.reactMod.Component") -> QualifiedName("japgolly.scalajs.react.raw.React.Component"),
+      QualifiedName("typings.react.reactMod.ComponentClass") -> QualifiedName("japgolly.scalajs.react.raw.React.ComponentClass"),
+      QualifiedName("typings.react.reactMod.ReactDOM") -> QualifiedName("japgolly.scalajs.react.raw.React.ReactDOM"),
+      QualifiedName("typings.react.reactMod.ReactElement") -> QualifiedName(" japgolly.scalajs.react.vdom.VdomElement"),
+      QualifiedName("typings.react.reactMod.ReactNode") -> QualifiedName("japgolly.scalajs.react.vdom.VdomNode"),
+      QualifiedName("typings.react.reactMod.ReactNodeArray") -> QualifiedName("japgolly.scalajs.react.vdom.VdomArray"),
+      QualifiedName("typings.react.reactMod.Attributes") -> QualifiedName("japgolly.scalajs.react.vdom.VdomAttr"),
+    )
 
-  val reactSyntheticEvents = Set(
-    "AnimationEvent",
-    "ClipboardEvent",
-    "CompositionEvent",
-    "DragEvent",
-    "FocusEvent",
-    "KeyboardEvent",
-    "MouseEvent",
-    "TouchEvent",
-    "PointerEvent",
-    "TransitionEvent",
-    "UIEvent",
-    "WheelEvent"
-  )
-
-  def typingsToDomType(src: TypeRef):TypeRef = {
-    TypeRef(QualifiedName("org.scalajs.dom.raw") + src.name)
-  }
-
-  val ScalaJsReactReplacements: TypeRef => TypeRef = {
-    case TypeRef(QualifiedName.React.ReactNode, _, cs)        => TypeRef(scalaJsReact.TagMod, List(TypeRef.ScalaAny), cs)
-    case TypeRef(QualifiedName.React.ReactElement, _, cs)     => TypeRef(scalaJsReact.ReactElement, Nil, cs)
-    case TypeRef(QualifiedName.React.ReactType, Seq(one), cs) => TypeRef(scalaJsReact.ReactComponentClass, Seq(one), cs)
-    case TypeRef(name, targs, cs) if QualifiedName.React.isComponent(name) =>
-      TypeRef(scalaJsReact.ReactComponentClass, targs.take(1), cs)
-    case TypeRef(name, targs, cs) if name.parts.lastOption.fold(false)(e => reactSyntheticEvents.contains(e.unescaped)) => {
-      val nodeType = targs.find(_.name.value.contains("Element")).map(a=>Seq(typingsToDomType(a))).getOrElse(Nil)
-      TypeRef(scalaJsReact.japgollyScalajsReact + Name(s"React${name.parts.lastOption.fold("")(_.value)}From"), nodeType, cs)
+    in match {
+      case TypeRef(name, targs, comments) if (name.parts.lastOption.fold(false)(_.value.endsWith("Event"))) =>
+        //In jagpolly, events don't take a second type (the Synthetic type)
+        val newName = map.getOrElse(name, name)
+        TypeRef(newName, targs.take(1).map(typeMapper), comments)
+      case TypeRef(name, targs, comments) if (name.parts.lastOption.fold(false)(_.value.endsWith("Element"))) =>
+        //There's too many elements to actually map, so it's better to do it here instead of using the map
+        val newName = QualifiedName("org.scalajs.dom.raw") + name.parts.last
+        TypeRef(newName, targs.map(typeMapper), comments)
+      case TypeRef(name, targs, comments) =>
+        //Not a special case, see if there's a match in the map, and regardless, if there's type arguments, we need to loop through those as well
+        val newName = map.getOrElse(name, name)
+        TypeRef(newName, targs.map(typeMapper), comments)
     }
-    case TypeRef(name, targs, cs) =>
-      TypeRef(name, targs, cs)
+
   }
 
   /* ScalaJs doesnt really support generic components. We hack it in in the `apply` method */
@@ -106,8 +114,19 @@ object ScalaJsReactComponents {
     val ret = Companions.memberParameter(scope, fieldTree)
     ret match {
       case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType@_), default, comments), isOptional, asString)) =>
-        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(ScalaJsReactReplacements), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
-      case _ => ret
+        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
+      case Some(Param(tree, isOptional, asString)) =>
+        ret
+    }
+  }
+
+  def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
+    val ret = Companions.memberParameter(scope, tree)
+    ret match {
+      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType@_), default, comments), isOptional, asString)) =>
+        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
+      case Some(Param(tree, isOptional, asString)) =>
+        ret
     }
   }
 
@@ -127,12 +146,13 @@ object ScalaJsReactComponents {
 
       val props = c.props getOrElse TypeRef.Object
 
-      def propsAlias(props: TypeRef) =
+      def propsAlias(props: TypeRef) = {
         TypeAliasTree(scalaJsReact.Props, Nil, stripTargs(props), NoComments, componentCp + scalaJsReact.Props)
+      }
 
       scope lookup FollowAliases(scope)(props).typeName firstDefined {
         case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
-          val cls = TypeRewriterFn(ScalaJsReactReplacements).visitClassTree(scope)(_cls)
+          val cls = TypeRewriterFn(typeMapper).visitClassTree(scope)(_cls)
 
           val domParams = mutable.ArrayBuffer.empty[FieldTree]
 
@@ -143,7 +163,7 @@ object ScalaJsReactComponents {
                 case Some(tpe) =>
                   FollowAliases(scope)(fieldTree.tpe) match {
                     case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                    case ftpe           => ftpe.typeName === tpe.typeName
+                    case ftpe => ftpe.typeName === tpe.typeName
                   }
                 case None => false
               }
@@ -151,24 +171,24 @@ object ScalaJsReactComponents {
                 domParams += fieldTree
                 None
               } else memberParameter(scope, fieldTree)
-            case (scope, tree) => Companions.memberParameter(scope, tree)
+            case (scope, tree) => memberParameter(scope, tree)
           } match {
             case Nil => None
             case params =>
               val domType = domParams
                 .firstDefined {
                   case FieldTree(_, _, TypeRef(typeName, tparams, _), _, _, _, _, _)
-                      if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
-                    ElementMapping(tparams.head.name.unescaped)
+                    if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
+                    Option(typeMapper(tparams.head))
                   case _ => None
                 }
                 .getOrElse(AnyHtmlElement)
 
               val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
-                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
+                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
                 { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
-                { case Param(p, _, Right(f))                                               => p -> f },
-                { case Param(p, _, Left(str))                                              => p -> str },
+                { case Param(p, _, Right(f)) => p -> f },
+                { case Param(p, _, Left(str)) => p -> str },
               )
 
               val childrenParam = domParams
@@ -176,25 +196,26 @@ object ScalaJsReactComponents {
                 .map(
                   p =>
                     ParamTree(
-                      name     = p.name,
+                      name = p.name,
                       tpe = TypeRef.Repeated(TypeRef(scalaJsReact.ChildArg), p.comments),
-                      default  = None,
+                      default = None,
                       comments = NoComments,
                     ),
                 )
+
               /**
-               *  The `apply` method that the slinky method would normally construct.
-               *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
-               *  a case class and suffer macro execution time.
+               * The `apply` method.
+               * We implement it ourselves for flexibility and performance. Otherwise we would need to generate
+               * a case class and suffer macro execution time.
                */
               def genApply(elem: TypeRef, ref: TypeRef) = {
                 val ret = TypeRef(scalaJsReact.UnmountedWithRoot, List(props, ref, TypeRef.Unit, props), NoComments)
 
                 MethodTree(
                   annotations = Nil,
-                  level       = ProtectionLevel.Default,
-                  name        = Name.APPLY,
-                  tparams     = cls.tparams,
+                  level = ProtectionLevel.Default,
+                  name = Name.APPLY,
+                  tparams = cls.tparams,
                   params = List(
                     inLiterals.map(_._1) ++ optionals.map(_._1),
                     childrenParam.fold(List.empty[ParamTree])(p => List(p)),
@@ -212,16 +233,17 @@ object ScalaJsReactComponents {
                        |  val props = __obj.asInstanceOf[Props]
                        |  val f = JsForwardRefComponent.force[Props, ${
                       childrenParam.fold(
-                         "Children.None",
-                       )(p => "Children.Varargs")}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
+                        "Children.None",
+                      )(p => "Children.Varargs")
+                    }, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
                        |
                        |  f(props)${childrenParam.fold("")(_ => "(children: _*)")}
                        |}""".stripMargin,
                   ),
                   resultType = ret,
                   isOverride = false,
-                  comments   = NoComments,
-                  codePath   = componentCp + Name.APPLY,
+                  comments = NoComments,
+                  codePath = componentCp + Name.APPLY,
                 )
               }
 
@@ -230,7 +252,7 @@ object ScalaJsReactComponents {
                 c.props match {
                   case Some(props) =>
                     List(genApply(domType, refType), propsAlias(props))
-                      //TODO add objectType alias here
+                  //TODO add objectType alias here
                   case None => Nil
                 }
               }
@@ -245,11 +267,11 @@ object ScalaJsReactComponents {
               Some(
                 ModuleTree(
                   annotations = Nil,
-                  name        = c.fullName,
+                  name = c.fullName,
                   parents = Nil,
                   members = members,
-                  comments    = domWarning,
-                  codePath    = componentCp,
+                  comments = domWarning,
+                  codePath = componentCp,
                 ),
               )
           }
@@ -257,17 +279,18 @@ object ScalaJsReactComponents {
         /* This is a fallback when the props type is complicated. I'm not convinced the result is very useful */
         case (_: ClassTree | _: TypeAliasTree, _) =>
           val propsAliasOpt = c.props match {
-            case Some(props) => List(propsAlias(props))
+            case Some(props) =>
+              List(propsAlias(props))
             case None => Nil
-            }
+          }
 
           val mod = ModuleTree(
             annotations = Nil,
-            name        = c.name,
+            name = c.name,
             parents = Nil,
             members = propsAliasOpt,
-            comments    = NoComments,
-            codePath    = componentCp,
+            comments = NoComments,
+            codePath = componentCp,
           )
           Some(mod)
 
@@ -292,197 +315,21 @@ object ScalaJsReactComponents {
         case (x: ClassTree, newScope) =>
           ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
             case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-            case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
+            case FieldTree(_, name, tpe, _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
           }
       }
       .fold(Map.empty[Name, TypeRef])(_.toMap)
-
-  // todo: this was all the mapping i had the energy to do.
-  private def ElementMapping(str: String): Option[TypeRef] = {
-    val map = Map(
-      "HTMLAnchorElement" -> ScalaJsReactElement(isSvg = false, "a"),
-      "HTMLAppletElement" -> AnyHtmlElement,
-      "HTMLAreaElement" -> ScalaJsReactElement(isSvg = false, "area"),
-      "HTMLAudioElement" -> ScalaJsReactElement(isSvg = false, "audio"),
-      "HTMLBaseElement" -> ScalaJsReactElement(isSvg = false, "base"),
-      "HTMLBaseFontElement" -> AnyHtmlElement,
-      "HTMLBodyElement" -> ScalaJsReactElement(isSvg = false, "body"),
-      "HTMLBRElement" -> ScalaJsReactElement(isSvg = false, "br"),
-      "HTMLButtonElement" -> ScalaJsReactElement(isSvg = false, "button"),
-      "HTMLCanvasElement" -> ScalaJsReactElement(isSvg = false, "canvas"),
-      "HTMLDataElement" -> ScalaJsReactElement(isSvg = false, "data"),
-      "HTMLDataListElement" -> ScalaJsReactElement(isSvg = false, "datalist"),
-      "HTMLDetailsElement" -> ScalaJsReactElement(isSvg = false, "details"),
-      "HTMLDialogElement" -> ScalaJsReactElement(isSvg = false, "dialog"),
-      "HTMLDirectoryElement" -> AnyHtmlElement,
-      "HTMLDivElement" -> ScalaJsReactElement(isSvg = false, "div"),
-      "HTMLDListElement" -> ScalaJsReactElement(isSvg = false, "dl"),
-      "HTMLElement" -> AnyHtmlElement,
-      "HTMLEmbedElement" -> ScalaJsReactElement(isSvg = false, "embed"),
-      "HTMLFieldSetElement" -> ScalaJsReactElement(isSvg = false, "fieldset"),
-      "HTMLFontElement" -> AnyHtmlElement,
-      "HTMLFormElement" -> ScalaJsReactElement(isSvg = false, "form"),
-      "HTMLFrameElement" -> AnyHtmlElement,
-      "HTMLFrameSetElement" -> AnyHtmlElement,
-      "HTMLHeadElement" -> ScalaJsReactElement(isSvg = false, "head"),
-      "HTMLHeadingElement" -> AnyHtmlElement,
-      "HTMLHRElement" -> ScalaJsReactElement(isSvg = false, "hr"),
-      "HTMLHtmlElement" -> ScalaJsReactElement(isSvg = false, "html"),
-      "HTMLIFrameElement" -> ScalaJsReactElement(isSvg = false, "iframe"),
-      "HTMLImageElement" -> ScalaJsReactElement(isSvg = false, "img"),
-      "HTMLInputElement" -> ScalaJsReactElement(isSvg = false, "input"),
-      "HTMLLabelElement" -> ScalaJsReactElement(isSvg = false, "label"),
-      "HTMLLegendElement" -> ScalaJsReactElement(isSvg = false, "legend"),
-      "HTMLLIElement" -> ScalaJsReactElement(isSvg = false, "li"),
-      "HTMLLinkElement" -> ScalaJsReactElement(isSvg = false, "link"),
-      "HTMLMapElement" -> ScalaJsReactElement(isSvg = false, "map"),
-      "HTMLMarqueeElement" -> AnyHtmlElement,
-      "HTMLMediaElement" -> AnyHtmlElement,
-      "HTMLMenuElement" -> ScalaJsReactElement(isSvg = false, "menu"),
-      "HTMLMetaElement" -> ScalaJsReactElement(isSvg = false, "meta"),
-      "HTMLMeterElement" -> ScalaJsReactElement(isSvg = false, "meter"),
-      "HTMLModElement" -> AnyHtmlElement,
-      "HTMLObjectElement" -> ScalaJsReactElement(isSvg = false, "object"),
-      "HTMLOListElement" -> ScalaJsReactElement(isSvg = false, "ol"),
-      "HTMLOptGroupElement" -> ScalaJsReactElement(isSvg = false, "optgroup"),
-      "HTMLOptionElement" -> ScalaJsReactElement(isSvg = false, "option"),
-      "HTMLOutputElement" -> ScalaJsReactElement(isSvg = false, "output"),
-      "HTMLParagraphElement" -> ScalaJsReactElement(isSvg = false, "p"),
-      "HTMLParamElement" -> ScalaJsReactElement(isSvg = false, "param"),
-      "HTMLPictureElement" -> ScalaJsReactElement(isSvg = false, "picture"),
-      "HTMLPreElement" -> ScalaJsReactElement(isSvg = false, "pre"),
-      "HTMLProgressElement" -> ScalaJsReactElement(isSvg = false, "progress"),
-      "HTMLQuoteElement" -> ScalaJsReactElement(isSvg = false, "q"),
-      "HTMLScriptElement" -> ScalaJsReactElement(isSvg = false, "script"),
-      "HTMLSelectElement" -> ScalaJsReactElement(isSvg = false, "select"),
-      "HTMLSlotElement" -> AnyHtmlElement,
-      "HTMLSourceElement" -> ScalaJsReactElement(isSvg = false, "source"),
-      "HTMLSpanElement" -> ScalaJsReactElement(isSvg = false, "span"),
-      "HTMLStyleElement" -> ScalaJsReactElement(isSvg = false, "style"),
-      "HTMLTableCaptionElement" -> AnyHtmlElement,
-      "HTMLTableCellElement" -> AnyHtmlElement,
-      "HTMLTableColElement" -> AnyHtmlElement,
-      "HTMLTableDataCellElement" -> AnyHtmlElement,
-      "HTMLTableElement" -> ScalaJsReactElement(isSvg = false, "table"),
-      "HTMLTableHeaderCellElement" -> AnyHtmlElement,
-      "HTMLTableRowElement" -> AnyHtmlElement,
-      "HTMLTableSectionElement" -> AnyHtmlElement,
-      "HTMLTemplateElement" -> AnyHtmlElement,
-      "HTMLTextAreaElement" -> AnyHtmlElement,
-      "HTMLTimeElement" -> AnyHtmlElement,
-      "HTMLTitleElement" -> AnyHtmlElement,
-      "HTMLTrackElement" -> AnyHtmlElement,
-      "HTMLUListElement" -> ScalaJsReactElement(isSvg = false, "ul"),
-      "HTMLVideoElement" -> AnyHtmlElement,
-      "SVGAElement" -> ScalaJsReactElement(isSvg = true, "a"),
-      "SVGAnimateElement" -> ScalaJsReactElement(isSvg = true, "animate"),
-      "SVGAnimateMotionElement" -> ScalaJsReactElement(isSvg = true, "animateMotion"),
-      "SVGAnimateTransformElement" -> ScalaJsReactElement(isSvg = true, "animateTransform"),
-      "SVGAnimationElement" -> AnySvgElement,
-      "SVGCircleElement" -> ScalaJsReactElement(isSvg = true, "circle"),
-      "SVGClipPathElement" -> ScalaJsReactElement(isSvg = true, "clipPath"),
-      "SVGComponentTransferFunctionElement" -> AnySvgElement,
-      "SVGCursorElement" -> ScalaJsReactElement(isSvg = true, "cursor"),
-      "SVGDefsElement" -> ScalaJsReactElement(isSvg = true, "defs"),
-      "SVGDescElement" -> ScalaJsReactElement(isSvg = true, "desc"),
-      "SVGElement" -> AnySvgElement,
-      "SVGEllipseElement" -> ScalaJsReactElement(isSvg = true, "ellipse"),
-      "SVGFEBlendElement" -> ScalaJsReactElement(isSvg = true, "feBlend"),
-      "SVGFEColorMatrixElement" -> ScalaJsReactElement(isSvg = true, "feColorMatrix"),
-      "SVGFEComponentTransferElement" -> AnySvgElement,
-      "SVGFECompositeElement" -> AnySvgElement,
-      "SVGFEConvolveMatrixElement" -> AnySvgElement,
-      "SVGFEDiffuseLightingElement" -> AnySvgElement,
-      "SVGFEDisplacementMapElement" -> AnySvgElement,
-      "SVGFEDistantLightElement" -> AnySvgElement,
-      "SVGFEDropShadowElement" -> AnySvgElement,
-      "SVGFEFloodElement" -> AnySvgElement,
-      "SVGFEFuncAElement" -> AnySvgElement,
-      "SVGFEFuncBElement" -> AnySvgElement,
-      "SVGFEFuncGElement" -> AnySvgElement,
-      "SVGFEFuncRElement" -> AnySvgElement,
-      "SVGFEGaussianBlurElement" -> AnySvgElement,
-      "SVGFEImageElement" -> AnySvgElement,
-      "SVGFEMergeElement" -> AnySvgElement,
-      "SVGFEMergeNodeElement" -> AnySvgElement,
-      "SVGFEMorphologyElement" -> AnySvgElement,
-      "SVGFEOffsetElement" -> AnySvgElement,
-      "SVGFEPointLightElement" -> AnySvgElement,
-      "SVGFESpecularLightingElement" -> AnySvgElement,
-      "SVGFESpotLightElement" -> AnySvgElement,
-      "SVGFETileElement" -> AnySvgElement,
-      "SVGFETurbulenceElement" -> AnySvgElement,
-      "SVGFilterElement" -> AnySvgElement,
-      "SVGForeignObjectElement" -> AnySvgElement,
-      "SVGGElement" -> AnySvgElement,
-      "SVGGeometryElement" -> AnySvgElement,
-      "SVGGradientElement" -> AnySvgElement,
-      "SVGGraphicsElement" -> AnySvgElement,
-      "SVGImageElement" -> AnySvgElement,
-      "SVGLinearGradientElement" -> AnySvgElement,
-      "SVGLineElement" -> AnySvgElement,
-      "SVGMarkerElement" -> AnySvgElement,
-      "SVGMaskElement" -> AnySvgElement,
-      "SVGMetadataElement" -> AnySvgElement,
-      "SVGPathElement" -> AnySvgElement,
-      "SVGPatternElement" -> AnySvgElement,
-      "SVGPolygonElement" -> AnySvgElement,
-      "SVGPolylineElement" -> AnySvgElement,
-      "SVGRadialGradientElement" -> AnySvgElement,
-      "SVGRectElement" -> AnySvgElement,
-      "SVGScriptElement" -> AnySvgElement,
-      "SVGStopElement" -> AnySvgElement,
-      "SVGStyleElement" -> AnySvgElement,
-      "SVGSVGElement" -> AnySvgElement,
-      "SVGSwitchElement" -> AnySvgElement,
-      "SVGSymbolElement" -> AnySvgElement,
-      "SVGTextContentElement" -> AnySvgElement,
-      "SVGTextElement" -> AnySvgElement,
-      "SVGTextPathElement" -> AnySvgElement,
-      "SVGTextPositioningElement" -> AnySvgElement,
-      "SVGTitleElement" -> AnySvgElement,
-      "SVGTSpanElement" -> AnySvgElement,
-      "SVGUseElement" -> AnySvgElement,
-      "SVGViewElement" -> AnySvgElement,
-    )
-    map.get(str)
-  }
-
 }
 
 /*
 //TODO
 
 Replace
-typings.react.HTMLAnchorElement -> org.scalajs.dom.raw.HTMLAnchorElement
-typings.react.HTMLButtonElement -> org.scalajs.dom.raw.HTMLButtonElement
-typings.react.HTMLElement -> org.scalajs.dom.raw.HTMLElement
-typings.react.HTMLInputElement -> org.scalajs.dom.raw.HTMLInputElement
-typings.react.NativeMouseEvent -> japgolly.scalajs.react.raw.SyntheticMouseEvent
-typings.react.reactMod.Component -> japgolly.scalajs.react.raw.React.Component
-typings.react.reactMod.ComponentClass -> japgolly.scalajs.react.raw.React.ComponentClass
-typings.react.reactMod.ReactDOM -> japgolly.scalajs.react.raw.React.ReactDOM
 typings.react.reactMod.ComponentState
 typings.react.reactMod.ComponentType
 typings.react.reactMod.ChangeEvent
 typings.react.reactMod.FunctionComponent
-typings.react.reactMod.MouseEvent -> japgolly.scalajs.react.ReactMouseEvent
-typings.react.reactMod.Event -> japgolly.scalajs.react.ReactEvent
-typings.react.reactMod.ClipboardEvent -> japgolly.scalajs.react.ReactClipboardEvent
-typings.react.reactMod.CompositionEvent -> japgolly.scalajs.react.ReactCompositionEvent
-typings.react.reactMod.DragEvent -> japgolly.scalajs.react.ReactDragEvent
-typings.react.reactMod.FocusEvent -> japgolly.scalajs.react.ReactFocusEvent
-typings.react.reactMod.KeyboardEvent -> japgolly.scalajs.react.ReactKeyboardEvent
-typings.react.reactMod.TouchEvent -> japgolly.scalajs.react.ReactTouchEvent
-typings.react.reactMod.UIEvent -> japgolly.scalajs.react.ReactUIEvent
-typings.react.reactMod.WheelEvent -> japgolly.scalajs.react.ReactWheelEvent
 typings.react.reactMod.PureComponent
-
-typings.react.reactMod.ReactElement ->  japgolly.scalajs.react.vdom.VdomElement
-typings.react.reactMod.ReactNode -> japgolly.scalajs.react.vdom.VdomNode
-typings.react.reactMod.ReactNodeArray -> japgolly.scalajs.react.vdom.VdomArray
-typings.react.reactMod.Attributes -> japgolly.scalajs.react.vdom.VdomAttr
-
 typings.react.reactMod.ReactType
 typings.react.reactMod.StatelessComponent
 
