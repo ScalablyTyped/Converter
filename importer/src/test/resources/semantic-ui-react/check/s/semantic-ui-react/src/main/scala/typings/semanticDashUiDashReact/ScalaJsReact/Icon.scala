@@ -37,7 +37,8 @@ object Icon {
   )(
     
   ): UnmountedWithRoot[IconProps, default, Unit, IconProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

@@ -17,7 +17,8 @@ object PlaceholderImage {
   )(
     
   ): UnmountedWithRoot[PlaceholderImageProps, js.Object, Unit, PlaceholderImageProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

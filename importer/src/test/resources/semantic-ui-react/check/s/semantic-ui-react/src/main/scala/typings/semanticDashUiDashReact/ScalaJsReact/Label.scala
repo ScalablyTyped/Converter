@@ -58,7 +58,8 @@ object Label {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[LabelProps, default, Unit, LabelProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

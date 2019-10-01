@@ -64,7 +64,8 @@ object Button {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

@@ -2,8 +2,8 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.reactMod.ReactNode
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.huge
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.large
@@ -27,7 +27,7 @@ object Header {
     attached: Boolean | top | bottom = null,
     block: js.UndefOr[Boolean] = js.undefined,
     color: SemanticCOLORS = null,
-    content: ReactNode = null,
+    content: VdomNode = null,
     dividing: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     icon: js.Any = null,
@@ -41,7 +41,8 @@ object Header {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[HeaderProps, js.Object, Unit, HeaderProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

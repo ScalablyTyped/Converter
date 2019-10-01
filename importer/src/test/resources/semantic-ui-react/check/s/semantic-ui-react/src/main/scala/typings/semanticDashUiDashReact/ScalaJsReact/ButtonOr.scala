@@ -16,7 +16,8 @@ object ButtonOr {
   )(
     
   ): UnmountedWithRoot[ButtonOrProps, js.Object, Unit, ButtonOrProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

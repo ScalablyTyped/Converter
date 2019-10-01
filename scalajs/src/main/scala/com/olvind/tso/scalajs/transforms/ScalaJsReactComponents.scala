@@ -14,7 +14,7 @@ import scala.collection.mutable
 object ScalaJsReactComponents {
   private val IgnoredProps = Set(Name("key"), Name("children"))
 
-  object scalaJsReact {
+  private object scalaJsReact {
     val ScalaJsReact = Name("ScalaJsReact")
     val Props = Name("Props")
     val Element = Name("Element")
@@ -35,25 +35,7 @@ object ScalaJsReactComponents {
     val callback: QualifiedName = japgollyScalajsReact + Name("Callback")
 
     //This is probably crap
-    val japgollyScalajsWeb: QualifiedName = japgollyScalajs + Name("web")
-    val japgollyScalajsWebSvg: QualifiedName = japgollyScalajsWeb + Name("svg")
-    val japgollyScalajsWebHtml: QualifiedName = japgollyScalajsWeb + Name("html")
-
   }
-
-  def ScalaJsReactElement(isSvg: Boolean, name: String): TypeRef =
-    TypeRef.Singleton(
-      TypeRef(
-        (if (isSvg) scalaJsReact.japgollyScalajsWebSvg else scalaJsReact.japgollyScalajsWebHtml) + Name(name) + Name(
-          "tag",
-        ),
-        Nil,
-        NoComments,
-      ),
-    )
-
-  val AnyHtmlElement: TypeRef = ScalaJsReactElement(isSvg = false, "*")
-  val AnySvgElement: TypeRef = ScalaJsReactElement(isSvg = true, "*")
 
   /**
    * We do type rewriting in two phases (for now). The initial rewrite is done in `Companions.memberParameter` below.
@@ -66,8 +48,9 @@ object ScalaJsReactComponents {
    *
    * todo: these two approaches should be refactored into one
    */
-  def typeMapper(in: TypeRef): TypeRef = {
+  private def typeMapper(in: TypeRef): TypeRef = {
     val map = Map(
+      QualifiedName("typings.react.reactMod.ChangeEvent") -> QualifiedName("japgolly.scalajs.react.ReactEventFrom"),
       QualifiedName("typings.react.reactMod.AnimationEvent") -> QualifiedName("japgolly.scalajs.react.ReactAnimationEventFrom"),
       QualifiedName("typings.react.reactMod.ClipboardEvent") -> QualifiedName("japgolly.scalajs.react.ReactClipboardEventFrom"),
       QualifiedName("typings.react.reactMod.CompositionEvent") -> QualifiedName("japgolly.scalajs.react.ReactCompositionEventFrom"),
@@ -99,6 +82,9 @@ object ScalaJsReactComponents {
         //There's too many elements to actually map, so it's better to do it here instead of using the map
         val newName = QualifiedName("org.scalajs.dom.raw") + name.parts.last
         TypeRef(newName, targs.map(typeMapper), comments)
+      case TypeRef(name, _, _) if (name.parts.mkString(".").startsWith("typings.react")) =>
+        //Make sure we don't miss anything that should have been mapped
+        throw new Error(s"$name needs to be mapped")
       case TypeRef(name, targs, comments) =>
         //Not a special case, see if there's a match in the map, and regardless, if there's type arguments, we need to loop through those as well
         val newName = map.getOrElse(name, name)
@@ -107,25 +93,29 @@ object ScalaJsReactComponents {
 
   }
 
+  private def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
+    scope
+      .lookup(attributes)
+      .collectFirst {
+        case (x: ClassTree, newScope) =>
+          ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
+            case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+            case FieldTree(_, name, tpe, _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+          }
+      }
+      .fold(Map.empty[Name, TypeRef])(_.toMap)
+
   /* ScalaJs doesnt really support generic components. We hack it in in the `apply` method */
-  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
+  private def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
 
-  def memberParameter(scope: TreeScope, fieldTree: FieldTree): Option[Param] = {
-    val ret = Companions.memberParameter(scope, fieldTree)
-    ret match {
-      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType@_), default, comments), isOptional, asString)) =>
-        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
-      case Some(Param(tree, isOptional, asString)) =>
-        ret
-    }
-  }
-
-  def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
+  private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
     val ret = Companions.memberParameter(scope, tree)
     ret match {
       case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType@_), default, comments), isOptional, asString)) =>
         Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
-      case Some(Param(tree, isOptional, asString)) =>
+      case Some(Param(parameter, isOptional, asString)) =>
+        Some(Param(parameter.copy(tpe = typeMapper(parameter.tpe)), isOptional, asString))
+      case _ =>
         ret
     }
   }
@@ -182,7 +172,7 @@ object ScalaJsReactComponents {
                     Option(typeMapper(tparams.head))
                   case _ => None
                 }
-                .getOrElse(AnyHtmlElement)
+                .getOrElse(TypeRef(QualifiedName("org.scalajs.dom.raw.HTMLElement")))
 
               val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
                 { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
@@ -222,7 +212,8 @@ object ScalaJsReactComponents {
                   ),
                   impl = MemberImpl.Custom(
                     s"""{
-                       |  import japgolly.scalajs.react._
+                       |  import japgolly.scalajs.react.Children
+                       |  import japgolly.scalajs.react.JsForwardRefComponent
                        |
                        |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
                        |
@@ -308,17 +299,6 @@ object ScalaJsReactComponents {
     }
   }
 
-  private def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
-    scope
-      .lookup(attributes)
-      .collectFirst {
-        case (x: ClassTree, newScope) =>
-          ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-            case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-            case FieldTree(_, name, tpe, _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-          }
-      }
-      .fold(Map.empty[Name, TypeRef])(_.toMap)
 }
 
 /*

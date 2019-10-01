@@ -43,7 +43,8 @@ object List {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ListProps, js.Object, Unit, ListProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

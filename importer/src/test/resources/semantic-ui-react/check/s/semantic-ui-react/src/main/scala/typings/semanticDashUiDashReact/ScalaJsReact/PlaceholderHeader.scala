@@ -20,7 +20,8 @@ object PlaceholderHeader {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[PlaceholderHeaderProps, js.Object, Unit, PlaceholderHeaderProps] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   
