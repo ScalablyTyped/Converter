@@ -54,3 +54,17 @@ val importer = project
     fork in Test := true,
     testOptions in Test += Tests.Argument("-P4")
   )
+
+val `sbt-tsoplugin` = project
+  .dependsOn(importer)
+  .enablePlugins(ScriptedPlugin)
+  .configure(baseSettings)
+  .settings(
+    sbtPlugin := true,
+    name := "sbt-tsoplugin",
+    // set up 'scripted; sbt plugin for testing sbt plugins
+    scriptedBufferLog := false,
+    scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
+    watchSources       ++= { (sourceDirectory.value ** "*").get },
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6")
+)
