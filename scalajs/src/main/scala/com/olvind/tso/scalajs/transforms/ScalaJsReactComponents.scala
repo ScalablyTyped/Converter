@@ -93,8 +93,6 @@ object ScalaJsReactComponents {
     )
 
     in match {
-//      case TypeRef(QualifiedName.UNION, targs, comments) =>
-//        TypeRef(QualifiedName.Any, Nil, comments)
       case TypeRef(name, targs, comments) if (name.parts.lastOption.fold(false)(_.value.endsWith("Event"))) =>
         //In jagpolly, events don't take a second type (the Synthetic type)
         val newName = map.getOrElse(name, name)
