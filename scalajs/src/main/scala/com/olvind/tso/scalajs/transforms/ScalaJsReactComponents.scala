@@ -16,64 +16,85 @@ object ScalaJsReactComponents {
 
   private object scalaJsReact {
     val ScalaJsReact = Name("ScalaJsReact")
-    val Props = Name("Props")
-    val Element = Name("Element")
-    val component = Name("component")
+    val Props        = Name("Props")
+    val Element      = Name("Element")
+    val component    = Name("component")
 
     /* Fully qualified references to slinky types */
     val japgolly = QualifiedName(List(Name("japgolly")))
-    val japgollyScalajs: QualifiedName = japgolly + Name("scalajs")
-    val japgollyScalajsReact: QualifiedName = japgollyScalajs + Name("react")
-    val japgollyScalajsReactVDom: QualifiedName = japgollyScalajs + Name("vdom")
-    val TagMod: QualifiedName = japgollyScalajsReactVDom + Name("TagMod")
-    val ReactElement: QualifiedName = japgollyScalajsReactVDom + Name("VdomElement")
+    val japgollyScalajs:               QualifiedName = japgolly + Name("scalajs")
+    val japgollyScalajsReact:          QualifiedName = japgollyScalajs + Name("react")
+    val japgollyScalajsReactVDom:      QualifiedName = japgollyScalajs + Name("vdom")
+    val TagMod:                        QualifiedName = japgollyScalajsReactVDom + Name("TagMod")
+    val ReactElement:                  QualifiedName = japgollyScalajsReactVDom + Name("VdomElement")
     val japgollyScalajsReactComponent: QualifiedName = japgollyScalajsReact + Name("component")
-    val ReactComponentClass: QualifiedName = japgollyScalajsReactComponent + Name("Component")
-    val Children: QualifiedName = japgollyScalajsReact + Name("Children")
-    val ChildArg: QualifiedName = japgollyScalajsReact + Name("CtorType") + Name("ChildArg")
-    val UnmountedWithRoot: QualifiedName = japgollyScalajsReactComponent + Name("JsForwardRef") + Name("UnmountedWithRoot")
+    val ReactComponentClass:           QualifiedName = japgollyScalajsReactComponent + Name("Component")
+    val Children:                      QualifiedName = japgollyScalajsReact + Name("Children")
+    val ChildArg:                      QualifiedName = japgollyScalajsReact + Name("CtorType") + Name("ChildArg")
+    val UnmountedWithRoot: QualifiedName = japgollyScalajsReactComponent + Name("JsForwardRef") + Name(
+      "UnmountedWithRoot",
+    )
     val callback: QualifiedName = japgollyScalajsReact + Name("Callback")
 
     //This is probably crap
   }
 
   /**
-   * We do type rewriting in two phases (for now). The initial rewrite is done in `Companions.memberParameter` below.
-   * As can be see from the name, we just reuse what was written for `Companions`.
-   *
-   * As it stands now, those rewrites are not recursive (ie will rewrite `foo: T`, but not `foo: Promise<T>`), but
-   * are more powerful because we can specify how to convert (implicit conversions and whatnot)
-   *
-   * In addition these here are rewrites here are done recursively, but with the demand that the conversion is a cast.
-   *
-   * todo: these two approaches should be refactored into one
-   */
+    * We do type rewriting in two phases (for now). The initial rewrite is done in `Companions.memberParameter` below.
+    * As can be see from the name, we just reuse what was written for `Companions`.
+    *
+    * As it stands now, those rewrites are not recursive (ie will rewrite `foo: T`, but not `foo: Promise<T>`), but
+    * are more powerful because we can specify how to convert (implicit conversions and whatnot)
+    *
+    * In addition these here are rewrites here are done recursively, but with the demand that the conversion is a cast.
+    *
+    * todo: these two approaches should be refactored into one
+    */
   private def typeMapper(in: TypeRef): TypeRef = {
     val map = Map(
       QualifiedName("typings.react.reactMod.ChangeEvent") -> QualifiedName("japgolly.scalajs.react.ReactEventFrom"),
-      QualifiedName("typings.react.reactMod.AnimationEvent") -> QualifiedName("japgolly.scalajs.react.ReactAnimationEventFrom"),
-      QualifiedName("typings.react.reactMod.ClipboardEvent") -> QualifiedName("japgolly.scalajs.react.ReactClipboardEventFrom"),
-      QualifiedName("typings.react.reactMod.CompositionEvent") -> QualifiedName("japgolly.scalajs.react.ReactCompositionEventFrom"),
+      QualifiedName("typings.react.reactMod.AnimationEvent") -> QualifiedName(
+        "japgolly.scalajs.react.ReactAnimationEventFrom",
+      ),
+      QualifiedName("typings.react.reactMod.ClipboardEvent") -> QualifiedName(
+        "japgolly.scalajs.react.ReactClipboardEventFrom",
+      ),
+      QualifiedName("typings.react.reactMod.CompositionEvent") -> QualifiedName(
+        "japgolly.scalajs.react.ReactCompositionEventFrom",
+      ),
       QualifiedName("typings.react.reactMod.DragEvent") -> QualifiedName("japgolly.scalajs.react.ReactDragEventFrom"),
       QualifiedName("typings.react.reactMod.FocusEvent") -> QualifiedName("japgolly.scalajs.react.ReactFocusEventFrom"),
-      QualifiedName("typings.react.reactMod.KeyboardEvent") -> QualifiedName("japgolly.scalajs.react.ReactKeyboardEventFrom"),
+      QualifiedName("typings.react.reactMod.KeyboardEvent") -> QualifiedName(
+        "japgolly.scalajs.react.ReactKeyboardEventFrom",
+      ),
       QualifiedName("typings.react.reactMod.MouseEvent") -> QualifiedName("japgolly.scalajs.react.ReactMouseEventFrom"),
       QualifiedName("typings.react.reactMod.TouchEvent") -> QualifiedName("japgolly.scalajs.react.ReactTouchEventFrom"),
-      QualifiedName("typings.react.reactMod.PointerEvent") -> QualifiedName("japgolly.scalajs.react.ReactPointerEventFrom"),
-      QualifiedName("typings.react.reactMod.TransitionEvent") -> QualifiedName("japgolly.scalajs.react.ReactTransitionEventFrom"),
+      QualifiedName("typings.react.reactMod.PointerEvent") -> QualifiedName(
+        "japgolly.scalajs.react.ReactPointerEventFrom",
+      ),
+      QualifiedName("typings.react.reactMod.TransitionEvent") -> QualifiedName(
+        "japgolly.scalajs.react.ReactTransitionEventFrom",
+      ),
       QualifiedName("typings.react.reactMod.UIEvent") -> QualifiedName("japgolly.scalajs.react.ReactUIEventFrom"),
       QualifiedName("typings.react.reactMod.WheelEvent") -> QualifiedName("japgolly.scalajs.react.ReactWheelEventFrom"),
-      QualifiedName("typings.react.NativeMouseEvent") -> QualifiedName("japgolly.scalajs.react.raw.SyntheticMouseEvent"),
+      QualifiedName("typings.react.NativeMouseEvent") -> QualifiedName(
+        "japgolly.scalajs.react.raw.SyntheticMouseEvent",
+      ),
       QualifiedName("typings.react.reactMod.Component") -> QualifiedName("japgolly.scalajs.react.raw.React.Component"),
-      QualifiedName("typings.react.reactMod.ComponentClass") -> QualifiedName("japgolly.scalajs.react.raw.React.ComponentClass"),
+      QualifiedName("typings.react.reactMod.ComponentClass") -> QualifiedName(
+        "japgolly.scalajs.react.raw.React.ComponentClass",
+      ),
       QualifiedName("typings.react.reactMod.ReactDOM") -> QualifiedName("japgolly.scalajs.react.raw.React.ReactDOM"),
       QualifiedName("typings.react.reactMod.ReactElement") -> QualifiedName(" japgolly.scalajs.react.vdom.VdomElement"),
       QualifiedName("typings.react.reactMod.ReactNode") -> QualifiedName("japgolly.scalajs.react.vdom.VdomNode"),
       QualifiedName("typings.react.reactMod.ReactNodeArray") -> QualifiedName("japgolly.scalajs.react.vdom.VdomArray"),
       QualifiedName("typings.react.reactMod.Attributes") -> QualifiedName("japgolly.scalajs.react.vdom.VdomAttr"),
+      QualifiedName.ScalaAny -> QualifiedName.Any,
     )
 
     in match {
+//      case TypeRef(QualifiedName.UNION, targs, comments) =>
+//        TypeRef(QualifiedName.Any, Nil, comments)
       case TypeRef(name, targs, comments) if (name.parts.lastOption.fold(false)(_.value.endsWith("Event"))) =>
         //In jagpolly, events don't take a second type (the Synthetic type)
         val newName = map.getOrElse(name, name)
@@ -100,7 +121,7 @@ object ScalaJsReactComponents {
         case (x: ClassTree, newScope) =>
           ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
             case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-            case FieldTree(_, name, tpe, _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+            case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
           }
       }
       .fold(Map.empty[Name, TypeRef])(_.toMap)
@@ -111,8 +132,40 @@ object ScalaJsReactComponents {
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
     val ret = Companions.memberParameter(scope, tree)
     ret match {
-      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams, resType@_), default, comments), isOptional, asString)) =>
-        Some(Param(ParamTree(name, TypeRef.ScalaFunction(typeParams.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments), default, comments), isOptional, asString))
+      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(tpe, resType), default, comments), isOptional, s)) =>
+        // rewrite functions returning a Callback so that javascript land can call them
+        def fn(obj: String) =
+          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${tpe.length}(((${tpe.zipWithIndex
+            .map(a                                                       => s"t${a._2}: ${typeMapper(a._1).toTypeName}")
+            .mkString(", ")} ) => ${name.value}(${tpe.zipWithIndex.map(a => s"t${a._2}").mkString(", ")}).runNow())))"""
+        Some(
+          Param(
+            ParamTree(
+              name,
+              TypeRef.ScalaFunction(tpe.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments),
+              default,
+              comments,
+            ),
+            isOptional,
+            Right(fn),
+          ),
+        )
+      case Some(Param(ParamTree(name, tpe, default, comments), isOptional, asString))
+          if (tpe.typeName.parts.lastOption.fold(false)(_.value.endsWith("Element"))) =>
+        def fn(obj: String) =
+          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
+        Some(Param(ParamTree(name, typeMapper(tpe), default, comments), isOptional, Right(fn)))
+      case Some(Param(ParamTree(name, tpe, default, comments), isOptional, asString))
+          if (tpe.typeName == QualifiedName("typings.react.reactMod.ReactNode")) =>
+        def fn(obj: String) =
+          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
+        Some(Param(ParamTree(name, typeMapper(tpe), default, comments), isOptional, Right(fn)))
+      // In addition Consider replacing:
+      // Scala collections
+      // javascript collections. Only need to rewrite if type parameter is <:< TOJS
+      // Other scalajs-react things we need to rewrite
+      //  TagOf -> $target.render.rawElement.asInstanceOf[js.Any]
+      // Other values. Keep AnyVal below at least CallbackTo
       case Some(Param(parameter, isOptional, asString)) =>
         Some(Param(parameter.copy(tpe = typeMapper(parameter.tpe)), isOptional, asString))
       case _ =>
@@ -136,9 +189,8 @@ object ScalaJsReactComponents {
 
       val props = c.props getOrElse TypeRef.Object
 
-      def propsAlias(props: TypeRef) = {
+      def propsAlias(props: TypeRef) =
         TypeAliasTree(scalaJsReact.Props, Nil, stripTargs(props), NoComments, componentCp + scalaJsReact.Props)
-      }
 
       scope lookup FollowAliases(scope)(props).typeName firstDefined {
         case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
@@ -153,7 +205,7 @@ object ScalaJsReactComponents {
                 case Some(tpe) =>
                   FollowAliases(scope)(fieldTree.tpe) match {
                     case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                    case ftpe => ftpe.typeName === tpe.typeName
+                    case ftpe           => ftpe.typeName === tpe.typeName
                   }
                 case None => false
               }
@@ -168,17 +220,17 @@ object ScalaJsReactComponents {
               val domType = domParams
                 .firstDefined {
                   case FieldTree(_, _, TypeRef(typeName, tparams, _), _, _, _, _, _)
-                    if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
+                      if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
                     Option(typeMapper(tparams.head))
                   case _ => None
                 }
                 .getOrElse(TypeRef(QualifiedName("org.scalajs.dom.raw.HTMLElement")))
 
               val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
-                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
+                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
                 { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
-                { case Param(p, _, Right(f)) => p -> f },
-                { case Param(p, _, Left(str)) => p -> str },
+                { case Param(p, _, Right(f))                                               => p -> f },
+                { case Param(p, _, Left(str))                                              => p -> str },
               )
 
               val childrenParam = domParams
@@ -186,26 +238,26 @@ object ScalaJsReactComponents {
                 .map(
                   p =>
                     ParamTree(
-                      name = p.name,
-                      tpe = TypeRef.Repeated(TypeRef(scalaJsReact.ChildArg), p.comments),
-                      default = None,
+                      name     = p.name,
+                      tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.ChildArg), p.comments),
+                      default  = None,
                       comments = NoComments,
                     ),
                 )
 
               /**
-               * The `apply` method.
-               * We implement it ourselves for flexibility and performance. Otherwise we would need to generate
-               * a case class and suffer macro execution time.
-               */
+                * The `apply` method.
+                * We implement it ourselves for flexibility and performance. Otherwise we would need to generate
+                * a case class and suffer macro execution time.
+                */
               def genApply(elem: TypeRef, ref: TypeRef) = {
                 val ret = TypeRef(scalaJsReact.UnmountedWithRoot, List(props, ref, TypeRef.Unit, props), NoComments)
 
                 MethodTree(
                   annotations = Nil,
-                  level = ProtectionLevel.Default,
-                  name = Name.APPLY,
-                  tparams = cls.tparams,
+                  level       = ProtectionLevel.Default,
+                  name        = Name.APPLY,
+                  tparams     = cls.tparams,
                   params = List(
                     inLiterals.map(_._1) ++ optionals.map(_._1),
                     childrenParam.fold(List.empty[ParamTree])(p => List(p)),
@@ -222,19 +274,17 @@ object ScalaJsReactComponents {
                        |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
                        |
                        |  val props = __obj.asInstanceOf[Props]
-                       |  val f = JsForwardRefComponent.force[Props, ${
-                      childrenParam.fold(
-                        "Children.None",
-                      )(p => "Children.Varargs")
-                    }, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
+                       |  val f = JsForwardRefComponent.force[Props, ${childrenParam.fold(
+                         "Children.None",
+                       )(p => "Children.Varargs")}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
                        |
                        |  f(props)${childrenParam.fold("")(_ => "(children: _*)")}
                        |}""".stripMargin,
                   ),
                   resultType = ret,
                   isOverride = false,
-                  comments = NoComments,
-                  codePath = componentCp + Name.APPLY,
+                  comments   = NoComments,
+                  codePath   = componentCp + Name.APPLY,
                 )
               }
 
@@ -258,11 +308,11 @@ object ScalaJsReactComponents {
               Some(
                 ModuleTree(
                   annotations = Nil,
-                  name = c.fullName,
-                  parents = Nil,
-                  members = members,
-                  comments = domWarning,
-                  codePath = componentCp,
+                  name        = c.fullName,
+                  parents     = Nil,
+                  members     = members,
+                  comments    = domWarning,
+                  codePath    = componentCp,
                 ),
               )
           }
@@ -277,11 +327,11 @@ object ScalaJsReactComponents {
 
           val mod = ModuleTree(
             annotations = Nil,
-            name = c.name,
-            parents = Nil,
-            members = propsAliasOpt,
-            comments = NoComments,
-            codePath = componentCp,
+            name        = c.name,
+            parents     = Nil,
+            members     = propsAliasOpt,
+            comments    = NoComments,
+            codePath    = componentCp,
           )
           Some(mod)
 
@@ -313,4 +363,4 @@ typings.react.reactMod.PureComponent
 typings.react.reactMod.ReactType
 typings.react.reactMod.StatelessComponent
 
-*/
+ */

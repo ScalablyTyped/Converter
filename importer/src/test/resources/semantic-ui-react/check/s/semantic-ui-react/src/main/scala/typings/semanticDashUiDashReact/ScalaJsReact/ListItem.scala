@@ -49,7 +49,7 @@ object ListItem {
     if (header != null) __obj.updateDynamic("header")(header.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (image != null) __obj.updateDynamic("image")(image.asInstanceOf[js.Any])
-    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(onClick))
+        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: ReactMouseEventFrom[HTMLAnchorElement], t1: ListItemProps ) => onClick(t0, t1).runNow())))
     if (value != null) __obj.updateDynamic("value")(value)
   
     val props = __obj.asInstanceOf[Props]

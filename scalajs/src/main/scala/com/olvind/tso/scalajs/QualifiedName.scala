@@ -10,11 +10,14 @@ final case class QualifiedName(parts: List[Name]) {
 
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
+
+  def toClass = Class.forName(parts.map(_.value).mkString("."))
+
 }
 
 object QualifiedName {
 
-  def apply(str: String):QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
+  def apply(str: String): QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
 
   val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
   val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)

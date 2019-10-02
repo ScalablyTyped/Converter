@@ -72,7 +72,7 @@ object Input {
     if (label != null) __obj.updateDynamic("label")(label.asInstanceOf[js.Any])
     if (labelPosition != null) __obj.updateDynamic("labelPosition")(labelPosition.asInstanceOf[js.Any])
     if (!js.isUndefined(loading)) __obj.updateDynamic("loading")(loading)
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(onChange))
+        if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(((t0: ReactEventFrom[HTMLInputElement], t1: InputOnChangeData ) => onChange(t0, t1).runNow())))
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)

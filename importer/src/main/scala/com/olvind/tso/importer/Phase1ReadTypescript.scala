@@ -19,7 +19,7 @@ class Phase1ReadTypescript(
     stdlibSource:            Source,
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
-    reactBinding: ReactBinding
+    reactBinding:            ReactBinding,
 ) extends Phase[Source, Source, Phase1Res] {
 
   implicit val InFileFormatter: Formatter[InFile] =
@@ -202,10 +202,10 @@ class Phase1ReadTypescript(
 
 object Phase1ReadTypescript {
   def Pipeline(
-                scope:                    TsTreeScope.Root,
-                libName:                  TsIdentLibrary,
-                enableExpandTypeMappings: Boolean,
-                involvesReact:    Boolean,
+      scope:                    TsTreeScope.Root,
+      libName:                  TsIdentLibrary,
+      enableExpandTypeMappings: Boolean,
+      involvesReact:            Boolean,
   ): List[TsParsedFile => TsParsedFile] =
     List(
       T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),

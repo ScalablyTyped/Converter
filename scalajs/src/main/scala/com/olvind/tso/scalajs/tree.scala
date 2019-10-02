@@ -195,6 +195,17 @@ final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments:
 
   def withComments(cs: Comments): TypeRef =
     TypeRef(typeName, targs, comments ++ cs)
+
+  def toTypeName: String =
+    if (typeName == QualifiedName.UNION)
+      targs.map(_.toTypeName).mkString(" | ")
+    else if (typeName == QualifiedName.Any)
+      "js.Any" //Special case, because it clashes with scala.Any
+    else
+      typeName.parts.lastOption.fold("")(_.value) + (if (targs.isEmpty) ""
+                                                     else {
+                                                       "[" + targs.map(_.toTypeName).mkString(", ") + "]"
+                                                     })
 }
 
 object TypeRef {

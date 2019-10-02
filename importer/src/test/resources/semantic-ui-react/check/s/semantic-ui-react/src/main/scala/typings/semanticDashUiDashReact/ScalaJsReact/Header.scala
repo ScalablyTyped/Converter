@@ -53,7 +53,7 @@ object Header {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
     if (color != null) __obj.updateDynamic("color")(color)
-    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+        if (content != null) __obj.updateDynamic("content")(content.rawNode.asInstanceOf[js.Any])
     if (!js.isUndefined(dividing)) __obj.updateDynamic("dividing")(dividing)
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (icon != null) __obj.updateDynamic("icon")(icon)
