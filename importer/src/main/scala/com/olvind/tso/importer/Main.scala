@@ -140,6 +140,18 @@ class Main(config: Config) {
       }
     }
 
+
+    //TODO Consider using for comprehensions, and maybe even use IO instead
+    //    import scala.concurrent.ExecutionContext.Implicits.global
+    //    val fut = for {
+    //      inFolder <- externalsFolderF
+    //      _ <- localCleaningF
+    //      dtFolder <- dtFolderF
+    //      TargetDirs(targetFolder, failFolder, facadeFolder) <- updatedTargetDirF
+    //      compiler <- compilerF
+    //      tsSources <- tsSourcesF
+    //    } yield (inFolder)
+
     val externalsFolder                                    = Await.result(externalsFolderF, Duration.Inf)
     val ()                                                 = Await.result(localCleaningF, Duration.Inf)
     val dtFolder                                           = Await.result(dtFolderF, Duration.Inf)
@@ -177,7 +189,7 @@ class Main(config: Config) {
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            calculateLibraryVersion = new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha),
+            calculateLibraryVersion = Option(new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha)),
             resolve                 = resolve,
             ignored                 = Libraries.ignored(config.sequential),
             stdlibSource            = stdLibSource,

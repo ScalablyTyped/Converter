@@ -33,7 +33,7 @@ import scala.util.Try
  * @param metadataFetcher
  * @param softWrites
  */
-class Phase3Compile(
+class Phase3WriteFiles(
     resolve:         LibraryResolver,
     versions:        Versions,
     compiler:        BloopCompiler,

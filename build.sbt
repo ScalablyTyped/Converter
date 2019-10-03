@@ -55,13 +55,14 @@ val importer = project
     testOptions in Test += Tests.Argument("-P4")
   )
 
-val `sbt-tsoplugin` = project
+val `sbt-tso` = project
   .dependsOn(importer)
   .enablePlugins(ScriptedPlugin)
   .configure(baseSettings)
   .settings(
     sbtPlugin := true,
     name := "sbt-tsoplugin",
+    libraryDependencies ++= Seq("com.github.pathikrit" %% "better-files" % "3.8.0"),
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
     scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
