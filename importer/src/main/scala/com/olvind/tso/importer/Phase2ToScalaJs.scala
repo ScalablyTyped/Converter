@@ -10,6 +10,11 @@ import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.collection.immutable.SortedSet
 
+/**
+* This phase starts by going from the typescript AST to the scala AST.
+ * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
+ * @param pedantic
+ */
 class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(

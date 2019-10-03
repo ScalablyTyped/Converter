@@ -51,7 +51,7 @@ trait ImporterHarness extends FunSuiteLike {
         .next(
           new Phase1ReadTypescript(
             resolve,
-            new CalculateLibraryVersion(lastChangedIndex, "test"),
+            Option(new CalculateLibraryVersion(lastChangedIndex, "test")),
             Set.empty,
             stdLibSource,
             pedantic,

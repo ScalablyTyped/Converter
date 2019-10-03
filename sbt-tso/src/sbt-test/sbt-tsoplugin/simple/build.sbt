@@ -20,11 +20,15 @@ lazy val newarch =
       libraryDependencies ++= Seq(
         library.scalaCheck % Test,
         library.scalaTest  % Test,
-        "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2"
+        "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
+        "com.github.pathikrit" %% "better-files" % "3.8.0"
+
       ),
       Compile / npmDependencies ++= Seq(
+        "typescript" -> "3.6.3", //TODO Probably can remove this
         "react-dom" -> "16.9",
         "react" -> "16.9",
+        "semantic-ui-react" -> "0.88.1",
       ),
     )
 

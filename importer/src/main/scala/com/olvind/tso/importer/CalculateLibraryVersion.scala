@@ -18,6 +18,7 @@ class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommi
       packageJsonOpt: Option[PackageJsonDeps],
       comments:       Comments,
   ): LibraryVersion = {
+
     implicit val wd = sourceFolder.path
 
     def ignoreStdLibMinorVersion(v: String): String =
