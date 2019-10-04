@@ -43,8 +43,7 @@ object List {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ListProps, js.Object, Unit, ListProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   
@@ -62,7 +61,7 @@ object List {
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
     if (items != null) __obj.updateDynamic("items")(items)
     if (!js.isUndefined(link)) __obj.updateDynamic("link")(link)
-        if (onItemClick != null) __obj.updateDynamic("onItemClick")(js.Any.fromFunction2(((t0: ReactMouseEventFrom[HTMLAnchorElement], t1: ListItemProps ) => onItemClick(t0, t1).runNow())))
+    if (onItemClick != null) __obj.updateDynamic("onItemClick")(js.Any.fromFunction2(onItemClick))
     if (!js.isUndefined(ordered)) __obj.updateDynamic("ordered")(ordered)
     if (relaxed != null) __obj.updateDynamic("relaxed")(relaxed.asInstanceOf[js.Any])
     if (!js.isUndefined(selection)) __obj.updateDynamic("selection")(selection)

@@ -16,14 +16,13 @@ object Profiler {
   )(
     
   ): UnmountedWithRoot[ProfilerProps, js.Object, Unit, ProfilerProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(onRender = js.Any.fromFunction7(onRender))
   
     type ProfilerType = scala.scalajs.js.Object
   
-          if (onRender != null) __obj.updateDynamic("onRender")(js.Any.fromFunction7(((t0: String, t1: mount | update, t2: Double, t3: Double, t4: Double, t5: Double, t6: js.Any ) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow())))
+    
   
     val props = __obj.asInstanceOf[Props]
     val f = JsForwardRefComponent.force[Props, Children.None, ProfilerType](js.constructorOf[ProfilerType])

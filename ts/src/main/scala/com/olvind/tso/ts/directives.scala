@@ -26,3 +26,9 @@ final case class DirectiveTypesRef(stringPath: String) extends DirectiveRef
   * /// <reference lib="esnext" />
   */
 final case class DirectiveLibRef(stringPath: String) extends DirectiveRef
+
+/**
+  * The ref in
+  * /// <reference lib="esnext" />
+  */
+final case class AmdModule(stringPath: String) extends DirectiveRef

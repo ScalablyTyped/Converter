@@ -43,7 +43,7 @@ object Exports {
                     val restNs = TsDeclNamespace(
                       NoComments,
                       false,
-                      TsIdentNamespace(ident.value),
+                      ident,
                       rest,
                       CodePath.NoPath,
                       JsLocation.Zero,
@@ -172,7 +172,7 @@ object Exports {
           else Seq(withRename(renamedOpt)(rewritten))
 
         base
-          .map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec.Specified(x.name :: Nil))))
+          .map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec(x.name))))
           .map(SetCodePath.visitTsNamedDecl(ownerCp))
 
       case ExportType.Defaulted =>

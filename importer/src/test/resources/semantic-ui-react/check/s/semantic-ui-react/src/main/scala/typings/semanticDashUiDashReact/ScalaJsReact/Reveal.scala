@@ -30,8 +30,7 @@ object Reveal {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[RevealProps, js.Object, Unit, RevealProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

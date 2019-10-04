@@ -2,10 +2,10 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLInputElement
+import typings.react.reactMod.ChangeEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -43,7 +43,7 @@ object Input {
     label: SemanticShorthandItem[LabelProps] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,
-    onChange: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => Callback = null,
+    onChange: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Callback = null,
     size: mini | small | large | big | huge | massive = null,
     tabIndex: Double | String = null,
     transparent: js.UndefOr[Boolean] = js.undefined
@@ -51,8 +51,7 @@ object Input {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   
@@ -72,7 +71,7 @@ object Input {
     if (label != null) __obj.updateDynamic("label")(label.asInstanceOf[js.Any])
     if (labelPosition != null) __obj.updateDynamic("labelPosition")(labelPosition.asInstanceOf[js.Any])
     if (!js.isUndefined(loading)) __obj.updateDynamic("loading")(loading)
-        if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(((t0: ReactEventFrom[HTMLInputElement], t1: InputOnChangeData ) => onChange(t0, t1).runNow())))
+    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(onChange))
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)

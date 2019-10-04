@@ -7,7 +7,7 @@ package transforms
   * Maximum String literal length exceeded
   */
 object LimitUnionLength extends TreeTransformation {
-  override def enterTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
+  override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
     s match {
       case TypeRef.Union(types) if types.length > 50 =>
         val (undefineds, rest) = types.partition(_ === TypeRef.undefined)

@@ -64,8 +64,7 @@ object Button {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   
@@ -89,7 +88,7 @@ object Button {
     if (labelPosition != null) __obj.updateDynamic("labelPosition")(labelPosition.asInstanceOf[js.Any])
     if (!js.isUndefined(loading)) __obj.updateDynamic("loading")(loading)
     if (!js.isUndefined(negative)) __obj.updateDynamic("negative")(negative)
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: ReactMouseEventFrom[HTMLButtonElement], t1: ButtonProps ) => onClick(t0, t1).runNow())))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(onClick))
     if (!js.isUndefined(positive)) __obj.updateDynamic("positive")(positive)
     if (!js.isUndefined(primary)) __obj.updateDynamic("primary")(primary)
     if (!js.isUndefined(secondary)) __obj.updateDynamic("secondary")(secondary)

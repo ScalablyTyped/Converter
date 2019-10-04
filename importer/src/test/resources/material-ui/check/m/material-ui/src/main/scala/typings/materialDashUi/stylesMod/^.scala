@@ -1,6 +1,6 @@
 package typings.materialDashUi.stylesMod
 
-import typings.materialDashUi.underscoreUnderscoreMaterialUINs.StylesNs.MuiTheme
+import typings.materialDashUi.__MaterialUI.Styles.MuiTheme
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

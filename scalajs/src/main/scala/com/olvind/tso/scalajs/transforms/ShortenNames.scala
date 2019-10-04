@@ -13,7 +13,7 @@ object ShortenNames {
     val collectedImports = mutable.Map.empty[Name, QualifiedName]
 
     object V extends TreeTransformation {
-      override def enterTypeRef(scope: TreeScope)(tr: TypeRef): TypeRef = {
+      override def leaveTypeRef(scope: TreeScope)(tr: TypeRef): TypeRef = {
         val shortName = tr.name
         val longName  = tr.typeName
 
@@ -99,7 +99,7 @@ object ShortenNames {
         case Some(trees) =>
           trees exists {
             case x: ClassTree     => x.codePath =/= longName
-            case x: ModuleTree    => x.codePath =/= longName
+            case _: ModuleTree    => methodsAreConflict
             case x: PackageTree   => x.codePath =/= longName
             case x: TypeAliasTree => x.codePath =/= longName
             case x: FieldTree     => x.isReadOnly

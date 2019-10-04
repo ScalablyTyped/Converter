@@ -177,12 +177,18 @@ object UnionToInheritance {
 
   object Rewrite {
     def identify(inLib: Name, p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
-      def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] =
+      def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
+        def legalClassName(name: Name): Boolean =
+          p index name forall {
+            case _: PackageTree => false
+            case _ => true
+          }
         p.members.flatMap {
-          case p:  ContainerTree => identify(inLib, p, scope / p)
-          case ta: TypeAliasTree => canRewrite(inLib, ta, scope / ta).toList
+          case p:  ContainerTree                            => identify(inLib, p, scope / p)
+          case ta: TypeAliasTree if legalClassName(ta.name) => canRewrite(inLib, ta, scope / ta).toList
           case _ => Nil
         }
+      }
 
       val all = go(p, scope)
 

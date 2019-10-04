@@ -2,8 +2,8 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
+import typings.react.reactMod.ReactNode
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.huge
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.large
@@ -27,7 +27,7 @@ object Header {
     attached: Boolean | top | bottom = null,
     block: js.UndefOr[Boolean] = js.undefined,
     color: SemanticCOLORS = null,
-    content: VdomNode = null,
+    content: ReactNode = null,
     dividing: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     icon: js.Any = null,
@@ -41,8 +41,7 @@ object Header {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[HeaderProps, js.Object, Unit, HeaderProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   
@@ -53,7 +52,7 @@ object Header {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
     if (color != null) __obj.updateDynamic("color")(color)
-        if (content != null) __obj.updateDynamic("content")(content.rawNode.asInstanceOf[js.Any])
+    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(dividing)) __obj.updateDynamic("dividing")(dividing)
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (icon != null) __obj.updateDynamic("icon")(icon)

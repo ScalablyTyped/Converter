@@ -19,8 +19,7 @@ object StepTitle {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[StepTitleProps, js.Object, Unit, StepTitleProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

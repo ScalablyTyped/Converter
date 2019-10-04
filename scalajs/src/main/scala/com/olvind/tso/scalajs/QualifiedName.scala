@@ -27,7 +27,6 @@ object QualifiedName {
   val Runtime:       QualifiedName = QualifiedName(List(Name("org"), Name("scalablytyped"), Name("runtime")))
 
   val String:           QualifiedName = java_lang + Name.String
-  val JObject:          QualifiedName = java_lang + Name.Object
   val JArray:           QualifiedName = java_lang + Name.Array
   val ScalaAny:         QualifiedName = scala + Name.Any
   val Double:           QualifiedName = scala + Name.Double

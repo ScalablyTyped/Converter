@@ -45,8 +45,7 @@ object Segment {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[SegmentProps, js.Object, Unit, SegmentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

@@ -28,8 +28,7 @@ object ListContent {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ListContentProps, js.Object, Unit, ListContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

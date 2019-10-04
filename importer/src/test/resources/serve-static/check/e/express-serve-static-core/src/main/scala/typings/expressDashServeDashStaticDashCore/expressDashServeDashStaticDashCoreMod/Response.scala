@@ -5,7 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait Response
-  extends typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod.Global.ExpressNs.Response {
+  extends typings.expressDashServeDashStaticDashCore.expressDashServeDashStaticDashCoreMod.Global.Express.Response {
   def location(url: String): Response
 }
 

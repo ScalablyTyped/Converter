@@ -1,6 +1,6 @@
 package typings.node.streamMod
 
-import typings.node.NodeJSNs.WritableStream
+import typings.node.NodeJS.WritableStream
 import typings.node.nodeStrings.close
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -32,6 +32,12 @@ sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: Seq[ClassAnnotation]
   def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
   val index: Map[Name, Seq[Tree]]
+
+  def isNative: Boolean = annotations.exists {
+    case Annotation.JsNative       => true
+    case Annotation.ScalaJSDefined => true
+    case _                         => false
+  }
 }
 
 final case class PackageTree(
@@ -64,11 +70,15 @@ final case class ClassTree(
   lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 
-  def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
-  }
+  def renamed(newName: Name): ClassTree =
+    copy(
+      name        = newName,
+      annotations = Annotation.classRenamedFrom(name)(annotations),
+      codePath    = QualifiedName(codePath.parts.init :+ newName),
+    )
+
+  def withSuffix[T: ToSuffix](t: T): ClassTree =
+    renamed(name withSuffix t)
 }
 
 final case class ModuleTree(
@@ -79,13 +89,7 @@ final case class ModuleTree(
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends ContainerTree
-    with InheritanceTree {
-  def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
-  }
-}
+    with InheritanceTree {}
 
 final case class TypeAliasTree(
     name:     Name,
@@ -215,7 +219,7 @@ object TypeRef {
     TypeRef(qn, Nil, NoComments)
 
   val Wildcard     = TypeRef(QualifiedName.WILDCARD, Nil, NoComments)
-  val JObject      = TypeRef(QualifiedName.JObject, Nil, NoComments)
+  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
   val Any          = TypeRef(QualifiedName.Any, Nil, NoComments)
   val Boolean      = TypeRef(QualifiedName.Boolean, Nil, NoComments)
   val Double       = TypeRef(QualifiedName.Double, Nil, NoComments)
@@ -229,7 +233,6 @@ object TypeRef {
   val Symbol       = TypeRef(QualifiedName.Symbol, Nil, NoComments)
   val Unit         = TypeRef(QualifiedName.Unit, Nil, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Nil, NoComments)
-  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
 
   val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
   val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)

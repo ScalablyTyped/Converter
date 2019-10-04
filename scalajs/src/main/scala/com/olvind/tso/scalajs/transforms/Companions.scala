@@ -9,7 +9,7 @@ import ConstructObjectOfType.Param
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
 object Companions extends TreeTransformation {
-  override def enterContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
+  override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
       container

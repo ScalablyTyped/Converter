@@ -35,12 +35,11 @@ object Utils {
       case _ =>
     }
 
-    val Dummy    = TsIdentNamespace(TsIdent.dummy.value)
-    val ns       = TsDeclNamespace(NoComments, declared = false, Dummy, expandeds, CodePath.NoPath, JsLocation.Zero)
+    val ns       = TsDeclNamespace(NoComments, declared = false, TsIdent.dummy, expandeds, CodePath.NoPath, JsLocation.Zero)
     val newScope = scope / ns
 
     newScope.lookupInternal(Picker.All, wanted, loopDetector).flatMap {
-      case (TsDeclNamespace(_, _, Dummy, ms, _, _), newNewScope) =>
+      case (TsDeclNamespace(_, _, TsIdent.dummy, ms, _, _), newNewScope) =>
         ms.collect {
           case Pick(t) => t -> newNewScope
         }

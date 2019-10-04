@@ -18,8 +18,7 @@ object Flag {
   )(
     
   ): UnmountedWithRoot[FlagProps, default, Unit, FlagProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal(name = name)
   

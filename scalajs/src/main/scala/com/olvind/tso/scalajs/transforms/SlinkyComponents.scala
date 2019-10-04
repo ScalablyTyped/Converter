@@ -214,19 +214,15 @@ object SlinkyComponents {
                   name        = Name.APPLY,
                   tparams     = cls.tparams,
                   params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
-                  impl = MemberImpl.Custom(s"""{
-                                                     |  val __obj = js.Dynamic.literal(${requireds
-                                                .map(_._2)
-                                                .mkString(", ")})
-                                                     |${optionals
-                                                .map { case (_, f) => "  " + f("__obj") }
-                                                .mkString("\n")}
-                                                     |  super.apply(__obj.asInstanceOf[Props])$cast
-                                                     |}""".stripMargin),
-                  resultType = ret,
-                  isOverride = false,
-                  comments   = NoComments,
-                  codePath   = componentCp + Name.APPLY,
+                  impl        = MemberImpl.Custom(s"""{
+                       |  val __obj = js.Dynamic.literal(${requireds.map(_._2).mkString(", ")})
+                       |${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+                       |  super.apply(__obj.asInstanceOf[Props])$cast
+                       |}""".stripMargin),
+                  resultType  = ret,
+                  isOverride  = false,
+                  comments    = NoComments,
+                  codePath    = componentCp + Name.APPLY,
                 )
               }
 
@@ -278,7 +274,7 @@ object SlinkyComponents {
 
           val mod = ModuleTree(
             annotations = Nil,
-            name        = c.name,
+            name        = c.fullName,
             parents     = List(parent),
             members     = List(componentField) ++ propsAliasOpt,
             comments    = NoComments,

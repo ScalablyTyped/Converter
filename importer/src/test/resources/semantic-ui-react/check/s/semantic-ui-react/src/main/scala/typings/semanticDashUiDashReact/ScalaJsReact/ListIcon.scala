@@ -38,8 +38,7 @@ object ListIcon {
   )(
     
   ): UnmountedWithRoot[ListIconProps, js.Object, Unit, ListIconProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

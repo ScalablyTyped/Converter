@@ -1,6 +1,6 @@
 package typings.awsDashSdk.clientsDynamodbMod
 
-import typings.awsDashSdk.libDynamodbConverterMod.ConverterNs.ConverterOptions
+import typings.awsDashSdk.libDynamodbConverterMod.Converter.ConverterOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

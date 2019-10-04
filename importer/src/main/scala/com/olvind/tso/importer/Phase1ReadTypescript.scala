@@ -8,7 +8,7 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
-import com.olvind.tso.ts.{modules, transforms => T, _}
+import com.olvind.tso.ts.{transforms => T, _}
 
 import scala.collection.immutable.SortedMap
 
@@ -211,8 +211,11 @@ object Phase1ReadTypescript {
       T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),
       T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
       modules.HandleCommonJsModules.visitTsParsedFile(scope),
-      (T.SimplifyParents >> T.InferTypeFromExpr >> T.InferEnumTypes /* before InlineConstEnum */ >> T.NormalizeFunctions /* before FlattenTrees */ )
-        .visitTsParsedFile(scope.caching),
+      (T.SimplifyParents >>
+        T.InferTypeFromExpr >>
+        T.InferEnumTypes /* before InlineConstEnum */ >>
+        T.NormalizeFunctions /* before FlattenTrees */
+      ).visitTsParsedFile(scope.caching),
       T.QualifyReferences.visitTsParsedFile(scope.caching),
       modules.AugmentModules(scope.caching),
       T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports

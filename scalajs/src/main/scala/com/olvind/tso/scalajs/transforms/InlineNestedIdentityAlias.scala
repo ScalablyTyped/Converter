@@ -13,7 +13,7 @@ package transforms
   * This is only really a problem since we don't properly expand type mappings for now
   */
 object InlineNestedIdentityAlias extends TreeTransformation {
-  override def enterTypeRef(scope: TreeScope)(ref: TypeRef): TypeRef =
+  override def leaveTypeRef(scope: TreeScope)(ref: TypeRef): TypeRef =
     ref match {
       case TypeRef(_, Seq(TypeRef(QualifiedName(Seq(tp)), Nil, _)), _) if scope.tparams.contains(tp) => ref
       case _                                                                                         => simplify(scope, ref) getOrElse ref

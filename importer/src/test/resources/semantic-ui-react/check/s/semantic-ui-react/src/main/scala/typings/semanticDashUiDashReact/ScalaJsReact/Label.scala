@@ -58,8 +58,7 @@ object Label {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[LabelProps, default, Unit, LabelProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   
@@ -80,8 +79,8 @@ object Label {
     if (!js.isUndefined(horizontal)) __obj.updateDynamic("horizontal")(horizontal)
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (image != null) __obj.updateDynamic("image")(image)
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: ReactMouseEventFrom[HTMLElement], t1: LabelProps ) => onClick(t0, t1).runNow())))
-        if (onRemove != null) __obj.updateDynamic("onRemove")(js.Any.fromFunction2(((t0: ReactMouseEventFrom[HTMLElement], t1: LabelProps ) => onRemove(t0, t1).runNow())))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(onClick))
+    if (onRemove != null) __obj.updateDynamic("onRemove")(js.Any.fromFunction2(onRemove))
     if (pointing != null) __obj.updateDynamic("pointing")(pointing.asInstanceOf[js.Any])
     if (!js.isUndefined(prompt)) __obj.updateDynamic("prompt")(prompt)
     if (removeIcon != null) __obj.updateDynamic("removeIcon")(removeIcon.asInstanceOf[js.Any])

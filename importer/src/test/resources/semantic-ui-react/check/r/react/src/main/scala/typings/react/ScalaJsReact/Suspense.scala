@@ -12,8 +12,7 @@ object Suspense {
   )(
     
   ): UnmountedWithRoot[SuspenseProps, js.Object, Unit, SuspenseProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

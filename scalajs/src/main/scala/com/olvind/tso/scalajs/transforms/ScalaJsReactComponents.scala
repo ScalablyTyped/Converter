@@ -267,14 +267,14 @@ object ScalaJsReactComponents {
                        |
                        |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
                        |
-                       |  type ${c.name.value}Type = ${ref.typeName.parts.map(_.value).mkString(".")}
+                       |  type ${c.fullName.value}Type = ${ref.typeName.parts.map(_.value).mkString(".")}
                        |
                        |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
                        |
                        |  val props = __obj.asInstanceOf[Props]
                        |  val f = JsForwardRefComponent.force[Props, ${childrenParam.fold(
                          "Children.None",
-                       )(p => "Children.Varargs")}, ${c.name.value}Type](js.constructorOf[${c.name.value}Type])
+                       )(p => "Children.Varargs")}, ${c.fullName.value}Type](js.constructorOf[${c.fullName.value}Type])
                        |
                        |  f(props)${childrenParam.fold("")(_ => "(children: _*)")}
                        |}""".stripMargin,
@@ -325,7 +325,7 @@ object ScalaJsReactComponents {
 
           val mod = ModuleTree(
             annotations = Nil,
-            name        = c.name,
+            name        = c.fullName,
             parents     = Nil,
             members     = propsAliasOpt,
             comments    = NoComments,

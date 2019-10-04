@@ -957,7 +957,7 @@ final class ParserTests extends FunSuite {
           TsDeclNamespace(
             NoComments,
             declared = false,
-            TsIdentNamespace("JSX"),
+            TsIdent("JSX"),
             List(elementInterface),
             CodePath.NoPath,
             JsLocation.Zero,

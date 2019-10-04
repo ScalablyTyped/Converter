@@ -37,7 +37,7 @@ object Annotation {
     if (isBracketAccess) jsName(name) :+ JsBracketAccess
     else jsName(name)
 
-  def renamedFrom(oldName: Name)(oldAnnotations: Seq[MemberAnnotation]): Seq[MemberAnnotation] = {
+  def renamedFrom(newName: Name)(oldAnnotations: Seq[MemberAnnotation]): Seq[MemberAnnotation] = {
     val (names, others) =
       oldAnnotations partition {
         case _: JsName | _: JsNameSymbol | JsBracketCall => true
@@ -45,10 +45,28 @@ object Annotation {
       }
 
     val updatedNames: Seq[MemberAnnotation] =
-      (names, oldName) match {
+      (names, newName) match {
         case (Nil, n @ (Name.APPLY | Name.namespaced)) => sys.error(s"Cannot rename `$n`")
         case (Nil, old)                                => Seq(JsName(old))
         case (existing, _)                             => existing
+      }
+
+    others ++ updatedNames
+  }
+
+  def classRenamedFrom(oldName: Name)(oldAnnotations: Seq[ClassAnnotation]): Seq[ClassAnnotation] = {
+    val (names, others) =
+      oldAnnotations partition {
+        case _: JsName   => true
+        case _: JsImport => true
+        case _: JsGlobal => true
+        case _ => false
+      }
+
+    val updatedNames: Seq[ClassAnnotation] =
+      (names, oldName) match {
+        case (Nil, old)    => Seq(JsName(old))
+        case (existing, _) => existing
       }
 
     others ++ updatedNames

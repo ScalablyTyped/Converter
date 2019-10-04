@@ -19,8 +19,7 @@ object HeaderContent {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[HeaderContentProps, js.Object, Unit, HeaderContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

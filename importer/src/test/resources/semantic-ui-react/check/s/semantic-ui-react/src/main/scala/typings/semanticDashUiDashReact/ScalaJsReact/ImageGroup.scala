@@ -21,8 +21,7 @@ object ImageGroup {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ImageGroupProps, js.Object, Unit, ImageGroupProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   

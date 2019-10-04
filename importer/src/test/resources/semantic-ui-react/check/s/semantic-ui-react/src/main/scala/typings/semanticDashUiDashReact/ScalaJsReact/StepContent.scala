@@ -24,8 +24,7 @@ object StepContent {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[StepContentProps, js.Object, Unit, StepContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
+    import japgolly.scalajs.react._
   
     val __obj = js.Dynamic.literal()
   
