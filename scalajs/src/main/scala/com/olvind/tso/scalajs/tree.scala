@@ -208,7 +208,7 @@ object TypeRef {
     TypeRef(qn, Nil, NoComments)
 
   val Wildcard     = TypeRef(QualifiedName.WILDCARD, Nil, NoComments)
-  val JObject      = TypeRef(QualifiedName.JObject, Nil, NoComments)
+  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
   val Any          = TypeRef(QualifiedName.Any, Nil, NoComments)
   val Boolean      = TypeRef(QualifiedName.Boolean, Nil, NoComments)
   val Double       = TypeRef(QualifiedName.Double, Nil, NoComments)

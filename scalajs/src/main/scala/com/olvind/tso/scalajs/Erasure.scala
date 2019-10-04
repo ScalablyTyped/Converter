@@ -26,7 +26,7 @@ object Erasure {
   private def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
       case QualifiedName.UndefOr   => QualifiedName.`|`
-      case QualifiedName.WILDCARD  => QualifiedName.JObject
+      case QualifiedName.WILDCARD  => QualifiedName.ScalaAny
       case QualifiedName.THIS_TYPE => QualifiedName.THIS_TYPE
       case QualifiedName.UNION     => QualifiedName.`|`
       case QualifiedName.REPEATED  => QualifiedName.JArray
@@ -41,7 +41,7 @@ object Erasure {
         )
 
       // if this is a type parameter
-      case QualifiedName(head :: _) if scope.tparams.contains(head) => QualifiedName.JObject
+      case QualifiedName(head :: _) if scope.tparams.contains(head) => QualifiedName.ScalaAny
 
       // if run after FakeSingletons
       case name @ QualifiedName(_ :: _ :: _) if tpe.comments eq FakeLiterals.LiteralTokenComment => name
@@ -51,7 +51,7 @@ object Erasure {
           .lookup(other)
           .collectFirst {
             case (x: TypeAliasTree, s) =>
-              if (x.alias.typeName === other) QualifiedName.JObject
+              if (x.alias.typeName === other) QualifiedName.ScalaAny
               else simplify(s, FillInTParams(x, s, tpe.targs, Nil).alias)
             case (x: ClassTree, _) => x.codePath
           }
