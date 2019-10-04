@@ -92,7 +92,6 @@ object ImportTyping {
       )
 
     val libraryResolver = new LibraryResolver(stdLibSource, Seq(source), None)
-    //    val lastChangedIndex = RepoLastChangedIndex(testCmd, source.path)
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
         .next(
@@ -123,9 +122,6 @@ object ImportTyping {
           "build",
         )
 
-//    val found: Set[TsLibSource] =
-//      TypescriptSources.forFolder(InFolder(source.path), Set.empty)
-
     val found: Set[TsLibSource] = npmDependencies.map(tuple =>
       Source.FromFolder(InFolder(source.path / tuple._1), TsIdentLibrarySimple(tuple._1))
     )(collection.breakOut)
@@ -138,17 +134,12 @@ object ImportTyping {
     )
   }
 
-
   def apply(npmDependencies: scala.Seq[(String, String)], npmDirectory: better.files.File, target: better.files.File, reactBinding: ReactBinding, pedantic: Boolean): Seq[better.files.File] = {
-    val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
-      logging.stdout.filter(LogLevel.warn).syncAccess.void,
+    val logRegistry = new LogRegistry[Source, TsIdentLibrary, Unit](
+      logging.stdout.filter(LogLevel.error).syncAccess.void,
       _.libName,
-      _ => logging.storing(),
+      _ => logging.stdout.filter(LogLevel.error),
     )
-    //TODO Here's what the plugin should do
-    //TODO run npm on a set of projects
-    //TODO run the importer on those projects
-    //TODO compile the results of the importer
 
     runImport(npmDependencies, InFolder(os.Path(npmDirectory.path / "node_modules")), os.Path(target.path), pedantic, logRegistry, os.Path(target.path)) match {
 
@@ -157,6 +148,7 @@ object ImportTyping {
       case PhaseRes.Ignore() =>
     }
 
+    //TODO Figure out what to return here.
     target.list(file => !file.isDirectory).to[Seq]
   }
 }

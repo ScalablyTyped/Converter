@@ -63,6 +63,7 @@ class Phase3WriteFiles(
       v4:      IsCircular,
       logger:  Logger[Unit],
   ): PhaseRes[Source, PublishedSbtProject] =
+    //It could be either a facade, or a library
     _lib match {
       case Facade =>
         val buildJson = Json[FacadeJson](source.path / "build.json")
