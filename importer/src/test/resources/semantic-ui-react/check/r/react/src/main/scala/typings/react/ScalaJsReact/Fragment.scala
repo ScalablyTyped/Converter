@@ -8,7 +8,8 @@ import scala.scalajs.js.annotation._
 
 object Fragment {
   def apply()(): UnmountedWithRoot[Anon_Children, js.Object, Unit, Anon_Children] = {
-    import japgolly.scalajs.react._
+    import japgolly.scalajs.react.Children
+    import japgolly.scalajs.react.JsForwardRefComponent
   
     val __obj = js.Dynamic.literal()
   

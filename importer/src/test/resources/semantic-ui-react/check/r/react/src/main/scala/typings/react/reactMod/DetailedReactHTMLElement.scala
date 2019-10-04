@@ -11,7 +11,7 @@ object DetailedReactHTMLElement {
   @scala.inline
   def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](
     props: js.Any,
-    `type`: /* import warning: LimitUnionLength.enterTypeRef Was union type with length 115 */ js.Any,
+    `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 115 */ js.Any,
     key: Key = null,
     ref: LegacyRef[T] = null
   ): DetailedReactHTMLElement[P, T] = {

@@ -1,8 +1,8 @@
-package typings.react
+package typings.react.reactMod.Global.JSX
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait Element extends js.Object
+trait ElementAttributesProperty extends js.Object
 
