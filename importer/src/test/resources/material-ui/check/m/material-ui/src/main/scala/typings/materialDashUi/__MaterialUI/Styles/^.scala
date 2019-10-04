@@ -11,6 +11,5 @@ object ^ extends js.Object {
   var Typography: js.Any = js.native
   var a: js.Any = js.native
   var zIndex: js.Any = js.native
-  def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = js.native
 }
 

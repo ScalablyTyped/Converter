@@ -4,9 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSImport("react-bootstrap/lib/utils/bootstrapUtils", JSImport.Namespace)
+@JSImport("react-bootstrap/lib/utils/bootstrapUtils", "getBsProps")
 @js.native
-object ^ extends js.Object {
-  def getBsProps(props: js.Any): BSProps = js.native
+object getBsProps extends js.Object {
+  def apply(props: js.Any): BSProps = js.native
 }
 

@@ -62,15 +62,22 @@ object IdentifyReactComponents {
     }
   }
 
-  def all(scope: TreeScope, tree: ContainerTree): Seq[Component] = {
-    def go(p: ContainerTree, scope: TreeScope): Seq[Component] =
-      p.members.flatMap {
+  def all(scope: TreeScope, tree: ContainerTree): List[Component] = {
+    def go(p: ContainerTree, scope: TreeScope): List[Component] = {
+      val fromSelf = p match {
+        case ModuleTree(_, name, Seq(TypeRef(QualifiedName.TopLevel, Seq(tpe), _)), _, comments, codePath) =>
+          maybeFieldComponent(FieldTree(Nil, name, tpe, MemberImpl.Native, true, false, comments, codePath), p, scope)
+        case _ => None
+      }
+      val fromMembers = p.members.flatMap {
         case x: ContainerTree => all(scope / x, x)
         case x: ClassTree     => maybeClassComponent(x, p, scope / x).toList
         case x: FieldTree     => maybeFieldComponent(x, p, scope / x).toList
         case x: MethodTree    => maybeMethodComponent(x, p, scope / x).toList
         case _ => Nil
       }
+      fromSelf.toList ++ fromMembers
+    }
 
     go(tree, scope)
   }

@@ -2,11 +2,17 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-import seqs._
+import cats.data.Ior
+import cats.instances.list._
+import cats.syntax.alternative._
+import com.olvind.tso.seqs._
 
 import scala.collection.mutable
 
 object ContainerPolicy extends TreeTransformation {
+  /* sneak import annotations through fields/methods which otherwise don't have them */
+  case class ClassAnnotations(value: Seq[ClassAnnotation]) extends Comment.Data
+
   override def enterContainerTree(scope: TreeScope)(s: ContainerTree): ContainerTree =
     combineModules(s)
 
@@ -58,22 +64,12 @@ object ContainerPolicy extends TreeTransformation {
     case object RemainModule extends Action
     case class ConvertToPackage(renameClass: Option[QualifiedName]) extends Action
 
-    def existsClassWithSameName(scope: TreeScope, name: Name): Option[QualifiedName] = {
-      val ownerOpt = scope.stack.collectFirst {
-        case x: ContainerTree => x
-      }
-
-      ownerOpt.flatMap(
-        o =>
-          o.index.get(name) match {
-            case Some(sameName) =>
-              sameName.collectFirst {
-                case x: ClassTree => x.codePath
-              }
-            case None => None
-          },
-      )
-    }
+    def existsClassWithSameName(scope: TreeScope, name: Name): Option[QualifiedName] =
+      for {
+        owner <- scope.stack.collectFirst { case x: ContainerTree => x }
+        sameName <- owner.index.get(name)
+        cls <- sameName.collectFirst { case x: ClassTree => x.codePath }
+      } yield cls
 
     def apply(scope: TreeScope, mod: ModuleTree): Action = {
       def containsPackage = mod.members.exists {
@@ -166,9 +162,34 @@ object ContainerPolicy extends TreeTransformation {
     s.members.partitionCollect { case x: MemberTree => x } match {
       case (Nil, _) if inheritance.isEmpty => s
       case (members, rest) =>
+        val rewritten: List[Ior[MemberTree, ModuleTree]] =
+          members.toList zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
+            case (f @ FieldTree(_, name, tpe, _, isReadonly, _, _, codePath), extracted) =>
+              extracted match {
+                case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS_TYPE =>
+                  val mod = ModuleTree(anns, name, List(TypeRef.TopLevel(tpe)), Nil, restCs, codePath)
+                  if (isReadonly) Ior.Right(mod)
+                  else Ior.Both(f, mod)
+                case _ =>
+                  Ior.Left(f)
+              }
+
+            case (m: MethodTree, extracted) =>
+              extracted match {
+                case Some((anns, restCs)) if m.name =/= Name.APPLY =>
+                  val asApply = m.copy(annotations = Nil, name = Name.APPLY, codePath = m.codePath + Name.APPLY, comments = restCs)
+                  Ior.Right(ModuleTree(anns, m.name, Nil, List(asApply), NoComments, m.codePath))
+                case _ =>
+                  Ior.Left(m)
+              }
+            case (other, _) => Ior.Left(other)
+          }
+
+        val (mutables, hoisted) = rewritten.separate
+
         val hatModule =
-          setCodePath(hatCp, ModuleTree(s.annotations, Name.namespaced, inheritance, members, NoComments, hatCp))
-        s.withMembers(rest :+ hatModule)
+          setCodePath(hatCp, ModuleTree(s.annotations, Name.namespaced, inheritance, mutables, NoComments, hatCp))
+        combineModules(s.withMembers(rest ++ hoisted :+ hatModule))
     }
   }
 

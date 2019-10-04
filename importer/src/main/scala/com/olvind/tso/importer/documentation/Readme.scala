@@ -117,7 +117,7 @@ object D {
 ### Code away
 After that you should be good to go and start coding:
 ```scala
-  import typings.std.^.console
+  import typings.std.console
   console.warn("Hello, World!")
 ```
 
@@ -229,41 +229,13 @@ We convert typescript namespaces and modules into scala packages.
 
 In idiomatic scala top level members inside would be placed into package objects,
 but those are unfortunately [broken](https://github.com/scala-js/scala-js/issues/1892) when used as javascript facades.
-For that reason we put them into objects called `^`.
+For that reason we upgrade `var` and `def` to `object` instead.
 
-The scheme is like this:
-```scala
-package typings
-package std
+You will see that quite a few packages have an object (and/or a class) called `^`. This is a reference to the module itself,
+and you might need to refer it.
 
-import scalajs.js
-import scalajs.js.`|`
-import scalajs.js.annotation._
-
-@JSGlobalScope
-@js.native
-object ^ extends js.Object {
-  val Array: std.ArrayConstructor = js.native
-  // ...
-}
-// usage: typings.std.^.Array.newInstance(1)
-```
-
-Modules which are classes are also called `^`, for instance:
-```scala
-package typings.awsDashSdk.clientsDynamodbMod
-
-@JSImport("aws-sdk/clients/dynamodb", JSImport.Namespace)
-@js.native
-class ^ () extends DynamoDB {
-  def this(options: ClientConfiguration) = this()
-}
-
-//usage:
-import typings.awsDashSdk.clientsDynamodbMod.{^ => DynamoDb}
-new DynamoDb(ClientConfiguration(...))
-
-```
+- To use classes which are exported as a module in commonjs (defined in Typescript as `export = class Foo {}`, used in Scala as `new typings.node.eventsMod.^()`)
+- If you want to mutate top-level members (`typings.std.^.onerror = (x, _, _, _, _) => typings.std.console.warn(x)`)
 
 ### Whatsup with those version strings?
 
@@ -394,7 +366,7 @@ trait Anon_BlobParts
   with ScalablyTyped.runtime.Instantiable2[/* blobParts */ js.Array[BlobPart], /* options */ BlobPropertyBag, Blob]
 
 //usage
-val blob: Blob = typings.std.^.window.Blob.newInstance0()
+val blob: Blob = typings.std.window.Blob.newInstance0()
 ```
 
 #### inferred classes

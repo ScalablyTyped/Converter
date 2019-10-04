@@ -4,6 +4,7 @@ package importer
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, UnpackLibs}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.transforms.ContainerPolicy
 import com.olvind.tso.ts.{ParentsResolver, _}
 
 object ImportTree {
@@ -112,14 +113,14 @@ object ImportTree {
         Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath))
 
       case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
-        val base = ImportType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
+        val tpe = ImportType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
 
         if (name === Name.Symbol) {
           Seq(
             ModuleTree(
               annotations = ImportJsLocation(jsLocation),
               name        = name,
-              parents     = Seq(base.withOptional(isOptional)),
+              parents     = Seq(tpe),
               members     = Nil,
               comments    = cs,
               codePath    = importName(codePath),
@@ -130,11 +131,11 @@ object ImportTree {
             FieldTree(
               annotations = Annotation.jsName(name),
               name        = name,
-              tpe         = base.withOptional(isOptional),
+              tpe         = tpe,
               impl        = MemberImpl.Native,
               isReadOnly  = readOnly,
               isOverride  = false,
-              comments    = cs +? nameHint(name, jsLocation),
+              comments    = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
               codePath    = importName(codePath),
             ),
           )
@@ -144,7 +145,7 @@ object ImportTree {
 
       case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)
-        val MemberRet(ctors, ms, extraInheritance, statics) =
+        val MemberRet(ctors, ms, extraInheritance, statics: Seq[MemberTree]) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
 
         val anns    = ImportJsLocation(location)
@@ -221,7 +222,7 @@ object ImportTree {
             importName     = importName,
             level          = ProtectionLevel.Default,
             name           = name,
-            cs             = cs +? nameHint(name, jsLocation),
+            cs             = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
             sig            = sig,
             scalaJsDefined = false,
             ownerCP        = importName(codePath),
@@ -517,4 +518,7 @@ object ImportTree {
       }
     }
   }
+
+  def annotationComment(jsLocation: JsLocation) =
+    CommentData(ContainerPolicy.ClassAnnotations(ImportJsLocation(jsLocation)))
 }
