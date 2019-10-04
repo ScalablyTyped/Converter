@@ -103,7 +103,7 @@ object ImportTyping {
         .next(new Phase3WriteFiles(targetFolder = targetFolder, softWrites = false), "build")
 
     val found: Set[Source] = npmDependencies.map(
-      tuple => Source.FromFolder(InFolder(source.path / tuple._1), TsIdentLibrarySimple(tuple._1)),
+      tuple => Source.FromFolder(InFolder(source.path / os.RelPath(tuple._1)), TsIdentLibrarySimple(tuple._1)),
     )(collection.breakOut)
 
     found.foreach(src => println(s">>>>>>>>>>>>>>>>>>>>>>>>> ${src.path}"))
