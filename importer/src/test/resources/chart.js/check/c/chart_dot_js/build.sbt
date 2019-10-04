@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "chart_dot_js"
-version := "0.0-unknown-477c3c"
-scalaVersion := "2.13.0"
+version := "0.0-unknown-2be370"
+scalaVersion := "2.12.9"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-9ea690")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-0a54d4")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-g:notailcalls")
+scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
