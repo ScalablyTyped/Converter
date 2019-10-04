@@ -80,7 +80,7 @@ object FakeLiterals {
           Some(ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, _s.codePath + moduleName))
       }
 
-    override def enterTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
+    override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
           collectedStrings += underlying

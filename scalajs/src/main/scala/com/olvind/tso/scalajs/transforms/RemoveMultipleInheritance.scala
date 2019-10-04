@@ -13,7 +13,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
 
   final case class Dropped(typeRef: TypeRef, because: String, members: Seq[Tree])
 
-  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
+  override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
     val patchedNewMembers =
       if (cls.annotations.contains(Annotation.JsNative)) newMembers.map {
@@ -25,7 +25,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     cls.copy(comments = newComments, parents = newParents, members = cls.members ++ patchedNewMembers)
   }
 
-  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree = {
+  override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, mod)
     mod.copy(comments = newComments, parents = newParents, members = mod.members ++ newMembers)
   }
@@ -39,7 +39,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     val newComments: Comments =
       if (changes.nonEmpty) {
         val msg =
-          s"Dropped parents ${changes.map(x => s"- ${Printer.formatQN(x.typeRef.typeName)} because ${x.because}").mkString("\n", "", "")}"
+          s"Dropped parents ${changes.map(x => s"- ${Printer.formatQN(x.typeRef.typeName)} because ${x.because}").mkString("\n", "\n", "")}"
         scope.logger.info(msg)
         c.comments + Comment.warning(msg)
       } else c.comments
@@ -145,8 +145,10 @@ object RemoveMultipleInheritance extends TreeTransformation {
           alreadyInherits orElse
           alreadyInheritsUnresolved orElse
           inheritsConflictingVars match {
-          case None    => step(h :: included, h.refs.last :: newParents, dropped, rest)
-          case Some(d) => step(included, newParents, d :: dropped, rest)
+          case None => step(h :: included, h.refs.last :: newParents, dropped, rest)
+          case Some(d) =>
+            val newRemaining = h.parents.filterNot(included.contains).filterNot(rest.contains)
+            step(included, newParents, d :: dropped, rest ++ newRemaining)
         }
     }
 }

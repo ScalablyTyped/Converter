@@ -16,6 +16,12 @@ object maps {
     ret.toMap
   }
 
+  def combine[K, V](ms: Iterable[Map[K, Seq[V]]]): Map[K, Seq[V]] = {
+    val ret = mutable.Map.empty[K, Seq[V]]
+    ms.foreach(_.foreach { case (k, v) => ret.update(k, ret.get(k).fold(v)(v ++ _)) })
+    ret.toMap
+  }
+
   @inline final implicit class MapOps[M[k, v] <: scala.Traversable[(k, v)], K, V](private val m: M[K, V])
       extends AnyVal {
 

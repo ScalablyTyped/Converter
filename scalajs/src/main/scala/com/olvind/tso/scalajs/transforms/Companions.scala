@@ -9,7 +9,7 @@ import ConstructObjectOfType.Param
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
 object Companions extends TreeTransformation {
-  override def enterContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
+  override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
       container
@@ -71,104 +71,127 @@ object Companions extends TreeTransformation {
     }
 
   /* yeah, i know. We'll refactor if we'll do many more rewrites */
-  def memberParameter(scope: TreeScope, x: MemberTree): Param =
+  def memberParameter(scope: TreeScope, x: MemberTree): Some[Param] =
     x match {
       /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
-      case f @ FieldTree(_, name, Nullable(TypeRef.Double), _, _, _, _, _) =>
-        val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
-        Param(
-          ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
-          isOptional = true,
-          Right(
-            obj =>
-              s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                scope,
-                tpe,
-              )})""",
-          ),
-        )
-      case f @ FieldTree(_, name, Nullable(tpe), _, _, _, _, _) if IsPrimitive(tpe, scope / x) =>
-        Param(
-          ParamTree(name, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
-          isOptional = true,
-          Right(
-            obj =>
-              s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                scope,
-                tpe,
-              )})""",
-          ),
-        )
+      case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
+        FollowAliases(scope)(origTpe) match {
+          case Nullable(TypeRef.Double) =>
+            val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
+            Some(
+              Param(
+                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                isOptional = true,
+                Right(
+                  obj =>
+                    s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
+                      scope,
+                      tpe,
+                    )})""",
+                ),
+              ),
+            )
+          case Nullable(tpe) if IsPrimitive(tpe, scope / x) =>
+            Some(
+              Param(
+                ParamTree(name, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
+                isOptional = true,
+                Right(
+                  obj =>
+                    s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
+                      scope,
+                      tpe,
+                    )})""",
+                ),
+              ),
+            )
+          case Nullable(TypeRef.Function(paramTypes, retType)) =>
+            val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
-      case f @ FieldTree(_, name, Nullable(TypeRef.Function(paramTypes, retType)), _, _, _, _, _) =>
-        val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
+            Some(
+              Param(
+                ParamTree(
+                  name,
+                  TypeRef.ScalaFunction(paramTypes, retType, NoComments),
+                  Some(TypeRef.`null`),
+                  NoComments,
+                ),
+                isOptional = true,
+                Right(
+                  obj =>
+                    s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+                ),
+              ),
+            )
+          case Nullable(_) =>
+            /* Undo effect of FollowAliases above */
+            val tpe = Nullable.unapply(origTpe).getOrElse(origTpe) match {
+              case TypeRef.Wildcard => TypeRef.Any
+              case other            => other
+            }
 
-        Param(
-          ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), Some(TypeRef.`null`), NoComments),
-          isOptional = true,
-          Right(
-            obj =>
-              s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
-          ),
-        )
+            Some(
+              Param(
+                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                isOptional = true,
+                Right(
+                  obj =>
+                    s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
+                      scope,
+                      tpe,
+                    )})""",
+                ),
+              ),
+            )
+          case TypeRef.Function(paramTypes, retType) =>
+            val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
-      case f @ FieldTree(_, name, Nullable(_tpe), _, _, _, _, _) =>
-        val tpe = if (_tpe === TypeRef.Wildcard) TypeRef.Any else _tpe
-
-        Param(
-          ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
-          isOptional = true,
-          Right(
-            obj =>
-              s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                scope,
-                tpe,
-              )})""",
-          ),
-        )
-
-      case f @ FieldTree(_, name, TypeRef.Function(paramTypes, retType), _, _, _, _, _) =>
-        val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
-
-        Param(
-          ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
-          isOptional = false,
-          if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
-            Left(s"""${name.value} = $convertedTarget""")
-          else
-            Right(
-              obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
-            ),
-        )
-
-      case f @ FieldTree(_, name, tpe, _, _, _, _, _) =>
-        Param(
-          ParamTree(name, tpe, None, NoComments),
-          isOptional = false,
-          if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
-            Left(s"""${name.value} = ${name.value}${OptionalCast(scope, tpe)}""")
-          else
-            Right(
-              obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(scope, tpe)})""",
-            ),
-        )
+            Some(
+              Param(
+                ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
+                isOptional = false,
+                if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
+                  Left(s"""${name.value} = $convertedTarget""")
+                else
+                  Right(
+                    obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+                  ),
+              ),
+            )
+          case _ =>
+            Some(
+              Param(
+                ParamTree(name, origTpe, None, NoComments),
+                isOptional = false,
+                if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
+                  Left(s"""${name.value} = ${name.value}${OptionalCast(scope, origTpe)}""")
+                else
+                  Right(
+                    obj =>
+                      s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(scope, origTpe)})""",
+                  ),
+              ),
+            )
+        }
 
       case _m: MethodTree =>
         val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any))
         val convertedTarget = s"js.Any.fromFunction${m.params.flatten.length}(${m.name.value})"
 
-        Param(
-          ParamTree(
-            m.name,
-            TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
-            None,
-            NoComments,
+        Some(
+          Param(
+            ParamTree(
+              m.name,
+              TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
+              None,
+              NoComments,
+            ),
+            isOptional = false,
+            if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && m.originalName === m.name)
+              Left(s"""${m.name.value} = $convertedTarget""")
+            else
+              Right(obj => s"""$obj.updateDynamic("${m.originalName.unescaped}")($convertedTarget)"""),
           ),
-          isOptional = false,
-          if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && m.originalName === m.name)
-            Left(s"""${m.name.value} = $convertedTarget""")
-          else
-            Right(obj => s"""$obj.updateDynamic("${m.originalName.unescaped}")($convertedTarget)"""),
         )
     }
 

@@ -11,6 +11,10 @@ object FollowAliases {
               apply(newScope)(FillInTParams(ta, typeRef.tparams).alias)
           }
           .getOrElse(typeRef)
+      case TsTypeIntersect(types) =>
+        TsTypeIntersect.simplified(types map FollowAliases(scope))
+      case TsTypeUnion(types) =>
+        TsTypeUnion.simplified(types map FollowAliases(scope))
       case other => other
     }
 }

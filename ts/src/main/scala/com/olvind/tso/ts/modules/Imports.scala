@@ -34,7 +34,7 @@ object Imports {
                   val ns = TsDeclNamespace(
                     NoComments,
                     declared = false,
-                    TsIdentNamespace(renamed.value),
+                    renamed,
                     rest ++ defaults,
                     CodePath.NoPath,
                     JsLocation.Zero,
@@ -66,7 +66,7 @@ object Imports {
                   val ns = TsDeclNamespace(
                     NoComments,
                     false,
-                    TsIdentNamespace(ident.value),
+                    ident,
                     rest,
                     CodePath.NoPath,
                     JsLocation.Zero,

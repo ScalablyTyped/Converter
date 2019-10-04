@@ -19,7 +19,7 @@ object SplitMethodsOnUnionTypes extends TransformMembers with TransformClassMemb
 
   override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
     x.members flatMap {
-      case x: TsDeclFunction if x.name =/= TsIdent.namespaced =>
+      case x: TsDeclFunction =>
         RemoveComment.keepFirstOnly(split(x.signature).map(sig => x.copy(signature = sig)))
       case other => Seq(other)
     }

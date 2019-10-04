@@ -24,8 +24,6 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
             Some(ref.copy(name = exportedFrom.name))
           case (next: TsDeclTypeAlias, newScope) =>
             followTrivialAliases(newScope)(next).map(newName => ref.copy(name = newName))
-          case (x: TsNamedDecl, _) =>
-            Some(ref.copy(name = x.codePath.forceHasPath.codePath))
           case _ => Some(x)
         }
       case _ => None
@@ -33,9 +31,8 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
 
   def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
     cur match {
-      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(_, nextName, _), codePath) if cs.extract {
-            case Markers.IsTrivial => ()
-          }.isDefined =>
+      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(_, nextName, _), codePath)
+          if cs has Markers.IsTrivial =>
         scope
           .lookupTypeIncludeScope(nextName)
           .collectFirst {

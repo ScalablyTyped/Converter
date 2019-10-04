@@ -1,7 +1,7 @@
 package typings.withDashTheme.withDashThemeMod
 
-import typings.react.ReactNs.Ref
-import typings.react.ReactNs.RefObject
+import typings.react.React.Ref
+import typings.react.React.RefObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

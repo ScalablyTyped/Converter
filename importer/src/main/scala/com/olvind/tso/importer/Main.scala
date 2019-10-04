@@ -105,7 +105,7 @@ class Main(config: Config) {
         interfaceCmd,
         existing(existing(config.cacheFolder / 'npm)),
         external.packages.map(_.typingsPackageName).to[Set] + "typescript" ++ Libraries.extraExternals,
-        Libraries.ignored,
+        Libraries.ignored(config.sequential),
         config.conserveSpace,
         config.offline,
       )
@@ -127,7 +127,7 @@ class Main(config: Config) {
           os.list(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
 
         (
-          TypescriptSources(externalsFolder, dtFolder, Libraries.ignored).sorted ++ facadeSources,
+          TypescriptSources(externalsFolder, dtFolder, Libraries.ignored(config.sequential)).sorted ++ facadeSources,
           config.wantedLibNames,
         ) match {
           case (sources, sets.EmptySet()) => sources
@@ -179,7 +179,7 @@ class Main(config: Config) {
           new Phase1ReadTypescript(
             calculateLibraryVersion = new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha),
             resolve                 = resolve,
-            ignored                 = Libraries.ignored,
+            ignored                 = Libraries.ignored(config.sequential),
             stdlibSource            = stdLibSource,
             pedantic                = config.pedantic,
             parser =

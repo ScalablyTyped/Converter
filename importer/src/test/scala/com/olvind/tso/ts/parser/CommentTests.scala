@@ -108,6 +108,13 @@ final class CommentTests extends FunSuite with Matchers {
     )(DirectiveToken("reference", "no-default-lib", "true"))
   }
 
+  test("amd-module") {
+    shouldParseAs(
+      """/// <amd-module name="angular/packages/zone.js/lib/zone"/>""",
+      TsParser.lexical.directive,
+    )(DirectiveToken("amd-module", "name", "angular/packages/zone.js/lib/zone"))
+  }
+
   test("parameter comments") {
     val content = """	/** A parser and formatter for DSV (CSV and TSV) files.
                     |Extracted from D3. */

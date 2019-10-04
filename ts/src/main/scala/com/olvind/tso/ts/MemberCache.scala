@@ -82,6 +82,7 @@ trait HasClassMembers {
       case x: TsMemberProperty => x.name
       case _: TsMemberCall     => TsIdent.Apply
       case _: TsMemberCtor     => TsIdent.constructor
+      case other => sys.error(s"Unexpected: ${other.asString}")
     }
     (map, unnamed)
   }

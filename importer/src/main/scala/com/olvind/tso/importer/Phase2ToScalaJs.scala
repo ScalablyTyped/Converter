@@ -46,13 +46,15 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               *  This maintains that somewhat simpler world view */
             object Adapter {
               def apply(scope: TreeScope)(f: (ContainerTree, TreeScope) => ContainerTree): PackageTree => PackageTree = {
-                case pkg @ PackageTree(_, _, List(one: ContainerTree), _, _) =>
+                case pkg @ PackageTree(_, _, Seq(one: ContainerTree), _, _) =>
                   pkg.copy(members = List(f(one, scope / pkg)))
-                case other => sys.error(s"Expected top level package, got: ${other}")
+                case other =>
+                  sys.error(s"Expected top level package, got: ${other}")
               }
             }
 
             val ScalaTransforms = List[PackageTree => PackageTree](
+              S.ContainerPolicy visitPackageTree scope,
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
                 S.CleanIllegalNames >>

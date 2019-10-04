@@ -18,11 +18,10 @@ object ImportEnum {
   }
 
   def apply(
-      e:                   TsDeclEnum,
-      anns:                Seq[ClassAnnotation],
-      scope:               TsTreeScope,
-      importName:          ImportName,
-      isWithinScalaModule: Boolean,
+      e:          TsDeclEnum,
+      anns:       Seq[ClassAnnotation],
+      scope:      TsTreeScope,
+      importName: ImportName,
   ): Seq[Tree] =
     e match {
       /* exported const enum? type alias */
@@ -33,19 +32,13 @@ object ImportEnum {
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
       case TsDeclEnum(cs, _, true, importName(name), members, _, None, _, codePath) =>
         val importedCodePath = importName(codePath)
-        val ta = {
-          val cOpt =
-            if (isWithinScalaModule)
-              Some(Comment(s"/* Inlined `const enum`. Members: ${members
-                .map(m => s"- ${m.name.value}: ${m.expr.fold("<empty>")(TsExpr.format)}")
-                .mkString("\n", "\n", "\n")} */\n"))
-            else None
-
-          val tpe =
-            ImportType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr))))
-
-          TypeAliasTree(name, Nil, tpe, cs +? cOpt, importedCodePath)
-        }
+        val ta = TypeAliasTree(
+          name     = name,
+          tparams  = Nil,
+          alias    = ImportType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
+          comments = cs,
+          codePath = importedCodePath,
+        )
 
         def module = {
           val cast = {
@@ -84,7 +77,7 @@ object ImportEnum {
           ModuleTree(Nil, name, Nil, cast +: newMembers, NoComments, importedCodePath)
         }
 
-        if (isWithinScalaModule) List(ta) else List(ta, module)
+        List(ta, module)
 
       /* Any other enum? a type and an object */
       case TsDeclEnum(cs, _, _, importName(name), members, isValue, exportedFrom, _, codePath) =>
@@ -190,7 +183,7 @@ object ImportEnum {
             name,
             parents  = Nil,
             members  = membersSyms ++ applyMethod,
-            comments = cs,
+            comments = cs + CommentData(Markers.EnumObject),
             codePath = importedCodePath,
           )
         }
