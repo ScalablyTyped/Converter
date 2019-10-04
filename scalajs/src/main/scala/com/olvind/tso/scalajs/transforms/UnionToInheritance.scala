@@ -180,7 +180,7 @@ object UnionToInheritance {
       def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
         def legalClassName(name: Name): Boolean =
           p index name forall {
-            case x: PackageTree => false
+            case _: PackageTree => false
             case _ => true
           }
         p.members.flatMap {

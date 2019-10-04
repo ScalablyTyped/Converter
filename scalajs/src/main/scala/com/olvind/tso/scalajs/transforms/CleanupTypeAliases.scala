@@ -11,17 +11,11 @@ package transforms
   *  can also resolve all their uses of the intermediate type aliases.
   */
 object CleanupTypeAliases extends TreeTransformation {
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = removeTrivialTypeAlias(scope, s.members))
-
-  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = removeTrivialTypeAlias(scope, s.members))
-
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = clearEmptyContainers(s.members))
+    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(scope, s.members)))
 
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = clearEmptyContainers(s.members))
+    s.copy(members = clearEmptyContainers(removeTrivialTypeAlias(scope, s.members)))
 
   def clearEmptyContainers(members: Seq[Tree]): Seq[Tree] =
     members.filter {

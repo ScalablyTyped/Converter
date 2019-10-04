@@ -13,7 +13,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
 
   final case class Dropped(typeRef: TypeRef, because: String, members: Seq[Tree])
 
-  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
+  override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
     val patchedNewMembers =
       if (cls.annotations.contains(Annotation.JsNative)) newMembers.map {
@@ -25,7 +25,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     cls.copy(comments = newComments, parents = newParents, members = cls.members ++ patchedNewMembers)
   }
 
-  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree = {
+  override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, mod)
     mod.copy(comments = newComments, parents = newParents, members = mod.members ++ newMembers)
   }

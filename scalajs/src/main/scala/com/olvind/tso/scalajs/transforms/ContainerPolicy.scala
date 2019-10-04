@@ -13,10 +13,9 @@ object ContainerPolicy extends TreeTransformation {
   /* sneak import annotations through fields/methods which otherwise don't have them */
   case class ClassAnnotations(value: Seq[ClassAnnotation]) extends Comment.Data
 
-  override def enterContainerTree(scope: TreeScope)(s: ContainerTree): ContainerTree =
-    combineModules(s)
+  override def leaveContainerTree(scope: TreeScope)(_s: ContainerTree): ContainerTree = {
+    val s = combineModules(_s)
 
-  override def leaveContainerTree(scope: TreeScope)(s: ContainerTree): ContainerTree = {
     val classesToRename = mutable.ArrayBuffer.empty[QualifiedName]
 
     val rewrittenContainers = s.members.map {
@@ -177,7 +176,8 @@ object ContainerPolicy extends TreeTransformation {
             case (m: MethodTree, extracted) =>
               extracted match {
                 case Some((anns, restCs)) if m.name =/= Name.APPLY =>
-                  val asApply = m.copy(annotations = Nil, name = Name.APPLY, codePath = m.codePath + Name.APPLY, comments = restCs)
+                  val asApply =
+                    m.copy(annotations = Nil, name = Name.APPLY, codePath = m.codePath + Name.APPLY, comments = restCs)
                   Ior.Right(ModuleTree(anns, m.name, Nil, List(asApply), NoComments, m.codePath))
                 case _ =>
                   Ior.Left(m)

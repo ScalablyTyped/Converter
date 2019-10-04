@@ -11,12 +11,12 @@ import com.olvind.tso.seqs.TraversableOps
   */
 object InferMemberOverrides extends TreeTransformation {
 
-  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
+  override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     if (mod.parents.length > 1 && mod.isNative)
       mod.copy(members = newMembers(scope, mod, mod.members))
     else mod
 
-  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree =
+  override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree =
     if (cls.parents.length > 1 && cls.isNative)
       cls.copy(members = newMembers(scope, cls, cls.members))
     else cls

@@ -16,7 +16,7 @@ import com.olvind.tso.seqs.TraversableOps
   */
 object CombineOverloads extends TreeTransformation {
 
-  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
+  override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree = {
     val (methods, fields, Nil) = s.members.partitionCollect2(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
@@ -28,7 +28,7 @@ object CombineOverloads extends TreeTransformation {
     )
   }
 
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
+  override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree = {
     val (methods, fields, rest) = s.members.partitionCollect2(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
@@ -37,7 +37,7 @@ object CombineOverloads extends TreeTransformation {
     s.copy(members = rest ++ unifyFields(fields) ++ combineOverloads(scope, methods))
   }
 
-  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
+  override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree = {
     val (methods, fields, rest) = s.members.partitionCollect2(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
