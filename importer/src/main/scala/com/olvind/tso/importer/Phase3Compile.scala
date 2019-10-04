@@ -20,19 +20,19 @@ import scala.concurrent.duration._
 import scala.util.Try
 
 /**
- * This phase goes from scala AST to compiled jar files on the local file system
- *
- * @param resolve
- * @param versions
- * @param compiler
- * @param targetFolder
- * @param projectName
- * @param organization
- * @param publishUser
- * @param publishFolder
- * @param metadataFetcher
- * @param softWrites
- */
+  * This phase goes from scala AST to compiled jar files on the local file system
+  *
+  * @param resolve
+  * @param versions
+  * @param compiler
+  * @param targetFolder
+  * @param projectName
+  * @param organization
+  * @param publishUser
+  * @param publishFolder
+  * @param metadataFetcher
+  * @param softWrites
+  */
 class Phase3Compile(
     resolve:         LibraryResolver,
     versions:        Versions,

@@ -140,7 +140,6 @@ class Main(config: Config) {
       }
     }
 
-
     //TODO Consider using for comprehensions, and maybe even use IO instead
     //    import scala.concurrent.ExecutionContext.Implicits.global
     //    val fut = for {

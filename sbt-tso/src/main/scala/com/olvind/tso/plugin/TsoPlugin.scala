@@ -8,7 +8,7 @@ import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.ts.{TsIdent, TsIdentLibrary, TsIdentLibrarySimple, parser}
+import com.olvind.tso.ts.{parser, TsIdent, TsIdentLibrary, TsIdentLibrarySimple}
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
