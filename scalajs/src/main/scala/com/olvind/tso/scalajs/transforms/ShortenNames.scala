@@ -79,7 +79,8 @@ object ShortenNames {
         case x: FieldTree =>
           (x.name === longName.parts.last && x.codePath =/= longName)
         case x: MethodTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName)
+          (x.name === longName.parts.last && x.codePath =/= longName) ||
+            (methodsAreConflict && x.params.exists(_.exists(_.name === longName.parts.last)))
         case _ => false
       }
 
