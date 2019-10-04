@@ -24,8 +24,6 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
             Some(ref.copy(name = exportedFrom.name))
           case (next: TsDeclTypeAlias, newScope) =>
             followTrivialAliases(newScope)(next).map(newName => ref.copy(name = newName))
-          case (x: TsNamedDecl, _) =>
-            Some(ref.copy(name = x.codePath.forceHasPath.codePath))
           case _ => Some(x)
         }
       case _ => None
