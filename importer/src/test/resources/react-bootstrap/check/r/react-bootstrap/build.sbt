@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "react-bootstrap"
-version := "0.32-823860"
-scalaVersion := "2.12.9"
+version := "0.32-9d7fa7"
+scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-7e0c0e",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-627e16")
+  "org.scalablytyped" %%% "react" % "0.0-unknown-813e64",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-f35b5d")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
