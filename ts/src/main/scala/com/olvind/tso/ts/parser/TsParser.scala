@@ -108,6 +108,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
           DirectiveTypesRef(value) // not sure if it's a typo, but we'll retain the hint
         case lexical.DirectiveToken("reference", "path", value)            => DirectivePathRef(value)
         case lexical.DirectiveToken("reference", "no-default-lib", "true") => DirectiveNoStdLib
+        case lexical.DirectiveToken("reference", "no-default-lib", "true") => DirectiveNoStdLib
+        case lexical.DirectiveToken("amd-module", "name", value)           => AmdModule(value)
       },
     ) named "directive"
 
