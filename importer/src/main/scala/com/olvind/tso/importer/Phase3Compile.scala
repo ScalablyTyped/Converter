@@ -200,6 +200,7 @@ class Phase3Compile(
     val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
     val finalVersion          = makeVersion(digest)
     val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
+    //Next line is that actually spits out files
     files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
 
     val sbtProject =
