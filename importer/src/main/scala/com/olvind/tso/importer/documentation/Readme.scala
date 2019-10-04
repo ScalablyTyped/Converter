@@ -196,31 +196,31 @@ There are loads of details as to how the conversion is done.
 Not everything is optimal of course.
 The following points try to explain the big picture:
 
-### Whatsup with fooNs, fooMod, foo and all that?
+### Whatsup with naming?
 
-Typescript does namespacing differently than Scala, so you can have
-a library, a `var`/`function`, a `module` and a `namespace` all with the same name.
+Modules receive pretty long names, because we flatten the namespace.
+The names should be predicable once you get the hang of it.
 
-For that reason we need to setup a rather elaborate renaming scheme on the Scala side
- to avoid name collisions.
-The `Foo` without suffix is reserved for companion objects with static members, enums,
- and for conversion of things like `declare val foo: {...}` which is also converted into an `object`.
+for instance a typescript import such as this:
+```typescript
+import AnchorLong from "antd/es/anchor/AnchorLink";
+```
+will be in ScalablyTyped:
+```
+import typings.antd.esAnchorAnchorLinkMod.{default => AnchorLong}
+```
 
-Module names in particular tend to be pretty long, because we flatten the module namespace.
-
-On the bright side javascript imports were never super clean in the first place,
-and we have way better tooling in Scala to handle it - meaning you shouldn't write much of those yourself.
-
-A somewhat nice way of handling this is to bundle your commonly used imports somewhere, for instance:
+A somewhat smart way of handling this is to bundle your commonly used imports somewhere, for instance:
 ```scala
+
 package object myapp {
-  type Avatar = typings.materialDashUi.avatarMod.default
-  val React = typings.react.dsl
+  type AnchorLong = typings.antd.esAnchorAnchorLinkMod.default
+  val AnchorLong = typings.antd.esAnchorAnchorLinkMod.default
 }
 
 ```
 
-Note: Earlier we used `Lib` as a suffix for all library names, we now managed to drop it.
+Note: Earlier we used `Lib` and `NS` as a suffixes for all library and namespace names, we now managed to drop them.
 Migration should be easy with a search/replace of `typings.xxxLib => typings.xxx`.
 
 ### Whatsup with the hats?

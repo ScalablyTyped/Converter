@@ -12,5 +12,5 @@ import scala.scalajs.js.annotation._
 @JSImport("phaser", "Animation")
 @js.native
 class Animation ()
-  extends typings.phaser.PhaserNs.Animation
+  extends typings.phaser.Phaser.Animation
 

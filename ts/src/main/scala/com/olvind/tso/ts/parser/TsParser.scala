@@ -147,12 +147,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     comments ~ (isDeclared <~ "namespace") ~ rep1sep(tsIdent, ".") ~ tsContainerOrDeclBody ^^ {
       case (cs ~ declared ~ (initNameParts :+ lastNamePart)) ~ body =>
         initNameParts.foldRight(
-          TsDeclNamespace(cs, declared, TsIdentNamespace(lastNamePart.value), body, CodePath.NoPath, JsLocation.Zero),
+          TsDeclNamespace(cs, declared, lastNamePart, body, CodePath.NoPath, JsLocation.Zero),
         ) { (name: TsIdentSimple, inner: TsDeclNamespace) =>
           TsDeclNamespace(
             NoComments,
             declared,
-            TsIdentNamespace(name.value),
+            name,
             inner :: Nil,
             CodePath.NoPath,
             JsLocation.Zero,
@@ -173,7 +173,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
               TsDeclNamespace(
                 cs,
                 declared,
-                TsIdentNamespace(lastNamePart.value),
+                lastNamePart,
                 body.getOrElse(Nil),
                 CodePath.NoPath,
                 JsLocation.Zero,
@@ -182,7 +182,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
               TsDeclNamespace(
                 NoComments,
                 declared,
-                TsIdentNamespace(name.value),
+                name,
                 inner :: Nil,
                 CodePath.NoPath,
                 JsLocation.Zero,
@@ -276,7 +276,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val zeroLocation: Parser[JsLocation] = success(JsLocation.Zero)
   lazy val zeroCodePath: Parser[CodePath]   = success(CodePath.NoPath)
 
-  @deprecated("properly support multiple vars in one statement")
+  @deprecated("properly support multiple vars in one statement", "")
   lazy val tsDeclVar: Parser[TsDeclVar] = tsDeclVars ^^ {
     case Nil           => sys.error("Impossible")
     case first :: Nil  => first

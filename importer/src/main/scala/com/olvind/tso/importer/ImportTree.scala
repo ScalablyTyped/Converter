@@ -15,7 +15,6 @@ object ImportTree {
     val scope = TsTreeScope(lib.name, pedantic = true, deps, logger).caching / lib.parsed
 
     val ret = ImportContainer(
-      isWithinScalaModule = false,
       importName,
       scope,
       lib.parsed.comments,
@@ -40,74 +39,64 @@ object ImportTree {
       )
     }
 
-    val withRequire = ret match {
-      case x: ModuleTree  => x.copy(members = x.members :+ require)
-      case x: PackageTree => x.copy(members = x.members :+ require)
-      case other => other
-    }
+    val withRequire = ret.copy(members = ret.members :+ require)
 
     PackageTree(Nil, ScalaConfig.outputPkg, List(withRequire), NoComments, QualifiedName(List(ScalaConfig.outputPkg)))
   }
 
-  def decl(_scope: TsTreeScope, isWithinScalaModule: Boolean, importName: ImportName)(
-      t1:          TsContainerOrDecl,
-  ): Seq[Tree] = {
+  def decl(_scope: TsTreeScope, importName: ImportName)(t1: TsContainerOrDecl): Seq[Tree] = {
     val scope: TsTreeScope = _scope / t1
 
     t1 match {
       case TsDeclModule(cs, _, name, decls, codePath, jsLocation) =>
         Seq(
           ImportContainer(
-            isWithinScalaModule = isWithinScalaModule,
-            importName          = importName,
-            scope               = scope,
-            cs                  = cs,
-            name                = name,
-            jsLocation          = jsLocation,
-            members             = decls,
-            codePath            = codePath,
+            importName = importName,
+            scope      = scope,
+            cs         = cs,
+            name       = name,
+            jsLocation = jsLocation,
+            tsMembers  = decls,
+            codePath   = codePath,
           ),
         )
 
       case TsAugmentedModule(name, decls, codePath, jsLocation) =>
         Seq(
           ImportContainer(
-            isWithinScalaModule = isWithinScalaModule,
-            importName          = importName,
-            scope               = scope,
-            cs                  = NoComments,
-            name                = name,
-            jsLocation          = jsLocation,
-            members             = decls,
-            codePath            = codePath,
+            importName = importName,
+            scope      = scope,
+            cs         = Comments(Comment("/* augmented module */\n")),
+            name       = name,
+            jsLocation = jsLocation,
+            tsMembers  = decls,
+            codePath   = codePath,
           ),
         )
 
       case TsDeclNamespace(cs, _, name, decls, codePath, jsLocation) =>
         Seq(
           ImportContainer(
-            isWithinScalaModule = isWithinScalaModule,
-            importName          = importName,
-            scope               = scope,
-            cs                  = cs,
-            name                = name,
-            jsLocation          = jsLocation,
-            members             = decls,
-            codePath            = codePath,
+            importName = importName,
+            scope      = scope,
+            cs         = cs,
+            name       = name,
+            jsLocation = jsLocation,
+            tsMembers  = decls,
+            codePath   = codePath,
           ),
         )
 
       case TsGlobal(cs, _, ms, codePath) =>
         Seq(
           ImportContainer(
-            isWithinScalaModule = isWithinScalaModule,
-            importName          = importName,
-            scope               = scope,
-            cs                  = cs,
-            name                = TsIdent.Global,
-            jsLocation          = JsLocation.Zero,
-            members             = ms,
-            codePath            = codePath,
+            importName = importName,
+            scope      = scope,
+            cs         = cs,
+            name       = TsIdent.Global,
+            jsLocation = JsLocation.Zero,
+            tsMembers  = ms,
+            codePath   = codePath,
           ),
         )
 
@@ -120,16 +109,7 @@ object ImportTree {
           scope.logger.warn(s"Dropping static members from var ${statics.map(_.codePath)}")
         }
 
-        Seq(
-          ModuleTree(
-            ImportJsLocation(location, isWithinScalaModule),
-            name,
-            inheritance,
-            ms,
-            cs,
-            newCodePath,
-          ),
-        )
+        Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath))
 
       case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
         val base = ImportType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt)
@@ -137,7 +117,7 @@ object ImportTree {
         if (name === Name.Symbol) {
           Seq(
             ModuleTree(
-              annotations = ImportJsLocation(jsLocation, isWithinScalaModule),
+              annotations = ImportJsLocation(jsLocation),
               name        = name,
               parents     = Seq(base.withOptional(isOptional)),
               members     = Nil,
@@ -160,14 +140,14 @@ object ImportTree {
           )
 
       case e: TsDeclEnum =>
-        ImportEnum(e, ImportJsLocation(e.jsLocation, isWithinScalaModule), scope, importName, isWithinScalaModule)
+        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName)
 
       case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, statics) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
 
-        val anns    = ImportJsLocation(location, isWithinScalaModule)
+        val anns    = ImportJsLocation(location)
         val parents = parent.to[Seq] ++ implements map ImportType(Wildcards.Prohibit, scope, importName)
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
@@ -256,16 +236,18 @@ object ImportTree {
     }
   }
 
-  def nameHint(name: Name, jsLocation: JsLocation): Option[CommentData] = {
-    val strOpt = (name, jsLocation) match {
-      case (name, _) if name =/= Name.Default && name =/= Name.APPLY && name =/= Name.namespaced => None
-      case (_, JsLocation.Global(TsQIdent(parts))) if parts.nonEmpty                             => Some(parts.head.value)
-      case (_, JsLocation.Module(_, ModuleSpec.Specified(parts))) if parts.nonEmpty              => Some(parts.last.value)
-      case (_, JsLocation.Module(modName, _))                                                    => Some(modName.fragments.last)
-      case _                                                                                     => None
+  def nameHint(name: Name, jsLocation: JsLocation): Option[CommentData] =
+    name match {
+      case Name.Default | Name.APPLY | Name.namespaced =>
+        val strOpt = jsLocation match {
+          case JsLocation.Global(TsQIdent(parts)) if parts.nonEmpty                => Some(parts.last.value)
+          case JsLocation.Module(_, ModuleSpec.Specified(parts)) if parts.nonEmpty => Some(parts.last.value)
+          case JsLocation.Module(modName, _)                                       => Some(modName.fragments.last)
+          case _                                                                   => None
+        }
+        strOpt map (h => CommentData(Markers.NameHint(h)))
+      case _ => None
     }
-    strOpt map (h => CommentData(Markers.NameHint(h)))
-  }
 
   sealed trait MemberRet
 
@@ -287,13 +269,19 @@ object ImportTree {
       val others = es.collect {
         case Normal(o) => o
       }
+
       val inheritance = es.collect {
         case Inheritance(o) => o
       }
       val static = es.collect {
         case Static(o) => o
       }
-      Some((ctors, others, inheritance, static))
+
+      RewriteNamespaceMembers(others) match {
+        case (moreInheritance, newOthers, shouldBeEmpty) =>
+          require(shouldBeEmpty.isEmpty)
+          Some((ctors, newOthers, inheritance ++ moreInheritance, static))
+      }
     }
   }
 
@@ -441,32 +429,29 @@ object ImportTree {
             case (false, _)                 => MemberImpl.Native
           }
 
-        Seq(
-          MemberRet(
-            hack(
-              FieldTree(
-                annotations = Annotation.jsName(name),
-                name        = name,
-                tpe         = importedType,
-                impl        = impl,
-                isReadOnly  = m.isReadOnly,
-                isOverride  = false,
-                comments    = m.comments,
-                codePath    = ownerCP + name,
-              ),
-            ),
-            m.isStatic,
+        hack(
+          FieldTree(
+            annotations = Annotation.jsName(name),
+            name        = name,
+            tpe         = importedType,
+            impl        = impl,
+            isReadOnly  = m.isReadOnly,
+            isOverride  = false,
+            comments    = m.comments,
+            codePath    = ownerCP + name,
           ),
-        )
+        ).map(f => MemberRet(f, m.isStatic)).to[Seq]
       case (name, _) =>
         scope.logger.info(s"dropping member $name")
         Nil
     }
 
-  def hack(fs: FieldTree): FieldTree =
-    fs.comments.extract { case Markers.ExpandedCallables => () } match {
-      case None              => fs
-      case Some((_, restCs)) => fs.withSuffix("Original").copy(comments = restCs)
+  def hack(f: FieldTree): Option[FieldTree] =
+    f.comments.extract { case Markers.ExpandedCallables => () } match {
+      case None => Some(f)
+      case Some((_, restCs)) =>
+        if (f.name === Name.namespaced) None
+        else Some(f.withSuffix("Original").copy(comments = restCs))
     }
 
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =

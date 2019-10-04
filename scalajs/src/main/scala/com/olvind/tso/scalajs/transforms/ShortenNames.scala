@@ -99,7 +99,7 @@ object ShortenNames {
         case Some(trees) =>
           trees exists {
             case x: ClassTree     => x.codePath =/= longName
-            case x: ModuleTree    => x.codePath =/= longName
+            case x: ModuleTree    => methodsAreConflict
             case x: PackageTree   => x.codePath =/= longName
             case x: TypeAliasTree => x.codePath =/= longName
             case x: FieldTree     => x.isReadOnly

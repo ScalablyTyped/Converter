@@ -67,7 +67,17 @@ object FlattenTrees {
       case that: TsDeclNamespace =>
         rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Nil, x.members))) {
           case existing: TsDeclNamespace if that.name === existing.name =>
-            mergeNamespace(that, existing)
+            mergeNamespaces(that, existing)
+          case existing: TsDeclFunction if that.name === existing.name =>
+            mergeNamespaceAndFunction(that, existing)
+          case existing: TsDeclVar if that.name === existing.name =>
+            mergeNamespaceAndVar(that, existing)
+        }
+
+      case that: TsDeclFunction =>
+        rets.addOrUpdateMatching(that: TsNamedDecl)(x => x) {
+          case existing: TsDeclNamespace if that.name === existing.name =>
+            mergeNamespaceAndFunction(existing, that)
         }
 
       case that: TsDeclModule =>
@@ -92,13 +102,15 @@ object FlattenTrees {
           case existing: TsDeclEnum if that.name === existing.name => mergeEnum(that, existing)
         }
       case that: TsDeclVar =>
-        rets.addOrUpdateMatching(that)(m => m) {
+        rets.addOrUpdateMatching(that: TsNamedDecl)(m => m) {
           case existing: TsDeclVar if that.name === existing.name =>
             existing.copy(
               comments   = mergeComments(existing.comments, that.comments),
               tpe        = bothTypes(existing.tpe, that.tpe),
               isOptional = existing.isOptional || that.isOptional,
             )
+          case existing: TsDeclNamespace if that.name === existing.name =>
+            mergeNamespaceAndVar(existing, that)
         }
 
       case that: TsAugmentedModule =>
@@ -261,7 +273,7 @@ object FlattenTrees {
       codePath = mergeCodePath(existing.codePath, that.codePath),
     )
 
-  def mergeNamespace(that: TsDeclNamespace, existing: TsDeclNamespace) =
+  def mergeNamespaces(that: TsDeclNamespace, existing: TsDeclNamespace) =
     TsDeclNamespace(
       comments   = mergeComments(existing.comments, that.comments),
       declared   = existing.declared || that.declared,
@@ -270,6 +282,12 @@ object FlattenTrees {
       codePath   = mergeCodePath(existing.codePath, that.codePath),
       jsLocation = mergeJsLocation(existing.jsLocation, that.jsLocation),
     )
+
+  def mergeNamespaceAndFunction(ns: TsDeclNamespace, x: TsDeclFunction): TsDeclNamespace =
+    ns.copy(members = ns.members :+ x.copy(name = TsIdent.namespaced))
+
+  def mergeNamespaceAndVar(ns: TsDeclNamespace, x: TsDeclVar): TsDeclNamespace =
+    ns.copy(members = ns.members :+ x.copy(name = TsIdent.namespaced))
 
   def mergedClassAndInterface(c: TsDeclClass, i: TsDeclInterface): TsDeclClass =
     TsDeclClass(

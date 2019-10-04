@@ -27,9 +27,8 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
 
   def apply(i: TsIdent): Name =
     i match {
-      case TsIdent.Apply           => Name.APPLY
-      case TsIdentSimple(value)    => Name(value)
-      case TsIdentNamespace(value) => Name(prettyString(value, "Ns", forceCamelCase = false))
+      case TsIdent.Apply        => Name.APPLY
+      case TsIdentSimple(value) => Name(value)
       case x: TsIdentLibrary => Name(prettyString(x.value, "", forceCamelCase = true))
       case x: TsIdentModule  => rewriteModuleName(x)
       case x: TsIdentImport  => sys.error(s"Unexpected: $x")
