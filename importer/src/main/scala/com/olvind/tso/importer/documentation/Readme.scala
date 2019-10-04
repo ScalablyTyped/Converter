@@ -1,4 +1,5 @@
 package com.olvind.tso.importer.documentation
+
 import com.olvind.tso.importer.Summary
 import com.olvind.tso.ts.TsIdentLibrary
 
@@ -224,7 +225,7 @@ Migration should be easy with a search/replace of `typings.xxxLib => typings.xxx
 
 ### Whatsup with the hats?
 
-We normally convert typescript namespaces and modules into scala packages.
+We convert typescript namespaces and modules into scala packages.
 
 In idiomatic scala top level members inside would be placed into package objects,
 but those are unfortunately [broken](https://github.com/scala-js/scala-js/issues/1892) when used as javascript facades.
@@ -247,10 +248,6 @@ object ^ extends js.Object {
 }
 // usage: typings.std.^.Array.newInstance(1)
 ```
-
-Note that this is the "normal" container format.
-If a container doesn't introduce new types (or if a namespace is exported in a module),
-the "compact" format is used instead where everything goes into an object.
 
 Modules which are classes are also called `^`, for instance:
 ```scala

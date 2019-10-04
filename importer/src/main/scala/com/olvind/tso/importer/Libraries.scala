@@ -230,6 +230,7 @@ object Libraries {
     "vue-rx",
     "vue-server-renderer",
     "vuex",
+    "@welldone-software/why-did-you-render",
     "what-input",
     "xstream",
     "zipkin",

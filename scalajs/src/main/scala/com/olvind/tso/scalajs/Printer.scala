@@ -419,9 +419,9 @@ object Printer {
         s"@JSName(${formatQN(name)})"
       case Annotation.JsImport(module, imported) =>
         val importedString = imported match {
-          case Imported.Namespace   => "JSImport.Namespace"
-          case Imported.Default     => "JSImport.Default"
-          case Imported.Named(name) => quote(name.unescaped)
+          case Imported.Namespace    => "JSImport.Namespace"
+          case Imported.Default      => "JSImport.Default"
+          case Imported.Named(names) => quote(names.map(_.unescaped).mkString("."))
         }
         s"@JSImport(${quote(module)}, $importedString)"
       case Annotation.ScalaJSDefined =>

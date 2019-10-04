@@ -16,35 +16,7 @@ object ImportContainer {
       case _                                                              => false
     }
 
-  private def allTypes(members: Seq[TsContainerOrDecl]): Boolean =
-    members.forall {
-      case _: TsImport        => true
-      case _: TsDeclInterface => true
-      case _: TsDeclTypeAlias => true
-      case x: TsDeclEnum      => !x.isValue
-      case x: TsDeclNamespace => allTypes(x.members)
-      case _ => false
-    }
-
-  /* A namespace within a module must end up as a scala module, given that we don't have a way to express the `@JSImport` */
-  private def mustBeCompact(scope: TsTreeScope): Boolean = {
-    var foundNamespace = false
-    var idx            = 0
-    while (idx < scope.stack.length) {
-      scope.stack(idx) match {
-        case x: TsDeclNamespace if !allTypes(x.members) =>
-          foundNamespace = true
-        case _: TsDeclModule if foundNamespace =>
-          return true
-        case _ => ()
-      }
-      idx += 1
-    }
-
-    false
-  }
-
-  private def handleNamespaced(members: Seq[Tree]): (Seq[TypeRef], Seq[MemberTree], Seq[Tree]) =
+  def handleNamespaced(members: Seq[Tree]): (Seq[TypeRef], Seq[MemberTree], Seq[Tree]) =
     members.partitionCollect4(
       { case x: FieldTree if x.name === Name.namespaced     => x },
       { case x: MethodTree if x.name === Name.namespaced    => x },
@@ -94,8 +66,11 @@ object ImportContainer {
 
     val newCodePath = importName(codePath)
     val anns        = ImportJsLocation(jsLocation, isWithinScalaModule)
-    val inModule    = scope.stack.length > 1 && (isWithinScalaModule || canBeCompact(members) || mustBeCompact(scope))
-
+    val inModule = scope.stack.length > 1 && // always want package for top level
+      (name =/= TsIdent.namespaced) && // would be flattened
+      (isWithinScalaModule ||
+        canBeCompact(members)
+      )
     val (inheritance, liftedMembers, rest) =
       handleNamespaced(members flatMap ImportTree.decl(scope, inModule, importName))
 

@@ -17,9 +17,11 @@ object ImportJsLocation {
             case ModuleSpec.Defaulted  => Seq(Annotation.JsImport(lit.value, Imported.Default), Annotation.JsNative)
             case ModuleSpec.Namespaced => Seq(Annotation.JsImport(lit.value, Imported.Namespace), Annotation.JsNative)
             case ModuleSpec.Specified(idents) =>
-              val parts = lit.value.split("/").filter(_.nonEmpty) ++ idents.dropRight(1).map(_.value)
               Seq(
-                Annotation.JsImport(parts.mkString("/"), Imported.Named(ImportName.skipConversion(idents.last))),
+                Annotation.JsImport(
+                  module   = lit.value,
+                  imported = Imported.Named(idents map ImportName.skipConversion),
+                ),
                 Annotation.JsNative,
               )
           }
