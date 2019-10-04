@@ -13,23 +13,23 @@ import com.olvind.tso.ts.{transforms => T, _}
 import scala.collection.immutable.SortedMap
 
 /**
- * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
- * For instance defaulted parameters are filled in. The point is to go from a complex tree to a simpler tree
- *
- * @param resolve
- * @param calculateLibraryVersion
- * @param ignored
- * @param stdlibSource
- * @param pedantic
- * @param parser
- */
+  * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
+  * For instance defaulted parameters are filled in. The point is to go from a complex tree to a simpler tree
+  *
+  * @param resolve
+  * @param calculateLibraryVersion
+  * @param ignored
+  * @param stdlibSource
+  * @param pedantic
+  * @param parser
+  */
 class Phase1ReadTypescript(
-                            resolve:                 LibraryResolver,
-                            calculateLibraryVersion: Option[CalculateLibraryVersion],
-                            ignored:                 Set[String],
-                            stdlibSource:            Source,
-                            pedantic:                Boolean,
-                            parser:                  InFile => Either[String, TsParsedFile],
+    resolve:                 LibraryResolver,
+    calculateLibraryVersion: Option[CalculateLibraryVersion],
+    ignored:                 Set[String],
+    stdlibSource:            Source,
+    pedantic:                Boolean,
+    parser:                  InFile => Either[String, TsParsedFile],
 ) extends Phase[Source, Source, Phase1Res] {
 
   implicit val InFileFormatter: Formatter[InFile] =
@@ -195,13 +195,15 @@ class Phase1ReadTypescript(
                 .Pipeline(scope, source.libName, enableExpandTypeMappings, enableExpandCallables = !involvesReact)
                 .foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
-              val version = calculateLibraryVersion.fold(LibraryVersion(None, None, ""))(_(
-                source.folder,
-                source.isInstanceOf[Source.StdLibSource],
-                libParts.keys.map(_.file).to[Seq],
-                source.packageJsonOpt,
-                finished.comments,
-              ))
+              val version = calculateLibraryVersion.fold(LibraryVersion(None, None, ""))(
+                _(
+                  source.folder,
+                  source.isInstanceOf[Source.StdLibSource],
+                  libParts.keys.map(_.file).to[Seq],
+                  source.packageJsonOpt,
+                  finished.comments,
+                ),
+              )
 
               LibTs(source)(version, finished, deps, facades)
           }

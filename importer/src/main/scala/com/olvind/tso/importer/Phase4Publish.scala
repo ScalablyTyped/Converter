@@ -10,10 +10,10 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 /**
- * This phase publishes all of the projects to bintray
- *
- * @param publisher
- */
+  * This phase publishes all of the projects to bintray
+  *
+  * @param publisher
+  */
 case class Phase4Publish(publisher: BinTrayPublisher) extends Phase[Source, PublishedSbtProject, PublishedSbtProject] {
   override def apply(
       source:  Source,
