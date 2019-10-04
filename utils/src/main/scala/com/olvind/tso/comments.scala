@@ -27,6 +27,12 @@ sealed class Comments(val cs: List[Comment]) extends Serializable {
       case (some, rest) => Some((some.head, Comments(rest)))
     }
 
+  def has[T](data: Comment.Data): Boolean =
+    cs.exists {
+      case CommentData(`data`) => true
+      case _                   => false
+    }
+
   override val hashCode: Int = 0
 
   override def equals(obj: Any): Boolean =
