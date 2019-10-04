@@ -39,7 +39,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
     val newComments: Comments =
       if (changes.nonEmpty) {
         val msg =
-          s"Dropped parents ${changes.map(x => s"- ${Printer.formatQN(x.typeRef.typeName)} because ${x.because}").mkString("\n", "", "")}"
+          s"Dropped parents ${changes.map(x => s"- ${Printer.formatQN(x.typeRef.typeName)} because ${x.because}").mkString("\n", "\n", "")}"
         scope.logger.info(msg)
         c.comments + Comment.warning(msg)
       } else c.comments
@@ -145,8 +145,10 @@ object RemoveMultipleInheritance extends TreeTransformation {
           alreadyInherits orElse
           alreadyInheritsUnresolved orElse
           inheritsConflictingVars match {
-          case None    => step(h :: included, h.refs.last :: newParents, dropped, rest)
-          case Some(d) => step(included, newParents, d :: dropped, rest)
+          case None => step(h :: included, h.refs.last :: newParents, dropped, rest)
+          case Some(d) =>
+            val newRemaining = h.parents.filterNot(included.contains).filterNot(rest.contains)
+            step(included, newParents, d :: dropped, rest ++ newRemaining)
         }
     }
 }
