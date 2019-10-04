@@ -1,28 +1,24 @@
-package com.olvind.tso.plugin
+package com.olvind.tso
+package plugin
 
 import com.olvind.logging
 import com.olvind.logging.Logger.Stored
 import com.olvind.logging.{LogLevel, LogRegistry}
-import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
+import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer._
-import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versions}
-import com.olvind.tso.importer.documentation.Npmjs
+import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.ts.{TsIdent, TsIdentLibrary, TsIdentLibrarySimple, parser}
-import com.olvind.tso.{InFile, InFolder}
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
-import scala.collection.immutable.{SortedMap, TreeMap}
-import scala.concurrent.ExecutionContext
+import scala.collection.immutable.SortedMap
 
 object ReactBinding extends Enumeration {
-  type ReactBinding = Value
   val native, slinky, jagpolly = Value
 }
-import com.olvind.tso.plugin.ReactBinding._
 
 object TsoPlugin extends AutoPlugin {
 
@@ -32,17 +28,17 @@ object TsoPlugin extends AutoPlugin {
 
   object autoImport {
     val importTypings = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val reactBinding = settingKey[ReactBinding]("The type of react binding to use")
-    val pedantic = settingKey[Boolean]("How harsh to be")
+    val reactBinding  = settingKey[ReactBinding.Value]("The type of react binding to use")
+    val pedantic      = settingKey[Boolean]("How harsh to be")
 
     import ScalaJSBundlerPlugin.autoImport._
 
     lazy val tsoPluginSettings: Seq[Def.Setting[_]] = Seq(
       npmDependencies in Compile += "typescript" -> "3.6.3", //Make sure we always include the stdlib //TODO make the version a parameter
       importTypings := {
-        val npmDirectory = better.files.File((npmInstallDependencies in Compile).value.getAbsolutePath)
+        val npmDirectory = os.Path((npmInstallDependencies in Compile).value.getAbsolutePath)
 
-        val target = better.files.File(((sourceManaged in Compile).value / "tso").getAbsolutePath)
+        val target = os.Path(((sourceManaged in Compile).value / "tso").getAbsolutePath)
 
         println(s"====================================== npmDirectory       ${npmDirectory}")
         println(s"====================================== npmDevDependencies ${(npmDevDependencies in Compile).value}")
@@ -50,17 +46,22 @@ object TsoPlugin extends AutoPlugin {
         println(s"====================================== npmResolutions     ${(npmResolutions in Compile).value}")
         //        printDir(npmDirectory, "")
 
-        ImportTyping((npmDependencies in Compile).value, npmDirectory, target, (reactBinding in importTypings).value, (pedantic in importTypings).value).map(_.toJava)
+        ImportTyping(
+          (npmDependencies in Compile).value,
+          npmDirectory,
+          target,
+          (reactBinding in importTypings).value,
+          (pedantic in importTypings).value,
+        ).map(_.toIO)
       },
       reactBinding in importTypings := ReactBinding.native,
-      pedantic in importTypings := false
+      pedantic in importTypings := false,
     )
   }
 
   import autoImport._
 
   override lazy val projectSettings = inConfig(Compile)(tsoPluginSettings)
-
 
   override lazy val buildSettings = Seq()
 
@@ -69,21 +70,15 @@ object TsoPlugin extends AutoPlugin {
 }
 
 object ImportTyping {
-  val failureCacheDir = os.root / 'tmp / 'tso / 'compileFailures //TODO change this
-  os.makeDir.all(failureCacheDir)
-  private val testLogger = logging.stdout.filter(LogLevel.error)
-  private val testCmd = new Cmd(testLogger, None)
-  private val version = Versions.`scala 2.13 with scala.js 1`
-  private val bloop = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, failureCacheDir)
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
-  private def runImport(npmDependencies: scala.Seq[(String, String)],
-                        source: InFolder,
-                        targetFolder: os.Path,
-                        pedantic: Boolean,
-                        logRegistry: LogRegistry[Source, TsIdentLibrary, _],
-                        publishFolder: os.Path,
-                       ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
+  private def runImport(
+      npmDependencies: scala.Seq[(String, String)],
+      source:          InFolder,
+      targetFolder:    os.Path,
+      pedantic:        Boolean,
+      logRegistry:     LogRegistry[Source, TsIdentLibrary, _],
+  ): PhaseRes[Source, SortedMap[Source, os.Path]] = {
 
     val stdLibSource: Source =
       StdLibSource(
@@ -91,12 +86,11 @@ object ImportTyping {
         TsIdent.std,
       )
 
-    val libraryResolver = new LibraryResolver(stdLibSource, Seq(source), None)
-    val phase: RecPhase[Source, PublishedSbtProject] =
+    val phase: RecPhase[Source, os.Path] =
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            libraryResolver,
+            new LibraryResolver(stdLibSource, Seq(source), None),
             None,
             Set.empty,
             stdLibSource,
@@ -106,50 +100,44 @@ object ImportTyping {
           "typescript",
         )
         .next(new Phase2ToScalaJs(pedantic), "scala.js")
-        .next(
-          new Phase3WriteFiles(
-            resolve = libraryResolver,
-            versions = version,
-            compiler = bloop,
-            targetFolder = targetFolder,
-            projectName = "ScalablyTyped",
-            organization = "org.scalablytyped",
-            publishUser = "oyvindberg",
-            publishFolder = publishFolder,
-            metadataFetcher = Npmjs.No,
-            softWrites = false,
-          ),
-          "build",
-        )
+        .next(new Phase3WriteFiles(targetFolder = targetFolder, softWrites = false), "build")
 
-    val found: Set[TsLibSource] = npmDependencies.map(tuple =>
-      Source.FromFolder(InFolder(source.path / tuple._1), TsIdentLibrarySimple(tuple._1))
+    val found: Set[Source] = npmDependencies.map(
+      tuple => Source.FromFolder(InFolder(source.path / tuple._1), TsIdentLibrarySimple(tuple._1)),
     )(collection.breakOut)
 
     found.foreach(src => println(s">>>>>>>>>>>>>>>>>>>>>>>>> ${src.path}"))
 
-    PhaseRes.sequenceMap(
-      TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ found
-        .map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)),
-    )
+    PhaseRes.sequenceMap(found.map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)).toMap.toSorted)
   }
 
-  def apply(npmDependencies: scala.Seq[(String, String)], npmDirectory: better.files.File, target: better.files.File, reactBinding: ReactBinding, pedantic: Boolean): Seq[better.files.File] = {
-    val logRegistry = new LogRegistry[Source, TsIdentLibrary, Unit](
-      logging.stdout.filter(LogLevel.error).syncAccess.void,
+  def apply(
+      npmDependencies: scala.Seq[(String, String)],
+      npmDirectory:    os.Path,
+      target:          os.Path,
+      reactBinding:    ReactBinding.Value,
+      pedantic:        Boolean,
+  ): Seq[os.Path] = {
+    val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
+      logging.stdout.filter(LogLevel.warn).syncAccess.void,
       _.libName,
       _ => logging.stdout.filter(LogLevel.error),
     )
 
-    runImport(npmDependencies, InFolder(os.Path(npmDirectory.path / "node_modules")), os.Path(target.path), pedantic, logRegistry, os.Path(target.path)) match {
-
-      case PhaseRes.Ok(value) =>
+    runImport(
+      npmDependencies,
+      InFolder(npmDirectory / "node_modules"),
+      target,
+      pedantic,
+      logRegistry,
+    ) match {
+      case PhaseRes.Ok(dirs) =>
+        dirs.values.to[Seq]
       case PhaseRes.Failure(errors) =>
+        errors foreach System.err.println
+        Nil
       case PhaseRes.Ignore() =>
+        Nil
     }
-
-    //TODO Figure out what to return here.
-    target.list(file => !file.isDirectory).to[Seq]
   }
 }
-

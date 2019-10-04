@@ -62,7 +62,6 @@ val `sbt-tso` = project
   .settings(
     sbtPlugin := true,
     name := "sbt-tsoplugin",
-    libraryDependencies ++= Seq("com.github.pathikrit" %% "better-files" % "3.8.0"),
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
     scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
