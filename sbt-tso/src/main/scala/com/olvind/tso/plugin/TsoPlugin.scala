@@ -1,4 +1,5 @@
-package com.olvind.tso.plugin
+package com.olvind.tso
+package plugin
 
 import com.olvind.logging
 import com.olvind.logging.Logger.Stored
@@ -9,7 +10,6 @@ import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versio
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.ts.{TsIdent, TsIdentLibrary, TsIdentLibrarySimple, parser}
-import com.olvind.tso.{InFile, InFolder}
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
@@ -19,10 +19,8 @@ import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.concurrent.ExecutionContext
 
 object ReactBinding extends Enumeration {
-  type ReactBinding = Value
   val native, slinky, jagpolly = Value
 }
-import com.olvind.tso.plugin.ReactBinding._
 
 object TsoPlugin extends AutoPlugin {
 
@@ -32,7 +30,7 @@ object TsoPlugin extends AutoPlugin {
 
   object autoImport {
     val importTypings = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val reactBinding = settingKey[ReactBinding]("The type of react binding to use")
+    val reactBinding = settingKey[ReactBinding.Value]("The type of react binding to use")
     val pedantic = settingKey[Boolean]("How harsh to be")
 
     import ScalaJSBundlerPlugin.autoImport._
@@ -139,7 +137,7 @@ object ImportTyping {
   }
 
 
-  def apply(npmDependencies: scala.Seq[(String, String)], npmDirectory: better.files.File, target: better.files.File, reactBinding: ReactBinding, pedantic: Boolean): Seq[better.files.File] = {
+  def apply(npmDependencies: scala.Seq[(String, String)], npmDirectory: better.files.File, target: better.files.File, reactBinding: ReactBinding.Value, pedantic: Boolean): Seq[better.files.File] = {
     val logRegistry = new LogRegistry[Source, TsIdentLibrary, Array[Stored]](
       logging.stdout.filter(LogLevel.warn).syncAccess.void,
       _.libName,
