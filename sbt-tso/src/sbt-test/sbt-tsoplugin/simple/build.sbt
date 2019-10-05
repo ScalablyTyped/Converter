@@ -20,6 +20,7 @@ lazy val newarch =
       libraryDependencies ++= Seq(
         library.scalaCheck % Test,
         library.scalaTest  % Test,
+        "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
         "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
         "com.github.pathikrit" %% "better-files" % "3.8.0"
 
