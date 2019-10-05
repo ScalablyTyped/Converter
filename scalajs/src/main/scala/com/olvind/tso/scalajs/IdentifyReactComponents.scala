@@ -118,24 +118,41 @@ object IdentifyReactComponents {
         }
         val propsTypeOpt    = flattenedParams.headOption.map(_.tpe)
         def isAbstractProps = propsTypeOpt.exists(scope.isAbstract)
-        def validName       = method.name.value.head.isUpper || Unnamed(method.name)
+        def validName = isUpper(method.name) || (Unnamed(method.name) && isUpper(owner.name))
 
         if (!validName || !isTopLevel || isAbstractProps) None
         else
           for {
             _ <- returnsElement(scope, method.resultType)
           } yield
-            Component(
-              fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
-              tparams          = method.tparams,
-              props            = propsTypeOpt,
-              scalaLocation    = method.codePath,
-              isGlobal         = isGlobal(method.annotations),
-              componentType    = ComponentType.Function,
-              isAbstractProps  = isAbstractProps,
-              componentMembers = Nil,
-              knownRef         = None,
-            )
+            method.name match {
+              case Name.APPLY =>
+                Component(
+                  fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
+                  tparams          = method.tparams,
+                  props            = propsTypeOpt,
+                  scalaLocation    = owner.codePath,
+                  isGlobal         = isGlobal(owner.annotations),
+                  componentType    = ComponentType.Field,
+                  isAbstractProps  = isAbstractProps,
+                  componentMembers = Nil,
+                  knownRef         = None,
+                )
+
+              case _ =>
+                Component(
+                  fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
+                  tparams          = method.tparams,
+                  props            = propsTypeOpt,
+                  scalaLocation    = method.codePath,
+                  isGlobal         = isGlobal(method.annotations),
+                  componentType    = ComponentType.Function,
+                  isAbstractProps  = isAbstractProps,
+                  componentMembers = Nil,
+                  knownRef         = None,
+                )
+
+            }
       case _ => None
     }
   }
@@ -333,4 +350,6 @@ object IdentifyReactComponents {
 
     val isComponent: Set[QualifiedName] = ComponentNames.map(n => QualifiedName(React :+ Name(n)))
   }
+
+  def isUpper(n: Name): Boolean = n.value.head.isUpper
 }
