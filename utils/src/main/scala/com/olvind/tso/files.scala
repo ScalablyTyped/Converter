@@ -5,6 +5,8 @@ import java.nio.file.Files
 import java.nio.file.StandardOpenOption.{CREATE, TRUNCATE_EXISTING}
 import java.util
 
+import os.Path
+
 sealed trait Synced
 object Synced {
   case object New extends Synced
@@ -43,7 +45,20 @@ object files {
     name === ".idea" || name === "target"
   }
 
-  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit = {
+  /**
+    * Returns all of the files processed
+    * @param fs
+    * @param folder
+    * @param deleteUnknowns
+    * @param soft
+    * @return
+    */
+  def sync(
+      fs:             Map[os.RelPath, Array[Byte]],
+      folder:         os.Path,
+      deleteUnknowns: Boolean,
+      soft:           Boolean,
+  ): scala.Iterable[Path] = {
 
     val absolutePathFiles: Map[os.Path, Array[Byte]] = fs.map {
       case (relPath, content) => folder / relPath -> content
@@ -63,6 +78,7 @@ object files {
       case (file, content) =>
         if (soft) softWriteBytes(file, content) else writeBytes(file, content)
     }
+    absolutePathFiles.keys
   }
 
   def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced = {
