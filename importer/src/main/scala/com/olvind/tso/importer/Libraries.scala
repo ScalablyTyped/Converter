@@ -250,13 +250,14 @@ object Libraries {
       "navigator-permissions",
       "webassembly-js-api",
       "w3c-permissions",
+      // circular, and somehow breaks sequential mode?
+      "koa-compose",
     )
     // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
     def circular = Set(
       "mali",
       "apollo-tracing",
       "playerframework",
-      "koa-compose",
       "gatsby",
       "socketcluster",
     )
