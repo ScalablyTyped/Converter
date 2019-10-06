@@ -1,20 +1,18 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging
-import com.olvind.logging.{LogLevel, LogRegistry}
+import com.olvind.logging.LogLevel
 import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer._
-import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.ts.{parser, TsIdent, TsIdentLibrary, TsIdentLibrarySimple}
+import com.olvind.tso.seqs._
+import com.olvind.tso.ts.{TsIdent, TsIdentLibrary, TsIdentLibraryScoped, TsIdentLibrarySimple, parser}
 import os.Path
 import sbt.Keys._
-import sbt.{Def, _}
+import sbt._
+import sbt.internal.util.ManagedLogger
 import sbt.plugins.JvmPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
-
-import scala.collection.immutable.SortedMap
 
 object ReactBinding extends Enumeration {
   val native, slinky, jagpolly = Value
@@ -44,26 +42,15 @@ object TsoPlugin extends AutoPlugin {
       },
       importTypings := {
         //TODO check to see if nothing has changed, if nothing has changed, then do nothing.
-
-        val npmDirectory = os.Path((npmInstallDependencies in Compile).value.getAbsolutePath)
-
-        val target = os.Path(((sourceManaged in Compile).value / "tso").getAbsolutePath)
-
-        val returnedFiles = ImportTyping(
-          (npmDependencies in Compile).value,
-          npmDirectory,
-          target,
-          (reactBinding in importTypings).value,
-          (pedantic in importTypings).value,
-        ).map(_.toIO)
-
-        println("Returned files")
-        println(returnedFiles.map(_.absolutePath).mkString("\n")) //We're obviously not returning all the files
-
-        returnedFiles.to[scala.collection.immutable.Seq]
+        ImportTypings(
+          npmDependencies = (npmDependencies in Compile).value.to[Seq],
+          npmDirectory    = (npmInstallDependencies in Compile).value,
+          target          = (sourceManaged in Compile).value / "tso",
+          reactBinding    = (reactBinding in importTypings).value,
+          sbtLogger       = streams.value.log,
+        )
       },
       reactBinding in importTypings := ReactBinding.native,
-      pedantic in importTypings := false,
       typescriptVersion in importTypings := "3.6.3",
       sourceGenerators in Compile += importTypings.taskValue,
     )
@@ -79,16 +66,15 @@ object TsoPlugin extends AutoPlugin {
 
 }
 
-object ImportTyping {
+object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   private def runImport(
-      npmDependencies: scala.Seq[(String, String)],
+      npmDependencies: Seq[(String, String)],
       source:          InFolder,
       targetFolder:    os.Path,
-      pedantic:        Boolean,
-      logRegistry:     LogRegistry[Source, TsIdentLibrary, _],
-  ): PhaseRes[Source, SortedMap[Source, Iterable[Path]]] = {
+      sbtLogger:       ManagedLogger,
+  ): Either[Map[Source, List[Either[Throwable, String]]], Seq[File]] = {
 
     val stdLibSource: Source =
       StdLibSource(
@@ -96,64 +82,62 @@ object ImportTyping {
         TsIdent.std,
       )
 
-    val phase =
+    val phase: RecPhase[Source, Map[Source, Seq[os.Path]]] =
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            new LibraryResolver(stdLibSource, Seq(source), None),
+            new LibraryResolver(stdLibSource, Seq(InFolder(source.path / "@types"), source), None),
             None,
             Set.empty,
             stdLibSource,
-            pedantic,
+            pedantic = false,
             parser.parseFile,
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic = false), "scala.js")
         .next(new Phase3WriteFiles(targetFolder = targetFolder, softWrites = false), "build")
 
-    val found: Set[Source] = npmDependencies.map(
-      tuple => Source.FromFolder(InFolder(source.path / os.RelPath(tuple._1)), TsIdentLibrarySimple(tuple._1)),
-    )(collection.breakOut)
+    val sources: Set[Source] =
+      npmDependencies
+        .map {
+          case (name, _) =>
+            val libName = TsIdentLibrary(name) match {
+              case TsIdentLibraryScoped("types", Some(value)) => TsIdentLibrarySimple(value)
+              case other                                      => other
+            }
 
-    found.foreach(src => println(s">>>>>>>>>>>>>>>>>>>>>>>>> ${src.path}"))
+            Source.FromFolder(InFolder(source.path / os.RelPath(name)), libName): Source
+        }
+        .groupBy(_.libName)
+        .flatMap {
+          case (TsIdentLibrarySimple("typescript"), _) => None
+          case (_, sameName)                           => sameName.find(s => os.walk(s.folder.path).exists(_.last.endsWith(".d.ts")))
+        }
+        .to[Set] + stdLibSource
 
-    PhaseRes.sequenceMap(found.map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)).toMap.toSorted)
+    sources.foreach(src => println(s">>>>>>>>>>>>>>>>>>>>>>>>> ${src}"))
+
+    sources
+      .map(PhaseRunner(phase, (s: Source) => WrapSbtLogger(sbtLogger)(s).filter(LogLevel.warn).void, NoListener))
+      .to[Seq]
+      .partitionCollect2({ case PhaseRes.Failure(x) => x }, { case PhaseRes.Ok(x) => x }) match {
+      case (Nil, filesBySource: Seq[Map[Source, Seq[Path]]], _) => Right(maps.smash(filesBySource).foldLeft(Seq.empty[File]) { _ ++ _._2.map(_.toIO) })
+      case (errors, _, _)          => Left(maps.sum(errors))
+    }
   }
 
   def apply(
-      npmDependencies: scala.Seq[(String, String)],
-      npmDirectory:    os.Path,
-      target:          os.Path,
+      npmDependencies: Seq[(String, String)],
+      npmDirectory:    File,
+      target:          File,
       reactBinding:    ReactBinding.Value,
-      pedantic:        Boolean,
-  ): Iterable[os.Path] = {
-
-    //TODO integrate reactBinding here.
-    val logRegistry = new LogRegistry[Source, TsIdentLibrary, Unit](
-      logging.stdout.filter(LogLevel.warn).syncAccess.void,
-      _.libName,
-      _ => logging.storing(),
-    )
-    //TODO Here's what the plugin should do
-    //TODO run npm on a set of projects
-    //TODO run the importer on those projects
-    //TODO compile the results of the importer
-
-    runImport(
-      npmDependencies,
-      InFolder(npmDirectory / "node_modules"),
-      target,
-      pedantic,
-      logRegistry,
-    ) match {
-      case PhaseRes.Ok(files) =>
-        files.flatMap(_._2)
-      case PhaseRes.Failure(errors) =>
+      sbtLogger:       ManagedLogger,
+  ): Seq[File] =
+    runImport(npmDependencies, InFolder(os.Path(npmDirectory / "node_modules")), os.Path(target), sbtLogger) match {
+      case Right(files) => files
+      case Left(errors) =>
         errors foreach System.err.println
         Nil
-      case PhaseRes.Ignore() =>
-        Nil
     }
-  }
 }

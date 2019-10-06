@@ -16,6 +16,11 @@ object maps {
     ret.toMap
   }
 
+  def smash[K, V](ms: scala.Iterable[Map[K, V]]): Map[K, V] =
+    ms.foldLeft(Map.empty[K, V]) {
+      case (acc, current) => acc ++ current
+    }
+
   def combine[K, V](ms: Iterable[Map[K, Seq[V]]]): Map[K, Seq[V]] = {
     val ret = mutable.Map.empty[K, Seq[V]]
     ms.foreach(_.foreach { case (k, v) => ret.update(k, ret.get(k).fold(v)(v ++ _)) })

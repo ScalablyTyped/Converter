@@ -8,7 +8,10 @@ val baseSettings: Project => Project =
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings")
-    ))
+    )),
+    /* disable scaladoc */
+    sources in (Compile,doc) := Seq.empty,
+    publishArtifact in (Compile, packageDoc) := false
   )
 
 val utils = project
