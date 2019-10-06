@@ -197,10 +197,11 @@ class Main(config: Config) {
               if (config.enableParseCache)
                 PersistingFunction(nameAndMtimeUnder(existing(config.cacheFolder / 'parse)), logger.void)(parseFile)
               else parseFile,
+            reactBinding = config.reactBinding,
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(config.pedantic, config.reactBinding), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -213,6 +214,7 @@ class Main(config: Config) {
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
+            reactBinding    = config.reactBinding,
           ),
           "build",
         )

@@ -10,9 +10,15 @@ final case class QualifiedName(parts: List[Name]) {
 
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
+
+  def toClass = Class.forName(parts.map(_.value).mkString("."))
+
 }
 
 object QualifiedName {
+
+  def apply(str: String): QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
+
   val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
   val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)
   val scala_scalajs: QualifiedName = scala + Name.scalajs
@@ -66,6 +72,41 @@ object QualifiedName {
     val ReadonlyArray: QualifiedName = std + Name("ReadonlyArray")
     val String:        QualifiedName = std + Name.String
     val Symbol:        QualifiedName = std + Name.Symbol
+  }
+
+  object React {
+    val mod = QualifiedName(List(ScalaConfig.outputPkg, Name("react"), Name("reactMod")))
+
+    val ReactNode         = mod + Name("ReactNode")
+    val ReactElement      = mod + Name("ReactElement")
+    val ReactType         = mod + Name("ReactType")
+    val AllHTMLAttributes = mod + Name("AllHTMLAttributes")
+    val SVGAttributes     = mod + Name("SVGAttributes")
+    val Component         = mod + Name("Component")
+    val ComponentType     = mod + Name("ComponentType")
+    val ChangeEvent       = mod + Name("ChangeEvent")
+
+    val ComponentNames: Set[String] =
+      Set(
+        "ClassicComponent",
+        "ClassicComponentClass",
+        "Component",
+        "ComponentClass",
+        "ComponentType",
+        "ExoticComponent",
+        "FC",
+        "FunctionComponent",
+        "LazyExoticComponent",
+        "MemoExoticComponent",
+        "NamedExoticComponent",
+        "ProviderExoticComponent",
+        "PureComponent",
+        "RefForwardingComponent",
+        "SFC",
+        "StatelessComponent",
+      )
+
+    val isComponent: Set[QualifiedName] = ComponentNames.map(mod + Name(_))
   }
 
   def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")

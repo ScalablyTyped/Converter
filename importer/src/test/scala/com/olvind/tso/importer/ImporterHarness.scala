@@ -39,6 +39,7 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
+      reactBinding: ReactBinding
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
@@ -56,10 +57,11 @@ trait ImporterHarness extends FunSuiteLike {
             stdLibSource,
             pedantic,
             parser.parseFile,
+            reactBinding = reactBinding
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic, reactBinding), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -72,6 +74,7 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             metadataFetcher = Npmjs.No,
             softWrites      = false,
+            reactBinding = reactBinding
           ),
           "build",
         )
@@ -85,7 +88,7 @@ trait ImporterHarness extends FunSuiteLike {
     )
   }
 
-  def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean): Assertion = {
+  def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean, reactBinding: ReactBinding = ReactBinding.native): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
       case other =>
@@ -105,7 +108,7 @@ trait ImporterHarness extends FunSuiteLike {
 
     val publishFolder = os.root / 'tmp / "tso-published-tests" / testName
 
-    runImport(source, targetFolder, pedantic, logRegistry, publishFolder) match {
+    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, reactBinding) match {
       case PhaseRes.Ok(_) =>
         implicit val wd = os.pwd
 
