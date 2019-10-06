@@ -30,7 +30,6 @@ class Phase1ReadTypescript(
     stdlibSource:            Source,
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
-    reactBinding:            ReactBinding,
 ) extends Phase[Source, Source, Phase1Res] {
 
   implicit val InFileFormatter: Formatter[InFile] =

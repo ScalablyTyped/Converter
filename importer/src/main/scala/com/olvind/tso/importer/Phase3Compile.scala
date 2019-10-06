@@ -44,7 +44,7 @@ class Phase3Compile(
     publishFolder:   os.Path,
     metadataFetcher: Npmjs.Fetcher,
     softWrites:      Boolean,
-    reactBinding:    ReactBinding,
+    reactBinding:    Option[ReactBinding],
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -160,7 +160,7 @@ class Phase3Compile(
             }
 
             val externalDeps: Set[FacadeJson.Dep] =
-              if (involvesReact) reactBinding.dependencies else Set.empty
+              if (involvesReact) reactBinding.fold(Set.empty[FacadeJson.Dep])(_.dependencies) else Set.empty
 
             val sbtLayout = ContentSbtProject(
               v               = versions,

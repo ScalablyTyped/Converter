@@ -5,11 +5,6 @@ import com.olvind.tso.scalajs.transforms.{GenerateReactComponentsObject, ScalaJs
 import com.olvind.tso.scalajs.{ContainerTree, TreeScope}
 
 object ReactBinding {
-  val native = new ReactBinding {
-    override def dependencies: Set[FacadeJson.Dep] = Set.empty
-    override def generateReactComponents(s: TreeScope, tree: ContainerTree): ContainerTree =
-      GenerateReactComponentsObject(s, tree)
-  }
   val slinky = new ReactBinding {
     override def dependencies: Set[FacadeJson.Dep] =
       Set(FacadeJson.Dep("me.shadaj", "slinky-web", "0.6.2"))

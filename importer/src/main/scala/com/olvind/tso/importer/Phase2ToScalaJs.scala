@@ -6,16 +6,11 @@ import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
-import com.olvind.tso.ts.TsIdentLibrary
+import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
 import scala.collection.immutable.SortedSet
 
-/**
-  * This phase starts by going from the typescript AST to the scala AST.
-  * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
-  * @param pedantic
-  */
-class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding]) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -58,6 +53,11 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               }
             }
 
+            val involvesReact: Boolean = {
+              val react = TsIdentLibrarySimple("react")
+              source.libName === react || scalaDeps.exists(_._1.libName === react)
+            }
+
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
               S.RemoveDuplicateInheritance >>
@@ -75,7 +75,11 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.GenerateReactComponentsObject(s, tree)),
+              Adapter(scope) { (tree, s) =>
+                if (involvesReact) {
+                  reactBinding.fold(tree)(_.generateReactComponents(s, tree))
+                } else tree
+              },
             )
 
             val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger, importName)) {

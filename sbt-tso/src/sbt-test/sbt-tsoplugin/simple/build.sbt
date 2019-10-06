@@ -75,7 +75,7 @@ lazy val commonSettings =
 
 lazy val tsoSettings: Project => Project =
   _.enablePlugins(TsoPlugin)
-    .settings()
+    .settings(reactBinding := com.olvind.tso.plugin.ReactBindingJagpolly)
 
 lazy val bundlerSettings: Project => Project =
   _.enablePlugins(ScalaJSBundlerPlugin)

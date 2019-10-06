@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Source.StdLibSource
 import com.olvind.tso.importer._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.seqs._
-import com.olvind.tso.ts.{TsIdent, TsIdentLibrary, TsIdentLibraryScoped, TsIdentLibrarySimple, parser}
+import com.olvind.tso.ts._
 import os.Path
 import sbt.Keys._
 import sbt._
@@ -14,9 +14,13 @@ import sbt.internal.util.ManagedLogger
 import sbt.plugins.JvmPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
-object ReactBinding extends Enumeration {
-  val native, slinky, jagpolly = Value
-}
+sealed trait ReactBinding
+
+object ReactBindingNative extends ReactBinding
+
+object ReactBindingSlinky extends ReactBinding
+
+object ReactBindingJagpolly extends ReactBinding
 
 object TsoPlugin extends AutoPlugin {
 
@@ -26,7 +30,7 @@ object TsoPlugin extends AutoPlugin {
 
   object autoImport {
     val importTypings     = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val reactBinding      = settingKey[ReactBinding.Value]("The type of react binding to use")
+    val reactBinding = settingKey[ReactBinding]("The type of react binding to use")
     val pedantic          = settingKey[Boolean]("How harsh to be")
     val typescriptVersion = settingKey[String]("The version of the typescript library that it should use")
 
@@ -50,7 +54,7 @@ object TsoPlugin extends AutoPlugin {
           sbtLogger       = streams.value.log,
         )
       },
-      reactBinding in importTypings := ReactBinding.native,
+      reactBinding in importTypings := ReactBindingNative,
       typescriptVersion in importTypings := "3.6.3",
       sourceGenerators in Compile += importTypings.taskValue,
     )
@@ -70,10 +74,11 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   private def runImport(
-      npmDependencies: Seq[(String, String)],
-      source:          InFolder,
-      targetFolder:    os.Path,
-      sbtLogger:       ManagedLogger,
+                         npmDependencies: Seq[(String, String)],
+                         source:          InFolder,
+                         targetFolder:    os.Path,
+                         sbtLogger:       ManagedLogger,
+                         reactBinding: ReactBinding
   ): Either[Map[Source, List[Either[Throwable, String]]], Seq[File]] = {
 
     val stdLibSource: Source =
@@ -81,6 +86,12 @@ object ImportTypings {
         InFile(source.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
         TsIdent.std,
       )
+
+    val bindings = reactBinding match {
+      case ReactBindingNative => None
+      case ReactBindingSlinky => Option(com.olvind.tso.importer.ReactBinding.slinky)
+      case ReactBindingJagpolly => Option(com.olvind.tso.importer.ReactBinding.scalajsReact)
+    }
 
     val phase: RecPhase[Source, Map[Source, Seq[os.Path]]] =
       RecPhase[Source]
@@ -95,7 +106,7 @@ object ImportTypings {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic = false), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic = false, bindings), "scala.js")
         .next(new Phase3WriteFiles(targetFolder = targetFolder, softWrites = false), "build")
 
     val sources: Set[Source] =
@@ -128,13 +139,13 @@ object ImportTypings {
   }
 
   def apply(
-      npmDependencies: Seq[(String, String)],
-      npmDirectory:    File,
-      target:          File,
-      reactBinding:    ReactBinding.Value,
-      sbtLogger:       ManagedLogger,
+             npmDependencies: Seq[(String, String)],
+             npmDirectory:    File,
+             target:          File,
+             reactBinding: ReactBinding,
+             sbtLogger:       ManagedLogger,
   ): Seq[File] =
-    runImport(npmDependencies, InFolder(os.Path(npmDirectory / "node_modules")), os.Path(target), sbtLogger) match {
+    runImport(npmDependencies, InFolder(os.Path(npmDirectory / "node_modules")), os.Path(target), sbtLogger, reactBinding) match {
       case Right(files) => files
       case Left(errors) =>
         errors foreach System.err.println

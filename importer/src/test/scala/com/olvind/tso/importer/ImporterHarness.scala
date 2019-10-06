@@ -39,7 +39,7 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
-      reactBinding: ReactBinding
+      reactBinding: Option[ReactBinding]
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFile(source.path / "stdlib.d.ts"), TsIdentLibrarySimple("std"))
@@ -56,8 +56,7 @@ trait ImporterHarness extends FunSuiteLike {
             Set.empty,
             stdLibSource,
             pedantic,
-            parser.parseFile,
-            reactBinding = reactBinding
+            parser.parseFile
           ),
           "typescript",
         )
@@ -88,7 +87,7 @@ trait ImporterHarness extends FunSuiteLike {
     )
   }
 
-  def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean, reactBinding: ReactBinding = ReactBinding.native): Assertion = {
+  def assertImportsOk(testName: String, pedantic: Boolean, update: Boolean, reactBinding: Option[ReactBinding] = None): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
       case other =>
