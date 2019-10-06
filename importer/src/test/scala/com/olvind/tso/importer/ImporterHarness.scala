@@ -27,7 +27,7 @@ trait ImporterHarness extends FunSuiteLike {
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
   private val testCmd    = new Cmd(testLogger, None)
-  private val version    = Versions.`scala 2.13 with scala.js 1`
+  private val version    = Versions.`scala 2.12 with scala.js 0.6`
   private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, failureCacheDir)
 
   val OutputPkg:  Name                  = Name("typings")

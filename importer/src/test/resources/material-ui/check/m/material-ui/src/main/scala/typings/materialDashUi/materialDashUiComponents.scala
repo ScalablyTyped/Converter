@@ -11,11 +11,8 @@ object materialDashUiComponents extends materialDashUiProps {
   @scala.inline
   def ActionAccessibility: ComponentType[js.Object] = js.constructorOf[typings.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility].asInstanceOf[typings.react.reactMod.ComponentType[js.Object]]
   @scala.inline
-  def BottomNavigationItem: ComponentType[
-    typings.materialDashUi.underscoreUnderscoreMaterialUINs.BottomNavigationNs.BottomNavigationItemProps
-  ] = js.constructorOf[typings.materialDashUi.bottomNavigationBottomNavigationItemMod.default].asInstanceOf[typings.react.reactMod.ComponentType[
-  typings.materialDashUi.underscoreUnderscoreMaterialUINs.BottomNavigationNs.BottomNavigationItemProps]]
+  def BottomNavigationItem: ComponentType[typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps] = js.constructorOf[typings.materialDashUi.bottomNavigationBottomNavigationItemMod.default].asInstanceOf[typings.react.reactMod.ComponentType[typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps]]
   @scala.inline
-  def SvgIcon: ComponentType[js.Object] = js.constructorOf[typings.materialDashUi.underscoreUnderscoreMaterialUINs.SvgIcon].asInstanceOf[typings.react.reactMod.ComponentType[js.Object]]
+  def SvgIcon: ComponentType[js.Object] = js.constructorOf[typings.materialDashUi.__MaterialUI.SvgIcon].asInstanceOf[typings.react.reactMod.ComponentType[js.Object]]
 }
 

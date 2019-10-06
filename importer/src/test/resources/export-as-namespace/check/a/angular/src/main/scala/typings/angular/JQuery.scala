@@ -1,6 +1,6 @@
 package typings.angular
 
-import typings.angular.angularMod.autoNs.IInjectorService
+import typings.angular.angularMod.auto.IInjectorService
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

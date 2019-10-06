@@ -1,14 +1,14 @@
 organization := "org.scalablytyped"
 name := "react-icon-base"
-version := "2.1-47dc6d"
-scalaVersion := "2.13.0"
+version := "2.1-81652c"
+scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-508abf",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-46c534")
+  "org.scalablytyped" %%% "react" % "0.0-unknown-fcd740",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-f66baf")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-g:notailcalls")
+scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

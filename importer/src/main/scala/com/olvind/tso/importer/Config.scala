@@ -21,11 +21,10 @@ case class Config(
     dontCleanProject: Boolean,
     /* only overwrite changed files to play better with tooling like intellij */
     softWrites:     Boolean,
+    debugMode:      Boolean,
     wantedLibNames: Set[String],
     versions:       Versions,
 ) {
-
-  def debugMode = wantedLibNames.nonEmpty
 
   // change in source code for now, lazy...
   val projectName       = "ScalablyTyped"
@@ -53,6 +52,8 @@ object Config {
           Some(PublishConfig(values("user"), values("password")))
         } else None
 
+        val wantedLibNames = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
+
         Some(
           Config(
             runId            = constants.DateTimePattern format LocalDateTime.now,
@@ -65,7 +66,8 @@ object Config {
             enableParseCache = flags contains "-enableParseCache",
             dontCleanProject = flags contains "-dontCleanProject",
             softWrites       = flags contains "-softWrites",
-            wantedLibNames   = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest,
+            debugMode        = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
+            wantedLibNames   = wantedLibNames,
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,

@@ -24,7 +24,7 @@ object GenerateSbtPlugin {
       soft           = true,
     )
     implicit val wd = projectDir
-    % sbt action
+    %.extend(Nil, Map("JVM_OPTS" -> "-Xmx1G"))('sbt, action)
   }
 
   def contents(

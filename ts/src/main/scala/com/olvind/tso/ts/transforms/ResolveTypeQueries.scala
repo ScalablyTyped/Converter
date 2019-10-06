@@ -3,10 +3,78 @@ package ts
 package transforms
 
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
-import com.olvind.tso.ts.modules.ReplaceExports
+import com.olvind.tso.ts.modules.{DeriveCopy, ReplaceExports}
 import com.olvind.tso.seqs._
 
-object ResolveTypeQueries extends TreeTransformationScopedChanges {
+object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClassMembers {
+  def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): Seq[TsMember] =
+    tree.members.flatMap {
+      case target @ TsMemberProperty(
+            cs,
+            level,
+            name,
+            Some(tpe @ TsTypeQuery(wanted)),
+            None,
+            isStatic,
+            isReadOnly,
+            isOptional,
+          ) if !TsQIdent.Primitive(wanted) =>
+        val founds = scope
+          .lookupBase(Picker.NamedValues, wanted)
+          .map {
+            case (found: TsDeclVar, _) =>
+              target.copy(comments = cs ++ found.comments, tpe = found.tpe)
+            case (found: TsDeclFunction, _) =>
+              TsMemberFunction(cs ++ found.comments, level, name, found.signature, isStatic, isReadOnly, isOptional)
+            case (found, newScope) =>
+              target.copy(tpe = typeOf(found, newScope, LoopDetector.initial))
+          }
+
+        founds match {
+          case Nil =>
+            val msg = s"Couldn't resolve ${TsTypeFormatter(tpe)}"
+            scope.logger.warn(msg)
+            List(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
+          case more =>
+            scope.logger.info(s"Resolved $target")
+            more
+        }
+      case other => List(other)
+    }
+
+  def newMembers(scope: TsTreeScope, tree: TsContainer): Seq[TsContainerOrDecl] =
+    tree.members.flatMap {
+      case target @ TsDeclVar(_, _, _, name, Some(tpe @ TsTypeQuery(expr)), None, _, _, false)
+          if !TsQIdent.Primitive(expr) =>
+        lazy val ownerLoc = tree match {
+          case x: HasJsLocation => x.jsLocation
+          case _ => JsLocation.Zero
+        }
+
+        val founds = scope
+          .lookupBase(Picker.NamedValues, expr)
+          .flatMap {
+            case (found, _) =>
+              DeriveCopy(found, Some(name)).map { copy =>
+                SetJsLocation.visitTsNamedDecl(ownerLoc)(
+                  SetCodePath.visitTsNamedDecl(tree.codePath.forceHasPath)(copy),
+                )
+              }
+          }
+
+        founds match {
+          case Nil =>
+            val msg = s"Couldn't resolve ${TsTypeFormatter(tpe)}"
+            scope.logger.warn(msg)
+            List(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
+          case more =>
+            scope.logger.info(s"Resolved $target")
+            more
+        }
+
+      case other => List(other)
+    }
+
   override def leaveTsType(t: TsTreeScope)(x: TsType): TsType =
     x match {
       case xx: TsTypeQuery => resolve(t, xx, LoopDetector.initial)

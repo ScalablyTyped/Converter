@@ -14,7 +14,7 @@ object GenerateReactComponentsObject {
     val scope = _scope / tree
 
     val allComponents: Seq[Component] =
-      IdentifyReactComponents.limited(scope, tree)
+      IdentifyReactComponents.oneOfEach(scope, tree)
 
     val components = allComponents take MaxNumComponents
 

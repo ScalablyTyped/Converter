@@ -1,6 +1,6 @@
 package com.olvind.tso
 
-/* I'm sure you can discuss how pretty it is, but at least try to do it consistently */
+/* I'm sure we can discuss how pretty it is, but at least try to do it consistently */
 object prettyString {
   def apply(value: String, suffix: String, forceCamelCase: Boolean): String =
     value

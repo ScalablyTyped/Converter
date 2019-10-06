@@ -17,12 +17,12 @@ import com.olvind.tso.scalajs._
   */
 object CompleteClass extends TreeTransformation {
 
-  override def enterModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
+  override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     mod.copy(
       members = mod.members ++ implementations(scope, mod, ParentsResolver(scope, mod)),
     )
 
-  override def enterClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
+  override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val parents = ParentsResolver(scope, cls)
 
     val newImplementations: Iterable[MemberTree] =

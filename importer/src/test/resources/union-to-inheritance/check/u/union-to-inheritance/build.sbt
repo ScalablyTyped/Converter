@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "union-to-inheritance"
-version := "0.0-unknown-635663"
-scalaVersion := "2.13.0"
+version := "0.0-unknown-f30b0e"
+scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-a10f6c")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-f1c09a")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-g:notailcalls")
+scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

@@ -8,7 +8,7 @@ import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
-import com.olvind.tso.ts.{modules, transforms => T, _}
+import com.olvind.tso.ts.{transforms => T, _}
 
 import scala.collection.immutable.SortedMap
 
@@ -192,7 +192,7 @@ class Phase1ReadTypescript(
 
               logger.warn(s"Processing ${source.libName}")
               val finished = Phase1ReadTypescript
-                .Pipeline(scope, source.libName, enableExpandTypeMappings, involvesReact)
+                .Pipeline(scope, source.libName, enableExpandTypeMappings, enableExpandCallables = !involvesReact)
                 .foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
               val version = calculateLibraryVersion.fold(LibraryVersion(None, None, ""))(
@@ -223,8 +223,11 @@ object Phase1ReadTypescript {
       T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),
       T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
       modules.HandleCommonJsModules.visitTsParsedFile(scope),
-      (T.SimplifyParents >> T.InferTypeFromExpr >> T.InferEnumTypes /* before InlineConstEnum */ >> T.NormalizeFunctions /* before FlattenTrees */ )
-        .visitTsParsedFile(scope.caching),
+      (T.SimplifyParents >>
+        T.InferTypeFromExpr >>
+        T.InferEnumTypes /* before InlineConstEnum */ >>
+        T.NormalizeFunctions /* before FlattenTrees */
+      ).visitTsParsedFile(scope.caching),
       T.QualifyReferences.visitTsParsedFile(scope.caching),
       modules.AugmentModules(scope.caching),
       T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
@@ -249,8 +252,8 @@ object Phase1ReadTypescript {
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
       T.ExtractInterfaces(libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
       (
-        if (enableExpandCallables) T.ExtractClasses
-        else T.ExtractClasses >> T.ExpandCallables
+        if (enableExpandCallables) T.ExtractClasses >> T.ExpandCallables
+        else T.ExtractClasses
       ).visitTsParsedFile(scope.caching),
       (
         T.SplitMethodsOnUnionTypes >> // after ExpandCallables

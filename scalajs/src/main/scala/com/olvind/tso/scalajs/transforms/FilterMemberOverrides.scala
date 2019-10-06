@@ -15,13 +15,13 @@ import com.olvind.tso.seqs.TraversableOps
   */
 object FilterMemberOverrides extends TreeTransformation {
 
-  override def enterClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
+  override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
     s.copy(members = newMembers(scope, s, s.members))
 
-  override def enterModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
+  override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
     s.copy(members = newMembers(scope, s, s.members))
 
-  override def enterPackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
+  override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
     s.copy(members = newMembers(scope, s, s.members))
 
   private def newMembers(scope: TreeScope, owner: Tree, members: Seq[Tree]): Seq[Tree] = {

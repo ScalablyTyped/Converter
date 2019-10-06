@@ -28,7 +28,9 @@ lazy val newarch =
       Compile / npmDependencies ++= Seq(
         "typescript" -> "3.6.3", //TODO Probably can remove this
         "react-dom" -> "16.9",
+        "@types/react-dom" -> "16.9.1",
         "react" -> "16.9",
+        "@types/react" -> "16.9.5",
         "semantic-ui-react" -> "0.88.1",
       ),
     )

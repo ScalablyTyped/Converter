@@ -9,7 +9,7 @@ object Versions {
     val scalaVersion        = "2.12.10"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "0.6.28"
+    val scalaJsVersion      = "0.6.29"
     val scalaJsBinVersion   = "0.6"
     val scalacOptions       = List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
   }
@@ -37,7 +37,7 @@ trait Versions {
   val RuntimeOrganization = "com.olvind"
   val RuntimeName         = "scalablytyped-runtime"
   val RuntimeVersion      = "2.1.0"
-  val sbtVersion          = "1.2.8"
+  val sbtVersion          = "1.3.2"
   val sbtBintray          = %("org.foundweekends", "sbt-bintray", "0.5.4")
 
   def s(artifact: String): String =

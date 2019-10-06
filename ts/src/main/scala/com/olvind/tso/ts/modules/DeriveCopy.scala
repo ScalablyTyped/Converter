@@ -58,7 +58,7 @@ object DeriveCopy {
           case other => Seq(other)
         }
         val name = rename match {
-          case Some(renamed) => TsIdentNamespace(renamed.value)
+          case Some(renamed) => renamed
           case None          => x.name
         }
         List(x.copy(name = name, members = newMembers))
@@ -70,8 +70,8 @@ object DeriveCopy {
         }
 
         val name = rename match {
-          case Some(renamed) => TsIdentNamespace(renamed.value)
-          case None          => TsIdentNamespace(x.name.value)
+          case Some(renamed) => renamed
+          case None          => x.name
         }
 
         List(

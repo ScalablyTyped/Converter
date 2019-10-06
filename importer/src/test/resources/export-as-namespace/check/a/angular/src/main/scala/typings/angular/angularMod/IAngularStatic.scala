@@ -3,7 +3,7 @@ package typings.angular.angularMod
 import typings.angular.JQLite
 import typings.angular.JQuery
 import typings.angular.JQueryStatic
-import typings.angular.angularMod.autoNs.IInjectorService
+import typings.angular.angularMod.auto.IInjectorService
 import typings.std.ArrayLike
 import typings.std.Document
 import typings.std.Element

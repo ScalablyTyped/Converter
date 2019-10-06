@@ -2,20 +2,23 @@ package com.olvind.tso
 package ts
 package transforms
 
+import com.olvind.tso.seqs._
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
-import seqs._
 
-object ExtractClasses extends TransformMembers {
+object ExtractClasses extends TransformLeaveMembers {
   override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] = {
+    val findName = FindAvailableName(x, scope)
+
     val byNames = x.membersByName.flatMap {
       case (_, sameName: Seq[TsNamedDecl]) =>
-        extractClasses(scope, sameName, x.membersByName).getOrElse(sameName)
+        extractClasses(scope, sameName, findName).getOrElse(sameName)
     }
 
     x.unnamed ++ byNames
   }
 
   /* avoid generating a class extending from a type parameter, say */
+  @scala.annotation.tailrec
   def isSimpleType(ref: TsTypeRef, s: TsTreeScope): Boolean =
     if (s.isAbstract(ref.name)) false
     else
@@ -27,11 +30,15 @@ object ExtractClasses extends TransformMembers {
         case _ => false
       }
 
-  def typeCtorToClass(ownerLoc: JsLocation, ownerCp: CodePath): PartialFunction[TsMember, TsDeclClass] = {
+  def typeCtorToClass(
+      findName: FindAvailableName,
+      ownerLoc: JsLocation,
+      ownerCp:  CodePath,
+  ): PartialFunction[TsMember, TsDeclClass] = {
     case TsMemberProperty(
         cs,
         level,
-        name,
+        origName,
         Some(
           TsTypeConstructor(TsTypeFunction(TsFunSig(cs1, tparams, params, Some(resultType: TsTypeRef)))),
         ),
@@ -39,7 +46,8 @@ object ExtractClasses extends TransformMembers {
         isStatic,
         isReadOnly,
         false,
-        ) =>
+        ) if findName(origName).isDefined =>
+      val name = findName(origName).get
       TsDeclClass(
         cs,
         declared   = false,
@@ -59,25 +67,30 @@ object ExtractClasses extends TransformMembers {
             isOptional = false,
           ),
         ),
-        ownerLoc + name,
+        ownerLoc + origName,
         ownerCp + name,
       )
-
   }
 
-  private def extractClasses(
-      scope:    TsTreeScope,
-      sameName: Seq[TsNamedDecl],
-      index:    Map[TsIdent, Seq[TsNamedDecl]],
-  ): Option[List[TsNamedDecl]] = {
-    val (vars, rest: Seq[TsNamedDecl]) =
-      sameName.partitionCollect { case x: TsDeclVar => x }
-
-    def existsNamespace: Boolean =
-      rest.exists {
-        case _: TsDeclNamespace => true;
-        case _ => false
+  object FindAvailableName {
+    def apply(x: TsContainer, scope: TsTreeScope): FindAvailableName = {
+      val idx = scope.stack match {
+        case (x1: TsDeclNamespace) :: (x2: TsContainer) :: _ if x1.name === TsIdent.namespaced =>
+          maps.combine(List(x1.membersByName, x2.membersByName))
+        case _ => x.membersByName
       }
+      new FindAvailableName(idx)
+    }
+  }
+
+  class FindAvailableName private (index: Map[TsIdent, Seq[TsNamedDecl]]) {
+    def apply(potentialName: TsIdent): Option[TsIdent] = {
+      def backupName =
+        if (potentialName === TsIdent.namespaced) TsIdent.namespacedCls
+        else TsIdentSimple(potentialName.value + "Cls")
+
+      availableTypeName(potentialName) orElse availableTypeName(backupName)
+    }
 
     def availableTypeName(potentialName: TsIdent): Option[TsIdent] =
       index.get(potentialName) match {
@@ -91,22 +104,30 @@ object ExtractClasses extends TransformMembers {
           }
           if (isCollision) None else Some(potentialName)
       }
+  }
+
+  private def extractClasses(
+      scope:    TsTreeScope,
+      sameName: Seq[TsNamedDecl],
+      findName: FindAvailableName,
+  ): Option[List[TsNamedDecl]] = {
+    val (vars, namespaces, rest: Seq[TsNamedDecl]) =
+      sameName.partitionCollect2({ case x: TsDeclVar => x }, { case x: TsDeclNamespace => x })
 
     vars.toList match {
-      case (v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false)) :: _ =>
+      case (v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false)) :: restVars =>
         val allMembers = AllMembersFor.forType(scope, LoopDetector.initial)(tpe)
 
-        /* extract named constructors in class into proper classes in a parallel namespace, if possible */
-        val namespaceOpt: Option[TsDeclNamespace] =
-          if (existsNamespace) None
-          else {
-            val nameNs    = TsIdentNamespace(name.value)
-            val patchedCp = cp.replaceLast(nameNs)
-
-            allMembers.collect(typeCtorToClass(jsLocation, patchedCp)) match {
-              case Nil  => None
-              case some => Some(TsDeclNamespace(cs, declared, nameNs, some, patchedCp, jsLocation))
-            }
+        /* extract named constructors inside the value into proper classes in a namespace, if possible */
+        val newNamespacesAndV: Seq[TsNamedValueDecl] =
+          allMembers collect typeCtorToClass(findName, jsLocation, cp) match {
+            case Nil => namespaces :+ v
+            case some =>
+              val inlinedVar = v.copy(name = TsIdent.namespaced, codePath = cp + TsIdent.namespaced)
+              namespaces match {
+                case Nil              => List(TsDeclNamespace(cs, declared, name, some :+ inlinedVar, cp, jsLocation))
+                case existing :: rest => existing.copy(members = existing.members ++ some :+ inlinedVar) :: rest
+              }
           }
 
         object ValidCtors {
@@ -145,11 +166,7 @@ object ExtractClasses extends TransformMembers {
                     )
                 }
 
-              def backupName =
-                if (name === TsIdent.namespaced) TsIdent.namespacedCls
-                else TsIdentSimple(name.value + "Cls")
-
-              availableTypeName(name) orElse availableTypeName(backupName) map { clsName =>
+              findName(name) map { clsName =>
                 TsDeclClass(
                   comments   = NoComments,
                   declared   = declared,
@@ -167,16 +184,7 @@ object ExtractClasses extends TransformMembers {
             case _ => None
           }
 
-        /* make the namespace more discoverable by adding a comment describing the change */
-        val newVar: TsDeclVar =
-          namespaceOpt match {
-            case None => v
-            case Some(_) =>
-              val msg = s"""/* Extracted nested Instantiables into classes in ${name.value}Ns */\n"""
-              v.copy(comments = v.comments + Comment(msg))
-          }
-
-        Some(List(newVar) ++ clsOpt ++ namespaceOpt ++ rest)
+        Some(restVars ++ clsOpt ++ newNamespacesAndV ++ rest)
 
       case _ => None
     }

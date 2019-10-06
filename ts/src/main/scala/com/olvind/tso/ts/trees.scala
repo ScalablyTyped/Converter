@@ -63,7 +63,7 @@ sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl w
 final case class TsDeclNamespace(
     comments:   Comments,
     declared:   Boolean,
-    name:       TsIdentNamespace,
+    name:       TsIdent,
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
@@ -79,8 +79,7 @@ final case class TsDeclNamespace(
     copy(jsLocation = newLocation)
 
   override def withName(newName: TsIdent): TsNamedDecl =
-    // todo: a glitch in the matrix here
-    copy(name = TsIdentNamespace(newName.value))
+    copy(name = newName)
 }
 
 final case class TsDeclModule(
@@ -323,19 +322,7 @@ sealed trait TsIdent extends TsTerm {
   def value: String
 }
 
-// here be dragons, i guess
-sealed trait TsIdentInterchangeable extends TsIdent {
-  override def equals(obj: Any): Boolean =
-    obj match {
-      case TsIdentSimple(v)    => value == v
-      case TsIdentNamespace(v) => value == v
-      case _                   => false
-    }
-
-  override lazy val hashCode: Int = value.hashCode
-}
-
-final case class TsIdentSimple(value: String) extends TsIdentInterchangeable
+final case class TsIdentSimple(value: String) extends TsIdent
 
 final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
   override def value: String = from.value
@@ -361,8 +348,6 @@ object TsIdentModule {
     TsIdentModule(None, s :: Nil)
 }
 
-final case class TsIdentNamespace(value: String) extends TsIdentInterchangeable
-
 sealed trait TsIdentLibrary extends TsIdent {
   def `__value`: String = this match {
     case TsIdentLibraryScoped(scope, Some(name)) => s"${scope}__$name"
@@ -374,7 +359,7 @@ sealed trait TsIdentLibrary extends TsIdent {
 object TsIdentLibrary {
   implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
     i => i.value
-  val Scoped   = "@([/]+)/(.+)".r
+  val Scoped   = "@([^/]+)/(.+)".r
   val Scoped__ = "(.+)__(.+)".r
 
   def apply(str: String): TsIdentLibrary =
@@ -531,7 +516,7 @@ object TsTypeIntersect {
     } match {
       case (Nil, all)      => all
       case (Seq(_), _)     => types // just keep order
-      case (objects, rest) => TsTypeObject(NoComments, objects.flatMap(_.members)) +: rest
+      case (objects, rest) => TsTypeObject(NoComments, objects.flatMap(_.members).distinct) +: rest
     }
     flatten(withCombinedObjects.to[List]).distinct match {
       case Nil      => TsTypeRef.never

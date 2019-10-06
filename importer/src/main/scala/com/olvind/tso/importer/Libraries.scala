@@ -230,13 +230,14 @@ object Libraries {
     "vue-rx",
     "vue-server-renderer",
     "vuex",
+    "@welldone-software/why-did-you-render",
     "what-input",
     "xstream",
     "zipkin",
   )
 
-  val ignored =
-    Set[String](
+  def ignored(sequential: Boolean) = {
+    val base = Set[String](
       "graphene-pk11",
       "rvo2",
       "yfiles",
@@ -244,17 +245,25 @@ object Libraries {
       "snoowrap",
       // bundles junk files
       "bottleneck",
-      // some new kind of circular dependency causes the phase runner to wait forever
-      "mali",
-      "apollo-tracing",
-      "playerframework",
-      "koa-compose",
       // these are referenced in notNeededPackages.json but don't exist
       "@sindresorhus/djb2a",
       "navigator-permissions",
       "webassembly-js-api",
       "w3c-permissions",
+      // circular, and somehow breaks sequential mode?
+      "koa-compose",
     )
+    // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
+    def circular = Set(
+      "mali",
+      "apollo-tracing",
+      "playerframework",
+      "gatsby",
+      "socketcluster",
+    )
+
+    if (sequential) base else base ++ circular
+  }
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
   val DemoSet = expo ++ Set[String](
@@ -316,7 +325,6 @@ object Libraries {
     "express",
     "express-serve-static-core",
     "extract-zip",
-    "gatsby",
     "geojson",
     "googlemaps",
     "highlight.js",

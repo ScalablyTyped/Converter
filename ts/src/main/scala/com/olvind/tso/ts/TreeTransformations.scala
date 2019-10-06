@@ -14,7 +14,7 @@ trait TransformMembers extends TreeTransformationScopedChanges {
   override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = newMembers(t, x))
 
-  override def enterTsDeclGlobal(t: TsTreeScope)(x: TsGlobal): TsGlobal =
+  override def enterTsGlobal(t: TsTreeScope)(x: TsGlobal): TsGlobal =
     x.copy(members = newMembers(t, x))
 
   override def enterTsDeclNamespace(t: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
@@ -24,6 +24,25 @@ trait TransformMembers extends TreeTransformationScopedChanges {
     x.copy(members = newMembers(t, x))
 
   override def enterTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
+    x.copy(members = newMembers(t, x))
+
+  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl]
+}
+
+trait TransformLeaveMembers extends TreeTransformationScopedChanges {
+  override def leaveTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
+    x.copy(members = newMembers(t, x))
+
+  override def leaveTsGlobal(t: TsTreeScope)(x: TsGlobal): TsGlobal =
+    x.copy(members = newMembers(t, x))
+
+  override def leaveTsDeclNamespace(t: TsTreeScope)(x: TsDeclNamespace): TsDeclNamespace =
+    x.copy(members = newMembers(t, x))
+
+  override def leaveTsDeclModule(t: TsTreeScope)(x: TsDeclModule): TsDeclModule =
+    x.copy(members = newMembers(t, x))
+
+  override def leaveTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
     x.copy(members = newMembers(t, x))
 
   def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl]
@@ -40,4 +59,17 @@ trait TransformClassMembers extends TreeTransformationScopedChanges {
     x.copy(members = newClassMembers(t, x))
 
   def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember]
+}
+
+trait TransformLeaveClassMembers extends TreeTransformationScopedChanges {
+  override def leaveTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass =
+    x.copy(members = newClassMembersLeaving(t, x))
+
+  override def leaveTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
+    x.copy(members = newClassMembersLeaving(t, x))
+
+  override def leaveTsTypeObject(t: TsTreeScope)(x: TsTypeObject): TsTypeObject =
+    x.copy(members = newClassMembersLeaving(t, x))
+
+  def newClassMembersLeaving(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember]
 }
