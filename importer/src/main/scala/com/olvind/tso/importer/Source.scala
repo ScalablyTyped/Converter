@@ -7,7 +7,7 @@ import com.olvind.tso.ts._
 sealed trait Source {
   final def path: os.Path =
     this match {
-      case Source.StdLibSource(InFile(path), _)    => path
+      case Source.StdLibSource(InFolder(path), _, _)    => path
       case Source.FromFolder(InFolder(path), _)    => path
       case Source.TsHelperFile(InFile(path), _, _) => path
       case Source.FacadeSource(InFolder(path))     => path
@@ -55,9 +55,7 @@ object Source {
     }
   }
 
-  final case class StdLibSource(file: InFile, libName: TsIdentLibrary) extends TsLibSource {
-    override def folder: InFolder = file.folder
-  }
+  final case class StdLibSource(folder: InFolder, files: Seq[InFile], libName: TsIdentLibrary) extends TsLibSource
 
   final case class FromFolder(folder: InFolder, libName: TsIdentLibrary) extends TsLibSource
 

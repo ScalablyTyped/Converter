@@ -25,7 +25,7 @@ object InferredDependency {
 
   private def inferFromPrefixes(file: TsParsedFile) = {
     val prefixes: Set[TsIdent] =
-      TreeTraverse
+      TsTreeTraverse
         .collect(file) {
           case TsQIdent(parts) if parts.nonEmpty => parts.head
         }

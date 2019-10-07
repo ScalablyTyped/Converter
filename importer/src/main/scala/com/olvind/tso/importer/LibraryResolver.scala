@@ -34,8 +34,7 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
         sourceFolders.firstDefined(
           source =>
             (folder(source, libName.value) orElse
-              folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName)) orElse
-              file(source, libName.value).map(file          => Source.StdLibSource(file, libName)),
+              folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName))
         )
     }
 

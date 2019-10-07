@@ -3,7 +3,7 @@ package ts
 
 import scala.collection.mutable
 
-object TreeTraverse {
+object TsTreeTraverse {
   def collect[T](tree: TsTree)(extract: PartialFunction[TsTree, T]): Seq[T] =
     collectSeq(Seq(tree))(extract)
 

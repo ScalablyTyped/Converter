@@ -159,11 +159,10 @@ class Main(config: Config) {
     val compiler                                           = Await.result(compilerF, Duration.Inf)
     val tsSources                                          = Await.result(tsSourcesF, Duration.Inf)
 
-    val stdLibSource: Source =
-      StdLibSource(
-        InFile(externalsFolder.path / "typescript" / "lib" / "lib.esnext.full.d.ts"),
-        TsIdent.std,
-      )
+    val stdLibSource: Source = {
+      val folder = externalsFolder.path / "typescript" / "lib"
+      StdLibSource(InFolder(folder), List(InFile(folder / "lib.esnext.full.d.ts")), TsIdent.std)
+    }
 
     val bintray: Option[BinTrayPublisher] = config.publish.map {
       case PublishConfig(user, password) =>
@@ -196,7 +195,7 @@ class Main(config: Config) {
             parser =
               if (config.enableParseCache)
                 PersistingFunction(nameAndMtimeUnder(existing(config.cacheFolder / 'parse)), logger.void)(parseFile)
-              else parseFile
+              else parseFile,
           ),
           "typescript",
         )
