@@ -196,7 +196,7 @@ class Main(config: Config) {
             parser =
               if (config.enableParseCache)
                 PersistingFunction(nameAndMtimeUnder(existing(config.cacheFolder / 'parse)), logger.void)(parseFile)
-              else parseFile
+              else parseFile,
           ),
           "typescript",
         )

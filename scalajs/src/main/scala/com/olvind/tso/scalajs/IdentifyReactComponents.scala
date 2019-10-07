@@ -118,7 +118,7 @@ object IdentifyReactComponents {
         }
         val propsTypeOpt    = flattenedParams.headOption.map(_.tpe)
         def isAbstractProps = propsTypeOpt.exists(scope.isAbstract)
-        def validName = isUpper(method.name) || (Unnamed(method.name) && isUpper(owner.name))
+        def validName       = isUpper(method.name) || (Unnamed(method.name) && isUpper(owner.name))
 
         if (!validName || !isTopLevel || isAbstractProps) None
         else

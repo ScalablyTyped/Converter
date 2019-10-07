@@ -150,9 +150,9 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
     */
   def hasCircularReference(self: TsQIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
     val minimizedTree = memberHack(tree)
-    TreeTraverse.collect(minimizedTree) { case x: TsQIdent if x === self => x } match {
+    TsTreeTraverse.collect(minimizedTree) { case x: TsQIdent if x === self => x } match {
       case Nil =>
-        val refs = TreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.to[Set]
+        val refs = TsTreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.to[Set]
         refs exists { ref =>
           if (cache(ref)) false
           else

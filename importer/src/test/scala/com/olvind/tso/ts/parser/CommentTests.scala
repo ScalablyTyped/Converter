@@ -125,7 +125,7 @@ final class CommentTests extends FunSuite with Matchers {
                     |        encoding?: string) => _d3dsv.D3Dsv
                     |""".stripMargin
 
-    TreeTraverse
+    TsTreeTraverse
       .collectSeq(parseAs(content, TsParser.tsDeclVars)) {
         case s: TsDeclVar  => s.comments
         case s: TsFunParam => s.comments
@@ -150,7 +150,7 @@ final class CommentTests extends FunSuite with Matchers {
       )
 
     val cs: Traversable[Seq[Comment]] =
-      TreeTraverse
+      TsTreeTraverse
         .collect(res) {
           case t: TsDeclEnum   => t.comments.cs
           case t: TsEnumMember => t.comments.cs

@@ -6,11 +6,12 @@ import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
-import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
+import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
 
-class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding]) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding])
+    extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -102,7 +103,7 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding]) ext
     val all: SortedSet[Source] =
       lib.dependencies.keys.map(x => x: Source).to[SortedSet]
 
-    val referenced: Set[TsIdentLibrary] = ts.TreeTraverse
+    val referenced: Set[TsIdentLibrary] = TsTreeTraverse
       .collect(lib.parsed) {
         case x: ts.TsIdentLibrary => x
       }
