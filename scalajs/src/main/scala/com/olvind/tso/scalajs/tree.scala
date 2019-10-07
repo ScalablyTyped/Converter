@@ -100,9 +100,8 @@ final case class TypeAliasTree(
 ) extends Tree
     with HasCodePath
 
-sealed trait MemberTree extends Tree {
+sealed trait MemberTree extends Tree with HasCodePath {
   val isOverride: Boolean
-  val codePath:   QualifiedName
   def withCodePath(newCodePath: QualifiedName): MemberTree
 }
 

@@ -3,7 +3,7 @@ package scalajs
 package transforms
 
 import com.olvind.tso.scalajs.ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.IdentifyReactComponents.Component
+import com.olvind.tso.scalajs.IdentifyReactComponents.{Component, ComponentType}
 import com.olvind.tso.seqs._
 
 import scala.collection.mutable
@@ -148,6 +148,16 @@ object SlinkyComponents {
         NoComments,
         componentCp + slinky.component,
       )
+      val keepRefInTree = {
+        val ref =
+          c.componentType match {
+            case ComponentType.Class    => c.ref
+            case ComponentType.Function => TypeRef.Singleton(TypeRef(QualifiedName(c.ref.typeName.parts.dropRight(1))))
+            case ComponentType.Field    => TypeRef.Singleton(TypeRef(c.ref.typeName))
+
+          }
+        TypeAliasTree(Name.dummy, c.tparams, ref, Comments(CommentData(Markers.VIP)), componentCp + Name.dummy)
+      }
       val props = c.props getOrElse TypeRef.Object
 
       def propsAlias(props: TypeRef) =
@@ -250,8 +260,8 @@ object SlinkyComponents {
                   annotations = Nil,
                   name        = c.fullName,
                   parents     = List(parent),
-                  members     = List(componentField) ++ members,
-                  comments    = domWarning,
+                  members     = List(componentField, keepRefInTree) ++ members,
+                  comments    = domWarning + CommentData(Markers.VIP),
                   codePath    = componentCp,
                 ),
               )
@@ -277,7 +287,7 @@ object SlinkyComponents {
             name        = c.fullName,
             parents     = List(parent),
             members     = List(componentField) ++ propsAliasOpt,
-            comments    = NoComments,
+            comments    = Comments(CommentData(Markers.VIP)),
             codePath    = componentCp,
           )
           Some(mod)

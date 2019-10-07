@@ -135,7 +135,7 @@ class Phase1ReadTypescript(
           if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
 
         if (fileSources.isEmpty) {
-          logger.warn(s"No typescript definitions found for $source")
+          logger.info(s"No typescript definitions found for $source")
           PhaseRes.Ignore()
         } else {
           val declaredDependencies: Set[Source] =
