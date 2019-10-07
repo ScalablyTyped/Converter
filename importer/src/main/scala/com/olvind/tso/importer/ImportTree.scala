@@ -507,7 +507,7 @@ object ImportTree {
     if (name === Name.APPLY || name === Name.namespaced) ret
     else {
       val containedLiterals: Seq[String] =
-        TreeTraverse.collectSeq(sig.params) {
+        TsTreeTraverse.collectSeq(sig.params) {
           case x: TsLiteral => stringUtils.unquote(x.literal)
         }
 

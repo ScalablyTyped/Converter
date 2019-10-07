@@ -4,8 +4,8 @@ package phases
 import com.olvind.logging.{Formatter, Logger}
 
 import scala.collection.immutable.{SortedMap, SortedSet}
+import scala.concurrent.Await
 import scala.concurrent.duration._
-import scala.concurrent.{Await}
 
 /**
   * Runs a computation given a sequence of input ids.
