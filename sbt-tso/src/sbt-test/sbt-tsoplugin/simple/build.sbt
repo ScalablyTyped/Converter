@@ -12,10 +12,11 @@ lazy val dist = TaskKey[File]("dist")
 lazy val newarch =
   project
     .in(file("."))
-    .enablePlugins(ScalaJSPlugin)
-    .configure(bundlerSettings, browserProject, tsoSettings)
+    .enablePlugins(ScalaJSPlugin, TsoPlugin)
+    .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
     .settings(
+      Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingJagpolly,
       webpackDevServerPort := 8009,
       libraryDependencies ++= Seq(
         library.scalaCheck % Test,
@@ -72,10 +73,6 @@ lazy val commonSettings =
     Compile / unmanagedSourceDirectories := Seq((Compile / scalaSource).value),
     Test / unmanagedSourceDirectories := Seq((Test / scalaSource).value),
   )
-
-lazy val tsoSettings: Project => Project =
-  _.enablePlugins(TsoPlugin)
-    .settings(reactBinding := com.olvind.tso.plugin.ReactBindingJagpolly)
 
 lazy val bundlerSettings: Project => Project =
   _.enablePlugins(ScalaJSBundlerPlugin)

@@ -64,7 +64,7 @@ val `sbt-tso` = project
   .configure(baseSettings)
   .settings(
     sbtPlugin := true,
-    name := "sbt-tsoplugin",
+    name := "sbt-tso",
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
     scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),

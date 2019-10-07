@@ -3,7 +3,7 @@
   if(pluginVersion == null)
     throw new RuntimeException("""|The system property 'plugin.version' is not defined.
                                   |Specify this property using the scriptedLaunchOpts -D.""".stripMargin)
-  else addSbtPlugin("com.olvind" % """sbt-tsoplugin""" % pluginVersion)
+  else addSbtPlugin("com.olvind" % """sbt-tso""" % pluginVersion)
 }
 addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.28")
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.4")

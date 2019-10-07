@@ -23,46 +23,46 @@ object ReactBindingSlinky extends ReactBinding
 object ReactBindingJagpolly extends ReactBinding
 
 object TsoPlugin extends AutoPlugin {
-
-  override def trigger = allRequirements
-
-  override def requires = JvmPlugin && ScalaJSBundlerPlugin
-
   object autoImport {
-    val importTypings     = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val reactBinding = settingKey[ReactBinding]("The type of react binding to use")
-    val pedantic          = settingKey[Boolean]("How harsh to be")
-    val typescriptVersion = settingKey[String]("The version of the typescript library that it should use")
+    val tsoImport     = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+    val tsoReactBinding      = settingKey[ReactBinding]("The type of react binding to use")
+    val tsoPedantic          = settingKey[Boolean]("How harsh to be")
+    val tsoTypescriptVersion = settingKey[String]("The version of the typescript library that it should use")
 
     import ScalaJSBundlerPlugin.autoImport._
 
-    lazy val tsoPluginSettings: Seq[Def.Setting[_]] = Seq(
+    lazy val baseTSOImportSettings: Seq[Def.Setting[_]] = Seq(
       //Make sure we always include the stdlib
       npmDependencies in Compile ++= {
         //Make sure it doesn't already exist
         (npmDependencies in Compile).value
           .find(_._1 == "typescript")
-          .fold(Seq("typescript" -> (typescriptVersion in importTypings).value))(_ => Seq.empty)
+          .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
       },
-      importTypings := {
+      tsoReactBinding := ReactBindingNative,
+      tsoTypescriptVersion := "3.6.3",
+      tsoImport := {
+        println(s">>>>>>>>>>>>>>>>>>>>>>>>> Using ${(tsoReactBinding).value} value")
+
         //TODO check to see if nothing has changed, if nothing has changed, then do nothing.
         ImportTypings(
           npmDependencies = (npmDependencies in Compile).value.to[Seq],
           npmDirectory    = (npmInstallDependencies in Compile).value,
           target          = (sourceManaged in Compile).value / "tso",
-          reactBinding    = (reactBinding in importTypings).value,
+          reactBinding    = (tsoReactBinding).value,
           sbtLogger       = streams.value.log,
         )
       },
-      reactBinding in importTypings := ReactBindingNative,
-      typescriptVersion in importTypings := "3.6.3",
-      sourceGenerators in Compile += importTypings.taskValue,
+      sourceGenerators in Compile += tsoImport.taskValue,
     )
   }
 
   import autoImport._
+  override def requires = JvmPlugin && ScalaJSBundlerPlugin
 
-  override lazy val projectSettings: scala.Seq[Def.Setting[_]] = inConfig(Compile)(tsoPluginSettings)
+  override def trigger = allRequirements
+
+  override lazy val projectSettings: scala.Seq[Def.Setting[_]] = inConfig(Compile)(baseTSOImportSettings)
 
   override lazy val buildSettings: Seq[Nothing] = Seq()
 
@@ -74,11 +74,11 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   private def runImport(
-                         npmDependencies: Seq[(String, String)],
-                         source:          InFolder,
-                         targetFolder:    os.Path,
-                         sbtLogger:       ManagedLogger,
-                         reactBinding: ReactBinding
+      npmDependencies: Seq[(String, String)],
+      source:          InFolder,
+      targetFolder:    os.Path,
+      sbtLogger:       ManagedLogger,
+      reactBinding:    ReactBinding,
   ): Either[Map[Source, List[Either[Throwable, String]]], Seq[File]] = {
 
     val stdLibSource: Source =
@@ -87,9 +87,9 @@ object ImportTypings {
         TsIdent.std,
       )
 
-    val bindings = reactBinding match {
-      case ReactBindingNative => None
-      case ReactBindingSlinky => Option(com.olvind.tso.importer.ReactBinding.slinky)
+    val binding = reactBinding match {
+      case ReactBindingNative   => None
+      case ReactBindingSlinky   => Option(com.olvind.tso.importer.ReactBinding.slinky)
       case ReactBindingJagpolly => Option(com.olvind.tso.importer.ReactBinding.scalajsReact)
     }
 
@@ -106,7 +106,7 @@ object ImportTypings {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic = false, bindings), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic = false, binding), "scala.js")
         .next(new Phase3WriteFiles(targetFolder = targetFolder, softWrites = false), "build")
 
     val sources: Set[Source] =
@@ -133,19 +133,26 @@ object ImportTypings {
       .map(PhaseRunner(phase, (s: Source) => WrapSbtLogger(sbtLogger)(s).filter(LogLevel.warn).void, NoListener))
       .to[Seq]
       .partitionCollect2({ case PhaseRes.Failure(x) => x }, { case PhaseRes.Ok(x) => x }) match {
-      case (Nil, filesBySource: Seq[Map[Source, Seq[Path]]], _) => Right(maps.smash(filesBySource).foldLeft(Seq.empty[File]) { _ ++ _._2.map(_.toIO) })
-      case (errors, _, _)          => Left(maps.sum(errors))
+      case (Nil, filesBySource: Seq[Map[Source, Seq[Path]]], _) =>
+        Right(maps.smash(filesBySource).foldLeft(Seq.empty[File]) { _ ++ _._2.map(_.toIO) })
+      case (errors, _, _) => Left(maps.sum(errors))
     }
   }
 
   def apply(
-             npmDependencies: Seq[(String, String)],
-             npmDirectory:    File,
-             target:          File,
-             reactBinding: ReactBinding,
-             sbtLogger:       ManagedLogger,
+      npmDependencies: Seq[(String, String)],
+      npmDirectory:    File,
+      target:          File,
+      reactBinding:    ReactBinding,
+      sbtLogger:       ManagedLogger,
   ): Seq[File] =
-    runImport(npmDependencies, InFolder(os.Path(npmDirectory / "node_modules")), os.Path(target), sbtLogger, reactBinding) match {
+    runImport(
+      npmDependencies,
+      InFolder(os.Path(npmDirectory / "node_modules")),
+      os.Path(target),
+      sbtLogger,
+      reactBinding,
+    ) match {
       case Right(files) => files
       case Left(errors) =>
         errors foreach System.err.println
