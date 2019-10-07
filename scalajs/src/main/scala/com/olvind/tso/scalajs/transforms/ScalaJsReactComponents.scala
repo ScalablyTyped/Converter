@@ -314,7 +314,7 @@ object ScalaJsReactComponents {
                   name        = c.fullName,
                   parents     = Nil,
                   members     = members,
-                  comments    = domWarning,
+                  comments    = domWarning + CommentData(Markers.VIP),
                   codePath    = componentCp,
                 ),
               )
@@ -333,7 +333,7 @@ object ScalaJsReactComponents {
             name        = c.fullName,
             parents     = Nil,
             members     = propsAliasOpt,
-            comments    = NoComments,
+            comments    = Comments(CommentData(Markers.VIP)),
             codePath    = componentCp,
           )
           Some(mod)

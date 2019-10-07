@@ -109,7 +109,7 @@ object ImportType {
        */
       case tpe @ TsTypeObject(_, Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
         val lookups: Seq[TsTypeRef] =
-          TreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
+          TsTreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
 
         val base = lookups match {
           case Seq(one) => apply(wildcards, scope, importName)(one)
@@ -161,7 +161,7 @@ object ImportType {
         if (sig.params.size > 22) TypeRef.FunctionBase
         else {
           def recursiveBound(name: TsIdent, b: TsType): Boolean =
-            TreeTraverse.collect(b) { case `name` => name }.nonEmpty
+            TsTreeTraverse.collect(b) { case `name` => name }.nonEmpty
 
           val defaulted = sig.tparams.map { tp =>
             tp.upperBound match {

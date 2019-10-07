@@ -16,13 +16,14 @@ lazy val newarch =
     .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
     .settings(
-      Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingJagpolly,
+      Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingSlinky,
       webpackDevServerPort := 8009,
       libraryDependencies ++= Seq(
         library.scalaCheck % Test,
         library.scalaTest  % Test,
         "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
         "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
+        "me.shadaj" %%% "slinky-web" % "0.6.2"
       ),
       Compile / npmDependencies ++= Seq(
         "typescript" -> "3.6.3", //TODO Probably can remove this

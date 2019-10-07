@@ -83,7 +83,7 @@ object Npmjs {
 
     override def apply[L](source: Source, logger: Logger[L]): Future[Option[Data]] = {
       val libOpt = source match {
-        case Source.StdLibSource(_, _)     => Some(TsIdentLibrarySimple("typescript"))
+        case Source.StdLibSource(_, _, _)  => Some(TsIdentLibrarySimple("typescript"))
         case Source.FromFolder(_, libName) => Some(libName)
         case _                             => None
       }

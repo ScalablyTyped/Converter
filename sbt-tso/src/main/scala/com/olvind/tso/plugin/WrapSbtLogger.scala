@@ -1,7 +1,6 @@
 package com.olvind.tso.plugin
 
 import com.olvind.logging._
-import com.olvind.tso.importer.Source
 import fansi.Str
 import sbt.internal.util.ManagedLogger
 import sourcecode.Text
@@ -24,7 +23,7 @@ class WrapSbtLogger(val underlying: ManagedLogger, ctx: Ctx) extends Logger[Mana
 }
 
 object WrapSbtLogger {
-  def apply(x: ManagedLogger)(source: Source) = new WrapSbtLogger(x, Map.empty)
+  def apply(x: ManagedLogger) = new WrapSbtLogger(x, Map.empty)
 
   object pattern extends Pattern {
     override def apply[T: Formatter](t: => Text[T], throwable: Option[Throwable], m: Metadata, ctx: Ctx): Str = {
