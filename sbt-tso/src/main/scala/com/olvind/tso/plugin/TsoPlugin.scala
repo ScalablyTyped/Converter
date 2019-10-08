@@ -91,22 +91,23 @@ object TsoPlugin extends AutoPlugin {
       tsoTypescriptVersion := "3.6.3",
       tsoStdlib := List("es6"),
       tsoImport := {
-        println(s">>>>>>>>>>>>>>>>>>>>>>>>> Using ${(tsoReactBinding).value} value")
-        val tsoLogger = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        //TODO check to see if nothing has changed, if nothing has changed, then do nothing.
-        ImportTypings.runImport(
-          (npmDependencies in Compile).value.to[Seq],
-          InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules")),
-          os.Path((sourceManaged in Compile).value / "tso"),
-          tsoLogger,
-          (tsoReactBinding).value,
-          tsoStdlib.value,
-        ) match {
-          case Right(files) => files
-          case Left(errors) =>
-            errors foreach System.err.println
-            Nil
-        }
+        val reactBinding = tsoReactBinding.value
+        val tsoLogger    = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val packageJson  = (crossTarget in npmUpdate).value / "package.json"
+        val nodeModules  = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
+        val stdLib       = tsoStdlib.value
+        val targetFolder = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps      = (npmDependencies in Compile).value
+        val cachedFunction = FileFunction.cached(streams.value.cacheDirectory / "tso")(
+          _ =>
+            ImportTypings.runImport(npmDeps.to[Seq], nodeModules, targetFolder, tsoLogger, reactBinding, stdLib) match {
+              case Right(files) => files
+              case Left(errors) =>
+                errors foreach System.err.println
+                Set.empty
+            },
+        )
+        cachedFunction(Set(packageJson)).to[Seq]
       },
       sourceGenerators in Compile += tsoImport.taskValue,
     )
