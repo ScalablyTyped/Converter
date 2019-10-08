@@ -7,10 +7,10 @@ import com.olvind.tso.ts._
 sealed trait Source {
   final def path: os.Path =
     this match {
-      case Source.StdLibSource(InFolder(path), _, _)    => path
-      case Source.FromFolder(InFolder(path), _)    => path
-      case Source.TsHelperFile(InFile(path), _, _) => path
-      case Source.FacadeSource(InFolder(path))     => path
+      case Source.StdLibSource(InFolder(path), _, _) => path
+      case Source.FromFolder(InFolder(path), _)      => path
+      case Source.TsHelperFile(InFile(path), _, _)   => path
+      case Source.FacadeSource(InFolder(path))       => path
     }
 
   def folder:  InFolder
