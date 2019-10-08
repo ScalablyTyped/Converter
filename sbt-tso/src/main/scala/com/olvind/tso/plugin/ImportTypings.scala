@@ -1,7 +1,7 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging.{LogLevel, Logger, stdout}
+import com.olvind.logging.{stdout, LogLevel, Logger}
 import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
@@ -36,7 +36,7 @@ object ImportTypings {
       logger:          Logger[Unit],
       reactBinding:    ReactBinding,
       libs:            List[String],
-  ): Either[Map[Source, Either[Throwable, String]], Seq[File]] = {
+  ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
 
     val stdLibSource: Source = {
       val folder = fromFolder.path / "typescript" / "lib"
@@ -100,7 +100,9 @@ object ImportTypings {
           trimmedLibs
             .flatMap {
               case (source, lib) =>
-                val outFiles = Printer(globalScope, lib) map { case (relPath, content) => targetFolder / relPath -> content }
+                val outFiles = Printer(globalScope, lib) map {
+                  case (relPath, content) => targetFolder / relPath -> content
+                }
                 logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
                 outFiles
             }
@@ -110,7 +112,7 @@ object ImportTypings {
         Right(outFiles.keys.map(_.toIO)(collection.breakOut))
 
       case PhaseRes.Failure(errors) => Left(errors)
-      case PhaseRes.Ignore()        => Right(Nil)
+      case PhaseRes.Ignore()        => Right(Set.empty)
     }
   }
 
