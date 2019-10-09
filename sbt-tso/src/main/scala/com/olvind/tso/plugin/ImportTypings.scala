@@ -15,27 +15,14 @@ import scala.collection.immutable.SortedMap
 object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
-  def main(args: Array[String]): Unit = {
-    val tsoCache = os.home / "tmp" / "tso-cache"
-    println(
-      runImport(
-        List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
-        InFolder(tsoCache / "npm" / "node_modules"),
-        Main.existing(tsoCache / 'work),
-        stdout.filter(LogLevel.warn),
-        ReactBindingSlinky,
-        List("es5", "dom"),
-      ).map(_.size),
-    )
-  }
-
-  def runImport(
+  def apply(
       npmDependencies: Seq[(String, String)],
       fromFolder:      InFolder,
       targetFolder:    os.Path,
       logger:          Logger[Unit],
       reactBinding:    ReactBinding,
       libs:            List[String],
+      ignore:          Set[String],
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
 
     val stdLibSource: Source = {
@@ -62,7 +49,7 @@ object ImportTypings {
         new Phase1ReadTypescript(
           new LibraryResolver(stdLibSource, Seq(InFolder(fromFolder.path / "@types"), fromFolder), None),
           None,
-          Set.empty,
+          ignore,
           stdLibSource,
           pedantic = false,
           parser.parseFile,
@@ -139,5 +126,20 @@ object ImportTypings {
           sameName.find(s => os.walk.stream(s.folder.path).exists(_.last.endsWith(".d.ts")))
       }
       .to[Set]
+
+  def main(args: Array[String]): Unit = {
+    val tsoCache = os.home / "tmp" / "tso-cache"
+    println(
+      ImportTypings(
+        List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
+        InFolder(tsoCache / "npm" / "node_modules"),
+        Main.existing(tsoCache / 'work),
+        stdout.filter(LogLevel.warn),
+        ReactBindingSlinky,
+        List("es5", "dom"),
+        Set("typescript"),
+      ).map(_.size),
+    )
+  }
 
 }
