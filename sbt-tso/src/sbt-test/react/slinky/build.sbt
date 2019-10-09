@@ -17,6 +17,7 @@ lazy val newarch =
     .settings(commonSettings)
     .settings(
       Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingSlinky,
+      Compile / tsoIgnore += "csstype",
       webpackDevServerPort := 8009,
       libraryDependencies ++= Seq(
         library.scalaCheck % Test,
