@@ -18,6 +18,7 @@ object ReactBindingJagpolly extends ReactBinding
 object TsoPlugin extends AutoPlugin {
   object autoImport {
     val tsoImport       = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+    val tsoIgnore       = settingKey[List[String]]("completely ignore libs")
     val tsoReactBinding = settingKey[ReactBinding]("The type of react binding to use")
 
     /** Options are
@@ -90,6 +91,7 @@ object TsoPlugin extends AutoPlugin {
       tsoReactBinding := ReactBindingNative,
       tsoTypescriptVersion := "3.6.3",
       tsoStdlib := List("es6"),
+      tsoIgnore := List("typescript"),
       tsoImport := {
         val reactBinding = tsoReactBinding.value
         val tsoLogger    = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
@@ -98,9 +100,10 @@ object TsoPlugin extends AutoPlugin {
         val stdLib       = tsoStdlib.value
         val targetFolder = os.Path((sourceManaged in Compile).value / "tso")
         val npmDeps      = (npmDependencies in Compile).value
+        val ignored      = tsoIgnore.value.to[Set]
         val cachedFunction = FileFunction.cached(streams.value.cacheDirectory / "tso")(
           _ =>
-            ImportTypings.runImport(npmDeps.to[Seq], nodeModules, targetFolder, tsoLogger, reactBinding, stdLib) match {
+            ImportTypings(npmDeps.to[Seq], nodeModules, targetFolder, tsoLogger, reactBinding, stdLib, ignored) match {
               case Right(files) => files
               case Left(errors) =>
                 errors foreach System.err.println
