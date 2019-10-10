@@ -1,66 +1,26 @@
-package com.olvind
-package tso
+package com.olvind.tso
 package scalajs
+package react
 
-import seqs._
+import com.olvind.tso.seqs._
 
 import scala.collection.mutable
 
 object IdentifyReactComponents {
-  sealed trait ComponentType
+  def length(qualifiedName: QualifiedName): Int =
+    qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
 
-  object ComponentType {
-    case object Class extends ComponentType
-    case object Function extends ComponentType
-    case object Field extends ComponentType
-  }
+  /* this is effectively a heurestic which component to use */
+  implicit val ComponentOrdering: Ordering[Component] = Ordering.by { c =>
+    val preferModule = !c.isGlobal
+    /* because for instance mui ships with icons called `List` and `Tab` */
+    val preferPropsMatchesName = c.props.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
+    /* because for instance mui declares both a default and a names export, where only the former exists */
+    val preferDefault = c.scalaLocation.parts.last === Name.Default
+    /* because some libraries expect you to use top-level imports. shame for the tree shakers */
+    val preferShortModuleName = -length(c.scalaLocation)
 
-  final case class Component(
-      fullName:         Name,
-      tparams:          Seq[TypeParamTree],
-      props:            Option[TypeRef],
-      scalaLocation:    QualifiedName,
-      isGlobal:         Boolean,
-      componentType:    ComponentType,
-      isAbstractProps:  Boolean,
-      componentMembers: Seq[MemberTree],
-      knownRef:         Option[TypeRef],
-  ) {
-    val shortenedPropsName = Name(fullName.unescaped + "Props")
-    val ref                = TypeRef(scalaLocation, TypeParamTree.asTypeArgs(tparams), NoComments)
-  }
-
-  object Component {
-    def formatReferenceTo(ref: TypeRef, componentType: ComponentType): String = {
-      val loc = Printer.formatTypeRef(0)(ref)
-
-      componentType match {
-        case ComponentType.Class => s"js.constructorOf[$loc]"
-        case ComponentType.Field => Printer.formatTypeRef(0)(ref.copy(targs = Nil))
-        case ComponentType.Function =>
-          ref.typeName.parts match {
-            case ownerQName :+ name =>
-              val owner = Printer.formatQN(QualifiedName(ownerQName))
-              s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${name.unescaped}")"""
-          }
-      }
-    }
-
-    def length(qualifiedName: QualifiedName): Int =
-      qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
-
-    /* this is effectively a heurestic which component to use */
-    implicit val ComponentOrdering: Ordering[Component] = Ordering.by { c =>
-      val preferModule = !c.isGlobal
-      /* because for instance mui ships with icons called `List` and `Tab` */
-      val preferPropsMatchesName = c.props.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
-      /* because for instance mui declares both a default and a names export, where only the former exists */
-      val preferDefault = c.scalaLocation.parts.last === Name.Default
-      /* because some libraries expect you to use top-level imports. shame for the tree shakers */
-      val preferShortModuleName = -length(c.scalaLocation)
-
-      (preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
-    }
+    (preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
 
   def all(scope: TreeScope, tree: ContainerTree): List[Component] = {

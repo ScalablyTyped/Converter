@@ -12,6 +12,7 @@ import bloop.io.AbsolutePath
 import bloop.logging.{DebugFilter, Logger => BloopLogger}
 import bloop.{Cli, DependencyResolution}
 import com.olvind.logging.{Formatter, Logger}
+import com.olvind.tso.scalajs.Dep
 
 import scala.concurrent.ExecutionContext
 
@@ -85,7 +86,7 @@ class BloopCompiler private (
       digest:        Digest,
       compilerPaths: CompilerPaths,
       deps:          Seq[BloopCompiler.InternalDep],
-      externalDeps:  Set[FacadeJson.Dep],
+      externalDeps:  Set[Dep],
   ): Either[String, Unit] = {
     val bloopFolder = compilerPaths.baseDir / ".bloop"
     val classPath = {

@@ -1,5 +1,6 @@
 package com.olvind.tso.importer
 
+import com.olvind.tso.scalajs.react.ReactBinding
 import org.scalatest.{FunSuite, ParallelTestExecution}
 
 class SemanticUiReactTest extends FunSuite with ImporterHarness with ParallelTestExecution {

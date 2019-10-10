@@ -15,13 +15,6 @@ import scala.collection.immutable.SortedMap
 /**
   * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
   * For instance defaulted parameters are filled in. The point is to go from a complex tree to a simpler tree
-  *
-  * @param resolve
-  * @param calculateLibraryVersion
-  * @param ignored
-  * @param stdlibSource
-  * @param pedantic
-  * @param parser
   */
 class Phase1ReadTypescript(
     resolve:                 LibraryResolver,
