@@ -1,9 +1,9 @@
 package com.olvind.tso
 package scalajs
-package transforms
+package react
 
 import com.olvind.tso.scalajs.ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.IdentifyReactComponents.Component
+import com.olvind.tso.scalajs.transforms.Companions
 import com.olvind.tso.seqs._
 
 import scala.collection.mutable
@@ -353,17 +353,3 @@ object ScalaJsReactComponents {
   }
 
 }
-
-/*
-//TODO
-
-Replace
-typings.react.reactMod.ComponentState
-typings.react.reactMod.ComponentType
-typings.react.reactMod.ChangeEvent
-typings.react.reactMod.FunctionComponent
-typings.react.reactMod.PureComponent
-typings.react.reactMod.ReactType
-typings.react.reactMod.StatelessComponent
-
- */

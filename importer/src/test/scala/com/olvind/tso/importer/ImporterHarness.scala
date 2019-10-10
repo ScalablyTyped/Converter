@@ -12,6 +12,7 @@ import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versio
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
+import com.olvind.tso.scalajs.react.ReactBinding
 import com.olvind.tso.ts._
 import org.scalatest.{Assertion, FunSuiteLike}
 

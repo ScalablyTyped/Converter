@@ -11,6 +11,7 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.react.ReactBinding
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
@@ -104,7 +105,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = buildJson.dependencies,
+              deps            = buildJson.dependencies,
               scalaFiles      = sourceFiles,
               resources       = Map(),
               projectName     = projectName,
@@ -148,8 +149,8 @@ class Phase3Compile(
               source.libName === react || deps.exists { case (s, _) => s.libName === react }
             }
 
-            val externalDeps: Set[FacadeJson.Dep] =
-              if (involvesReact) reactBinding.fold(Set.empty[FacadeJson.Dep])(_.dependencies) else Set.empty
+            val externalDeps: Set[Dep] =
+              if (involvesReact) reactBinding.fold(Set.empty[Dep])(_.dependencies) else Set.empty
 
             val sbtLayout = ContentSbtProject(
               v               = versions,
@@ -159,7 +160,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = externalDeps,
+              deps            = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
               projectName     = projectName,
@@ -185,7 +186,7 @@ class Phase3Compile(
   def go(
       logger:             Logger[Unit],
       deps:               Map[Source, PublishedSbtProject],
-      externalDeps:       Set[FacadeJson.Dep],
+      externalDeps:       Set[Dep],
       source:             Source,
       name:               String,
       sbtLayout:          SbtProjectLayout[os.RelPath, Array[Byte]],

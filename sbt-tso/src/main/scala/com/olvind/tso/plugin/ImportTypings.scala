@@ -36,8 +36,8 @@ object ImportTypings {
 
     val binding = reactBinding match {
       case ReactBindingNative   => None
-      case ReactBindingSlinky   => Option(com.olvind.tso.importer.ReactBinding.slinky)
-      case ReactBindingJagpolly => Option(com.olvind.tso.importer.ReactBinding.scalajsReact)
+      case ReactBindingSlinky   => Option(com.olvind.tso.scalajs.react.ReactBinding.slinky)
+      case ReactBindingJagpolly => Option(com.olvind.tso.scalajs.react.ReactBinding.scalajsReact)
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource

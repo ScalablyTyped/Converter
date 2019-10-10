@@ -1,8 +1,6 @@
 package com.olvind.tso
 package scalajs
-package transforms
-
-import com.olvind.tso.scalajs.IdentifyReactComponents.Component
+package react
 
 object GenerateReactComponentsObject {
   /* Let's not torture the scala compiler too much, because there *will* be a revenge
