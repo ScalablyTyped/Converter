@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.jar.{JarEntry, JarOutputStream, Manifest}
 
-import com.olvind.tso.importer.FacadeJson
+import com.olvind.tso.scalajs.Dep
 
 import scala.collection.mutable
 import scala.xml.Elem
@@ -18,7 +18,7 @@ object ContentForPublish {
       p:            SbtProject,
       publication:  ZonedDateTime,
       sourceFiles:  Layout[os.RelPath, Array[Byte]],
-      externalDeps: Set[FacadeJson.Dep],
+      externalDeps: Set[Dep],
   ): IvyLayout[os.RelPath, Array[Byte]] =
     IvyLayout(
       p          = p,
@@ -81,7 +81,7 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[FacadeJson.Dep]): Elem =
+  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[Dep]): Elem =
     <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
       <info organisation={p.organization}
             module={p.artifactId}
@@ -130,7 +130,7 @@ object ContentForPublish {
       </dependencies>
     </ivy-module>
 
-  def pom(v: Versions, p: SbtProject, externalDeps: Set[FacadeJson.Dep]): Elem =
+  def pom(v: Versions, p: SbtProject, externalDeps: Set[Dep]): Elem =
     <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
       <modelVersion>4.0.0</modelVersion>
       <groupId>{p.organization}</groupId>
