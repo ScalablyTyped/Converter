@@ -275,6 +275,16 @@ target/
 .bloop/
 """))
 
+    val summaryFile = targetFolder / Summary.path
+
+    val formattedDiff: String = {
+      val existingOpt = Try(Json[Summary](summaryFile)).toOption
+      val diff        = Summary.diff(BuildInfo.gitSha.take(6), existingOpt, summary)
+      Json.persist(summaryFile)(summary)
+      Summary.formatDiff(diff)
+    }
+    interfaceLogger.warn(formattedDiff)
+
     if (config.debugMode && !config.forceCommit) {
       interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
     } else {
@@ -296,10 +306,18 @@ target/
         interfaceCmd,
         summary,
         successes.map(_.project.baseDir).to[Seq],
-        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents, gitIgnore),
-      )(
-        targetFolder,
-      )
+        Seq(
+          sbtProjectDir,
+          failFolder,
+          readme,
+          librariesByScore,
+          librariesByName,
+          librariesByDependents,
+          gitIgnore,
+          summaryFile,
+        ),
+        formattedDiff,
+      )(targetFolder)
     }
 
     System.exit(0)
