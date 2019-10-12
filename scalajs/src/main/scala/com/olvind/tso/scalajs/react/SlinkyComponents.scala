@@ -116,7 +116,7 @@ object SlinkyComponents {
   /* Slinky doesnt really support generic components. We hack it in in the `apply` method */
   def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
 
-  def apply(_scope: TreeScope, tree: ContainerTree): ContainerTree = {
+  def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
 
     /* for slinky we strip all dom props, because the user can specify them using normal slinky syntax */
@@ -124,13 +124,8 @@ object SlinkyComponents {
       fieldsFor(scope, QualifiedName.React.AllHTMLAttributes) ++
         fieldsFor(scope, QualifiedName.React.SVGAttributes)
 
-    /* This is the input from which we generate the `Slinky` package. could refactor to make that more apparent */
-    val allComponents: Seq[Component] =
-      IdentifyReactComponents.oneOfEach(scope, tree)
-
     /* Every tree knows it's own location (called `CodePath`).
-       It's used for a lot of things, so it's important to get right
-     */
+       It's used for a lot of things, so it's important to get right */
     val slinkyPkgCp = tree.codePath + slinky.Slinky
 
     val slinkyMembers = allComponents.flatMap { c =>
