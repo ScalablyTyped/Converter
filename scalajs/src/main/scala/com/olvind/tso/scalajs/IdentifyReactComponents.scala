@@ -26,7 +26,8 @@ object IdentifyReactComponents {
       componentMembers: Seq[MemberTree],
       knownRef:         Option[TypeRef],
   ) {
-    val ref = TypeRef(scalaLocation, TypeParamTree.asTypeArgs(tparams), NoComments)
+    val shortenedPropsName = Name(fullName.unescaped + "Props")
+    val ref                = TypeRef(scalaLocation, TypeParamTree.asTypeArgs(tparams), NoComments)
   }
 
   object Component {
@@ -35,7 +36,7 @@ object IdentifyReactComponents {
 
       componentType match {
         case ComponentType.Class => s"js.constructorOf[$loc]"
-        case ComponentType.Field => loc
+        case ComponentType.Field => Printer.formatTypeRef(0)(ref.copy(targs = Nil))
         case ComponentType.Function =>
           ref.typeName.parts match {
             case ownerQName :+ name =>
@@ -118,7 +119,7 @@ object IdentifyReactComponents {
         }
         val propsTypeOpt    = flattenedParams.headOption.map(_.tpe)
         def isAbstractProps = propsTypeOpt.exists(scope.isAbstract)
-        def validName = isUpper(method.name) || (Unnamed(method.name) && isUpper(owner.name))
+        def validName       = isUpper(method.name) || (Unnamed(method.name) && isUpper(owner.name))
 
         if (!validName || !isTopLevel || isAbstractProps) None
         else

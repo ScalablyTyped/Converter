@@ -16,7 +16,7 @@ object GenerateReactComponentsObject {
     val allComponents: Seq[Component] =
       IdentifyReactComponents.oneOfEach(scope, tree)
 
-    val components = allComponents take MaxNumComponents
+    val components = allComponents take MaxNumComponents sortBy (_.fullName.unescaped)
 
     if (components.isEmpty) tree
     else {
@@ -30,13 +30,9 @@ object GenerateReactComponentsObject {
       val `trait` = {
         val forwarders: Seq[Tree] =
           components
-            .sortBy(_.fullName.unescaped)
             .flatMap {
               case comp if comp.isAbstractProps => Nil
-              case comp =>
-                val propsName = Name(comp.fullName.unescaped + "Props")
-                genPropsRef(scope, comp, traitCodePath, propsName) ++
-                  genPropsAlias(scope, comp, traitCodePath, propsName)
+              case comp                         => genPropsRef(scope, comp, traitCodePath) ++ genPropsAlias(scope, comp, traitCodePath)
             }
 
         ClassTree(
@@ -60,7 +56,7 @@ object GenerateReactComponentsObject {
           annotations = Nil,
           name        = moduleName,
           parents     = List(TypeRef(traitCodePath)),
-          members     = components.sortBy(_.fullName.unescaped).map(comp => genComponentRef(comp, moduleCodePath)),
+          members     = components.map(comp => genComponentRef(scope, comp, moduleCodePath)),
           comments    = comments,
           codePath    = moduleCodePath,
         )
@@ -70,12 +66,7 @@ object GenerateReactComponentsObject {
     }
   }
 
-  def genPropsAlias(
-      scope:          TreeScope,
-      comp:           Component,
-      moduleCodePath: QualifiedName,
-      propsName:      Name,
-  ): Option[TypeAliasTree] =
+  def genPropsAlias(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): Option[TypeAliasTree] =
     comp.props.flatMap(
       propsType =>
         scope lookup propsType.typeName collectFirst {
@@ -83,21 +74,16 @@ object GenerateReactComponentsObject {
           case (x: ClassTree, _)     => x.tparams
         } map { tps =>
           TypeAliasTree(
-            propsName,
+            comp.shortenedPropsName,
             tps,
             propsType.copy(targs = TypeParamTree.asTypeArgs(tps)),
             NoComments,
-            moduleCodePath + propsName,
+            moduleCodePath + comp.shortenedPropsName,
           )
         },
     )
 
-  def genPropsRef(
-      scope:          TreeScope,
-      comp:           Component,
-      moduleCodePath: QualifiedName,
-      propsName:      Name,
-  ): Option[MethodTree] =
+  def genPropsRef(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): Option[MethodTree] =
     comp.props.flatMap(
       propsType =>
         scope.lookup(propsType.typeName).collectFirst {
@@ -105,20 +91,25 @@ object GenerateReactComponentsObject {
             MethodTree(
               annotations = Annotation.Inline :: Nil,
               level       = ProtectionLevel.Default,
-              name        = propsName,
+              name        = comp.shortenedPropsName,
               tparams     = Nil,
               params      = Nil,
               impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
               resultType  = TypeRef.Singleton(propsType.copy(targs = Nil)),
               isOverride  = false,
               comments    = NoComments,
-              codePath    = moduleCodePath + propsName,
+              codePath    = moduleCodePath + comp.shortenedPropsName,
             )
         },
     )
 
-  def genComponentRef(comp: Component, moduleCodePath: QualifiedName): MethodTree = {
-    val retType = TypeRef(Names.ComponentType, comp.props.getOrElse(TypeRef.Object) :: Nil, NoComments)
+  def genComponentRef(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): MethodTree = {
+    val shortenedProps = genPropsAlias(scope, comp, QualifiedName(Nil)) match {
+      case Some(ta) => TypeRef(QualifiedName(List(ta.name)), comp.props.get.targs, ta.comments)
+      case None     => comp.props getOrElse TypeRef.Object
+    }
+
+    val retType = TypeRef(Names.ComponentType, List(shortenedProps), NoComments)
     MethodTree(
       annotations = Annotation.Inline :: Nil,
       level       = ProtectionLevel.Default,
