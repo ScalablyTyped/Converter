@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs.{PackageTree, Printer, QualifiedName}
+import com.olvind.tso.scalajs.{Printer, QualifiedName}
 import com.olvind.tso.ts._
 import sbt.File
 
@@ -35,9 +35,9 @@ object ImportTypings {
     }
 
     val binding = reactBinding match {
-      case ReactBindingNative   => None
-      case ReactBindingSlinky   => Option(com.olvind.tso.scalajs.react.ReactBinding.slinky)
-      case ReactBindingJagpolly => Option(com.olvind.tso.scalajs.react.ReactBinding.scalajsReact)
+      case ReactBindingNative   => Nil
+      case ReactBindingSlinky   => List(com.olvind.tso.scalajs.react.ReactBinding.slinky)
+      case ReactBindingJagpolly => List(com.olvind.tso.scalajs.react.ReactBinding.scalajsReact)
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource

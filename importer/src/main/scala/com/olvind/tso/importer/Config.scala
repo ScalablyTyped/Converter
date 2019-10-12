@@ -25,7 +25,7 @@ case class Config(
     debugMode:      Boolean,
     wantedLibNames: Set[String],
     versions:       Versions,
-    reactBinding:   Option[ReactBinding],
+    reactBindings:  List[ReactBinding],
 ) {
 
   // change in source code for now, lazy...
@@ -73,14 +73,12 @@ object Config {
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
-            reactBinding = {
-              if (flags contains "-reactSlinky") {
-                Some(ReactBinding.slinky)
-              } else if (flags contains "-reactScalaJsReact") {
-                Some(ReactBinding.scalajsReact)
-              } else {
-                None
-              }
+            reactBindings = {
+              List(
+                if (flags contains "-reactSlinky") Some(ReactBinding.slinky) else None,
+                if (flags contains "-reactScalaJsReact") Some(ReactBinding.scalajsReact) else None,
+                if (flags contains "-reactFacade") Some(ReactBinding.native) else None,
+              ).flatten
             },
           ),
         )

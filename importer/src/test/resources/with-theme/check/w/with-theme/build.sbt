@@ -1,11 +1,12 @@
 organization := "org.scalablytyped"
 name := "with-theme"
-version := "0.0-unknown-a5961e"
+version := "0.0-unknown-15e9f9"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-f948c2",
+  "me.shadaj" %%% "slinky-web" % "0.6.2",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-d5027b",
   "org.scalablytyped" %%% "std" % "0.0-unknown-65d01d")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
