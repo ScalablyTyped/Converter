@@ -130,17 +130,22 @@ object ScalaJsReactComponents {
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
     val ret = Companions.memberParameter(scope, tree)
     ret match {
-      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(tpe, resType), default, comments), isOptional, s)) =>
+      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(paramTypes, resType), default, comments), isOptional, s)) =>
         // rewrite functions returning a Callback so that javascript land can call them
-        def fn(obj: String) =
-          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${tpe.length}(((${tpe.zipWithIndex
-            .map(a                                                       => s"t${a._2}: ${typeMapper(a._1).toTypeName}")
-            .mkString(", ")} ) => ${name.value}(${tpe.zipWithIndex.map(a => s"t${a._2}").mkString(", ")}).runNow())))"""
+        def fn(obj: String) = {
+          val params =
+            paramTypes.zipWithIndex.map { case (tpe, idx) => s"t$idx: ${Printer.formatTypeRef(0)(tpe)}" }.mkString(", ")
+          val paramRefs = paramTypes.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
+          val rewrittenFn =
+            s"js.Any.fromFunction${paramTypes.length}((($params) => ${name.value}($paramRefs).runNow()))"
+          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
+        }
+
         Some(
           Param(
             ParamTree(
               name,
-              TypeRef.ScalaFunction(tpe.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments),
+              TypeRef.ScalaFunction(paramTypes.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments),
               default,
               comments,
             ),
