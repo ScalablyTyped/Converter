@@ -8,11 +8,8 @@ object GenerateReactComponentsObject {
    */
   val MaxNumComponents = 3500
 
-  def apply(_scope: TreeScope, tree: ContainerTree): ContainerTree = {
+  def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
-
-    val allComponents: Seq[Component] =
-      IdentifyReactComponents.oneOfEach(scope, tree)
 
     val components = allComponents take MaxNumComponents sortBy (_.fullName.unescaped)
 

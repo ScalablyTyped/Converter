@@ -45,4 +45,5 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
   test("expand-type-parameters")(assertImportsOk("expand-type-parameters", pedantic = true, update  = update))
   test("const-enum")(assertImportsOk("const-enum", pedantic                         = true, update  = update))
   test("firebase-admin")(assertImportsOk("firebase-admin", pedantic                 = true, update  = update))
+  test("semantic-ui-react")(assertImportsOk("semantic-ui-react", pedantic           = false, update = update))
 }
