@@ -1,4 +1,4 @@
-package typings.lodash.lodashMod.Global
+package typings.lodash.lodashMod._Global_
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`

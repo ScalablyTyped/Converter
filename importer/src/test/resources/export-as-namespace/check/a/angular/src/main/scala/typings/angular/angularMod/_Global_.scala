@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 // Support for painless dependency injection
 @JSGlobalScope
 @js.native
-object Global extends js.Object {
+object _Global_ extends js.Object {
   @js.native
   trait Function extends js.Object {
     @JSName("$inject")

@@ -1,4 +1,4 @@
-package typings.react.reactMod.Global.JSX
+package typings.react.reactMod._Global_.JSX
 
 import typings.react.HTMLElement
 import typings.react.SVGElement
