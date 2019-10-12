@@ -341,6 +341,7 @@ object Libraries {
     "mobx-react",
     "moment",
     "node",
+    "onsenui",
     "p5",
     "prop-types",
     "range-parser",
