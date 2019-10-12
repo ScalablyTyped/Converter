@@ -10,9 +10,6 @@ final case class QualifiedName(parts: List[Name]) {
 
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
-
-  def toClass = Class.forName(parts.map(_.value).mkString("."))
-
 }
 
 object QualifiedName {
