@@ -221,6 +221,7 @@ object Phase1ReadTypescript {
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
+      T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
       if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       if (enableExpandTypeMappings) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
       (
