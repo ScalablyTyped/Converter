@@ -26,26 +26,19 @@ object Utils {
       wanted:       List[TsIdent],
       expandeds:    Seq[TsNamedDecl],
       loopDetector: LoopDetector,
-  ): Seq[(T, TsTreeScope)] = {
-    wanted match {
-      case first :: Nil =>
-        return expandeds.collect {
-          case Pick(t) if t.name === first => t -> scope
-        }
-      case _ =>
+  ): Seq[(T, TsTreeScope)] =
+    if (expandeds.isEmpty) Nil // optimization
+    else {
+      val ns       = TsDeclNamespace(NoComments, declared = false, TsIdent.dummy, expandeds, CodePath.NoPath, JsLocation.Zero)
+      val newScope = scope / ns
+
+      newScope.lookupInternal(Picker.All, wanted, loopDetector).flatMap {
+        case (TsDeclNamespace(_, _, TsIdent.dummy, ms, _, _), newNewScope) =>
+          ms.collect {
+            case Pick(t) => t -> newNewScope
+          }
+        case (Pick(other), newNewScope) => Seq(other -> newNewScope)
+        case _                          => Nil
+      }
     }
-
-    val ns       = TsDeclNamespace(NoComments, declared = false, TsIdent.dummy, expandeds, CodePath.NoPath, JsLocation.Zero)
-    val newScope = scope / ns
-
-    newScope.lookupInternal(Picker.All, wanted, loopDetector).flatMap {
-      case (TsDeclNamespace(_, _, TsIdent.dummy, ms, _, _), newNewScope) =>
-        ms.collect {
-          case Pick(t) => t -> newNewScope
-        }
-      case (Pick(other), newNewScope) => Seq(other -> newNewScope)
-      case _                          => Nil
-    }
-  }
-
 }
