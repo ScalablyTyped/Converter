@@ -199,7 +199,7 @@ class Main(config: Config) {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(config.pedantic, config.reactBinding), "scala.js")
+        .next(new Phase2ToScalaJs(config.pedantic, config.reactBindings), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -212,7 +212,7 @@ class Main(config: Config) {
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
-            reactBinding    = config.reactBinding,
+            reactBindings   = config.reactBindings,
           ),
           "build",
         )
