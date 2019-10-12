@@ -91,7 +91,7 @@ trait ImporterHarness extends FunSuiteLike {
       testName:     String,
       pedantic:     Boolean,
       update:       Boolean,
-      reactBinding: Option[ReactBinding] = None,
+      reactBinding: Option[ReactBinding] = Some(ReactBinding.native),
   ): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
