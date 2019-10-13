@@ -9,6 +9,7 @@ import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticVERTICALALIGNMENTS
+import typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -31,11 +32,7 @@ trait StrictImageProps extends js.Object {
   /** Shorthand for primary content. */
   var content: js.UndefOr[SemanticShorthandContent] = js.undefined
   /** Shorthand for Dimmer. */
-  var dimmer: js.UndefOr[
-    SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify DimmerProps */ _
-    ]
-  ] = js.undefined
+  var dimmer: js.UndefOr[SemanticShorthandItem[DimmerProps]] = js.undefined
   /** An image can show that it is disabled and cannot be selected. */
   var disabled: js.UndefOr[Boolean] = js.undefined
   /** An image can sit to the left or right of other content. */
@@ -75,9 +72,7 @@ object StrictImageProps {
     circular: js.UndefOr[Boolean] = js.undefined,
     className: String = null,
     content: SemanticShorthandContent = null,
-    dimmer: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify DimmerProps */ _
-    ] = null,
+    dimmer: SemanticShorthandItem[DimmerProps] = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
