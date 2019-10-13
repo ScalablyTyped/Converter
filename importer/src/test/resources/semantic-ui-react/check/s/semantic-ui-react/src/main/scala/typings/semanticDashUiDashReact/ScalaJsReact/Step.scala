@@ -50,7 +50,7 @@ object Step {
     if (description != null) __obj.updateDynamic("description")(description.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (!js.isUndefined(link)) __obj.updateDynamic("link")(link)
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ typings.react.reactMod.MouseEvent[typings.react.HTMLAnchorElement, typings.react.NativeMouseEvent], t1: /* data */ typings.semanticDashUiDashReact.srcElementsStepStepMod.StepProps) => onClick(t0, t1).runNow())))
+        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsStepStepMod.StepProps) => onClick(t0, t1).runNow())))
     if (!js.isUndefined(ordered)) __obj.updateDynamic("ordered")(ordered)
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
   

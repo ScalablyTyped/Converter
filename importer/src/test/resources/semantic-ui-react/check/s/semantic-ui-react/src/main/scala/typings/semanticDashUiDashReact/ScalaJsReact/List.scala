@@ -62,7 +62,7 @@ object List {
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
     if (items != null) __obj.updateDynamic("items")(items)
     if (!js.isUndefined(link)) __obj.updateDynamic("link")(link)
-        if (onItemClick != null) __obj.updateDynamic("onItemClick")(js.Any.fromFunction2(((t0: /* event */ typings.react.reactMod.MouseEvent[typings.react.HTMLAnchorElement, typings.react.NativeMouseEvent], t1: /* data */ typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps) => onItemClick(t0, t1).runNow())))
+        if (onItemClick != null) __obj.updateDynamic("onItemClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps) => onItemClick(t0, t1).runNow())))
     if (!js.isUndefined(ordered)) __obj.updateDynamic("ordered")(ordered)
     if (relaxed != null) __obj.updateDynamic("relaxed")(relaxed.asInstanceOf[js.Any])
     if (!js.isUndefined(selection)) __obj.updateDynamic("selection")(selection)
