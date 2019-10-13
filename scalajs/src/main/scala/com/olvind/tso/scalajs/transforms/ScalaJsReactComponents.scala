@@ -3,7 +3,7 @@ package scalajs
 package transforms
 
 import com.olvind.tso.scalajs.ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.IdentifyReactComponents.Component
+import com.olvind.tso.scalajs.react.{Component, IdentifyReactComponents}
 import com.olvind.tso.seqs._
 
 import scala.collection.mutable
