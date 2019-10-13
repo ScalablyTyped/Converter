@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs.{PackageTree, Printer, QualifiedName}
+import com.olvind.tso.scalajs.{Printer, QualifiedName}
 import com.olvind.tso.ts._
 import sbt.File
 
@@ -29,15 +29,15 @@ object ImportTypings {
       val folder = fromFolder.path / "typescript" / "lib"
       StdLibSource(
         InFolder(folder),
-        libs.map(s => InFile(folder / s"lib.${s}.d.ts")),
+        libs.map(s => InFile(folder / s"lib.$s.d.ts")),
         TsIdent.std,
       )
     }
 
     val binding = reactBinding match {
-      case ReactBindingNative   => None
-      case ReactBindingSlinky   => Option(com.olvind.tso.importer.ReactBinding.slinky)
-      case ReactBindingJagpolly => Option(com.olvind.tso.importer.ReactBinding.scalajsReact)
+      case ReactBindingNative   => Nil
+      case ReactBindingSlinky   => List(com.olvind.tso.scalajs.react.ReactBinding.slinky)
+      case ReactBindingJagpolly => List(com.olvind.tso.scalajs.react.ReactBinding.scalajsReact)
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
@@ -59,8 +59,9 @@ object ImportTypings {
       .next(new Phase2ToScalaJs(pedantic = false, binding), "scala.js")
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
-      sources
+      sources.par
         .map(s => s -> PhaseRunner(Pipeline, (_: Source) => logger, NoListener)(s))
+        .seq
         .toMap
         .toSorted
 
@@ -77,22 +78,16 @@ object ImportTypings {
         val referencesToKeep: Set[QualifiedName] =
           KeepOnlyReferenced.findReferences(globalScope, libs).to[Set]
 
-        val trimmedLibs: Map[TsLibSource, PackageTree] =
-          libs.map {
-            case (source, lib) =>
-              source -> KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
-          }
-
         val outFiles: Map[os.Path, Array[Byte]] =
-          trimmedLibs
-            .flatMap {
-              case (source, lib) =>
-                val outFiles = Printer(globalScope, lib) map {
-                  case (relPath, content) => targetFolder / relPath -> content
-                }
-                logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
-                outFiles
-            }
+          libs.par.flatMap {
+            case (source, lib) =>
+              val trimmed = KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
+              val outFiles = Printer(globalScope, trimmed) map {
+                case (relPath, content) => targetFolder / relPath -> content
+              }
+              logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
+              outFiles
+          }.seq
 
         files.syncAbs(outFiles, folder = targetFolder, deleteUnknowns = true, soft = true)
 

@@ -136,7 +136,7 @@ object Imports {
 
             val (namespaceds, rest, _) = withAugmented.members.partitionCollect2(
               { case x: TsNamedDecl if x.name === TsIdent.namespaced => x },
-              { case x: TsNamedDecl                                  => DeriveCopy(x, None) },
+              { case x: TsNamedDecl                                  => DeriveCopy(x, CodePath.NoPath, None) },
             )
 
             ExpandedMod.Whole(Nil, namespaceds, rest.flatten, modScope)

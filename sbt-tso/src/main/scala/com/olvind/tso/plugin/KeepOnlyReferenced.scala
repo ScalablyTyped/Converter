@@ -5,48 +5,44 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.{Phase2Res, Source}
 import com.olvind.tso.scalajs._
 
-import scala.collection.immutable.SortedMap
 import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 object KeepOnlyReferenced {
   def findReferences(
       globalScope: TreeScope,
-      libs:        SortedMap[Source.TsLibSource, Phase2Res.LibScalaJs],
+      libs:        Map[Source.TsLibSource, Phase2Res.LibScalaJs],
   ): Seq[QualifiedName] = {
     val vipsTrees: Seq[QualifiedName] =
       libs.values.to[Seq].flatMap { lib =>
         TreeTraverse.collect(lib.packageTree) {
-          case x: Tree with scalajs.HasCodePath if x.comments has Markers.VIP => x.codePath
+          case x: HasCodePath if x.comments has Markers.VIP => x.codePath
         }
       }
 
-    val cache = mutable.Map.empty[QualifiedName, Seq[QualifiedName]]
-    var toCheck: List[QualifiedName] = vipsTrees.toList
-    val keep = mutable.ArrayBuffer[QualifiedName](vipsTrees: _*)
+    var queue: List[QualifiedName]                            = vipsTrees.toList
+    val keep:  ArrayBuffer[QualifiedName]                     = mutable.ArrayBuffer(vipsTrees: _*)
+    val cache: mutable.Map[QualifiedName, Seq[QualifiedName]] = mutable.Map.empty
 
-    while (toCheck.nonEmpty) {
-      val currentCp = toCheck.head
-      val newToCheck: Seq[QualifiedName] =
-        if (cache.contains(currentCp)) Nil
-        else {
-          val currents = globalScope.lookup(currentCp)
-          val referenced = TreeTraverse.collectSeq(currents.map(_._1)) {
-            case TypeRef(typeName, _, _)
-                if typeName =/= currentCp &&
-                  !cache.contains(typeName) // optimization
-                =>
-              typeName
-          }
-          cache.put(currentCp, referenced)
+    while (queue.nonEmpty) {
+      queue match {
+        case head :: tail if cache contains head =>
+          queue = tail
+        case head :: tail =>
+          val trees: Seq[Tree] =
+            globalScope lookup head map (_._1)
 
-          //              if (referenced.nonEmpty)
-          //                println(currentCp + " ==> " + referenced.size ++ s" (first ten: ${referenced.take(10)})")
+          val referenced: Seq[QualifiedName] =
+            TreeTraverse.collectSeq(trees) {
+              case TypeRef(typeName, _, _) if typeName =/= head && !cache.contains(typeName) => typeName
+            }
 
+          cache.put(head, referenced)
           keep ++= referenced
-          referenced
-        }
-      toCheck = newToCheck.toList ++ toCheck.tail
+          queue = referenced.toList ++ tail
+      }
     }
+
     keep.flatMap(qname => qname.parts.indices.map(n => QualifiedName(qname.parts.take(n + 1))))(collection.breakOut)
   }
 
@@ -61,13 +57,13 @@ object KeepOnlyReferenced {
           parents = s.parents.filter(tr => keep(tr.typeName)),
           members = s.members.filter {
             case x: MemberTree if x.name === Name.APPLY => true
-            case x: scalajs.HasCodePath                 => keep(x.codePath)
+            case x: HasCodePath                         => keep(x.codePath)
             case _ => false
           },
         )
     override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
       s.copy(members = s.members.filter {
-        case x: scalajs.HasCodePath => keep(x.codePath)
+        case x: HasCodePath => keep(x.codePath)
         case _ => false
       })
   }

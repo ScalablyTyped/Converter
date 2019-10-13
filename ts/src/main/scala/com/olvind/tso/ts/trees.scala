@@ -396,7 +396,7 @@ object TsIdent {
   val namespaced:    TsIdent = TsIdent("^")
   val namespacedCls: TsIdent = TsIdent("Class")
   val Symbol:        TsIdent = TsIdent("Symbol")
-  val Global:        TsIdent = TsIdent("Global")
+  val Global:        TsIdent = TsIdent("_Global_")
   val Record:        TsIdent = TsIdent("Record")
 
   val dummy: TsIdentLibrary = TsIdentLibrarySimple("dummy")

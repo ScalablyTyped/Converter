@@ -55,11 +55,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           .lookupBase(Picker.NamedValues, expr)
           .flatMap {
             case (found, _) =>
-              DeriveCopy(found, Some(name)).map { copy =>
-                SetJsLocation.visitTsNamedDecl(ownerLoc)(
-                  SetCodePath.visitTsNamedDecl(tree.codePath.forceHasPath)(copy),
-                )
-              }
+              DeriveCopy(found, tree.codePath, Some(name)).map { SetJsLocation.visitTsNamedDecl(ownerLoc) }
           }
 
         founds match {

@@ -455,7 +455,7 @@ object TsTreeScope {
       case h :: t =>
         c match {
           case cc: TsContainer =>
-            cc.membersByNameMeh get h match {
+            cc.membersByName get h orElse cc.membersByNameMeh.get(h) match {
               case Some(decls) =>
                 decls flatMap {
 

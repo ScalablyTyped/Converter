@@ -28,8 +28,6 @@ trait MemberCache {
 
     members.foreach {
       case mod: TsDeclModule =>
-        ret(mod.name) = mod :: ret.getOrElseUpdate(mod.name, Nil)
-
         mod.members foreach {
           case TsExportAsNamespace(ident) =>
             ret(ident) = mod :: ret.getOrElseUpdate(ident, Nil)

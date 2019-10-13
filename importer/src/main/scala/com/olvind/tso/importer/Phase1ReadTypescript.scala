@@ -15,13 +15,6 @@ import scala.collection.immutable.SortedMap
 /**
   * This phase parses files, implements the module system, and "implements" a bunch of typescript features by rewriting the tree.
   * For instance defaulted parameters are filled in. The point is to go from a complex tree to a simpler tree
-  *
-  * @param resolve
-  * @param calculateLibraryVersion
-  * @param ignored
-  * @param stdlibSource
-  * @param pedantic
-  * @param parser
   */
 class Phase1ReadTypescript(
     resolve:                 LibraryResolver,
@@ -179,6 +172,7 @@ class Phase1ReadTypescript(
                 case TsIdentLibrarySimple("styled-components") => true
                 case TsIdentLibrarySimple("antd")              => true
                 case TsIdentLibrarySimple("amap-js-api")       => true
+                case TsIdentLibrarySimple("react-onsenui")     => true
                 case TsIdentLibraryScoped("uifabric", _)       => true
                 case TsIdentLibraryScoped("tensorflow", _)     => true
                 case TsIdentLibraryScoped("ant-design", _)     => true
@@ -234,6 +228,7 @@ object Phase1ReadTypescript {
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
+      T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
       if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
       if (enableExpandTypeMappings) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
       (

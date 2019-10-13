@@ -110,6 +110,10 @@ object TreeScope {
         case current.name :: Nil =>
           Seq((current, this))
 
+        // 99% a shortcut, plus handle fully qualified types more places in the pipeline
+        case ScalaConfig.outputPkg :: rest if rest.startsWith(nameStack) =>
+          lookupNoBacktrack(names.drop(nameStack.length))
+
         case current.name :: head :: tail =>
           current match {
             case c: ContainerTree =>

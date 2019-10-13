@@ -7,8 +7,7 @@ object FollowAliases {
         scope
           .lookupTypeIncludeScope(typeRef.name)
           .collectFirst {
-            case (ta: TsDeclTypeAlias, newScope) =>
-              apply(newScope)(FillInTParams(ta, typeRef.tparams).alias)
+            case (ta: TsDeclTypeAlias, newScope) => apply(newScope)(FillInTParams(ta, typeRef.tparams).alias)
           }
           .getOrElse(typeRef)
       case TsTypeIntersect(types) =>

@@ -1,6 +1,8 @@
 package typings.reactDashBootstrap
 
-import typings.reactDashBootstrap.libButtonGroupMod.^
+import typings.react.reactMod.Component
+import typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps
+import typings.reactDashBootstrap.libToggleButtonGroupMod.ToggleButtonGroupProps
 import typings.reactDashBootstrap.libUtilsBootstrapUtilsMod.BSProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,11 +12,12 @@ import scala.scalajs.js.annotation._
 @js.native
 object libMod extends js.Object {
   @js.native
-  class ButtonGroup () extends ^
+  class ButtonGroup ()
+    extends Component[ButtonGroupProps, js.Object]
   
   @js.native
   class ToggleButtonGroup ()
-    extends typings.reactDashBootstrap.libToggleButtonGroupMod.^
+    extends Component[ToggleButtonGroupProps, js.Object]
   
   @js.native
   object utils extends js.Object {

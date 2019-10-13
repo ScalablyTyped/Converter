@@ -5,7 +5,7 @@ package importer
 import org.scalatest.{FunSuite, ParallelTestExecution}
 
 class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecution {
-  val update = sys.env.get("CIRCLECI").isEmpty
+  val update = !constants.isCi
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))
@@ -45,4 +45,5 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
   test("expand-type-parameters")(assertImportsOk("expand-type-parameters", pedantic = true, update  = update))
   test("const-enum")(assertImportsOk("const-enum", pedantic                         = true, update  = update))
   test("firebase-admin")(assertImportsOk("firebase-admin", pedantic                 = true, update  = update))
+  test("semantic-ui-react")(assertImportsOk("semantic-ui-react", pedantic           = false, update = update))
 }

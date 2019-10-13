@@ -1,10 +1,11 @@
-package com.olvind.tso.importer
+package com.olvind.tso
+package importer
 
-import org.scalatest.{FunSuite, ParallelTestExecution}
+import com.olvind.tso.scalajs.react.ReactBinding
 
-class SlinkyReactTest extends FunSuite with ImporterHarness with ParallelTestExecution {
-  val update = sys.env.get("CIRCLECI").isEmpty
+class SlinkyReactTest extends ImporterHarness {
+  val update = !constants.isCi
 
-  test("semantic-ui-react")(assertImportsOk("semantic-ui-react", pedantic = false, update = update, reactBinding = Option(ReactBinding.slinky)))
-
+  def main(args: Array[String]): Unit =
+    assertImportsOk("semantic-ui-react", pedantic = false, update = update, reactBindings = List(ReactBinding.slinky))
 }

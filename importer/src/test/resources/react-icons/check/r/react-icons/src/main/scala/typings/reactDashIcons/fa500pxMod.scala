@@ -2,7 +2,6 @@ package typings.reactDashIcons
 
 import typings.react.reactMod.Component
 import typings.reactDashIconDashBase.reactDashIconDashBaseMod.IconBaseProps
-import typings.reactDashIcons.fa500pxMod.Fa500px
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +10,8 @@ import scala.scalajs.js.annotation._
 @js.native
 object fa500pxMod extends js.Object {
   @js.native
-  class default () extends Fa500px
+  class default ()
+    extends Component[IconBaseProps, js.Object]
   
   type Fa500px = Component[IconBaseProps, js.Object]
 }

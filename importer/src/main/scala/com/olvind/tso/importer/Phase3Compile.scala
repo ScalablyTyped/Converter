@@ -11,6 +11,7 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.react.ReactBinding
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
 
@@ -21,17 +22,6 @@ import scala.util.Try
 
 /**
   * This phase goes from scala AST to compiled jar files on the local file system
-  *
-  * @param resolve
-  * @param versions
-  * @param compiler
-  * @param targetFolder
-  * @param projectName
-  * @param organization
-  * @param publishUser
-  * @param publishFolder
-  * @param metadataFetcher
-  * @param softWrites
   */
 class Phase3Compile(
     resolve:         LibraryResolver,
@@ -44,7 +34,7 @@ class Phase3Compile(
     publishFolder:   os.Path,
     metadataFetcher: Npmjs.Fetcher,
     softWrites:      Boolean,
-    reactBinding:    Option[ReactBinding],
+    reactBindings:   List[ReactBinding],
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -115,7 +105,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = buildJson.dependencies,
+              deps            = buildJson.dependencies,
               scalaFiles      = sourceFiles,
               resources       = Map(),
               projectName     = projectName,
@@ -159,8 +149,8 @@ class Phase3Compile(
               source.libName === react || deps.exists { case (s, _) => s.libName === react }
             }
 
-            val externalDeps: Set[FacadeJson.Dep] =
-              if (involvesReact) reactBinding.fold(Set.empty[FacadeJson.Dep])(_.dependencies) else Set.empty
+            val externalDeps: Set[Dep] =
+              if (involvesReact) reactBindings.flatMap(_.dependencies).to[Set] else Set()
 
             val sbtLayout = ContentSbtProject(
               v               = versions,
@@ -170,7 +160,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = externalDeps,
+              deps            = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
               projectName     = projectName,
@@ -196,7 +186,7 @@ class Phase3Compile(
   def go(
       logger:             Logger[Unit],
       deps:               Map[Source, PublishedSbtProject],
-      externalDeps:       Set[FacadeJson.Dep],
+      externalDeps:       Set[Dep],
       source:             Source,
       name:               String,
       sbtLayout:          SbtProjectLayout[os.RelPath, Array[Byte]],

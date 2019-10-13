@@ -3,8 +3,9 @@ package importer
 package build
 
 import com.olvind.tso.importer.documentation.{Npmjs, ProjectReadme}
+import com.olvind.tso.scalajs.Dep
+import com.olvind.tso.sets.SetOps
 import com.olvind.tso.stringUtils.quote
-import sets.SetOps
 
 object ContentSbtProject {
   def apply(
@@ -15,7 +16,7 @@ object ContentSbtProject {
       version:         String,
       publishUser:     String,
       localDeps:       Seq[PublishedSbtProject],
-      facadeDeps:      Set[FacadeJson.Dep],
+      deps:            Set[Dep],
       scalaFiles:      Map[os.RelPath, Array[Byte]],
       resources:       Map[os.RelPath, Array[Byte]],
       projectName:     String,
@@ -25,7 +26,7 @@ object ContentSbtProject {
 
     val buildSbt = {
       val fixed    = List(v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion))
-      val external = facadeDeps.map(d => v.%%%(d.org, d.artifact, d.version))
+      val external = deps.map(d => v.%%%(d.org, d.artifact, d.version))
       val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))
 
       val ds = (external ++ fixed ++ local).sorted.mkString("Seq(\n  ", ",\n  ", ")")

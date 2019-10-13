@@ -12,8 +12,8 @@ import scala.io.Codec
   */
 object constants {
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
-
-  val TimeZone        = ZoneId.of("UTC")
-  val Utf8            = Codec.UTF8.charSet
-  val DateTimePattern = DateTimeFormatter ofPattern "yyyyMMddhhmm" withLocale Locale.ENGLISH withZone TimeZone
+  val isCi                = sys.env.get("CIRCLECI").isDefined
+  val TimeZone            = ZoneId.of("UTC")
+  val Utf8                = Codec.UTF8.charSet
+  val DateTimePattern     = DateTimeFormatter ofPattern "yyyyMMddhhmm" withLocale Locale.ENGLISH withZone TimeZone
 }

@@ -253,16 +253,22 @@ object Libraries {
       // circular, and somehow breaks sequential mode?
       "koa-compose",
     )
-    // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
-    def circular = Set(
-      "mali",
-      "apollo-tracing",
-      "playerframework",
-      "gatsby",
-      "socketcluster",
-    )
 
-    if (sequential) base else base ++ circular
+    // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
+    def circular =
+      if (sequential) Set()
+      else
+        Set(
+          "mali",
+          "apollo-tracing",
+          "playerframework",
+          "gatsby",
+          "socketcluster",
+        )
+
+    def slow = if (constants.isCi) Set() else Set("@pulumi/aws", "aws-sdk")
+
+    base ++ circular ++ slow
   }
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
@@ -341,6 +347,7 @@ object Libraries {
     "mobx-react",
     "moment",
     "node",
+    "onsenui",
     "p5",
     "prop-types",
     "range-parser",

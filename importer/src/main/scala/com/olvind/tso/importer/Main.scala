@@ -199,7 +199,7 @@ class Main(config: Config) {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(config.pedantic, config.reactBinding), "scala.js")
+        .next(new Phase2ToScalaJs(config.pedantic, config.reactBindings), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -212,7 +212,7 @@ class Main(config: Config) {
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
-            reactBinding    = config.reactBinding,
+            reactBindings   = config.reactBindings,
           ),
           "build",
         )
@@ -286,6 +286,16 @@ target/
 .bloop/
 """))
 
+    val summaryFile = targetFolder / Summary.path
+
+    val formattedDiff: String = {
+      val existingOpt = Try(Json[Summary](summaryFile)).toOption
+      val diff        = Summary.diff(BuildInfo.gitSha.take(6), existingOpt, summary)
+      Json.persist(summaryFile)(summary)
+      Summary.formatDiff(diff)
+    }
+    interfaceLogger.warn(formattedDiff)
+
     if (config.debugMode && !config.forceCommit) {
       interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
     } else {
@@ -307,10 +317,18 @@ target/
         interfaceCmd,
         summary,
         successes.map(_.project.baseDir).to[Seq],
-        Seq(sbtProjectDir, failFolder, readme, librariesByScore, librariesByName, librariesByDependents, gitIgnore),
-      )(
-        targetFolder,
-      )
+        Seq(
+          sbtProjectDir,
+          failFolder,
+          readme,
+          librariesByScore,
+          librariesByName,
+          librariesByDependents,
+          gitIgnore,
+          summaryFile,
+        ),
+        formattedDiff,
+      )(targetFolder)
     }
 
     System.exit(0)
