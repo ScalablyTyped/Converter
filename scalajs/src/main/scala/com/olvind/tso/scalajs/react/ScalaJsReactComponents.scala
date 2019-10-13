@@ -132,12 +132,14 @@ object ScalaJsReactComponents {
     ret match {
       case Some(Param(ParamTree(name, TypeRef.ScalaFunction(paramTypes, resType), default, comments), isOptional, s)) =>
         // rewrite functions returning a Callback so that javascript land can call them
+        val mapped = paramTypes.map(typeMapper)
+
         def fn(obj: String) = {
           val params =
-            paramTypes.zipWithIndex.map { case (tpe, idx) => s"t$idx: ${Printer.formatTypeRef(0)(tpe)}" }.mkString(", ")
-          val paramRefs = paramTypes.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
+            mapped.zipWithIndex.map { case (tpe, idx) => s"t$idx: ${Printer.formatTypeRef(0)(tpe)}" }.mkString(", ")
+          val paramRefs = mapped.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
           val rewrittenFn =
-            s"js.Any.fromFunction${paramTypes.length}((($params) => ${name.value}($paramRefs).runNow()))"
+            s"js.Any.fromFunction${mapped.length}((($params) => ${name.value}($paramRefs).runNow()))"
           s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
         }
 
@@ -145,7 +147,7 @@ object ScalaJsReactComponents {
           Param(
             ParamTree(
               name,
-              TypeRef.ScalaFunction(paramTypes.map(typeMapper), TypeRef(scalaJsReact.callback), NoComments),
+              TypeRef.ScalaFunction(mapped, TypeRef(scalaJsReact.callback), NoComments),
               default,
               comments,
             ),
