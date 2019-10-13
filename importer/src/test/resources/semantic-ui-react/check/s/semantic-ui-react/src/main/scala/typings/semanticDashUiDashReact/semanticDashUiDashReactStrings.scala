@@ -15,6 +15,7 @@ import typings.semanticDashUiDashReact.srcGenericMod.SemanticTRANSITIONS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticVERTICALALIGNMENTS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHSSTRING
+import typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TRANSITION_STATUSES
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -61,9 +62,15 @@ object semanticDashUiDashReactStrings {
        with SemanticWIDTHSSTRING
   
   @js.native
+  sealed trait `16:9` extends js.Object
+  
+  @js.native
   sealed trait `2`
     extends SemanticWIDTHS
        with SemanticWIDTHSSTRING
+  
+  @js.native
+  sealed trait `21:9` extends js.Object
   
   @js.native
   sealed trait `3`
@@ -74,6 +81,9 @@ object semanticDashUiDashReactStrings {
   sealed trait `4`
     extends SemanticWIDTHS
        with SemanticWIDTHSSTRING
+  
+  @js.native
+  sealed trait `4:3` extends js.Object
   
   @js.native
   sealed trait `5`
@@ -104,7 +114,22 @@ object semanticDashUiDashReactStrings {
        with SemanticWIDTHSSTRING
   
   @js.native
+  sealed trait ENTERED extends TRANSITION_STATUSES
+  
+  @js.native
+  sealed trait ENTERING extends TRANSITION_STATUSES
+  
+  @js.native
+  sealed trait EXITED extends TRANSITION_STATUSES
+  
+  @js.native
+  sealed trait EXITING extends TRANSITION_STATUSES
+  
+  @js.native
   sealed trait JS extends SemanticICONS
+  
+  @js.native
+  sealed trait UNMOUNTED extends TRANSITION_STATUSES
   
   @js.native
   sealed trait above extends js.Object
@@ -445,6 +470,9 @@ object semanticDashUiDashReactStrings {
   sealed trait austria extends FlagNameValues
   
   @js.native
+  sealed trait auto extends js.Object
+  
+  @js.native
   sealed trait autoprefixer extends SemanticICONS
   
   @js.native
@@ -694,6 +722,9 @@ object semanticDashUiDashReactStrings {
   sealed trait `bluetooth b` extends SemanticICONS
   
   @js.native
+  sealed trait blurring extends js.Object
+  
+  @js.native
   sealed trait bm extends FlagNameValues
   
   @js.native
@@ -731,6 +762,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait bottom extends SemanticVERTICALALIGNMENTS
+  
+  @js.native
+  sealed trait `bottom center` extends js.Object
   
   @js.native
   sealed trait `bottom left` extends IconCorner
@@ -1074,6 +1108,9 @@ object semanticDashUiDashReactStrings {
   sealed trait `check square outline` extends SemanticICONS
   
   @js.native
+  sealed trait checkbox extends js.Object
+  
+  @js.native
   sealed trait `checked calendar` extends SemanticICONS
   
   @js.native
@@ -1171,6 +1208,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait cl extends FlagNameValues
+  
+  @js.native
+  sealed trait click extends js.Object
   
   @js.native
   sealed trait clipboard extends SemanticICONS
@@ -2025,6 +2065,9 @@ object semanticDashUiDashReactStrings {
   sealed trait fo extends FlagNameValues
   
   @js.native
+  sealed trait focus extends js.Object
+  
+  @js.native
   sealed trait folder extends SemanticICONS
   
   @js.native
@@ -2117,6 +2160,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait full extends js.Object
+  
+  @js.native
+  sealed trait fullscreen extends js.Object
   
   @js.native
   sealed trait futbol extends SemanticICONS
@@ -2612,6 +2658,9 @@ object semanticDashUiDashReactStrings {
   sealed trait houzz extends SemanticICONS
   
   @js.native
+  sealed trait hover extends js.Object
+  
+  @js.native
   sealed trait hr extends FlagNameValues
   
   @js.native
@@ -2727,6 +2776,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait intersex extends SemanticICONS
+  
+  @js.native
+  sealed trait inverted extends js.Object
   
   @js.native
   sealed trait io extends FlagNameValues
@@ -2944,6 +2996,9 @@ object semanticDashUiDashReactStrings {
   sealed trait left
     extends SemanticFLOATS
        with SemanticTEXTALIGNMENTS
+  
+  @js.native
+  sealed trait `left center` extends js.Object
   
   @js.native
   sealed trait `left corner` extends js.Object
@@ -3669,6 +3724,9 @@ object semanticDashUiDashReactStrings {
   sealed trait outdent extends SemanticICONS
   
   @js.native
+  sealed trait overlay extends js.Object
+  
+  @js.native
   sealed trait pa extends FlagNameValues
   
   @js.native
@@ -3956,6 +4014,9 @@ object semanticDashUiDashReactStrings {
   sealed trait purple extends SemanticCOLORS
   
   @js.native
+  sealed trait push extends js.Object
+  
+  @js.native
   sealed trait pushed extends SemanticICONS
   
   @js.native
@@ -4020,6 +4081,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait random extends SemanticICONS
+  
+  @js.native
+  sealed trait ratio extends js.Object
   
   @js.native
   sealed trait ravelry extends SemanticICONS
@@ -4121,6 +4185,9 @@ object semanticDashUiDashReactStrings {
   sealed trait right
     extends SemanticFLOATS
        with SemanticTEXTALIGNMENTS
+  
+  @js.native
+  sealed trait `right center` extends js.Object
   
   @js.native
   sealed trait `right corner` extends js.Object
@@ -4249,6 +4316,9 @@ object semanticDashUiDashReactStrings {
   sealed trait scale
     extends SemanticDIRECTIONALTRANSITIONS
        with SemanticTRANSITIONS
+  
+  @js.native
+  sealed trait `scale down` extends js.Object
   
   @js.native
   sealed trait schlix extends SemanticICONS
@@ -4481,6 +4551,9 @@ object semanticDashUiDashReactStrings {
   sealed trait `slack hash` extends SemanticICONS
   
   @js.native
+  sealed trait `slide along` extends js.Object
+  
+  @js.native
   sealed trait `slide down`
     extends SemanticDIRECTIONALTRANSITIONS
        with SemanticTRANSITIONS
@@ -4489,6 +4562,9 @@ object semanticDashUiDashReactStrings {
   sealed trait `slide left`
     extends SemanticDIRECTIONALTRANSITIONS
        with SemanticTRANSITIONS
+  
+  @js.native
+  sealed trait `slide out` extends js.Object
   
   @js.native
   sealed trait `slide right`
@@ -4980,6 +5056,9 @@ object semanticDashUiDashReactStrings {
   sealed trait `thermometer three quarters` extends SemanticICONS
   
   @js.native
+  sealed trait thin extends js.Object
+  
+  @js.native
   sealed trait thirteen
     extends SemanticWIDTHS
        with SemanticWIDTHSSTRING
@@ -5089,6 +5168,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait top extends SemanticVERTICALALIGNMENTS
+  
+  @js.native
+  sealed trait `top center` extends js.Object
   
   @js.native
   sealed trait `top left` extends IconCorner
@@ -5250,6 +5332,9 @@ object semanticDashUiDashReactStrings {
   sealed trait umbrella extends SemanticICONS
   
   @js.native
+  sealed trait uncover extends js.Object
+  
+  @js.native
   sealed trait underline extends SemanticICONS
   
   @js.native
@@ -5388,6 +5473,9 @@ object semanticDashUiDashReactStrings {
   sealed trait vaadin extends SemanticICONS
   
   @js.native
+  sealed trait value extends js.Object
+  
+  @js.native
   sealed trait vanuatu extends FlagNameValues
   
   @js.native
@@ -5433,6 +5521,12 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait `very short` extends js.Object
+  
+  @js.native
+  sealed trait `very thin` extends js.Object
+  
+  @js.native
+  sealed trait `very wide` extends js.Object
   
   @js.native
   sealed trait vg extends FlagNameValues
@@ -5562,6 +5656,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait `wi-fi` extends SemanticICONS
+  
+  @js.native
+  sealed trait wide extends js.Object
   
   @js.native
   sealed trait wifi extends SemanticICONS
@@ -5757,11 +5854,17 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `16`: `16` = "16".asInstanceOf[`16`]
   @scala.inline
+  def `16:9`: `16:9` = "16:9".asInstanceOf[`16:9`]
+  @scala.inline
   def `2`: `2` = "2".asInstanceOf[`2`]
+  @scala.inline
+  def `21:9`: `21:9` = "21:9".asInstanceOf[`21:9`]
   @scala.inline
   def `3`: `3` = "3".asInstanceOf[`3`]
   @scala.inline
   def `4`: `4` = "4".asInstanceOf[`4`]
+  @scala.inline
+  def `4:3`: `4:3` = "4:3".asInstanceOf[`4:3`]
   @scala.inline
   def `5`: `5` = "5".asInstanceOf[`5`]
   @scala.inline
@@ -5775,7 +5878,17 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `9`: `9` = "9".asInstanceOf[`9`]
   @scala.inline
+  def ENTERED: ENTERED = "ENTERED".asInstanceOf[ENTERED]
+  @scala.inline
+  def ENTERING: ENTERING = "ENTERING".asInstanceOf[ENTERING]
+  @scala.inline
+  def EXITED: EXITED = "EXITED".asInstanceOf[EXITED]
+  @scala.inline
+  def EXITING: EXITING = "EXITING".asInstanceOf[EXITING]
+  @scala.inline
   def JS: JS = "js".asInstanceOf[JS]
+  @scala.inline
+  def UNMOUNTED: UNMOUNTED = "UNMOUNTED".asInstanceOf[UNMOUNTED]
   @scala.inline
   def above: above = "above".asInstanceOf[above]
   @scala.inline
@@ -6001,6 +6114,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def austria: austria = "austria".asInstanceOf[austria]
   @scala.inline
+  def auto: auto = "auto".asInstanceOf[auto]
+  @scala.inline
   def autoprefixer: autoprefixer = "autoprefixer".asInstanceOf[autoprefixer]
   @scala.inline
   def avianex: avianex = "avianex".asInstanceOf[avianex]
@@ -6165,6 +6280,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `bluetooth b`: `bluetooth b` = "bluetooth b".asInstanceOf[`bluetooth b`]
   @scala.inline
+  def blurring: blurring = "blurring".asInstanceOf[blurring]
+  @scala.inline
   def bm: bm = "bm".asInstanceOf[bm]
   @scala.inline
   def bn: bn = "bn".asInstanceOf[bn]
@@ -6190,6 +6307,8 @@ object semanticDashUiDashReactStrings {
   def botswana: botswana = "botswana".asInstanceOf[botswana]
   @scala.inline
   def bottom: bottom = "bottom".asInstanceOf[bottom]
+  @scala.inline
+  def `bottom center`: `bottom center` = "bottom center".asInstanceOf[`bottom center`]
   @scala.inline
   def `bottom left`: `bottom left` = "bottom left".asInstanceOf[`bottom left`]
   @scala.inline
@@ -6413,6 +6532,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `check square outline`: `check square outline` = "check square outline".asInstanceOf[`check square outline`]
   @scala.inline
+  def checkbox: checkbox = "checkbox".asInstanceOf[checkbox]
+  @scala.inline
   def `checked calendar`: `checked calendar` = "checked calendar".asInstanceOf[`checked calendar`]
   @scala.inline
   def checkmark: checkmark = "checkmark".asInstanceOf[checkmark]
@@ -6478,6 +6599,8 @@ object semanticDashUiDashReactStrings {
   def ck: ck = "ck".asInstanceOf[ck]
   @scala.inline
   def cl: cl = "cl".asInstanceOf[cl]
+  @scala.inline
+  def click: click = "click".asInstanceOf[click]
   @scala.inline
   def clipboard: clipboard = "clipboard".asInstanceOf[clipboard]
   @scala.inline
@@ -7025,6 +7148,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def fo: fo = "fo".asInstanceOf[fo]
   @scala.inline
+  def focus: focus = "focus".asInstanceOf[focus]
+  @scala.inline
   def folder: folder = "folder".asInstanceOf[folder]
   @scala.inline
   def `folder open`: `folder open` = "folder open".asInstanceOf[`folder open`]
@@ -7084,6 +7209,8 @@ object semanticDashUiDashReactStrings {
   def `frown outline`: `frown outline` = "frown outline".asInstanceOf[`frown outline`]
   @scala.inline
   def full: full = "full".asInstanceOf[full]
+  @scala.inline
+  def fullscreen: fullscreen = "fullscreen".asInstanceOf[fullscreen]
   @scala.inline
   def futbol: futbol = "futbol".asInstanceOf[futbol]
   @scala.inline
@@ -7411,6 +7538,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def houzz: houzz = "houzz".asInstanceOf[houzz]
   @scala.inline
+  def hover: hover = "hover".asInstanceOf[hover]
+  @scala.inline
   def hr: hr = "hr".asInstanceOf[hr]
   @scala.inline
   def ht: ht = "ht".asInstanceOf[ht]
@@ -7486,6 +7615,8 @@ object semanticDashUiDashReactStrings {
   def `internet explorer`: `internet explorer` = "internet explorer".asInstanceOf[`internet explorer`]
   @scala.inline
   def intersex: intersex = "intersex".asInstanceOf[intersex]
+  @scala.inline
+  def inverted: inverted = "inverted".asInstanceOf[inverted]
   @scala.inline
   def io: io = "io".asInstanceOf[io]
   @scala.inline
@@ -7626,6 +7757,8 @@ object semanticDashUiDashReactStrings {
   def lebanon: lebanon = "lebanon".asInstanceOf[lebanon]
   @scala.inline
   def left: left = "left".asInstanceOf[left]
+  @scala.inline
+  def `left center`: `left center` = "left center".asInstanceOf[`left center`]
   @scala.inline
   def `left corner`: `left corner` = "left corner".asInstanceOf[`left corner`]
   @scala.inline
@@ -8101,6 +8234,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def outdent: outdent = "outdent".asInstanceOf[outdent]
   @scala.inline
+  def overlay: overlay = "overlay".asInstanceOf[overlay]
+  @scala.inline
   def pa: pa = "pa".asInstanceOf[pa]
   @scala.inline
   def page4: page4 = "page4".asInstanceOf[page4]
@@ -8291,6 +8426,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def purple: purple = "purple".asInstanceOf[purple]
   @scala.inline
+  def push: push = "push".asInstanceOf[push]
+  @scala.inline
   def pushed: pushed = "pushed".asInstanceOf[pushed]
   @scala.inline
   def puzzle: puzzle = "puzzle".asInstanceOf[puzzle]
@@ -8334,6 +8471,8 @@ object semanticDashUiDashReactStrings {
   def rain: rain = "rain".asInstanceOf[rain]
   @scala.inline
   def random: random = "random".asInstanceOf[random]
+  @scala.inline
+  def ratio: ratio = "ratio".asInstanceOf[ratio]
   @scala.inline
   def ravelry: ravelry = "ravelry".asInstanceOf[ravelry]
   @scala.inline
@@ -8400,6 +8539,8 @@ object semanticDashUiDashReactStrings {
   def reunion: reunion = "reunion".asInstanceOf[reunion]
   @scala.inline
   def right: right = "right".asInstanceOf[right]
+  @scala.inline
+  def `right center`: `right center` = "right center".asInstanceOf[`right center`]
   @scala.inline
   def `right corner`: `right corner` = "right corner".asInstanceOf[`right corner`]
   @scala.inline
@@ -8484,6 +8625,8 @@ object semanticDashUiDashReactStrings {
   def sc: sc = "sc".asInstanceOf[sc]
   @scala.inline
   def scale: scale = "scale".asInstanceOf[scale]
+  @scala.inline
+  def `scale down`: `scale down` = "scale down".asInstanceOf[`scale down`]
   @scala.inline
   def schlix: schlix = "schlix".asInstanceOf[schlix]
   @scala.inline
@@ -8633,9 +8776,13 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `slack hash`: `slack hash` = "slack hash".asInstanceOf[`slack hash`]
   @scala.inline
+  def `slide along`: `slide along` = "slide along".asInstanceOf[`slide along`]
+  @scala.inline
   def `slide down`: `slide down` = "slide down".asInstanceOf[`slide down`]
   @scala.inline
   def `slide left`: `slide left` = "slide left".asInstanceOf[`slide left`]
+  @scala.inline
+  def `slide out`: `slide out` = "slide out".asInstanceOf[`slide out`]
   @scala.inline
   def `slide right`: `slide right` = "slide right".asInstanceOf[`slide right`]
   @scala.inline
@@ -8949,6 +9096,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `thermometer three quarters`: `thermometer three quarters` = "thermometer three quarters".asInstanceOf[`thermometer three quarters`]
   @scala.inline
+  def thin: thin = "thin".asInstanceOf[thin]
+  @scala.inline
   def thirteen: thirteen = "thirteen".asInstanceOf[thirteen]
   @scala.inline
   def three: three = "three".asInstanceOf[three]
@@ -9016,6 +9165,8 @@ object semanticDashUiDashReactStrings {
   def tonga: tonga = "tonga".asInstanceOf[tonga]
   @scala.inline
   def top: top = "top".asInstanceOf[top]
+  @scala.inline
+  def `top center`: `top center` = "top center".asInstanceOf[`top center`]
   @scala.inline
   def `top left`: `top left` = "top left".asInstanceOf[`top left`]
   @scala.inline
@@ -9119,6 +9270,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def umbrella: umbrella = "umbrella".asInstanceOf[umbrella]
   @scala.inline
+  def uncover: uncover = "uncover".asInstanceOf[uncover]
+  @scala.inline
   def underline: underline = "underline".asInstanceOf[underline]
   @scala.inline
   def undo: undo = "undo".asInstanceOf[undo]
@@ -9211,6 +9364,8 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def vaadin: vaadin = "vaadin".asInstanceOf[vaadin]
   @scala.inline
+  def value: value = "value".asInstanceOf[value]
+  @scala.inline
   def vanuatu: vanuatu = "vanuatu".asInstanceOf[vanuatu]
   @scala.inline
   def `vatican city`: `vatican city` = "vatican city".asInstanceOf[`vatican city`]
@@ -9240,6 +9395,10 @@ object semanticDashUiDashReactStrings {
   def `very long`: `very long` = "very long".asInstanceOf[`very long`]
   @scala.inline
   def `very short`: `very short` = "very short".asInstanceOf[`very short`]
+  @scala.inline
+  def `very thin`: `very thin` = "very thin".asInstanceOf[`very thin`]
+  @scala.inline
+  def `very wide`: `very wide` = "very wide".asInstanceOf[`very wide`]
   @scala.inline
   def vg: vg = "vg".asInstanceOf[vg]
   @scala.inline
@@ -9324,6 +9483,8 @@ object semanticDashUiDashReactStrings {
   def whmcs: whmcs = "whmcs".asInstanceOf[whmcs]
   @scala.inline
   def `wi-fi`: `wi-fi` = "wi-fi".asInstanceOf[`wi-fi`]
+  @scala.inline
+  def wide: wide = "wide".asInstanceOf[wide]
   @scala.inline
   def wifi: wifi = "wifi".asInstanceOf[wifi]
   @scala.inline
