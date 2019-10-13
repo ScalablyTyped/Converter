@@ -11,5 +11,6 @@ object CommitChanges {
     mainFolders.grouped(500).foreach(xs => cmd.runVerbose git ('add, xs.map(_.toString()).to[List]))
 
     cmd.runVerbose git ('commit, "-m", formattedDiff)
+    ()
   }
 }

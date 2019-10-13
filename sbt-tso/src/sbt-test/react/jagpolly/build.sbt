@@ -9,10 +9,14 @@ lazy val start = TaskKey[Unit]("start")
 
 lazy val dist = TaskKey[File]("dist")
 
-lazy val newarch =
+lazy val jagpolly =
   project
     .in(file("."))
     .enablePlugins(ScalaJSPlugin, TsoPlugin)
+    .disablePlugins(SbtPrompt,
+      GitBranchPrompt,
+      GitPlugin,
+      GitVersioning)
     .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
     .settings(
@@ -24,6 +28,7 @@ lazy val newarch =
         library.scalaTest  % Test,
         "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
         "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
+        "com.github.japgolly.scalajs-react" %%% "extra" % "1.4.2",
         "com.github.pathikrit" %% "better-files" % "3.8.0",
         "me.shadaj" %%% "slinky-web" % "0.6.2"
       ),
