@@ -12,6 +12,7 @@ import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticVERTICALALIGNMENTS
+import typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -26,9 +27,7 @@ object Image {
     centered: js.UndefOr[Boolean] = js.undefined,
     circular: js.UndefOr[Boolean] = js.undefined,
     content: SemanticShorthandContent = null,
-    dimmer: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify DimmerProps */ _
-    ] = null,
+    dimmer: SemanticShorthandItem[DimmerProps] = null,
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
     `inline`: js.UndefOr[Boolean] = js.undefined,
