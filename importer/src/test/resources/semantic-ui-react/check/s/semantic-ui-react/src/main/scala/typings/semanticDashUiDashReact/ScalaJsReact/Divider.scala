@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsDividerDividerMod.DividerProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -24,13 +26,11 @@ object Divider {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[DividerProps, js.Object, Unit, DividerProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    DividerProps, 
+    MountedWithRawType[DividerProps, js.Object, RawMounted[DividerProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type DividerType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -42,11 +42,11 @@ object Divider {
     if (!js.isUndefined(section)) __obj.updateDynamic("section")(section)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, DividerType](js.constructorOf[DividerType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsDividerDividerMod.DividerProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsDividerMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsDividerDividerMod.DividerProps])(children: _*)
   }
-  type Props = DividerProps
 }
 

@@ -51,12 +51,7 @@ object Input {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type InputType = typings.semanticDashUiDashReact.srcElementsInputMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
@@ -77,11 +72,11 @@ object Input {
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, InputType](js.constructorOf[InputType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcElementsInputMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsInputMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps])(children: _*)
   }
-  type Props = InputProps
 }
 

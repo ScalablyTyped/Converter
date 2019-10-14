@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsListListListMod.ListListProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -18,23 +20,21 @@ object ListList {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ListListProps, js.Object, Unit, ListListProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ListListProps, 
+    MountedWithRawType[ListListProps, js.Object, RawMounted[ListListProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ListListType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ListListType](js.constructorOf[ListListType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsListListListMod.ListListProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsListListListMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsListListListMod.ListListProps])(children: _*)
   }
-  type Props = ListListProps
 }
 

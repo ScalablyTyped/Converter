@@ -35,15 +35,8 @@ object Checkbox {
     tabIndex: Double | String = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
     `type`: checkbox | radio = null
-  )(
-    
   ): UnmountedWithRoot[CheckboxProps, default, Unit, CheckboxProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type CheckboxType = typings.semanticDashUiDashReact.srcModulesCheckboxMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -62,11 +55,11 @@ object Checkbox {
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
     if (`type` != null) __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, CheckboxType](js.constructorOf[CheckboxType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesCheckboxCheckboxMod.CheckboxProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesCheckboxMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesCheckboxMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesCheckboxCheckboxMod.CheckboxProps])
   }
-  type Props = CheckboxProps
 }
 

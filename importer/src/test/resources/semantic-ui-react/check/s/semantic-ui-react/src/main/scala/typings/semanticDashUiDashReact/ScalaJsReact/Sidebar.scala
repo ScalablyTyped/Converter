@@ -37,12 +37,7 @@ object Sidebar {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[SidebarProps, default, Unit, SidebarProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type SidebarType = typings.semanticDashUiDashReact.srcModulesSidebarMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (animation != null) __obj.updateDynamic("animation")(animation.asInstanceOf[js.Any])
@@ -55,11 +50,11 @@ object Sidebar {
     if (target != null) __obj.updateDynamic("target")(target.asInstanceOf[js.Any])
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, SidebarType](js.constructorOf[SidebarType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesSidebarSidebarMod.SidebarProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesSidebarMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSidebarMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesSidebarSidebarMod.SidebarProps])(children: _*)
   }
-  type Props = SidebarProps
 }
 

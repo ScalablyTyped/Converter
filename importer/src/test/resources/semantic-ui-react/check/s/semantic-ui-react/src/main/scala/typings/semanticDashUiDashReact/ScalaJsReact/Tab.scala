@@ -26,15 +26,8 @@ object Tab {
     onTabChange: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ TabProps) => Callback = null,
     panes: js.Array[Anon_MenuItem] = null,
     renderActiveOnly: js.UndefOr[Boolean] = js.undefined
-  )(
-    
   ): UnmountedWithRoot[TabProps, default, Unit, TabProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type TabType = typings.semanticDashUiDashReact.srcModulesTabMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
@@ -47,11 +40,11 @@ object Tab {
     if (panes != null) __obj.updateDynamic("panes")(panes)
     if (!js.isUndefined(renderActiveOnly)) __obj.updateDynamic("renderActiveOnly")(renderActiveOnly)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, TabType](js.constructorOf[TabType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesTabMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTabMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps])
   }
-  type Props = TabProps
 }
 

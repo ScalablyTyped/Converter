@@ -21,6 +21,7 @@ object ReactBinding {
     override def generateReactComponents(s: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       ScalaJsReactComponents(s, tree, components)
   }
+  val all = List(native, slinky, scalajsReact)
 }
 
 sealed trait ReactBinding {

@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.StepDescriptionProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -18,23 +20,21 @@ object StepDescription {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[StepDescriptionProps, js.Object, Unit, StepDescriptionProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    StepDescriptionProps, 
+    MountedWithRawType[StepDescriptionProps, js.Object, RawMounted[StepDescriptionProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type StepDescriptionType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, StepDescriptionType](js.constructorOf[StepDescriptionType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.StepDescriptionProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.StepDescriptionProps])(children: _*)
   }
-  type Props = StepDescriptionProps
 }
 

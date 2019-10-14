@@ -34,15 +34,8 @@ object Icon {
     name: SemanticICONS = null,
     rotated: clockwise | counterclockwise = null,
     size: IconSizeProp = null
-  )(
-    
   ): UnmountedWithRoot[IconProps, default, Unit, IconProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type IconType = typings.semanticDashUiDashReact.srcElementsIconMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (`aria-hidden` != null) __obj.updateDynamic("aria-hidden")(`aria-hidden`)
@@ -60,11 +53,11 @@ object Icon {
     if (rotated != null) __obj.updateDynamic("rotated")(rotated.asInstanceOf[js.Any])
     if (size != null) __obj.updateDynamic("size")(size)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, IconType](js.constructorOf[IconType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcElementsIconMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsIconMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps])
   }
-  type Props = IconProps
 }
 

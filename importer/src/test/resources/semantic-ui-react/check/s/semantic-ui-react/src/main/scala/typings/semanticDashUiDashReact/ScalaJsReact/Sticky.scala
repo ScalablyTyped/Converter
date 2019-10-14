@@ -33,12 +33,7 @@ object Sticky {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[StickyProps, default, Unit, StickyProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type StickyType = typings.semanticDashUiDashReact.srcModulesStickyMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -54,11 +49,11 @@ object Sticky {
     if (scrollContext != null) __obj.updateDynamic("scrollContext")(scrollContext.asInstanceOf[js.Any])
     if (styleElement != null) __obj.updateDynamic("styleElement")(styleElement)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, StickyType](js.constructorOf[StickyType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesStickyStickyMod.StickyProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesStickyMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesStickyMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesStickyStickyMod.StickyProps])(children: _*)
   }
-  type Props = StickyProps
 }
 

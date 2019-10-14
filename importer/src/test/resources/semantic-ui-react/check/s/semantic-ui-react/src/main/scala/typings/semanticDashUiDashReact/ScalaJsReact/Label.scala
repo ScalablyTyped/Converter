@@ -58,12 +58,7 @@ object Label {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[LabelProps, default, Unit, LabelProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type LabelType = typings.semanticDashUiDashReact.srcElementsLabelMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -89,11 +84,11 @@ object Label {
     if (size != null) __obj.updateDynamic("size")(size)
     if (!js.isUndefined(tag)) __obj.updateDynamic("tag")(tag)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, LabelType](js.constructorOf[LabelType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcElementsLabelMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsLabelMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps])(children: _*)
   }
-  type Props = LabelProps
 }
 

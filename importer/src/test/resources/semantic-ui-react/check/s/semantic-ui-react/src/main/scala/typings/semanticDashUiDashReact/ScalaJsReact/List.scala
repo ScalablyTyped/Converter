@@ -3,7 +3,9 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLAnchorElement
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.very
@@ -42,13 +44,11 @@ object List {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ListProps, js.Object, Unit, ListProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ListProps, 
+    MountedWithRawType[ListProps, js.Object, RawMounted[ListProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ListType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(animated)) __obj.updateDynamic("animated")(animated)
@@ -69,11 +69,11 @@ object List {
     if (size != null) __obj.updateDynamic("size")(size)
     if (verticalAlign != null) __obj.updateDynamic("verticalAlign")(verticalAlign)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ListType](js.constructorOf[ListType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsListListMod.ListProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsListMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsListListMod.ListProps])(children: _*)
   }
-  type Props = ListProps
 }
 

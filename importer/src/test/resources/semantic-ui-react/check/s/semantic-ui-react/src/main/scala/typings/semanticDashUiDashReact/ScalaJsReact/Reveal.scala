@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`move down`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`move right`
@@ -29,13 +31,11 @@ object Reveal {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[RevealProps, js.Object, Unit, RevealProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    RevealProps, 
+    MountedWithRawType[RevealProps, js.Object, RawMounted[RevealProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type RevealType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -44,11 +44,11 @@ object Reveal {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(instant)) __obj.updateDynamic("instant")(instant)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, RevealType](js.constructorOf[RevealType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsRevealRevealMod.RevealProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsRevealMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsRevealRevealMod.RevealProps])(children: _*)
   }
-  type Props = RevealProps
 }
 

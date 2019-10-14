@@ -3,7 +3,9 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLAnchorElement
 import typings.semanticDashUiDashReact.srcElementsImageImageMod.ImageProps
@@ -33,13 +35,11 @@ object ListItem {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ListItemProps, js.Object, Unit, ListItemProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ListItemProps, 
+    MountedWithRawType[ListItemProps, js.Object, RawMounted[ListItemProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ListItemType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -52,11 +52,11 @@ object ListItem {
         if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps) => onClick(t0, t1).runNow())))
     if (value != null) __obj.updateDynamic("value")(value)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ListItemType](js.constructorOf[ListItemType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsListListItemMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps])(children: _*)
   }
-  type Props = ListItemProps
 }
 

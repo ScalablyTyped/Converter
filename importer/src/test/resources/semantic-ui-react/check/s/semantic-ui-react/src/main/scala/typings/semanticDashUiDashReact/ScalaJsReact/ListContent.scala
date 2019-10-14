@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsListListContentMod.ListContentProps
 import typings.semanticDashUiDashReact.srcElementsListListDescriptionMod.ListDescriptionProps
@@ -27,13 +29,11 @@ object ListContent {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ListContentProps, js.Object, Unit, ListContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ListContentProps, 
+    MountedWithRawType[ListContentProps, js.Object, RawMounted[ListContentProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ListContentType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -43,11 +43,11 @@ object ListContent {
     if (header != null) __obj.updateDynamic("header")(header.asInstanceOf[js.Any])
     if (verticalAlign != null) __obj.updateDynamic("verticalAlign")(verticalAlign)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ListContentType](js.constructorOf[ListContentType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsListListContentMod.ListContentProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsListListContentMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsListListContentMod.ListContentProps])(children: _*)
   }
-  type Props = ListContentProps
 }
 

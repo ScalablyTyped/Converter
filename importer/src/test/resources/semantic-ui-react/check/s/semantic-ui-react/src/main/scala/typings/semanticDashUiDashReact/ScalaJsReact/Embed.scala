@@ -42,12 +42,7 @@ object Embed {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[EmbedProps, default, Unit, EmbedProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type EmbedType = typings.semanticDashUiDashReact.srcModulesEmbedMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -64,11 +59,11 @@ object Embed {
     if (source != null) __obj.updateDynamic("source")(source.asInstanceOf[js.Any])
     if (url != null) __obj.updateDynamic("url")(url)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, EmbedType](js.constructorOf[EmbedType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesEmbedEmbedMod.EmbedProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesEmbedMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesEmbedMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesEmbedEmbedMod.EmbedProps])(children: _*)
   }
-  type Props = EmbedProps
 }
 

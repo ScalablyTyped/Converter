@@ -29,12 +29,7 @@ object AccordionAccordion {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[AccordionAccordionProps, default, Unit, AccordionAccordionProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type AccordionAccordionType = typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
@@ -44,11 +39,11 @@ object AccordionAccordion {
         if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow())))
     if (panels != null) __obj.updateDynamic("panels")(panels)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, AccordionAccordionType](js.constructorOf[AccordionAccordionType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.AccordionAccordionProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.AccordionAccordionProps])(children: _*)
   }
-  type Props = AccordionAccordionProps
 }
 

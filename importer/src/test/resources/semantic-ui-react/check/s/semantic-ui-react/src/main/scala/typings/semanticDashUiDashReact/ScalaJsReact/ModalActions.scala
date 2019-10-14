@@ -27,12 +27,7 @@ object ModalActions {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ModalActionsProps, default, Unit, ModalActionsProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type ModalActionsType = typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (actions != null) __obj.updateDynamic("actions")(actions)
@@ -40,11 +35,11 @@ object ModalActions {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
         if (onActionClick != null) __obj.updateDynamic("onActionClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps) => onActionClick(t0, t1).runNow())))
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ModalActionsType](js.constructorOf[ModalActionsType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.ModalActionsProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.ModalActionsProps])(children: _*)
   }
-  type Props = ModalActionsProps
 }
 

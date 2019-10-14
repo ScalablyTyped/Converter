@@ -21,15 +21,8 @@ object RatingIcon {
     onClick: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ RatingIconProps) => Callback = null,
     onKeyUp: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ RatingIconProps) => Callback = null,
     onMouseEnter: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ RatingIconProps) => Callback = null
-  )(
-    
   ): UnmountedWithRoot[RatingIconProps, default, Unit, RatingIconProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type RatingIconType = typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -39,11 +32,11 @@ object RatingIcon {
         if (onKeyUp != null) __obj.updateDynamic("onKeyUp")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onKeyUp(t0, t1).runNow())))
         if (onMouseEnter != null) __obj.updateDynamic("onMouseEnter")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onMouseEnter(t0, t1).runNow())))
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, RatingIconType](js.constructorOf[RatingIconType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps])
   }
-  type Props = RatingIconProps
 }
 
