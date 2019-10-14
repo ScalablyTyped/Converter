@@ -51,7 +51,14 @@ object ScalaJsReactComponents {
     * todo: these two approaches should be refactored into one
     */
   private def typeMapper(in: TypeRef): TypeRef = {
+
+    //TODO: SearchCategory::results: js.Array[ComponentClass[SearchResultProps, js.Object]] = null
+    //TODO: should instead be results: js.Array[SearchResultProps] = null
+
     val map = Map(
+      QualifiedName("typings.react.reactMod.SyntheticEvent") -> QualifiedName(
+        "japgolly.scalajs.react.raw.SyntheticEvent",
+      ),
       QualifiedName("typings.react.reactMod.ChangeEvent") -> QualifiedName("japgolly.scalajs.react.ReactEventFrom"),
       QualifiedName("typings.react.reactMod.AnimationEvent") -> QualifiedName(
         "japgolly.scalajs.react.ReactAnimationEventFrom",
@@ -59,6 +66,8 @@ object ScalaJsReactComponents {
       QualifiedName("typings.react.reactMod.ClipboardEvent") -> QualifiedName(
         "japgolly.scalajs.react.ReactClipboardEventFrom",
       ),
+
+      QualifiedName("typings.react.reactMod.ComponentState") -> QualifiedName.Object,
       QualifiedName("typings.react.reactMod.CompositionEvent") -> QualifiedName(
         "japgolly.scalajs.react.ReactCompositionEventFrom",
       ),

@@ -28,6 +28,7 @@ lazy val jagpolly =
         library.scalaTest  % Test,
         "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
         "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
+        "com.github.japgolly.scalajs-react" %%% "extra" % "1.4.2",
         "com.github.pathikrit" %% "better-files" % "3.8.0",
         "me.shadaj" %%% "slinky-web" % "0.6.2"
       ),
