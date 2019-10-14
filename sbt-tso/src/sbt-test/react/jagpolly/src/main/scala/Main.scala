@@ -15,6 +15,7 @@ object Main {
   }
 
   def main(argv: Array[String]): Unit = {
-    <.div(Container()(Button(onClick = buttonOnClick _)("Click here"))).renderIntoDOM(document.body)
+    <.div(Container()("Hello World")).renderIntoDOM(document.body)
+//    <.div(Container()(Button(onClick = buttonOnClick _)("Click here"))).renderIntoDOM(document.body)
   }
 }
