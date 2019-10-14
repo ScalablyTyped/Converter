@@ -1,7 +1,9 @@
 package typings.react.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import typings.react.reactMod.ProfilerProps
 import typings.react.reactStrings.mount
 import typings.react.reactStrings.update
@@ -13,23 +15,19 @@ import scala.scalajs.js.annotation._
 object Profiler {
   def apply(
     onRender: (/* id */ String, /* phase */ mount | update, /* actualDuration */ Double, /* baseDuration */ Double, /* startTime */ Double, /* commitTime */ Double, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => Callback
-  )(
-    
-  ): UnmountedWithRoot[ProfilerProps, js.Object, Unit, ProfilerProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ProfilerProps, 
+    MountedWithRawType[ProfilerProps, js.Object, RawMounted[ProfilerProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ProfilerType = scala.scalajs.js.Object
   
           if (onRender != null) __obj.updateDynamic("onRender")(js.Any.fromFunction7(((t0: /* id */ java.lang.String, t1: /* phase */ typings.react.reactStrings.mount | typings.react.reactStrings.update, t2: /* actualDuration */ scala.Double, t3: /* baseDuration */ scala.Double, t4: /* startTime */ scala.Double, t5: /* commitTime */ scala.Double, t6: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow())))
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, ProfilerType](js.constructorOf[ProfilerType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.react.reactMod.ProfilerProps, 
+  japgolly.scalajs.react.Children.None, 
+  js.Object](typings.react.reactMod.Profiler)
+    f(__obj.asInstanceOf[typings.react.reactMod.ProfilerProps])
   }
-  type Props = ProfilerProps
 }
 

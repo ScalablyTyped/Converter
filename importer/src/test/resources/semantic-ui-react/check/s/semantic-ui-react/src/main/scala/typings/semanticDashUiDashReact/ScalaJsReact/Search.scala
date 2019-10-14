@@ -54,15 +54,8 @@ object Search {
     showNoResults: js.UndefOr[Boolean] = js.undefined,
     size: mini | tiny | small | large | big | huge | massive = null,
     value: String = null
-  )(
-    
   ): UnmountedWithRoot[SearchProps, default, Unit, SearchProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type SearchType = typings.semanticDashUiDashReact.srcModulesSearchMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (aligned != null) __obj.updateDynamic("aligned")(aligned)
@@ -91,11 +84,11 @@ object Search {
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (value != null) __obj.updateDynamic("value")(value)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, SearchType](js.constructorOf[SearchType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesSearchMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSearchMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps])
   }
-  type Props = SearchProps
 }
 

@@ -1,27 +1,24 @@
 package typings.react.ScalaJsReact
 
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import typings.react.Anon_Children
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object StrictMode {
-  def apply()(): UnmountedWithRoot[Anon_Children, js.Object, Unit, Anon_Children] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  def apply(): UnmountedSimple[
+    Anon_Children, 
+    MountedWithRawType[Anon_Children, js.Object, RawMounted[Anon_Children, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type StrictModeType = scala.scalajs.js.Object
   
     
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, StrictModeType](js.constructorOf[StrictModeType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsComponent[typings.react.Anon_Children, japgolly.scalajs.react.Children.None, js.Object](typings.react.reactMod.StrictMode)
+    f(__obj.asInstanceOf[typings.react.Anon_Children])
   }
-  type Props = Anon_Children
 }
 

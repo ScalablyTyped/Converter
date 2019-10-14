@@ -15,10 +15,10 @@ lazy val jagpolly =
   project
     .in(file("."))
     .enablePlugins(ScalaJSPlugin, TsoPlugin)
-    .disablePlugins(SbtPrompt,
-      GitBranchPrompt,
-      GitPlugin,
-      GitVersioning)
+//    .disablePlugins(SbtPrompt,
+//      GitBranchPrompt,
+//      GitPlugin,
+//      GitVersioning)
     .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
     .settings(
@@ -51,7 +51,7 @@ lazy val jagpolly =
 lazy val library =
   new {
     object Version {
-      val scalaCheck = "1.14.0"
+      val scalaCheck = "1.14.2"
       val scalaTest  = "3.0.8"
     }
     val scalaCheck = "org.scalacheck" %% "scalacheck" % Version.scalaCheck

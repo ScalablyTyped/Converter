@@ -25,15 +25,8 @@ object SearchResult {
     onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ SearchResultProps) => Callback = null,
     price: String = null,
     renderer: /* props */ SearchResultProps => Callback = null
-  )(
-    
   ): UnmountedWithRoot[SearchResultProps, default, Unit, SearchResultProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type SearchResultType = typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -46,11 +39,11 @@ object SearchResult {
     if (price != null) __obj.updateDynamic("price")(price)
         if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => renderer(t0).runNow())))
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, SearchResultType](js.constructorOf[SearchResultType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps])
   }
-  type Props = SearchResultProps
 }
 

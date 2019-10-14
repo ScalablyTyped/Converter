@@ -2,7 +2,9 @@ package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import japgolly.scalajs.react.raw.React.ComponentClass
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -24,13 +26,11 @@ object SearchCategory {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[SearchCategoryProps, js.Object, Unit, SearchCategoryProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    SearchCategoryProps, 
+    MountedWithRawType[SearchCategoryProps, js.Object, RawMounted[SearchCategoryProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type SearchCategoryType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -39,11 +39,11 @@ object SearchCategory {
         if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps) => renderer(t0).runNow())))
     if (results != null) __obj.updateDynamic("results")(results)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, SearchCategoryType](js.constructorOf[SearchCategoryType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps])(children: _*)
   }
-  type Props = SearchCategoryProps
 }
 

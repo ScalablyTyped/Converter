@@ -33,12 +33,7 @@ object Transition {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[TransitionProps, default, Unit, TransitionProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type TransitionType = typings.semanticDashUiDashReact.srcModulesTransitionMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (animation != null) __obj.updateDynamic("animation")(animation.asInstanceOf[js.Any])
@@ -54,11 +49,11 @@ object Transition {
     if (!js.isUndefined(unmountOnHide)) __obj.updateDynamic("unmountOnHide")(unmountOnHide)
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, TransitionType](js.constructorOf[TransitionType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesTransitionMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTransitionMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionProps])(children: _*)
   }
-  type Props = TransitionProps
 }
 

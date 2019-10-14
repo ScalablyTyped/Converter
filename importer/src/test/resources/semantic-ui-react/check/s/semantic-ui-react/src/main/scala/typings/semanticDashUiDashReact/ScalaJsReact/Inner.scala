@@ -36,12 +36,7 @@ object Inner {
     Unit, 
     DimmerInnerProps
   ] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type InnerType = typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -54,11 +49,11 @@ object Inner {
     if (!js.isUndefined(simple)) __obj.updateDynamic("simple")(simple)
     if (verticalAlign != null) __obj.updateDynamic("verticalAlign")(verticalAlign.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, InnerType](js.constructorOf[InnerType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps])(children: _*)
   }
-  type Props = DimmerInnerProps
 }
 

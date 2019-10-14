@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
@@ -38,13 +40,11 @@ object StepGroup {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[StepGroupProps, js.Object, Unit, StepGroupProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    StepGroupProps, 
+    MountedWithRawType[StepGroupProps, js.Object, RawMounted[StepGroupProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type StepGroupType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -58,11 +58,11 @@ object StepGroup {
     if (!js.isUndefined(unstackable)) __obj.updateDynamic("unstackable")(unstackable)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, StepGroupType](js.constructorOf[StepGroupType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsStepStepGroupMod.StepGroupProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsStepStepGroupMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsStepStepGroupMod.StepGroupProps])(children: _*)
   }
-  type Props = StepGroupProps
 }
 

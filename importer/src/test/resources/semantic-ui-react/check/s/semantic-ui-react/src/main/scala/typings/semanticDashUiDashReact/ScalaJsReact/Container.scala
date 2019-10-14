@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -22,13 +24,11 @@ object Container {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ContainerProps, js.Object, Unit, ContainerProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ContainerProps, 
+    MountedWithRawType[ContainerProps, js.Object, RawMounted[ContainerProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ContainerType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -37,11 +37,11 @@ object Container {
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ContainerType](js.constructorOf[ContainerType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsContainerMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps])(children: _*)
   }
-  type Props = ContainerProps
 }
 

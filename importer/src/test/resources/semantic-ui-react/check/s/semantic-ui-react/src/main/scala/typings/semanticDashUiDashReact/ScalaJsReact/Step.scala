@@ -35,12 +35,7 @@ object Step {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[StepProps, default, Unit, StepProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type StepType = typings.semanticDashUiDashReact.srcElementsStepMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -54,11 +49,11 @@ object Step {
     if (!js.isUndefined(ordered)) __obj.updateDynamic("ordered")(ordered)
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, StepType](js.constructorOf[StepType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcElementsStepStepMod.StepProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcElementsStepMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsStepMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsStepStepMod.StepProps])(children: _*)
   }
-  type Props = StepProps
 }
 
