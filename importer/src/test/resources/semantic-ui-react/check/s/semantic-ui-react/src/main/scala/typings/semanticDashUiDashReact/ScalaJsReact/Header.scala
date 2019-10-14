@@ -21,15 +21,16 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled */
 object Header {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     attached: Boolean | top | bottom = null,
     block: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     color: SemanticCOLORS = null,
     content: VdomNode = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     dividing: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     icon: js.Any = null,
@@ -40,8 +41,7 @@ object Header {
     subheader: js.Any = null,
     textAlign: SemanticTEXTALIGNMENTS = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     HeaderProps, 
     MountedWithRawType[HeaderProps, js.Object, RawMounted[HeaderProps, js.Object]]
@@ -52,8 +52,10 @@ object Header {
     if (as != null) __obj.updateDynamic("as")(as)
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
         if (content != null) __obj.updateDynamic("content")(content.rawNode.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(dividing)) __obj.updateDynamic("dividing")(dividing)
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (icon != null) __obj.updateDynamic("icon")(icon)

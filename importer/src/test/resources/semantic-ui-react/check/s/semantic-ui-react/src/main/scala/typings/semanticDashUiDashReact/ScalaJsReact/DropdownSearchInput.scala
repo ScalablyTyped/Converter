@@ -8,18 +8,25 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: autoComplete, className, type, value */
 object DropdownSearchInput {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
-    tabIndex: Double | String = null
+    autoComplete: String = null,
+    className: String = null,
+    tabIndex: Double | String = null,
+    `type`: String = null,
+    value: Double | String = null
   ): UnmountedWithRoot[DropdownSearchInputProps, default, Unit, DropdownSearchInputProps] = {
     val __obj = js.Dynamic.literal()
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (autoComplete != null) __obj.updateDynamic("autoComplete")(autoComplete)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
+    if (`type` != null) __obj.updateDynamic("type")(`type`)
+    if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownSearchInputMod.DropdownSearchInputProps, 

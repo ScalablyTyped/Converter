@@ -25,7 +25,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: className, open */
 object Search {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -33,6 +32,7 @@ object Search {
     as: js.Any = null,
     category: js.UndefOr[Boolean] = js.undefined,
     categoryRenderer: /* props */ SearchCategoryProps => Callback = null,
+    className: String = null,
     defaultOpen: js.UndefOr[Boolean] = js.undefined,
     defaultValue: String = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
@@ -48,6 +48,7 @@ object Search {
     onResultSelect: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ SearchResultData) => Callback = null,
     onSearchChange: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ SearchProps) => Callback = null,
     onSelectionChange: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ SearchResultData) => Callback = null,
+    open: js.UndefOr[Boolean] = js.undefined,
     resultRenderer: /* props */ SearchResultProps => Callback = null,
     results: js.Array[_] | (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any) = null,
     selectFirstResult: js.UndefOr[Boolean] = js.undefined,
@@ -62,6 +63,7 @@ object Search {
     if (as != null) __obj.updateDynamic("as")(as)
     if (!js.isUndefined(category)) __obj.updateDynamic("category")(category)
         if (categoryRenderer != null) __obj.updateDynamic("categoryRenderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps) => categoryRenderer(t0).runNow())))
+    if (className != null) __obj.updateDynamic("className")(className)
     if (!js.isUndefined(defaultOpen)) __obj.updateDynamic("defaultOpen")(defaultOpen)
     if (defaultValue != null) __obj.updateDynamic("defaultValue")(defaultValue)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
@@ -77,6 +79,7 @@ object Search {
         if (onResultSelect != null) __obj.updateDynamic("onResultSelect")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchResultData) => onResultSelect(t0, t1).runNow())))
         if (onSearchChange != null) __obj.updateDynamic("onSearchChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps) => onSearchChange(t0, t1).runNow())))
         if (onSelectionChange != null) __obj.updateDynamic("onSelectionChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchResultData) => onSelectionChange(t0, t1).runNow())))
+    if (!js.isUndefined(open)) __obj.updateDynamic("open")(open)
         if (resultRenderer != null) __obj.updateDynamic("resultRenderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => resultRenderer(t0).runNow())))
     if (results != null) __obj.updateDynamic("results")(results.asInstanceOf[js.Any])
     if (!js.isUndefined(selectFirstResult)) __obj.updateDynamic("selectFirstResult")(selectFirstResult)

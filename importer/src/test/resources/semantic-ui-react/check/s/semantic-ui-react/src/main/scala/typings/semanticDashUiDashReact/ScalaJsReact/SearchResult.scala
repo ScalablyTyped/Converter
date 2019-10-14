@@ -12,12 +12,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: className, title */
 object SearchResult {
   def apply(
+    title: String,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
     description: String = null,
     id: Double | String = null,
@@ -26,11 +27,12 @@ object SearchResult {
     price: String = null,
     renderer: /* props */ SearchResultProps => Callback = null
   ): UnmountedWithRoot[SearchResultProps, default, Unit, SearchResultProps] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(title = title)
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (description != null) __obj.updateDynamic("description")(description)
     if (id != null) __obj.updateDynamic("id")(id.asInstanceOf[js.Any])
