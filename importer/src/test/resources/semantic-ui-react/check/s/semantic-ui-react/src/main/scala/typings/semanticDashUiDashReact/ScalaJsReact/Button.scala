@@ -64,12 +64,7 @@ object Button {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type ButtonType = typings.semanticDashUiDashReact.srcElementsButtonMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -97,11 +92,11 @@ object Button {
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ButtonType](js.constructorOf[ButtonType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcElementsButtonMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsButtonMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps])(children: _*)
   }
-  type Props = ButtonProps
 }
 

@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsStepStepContentMod.StepContentProps
 import typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.StepDescriptionProps
@@ -23,13 +25,11 @@ object StepContent {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[StepContentProps, js.Object, Unit, StepContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    StepContentProps, 
+    MountedWithRawType[StepContentProps, js.Object, RawMounted[StepContentProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type StepContentType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -37,11 +37,11 @@ object StepContent {
     if (description != null) __obj.updateDynamic("description")(description.asInstanceOf[js.Any])
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, StepContentType](js.constructorOf[StepContentType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsStepStepContentMod.StepContentProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsStepStepContentMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsStepStepContentMod.StepContentProps])(children: _*)
   }
-  type Props = StepContentProps
 }
 

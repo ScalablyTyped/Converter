@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcModulesPopupPopupContentMod.PopupContentProps
@@ -18,23 +20,21 @@ object PopupContent {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[PopupContentProps, js.Object, Unit, PopupContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    PopupContentProps, 
+    MountedWithRawType[PopupContentProps, js.Object, RawMounted[PopupContentProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type PopupContentType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, PopupContentType](js.constructorOf[PopupContentType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcModulesPopupPopupContentMod.PopupContentProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcModulesPopupPopupContentMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesPopupPopupContentMod.PopupContentProps])(children: _*)
   }
-  type Props = PopupContentProps
 }
 

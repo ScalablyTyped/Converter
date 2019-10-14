@@ -23,23 +23,18 @@ object DropdownHeader {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[DropdownHeaderProps, default, Unit, DropdownHeaderProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type DropdownHeaderType = typings.semanticDashUiDashReact.srcModulesDropdownDropdownHeaderMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, DropdownHeaderType](js.constructorOf[DropdownHeaderType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesDropdownDropdownHeaderMod.DropdownHeaderProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesDropdownDropdownHeaderMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownHeaderMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownHeaderMod.DropdownHeaderProps])(children: _*)
   }
-  type Props = DropdownHeaderProps
 }
 

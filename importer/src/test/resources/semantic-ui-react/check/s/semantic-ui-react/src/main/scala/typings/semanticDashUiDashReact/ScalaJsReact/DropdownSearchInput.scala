@@ -14,25 +14,18 @@ object DropdownSearchInput {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     tabIndex: Double | String = null
-  )(
-    
   ): UnmountedWithRoot[DropdownSearchInputProps, default, Unit, DropdownSearchInputProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type DropdownSearchInputType = typings.semanticDashUiDashReact.srcModulesDropdownDropdownSearchInputMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, DropdownSearchInputType](js.constructorOf[DropdownSearchInputType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesDropdownDropdownSearchInputMod.DropdownSearchInputProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesDropdownDropdownSearchInputMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownSearchInputMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownSearchInputMod.DropdownSearchInputProps])
   }
-  type Props = DropdownSearchInputProps
 }
 

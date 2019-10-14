@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
@@ -40,13 +42,11 @@ object Header {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[HeaderProps, js.Object, Unit, HeaderProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    HeaderProps, 
+    MountedWithRawType[HeaderProps, js.Object, RawMounted[HeaderProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type HeaderType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -64,11 +64,11 @@ object Header {
     if (subheader != null) __obj.updateDynamic("subheader")(subheader)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, HeaderType](js.constructorOf[HeaderType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsHeaderHeaderMod.HeaderProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsHeaderMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsHeaderHeaderMod.HeaderProps])(children: _*)
   }
-  type Props = HeaderProps
 }
 

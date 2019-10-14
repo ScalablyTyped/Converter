@@ -22,15 +22,8 @@ object AccordionPanel {
     index: Double | String = null,
     onTitleClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null,
     title: SemanticShorthandItem[AccordionTitleProps] = null
-  )(
-    
   ): UnmountedWithRoot[AccordionPanelProps, default, Unit, AccordionPanelProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type AccordionPanelType = typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -39,11 +32,11 @@ object AccordionPanel {
         if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow())))
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, AccordionPanelType](js.constructorOf[AccordionPanelType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps])
   }
-  type Props = AccordionPanelProps
 }
 

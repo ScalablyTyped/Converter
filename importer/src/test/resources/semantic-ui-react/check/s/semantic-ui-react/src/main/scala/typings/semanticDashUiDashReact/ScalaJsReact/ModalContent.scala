@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcModulesModalModalContentMod.ModalContentProps
@@ -20,13 +22,11 @@ object ModalContent {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ModalContentProps, js.Object, Unit, ModalContentProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ModalContentProps, 
+    MountedWithRawType[ModalContentProps, js.Object, RawMounted[ModalContentProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ModalContentType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -34,11 +34,11 @@ object ModalContent {
     if (!js.isUndefined(image)) __obj.updateDynamic("image")(image)
     if (!js.isUndefined(scrolling)) __obj.updateDynamic("scrolling")(scrolling)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ModalContentType](js.constructorOf[ModalContentType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcModulesModalModalContentMod.ModalContentProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcModulesModalModalContentMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesModalModalContentMod.ModalContentProps])(children: _*)
   }
-  type Props = ModalContentProps
 }
 

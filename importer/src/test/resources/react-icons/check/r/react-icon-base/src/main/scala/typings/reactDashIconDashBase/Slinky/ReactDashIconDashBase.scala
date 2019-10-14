@@ -12,7 +12,6 @@ import scala.scalajs.js.annotation._
 object ReactDashIconDashBase
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.reactDashIconDashBase.reactDashIconDashBaseMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(size: String | Double = null): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])

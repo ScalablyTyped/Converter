@@ -22,12 +22,7 @@ object DimmerDimmable {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[DimmerDimmableProps, default, Unit, DimmerDimmableProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type DimmerDimmableType = typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -35,11 +30,11 @@ object DimmerDimmable {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(dimmed)) __obj.updateDynamic("dimmed")(dimmed)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, DimmerDimmableType](js.constructorOf[DimmerDimmableType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.DimmerDimmableProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.DimmerDimmableProps])(children: _*)
   }
-  type Props = DimmerDimmableProps
 }
 

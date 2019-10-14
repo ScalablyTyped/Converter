@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
@@ -46,13 +48,11 @@ object ButtonGroup {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ButtonGroupProps, js.Object, Unit, ButtonGroupProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ButtonGroupProps, 
+    MountedWithRawType[ButtonGroupProps, js.Object, RawMounted[ButtonGroupProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ButtonGroupType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -76,11 +76,11 @@ object ButtonGroup {
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     if (widths != null) __obj.updateDynamic("widths")(widths)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ButtonGroupType](js.constructorOf[ButtonGroupType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps])(children: _*)
   }
-  type Props = ButtonGroupProps
 }
 

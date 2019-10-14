@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
@@ -41,13 +43,11 @@ object Image {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[ImageProps, js.Object, Unit, ImageProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ImageProps, 
+    MountedWithRawType[ImageProps, js.Object, RawMounted[ImageProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type ImageType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -68,11 +68,11 @@ object Image {
     if (verticalAlign != null) __obj.updateDynamic("verticalAlign")(verticalAlign)
     if (!js.isUndefined(wrapped)) __obj.updateDynamic("wrapped")(wrapped)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ImageType](js.constructorOf[ImageType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsImageImageMod.ImageProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsImageMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsImageImageMod.ImageProps])(children: _*)
   }
-  type Props = ImageProps
 }
 

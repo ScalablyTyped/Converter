@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsSegmentSegmentGroupMod.SegmentGroupProps
 import typings.semanticDashUiDashReact.srcElementsSegmentSegmentMod.SegmentSizeProp
@@ -25,13 +27,11 @@ object SegmentGroup {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[SegmentGroupProps, js.Object, Unit, SegmentGroupProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    SegmentGroupProps, 
+    MountedWithRawType[SegmentGroupProps, js.Object, RawMounted[SegmentGroupProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type SegmentGroupType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -43,11 +43,11 @@ object SegmentGroup {
     if (size != null) __obj.updateDynamic("size")(size)
     if (!js.isUndefined(stacked)) __obj.updateDynamic("stacked")(stacked)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, SegmentGroupType](js.constructorOf[SegmentGroupType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsSegmentSegmentGroupMod.SegmentGroupProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsSegmentSegmentGroupMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsSegmentSegmentGroupMod.SegmentGroupProps])(children: _*)
   }
-  type Props = SegmentGroupProps
 }
 

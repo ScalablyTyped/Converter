@@ -13,25 +13,18 @@ object Dimmer {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     page: js.UndefOr[Boolean] = js.undefined
-  )(
-    
   ): UnmountedWithRoot[DimmerProps, default, Unit, DimmerProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type DimmerType = typings.semanticDashUiDashReact.srcModulesDimmerMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (!js.isUndefined(page)) __obj.updateDynamic("page")(page)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, DimmerType](js.constructorOf[DimmerType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcModulesDimmerMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps])
   }
-  type Props = DimmerProps
 }
 

@@ -1,6 +1,8 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`very long`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`very short`
@@ -19,25 +21,21 @@ object PlaceholderLine {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     length: full | (`very long`) | long | medium | short | (`very short`) = null
-  )(
-    
-  ): UnmountedWithRoot[PlaceholderLineProps, js.Object, Unit, PlaceholderLineProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    PlaceholderLineProps, 
+    MountedWithRawType[PlaceholderLineProps, js.Object, RawMounted[PlaceholderLineProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type PlaceholderLineType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (length != null) __obj.updateDynamic("length")(length.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, PlaceholderLineType](js.constructorOf[PlaceholderLineType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.PlaceholderLineProps, 
+  japgolly.scalajs.react.Children.None, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.PlaceholderLineProps])
   }
-  type Props = PlaceholderLineProps
 }
 

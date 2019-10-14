@@ -1,7 +1,9 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderParagraphMod.PlaceholderParagraphProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -18,23 +20,25 @@ object PlaceholderParagraph {
   )(
     children: /** Primary content. */
   ChildArg*
-  ): UnmountedWithRoot[PlaceholderParagraphProps, js.Object, Unit, PlaceholderParagraphProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    PlaceholderParagraphProps, 
+    MountedWithRawType[
+      PlaceholderParagraphProps, 
+      js.Object, 
+      RawMounted[PlaceholderParagraphProps, js.Object]
+    ]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type PlaceholderParagraphType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, PlaceholderParagraphType](js.constructorOf[PlaceholderParagraphType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderParagraphMod.PlaceholderParagraphProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderParagraphMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderParagraphMod.PlaceholderParagraphProps])(children: _*)
   }
-  type Props = PlaceholderParagraphProps
 }
 

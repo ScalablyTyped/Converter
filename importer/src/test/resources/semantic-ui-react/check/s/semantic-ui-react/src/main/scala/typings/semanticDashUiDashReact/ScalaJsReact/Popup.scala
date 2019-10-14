@@ -65,12 +65,7 @@ object Popup {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[PopupProps, default, Unit, PopupProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type PopupType = typings.semanticDashUiDashReact.srcModulesPopupMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
@@ -97,11 +92,11 @@ object Popup {
         if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
     if (wide != null) __obj.updateDynamic("wide")(wide.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, PopupType](js.constructorOf[PopupType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesPopupMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesPopupMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps])(children: _*)
   }
-  type Props = PopupProps
 }
 
