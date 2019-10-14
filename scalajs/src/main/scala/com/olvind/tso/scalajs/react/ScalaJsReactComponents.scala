@@ -6,8 +6,6 @@ import com.olvind.tso.scalajs.ConstructObjectOfType.Param
 import com.olvind.tso.scalajs.transforms.Companions
 import com.olvind.tso.seqs._
 
-import scala.collection.mutable
-
 /**
   * Generate a package with japgolly's scalajs-react compatible react components
   */
@@ -118,18 +116,6 @@ object ScalaJsReactComponents {
 
   }
 
-  private def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
-    scope
-      .lookup(attributes)
-      .collectFirst {
-        case (x: ClassTree, newScope) =>
-          ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-            case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-            case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
-          }
-      }
-      .fold(Map.empty[Name, TypeRef])(_.toMap)
-
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
     val ret = Companions.memberParameter(scope, tree)
     ret match {
@@ -184,9 +170,6 @@ object ScalaJsReactComponents {
   def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
 
-    val domFields: Map[Name, TypeRef] = fieldsFor(scope, QualifiedName.React.AllHTMLAttributes) ++
-      fieldsFor(scope, QualifiedName.React.SVGAttributes)
-
     val scalaJsReactModCp = tree.codePath + scalaJsReact.ScalaJsReact
 
     val scalaJsReactMembers = components.flatMap { c =>
@@ -198,36 +181,9 @@ object ScalaJsReactComponents {
         case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
           val cls = TypeRewriterFn(typeMapper).visitClassTree(scope)(_cls)
 
-          val domParams = mutable.ArrayBuffer.empty[FieldTree]
-
-          ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue) {
-            case (scope, fieldTree: FieldTree) =>
-              /* todo: refactor out a name/type check which ignores optionality */
-              val isDom = domFields.get(fieldTree.name) match {
-                case Some(tpe) =>
-                  FollowAliases(scope)(fieldTree.tpe) match {
-                    case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                    case ftpe           => ftpe.typeName === tpe.typeName
-                  }
-                case None => false
-              }
-              if (isDom) {
-                domParams += fieldTree
-                None
-              } else memberParameter(scope, fieldTree)
-            case (scope, tree) => memberParameter(scope, tree)
-          } match {
+          ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue)(memberParameter) match {
             case Nil => None
             case params =>
-              val domType = domParams
-                .firstDefined {
-                  case FieldTree(_, _, TypeRef(typeName, tparams, _), _, _, _, _, _)
-                      if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
-                    Option(typeMapper(tparams.head))
-                  case _ => None
-                }
-                .getOrElse(TypeRef(QualifiedName("org.scalajs.dom.raw.HTMLElement")))
-
               val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
                 { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
                 { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
@@ -235,25 +191,23 @@ object ScalaJsReactComponents {
                 { case Param(p, _, Left(str))                                              => p -> str },
               )
 
-              val childrenParam = domParams
-                .find(_.name.value == "children")
-                .map(
-                  p =>
-                    ParamTree(
-                      name     = p.name,
-                      tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.reactChildArg), p.comments),
-                      default  = None,
-                      comments = NoComments,
-                    ),
-                )
+              val childrenParam = params.collectFirst {
+                case Param(p @ ParamTree(Name("children"), _, _, _), _, _) =>
+                  ParamTree(
+                    name     = p.name,
+                    tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.reactChildArg), p.comments),
+                    default  = None,
+                    comments = NoComments,
+                  )
+              }
 
-              def genApply(elem: TypeRef, refTypeOpt: Option[TypeRef]) = {
+              val applyMethod = {
                 val childrenRef = childrenParam match {
                   case Some(_) => TypeRef(scalaJsReact.reactChildrenVarargs)
                   case None    => TypeRef(scalaJsReact.reactChildrenNone)
                 }
 
-                val (createWrapper, resultType) = refTypeOpt match {
+                val (createWrapper, resultType) = c.knownRef orElse refTypes.headOption match {
                   case Some(refType) =>
                     val c =
                       TypeRef(scalaJsReact.reactJsForwardRefComponent, List(props, childrenRef, refType), NoComments)
@@ -314,24 +268,13 @@ object ScalaJsReactComponents {
                 )
               }
 
-              val members = {
-                List(genApply(domType, c.knownRef orElse refTypes.headOption))
-              }
-
-              val domWarning =
-                if (domParams.isEmpty) NoComments
-                else {
-                  val details = domParams.map(_.name.unescaped).sorted.mkString(", ")
-                  Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
-                }
-
               Some(
                 ModuleTree(
                   annotations = Nil,
                   name        = c.fullName,
                   parents     = Nil,
-                  members     = members,
-                  comments    = domWarning + CommentData(Markers.VIP),
+                  members     = List(applyMethod),
+                  comments    = Comments(CommentData(Markers.VIP)),
                   codePath    = componentCp,
                 ),
               )
@@ -362,5 +305,4 @@ object ScalaJsReactComponents {
         )
     }
   }
-
 }

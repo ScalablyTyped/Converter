@@ -13,20 +13,20 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled */
 object Loader {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     indeterminate: js.UndefOr[Boolean] = js.undefined,
     `inline`: Boolean | centered = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
     size: SemanticSIZES = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     LoaderProps, 
     MountedWithRawType[LoaderProps, js.Object, RawMounted[LoaderProps, js.Object]]
@@ -36,7 +36,9 @@ object Loader {
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(indeterminate)) __obj.updateDynamic("indeterminate")(indeterminate)
     if (`inline` != null) __obj.updateDynamic("inline")(`inline`.asInstanceOf[js.Any])
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)

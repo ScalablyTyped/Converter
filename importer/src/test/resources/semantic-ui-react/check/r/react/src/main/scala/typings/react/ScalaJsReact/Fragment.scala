@@ -1,5 +1,6 @@
 package typings.react.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -9,7 +10,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Fragment {
-  def apply(): UnmountedSimple[
+  def apply()(children: ChildArg*): UnmountedSimple[
     Anon_Children, 
     MountedWithRawType[Anon_Children, js.Object, RawMounted[Anon_Children, js.Object]]
   ] = {
@@ -17,8 +18,8 @@ object Fragment {
   
     
   
-    val f = japgolly.scalajs.react.JsComponent[typings.react.Anon_Children, japgolly.scalajs.react.Children.None, js.Object](typings.react.reactMod.Fragment)
-    f(__obj.asInstanceOf[typings.react.Anon_Children])
+    val f = japgolly.scalajs.react.JsComponent[typings.react.Anon_Children, japgolly.scalajs.react.Children.Varargs, js.Object](typings.react.reactMod.Fragment)
+    f(__obj.asInstanceOf[typings.react.Anon_Children])(children: _*)
   }
 }
 

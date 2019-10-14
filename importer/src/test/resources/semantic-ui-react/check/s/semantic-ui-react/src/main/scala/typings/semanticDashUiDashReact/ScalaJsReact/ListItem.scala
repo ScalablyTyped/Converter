@@ -19,22 +19,22 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled */
 object ListItem {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandItem[ListContentProps] = null,
     description: SemanticShorthandItem[ListDescriptionProps] = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     header: SemanticShorthandItem[ListHeaderProps] = null,
     icon: SemanticShorthandItem[ListIconProps] = null,
     image: SemanticShorthandItem[ImageProps] = null,
     onClick: (/* event */ ReactMouseEventFrom[HTMLAnchorElement], /* data */ ListItemProps) => Callback = null,
     value: String = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     ListItemProps, 
     MountedWithRawType[ListItemProps, js.Object, RawMounted[ListItemProps, js.Object]]
@@ -44,8 +44,10 @@ object ListItem {
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (description != null) __obj.updateDynamic("description")(description.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (header != null) __obj.updateDynamic("header")(header.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (image != null) __obj.updateDynamic("image")(image.asInstanceOf[js.Any])
