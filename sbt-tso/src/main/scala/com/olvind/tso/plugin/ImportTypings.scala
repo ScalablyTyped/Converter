@@ -75,14 +75,15 @@ object ImportTypings {
           false,
         )
 
-        val referencesToKeep: Set[QualifiedName] =
-          KeepOnlyReferenced.findReferences(globalScope, libs).to[Set]
+//        val referencesToKeep: Set[QualifiedName] =
+//          KeepOnlyReferenced.findReferences(globalScope, libs).to[Set]
 
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
             case (source, lib) =>
-              val trimmed = KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
-              val outFiles = Printer(globalScope, trimmed) map {
+//              val trimmed = KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
+              val untrimmed = lib.packageTree
+              val outFiles = Printer(globalScope, untrimmed) map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
               logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
