@@ -15,10 +15,10 @@ lazy val jagpolly =
   project
     .in(file("."))
     .enablePlugins(ScalaJSPlugin, TsoPlugin)
-    .disablePlugins(SbtPrompt,
-      GitBranchPrompt,
-      GitPlugin,
-      GitVersioning)
+//    .disablePlugins(SbtPrompt,
+//      GitBranchPrompt,
+//      GitPlugin,
+//      GitVersioning)
     .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
     .settings(

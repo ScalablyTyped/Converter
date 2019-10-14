@@ -15,24 +15,17 @@ object Flag {
     name: FlagNameValues,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null
-  )(
-    
   ): UnmountedWithRoot[FlagProps, default, Unit, FlagProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal(name = name)
-  
-    type FlagType = typings.semanticDashUiDashReact.srcElementsFlagMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, FlagType](js.constructorOf[FlagType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagProps, 
+  japgolly.scalajs.react.Children.None, 
+  typings.semanticDashUiDashReact.srcElementsFlagMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsFlagMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagProps])
   }
-  type Props = FlagProps
 }
 

@@ -53,12 +53,7 @@ object Modal {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ModalProps, default, Unit, ModalProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type ModalType = typings.semanticDashUiDashReact.srcModulesModalMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (actions != null) __obj.updateDynamic("actions")(actions.asInstanceOf[js.Any])
@@ -82,11 +77,11 @@ object Modal {
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
         if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ModalType](js.constructorOf[ModalType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesModalMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesModalMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps])(children: _*)
   }
-  type Props = ModalProps
 }
 

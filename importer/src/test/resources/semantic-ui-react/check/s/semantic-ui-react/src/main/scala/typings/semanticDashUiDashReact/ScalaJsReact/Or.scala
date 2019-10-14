@@ -1,6 +1,8 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
-import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.component.Js.MountedWithRawType
+import japgolly.scalajs.react.component.Js.RawMounted
+import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
 import scala.scalajs.js
@@ -13,25 +15,21 @@ object Or {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     text: Double | String = null
-  )(
-    
-  ): UnmountedWithRoot[ButtonOrProps, js.Object, Unit, ButtonOrProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
+  ): UnmountedSimple[
+    ButtonOrProps, 
+    MountedWithRawType[ButtonOrProps, js.Object, RawMounted[ButtonOrProps, js.Object]]
+  ] = {
     val __obj = js.Dynamic.literal()
-  
-    type OrType = scala.scalajs.js.Object
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.None, OrType](js.constructorOf[OrType])
-  
-    f(props)
+    val f = japgolly.scalajs.react.JsComponent[
+  typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps, 
+  japgolly.scalajs.react.Children.None, 
+  js.Object](typings.semanticDashUiDashReact.srcElementsButtonMod.default.Or)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps])
   }
-  type Props = ButtonOrProps
 }
 

@@ -94,12 +94,7 @@ object Dropdown {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[DropdownProps, default, Unit, DropdownProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type DropdownType = typings.semanticDashUiDashReact.srcModulesDropdownMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (additionLabel != null) __obj.updateDynamic("additionLabel")(additionLabel.asInstanceOf[js.Any])
@@ -159,11 +154,11 @@ object Dropdown {
     if (!js.isUndefined(upward)) __obj.updateDynamic("upward")(upward)
     if (!js.isUndefined(wrapSelection)) __obj.updateDynamic("wrapSelection")(wrapSelection)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, DropdownType](js.constructorOf[DropdownType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesDropdownMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownProps])(children: _*)
   }
-  type Props = DropdownProps
 }
 

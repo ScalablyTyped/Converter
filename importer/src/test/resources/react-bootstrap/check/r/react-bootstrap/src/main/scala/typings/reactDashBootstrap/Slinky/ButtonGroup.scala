@@ -14,7 +14,6 @@ import scala.scalajs.js.annotation._
 object ButtonGroup
   extends ExternalComponentWithAttributesWithRefType[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] {
   override val component: String | js.Object = js.constructorOf[typings.reactDashBootstrap.libMod.ButtonGroup].asInstanceOf[String | js.Object]
-  type dummy = typings.reactDashBootstrap.libMod.ButtonGroup
   def apply(
     defaultValue: foo,
     onChange: foo,

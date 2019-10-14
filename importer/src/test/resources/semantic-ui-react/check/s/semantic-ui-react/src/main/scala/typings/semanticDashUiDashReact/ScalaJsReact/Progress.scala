@@ -48,12 +48,7 @@ object Progress {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[ProgressProps, default, Unit, ProgressProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type ProgressType = typings.semanticDashUiDashReact.srcModulesProgressMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -74,11 +69,11 @@ object Progress {
     if (total != null) __obj.updateDynamic("total")(total.asInstanceOf[js.Any])
     if (!js.isUndefined(warning)) __obj.updateDynamic("warning")(warning)
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, ProgressType](js.constructorOf[ProgressType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesProgressProgressMod.ProgressProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesProgressMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesProgressMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesProgressProgressMod.ProgressProps])(children: _*)
   }
-  type Props = ProgressProps
 }
 

@@ -23,12 +23,7 @@ object TransitionGroup {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[TransitionGroupProps, default, Unit, TransitionGroupProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type TransitionGroupType = typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (animation != null) __obj.updateDynamic("animation")(animation.asInstanceOf[js.Any])
@@ -36,11 +31,11 @@ object TransitionGroup {
     if (!js.isUndefined(directional)) __obj.updateDynamic("directional")(directional)
     if (duration != null) __obj.updateDynamic("duration")(duration.asInstanceOf[js.Any])
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, TransitionGroupType](js.constructorOf[TransitionGroupType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.TransitionGroupProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.TransitionGroupProps])(children: _*)
   }
-  type Props = TransitionGroupProps
 }
 

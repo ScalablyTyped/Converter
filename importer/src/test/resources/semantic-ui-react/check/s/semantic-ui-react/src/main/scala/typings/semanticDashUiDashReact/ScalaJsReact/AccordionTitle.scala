@@ -29,12 +29,7 @@ object AccordionTitle {
     children: /** Primary content. */
   ChildArg*
   ): UnmountedWithRoot[AccordionTitleProps, default, Unit, AccordionTitleProps] = {
-    import japgolly.scalajs.react.Children
-    import japgolly.scalajs.react.JsForwardRefComponent
-  
     val __obj = js.Dynamic.literal()
-  
-    type AccordionTitleType = typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -44,11 +39,11 @@ object AccordionTitle {
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
         if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onClick(t0, t1).runNow())))
   
-    val props = __obj.asInstanceOf[Props]
-    val f = JsForwardRefComponent.force[Props, Children.Varargs, AccordionTitleType](js.constructorOf[AccordionTitleType])
-  
-    f(props)(children: _*)
+    val f = japgolly.scalajs.react.JsForwardRefComponent[
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps])(children: _*)
   }
-  type Props = AccordionTitleProps
 }
 
