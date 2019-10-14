@@ -14,13 +14,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled */
 object Inner {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     inverted: js.UndefOr[Boolean] = js.undefined,
     onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ DimmerInnerProps) => Callback = null,
     onClickOutside: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ DimmerInnerProps) => Callback = null,
@@ -28,8 +29,7 @@ object Inner {
     simple: js.UndefOr[Boolean] = js.undefined,
     verticalAlign: bottom | top = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[
     DimmerInnerProps, 
     typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner, 
@@ -41,7 +41,9 @@ object Inner {
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
         if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps) => onClick(t0, t1).runNow())))
         if (onClickOutside != null) __obj.updateDynamic("onClickOutside")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps) => onClickOutside(t0, t1).runNow())))

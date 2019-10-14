@@ -1,6 +1,7 @@
 package typings.react.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -11,23 +12,25 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: id */
 object Profiler {
   def apply(
+    id: String,
     onRender: (/* id */ String, /* phase */ mount | update, /* actualDuration */ Double, /* baseDuration */ Double, /* startTime */ Double, /* commitTime */ Double, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => Callback
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     ProfilerProps, 
     MountedWithRawType[ProfilerProps, js.Object, RawMounted[ProfilerProps, js.Object]]
   ] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(id = id)
   
           if (onRender != null) __obj.updateDynamic("onRender")(js.Any.fromFunction7(((t0: /* id */ java.lang.String, t1: /* phase */ typings.react.reactStrings.mount | typings.react.reactStrings.update, t2: /* actualDuration */ scala.Double, t3: /* baseDuration */ scala.Double, t4: /* startTime */ scala.Double, t5: /* commitTime */ scala.Double, t6: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow())))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.react.reactMod.ProfilerProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.react.reactMod.Profiler)
-    f(__obj.asInstanceOf[typings.react.reactMod.ProfilerProps])
+    f(__obj.asInstanceOf[typings.react.reactMod.ProfilerProps])(children: _*)
   }
 }
 

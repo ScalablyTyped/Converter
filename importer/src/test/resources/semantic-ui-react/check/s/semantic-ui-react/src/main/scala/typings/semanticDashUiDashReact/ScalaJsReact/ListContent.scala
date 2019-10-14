@@ -16,19 +16,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className */
 object ListContent {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
     description: SemanticShorthandItem[ListDescriptionProps] = null,
     floated: SemanticFLOATS = null,
     header: SemanticShorthandItem[ListHeaderProps] = null,
     verticalAlign: SemanticVERTICALALIGNMENTS = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     ListContentProps, 
     MountedWithRawType[ListContentProps, js.Object, RawMounted[ListContentProps, js.Object]]
@@ -37,6 +36,7 @@ object ListContent {
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (description != null) __obj.updateDynamic("description")(description.asInstanceOf[js.Any])
     if (floated != null) __obj.updateDynamic("floated")(floated)
