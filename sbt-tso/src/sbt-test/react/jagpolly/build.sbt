@@ -9,10 +9,14 @@ lazy val start = TaskKey[Unit]("start")
 
 lazy val dist = TaskKey[File]("dist")
 
-lazy val newarch =
+lazy val jagpolly =
   project
     .in(file("."))
     .enablePlugins(ScalaJSPlugin, TsoPlugin)
+    .disablePlugins(SbtPrompt,
+      GitBranchPrompt,
+      GitPlugin,
+      GitVersioning)
     .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
     .settings(
