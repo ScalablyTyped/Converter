@@ -211,7 +211,7 @@ object SlinkyComponents {
                 */
               def genApply(elem: TypeRef, ref: TypeRef): MethodTree = {
                 val ret  = TypeRef(slinky.BuildingComponent, List(elem, ref), NoComments)
-                val cast = if (ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
+                val cast = if (c.ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
 
                 MethodTree(
                   annotations = Nil,
@@ -255,7 +255,7 @@ object SlinkyComponents {
                   annotations = Nil,
                   name        = c.fullName,
                   parents     = List(parent),
-                  members     = List(componentField, keepRefInTree) ++ members,
+                  members     = List(componentField /*, keepRefInTree*/ ) ++ members,
                   comments    = domWarning + CommentData(Markers.VIP),
                   codePath    = componentCp,
                 ),

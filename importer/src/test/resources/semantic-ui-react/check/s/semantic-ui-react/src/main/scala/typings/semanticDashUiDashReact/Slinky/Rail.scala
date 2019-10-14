@@ -12,7 +12,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.very
-import typings.semanticDashUiDashReact.srcElementsRailMod.default
 import typings.semanticDashUiDashReact.srcElementsRailRailMod.RailProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -24,7 +23,6 @@ import scala.scalajs.js.annotation._
 object Rail
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsRailMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     position: SemanticFLOATS,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,

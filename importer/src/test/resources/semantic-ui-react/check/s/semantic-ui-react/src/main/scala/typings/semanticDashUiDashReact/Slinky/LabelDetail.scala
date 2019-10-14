@@ -5,7 +5,6 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.srcElementsLabelLabelDetailMod.LabelDetailProps
-import typings.semanticDashUiDashReact.srcElementsLabelLabelDetailMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,7 +14,6 @@ import scala.scalajs.js.annotation._
 object LabelDetail
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsLabelLabelDetailMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

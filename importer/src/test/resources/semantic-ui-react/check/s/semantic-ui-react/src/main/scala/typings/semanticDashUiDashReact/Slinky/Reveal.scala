@@ -12,7 +12,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`small fad
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.fade
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.move
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.rotate
-import typings.semanticDashUiDashReact.srcElementsRevealMod.default
 import typings.semanticDashUiDashReact.srcElementsRevealRevealMod.RevealProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import scala.scalajs.js
@@ -23,7 +22,6 @@ import scala.scalajs.js.annotation._
 object Reveal
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsRevealMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

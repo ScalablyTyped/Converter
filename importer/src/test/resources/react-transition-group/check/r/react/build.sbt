@@ -1,9 +1,10 @@
 organization := "org.scalablytyped"
 name := "react"
-version := "0.0-unknown-9621c5"
+version := "0.0-unknown-35118d"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
+  "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
   "me.shadaj" %%% "slinky-web" % "0.6.2",
   "org.scalablytyped" %%% "std" % "0.0-unknown-784eab")

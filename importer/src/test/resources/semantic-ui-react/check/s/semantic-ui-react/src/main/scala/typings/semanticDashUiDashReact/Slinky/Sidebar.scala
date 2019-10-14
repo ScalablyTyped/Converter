@@ -25,7 +25,6 @@ import scala.scalajs.js.annotation._
 object Sidebar
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcModulesSidebarMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     animation: overlay | push | (`scale down`) | uncover | (`slide out`) | (`slide along`) = null,

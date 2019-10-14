@@ -22,7 +22,6 @@ import scala.scalajs.js.annotation._
 object Icon
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcElementsIconMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     `aria-hidden`: String = null,

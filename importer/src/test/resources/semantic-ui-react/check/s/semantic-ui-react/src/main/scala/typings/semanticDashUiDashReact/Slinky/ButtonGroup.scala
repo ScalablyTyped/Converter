@@ -9,7 +9,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
-import typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.default
 import typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
@@ -25,7 +24,6 @@ import scala.scalajs.js.annotation._
 object ButtonGroup
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

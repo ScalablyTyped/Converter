@@ -30,7 +30,6 @@ import scala.scalajs.js.annotation._
 object Modal
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcModulesModalMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     actions: SemanticShorthandItem[ModalActionsProps] = null,

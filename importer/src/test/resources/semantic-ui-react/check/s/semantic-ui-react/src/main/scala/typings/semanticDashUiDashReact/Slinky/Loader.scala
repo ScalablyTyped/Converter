@@ -6,7 +6,6 @@ import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.centered
 import typings.semanticDashUiDashReact.srcElementsLoaderLoaderMod.LoaderProps
-import typings.semanticDashUiDashReact.srcElementsLoaderMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import scala.scalajs.js
@@ -17,7 +16,6 @@ import scala.scalajs.js.annotation._
 object Loader
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsLoaderMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

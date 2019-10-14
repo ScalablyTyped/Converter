@@ -5,7 +5,6 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.srcElementsStepStepContentMod.StepContentProps
-import typings.semanticDashUiDashReact.srcElementsStepStepContentMod.default
 import typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.StepDescriptionProps
 import typings.semanticDashUiDashReact.srcElementsStepStepTitleMod.StepTitleProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -18,7 +17,6 @@ import scala.scalajs.js.annotation._
 object StepContent
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsStepStepContentMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

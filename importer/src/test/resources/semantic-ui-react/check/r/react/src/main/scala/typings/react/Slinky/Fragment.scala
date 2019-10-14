@@ -11,7 +11,6 @@ import scala.scalajs.js.annotation._
 object Fragment
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.react.reactMod.Fragment.asInstanceOf[String | js.Object]
-  type dummy = typings.react.reactMod.Fragment.type
   def apply(): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
   
