@@ -9,6 +9,8 @@ lazy val start = TaskKey[Unit]("start")
 
 lazy val dist = TaskKey[File]("dist")
 
+lazy val debugDist = TaskKey[File]("debugDist")
+
 lazy val jagpolly =
   project
     .in(file("."))
@@ -114,6 +116,7 @@ lazy val browserProject: Project => Project =
           case Some(relFile) => distFolder / relFile.toString
         }
 
+        println(s"Trying to copy ${artifact.data.toPath} to ${target.toPath}")
         Files.copy(artifact.data.toPath, target.toPath, REPLACE_EXISTING)
       }
 
@@ -131,6 +134,37 @@ lazy val browserProject: Project => Project =
 
       Files.write(indexTo.toPath, indexPatchedContent.getBytes(IO.utf8))
       distFolder
+    },
+      debugDist := {
+      val artifacts = (Compile / fastOptJS / webpack).value
+      val artifactFolder = (Compile / fastOptJS / crossTarget).value
+      val debugFolder = (ThisBuild / baseDirectory).value / "docs" / moduleName.value
+
+      debugFolder.mkdirs()
+      artifacts.foreach { artifact =>
+        val target = artifact.data.relativeTo(artifactFolder) match {
+          case None => debugFolder / artifact.data.name
+          case Some(relFile) => debugFolder / relFile.toString
+        }
+
+        println(s"Trying to copy ${artifact.data.toPath} to ${target.toPath}")
+        Files.copy(artifact.data.toPath, target.toPath, REPLACE_EXISTING)
+      }
+
+      val indexFrom = baseDirectory.value / "assets/index.html"
+      val indexTo = debugFolder / "index.html"
+
+      val indexPatchedContent = {
+        import collection.JavaConverters._
+        Files
+          .readAllLines(indexFrom.toPath, IO.utf8)
+          .asScala
+//          .map(_.replaceAllLiterally("-fastopt-", "-opt-"))
+          .mkString("\n")
+      }
+
+      Files.write(indexTo.toPath, indexPatchedContent.getBytes(IO.utf8))
+      debugFolder
     }
   )
 
