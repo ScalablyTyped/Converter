@@ -19,18 +19,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled */
 object Reveal {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     animated: fade | (`small fade`) | move | (`move right`) | (`move up`) | (`move down`) | rotate | (`rotate left`) = null,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     instant: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     RevealProps, 
     MountedWithRawType[RevealProps, js.Object, RawMounted[RevealProps, js.Object]]
@@ -41,7 +41,9 @@ object Reveal {
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (animated != null) __obj.updateDynamic("animated")(animated.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(instant)) __obj.updateDynamic("instant")(instant)
   
     val f = japgolly.scalajs.react.JsComponent[

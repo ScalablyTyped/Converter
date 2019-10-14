@@ -26,13 +26,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled, type */
 object Input {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     action: js.Any | Boolean = null,
     actionPosition: left = null,
     as: js.Any = null,
+    className: String = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     error: js.UndefOr[Boolean] = js.undefined,
     fluid: js.UndefOr[Boolean] = js.undefined,
     focus: js.UndefOr[Boolean] = js.undefined,
@@ -46,10 +47,10 @@ object Input {
     onChange: (/* event */ ReactEventFrom[HTMLInputElement], /* data */ InputOnChangeData) => Callback = null,
     size: mini | small | large | big | huge | massive = null,
     tabIndex: Double | String = null,
-    transparent: js.UndefOr[Boolean] = js.undefined
+    transparent: js.UndefOr[Boolean] = js.undefined,
+    `type`: String = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -57,6 +58,8 @@ object Input {
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
     if (actionPosition != null) __obj.updateDynamic("actionPosition")(actionPosition)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(error)) __obj.updateDynamic("error")(error)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(focus)) __obj.updateDynamic("focus")(focus)
@@ -71,6 +74,7 @@ object Input {
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(transparent)) __obj.updateDynamic("transparent")(transparent)
+    if (`type` != null) __obj.updateDynamic("type")(`type`)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
   typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 

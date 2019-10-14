@@ -13,7 +13,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children */
 object Transition {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -30,8 +29,7 @@ object Transition {
     unmountOnHide: js.UndefOr[Boolean] = js.undefined,
     visible: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[TransitionProps, default, Unit, TransitionProps] = {
     val __obj = js.Dynamic.literal()
   

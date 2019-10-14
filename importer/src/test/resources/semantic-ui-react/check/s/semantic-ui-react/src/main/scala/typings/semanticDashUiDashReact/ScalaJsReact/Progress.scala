@@ -23,7 +23,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled, value */
 object Progress {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -31,8 +30,10 @@ object Progress {
     as: js.Any = null,
     attached: top | bottom = null,
     autoSuccess: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     color: SemanticCOLORS = null,
     content: SemanticShorthandContent = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     error: js.UndefOr[Boolean] = js.undefined,
     indicating: js.UndefOr[Boolean] = js.undefined,
     inverted: js.UndefOr[Boolean] = js.undefined,
@@ -43,10 +44,10 @@ object Progress {
     size: tiny | small | medium | large | big = null,
     success: js.UndefOr[Boolean] = js.undefined,
     total: Double | String = null,
+    value: Double | String = null,
     warning: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[ProgressProps, default, Unit, ProgressProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -55,8 +56,10 @@ object Progress {
     if (as != null) __obj.updateDynamic("as")(as)
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(autoSuccess)) __obj.updateDynamic("autoSuccess")(autoSuccess)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(error)) __obj.updateDynamic("error")(error)
     if (!js.isUndefined(indicating)) __obj.updateDynamic("indicating")(indicating)
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
@@ -67,6 +70,7 @@ object Progress {
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (!js.isUndefined(success)) __obj.updateDynamic("success")(success)
     if (total != null) __obj.updateDynamic("total")(total.asInstanceOf[js.Any])
+    if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (!js.isUndefined(warning)) __obj.updateDynamic("warning")(warning)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
