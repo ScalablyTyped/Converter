@@ -1,6 +1,5 @@
 package typings.semanticDashUiDashReact.srcModulesCheckboxCheckboxMod
 
-import typings.react.HTMLInputElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.FormEvent
 import typings.react.reactMod.MouseEvent
@@ -8,6 +7,7 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.checkbox
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.radio
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlLabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
