@@ -41,7 +41,7 @@ object SearchResult {
     if (price != null) __obj.updateDynamic("price")(price)
     if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => renderer(t0).runNow())))
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.default])

@@ -20,7 +20,7 @@ object Dimmer {
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (!js.isUndefined(page)) __obj.updateDynamic("page")(page)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcModulesDimmerMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerMod.default])

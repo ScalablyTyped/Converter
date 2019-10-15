@@ -40,7 +40,7 @@ object Tab {
     if (panes != null) __obj.updateDynamic("panes")(panes)
     if (!js.isUndefined(renderActiveOnly)) __obj.updateDynamic("renderActiveOnly")(renderActiveOnly)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcModulesTabMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTabMod.default])

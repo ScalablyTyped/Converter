@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact
 
+import typings.semanticDashUiDashReact.srcElementsButtonButtonMod.StrictButtonProps
 import typings.semanticDashUiDashReact.srcElementsInputInputMod.StrictInputProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -22,7 +23,7 @@ trait semanticDashUiDashReactProps {
   def AccordionTitleProps: typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps.type = typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
   type AccordionTitleProps = typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
   @scala.inline
-  def ButtonProps: typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps.type = typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
+  def ButtonProps: StrictButtonProps.type = typings.semanticDashUiDashReact.srcElementsButtonButtonMod.StrictButtonProps
   type ButtonProps = typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
   @scala.inline
   def ButtonContentProps: typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps.type = typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps

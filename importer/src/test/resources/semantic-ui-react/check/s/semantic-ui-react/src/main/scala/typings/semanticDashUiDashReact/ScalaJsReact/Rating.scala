@@ -48,7 +48,7 @@ object Rating {
     if (rating != null) __obj.updateDynamic("rating")(rating.asInstanceOf[js.Any])
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesRatingRatingMod.RatingProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcModulesRatingMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesRatingMod.default])

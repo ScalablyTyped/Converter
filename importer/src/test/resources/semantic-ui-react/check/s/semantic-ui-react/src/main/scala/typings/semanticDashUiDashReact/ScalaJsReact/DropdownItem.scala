@@ -57,7 +57,7 @@ object DropdownItem {
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.DropdownItemProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.default])

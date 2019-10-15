@@ -16,7 +16,7 @@ object ActionAccessibility {
   
     
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   js.Object, 
   japgolly.scalajs.react.Children.None, 
   typings.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility](js.constructorOf[typings.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility])
