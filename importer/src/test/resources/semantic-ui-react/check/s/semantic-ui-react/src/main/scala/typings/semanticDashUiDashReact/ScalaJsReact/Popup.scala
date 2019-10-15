@@ -84,10 +84,10 @@ object Popup {
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
     if (offset != null) __obj.updateDynamic("offset")(offset.asInstanceOf[js.Any])
     if (on != null) __obj.updateDynamic("on")(on.asInstanceOf[js.Any])
-        if (onClose != null) __obj.updateDynamic("onClose")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onClose(t0, t1).runNow())))
-        if (onMount != null) __obj.updateDynamic("onMount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onMount(t0, t1).runNow())))
-        if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onOpen(t0, t1).runNow())))
-        if (onUnmount != null) __obj.updateDynamic("onUnmount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onUnmount(t0, t1).runNow())))
+    if (onClose != null) __obj.updateDynamic("onClose")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onClose(t0, t1).runNow())))
+    if (onMount != null) __obj.updateDynamic("onMount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onMount(t0, t1).runNow())))
+    if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onOpen(t0, t1).runNow())))
+    if (onUnmount != null) __obj.updateDynamic("onUnmount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps) => onUnmount(t0, t1).runNow())))
     if (!js.isUndefined(pinned)) __obj.updateDynamic("pinned")(pinned)
     if (popperDependencies != null) __obj.updateDynamic("popperDependencies")(popperDependencies)
     if (popperModifiers != null) __obj.updateDynamic("popperModifiers")(popperModifiers)
@@ -95,7 +95,7 @@ object Popup {
     if (!js.isUndefined(positionFixed)) __obj.updateDynamic("positionFixed")(positionFixed)
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (style != null) __obj.updateDynamic("style")(style)
-        if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
+    if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
     if (wide != null) __obj.updateDynamic("wide")(wide.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
