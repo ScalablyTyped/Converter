@@ -72,15 +72,15 @@ object Modal {
     if (eventPool != null) __obj.updateDynamic("eventPool")(eventPool)
     if (header != null) __obj.updateDynamic("header")(header.asInstanceOf[js.Any])
     if (mountNode != null) __obj.updateDynamic("mountNode")(mountNode)
-        if (onActionClick != null) __obj.updateDynamic("onActionClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onActionClick(t0, t1).runNow())))
-        if (onClose != null) __obj.updateDynamic("onClose")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onClose(t0, t1).runNow())))
-        if (onMount != null) __obj.updateDynamic("onMount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onMount(t0, t1).runNow())))
-        if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onOpen(t0, t1).runNow())))
-        if (onUnmount != null) __obj.updateDynamic("onUnmount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onUnmount(t0, t1).runNow())))
+    if (onActionClick != null) __obj.updateDynamic("onActionClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onActionClick(t0, t1).runNow())))
+    if (onClose != null) __obj.updateDynamic("onClose")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onClose(t0, t1).runNow())))
+    if (onMount != null) __obj.updateDynamic("onMount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onMount(t0, t1).runNow())))
+    if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onOpen(t0, t1).runNow())))
+    if (onUnmount != null) __obj.updateDynamic("onUnmount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onUnmount(t0, t1).runNow())))
     if (!js.isUndefined(open)) __obj.updateDynamic("open")(open)
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (style != null) __obj.updateDynamic("style")(style)
-        if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
+    if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
   typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps, 

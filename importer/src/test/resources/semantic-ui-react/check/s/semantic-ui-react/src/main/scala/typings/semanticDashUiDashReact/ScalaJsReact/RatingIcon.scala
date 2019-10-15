@@ -30,9 +30,9 @@ object RatingIcon {
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onClick(t0, t1).runNow())))
-        if (onKeyUp != null) __obj.updateDynamic("onKeyUp")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onKeyUp(t0, t1).runNow())))
-        if (onMouseEnter != null) __obj.updateDynamic("onMouseEnter")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onMouseEnter(t0, t1).runNow())))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onClick(t0, t1).runNow())))
+    if (onKeyUp != null) __obj.updateDynamic("onKeyUp")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onKeyUp(t0, t1).runNow())))
+    if (onMouseEnter != null) __obj.updateDynamic("onMouseEnter")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps) => onMouseEnter(t0, t1).runNow())))
     if (!js.isUndefined(selected)) __obj.updateDynamic("selected")(selected)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
