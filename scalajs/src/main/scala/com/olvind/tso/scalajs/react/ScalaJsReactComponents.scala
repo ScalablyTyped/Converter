@@ -116,9 +116,8 @@ object ScalaJsReactComponents {
 
   }
 
-  private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] = {
-    val ret = Companions.memberParameter(scope, tree)
-    ret match {
+  private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] =
+    Companions.memberParameter(scope, tree) match {
       case Some(Param(ParamTree(name, TypeRef.ScalaFunction(paramTypes, resType), default, comments), isOptional, s)) =>
         // rewrite functions returning a Callback so that javascript land can call them
         val mapped = paramTypes.map(typeMapper)
@@ -127,9 +126,8 @@ object ScalaJsReactComponents {
           val params =
             mapped.zipWithIndex.map { case (tpe, idx) => s"t$idx: ${Printer.formatTypeRef(0)(tpe)}" }.mkString(", ")
           val paramRefs = mapped.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
-          val rewrittenFn =
-            s"js.Any.fromFunction${mapped.length}((($params) => ${name.value}($paramRefs).runNow()))"
-          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
+          val rewrittenFn = s"js.Any.fromFunction${mapped.length}((($params) => ${name.value}($paramRefs).runNow()))"
+          s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
         }
 
         Some(
@@ -147,12 +145,12 @@ object ScalaJsReactComponents {
       case Some(Param(ParamTree(name, tpe, default, comments), isOptional, asString))
           if (tpe.typeName.parts.lastOption.fold(false)(_.value.endsWith("Element"))) =>
         def fn(obj: String) =
-          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
+          s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
         Some(Param(ParamTree(name, typeMapper(tpe), default, comments), isOptional, Right(fn)))
       case Some(Param(ParamTree(name, tpe, default, comments), isOptional, asString))
           if (tpe.typeName == QualifiedName("typings.react.reactMod.ReactNode")) =>
         def fn(obj: String) =
-          s"""    if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
+          s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
         Some(Param(ParamTree(name, typeMapper(tpe), default, comments), isOptional, Right(fn)))
       // In addition Consider replacing:
       // Scala collections
@@ -162,146 +160,131 @@ object ScalaJsReactComponents {
       // Other values. Keep AnyVal below at least CallbackTo
       case Some(Param(parameter, isOptional, asString)) =>
         Some(Param(parameter.copy(tpe = typeMapper(parameter.tpe)), isOptional, asString))
-      case _ =>
-        ret
-    }
-  }
 
-  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
-    val scope = _scope / tree
-
-    val scalaJsReactModCp = tree.codePath + scalaJsReact.ScalaJsReact
-
-    val scalaJsReactMembers = components.flatMap { c =>
-      val componentCp = scalaJsReactModCp + c.fullName
-
-      val props = c.props getOrElse TypeRef.Object
-
-      scope lookup FollowAliases(scope)(props).typeName firstDefined {
-        case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
-          val cls = TypeRewriterFn(typeMapper).visitClassTree(scope)(_cls)
-
-          ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue)(memberParameter) match {
-            case Nil => None
-            case params =>
-              val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
-                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
-                { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
-                { case Param(p, _, Right(f))                                               => p -> f },
-                { case Param(p, _, Left(str))                                              => p -> str },
-              )
-
-              val childrenParam = params.collectFirst {
-                case Param(p @ ParamTree(Name("children"), _, _, _), _, _) =>
-                  ParamTree(
-                    name     = p.name,
-                    tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.reactChildArg), p.comments),
-                    default  = None,
-                    comments = NoComments,
-                  )
-              }
-
-              val applyMethod = {
-                val childrenRef = childrenParam match {
-                  case Some(_) => TypeRef(scalaJsReact.reactChildrenVarargs)
-                  case None    => TypeRef(scalaJsReact.reactChildrenNone)
-                }
-
-                val (createWrapper, resultType) = c.knownRef orElse refTypes.headOption match {
-                  case Some(refType) =>
-                    val c =
-                      TypeRef(scalaJsReact.reactJsForwardRefComponent, List(props, childrenRef, refType), NoComments)
-                    val r =
-                      TypeRef(
-                        scalaJsReact.componentUnmountedWithRoot,
-                        List(props, refType, TypeRef.Unit, props),
-                        NoComments,
-                      )
-                    (c, r)
-                  case None =>
-                    val c = TypeRef(scalaJsReact.reactJsComponent, List(props, childrenRef, TypeRef.Object), NoComments)
-                    val r = TypeRef(
-                      scalaJsReact.componentJsUnmountedSimple,
-                      List(
-                        props,
-                        TypeRef(
-                          scalaJsReact.componentJsMountedWithRawType,
-                          List(
-                            props,
-                            TypeRef.Object,
-                            TypeRef(scalaJsReact.componentJsRawMounted, List(props, TypeRef.Object), NoComments),
-                          ),
-                          NoComments,
-                        ),
-                      ),
-                      NoComments,
-                    )
-                    (c, r)
-                }
-
-                MethodTree(
-                  annotations = Nil,
-                  level       = ProtectionLevel.Default,
-                  name        = Name.APPLY,
-                  tparams     = cls.tparams,
-                  params      = List(inLiterals.map(_._1) ++ optionals.map(_._1)) ++ childrenParam.map(p => List(p)),
-                  impl = {
-                    val formattedProps         = Printer.formatTypeRef(0)(props)
-                    val formattedComponent     = Component.formatReferenceTo(c.ref, c.componentType)
-                    val formattedCreateWrapper = Printer.formatTypeRef(0)(createWrapper)
-
-                    MemberImpl.Custom(
-                      s"""{
-                         |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
-                         |
-                         |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-                         |
-                         |  val f = ${formattedCreateWrapper}($formattedComponent)
-                         |  f(__obj.asInstanceOf[$formattedProps])${childrenParam.fold("")(_ => "(children: _*)")}
-                         |}""".stripMargin,
-                    )
-                  },
-                  resultType = resultType,
-                  isOverride = false,
-                  comments   = NoComments,
-                  codePath   = componentCp + Name.APPLY,
-                )
-              }
-
-              Some(
-                ModuleTree(
-                  annotations = Nil,
-                  name        = c.fullName,
-                  parents     = Nil,
-                  members     = List(applyMethod),
-                  comments    = Comments(CommentData(Markers.VIP)),
-                  codePath    = componentCp,
-                ),
-              )
-          }
-
-        /* This is a fallback when the props type is complicated. I'm not convinced the result is very useful */
-        case (_: ClassTree | _: TypeAliasTree, _) =>
-          val mod = ModuleTree(
-            annotations = Nil,
-            name        = c.fullName,
-            parents     = Nil,
-            members     = Nil,
-            comments    = Comments(CommentData(Markers.VIP)),
-            codePath    = componentCp,
-          )
-          Some(mod)
-
-        case _ => None
-      }
+      case dontChange => dontChange
     }
 
-    /* Only generate the package if we have mapped any components */
-    scalaJsReactMembers match {
+  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
+    components flatMap generateComponent(tree.codePath + scalaJsReact.ScalaJsReact, _scope / tree) match {
       case Nil => tree
       case nonEmpty =>
-        tree.withMembers(
-          tree.members :+ PackageTree(Nil, scalaJsReact.ScalaJsReact, nonEmpty, NoComments, scalaJsReactModCp),
+        val newPackage =
+          PackageTree(Nil, scalaJsReact.ScalaJsReact, nonEmpty, NoComments, tree.codePath + scalaJsReact.ScalaJsReact)
+        tree.withMembers(tree.members :+ newPackage)
+    }
+
+  def generateComponent(pkgCodePath: QualifiedName, scope: TreeScope)(c: Component): Option[ModuleTree] = {
+    // accept components with no props, but not those with too complicated props (type aliases that ExpandTypeMappings doesnt expand yet)
+    val propsParamsOpt: Option[(TypeRef, Seq[Param])] =
+      c.props match {
+        case Some(props) =>
+          val paramsOpt: Option[Seq[Param]] =
+            scope lookup FollowAliases(scope)(props).typeName collectFirst {
+              case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
+                val cls = TypeRewriterFn(typeMapper).visitClassTree(scope)(_cls)
+
+                ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue)(memberParameter)
+            }
+          paramsOpt.map(ps => props -> ps)
+        case None =>
+          Some(TypeRef.Object -> Nil)
+      }
+
+    propsParamsOpt map {
+      case (props, params) =>
+        val componentCp = pkgCodePath + c.fullName
+
+        val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
+          { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
+          { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
+          { case Param(p, _, Right(f))                                               => p -> f },
+          { case Param(p, _, Left(str))                                              => p -> str },
+        )
+
+        val childrenParam = params.collectFirst {
+          case Param(p @ ParamTree(Name("children"), _, _, _), _, _) =>
+            ParamTree(
+              name     = p.name,
+              tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.reactChildArg), p.comments),
+              default  = None,
+              comments = NoComments,
+            )
+        }
+
+        val applyMethod = {
+          val childrenRef = childrenParam match {
+            case Some(_) => TypeRef(scalaJsReact.reactChildrenVarargs)
+            case None    => TypeRef(scalaJsReact.reactChildrenNone)
+          }
+
+          val (createWrapper, resultType) = c.knownRef orElse refTypes.headOption match {
+            case Some(refType) =>
+              val c =
+                TypeRef(scalaJsReact.reactJsForwardRefComponent, List(props, childrenRef, refType), NoComments)
+              val r =
+                TypeRef(
+                  scalaJsReact.componentUnmountedWithRoot,
+                  List(props, refType, TypeRef.Unit, props),
+                  NoComments,
+                )
+              (c, r)
+            case None =>
+              val c = TypeRef(scalaJsReact.reactJsComponent, List(props, childrenRef, TypeRef.Object), NoComments)
+              val r = TypeRef(
+                scalaJsReact.componentJsUnmountedSimple,
+                List(
+                  props,
+                  TypeRef(
+                    scalaJsReact.componentJsMountedWithRawType,
+                    List(
+                      props,
+                      TypeRef.Object,
+                      TypeRef(scalaJsReact.componentJsRawMounted, List(props, TypeRef.Object), NoComments),
+                    ),
+                    NoComments,
+                  ),
+                ),
+                NoComments,
+              )
+              (c, r)
+          }
+
+          MethodTree(
+            annotations = Nil,
+            level       = ProtectionLevel.Default,
+            name        = Name.APPLY,
+            tparams     = c.tparams,
+            params      = List(inLiterals.map(_._1) ++ optionals.map(_._1)) ++ childrenParam.map(p => List(p)),
+            impl = {
+              val formattedProps         = Printer.formatTypeRef(0)(props)
+              val formattedComponent     = Component.formatReferenceTo(c.ref, c.componentType)
+              val formattedCreateWrapper = Printer.formatTypeRef(0)(createWrapper)
+
+              MemberImpl.Custom(
+                s"""{
+               |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
+               |
+               |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+               |
+               |  val f = ${formattedCreateWrapper}($formattedComponent)
+               |  f(__obj.asInstanceOf[$formattedProps])${childrenParam.fold("")(_ => "(children: _*)")}
+               |}""".stripMargin,
+              )
+            },
+            resultType = resultType,
+            isOverride = false,
+            comments   = NoComments,
+            codePath   = componentCp + Name.APPLY,
+          )
+        }
+
+        ModuleTree(
+          annotations = Nil,
+          name        = c.fullName,
+          parents     = Nil,
+          members     = List(applyMethod),
+          comments    = Comments(CommentData(Markers.VIP)),
+          codePath    = componentCp,
         )
     }
   }

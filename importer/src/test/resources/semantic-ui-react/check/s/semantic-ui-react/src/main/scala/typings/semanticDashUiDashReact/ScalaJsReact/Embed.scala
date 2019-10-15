@@ -60,7 +60,7 @@ object Embed {
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (id != null) __obj.updateDynamic("id")(id)
     if (iframe != null) __obj.updateDynamic("iframe")(iframe.asInstanceOf[js.Any])
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesEmbedEmbedMod.EmbedProps) => onClick(t0, t1).runNow())))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesEmbedEmbedMod.EmbedProps) => onClick(t0, t1).runNow())))
     if (placeholder != null) __obj.updateDynamic("placeholder")(placeholder)
     if (source != null) __obj.updateDynamic("source")(source.asInstanceOf[js.Any])
     if (url != null) __obj.updateDynamic("url")(url)
