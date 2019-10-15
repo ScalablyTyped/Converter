@@ -35,13 +35,7 @@ trait DeprecatedLifecycle[P, S] extends js.Object {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var UNSAFE_componentWillReceiveProps: js.UndefOr[
-    js.Function2[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, 
-      /* nextContext */ js.Any, 
-      Unit
-    ]
-  ] = js.undefined
+  var UNSAFE_componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ js.Any, Unit]] = js.undefined
   /**
     * Called immediately before rendering when new props or state is received. Not called for the initial render.
     *
@@ -57,12 +51,7 @@ trait DeprecatedLifecycle[P, S] extends js.Object {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
   var UNSAFE_componentWillUpdate: js.UndefOr[
-    js.Function3[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, 
-      /* nextContext */ js.Any, 
-      Unit
-    ]
+    js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Unit]
   ] = js.undefined
   /**
     * Called immediately before mounting occurs, and before `Component#render`.
@@ -90,13 +79,7 @@ trait DeprecatedLifecycle[P, S] extends js.Object {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#updating-state-based-on-props
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
-  var componentWillReceiveProps: js.UndefOr[
-    js.Function2[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, 
-      /* nextContext */ js.Any, 
-      Unit
-    ]
-  ] = js.undefined
+  var componentWillReceiveProps: js.UndefOr[js.Function2[/* nextProps */ P, /* nextContext */ js.Any, Unit]] = js.undefined
   /**
     * Called immediately before rendering when new props or state is received. Not called for the initial render.
     *
@@ -110,12 +93,7 @@ trait DeprecatedLifecycle[P, S] extends js.Object {
     * @see https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#gradual-migration-path
     */
   var componentWillUpdate: js.UndefOr[
-    js.Function3[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, 
-      /* nextContext */ js.Any, 
-      Unit
-    ]
+    js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Unit]
   ] = js.undefined
 }
 
@@ -123,11 +101,11 @@ object DeprecatedLifecycle {
   @scala.inline
   def apply[P, S](
     UNSAFE_componentWillMount: () => Unit = null,
-    UNSAFE_componentWillReceiveProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* nextContext */ js.Any) => Unit = null,
-    UNSAFE_componentWillUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Unit = null,
+    UNSAFE_componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Unit = null,
+    UNSAFE_componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit = null,
     componentWillMount: () => Unit = null,
-    componentWillReceiveProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* nextContext */ js.Any) => Unit = null,
-    componentWillUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Unit = null
+    componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Unit = null,
+    componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit = null
   ): DeprecatedLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
     if (UNSAFE_componentWillMount != null) __obj.updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0(UNSAFE_componentWillMount))

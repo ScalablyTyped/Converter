@@ -14,18 +14,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, name */
 object SearchCategory {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
+    name: String = null,
     renderer: /* props */ SearchCategoryProps => Callback = null,
     results: js.Array[ComponentClass[SearchResultProps, js.Object]] = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     SearchCategoryProps, 
     MountedWithRawType[SearchCategoryProps, js.Object, RawMounted[SearchCategoryProps, js.Object]]
@@ -35,8 +35,10 @@ object SearchCategory {
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-        if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps) => renderer(t0).runNow())))
+    if (name != null) __obj.updateDynamic("name")(name)
+    if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps) => renderer(t0).runNow())))
     if (results != null) __obj.updateDynamic("results")(results)
   
     val f = japgolly.scalajs.react.JsComponent[

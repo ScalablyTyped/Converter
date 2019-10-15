@@ -13,7 +13,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children */
 object Transition {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -30,8 +29,7 @@ object Transition {
     unmountOnHide: js.UndefOr[Boolean] = js.undefined,
     visible: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[TransitionProps, default, Unit, TransitionProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -40,10 +38,10 @@ object Transition {
     if (!js.isUndefined(directional)) __obj.updateDynamic("directional")(directional)
     if (duration != null) __obj.updateDynamic("duration")(duration.asInstanceOf[js.Any])
     if (!js.isUndefined(mountOnShow)) __obj.updateDynamic("mountOnShow")(mountOnShow)
-        if (onComplete != null) __obj.updateDynamic("onComplete")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onComplete(t0, t1).runNow())))
-        if (onHide != null) __obj.updateDynamic("onHide")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onHide(t0, t1).runNow())))
-        if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onShow(t0, t1).runNow())))
-        if (onStart != null) __obj.updateDynamic("onStart")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onStart(t0, t1).runNow())))
+    if (onComplete != null) __obj.updateDynamic("onComplete")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onComplete(t0, t1).runNow())))
+    if (onHide != null) __obj.updateDynamic("onHide")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onHide(t0, t1).runNow())))
+    if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onShow(t0, t1).runNow())))
+    if (onStart != null) __obj.updateDynamic("onStart")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionEventData) => onStart(t0, t1).runNow())))
     if (reactKey != null) __obj.updateDynamic("reactKey")(reactKey)
     if (!js.isUndefined(transitionOnMount)) __obj.updateDynamic("transitionOnMount")(transitionOnMount)
     if (!js.isUndefined(unmountOnHide)) __obj.updateDynamic("unmountOnHide")(unmountOnHide)

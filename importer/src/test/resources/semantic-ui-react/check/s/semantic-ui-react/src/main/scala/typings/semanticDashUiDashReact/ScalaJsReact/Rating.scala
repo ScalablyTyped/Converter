@@ -20,13 +20,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: className, disabled */
 object Rating {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
+    className: String = null,
     clearable: Boolean | auto = null,
     defaultRating: Double | String = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     icon: star | heart = null,
     maxRating: Double | String = null,
     onRate: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ RatingProps) => Callback = null,
@@ -37,11 +38,13 @@ object Rating {
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (clearable != null) __obj.updateDynamic("clearable")(clearable.asInstanceOf[js.Any])
     if (defaultRating != null) __obj.updateDynamic("defaultRating")(defaultRating.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (maxRating != null) __obj.updateDynamic("maxRating")(maxRating.asInstanceOf[js.Any])
-        if (onRate != null) __obj.updateDynamic("onRate")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingMod.RatingProps) => onRate(t0, t1).runNow())))
+    if (onRate != null) __obj.updateDynamic("onRate")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingMod.RatingProps) => onRate(t0, t1).runNow())))
     if (rating != null) __obj.updateDynamic("rating")(rating.asInstanceOf[js.Any])
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
   

@@ -14,17 +14,16 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className */
 object StepContent {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
+    className: String = null,
     content: SemanticShorthandContent = null,
     description: SemanticShorthandItem[StepDescriptionProps] = null,
     title: SemanticShorthandItem[StepTitleProps] = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     StepContentProps, 
     MountedWithRawType[StepContentProps, js.Object, RawMounted[StepContentProps, js.Object]]
@@ -33,6 +32,7 @@ object StepContent {
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (description != null) __obj.updateDynamic("description")(description.asInstanceOf[js.Any])
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])

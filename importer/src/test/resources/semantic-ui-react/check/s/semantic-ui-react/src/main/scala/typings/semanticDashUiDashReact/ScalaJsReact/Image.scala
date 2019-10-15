@@ -19,7 +19,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled, hidden, href */
 object Image {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -28,10 +27,14 @@ object Image {
     bordered: js.UndefOr[Boolean] = js.undefined,
     centered: js.UndefOr[Boolean] = js.undefined,
     circular: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     content: SemanticShorthandContent = null,
     dimmer: SemanticShorthandItem[DimmerProps] = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
+    hidden: js.UndefOr[Boolean] = js.undefined,
+    href: String = null,
     `inline`: js.UndefOr[Boolean] = js.undefined,
     label: SemanticShorthandItem[LabelProps] = null,
     rounded: js.UndefOr[Boolean] = js.undefined,
@@ -41,8 +44,7 @@ object Image {
     verticalAlign: SemanticVERTICALALIGNMENTS = null,
     wrapped: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     ImageProps, 
     MountedWithRawType[ImageProps, js.Object, RawMounted[ImageProps, js.Object]]
@@ -55,10 +57,14 @@ object Image {
     if (!js.isUndefined(bordered)) __obj.updateDynamic("bordered")(bordered)
     if (!js.isUndefined(centered)) __obj.updateDynamic("centered")(centered)
     if (!js.isUndefined(circular)) __obj.updateDynamic("circular")(circular)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (dimmer != null) __obj.updateDynamic("dimmer")(dimmer.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
+    if (!js.isUndefined(hidden)) __obj.updateDynamic("hidden")(hidden)
+    if (href != null) __obj.updateDynamic("href")(href)
     if (!js.isUndefined(`inline`)) __obj.updateDynamic("inline")(`inline`)
     if (label != null) __obj.updateDynamic("label")(label.asInstanceOf[js.Any])
     if (!js.isUndefined(rounded)) __obj.updateDynamic("rounded")(rounded)

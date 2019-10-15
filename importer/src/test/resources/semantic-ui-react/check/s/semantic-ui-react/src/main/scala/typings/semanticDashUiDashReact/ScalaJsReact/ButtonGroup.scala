@@ -21,7 +21,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className */
 object ButtonGroup {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -29,6 +28,7 @@ object ButtonGroup {
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     buttons: SemanticShorthandCollection[ButtonProps] = null,
+    className: String = null,
     color: SemanticCOLORS = null,
     compact: js.UndefOr[Boolean] = js.undefined,
     content: SemanticShorthandContent = null,
@@ -46,8 +46,7 @@ object ButtonGroup {
     vertical: js.UndefOr[Boolean] = js.undefined,
     widths: SemanticWIDTHS = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     ButtonGroupProps, 
     MountedWithRawType[ButtonGroupProps, js.Object, RawMounted[ButtonGroupProps, js.Object]]
@@ -59,6 +58,7 @@ object ButtonGroup {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (buttons != null) __obj.updateDynamic("buttons")(buttons)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])

@@ -9,11 +9,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: className */
 object ButtonOr {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
+    className: String = null,
     text: Double | String = null
   ): UnmountedSimple[
     ButtonOrProps, 
@@ -23,6 +23,7 @@ object ButtonOr {
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsComponent[

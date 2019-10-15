@@ -18,16 +18,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: aria-label, className, disabled */
 object ListIcon {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     `aria-hidden`: String = null,
+    `aria-label`: String = null,
     as: js.Any = null,
     bordered: js.UndefOr[Boolean] = js.undefined,
     circular: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     color: SemanticCOLORS = null,
     corner: Boolean | IconCorner = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     fitted: js.UndefOr[Boolean] = js.undefined,
     flipped: horizontally | vertically = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
@@ -45,11 +47,14 @@ object ListIcon {
   
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (`aria-hidden` != null) __obj.updateDynamic("aria-hidden")(`aria-hidden`)
+    if (`aria-label` != null) __obj.updateDynamic("aria-label")(`aria-label`)
     if (as != null) __obj.updateDynamic("as")(as)
     if (!js.isUndefined(bordered)) __obj.updateDynamic("bordered")(bordered)
     if (!js.isUndefined(circular)) __obj.updateDynamic("circular")(circular)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (corner != null) __obj.updateDynamic("corner")(corner.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(fitted)) __obj.updateDynamic("fitted")(fitted)
     if (flipped != null) __obj.updateDynamic("flipped")(flipped.asInstanceOf[js.Any])
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
