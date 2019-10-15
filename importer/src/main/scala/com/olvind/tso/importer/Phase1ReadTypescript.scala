@@ -172,6 +172,7 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("uifabric", _)       => true
                 case TsIdentLibraryScoped("tensorflow", _)     => true
                 case TsIdentLibraryScoped("ant-design", _)     => true
+                case TsIdentLibraryScoped("nivo", _)           => true
                 case _                                         => false
               }
 
