@@ -30,7 +30,7 @@ object DimmerDimmable {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(dimmed)) __obj.updateDynamic("dimmed")(dimmed)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.DimmerDimmableProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerDimmableMod.default])

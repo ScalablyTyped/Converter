@@ -168,7 +168,7 @@ object Dropdown {
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (!js.isUndefined(wrapSelection)) __obj.updateDynamic("wrapSelection")(wrapSelection)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesDropdownMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownMod.default])

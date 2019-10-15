@@ -1,4 +1,4 @@
-import sbt.{stringToOrganization, ModuleID}
+import sbt.{ModuleID, stringToOrganization}
 
 object Deps {
   val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"

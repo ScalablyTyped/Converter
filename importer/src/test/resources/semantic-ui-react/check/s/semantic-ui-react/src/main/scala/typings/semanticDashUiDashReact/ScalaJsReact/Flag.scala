@@ -22,7 +22,7 @@ object Flag {
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcElementsFlagMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsFlagMod.default])

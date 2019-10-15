@@ -35,7 +35,7 @@ object ModalActions {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (onActionClick != null) __obj.updateDynamic("onActionClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps) => onActionClick(t0, t1).runNow())))
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.ModalActionsProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.default])

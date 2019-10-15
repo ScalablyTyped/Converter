@@ -13,7 +13,7 @@ object Adn {
   
       if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactDashIconDashBase.reactDashIconDashBaseMod.IconBaseProps, 
   japgolly.scalajs.react.Children.None, 
   typings.reactDashIcons.faAdnMod.default](js.constructorOf[typings.reactDashIcons.faAdnMod.default])

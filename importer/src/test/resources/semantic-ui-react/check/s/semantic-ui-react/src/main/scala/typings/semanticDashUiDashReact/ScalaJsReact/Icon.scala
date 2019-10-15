@@ -58,7 +58,7 @@ object Icon {
     if (rotated != null) __obj.updateDynamic("rotated")(rotated.asInstanceOf[js.Any])
     if (size != null) __obj.updateDynamic("size")(size)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcElementsIconMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsIconMod.default])

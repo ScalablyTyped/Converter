@@ -20,7 +20,7 @@ object DropdownDivider {
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.DropdownDividerProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.default])

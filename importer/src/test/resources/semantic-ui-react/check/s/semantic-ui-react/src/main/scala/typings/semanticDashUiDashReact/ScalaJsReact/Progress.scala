@@ -73,7 +73,7 @@ object Progress {
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (!js.isUndefined(warning)) __obj.updateDynamic("warning")(warning)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesProgressProgressMod.ProgressProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesProgressMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesProgressMod.default])
