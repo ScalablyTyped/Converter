@@ -53,7 +53,7 @@ object Step {
     if (!js.isUndefined(ordered)) __obj.updateDynamic("ordered")(ordered)
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsStepStepMod.StepProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcElementsStepMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsStepMod.default])

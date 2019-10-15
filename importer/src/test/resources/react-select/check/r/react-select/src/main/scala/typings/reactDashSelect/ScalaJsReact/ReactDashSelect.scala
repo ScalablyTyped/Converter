@@ -13,7 +13,7 @@ object ReactDashSelect {
   
       if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactDashSelect.reactDashSelectMod.ReactSelectProps[TValue], 
   japgolly.scalajs.react.Children.None, 
   typings.reactDashSelect.reactDashSelectMod.default[TValue]](js.constructorOf[typings.reactDashSelect.reactDashSelectMod.default[TValue]])

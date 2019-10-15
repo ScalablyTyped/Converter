@@ -47,7 +47,7 @@ object DimmerInner {
     if (!js.isUndefined(simple)) __obj.updateDynamic("simple")(simple)
     if (verticalAlign != null) __obj.updateDynamic("verticalAlign")(verticalAlign.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.default])

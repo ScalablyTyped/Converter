@@ -29,7 +29,7 @@ object TransitionGroup {
     if (!js.isUndefined(directional)) __obj.updateDynamic("directional")(directional)
     if (duration != null) __obj.updateDynamic("duration")(duration.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.TransitionGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.default])

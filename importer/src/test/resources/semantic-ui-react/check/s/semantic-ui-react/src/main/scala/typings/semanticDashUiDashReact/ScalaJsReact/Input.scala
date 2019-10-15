@@ -517,7 +517,7 @@ object Input {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab)
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcElementsInputMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsInputMod.default])

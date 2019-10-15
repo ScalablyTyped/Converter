@@ -46,7 +46,7 @@ object ButtonGroup {
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.reactDashBootstrap.libMod.ButtonGroup](js.constructorOf[typings.reactDashBootstrap.libMod.ButtonGroup])

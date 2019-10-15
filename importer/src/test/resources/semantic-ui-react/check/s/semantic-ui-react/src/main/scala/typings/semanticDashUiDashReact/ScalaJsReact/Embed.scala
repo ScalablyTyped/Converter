@@ -65,7 +65,7 @@ object Embed {
     if (source != null) __obj.updateDynamic("source")(source.asInstanceOf[js.Any])
     if (url != null) __obj.updateDynamic("url")(url)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesEmbedEmbedMod.EmbedProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesEmbedMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesEmbedMod.default])

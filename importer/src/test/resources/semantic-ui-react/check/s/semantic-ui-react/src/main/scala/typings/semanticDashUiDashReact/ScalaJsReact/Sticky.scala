@@ -49,7 +49,7 @@ object Sticky {
     if (scrollContext != null) __obj.updateDynamic("scrollContext")(scrollContext.asInstanceOf[js.Any])
     if (styleElement != null) __obj.updateDynamic("styleElement")(styleElement)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesStickyStickyMod.StickyProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesStickyMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesStickyMod.default])
