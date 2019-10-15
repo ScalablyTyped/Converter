@@ -23,7 +23,6 @@ import typings.react.HTMLHeadingElement
 import typings.react.HTMLHtmlElement
 import typings.react.HTMLIFrameElement
 import typings.react.HTMLImageElement
-import typings.react.HTMLInputElement
 import typings.react.HTMLLIElement
 import typings.react.HTMLLabelElement
 import typings.react.HTMLLegendElement
@@ -58,6 +57,7 @@ import typings.react.HTMLTrackElement
 import typings.react.HTMLUListElement
 import typings.react.HTMLVideoElement
 import typings.react.HTMLWebViewElement
+import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

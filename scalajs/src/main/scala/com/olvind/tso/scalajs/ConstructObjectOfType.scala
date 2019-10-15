@@ -35,29 +35,32 @@ object ConstructObjectOfType {
     def handleMember(member: MemberTree): Option[Param] =
       _handleMember(scope, TypeRewriter(Map(TypeRef.ThisType(NoComments) -> clsRef)).visitMemberTree(scope)(member))
 
-    def go(p: ParentsResolver.Parent): Map[Name, Param] =
-      p.parents.flatMap(go).toMap ++ p.classTree.index
-        .mapNotNone(
-          ms =>
-            ms.firstDefined {
-              case m: MemberTree => handleMember(m)
-              case _ => None
-            },
-        )
+    /* extract one per name, undoing some renaming damage that we have done */
+    def membersFrom(cls: ClassTree) =
+      cls.members
+        .collect {
+          case (x: FieldTree) =>
+            val realName = Annotation.realName(x.annotations, x.name)
+            val xx       = x.copy(name = realName)
+            handleMember(xx).map(p => realName -> p)
+          case (x: MethodTree) =>
+            val realName = Annotation.realName(x.annotations, x.name)
+            val xx       = x.copy(name = realName)
+            handleMember(xx).map(p => realName -> p)
+          case _ => None
+        }
+        .flatten
+        .toMap
 
-    val builder = Builder(
-      keptDirectParents.map(p => p -> go(p)).toMap,
-      parents.unresolved ++ treatAsUnresolved,
-      cls.index
-        .mapNotNone(
-          ms =>
-            ms.firstDefined {
-              case m: MemberTree => handleMember(m)
-              case _ => None
-            },
-        )
-        .toSorted,
-    )
+    def go(p: ParentsResolver.Parent): Map[Name, Param] =
+      p.parents.flatMap(go).toMap ++ membersFrom(p.classTree)
+
+    val builder =
+      Builder(
+        keptDirectParents.map(p => p -> go(p)).toMap,
+        parents.unresolved ++ treatAsUnresolved,
+        membersFrom(cls).toSorted,
+      )
 
     builder
       .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
@@ -85,17 +88,7 @@ object ConstructObjectOfType {
       val numParentMembers = directParents.foldLeft(0)((acc, p) => acc + p._2.size)
       if (own.size + numParentMembers + unresolved.length > maxNum) {
 
-        /**
-          * hack: react exposes just too many props for intrinsics (`div`, `a`, etc) to cross the 254
-          * parameter limit for *many* components. I've personally never needed the `*Capture` props,
-          * and they are easy to filter out en masse.
-          */
-        val ownWithoutReactCaptures =
-          if (own.contains(Name("onCompositionEnd")) && own.contains(Name("onCompositionEndCapture")))
-            own.filterKeys(!_.unescaped.endsWith("Capture"))
-          else own
-
-        val shortened  = ownWithoutReactCaptures.take(maxNum - directParents.size - unresolved.length)
+        val shortened  = own.take(maxNum - directParents.size - unresolved.length)
         val compressed = directParents.map { case (k, _) => f(k) }
         Builder(Map.empty, unresolved, shortened ++ compressed)
       } else this
@@ -107,7 +100,7 @@ object ConstructObjectOfType {
     def allParamsUnique: Map[Name, Param] = {
       val fromParents    = directParents.foldLeft(Map.empty[Name, Param])(_ ++ _._2)
       val fromUnresolved = unresolved.map(typeRef => parentParameter(typeRef, isRequired = false))
-      fromParents ++ own ++ fromUnresolved
+      fromParents ++ fromUnresolved ++ own
     }
   }
 

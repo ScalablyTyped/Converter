@@ -33,7 +33,6 @@ package object react {
   type HTMLHtmlElement = Element
   type HTMLIFrameElement = Element
   type HTMLImageElement = Element
-  type HTMLInputElement = Element
   type HTMLLIElement = Element
   type HTMLLabelElement = Element
   type HTMLLegendElement = Element

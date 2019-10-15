@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLInputElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.FormEvent
 import typings.react.reactMod.MouseEvent
@@ -14,6 +13,7 @@ import typings.semanticDashUiDashReact.srcGenericMod.HtmlLabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesCheckboxCheckboxMod.CheckboxProps
 import typings.semanticDashUiDashReact.srcModulesCheckboxMod.default
+import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -76,8 +76,44 @@ object LibrarySpecific {
     }
   }
 
+  object semanticUiReact extends Named {
+    override val libName: TsIdentLibrary = TsIdentLibrarySimple("semantic-ui-react")
+    val stdLib              = TsQIdent(List(TsIdent.std))
+    val reactMod            = TsQIdent(react.libName :: TsIdentModule(None, List("react")) :: Nil)
+    val AllHTMLAttributes   = reactMod + TsIdent("AllHTMLAttributes")
+    val InputHTMLAttributes = reactMod + TsIdent("InputHTMLAttributes")
+    val HTMLInputElement    = stdLib + TsIdent("HTMLInputElement")
+
+    def event(name: TsQIdent, of: TsQIdent) =
+      TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))
+
+    val addDomProps = Map[TsIdent, TsTypeRef](
+      TsIdentSimple("StrictInputProps") -> event(InputHTMLAttributes, HTMLInputElement),
+    )
+    val removeIndex = Set[TsIdent](
+      TsIdentSimple("InputProps"),
+    )
+
+    override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
+      x match {
+        case i @ TsDeclInterface(_, _, name, _, inheritance, members, _) =>
+          (addDomProps.get(name), removeIndex(name)) match {
+            case (Some(newInheritance), _) =>
+              i.copy(inheritance = inheritance :+ newInheritance)
+            case (_, true) =>
+              val newMembers = members.filter {
+                case _: TsMemberIndex => false
+                case _ => true
+              }
+              i.copy(members = newMembers)
+            case _ => i
+          }
+      }
+  }
+
   object react extends Named {
     val libName       = TsIdentLibrarySimple("react")
+    val DOMAttributes = TsIdent("DOMAttributes")
     val ReactElement  = TsIdent("ReactElement")
     val ReactFragment = TsIdent("ReactFragment")
     val ReactNode     = TsIdent("ReactNode")
@@ -93,6 +129,19 @@ object LibrarySpecific {
           val newX = x.copy(tparams = Nil)
           new TypeRewriter(newX)
             .visitTsDeclInterface(TsTypeParam.asTypeArgs(x.tparams).map(_ -> TsTypeRef.any).toMap)(newX)
+
+        /**
+          * hack: react exposes just too many props for intrinsics (`div`, `a`, etc) to cross the 254
+          * parameter limit for *many* components. I've personally never needed the `*Capture` props,
+          * and they are easy to filter out en masse.
+          */
+        case DOMAttributes =>
+          val newMembers = x.members.filter {
+            case x: TsMemberFunction => !x.name.value.endsWith("Capture")
+            case x: TsMemberProperty => !x.name.value.endsWith("Capture")
+            case _ => true
+          }
+          x.copy(members = newMembers)
         case _ => x
       }
 
@@ -126,7 +175,9 @@ object LibrarySpecific {
   }
 
   val patches: Map[TsIdentLibrary, Named] =
-    Seq(atUifabricFoundation, aMap, emberPolyfills, emotion, react, styledComponents).map(x => x.libName -> x).toMap
+    Seq(atUifabricFoundation, aMap, emberPolyfills, emotion, react, semanticUiReact, styledComponents)
+      .map(x => x.libName -> x)
+      .toMap
 
   def apply(libName: TsIdentLibrary): Option[TreeTransformationScopedChanges] = patches.get(libName)
 }

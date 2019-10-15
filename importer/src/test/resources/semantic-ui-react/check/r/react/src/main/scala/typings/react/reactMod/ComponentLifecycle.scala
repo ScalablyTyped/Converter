@@ -44,12 +44,7 @@ trait ComponentLifecycle[P, S, SS]
     * and `componentDidUpdate` will not be called.
     */
   var shouldComponentUpdate: js.UndefOr[
-    js.Function3[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, 
-      /* nextContext */ js.Any, 
-      Boolean
-    ]
+    js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Boolean]
   ] = js.undefined
 }
 
@@ -57,17 +52,17 @@ object ComponentLifecycle {
   @scala.inline
   def apply[P, S, SS](
     UNSAFE_componentWillMount: () => Unit = null,
-    UNSAFE_componentWillReceiveProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* nextContext */ js.Any) => Unit = null,
-    UNSAFE_componentWillUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Unit = null,
+    UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,
+    UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Unit = null,
     componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit = null,
     componentDidMount: () => Unit = null,
-    componentDidUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* prevProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* prevState */ js.Any, /* snapshot */ js.UndefOr[SS]) => Unit = null,
+    componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[SS]) => Unit = null,
     componentWillMount: () => Unit = null,
-    componentWillReceiveProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* nextContext */ js.Any) => Unit = null,
+    componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,
     componentWillUnmount: () => Unit = null,
-    componentWillUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Unit = null,
-    getSnapshotBeforeUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* prevProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* prevState */ js.Any) => SS | Null = null,
-    shouldComponentUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Boolean = null
+    componentWillUpdate: (P, S, /* nextContext */ js.Any) => Unit = null,
+    getSnapshotBeforeUpdate: (P, S) => SS | Null = null,
+    shouldComponentUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean = null
   ): ComponentLifecycle[P, S, SS] = {
     val __obj = js.Dynamic.literal()
     if (UNSAFE_componentWillMount != null) __obj.updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0(UNSAFE_componentWillMount))

@@ -21,24 +21,24 @@ object Mixin {
   @scala.inline
   def apply[P, S](
     UNSAFE_componentWillMount: () => Unit = null,
-    UNSAFE_componentWillReceiveProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* nextContext */ js.Any) => Unit = null,
-    UNSAFE_componentWillUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Unit = null,
+    UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,
+    UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Unit = null,
     childContextTypes: ValidationMap[_] = null,
     componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit = null,
     componentDidMount: () => Unit = null,
-    componentDidUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* prevProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* prevState */ js.Any, /* snapshot */ js.UndefOr[js.Any]) => Unit = null,
+    componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[js.Any]) => Unit = null,
     componentWillMount: () => Unit = null,
-    componentWillReceiveProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* nextContext */ js.Any) => Unit = null,
+    componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,
     componentWillUnmount: () => Unit = null,
-    componentWillUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Unit = null,
+    componentWillUpdate: (P, S, /* nextContext */ js.Any) => Unit = null,
     contextTypes: ValidationMap[_] = null,
     displayName: String = null,
     getDefaultProps: () => P = null,
     getInitialState: () => S = null,
-    getSnapshotBeforeUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* prevProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* prevState */ js.Any) => js.Any | Null = null,
+    getSnapshotBeforeUpdate: (P, S) => js.Any | Null = null,
     mixins: js.Array[Mixin[P, S]] = null,
     propTypes: ValidationMap[_] = null,
-    shouldComponentUpdate: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<S> */ /* nextState */ js.Any, /* nextContext */ js.Any) => Boolean = null,
+    shouldComponentUpdate: (P, S, /* nextContext */ js.Any) => Boolean = null,
     statics: StringDictionary[js.Any] = null
   ): Mixin[P, S] = {
     val __obj = js.Dynamic.literal()
