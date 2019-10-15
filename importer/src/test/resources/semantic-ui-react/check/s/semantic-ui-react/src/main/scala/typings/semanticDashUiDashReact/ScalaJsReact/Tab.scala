@@ -36,7 +36,7 @@ object Tab {
     if (grid != null) __obj.updateDynamic("grid")(grid)
     if (menu != null) __obj.updateDynamic("menu")(menu)
     if (menuPosition != null) __obj.updateDynamic("menuPosition")(menuPosition.asInstanceOf[js.Any])
-        if (onTabChange != null) __obj.updateDynamic("onTabChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps) => onTabChange(t0, t1).runNow())))
+    if (onTabChange != null) __obj.updateDynamic("onTabChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps) => onTabChange(t0, t1).runNow())))
     if (panes != null) __obj.updateDynamic("panes")(panes)
     if (!js.isUndefined(renderActiveOnly)) __obj.updateDynamic("renderActiveOnly")(renderActiveOnly)
   

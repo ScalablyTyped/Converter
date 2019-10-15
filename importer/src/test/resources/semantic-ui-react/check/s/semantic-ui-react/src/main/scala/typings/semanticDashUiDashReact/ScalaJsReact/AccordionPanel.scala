@@ -29,7 +29,7 @@ object AccordionPanel {
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-        if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow())))
+    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow())))
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
