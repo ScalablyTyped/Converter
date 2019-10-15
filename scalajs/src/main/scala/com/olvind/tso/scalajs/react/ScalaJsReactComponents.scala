@@ -125,7 +125,7 @@ object ScalaJsReactComponents {
         def fn(obj: String) = {
           val params =
             mapped.zipWithIndex.map { case (tpe, idx) => s"t$idx: ${Printer.formatTypeRef(0)(tpe)}" }.mkString(", ")
-          val paramRefs = mapped.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
+          val paramRefs   = mapped.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
           val rewrittenFn = s"js.Any.fromFunction${mapped.length}((($params) => ${name.value}($paramRefs).runNow()))"
           s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
         }
@@ -183,7 +183,7 @@ object ScalaJsReactComponents {
               case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
                 val cls = TypeRewriterFn(typeMapper).visitClassTree(scope)(_cls)
 
-                ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue)(memberParameter)
+                ConstructObjectOfType(cls, scope)(memberParameter)
             }
           paramsOpt.map(ps => props -> ps)
         case None =>
