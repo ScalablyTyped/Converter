@@ -81,7 +81,7 @@ object GenerateReactComponentsObject {
   def genPropsRef(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): Option[MethodTree] =
     comp.props.flatMap(
       propsType =>
-        scope.lookup(propsType.typeName).collectFirst {
+        scope.lookup(FollowAliases(scope)(propsType).typeName).collectFirst {
           case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
             MethodTree(
               annotations = Annotation.Inline :: Nil,
@@ -90,7 +90,7 @@ object GenerateReactComponentsObject {
               tparams     = Nil,
               params      = Nil,
               impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
-              resultType  = TypeRef.Singleton(propsType.copy(targs = Nil)),
+              resultType  = TypeRef.Singleton(TypeRef(generatedPropsCompanion.codePath, Nil, NoComments)),
               isOverride  = false,
               comments    = NoComments,
               codePath    = moduleCodePath + comp.shortenedPropsName,

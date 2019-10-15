@@ -15,7 +15,7 @@ object StaticLifecycle {
   @scala.inline
   def apply[P, S](
     getDerivedStateFromError: /* error */ js.Any => Partial[S] | Null = null,
-    getDerivedStateFromProps: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, S) => Partial[S] | Null = null
+    getDerivedStateFromProps: (P, S) => Partial[S] | Null = null
   ): StaticLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
     if (getDerivedStateFromError != null) __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(getDerivedStateFromError))

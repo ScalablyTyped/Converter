@@ -16,9 +16,11 @@ package object reactMod {
   import typings.react.EventTarget
   import typings.react.HTMLElement
   import typings.react.NativeMouseEvent
+  import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
   import typings.std.Partial
+  import typings.std.Pick
 
   type AnimationEventHandler[T] = EventHandler[typings.react.reactMod.AnimationEvent[T]]
   // tslint:disable-next-line:no-empty-interface
@@ -64,8 +66,19 @@ package object reactMod {
   // Undeclared default props are augmented into the resulting allowable attributes
   // If declared props have indexed properties, ignore default props entirely as keyof gets widened
   // Wrap in an outer-level conditional type to allow distribution over props that are unions
-  type Defaultize[P, D] = ((/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Pick<P, Exclude<keyof P, keyof D>> */ js.Any) with (Partial[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Pick<P, Extract<keyof P, keyof D>> */ _
+  type Defaultize[P, D] = ((Pick[
+    P, 
+    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
+  ]) with (Partial[
+    Pick[
+      P, 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
+    ]
+  ]) with (Partial[
+    Pick[
+      D, 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
+    ]
   ])) | P
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
@@ -113,11 +126,7 @@ package object reactMod {
     *
     * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
     */
-  js.Function2[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Readonly<P> */ /* nextProps */ js.Any, 
-    /* prevState */ S, 
-    Partial[S] | Null
-  ]
+  js.Function2[/* nextProps */ P, /* prevState */ S, Partial[S] | Null]
   // tslint:disable-next-line:no-empty-interface
   type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
   type JSXElementConstructor[P] = (js.Function1[/* props */ P, ReactElement | Null]) | (Instantiable1[/* props */ P, Component[P, js.Any, js.Any]])
@@ -129,7 +138,13 @@ package object reactMod {
   // but can be given its own specific name
   type MemoExoticComponent[T /* <: ComponentType[_] */] = NamedExoticComponent[ComponentPropsWithRef[T]] with Anon_Type[T]
   // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-  type MergePropTypes[P, T] = (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Pick<P, NotExactlyAnyPropertyKeys<P>> */ js.Any) | P | T
+  type MergePropTypes[P, T] = ((Pick[P, NotExactlyAnyPropertyKeys[P]]) with (Pick[
+    T, 
+    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
+  ]) with (Pick[
+    P, 
+    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
+  ])) | P | T
   type MouseEventHandler[T] = EventHandler[typings.react.reactMod.MouseEvent[T, NativeMouseEvent]]
   type PointerEventHandler[T] = EventHandler[typings.react.reactMod.PointerEvent[T]]
   /**
@@ -149,7 +164,10 @@ package object reactMod {
   /** Ensures that the props do not include string ref, which cannot be forwarded */
   type PropsWithRef[P] = P | (PropsWithoutRef[P] with Anon_RefAny)
   /** Ensures that the props do not include ref at all */
-  type PropsWithoutRef[P] = P
+  type PropsWithoutRef[P] = P | (Pick[
+    P, 
+    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
+  ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
   type Provider[T] = ProviderExoticComponent[ProviderProps[T]]

@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact
 
+import typings.semanticDashUiDashReact.srcElementsInputInputMod.StrictInputProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -105,7 +106,7 @@ trait semanticDashUiDashReactProps {
   def InnerProps: typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps.type = typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps
   type InnerProps = typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps
   @scala.inline
-  def InputProps: typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps.type = typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
+  def InputProps: StrictInputProps.type = typings.semanticDashUiDashReact.srcElementsInputInputMod.StrictInputProps
   type InputProps = typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
   @scala.inline
   def LabelProps: typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps.type = typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
