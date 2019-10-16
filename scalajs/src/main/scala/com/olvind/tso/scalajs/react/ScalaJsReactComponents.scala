@@ -258,7 +258,7 @@ object ScalaJsReactComponents {
             impl = {
               val formattedProps         = Printer.formatTypeRef(0)(props)
               val formattedComponent     = Component.formatReferenceTo(c.ref, c.componentType)
-              val formattedCreateWrapper = Printer.formatTypeRef(0)(createWrapper)
+              val formattedCreateWrapper = Printer.formatTypeRef(0)(createWrapper).replaceAll("JsForwardRefComponent", "JsForwardRefComponent.force")
 
               MemberImpl.Custom(
                 s"""{
