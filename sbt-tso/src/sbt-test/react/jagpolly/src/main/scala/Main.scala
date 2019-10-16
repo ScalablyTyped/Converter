@@ -4,9 +4,8 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{Callback, ReactMouseEventFrom}
 import org.scalajs.dom.raw.HTMLButtonElement
 import org.scalajs.dom.{document, window}
-import typings.semanticDashUiDashReact.ScalaJsReact.Container
-import typings.semanticDashUiDashReact.ScalaJsReact.Button
-import typings.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import typings.semanticUiReact.ScalaJsReact.{Button, Container}
+import typings.semanticUiReact.commonjsElementsButtonButtonMod.ButtonProps
 
 object Main {
 

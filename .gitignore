@@ -5,3 +5,5 @@ target/
 .metals/
 .bloop
 .DS_Store
+sbt-tso/src/sbt-test/react/jagpolly/docs/
+sbt-tso/src/sbt-test/react/slinky/docs/
