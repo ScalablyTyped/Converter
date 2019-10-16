@@ -15,24 +15,24 @@ object ScalaJsReactComponents {
   private object scalaJsReact {
     val ScalaJsReact = Name("ScalaJsReact")
 
-    val japgollyScalajs               = QualifiedName(List(Name("japgolly"))) + Name("scalajs")
-    val react                         = japgollyScalajs + Name("react")
-    val reactCallback                 = react + Name("Callback")
-    val reactChildren                 = react + Name("Children")
-    val reactChildrenNone             = reactChildren + Name("None")
-    val reactChildrenVarargs          = reactChildren + Name("Varargs")
-    val reactJsComponent              = react + Name("JsComponent")
-    val reactJsForwardRefComponent    = react + Name("JsForwardRefComponent")
-    val reactChildArg                 = react + Name("CtorType") + Name("ChildArg")
-    val component                     = react + Name("component")
-    val componentUnmountedWithRoot    = component + Name("JsForwardRef") + Name("UnmountedWithRoot")
-    val componentJs                   = component + Name("Js")
-    val componentJsUnmountedSimple    = componentJs + Name("UnmountedSimple")
-    val componentJsMountedWithRawType = componentJs + Name("MountedWithRawType")
-    val componentJsRawMounted         = componentJs + Name("RawMounted")
-    val vdom                          = japgollyScalajs + Name("vdom")
-    val vdomTagMod                    = vdom + Name("TagMod")
-    val vdomReactElement              = vdom + Name("VdomElement")
+    val japgollyScalajs: QualifiedName = QualifiedName(List(Name("japgolly"))) + Name("scalajs")
+    val react: QualifiedName = japgollyScalajs + Name("react")
+    val reactCallback: QualifiedName = react + Name("Callback")
+    val reactChildren: QualifiedName = react + Name("Children")
+    val reactChildrenNone: QualifiedName = reactChildren + Name("None")
+    val reactChildrenVarargs: QualifiedName = reactChildren + Name("Varargs")
+    val reactJsComponent: QualifiedName = react + Name("JsComponent")
+    val reactJsForwardRefComponent: QualifiedName = react + Name("JsForwardRefComponent")
+    val reactChildArg: QualifiedName = react + Name("CtorType") + Name("ChildArg")
+    val component: QualifiedName = react + Name("component")
+    val componentUnmountedWithRoot: QualifiedName = component + Name("JsForwardRef") + Name("UnmountedWithRoot")
+    val componentJs: QualifiedName = component + Name("Js")
+    val componentJsUnmountedSimple: QualifiedName = componentJs + Name("UnmountedSimple")
+    val componentJsMountedWithRawType: QualifiedName = componentJs + Name("MountedWithRawType")
+    val componentJsRawMounted: QualifiedName = componentJs + Name("RawMounted")
+    val vdom: QualifiedName = japgollyScalajs + Name("vdom")
+    val vdomTagMod: QualifiedName = vdom + Name("TagMod")
+    val vdomReactElement: QualifiedName = vdom + Name("VdomElement")
   }
 
   /**
@@ -97,15 +97,15 @@ object ScalaJsReactComponents {
     )
 
     in match {
-      case TypeRef(name, targs, comments) if (name.parts.lastOption.fold(false)(_.value.endsWith("Event"))) =>
+      case TypeRef(name, targs, comments) if name.parts.lastOption.fold(false)(_.value.endsWith("Event")) =>
         //In jagpolly, events don't take a second type (the Synthetic type)
         val newName = map.getOrElse(name, name)
         TypeRef(newName, targs.take(1).map(typeMapper), comments)
-      case TypeRef(name, targs, comments) if (name.parts.lastOption.fold(false)(_.value.endsWith("Element"))) =>
+      case TypeRef(name, targs, comments) if name.parts.lastOption.fold(false)(_.value.endsWith("Element")) =>
         //There's too many elements to actually map, so it's better to do it here instead of using the map
         val newName = QualifiedName("org.scalajs.dom.raw") + name.parts.last
         TypeRef(newName, targs.map(typeMapper), comments)
-      case TypeRef(name, _, _) if (name.parts.mkString(".").startsWith("typings.react")) =>
+      case TypeRef(name, _, _) if name.parts.mkString(".").startsWith("typings.react") =>
         //Make sure we don't miss anything that should have been mapped
         throw new Error(s"$name needs to be mapped")
       case TypeRef(name, targs, comments) =>
@@ -118,7 +118,7 @@ object ScalaJsReactComponents {
 
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] =
     Companions.memberParameter(scope, tree) match {
-      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(paramTypes, resType), default, comments), isOptional, s)) =>
+      case Some(Param(ParamTree(name, TypeRef.ScalaFunction(paramTypes, resType@_), default, comments), isOptional, s@_)) =>
         // rewrite functions returning a Callback so that javascript land can call them
         val mapped = paramTypes.map(typeMapper)
 
@@ -142,13 +142,13 @@ object ScalaJsReactComponents {
             Right(fn),
           ),
         )
-      case Some(Param(ParamTree(name, tpe, default, comments), isOptional, asString))
-          if (tpe.typeName.parts.lastOption.fold(false)(_.value.endsWith("Element"))) =>
+      case Some(Param(ParamTree(name, tpe, default, comments), isOptional, _))
+          if tpe.typeName.parts.lastOption.fold(false)(_.value.endsWith("Element")) =>
         def fn(obj: String) =
           s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
         Some(Param(ParamTree(name, typeMapper(tpe), default, comments), isOptional, Right(fn)))
-      case Some(Param(ParamTree(name, tpe, default, comments), isOptional, asString))
-          if (tpe.typeName == QualifiedName("typings.react.reactMod.ReactNode")) =>
+      case Some(Param(ParamTree(name, tpe, default, comments), isOptional, _))
+          if tpe.typeName == QualifiedName("typings.react.reactMod.ReactNode") =>
         def fn(obj: String) =
           s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
         Some(Param(ParamTree(name, typeMapper(tpe), default, comments), isOptional, Right(fn)))
@@ -266,7 +266,7 @@ object ScalaJsReactComponents {
                |
                |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
                |
-               |  val f = ${formattedCreateWrapper}($formattedComponent)
+               |  val f = $formattedCreateWrapper($formattedComponent)
                |  f(__obj.asInstanceOf[$formattedProps])${childrenParam.fold("")(_ => "(children: _*)")}
                |}""".stripMargin,
               )

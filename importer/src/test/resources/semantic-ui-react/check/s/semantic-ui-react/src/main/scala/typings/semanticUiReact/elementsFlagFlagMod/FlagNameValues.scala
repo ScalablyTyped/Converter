@@ -1,0 +1,502 @@
+package typings.semanticUiReact.elementsFlagFlagMod
+
+import scala.scalajs.js
+import scala.scalajs.js.`|`
+import scala.scalajs.js.annotation._
+
+/* Rewritten from type alias, can be one of: 
+  - typings.semanticUiReact.semanticUiReactStrings.ad
+  - typings.semanticUiReact.semanticUiReactStrings.andorra
+  - typings.semanticUiReact.semanticUiReactStrings.ae
+  - typings.semanticUiReact.semanticUiReactStrings.`united arab emirates`
+  - typings.semanticUiReact.semanticUiReactStrings.uae
+  - typings.semanticUiReact.semanticUiReactStrings.af
+  - typings.semanticUiReact.semanticUiReactStrings.afghanistan
+  - typings.semanticUiReact.semanticUiReactStrings.ag
+  - typings.semanticUiReact.semanticUiReactStrings.antigua
+  - typings.semanticUiReact.semanticUiReactStrings.ai
+  - typings.semanticUiReact.semanticUiReactStrings.anguilla
+  - typings.semanticUiReact.semanticUiReactStrings.al
+  - typings.semanticUiReact.semanticUiReactStrings.albania
+  - typings.semanticUiReact.semanticUiReactStrings.am
+  - typings.semanticUiReact.semanticUiReactStrings.armenia
+  - typings.semanticUiReact.semanticUiReactStrings.an
+  - typings.semanticUiReact.semanticUiReactStrings.`netherlands antilles`
+  - typings.semanticUiReact.semanticUiReactStrings.ao
+  - typings.semanticUiReact.semanticUiReactStrings.angola
+  - typings.semanticUiReact.semanticUiReactStrings.ar
+  - typings.semanticUiReact.semanticUiReactStrings.argentina
+  - typings.semanticUiReact.semanticUiReactStrings.as
+  - typings.semanticUiReact.semanticUiReactStrings.`american samoa`
+  - typings.semanticUiReact.semanticUiReactStrings.at
+  - typings.semanticUiReact.semanticUiReactStrings.austria
+  - typings.semanticUiReact.semanticUiReactStrings.au
+  - typings.semanticUiReact.semanticUiReactStrings.australia
+  - typings.semanticUiReact.semanticUiReactStrings.aw
+  - typings.semanticUiReact.semanticUiReactStrings.aruba
+  - typings.semanticUiReact.semanticUiReactStrings.ax
+  - typings.semanticUiReact.semanticUiReactStrings.`aland islands`
+  - typings.semanticUiReact.semanticUiReactStrings.az
+  - typings.semanticUiReact.semanticUiReactStrings.azerbaijan
+  - typings.semanticUiReact.semanticUiReactStrings.ba
+  - typings.semanticUiReact.semanticUiReactStrings.bosnia
+  - typings.semanticUiReact.semanticUiReactStrings.bb
+  - typings.semanticUiReact.semanticUiReactStrings.barbados
+  - typings.semanticUiReact.semanticUiReactStrings.bd
+  - typings.semanticUiReact.semanticUiReactStrings.bangladesh
+  - typings.semanticUiReact.semanticUiReactStrings.be
+  - typings.semanticUiReact.semanticUiReactStrings.belgium
+  - typings.semanticUiReact.semanticUiReactStrings.bf
+  - typings.semanticUiReact.semanticUiReactStrings.`burkina faso`
+  - typings.semanticUiReact.semanticUiReactStrings.bg
+  - typings.semanticUiReact.semanticUiReactStrings.bulgaria
+  - typings.semanticUiReact.semanticUiReactStrings.bh
+  - typings.semanticUiReact.semanticUiReactStrings.bahrain
+  - typings.semanticUiReact.semanticUiReactStrings.bi
+  - typings.semanticUiReact.semanticUiReactStrings.burundi
+  - typings.semanticUiReact.semanticUiReactStrings.bj
+  - typings.semanticUiReact.semanticUiReactStrings.benin
+  - typings.semanticUiReact.semanticUiReactStrings.bm
+  - typings.semanticUiReact.semanticUiReactStrings.bermuda
+  - typings.semanticUiReact.semanticUiReactStrings.bn
+  - typings.semanticUiReact.semanticUiReactStrings.brunei
+  - typings.semanticUiReact.semanticUiReactStrings.bo
+  - typings.semanticUiReact.semanticUiReactStrings.bolivia
+  - typings.semanticUiReact.semanticUiReactStrings.br
+  - typings.semanticUiReact.semanticUiReactStrings.brazil
+  - typings.semanticUiReact.semanticUiReactStrings.bs
+  - typings.semanticUiReact.semanticUiReactStrings.bahamas
+  - typings.semanticUiReact.semanticUiReactStrings.bt
+  - typings.semanticUiReact.semanticUiReactStrings.bhutan
+  - typings.semanticUiReact.semanticUiReactStrings.bv
+  - typings.semanticUiReact.semanticUiReactStrings.`bouvet island`
+  - typings.semanticUiReact.semanticUiReactStrings.bw
+  - typings.semanticUiReact.semanticUiReactStrings.botswana
+  - typings.semanticUiReact.semanticUiReactStrings.by
+  - typings.semanticUiReact.semanticUiReactStrings.belarus
+  - typings.semanticUiReact.semanticUiReactStrings.bz
+  - typings.semanticUiReact.semanticUiReactStrings.belize
+  - typings.semanticUiReact.semanticUiReactStrings.ca
+  - typings.semanticUiReact.semanticUiReactStrings.canada
+  - typings.semanticUiReact.semanticUiReactStrings.cc
+  - typings.semanticUiReact.semanticUiReactStrings.`cocos islands`
+  - typings.semanticUiReact.semanticUiReactStrings.cd
+  - typings.semanticUiReact.semanticUiReactStrings.congo
+  - typings.semanticUiReact.semanticUiReactStrings.cf
+  - typings.semanticUiReact.semanticUiReactStrings.`central african republic`
+  - typings.semanticUiReact.semanticUiReactStrings.cg
+  - typings.semanticUiReact.semanticUiReactStrings.`congo brazzaville`
+  - typings.semanticUiReact.semanticUiReactStrings.ch
+  - typings.semanticUiReact.semanticUiReactStrings.switzerland
+  - typings.semanticUiReact.semanticUiReactStrings.ci
+  - typings.semanticUiReact.semanticUiReactStrings.`cote divoire`
+  - typings.semanticUiReact.semanticUiReactStrings.ck
+  - typings.semanticUiReact.semanticUiReactStrings.`cook islands`
+  - typings.semanticUiReact.semanticUiReactStrings.cl
+  - typings.semanticUiReact.semanticUiReactStrings.chile
+  - typings.semanticUiReact.semanticUiReactStrings.cm
+  - typings.semanticUiReact.semanticUiReactStrings.cameroon
+  - typings.semanticUiReact.semanticUiReactStrings.cn
+  - typings.semanticUiReact.semanticUiReactStrings.china
+  - typings.semanticUiReact.semanticUiReactStrings.co
+  - typings.semanticUiReact.semanticUiReactStrings.colombia
+  - typings.semanticUiReact.semanticUiReactStrings.cr
+  - typings.semanticUiReact.semanticUiReactStrings.`costa rica`
+  - typings.semanticUiReact.semanticUiReactStrings.cs
+  - typings.semanticUiReact.semanticUiReactStrings.cu
+  - typings.semanticUiReact.semanticUiReactStrings.cuba
+  - typings.semanticUiReact.semanticUiReactStrings.cv
+  - typings.semanticUiReact.semanticUiReactStrings.`cape verde`
+  - typings.semanticUiReact.semanticUiReactStrings.cx
+  - typings.semanticUiReact.semanticUiReactStrings.`christmas island`
+  - typings.semanticUiReact.semanticUiReactStrings.cy
+  - typings.semanticUiReact.semanticUiReactStrings.cyprus
+  - typings.semanticUiReact.semanticUiReactStrings.cz
+  - typings.semanticUiReact.semanticUiReactStrings.`czech republic`
+  - typings.semanticUiReact.semanticUiReactStrings.de
+  - typings.semanticUiReact.semanticUiReactStrings.germany
+  - typings.semanticUiReact.semanticUiReactStrings.dj
+  - typings.semanticUiReact.semanticUiReactStrings.djibouti
+  - typings.semanticUiReact.semanticUiReactStrings.dk
+  - typings.semanticUiReact.semanticUiReactStrings.denmark
+  - typings.semanticUiReact.semanticUiReactStrings.dm
+  - typings.semanticUiReact.semanticUiReactStrings.dominica
+  - typings.semanticUiReact.semanticUiReactStrings.`do`
+  - typings.semanticUiReact.semanticUiReactStrings.`dominican republic`
+  - typings.semanticUiReact.semanticUiReactStrings.dz
+  - typings.semanticUiReact.semanticUiReactStrings.algeria
+  - typings.semanticUiReact.semanticUiReactStrings.ec
+  - typings.semanticUiReact.semanticUiReactStrings.ecuador
+  - typings.semanticUiReact.semanticUiReactStrings.ee
+  - typings.semanticUiReact.semanticUiReactStrings.estonia
+  - typings.semanticUiReact.semanticUiReactStrings.eg
+  - typings.semanticUiReact.semanticUiReactStrings.egypt
+  - typings.semanticUiReact.semanticUiReactStrings.eh
+  - typings.semanticUiReact.semanticUiReactStrings.`western sahara`
+  - typings.semanticUiReact.semanticUiReactStrings.er
+  - typings.semanticUiReact.semanticUiReactStrings.eritrea
+  - typings.semanticUiReact.semanticUiReactStrings.es
+  - typings.semanticUiReact.semanticUiReactStrings.spain
+  - typings.semanticUiReact.semanticUiReactStrings.et
+  - typings.semanticUiReact.semanticUiReactStrings.ethiopia
+  - typings.semanticUiReact.semanticUiReactStrings.eu
+  - typings.semanticUiReact.semanticUiReactStrings.`european union`
+  - typings.semanticUiReact.semanticUiReactStrings.fi
+  - typings.semanticUiReact.semanticUiReactStrings.finland
+  - typings.semanticUiReact.semanticUiReactStrings.fj
+  - typings.semanticUiReact.semanticUiReactStrings.fiji
+  - typings.semanticUiReact.semanticUiReactStrings.fk
+  - typings.semanticUiReact.semanticUiReactStrings.`falkland islands`
+  - typings.semanticUiReact.semanticUiReactStrings.fm
+  - typings.semanticUiReact.semanticUiReactStrings.micronesia
+  - typings.semanticUiReact.semanticUiReactStrings.fo
+  - typings.semanticUiReact.semanticUiReactStrings.`faroe islands`
+  - typings.semanticUiReact.semanticUiReactStrings.fr
+  - typings.semanticUiReact.semanticUiReactStrings.france
+  - typings.semanticUiReact.semanticUiReactStrings.ga
+  - typings.semanticUiReact.semanticUiReactStrings.gabon
+  - typings.semanticUiReact.semanticUiReactStrings.gb
+  - typings.semanticUiReact.semanticUiReactStrings.uk
+  - typings.semanticUiReact.semanticUiReactStrings.`united kingdom`
+  - typings.semanticUiReact.semanticUiReactStrings.gd
+  - typings.semanticUiReact.semanticUiReactStrings.grenada
+  - typings.semanticUiReact.semanticUiReactStrings.ge
+  - typings.semanticUiReact.semanticUiReactStrings.georgia
+  - typings.semanticUiReact.semanticUiReactStrings.gf
+  - typings.semanticUiReact.semanticUiReactStrings.`french guiana`
+  - typings.semanticUiReact.semanticUiReactStrings.gh
+  - typings.semanticUiReact.semanticUiReactStrings.ghana
+  - typings.semanticUiReact.semanticUiReactStrings.gi
+  - typings.semanticUiReact.semanticUiReactStrings.gibraltar
+  - typings.semanticUiReact.semanticUiReactStrings.gl
+  - typings.semanticUiReact.semanticUiReactStrings.greenland
+  - typings.semanticUiReact.semanticUiReactStrings.gm
+  - typings.semanticUiReact.semanticUiReactStrings.gambia
+  - typings.semanticUiReact.semanticUiReactStrings.gn
+  - typings.semanticUiReact.semanticUiReactStrings.guinea
+  - typings.semanticUiReact.semanticUiReactStrings.gp
+  - typings.semanticUiReact.semanticUiReactStrings.guadeloupe
+  - typings.semanticUiReact.semanticUiReactStrings.gq
+  - typings.semanticUiReact.semanticUiReactStrings.`equatorial guinea`
+  - typings.semanticUiReact.semanticUiReactStrings.gr
+  - typings.semanticUiReact.semanticUiReactStrings.greece
+  - typings.semanticUiReact.semanticUiReactStrings.gs
+  - typings.semanticUiReact.semanticUiReactStrings.`sandwich islands`
+  - typings.semanticUiReact.semanticUiReactStrings.gt
+  - typings.semanticUiReact.semanticUiReactStrings.guatemala
+  - typings.semanticUiReact.semanticUiReactStrings.gu
+  - typings.semanticUiReact.semanticUiReactStrings.guam
+  - typings.semanticUiReact.semanticUiReactStrings.gw
+  - typings.semanticUiReact.semanticUiReactStrings.`guinea-bissau`
+  - typings.semanticUiReact.semanticUiReactStrings.gy
+  - typings.semanticUiReact.semanticUiReactStrings.guyana
+  - typings.semanticUiReact.semanticUiReactStrings.hk
+  - typings.semanticUiReact.semanticUiReactStrings.`hong kong`
+  - typings.semanticUiReact.semanticUiReactStrings.hm
+  - typings.semanticUiReact.semanticUiReactStrings.`heard island`
+  - typings.semanticUiReact.semanticUiReactStrings.hn
+  - typings.semanticUiReact.semanticUiReactStrings.honduras
+  - typings.semanticUiReact.semanticUiReactStrings.hr
+  - typings.semanticUiReact.semanticUiReactStrings.croatia
+  - typings.semanticUiReact.semanticUiReactStrings.ht
+  - typings.semanticUiReact.semanticUiReactStrings.haiti
+  - typings.semanticUiReact.semanticUiReactStrings.hu
+  - typings.semanticUiReact.semanticUiReactStrings.hungary
+  - typings.semanticUiReact.semanticUiReactStrings.id
+  - typings.semanticUiReact.semanticUiReactStrings.indonesia
+  - typings.semanticUiReact.semanticUiReactStrings.ie
+  - typings.semanticUiReact.semanticUiReactStrings.ireland
+  - typings.semanticUiReact.semanticUiReactStrings.il
+  - typings.semanticUiReact.semanticUiReactStrings.israel
+  - typings.semanticUiReact.semanticUiReactStrings.in
+  - typings.semanticUiReact.semanticUiReactStrings.india
+  - typings.semanticUiReact.semanticUiReactStrings.io
+  - typings.semanticUiReact.semanticUiReactStrings.`indian ocean territory`
+  - typings.semanticUiReact.semanticUiReactStrings.iq
+  - typings.semanticUiReact.semanticUiReactStrings.iraq
+  - typings.semanticUiReact.semanticUiReactStrings.ir
+  - typings.semanticUiReact.semanticUiReactStrings.iran
+  - typings.semanticUiReact.semanticUiReactStrings.is
+  - typings.semanticUiReact.semanticUiReactStrings.iceland
+  - typings.semanticUiReact.semanticUiReactStrings.it
+  - typings.semanticUiReact.semanticUiReactStrings.italy
+  - typings.semanticUiReact.semanticUiReactStrings.jm
+  - typings.semanticUiReact.semanticUiReactStrings.jamaica
+  - typings.semanticUiReact.semanticUiReactStrings.jo
+  - typings.semanticUiReact.semanticUiReactStrings.jordan
+  - typings.semanticUiReact.semanticUiReactStrings.jp
+  - typings.semanticUiReact.semanticUiReactStrings.japan
+  - typings.semanticUiReact.semanticUiReactStrings.ke
+  - typings.semanticUiReact.semanticUiReactStrings.kenya
+  - typings.semanticUiReact.semanticUiReactStrings.kg
+  - typings.semanticUiReact.semanticUiReactStrings.kyrgyzstan
+  - typings.semanticUiReact.semanticUiReactStrings.kh
+  - typings.semanticUiReact.semanticUiReactStrings.cambodia
+  - typings.semanticUiReact.semanticUiReactStrings.ki
+  - typings.semanticUiReact.semanticUiReactStrings.kiribati
+  - typings.semanticUiReact.semanticUiReactStrings.km
+  - typings.semanticUiReact.semanticUiReactStrings.comoros
+  - typings.semanticUiReact.semanticUiReactStrings.kn
+  - typings.semanticUiReact.semanticUiReactStrings.`saint kitts and nevis`
+  - typings.semanticUiReact.semanticUiReactStrings.kp
+  - typings.semanticUiReact.semanticUiReactStrings.`north korea`
+  - typings.semanticUiReact.semanticUiReactStrings.kr
+  - typings.semanticUiReact.semanticUiReactStrings.`south korea`
+  - typings.semanticUiReact.semanticUiReactStrings.kw
+  - typings.semanticUiReact.semanticUiReactStrings.kuwait
+  - typings.semanticUiReact.semanticUiReactStrings.ky
+  - typings.semanticUiReact.semanticUiReactStrings.`cayman islands`
+  - typings.semanticUiReact.semanticUiReactStrings.kz
+  - typings.semanticUiReact.semanticUiReactStrings.kazakhstan
+  - typings.semanticUiReact.semanticUiReactStrings.la
+  - typings.semanticUiReact.semanticUiReactStrings.laos
+  - typings.semanticUiReact.semanticUiReactStrings.lb
+  - typings.semanticUiReact.semanticUiReactStrings.lebanon
+  - typings.semanticUiReact.semanticUiReactStrings.lc
+  - typings.semanticUiReact.semanticUiReactStrings.`saint lucia`
+  - typings.semanticUiReact.semanticUiReactStrings.li
+  - typings.semanticUiReact.semanticUiReactStrings.liechtenstein
+  - typings.semanticUiReact.semanticUiReactStrings.lk
+  - typings.semanticUiReact.semanticUiReactStrings.`sri lanka`
+  - typings.semanticUiReact.semanticUiReactStrings.lr
+  - typings.semanticUiReact.semanticUiReactStrings.liberia
+  - typings.semanticUiReact.semanticUiReactStrings.ls
+  - typings.semanticUiReact.semanticUiReactStrings.lesotho
+  - typings.semanticUiReact.semanticUiReactStrings.lt
+  - typings.semanticUiReact.semanticUiReactStrings.lithuania
+  - typings.semanticUiReact.semanticUiReactStrings.lu
+  - typings.semanticUiReact.semanticUiReactStrings.luxembourg
+  - typings.semanticUiReact.semanticUiReactStrings.lv
+  - typings.semanticUiReact.semanticUiReactStrings.latvia
+  - typings.semanticUiReact.semanticUiReactStrings.ly
+  - typings.semanticUiReact.semanticUiReactStrings.libya
+  - typings.semanticUiReact.semanticUiReactStrings.ma
+  - typings.semanticUiReact.semanticUiReactStrings.morocco
+  - typings.semanticUiReact.semanticUiReactStrings.mc
+  - typings.semanticUiReact.semanticUiReactStrings.monaco
+  - typings.semanticUiReact.semanticUiReactStrings.md
+  - typings.semanticUiReact.semanticUiReactStrings.moldova
+  - typings.semanticUiReact.semanticUiReactStrings.me
+  - typings.semanticUiReact.semanticUiReactStrings.montenegro
+  - typings.semanticUiReact.semanticUiReactStrings.mg
+  - typings.semanticUiReact.semanticUiReactStrings.madagascar
+  - typings.semanticUiReact.semanticUiReactStrings.mh
+  - typings.semanticUiReact.semanticUiReactStrings.`marshall islands`
+  - typings.semanticUiReact.semanticUiReactStrings.mk
+  - typings.semanticUiReact.semanticUiReactStrings.macedonia
+  - typings.semanticUiReact.semanticUiReactStrings.ml
+  - typings.semanticUiReact.semanticUiReactStrings.mali
+  - typings.semanticUiReact.semanticUiReactStrings.mm
+  - typings.semanticUiReact.semanticUiReactStrings.myanmar
+  - typings.semanticUiReact.semanticUiReactStrings.burma
+  - typings.semanticUiReact.semanticUiReactStrings.mn
+  - typings.semanticUiReact.semanticUiReactStrings.mongolia
+  - typings.semanticUiReact.semanticUiReactStrings.mo
+  - typings.semanticUiReact.semanticUiReactStrings.macau
+  - typings.semanticUiReact.semanticUiReactStrings.mp
+  - typings.semanticUiReact.semanticUiReactStrings.`northern mariana islands`
+  - typings.semanticUiReact.semanticUiReactStrings.mq
+  - typings.semanticUiReact.semanticUiReactStrings.martinique
+  - typings.semanticUiReact.semanticUiReactStrings.mr
+  - typings.semanticUiReact.semanticUiReactStrings.mauritania
+  - typings.semanticUiReact.semanticUiReactStrings.ms
+  - typings.semanticUiReact.semanticUiReactStrings.montserrat
+  - typings.semanticUiReact.semanticUiReactStrings.mt
+  - typings.semanticUiReact.semanticUiReactStrings.malta
+  - typings.semanticUiReact.semanticUiReactStrings.mu
+  - typings.semanticUiReact.semanticUiReactStrings.mauritius
+  - typings.semanticUiReact.semanticUiReactStrings.mv
+  - typings.semanticUiReact.semanticUiReactStrings.maldives
+  - typings.semanticUiReact.semanticUiReactStrings.mw
+  - typings.semanticUiReact.semanticUiReactStrings.malawi
+  - typings.semanticUiReact.semanticUiReactStrings.mx
+  - typings.semanticUiReact.semanticUiReactStrings.mexico
+  - typings.semanticUiReact.semanticUiReactStrings.my
+  - typings.semanticUiReact.semanticUiReactStrings.malaysia
+  - typings.semanticUiReact.semanticUiReactStrings.mz
+  - typings.semanticUiReact.semanticUiReactStrings.mozambique
+  - typings.semanticUiReact.semanticUiReactStrings.na
+  - typings.semanticUiReact.semanticUiReactStrings.namibia
+  - typings.semanticUiReact.semanticUiReactStrings.nc
+  - typings.semanticUiReact.semanticUiReactStrings.`new caledonia`
+  - typings.semanticUiReact.semanticUiReactStrings.ne
+  - typings.semanticUiReact.semanticUiReactStrings.niger
+  - typings.semanticUiReact.semanticUiReactStrings.nf
+  - typings.semanticUiReact.semanticUiReactStrings.`norfolk island`
+  - typings.semanticUiReact.semanticUiReactStrings.ng
+  - typings.semanticUiReact.semanticUiReactStrings.nigeria
+  - typings.semanticUiReact.semanticUiReactStrings.ni
+  - typings.semanticUiReact.semanticUiReactStrings.nicaragua
+  - typings.semanticUiReact.semanticUiReactStrings.nl
+  - typings.semanticUiReact.semanticUiReactStrings.netherlands
+  - typings.semanticUiReact.semanticUiReactStrings.no
+  - typings.semanticUiReact.semanticUiReactStrings.norway
+  - typings.semanticUiReact.semanticUiReactStrings.np
+  - typings.semanticUiReact.semanticUiReactStrings.nepal
+  - typings.semanticUiReact.semanticUiReactStrings.nr
+  - typings.semanticUiReact.semanticUiReactStrings.nauru
+  - typings.semanticUiReact.semanticUiReactStrings.nu
+  - typings.semanticUiReact.semanticUiReactStrings.niue
+  - typings.semanticUiReact.semanticUiReactStrings.nz
+  - typings.semanticUiReact.semanticUiReactStrings.`new zealand`
+  - typings.semanticUiReact.semanticUiReactStrings.om
+  - typings.semanticUiReact.semanticUiReactStrings.oman
+  - typings.semanticUiReact.semanticUiReactStrings.pa
+  - typings.semanticUiReact.semanticUiReactStrings.panama
+  - typings.semanticUiReact.semanticUiReactStrings.pe
+  - typings.semanticUiReact.semanticUiReactStrings.peru
+  - typings.semanticUiReact.semanticUiReactStrings.pf
+  - typings.semanticUiReact.semanticUiReactStrings.`french polynesia`
+  - typings.semanticUiReact.semanticUiReactStrings.pg
+  - typings.semanticUiReact.semanticUiReactStrings.`new guinea`
+  - typings.semanticUiReact.semanticUiReactStrings.ph
+  - typings.semanticUiReact.semanticUiReactStrings.philippines
+  - typings.semanticUiReact.semanticUiReactStrings.pk
+  - typings.semanticUiReact.semanticUiReactStrings.pakistan
+  - typings.semanticUiReact.semanticUiReactStrings.pl
+  - typings.semanticUiReact.semanticUiReactStrings.poland
+  - typings.semanticUiReact.semanticUiReactStrings.pm
+  - typings.semanticUiReact.semanticUiReactStrings.`saint pierre`
+  - typings.semanticUiReact.semanticUiReactStrings.pn
+  - typings.semanticUiReact.semanticUiReactStrings.`pitcairn islands`
+  - typings.semanticUiReact.semanticUiReactStrings.pr
+  - typings.semanticUiReact.semanticUiReactStrings.`puerto rico`
+  - typings.semanticUiReact.semanticUiReactStrings.ps
+  - typings.semanticUiReact.semanticUiReactStrings.palestine
+  - typings.semanticUiReact.semanticUiReactStrings.pt
+  - typings.semanticUiReact.semanticUiReactStrings.portugal
+  - typings.semanticUiReact.semanticUiReactStrings.pw
+  - typings.semanticUiReact.semanticUiReactStrings.palau
+  - typings.semanticUiReact.semanticUiReactStrings.py
+  - typings.semanticUiReact.semanticUiReactStrings.paraguay
+  - typings.semanticUiReact.semanticUiReactStrings.qa
+  - typings.semanticUiReact.semanticUiReactStrings.qatar
+  - typings.semanticUiReact.semanticUiReactStrings.re
+  - typings.semanticUiReact.semanticUiReactStrings.reunion
+  - typings.semanticUiReact.semanticUiReactStrings.ro
+  - typings.semanticUiReact.semanticUiReactStrings.romania
+  - typings.semanticUiReact.semanticUiReactStrings.rs
+  - typings.semanticUiReact.semanticUiReactStrings.serbia
+  - typings.semanticUiReact.semanticUiReactStrings.ru
+  - typings.semanticUiReact.semanticUiReactStrings.russia
+  - typings.semanticUiReact.semanticUiReactStrings.rw
+  - typings.semanticUiReact.semanticUiReactStrings.rwanda
+  - typings.semanticUiReact.semanticUiReactStrings.sa
+  - typings.semanticUiReact.semanticUiReactStrings.`saudi arabia`
+  - typings.semanticUiReact.semanticUiReactStrings.sb
+  - typings.semanticUiReact.semanticUiReactStrings.`solomon islands`
+  - typings.semanticUiReact.semanticUiReactStrings.sc
+  - typings.semanticUiReact.semanticUiReactStrings.seychelles
+  - typings.semanticUiReact.semanticUiReactStrings.`gb sct`
+  - typings.semanticUiReact.semanticUiReactStrings.scotland
+  - typings.semanticUiReact.semanticUiReactStrings.sd
+  - typings.semanticUiReact.semanticUiReactStrings.sudan
+  - typings.semanticUiReact.semanticUiReactStrings.se
+  - typings.semanticUiReact.semanticUiReactStrings.sweden
+  - typings.semanticUiReact.semanticUiReactStrings.sg
+  - typings.semanticUiReact.semanticUiReactStrings.singapore
+  - typings.semanticUiReact.semanticUiReactStrings.sh
+  - typings.semanticUiReact.semanticUiReactStrings.`saint helena`
+  - typings.semanticUiReact.semanticUiReactStrings.si
+  - typings.semanticUiReact.semanticUiReactStrings.slovenia
+  - typings.semanticUiReact.semanticUiReactStrings.sj
+  - typings.semanticUiReact.semanticUiReactStrings.svalbard
+  - typings.semanticUiReact.semanticUiReactStrings.`jan mayen`
+  - typings.semanticUiReact.semanticUiReactStrings.sk
+  - typings.semanticUiReact.semanticUiReactStrings.slovakia
+  - typings.semanticUiReact.semanticUiReactStrings.sl
+  - typings.semanticUiReact.semanticUiReactStrings.`sierra leone`
+  - typings.semanticUiReact.semanticUiReactStrings.sm
+  - typings.semanticUiReact.semanticUiReactStrings.`san marino`
+  - typings.semanticUiReact.semanticUiReactStrings.sn
+  - typings.semanticUiReact.semanticUiReactStrings.senegal
+  - typings.semanticUiReact.semanticUiReactStrings.so
+  - typings.semanticUiReact.semanticUiReactStrings.somalia
+  - typings.semanticUiReact.semanticUiReactStrings.sr
+  - typings.semanticUiReact.semanticUiReactStrings.suriname
+  - typings.semanticUiReact.semanticUiReactStrings.st
+  - typings.semanticUiReact.semanticUiReactStrings.`sao tome`
+  - typings.semanticUiReact.semanticUiReactStrings.sv
+  - typings.semanticUiReact.semanticUiReactStrings.`el salvador`
+  - typings.semanticUiReact.semanticUiReactStrings.sy
+  - typings.semanticUiReact.semanticUiReactStrings.syria
+  - typings.semanticUiReact.semanticUiReactStrings.sz
+  - typings.semanticUiReact.semanticUiReactStrings.swaziland
+  - typings.semanticUiReact.semanticUiReactStrings.tc
+  - typings.semanticUiReact.semanticUiReactStrings.`caicos islands`
+  - typings.semanticUiReact.semanticUiReactStrings.td
+  - typings.semanticUiReact.semanticUiReactStrings.chad
+  - typings.semanticUiReact.semanticUiReactStrings.tf
+  - typings.semanticUiReact.semanticUiReactStrings.`french territories`
+  - typings.semanticUiReact.semanticUiReactStrings.tg
+  - typings.semanticUiReact.semanticUiReactStrings.togo
+  - typings.semanticUiReact.semanticUiReactStrings.th
+  - typings.semanticUiReact.semanticUiReactStrings.thailand
+  - typings.semanticUiReact.semanticUiReactStrings.tj
+  - typings.semanticUiReact.semanticUiReactStrings.tajikistan
+  - typings.semanticUiReact.semanticUiReactStrings.tk
+  - typings.semanticUiReact.semanticUiReactStrings.tokelau
+  - typings.semanticUiReact.semanticUiReactStrings.tl
+  - typings.semanticUiReact.semanticUiReactStrings.timorleste
+  - typings.semanticUiReact.semanticUiReactStrings.tm
+  - typings.semanticUiReact.semanticUiReactStrings.turkmenistan
+  - typings.semanticUiReact.semanticUiReactStrings.tn
+  - typings.semanticUiReact.semanticUiReactStrings.tunisia
+  - typings.semanticUiReact.semanticUiReactStrings.to
+  - typings.semanticUiReact.semanticUiReactStrings.tonga
+  - typings.semanticUiReact.semanticUiReactStrings.tr
+  - typings.semanticUiReact.semanticUiReactStrings.turkey
+  - typings.semanticUiReact.semanticUiReactStrings.tt
+  - typings.semanticUiReact.semanticUiReactStrings.trinidad
+  - typings.semanticUiReact.semanticUiReactStrings.tv
+  - typings.semanticUiReact.semanticUiReactStrings.tuvalu
+  - typings.semanticUiReact.semanticUiReactStrings.tw
+  - typings.semanticUiReact.semanticUiReactStrings.taiwan
+  - typings.semanticUiReact.semanticUiReactStrings.tz
+  - typings.semanticUiReact.semanticUiReactStrings.tanzania
+  - typings.semanticUiReact.semanticUiReactStrings.ua
+  - typings.semanticUiReact.semanticUiReactStrings.ukraine
+  - typings.semanticUiReact.semanticUiReactStrings.ug
+  - typings.semanticUiReact.semanticUiReactStrings.uganda
+  - typings.semanticUiReact.semanticUiReactStrings.um
+  - typings.semanticUiReact.semanticUiReactStrings.`us minor islands`
+  - typings.semanticUiReact.semanticUiReactStrings.us
+  - typings.semanticUiReact.semanticUiReactStrings.america
+  - typings.semanticUiReact.semanticUiReactStrings.`united states`
+  - typings.semanticUiReact.semanticUiReactStrings.uy
+  - typings.semanticUiReact.semanticUiReactStrings.uruguay
+  - typings.semanticUiReact.semanticUiReactStrings.uz
+  - typings.semanticUiReact.semanticUiReactStrings.uzbekistan
+  - typings.semanticUiReact.semanticUiReactStrings.va
+  - typings.semanticUiReact.semanticUiReactStrings.`vatican city`
+  - typings.semanticUiReact.semanticUiReactStrings.vc
+  - typings.semanticUiReact.semanticUiReactStrings.`saint vincent`
+  - typings.semanticUiReact.semanticUiReactStrings.ve
+  - typings.semanticUiReact.semanticUiReactStrings.venezuela
+  - typings.semanticUiReact.semanticUiReactStrings.vg
+  - typings.semanticUiReact.semanticUiReactStrings.`british virgin islands`
+  - typings.semanticUiReact.semanticUiReactStrings.vi
+  - typings.semanticUiReact.semanticUiReactStrings.`us virgin islands`
+  - typings.semanticUiReact.semanticUiReactStrings.vn
+  - typings.semanticUiReact.semanticUiReactStrings.vietnam
+  - typings.semanticUiReact.semanticUiReactStrings.vu
+  - typings.semanticUiReact.semanticUiReactStrings.vanuatu
+  - typings.semanticUiReact.semanticUiReactStrings.`gb wls`
+  - typings.semanticUiReact.semanticUiReactStrings.wales
+  - typings.semanticUiReact.semanticUiReactStrings.wf
+  - typings.semanticUiReact.semanticUiReactStrings.`wallis and futuna`
+  - typings.semanticUiReact.semanticUiReactStrings.ws
+  - typings.semanticUiReact.semanticUiReactStrings.samoa
+  - typings.semanticUiReact.semanticUiReactStrings.ye
+  - typings.semanticUiReact.semanticUiReactStrings.yemen
+  - typings.semanticUiReact.semanticUiReactStrings.yt
+  - typings.semanticUiReact.semanticUiReactStrings.mayotte
+  - typings.semanticUiReact.semanticUiReactStrings.za
+  - typings.semanticUiReact.semanticUiReactStrings.`south africa`
+  - typings.semanticUiReact.semanticUiReactStrings.zm
+  - typings.semanticUiReact.semanticUiReactStrings.zambia
+  - typings.semanticUiReact.semanticUiReactStrings.zw
+  - typings.semanticUiReact.semanticUiReactStrings.zimbabwe
+*/
+trait FlagNameValues extends js.Object
+

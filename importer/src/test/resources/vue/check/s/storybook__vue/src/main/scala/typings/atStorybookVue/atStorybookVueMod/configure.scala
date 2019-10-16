@@ -1,6 +1,6 @@
 package typings.atStorybookVue.atStorybookVueMod
 
-import typings.webpackDashEnv.NodeModule
+import typings.webpackEnv.NodeModule
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -83,15 +83,28 @@ object LibrarySpecific {
     val AllHTMLAttributes   = reactMod + TsIdent("AllHTMLAttributes")
     val InputHTMLAttributes = reactMod + TsIdent("InputHTMLAttributes")
     val HTMLInputElement    = stdLib + TsIdent("HTMLInputElement")
+    val TextareaHTMLAttributes = reactMod + TsIdent("TextareaHTMLAttributes")
+    val HTMLTextareaElement    = stdLib + TsIdent("HTMLTextAreaElement")
+    val FormHTMLAttributes = reactMod + TsIdent("FormHTMLAttributes")
+    val HTMLFormElement    = stdLib + TsIdent("HTMLFormElement")
+    val ButtonHTMLAttributes = reactMod + TsIdent("ButtonHTMLAttributes")
+    val HTMLButtonElement    = stdLib + TsIdent("HTMLButtonElement")
 
     def event(name: TsQIdent, of: TsQIdent) =
       TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))
 
     val addDomProps = Map[TsIdent, TsTypeRef](
       TsIdentSimple("StrictInputProps") -> event(InputHTMLAttributes, HTMLInputElement),
+      TsIdentSimple("StrictTextAreaProps") -> event(TextareaHTMLAttributes, HTMLTextareaElement),
+      TsIdentSimple("StrictCheckboxProps") -> event(InputHTMLAttributes, HTMLInputElement),
+      TsIdentSimple("StrictFormProps") -> event(FormHTMLAttributes, HTMLFormElement),
+      TsIdentSimple("StrictButtonProps") -> event(ButtonHTMLAttributes, HTMLButtonElement),
     )
     val removeIndex = Set[TsIdent](
       TsIdentSimple("InputProps"),
+      TsIdentSimple("TextAreaProps"),
+      TsIdentSimple("FormProps"),
+      TsIdentSimple("ButtonProps"),
     )
 
     override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
