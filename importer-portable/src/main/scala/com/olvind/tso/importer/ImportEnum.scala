@@ -28,12 +28,12 @@ object ImportEnum {
   ): Seq[Tree] =
     e match {
       /* exported const enum? type alias */
-      case TsDeclEnum(cs, _, true, importName(name), _, _, Some(exportedFrom), _, codePath) =>
+      case TsDeclEnum(cs, _, true, importName.assertOne(name), _, _, Some(exportedFrom), _, codePath) =>
         val tpe = importType(Wildcards.No, scope, importName)(exportedFrom)
         List(TypeAliasTree(name, Nil, tpe, cs + CommentData(Markers.IsTrivial), importName(codePath)))
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
-      case TsDeclEnum(cs, _, true, importName(name), members, _, None, _, codePath) =>
+      case TsDeclEnum(cs, _, true, importName.assertOne(name), members, _, None, _, codePath) =>
         val importedCodePath = importName(codePath)
         val ta = TypeAliasTree(
           name     = name,
@@ -61,7 +61,7 @@ object ImportEnum {
             )
           }
           val newMembers = members.map {
-            case TsEnumMember(memberCs, importName(memberName), exprOpt) =>
+            case TsEnumMember(memberCs, importName.assertOne(memberName), exprOpt) =>
               val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
               val tpe  = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
               MethodTree(
@@ -88,7 +88,7 @@ object ImportEnum {
         List(ta, module)
 
       /* Any other enum? a type and an object */
-      case TsDeclEnum(cs, _, _, importName(name), members, isValue, exportedFrom, _, codePath) =>
+      case TsDeclEnum(cs, _, _, importName.assertOne(name), members, isValue, exportedFrom, _, codePath) =>
         val importedCodePath = importName(codePath)
 
         val baseInterface: TypeRef =
@@ -145,7 +145,7 @@ object ImportEnum {
 
           val membersSyms: Seq[Tree] =
             members flatMap {
-              case TsEnumMember(memberCs, importName(memberName), exprOpt) =>
+              case TsEnumMember(memberCs, importName.assertOne(memberName), exprOpt) =>
                 val memberType: Option[ClassTree] =
                   if (exportedFrom.nonEmpty) None
                   else

@@ -2,7 +2,7 @@ package typings.chartDotJs
 
 import org.scalablytyped.runtime.Instantiable2
 import org.scalablytyped.runtime.StringDictionary
-import typings.chartDotJs.chartDotJsMod.Chart
+import typings.chartDotJs.mod.Chart
 import typings.std.ArrayLike
 import typings.std.CanvasRenderingContext2D
 import typings.std.HTMLCanvasElement

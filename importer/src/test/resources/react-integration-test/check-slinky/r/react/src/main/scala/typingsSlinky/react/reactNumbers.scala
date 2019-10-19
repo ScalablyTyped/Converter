@@ -1,6 +1,6 @@
 package typingsSlinky.react
 
-import typingsSlinky.react.reactMod.IsExactlyAny
+import typingsSlinky.react.mod.IsExactlyAny
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

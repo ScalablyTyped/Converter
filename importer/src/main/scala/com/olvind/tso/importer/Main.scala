@@ -194,6 +194,14 @@ class Main(config: Config) {
       )
       .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
 
+//    val all = ts.TsTreeTraverse
+//      .collectSet(successes.map(_.parsed)) {
+//        case q: TsQIdent => q
+//      }
+//      .to[Set]
+//
+//    Json.persist(os.pwd / "cache.json")(all)
+
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)
       val publishUser                            = bintray.fold("oyvindberg")(_.user)

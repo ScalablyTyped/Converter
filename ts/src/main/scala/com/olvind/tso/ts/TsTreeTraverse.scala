@@ -30,4 +30,28 @@ object TsTreeTraverse {
 
     rec(tree)
   }
+
+  def collectSet[T](tree: Set[TsTree])(extract: PartialFunction[TsTree, T]): Seq[T] = {
+    val buf = mutable.HashSet.empty[T]
+
+    tree foreach goSet(extract, buf)
+
+    buf.to[Seq]
+  }
+
+  private def goSet[T](extract: PartialFunction[TsTree, T], buf: mutable.HashSet[T])(tree: TsTree): Unit = {
+    if (extract.isDefinedAt(tree)) {
+      buf += extract(tree)
+    }
+
+    def rec(a: Any): Unit =
+      a match {
+        case x:  TsTree if x ne tree => goSet(extract, buf)(x)
+        case xs: TraversableOnce[_]  => xs foreach rec
+        case p:  Product             => p.productIterator foreach rec
+        case _ => ()
+      }
+
+    rec(tree)
+  }
 }

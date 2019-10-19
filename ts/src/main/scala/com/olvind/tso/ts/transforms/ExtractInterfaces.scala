@@ -22,10 +22,10 @@ object ExtractInterfaces {
         prefix:      String,
         members:     Seq[TsTree],
         minNumParts: Int,
-        construct:   TsIdent => TsDeclInterface,
+        construct:   TsIdentSimple => TsDeclInterface,
     ): CodePath.HasPath = {
       val interface = DeriveNonConflictingName(prefix, minNumParts, members) { name =>
-        val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent.of(name))
+        val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, List(name))
 
         interfaces get name match {
           case Some(existing)

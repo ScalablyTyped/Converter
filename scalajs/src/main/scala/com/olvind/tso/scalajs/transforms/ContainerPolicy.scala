@@ -10,12 +10,11 @@ import com.olvind.tso.seqs._
 import scala.collection.mutable
 
 object ContainerPolicy extends TreeTransformation {
+
   /* sneak import annotations through fields/methods which otherwise don't have them */
   case class ClassAnnotations(value: Seq[ClassAnnotation]) extends Comment.Data
 
-  override def leaveContainerTree(scope: TreeScope)(_s: ContainerTree): ContainerTree = {
-    val s = combineModules(_s)
-
+  override def leaveContainerTree(scope: TreeScope)(s: ContainerTree): ContainerTree = {
     val classesToRename = mutable.ArrayBuffer.empty[QualifiedName]
 
     val rewrittenContainers = s.members.map {
@@ -195,33 +194,45 @@ object ContainerPolicy extends TreeTransformation {
             hatCp,
             ModuleTree(s.annotations, Name.namespaced, inheritance, mutables, NoComments, hatCp, isOverride = false),
           )
-        combineModules(s.withMembers(rest ++ hoisted :+ hatModule))
+
+        combineNested(s.withMembers(rest ++ hoisted :+ hatModule))
     }
   }
 
-  def combineModules(s: ContainerTree): ContainerTree = {
-    val withCombinedModules: Seq[Tree] =
-      s.index
-        .flatMap {
-          case (_, ts) =>
-            val (mods, rest) = ts partitionCollect { case x: ModuleTree => x }
-            val combinedModules: Option[ModuleTree] =
-              mods.reduceOption { (mod1, mod2) =>
-                ModuleTree(
-                  annotations = mod1.annotations,
-                  name        = mod1.name,
-                  parents     = (mod1.parents ++ mod2.parents).distinct,
-                  members     = (mod1.members ++ mod2.members).distinct,
-                  comments    = mod1.comments ++ mod2.comments,
-                  codePath    = mod1.codePath,
-                  isOverride  = false,
-                )
-              }
+  def combineNested[C <: ContainerTree](c: C): C = {
+    def parentsOpt(c: ContainerTree) = c match {
+      case ModuleTree(_, _, parents, _, _, _, _) => parents
+      case _                                     => Nil
+    }
 
-            rest ++ combinedModules
+    val combinedMembers: Seq[Tree] =
+      c.index
+        .flatMap {
+          case (_, sameName) =>
+            sameName partitionCollect { case x: ContainerTree => x } match {
+              case (cs, rest) if cs.length > 1 =>
+                val combined: ContainerTree =
+                  cs.reduce { (c1, c2) =>
+                    combineNested(
+                      ModuleTree(
+                        annotations = if (c1.annotations.nonEmpty) c1.annotations else c2.annotations,
+                        name        = c1.name,
+                        parents     = (parentsOpt(c1) ++ parentsOpt(c2)).distinct,
+                        members     = (c1.members ++ c2.members).distinct,
+                        comments    = c1.comments ++ c2.comments,
+                        codePath    = c1.codePath,
+                        isOverride  = false,
+                      ),
+                    )
+                  }
+
+                rest :+ combined
+              case (Seq(one), rest) => combineNested(one) +: rest
+              case _                => sameName
+            }
         }
         .to[Seq]
 
-    s.withMembers(withCombinedModules)
+    c.withMembers(combinedMembers).asInstanceOf[C]
   }
 }

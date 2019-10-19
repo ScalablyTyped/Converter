@@ -36,7 +36,7 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
 
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>
-            val scalaName = importName(lib.name)
+            val scalaName = importName.tsIdentLibrary(lib.name)
 
             val scope = new TreeScope.Root(
               libName       = scalaName,
@@ -51,7 +51,8 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
             val cleanIllegalNames = new CleanIllegalNames(Name.typings)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
-              S.ContainerPolicy visitPackageTree scope,
+              S.ContainerPolicy.combineNested,
+              S.ContainerPolicy.visitPackageTree(scope),
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>

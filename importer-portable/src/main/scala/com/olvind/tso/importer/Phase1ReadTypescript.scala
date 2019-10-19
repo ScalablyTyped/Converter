@@ -170,7 +170,7 @@ class Phase1ReadTypescript(
                           case other => other
                         })
                     }
-                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
+                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, Nil))(_3)
                 }
 
               val enableExpandTypeMappings = source.libName match {

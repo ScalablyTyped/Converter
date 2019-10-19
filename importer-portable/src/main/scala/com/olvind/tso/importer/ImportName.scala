@@ -8,50 +8,72 @@ import com.olvind.tso.ts._
   * @param knownLibraries A known library in this context is the one we
   *                       are converting, or any of it's dependencies
   */
-class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) {
+class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) { self =>
   def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
-  def unapply(x: TsIdent): Some[Name] =
+  def unapply(x: TsIdent): Some[::[Name]] =
     Some(apply(x))
+
+  object assertOne {
+    def apply(i: TsIdent): Name =
+      self.apply(i) match {
+        case value :: Nil => value
+        case other        => sys.error(s"Expected one name, got $other")
+      }
+
+    def unapply(x: TsIdent): Option[Name] =
+      self.unapply(x) map {
+        case one :: Nil => one
+        case other      => sys.error(s"Expected on, got $other")
+      }
+  }
 
   def apply(ident: TsQIdent): QualifiedName =
     ident match {
       /* hack/shortcut: all qualified idents are fully qualified, which means only abstract things should have length one */
-      case TsQIdent(one :: Nil) => QualifiedName(List(apply(one)))
-      case TsQIdent(parts)      => QualifiedName(`outputPkg` +: (parts map apply))
+      case TsQIdent(one :: Nil) => QualifiedName(apply(one).to[List])
+      case TsQIdent(parts)      => QualifiedName(`outputPkg` +: (parts flatMap apply))
     }
 
   def apply(cp: CodePath): QualifiedName =
-    QualifiedName(outputPkg +: (cp.forceHasPath.codePath.parts map apply))
+    QualifiedName(outputPkg +: (cp.forceHasPath.codePath.parts flatMap apply))
 
-  def apply(i: TsIdent): Name =
+  def apply(i: TsIdent): ::[Name] =
     i match {
-      case TsIdent.Apply        => Name.APPLY
-      case TsIdentSimple(value) => Name(value)
-      case x: TsIdentLibrary => Name(prettyString(x.value, "", forceCamelCase = true))
-      case x: TsIdentModule  => rewriteModuleName(x)
+      case TsIdent.Apply        => ::(Name.APPLY, Nil)
+      case TsIdentSimple(value) => ::(Name(value), Nil)
+      case x: TsIdentLibrary => ::(tsIdentLibrary(x), Nil)
+      case x: TsIdentModule  => tsIdentModule(x)
       case x: TsIdentImport  => sys.error(s"Unexpected: $x")
+    }
+
+  def tsIdentLibrary(i: TsIdentLibrary): Name =
+    i match {
+      case TsIdentLibraryScoped(scope, name) =>
+        Name(prettyString(scope ++ name.capitalize, forceCamelCase = true))
+      case TsIdentLibrarySimple(value) =>
+        Name(prettyString(value, forceCamelCase = true))
     }
 
   /**
     * We shorten a module name if it starts with the name of a known library.
     */
-  private def rewriteModuleName(x: TsIdentModule): Name = {
-    val shortenedOpt: Option[String] =
+  private def tsIdentModule(x: TsIdentModule): ::[Name] = {
+    val shortenedOpt: Option[List[String]] =
       x match {
         case TsIdentModule(Some(scope), head :: tail) if !(tail.size === 1 && tail.head === head) =>
           knownLibraries.collectFirst {
-            case TsIdentLibraryScoped(`scope`, `head`) => tail.mkString("/")
+            case TsIdentLibraryScoped(`scope`, `head`) => tail
           }
         case TsIdentModule(None, head :: tail) if !(tail.size === 1 && tail.head === head) =>
           knownLibraries.collectFirst {
-            case TsIdentLibrarySimple(`head`) => tail.mkString("/")
+            case TsIdentLibrarySimple(`head`) => tail
           }
         case _ => None
       }
 
-    Name(prettyString(shortenedOpt.filter(_.nonEmpty).getOrElse(x.value), "Mod", forceCamelCase = true))
+    ::(Name("mod"), shortenedOpt getOrElse x.parts map (x => Name(prettyString(x, forceCamelCase = false))))
   }
 }
 

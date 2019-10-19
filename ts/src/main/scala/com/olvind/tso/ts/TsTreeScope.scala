@@ -435,7 +435,7 @@ object TsTreeScope {
                       val fakeTa = {
                         val codePath = x.exportedFrom.fold(x.codePath.forceHasPath.codePath)(_.name).parts match {
                           case Nil             => sys.error("Unexpected empty codePath")
-                          case libName :: rest => CodePath.HasPath(libName, TsQIdent(rest :+ m.name))
+                          case libName :: rest => CodePath.HasPath(libName, rest :+ m.name)
                         }
                         TsDeclTypeAlias(NoComments, false, m.name, Nil, TsExpr.typeOfOpt(m.expr), codePath)
                       }

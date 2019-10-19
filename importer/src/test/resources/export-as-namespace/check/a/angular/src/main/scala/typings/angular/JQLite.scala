@@ -1,7 +1,7 @@
 package typings.angular
 
 import org.scalablytyped.runtime.NumberDictionary
-import typings.angular.angularMod.auto.IInjectorService
+import typings.angular.mod.auto.IInjectorService
 import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`

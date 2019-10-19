@@ -1,6 +1,6 @@
 package typingsJapgolly.react
 
-import typingsJapgolly.react.reactMod.ComponentType
+import typingsJapgolly.react.mod.ComponentType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

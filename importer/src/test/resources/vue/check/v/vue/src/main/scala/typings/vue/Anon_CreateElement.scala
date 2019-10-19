@@ -1,7 +1,7 @@
 package typings.vue
 
-import typings.vue.typesVnodeMod.VNode
-import typings.vue.typesVueMod.CreateElement
+import typings.vue.mod.types.vnode.VNode
+import typings.vue.mod.types.vue.CreateElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

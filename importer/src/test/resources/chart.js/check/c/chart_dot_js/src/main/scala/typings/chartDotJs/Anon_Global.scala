@@ -1,8 +1,8 @@
 package typings.chartDotJs
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.chartDotJs.chartDotJsMod.ChartFontOptions
-import typings.chartDotJs.chartDotJsMod.ChartOptions
+import typings.chartDotJs.mod.ChartFontOptions
+import typings.chartDotJs.mod.ChartOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -18,8 +18,8 @@ sealed trait CodePath {
 
   def replaceLast(newLast: TsIdent): CodePath =
     this match {
-      case CodePath.HasPath(inLib, TsQIdent(parts)) =>
-        CodePath.HasPath(inLib, TsQIdent(parts.dropRight(1) :+ newLast))
+      case CodePath.HasPath(inLib, parts) =>
+        CodePath.HasPath(inLib, parts.dropRight(1) :+ newLast)
       case CodePath.NoPath => CodePath.NoPath
     }
 
@@ -31,9 +31,9 @@ object CodePath {
     def +(ident: TsIdent): NoPath.type = NoPath
   }
 
-  case class HasPath private (inLibrary: TsIdent, codePathPart: TsQIdent) extends CodePath {
+  case class HasPath private (inLibrary: TsIdent, codePathPart: List[TsIdent]) extends CodePath {
     lazy val codePath: TsQIdent =
-      TsQIdent(inLibrary +: codePathPart.parts)
+      TsQIdent(inLibrary +: codePathPart)
 
     def /(tree: TsTree): CodePath.HasPath =
       tree match {
@@ -45,6 +45,6 @@ object CodePath {
       }
 
     def +(tsIdent: TsIdent): CodePath.HasPath =
-      HasPath(inLibrary, codePathPart + tsIdent)
+      HasPath(inLibrary, codePathPart :+ tsIdent)
   }
 }

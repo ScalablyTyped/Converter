@@ -199,7 +199,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsImport: Parser[TsImport] = {
 
     val imported: Parser[Seq[TsImported]] = {
-      val rename: Parser[TsIdent] = "as" ~> tsIdent
+      val rename: Parser[TsIdentSimple] = "as" ~> tsIdent
 
       repsep(
         "*" ~> rename ^^ (r => TsImportedStar(Some(r))) |
@@ -332,7 +332,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       "implements" ~> repsep(tsTypeRef, ",") | success(Nil)
 
     /* hack to avoid that `identifier` consumes `extends` for default exported classes without name */
-    val hack: Parser[TsIdent] =
+    val hack: Parser[TsIdentSimple] =
       tsIdent.filter(_.value =/= "extends")
 
     comments ~ isDeclared ~ (isAbstract <~ "class") ~ (hack ~ tsTypeParams).? ~ parent ~ implements ~ tsMembers ^^ {
@@ -377,12 +377,12 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val functionParam: Parser[TsFunParam] = {
     /* Represent in tree? */
-    lazy val destructuredObj: Parser[TsIdent] =
+    lazy val destructuredObj: Parser[TsIdentSimple] =
       "{" ~>! rep((tsIdent | ("..." ~> tsIdent)) <~ (":" <~ (tsIdent | destructured)).? <~ ",".?) <~ "}" ^^ (
           ids =>
             TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
         )
-    lazy val destructuredArray: Parser[TsIdent] =
+    lazy val destructuredArray: Parser[TsIdentSimple] =
       "[" ~>! repsep(tsIdent <~ (":" <~ (tsIdent | destructured)).?, ",") <~ "]" ^^ (
           ids =>
             TsIdent("has" + ids.map(_.value.capitalize).mkString("")),
@@ -505,7 +505,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsMemberNamed: Parser[TsMember] = {
 
-    val intro: Parser[(ProtectionLevel, TsIdent, Boolean, Boolean)] =
+    val intro: Parser[(ProtectionLevel, TsIdentSimple, Boolean, Boolean)] =
       tsIdentLiberal.+ ^^ {
         case mods :+ name =>
           val level: ProtectionLevel =
@@ -582,7 +582,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val tsIdentImport: Parser[TsIdentImport] =
     "import" ~> "(" ~> tsIdentModule <~ ")" ^^ TsIdentImport
 
-  lazy val identifierOrDefault: Parser[TsIdent] =
+  lazy val identifierOrDefault: Parser[TsIdentSimple] =
     identifierName.? ^^ (oi => TsIdent(oi.getOrElse("default")))
 
   lazy val qualifiedIdent: Parser[TsQIdent] = {

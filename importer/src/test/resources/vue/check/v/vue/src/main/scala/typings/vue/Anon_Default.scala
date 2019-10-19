@@ -1,6 +1,6 @@
 package typings.vue
 
-import typings.vue.typesOptionsMod.InjectKey
+import typings.vue.mod.types.options.InjectKey
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

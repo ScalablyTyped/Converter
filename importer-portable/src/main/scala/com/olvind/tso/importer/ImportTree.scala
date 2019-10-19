@@ -26,7 +26,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
     )
 
     val require = {
-      val libName = importName(lib.name)
+      val libName = importName.tsIdentLibrary(lib.name)
       val name    = Name(libName.unescaped + "Require")
       ModuleTree(
         Seq(Annotation.JsImport(lib.name.value, Imported.Namespace), Annotation.JsNative),
@@ -41,7 +41,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       )
     }
 
-    val withRequire = ret.copy(members = ret.members :+ require)
+    val withRequire = ret.withMembers(ret.members :+ require)
 
     PackageTree(Nil, importName.outputPkg, List(withRequire), NoComments, QualifiedName(List(importName.outputPkg)))
   }
@@ -102,7 +102,17 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
           ),
         )
 
-      case TsDeclVar(cs, _, _, importName(name), Some(TsTypeObject(_, members)), None, location, codePath, false) =>
+      case TsDeclVar(
+          cs,
+          _,
+          _,
+          importName.assertOne(name),
+          Some(TsTypeObject(_, members)),
+          None,
+          location,
+          codePath,
+          false,
+          ) =>
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, inheritance, statics) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
@@ -113,7 +123,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
 
         Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath, isOverride = false))
 
-      case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
+      case TsDeclVar(cs, _, readOnly, importName.assertOne(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
         val tpe = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
 
         if (name === Name.Symbol) {
@@ -145,7 +155,18 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       case e: TsDeclEnum =>
         ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType, illegalNames)
 
-      case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, codePath) =>
+      case TsDeclClass(
+          cs,
+          _,
+          isAbstract,
+          importName.assertOne(name),
+          tparams,
+          parent,
+          implements,
+          members,
+          location,
+          codePath,
+          ) =>
         val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, statics: Seq[MemberTree]) =
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
@@ -184,7 +205,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
 
         cls :: module.to[List]
 
-      case i @ TsDeclInterface(cs, _, importName(name), tparams, inheritance, members, codePath) =>
+      case i @ TsDeclInterface(cs, _, importName.assertOne(name), tparams, inheritance, members, codePath) =>
         val withParents    = ParentsResolver(scope, i)
         val scalaJsDefined = CanBeScalaJsDefined(withParents)
         val newCodePath    = importName(codePath)
@@ -207,7 +228,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
           ),
         )
 
-      case TsDeclTypeAlias(cs, _, importName(name), tparams, alias, codePath) =>
+      case TsDeclTypeAlias(cs, _, importName.assertOne(name), tparams, alias, codePath) =>
         Seq(
           TypeAliasTree(
             name     = name,
@@ -218,7 +239,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
           ),
         )
 
-      case TsDeclFunction(cs, _, importName(name), sig, jsLocation, codePath) =>
+      case TsDeclFunction(cs, _, importName.assertOne(name), sig, jsLocation, codePath) =>
         Seq(
           tsMethod(
             scope          = scope,
@@ -323,7 +344,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
         } else {
           Seq(
             MemberRet(
-              tsMethod(scope, importName, level, importName(name), cs, signature, scalaJsDefined, ownerCP),
+              tsMethod(scope, importName, level, importName.assertOne(name), cs, signature, scalaJsDefined, ownerCP),
               isStatic,
             ),
           )
@@ -368,7 +389,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
                     case _             => MemberImpl.Native
                   }
 
-                val codeName = importName(symName)
+                val codeName = importName.assertOne(symName)
 
                 Seq(
                   MemberRet(
@@ -404,7 +425,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       case (_, Some(TsTypeQuery(_))) =>
         scope.logger.info(s"Dropping $m")
         Nil
-      case (importName(name), Some(TsTypeObject(_, members)))
+      case (importName.assertOne(name), Some(TsTypeObject(_, members)))
           if !m.isOptional && members.forall(_.isInstanceOf[TsMemberCall]) =>
         // alternative notation for overload methods
         members.collect { case x: TsMemberCall => x } map (
@@ -424,7 +445,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
               ),
           )
 
-      case (importName(name), tpeOpt: Option[TsType]) =>
+      case (importName.assertOne(name), tpeOpt: Option[TsType]) =>
         val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: MemberImpl =
           (scalaJsDefined, importedType) match {
@@ -460,7 +481,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
 
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =
     TypeParamTree(
-      name       = importName(tp.name),
+      name       = importName.assertOne(tp.name),
       upperBound = tp.upperBound map importType(Wildcards.No, scope / tp, importName),
       comments   = tp.comments,
     )
@@ -469,7 +490,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
     params map { param =>
       val tpe       = importType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
       val undefType = tpe.withOptional(param.isOptional)
-      ParamTree(importName(param.name), false, undefType, None, param.comments)
+      ParamTree(importName.assertOne(param.name), false, undefType, None, param.comments)
     }
 
   def tsMethod(
@@ -533,22 +554,31 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       jsLocation: JsLocation,
       tsMembers:  Seq[TsContainerOrDecl],
       codePath:   CodePath,
-  ): ModuleTree =
+  ): ContainerTree =
     RewriteNamespaceMembers(tsMembers flatMap decl(scope)) match {
       case (inheritance, memberTrees, restTrees) =>
         val importedCp = importName(codePath)
 
-        setCodePath(
-          importedCp,
-          ModuleTree(
-            annotations = ImportJsLocation(jsLocation),
-            name        = importName(name),
-            parents     = inheritance,
-            members     = memberTrees ++ restTrees,
-            comments    = cs,
-            codePath    = importedCp,
-            isOverride  = false,
-          ),
-        )
+        val container: ContainerTree =
+          importName(name).reverse match {
+            case head :: tail =>
+              val mod = ModuleTree(
+                annotations = ImportJsLocation(jsLocation),
+                name        = head,
+                parents     = inheritance,
+                members     = memberTrees ++ restTrees,
+                comments    = cs,
+                codePath    = importedCp,
+                isOverride  = false,
+              )
+              tail.foldLeft(mod: ContainerTree) {
+                case (c, name) => PackageTree(Nil, name, List(c), NoComments, QualifiedName(Nil))
+              }
+
+            case Nil => sys.error("unexpected")
+          }
+
+        setCodePath(importedCp, container)
+
     }
 }

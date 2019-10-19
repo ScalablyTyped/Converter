@@ -120,7 +120,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         scope.stack collectFirst {
           case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
-            TypeRef.StringDictionary(TypeRef(importName(x.tparams.head.name)), NoComments)
+            TypeRef.StringDictionary(TypeRef(importName.assertOne(x.tparams.head.name)), NoComments)
           case x: TsNamedDecl =>
             TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base)).withComments(c)
         } getOrElse base.withComments(c)

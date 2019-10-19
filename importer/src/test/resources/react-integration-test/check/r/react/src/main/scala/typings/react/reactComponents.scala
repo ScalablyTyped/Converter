@@ -1,18 +1,18 @@
 package typings.react
 
-import typings.react.reactMod.ComponentType
+import typings.react.mod.ComponentType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object reactComponents extends reactProps {
   @scala.inline
-  def Fragment: ComponentType[FragmentProps] = typings.react.reactMod.Fragment.asInstanceOf[typings.react.reactMod.ComponentType[FragmentProps]]
+  def ModFragment: ComponentType[ModFragmentProps] = typings.react.mod.Fragment.asInstanceOf[typings.react.mod.ComponentType[ModFragmentProps]]
   @scala.inline
-  def Profiler: ComponentType[ProfilerProps] = typings.react.reactMod.Profiler.asInstanceOf[typings.react.reactMod.ComponentType[ProfilerProps]]
+  def ModProfiler: ComponentType[ModProfilerProps] = typings.react.mod.Profiler.asInstanceOf[typings.react.mod.ComponentType[ModProfilerProps]]
   @scala.inline
-  def StrictMode: ComponentType[StrictModeProps] = typings.react.reactMod.StrictMode.asInstanceOf[typings.react.reactMod.ComponentType[StrictModeProps]]
+  def ModStrictMode: ComponentType[ModStrictModeProps] = typings.react.mod.StrictMode.asInstanceOf[typings.react.mod.ComponentType[ModStrictModeProps]]
   @scala.inline
-  def Suspense: ComponentType[SuspenseProps] = typings.react.reactMod.Suspense.asInstanceOf[typings.react.reactMod.ComponentType[SuspenseProps]]
+  def ModSuspense: ComponentType[ModSuspenseProps] = typings.react.mod.Suspense.asInstanceOf[typings.react.mod.ComponentType[ModSuspenseProps]]
 }
 

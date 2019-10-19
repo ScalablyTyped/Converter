@@ -14,8 +14,8 @@ class TypeRewriter(base: TsTree) extends TreeTransformation[Map[TsType, TsType]]
         /* Handle if the current tree introduces a new type parameter which shadows what we are trying to inline */
         case HasTParams(tparams) =>
           t.filterKeys {
-            case TsTypeRef(_, TsQIdent(Seq(one)), _) if tparams.exists(_.name === one) => false
-            case _                                                                     => true
+            case TsTypeRef(_, TsQIdent(Seq(one)), _) if tparams.exists(tp => one === tp.name) => false
+            case _ => true
           }
         case _ => t
       }

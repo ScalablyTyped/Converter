@@ -42,7 +42,7 @@ object SimplifyParents extends TreeTransformationScopedChanges {
         scope.lookup(ref.name).headOption match {
           case Some(Picker.Types(x)) =>
             scope.logger.info(s"Simplified class which extends var $ref to typeof var")
-            Seq(ref.copy(name = x.codePath.forceHasPath.codePathPart))
+            Seq(ref.copy(name = x.codePath.forceHasPath.codePath))
           case _ => Seq(ref)
         }
       case TsTypeIntersect(types) =>

@@ -4,6 +4,7 @@ package ts
 import com.olvind.logging.Formatter
 import com.olvind.tso.seqs._
 import com.olvind.tso.ts.transforms.ExtractInterfaces
+import io.circe.{Decoder, Encoder}
 
 import scala.util.hashing.MurmurHash3.productHash
 
@@ -343,6 +344,7 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
       case None        => fragments.mkString("/")
       case Some(scope) => "@" + scope + "/" + fragments.mkString("/")
     }
+  def parts: List[String] = scopeOpt.to[List] ++ fragments
 }
 
 object TsIdentModule {
@@ -387,20 +389,21 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val `this`:        TsIdent = TsIdent("this")
-  val Apply:         TsIdent = TsIdent("<apply>")
-  val update:        TsIdent = TsIdent("update")
-  val prototype:     TsIdent = TsIdent("prototype")
-  val constructor:   TsIdent = TsIdent("constructor")
-  val default:       TsIdent = TsIdent("default")
-  val namespaced:    TsIdent = TsIdent("^")
-  val namespacedCls: TsIdent = TsIdent("Class")
-  val Symbol:        TsIdent = TsIdent("Symbol")
-  val Global:        TsIdent = TsIdent("_Global_")
-  val Record:        TsIdent = TsIdent("Record")
+  val `this`:        TsIdentSimple = TsIdent("this")
+  val Apply:         TsIdentSimple = TsIdent("<apply>")
+  val update:        TsIdentSimple = TsIdent("update")
+  val prototype:     TsIdentSimple = TsIdent("prototype")
+  val constructor:   TsIdentSimple = TsIdent("constructor")
+  val default:       TsIdentSimple = TsIdent("default")
+  val namespaced:    TsIdentSimple = TsIdent("^")
+  val namespacedCls: TsIdentSimple = TsIdent("Class")
+  val Symbol:        TsIdentSimple = TsIdent("Symbol")
+  val Global:        TsIdentSimple = TsIdent("_Global_")
+  val Record:        TsIdentSimple = TsIdent("Record")
 
-  val dummy: TsIdentLibrary = TsIdentLibrarySimple("dummy")
-  val std:   TsIdentLibrary = TsIdentLibrarySimple("std")
+  val dummy:       TsIdentLibrary = TsIdentLibrarySimple("dummy")
+  val dummySimple: TsIdentSimple  = TsIdent("dummy")
+  val std:         TsIdentLibrary = TsIdentLibrarySimple("std")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 }
@@ -411,9 +414,21 @@ final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
 
   def ++(tsIdents: Seq[TsIdent]): TsQIdent =
     TsQIdent(parts ++ tsIdents)
+
+  val asDotString = parts.mkString(".")
 }
 
 object TsQIdent {
+
+  implicit val TsIdentEncoder: Encoder[Set[TsQIdent]] = {
+    import io.circe.generic.auto._
+    Encoder.encodeSet(implicitly)
+  }
+  implicit val TsIdentDecoder: Decoder[Array[TsQIdent]] = {
+    import io.circe.generic.auto._
+    Decoder.decodeArray(implicitly, collection.breakOut)
+  }
+  implicit val TsQIdentOrdering: Ordering[TsQIdent] = Ordering[String].on[TsQIdent](_.asDotString)
 
   def of(ss:      String*) = TsQIdent(ss.toList.map(TsIdent.apply))
   def of(tsIdent: TsIdent) = TsQIdent(tsIdent :: Nil)
@@ -585,7 +600,7 @@ final case class TsMemberFunction(
 ) extends TsMember
 
 sealed trait Indexing extends TsTree
-case class IndexingDict(name:   TsIdent, tpe: TsType) extends Indexing
+case class IndexingDict(name:   TsIdentSimple, tpe: TsType) extends Indexing
 case class IndexingSingle(name: TsQIdent) extends Indexing
 
 final case class TsMemberIndex(
@@ -637,11 +652,11 @@ final case class TsMemberProperty(
 
 sealed trait TsImported extends TsTree
 
-final case class TsImportedIdent(ident: TsIdent) extends TsImported
+final case class TsImportedIdent(ident: TsIdentSimple) extends TsImported
 
 final case class TsImportedDestructured(idents: List[(TsIdent, Option[TsIdent])]) extends TsImported
 
-final case class TsImportedStar(asOpt: Option[TsIdent]) extends TsImported
+final case class TsImportedStar(asOpt: Option[TsIdentSimple]) extends TsImported
 
 sealed trait TsImportee extends TsTree
 
@@ -678,4 +693,4 @@ object ExportType {
 
 final case class TsExport(comments: Comments, tpe: ExportType, exported: TsExportee) extends TsDecl
 
-final case class TsExportAsNamespace(ident: TsIdent) extends TsDecl
+final case class TsExportAsNamespace(ident: TsIdentSimple) extends TsDecl

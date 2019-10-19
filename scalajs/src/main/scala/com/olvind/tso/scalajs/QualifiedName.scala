@@ -10,9 +10,12 @@ final case class QualifiedName(parts: List[Name]) {
 
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
+
+  val asDotString = parts.map(_.unescaped).mkString(".")
 }
 
 object QualifiedName {
+  implicit val QualifiedNameOrdering: Ordering[QualifiedName] = Ordering[String].on[QualifiedName](_.asDotString)
 
   def apply(str: String): QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
 

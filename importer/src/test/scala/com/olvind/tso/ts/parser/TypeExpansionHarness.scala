@@ -22,7 +22,7 @@ trait TypeExpansionHarness  {
 
   def run(input: String): TsParsedFile = {
     val parsed       = parser(input).get
-    val withCodePath = SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty))(parsed)
+    val withCodePath = SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, Nil))(parsed)
 
     Transformations.foldLeft(withCodePath) { case (acc, f) => f(acc) }
   }

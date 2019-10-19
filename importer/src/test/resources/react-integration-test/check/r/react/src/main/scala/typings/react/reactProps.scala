@@ -1,21 +1,23 @@
 package typings.react
 
+import typings.react.mod.ProfilerProps
+import typings.react.mod.SuspenseProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait reactProps {
   @scala.inline
-  def FragmentProps: Anon_Children.type = typings.react.Anon_Children
-  type FragmentProps = Anon_Children
+  def ModFragmentProps: Anon_Children.type = typings.react.Anon_Children
+  type ModFragmentProps = Anon_Children
   @scala.inline
-  def ProfilerProps: typings.react.reactMod.ProfilerProps.type = typings.react.reactMod.ProfilerProps
-  type ProfilerProps = typings.react.reactMod.ProfilerProps
+  def ModProfilerProps: ProfilerProps.type = typings.react.mod.ProfilerProps
+  type ModProfilerProps = ProfilerProps
   @scala.inline
-  def StrictModeProps: Anon_Children.type = typings.react.Anon_Children
-  type StrictModeProps = Anon_Children
+  def ModStrictModeProps: Anon_Children.type = typings.react.Anon_Children
+  type ModStrictModeProps = Anon_Children
   @scala.inline
-  def SuspenseProps: typings.react.reactMod.SuspenseProps.type = typings.react.reactMod.SuspenseProps
-  type SuspenseProps = typings.react.reactMod.SuspenseProps
+  def ModSuspenseProps: SuspenseProps.type = typings.react.mod.SuspenseProps
+  type ModSuspenseProps = SuspenseProps
 }
 

@@ -1,16 +1,16 @@
 package com.olvind.tso
 
+/* I'm sure we can discuss how pretty it is, but at least try to do it consistently */
 object prettyString {
-  /* I'm sure we can discuss how pretty it is, but at least try to do it consistently */
-  def apply(value: String, suffix: String, forceCamelCase: Boolean): String =
+  def apply(value: String, forceCamelCase: Boolean): String =
     value
       .flatMap {
         case '\\'  => "#backslash#" //be safe
         case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
-        case '_'   => "#underscore#" // will be erased otherwise
+        case '_'   => "#" // will be erased otherwise
         case '@'   => "#at#"
         case '$'   => "#dollar#"
-        case '-'   => "#dash#" //causes `` in scala code
+        case '-'   => "#" //causes `` in scala code
         case other => other.toString()
       }
       .split("[#/]")
@@ -20,7 +20,7 @@ object prettyString {
         case (x, 0) => if (forceCamelCase) stringUtils.unCapitalize(x) else x
         case (x, _) => x.capitalize
       }
-      .mkString("", "", suffix)
+      .mkString("")
 
   /* This is used for translating what was originally strings, so much more free form.
    *  We rely more on escaping with ` here
