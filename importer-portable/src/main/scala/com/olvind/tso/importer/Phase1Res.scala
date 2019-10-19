@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.tso.importer.Source.{FacadeSource, TsHelperFile, TsLibSource}
 import com.olvind.tso.maps.MapOps
-import com.olvind.tso.ts.{TsIdentLibrary, TsParsedFile}
+import com.olvind.tso.ts.{TsIdentLibrary, TsParsedFile, TsQIdent}
 
 import scala.collection.immutable.SortedMap
 import scala.collection.mutable
@@ -22,6 +22,7 @@ object Phase1Res {
       val parsed:                TsParsedFile,
       val dependencies:          SortedMap[TsLibSource, LibTs],
       val facades:               Set[FacadeSource],
+      val namingConflicts:       Set[TsQIdent],
   ) extends Phase1Res {
     def name: TsIdentLibrary = source.libName
   }

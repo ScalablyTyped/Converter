@@ -8,7 +8,9 @@ import com.olvind.tso.ts._
   * @param knownLibraries A known library in this context is the one we
   *                       are converting, or any of it's dependencies
   */
-class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) { self =>
+class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary], conflicts: Set[TsQIdent]) { self =>
+  val moduleConflicts = conflicts.flatMap(_.parts.collectFirst { case x: TsIdentModule => x })
+
   def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
@@ -41,7 +43,11 @@ class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) { sel
 
   def apply(i: TsIdent): ::[Name] =
     i match {
-      case TsIdent.Apply        => ::(Name.APPLY, Nil)
+      case TsIdent.Apply => ::(Name.APPLY, Nil)
+//      case TsIdentSimple("js") => ::(Name("js_"), Nil)
+//      case TsIdentSimple("scala") => ::(Name("scala_"), Nil)
+//      case TsIdentSimple("com") => ::(Name("com_"), Nil)
+//      case TsIdentSimple("org") => ::(Name("org_"), Nil)
       case TsIdentSimple(value) => ::(Name(value), Nil)
       case x: TsIdentLibrary => ::(tsIdentLibrary(x), Nil)
       case x: TsIdentModule  => tsIdentModule(x)
@@ -73,7 +79,13 @@ class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) { sel
         case _ => None
       }
 
-    ::(Name("mod"), shortenedOpt getOrElse x.parts map (x => Name(prettyString(x, forceCamelCase = false))))
+    ::(
+      Name("mod"),
+      shortenedOpt getOrElse x.parts map { part =>
+        val prettyPart = prettyString(part, forceCamelCase = false)
+        Name(prettyPart + (if (moduleConflicts(x)) "Mod" else ""))
+      },
+    )
   }
 }
 

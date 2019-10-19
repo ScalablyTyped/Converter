@@ -163,9 +163,16 @@ object ContainerPolicy extends TreeTransformation {
     s.members.partitionCollect { case x: MemberTree => x } match {
       case (Nil, _) if inheritance.isEmpty => s
       case (members, rest) =>
+        def isCollision(name: Name) =
+          s.index.get(name) match {
+            case Some(_: ContainerTree) => true
+            case _ => false
+          }
+
         val rewritten: List[Ior[MemberTree, ModuleTree]] =
           members.toList zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
-            case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted) =>
+            case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted)
+                if !isCollision(name) =>
               extracted match {
                 case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS_TYPE =>
                   val mod = ModuleTree(anns, name, List(TypeRef.TopLevel(tpe)), Nil, restCs, codePath, isOverride)
@@ -175,7 +182,7 @@ object ContainerPolicy extends TreeTransformation {
                   Ior.Left(f)
               }
 
-            case (m: MethodTree, extracted) =>
+            case (m: MethodTree, extracted) if !isCollision(m.name) =>
               extracted match {
                 case Some((anns, restCs)) if m.name =/= Name.APPLY =>
                   val asApply =
@@ -204,35 +211,48 @@ object ContainerPolicy extends TreeTransformation {
       case ModuleTree(_, _, parents, _, _, _, _) => parents
       case _                                     => Nil
     }
+    def doCombine(c: C) = {
+      var didMerge = false
 
-    val combinedMembers: Seq[Tree] =
-      c.index
-        .flatMap {
-          case (_, sameName) =>
-            sameName partitionCollect { case x: ContainerTree => x } match {
-              case (cs, rest) if cs.length > 1 =>
-                val combined: ContainerTree =
-                  cs.reduce { (c1, c2) =>
-                    combineNested(
-                      ModuleTree(
-                        annotations = if (c1.annotations.nonEmpty) c1.annotations else c2.annotations,
-                        name        = c1.name,
-                        parents     = (parentsOpt(c1) ++ parentsOpt(c2)).distinct,
-                        members     = (c1.members ++ c2.members).distinct,
-                        comments    = c1.comments ++ c2.comments,
-                        codePath    = c1.codePath,
-                        isOverride  = false,
-                      ),
-                    )
+      val combinedMembers: Seq[Tree] =
+        c.index
+          .flatMap {
+            case (name, sameName) =>
+              sameName partitionCollect { case x: ContainerTree => x } match {
+                case (cs, rest) if cs.length > 1 =>
+                  if (name.unescaped === "config") {
+                    print(1)
                   }
 
-                rest :+ combined
-              case (Seq(one), rest) => combineNested(one) +: rest
-              case _                => sameName
-            }
-        }
-        .to[Seq]
+                  val combined: ContainerTree =
+                    cs.reduce { (c1, c2) =>
+                      didMerge = true
+                      combineNested(
+                        ModuleTree(
+                          annotations = if (c1.annotations.nonEmpty) c1.annotations else c2.annotations,
+                          name        = c1.name,
+                          parents     = (parentsOpt(c1) ++ parentsOpt(c2)).distinct,
+                          members     = (c1.members ++ c2.members).distinct,
+                          comments    = c1.comments ++ c2.comments,
+                          codePath    = c1.codePath,
+                          isOverride  = false,
+                        ),
+                      )
+                    }
 
-    c.withMembers(combinedMembers).asInstanceOf[C]
+                  rest :+ combined
+                case (Seq(one), rest) => combineNested(one) +: rest
+                case _                => sameName
+              }
+          }
+          .to[Seq]
+
+      (didMerge, c.withMembers(combinedMembers).asInstanceOf[C])
+    }
+
+    doCombine(c) match {
+      case (true, c)  => combineNested(c)
+      case (false, c) => c
+    }
   }
 }

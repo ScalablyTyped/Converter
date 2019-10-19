@@ -15,7 +15,7 @@ class NamingTests extends FunSuite {
       case TsQIdent((lib: TsIdentLibrary) :: _) => lib
     }.to[Set]
 
-    val duplicates = all.groupBy(new ImportName(Name.typings, Set.empty).apply).collect {
+    val duplicates = all.groupBy(new ImportName(Name.typings, Set.empty, Set.empty).apply).collect {
       case (duplicate, originals) if originals.length =/= 1 =>
         duplicate.asDotString + originals.map(_.asDotString.padTo(40, ' ')).mkString("\n\t", "\n\t", "\n")
     }.to[Seq]

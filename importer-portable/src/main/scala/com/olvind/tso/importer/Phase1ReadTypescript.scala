@@ -5,6 +5,7 @@ import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.importer.Phase1Res._
 import com.olvind.tso.importer.Source.TsSource
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
+import com.olvind.tso.scalajs.Name
 import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsTreeScope.LoopDetector
@@ -222,7 +223,25 @@ class Phase1ReadTypescript(
                 finished.comments,
               )
 
-              LibTs(source)(version, finished, deps, facades)
+              val namingConflicts: Set[TsQIdent] = {
+                val knownLibs     = deps
+                val knownLibNames = knownLibs.map(_._1.libName).to[Set] + source.libName
+
+                val allQIdents: Set[TsQIdent] = TsTreeTraverse.collect(finished) { case q: TsQIdent => q }.to[Set]
+
+                val fromThis = allQIdents
+                  .groupBy(new ImportName(Name.typings, knownLibNames, Set.empty).apply)
+                  .flatMap {
+                    case (_, conflicted) if conflicted.size =/= 1 => conflicted
+                    case _                                        => Nil
+                  }
+                  .to[Set]
+                val fromDeps = deps.flatMap(_._2.namingConflicts)
+
+                fromThis ++ fromDeps
+              }
+
+              LibTs(source)(version, finished, deps, facades, namingConflicts)
           }
         }
     }
