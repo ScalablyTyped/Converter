@@ -1,7 +1,6 @@
 package typings.semanticDashUiDashReact.srcModulesRatingRatingMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.auto
@@ -13,6 +12,7 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.star
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,12 +1,12 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod
 
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

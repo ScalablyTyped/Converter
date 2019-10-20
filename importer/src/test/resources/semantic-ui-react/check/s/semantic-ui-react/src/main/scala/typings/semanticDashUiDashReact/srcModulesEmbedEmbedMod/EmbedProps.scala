@@ -1,7 +1,6 @@
 package typings.semanticDashUiDashReact.srcModulesEmbedEmbedMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -14,6 +13,7 @@ import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlIframeProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

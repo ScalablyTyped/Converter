@@ -4,8 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.Event
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.KeyboardEvent
 import typings.react.reactMod.MouseEvent
@@ -24,6 +22,8 @@ import typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.Dropdow
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownOnSearchChangeData
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownProps
 import typings.semanticDashUiDashReact.srcModulesDropdownMod.default
+import typings.std.Event
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

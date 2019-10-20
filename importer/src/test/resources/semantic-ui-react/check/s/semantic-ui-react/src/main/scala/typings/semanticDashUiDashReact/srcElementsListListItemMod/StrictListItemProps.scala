@@ -1,6 +1,5 @@
 package typings.semanticDashUiDashReact.srcElementsListListItemMod
 
-import typings.react.HTMLAnchorElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -10,6 +9,7 @@ import typings.semanticDashUiDashReact.srcElementsListListDescriptionMod.ListDes
 import typings.semanticDashUiDashReact.srcElementsListListHeaderMod.ListHeaderProps
 import typings.semanticDashUiDashReact.srcElementsListListIconMod.ListIconProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.std.HTMLAnchorElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

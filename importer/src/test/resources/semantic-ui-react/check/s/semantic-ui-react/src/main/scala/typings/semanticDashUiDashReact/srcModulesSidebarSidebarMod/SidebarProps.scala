@@ -1,7 +1,6 @@
 package typings.semanticDashUiDashReact.srcModulesSidebarSidebarMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -21,6 +20,7 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.uncover
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.wide
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
