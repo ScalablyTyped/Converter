@@ -23,7 +23,7 @@ object SearchCategory {
     content: SemanticShorthandContent = null,
     name: String = null,
     renderer: /* props */ SearchCategoryProps => Callback = null,
-    results: js.Array[ComponentClassP[SearchResultProps]] = null
+    results: js.Array[ComponentClassP[SearchResultProps with js.Object]] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
