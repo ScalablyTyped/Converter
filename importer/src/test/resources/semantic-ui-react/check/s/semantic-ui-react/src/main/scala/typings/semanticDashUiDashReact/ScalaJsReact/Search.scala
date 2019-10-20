@@ -51,7 +51,7 @@ object Search {
     onSelectionChange: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ SearchResultData) => Callback = null,
     open: js.UndefOr[Boolean] = js.undefined,
     resultRenderer: /* props */ SearchResultProps => Callback = null,
-    results: js.Array[_] | (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any) = null,
+    results: js.Array[js.Any] | (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any) = null,
     selectFirstResult: js.UndefOr[Boolean] = js.undefined,
     showNoResults: js.UndefOr[Boolean] = js.undefined,
     size: mini | tiny | small | large | big | huge | massive = null,
