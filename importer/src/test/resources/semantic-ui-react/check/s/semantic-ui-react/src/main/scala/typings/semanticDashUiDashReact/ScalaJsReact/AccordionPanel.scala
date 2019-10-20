@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -22,6 +23,8 @@ object AccordionPanel {
     index: Double | String = null,
     onTitleClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null,
     title: SemanticShorthandItem[AccordionTitleProps] = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[AccordionPanelProps, default, Unit, AccordionPanelProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -34,9 +37,9 @@ object AccordionPanel {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps])(children: _*)
   }
 }
 

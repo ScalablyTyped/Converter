@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.clockwise
@@ -36,6 +37,8 @@ object Icon {
     name: SemanticICONS = null,
     rotated: clockwise | counterclockwise = null,
     size: IconSizeProp = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[IconProps, default, Unit, IconProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -60,9 +63,9 @@ object Icon {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcElementsIconMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsIconMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps])(children: _*)
   }
 }
 

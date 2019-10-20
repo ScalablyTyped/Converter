@@ -16,7 +16,6 @@ package object react {
   type HTMLBRElement = Element
   type HTMLBaseElement = Element
   type HTMLBodyElement = Element
-  type HTMLButtonElement = Element
   type HTMLCanvasElement = Element
   type HTMLDListElement = Element
   type HTMLDataElement = Element
@@ -26,7 +25,6 @@ package object react {
   type HTMLElement = Element
   type HTMLEmbedElement = Element
   type HTMLFieldSetElement = Element
-  type HTMLFormElement = Element
   type HTMLHRElement = Element
   type HTMLHeadElement = Element
   type HTMLHeadingElement = Element

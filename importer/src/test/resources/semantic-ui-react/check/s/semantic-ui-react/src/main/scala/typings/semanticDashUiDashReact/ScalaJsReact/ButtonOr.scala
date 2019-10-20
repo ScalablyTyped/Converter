@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -15,6 +16,8 @@ object ButtonOr {
     as: js.Any = null,
     className: String = null,
     text: Double | String = null
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     ButtonOrProps, 
     MountedWithRawType[ButtonOrProps, js.Object, RawMounted[ButtonOrProps, js.Object]]
@@ -28,9 +31,9 @@ object ButtonOr {
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.default)
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps])(children: _*)
   }
 }
 
