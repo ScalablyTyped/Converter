@@ -61,6 +61,7 @@ object ScalaJsReactComponents {
       import CastConversion.TParam._
       val _1Element = _1.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
       val _2Element = _2.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
+      val _1Object = _1.among(Set.empty, QualifiedName.Object)
 
       CastConversion.All ++ Seq(
         CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
@@ -70,7 +71,7 @@ object ScalaJsReactComponents {
         CastConversion(QualifiedName.React.ReactNode, rawReactNode),
         CastConversion(QualifiedName.React.Ref, rawReactRef),
         CastConversion(QualifiedName.React.Component, rawReactComponent, _1, TypeRef.Object),
-        CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1),
+        CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1Object),
         CastConversion(QualifiedName.React.ReactElement, rawReactElement),
         CastConversion(QualifiedName.React.DOMElement, rawReactDOMElement),
         CastConversion(QualifiedName.React.ElementType, rawReactElementType),

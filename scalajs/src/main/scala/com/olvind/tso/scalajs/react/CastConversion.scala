@@ -24,7 +24,7 @@ object CastConversion {
         case TParam.Constrained(outer, among, default) =>
           outer.eval(provided) match {
             case tr @ TypeRef(x, _, _) if among(x) => tr
-            case _                                 => TypeRef(default)
+            case tr                                => TypeRef.Intersection(List(tr, TypeRef(default)))
           }
       }
     def among(among: Set[QualifiedName], default: QualifiedName): TParam =
@@ -629,5 +629,5 @@ object CastConversion {
   // format: on
 
   val AllElements: Set[QualifiedName] =
-    All.collect { case c if c.to.parts.last.unescaped.endsWith("Element") => c.to}.to[Set]
+    All.collect { case c if c.to.parts.last.unescaped.endsWith("Element") => c.to }.to[Set]
 }
