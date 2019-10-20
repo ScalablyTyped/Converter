@@ -30,6 +30,7 @@ object ScalaJsReactComponents {
     val reactJsForwardRefComponent:      QualifiedName = react + Name("JsForwardRefComponent")
     val reactJsForwardRefComponentForce: QualifiedName = reactJsForwardRefComponent + Name("force")
     val reactChildArg:                   QualifiedName = react + Name("CtorType") + Name("ChildArg")
+    val reactReactEventFrom:             QualifiedName = react + Name("ReactEventFrom")
     val component:                       QualifiedName = react + Name("component")
     val componentUnmountedWithRoot:      QualifiedName = component + Name("JsForwardRef") + Name("UnmountedWithRoot")
     val componentJs:                     QualifiedName = component + Name("Js")
@@ -48,47 +49,47 @@ object ScalaJsReactComponents {
     val rawReactChildren:                QualifiedName = rawReact + Name("Children")
     val rawReactComponent:               QualifiedName = rawReact + Name("Component")
     val rawReactComponentClassP:         QualifiedName = rawReact + Name("ComponentClassP")
+    val rawReactDOMElement:              QualifiedName = rawReact + Name("DOMElement")
+    val rawReactElement:                 QualifiedName = rawReact + Name("Element")
+    val rawReactElementType:             QualifiedName = rawReact + Name("ElementType")
     val rawReactNode:                    QualifiedName = rawReact + Name("Node")
+    val rawReactRef:                     QualifiedName = rawReact + Name("Ref")
 
     val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
 
-    val conversions: Seq[CastConversion] =
+    val conversions: Seq[CastConversion] = {
+      import CastConversion.TParam._
       CastConversion.All ++ Seq(
-        CastConversion(QualifiedName.ScalaAny, QualifiedName.Any, 0),
-        CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object, 0),
-        CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any, 0),
-        CastConversion(QualifiedName.React.ReactNode, rawReactNode, 0),
-        CastConversion(QualifiedName.React.Component, scalaJsReact.rawReactComponent, 0),
-        CastConversion(QualifiedName.React.ComponentClass, scalaJsReact.rawReactComponentClassP, 1),
-        CastConversion(QualifiedName.React.BaseSyntheticEvent, react + Name("ReactEventFrom"), 1),
-        CastConversion(QualifiedName.React.ChangeEvent, react + Name("ReactEventFrom"), 1),
-        CastConversion(QualifiedName.React.InvalidEvent, react + Name("ReactEventFrom"), 1),
-        CastConversion(QualifiedName.React.SyntheticEvent, react + Name("ReactEventFrom"), 1),
-        CastConversion(QualifiedName.React.AnimationEvent, react + Name("ReactAnimationEventFrom"), 1),
-        CastConversion(QualifiedName.React.ClipboardEvent, react + Name("ReactClipboardEventFrom"), 1),
-        CastConversion(QualifiedName.React.CompositionEvent, react + Name("ReactCompositionEventFrom"), 1),
-        CastConversion(QualifiedName.React.DragEvent, react + Name("ReactDragEventFrom"), 1),
-        CastConversion(QualifiedName.React.FocusEvent, react + Name("ReactFocusEventFrom"), 1),
-        CastConversion(QualifiedName.React.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), 1),
-        CastConversion(QualifiedName.React.MouseEvent, react + Name("ReactMouseEventFrom"), 1),
-        CastConversion(QualifiedName.React.PointerEvent, react + Name("ReactPointerEventFrom"), 1),
-        CastConversion(QualifiedName.React.TouchEvent, react + Name("ReactTouchEventFrom"), 1),
-        CastConversion(QualifiedName.React.TransitionEvent, react + Name("ReactTransitionEventFrom"), 1),
-        CastConversion(QualifiedName.React.UIEvent, react + Name("ReactUIEventFrom"), 1),
-        CastConversion(QualifiedName.React.WheelEvent, react + Name("ReactWheelEventFrom"), 1),
-        CastConversion(QualifiedName.React.NativeAnimationEvent, scalaJsDomRaw + Name("AnimationEvent"), 0),
-        CastConversion(QualifiedName.React.NativeClipboardEvent, scalaJsDomRaw + Name("ClipboardEvent"), 0),
-        CastConversion(QualifiedName.React.NativeCompositionEvent, scalaJsDomRaw + Name("CompositionEvent"), 0),
-        CastConversion(QualifiedName.React.NativeDragEvent, scalaJsDomRaw + Name("DragEvent"), 0),
-        CastConversion(QualifiedName.React.NativeFocusEvent, scalaJsDomRaw + Name("FocusEvent"), 0),
-        CastConversion(QualifiedName.React.NativeKeyboardEvent, scalaJsDomRaw + Name("KeyboardEvent"), 0),
-        CastConversion(QualifiedName.React.NativeMouseEvent, scalaJsDomRaw + Name("MouseEvent"), 0),
-        CastConversion(QualifiedName.React.NativePointerEvent, scalaJsDomRaw + Name("PointerEvent"), 0),
-        CastConversion(QualifiedName.React.NativeTouchEvent, scalaJsDomRaw + Name("TouchEvent"), 0),
-        CastConversion(QualifiedName.React.NativeTransitionEvent, scalaJsDomRaw + Name(""), 0),
-        CastConversion(QualifiedName.React.NativeUIEvent, scalaJsDomRaw + Name("TransitionEvent"), 0),
-        CastConversion(QualifiedName.React.NativeWheelEvent, scalaJsDomRaw + Name("WheelEvent"), 0),
+        CastConversion(QualifiedName.ScalaAny, QualifiedName.Any),
+        CastConversion(QualifiedName.WILDCARD, QualifiedName.Any),
+        CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
+        CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
+        CastConversion(QualifiedName.React.ReactNode, rawReactNode),
+        CastConversion(QualifiedName.React.Ref, rawReactRef),
+        CastConversion(QualifiedName.React.Component, rawReactComponent, _1, TypeRef.Object),
+        CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1),
+        CastConversion(QualifiedName.React.ReactElement, rawReactElement),
+        CastConversion(QualifiedName.React.DOMElement, rawReactDOMElement),
+        CastConversion(QualifiedName.React.ElementType, rawReactElementType),
+        CastConversion(QualifiedName.React.BaseSyntheticEvent, reactReactEventFrom, _2),
+        CastConversion(QualifiedName.React.ChangeEvent, reactReactEventFrom, _1),
+        CastConversion(QualifiedName.React.FormEvent, reactReactEventFrom, _1),
+        CastConversion(QualifiedName.React.InvalidEvent, reactReactEventFrom, _1),
+        CastConversion(QualifiedName.React.SyntheticEvent, reactReactEventFrom, _1),
+        CastConversion(QualifiedName.React.AnimationEvent, react + Name("ReactAnimationEventFrom"), _1),
+        CastConversion(QualifiedName.React.ClipboardEvent, react + Name("ReactClipboardEventFrom"), _1),
+        CastConversion(QualifiedName.React.CompositionEvent, react + Name("ReactCompositionEventFrom"), _1),
+        CastConversion(QualifiedName.React.DragEvent, react + Name("ReactDragEventFrom"), _1),
+        CastConversion(QualifiedName.React.FocusEvent, react + Name("ReactFocusEventFrom"), _1),
+        CastConversion(QualifiedName.React.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), _1),
+        CastConversion(QualifiedName.React.MouseEvent, react + Name("ReactMouseEventFrom"), _1),
+        CastConversion(QualifiedName.React.PointerEvent, react + Name("ReactPointerEventFrom"), _1),
+        CastConversion(QualifiedName.React.TouchEvent, react + Name("ReactTouchEventFrom"), _1),
+        CastConversion(QualifiedName.React.TransitionEvent, react + Name("ReactTransitionEventFrom"), _1),
+        CastConversion(QualifiedName.React.UIEvent, react + Name("ReactUIEventFrom"), _1),
+        CastConversion(QualifiedName.React.WheelEvent, react + Name("ReactWheelEventFrom"), _1),
       )
+    }
   }
 
   val rewriter = TypeRewriterCast(scalaJsReact.conversions)
@@ -97,6 +98,7 @@ object ScalaJsReactComponents {
     Companions
       .memberParameter(scope, tree)
       .map(
+        /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
         p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
       ) map {
       case p @ Param(pt @ ParamTree(name, TypeRef.ScalaFunction(paramTypes, _), _, _), _, _) =>
@@ -117,7 +119,7 @@ object ScalaJsReactComponents {
           asString  = Right(fn),
         )
 
-      case p @ Param(pt @ ParamTree(name, TypeRef(QualifiedName.React.ReactElement, _, _), _, _), _, _) =>
+      case p @ Param(pt @ ParamTree(name, TypeRef(scalaJsReact.rawReactElement, _, _), _, _), _, _) =>
         def fn(obj: String) =
           s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
         p.copy(
@@ -132,32 +134,40 @@ object ScalaJsReactComponents {
           parameter = pt.copy(tpe = TypeRef(scalaJsReact.vdomVdomNode)),
           asString  = Right(fn),
         )
-      // In addition Consider replacing:
-      // Scala collections
-      // javascript collections. Only need to rewrite if type parameter is <:< TOJS
-      // Other scalajs-react things we need to rewrite
-      //  TagOf -> $target.render.rawElement.asInstanceOf[js.Any]
-      // Other values. Keep AnyVal below at least CallbackTo
+
       case dontChange => dontChange
     }
 
-  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
-    components flatMap generateComponent(tree.codePath + names.ScalaJsReact, _scope / tree) match {
+// todo:
+//  val map = Map(
+//    QualifiedName("typings.react.reactMod.Attributes") -> scalaJsReact.VdomAttr,
+//    QualifiedName("typings.react.reactMod.ReactElement") -> scalaJsReact.vdomReactElement,
+//    QualifiedName("typings.react.reactMod.ReactNodeArray") -> scalaJsReact.VdomArray,
+//    QualifiedName("typings.react.reactMod.ReactNode") -> scalaJsReact.vdomVdomNode,
+//  TagOf -> $target.render.rawElement.asInstanceOf[js.Any]
+// Other scalajs-react things we need to rewrite?
+
+  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
+    val scope = _scope / tree
+
+    components flatMap generateComponent(tree.codePath + names.ScalaJsReact, scope) match {
       case Nil => tree
       case nonEmpty =>
         val newPackage = PackageTree(Nil, names.ScalaJsReact, nonEmpty, NoComments, tree.codePath + names.ScalaJsReact)
         tree.withMembers(tree.members :+ newPackage)
     }
+  }
 
   def generateComponent(pkgCodePath: QualifiedName, scope: TreeScope)(c: Component): Option[ModuleTree] = {
     // accept components with no props, but not those with too complicated props (type aliases that ExpandTypeMappings doesnt expand yet)
     val propsParamsOpt: Option[(TypeRef, Seq[Param])] =
       c.props match {
         case Some(props) =>
+          val dealiased = FollowAliases(scope)(props)
           val paramsOpt: Option[Seq[Param]] =
-            scope lookup FollowAliases(scope)(props).typeName collectFirst {
-              case (cls: ClassTree, _) if cls.classType === ClassType.Trait =>
-                ConstructObjectOfType(cls, scope)(memberParameter)
+            scope lookup dealiased.typeName collectFirst {
+              case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
+                ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, c.tparams), scope)(memberParameter)
             }
           paramsOpt.map(ps => props -> ps)
         case None =>

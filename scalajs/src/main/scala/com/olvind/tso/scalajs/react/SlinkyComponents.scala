@@ -158,9 +158,10 @@ object SlinkyComponents {
       def propsAlias(props: TypeRef) =
         TypeAliasTree(slinky.Props, Nil, stripTargs(props), NoComments, componentCp + slinky.Props)
 
-      scope lookup FollowAliases(scope)(props).typeName firstDefined {
-        case (_cls: ClassTree, _) if _cls.classType === ClassType.Trait =>
-          val cls = TypeRewriterFn(SlinkyReplacements).visitClassTree(scope)(_cls)
+      val dealiased = FollowAliases(scope)(props)
+      scope lookup dealiased.typeName firstDefined {
+        case (_cls: ClassTree, newScope) if _cls.classType === ClassType.Trait =>
+          val cls = TypeRewriterFn(SlinkyReplacements).visitClassTree(scope)(FillInTParams(_cls, newScope, dealiased.targs, c.tparams))
 
           val domParams = mutable.ArrayBuffer.empty[FieldTree]
 
@@ -217,7 +218,7 @@ object SlinkyComponents {
                   annotations = Nil,
                   level       = ProtectionLevel.Default,
                   name        = Name.APPLY,
-                  tparams     = cls.tparams,
+                  tparams     = c.tparams,
                   params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
                   impl        = MemberImpl.Custom(s"""{
                        |  val __obj = js.Dynamic.literal(${requireds.map(_._2).mkString(", ")})
