@@ -264,6 +264,7 @@ object Libraries {
           "playerframework",
           "gatsby",
           "socketcluster",
+          "egg",
         )
 
     def slow = if (constants.isCi) Set() else Set("@pulumi/aws", "aws-sdk")
