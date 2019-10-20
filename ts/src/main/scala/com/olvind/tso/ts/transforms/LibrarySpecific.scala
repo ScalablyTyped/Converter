@@ -184,6 +184,7 @@ object LibrarySpecific {
 
         case _ => x
       }
+<<<<<<< HEAD
 
     override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile = {
       val newMembers = x.members.filter {
@@ -192,6 +193,8 @@ object LibrarySpecific {
       }
       x.copy(members = newMembers)
     }
+=======
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
   }
 
   val patches: Map[TsIdentLibrary, Named] =

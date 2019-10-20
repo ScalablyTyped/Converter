@@ -1,13 +1,21 @@
 organization := "org.scalablytyped"
 name := "semantic-ui-react"
+<<<<<<< HEAD
 version := "0.0-unknown-ab77a8"
+=======
+version := "0.0-unknown-7da08f"
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
   "me.shadaj" %%% "slinky-web" % "0.6.2",
+<<<<<<< HEAD
   "org.scalablytyped" %%% "react" % "16.9.2-300bbc",
+=======
+  "org.scalablytyped" %%% "react" % "16.9.2-6678d0",
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
   "org.scalablytyped" %%% "std" % "0.0-unknown-c1a9ca")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

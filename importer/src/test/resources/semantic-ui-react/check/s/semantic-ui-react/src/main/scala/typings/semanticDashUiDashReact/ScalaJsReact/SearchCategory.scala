@@ -23,7 +23,11 @@ object SearchCategory {
     content: SemanticShorthandContent = null,
     name: String = null,
     renderer: /* props */ SearchCategoryProps => Callback = null,
+<<<<<<< HEAD
     results: js.Array[ComponentClassP[SearchResultProps]] = null
+=======
+    results: js.Array[ComponentClassP[SearchResultProps with js.Object]] = null
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
   )(
     children: ChildArg*
   ): UnmountedSimple[

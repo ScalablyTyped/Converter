@@ -1,7 +1,7 @@
 package typings.react.reactMod
 
-import typings.react.EventTarget
 import typings.react.NativeTouchEvent
+import typings.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

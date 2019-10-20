@@ -4,7 +4,10 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
+<<<<<<< HEAD
 import typings.react.Event
+=======
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.KeyboardEvent
 import typings.react.reactMod.MouseEvent
@@ -23,6 +26,10 @@ import typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.Dropdow
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownOnSearchChangeData
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod.DropdownProps
 import typings.semanticDashUiDashReact.srcModulesDropdownMod.default
+<<<<<<< HEAD
+=======
+import typings.std.Event
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
 import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -1,6 +1,9 @@
 package typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod
 
+<<<<<<< HEAD
 import typings.react.Event
+=======
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.KeyboardEvent
 import typings.react.reactMod.MouseEvent
@@ -16,6 +19,10 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.DropdownItemProps
+<<<<<<< HEAD
+=======
+import typings.std.Event
+>>>>>>> oyvindberg/plugin+jagpolly+slinky
 import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
