@@ -4,5 +4,5 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait HTMLButtonElement extends js.Object
+trait Document extends js.Object
 

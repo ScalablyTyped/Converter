@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.auto
@@ -18,6 +17,7 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.star
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
 import typings.semanticDashUiDashReact.srcModulesRatingMod.default
 import typings.semanticDashUiDashReact.srcModulesRatingRatingMod.RatingProps
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -184,7 +184,6 @@ object LibrarySpecific {
 
         case _ => x
       }
-
   }
 
   val patches: Map[TsIdentLibrary, Named] =

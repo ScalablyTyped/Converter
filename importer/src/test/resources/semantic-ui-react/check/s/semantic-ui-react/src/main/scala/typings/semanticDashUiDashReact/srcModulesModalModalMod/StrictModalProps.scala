@@ -1,6 +1,5 @@
 package typings.semanticDashUiDashReact.srcModulesModalModalMod
 
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.CSSProperties
 import typings.react.reactMod.MouseEvent
@@ -17,6 +16,7 @@ import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesModalModalActionsMod.ModalActionsProps
 import typings.semanticDashUiDashReact.srcModulesModalModalContentMod.ModalContentProps
 import typings.semanticDashUiDashReact.srcModulesModalModalHeaderMod.ModalHeaderProps
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

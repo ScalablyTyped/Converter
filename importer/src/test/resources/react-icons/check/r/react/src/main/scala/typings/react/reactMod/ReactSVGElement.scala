@@ -1,9 +1,9 @@
 package typings.react.reactMod
 
-import typings.react.SVGElement
 import typings.react.reactStrings.animate
 import typings.react.reactStrings.circle
 import typings.react.reactStrings.clipPath
+import typings.std.SVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,8 +1,8 @@
-package typings.react
+package typings.std
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait EventTarget extends js.Object
+trait Event extends js.Object
 

@@ -1,7 +1,6 @@
 package typings.semanticDashUiDashReact.srcElementsStepStepMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLAnchorElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -10,6 +9,7 @@ import typings.semanticDashUiDashReact.srcElementsStepStepDescriptionMod.StepDes
 import typings.semanticDashUiDashReact.srcElementsStepStepTitleMod.StepTitleProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.std.HTMLAnchorElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

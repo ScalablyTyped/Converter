@@ -139,7 +139,3 @@ interface SVGTextPathElement extends SVGElement { }
 interface SVGTSpanElement extends SVGElement { }
 interface SVGUseElement extends SVGElement { }
 interface SVGViewElement extends SVGElement { }
-
-interface Text { }
-interface TouchList { }
-interface WebGLRenderingContext { }
