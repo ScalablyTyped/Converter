@@ -59,9 +59,12 @@ object ScalaJsReactComponents {
 
     val conversions: Seq[CastConversion] = {
       import CastConversion.TParam._
+      val _1Element = _1.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
+      val _2Element = _2.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
+
       CastConversion.All ++ Seq(
-        CastConversion(QualifiedName.ScalaAny, QualifiedName.Any),
-        CastConversion(QualifiedName.WILDCARD, QualifiedName.Any),
+        CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
+        CastConversion(QualifiedName.WILDCARD, QualifiedName.Any), // todo: this should not leak out here
         CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
         CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
         CastConversion(QualifiedName.React.ReactNode, rawReactNode),
@@ -71,23 +74,23 @@ object ScalaJsReactComponents {
         CastConversion(QualifiedName.React.ReactElement, rawReactElement),
         CastConversion(QualifiedName.React.DOMElement, rawReactDOMElement),
         CastConversion(QualifiedName.React.ElementType, rawReactElementType),
-        CastConversion(QualifiedName.React.BaseSyntheticEvent, reactReactEventFrom, _2),
-        CastConversion(QualifiedName.React.ChangeEvent, reactReactEventFrom, _1),
-        CastConversion(QualifiedName.React.FormEvent, reactReactEventFrom, _1),
-        CastConversion(QualifiedName.React.InvalidEvent, reactReactEventFrom, _1),
-        CastConversion(QualifiedName.React.SyntheticEvent, reactReactEventFrom, _1),
-        CastConversion(QualifiedName.React.AnimationEvent, react + Name("ReactAnimationEventFrom"), _1),
-        CastConversion(QualifiedName.React.ClipboardEvent, react + Name("ReactClipboardEventFrom"), _1),
-        CastConversion(QualifiedName.React.CompositionEvent, react + Name("ReactCompositionEventFrom"), _1),
-        CastConversion(QualifiedName.React.DragEvent, react + Name("ReactDragEventFrom"), _1),
-        CastConversion(QualifiedName.React.FocusEvent, react + Name("ReactFocusEventFrom"), _1),
-        CastConversion(QualifiedName.React.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), _1),
-        CastConversion(QualifiedName.React.MouseEvent, react + Name("ReactMouseEventFrom"), _1),
-        CastConversion(QualifiedName.React.PointerEvent, react + Name("ReactPointerEventFrom"), _1),
-        CastConversion(QualifiedName.React.TouchEvent, react + Name("ReactTouchEventFrom"), _1),
-        CastConversion(QualifiedName.React.TransitionEvent, react + Name("ReactTransitionEventFrom"), _1),
-        CastConversion(QualifiedName.React.UIEvent, react + Name("ReactUIEventFrom"), _1),
-        CastConversion(QualifiedName.React.WheelEvent, react + Name("ReactWheelEventFrom"), _1),
+        CastConversion(QualifiedName.React.BaseSyntheticEvent, reactReactEventFrom, _2Element),
+        CastConversion(QualifiedName.React.ChangeEvent, reactReactEventFrom, _1Element),
+        CastConversion(QualifiedName.React.FormEvent, reactReactEventFrom, _1Element),
+        CastConversion(QualifiedName.React.InvalidEvent, reactReactEventFrom, _1Element),
+        CastConversion(QualifiedName.React.SyntheticEvent, reactReactEventFrom, _1Element),
+        CastConversion(QualifiedName.React.AnimationEvent, react + Name("ReactAnimationEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.ClipboardEvent, react + Name("ReactClipboardEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.CompositionEvent, react + Name("ReactCompositionEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.DragEvent, react + Name("ReactDragEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.FocusEvent, react + Name("ReactFocusEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.MouseEvent, react + Name("ReactMouseEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.PointerEvent, react + Name("ReactPointerEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.TouchEvent, react + Name("ReactTouchEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.TransitionEvent, react + Name("ReactTransitionEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.UIEvent, react + Name("ReactUIEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.WheelEvent, react + Name("ReactWheelEventFrom"), _1Element),
       )
     }
   }
