@@ -6,6 +6,7 @@ import japgolly.scalajs.react.ReactAnimationEventFrom
 import japgolly.scalajs.react.ReactClipboardEventFrom
 import japgolly.scalajs.react.ReactCompositionEventFrom
 import japgolly.scalajs.react.ReactDragEventFrom
+import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.ReactFocusEventFrom
 import japgolly.scalajs.react.ReactKeyboardEventFrom
 import japgolly.scalajs.react.ReactMouseEventFrom
@@ -15,11 +16,9 @@ import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import japgolly.scalajs.react.raw.SyntheticEvent
 import org.scalajs.dom.raw.HTMLButtonElement
 import typings.react.Anon_Html
 import typings.react.reactMod.CSSProperties
-import typings.react.reactMod.FormEvent
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
 import typings.react.reactStrings.additions
@@ -185,16 +184,16 @@ object Button {
     loading: js.UndefOr[Boolean] = js.undefined,
     name: String = null,
     negative: js.UndefOr[Boolean] = js.undefined,
-    onAbort: SyntheticEvent[HTMLButtonElement] => Callback = null,
+    onAbort: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onAnimationEnd: ReactAnimationEventFrom[HTMLButtonElement] => Callback = null,
     onAnimationIteration: ReactAnimationEventFrom[HTMLButtonElement] => Callback = null,
     onAnimationStart: ReactAnimationEventFrom[HTMLButtonElement] => Callback = null,
     onAuxClick: ReactMouseEventFrom[HTMLButtonElement] => Callback = null,
-    onBeforeInput: FormEvent[HTMLButtonElement] => Callback = null,
+    onBeforeInput: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onBlur: ReactFocusEventFrom[HTMLButtonElement] => Callback = null,
-    onCanPlay: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onCanPlayThrough: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onChange: FormEvent[HTMLButtonElement] => Callback = null,
+    onCanPlay: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onCanPlayThrough: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onChange: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onClick: (/* event */ ReactMouseEventFrom[HTMLButtonElement], /* data */ ButtonProps) => Callback = null,
     onCompositionEnd: ReactCompositionEventFrom[HTMLButtonElement] => Callback = null,
     onCompositionStart: ReactCompositionEventFrom[HTMLButtonElement] => Callback = null,
@@ -211,21 +210,21 @@ object Button {
     onDragOver: ReactDragEventFrom[HTMLButtonElement] => Callback = null,
     onDragStart: ReactDragEventFrom[HTMLButtonElement] => Callback = null,
     onDrop: ReactDragEventFrom[HTMLButtonElement] => Callback = null,
-    onDurationChange: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onEmptied: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onEncrypted: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onEnded: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onError: SyntheticEvent[HTMLButtonElement] => Callback = null,
+    onDurationChange: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onEmptied: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onEncrypted: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onEnded: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onError: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onFocus: ReactFocusEventFrom[HTMLButtonElement] => Callback = null,
-    onInput: FormEvent[HTMLButtonElement] => Callback = null,
-    onInvalid: FormEvent[HTMLButtonElement] => Callback = null,
+    onInput: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onInvalid: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onKeyDown: ReactKeyboardEventFrom[HTMLButtonElement] => Callback = null,
     onKeyPress: ReactKeyboardEventFrom[HTMLButtonElement] => Callback = null,
     onKeyUp: ReactKeyboardEventFrom[HTMLButtonElement] => Callback = null,
-    onLoad: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onLoadStart: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onLoadedData: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onLoadedMetadata: SyntheticEvent[HTMLButtonElement] => Callback = null,
+    onLoad: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onLoadStart: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onLoadedData: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onLoadedMetadata: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onMouseDown: ReactMouseEventFrom[HTMLButtonElement] => Callback = null,
     onMouseEnter: ReactMouseEventFrom[HTMLButtonElement] => Callback = null,
     onMouseLeave: ReactMouseEventFrom[HTMLButtonElement] => Callback = null,
@@ -234,9 +233,9 @@ object Button {
     onMouseOver: ReactMouseEventFrom[HTMLButtonElement] => Callback = null,
     onMouseUp: ReactMouseEventFrom[HTMLButtonElement] => Callback = null,
     onPaste: ReactClipboardEventFrom[HTMLButtonElement] => Callback = null,
-    onPause: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onPlay: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onPlaying: SyntheticEvent[HTMLButtonElement] => Callback = null,
+    onPause: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onPlay: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onPlaying: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onPointerCancel: ReactPointerEventFrom[HTMLButtonElement] => Callback = null,
     onPointerDown: ReactPointerEventFrom[HTMLButtonElement] => Callback = null,
     onPointerEnter: ReactPointerEventFrom[HTMLButtonElement] => Callback = null,
@@ -245,24 +244,24 @@ object Button {
     onPointerOut: ReactPointerEventFrom[HTMLButtonElement] => Callback = null,
     onPointerOver: ReactPointerEventFrom[HTMLButtonElement] => Callback = null,
     onPointerUp: ReactPointerEventFrom[HTMLButtonElement] => Callback = null,
-    onProgress: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onRateChange: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onReset: FormEvent[HTMLButtonElement] => Callback = null,
+    onProgress: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onRateChange: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onReset: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onScroll: ReactUIEventFrom[HTMLButtonElement] => Callback = null,
-    onSeeked: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onSeeking: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onSelect: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onStalled: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onSubmit: FormEvent[HTMLButtonElement] => Callback = null,
-    onSuspend: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onTimeUpdate: SyntheticEvent[HTMLButtonElement] => Callback = null,
+    onSeeked: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onSeeking: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onSelect: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onStalled: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onSubmit: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onSuspend: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onTimeUpdate: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onTouchCancel: ReactTouchEventFrom[HTMLButtonElement] => Callback = null,
     onTouchEnd: ReactTouchEventFrom[HTMLButtonElement] => Callback = null,
     onTouchMove: ReactTouchEventFrom[HTMLButtonElement] => Callback = null,
     onTouchStart: ReactTouchEventFrom[HTMLButtonElement] => Callback = null,
     onTransitionEnd: ReactTransitionEventFrom[HTMLButtonElement] => Callback = null,
-    onVolumeChange: SyntheticEvent[HTMLButtonElement] => Callback = null,
-    onWaiting: SyntheticEvent[HTMLButtonElement] => Callback = null,
+    onVolumeChange: ReactEventFrom[HTMLButtonElement] => Callback = null,
+    onWaiting: ReactEventFrom[HTMLButtonElement] => Callback = null,
     onWheel: ReactWheelEventFrom[HTMLButtonElement] => Callback = null,
     placeholder: String = null,
     positive: js.UndefOr[Boolean] = js.undefined,
@@ -393,16 +392,16 @@ object Button {
     if (!js.isUndefined(loading)) __obj.updateDynamic("loading")(loading)
     if (name != null) __obj.updateDynamic("name")(name)
     if (!js.isUndefined(negative)) __obj.updateDynamic("negative")(negative)
-    if (onAbort != null) __obj.updateDynamic("onAbort")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onAbort(t0).runNow())))
+    if (onAbort != null) __obj.updateDynamic("onAbort")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onAbort(t0).runNow())))
     if (onAnimationEnd != null) __obj.updateDynamic("onAnimationEnd")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactAnimationEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onAnimationEnd(t0).runNow())))
     if (onAnimationIteration != null) __obj.updateDynamic("onAnimationIteration")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactAnimationEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onAnimationIteration(t0).runNow())))
     if (onAnimationStart != null) __obj.updateDynamic("onAnimationStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactAnimationEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onAnimationStart(t0).runNow())))
     if (onAuxClick != null) __obj.updateDynamic("onAuxClick")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onAuxClick(t0).runNow())))
-    if (onBeforeInput != null) __obj.updateDynamic("onBeforeInput")(js.Any.fromFunction1(((t0: typings.react.reactMod.FormEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onBeforeInput(t0).runNow())))
+    if (onBeforeInput != null) __obj.updateDynamic("onBeforeInput")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onBeforeInput(t0).runNow())))
     if (onBlur != null) __obj.updateDynamic("onBlur")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactFocusEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onBlur(t0).runNow())))
-    if (onCanPlay != null) __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onCanPlay(t0).runNow())))
-    if (onCanPlayThrough != null) __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onCanPlayThrough(t0).runNow())))
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1(((t0: typings.react.reactMod.FormEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onChange(t0).runNow())))
+    if (onCanPlay != null) __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCanPlay(t0).runNow())))
+    if (onCanPlayThrough != null) __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCanPlayThrough(t0).runNow())))
+    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onChange(t0).runNow())))
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps) => onClick(t0, t1).runNow())))
     if (onCompositionEnd != null) __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCompositionEnd(t0).runNow())))
     if (onCompositionStart != null) __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCompositionStart(t0).runNow())))
@@ -419,21 +418,21 @@ object Button {
     if (onDragOver != null) __obj.updateDynamic("onDragOver")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onDragOver(t0).runNow())))
     if (onDragStart != null) __obj.updateDynamic("onDragStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onDragStart(t0).runNow())))
     if (onDrop != null) __obj.updateDynamic("onDrop")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onDrop(t0).runNow())))
-    if (onDurationChange != null) __obj.updateDynamic("onDurationChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onDurationChange(t0).runNow())))
-    if (onEmptied != null) __obj.updateDynamic("onEmptied")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onEmptied(t0).runNow())))
-    if (onEncrypted != null) __obj.updateDynamic("onEncrypted")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onEncrypted(t0).runNow())))
-    if (onEnded != null) __obj.updateDynamic("onEnded")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onEnded(t0).runNow())))
-    if (onError != null) __obj.updateDynamic("onError")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onError(t0).runNow())))
+    if (onDurationChange != null) __obj.updateDynamic("onDurationChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onDurationChange(t0).runNow())))
+    if (onEmptied != null) __obj.updateDynamic("onEmptied")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onEmptied(t0).runNow())))
+    if (onEncrypted != null) __obj.updateDynamic("onEncrypted")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onEncrypted(t0).runNow())))
+    if (onEnded != null) __obj.updateDynamic("onEnded")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onEnded(t0).runNow())))
+    if (onError != null) __obj.updateDynamic("onError")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onError(t0).runNow())))
     if (onFocus != null) __obj.updateDynamic("onFocus")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactFocusEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onFocus(t0).runNow())))
-    if (onInput != null) __obj.updateDynamic("onInput")(js.Any.fromFunction1(((t0: typings.react.reactMod.FormEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onInput(t0).runNow())))
-    if (onInvalid != null) __obj.updateDynamic("onInvalid")(js.Any.fromFunction1(((t0: typings.react.reactMod.FormEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onInvalid(t0).runNow())))
+    if (onInput != null) __obj.updateDynamic("onInput")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onInput(t0).runNow())))
+    if (onInvalid != null) __obj.updateDynamic("onInvalid")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onInvalid(t0).runNow())))
     if (onKeyDown != null) __obj.updateDynamic("onKeyDown")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onKeyDown(t0).runNow())))
     if (onKeyPress != null) __obj.updateDynamic("onKeyPress")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onKeyPress(t0).runNow())))
     if (onKeyUp != null) __obj.updateDynamic("onKeyUp")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onKeyUp(t0).runNow())))
-    if (onLoad != null) __obj.updateDynamic("onLoad")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onLoad(t0).runNow())))
-    if (onLoadStart != null) __obj.updateDynamic("onLoadStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onLoadStart(t0).runNow())))
-    if (onLoadedData != null) __obj.updateDynamic("onLoadedData")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onLoadedData(t0).runNow())))
-    if (onLoadedMetadata != null) __obj.updateDynamic("onLoadedMetadata")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onLoadedMetadata(t0).runNow())))
+    if (onLoad != null) __obj.updateDynamic("onLoad")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onLoad(t0).runNow())))
+    if (onLoadStart != null) __obj.updateDynamic("onLoadStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onLoadStart(t0).runNow())))
+    if (onLoadedData != null) __obj.updateDynamic("onLoadedData")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onLoadedData(t0).runNow())))
+    if (onLoadedMetadata != null) __obj.updateDynamic("onLoadedMetadata")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onLoadedMetadata(t0).runNow())))
     if (onMouseDown != null) __obj.updateDynamic("onMouseDown")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onMouseDown(t0).runNow())))
     if (onMouseEnter != null) __obj.updateDynamic("onMouseEnter")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onMouseEnter(t0).runNow())))
     if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onMouseLeave(t0).runNow())))
@@ -442,9 +441,9 @@ object Button {
     if (onMouseOver != null) __obj.updateDynamic("onMouseOver")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onMouseOver(t0).runNow())))
     if (onMouseUp != null) __obj.updateDynamic("onMouseUp")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onMouseUp(t0).runNow())))
     if (onPaste != null) __obj.updateDynamic("onPaste")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactClipboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPaste(t0).runNow())))
-    if (onPause != null) __obj.updateDynamic("onPause")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onPause(t0).runNow())))
-    if (onPlay != null) __obj.updateDynamic("onPlay")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onPlay(t0).runNow())))
-    if (onPlaying != null) __obj.updateDynamic("onPlaying")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onPlaying(t0).runNow())))
+    if (onPause != null) __obj.updateDynamic("onPause")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPause(t0).runNow())))
+    if (onPlay != null) __obj.updateDynamic("onPlay")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPlay(t0).runNow())))
+    if (onPlaying != null) __obj.updateDynamic("onPlaying")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPlaying(t0).runNow())))
     if (onPointerCancel != null) __obj.updateDynamic("onPointerCancel")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPointerCancel(t0).runNow())))
     if (onPointerDown != null) __obj.updateDynamic("onPointerDown")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPointerDown(t0).runNow())))
     if (onPointerEnter != null) __obj.updateDynamic("onPointerEnter")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPointerEnter(t0).runNow())))
@@ -453,24 +452,24 @@ object Button {
     if (onPointerOut != null) __obj.updateDynamic("onPointerOut")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPointerOut(t0).runNow())))
     if (onPointerOver != null) __obj.updateDynamic("onPointerOver")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPointerOver(t0).runNow())))
     if (onPointerUp != null) __obj.updateDynamic("onPointerUp")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onPointerUp(t0).runNow())))
-    if (onProgress != null) __obj.updateDynamic("onProgress")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onProgress(t0).runNow())))
-    if (onRateChange != null) __obj.updateDynamic("onRateChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onRateChange(t0).runNow())))
-    if (onReset != null) __obj.updateDynamic("onReset")(js.Any.fromFunction1(((t0: typings.react.reactMod.FormEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onReset(t0).runNow())))
+    if (onProgress != null) __obj.updateDynamic("onProgress")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onProgress(t0).runNow())))
+    if (onRateChange != null) __obj.updateDynamic("onRateChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onRateChange(t0).runNow())))
+    if (onReset != null) __obj.updateDynamic("onReset")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onReset(t0).runNow())))
     if (onScroll != null) __obj.updateDynamic("onScroll")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactUIEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onScroll(t0).runNow())))
-    if (onSeeked != null) __obj.updateDynamic("onSeeked")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onSeeked(t0).runNow())))
-    if (onSeeking != null) __obj.updateDynamic("onSeeking")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onSeeking(t0).runNow())))
-    if (onSelect != null) __obj.updateDynamic("onSelect")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onSelect(t0).runNow())))
-    if (onStalled != null) __obj.updateDynamic("onStalled")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onStalled(t0).runNow())))
-    if (onSubmit != null) __obj.updateDynamic("onSubmit")(js.Any.fromFunction1(((t0: typings.react.reactMod.FormEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onSubmit(t0).runNow())))
-    if (onSuspend != null) __obj.updateDynamic("onSuspend")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onSuspend(t0).runNow())))
-    if (onTimeUpdate != null) __obj.updateDynamic("onTimeUpdate")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onTimeUpdate(t0).runNow())))
+    if (onSeeked != null) __obj.updateDynamic("onSeeked")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onSeeked(t0).runNow())))
+    if (onSeeking != null) __obj.updateDynamic("onSeeking")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onSeeking(t0).runNow())))
+    if (onSelect != null) __obj.updateDynamic("onSelect")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onSelect(t0).runNow())))
+    if (onStalled != null) __obj.updateDynamic("onStalled")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onStalled(t0).runNow())))
+    if (onSubmit != null) __obj.updateDynamic("onSubmit")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onSubmit(t0).runNow())))
+    if (onSuspend != null) __obj.updateDynamic("onSuspend")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onSuspend(t0).runNow())))
+    if (onTimeUpdate != null) __obj.updateDynamic("onTimeUpdate")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onTimeUpdate(t0).runNow())))
     if (onTouchCancel != null) __obj.updateDynamic("onTouchCancel")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onTouchCancel(t0).runNow())))
     if (onTouchEnd != null) __obj.updateDynamic("onTouchEnd")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onTouchEnd(t0).runNow())))
     if (onTouchMove != null) __obj.updateDynamic("onTouchMove")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onTouchMove(t0).runNow())))
     if (onTouchStart != null) __obj.updateDynamic("onTouchStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onTouchStart(t0).runNow())))
     if (onTransitionEnd != null) __obj.updateDynamic("onTransitionEnd")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactTransitionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onTransitionEnd(t0).runNow())))
-    if (onVolumeChange != null) __obj.updateDynamic("onVolumeChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onVolumeChange(t0).runNow())))
-    if (onWaiting != null) __obj.updateDynamic("onWaiting")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLButtonElement]) => onWaiting(t0).runNow())))
+    if (onVolumeChange != null) __obj.updateDynamic("onVolumeChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onVolumeChange(t0).runNow())))
+    if (onWaiting != null) __obj.updateDynamic("onWaiting")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onWaiting(t0).runNow())))
     if (onWheel != null) __obj.updateDynamic("onWheel")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactWheelEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onWheel(t0).runNow())))
     if (placeholder != null) __obj.updateDynamic("placeholder")(placeholder)
     if (!js.isUndefined(positive)) __obj.updateDynamic("positive")(positive)
