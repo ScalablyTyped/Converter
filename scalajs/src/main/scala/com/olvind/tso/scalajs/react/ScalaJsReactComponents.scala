@@ -10,13 +10,18 @@ import com.olvind.tso.seqs._
   * Generate a package with japgolly's scalajs-react compatible react components
   */
 object ScalaJsReactComponents {
-  private val IgnoredProps = Set(Name("key"), Name("children"))
+  private object names {
+    val ScalaJsReact = Name("ScalaJsReact")
+    val children     = Name("children")
+    val ref          = Name("ref")
+    val key          = Name("key")
+
+    val Ignored = Set(key, children)
+  }
 
   private object scalaJsReact {
-    val ScalaJsReact = Name("ScalaJsReact")
 
-    val japgollyScalajs:               QualifiedName = QualifiedName(List(Name("japgolly"))) + Name("scalajs")
-    val react:                         QualifiedName = japgollyScalajs + Name("react")
+    val react:                         QualifiedName = QualifiedName("japgolly.scalajs.react")
     val reactCallback:                 QualifiedName = react + Name("Callback")
     val reactChildren:                 QualifiedName = react + Name("Children")
     val reactChildrenNone:             QualifiedName = reactChildren + Name("None")
@@ -30,9 +35,11 @@ object ScalaJsReactComponents {
     val componentJsUnmountedSimple:    QualifiedName = componentJs + Name("UnmountedSimple")
     val componentJsMountedWithRawType: QualifiedName = componentJs + Name("MountedWithRawType")
     val componentJsRawMounted:         QualifiedName = componentJs + Name("RawMounted")
-    val vdom:                          QualifiedName = japgollyScalajs + Name("vdom")
+    val vdom:                          QualifiedName = react + Name("vdom")
     val vdomTagMod:                    QualifiedName = vdom + Name("TagMod")
     val vdomReactElement:              QualifiedName = vdom + Name("VdomElement")
+    val vdomVdomNode:                  QualifiedName = vdom + Name("VdomNode")
+    val vdomVdomNodeCast:              QualifiedName = vdomVdomNode + Name("cast")
   }
 
   /**
@@ -89,8 +96,8 @@ object ScalaJsReactComponents {
         "japgolly.scalajs.react.raw.React.ComponentClass",
       ),
       QualifiedName("typings.react.reactMod.ReactDOM") -> QualifiedName("japgolly.scalajs.react.raw.React.ReactDOM"),
-      QualifiedName("typings.react.reactMod.ReactElement") -> QualifiedName(" japgolly.scalajs.react.vdom.VdomElement"),
-      QualifiedName("typings.react.reactMod.ReactNode") -> QualifiedName("japgolly.scalajs.react.vdom.VdomNode"),
+      QualifiedName("typings.react.reactMod.ReactElement") -> scalaJsReact.vdomReactElement,
+      QualifiedName("typings.react.reactMod.ReactNode") -> scalaJsReact.vdomVdomNode,
       QualifiedName("typings.react.reactMod.ReactNodeArray") -> QualifiedName("japgolly.scalajs.react.vdom.VdomArray"),
       QualifiedName("typings.react.reactMod.Attributes") -> QualifiedName("japgolly.scalajs.react.vdom.VdomAttr"),
       QualifiedName.ScalaAny -> QualifiedName.Any,
@@ -170,8 +177,7 @@ object ScalaJsReactComponents {
     components flatMap generateComponent(tree.codePath + scalaJsReact.ScalaJsReact, _scope / tree) match {
       case Nil => tree
       case nonEmpty =>
-        val newPackage =
-          PackageTree(Nil, scalaJsReact.ScalaJsReact, nonEmpty, NoComments, tree.codePath + scalaJsReact.ScalaJsReact)
+        val newPackage = PackageTree(Nil, names.ScalaJsReact, nonEmpty, NoComments, tree.codePath + names.ScalaJsReact)
         tree.withMembers(tree.members :+ newPackage)
     }
 
@@ -196,33 +202,37 @@ object ScalaJsReactComponents {
       case (props, params) =>
         val componentCp = pkgCodePath + c.fullName
 
-        val (refTypes, _, optionals, inLiterals, Nil) = params.partitionCollect4(
-          { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
-          { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
-          { case Param(p, _, Right(f))                                               => p -> f },
-          { case Param(p, _, Left(str))                                              => p -> str },
-        )
+        val (refTypes, declaredChildren, _, optionals, inLiterals, Nil) =
+          params.partitionCollect5(
+            { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe },
+            // take note of declared children, but saying `ReactNode` should be a noop
+            { case Param(ParamTree(names.children, t, _, _), _, _) if t.typeName =/= scalaJsReact.vdomVdomNode => t },
+            { case Param(ParamTree(propName, _, _, _), _, _) if names.Ignored(propName)                        => () },
+            { case Param(p, _, Right(f))                                                                       => p -> f },
+            { case Param(p, _, Left(str))                                                                      => p -> str },
+          )
 
-        val childrenParam = params.collectFirst {
-          case Param(p @ ParamTree(Name("children"), _, _, _), _, _) =>
-            ParamTree(
-              name     = p.name,
-              tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.reactChildArg), p.comments),
-              default  = None,
-              comments = NoComments,
-            )
-        }
-
-        val applyMethod = {
-          val childrenRef = childrenParam match {
-            case Some(_) => TypeRef(scalaJsReact.reactChildrenVarargs)
-            case None    => TypeRef(scalaJsReact.reactChildrenNone)
+        val childrenParam: ParamTree =
+          declaredChildren.headOption match {
+            case Some(param) => ParamTree(name = names.children, tpe = param, default = None, comments = param.comments)
+            case _ =>
+              ParamTree(
+                name     = names.children,
+                tpe      = TypeRef.Repeated(TypeRef(scalaJsReact.reactChildArg), NoComments),
+                default  = None,
+                comments = NoComments,
+              )
           }
 
+        val applyMethod = {
           val (createWrapper, resultType) = c.knownRef orElse refTypes.headOption match {
             case Some(refType) =>
               val c =
-                TypeRef(scalaJsReact.reactJsForwardRefComponent, List(props, childrenRef, refType), NoComments)
+                TypeRef(
+                  scalaJsReact.reactJsForwardRefComponent,
+                  List(props, TypeRef(scalaJsReact.reactChildrenVarargs), refType),
+                  NoComments,
+                )
               val r =
                 TypeRef(
                   scalaJsReact.componentUnmountedWithRoot,
@@ -231,7 +241,11 @@ object ScalaJsReactComponents {
                 )
               (c, r)
             case None =>
-              val c = TypeRef(scalaJsReact.reactJsComponent, List(props, childrenRef, TypeRef.Object), NoComments)
+              val c = TypeRef(
+                scalaJsReact.reactJsComponent,
+                List(props, TypeRef(scalaJsReact.reactChildrenVarargs), TypeRef.Object),
+                NoComments,
+              )
               val r = TypeRef(
                 scalaJsReact.componentJsUnmountedSimple,
                 List(
@@ -256,13 +270,19 @@ object ScalaJsReactComponents {
             level       = ProtectionLevel.Default,
             name        = Name.APPLY,
             tparams     = c.tparams,
-            params      = List(inLiterals.map(_._1) ++ optionals.map(_._1)) ++ childrenParam.map(p => List(p)),
+            params      = List(inLiterals.map(_._1) ++ optionals.map(_._1)) ++ List(List(childrenParam)),
             impl = {
               val formattedProps     = Printer.formatTypeRef(0)(props)
               val formattedComponent = Component.formatReferenceTo(c.ref, c.componentType)
+
               val formattedCreateWrapper = Printer
                 .formatTypeRef(0)(createWrapper)
                 .replaceAll("JsForwardRefComponent", "JsForwardRefComponent.force")
+
+              val formattedChildren = declaredChildren.headOption match {
+                case Some(_) => Printer.formatQN(scalaJsReact.vdomVdomNodeCast) + "(children)"
+                case None    => "children: _*"
+              }
 
               MemberImpl.Custom(
                 s"""{
@@ -271,7 +291,7 @@ object ScalaJsReactComponents {
                |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
                |
                |  val f = $formattedCreateWrapper($formattedComponent)
-               |  f(__obj.asInstanceOf[$formattedProps])${childrenParam.fold("")(_ => "(children: _*)")}
+               |  f(__obj.asInstanceOf[$formattedProps])($formattedChildren)
                |}""".stripMargin,
               )
             },

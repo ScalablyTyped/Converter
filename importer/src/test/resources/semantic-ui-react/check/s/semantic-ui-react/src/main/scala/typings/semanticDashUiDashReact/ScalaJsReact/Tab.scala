@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -26,6 +27,8 @@ object Tab {
     onTabChange: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ TabProps) => Callback = null,
     panes: js.Array[Anon_MenuItem] = null,
     renderActiveOnly: js.UndefOr[Boolean] = js.undefined
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[TabProps, default, Unit, TabProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -42,9 +45,9 @@ object Tab {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesTabMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTabMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesTabTabMod.TabProps])(children: _*)
   }
 }
 

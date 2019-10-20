@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.DropdownDividerProps
@@ -13,6 +14,8 @@ object DropdownDivider {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[DropdownDividerProps, default, Unit, DropdownDividerProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -22,9 +25,9 @@ object DropdownDivider {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.DropdownDividerProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.DropdownDividerProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.DropdownDividerProps])(children: _*)
   }
 }
 
