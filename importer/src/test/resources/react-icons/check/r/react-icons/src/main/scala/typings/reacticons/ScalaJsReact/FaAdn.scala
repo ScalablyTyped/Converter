@@ -1,22 +1,23 @@
-package typings.reactIcons.ScalaJsReact
+package typings.reactDashIcons.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import typings.reactIconBase.reactIconBaseMod.IconBaseProps
+import typings.reactDashIconDashBase.reactDashIconDashBaseMod.IconBaseProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object FaAdn {
-  def apply(size: String | Double = null): UnmountedWithRoot[IconBaseProps, typings.reactIcons.faMod.FaAdn, Unit, IconBaseProps] = {
+  def apply(size: String | Double = null)(children: ChildArg*): UnmountedWithRoot[IconBaseProps, typings.reactDashIcons.faMod.FaAdn, Unit, IconBaseProps] = {
     val __obj = js.Dynamic.literal()
   
       if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typings.reactIconBase.reactIconBaseMod.IconBaseProps, 
-  japgolly.scalajs.react.Children.None, 
-  typings.reactIcons.faMod.FaAdn](js.constructorOf[typings.reactIcons.faMod.FaAdn])
-    f(__obj.asInstanceOf[typings.reactIconBase.reactIconBaseMod.IconBaseProps])
+  typings.reactDashIconDashBase.reactDashIconDashBaseMod.IconBaseProps, 
+  japgolly.scalajs.react.Children.Varargs, 
+  typings.reactDashIcons.faMod.FaAdn](js.constructorOf[typings.reactDashIcons.faMod.FaAdn])
+    f(__obj.asInstanceOf[typings.reactDashIconDashBase.reactDashIconDashBaseMod.IconBaseProps])(children: _*)
   }
 }
 

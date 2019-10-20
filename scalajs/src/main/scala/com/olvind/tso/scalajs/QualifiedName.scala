@@ -10,9 +10,6 @@ final case class QualifiedName(parts: List[Name]) {
 
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
-
-  def toClass = Class.forName(parts.map(_.value).mkString("."))
-
 }
 
 object QualifiedName {
@@ -58,7 +55,7 @@ object QualifiedName {
   val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
 
   object Std {
-    private val std = QualifiedName(ScalaConfig.outputPkg :: ScalaConfig.std :: Nil)
+    val std = QualifiedName(ScalaConfig.outputPkg :: ScalaConfig.std :: Nil)
 
     val Array:         QualifiedName = std + Name.Array
     val Boolean:       QualifiedName = std + Name.Boolean
@@ -75,16 +72,22 @@ object QualifiedName {
   }
 
   object React {
-    val mod = QualifiedName(List(ScalaConfig.outputPkg, Name("react"), Name("reactMod")))
+    val lib = QualifiedName(List(ScalaConfig.outputPkg, Name("react")))
+    val mod = lib + Name("reactMod")
 
+    val Ref               = mod + Name("Ref")
     val ReactNode         = mod + Name("ReactNode")
     val ReactElement      = mod + Name("ReactElement")
+    val DOMElement        = mod + Name("DOMElement")
+    val ElementType       = mod + Name("ElementType")
     val ReactType         = mod + Name("ReactType")
     val AllHTMLAttributes = mod + Name("AllHTMLAttributes")
     val SVGAttributes     = mod + Name("SVGAttributes")
     val Component         = mod + Name("Component")
     val ComponentType     = mod + Name("ComponentType")
-    val ChangeEvent       = mod + Name("ChangeEvent")
+    val ComponentClass    = mod + Name("ComponentClass")
+    val ReactDOM          = mod + Name("ReactDOM")
+    val ComponentState    = mod + Name("ComponentState")
 
     val ComponentNames: Set[String] =
       Set(
@@ -107,6 +110,37 @@ object QualifiedName {
       )
 
     val isComponent: Set[QualifiedName] = ComponentNames.map(mod + Name(_))
+
+    // events
+    val BaseSyntheticEvent     = mod + Name("BaseSyntheticEvent")
+    val ChangeEvent            = mod + Name("ChangeEvent")
+    val InvalidEvent           = mod + Name("InvalidEvent")
+    val AnimationEvent         = mod + Name("AnimationEvent")
+    val ClipboardEvent         = mod + Name("ClipboardEvent")
+    val CompositionEvent       = mod + Name("CompositionEvent")
+    val DragEvent              = mod + Name("DragEvent")
+    val FormEvent              = mod + Name("FormEvent")
+    val FocusEvent             = mod + Name("FocusEvent")
+    val KeyboardEvent          = mod + Name("KeyboardEvent")
+    val MouseEvent             = mod + Name("MouseEvent")
+    val PointerEvent           = mod + Name("PointerEvent")
+    val SyntheticEvent         = mod + Name("SyntheticEvent")
+    val TouchEvent             = mod + Name("TouchEvent")
+    val TransitionEvent        = mod + Name("TransitionEvent")
+    val UIEvent                = mod + Name("UIEvent")
+    val WheelEvent             = mod + Name("WheelEvent")
+    val NativeAnimationEvent   = lib + Name("NativeAnimationEvent")
+    val NativeClipboardEvent   = lib + Name("NativeClipboardEvent")
+    val NativeCompositionEvent = lib + Name("NativeCompositionEvent")
+    val NativeDragEvent        = lib + Name("NativeDragEvent")
+    val NativeFocusEvent       = lib + Name("NativeFocusEvent")
+    val NativeKeyboardEvent    = lib + Name("NativeKeyboardEvent")
+    val NativeMouseEvent       = lib + Name("NativeMouseEvent")
+    val NativePointerEvent     = lib + Name("NativePointerEvent")
+    val NativeTouchEvent       = lib + Name("NativeTouchEvent")
+    val NativeTransitionEvent  = lib + Name("NativeTransitionEvent")
+    val NativeUIEvent          = lib + Name("NativeUIEvent")
+    val NativeWheelEvent       = lib + Name("NativeWheelEvent")
   }
 
   def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")

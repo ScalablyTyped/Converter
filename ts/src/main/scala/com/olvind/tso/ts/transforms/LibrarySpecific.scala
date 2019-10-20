@@ -78,17 +78,17 @@ object LibrarySpecific {
 
   object semanticUiReact extends Named {
     override val libName: TsIdentLibrary = TsIdentLibrarySimple("semantic-ui-react")
-    val stdLib              = TsQIdent(List(TsIdent.std))
-    val reactMod            = TsQIdent(react.libName :: TsIdentModule(None, List("react")) :: Nil)
-    val AllHTMLAttributes   = reactMod + TsIdent("AllHTMLAttributes")
-    val InputHTMLAttributes = reactMod + TsIdent("InputHTMLAttributes")
-    val HTMLInputElement    = stdLib + TsIdent("HTMLInputElement")
+    val stdLib                 = TsQIdent(List(TsIdent.std))
+    val reactMod               = TsQIdent(react.libName :: TsIdentModule(None, List("react")) :: Nil)
+    val AllHTMLAttributes      = reactMod + TsIdent("AllHTMLAttributes")
+    val InputHTMLAttributes    = reactMod + TsIdent("InputHTMLAttributes")
+    val HTMLInputElement       = stdLib + TsIdent("HTMLInputElement")
     val TextareaHTMLAttributes = reactMod + TsIdent("TextareaHTMLAttributes")
     val HTMLTextareaElement    = stdLib + TsIdent("HTMLTextAreaElement")
-    val FormHTMLAttributes = reactMod + TsIdent("FormHTMLAttributes")
-    val HTMLFormElement    = stdLib + TsIdent("HTMLFormElement")
-    val ButtonHTMLAttributes = reactMod + TsIdent("ButtonHTMLAttributes")
-    val HTMLButtonElement    = stdLib + TsIdent("HTMLButtonElement")
+    val FormHTMLAttributes     = reactMod + TsIdent("FormHTMLAttributes")
+    val HTMLFormElement        = stdLib + TsIdent("HTMLFormElement")
+    val ButtonHTMLAttributes   = reactMod + TsIdent("ButtonHTMLAttributes")
+    val HTMLButtonElement      = stdLib + TsIdent("HTMLButtonElement")
 
     def event(name: TsQIdent, of: TsQIdent) =
       TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))
@@ -185,6 +185,13 @@ object LibrarySpecific {
         case _ => x
       }
 
+    override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile = {
+      val newMembers = x.members.filter {
+        case i: TsDeclInterface if i.members.isEmpty && i.name.value.endsWith("Element") => false
+        case _ => true
+      }
+      x.copy(members = newMembers)
+    }
   }
 
   val patches: Map[TsIdentLibrary, Named] =

@@ -24,7 +24,6 @@ lazy val newarch =
         library.scalaTest  % Test,
         "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
         "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
-        "com.github.pathikrit" %% "better-files" % "3.8.0",
         "me.shadaj" %%% "slinky-web" % "0.6.2"
       ),
       Compile / npmDependencies ++= Seq(
@@ -44,7 +43,7 @@ lazy val newarch =
 lazy val library =
   new {
     object Version {
-      val scalaCheck = "1.14.2"
+      val scalaCheck = "1.14.0"
       val scalaTest  = "3.0.8"
     }
     val scalaCheck = "org.scalacheck" %% "scalacheck" % Version.scalaCheck

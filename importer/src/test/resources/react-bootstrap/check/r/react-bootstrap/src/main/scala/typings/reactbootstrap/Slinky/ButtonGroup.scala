@@ -1,19 +1,19 @@
-package typings.reactBootstrap.Slinky
+package typings.reactDashBootstrap.Slinky
 
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.react.reactStrings.foo
-import typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps
-import typings.reactBootstrap.reactBootstrapMod.Sizes
+import typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps
+import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* The following DOM/SVG props were specified: accept, acceptCharset, children, dangerouslySetInnerHTML, defaultChecked */
 object ButtonGroup
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typings.reactBootstrap.libMod.ButtonGroup] {
-  override val component: String | js.Object = js.constructorOf[typings.reactBootstrap.libMod.ButtonGroup].asInstanceOf[String | js.Object]
+  extends ExternalComponentWithAttributesWithRefType[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] {
+  override val component: String | js.Object = js.constructorOf[typings.reactDashBootstrap.libMod.ButtonGroup].asInstanceOf[String | js.Object]
   def apply(
     defaultValue: foo,
     onChange: foo,
@@ -24,7 +24,7 @@ object ButtonGroup
     bsStyle: String = null,
     justified: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined
-  ): BuildingComponent[tag.type, typings.reactBootstrap.libMod.ButtonGroup] = {
+  ): BuildingComponent[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
     __obj.updateDynamic("type")(`type`)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)

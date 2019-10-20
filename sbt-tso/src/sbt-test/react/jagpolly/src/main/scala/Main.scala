@@ -1,11 +1,12 @@
 package simple
 
-import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{Callback, ReactMouseEventFrom}
+import japgolly.scalajs.react.vdom.html_<^._
+import org.scalajs.dom.document
+import org.scalajs.dom.window
 import org.scalajs.dom.raw.HTMLButtonElement
-import org.scalajs.dom.{document, window}
-import typings.semanticUiReact.ScalaJsReact.{Button, Container}
-import typings.semanticUiReact.commonjsElementsButtonButtonMod.ButtonProps
+import typings.semanticDashUiDashReact.ScalaJsReact.{Button, Container}
+import typings.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps
 
 object Main {
 
@@ -14,6 +15,7 @@ object Main {
   }
 
   def main(argv: Array[String]): Unit = {
-    <.div(Container()(Button(onClick = buttonOnClick _)("Click here"))).renderIntoDOM(document.body)
+    <.div(Container()("Hello World")).renderIntoDOM(document.body)
+//    <.div(Container()(Button(onClick = buttonOnClick _)("Click here"))).renderIntoDOM(document.body)
   }
 }

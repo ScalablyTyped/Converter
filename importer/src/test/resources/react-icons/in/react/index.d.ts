@@ -1,6 +1,4 @@
 
-/// <reference path="global.d.ts" />
-
 // tslint:disable-next-line:export-just-namespace
 
 export = React;
