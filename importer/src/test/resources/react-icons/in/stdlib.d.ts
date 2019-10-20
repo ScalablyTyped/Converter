@@ -8,3 +8,8 @@ declare interface Function {
 }
 
 declare type Partial<T> = T;
+
+
+interface Event { }
+interface Element { }
+interface SVGElement extends Element { }

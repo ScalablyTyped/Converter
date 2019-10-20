@@ -5,8 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object react {
-  type AnimationEvent = Event
-  type HTMLElement = Element
+  import typings.std.AnimationEvent
+
   type NativeAnimationEvent = AnimationEvent
-  type SVGElement = Element
 }

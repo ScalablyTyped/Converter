@@ -4,5 +4,5 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait HTMLInputElement extends js.Object
+trait Event extends js.Object
 

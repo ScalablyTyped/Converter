@@ -11,14 +11,14 @@ package object reactMod {
   import typings.react.Anon_RefAny
   import typings.react.Anon_Result
   import typings.react.Anon_Type
-  import typings.react.Element
   import typings.react.Event
   import typings.react.EventTarget
-  import typings.react.HTMLElement
   import typings.react.NativeMouseEvent
   import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
+  import typings.std.Element
+  import typings.std.HTMLElement
   import typings.std.Partial
   import typings.std.Pick
 

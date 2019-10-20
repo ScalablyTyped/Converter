@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
@@ -12,6 +11,7 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.DimmerInnerProps
 import typings.semanticDashUiDashReact.srcModulesDimmerDimmerInnerMod.default
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
