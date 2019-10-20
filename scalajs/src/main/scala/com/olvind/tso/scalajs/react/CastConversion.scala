@@ -6,7 +6,7 @@ import com.olvind.tso.scalajs.react.CastConversion.TParam._1
 
 /**
   * A mapping from one javascript type to another.
- *
+  *
   * @param from typically from ScalablyTyped
   * @param to typically from the library you want to convert into
   * @param tparams Since the set of type parameters might differ you can pick among the provided type arguments in the `from` type
@@ -21,7 +21,14 @@ object CastConversion {
         case TParam._2           => provided(1)
         case TParam._3           => provided(2)
         case TParam.Ref(typeRef) => typeRef
+        case TParam.Constrained(outer, among, default) =>
+          outer.eval(provided) match {
+            case tr @ TypeRef(x, _, _) if among(x) => tr
+            case _                                 => TypeRef(default)
+          }
       }
+    def among(among: Set[QualifiedName], default: QualifiedName): TParam =
+      TParam.Constrained(this, among, default)
   }
 
   object TParam {
@@ -34,6 +41,8 @@ object CastConversion {
     case object _3 extends TParam
     /* default to a given type */
     case class Ref(typeRef: TypeRef) extends TParam
+    /* If we need to adhere to a type bound which isn't (directly) in Typescript */
+    case class Constrained(outer: TParam, among: Set[QualifiedName], default: QualifiedName) extends TParam
   }
 
   case class TypeRewriterCast(replacements: Seq[CastConversion]) extends TreeTransformation {
@@ -615,5 +624,10 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.XMLHttpRequest"), QualifiedName("org.scalajs.dom.raw.XMLHttpRequest")),
     CastConversion(QualifiedName("typings.std.XMLHttpRequestEventTarget"), QualifiedName("org.scalajs.dom.raw.XMLHttpRequestEventTarget")),
     CastConversion(QualifiedName("typings.std.XMLSerializer"), QualifiedName("org.scalajs.dom.raw.XMLSerializer")),
-    CastConversion(QualifiedName("typings.std.XPathResult"), QualifiedName("org.scalajs.dom.raw.XPathResult")))
+    CastConversion(QualifiedName("typings.std.XPathResult"), QualifiedName("org.scalajs.dom.raw.XPathResult")),
+  )
+  // format: on
+
+  val AllElements: Set[QualifiedName] =
+    All.collect { case c if c.to.parts.last.unescaped.endsWith("Element") => c.to}.to[Set]
 }
