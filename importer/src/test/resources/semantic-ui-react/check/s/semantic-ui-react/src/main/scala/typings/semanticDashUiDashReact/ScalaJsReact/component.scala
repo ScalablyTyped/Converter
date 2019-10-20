@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -14,6 +15,8 @@ object component {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     page: js.UndefOr[Boolean] = js.undefined
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     DimmerProps, 
     MountedWithRawType[DimmerProps, js.Object, RawMounted[DimmerProps, js.Object]]
@@ -26,9 +29,9 @@ object component {
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.semanticDashUiDashReact.srcModulesDimmerMod.default)
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesDimmerDimmerMod.DimmerProps])(children: _*)
   }
 }
 

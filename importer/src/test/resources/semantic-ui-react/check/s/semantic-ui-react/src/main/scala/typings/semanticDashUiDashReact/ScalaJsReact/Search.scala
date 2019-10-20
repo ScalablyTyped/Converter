@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import japgolly.scalajs.react.vdom.VdomNode
@@ -55,6 +56,8 @@ object Search {
     showNoResults: js.UndefOr[Boolean] = js.undefined,
     size: mini | tiny | small | large | big | huge | massive = null,
     value: String = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[SearchProps, default, Unit, SearchProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -89,9 +92,9 @@ object Search {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesSearchMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSearchMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps])(children: _*)
   }
 }
 

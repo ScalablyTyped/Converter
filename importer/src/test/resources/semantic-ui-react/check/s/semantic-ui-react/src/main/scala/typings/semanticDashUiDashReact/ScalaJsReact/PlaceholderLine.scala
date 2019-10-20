@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -21,6 +22,8 @@ object PlaceholderLine {
     as: js.Any = null,
     className: String = null,
     length: full | (`very long`) | long | medium | short | (`very short`) = null
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     PlaceholderLineProps, 
     MountedWithRawType[PlaceholderLineProps, js.Object, RawMounted[PlaceholderLineProps, js.Object]]
@@ -34,9 +37,9 @@ object PlaceholderLine {
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.PlaceholderLineProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.default)
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.PlaceholderLineProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.PlaceholderLineProps])(children: _*)
   }
 }
 
