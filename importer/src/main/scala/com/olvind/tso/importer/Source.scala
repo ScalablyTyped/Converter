@@ -1,8 +1,8 @@
-package com.olvind.tso.importer
+package com.olvind.tso
+package importer
 
 import com.olvind.logging.Formatter
 import com.olvind.tso.ts._
-import com.olvind.tso.{InFile, InFolder, Key}
 
 sealed trait Source {
   final def path: os.Path =
@@ -41,7 +41,11 @@ object Source {
 
     override lazy val impliedPath: Option[os.RelPath] = {
       packageJsonOpt.flatMap(_.types) orElse packageJsonOpt.flatMap(_.typings) flatMap { value =>
-        val typingsFolder = folder.path / os.RelPath(value) / os.up
+        val base = value match {
+          case str if str.endsWith(".d.ts") => str.dropRight(".d.ts".length)
+          case other                        => other
+        }
+        val typingsFolder = folder.path / os.RelPath(base)
         typingsFolder relativeTo folder.path match {
           case empty if empty.segments.isEmpty => None
           case other                           => Some(other)
