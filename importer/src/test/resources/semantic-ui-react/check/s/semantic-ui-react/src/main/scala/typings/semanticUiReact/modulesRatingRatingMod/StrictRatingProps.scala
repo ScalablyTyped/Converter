@@ -1,6 +1,5 @@
 package typings.semanticUiReact.modulesRatingRatingMod
 
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.semanticUiReactStrings.auto
@@ -12,6 +11,7 @@ import typings.semanticUiReact.semanticUiReactStrings.mini
 import typings.semanticUiReact.semanticUiReactStrings.small
 import typings.semanticUiReact.semanticUiReactStrings.star
 import typings.semanticUiReact.semanticUiReactStrings.tiny
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

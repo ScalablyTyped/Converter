@@ -56,7 +56,7 @@ object Popup {
     onOpen: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ PopupProps) => Callback = null,
     onUnmount: (/* nothing */ Null, /* data */ PopupProps) => Callback = null,
     pinned: js.UndefOr[Boolean] = js.undefined,
-    popperDependencies: js.Array[_] = null,
+    popperDependencies: js.Array[js.Any] = null,
     popperModifiers: js.Object = null,
     position: (`top left`) | (`top right`) | (`bottom right`) | (`bottom left`) | (`right center`) | (`left center`) | (`top center`) | (`bottom center`) = null,
     positionFixed: js.UndefOr[Boolean] = js.undefined,

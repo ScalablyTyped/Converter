@@ -1,6 +1,5 @@
 package typings.semanticUiReact.modulesModalModalMod
 
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.CSSProperties
 import typings.react.reactMod.MouseEvent
@@ -17,6 +16,7 @@ import typings.semanticUiReact.semanticUiReactStrings.large
 import typings.semanticUiReact.semanticUiReactStrings.mini
 import typings.semanticUiReact.semanticUiReactStrings.small
 import typings.semanticUiReact.semanticUiReactStrings.tiny
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

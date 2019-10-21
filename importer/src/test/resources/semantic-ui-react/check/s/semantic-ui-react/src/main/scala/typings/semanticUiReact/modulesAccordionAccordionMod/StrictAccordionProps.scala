@@ -1,6 +1,5 @@
 package typings.semanticUiReact.modulesAccordionAccordionMod
 
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -8,6 +7,7 @@ import typings.semanticUiReact.genericMod.SemanticShorthandCollection
 import typings.semanticUiReact.modulesAccordionAccordionAccordionMod.StrictAccordionAccordionProps
 import typings.semanticUiReact.modulesAccordionAccordionPanelMod.AccordionPanelProps
 import typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

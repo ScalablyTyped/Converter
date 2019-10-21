@@ -1,5 +1,6 @@
 package typings.semanticUiReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -39,6 +40,8 @@ object ListIcon {
     rotated: clockwise | counterclockwise = null,
     size: IconSizeProp = null,
     verticalAlign: SemanticVERTICALALIGNMENTS = null
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     ListIconProps, 
     MountedWithRawType[ListIconProps, js.Object, RawMounted[ListIconProps, js.Object]]
@@ -67,9 +70,9 @@ object ListIcon {
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsListListIconMod.ListIconProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.semanticUiReact.elementsListListIconMod.default)
-    f(__obj.asInstanceOf[typings.semanticUiReact.elementsListListIconMod.ListIconProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsListListIconMod.ListIconProps])(children: _*)
   }
 }
 

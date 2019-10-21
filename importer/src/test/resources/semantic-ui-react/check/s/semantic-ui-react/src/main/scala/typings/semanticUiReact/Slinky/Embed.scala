@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.elementsIconIconMod.IconProps
@@ -18,6 +17,7 @@ import typings.semanticUiReact.semanticUiReactStrings.`21:9`
 import typings.semanticUiReact.semanticUiReactStrings.`4:3`
 import typings.semanticUiReact.semanticUiReactStrings.vimeo
 import typings.semanticUiReact.semanticUiReactStrings.youtube
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

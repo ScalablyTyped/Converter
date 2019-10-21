@@ -1,6 +1,7 @@
 package typings.semanticUiReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -33,6 +34,8 @@ object Rating {
     onRate: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ RatingProps) => Callback = null,
     rating: Double | String = null,
     size: mini | tiny | small | large | huge | massive = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[RatingProps, default, Unit, RatingProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -50,9 +53,9 @@ object Rating {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesRatingRatingMod.RatingProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticUiReact.modulesRatingMod.default](js.constructorOf[typings.semanticUiReact.modulesRatingMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.modulesRatingRatingMod.RatingProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.modulesRatingRatingMod.RatingProps])(children: _*)
   }
 }
 

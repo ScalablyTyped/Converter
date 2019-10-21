@@ -1,7 +1,6 @@
 package typings.semanticUiReact.modulesEmbedEmbedMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -14,6 +13,7 @@ import typings.semanticUiReact.semanticUiReactStrings.`21:9`
 import typings.semanticUiReact.semanticUiReactStrings.`4:3`
 import typings.semanticUiReact.semanticUiReactStrings.vimeo
 import typings.semanticUiReact.semanticUiReactStrings.youtube
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

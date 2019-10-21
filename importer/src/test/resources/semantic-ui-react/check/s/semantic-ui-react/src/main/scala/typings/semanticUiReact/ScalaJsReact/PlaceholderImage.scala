@@ -1,5 +1,6 @@
 package typings.semanticUiReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -16,6 +17,8 @@ object PlaceholderImage {
     className: String = null,
     rectangular: js.UndefOr[Boolean] = js.undefined,
     square: js.UndefOr[Boolean] = js.undefined
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     PlaceholderImageProps, 
     MountedWithRawType[PlaceholderImageProps, js.Object, RawMounted[PlaceholderImageProps, js.Object]]
@@ -30,9 +33,9 @@ object PlaceholderImage {
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsPlaceholderPlaceholderImageMod.PlaceholderImageProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.semanticUiReact.elementsPlaceholderPlaceholderImageMod.default)
-    f(__obj.asInstanceOf[typings.semanticUiReact.elementsPlaceholderPlaceholderImageMod.PlaceholderImageProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsPlaceholderPlaceholderImageMod.PlaceholderImageProps])(children: _*)
   }
 }
 

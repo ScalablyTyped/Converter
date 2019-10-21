@@ -1,4 +1,4 @@
-package typings.materialDashUi.ScalaJsReact
+package typings.materialUi.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot

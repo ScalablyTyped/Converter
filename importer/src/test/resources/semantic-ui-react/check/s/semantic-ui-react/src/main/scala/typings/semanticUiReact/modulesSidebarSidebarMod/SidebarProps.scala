@@ -1,7 +1,6 @@
 package typings.semanticUiReact.modulesSidebarSidebarMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -21,6 +20,7 @@ import typings.semanticUiReact.semanticUiReactStrings.thin
 import typings.semanticUiReact.semanticUiReactStrings.top
 import typings.semanticUiReact.semanticUiReactStrings.uncover
 import typings.semanticUiReact.semanticUiReactStrings.wide
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

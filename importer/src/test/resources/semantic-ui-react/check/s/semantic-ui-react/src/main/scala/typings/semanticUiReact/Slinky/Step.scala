@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLAnchorElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.elementsIconIconMod.IconProps
@@ -14,6 +13,7 @@ import typings.semanticUiReact.elementsStepStepMod.StepProps
 import typings.semanticUiReact.elementsStepStepTitleMod.StepTitleProps
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
+import typings.std.HTMLAnchorElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

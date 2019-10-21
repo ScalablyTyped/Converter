@@ -2,10 +2,11 @@ package typings.semanticUiReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.ReactEventFrom
 import japgolly.scalajs.react.ReactKeyboardEventFrom
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import japgolly.scalajs.react.raw.SyntheticEvent
+import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
@@ -29,7 +30,7 @@ import scala.scalajs.js.annotation._
 object Dropdown {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
-    additionLabel: Double | String | VdomNode = null,
+    additionLabel: Double | String | Node = null,
     additionPosition: top | bottom = null,
     allowAdditions: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
@@ -64,14 +65,14 @@ object Dropdown {
     noResultsMessage: VdomNode = null,
     onAddItem: (/* event */ ReactKeyboardEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
     onBlur: (/* event */ ReactKeyboardEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
-    onChange: (/* event */ SyntheticEvent[HTMLElement], /* data */ DropdownProps) => Callback = null,
+    onChange: (/* event */ ReactEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
     onClick: (/* event */ ReactKeyboardEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
-    onClose: (/* event */ SyntheticEvent[HTMLElement], /* data */ DropdownProps) => Callback = null,
-    onFocus: (/* event */ SyntheticEvent[HTMLElement], /* data */ DropdownProps) => Callback = null,
+    onClose: (/* event */ ReactEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
+    onFocus: (/* event */ ReactEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
     onLabelClick: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ LabelProps) => Callback = null,
     onMouseDown: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
-    onOpen: (/* event */ SyntheticEvent[HTMLElement], /* data */ DropdownProps) => Callback = null,
-    onSearchChange: (/* event */ SyntheticEvent[HTMLElement], /* data */ DropdownOnSearchChangeData) => Callback = null,
+    onOpen: (/* event */ ReactEventFrom[HTMLElement], /* data */ DropdownProps) => Callback = null,
+    onSearchChange: (/* event */ ReactEventFrom[HTMLElement], /* data */ DropdownOnSearchChangeData) => Callback = null,
     open: js.UndefOr[Boolean] = js.undefined,
     openOnFocus: js.UndefOr[Boolean] = js.undefined,
     options: js.Array[DropdownItemProps] = null,
@@ -138,14 +139,14 @@ object Dropdown {
     if (noResultsMessage != null) __obj.updateDynamic("noResultsMessage")(noResultsMessage.rawNode.asInstanceOf[js.Any])
     if (onAddItem != null) __obj.updateDynamic("onAddItem")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onAddItem(t0, t1).runNow())))
     if (onBlur != null) __obj.updateDynamic("onBlur")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onBlur(t0, t1).runNow())))
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onChange(t0, t1).runNow())))
+    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onChange(t0, t1).runNow())))
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onClick(t0, t1).runNow())))
-    if (onClose != null) __obj.updateDynamic("onClose")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onClose(t0, t1).runNow())))
-    if (onFocus != null) __obj.updateDynamic("onFocus")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onFocus(t0, t1).runNow())))
+    if (onClose != null) __obj.updateDynamic("onClose")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onClose(t0, t1).runNow())))
+    if (onFocus != null) __obj.updateDynamic("onFocus")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onFocus(t0, t1).runNow())))
     if (onLabelClick != null) __obj.updateDynamic("onLabelClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.elementsLabelLabelMod.LabelProps) => onLabelClick(t0, t1).runNow())))
     if (onMouseDown != null) __obj.updateDynamic("onMouseDown")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onMouseDown(t0, t1).runNow())))
-    if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onOpen(t0, t1).runNow())))
-    if (onSearchChange != null) __obj.updateDynamic("onSearchChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.raw.SyntheticEvent[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownOnSearchChangeData) => onSearchChange(t0, t1).runNow())))
+    if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownProps) => onOpen(t0, t1).runNow())))
+    if (onSearchChange != null) __obj.updateDynamic("onSearchChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticUiReact.modulesDropdownDropdownMod.DropdownOnSearchChangeData) => onSearchChange(t0, t1).runNow())))
     if (!js.isUndefined(open)) __obj.updateDynamic("open")(open)
     if (!js.isUndefined(openOnFocus)) __obj.updateDynamic("openOnFocus")(openOnFocus)
     if (options != null) __obj.updateDynamic("options")(options)

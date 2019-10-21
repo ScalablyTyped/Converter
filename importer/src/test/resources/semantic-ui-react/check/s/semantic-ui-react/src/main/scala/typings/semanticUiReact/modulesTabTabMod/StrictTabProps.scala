@@ -1,11 +1,11 @@
 package typings.semanticUiReact.modulesTabTabMod
 
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.Anon_MenuItem
 import typings.semanticUiReact.semanticUiReactStrings.left
 import typings.semanticUiReact.semanticUiReactStrings.right
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

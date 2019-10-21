@@ -1,12 +1,12 @@
 package typings.semanticUiReact.modulesModalModalActionsMod
 
-import typings.react.HTMLAnchorElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
 import typings.semanticUiReact.elementsButtonButtonMod.ButtonProps
 import typings.semanticUiReact.genericMod.SemanticShorthandCollection
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
+import typings.std.HTMLAnchorElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

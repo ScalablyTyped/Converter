@@ -1,5 +1,6 @@
 package typings.semanticUiReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticUiReact.elementsIconIconMod.IconCorner
@@ -36,6 +37,8 @@ object Icon {
     name: SemanticICONS = null,
     rotated: clockwise | counterclockwise = null,
     size: IconSizeProp = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[IconProps, default, Unit, IconProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -60,9 +63,9 @@ object Icon {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.elementsIconIconMod.IconProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticUiReact.elementsIconMod.default](js.constructorOf[typings.semanticUiReact.elementsIconMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.elementsIconIconMod.IconProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsIconIconMod.IconProps])(children: _*)
   }
 }
 

@@ -161,13 +161,7 @@ object SlinkyComponents {
       val dealiased = FollowAliases(scope)(props)
       scope lookup dealiased.typeName firstDefined {
         case (_cls: ClassTree, newScope) if _cls.classType === ClassType.Trait =>
-<<<<<<< HEAD
-          val cls = TypeRewriterFn(SlinkyReplacements).visitClassTree(scope)(
-            FillInTParams(_cls, newScope, dealiased.targs, c.tparams),
-          )
-=======
           val cls = TypeRewriterFn(SlinkyReplacements).visitClassTree(scope)(FillInTParams(_cls, newScope, dealiased.targs, c.tparams))
->>>>>>> oyvindberg/plugin+jagpolly+slinky
 
           val domParams = mutable.ArrayBuffer.empty[FieldTree]
 

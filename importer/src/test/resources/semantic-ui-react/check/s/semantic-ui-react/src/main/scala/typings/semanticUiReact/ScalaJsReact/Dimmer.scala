@@ -1,5 +1,6 @@
 package typings.semanticUiReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticUiReact.modulesDimmerDimmerMod.DimmerProps
@@ -13,6 +14,8 @@ object Dimmer {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     page: js.UndefOr[Boolean] = js.undefined
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[DimmerProps, default, Unit, DimmerProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -22,9 +25,9 @@ object Dimmer {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesDimmerDimmerMod.DimmerProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticUiReact.modulesDimmerMod.default](js.constructorOf[typings.semanticUiReact.modulesDimmerMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.modulesDimmerDimmerMod.DimmerProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.modulesDimmerDimmerMod.DimmerProps])(children: _*)
   }
 }
 

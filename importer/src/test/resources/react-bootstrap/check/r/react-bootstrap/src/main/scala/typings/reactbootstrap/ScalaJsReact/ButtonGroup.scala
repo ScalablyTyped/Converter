@@ -1,11 +1,11 @@
-package typings.reactDashBootstrap.ScalaJsReact
+package typings.reactBootstrap.ScalaJsReact
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
-import typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps
-import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
+import typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import typings.reactBootstrap.reactBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -27,12 +27,7 @@ object ButtonGroup {
     vertical: js.UndefOr[Boolean] = js.undefined
   )(
     children: ChildArg*
-  ): UnmountedWithRoot[
-    ButtonGroupProps, 
-    typings.reactDashBootstrap.libMod.ButtonGroup, 
-    Unit, 
-    ButtonGroupProps
-  ] = {
+  ): UnmountedWithRoot[ButtonGroupProps, typings.reactBootstrap.libMod.ButtonGroup, Unit, ButtonGroupProps] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
   
       __obj.updateDynamic("type")(`type`)
@@ -47,10 +42,10 @@ object ButtonGroup {
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps, 
+  typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typings.reactDashBootstrap.libMod.ButtonGroup](js.constructorOf[typings.reactDashBootstrap.libMod.ButtonGroup])
-    f(__obj.asInstanceOf[typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps])(children: _*)
+  typings.reactBootstrap.libMod.ButtonGroup](js.constructorOf[typings.reactBootstrap.libMod.ButtonGroup])
+    f(__obj.asInstanceOf[typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps])(children: _*)
   }
 }
 

@@ -1,7 +1,5 @@
 package typings.semanticUiReact.modulesSearchSearchMod
 
-import typings.react.HTMLDivElement
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactElement
@@ -17,6 +15,8 @@ import typings.semanticUiReact.semanticUiReactStrings.massive
 import typings.semanticUiReact.semanticUiReactStrings.mini
 import typings.semanticUiReact.semanticUiReactStrings.small
 import typings.semanticUiReact.semanticUiReactStrings.tiny
+import typings.std.HTMLDivElement
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,6 +1,5 @@
 package typings.semanticUiReact.elementsLabelLabelMod
 
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -20,6 +19,7 @@ import typings.semanticUiReact.semanticUiReactStrings.bottom
 import typings.semanticUiReact.semanticUiReactStrings.left
 import typings.semanticUiReact.semanticUiReactStrings.right
 import typings.semanticUiReact.semanticUiReactStrings.top
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

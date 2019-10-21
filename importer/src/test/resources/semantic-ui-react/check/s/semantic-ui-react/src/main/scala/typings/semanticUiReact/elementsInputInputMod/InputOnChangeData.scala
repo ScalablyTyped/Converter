@@ -1,7 +1,6 @@
 package typings.semanticUiReact.elementsInputInputMod
 
 import typings.react.Anon_Html
-import typings.react.Event
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.AnimationEvent
 import typings.react.reactMod.CSSProperties
@@ -69,6 +68,7 @@ import typings.semanticUiReact.semanticUiReactStrings.massive
 import typings.semanticUiReact.semanticUiReactStrings.mini
 import typings.semanticUiReact.semanticUiReactStrings.right
 import typings.semanticUiReact.semanticUiReactStrings.small
+import typings.std.Event
 import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`

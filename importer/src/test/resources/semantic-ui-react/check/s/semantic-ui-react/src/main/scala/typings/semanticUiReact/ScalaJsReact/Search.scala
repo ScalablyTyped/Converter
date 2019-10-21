@@ -1,6 +1,7 @@
 package typings.semanticUiReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import japgolly.scalajs.react.vdom.VdomNode
@@ -50,11 +51,13 @@ object Search {
     onSelectionChange: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ SearchResultData) => Callback = null,
     open: js.UndefOr[Boolean] = js.undefined,
     resultRenderer: /* props */ SearchResultProps => Callback = null,
-    results: js.Array[_] | (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any) = null,
+    results: js.Array[js.Any] | (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any) = null,
     selectFirstResult: js.UndefOr[Boolean] = js.undefined,
     showNoResults: js.UndefOr[Boolean] = js.undefined,
     size: mini | tiny | small | large | big | huge | massive = null,
     value: String = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[SearchProps, default, Unit, SearchProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -89,9 +92,9 @@ object Search {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesSearchSearchMod.SearchProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticUiReact.modulesSearchMod.default](js.constructorOf[typings.semanticUiReact.modulesSearchMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.modulesSearchSearchMod.SearchProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.modulesSearchSearchMod.SearchProps])(children: _*)
   }
 }
 

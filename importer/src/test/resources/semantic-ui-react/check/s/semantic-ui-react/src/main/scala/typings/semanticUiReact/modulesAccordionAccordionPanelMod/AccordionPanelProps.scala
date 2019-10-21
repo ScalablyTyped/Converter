@@ -1,12 +1,12 @@
 package typings.semanticUiReact.modulesAccordionAccordionPanelMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.semanticUiReact.modulesAccordionAccordionContentMod.AccordionContentProps
 import typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

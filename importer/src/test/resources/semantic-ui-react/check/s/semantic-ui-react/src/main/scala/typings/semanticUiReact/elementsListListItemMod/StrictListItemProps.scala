@@ -1,6 +1,5 @@
 package typings.semanticUiReact.elementsListListItemMod
 
-import typings.react.HTMLAnchorElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -10,6 +9,7 @@ import typings.semanticUiReact.elementsListListDescriptionMod.ListDescriptionPro
 import typings.semanticUiReact.elementsListListHeaderMod.ListHeaderProps
 import typings.semanticUiReact.elementsListListIconMod.ListIconProps
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
+import typings.std.HTMLAnchorElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

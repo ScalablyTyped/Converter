@@ -1,13 +1,13 @@
 package typings.semanticUiReact.modulesDimmerDimmerInnerMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.semanticUiReactStrings.bottom
 import typings.semanticUiReact.semanticUiReactStrings.top
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

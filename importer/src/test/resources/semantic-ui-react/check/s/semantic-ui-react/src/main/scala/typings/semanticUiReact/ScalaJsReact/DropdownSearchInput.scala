@@ -1,5 +1,6 @@
 package typings.semanticUiReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticUiReact.modulesDropdownDropdownSearchInputMod.DropdownSearchInputProps
@@ -17,6 +18,8 @@ object DropdownSearchInput {
     tabIndex: Double | String = null,
     `type`: String = null,
     value: Double | String = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[DropdownSearchInputProps, default, Unit, DropdownSearchInputProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -30,9 +33,9 @@ object DropdownSearchInput {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesDropdownDropdownSearchInputMod.DropdownSearchInputProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticUiReact.modulesDropdownDropdownSearchInputMod.default](js.constructorOf[typings.semanticUiReact.modulesDropdownDropdownSearchInputMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.modulesDropdownDropdownSearchInputMod.DropdownSearchInputProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.modulesDropdownDropdownSearchInputMod.DropdownSearchInputProps])(children: _*)
   }
 }
 

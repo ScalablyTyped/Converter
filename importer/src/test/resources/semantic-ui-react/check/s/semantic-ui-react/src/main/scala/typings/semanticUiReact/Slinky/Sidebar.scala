@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.RefObject
@@ -17,6 +16,7 @@ import typings.semanticUiReact.semanticUiReactStrings.`slide out`
 import typings.semanticUiReact.semanticUiReactStrings.overlay
 import typings.semanticUiReact.semanticUiReactStrings.push
 import typings.semanticUiReact.semanticUiReactStrings.uncover
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,7 +1,6 @@
 package typings.semanticUiReact.elementsButtonButtonMod
 
 import typings.react.Anon_Html
-import typings.react.Event
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.AnimationEvent
 import typings.react.reactMod.ButtonHTMLAttributes
@@ -78,6 +77,7 @@ import typings.semanticUiReact.semanticUiReactStrings.twitter
 import typings.semanticUiReact.semanticUiReactStrings.vertical
 import typings.semanticUiReact.semanticUiReactStrings.vk
 import typings.semanticUiReact.semanticUiReactStrings.youtube
+import typings.std.Event
 import typings.std.HTMLButtonElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`

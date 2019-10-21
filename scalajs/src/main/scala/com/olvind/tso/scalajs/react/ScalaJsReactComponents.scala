@@ -153,13 +153,6 @@ object ScalaJsReactComponents {
 //  TagOf -> $target.render.rawElement.asInstanceOf[js.Any]
 // Other scalajs-react things we need to rewrite?
 
-<<<<<<< HEAD
-  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
-    val scope = _scope / tree
-
-    components flatMap generateComponent(tree.codePath + names.ScalaJsReact, scope) match {
-      case Nil => tree
-=======
   case class ComponentFoo()
   def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
@@ -207,30 +200,12 @@ object ScalaJsReactComponents {
 
     generatedCode match {
       case Seq() => tree
->>>>>>> oyvindberg/plugin+jagpolly+slinky
       case nonEmpty =>
         val newPackage = PackageTree(Nil, names.ScalaJsReact, nonEmpty, NoComments, pkgCp)
         tree.withMembers(tree.members :+ newPackage)
     }
   }
 
-<<<<<<< HEAD
-  def generateComponent(pkgCodePath: QualifiedName, scope: TreeScope)(c: Component): Option[ModuleTree] = {
-    // accept components with no props, but not those with too complicated props (type aliases that ExpandTypeMappings doesnt expand yet)
-    val propsParamsOpt: Option[(TypeRef, Seq[Param])] =
-      c.props match {
-        case Some(props) =>
-          val dealiased = FollowAliases(scope)(props)
-          val paramsOpt: Option[Seq[Param]] =
-            scope lookup dealiased.typeName collectFirst {
-              case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, c.tparams), scope)(memberParameter)
-            }
-          paramsOpt.map(ps => props -> ps)
-        case None =>
-          Some(TypeRef.Object -> Nil)
-      }
-=======
   def genComponent(
       pkgCodePath:       QualifiedName,
       props:             TypeRef,
@@ -242,7 +217,6 @@ object ScalaJsReactComponents {
     val componentCp  = pkgCodePath + c.fullName
     val componentRef = Component.formatReferenceTo(c.ref, c.componentType)
     val applyMethod  = genApply(props, params, knownRefRewritten, tparams, componentRef, componentCp)
->>>>>>> oyvindberg/plugin+jagpolly+slinky
 
     ModuleTree(
       annotations = Nil,

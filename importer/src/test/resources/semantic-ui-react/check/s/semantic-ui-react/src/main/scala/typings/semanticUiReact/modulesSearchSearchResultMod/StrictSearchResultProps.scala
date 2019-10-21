@@ -1,10 +1,10 @@
 package typings.semanticUiReact.modulesSearchSearchResultMod
 
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactElement
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

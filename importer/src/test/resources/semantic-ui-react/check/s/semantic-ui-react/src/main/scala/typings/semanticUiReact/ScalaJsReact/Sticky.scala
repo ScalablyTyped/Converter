@@ -4,9 +4,9 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.raw.React.Ref
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
-import typings.react.reactMod.Ref
 import typings.semanticUiReact.modulesStickyMod.default
 import typings.semanticUiReact.modulesStickyStickyMod.StickyProps
 import scala.scalajs.js
@@ -20,14 +20,14 @@ object Sticky {
     as: js.Any = null,
     bottomOffset: Int | Double = null,
     className: String = null,
-    context: js.Object | Ref[HTMLElement] = null,
+    context: js.Object | Ref = null,
     offset: Int | Double = null,
     onBottom: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ StickyProps) => Callback = null,
     onStick: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ StickyProps) => Callback = null,
     onTop: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ StickyProps) => Callback = null,
     onUnstick: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ StickyProps) => Callback = null,
     pushing: js.UndefOr[Boolean] = js.undefined,
-    scrollContext: js.Object | Ref[HTMLElement] = null,
+    scrollContext: js.Object | Ref = null,
     styleElement: js.Object = null
   )(
     children: ChildArg*

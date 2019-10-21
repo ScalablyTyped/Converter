@@ -11,21 +11,13 @@ package object reactMod {
   import typings.react.Anon_RefAny
   import typings.react.Anon_Result
   import typings.react.Anon_Type
-<<<<<<< HEAD
-  import typings.react.Event
-  import typings.react.EventTarget
-=======
->>>>>>> oyvindberg/plugin+jagpolly+slinky
   import typings.react.NativeMouseEvent
   import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
   import typings.std.Element
-<<<<<<< HEAD
-=======
   import typings.std.Event
   import typings.std.EventTarget
->>>>>>> oyvindberg/plugin+jagpolly+slinky
   import typings.std.HTMLElement
   import typings.std.Partial
   import typings.std.Pick

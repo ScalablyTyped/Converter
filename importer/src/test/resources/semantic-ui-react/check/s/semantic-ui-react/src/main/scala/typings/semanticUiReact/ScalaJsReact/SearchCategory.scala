@@ -5,7 +5,7 @@ import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
-import japgolly.scalajs.react.raw.React.ComponentClass
+import japgolly.scalajs.react.raw.React.ComponentClassP
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.modulesSearchSearchCategoryMod.SearchCategoryProps
@@ -23,7 +23,7 @@ object SearchCategory {
     content: SemanticShorthandContent = null,
     name: String = null,
     renderer: /* props */ SearchCategoryProps => Callback = null,
-    results: js.Array[ComponentClass[SearchResultProps, js.Object]] = null
+    results: js.Array[ComponentClassP[SearchResultProps with js.Object]] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[

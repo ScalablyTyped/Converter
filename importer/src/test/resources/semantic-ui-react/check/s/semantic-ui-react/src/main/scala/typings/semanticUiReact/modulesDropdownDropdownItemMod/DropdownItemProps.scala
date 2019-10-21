@@ -1,7 +1,6 @@
 package typings.semanticUiReact.modulesDropdownDropdownItemMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -12,6 +11,7 @@ import typings.semanticUiReact.elementsLabelLabelMod.LabelProps
 import typings.semanticUiReact.genericMod.HtmlSpanProps
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

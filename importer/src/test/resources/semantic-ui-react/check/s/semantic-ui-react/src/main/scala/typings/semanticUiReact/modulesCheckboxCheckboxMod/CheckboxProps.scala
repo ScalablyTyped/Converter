@@ -2,7 +2,6 @@ package typings.semanticUiReact.modulesCheckboxCheckboxMod
 
 import org.scalablytyped.runtime.StringDictionary
 import typings.react.Anon_Html
-import typings.react.Event
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.AnimationEvent
 import typings.react.reactMod.CSSProperties
@@ -60,6 +59,7 @@ import typings.semanticUiReact.genericMod.HtmlLabelProps
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.semanticUiReact.semanticUiReactStrings.checkbox
 import typings.semanticUiReact.semanticUiReactStrings.radio
+import typings.std.Event
 import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`

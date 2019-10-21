@@ -1,7 +1,6 @@
 package typings.semanticUiReact.modulesPopupPopupMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -26,6 +25,7 @@ import typings.semanticUiReact.semanticUiReactStrings.mini
 import typings.semanticUiReact.semanticUiReactStrings.small
 import typings.semanticUiReact.semanticUiReactStrings.tiny
 import typings.semanticUiReact.semanticUiReactStrings.very
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

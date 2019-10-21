@@ -1,5 +1,6 @@
 package typings.semanticUiReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -21,6 +22,8 @@ object PlaceholderLine {
     as: js.Any = null,
     className: String = null,
     length: full | (`very long`) | long | medium | short | (`very short`) = null
+  )(
+    children: ChildArg*
   ): UnmountedSimple[
     PlaceholderLineProps, 
     MountedWithRawType[PlaceholderLineProps, js.Object, RawMounted[PlaceholderLineProps, js.Object]]
@@ -34,9 +37,9 @@ object PlaceholderLine {
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsPlaceholderPlaceholderLineMod.PlaceholderLineProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   js.Object](typings.semanticUiReact.elementsPlaceholderPlaceholderLineMod.default)
-    f(__obj.asInstanceOf[typings.semanticUiReact.elementsPlaceholderPlaceholderLineMod.PlaceholderLineProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsPlaceholderPlaceholderLineMod.PlaceholderLineProps])(children: _*)
   }
 }
 

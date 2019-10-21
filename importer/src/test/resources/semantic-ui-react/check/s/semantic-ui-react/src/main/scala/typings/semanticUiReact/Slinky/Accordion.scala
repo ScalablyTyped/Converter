@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.genericMod.SemanticShorthandCollection
@@ -12,6 +11,7 @@ import typings.semanticUiReact.modulesAccordionAccordionMod.AccordionProps
 import typings.semanticUiReact.modulesAccordionAccordionPanelMod.AccordionPanelProps
 import typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps
 import typings.semanticUiReact.modulesAccordionMod.default
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

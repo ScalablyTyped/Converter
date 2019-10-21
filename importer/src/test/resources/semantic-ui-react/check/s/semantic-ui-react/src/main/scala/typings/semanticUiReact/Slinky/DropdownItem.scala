@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLDivElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.elementsFlagFlagMod.FlagProps
@@ -16,6 +15,7 @@ import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.semanticUiReact.modulesDropdownDropdownItemMod.DropdownItemProps
 import typings.semanticUiReact.modulesDropdownDropdownItemMod.default
+import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

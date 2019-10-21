@@ -1,6 +1,7 @@
 package typings.semanticUiReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -26,6 +27,8 @@ object SearchResult {
     onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ SearchResultProps) => Callback = null,
     price: String = null,
     renderer: /* props */ SearchResultProps => Callback = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[SearchResultProps, default, Unit, SearchResultProps] = {
     val __obj = js.Dynamic.literal(title = title)
   
@@ -43,9 +46,9 @@ object SearchResult {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesSearchSearchResultMod.SearchResultProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticUiReact.modulesSearchSearchResultMod.default](js.constructorOf[typings.semanticUiReact.modulesSearchSearchResultMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.modulesSearchSearchResultMod.SearchResultProps])
+    f(__obj.asInstanceOf[typings.semanticUiReact.modulesSearchSearchResultMod.SearchResultProps])(children: _*)
   }
 }
 
