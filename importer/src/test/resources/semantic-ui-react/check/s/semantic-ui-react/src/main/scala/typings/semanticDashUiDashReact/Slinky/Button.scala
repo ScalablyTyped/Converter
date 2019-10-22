@@ -23,8 +23,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.vk
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.youtube
 import typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
 import typings.semanticDashUiDashReact.srcElementsButtonMod.default
-import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps
-import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
@@ -51,9 +49,13 @@ object Button
     content: SemanticShorthandContent = null,
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
-    icon: Boolean | SemanticShorthandItem[IconProps] = null,
+    icon: Boolean | (SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ]) = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: right | left = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     negative: js.UndefOr[Boolean] = js.undefined,

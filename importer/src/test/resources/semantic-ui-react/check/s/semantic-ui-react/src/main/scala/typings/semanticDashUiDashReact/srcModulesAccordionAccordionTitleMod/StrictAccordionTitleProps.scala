@@ -3,7 +3,6 @@ package typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
-import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.std.HTMLDivElement
@@ -23,7 +22,11 @@ trait StrictAccordionTitleProps extends js.Object {
   /** Shorthand for primary content. */
   var content: js.UndefOr[SemanticShorthandContent] = js.undefined
   /** Shorthand for Icon. */
-  var icon: js.UndefOr[SemanticShorthandItem[IconProps]] = js.undefined
+  var icon: js.UndefOr[
+    SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ]
+  ] = js.undefined
   /** AccordionTitle index inside Accordion. */
   var index: js.UndefOr[Double | String] = js.undefined
   /**
@@ -49,7 +52,9 @@ object StrictAccordionTitleProps {
     children: ReactNode = null,
     className: String = null,
     content: SemanticShorthandContent = null,
-    icon: SemanticShorthandItem[IconProps] = null,
+    icon: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ] = null,
     index: Double | String = null,
     onClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null
   ): StrictAccordionTitleProps = {
