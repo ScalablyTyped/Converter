@@ -7,7 +7,7 @@ object prettyString {
       .flatMap {
         case '\\'  => "#backslash#" //be safe
         case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
-        case '_'   => "#underscore#" // will be erased otherwise
+        case '_'   => "#" // will be erased otherwise
         case '@'   => "#at#"
         case '-'   => "#" //causes `` in scala code
         case other => other.toString()

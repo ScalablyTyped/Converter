@@ -2,7 +2,7 @@ package typings.awsSdk
 
 import org.scalablytyped.runtime.Instantiable1
 import typings.awsSdk.clientsDynamodbMod.ClientConfiguration
-import typings.awsSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient.DocumentClientOptions
+import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -22,7 +22,7 @@ object libServicesDynamodbMod extends js.Object {
       */
     var DocumentClient: Instantiable1[
         js.UndefOr[/* options */ DocumentClientOptions with ClientConfiguration], 
-        typings.awsSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient
+        typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient
       ] = js.native
   }
   

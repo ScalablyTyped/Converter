@@ -4,7 +4,7 @@ import typings.awsSdk.clientsDynamodbMod.AttributeValue
 import typings.awsSdk.clientsDynamodbMod.ClientConfiguration
 import typings.awsSdk.libConfigMod.Config
 import typings.awsSdk.libDynamodbConverterMod.Converter.ConverterOptions
-import typings.awsSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient.DocumentClientOptions
+import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.DocumentClientOptions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

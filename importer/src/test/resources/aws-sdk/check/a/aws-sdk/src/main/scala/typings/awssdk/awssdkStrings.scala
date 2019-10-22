@@ -1,6 +1,6 @@
 package typings.awsSdk
 
-import typings.awsSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient._AttributeAction
+import typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient._AttributeAction
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

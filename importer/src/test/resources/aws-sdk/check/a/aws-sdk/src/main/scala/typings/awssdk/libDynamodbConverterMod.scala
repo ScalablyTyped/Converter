@@ -17,7 +17,7 @@ object libDynamodbConverterMod extends js.Object {
   object Converter extends js.Object {
     def input(data: js.Any): AttributeValue = js.native
     def input(data: js.Any, options: ConverterOptions): AttributeValue = js.native
-    type ConverterOptions = typings.awsSdk.libDynamodbDocumentUnderscoreClientMod.DocumentClient.ConverterOptions
+    type ConverterOptions = typings.awsSdk.libDynamodbDocumentClientMod.DocumentClient.ConverterOptions
   }
   
 }

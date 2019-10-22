@@ -1,6 +1,6 @@
 package typings.awsSdk.libConfigMod
 
-import typings.awsSdk.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServicePlaceholders
+import typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServicePlaceholders
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

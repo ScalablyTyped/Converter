@@ -1,7 +1,7 @@
 package typings.awsSdk.libConfigMod
 
 import typings.awsSdk.awsSdkStrings.latest
-import typings.awsSdk.libConfigUnderscoreServiceUnderscorePlaceholdersMod.ConfigurationServiceApiVersions
+import typings.awsSdk.libConfigServicePlaceholdersMod.ConfigurationServiceApiVersions
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

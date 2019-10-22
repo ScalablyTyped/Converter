@@ -5,7 +5,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom.document
 import org.scalajs.dom.window
 import org.scalajs.dom.raw.HTMLButtonElement
-import typings.semanticUiReact.ScalaJsReact.{Button, Container}
+import typings.semanticUiReact.japgolly.{Button, Container}
 import typings.semanticUiReact.commonjsElementsButtonButtonMod.ButtonProps
 
 object Main {

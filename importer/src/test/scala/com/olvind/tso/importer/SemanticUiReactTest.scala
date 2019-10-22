@@ -11,6 +11,6 @@ object SemanticUiReactTest extends ImporterHarness {
       "semantic-ui-react",
       pedantic      = false,
       update        = update,
-      reactBindings = List(ReactBinding.scalajsReact),
+      reactBindings = List(ReactBinding.jagpolly),
     )
 }

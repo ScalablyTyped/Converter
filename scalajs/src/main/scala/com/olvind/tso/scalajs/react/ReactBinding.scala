@@ -15,13 +15,13 @@ object ReactBinding {
     override def generateReactComponents(s: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       SlinkyComponents(s, tree, components)
   }
-  val scalajsReact = new ReactBinding {
+  val jagpolly = new ReactBinding {
     override def dependencies: Set[Dep] =
       Set(Dep("com.github.japgolly.scalajs-react", "core", "1.4.2"))
     override def generateReactComponents(s: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
-      ScalaJsReactComponents(s, tree, components)
+      JagpollyComponents(s, tree, components)
   }
-  val all = List(native, slinky, scalajsReact)
+  val all = List(native, slinky, jagpolly)
 }
 
 sealed trait ReactBinding {
