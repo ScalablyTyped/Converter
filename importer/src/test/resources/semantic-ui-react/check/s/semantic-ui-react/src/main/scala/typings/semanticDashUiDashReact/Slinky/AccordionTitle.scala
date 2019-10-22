@@ -6,7 +6,6 @@ import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
-import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
@@ -25,7 +24,9 @@ object AccordionTitle
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
     content: SemanticShorthandContent = null,
-    icon: SemanticShorthandItem[IconProps] = null,
+    icon: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ] = null,
     index: Double | String = null,
     onClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null
   ): BuildingComponent[tag.type, default] = {

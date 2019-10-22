@@ -13,7 +13,7 @@ object ReactBindingNative extends ReactBinding
 
 object ReactBindingSlinky extends ReactBinding
 
-object ReactBindingJagpolly extends ReactBinding
+object ReactBindingJapgolly extends ReactBinding
 
 object TsoPlugin extends AutoPlugin {
   object autoImport {

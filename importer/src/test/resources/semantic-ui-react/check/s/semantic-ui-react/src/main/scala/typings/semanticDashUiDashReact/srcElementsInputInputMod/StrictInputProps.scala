@@ -66,7 +66,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.massive
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
-import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.std.Event
@@ -97,7 +96,11 @@ trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
   /** Format to appear on dark backgrounds. */
   var inverted: js.UndefOr[Boolean] = js.undefined
   /** Optional Label to display along side the Input. */
-  var label: js.UndefOr[SemanticShorthandItem[LabelProps]] = js.undefined
+  var label: js.UndefOr[
+    SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ]
+  ] = js.undefined
   /** A Label can appear outside an Input on the left or right. */
   var labelPosition: js.UndefOr[left | right | (`left corner`) | (`right corner`)] = js.undefined
   /** An Icon Input field can show that it is currently loading data. */
@@ -224,7 +227,9 @@ object StrictInputProps {
     itemRef: String = null,
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     lang: String = null,
     list: String = null,
