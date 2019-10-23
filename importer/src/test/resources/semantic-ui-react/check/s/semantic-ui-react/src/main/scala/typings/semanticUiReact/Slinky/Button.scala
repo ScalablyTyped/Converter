@@ -10,8 +10,6 @@ import typings.react.reactStrings.reset
 import typings.react.reactStrings.submit
 import typings.semanticUiReact.elementsButtonButtonMod.ButtonProps
 import typings.semanticUiReact.elementsButtonMod.default
-import typings.semanticUiReact.elementsIconIconMod.IconProps
-import typings.semanticUiReact.elementsLabelLabelMod.LabelProps
 import typings.semanticUiReact.genericMod.SemanticCOLORS
 import typings.semanticUiReact.genericMod.SemanticFLOATS
 import typings.semanticUiReact.genericMod.SemanticSIZES
@@ -51,9 +49,13 @@ object Button
     content: SemanticShorthandContent = null,
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
-    icon: Boolean | SemanticShorthandItem[IconProps] = null,
+    icon: Boolean | (SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ]) = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: right | left = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     negative: js.UndefOr[Boolean] = js.undefined,

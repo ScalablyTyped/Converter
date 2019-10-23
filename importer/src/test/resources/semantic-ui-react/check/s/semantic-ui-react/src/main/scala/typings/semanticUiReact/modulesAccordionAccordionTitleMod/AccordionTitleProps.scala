@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
-import typings.semanticUiReact.elementsIconIconMod.IconProps
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.std.HTMLDivElement
@@ -25,7 +24,9 @@ object AccordionTitleProps {
     children: ReactNode = null,
     className: String = null,
     content: SemanticShorthandContent = null,
-    icon: SemanticShorthandItem[IconProps] = null,
+    icon: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ] = null,
     index: Double | String = null,
     onClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null
   ): AccordionTitleProps = {

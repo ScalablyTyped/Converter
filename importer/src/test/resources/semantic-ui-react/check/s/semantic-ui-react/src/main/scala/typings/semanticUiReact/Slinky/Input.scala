@@ -7,7 +7,6 @@ import typings.react.reactMod.ChangeEvent
 import typings.semanticUiReact.elementsInputInputMod.InputOnChangeData
 import typings.semanticUiReact.elementsInputInputMod.InputProps
 import typings.semanticUiReact.elementsInputMod.default
-import typings.semanticUiReact.elementsLabelLabelMod.LabelProps
 import typings.semanticUiReact.genericMod.HtmlInputrops
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.semanticUiReact.semanticUiReactStrings.`left corner`
@@ -40,7 +39,9 @@ object Input
     iconPosition: left = null,
     input: SemanticShorthandItem[HtmlInputrops] = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     onChange: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Unit = null,

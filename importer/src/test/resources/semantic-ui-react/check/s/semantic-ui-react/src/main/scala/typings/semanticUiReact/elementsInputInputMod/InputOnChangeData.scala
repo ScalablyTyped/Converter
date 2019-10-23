@@ -55,7 +55,6 @@ import typings.react.reactStrings.text
 import typings.react.reactStrings.time
 import typings.react.reactStrings.tree
 import typings.react.reactStrings.vertical
-import typings.semanticUiReact.elementsLabelLabelMod.LabelProps
 import typings.semanticUiReact.genericMod.HtmlInputrops
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.semanticUiReact.semanticUiReactStrings.`left corner`
@@ -182,7 +181,9 @@ object InputOnChangeData {
     itemRef: String = null,
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     lang: String = null,
     list: String = null,
