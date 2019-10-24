@@ -259,7 +259,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = Nil,
       members     = List(applyMethod),
-      comments    = Comments(CommentData(Markers.VIP)),
+      comments    = Comments(CommentData(VIP(List(c.ref)))),
       codePath    = componentCp,
     )
   }
@@ -303,7 +303,7 @@ object JapgollyComponents {
       members     = List(componentRef, applyMethod),
       classType   = ClassType.AbstractClass,
       isSealed    = false,
-      comments    = Comments(CommentData(Markers.VIP)),
+      comments    = NoComments,
       codePath    = classCp,
     )
   }
@@ -327,7 +327,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(SlinkyComponents.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
-      comments    = Comments(CommentData(Markers.VIP)),
+      comments    = Comments(CommentData(VIP(List(c.ref)))),
       codePath    = componentCp,
     )
   }
