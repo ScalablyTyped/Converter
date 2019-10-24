@@ -2,4 +2,6 @@
 /assets/japgolly-fastopt.js
 /assets/japgolly-fastopt-bundle.js
 /assets/japgolly-opt.js
-docs/japgolly/japgolly-fastopt-bundle.js
+docs/*
+docs/japgolly
+docs/japgolly/*
