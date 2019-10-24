@@ -12,7 +12,7 @@ import com.olvind.tso.seqs._
   */
 object JapgollyComponents {
   private object names {
-    val Japgolly = Name("japgolly")
+    val Japgolly     = Name("japgolly")
     val children     = Name("children")
     val ref          = Name("ref")
     val key          = Name("key")
@@ -124,23 +124,36 @@ object JapgollyComponents {
           val paramRefs = paramTypes.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
 
           pt.default.fold(
-            s"""$obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${paramTypes.length}((($params) => ${name.unescaped}${if(paramRefs.isEmpty) "" else s"($paramRefs)"}.runNow())))""")(_ =>
-            s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${paramTypes.length}((($params) => p${if(paramRefs.isEmpty) "" else s"($paramRefs)"}.runNow()))))""")
+            s"""$obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${paramTypes.length}((($params) => ${name.unescaped}${if (paramRefs.isEmpty)
+              ""
+            else s"($paramRefs)"}.runNow())))""",
+          )(
+            _ =>
+              s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${paramTypes.length}((($params) => p${if (paramRefs.isEmpty)
+                ""
+              else s"($paramRefs)"}.runNow()))))""",
+          )
         }
 
         val retType = pt.tpe.targs.lastOption match {
-            case Some(x) if x.name.unescaped.equals("Unit") => TypeRef(japgolly.reactCallback)
-            case Some(x) => TypeRef(japgolly.reactCallbackTo, List(x), NoComments)
-            case None => TypeRef(japgolly.reactCallback)
-          }
+          case Some(x) if x.name.unescaped.equals("Unit") => TypeRef(japgolly.reactCallback)
+          case Some(x)                                    => TypeRef(japgolly.reactCallbackTo, List(x), NoComments)
+          case None                                       => TypeRef(japgolly.reactCallback)
+        }
 
         val newParam = paramTypes match {
-          case Nil => pt.default.fold(
-            pt.copy(tpe = retType))(_ =>
-            pt.copy(tpe = TypeRef.UndefOr(retType), default = Some(TypeRef.undefined)))
-          case _ => pt.default.fold(
-            pt.copy(tpe = TypeRef.ScalaFunction(paramTypes, retType, NoComments)))(_ =>
-            pt.copy(tpe = TypeRef.UndefOr(TypeRef.ScalaFunction(paramTypes, retType, NoComments)), default = Some(TypeRef.undefined)))
+          case Nil =>
+            pt.default.fold(pt.copy(tpe = retType))(
+              _ => pt.copy(tpe = TypeRef.UndefOr(retType), default = Some(TypeRef.undefined)),
+            )
+          case _ =>
+            pt.default.fold(pt.copy(tpe = TypeRef.ScalaFunction(paramTypes, retType, NoComments)))(
+              _ =>
+                pt.copy(
+                  tpe     = TypeRef.UndefOr(TypeRef.ScalaFunction(paramTypes, retType, NoComments)),
+                  default = Some(TypeRef.undefined),
+                ),
+            )
         }
 
         p.copy(
@@ -246,7 +259,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = Nil,
       members     = List(applyMethod),
-      comments    = Comments(CommentData(Markers.VIP)),
+      comments    = Comments(CommentData(VIP(List(c.ref)))),
       codePath    = componentCp,
     )
   }
@@ -290,7 +303,7 @@ object JapgollyComponents {
       members     = List(componentRef, applyMethod),
       classType   = ClassType.AbstractClass,
       isSealed    = false,
-      comments    = Comments(CommentData(Markers.VIP)),
+      comments    = NoComments,
       codePath    = classCp,
     )
   }
@@ -314,7 +327,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(SlinkyComponents.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
-      comments    = Comments(CommentData(Markers.VIP)),
+      comments    = Comments(CommentData(VIP(List(c.ref)))),
       codePath    = componentCp,
     )
   }
@@ -333,9 +346,9 @@ object JapgollyComponents {
         { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe },
         // take note of declared children, but saying `ReactNode` should be a noop
         { case Param(ParamTree(names.children, t, _, _), _, _) if t.typeName =/= japgolly.vdomVdomNode => t },
-        { case Param(ParamTree(propName, _, _, _), _, _) if names.Ignored(propName)                        => () },
-        { case Param(p, _, Right(f))                                                                       => p -> f },
-        { case Param(p, _, Left(str))                                                                      => p -> str },
+        { case Param(ParamTree(propName, _, _, _), _, _) if names.Ignored(propName)                    => () },
+        { case Param(p, _, Right(f))                                                                   => p -> f },
+        { case Param(p, _, Left(str))                                                                  => p -> str },
       )
 
     val childrenParam: ParamTree =

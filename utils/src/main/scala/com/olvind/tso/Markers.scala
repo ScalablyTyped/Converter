@@ -9,5 +9,4 @@ object Markers {
   case object ExpandedCallables extends Comment.Data
   case object EnumObject extends Comment.Data
   case class NameHint(value: String) extends Comment.Data
-  case object VIP extends Comment.Data
 }
