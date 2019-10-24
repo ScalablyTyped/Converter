@@ -160,17 +160,7 @@ object ImportType {
       case TsTypeFunction(sig) =>
         if (sig.params.size > 22) TypeRef.FunctionBase
         else {
-          def recursiveBound(name: TsIdent, b: TsType): Boolean =
-            TreeTraverse.collect(b) { case `name` => name }.nonEmpty
-
-          val defaulted = sig.tparams.map { tp =>
-            tp.upperBound match {
-              case Some(b) if !recursiveBound(tp.name, b) => b
-              case _                                      => TsTypeRef.any
-            }
-          }
-
-          val newSig = ts.FillInTParams(sig, defaulted)
+          val newSig = ts.FillInTParams.inlineTParams(sig)
 
           val (thisType, restParams) =
             newSig.params.to[List] match {
