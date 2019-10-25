@@ -9,6 +9,7 @@ import typings.semanticUiReact.commonjsElementsButtonButtonMod.ButtonProps
 import typings.semanticUiReact.commonjsGenericMod.SemanticICONS
 import typings.semanticUiReact.japgolly.{Button, Container, Icon}
 import typings.semanticUiReact.semanticUiReactStrings.spoon
+import typings.semanticUiReact.semanticUiReactStrings.red
 
 import scala.scalajs.js
 
@@ -20,6 +21,6 @@ object Main {
   }
 
   def main(argv: Array[String]): Unit = {
-    <.div(Container()(Button(onClick = buttonOnClick _)(Icon(name = spoon)()))).renderIntoDOM(document.body)
+    <.div(Container()(Button(color = red, onClick = buttonOnClick _)(Icon(name = spoon)()))).renderIntoDOM(document.body)
   }
 }

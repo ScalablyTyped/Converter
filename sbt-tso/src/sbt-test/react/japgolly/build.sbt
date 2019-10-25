@@ -1,10 +1,8 @@
+import java.nio.file.Files
+import java.nio.file.StandardCopyOption.REPLACE_EXISTING
 // *****************************************************************************
 // Projects
 // *****************************************************************************
-
-import java.nio.file.Files
-import java.nio.file.StandardCopyOption.REPLACE_EXISTING
-
 lazy val start = TaskKey[Unit]("start")
 
 lazy val dist = TaskKey[File]("dist")
@@ -15,48 +13,23 @@ lazy val japgolly =
   project
     .in(file("."))
     .enablePlugins(ScalaJSPlugin, TsoPlugin)
-//    .disablePlugins(SbtPrompt,
-//      GitBranchPrompt,
-//      GitPlugin,
-//      GitVersioning)
     .configure(bundlerSettings, browserProject)
     .settings(commonSettings)
-    .settings(
-      Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingJapgolly,
-      Compile / tsoIgnore += "csstype",
-      webpackDevServerPort := 8009,
-      libraryDependencies ++= Seq(
-        library.scalaCheck % Test,
-        library.scalaTest  % Test,
-        "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-        "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
-        "com.github.japgolly.scalajs-react" %%% "extra" % "1.4.2",
-        "com.github.pathikrit" %% "better-files" % "3.8.0",
-        "me.shadaj" %%% "slinky-web" % "0.6.2"
-      ),
-      Compile / npmDependencies ++= Seq(
-        "typescript" -> "3.6.3", //TODO Probably can remove this
-        "react-dom" -> "16.9",
-        "@types/react-dom" -> "16.9.1",
-        "react" -> "16.9",
-        "@types/react" -> "16.9.5",
-        "semantic-ui-react" -> "0.88.1",
-      ),
-    )
+    .settings(commonDependencies)
 
 // *****************************************************************************
 // Library dependencies
 // *****************************************************************************
 
-lazy val library =
-  new {
-    object Version {
-      val scalaCheck = "1.14.2"
-      val scalaTest  = "3.0.8"
-    }
-    val scalaCheck = "org.scalacheck" %% "scalacheck" % Version.scalaCheck
-    val scalaTest  = "org.scalatest"  %% "scalatest"  % Version.scalaTest
-  }
+lazy val commonDependencies = Seq(
+  libraryDependencies ++= Seq(
+    "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
+    "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2" withSources(),
+    "com.github.japgolly.scalajs-react" %%% "extra" % "1.4.2" withSources(),
+    "com.github.pathikrit" %% "better-files" % "3.8.0",
+    "org.scalatest" %% "scalatest" % "3.0.8" % "test" withSources(),
+  ),
+)
 
 // *****************************************************************************
 // Settings
@@ -71,15 +44,19 @@ lazy val commonSettings =
     startYear := Some(2019),
     licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0")),
     scalacOptions ++= Seq(
+      "-P:scalajs:sjsDefinedByDefault",
       "-unchecked",
       "-deprecation",
       "-language:_",
       "-target:jvm-1.8",
       "-encoding", "UTF-8"
     ),
-    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
+    Global / onChangedBuildSource := ReloadOnSourceChanges,
     Compile / unmanagedSourceDirectories := Seq((Compile / scalaSource).value),
     Test / unmanagedSourceDirectories := Seq((Test / scalaSource).value),
+    Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingJapgolly,
+    Compile / tsoIgnore += "csstype",
+    webpackDevServerPort := 8009,
   )
 
 lazy val bundlerSettings: Project => Project =
@@ -88,12 +65,20 @@ lazy val bundlerSettings: Project => Project =
     .settings(
       /* Specify current versions and modes */
       startWebpackDevServer / version := "3.1.10",
-      webpack / version := "4.26.1",
+      webpack / version := "4.28.3",
       Compile / fastOptJS / webpackExtraArgs += "--mode=development",
       Compile / fullOptJS / webpackExtraArgs += "--mode=production",
       Compile / fastOptJS / webpackDevServerExtraArgs += "--mode=development",
       Compile / fullOptJS / webpackDevServerExtraArgs += "--mode=production",
       useYarn := true,
+      Compile / npmDependencies ++= Seq(
+        "typescript" -> "3.6.3", //TODO Probably can remove this
+        "react-dom" -> "16.9",
+        "@types/react-dom" -> "16.9.1",
+        "react" -> "16.9",
+        "@types/react" -> "16.9.5",
+        "semantic-ui-react" -> "0.88.1",
+      ),
     )
 
 lazy val browserProject: Project => Project =
