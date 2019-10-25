@@ -259,7 +259,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = Nil,
       members     = List(applyMethod),
-      comments    = Comments(CommentData(VIP(List(c.ref)))),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
       codePath    = componentCp,
     )
   }
@@ -327,7 +327,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(SlinkyComponents.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
-      comments    = Comments(CommentData(VIP(List(c.ref)))),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
       codePath    = componentCp,
     )
   }

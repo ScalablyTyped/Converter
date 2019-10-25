@@ -1,31 +1,19 @@
 package com.olvind.tso
-package plugin
+package scalajs
 
 import com.olvind.logging.Logger
-import com.olvind.tso.importer.{Phase2Res, Source}
-import com.olvind.tso.scalajs._
-import com.olvind.tso.scalajs.react.VIP
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 object KeepOnlyReferenced {
-  def findReferences(
-      globalScope: TreeScope,
-      libs:        Map[Source.TsLibSource, Phase2Res.LibScalaJs],
-  ): Seq[QualifiedName] = {
+  final case class Keep(related: Seq[TypeRef]) extends Comment.Data
 
-    val vipsTrees: Seq[QualifiedName] =
-      libs.values.to[Seq].flatMap { lib =>
-        TreeTraverse
-          .collect(lib.packageTree) {
-            case VIP.FromTree(refs) => refs
-          }
-          .flatten
-      }
-
-    var queue: List[QualifiedName]                            = vipsTrees.toList
-    val keep:  ArrayBuffer[QualifiedName]                     = mutable.ArrayBuffer(vipsTrees: _*)
+  def findReferences(globalScope: TreeScope, trees: Traversable[PackageTree]): Set[QualifiedName] = {
+    val allKeptReferences: Set[QualifiedName] =
+      TreeTraverse.collectSeq(trees) { case KeptRefs(refs) => refs }.flatten.to[Set]
+    var queue: List[QualifiedName]                            = allKeptReferences.toList
+    val keep:  ArrayBuffer[QualifiedName]                     = mutable.ArrayBuffer(queue: _*)
     val cache: mutable.Map[QualifiedName, Seq[QualifiedName]] = mutable.Map.empty
 
     while (queue.nonEmpty) {
@@ -50,12 +38,27 @@ object KeepOnlyReferenced {
     keep.flatMap(qname => qname.parts.indices.map(n => QualifiedName(qname.parts.take(n + 1))))(collection.breakOut)
   }
 
+  private object KeptRefs {
+    def unapply(arg: Tree): Option[Seq[QualifiedName]] =
+      arg match {
+        case tree: HasCodePath =>
+          tree.comments.extract { case Keep(related) => related }.map {
+            case (refs, _) =>
+              val related = TreeTraverse.collectSeq(refs) {
+                case TypeRef(typeName, _, _) => typeName
+              }
+              tree.codePath +: related
+          }
+        case _ => None
+      }
+  }
+
   def apply(globalScope: TreeScope, keep: Set[QualifiedName], logger: Logger[Unit], lib: PackageTree): PackageTree =
     new FilteringTransformation(keep).visitPackageTree(globalScope)(lib)
 
-  final class FilteringTransformation(keep: Set[QualifiedName]) extends TreeTransformation {
+  private final class FilteringTransformation(keep: Set[QualifiedName]) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-      if (s.comments.extract { case VIP(_) => () }.nonEmpty) s
+      if (s.comments.extract { case Keep(_) => () }.nonEmpty) s
       else
         s.copy(
           parents = s.parents.filter(tr => keep(tr.typeName)),
