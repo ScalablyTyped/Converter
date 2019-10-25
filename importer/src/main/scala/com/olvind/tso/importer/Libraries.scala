@@ -197,6 +197,7 @@ object Libraries {
     "semantic-ui-react",
     "signals.js",
     "snabbdom",
+    "sodiumjs",
     "source-map-support",
     "storm-react-diagrams",
     "styled-components",
