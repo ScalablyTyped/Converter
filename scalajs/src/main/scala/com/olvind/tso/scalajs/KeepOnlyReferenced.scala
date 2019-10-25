@@ -9,9 +9,22 @@ import scala.collection.mutable.ArrayBuffer
 object KeepOnlyReferenced {
   final case class Keep(related: Seq[TypeRef]) extends Comment.Data
 
-  def findReferences(globalScope: TreeScope, trees: Traversable[PackageTree]): Set[QualifiedName] = {
+  def findReferences(globalScope: TreeScope, trees: Traversable[(Boolean, PackageTree)]): Set[QualifiedName] = {
     val allKeptReferences: Set[QualifiedName] =
-      TreeTraverse.collectSeq(trees) { case KeptRefs(refs) => refs }.flatten.to[Set]
+      trees
+        .flatMap {
+          case (true, tree) =>
+            TreeTraverse.collect(tree) { case KeptRefs(refs) => refs }.flatten.to[Set]
+          case (false, tree) =>
+            TreeTraverse
+              .collect(tree) {
+                case KeptRefs(refs)          => refs
+                case TypeRef(typeName, _, _) => List(typeName)
+              }
+              .flatten
+        }
+        .to[Set]
+
     var queue: List[QualifiedName]                            = allKeptReferences.toList
     val keep:  ArrayBuffer[QualifiedName]                     = mutable.ArrayBuffer(queue: _*)
     val cache: mutable.Map[QualifiedName, Seq[QualifiedName]] = mutable.Map.empty
