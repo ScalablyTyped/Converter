@@ -25,7 +25,7 @@ object ContentSbtProject {
   ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
 
     val buildSbt = {
-      val fixed    = List(v.%%%(v.RuntimeOrganization, v.RuntimeName, v.RuntimeVersion))
+      val fixed    = List(v.%%%(Versions.RuntimeOrg, Versions.RuntimeName, Versions.RuntimeVersion))
       val external = deps.map(d => v.%%%(d.org, d.artifact, d.version))
       val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))
 
@@ -55,7 +55,7 @@ object ContentSbtProject {
 
     SbtProjectLayout(
       os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      os.RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
+      os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}".getBytes(constants.Utf8),
       os.RelPath("project") / "plugins.sbt" -> pluginsSbt.getBytes(constants.Utf8),
       readme,
       scalaFiles,
