@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs.{Printer, QualifiedName}
+import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer, QualifiedName}
 import com.olvind.tso.ts._
 import sbt.File
 
@@ -76,7 +76,7 @@ object ImportTypings {
         )
 
         val referencesToKeep: Set[QualifiedName] =
-          KeepOnlyReferenced.findReferences(globalScope, libs).to[Set]
+          KeepOnlyReferenced.findReferences(globalScope, libs.values.map(_.packageTree))
 
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
