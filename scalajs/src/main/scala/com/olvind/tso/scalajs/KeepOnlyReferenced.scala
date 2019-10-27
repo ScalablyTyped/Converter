@@ -7,7 +7,8 @@ import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 object KeepOnlyReferenced {
-  final case class Keep(related: Seq[TypeRef]) extends Comment.Data
+  final case class Keep(related:    Seq[TypeRef]) extends Comment.Data
+  final case class Related(related: Seq[TypeRef]) extends Comment.Data
 
   def findReferences(globalScope: TreeScope, trees: Traversable[(Boolean, PackageTree)]): Set[QualifiedName] = {
     val allKeptReferences: Set[QualifiedName] =
@@ -25,6 +26,21 @@ object KeepOnlyReferenced {
         }
         .to[Set]
 
+//    val inheritanceTree: Map[QualifiedName, Traversable[QualifiedName]] = {
+//      val superSub = trees.flatMap {
+//        case (_, tree) =>
+//          TreeTraverse
+//            .collect(tree) {
+//              case cls: ClassTree if cls.parents.nonEmpty =>
+//                cls.parents.collect {
+//                  case TypeRef(name, _, _) if name.parts.take(2) === cls.codePath.parts.take(2) => name -> cls.codePath
+//                }
+//            }
+//            .flatten
+//      }
+//      superSub.groupBy(_._1).map { case (supr, subs) => supr -> subs.map(_._2) }
+//    }
+
     var queue: List[QualifiedName]                            = allKeptReferences.toList
     val keep:  ArrayBuffer[QualifiedName]                     = mutable.ArrayBuffer(queue: _*)
     val cache: mutable.Map[QualifiedName, Seq[QualifiedName]] = mutable.Map.empty
@@ -37,8 +53,16 @@ object KeepOnlyReferenced {
           val trees: Seq[Tree] =
             globalScope lookup head map (_._1)
 
+          val relatedRefs: Seq[TypeRef] =
+            trees.flatMap { t =>
+              t.comments.extract { case Related(x) => x } match {
+                case Some(value) => value._1
+                case None        => Nil
+              }
+            }
+
           val referenced: Seq[QualifiedName] =
-            TreeTraverse.collectSeq(trees) {
+            TreeTraverse.collectSeq(relatedRefs ++ trees) {
               case TypeRef(typeName, _, _) if typeName =/= head && !cache.contains(typeName) => typeName
             }
 
