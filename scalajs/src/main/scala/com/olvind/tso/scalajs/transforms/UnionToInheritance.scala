@@ -106,7 +106,7 @@ object UnionToInheritance {
         }
 
         indexedRewrites(ta.codePath) match {
-          case Rewrite(_, _, Nil) =>
+          case Rewrite(_, asInheritance, Nil) =>
             val cls = ClassTree(
               List(Annotation.ScalaJSDefined),
               ta.name,
@@ -116,12 +116,12 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              ta.comments +? comment,
+              ta.comments +? comment + CommentData(KeepOnlyReferenced.Related(asInheritance)),
               ta.codePath,
             )
 
             cls :: Nil
-          case Rewrite(_, _, noRewrites) =>
+          case Rewrite(_, asInheritance, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
               List(Annotation.ScalaJSDefined),
@@ -132,7 +132,7 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              NoComments,
+              Comments(CommentData(KeepOnlyReferenced.Related(asInheritance))),
               patchedTa.codePath,
             )
             val newTa = ta.copy(
