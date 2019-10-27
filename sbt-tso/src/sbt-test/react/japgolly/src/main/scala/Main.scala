@@ -6,10 +6,9 @@ import org.scalajs.dom.document
 import org.scalajs.dom.window
 import org.scalajs.dom.raw.HTMLButtonElement
 import typings.semanticUiReact.commonjsElementsButtonButtonMod.ButtonProps
-import typings.semanticUiReact.commonjsGenericMod.SemanticICONS
-import typings.semanticUiReact.japgolly.{Button, Container, Icon}
-import typings.semanticUiReact.semanticUiReactStrings.spoon
 import typings.semanticUiReact.semanticUiReactStrings.red
+import typings.semanticUiReact.semanticUiReactStrings.spoon
+import typings.semanticUiReact.japgolly.{Button, Container, Icon}
 
 import scala.scalajs.js
 

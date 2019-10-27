@@ -1,5 +1,7 @@
 import java.nio.file.Files
 import java.nio.file.StandardCopyOption.REPLACE_EXISTING
+
+import com.olvind.tso.plugin.ReactBinding.Japgolly
 // *****************************************************************************
 // Projects
 // *****************************************************************************
@@ -54,7 +56,7 @@ lazy val commonSettings =
     Global / onChangedBuildSource := ReloadOnSourceChanges,
     Compile / unmanagedSourceDirectories := Seq((Compile / scalaSource).value),
     Test / unmanagedSourceDirectories := Seq((Test / scalaSource).value),
-    Compile / tsoReactBinding := com.olvind.tso.plugin.ReactBindingJapgolly,
+    Compile / tsoReactBinding := Japgolly,
     Compile / tsoIgnore += "csstype",
     webpackDevServerPort := 8009,
   )
