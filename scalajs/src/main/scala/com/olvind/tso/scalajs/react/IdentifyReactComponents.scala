@@ -79,7 +79,7 @@ object IdentifyReactComponents {
         }
         val propsTypeOpt    = flattenedParams.headOption.map(_.tpe)
         def isAbstractProps = propsTypeOpt.exists(scope.isAbstract)
-        def validName       = isUpper(method.name) || (Unnamed(method.name) && isUpper(owner.name))
+        def validName       = isUpper(method.name) || (Unnamed(method.name) && (isUpper(owner.name) || Unnamed(owner.name)))
 
         if (!validName || !isTopLevel || isAbstractProps) None
         else
@@ -120,8 +120,9 @@ object IdentifyReactComponents {
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (QualifiedName.React.isComponent(current.typeName)) Some(current)
-      else {
+      if (QualifiedName.React.isComponent(current.typeName)) {
+        Some(current)
+      } else {
         scope
           .lookup(current.typeName)
           .firstDefined {

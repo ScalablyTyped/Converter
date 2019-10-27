@@ -3,6 +3,7 @@ package typings.semanticDashUiDashReact.japgolly
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -30,7 +31,8 @@ object TestContainer {
     optFn1Number: js.UndefOr[/* x */ Double => CallbackTo[Double]] = js.undefined,
     optFn1Void: js.UndefOr[/* x */ Double => Callback] = js.undefined,
     text: js.UndefOr[Boolean] = js.undefined,
-    textAlign: SemanticTEXTALIGNMENTS = null
+    textAlign: SemanticTEXTALIGNMENTS = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -54,6 +56,7 @@ object TestContainer {
     optFn1Void.foreach(p => __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1(((t0: /* x */ scala.Double) => p(t0).runNow()))))
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps, 
