@@ -34,7 +34,7 @@ object PathsFromTsLibSource {
       case (file, true) =>
         source.libName match {
           case TsIdentLibraryScoped(scope, name) =>
-            Source.TsHelperFile(file, source, TsIdentModule(Some(scope), name.to[List]))
+            Source.TsHelperFile(file, source, TsIdentModule(Some(scope), List(name)))
           case TsIdentLibrarySimple(value) =>
             Source.TsHelperFile(file, source, TsIdentModule(None, value :: Nil))
         }

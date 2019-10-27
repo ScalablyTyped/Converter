@@ -42,7 +42,7 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
       x match {
         case TsIdentModule(Some(scope), head :: tail) if !(tail.size === 1 && tail.head === head) =>
           knownLibraries.collectFirst {
-            case TsIdentLibraryScoped(`scope`, Some(`head`)) => tail.mkString("/")
+            case TsIdentLibraryScoped(`scope`, `head`) => tail.mkString("/")
           }
         case TsIdentModule(None, head :: tail) if !(tail.size === 1 && tail.head === head) =>
           knownLibraries.collectFirst {

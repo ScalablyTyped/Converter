@@ -77,8 +77,8 @@ class JsonTests extends FunSuite {
     val expected =
       NotNeededPackages(
         Vector(
-          NotNeededPackage("ajv", "ajv", "https://github.com/epoberezkin/ajv", "1.0.0"),
-          NotNeededPackage("antd", "antd", "git@github.com:KyleAMathews/deepmerge.git", "1.0.0"),
+          NotNeededPackage("ajv", TsIdentLibrary("ajv"), "https://github.com/epoberezkin/ajv", "1.0.0"),
+          NotNeededPackage("antd", TsIdentLibrary("antd"), "git@github.com:KyleAMathews/deepmerge.git", "1.0.0"),
         ),
       )
 
