@@ -29,7 +29,7 @@ object LibrarySpecific {
   }
 
   object emotion extends Named {
-    override val libName = TsIdentLibraryScoped("emotion", Some("serialize"))
+    override val libName = TsIdentLibraryScoped("emotion", "serialize")
 
     override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
       x match {
@@ -54,7 +54,7 @@ object LibrarySpecific {
   }
 
   object atUifabricFoundation extends Named {
-    override val libName: TsIdentLibrary = TsIdentLibraryScoped("uifabric", Some("foundation"))
+    override val libName: TsIdentLibrary = TsIdentLibraryScoped("uifabric", "foundation")
 
     override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
       /* break circular dependency */
@@ -66,7 +66,7 @@ object LibrarySpecific {
   }
 
   object emberPolyfills extends Named {
-    override val libName: TsIdentLibrary = TsIdentLibraryScoped("ember", Some("polyfills"))
+    override val libName: TsIdentLibrary = TsIdentLibraryScoped("ember", "polyfills")
 
     override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
       /* Error: cyclic aliasing or subtyping involving type Mix */

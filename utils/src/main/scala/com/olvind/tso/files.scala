@@ -40,7 +40,7 @@ object files {
 
   val IgnoreProjectFiles: os.Path => Boolean = p => {
     val name = p.last
-    name === ".idea" || name === "target"
+    name === ".idea" || name === "target" || name === ".git"
   }
 
   def syncAbs(

@@ -43,7 +43,7 @@ object GenerateSbtPlugin {
       |bintrayRepository := ${quote(projectName)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |publishMavenStyle := true
-      |crossSbtVersions := Vector("0.13.16", ${quote(v.sbtVersion)})
+      |crossSbtVersions := Vector("0.13.16", ${quote(Versions.sbtVersion)})
       |""".stripMargin
 
     /* we have at least a `clone` and a `notify` library - of course */
@@ -100,7 +100,7 @@ object GenerateSbtPlugin {
     Map(
       os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
       os.RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${v.sbtBintray})""".getBytes(constants.Utf8),
-      os.RelPath("project") / "build.properties" -> s"sbt.version=${v.sbtVersion}".getBytes(constants.Utf8),
+      os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}".getBytes(constants.Utf8),
       pluginSourcePath -> pluginSource.getBytes(constants.Utf8),
     )
   }

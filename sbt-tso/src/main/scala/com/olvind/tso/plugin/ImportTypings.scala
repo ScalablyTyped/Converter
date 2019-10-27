@@ -6,7 +6,7 @@ import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs.{Printer, QualifiedName}
+import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer, QualifiedName}
 import com.olvind.tso.ts._
 import sbt.File
 
@@ -22,7 +22,8 @@ object ImportTypings {
       logger:          Logger[Unit],
       reactBinding:    ReactBinding,
       libs:            List[String],
-      ignore:          Set[String],
+      ignore:          Set[TsIdentLibrary],
+      minimize:        Selection[TsIdentLibrary],
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
 
     val stdLibSource: Source = {
@@ -35,14 +36,13 @@ object ImportTypings {
     }
 
     val binding = reactBinding match {
-      case ReactBindingNative   => Nil
-      case ReactBindingSlinky   => List(com.olvind.tso.scalajs.react.ReactBinding.slinky)
-      case ReactBindingJapgolly => List(com.olvind.tso.scalajs.react.ReactBinding.japgolly)
+      case ReactBinding.Native   => List(com.olvind.tso.scalajs.react.ReactBinding.native)
+      case ReactBinding.Slinky   => List(com.olvind.tso.scalajs.react.ReactBinding.slinky)
+      case ReactBinding.Japgolly => List(com.olvind.tso.scalajs.react.ReactBinding.japgolly)
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
-
-    sources.foreach(src => println(s">>>>>>>>>>>>>>>>>>>>>>>>> ${src}"))
+    logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
     val Pipeline: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
@@ -71,18 +71,25 @@ object ImportTypings {
         val globalScope = new scalajs.TreeScope.Root(
           scalajs.Name.dummy,
           libs.map { case (_, l) => (l.scalaName, l.packageTree) },
-          stdout,
+          logger,
           false,
         )
 
-        val referencesToKeep: Set[QualifiedName] =
-          KeepOnlyReferenced.findReferences(globalScope, libs).to[Set]
+        lazy val referencesToKeep: Set[QualifiedName] =
+          KeepOnlyReferenced.findReferences(globalScope, libs.to[Seq].map {
+            case (s, l) => (minimize(s.libName), l.packageTree)
+          })
 
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
             case (source, lib) =>
-              val trimmed = KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
-              val outFiles = Printer(globalScope, trimmed) map {
+              val minimized =
+                if (minimize(source.libName)) {
+                  globalScope.logger.warn(s"Minimizing ${source.libName.value}")
+                  KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
+                } else lib.packageTree
+
+              val outFiles = Printer(globalScope, minimized) map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
               logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
@@ -102,23 +109,11 @@ object ImportTypings {
   def findSources(fromFolder: os.Path, npmDependencies: Seq[(String, String)]): Set[Source] =
     npmDependencies
       .map {
-        case (name, _) =>
-          val libName = TsIdentLibrary(name) match {
-            case TsIdentLibraryScoped("types", Some(value)) => TsIdentLibrarySimple(value)
-            case other                                      => other
-          }
-
-          Source.FromFolder(InFolder(fromFolder / os.RelPath(name)), libName): Source
+        case (name, _) => Source.FromFolder(InFolder(fromFolder / os.RelPath(name)), TsIdentLibrary(name)): Source
       }
       .groupBy(_.libName)
       .flatMap {
-        /* we require this to get the std definitins, but it's unlikely that a user wants it.
-         * might provide an escape hatch in that rare case.
-         */
-        case (TsIdentLibrarySimple("typescript"), _) =>
-          None
-        case (_, sameName) =>
-          sameName.find(s => os.walk.stream(s.folder.path).exists(_.last.endsWith(".d.ts")))
+        case (_, sameName) => sameName.find(s => os.walk.stream(s.folder.path).exists(_.last.endsWith(".d.ts")))
       }
       .to[Set]
 
@@ -130,11 +125,11 @@ object ImportTypings {
         InFolder(tsoCache / "npm" / "node_modules"),
         Main.existing(tsoCache / 'work),
         stdout.filter(LogLevel.warn),
-        ReactBindingSlinky,
+        ReactBinding.Slinky,
         List("es5", "dom"),
-        Set("typescript"),
+        Set(TsIdentLibrary("typescript")),
+        minimize = Selection.No(TsIdentLibrarySimple("react-dom")),
       ).map(_.size),
     )
   }
-
 }

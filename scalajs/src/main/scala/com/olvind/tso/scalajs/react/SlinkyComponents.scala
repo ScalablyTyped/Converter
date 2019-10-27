@@ -250,7 +250,7 @@ object SlinkyComponents {
                   name        = c.fullName,
                   parents     = List(parent),
                   members     = List(componentField) ++ members,
-                  comments    = domWarning + CommentData(VIP(List(c.ref))),
+                  comments    = domWarning + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
                   codePath    = componentCp,
                 ),
               )
@@ -276,7 +276,7 @@ object SlinkyComponents {
             name        = c.fullName,
             parents     = List(parent),
             members     = List(componentField) ++ propsAliasOpt,
-            comments    = Comments(CommentData(VIP(List(c.ref)))),
+            comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
             codePath    = componentCp,
           )
           Some(mod)

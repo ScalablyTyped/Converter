@@ -1,4 +1,4 @@
-package typings.materialUi.japgolly
+package typings.materialDashUi.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot

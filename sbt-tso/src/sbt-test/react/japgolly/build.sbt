@@ -72,7 +72,6 @@ lazy val bundlerSettings: Project => Project =
       Compile / fullOptJS / webpackDevServerExtraArgs += "--mode=production",
       useYarn := true,
       Compile / npmDependencies ++= Seq(
-        "typescript" -> "3.6.3", //TODO Probably can remove this
         "react-dom" -> "16.9",
         "@types/react-dom" -> "16.9.1",
         "react" -> "16.9",
