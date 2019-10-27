@@ -22,7 +22,7 @@ object ImportTypings {
       logger:          Logger[Unit],
       reactBinding:    ReactBinding,
       libs:            List[String],
-      ignore:          Set[String],
+      ignore:          Set[TsIdentLibrary],
       minimize:        Selection[TsIdentLibrary],
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
 
@@ -76,7 +76,9 @@ object ImportTypings {
         )
 
         lazy val referencesToKeep: Set[QualifiedName] =
-          KeepOnlyReferenced.findReferences(globalScope, libs.to[Seq].map{case (s, l) => (minimize(s.libName), l.packageTree)})
+          KeepOnlyReferenced.findReferences(globalScope, libs.to[Seq].map {
+            case (s, l) => (minimize(s.libName), l.packageTree)
+          })
 
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
@@ -107,13 +109,7 @@ object ImportTypings {
   def findSources(fromFolder: os.Path, npmDependencies: Seq[(String, String)]): Set[Source] =
     npmDependencies
       .map {
-        case (name, _) =>
-          val libName = TsIdentLibrary(name) match {
-            case TsIdentLibraryScoped("types", Some(value)) => TsIdentLibrarySimple(value)
-            case other                                      => other
-          }
-
-          Source.FromFolder(InFolder(fromFolder / os.RelPath(name)), libName): Source
+        case (name, _) => Source.FromFolder(InFolder(fromFolder / os.RelPath(name)), TsIdentLibrary(name)): Source
       }
       .groupBy(_.libName)
       .flatMap {

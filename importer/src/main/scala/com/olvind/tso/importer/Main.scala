@@ -104,7 +104,7 @@ class Main(config: Config) {
         interfaceLogger,
         interfaceCmd,
         existing(existing(config.cacheFolder / 'npm)),
-        external.packages.map(_.typingsPackageName).to[Set] + "typescript" ++ Libraries.extraExternals,
+        external.packages.map(_.typingsPackageName).to[Set] + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
         Libraries.ignored(config.sequential),
         config.conserveSpace,
         config.offline,
@@ -130,12 +130,8 @@ class Main(config: Config) {
           TypescriptSources(externalsFolder, dtFolder, Libraries.ignored(config.sequential)).sorted ++ facadeSources,
           config.wantedLibNames,
         ) match {
-          case (sources, sets.EmptySet()) => sources
-          case (sources, wantedLibsStrings) =>
-            val wantedLibNames: Set[TsIdentLibrary] =
-              wantedLibsStrings.map(libName => ModuleNameParser(TsLiteralString(libName)).inLibrary)
-
-            sources.filter(s => wantedLibNames(s.libName))
+          case (sources, sets.EmptySet())   => sources
+          case (sources, wantedLibsStrings) => sources.filter(s => wantedLibsStrings(s.libName))
         }
       }
     }

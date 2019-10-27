@@ -333,7 +333,7 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
   lazy val inLibrary: TsIdentLibrary =
     scopeOpt match {
       case None        => TsIdentLibrarySimple(fragments.head)
-      case Some(scope) => ts.TsIdentLibraryScoped(scope, fragments.headOption)
+      case Some(scope) => TsIdentLibraryScoped(scope, fragments.head)
     }
 
   lazy val value: String =
@@ -350,34 +350,32 @@ object TsIdentModule {
 
 sealed trait TsIdentLibrary extends TsIdent {
   def `__value`: String = this match {
-    case TsIdentLibraryScoped(scope, Some(name)) => s"${scope}__$name"
-    case TsIdentLibraryScoped(scope, None)       => scope
-    case TsIdentLibrarySimple(value)             => value
+    case TsIdentLibraryScoped(scope, name) => s"${scope}__$name"
+    case TsIdentLibrarySimple(value)       => value
   }
 }
 
 object TsIdentLibrary {
   implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
     i => i.value
+
   val Scoped   = "@([^/]+)/(.+)".r
   val Scoped__ = "(.+)__(.+)".r
 
   def apply(str: String): TsIdentLibrary =
     str match {
-      case Scoped(scope, name)   => TsIdentLibraryScoped(scope, Some(name))
-      case Scoped__(scope, name) => TsIdentLibraryScoped(scope, Some(name))
-      case other                 => TsIdentLibrarySimple(other)
+      case Scoped("types", name)   => TsIdentLibrarySimple(name)
+      case Scoped(scope, name)     => TsIdentLibraryScoped(scope, name)
+      case Scoped__("types", name) => TsIdentLibrarySimple(name)
+      case Scoped__(scope, name)   => TsIdentLibraryScoped(scope, name)
+      case other                   => TsIdentLibrarySimple(other)
     }
 }
 
 final case class TsIdentLibrarySimple(value: String) extends TsIdentLibrary
 
-final case class TsIdentLibraryScoped(scope: String, nameOpt: Option[String]) extends TsIdentLibrary {
-  def value: String =
-    nameOpt match {
-      case Some(name) => s"@$scope/$name"
-      case None       => s"@$scope"
-    }
+final case class TsIdentLibraryScoped(scope: String, name: String) extends TsIdentLibrary {
+  def value: String = s"@$scope/$name"
 }
 
 object TsIdent {

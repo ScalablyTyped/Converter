@@ -7,10 +7,18 @@ import com.olvind.tso.ts._
 import io.circe._
 
 object jsonCodecs {
-  implicit val RelPathDecoder: Decoder[os.RelPath] = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))
-  implicit val RelPathEncoder: Encoder[os.RelPath] = Encoder[String].contramap[os.RelPath](_.toString)
-  implicit val URIDecoder:     Decoder[URI]        = Decoder[String].map(new URI(_))
-  implicit val URIEncoder:     Encoder[URI]        = Encoder[String].contramap[URI](_.toString)
+  implicit val RelPathDecoder:        Decoder[os.RelPath]     = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))
+  implicit val RelPathEncoder:        Encoder[os.RelPath]     = Encoder[String].contramap[os.RelPath](_.toString)
+  implicit val URIDecoder:            Decoder[URI]            = Decoder[String].map(new URI(_))
+  implicit val URIEncoder:            Encoder[URI]            = Encoder[String].contramap[URI](_.toString)
+  implicit val TsIdentLibraryDecoder: Decoder[TsIdentLibrary] = Decoder[String].map(TsIdentLibrary.apply)
+  implicit val TsIdentLibraryEncoder: Encoder[TsIdentLibrary] = Encoder[String].contramap[TsIdentLibrary](_.value)
+
+  implicit val TsIdentLibraryMapDecoder: Decoder[Map[TsIdentLibrary, String]] =
+    Decoder[Map[String, String]].map(_.map { case (k, v) => TsIdentLibrary(k) -> v })
+
+  implicit val TsIdentLibraryMapEncoder: Encoder[Map[TsIdentLibrary, String]] =
+    Encoder[Map[String, String]].contramap[Map[TsIdentLibrary, String]](_.map { case (k, v) => k.value -> v })
 
   import io.circe.generic.semiauto._
 
