@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -19,7 +20,8 @@ abstract class SharedApply_ButtonContentProps_1110248541 () {
     className: String = null,
     content: SemanticShorthandContent = null,
     hidden: js.UndefOr[Boolean] = js.undefined,
-    visible: js.UndefOr[Boolean] = js.undefined
+    visible: js.UndefOr[Boolean] = js.undefined,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -34,6 +36,7 @@ abstract class SharedApply_ButtonContentProps_1110248541 () {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(hidden)) __obj.updateDynamic("hidden")(hidden)
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps, 

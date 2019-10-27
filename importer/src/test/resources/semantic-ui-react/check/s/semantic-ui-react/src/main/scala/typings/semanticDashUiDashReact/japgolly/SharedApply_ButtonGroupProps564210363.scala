@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -45,7 +46,8 @@ abstract class SharedApply_ButtonGroupProps564210363 () {
     size: SemanticSIZES = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: SemanticWIDTHS = null
+    widths: SemanticWIDTHS = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -76,6 +78,7 @@ abstract class SharedApply_ButtonGroupProps564210363 () {
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     if (widths != null) __obj.updateDynamic("widths")(widths)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps, 
