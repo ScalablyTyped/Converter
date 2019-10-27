@@ -233,6 +233,7 @@ object Phase1ReadTypescript {
       if (enableExpandTypeMappings) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
       (
         T.SimplifyConditionals >> // after ExpandTypeMappings
+          T.TypeAliasToConstEnum >>
           T.PreferTypeAlias >>
           T.ExpandTypeParams >>
           T.SimplifyRecursiveTypeAlias >> // after PreferTypeAlias
