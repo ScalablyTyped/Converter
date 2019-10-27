@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact
 
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHSNUMBER
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -7,52 +8,84 @@ import scala.scalajs.js.annotation._
 
 object semanticDashUiDashReactNumbers {
   @js.native
-  sealed trait `1` extends SemanticWIDTHSNUMBER
+  sealed trait `1`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `10` extends SemanticWIDTHSNUMBER
+  sealed trait `10`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `11` extends SemanticWIDTHSNUMBER
+  sealed trait `11`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `12` extends SemanticWIDTHSNUMBER
+  sealed trait `12`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `13` extends SemanticWIDTHSNUMBER
+  sealed trait `13`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `14` extends SemanticWIDTHSNUMBER
+  sealed trait `14`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `15` extends SemanticWIDTHSNUMBER
+  sealed trait `15`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `16` extends SemanticWIDTHSNUMBER
+  sealed trait `16`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `2` extends SemanticWIDTHSNUMBER
+  sealed trait `2`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `3` extends SemanticWIDTHSNUMBER
+  sealed trait `3`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `4` extends SemanticWIDTHSNUMBER
+  sealed trait `4`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `5` extends SemanticWIDTHSNUMBER
+  sealed trait `5`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `6` extends SemanticWIDTHSNUMBER
+  sealed trait `6`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `7` extends SemanticWIDTHSNUMBER
+  sealed trait `7`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `8` extends SemanticWIDTHSNUMBER
+  sealed trait `8`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @js.native
-  sealed trait `9` extends SemanticWIDTHSNUMBER
+  sealed trait `9`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSNUMBER
   
   @scala.inline
   def `1`: `1` = 1.asInstanceOf[`1`]
