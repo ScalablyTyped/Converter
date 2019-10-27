@@ -71,7 +71,7 @@ object ImportTypings {
         val globalScope = new scalajs.TreeScope.Root(
           scalajs.Name.dummy,
           libs.map { case (_, l) => (l.scalaName, l.packageTree) },
-          stdout,
+          logger,
           false,
         )
 
