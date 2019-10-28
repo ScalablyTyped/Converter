@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "semantic-ui-react"
-version := "0.0-unknown-9bb470"
+version := "0.0-unknown-6c2d5b"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

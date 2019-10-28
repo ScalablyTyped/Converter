@@ -7,7 +7,9 @@ import typings.semanticUiReact.genericMod.SemanticICONS
 import typings.semanticUiReact.genericMod.SemanticSIZES
 import typings.semanticUiReact.genericMod.SemanticSTATICTRANSITIONS
 import typings.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
+import typings.semanticUiReact.genericMod.SemanticTRANSITIONS
 import typings.semanticUiReact.genericMod.SemanticVERTICALALIGNMENTS
+import typings.semanticUiReact.genericMod.SemanticWIDTHS
 import typings.semanticUiReact.genericMod.SemanticWIDTHSSTRING
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,55 +17,87 @@ import scala.scalajs.js.annotation._
 
 object semanticUiReactStrings {
   @js.native
-  sealed trait `1` extends SemanticWIDTHSSTRING
+  sealed trait `1`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `10` extends SemanticWIDTHSSTRING
+  sealed trait `10`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `11` extends SemanticWIDTHSSTRING
+  sealed trait `11`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `12` extends SemanticWIDTHSSTRING
+  sealed trait `12`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `13` extends SemanticWIDTHSSTRING
+  sealed trait `13`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `14` extends SemanticWIDTHSSTRING
+  sealed trait `14`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `15` extends SemanticWIDTHSSTRING
+  sealed trait `15`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `16` extends SemanticWIDTHSSTRING
+  sealed trait `16`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `2` extends SemanticWIDTHSSTRING
+  sealed trait `2`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `3` extends SemanticWIDTHSSTRING
+  sealed trait `3`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `4` extends SemanticWIDTHSSTRING
+  sealed trait `4`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `5` extends SemanticWIDTHSSTRING
+  sealed trait `5`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `500px` extends SemanticICONS
   
   @js.native
-  sealed trait `6` extends SemanticWIDTHSSTRING
+  sealed trait `6`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `7` extends SemanticWIDTHSSTRING
+  sealed trait `7`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `8` extends SemanticWIDTHSSTRING
+  sealed trait `8`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait `9` extends SemanticWIDTHSSTRING
+  sealed trait `9`
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait JS extends SemanticICONS
@@ -516,7 +550,9 @@ object semanticUiReactStrings {
   sealed trait bottom extends SemanticVERTICALALIGNMENTS
   
   @js.native
-  sealed trait bounce extends SemanticSTATICTRANSITIONS
+  sealed trait bounce
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait `bowling ball` extends SemanticICONS
@@ -540,10 +576,14 @@ object semanticUiReactStrings {
   sealed trait brown extends SemanticCOLORS
   
   @js.native
-  sealed trait browse extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait browse
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `browse right` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `browse right`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait browser extends SemanticICONS
@@ -1134,7 +1174,9 @@ object semanticUiReactStrings {
   sealed trait `drivers license` extends SemanticICONS
   
   @js.native
-  sealed trait drop extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait drop
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait dropbox extends SemanticICONS
@@ -1161,7 +1203,9 @@ object semanticUiReactStrings {
   sealed trait `edit outline` extends SemanticICONS
   
   @js.native
-  sealed trait eight extends SemanticWIDTHSSTRING
+  sealed trait eight
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait eject extends SemanticICONS
@@ -1170,7 +1214,9 @@ object semanticUiReactStrings {
   sealed trait elementor extends SemanticICONS
   
   @js.native
-  sealed trait eleven extends SemanticWIDTHSSTRING
+  sealed trait eleven
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `ellipsis horizontal` extends SemanticICONS
@@ -1302,19 +1348,29 @@ object semanticUiReactStrings {
   sealed trait factory extends SemanticICONS
   
   @js.native
-  sealed trait fade extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait fade
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fade down` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fade down`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fade left` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fade left`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fade right` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fade right`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fade up` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fade up`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait `fast backward` extends SemanticICONS
@@ -1338,7 +1394,9 @@ object semanticUiReactStrings {
   sealed trait `female homosexual` extends SemanticICONS
   
   @js.native
-  sealed trait fifteen extends SemanticWIDTHSSTRING
+  sealed trait fifteen
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `fighter jet` extends SemanticICONS
@@ -1443,7 +1501,9 @@ object semanticUiReactStrings {
   sealed trait firstdraft extends SemanticICONS
   
   @js.native
-  sealed trait five extends SemanticWIDTHSSTRING
+  sealed trait five
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait flag extends SemanticICONS
@@ -1455,7 +1515,9 @@ object semanticUiReactStrings {
   sealed trait `flag outline` extends SemanticICONS
   
   @js.native
-  sealed trait flash extends SemanticSTATICTRANSITIONS
+  sealed trait flash
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait flask extends SemanticICONS
@@ -1470,16 +1532,24 @@ object semanticUiReactStrings {
   sealed trait fly extends SemanticICONS
   
   @js.native
-  sealed trait `fly down` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fly down`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fly left` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fly left`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fly right` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fly right`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `fly up` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `fly up`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait folder extends SemanticICONS
@@ -1533,13 +1603,17 @@ object semanticUiReactStrings {
   sealed trait forward extends SemanticICONS
   
   @js.native
-  sealed trait four extends SemanticWIDTHSSTRING
+  sealed trait four
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait foursquare extends SemanticICONS
   
   @js.native
-  sealed trait fourteen extends SemanticWIDTHSSTRING
+  sealed trait fourteen
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `free code camp` extends SemanticICONS
@@ -1632,7 +1706,9 @@ object semanticUiReactStrings {
   sealed trait globe extends SemanticICONS
   
   @js.native
-  sealed trait glow extends SemanticSTATICTRANSITIONS
+  sealed trait glow
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait gofore extends SemanticICONS
@@ -1860,7 +1936,9 @@ object semanticUiReactStrings {
   sealed trait hooli extends SemanticICONS
   
   @js.native
-  sealed trait `horizontal flip` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `horizontal flip`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait hospital extends SemanticICONS
@@ -2007,7 +2085,9 @@ object semanticUiReactStrings {
   sealed trait jenkins extends SemanticICONS
   
   @js.native
-  sealed trait jiggle extends SemanticSTATICTRANSITIONS
+  sealed trait jiggle
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait joget extends SemanticICONS
@@ -2434,7 +2514,9 @@ object semanticUiReactStrings {
   sealed trait `newspaper outline` extends SemanticICONS
   
   @js.native
-  sealed trait nine extends SemanticWIDTHSSTRING
+  sealed trait nine
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `nintendo switch` extends SemanticICONS
@@ -2482,7 +2564,9 @@ object semanticUiReactStrings {
   sealed trait olive extends SemanticCOLORS
   
   @js.native
-  sealed trait one extends SemanticWIDTHSSTRING
+  sealed trait one
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait opencart extends SemanticICONS
@@ -2731,7 +2815,9 @@ object semanticUiReactStrings {
   sealed trait protect extends SemanticICONS
   
   @js.native
-  sealed trait pulse extends SemanticSTATICTRANSITIONS
+  sealed trait pulse
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait purple extends SemanticCOLORS
@@ -2943,7 +3029,9 @@ object semanticUiReactStrings {
   sealed trait `save outline` extends SemanticICONS
   
   @js.native
-  sealed trait scale extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait scale
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait schlix extends SemanticICONS
@@ -2988,10 +3076,14 @@ object semanticUiReactStrings {
   sealed trait settings extends SemanticICONS
   
   @js.native
-  sealed trait seven extends SemanticWIDTHSSTRING
+  sealed trait seven
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait shake extends SemanticSTATICTRANSITIONS
+  sealed trait shake
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait share extends SemanticICONS
@@ -3105,10 +3197,14 @@ object semanticUiReactStrings {
   sealed trait sitemap extends SemanticICONS
   
   @js.native
-  sealed trait six extends SemanticWIDTHSSTRING
+  sealed trait six
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait sixteen extends SemanticWIDTHSSTRING
+  sealed trait sixteen
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait skyatlas extends SemanticICONS
@@ -3123,16 +3219,24 @@ object semanticUiReactStrings {
   sealed trait `slack hash` extends SemanticICONS
   
   @js.native
-  sealed trait `slide down` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `slide down`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `slide left` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `slide left`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `slide right` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `slide right`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `slide up` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `slide up`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait sliders extends SemanticICONS
@@ -3375,16 +3479,24 @@ object semanticUiReactStrings {
   sealed trait supple extends SemanticICONS
   
   @js.native
-  sealed trait `swing down` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `swing down`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `swing left` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `swing left`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `swing right` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `swing right`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
-  sealed trait `swing up` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `swing up`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait sync extends SemanticICONS
@@ -3411,7 +3523,9 @@ object semanticUiReactStrings {
   sealed trait `tachometer alternate` extends SemanticICONS
   
   @js.native
-  sealed trait tada extends SemanticSTATICTRANSITIONS
+  sealed trait tada
+    extends SemanticSTATICTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait tag extends SemanticICONS
@@ -3447,7 +3561,9 @@ object semanticUiReactStrings {
   sealed trait television extends SemanticICONS
   
   @js.native
-  sealed trait ten extends SemanticWIDTHSSTRING
+  sealed trait ten
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `tencent weibo` extends SemanticICONS
@@ -3501,10 +3617,14 @@ object semanticUiReactStrings {
   sealed trait `thermometer three quarters` extends SemanticICONS
   
   @js.native
-  sealed trait thirteen extends SemanticWIDTHSSTRING
+  sealed trait thirteen
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait three extends SemanticWIDTHSSTRING
+  sealed trait three
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait `thumb tack` extends SemanticICONS
@@ -3648,7 +3768,9 @@ object semanticUiReactStrings {
   sealed trait tv extends SemanticICONS
   
   @js.native
-  sealed trait twelve extends SemanticWIDTHSSTRING
+  sealed trait twelve
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait twitch extends SemanticICONS
@@ -3660,7 +3782,9 @@ object semanticUiReactStrings {
   sealed trait `twitter square` extends SemanticICONS
   
   @js.native
-  sealed trait two extends SemanticWIDTHSSTRING
+  sealed trait two
+    extends SemanticWIDTHS
+       with SemanticWIDTHSSTRING
   
   @js.native
   sealed trait typo3 extends SemanticICONS
@@ -3795,7 +3919,9 @@ object semanticUiReactStrings {
   sealed trait vertical extends js.Object
   
   @js.native
-  sealed trait `vertical flip` extends SemanticDIRECTIONALTRANSITIONS
+  sealed trait `vertical flip`
+    extends SemanticDIRECTIONALTRANSITIONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait viacoin extends SemanticICONS
@@ -4035,6 +4161,7 @@ object semanticUiReactStrings {
   sealed trait zoom
     extends SemanticDIRECTIONALTRANSITIONS
        with SemanticICONS
+       with SemanticTRANSITIONS
   
   @js.native
   sealed trait `zoom in` extends SemanticICONS

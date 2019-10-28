@@ -1,10 +1,10 @@
-package typings.reactDashBootstrap
+package typings.reactBootstrap
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-package object reactDashBootstrapMod {
+package object reactBootstrapMod {
   import typings.std.Pick
 
   type Omit[T, K /* <: String */] = Pick[

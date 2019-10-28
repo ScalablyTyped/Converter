@@ -1,7 +1,7 @@
-package typings.reactDashBootstrap.reactDashBootstrapMod
+package typings.reactBootstrap.reactBootstrapMod
 
 import typings.react.reactMod.Component
-import typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps
+import typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
