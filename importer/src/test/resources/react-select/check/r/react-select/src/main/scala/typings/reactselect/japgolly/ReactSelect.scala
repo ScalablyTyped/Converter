@@ -1,6 +1,7 @@
 package typings.reactSelect.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import typings.reactSelect.reactSelectMod.ReactSelectProps
 import typings.reactSelect.reactSelectMod.default
@@ -9,10 +10,11 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ReactSelect {
-  def apply[TValue](addLabelText: String = null)(children: ChildArg*): UnmountedWithRoot[ReactSelectProps[TValue], default[TValue], Unit, ReactSelectProps[TValue]] = {
+  def apply[TValue](key: js.UndefOr[Key] = js.undefined, addLabelText: String = null)(children: ChildArg*): UnmountedWithRoot[ReactSelectProps[TValue], default[TValue], Unit, ReactSelectProps[TValue]] = {
     val __obj = js.Dynamic.literal()
   
-      if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText)
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactSelect.reactSelectMod.ReactSelectProps[TValue], 

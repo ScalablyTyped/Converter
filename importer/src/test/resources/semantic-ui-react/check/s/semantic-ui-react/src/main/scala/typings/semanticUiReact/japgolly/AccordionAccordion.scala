@@ -2,6 +2,7 @@ package typings.semanticUiReact.japgolly
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -17,6 +18,7 @@ import scala.scalajs.js.annotation._
 
 object AccordionAccordion {
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     activeIndex: Double | js.Array[Double] = null,
     as: js.Any = null,
@@ -32,7 +34,8 @@ object AccordionAccordion {
   ): UnmountedWithRoot[AccordionAccordionProps, default, Unit, AccordionAccordionProps] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)

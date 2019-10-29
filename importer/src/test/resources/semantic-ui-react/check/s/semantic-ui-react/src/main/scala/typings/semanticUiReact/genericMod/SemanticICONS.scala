@@ -1,6 +1,5 @@
 package typings.semanticUiReact.genericMod
 
-import typings.semanticUiReact.semanticUiReactStrings.JS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -1263,6 +1262,8 @@ object SemanticICONS {
   @scala.inline
   def `500px`: typings.semanticUiReact.semanticUiReactStrings.`500px` = this.cast("500px")
   @scala.inline
+  def JS: typings.semanticUiReact.semanticUiReactStrings.JS = this.cast("js")
+  @scala.inline
   def accessible: typings.semanticUiReact.semanticUiReactStrings.accessible = this.cast("accessible")
   @scala.inline
   def accusoft: typings.semanticUiReact.semanticUiReactStrings.accusoft = this.cast("accusoft")
@@ -2500,9 +2501,6 @@ object SemanticICONS {
   def jpy: typings.semanticUiReact.semanticUiReactStrings.jpy = this.cast("jpy")
   @scala.inline
   def `js square`: typings.semanticUiReact.semanticUiReactStrings.`js square` = this.cast("js square")
-  @JSName("js")
-  @scala.inline
-  def js_ : JS = this.cast("js")
   @scala.inline
   def jsfiddle: typings.semanticUiReact.semanticUiReactStrings.jsfiddle = this.cast("jsfiddle")
   @scala.inline

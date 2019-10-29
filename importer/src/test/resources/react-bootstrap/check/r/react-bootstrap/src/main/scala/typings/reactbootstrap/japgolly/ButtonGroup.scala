@@ -1,6 +1,7 @@
 package typings.reactBootstrap.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
@@ -15,6 +16,7 @@ object ButtonGroup {
     defaultValue: foo,
     onChange: foo,
     value: foo,
+    key: js.UndefOr[Key] = js.undefined,
     `type`: foo,
     accept: String = null,
     acceptCharset: String = null,
@@ -30,7 +32,8 @@ object ButtonGroup {
   ): UnmountedWithRoot[ButtonGroupProps, typings.reactBootstrap.libMod.ButtonGroup, Unit, ButtonGroupProps] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
   
-      __obj.updateDynamic("type")(`type`)
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)

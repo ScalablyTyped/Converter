@@ -1,6 +1,7 @@
 package typings.semanticUiReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -13,6 +14,7 @@ import scala.scalajs.js.annotation._
 abstract class SharedApply_ButtonOrProps2080347855 () {
   def __component: js.Any
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null,
@@ -25,7 +27,8 @@ abstract class SharedApply_ButtonOrProps2080347855 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])

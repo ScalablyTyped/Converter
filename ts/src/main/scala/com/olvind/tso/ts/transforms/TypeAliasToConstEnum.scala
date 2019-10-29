@@ -2,8 +2,8 @@ package com.olvind.tso
 package ts
 package transforms
 
-import com.olvind.tso.stringUtils.unquote
-import seqs._
+import stringUtils.unquote
+import com.olvind.tso.seqs._
 
 object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
   override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
@@ -12,7 +12,12 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
         extractOnlyLiterals(scope, x) match {
           case Some(allLits) =>
             val members = allLits.map(
-              lit => TsEnumMember(NoComments, TsIdentSimple(unquote(lit.literal)), Some(TsExpr.Literal(lit))),
+              lit =>
+                TsEnumMember(
+                  NoComments,
+                  TsIdentSimple(prettyString.nameFor(unquote(lit.literal))),
+                  Some(TsExpr.Literal(lit)),
+                ),
             )
             TsDeclEnum(
               comments,

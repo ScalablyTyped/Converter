@@ -3,6 +3,7 @@ package typings.semanticUiReact.japgolly
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
@@ -16,6 +17,7 @@ import scala.scalajs.js.annotation._
 
 object TestContainer {
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     requiredFn0Number: CallbackTo[Double],
     requiredFn0Void: Callback,
     requiredFn1Number: Double => CallbackTo[Double],
@@ -39,7 +41,8 @@ object TestContainer {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      __obj.updateDynamic("requiredFn0Number")(js.Any.fromFunction0((() => requiredFn0Number.runNow())))
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    __obj.updateDynamic("requiredFn0Number")(js.Any.fromFunction0((() => requiredFn0Number.runNow())))
     __obj.updateDynamic("requiredFn0Void")(js.Any.fromFunction0((() => requiredFn0Void.runNow())))
     __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1(((t0: scala.Double) => requiredFn1Number(t0).runNow())))
     __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1(((t0: scala.Double) => requiredFn1Void(t0).runNow())))

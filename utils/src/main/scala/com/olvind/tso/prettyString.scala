@@ -1,7 +1,7 @@
 package com.olvind.tso
 
-/* I'm sure we can discuss how pretty it is, but at least try to do it consistently */
 object prettyString {
+  /* I'm sure we can discuss how pretty it is, but at least try to do it consistently */
   def apply(value: String, suffix: String, forceCamelCase: Boolean): String =
     value
       .flatMap {
@@ -22,4 +22,28 @@ object prettyString {
         case (x, _) => x.capitalize
       }
       .mkString("", "", suffix)
+
+  /* This is used for translating what was originally strings, so much more free form.
+   *  We rely more on escaping with ` here
+   */
+  def nameFor(underlying: String): String = {
+    val base =
+      stringUtils unquote underlying flatMap {
+        case '.'   => "DOT"
+        case '`'   => "BACKTICK"
+        case '\\'  => "BACKSLASH"
+        case '$'   => "DOLLAR"
+        case other => other.toString
+      }
+
+    base match {
+      case "_"       => "Underscore"
+      case "^"       => "`^`" // todo: think this might be solved in the printer
+      case ""        => "Empty"
+      case "package" => "PACKAGE"
+      case "js"      => "JS"
+      case "scala"   => "SCALA"
+      case other     => other
+    }
+  }
 }

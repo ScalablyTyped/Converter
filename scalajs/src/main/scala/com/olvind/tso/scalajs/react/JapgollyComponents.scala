@@ -19,7 +19,7 @@ object JapgollyComponents {
     val component    = Name("__component")
     val ComponentRef = Name("ComponentRef")
 
-    val Ignored = Set(key, children)
+    val Ignored = Set(children)
   }
 
   private object japgolly {
@@ -57,6 +57,7 @@ object JapgollyComponents {
     val rawReactElementType:             QualifiedName = rawReact + Name("ElementType")
     val rawReactNode:                    QualifiedName = rawReact + Name("Node")
     val rawReactRef:                     QualifiedName = rawReact + Name("Ref")
+    val reactKey:                        QualifiedName = react + Name("Key")
 
     val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
 
@@ -100,6 +101,22 @@ object JapgollyComponents {
   }
 
   val rewriter = TypeRewriterCast(japgolly.conversions)
+
+  //  final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
+  //  final case class Param(parameter: ParamTree, isOptional: Boolean, asString: Either[String, String => String])
+  val additionalParams = Seq(
+    //TODO: add ref as well.
+    Param(
+      parameter = ParamTree(
+        name     = Name("key"),
+        tpe      = TypeRef.UndefOr(TypeRef(japgolly.reactKey)),
+        default  = Some(TypeRef.undefined),
+        comments = NoComments,
+      ),
+      isOptional = true,
+      asString   = Right(obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""),
+    ),
+  )
 
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] =
     Companions
@@ -213,7 +230,13 @@ object JapgollyComponents {
                           memberParameter,
                         )
                     }
-                  paramsOpt.map(params => props -> params)
+
+                  paramsOpt.map(params => {
+                    val ps = additionalParams ++ params.filter(
+                      p => !additionalParams.exists(p2 => p2.parameter.name.unescaped == p.parameter.name.unescaped),
+                    )
+                    props -> ps
+                  })
                 case None =>
                   Some(TypeRef.Object -> Nil)
               }
@@ -341,14 +364,14 @@ object JapgollyComponents {
       ownerCp:           QualifiedName,
   ): MethodTree = {
 
-    val (refTypes, declaredChildren, _, optionals, inLiterals, Nil) =
+    val (refTypes, declaredChildren, ignoredProps, optionals, inLiterals, Nil) =
       params.partitionCollect5(
-        { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe },
+        { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
-        { case Param(ParamTree(names.children, t, _, _), _, _) if t.typeName =/= japgolly.vdomVdomNode => t },
-        { case Param(ParamTree(propName, _, _, _), _, _) if names.Ignored(propName)                    => () },
-        { case Param(p, _, Right(f))                                                                   => p -> f },
-        { case Param(p, _, Left(str))                                                                  => p -> str },
+        { case Param(ParamTree(names.children, t, _, _), _, _) if t.typeName =/= japgolly.vdomVdomNode => t }, //declaredChildren
+        { case Param(ParamTree(propName, _, _, _), _, _) if names.Ignored(propName)                    => () }, //ignoredProps
+        { case Param(p, _, Right(f))                                                                   => p -> f }, //optionals
+        { case Param(p, _, Left(str))                                                                  => p -> str }, //inLiterals
       )
 
     val childrenParam: ParamTree =

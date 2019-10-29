@@ -89,6 +89,8 @@ object LibrarySpecific {
     val HTMLFormElement        = stdLib + TsIdent("HTMLFormElement")
     val ButtonHTMLAttributes   = reactMod + TsIdent("ButtonHTMLAttributes")
     val HTMLButtonElement      = stdLib + TsIdent("HTMLButtonElement")
+    val TdHTMLAttributes       = reactMod + TsIdent("TdHTMLAttributes")
+    val HTMLTableCellElement   = stdLib + TsIdent("HTMLTableCellElement")
 
     def event(name: TsQIdent, of: TsQIdent) =
       TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))
@@ -99,12 +101,14 @@ object LibrarySpecific {
       TsIdentSimple("StrictCheckboxProps") -> event(InputHTMLAttributes, HTMLInputElement),
       TsIdentSimple("StrictFormProps") -> event(FormHTMLAttributes, HTMLFormElement),
       TsIdentSimple("StrictButtonProps") -> event(ButtonHTMLAttributes, HTMLButtonElement),
+      TsIdentSimple("StrictTableCellProps") -> event(TdHTMLAttributes, HTMLTableCellElement),
     )
     val removeIndex = Set[TsIdent](
       TsIdentSimple("InputProps"),
       TsIdentSimple("TextAreaProps"),
       TsIdentSimple("FormProps"),
       TsIdentSimple("ButtonProps"),
+      TsIdentSimple("TableCellProps"),
     )
 
     override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
