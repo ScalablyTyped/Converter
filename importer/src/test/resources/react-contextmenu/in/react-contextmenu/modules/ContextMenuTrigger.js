@@ -88,10 +88,18 @@ var ContextMenuTrigger = function (_Component) {
             clearTimeout(_this.touchstartTimeoutId);
             (0, _helpers.callIfExists)(_this.props.attributes.onTouchEnd, event);
         }, _this.handleContextMenu = function (event) {
-            _this.handleContextClick(event);
+            if (event.button === _this.props.mouseButton) {
+                _this.handleContextClick(event);
+            }
             (0, _helpers.callIfExists)(_this.props.attributes.onContextMenu, event);
+        }, _this.handleMouseClick = function (event) {
+            if (event.button === _this.props.mouseButton) {
+                _this.handleContextClick(event);
+            }
+            (0, _helpers.callIfExists)(_this.props.attributes.onClick, event);
         }, _this.handleContextClick = function (event) {
             if (_this.props.disable) return;
+            if (_this.props.disableIfShiftIsPressed && event.shiftKey) return;
 
             event.preventDefault();
             event.stopPropagation();
@@ -112,16 +120,20 @@ var ContextMenuTrigger = function (_Component) {
             var showMenuConfig = {
                 position: { x: x, y: y },
                 target: _this.elem,
-                id: _this.props.id,
-                data: data
+                id: _this.props.id
             };
             if (data && typeof data.then === 'function') {
                 // it's promise
                 data.then(function (resp) {
-                    showMenuConfig.data = resp;
+                    showMenuConfig.data = (0, _objectAssign2.default)({}, resp, {
+                        target: event.target
+                    });
                     (0, _actions.showMenu)(showMenuConfig);
                 });
             } else {
+                showMenuConfig.data = (0, _objectAssign2.default)({}, data, {
+                    target: event.target
+                });
                 (0, _actions.showMenu)(showMenuConfig);
             }
         }, _this.elemRef = function (c) {
@@ -140,6 +152,7 @@ var ContextMenuTrigger = function (_Component) {
             var newAttrs = (0, _objectAssign2.default)({}, attributes, {
                 className: (0, _classnames2.default)(_helpers.cssClasses.menuWrapper, attributes.className),
                 onContextMenu: this.handleContextMenu,
+                onClick: this.handleMouseClick,
                 onMouseDown: this.handleMouseDown,
                 onMouseUp: this.handleMouseUp,
                 onTouchStart: this.handleTouchstart,
@@ -164,7 +177,9 @@ ContextMenuTrigger.propTypes = {
     holdToDisplay: _propTypes2.default.number,
     posX: _propTypes2.default.number,
     posY: _propTypes2.default.number,
-    renderTag: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.func])
+    renderTag: _propTypes2.default.oneOfType([_propTypes2.default.node, _propTypes2.default.func]),
+    mouseButton: _propTypes2.default.number,
+    disableIfShiftIsPressed: _propTypes2.default.bool
 };
 ContextMenuTrigger.defaultProps = {
     attributes: {},
@@ -176,6 +191,8 @@ ContextMenuTrigger.defaultProps = {
     holdToDisplay: 1000,
     renderTag: 'div',
     posX: 0,
-    posY: 0
+    posY: 0,
+    mouseButton: 2, // 0 is left click, 2 is right click
+    disableIfShiftIsPressed: false
 };
 exports.default = ContextMenuTrigger;

@@ -24,6 +24,8 @@ var _objectAssign = require('object-assign');
 
 var _objectAssign2 = _interopRequireDefault(_objectAssign);
 
+var _actions = require('./actions');
+
 var _AbstractMenu2 = require('./AbstractMenu');
 
 var _AbstractMenu3 = _interopRequireDefault(_AbstractMenu2);
@@ -97,7 +99,7 @@ var SubMenu = function (_AbstractMenu) {
             return position;
         };
 
-        _this.hideMenu = function (e) {
+        _this.hideSubMenu = function (e) {
             // avoid closing submenus of a different menu tree
             if (e.detail && e.detail.id && _this.menu && e.detail.id !== _this.menu.id) {
                 return;
@@ -116,6 +118,10 @@ var SubMenu = function (_AbstractMenu) {
             if (_this.props.disabled) return;
 
             (0, _helpers.callIfExists)(_this.props.onClick, event, (0, _objectAssign2.default)({}, _this.props.data, _helpers.store.data), _helpers.store.target);
+
+            if (!_this.props.onClick || _this.props.preventCloseOnClick) return;
+
+            (0, _actions.hideMenu)();
         };
 
         _this.handleMouseEnter = function () {
@@ -173,7 +179,7 @@ var SubMenu = function (_AbstractMenu) {
     _createClass(SubMenu, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.listenId = _globalEventListener2.default.register(function () {}, this.hideMenu);
+            this.listenId = _globalEventListener2.default.register(function () {}, this.hideSubMenu);
         }
     }, {
         key: 'getSubMenuType',

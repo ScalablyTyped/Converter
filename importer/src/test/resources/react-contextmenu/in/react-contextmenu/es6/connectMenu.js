@@ -22,7 +22,7 @@ var ignoredTriggerProps = [].concat(_toConsumableArray(Object.keys(ContextMenuTr
 export default function (menuId) {
     // expect menu component to connect as inner parameter
     // <Child/> is presumably a wrapper of <ContextMenu/>
-    return function (Child) {
+    return function connect(Child) {
         // return wrapper for <Child/> that forwards the ContextMenuTrigger's additional props
         return function (_Component) {
             _inherits(ConnectMenu, _Component);

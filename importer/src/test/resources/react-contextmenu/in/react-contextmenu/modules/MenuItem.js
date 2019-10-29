@@ -53,7 +53,9 @@ var MenuItem = function (_Component) {
         }
 
         return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = MenuItem.__proto__ || Object.getPrototypeOf(MenuItem)).call.apply(_ref, [this].concat(args))), _this), _this.handleClick = function (event) {
-            event.preventDefault();
+            if (event.button !== 0 && event.button !== 1) {
+                event.preventDefault();
+            }
 
             if (_this.props.disabled || _this.props.divider) return;
 
@@ -72,13 +74,15 @@ var MenuItem = function (_Component) {
                 _this2 = this;
 
             var _props = this.props,
+                attributes = _props.attributes,
+                children = _props.children,
+                className = _props.className,
                 disabled = _props.disabled,
                 divider = _props.divider,
-                children = _props.children,
-                attributes = _props.attributes,
                 selected = _props.selected;
 
-            var menuItemClassNames = (0, _classnames2.default)(_helpers.cssClasses.menuItem, attributes.className, (_cx = {}, _defineProperty(_cx, (0, _classnames2.default)(_helpers.cssClasses.menuItemDisabled, attributes.disabledClassName), disabled), _defineProperty(_cx, (0, _classnames2.default)(_helpers.cssClasses.menuItemDivider, attributes.dividerClassName), divider), _defineProperty(_cx, (0, _classnames2.default)(_helpers.cssClasses.menuItemSelected, attributes.selectedClassName), selected), _cx));
+
+            var menuItemClassNames = (0, _classnames2.default)(className, _helpers.cssClasses.menuItem, attributes.className, (_cx = {}, _defineProperty(_cx, (0, _classnames2.default)(_helpers.cssClasses.menuItemDisabled, attributes.disabledClassName), disabled), _defineProperty(_cx, (0, _classnames2.default)(_helpers.cssClasses.menuItemDivider, attributes.dividerClassName), divider), _defineProperty(_cx, (0, _classnames2.default)(_helpers.cssClasses.menuItemSelected, attributes.selectedClassName), selected), _cx));
 
             return _react2.default.createElement(
                 'div',
@@ -99,34 +103,36 @@ var MenuItem = function (_Component) {
 }(_react.Component);
 
 MenuItem.propTypes = {
-    children: _propTypes2.default.node,
     attributes: _propTypes2.default.object,
+    children: _propTypes2.default.node,
+    className: _propTypes2.default.string,
     data: _propTypes2.default.object,
     disabled: _propTypes2.default.bool,
     divider: _propTypes2.default.bool,
-    preventClose: _propTypes2.default.bool,
     onClick: _propTypes2.default.func,
-    selected: _propTypes2.default.bool,
+    onMouseLeave: _propTypes2.default.func,
     onMouseMove: _propTypes2.default.func,
-    onMouseLeave: _propTypes2.default.func
+    preventClose: _propTypes2.default.bool,
+    selected: _propTypes2.default.bool
 };
 MenuItem.defaultProps = {
-    disabled: false,
-    data: {},
-    divider: false,
     attributes: {},
-    preventClose: false,
+    children: null,
+    className: '',
+    data: {},
+    disabled: false,
+    divider: false,
     onClick: function onClick() {
         return null;
     },
 
-    children: null,
-    selected: false,
     onMouseMove: function onMouseMove() {
         return null;
     },
     onMouseLeave: function onMouseLeave() {
         return null;
-    }
+    },
+    preventClose: false,
+    selected: false
 };
 exports.default = MenuItem;

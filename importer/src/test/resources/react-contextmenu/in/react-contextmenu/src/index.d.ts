@@ -6,6 +6,7 @@ declare module "react-contextmenu" {
         data?: any,
         className?: string,
         hideOnLeave?: boolean,
+        rtl?: boolean,
         onHide?: {(event: any): void},
         onMouseLeave?: {(event: React.MouseEvent<HTMLElement>, data: Object, target: HTMLElement): void} | Function,
         onShow?: {(event: any): void},
@@ -22,6 +23,7 @@ declare module "react-contextmenu" {
 
     interface MenuItemProps {
         attributes?: React.HTMLAttributes<HTMLDivElement>,
+        className?: string;
         data?: Object,
         disabled?: boolean,
         divider?: boolean,
@@ -30,11 +32,13 @@ declare module "react-contextmenu" {
     }
 
     interface SubMenuProps {
-        title: React.ReactElement<any>,
+        title: React.ReactElement<any> | React.ReactText,
         className?: string,
         disabled?: boolean,
         hoverDelay?: number,
         rtl?: boolean,
+        preventCloseOnClick?: boolean,
+        onClick?: {(event: React.TouchEvent<HTMLDivElement> | React.MouseEvent<HTMLDivElement>, data: Object, target: HTMLElement): void} | Function,
     }
 
     module ReactContextmenu {

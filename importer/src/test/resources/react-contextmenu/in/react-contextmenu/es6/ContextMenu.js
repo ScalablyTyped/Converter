@@ -30,10 +30,10 @@ var ContextMenu = function (_AbstractMenu) {
         _this.registerHandlers = function () {
             document.addEventListener('mousedown', _this.handleOutsideClick);
             document.addEventListener('touchstart', _this.handleOutsideClick);
-            document.addEventListener('scroll', _this.handleHide);
-            document.addEventListener('contextmenu', _this.handleHide);
+            if (!_this.props.preventHideOnScroll) document.addEventListener('scroll', _this.handleHide);
+            if (!_this.props.preventHideOnContextMenu) document.addEventListener('contextmenu', _this.handleHide);
             document.addEventListener('keydown', _this.handleKeyNavigation);
-            window.addEventListener('resize', _this.handleHide);
+            if (!_this.props.preventHideOnResize) window.addEventListener('resize', _this.handleHide);
         };
 
         _this.unregisterHandlers = function () {
@@ -195,9 +195,8 @@ var ContextMenu = function (_AbstractMenu) {
         value: function componentDidUpdate() {
             var _this2 = this;
 
+            var wrapper = window.requestAnimationFrame || setTimeout;
             if (this.state.isVisible) {
-                var wrapper = window.requestAnimationFrame || setTimeout;
-
                 wrapper(function () {
                     var _state = _this2.state,
                         x = _state.x,
@@ -216,9 +215,11 @@ var ContextMenu = function (_AbstractMenu) {
                     });
                 });
             } else {
-                if (!this.menu) return;
-                this.menu.style.opacity = 0;
-                this.menu.style.pointerEvents = 'none';
+                wrapper(function () {
+                    if (!_this2.menu) return;
+                    _this2.menu.style.opacity = 0;
+                    _this2.menu.style.pointerEvents = 'none';
+                });
             }
         }
     }, {
@@ -265,6 +266,9 @@ ContextMenu.propTypes = {
     onHide: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onShow: PropTypes.func,
+    preventHideOnContextMenu: PropTypes.bool,
+    preventHideOnResize: PropTypes.bool,
+    preventHideOnScroll: PropTypes.bool,
     style: PropTypes.object
 };
 ContextMenu.defaultProps = {
@@ -282,6 +286,9 @@ ContextMenu.defaultProps = {
         return null;
     },
 
+    preventHideOnContextMenu: false,
+    preventHideOnResize: false,
+    preventHideOnScroll: false,
     style: {}
 };
 export default ContextMenu;

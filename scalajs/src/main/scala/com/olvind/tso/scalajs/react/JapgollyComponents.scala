@@ -364,7 +364,7 @@ object JapgollyComponents {
       ownerCp:           QualifiedName,
   ): MethodTree = {
 
-    val (refTypes, declaredChildren, ignoredProps, optionals, inLiterals, Nil) =
+    val (refTypes, declaredChildren, ignoredProps@_, optionals, inLiterals, Nil) =
       params.partitionCollect5(
         { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop

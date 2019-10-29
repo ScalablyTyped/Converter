@@ -68,10 +68,18 @@ var ContextMenuTrigger = function (_Component) {
             clearTimeout(_this.touchstartTimeoutId);
             callIfExists(_this.props.attributes.onTouchEnd, event);
         }, _this.handleContextMenu = function (event) {
-            _this.handleContextClick(event);
+            if (event.button === _this.props.mouseButton) {
+                _this.handleContextClick(event);
+            }
             callIfExists(_this.props.attributes.onContextMenu, event);
+        }, _this.handleMouseClick = function (event) {
+            if (event.button === _this.props.mouseButton) {
+                _this.handleContextClick(event);
+            }
+            callIfExists(_this.props.attributes.onClick, event);
         }, _this.handleContextClick = function (event) {
             if (_this.props.disable) return;
+            if (_this.props.disableIfShiftIsPressed && event.shiftKey) return;
 
             event.preventDefault();
             event.stopPropagation();
@@ -92,16 +100,20 @@ var ContextMenuTrigger = function (_Component) {
             var showMenuConfig = {
                 position: { x: x, y: y },
                 target: _this.elem,
-                id: _this.props.id,
-                data: data
+                id: _this.props.id
             };
             if (data && typeof data.then === 'function') {
                 // it's promise
                 data.then(function (resp) {
-                    showMenuConfig.data = resp;
+                    showMenuConfig.data = assign({}, resp, {
+                        target: event.target
+                    });
                     showMenu(showMenuConfig);
                 });
             } else {
+                showMenuConfig.data = assign({}, data, {
+                    target: event.target
+                });
                 showMenu(showMenuConfig);
             }
         }, _this.elemRef = function (c) {
@@ -120,6 +132,7 @@ var ContextMenuTrigger = function (_Component) {
             var newAttrs = assign({}, attributes, {
                 className: cx(cssClasses.menuWrapper, attributes.className),
                 onContextMenu: this.handleContextMenu,
+                onClick: this.handleMouseClick,
                 onMouseDown: this.handleMouseDown,
                 onMouseUp: this.handleMouseUp,
                 onTouchStart: this.handleTouchstart,
@@ -144,7 +157,9 @@ ContextMenuTrigger.propTypes = {
     holdToDisplay: PropTypes.number,
     posX: PropTypes.number,
     posY: PropTypes.number,
-    renderTag: PropTypes.oneOfType([PropTypes.node, PropTypes.func])
+    renderTag: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    mouseButton: PropTypes.number,
+    disableIfShiftIsPressed: PropTypes.bool
 };
 ContextMenuTrigger.defaultProps = {
     attributes: {},
@@ -156,6 +171,8 @@ ContextMenuTrigger.defaultProps = {
     holdToDisplay: 1000,
     renderTag: 'div',
     posX: 0,
-    posY: 0
+    posY: 0,
+    mouseButton: 2, // 0 is left click, 2 is right click
+    disableIfShiftIsPressed: false
 };
 export default ContextMenuTrigger;

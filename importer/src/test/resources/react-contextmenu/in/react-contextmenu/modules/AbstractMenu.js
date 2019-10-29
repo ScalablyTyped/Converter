@@ -115,7 +115,10 @@ var _initialiseProps = function _initialiseProps() {
         var selectedItem = _this2.state.selectedItem;
 
         var children = [];
-        var childCollector = function childCollector(child) {
+        var disabledChildrenCount = 0;
+        var disabledChildIndexes = {};
+
+        var childCollector = function childCollector(child, index) {
             // child can be empty in case you do conditional rendering of components, in which
             // case it should not be accounted for as a real child
             if (!child) {
@@ -126,24 +129,50 @@ var _initialiseProps = function _initialiseProps() {
                 // Maybe the MenuItem or SubMenu is capsuled in a wrapper div or something else
                 _react2.default.Children.forEach(child.props.children, childCollector);
             } else if (!child.props.divider) {
+                if (child.props.disabled) {
+                    ++disabledChildrenCount;
+                    disabledChildIndexes[index] = true;
+                }
+
                 children.push(child);
             }
         };
+
         _react2.default.Children.forEach(_this2.props.children, childCollector);
+        if (disabledChildrenCount === children.length) {
+            // All menu items are disabled, so none can be selected, don't do anything
+            return;
+        }
+
+        function findNextEnabledChildIndex(currentIndex) {
+            var i = currentIndex;
+            var incrementCounter = function incrementCounter() {
+                if (forward) {
+                    --i;
+                } else {
+                    ++i;
+                }
+
+                if (i < 0) {
+                    i = children.length - 1;
+                } else if (i >= children.length) {
+                    i = 0;
+                }
+            };
+
+            do {
+                incrementCounter();
+            } while (i !== currentIndex && disabledChildIndexes[i]);
+
+            return i === currentIndex ? null : i;
+        }
+
         var currentIndex = children.indexOf(selectedItem);
-        if (currentIndex < 0) {
+        var nextEnabledChildIndex = findNextEnabledChildIndex(currentIndex);
+
+        if (nextEnabledChildIndex !== null) {
             _this2.setState({
-                selectedItem: forward ? children[children.length - 1] : children[0],
-                forceSubMenuOpen: false
-            });
-        } else if (forward) {
-            _this2.setState({
-                selectedItem: children[currentIndex - 1 < 0 ? children.length - 1 : currentIndex - 1],
-                forceSubMenuOpen: false
-            });
-        } else {
-            _this2.setState({
-                selectedItem: children[currentIndex + 1 < children.length ? currentIndex + 1 : 0],
+                selectedItem: children[nextEnabledChildIndex],
                 forceSubMenuOpen: false
             });
         }

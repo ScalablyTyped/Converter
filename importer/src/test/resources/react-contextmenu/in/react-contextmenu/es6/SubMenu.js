@@ -15,6 +15,7 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import assign from 'object-assign';
 
+import { hideMenu } from './actions';
 import AbstractMenu from './AbstractMenu';
 import { callIfExists, cssClasses, hasOwnProp, store } from './helpers';
 import listener from './globalEventListener';
@@ -72,7 +73,7 @@ var SubMenu = function (_AbstractMenu) {
             return position;
         };
 
-        _this.hideMenu = function (e) {
+        _this.hideSubMenu = function (e) {
             // avoid closing submenus of a different menu tree
             if (e.detail && e.detail.id && _this.menu && e.detail.id !== _this.menu.id) {
                 return;
@@ -91,6 +92,10 @@ var SubMenu = function (_AbstractMenu) {
             if (_this.props.disabled) return;
 
             callIfExists(_this.props.onClick, event, assign({}, _this.props.data, store.data), store.target);
+
+            if (!_this.props.onClick || _this.props.preventCloseOnClick) return;
+
+            hideMenu();
         };
 
         _this.handleMouseEnter = function () {
@@ -148,7 +153,7 @@ var SubMenu = function (_AbstractMenu) {
     _createClass(SubMenu, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            this.listenId = listener.register(function () {}, this.hideMenu);
+            this.listenId = listener.register(function () {}, this.hideSubMenu);
         }
     }, {
         key: 'getSubMenuType',
