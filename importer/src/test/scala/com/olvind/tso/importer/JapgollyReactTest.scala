@@ -3,7 +3,7 @@ package importer
 
 import com.olvind.tso.scalajs.react.ReactBinding
 
-object SemanticUiReactTest extends ImporterHarness {
+object JapgollyReactTest extends ImporterHarness {
   val update = !constants.isCi
 
   def main(args: Array[String]): Unit =
@@ -13,4 +13,10 @@ object SemanticUiReactTest extends ImporterHarness {
       update        = update,
       reactBindings = List(ReactBinding.japgolly),
     )
+  assertImportsOk(
+    "react-contextmenu",
+    pedantic      = false,
+    update        = update,
+    reactBindings = List(ReactBinding.japgolly),
+  )
 }
