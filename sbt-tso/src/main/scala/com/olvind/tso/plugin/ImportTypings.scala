@@ -128,7 +128,7 @@ object ImportTypings {
         ReactBinding.Slinky,
         List("es5", "dom"),
         Set(TsIdentLibrary("typescript")),
-        minimize = Selection.No(TsIdentLibrarySimple("react-dom")),
+        minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
       ).map(_.size),
     )
   }
