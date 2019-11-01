@@ -1,4 +1,4 @@
-package typings.semanticUiReact.japgolly
+package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
@@ -6,23 +6,23 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticUiReact.elementsContainerContainerMod.ContainerProps
-import typings.semanticUiReact.genericMod.SemanticShorthandContent
-import typings.semanticUiReact.genericMod.SemanticTEXTALIGNMENTS
+import typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Container {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
     text: js.UndefOr[Boolean] = js.undefined,
-    textAlign: SemanticTEXTALIGNMENTS = null
+    textAlign: SemanticTEXTALIGNMENTS = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -31,21 +31,20 @@ object Container {
   ] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
-  typings.semanticUiReact.elementsContainerContainerMod.ContainerProps, 
+  typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typings.semanticUiReact.elementsContainerMod.default)
-    f(__obj.asInstanceOf[typings.semanticUiReact.elementsContainerContainerMod.ContainerProps])(children: _*)
+  js.Object](typings.semanticDashUiDashReact.srcElementsContainerMod.default)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps])(children: _*)
   }
 }
 
