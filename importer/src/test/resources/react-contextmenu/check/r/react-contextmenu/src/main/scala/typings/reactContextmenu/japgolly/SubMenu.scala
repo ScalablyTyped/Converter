@@ -2,10 +2,13 @@ package typings.reactContextmenu.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import japgolly.scalajs.react.raw.React.Element
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.ReactText
-import typings.reactContextmenu.Fn_DataEvent
 import typings.reactContextmenu.reactContextmenuMod.SubMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -18,7 +21,12 @@ object SubMenu {
     className: String = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     hoverDelay: Int | Double = null,
-    onClick: Fn_DataEvent | js.Function = null,
+    onClick: (js.Function3[
+      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* target */ HTMLElement, 
+      Unit
+    ]) | js.Function = null,
     preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
     rtl: js.UndefOr[Boolean] = js.undefined
   )(
@@ -26,6 +34,7 @@ object SubMenu {
   ): UnmountedWithRoot[SubMenuProps, typings.reactContextmenu.reactContextmenuMod.SubMenu, Unit, SubMenuProps] = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (className != null) __obj.updateDynamic("className")(className)
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)

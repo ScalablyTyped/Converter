@@ -12,8 +12,8 @@ import scala.scalajs.js.annotation._
 
 object Suspense {
   def apply(
-    fallback: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    fallback: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -22,8 +22,9 @@ object Suspense {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      if (fallback != null) __obj.updateDynamic("fallback")(fallback)
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (fallback != null) __obj.updateDynamic("fallback")(fallback)
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.react.reactMod.SuspenseProps, 
