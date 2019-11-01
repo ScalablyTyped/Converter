@@ -46,4 +46,6 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
   test("const-enum")(assertImportsOk("const-enum", pedantic                         = true, update  = update))
   test("firebase-admin")(assertImportsOk("firebase-admin", pedantic                 = true, update  = update))
   test("semantic-ui-react")(assertImportsOk("semantic-ui-react", pedantic           = false, update = update))
+  test("react-contextmenu")(assertImportsOk("react-contextmenu", pedantic           = false, update = update))
+  test("react-dropzone")(assertImportsOk("react-dropzone", pedantic                 = false, update = update))
 }

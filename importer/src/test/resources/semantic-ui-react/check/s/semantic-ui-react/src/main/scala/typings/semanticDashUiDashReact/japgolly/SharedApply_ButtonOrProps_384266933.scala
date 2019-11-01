@@ -1,4 +1,4 @@
-package typings.semanticUiReact.japgolly
+package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
@@ -6,19 +6,19 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps
+import typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_ButtonOrProps2080347855 () {
+abstract class SharedApply_ButtonOrProps_384266933 () {
   def __component: js.Any
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null,
-    text: Double | String = null
+    text: Double | String = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -27,18 +27,17 @@ abstract class SharedApply_ButtonOrProps2080347855 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
-  typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps, 
+  typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](__component)
-    f(__obj.asInstanceOf[typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps])(children: _*)
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps])(children: _*)
   }
 }
 
