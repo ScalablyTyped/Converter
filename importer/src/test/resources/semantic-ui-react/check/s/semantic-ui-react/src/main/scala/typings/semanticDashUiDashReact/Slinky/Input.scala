@@ -1,8 +1,9 @@
 package typings.semanticDashUiDashReact.Slinky
 
+import org.scalajs.dom.raw.HTMLInputElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.web.html.`*`.tag
+import slinky.web.html.input.tag
 import typings.react.reactMod.ChangeEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
@@ -19,7 +20,6 @@ import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
 import typings.semanticDashUiDashReact.srcElementsInputMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -40,7 +40,7 @@ object Input
     input: SemanticShorthandItem[HtmlInputrops] = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ js.Any
     ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,

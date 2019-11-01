@@ -3,6 +3,7 @@ package scalajs
 package react
 
 import com.olvind.tso.scalajs.ConstructObjectOfType.Param
+import com.olvind.tso.scalajs.react.CastConversion.TypeRewriterCast
 import com.olvind.tso.scalajs.transforms.Companions
 import com.olvind.tso.seqs._
 
@@ -35,6 +36,16 @@ object SlinkyComponents {
     val slinkyWeb                = slinky + Name("web")
     val slinkyWebSvg             = slinkyWeb + Name("svg")
     val slinkyWebHtml            = slinkyWeb + Name("html")
+
+    val conversions: Seq[CastConversion] = {
+      import CastConversion.TParam._
+      CastConversion.All ++ Seq(
+        CastConversion(QualifiedName.WILDCARD, QualifiedName.Any), // todo: this should not leak out here
+        CastConversion(QualifiedName.React.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
+        CastConversion(QualifiedName.React.ReactElement, ReactElement),
+        CastConversion(QualifiedName.React.ReactType, ReactComponentClass, _1),
+      ) ++ QualifiedName.React.isComponent.map(from => CastConversion(from, ReactComponentClass, _1))
+    }
   }
 
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
@@ -93,25 +104,7 @@ object SlinkyComponents {
   val AnyHtmlElement: TypeRef = SlinkyElement(isSvg = false, "*")
   val AnySvgElement:  TypeRef = SlinkyElement(isSvg = true, "*")
 
-  /**
-    * We do type rewriting in two phases (for now). The initial rewrite is done in `Companions.memberParameter` below.
-    * As can be see from the name, we just reuse what was written for `Companions`.
-    *
-    * As it stands now, those rewrites are not recursive (ie will rewrite `foo: T`, but not `foo: Promise<T>`), but
-    *  are more powerful because we can specify how to convert (implicit conversions and whatnot)
-    *
-    * In addition these here are rewrites here are done recursively, but with the demand that the conversion is a cast.
-    *
-    * todo: these two approaches should be refactored into one
-    */
-  val SlinkyReplacements: TypeRef => TypeRef = {
-    case TypeRef(QualifiedName.React.ReactNode, _, cs)        => TypeRef(slinky.TagMod, List(TypeRef.ScalaAny), cs)
-    case TypeRef(QualifiedName.React.ReactElement, _, cs)     => TypeRef(slinky.ReactElement, Nil, cs)
-    case TypeRef(QualifiedName.React.ReactType, Seq(one), cs) => TypeRef(slinky.ReactComponentClass, Seq(one), cs)
-    case TypeRef(name, targs, cs) if QualifiedName.React.isComponent(name) =>
-      TypeRef(slinky.ReactComponentClass, targs.take(1), cs)
-    case other => other
-  }
+  val rewriter = TypeRewriterCast(slinky.conversions)
 
   /* Slinky doesnt really support generic components. We hack it in in the `apply` method */
   def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
@@ -152,13 +145,11 @@ object SlinkyComponents {
       val dealiased = FollowAliases(scope)(props)
       scope lookup dealiased.typeName firstDefined {
         case (_cls: ClassTree, newScope) if _cls.classType === ClassType.Trait =>
-          val cls = TypeRewriterFn(SlinkyReplacements).visitClassTree(scope)(
-            FillInTParams(_cls, newScope, dealiased.targs, c.tparams),
-          )
+          val cls = FillInTParams(_cls, newScope, dealiased.targs, c.tparams)
 
           val domParams = mutable.ArrayBuffer.empty[FieldTree]
 
-          val allParams: Seq[Param] =
+          val params: Seq[Param] =
             ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue) {
               case (scope, fieldTree: FieldTree) =>
                 /* todo: refactor out a name/type check which ignores optionality */
@@ -176,85 +167,99 @@ object SlinkyComponents {
                   None
                 } else Companions.memberParameter(scope, fieldTree)
               case (scope, tree) => Companions.memberParameter(scope, tree)
+            }.map(
+              /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
+              p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
+            )
+
+          val domType: TypeRef =
+            domParams
+              .firstDefined { f =>
+                val referencedElements = TreeTraverse.collect(f) {
+                  case TypeRef(QualifiedName(List(ScalaConfig.outputPkg, ScalaConfig.std, name)), Nil, _)
+                      if name.value.endsWith("Element") =>
+                    name.value
+                }
+                referencedElements.toSet.firstDefined(ElementMapping.get)
+              }
+              .getOrElse(AnyHtmlElement)
+
+          val (refTypes, _, optionals, requireds, Nil) = params.partitionCollect4(
+            { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
+            { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
+            { case Param(p, _, Right(f))                                               => p -> f },
+            { case Param(p, _, Left(str))                                              => p -> str },
+          )
+
+          /**
+            *  The `apply` method that the slinky method would normally construct.
+            *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
+            *  a case class and suffer macro execution time.
+            */
+          def genApply(elem: TypeRef, ref: TypeRef): MethodTree = {
+            val ret  = TypeRef(slinky.BuildingComponent, List(elem, ref), NoComments)
+            val cast = if (c.ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
+
+            MethodTree(
+              annotations = Nil,
+              level       = ProtectionLevel.Default,
+              name        = Name.APPLY,
+              tparams     = c.tparams,
+              params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
+              impl = MemberImpl.Custom(s"""{
+                                                 |  val __obj = js.Dynamic.literal(${requireds
+                                            .map(_._2)
+                                            .mkString(", ")})
+                                                 |${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+                                                 |  super.apply(__obj.asInstanceOf[Props])$cast
+                                                 |}""".stripMargin),
+              resultType = ret,
+              isOverride = false,
+              comments   = NoComments,
+              codePath   = componentCp + Name.APPLY,
+            )
+          }
+
+          val (parent, members) = {
+            /* Observe type bound of :< js.Object */
+            val refType = {
+              c.knownRef orElse refTypes.headOption map stripTargs match {
+                case Some(value) =>
+                  scope
+                    .lookup(value.typeName)
+                    .collectFirst { case (_: ClassTree, _) => value }
+                    .getOrElse(TypeRef.Intersection(List(value, TypeRef.Object)))
+                case None => TypeRef.Object
+              }
             }
 
-          allParams match {
-            case Nil => None
-            case params =>
-              val domType: TypeRef =
-                domParams
-                  .firstDefined {
-                    case FieldTree(_, _, TypeRef(typeName, tparams, _), _, _, _, _, _)
-                        if typeName.parts.last.unescaped.endsWith("Event") && tparams.nonEmpty =>
-                      ElementMapping.get(tparams.head.name.unescaped)
-                    case _ => None
-                  }
-                  .getOrElse(AnyHtmlElement)
-
-              val (refTypes, _, optionals, requireds, Nil) = params.partitionCollect4(
-                { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
-                { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
-                { case Param(p, _, Right(f))                                               => p -> f },
-                { case Param(p, _, Left(str))                                              => p -> str },
-              )
-
-              /**
-                *  The `apply` method that the slinky method would normally construct.
-                *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
-                *  a case class and suffer macro execution time.
-                */
-              def genApply(elem: TypeRef, ref: TypeRef): MethodTree = {
-                val ret  = TypeRef(slinky.BuildingComponent, List(elem, ref), NoComments)
-                val cast = if (c.ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
-
-                MethodTree(
-                  annotations = Nil,
-                  level       = ProtectionLevel.Default,
-                  name        = Name.APPLY,
-                  tparams     = c.tparams,
-                  params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
-                  impl        = MemberImpl.Custom(s"""{
-                       |  val __obj = js.Dynamic.literal(${requireds.map(_._2).mkString(", ")})
-                       |${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-                       |  super.apply(__obj.asInstanceOf[Props])$cast
-                       |}""".stripMargin),
-                  resultType  = ret,
-                  isOverride  = false,
-                  comments    = NoComments,
-                  codePath    = componentCp + Name.APPLY,
+            c.props match {
+              case Some(props) =>
+                (
+                  TypeRef(slinky.ExternalComponentProps, List(domType, refType), NoComments),
+                  List(genApply(domType, refType), propsAlias(props)),
                 )
-              }
-
-              val (parent, members) = {
-                val refType = stripTargs(c.knownRef orElse refTypes.headOption getOrElse TypeRef.Object)
-                c.props match {
-                  case Some(props) =>
-                    (
-                      TypeRef(slinky.ExternalComponentProps, List(domType, refType), NoComments),
-                      List(genApply(domType, refType), propsAlias(props)),
-                    )
-                  case None => (TypeRef(slinky.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
-                }
-              }
-
-              val domWarning =
-                if (domParams.isEmpty) NoComments
-                else {
-                  val details = domParams.map(_.name.unescaped).sorted.mkString(", ")
-                  Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
-                }
-
-              Some(
-                ModuleTree(
-                  annotations = Nil,
-                  name        = c.fullName,
-                  parents     = List(parent),
-                  members     = List(componentField) ++ members,
-                  comments    = domWarning + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
-                  codePath    = componentCp,
-                ),
-              )
+              case None => (TypeRef(slinky.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+            }
           }
+
+          val domWarning =
+            if (domParams.isEmpty) NoComments
+            else {
+              val details = domParams.map(_.name.unescaped).sorted.mkString(", ")
+              Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
+            }
+
+          Some(
+            ModuleTree(
+              annotations = Nil,
+              name        = c.fullName,
+              parents     = List(parent),
+              members     = List(componentField) ++ members,
+              comments    = domWarning + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
+              codePath    = componentCp,
+            ),
+          )
 
         /* This is a fallback when the props type is complicated. I'm not convinced the result is very useful */
         case (_: ClassTree | _: TypeAliasTree, _) =>
