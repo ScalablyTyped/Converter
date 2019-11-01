@@ -1,10 +1,11 @@
 package typings.reactContextmenu.japgolly
 
+import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
+import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import typings.reactContextmenu.Fn_Data
-import typings.reactContextmenu.Fn_Event
+import org.scalajs.dom.raw.HTMLElement
 import typings.reactContextmenu.reactContextmenuMod.ContextMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -17,9 +18,14 @@ object ContextMenu {
     className: String = null,
     data: js.Any = null,
     hideOnLeave: js.UndefOr[Boolean] = js.undefined,
-    onHide: Fn_Event = null,
-    onMouseLeave: Fn_Data | js.Function = null,
-    onShow: Fn_Event = null,
+    onHide: js.UndefOr[/* event */ js.Any => Callback] = js.undefined,
+    onMouseLeave: (js.Function3[
+      /* event */ ReactMouseEventFrom[HTMLElement], 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* target */ HTMLElement, 
+      Unit
+    ]) | js.Function = null,
+    onShow: js.UndefOr[/* event */ js.Any => Callback] = js.undefined,
     rtl: js.UndefOr[Boolean] = js.undefined
   )(
     children: ChildArg*
@@ -31,13 +37,14 @@ object ContextMenu {
   ] = {
     val __obj = js.Dynamic.literal(id = id)
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (className != null) __obj.updateDynamic("className")(className)
     if (data != null) __obj.updateDynamic("data")(data)
     if (!js.isUndefined(hideOnLeave)) __obj.updateDynamic("hideOnLeave")(hideOnLeave)
-    if (onHide != null) __obj.updateDynamic("onHide")(onHide)
+    onHide.foreach(p => __obj.updateDynamic("onHide")(js.Any.fromFunction1(((t0: /* event */ js.Any) => p(t0).runNow()))))
     if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
-    if (onShow != null) __obj.updateDynamic("onShow")(onShow)
+    onShow.foreach(p => __obj.updateDynamic("onShow")(js.Any.fromFunction1(((t0: /* event */ js.Any) => p(t0).runNow()))))
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[

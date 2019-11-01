@@ -1,4 +1,4 @@
-package typings.semanticDashUiDashReact.japgolly
+package typings.semanticUiReact.japgolly
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
@@ -56,27 +56,28 @@ import typings.react.reactStrings.text
 import typings.react.reactStrings.time
 import typings.react.reactStrings.tree
 import typings.react.reactStrings.vertical
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.huge
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.large
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.massive
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
-import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData
-import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
-import typings.semanticDashUiDashReact.srcElementsInputMod.default
-import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.semanticUiReact.elementsInputInputMod.InputOnChangeData
+import typings.semanticUiReact.elementsInputInputMod.InputProps
+import typings.semanticUiReact.elementsInputMod.default
+import typings.semanticUiReact.genericMod.HtmlInputrops
+import typings.semanticUiReact.genericMod.SemanticShorthandItem
+import typings.semanticUiReact.semanticUiReactStrings.`left corner`
+import typings.semanticUiReact.semanticUiReactStrings.`right corner`
+import typings.semanticUiReact.semanticUiReactStrings.big
+import typings.semanticUiReact.semanticUiReactStrings.huge
+import typings.semanticUiReact.semanticUiReactStrings.large
+import typings.semanticUiReact.semanticUiReactStrings.left
+import typings.semanticUiReact.semanticUiReactStrings.massive
+import typings.semanticUiReact.semanticUiReactStrings.mini
+import typings.semanticUiReact.semanticUiReactStrings.right
+import typings.semanticUiReact.semanticUiReactStrings.small
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Input {
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     about: String = null,
     accept: String = null,
     accessKey: String = null,
@@ -296,14 +297,15 @@ object Input {
     unselectable: on | off = null,
     value: String | js.Array[String] | Double = null,
     vocab: String = null,
-    width: Double | String = null,
-    key: js.UndefOr[Key] = js.undefined
+    width: Double | String = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
     val __obj = js.Dynamic.literal()
   
-      if (about != null) __obj.updateDynamic("about")(about)
+    
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (about != null) __obj.updateDynamic("about")(about)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (accessKey != null) __obj.updateDynamic("accessKey")(accessKey)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
@@ -421,7 +423,7 @@ object Input {
     onBlur.foreach(p => __obj.updateDynamic("onBlur")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactFocusEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => p(t0).runNow()))))
     onCanPlay.foreach(p => __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => p(t0).runNow()))))
     onCanPlayThrough.foreach(p => __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => p(t0).runNow()))))
-    onChange.foreach(p => __obj.updateDynamic("onChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData) => p(t0, t1).runNow()))))
+    onChange.foreach(p => __obj.updateDynamic("onChange")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement], t1: /* data */ typings.semanticUiReact.elementsInputInputMod.InputOnChangeData) => p(t0, t1).runNow()))))
     onClick.foreach(p => __obj.updateDynamic("onClick")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => p(t0).runNow()))))
     onCompositionEnd.foreach(p => __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => p(t0).runNow()))))
     onCompositionStart.foreach(p => __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => p(t0).runNow()))))
@@ -519,13 +521,12 @@ object Input {
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (vocab != null) __obj.updateDynamic("vocab")(vocab)
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 
+  typings.semanticUiReact.elementsInputInputMod.InputProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typings.semanticDashUiDashReact.srcElementsInputMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsInputMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps])(children: _*)
+  typings.semanticUiReact.elementsInputMod.default](js.constructorOf[typings.semanticUiReact.elementsInputMod.default])
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsInputInputMod.InputProps])(children: _*)
   }
 }
 

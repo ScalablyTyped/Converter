@@ -1,4 +1,4 @@
-package typings.semanticDashUiDashReact.japgolly
+package typings.semanticUiReact.japgolly
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
@@ -58,32 +58,33 @@ import typings.react.reactStrings.submit
 import typings.react.reactStrings.text
 import typings.react.reactStrings.time
 import typings.react.reactStrings.tree
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`google plus`
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.facebook
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.fade
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.instagram
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.linkedin
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.twitter
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.vertical
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.vk
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.youtube
-import typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
-import typings.semanticDashUiDashReact.srcElementsButtonMod.default
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.semanticUiReact.elementsButtonButtonMod.ButtonProps
+import typings.semanticUiReact.elementsButtonMod.default
+import typings.semanticUiReact.genericMod.SemanticCOLORS
+import typings.semanticUiReact.genericMod.SemanticFLOATS
+import typings.semanticUiReact.genericMod.SemanticSIZES
+import typings.semanticUiReact.genericMod.SemanticShorthandContent
+import typings.semanticUiReact.genericMod.SemanticShorthandItem
+import typings.semanticUiReact.semanticUiReactStrings.`google plus`
+import typings.semanticUiReact.semanticUiReactStrings.bottom
+import typings.semanticUiReact.semanticUiReactStrings.facebook
+import typings.semanticUiReact.semanticUiReactStrings.fade
+import typings.semanticUiReact.semanticUiReactStrings.instagram
+import typings.semanticUiReact.semanticUiReactStrings.left
+import typings.semanticUiReact.semanticUiReactStrings.linkedin
+import typings.semanticUiReact.semanticUiReactStrings.right
+import typings.semanticUiReact.semanticUiReactStrings.top
+import typings.semanticUiReact.semanticUiReactStrings.twitter
+import typings.semanticUiReact.semanticUiReactStrings.vertical
+import typings.semanticUiReact.semanticUiReactStrings.vk
+import typings.semanticUiReact.semanticUiReactStrings.youtube
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Button {
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     about: String = null,
     accessKey: String = null,
     active: js.UndefOr[Boolean] = js.undefined,
@@ -292,14 +293,15 @@ object Button {
     typeof: String = null,
     unselectable: on | off = null,
     value: String | js.Array[String] | Double = null,
-    vocab: String = null,
-    key: js.UndefOr[Key] = js.undefined
+    vocab: String = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
     val __obj = js.Dynamic.literal()
   
-      if (about != null) __obj.updateDynamic("about")(about)
+    
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (about != null) __obj.updateDynamic("about")(about)
     if (accessKey != null) __obj.updateDynamic("accessKey")(accessKey)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (animated != null) __obj.updateDynamic("animated")(animated.asInstanceOf[js.Any])
@@ -408,7 +410,7 @@ object Button {
     onCanPlay.foreach(p => __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => p(t0).runNow()))))
     onCanPlayThrough.foreach(p => __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => p(t0).runNow()))))
     onChange.foreach(p => __obj.updateDynamic("onChange")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => p(t0).runNow()))))
-    onClick.foreach(p => __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps) => p(t0, t1).runNow()))))
+    onClick.foreach(p => __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], t1: /* data */ typings.semanticUiReact.elementsButtonButtonMod.ButtonProps) => p(t0, t1).runNow()))))
     onCompositionEnd.foreach(p => __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => p(t0).runNow()))))
     onCompositionStart.foreach(p => __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => p(t0).runNow()))))
     onCompositionUpdate.foreach(p => __obj.updateDynamic("onCompositionUpdate")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => p(t0).runNow()))))
@@ -502,13 +504,12 @@ object Button {
     if (unselectable != null) __obj.updateDynamic("unselectable")(unselectable.asInstanceOf[js.Any])
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (vocab != null) __obj.updateDynamic("vocab")(vocab)
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps, 
+  typings.semanticUiReact.elementsButtonButtonMod.ButtonProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typings.semanticDashUiDashReact.srcElementsButtonMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsButtonMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps])(children: _*)
+  typings.semanticUiReact.elementsButtonMod.default](js.constructorOf[typings.semanticUiReact.elementsButtonMod.default])
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsButtonButtonMod.ButtonProps])(children: _*)
   }
 }
 

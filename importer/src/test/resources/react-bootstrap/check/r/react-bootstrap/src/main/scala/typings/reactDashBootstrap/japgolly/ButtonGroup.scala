@@ -1,12 +1,12 @@
-package typings.reactDashBootstrap.japgolly
+package typings.reactBootstrap.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
-import typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps
-import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
+import typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps
+import typings.reactBootstrap.reactBootstrapMod.Sizes
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -16,6 +16,7 @@ object ButtonGroup {
     defaultValue: foo,
     onChange: foo,
     value: foo,
+    key: js.UndefOr[Key] = js.undefined,
     `type`: foo,
     accept: String = null,
     acceptCharset: String = null,
@@ -25,19 +26,15 @@ object ButtonGroup {
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     justified: js.UndefOr[Boolean] = js.undefined,
-    vertical: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    vertical: js.UndefOr[Boolean] = js.undefined
   )(
     children: ChildArg*
-  ): UnmountedWithRoot[
-    ButtonGroupProps, 
-    typings.reactDashBootstrap.libMod.ButtonGroup, 
-    Unit, 
-    ButtonGroupProps
-  ] = {
+  ): UnmountedWithRoot[ButtonGroupProps, typings.reactBootstrap.libMod.ButtonGroup, Unit, ButtonGroupProps] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
   
-      __obj.updateDynamic("type")(`type`)
+    
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
@@ -47,13 +44,12 @@ object ButtonGroup {
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps, 
+  typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typings.reactDashBootstrap.libMod.ButtonGroup](js.constructorOf[typings.reactDashBootstrap.libMod.ButtonGroup])
-    f(__obj.asInstanceOf[typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps])(children: _*)
+  typings.reactBootstrap.libMod.ButtonGroup](js.constructorOf[typings.reactBootstrap.libMod.ButtonGroup])
+    f(__obj.asInstanceOf[typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps])(children: _*)
   }
 }
 

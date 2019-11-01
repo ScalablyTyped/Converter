@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-trait PropOptions[T] extends _PropValidator[T] {
+trait PropOptions[T] extends js.Object {
   var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.undefined
   var required: js.UndefOr[Boolean] = js.undefined
   var `type`: js.UndefOr[Prop[T] | js.Array[Prop[T]]] = js.undefined
