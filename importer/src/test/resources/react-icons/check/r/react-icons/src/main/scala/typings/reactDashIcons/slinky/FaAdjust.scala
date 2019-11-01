@@ -1,0 +1,11 @@
+package typings.reactDashIcons.slinky
+
+import scala.scalajs.js
+import scala.scalajs.js.`|`
+import scala.scalajs.js.annotation._
+
+object FaAdjust
+  extends SharedApply_IconBaseProps1766054725[typings.reactDashIcons.faMod.FaAdjust] {
+  override val component: String | js.Object = js.constructorOf[typings.reactDashIcons.faMod.FaAdjust].asInstanceOf[String | js.Object]
+}
+

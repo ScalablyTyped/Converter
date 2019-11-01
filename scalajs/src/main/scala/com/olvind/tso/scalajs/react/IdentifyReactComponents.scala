@@ -163,7 +163,7 @@ object IdentifyReactComponents {
               level       = ProtectionLevel.Default,
               name        = tree.name,
               tparams     = Nil,
-              params      = List(params.map(p => ParamTree(Name.dummy, p, None, NoComments))),
+              params      = List(params.map(p => ParamTree(Name.dummy, false, p, None, NoComments))),
               impl        = tree.impl,
               resultType  = ret,
               isOverride  = false,

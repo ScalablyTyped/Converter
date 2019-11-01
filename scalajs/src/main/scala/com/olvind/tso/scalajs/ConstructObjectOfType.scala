@@ -106,7 +106,7 @@ object ConstructObjectOfType {
 
   def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Param) =
     ref.name -> Param(
-      ParamTree(ref.name, ref, Some(TypeRef.`null`), NoComments),
+      ParamTree(ref.name, false, ref, Some(TypeRef.`null`), NoComments),
       !isRequired,
       Right(
         obj =>
