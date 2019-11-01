@@ -12,6 +12,7 @@ abstract class SharedApply_Object152536094[ComponentRef] () {
     val __obj = js.Dynamic.literal()
   
     
+    
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](__component)
     f(__obj.asInstanceOf[js.Object])(children: _*)

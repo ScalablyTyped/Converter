@@ -32,6 +32,7 @@ object ButtonGroup {
   ): UnmountedWithRoot[ButtonGroupProps, typings.reactBootstrap.libMod.ButtonGroup, Unit, ButtonGroupProps] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)

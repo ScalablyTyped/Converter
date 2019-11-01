@@ -30,6 +30,7 @@ abstract class SharedApply_ButtonContentProps_1963840884 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)

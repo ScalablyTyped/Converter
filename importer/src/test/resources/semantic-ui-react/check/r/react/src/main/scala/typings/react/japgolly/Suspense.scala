@@ -22,6 +22,7 @@ object Suspense {
   ] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (fallback != null) __obj.updateDynamic("fallback")(fallback)
   

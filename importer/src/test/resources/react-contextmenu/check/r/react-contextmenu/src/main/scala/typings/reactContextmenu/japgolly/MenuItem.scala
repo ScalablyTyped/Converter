@@ -2,10 +2,12 @@ package typings.reactContextmenu.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.HTMLAttributes
-import typings.reactContextmenu.Fn_DataEvent
 import typings.reactContextmenu.reactContextmenuMod.MenuItemProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -19,7 +21,12 @@ object MenuItem {
     data: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     divider: js.UndefOr[Boolean] = js.undefined,
-    onClick: Fn_DataEvent | js.Function = null,
+    onClick: (js.Function3[
+      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* target */ HTMLElement, 
+      Unit
+    ]) | js.Function = null,
     preventClose: js.UndefOr[Boolean] = js.undefined
   )(
     children: ChildArg*
@@ -31,6 +38,7 @@ object MenuItem {
   ] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (attributes != null) __obj.updateDynamic("attributes")(attributes)
     if (className != null) __obj.updateDynamic("className")(className)

@@ -430,7 +430,8 @@ object TsQIdent {
   val undefined: TsQIdent = TsQIdent.of("undefined")
   val unknown:   TsQIdent = TsQIdent.of("unknown")
   val void:      TsQIdent = TsQIdent.of("void")
-  val Primitive = Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
+  val Primitive =
+    Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
 
   val Array:    TsQIdent = TsQIdent.of("Array")
   val Boolean:  TsQIdent = TsQIdent.of("Boolean")

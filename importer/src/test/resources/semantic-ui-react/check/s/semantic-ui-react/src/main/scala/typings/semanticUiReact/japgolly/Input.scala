@@ -303,6 +303,7 @@ object Input {
   ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (about != null) __obj.updateDynamic("about")(about)
     if (accept != null) __obj.updateDynamic("accept")(accept)

@@ -28,6 +28,7 @@ object AccordionContent {
   ] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)

@@ -19,7 +19,11 @@ object JapgollyComponents {
     val component    = Name("__component")
     val ComponentRef = Name("ComponentRef")
 
-    val Ignored = Set(children)
+    //Add here anything else that you want ignored
+    private val ignoredNames = Set(children)
+
+    def shouldIgnore(paramTree: ParamTree) = ignoredNames(paramTree.name)
+
   }
 
   private object japgolly {
@@ -42,9 +46,10 @@ object JapgollyComponents {
     val componentJsRawMounted:           QualifiedName = componentJs + Name("RawMounted")
     val vdom:                            QualifiedName = react + Name("vdom")
     val vdomTagMod:                      QualifiedName = vdom + Name("TagMod")
+    val vdomTagOf:                       QualifiedName = vdom + Name("TagOf")
     val VdomAttr:                        QualifiedName = vdom + Name("VdomAttr")
     val vdomReactElement:                QualifiedName = vdom + Name("VdomElement")
-    val VdomArray:                       QualifiedName = vdom + Name("VdomArray")
+    val vdomArray:                       QualifiedName = vdom + Name("VdomArray")
     val vdomVdomNode:                    QualifiedName = vdom + Name("VdomNode")
     val vdomVdomNodeCast:                QualifiedName = vdomVdomNode + Name("cast")
     val raw:                             QualifiedName = react + Name("raw")
@@ -355,6 +360,10 @@ object JapgollyComponents {
     )
   }
 
+  def isVdomNode(tpe: TypeRef) =
+    tpe.typeName == japgolly.vdomVdomNode || tpe.typeName == japgolly.vdomReactElement ||
+      tpe.typeName == japgolly.vdomArray || tpe.typeName == japgolly.vdomTagOf
+
   def genApply(
       props:             TypeRef,
       params:            Seq[Param],
@@ -364,34 +373,39 @@ object JapgollyComponents {
       ownerCp:           QualifiedName,
   ): MethodTree = {
 
-    val (refTypes, declaredChildren, ignoredProps@_, optionals, inLiterals, Nil) =
+    val (refTypes, declaredChildren, ignoredProps @ _, optionals, inLiterals, Nil) = {
       params.partitionCollect5(
         { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
-        { case Param(ParamTree(names.children, t, _, _), _, _) if t.typeName =/= japgolly.vdomVdomNode => t }, //declaredChildren
-        { case Param(ParamTree(propName, _, _, _), _, _) if names.Ignored(propName)                    => () }, //ignoredProps
-        { case Param(p, _, Right(f))                                                                   => p -> f }, //optionals
-        { case Param(p, _, Left(str))                                                                  => p -> str }, //inLiterals
+        {
+          case Param(ParamTree(names.children, tpe, default, comments), isOptional, asString) if !isVdomNode(tpe) =>
+            Param(ParamTree(names.children, tpe, default, comments), isOptional, asString)
+        }, //declaredChildren
+        { case Param(paramTree, _, _) if names.shouldIgnore(paramTree) => () }, //ignoredProps
+        { case Param(p, _, Right(f))                                   => p -> f }, //optionals
+        { case Param(p, _, Left(str))                                  => p -> str }, //inLiterals
       )
+    }
 
-    val childrenParam: ParamTree =
-      declaredChildren.headOption match {
-        case Some(param) => ParamTree(name = names.children, tpe = param, default = None, comments = param.comments)
-        case _ =>
-          ParamTree(
-            name     = names.children,
-            tpe      = TypeRef.Repeated(TypeRef(japgolly.reactChildArg), NoComments),
-            default  = None,
-            comments = NoComments,
-          )
-      }
+    val childrenParam = declaredChildren.headOption.fold(
+      ParamTree(
+        name     = names.children,
+        tpe      = TypeRef.Repeated(TypeRef(japgolly.reactChildArg), NoComments),
+        default  = None,
+        comments = NoComments,
+      ),
+    )(_.parameter)
 
     val (createWrapper, resultType) = knownRefRewritten orElse refTypes.headOption match {
       case Some(refType) =>
         val c =
           TypeRef(
             japgolly.reactJsForwardRefComponentForce,
-            List(props, TypeRef(japgolly.reactChildrenVarargs), refType),
+            List(
+              props,
+              TypeRef(declaredChildren.headOption.fold(japgolly.reactChildrenVarargs)(_ => japgolly.reactChildrenNone)),
+              refType,
+            ),
             NoComments,
           )
         val r =
@@ -404,7 +418,11 @@ object JapgollyComponents {
       case None =>
         val c = TypeRef(
           japgolly.reactJsComponent,
-          List(props, TypeRef(japgolly.reactChildrenVarargs), TypeRef.Object),
+          List(
+            props,
+            TypeRef(declaredChildren.headOption.fold(japgolly.reactChildrenVarargs)(_ => japgolly.reactChildrenNone)),
+            TypeRef.Object,
+          ),
           NoComments,
         )
         val r = TypeRef(
@@ -435,19 +453,22 @@ object JapgollyComponents {
       impl = {
         val formattedProps         = Printer.formatTypeRef(0)(props)
         val formattedCreateWrapper = Printer.formatTypeRef(0)(createWrapper)
-        val formattedChildren = declaredChildren.headOption match {
-          case Some(_) => Printer.formatQN(japgolly.vdomVdomNodeCast) + "(children)"
-          case None    => "children: _*"
-        }
-
         MemberImpl.Custom(
           s"""{
-             |  val __obj = js.Dynamic.literal(${inLiterals.map(_._2).mkString(", ")})
+             |  val __obj = js.Dynamic.literal(${(inLiterals
+               .map(_._2) ++ declaredChildren.filter(!_.isOptional).map(_.asString.fold(identity, fn => fn(""))))
+               .mkString(", ")})
              |
+             |  ${declaredChildren
+               .filter(_.isOptional)
+               .map { f =>
+                 "  " + f.asString.fold(identity, fn => fn("__obj"))
+               }
+               .mkString("\n")}
              |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
              |
              |  val f = $formattedCreateWrapper($componentRef)
-             |  f(__obj.asInstanceOf[$formattedProps])($formattedChildren)
+             |  f(__obj.asInstanceOf[$formattedProps])${declaredChildren.headOption.fold("(children: _*)")(_ => "")}
              |}""".stripMargin,
         )
       },

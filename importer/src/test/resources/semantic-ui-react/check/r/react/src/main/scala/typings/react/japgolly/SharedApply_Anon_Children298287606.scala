@@ -18,6 +18,7 @@ abstract class SharedApply_Anon_Children298287606 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[typings.react.Anon_Children, japgolly.scalajs.react.Children.Varargs, js.Object](__component)

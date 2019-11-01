@@ -299,6 +299,7 @@ object Button {
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (about != null) __obj.updateDynamic("about")(about)
     if (accessKey != null) __obj.updateDynamic("accessKey")(accessKey)

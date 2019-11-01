@@ -13,6 +13,7 @@ abstract class SharedApply_IconBaseProps_1456944888[ComponentRef] () {
   def apply(key: js.UndefOr[Key] = js.undefined, size: String | Double = null)(children: ChildArg*): UnmountedWithRoot[IconBaseProps, ComponentRef, Unit, IconBaseProps] = {
     val __obj = js.Dynamic.literal()
   
+    
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
   
