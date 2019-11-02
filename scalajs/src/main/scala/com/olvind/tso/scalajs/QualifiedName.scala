@@ -88,7 +88,6 @@ object QualifiedName {
     val ComponentClass    = mod + Name("ComponentClass")
     val ReactDOM          = mod + Name("ReactDOM")
     val ComponentState    = mod + Name("ComponentState")
-    val JSXElement        = mod + Name("_Global_") + Name("JSX") + Name("Element")
 
     val ComponentNames: Set[String] =
       Set(

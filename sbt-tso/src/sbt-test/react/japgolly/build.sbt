@@ -58,7 +58,7 @@ lazy val commonSettings =
     Test / unmanagedSourceDirectories := Seq((Test / scalaSource).value),
     Compile / tsoReactBinding := Japgolly,
     Compile / tsoIgnore += "csstype",
-    Compile / tsoMinimize := Selection.No("semantic-ui-react"),
+    Compile / tsoMinimize := Selection.AllExcept("semantic-ui-react"),
     webpackDevServerPort := 8009,
   )
 

@@ -53,7 +53,7 @@ object IdentifyReactComponents {
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
-  val possibleReactElements = Set(QualifiedName.React.ReactElement, QualifiedName.React.JSXElement)
+  val possibleReactElements = Set(QualifiedName.React.ReactElement)
 
   def maybeMethodComponent(method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
