@@ -110,7 +110,16 @@ object SlinkyComponents {
 
   val rewriter = TypeRewriterCast(names.conversions)
 
-  case class Props(ref: TypeRef, params: Seq[Param], domParams: Seq[FieldTree])
+  case class Props(ref: TypeRef, params: Seq[Param], domParams: Seq[FieldTree]) {
+    val (refTypes, _, optionals, requireds, Nil) = params.partitionCollect4(
+      { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
+      { case Param(pt, _, _) if names.shouldIgnore(pt)      => () },
+      { case Param(p, _, Right(f))                          => p -> f },
+      { case Param(p, _, Left(str))                         => p -> str },
+    )
+
+    val noNormalProps: Boolean = optionals.isEmpty && requireds.isEmpty
+  }
 
   def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
@@ -246,13 +255,6 @@ object SlinkyComponents {
       componentCp + names.component,
     )
 
-    val (refTypes, _, optionals, requireds, Nil) = props.params.partitionCollect4(
-      { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
-      { case Param(pt, _, _) if names.shouldIgnore(pt)      => () },
-      { case Param(p, _, Right(f))                          => p -> f },
-      { case Param(p, _, Left(str))                         => p -> str },
-    )
-
     /**
       *  The `apply` method that the slinky method would normally construct.
       *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
@@ -267,11 +269,11 @@ object SlinkyComponents {
         level       = ProtectionLevel.Default,
         name        = Name.APPLY,
         tparams     = c.tparams,
-        params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
+        params      = List(props.requireds.map(_._1) ++ props.optionals.map(_._1)),
         impl = MemberImpl.Custom(
           s"""{
-              |  val __obj = js.Dynamic.literal(${requireds.map(_._2).mkString(", ")})
-              |  ${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+              |  val __obj = js.Dynamic.literal(${props.requireds.map(_._2).mkString(", ")})
+              |${props.optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
               |  super.apply(__obj.asInstanceOf[Props])$cast
               |}""".stripMargin,
         ),
@@ -285,7 +287,7 @@ object SlinkyComponents {
     val (parent, members) = {
       /* Observe type bound of :< js.Object */
       val refType = {
-        c.knownRef orElse refTypes.headOption map TypeRef.stripTargs match {
+        c.knownRef orElse props.refTypes.headOption map TypeRef.stripTargs match {
           case Some(value) =>
             scope
               .lookup(value.typeName)
@@ -295,15 +297,16 @@ object SlinkyComponents {
         }
       }
 
-      if (props.params.nonEmpty) {
+      if (props.noNormalProps) (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+      else {
         val propsAlias =
           TypeAliasTree(names.Props, Nil, TypeRef.stripTargs(props.ref), NoComments, componentCp + names.Props)
         (
           TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
           List(genApply(domType, refType), propsAlias),
         )
-      } else
-        (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+      }
+
     }
 
     val domWarning =
