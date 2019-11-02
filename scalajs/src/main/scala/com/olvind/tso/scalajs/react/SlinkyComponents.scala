@@ -13,9 +13,8 @@ import scala.collection.mutable
   * Generate a package with Slinky compatible react components
   */
 object SlinkyComponents {
-  val IgnoredProps = Set(Name("key"), Name("children"))
 
-  object slinky {
+  object names {
     val Slinky    = Name("Slinky")
     val Props     = Name("Props")
     val Element   = Name("Element")
@@ -46,11 +45,14 @@ object SlinkyComponents {
         CastConversion(QualifiedName.React.ReactType, ReactComponentClass, _1),
       ) ++ QualifiedName.React.isComponent.map(from => CastConversion(from, ReactComponentClass, _1))
     }
+
+    private val ignoredNames = Set(Name("key"), Name("children"))
+    def shouldIgnore(paramTree: ParamTree) = ignoredNames(paramTree.name)
   }
 
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
   object classDefs {
-    import slinky._
+    import names._
 
     val ExternalComponentPropsCls = ClassTree(
       Nil,
@@ -95,7 +97,7 @@ object SlinkyComponents {
   def SlinkyElement(isSvg: Boolean, name: String): TypeRef =
     TypeRef.Singleton(
       TypeRef(
-        (if (isSvg) slinky.slinkyWebSvg else slinky.slinkyWebHtml) + Name(name) + Name("tag"),
+        (if (isSvg) names.slinkyWebSvg else names.slinkyWebHtml) + Name(name) + Name("tag"),
         Nil,
         NoComments,
       ),
@@ -104,10 +106,7 @@ object SlinkyComponents {
   val AnyHtmlElement: TypeRef = SlinkyElement(isSvg = false, "*")
   val AnySvgElement:  TypeRef = SlinkyElement(isSvg = true, "*")
 
-  val rewriter = TypeRewriterCast(slinky.conversions)
-
-  /* Slinky doesnt really support generic components. We hack it in in the `apply` method */
-  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
+  val rewriter = TypeRewriterCast(names.conversions)
 
   def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
@@ -119,28 +118,28 @@ object SlinkyComponents {
 
     /* Every tree knows it's own location (called `CodePath`).
        It's used for a lot of things, so it's important to get right */
-    val slinkyPkgCp = tree.codePath + slinky.Slinky
+    val slinkyPkgCp = tree.codePath + names.Slinky
 
     val slinkyMembers = allComponents.flatMap { c =>
       val componentCp = slinkyPkgCp + c.fullName
 
       val componentField = FieldTree(
         Nil,
-        slinky.component,
+        names.component,
         TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
         MemberImpl.Custom(
-          Component.formatReferenceTo(stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
+          Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
         ),
         isReadOnly = true,
         isOverride = true,
         NoComments,
-        componentCp + slinky.component,
+        componentCp + names.component,
       )
 
       val props = c.props getOrElse TypeRef.Object
 
       def propsAlias(props: TypeRef) =
-        TypeAliasTree(slinky.Props, Nil, stripTargs(props), NoComments, componentCp + slinky.Props)
+        TypeAliasTree(names.Props, Nil, TypeRef.stripTargs(props), NoComments, componentCp + names.Props)
 
       val dealiased = FollowAliases(scope)(props)
       scope lookup dealiased.typeName firstDefined {
@@ -185,10 +184,10 @@ object SlinkyComponents {
               .getOrElse(AnyHtmlElement)
 
           val (refTypes, _, optionals, requireds, Nil) = params.partitionCollect4(
-            { case Param(ParamTree(Name("ref"), tpe, _, _), _, _)                      => tpe },
-            { case Param(ParamTree(propName, _, _, _), _, _) if IgnoredProps(propName) => () },
-            { case Param(p, _, Right(f))                                               => p -> f },
-            { case Param(p, _, Left(str))                                              => p -> str },
+            { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
+            { case Param(pt, _, _) if names.shouldIgnore(pt)      => () },
+            { case Param(p, _, Right(f))                          => p -> f },
+            { case Param(p, _, Left(str))                         => p -> str },
           )
 
           /**
@@ -197,7 +196,7 @@ object SlinkyComponents {
             *  a case class and suffer macro execution time.
             */
           def genApply(elem: TypeRef, ref: TypeRef): MethodTree = {
-            val ret  = TypeRef(slinky.BuildingComponent, List(elem, ref), NoComments)
+            val ret  = TypeRef(names.BuildingComponent, List(elem, ref), NoComments)
             val cast = if (c.ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
 
             MethodTree(
@@ -223,7 +222,7 @@ object SlinkyComponents {
           val (parent, members) = {
             /* Observe type bound of :< js.Object */
             val refType = {
-              c.knownRef orElse refTypes.headOption map stripTargs match {
+              c.knownRef orElse refTypes.headOption map TypeRef.stripTargs match {
                 case Some(value) =>
                   scope
                     .lookup(value.typeName)
@@ -236,10 +235,10 @@ object SlinkyComponents {
             c.props match {
               case Some(props) =>
                 (
-                  TypeRef(slinky.ExternalComponentProps, List(domType, refType), NoComments),
+                  TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
                   List(genApply(domType, refType), propsAlias(props)),
                 )
-              case None => (TypeRef(slinky.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+              case None => (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
             }
           }
 
@@ -264,15 +263,15 @@ object SlinkyComponents {
         /* This is a fallback when the props type is complicated. I'm not convinced the result is very useful */
         case (_: ClassTree | _: TypeAliasTree, _) =>
           val (parent, propsAliasOpt) = {
-            val refType = stripTargs(c.knownRef getOrElse TypeRef.Object)
+            val refType = TypeRef.stripTargs(c.knownRef getOrElse TypeRef.Object)
             val domType = AnyHtmlElement
             c.props match {
               case Some(props) =>
                 (
-                  TypeRef(slinky.ExternalComponentProps, List(domType, refType), NoComments),
+                  TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
                   Option(propsAlias(props)),
                 )
-              case None => (TypeRef(slinky.ExternalComponentNoProps, List(domType, refType), NoComments), None)
+              case None => (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), None)
             }
           }
 
@@ -294,7 +293,7 @@ object SlinkyComponents {
     slinkyMembers match {
       case Nil => tree
       case nonEmpty =>
-        tree.withMembers(tree.members :+ PackageTree(Nil, slinky.Slinky, nonEmpty, NoComments, slinkyPkgCp))
+        tree.withMembers(tree.members :+ PackageTree(Nil, names.Slinky, nonEmpty, NoComments, slinkyPkgCp))
     }
   }
 

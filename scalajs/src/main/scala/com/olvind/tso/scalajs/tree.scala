@@ -206,6 +206,8 @@ object TypeRef {
   def apply(qn: QualifiedName): TypeRef =
     TypeRef(qn, Nil, NoComments)
 
+  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
+
   val Wildcard     = TypeRef(QualifiedName.WILDCARD, Nil, NoComments)
   val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
   val Any          = TypeRef(QualifiedName.Any, Nil, NoComments)
