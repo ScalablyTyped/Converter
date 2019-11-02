@@ -64,7 +64,7 @@ object SlinkyComponents {
       Nil,
       Nil,
       List(
-        TypeAliasTree(Props, Nil, TypeRef.Any, NoComments, ExternalComponentProps + Props),
+        TypeAliasTree(names.Props, Nil, TypeRef.Any, NoComments, ExternalComponentProps + names.Props),
         TypeAliasTree(Element, Nil, TypeRef(Name("E")), NoComments, ExternalComponentProps + Element),
         TypeAliasTree(RefType, Nil, TypeRef(Name("R")), NoComments, ExternalComponentProps + RefType),
       ),
@@ -108,206 +108,217 @@ object SlinkyComponents {
 
   val rewriter = TypeRewriterCast(names.conversions)
 
+  case class Props(ref: TypeRef, params: Seq[Param], domParams: Seq[FieldTree])
+
   def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
 
     /* for slinky we strip all dom props, because the user can specify them using normal slinky syntax */
-    val domFields: Map[Name, TypeRef] =
+    val domFields: Map[Name, TypeRef] = {
+      def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
+        scope
+          .lookup(attributes)
+          .collectFirst {
+            case (x: ClassTree, newScope) =>
+              ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
+                case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+                case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
+              }
+          }
+          .fold(Map.empty[Name, TypeRef])(_.toMap)
+
       fieldsFor(scope, QualifiedName.React.AllHTMLAttributes) ++
         fieldsFor(scope, QualifiedName.React.SVGAttributes)
+    }
 
     /* Every tree knows it's own location (called `CodePath`).
        It's used for a lot of things, so it's important to get right */
-    val slinkyPkgCp = tree.codePath + names.Slinky
+    val pkgCp = tree.codePath + names.Slinky
 
-    val slinkyMembers = allComponents.flatMap { c =>
-      val componentCp = slinkyPkgCp + c.fullName
+    val generatedCode: Seq[Tree] =
+      allComponents
+        .groupBy(c => (c.props, c.tparams))
+        .to[Seq]
+        .flatMap {
+          case ((propsRefOpt, tparams), components) =>
+            // accept components with no props, but not those with too complicated props (type aliases that ExpandTypeMappings doesnt expand yet)
+            val propsParamsOpt: Option[Props] =
+              propsRefOpt match {
+                case Some(propsRef) =>
+                  val domParams = mutable.ArrayBuffer.empty[FieldTree]
 
-      val componentField = FieldTree(
-        Nil,
-        names.component,
-        TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
-        MemberImpl.Custom(
-          Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
-        ),
-        isReadOnly = true,
-        isOverride = true,
-        NoComments,
-        componentCp + names.component,
-      )
+                  val dealiased = FollowAliases(scope)(propsRef)
 
-      val props = c.props getOrElse TypeRef.Object
+                  val paramsOpt: Option[Seq[Param]] =
+                    scope lookup dealiased.typeName collectFirst {
+                      case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
+                        ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, tparams), scope) {
+                          case (scope, fieldTree: FieldTree) =>
+                            /* todo: refactor out a name/type check which ignores optionality */
+                            val isDom: Boolean =
+                              domFields.get(fieldTree.name) match {
+                                case Some(tpe) =>
+                                  FollowAliases(scope)(fieldTree.tpe) match {
+                                    case Nullable(ftpe) => ftpe.typeName === tpe.typeName
+                                    case ftpe           => ftpe.typeName === tpe.typeName
+                                  }
+                                case None => false
+                              }
+                            if (isDom) {
+                              domParams += fieldTree
+                              None
+                            } else Companions.memberParameter(scope, fieldTree)
+                          case (scope, methodTree: MethodTree) =>
+                            Companions.memberParameter(scope, methodTree)
+                        }
+                    }
 
-      def propsAlias(props: TypeRef) =
-        TypeAliasTree(names.Props, Nil, TypeRef.stripTargs(props), NoComments, componentCp + names.Props)
+                  paramsOpt.map { params =>
+                    /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
+                    val rewrittenParams = params.map(
+                      p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
+                    )
 
-      val dealiased = FollowAliases(scope)(props)
-      scope lookup dealiased.typeName firstDefined {
-        case (_cls: ClassTree, newScope) if _cls.classType === ClassType.Trait =>
-          val cls = FillInTParams(_cls, newScope, dealiased.targs, c.tparams)
-
-          val domParams = mutable.ArrayBuffer.empty[FieldTree]
-
-          val params: Seq[Param] =
-            ConstructObjectOfType(cls, scope, maxNum = Int.MaxValue) {
-              case (scope, fieldTree: FieldTree) =>
-                /* todo: refactor out a name/type check which ignores optionality */
-                val isDom: Boolean =
-                  domFields.get(fieldTree.name) match {
-                    case Some(tpe) =>
-                      FollowAliases(scope)(fieldTree.tpe) match {
-                        case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                        case ftpe           => ftpe.typeName === tpe.typeName
-                      }
-                    case None => false
+                    Props(propsRef, rewrittenParams, domParams.to[Seq])
                   }
-                if (isDom) {
-                  domParams += fieldTree
-                  None
-                } else Companions.memberParameter(scope, fieldTree)
-              case (scope, tree) => Companions.memberParameter(scope, tree)
-            }.map(
-              /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
-              p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
-            )
 
-          val domType: TypeRef =
-            domParams
-              .firstDefined { f =>
-                val referencedElements = TreeTraverse.collect(f) {
-                  case TypeRef(QualifiedName(List(ScalaConfig.outputPkg, ScalaConfig.std, name)), Nil, _)
-                      if name.value.endsWith("Element") =>
-                    name.value
-                }
-                referencedElements.toSet.firstDefined(ElementMapping.get)
+                case None =>
+                  Some(Props(TypeRef.Object, Nil, Nil))
               }
-              .getOrElse(AnyHtmlElement)
 
-          val (refTypes, _, optionals, requireds, Nil) = params.partitionCollect4(
-            { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
-            { case Param(pt, _, _) if names.shouldIgnore(pt)      => () },
-            { case Param(p, _, Right(f))                          => p -> f },
-            { case Param(p, _, Left(str))                         => p -> str },
-          )
+            propsParamsOpt.to[List].flatMap { props: Props =>
+              val domType: TypeRef =
+                props.domParams
+                  .firstDefined { f =>
+                    val referencedElements = TreeTraverse.collect(f) {
+                      case TypeRef(QualifiedName(List(ScalaConfig.outputPkg, ScalaConfig.std, name)), Nil, _)
+                          if name.value.endsWith("Element") =>
+                        name.value
+                    }
+                    referencedElements.toSet.firstDefined(ElementMapping.get)
+                  }
+                  .getOrElse(AnyHtmlElement)
 
-          /**
-            *  The `apply` method that the slinky method would normally construct.
-            *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
-            *  a case class and suffer macro execution time.
-            */
-          def genApply(elem: TypeRef, ref: TypeRef): MethodTree = {
-            val ret  = TypeRef(names.BuildingComponent, List(elem, ref), NoComments)
-            val cast = if (c.ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
-
-            MethodTree(
-              annotations = Nil,
-              level       = ProtectionLevel.Default,
-              name        = Name.APPLY,
-              tparams     = c.tparams,
-              params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
-              impl = MemberImpl.Custom(s"""{
-                                                 |  val __obj = js.Dynamic.literal(${requireds
-                                            .map(_._2)
-                                            .mkString(", ")})
-                                                 |${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-                                                 |  super.apply(__obj.asInstanceOf[Props])$cast
-                                                 |}""".stripMargin),
-              resultType = ret,
-              isOverride = false,
-              comments   = NoComments,
-              codePath   = componentCp + Name.APPLY,
-            )
-          }
-
-          val (parent, members) = {
-            /* Observe type bound of :< js.Object */
-            val refType = {
-              c.knownRef orElse refTypes.headOption map TypeRef.stripTargs match {
-                case Some(value) =>
-                  scope
-                    .lookup(value.typeName)
-                    .collectFirst { case (_: ClassTree, _) => value }
-                    .getOrElse(TypeRef.Intersection(List(value, TypeRef.Object)))
-                case None => TypeRef.Object
-              }
+              components.map(genComponent(scope, pkgCp, props, domType))
+//              components match {
+//                case Seq(one) =>
+//                  List(genComponent(scope, pkgCp, props, domType)(one))
+//                  case many =>
+//                    /** We share `apply` methods for each props type in abstract classes to limit compilation time.
+//                      *  References causes some trouble, so if the component knows it we thread it through a type param.
+//                      */
+//                    val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
+//                    val propsCls          = genSharedPropsClass(pkgCp, props, params, knownRefRewritten, tparams)
+//                    List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
+//              }
             }
-
-            c.props match {
-              case Some(props) =>
-                (
-                  TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
-                  List(genApply(domType, refType), propsAlias(props)),
-                )
-              case None => (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
-            }
-          }
-
-          val domWarning =
-            if (domParams.isEmpty) NoComments
-            else {
-              val details = domParams.map(_.name.unescaped).sorted.mkString(", ")
-              Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
-            }
-
-          Some(
-            ModuleTree(
-              annotations = Nil,
-              name        = c.fullName,
-              parents     = List(parent),
-              members     = List(componentField) ++ members,
-              comments    = domWarning + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
-              codePath    = componentCp,
-            ),
-          )
-
-        /* This is a fallback when the props type is complicated. I'm not convinced the result is very useful */
-        case (_: ClassTree | _: TypeAliasTree, _) =>
-          val (parent, propsAliasOpt) = {
-            val refType = TypeRef.stripTargs(c.knownRef getOrElse TypeRef.Object)
-            val domType = AnyHtmlElement
-            c.props match {
-              case Some(props) =>
-                (
-                  TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
-                  Option(propsAlias(props)),
-                )
-              case None => (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), None)
-            }
-          }
-
-          val mod = ModuleTree(
-            annotations = Nil,
-            name        = c.fullName,
-            parents     = List(parent),
-            members     = List(componentField) ++ propsAliasOpt,
-            comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
-            codePath    = componentCp,
-          )
-          Some(mod)
-
-        case _ => None
-      }
-    }
+        }
 
     /* Only generate the package if we have mapped any components */
-    slinkyMembers match {
-      case Nil => tree
+    generatedCode match {
+      case Seq() => tree
       case nonEmpty =>
-        tree.withMembers(tree.members :+ PackageTree(Nil, names.Slinky, nonEmpty, NoComments, slinkyPkgCp))
+        val newPackage = PackageTree(Nil, names.Slinky, nonEmpty, NoComments, pkgCp)
+        tree.withMembers(tree.members :+ newPackage)
     }
   }
 
-  private def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
-    scope
-      .lookup(attributes)
-      .collectFirst {
-        case (x: ClassTree, newScope) =>
-          ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-            case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-            case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
-          }
+  def genComponent(
+      scope:   TreeScope,
+      pkgCp:   QualifiedName,
+      props:   Props,
+      domType: TypeRef,
+  )(c:         Component): ModuleTree = {
+    val componentCp = pkgCp + c.fullName
+
+    val componentField = FieldTree(
+      Nil,
+      names.component,
+      TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
+      MemberImpl.Custom(
+        Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
+      ),
+      isReadOnly = true,
+      isOverride = true,
+      NoComments,
+      componentCp + names.component,
+    )
+    val (refTypes, _, optionals, requireds, Nil) = props.params.partitionCollect4(
+      { case Param(ParamTree(Name("ref"), tpe, _, _), _, _) => tpe },
+      { case Param(pt, _, _) if names.shouldIgnore(pt)      => () },
+      { case Param(p, _, Right(f))                          => p -> f },
+      { case Param(p, _, Left(str))                         => p -> str },
+    )
+
+    /**
+      *  The `apply` method that the slinky method would normally construct.
+      *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
+      *  a case class and suffer macro execution time.
+      */
+    def genApply(elem: TypeRef, ref: TypeRef): MethodTree = {
+      val ret  = TypeRef(names.BuildingComponent, List(elem, ref), NoComments)
+      val cast = if (c.ref.targs.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
+
+      MethodTree(
+        annotations = Nil,
+        level       = ProtectionLevel.Default,
+        name        = Name.APPLY,
+        tparams     = c.tparams,
+        params      = List(requireds.map(_._1) ++ optionals.map(_._1)),
+        impl = MemberImpl.Custom(s"""{
+                                    |  val __obj = js.Dynamic.literal(${requireds
+                                      .map(_._2)
+                                      .mkString(", ")})
+                                    |${optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
+                                    |  super.apply(__obj.asInstanceOf[Props])$cast
+                                    |}""".stripMargin),
+        resultType = ret,
+        isOverride = false,
+        comments   = NoComments,
+        codePath   = componentCp + Name.APPLY,
+      )
+    }
+
+    val (parent, members) = {
+      /* Observe type bound of :< js.Object */
+      val refType = {
+        c.knownRef orElse refTypes.headOption map TypeRef.stripTargs match {
+          case Some(value) =>
+            scope
+              .lookup(value.typeName)
+              .collectFirst { case (_: ClassTree, _) => value }
+              .getOrElse(TypeRef.Intersection(List(value, TypeRef.Object)))
+          case None => TypeRef.Object
+        }
       }
-      .fold(Map.empty[Name, TypeRef])(_.toMap)
+
+      if (props.params.nonEmpty) {
+        val propsAlias =
+          TypeAliasTree(names.Props, Nil, TypeRef.stripTargs(props.ref), NoComments, componentCp + names.Props)
+        (
+          TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
+          List(genApply(domType, refType), propsAlias),
+        )
+      } else
+        (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), Nil)
+    }
+
+    val domWarning =
+      if (props.domParams.isEmpty) NoComments
+      else {
+        val details = props.domParams.map(_.name.unescaped).sorted.mkString(", ")
+        Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
+      }
+
+    ModuleTree(
+      annotations = Nil,
+      name        = c.fullName,
+      parents     = List(parent),
+      members     = List(componentField) ++ members,
+      comments    = domWarning + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
+      codePath    = componentCp,
+    )
+  }
 
   // todo: this was all the mapping i had the energy to do.
   val ElementMapping = Map(
