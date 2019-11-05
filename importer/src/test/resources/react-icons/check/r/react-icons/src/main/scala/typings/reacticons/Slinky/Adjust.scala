@@ -1,22 +1,11 @@
-package typings.reactIcons.Slinky
+package typings.reactIcons.slinky
 
-import slinky.core.BuildingComponent
-import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.web.html.`*`.tag
-import typings.reactIconBase.reactIconBaseMod.IconBaseProps
 import typings.reactIcons.faAdjustMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object Adjust
-  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+object Adjust extends SharedApply_IconBaseProps_1456944888[default] {
   override val component: String | js.Object = js.constructorOf[typings.reactIcons.faAdjustMod.default].asInstanceOf[String | js.Object]
-  def apply(size: String | Double = null): BuildingComponent[tag.type, default] = {
-    val __obj = js.Dynamic.literal()
-    if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
-    super.apply(__obj.asInstanceOf[Props])
-  }
-  type Props = IconBaseProps
 }
 
