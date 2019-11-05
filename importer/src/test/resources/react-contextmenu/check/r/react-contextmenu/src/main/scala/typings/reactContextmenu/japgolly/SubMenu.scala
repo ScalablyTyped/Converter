@@ -17,7 +17,6 @@ import scala.scalajs.js.annotation._
 object SubMenu {
   def apply(
     title: Element | ReactText,
-    key: js.UndefOr[Key] = js.undefined,
     className: String = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     hoverDelay: Int | Double = null,
@@ -28,20 +27,20 @@ object SubMenu {
       Unit
     ]) | js.Function = null,
     preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
-    rtl: js.UndefOr[Boolean] = js.undefined
+    rtl: js.UndefOr[Boolean] = js.undefined,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[SubMenuProps, typings.reactContextmenu.reactContextmenuMod.SubMenu, Unit, SubMenuProps] = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (className != null) __obj.updateDynamic("className")(className)
+      if (className != null) __obj.updateDynamic("className")(className)
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (hoverDelay != null) __obj.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick)
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactContextmenu.reactContextmenuMod.SubMenuProps, 

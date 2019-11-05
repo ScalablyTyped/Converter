@@ -16,7 +16,6 @@ object ButtonGroup {
     defaultValue: foo,
     onChange: foo,
     value: foo,
-    key: js.UndefOr[Key] = js.undefined,
     `type`: foo,
     accept: String = null,
     acceptCharset: String = null,
@@ -26,15 +25,14 @@ object ButtonGroup {
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     justified: js.UndefOr[Boolean] = js.undefined,
-    vertical: js.UndefOr[Boolean] = js.undefined
+    vertical: js.UndefOr[Boolean] = js.undefined,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[ButtonGroupProps, typings.reactBootstrap.libMod.ButtonGroup, Unit, ButtonGroupProps] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    __obj.updateDynamic("type")(`type`)
+      __obj.updateDynamic("type")(`type`)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
@@ -44,6 +42,7 @@ object ButtonGroup {
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactBootstrap.libButtonGroupMod.ButtonGroupProps, 

@@ -9,12 +9,11 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object BottomNavigationItem {
-  def apply(key: js.UndefOr[Key] = js.undefined, className: String = null)(children: Double): UnmountedWithRoot[BottomNavigationItemProps, default, Unit, BottomNavigationItemProps] = {
+  def apply(className: String = null, key: js.UndefOr[Key] = js.undefined)(children: Double): UnmountedWithRoot[BottomNavigationItemProps, default, Unit, BottomNavigationItemProps] = {
     val __obj = js.Dynamic.literal(children = children)
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (className != null) __obj.updateDynamic("className")(className)
+      if (className != null) __obj.updateDynamic("className")(className)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.materialUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps, 

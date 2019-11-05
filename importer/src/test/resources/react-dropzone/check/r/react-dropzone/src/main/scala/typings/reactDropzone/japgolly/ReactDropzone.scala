@@ -17,7 +17,6 @@ import scala.scalajs.js.annotation._
 
 object ReactDropzone {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     accept: String | js.Array[String] = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     getFilesFromEvent: js.UndefOr[
@@ -53,7 +52,8 @@ object ReactDropzone {
       ], /* event */ DropEvent) => Callback
     ] = js.undefined,
     onFileDialogCancel: js.UndefOr[Callback] = js.undefined,
-    preventDropOnDocument: js.UndefOr[Boolean] = js.undefined
+    preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: js.UndefOr[/* state */ DropzoneState => CallbackTo[Element]] = js.undefined
   ): UnmountedWithRoot[
@@ -65,7 +65,6 @@ object ReactDropzone {
     val __obj = js.Dynamic.literal()
   
       children.foreach(p => __obj.updateDynamic("children")(js.Any.fromFunction1(((t0: /* state */ typings.reactDropzone.reactDropzoneMod.DropzoneState) => p(t0).runNow()))))
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     getFilesFromEvent.foreach(p => __obj.updateDynamic("getFilesFromEvent")(js.Any.fromFunction1(((t0: /* event */ typings.reactDropzone.reactDropzoneMod.DropEvent) => p(t0).runNow()))))
@@ -88,6 +87,7 @@ object ReactDropzone {
   /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any], t1: /* event */ typings.reactDropzone.reactDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
     onFileDialogCancel.foreach(p => __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0((() => p.runNow()))))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactDropzone.DropzonePropsRefAttributesDropzoneRef, 

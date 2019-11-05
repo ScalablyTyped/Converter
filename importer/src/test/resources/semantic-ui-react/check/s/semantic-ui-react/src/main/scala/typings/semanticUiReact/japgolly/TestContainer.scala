@@ -17,7 +17,6 @@ import scala.scalajs.js.annotation._
 
 object TestContainer {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     requiredFn0Number: CallbackTo[Double],
     requiredFn0Void: Callback,
     requiredFn1Number: Double => CallbackTo[Double],
@@ -32,7 +31,8 @@ object TestContainer {
     optFn1Number: js.UndefOr[/* x */ Double => CallbackTo[Double]] = js.undefined,
     optFn1Void: js.UndefOr[/* x */ Double => Callback] = js.undefined,
     text: js.UndefOr[Boolean] = js.undefined,
-    textAlign: SemanticTEXTALIGNMENTS = null
+    textAlign: SemanticTEXTALIGNMENTS = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -41,9 +41,7 @@ object TestContainer {
   ] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    __obj.updateDynamic("requiredFn0Number")(js.Any.fromFunction0((() => requiredFn0Number.runNow())))
+      __obj.updateDynamic("requiredFn0Number")(js.Any.fromFunction0((() => requiredFn0Number.runNow())))
     __obj.updateDynamic("requiredFn0Void")(js.Any.fromFunction0((() => requiredFn0Void.runNow())))
     __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1(((t0: scala.Double) => requiredFn1Number(t0).runNow())))
     __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1(((t0: scala.Double) => requiredFn1Void(t0).runNow())))
@@ -58,6 +56,7 @@ object TestContainer {
     optFn1Void.foreach(p => __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1(((t0: /* x */ scala.Double) => p(t0).runNow()))))
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsTestContainerTestContainerMod.TestContainerProps, 

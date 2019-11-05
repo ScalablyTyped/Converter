@@ -25,7 +25,6 @@ import scala.scalajs.js.annotation._
 abstract class SharedApply_ButtonGroupProps1331014168 () {
   def __component: js.Any
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     attached: Boolean | left | right | top | bottom = null,
@@ -47,7 +46,8 @@ abstract class SharedApply_ButtonGroupProps1331014168 () {
     size: SemanticSIZES = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: SemanticWIDTHS = null
+    widths: SemanticWIDTHS = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -56,9 +56,7 @@ abstract class SharedApply_ButtonGroupProps1331014168 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
@@ -80,6 +78,7 @@ abstract class SharedApply_ButtonGroupProps1331014168 () {
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     if (widths != null) __obj.updateDynamic("widths")(widths)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps, 

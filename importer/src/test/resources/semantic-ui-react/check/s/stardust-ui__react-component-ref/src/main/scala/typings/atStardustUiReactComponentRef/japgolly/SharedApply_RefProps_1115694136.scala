@@ -11,12 +11,11 @@ import scala.scalajs.js.annotation._
 
 abstract class SharedApply_RefProps_1115694136[ComponentRef] () {
   def __component: js.Any
-  def apply(key: js.UndefOr[Key] = js.undefined, innerRef: Ref = null)(children: ChildArg*): UnmountedWithRoot[RefProps, ComponentRef, Unit, RefProps] = {
+  def apply(innerRef: Ref = null, key: js.UndefOr[Key] = js.undefined)(children: ChildArg*): UnmountedWithRoot[RefProps, ComponentRef, Unit, RefProps] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
+      if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.atStardustUiReactComponentRef.esTypesMod.RefProps, 

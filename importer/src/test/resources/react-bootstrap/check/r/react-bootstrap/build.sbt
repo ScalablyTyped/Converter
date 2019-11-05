@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "react-bootstrap"
-version := "0.32-3e9c4e"
+version := "0.32-9b0189"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

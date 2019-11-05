@@ -18,7 +18,6 @@ import scala.scalajs.js.annotation._
 
 object AccordionAccordion {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     activeIndex: Double | js.Array[Double] = null,
     as: js.Any = null,
@@ -28,15 +27,14 @@ object AccordionAccordion {
     onTitleClick: js.UndefOr[
       (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
     ] = js.undefined,
-    panels: SemanticShorthandCollection[AccordionPanelProps] = null
+    panels: SemanticShorthandCollection[AccordionPanelProps] = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[AccordionAccordionProps, default, Unit, AccordionAccordionProps] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
@@ -44,6 +42,7 @@ object AccordionAccordion {
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive)
     onTitleClick.foreach(p => __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
     if (panels != null) __obj.updateDynamic("panels")(panels)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesAccordionAccordionAccordionMod.AccordionAccordionProps, 

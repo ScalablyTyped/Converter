@@ -14,12 +14,12 @@ import scala.scalajs.js.annotation._
 object ContextMenuTrigger {
   def apply(
     id: String,
-    key: js.UndefOr[Key] = js.undefined,
     attributes: HTMLAttributes[js.Any] = null,
     collect: js.UndefOr[/* data */ js.Any => CallbackTo[js.Any]] = js.undefined,
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
-    renderTag: ReactType[js.Any] = null
+    renderTag: ReactType[js.Any] = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -30,13 +30,12 @@ object ContextMenuTrigger {
   ] = {
     val __obj = js.Dynamic.literal(id = id)
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (attributes != null) __obj.updateDynamic("attributes")(attributes)
+      if (attributes != null) __obj.updateDynamic("attributes")(attributes)
     collect.foreach(p => __obj.updateDynamic("collect")(js.Any.fromFunction1(((t0: /* data */ js.Any) => p(t0).runNow()))))
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable)
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactContextmenu.reactContextmenuMod.ContextMenuTriggerProps, 

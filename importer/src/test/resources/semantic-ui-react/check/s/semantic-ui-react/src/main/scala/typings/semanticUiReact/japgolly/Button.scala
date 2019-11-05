@@ -84,7 +84,6 @@ import scala.scalajs.js.annotation._
 
 object Button {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     about: String = null,
     accessKey: String = null,
     active: js.UndefOr[Boolean] = js.undefined,
@@ -293,15 +292,14 @@ object Button {
     typeof: String = null,
     unselectable: on | off = null,
     value: String | js.Array[String] | Double = null,
-    vocab: String = null
+    vocab: String = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (about != null) __obj.updateDynamic("about")(about)
+      if (about != null) __obj.updateDynamic("about")(about)
     if (accessKey != null) __obj.updateDynamic("accessKey")(accessKey)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (animated != null) __obj.updateDynamic("animated")(animated.asInstanceOf[js.Any])
@@ -504,6 +502,7 @@ object Button {
     if (unselectable != null) __obj.updateDynamic("unselectable")(unselectable.asInstanceOf[js.Any])
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (vocab != null) __obj.updateDynamic("vocab")(vocab)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.elementsButtonButtonMod.ButtonProps, 

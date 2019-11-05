@@ -1,0 +1,34 @@
+package typings.reactContextmenu.Slinky
+
+import slinky.core.BuildingComponent
+import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.core.ReactComponentClass
+import slinky.web.html.`*`.tag
+import typings.react.reactMod.HTMLAttributes
+import typings.reactContextmenu.reactContextmenuMod.ContextMenuTriggerProps
+import scala.scalajs.js
+import scala.scalajs.js.`|`
+import scala.scalajs.js.annotation._
+
+/* The following DOM/SVG props were specified: id */
+object ContextMenuTrigger
+  extends ExternalComponentWithAttributesWithRefType[tag.type, typings.reactContextmenu.reactContextmenuMod.ContextMenuTrigger] {
+  override val component: String | js.Object = js.constructorOf[typings.reactContextmenu.reactContextmenuMod.ContextMenuTrigger].asInstanceOf[String | js.Object]
+  def apply(
+    attributes: HTMLAttributes[_] = null,
+    collect: /* data */ js.Any => _ = null,
+    disable: js.UndefOr[Boolean] = js.undefined,
+    holdToDisplay: Int | Double = null,
+    renderTag: ReactComponentClass[_] = null
+  ): BuildingComponent[tag.type, typings.reactContextmenu.reactContextmenuMod.ContextMenuTrigger] = {
+    val __obj = js.Dynamic.literal()
+    if (attributes != null) __obj.updateDynamic("attributes")(attributes)
+    if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
+    if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable)
+    if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
+    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag)
+    super.apply(__obj.asInstanceOf[Props])
+  }
+  type Props = ContextMenuTriggerProps
+}
+

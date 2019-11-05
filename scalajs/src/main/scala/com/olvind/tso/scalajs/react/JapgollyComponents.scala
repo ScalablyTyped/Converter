@@ -110,11 +110,11 @@ object JapgollyComponents {
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val keyUpdate: String => String = obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""
     val keyParam = ParamTree(
-        name     = Name("key"),
-        tpe      = TypeRef.UndefOr(TypeRef(japgolly.reactKey)),
-        default  = Some(TypeRef.undefined),
-        comments = NoComments,
-  )
+      name     = Name("key"),
+      tpe      = TypeRef.UndefOr(TypeRef(japgolly.reactKey)),
+      default  = Some(TypeRef.undefined),
+      comments = NoComments,
+    )
     Seq(keyParam -> keyUpdate)
   }
 
@@ -360,7 +360,7 @@ object JapgollyComponents {
         // take note of declared children, but saying `ReactNode` should be a noop
         { case p @ Param(ParamTree(names.children, tpe, _, _), _, _) if !isVdomNode(tpe) => p }, //declaredChildren
         { case Param(paramTree, _, _) if names.shouldIgnore(paramTree)                   => () },
-        { case Param(p, _, Right(f))                                   => p -> f }, //optionals
+        { case Param(p, _, Right(f))                                                     => p -> f }, //optionals
         { case Param(p, _, Left(str))                                                    => p -> str }, //requireds
       )
     }
@@ -449,10 +449,10 @@ object JapgollyComponents {
       tparams     = tparams,
       params      = List(firstParameterList, secondParameterList),
       impl        = impl,
-      resultType = resultType,
-      isOverride = false,
-      comments   = NoComments,
-      codePath   = ownerCp + Name.APPLY,
+      resultType  = resultType,
+      isOverride  = false,
+      comments    = NoComments,
+      codePath    = ownerCp + Name.APPLY,
     )
   }
 }

@@ -1,6 +1,8 @@
 package com.olvind.tso
 package scalajs
 
+import com.olvind.tso.scalajs.transforms.CleanIllegalNames
+
 sealed trait Annotation extends Product with Serializable
 sealed trait MemberAnnotation extends Annotation
 sealed trait ClassAnnotation extends Annotation
@@ -73,9 +75,12 @@ object Annotation {
   }
 
   def realName(anns: Seq[Annotation], fallback: Name): Name =
-    anns collectFirst {
+    anns
+      .collectFirst {
       case JsName(name)                       => name
       case JsImport(_, Imported.Named(names)) => names.last
       case JsGlobal(qname)                    => qname.parts.last
-    } getOrElse fallback
+      }
+      .filterNot(CleanIllegalNames.Illegal)
+      .getOrElse(fallback)
 }

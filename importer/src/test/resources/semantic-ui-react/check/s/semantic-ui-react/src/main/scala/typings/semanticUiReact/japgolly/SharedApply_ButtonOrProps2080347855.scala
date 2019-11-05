@@ -14,11 +14,11 @@ import scala.scalajs.js.annotation._
 abstract class SharedApply_ButtonOrProps2080347855 () {
   def __component: js.Any
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null,
-    text: Double | String = null
+    text: Double | String = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -27,12 +27,11 @@ abstract class SharedApply_ButtonOrProps2080347855 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps, 

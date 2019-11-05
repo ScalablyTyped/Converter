@@ -15,7 +15,6 @@ import scala.scalajs.js.annotation._
 
 object MenuItem {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     attributes: HTMLAttributes[HTMLDivElement] = null,
     className: String = null,
     data: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any = null,
@@ -27,7 +26,8 @@ object MenuItem {
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function = null,
-    preventClose: js.UndefOr[Boolean] = js.undefined
+    preventClose: js.UndefOr[Boolean] = js.undefined,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -38,15 +38,14 @@ object MenuItem {
   ] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (attributes != null) __obj.updateDynamic("attributes")(attributes)
+      if (attributes != null) __obj.updateDynamic("attributes")(attributes)
     if (className != null) __obj.updateDynamic("className")(className)
     if (data != null) __obj.updateDynamic("data")(data)
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(divider)) __obj.updateDynamic("divider")(divider)
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactContextmenu.reactContextmenuMod.MenuItemProps, 
