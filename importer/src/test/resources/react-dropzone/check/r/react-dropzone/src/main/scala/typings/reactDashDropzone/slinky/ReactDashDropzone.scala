@@ -1,5 +1,6 @@
 package typings.reactDashDropzone.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
@@ -35,7 +36,8 @@ object ReactDashDropzone
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
-    preventDropOnDocument: js.UndefOr[Boolean] = js.undefined
+    preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
@@ -51,6 +53,7 @@ object ReactDashDropzone
     if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(onDropRejected))
     if (onFileDialogCancel != null) __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0(onFileDialogCancel))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = DropzonePropsRefAttributesDropzoneRef

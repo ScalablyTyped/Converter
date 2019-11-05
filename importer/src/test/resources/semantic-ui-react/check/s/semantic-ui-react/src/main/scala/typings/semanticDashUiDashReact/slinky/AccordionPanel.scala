@@ -25,7 +25,8 @@ object AccordionPanel
     content: SemanticShorthandItem[AccordionContentProps] = null,
     index: Double | String = null,
     onTitleClick: (/* event */ MouseEvent[HTMLDivElement, Event], /* data */ AccordionTitleProps) => Unit = null,
-    title: SemanticShorthandItem[AccordionTitleProps] = null
+    title: SemanticShorthandItem[AccordionTitleProps] = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
@@ -34,6 +35,7 @@ object AccordionPanel
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
     if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = AccordionPanelProps

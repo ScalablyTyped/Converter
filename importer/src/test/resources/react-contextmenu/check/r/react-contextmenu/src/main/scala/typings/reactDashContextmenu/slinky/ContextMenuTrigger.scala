@@ -1,5 +1,6 @@
 package typings.reactDashContextmenu.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.ReactComponentClass
@@ -19,7 +20,8 @@ object ContextMenuTrigger
     collect: /* data */ js.Any => js.Any = null,
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
-    renderTag: ReactComponentClass[js.Any] = null
+    renderTag: ReactComponentClass[js.Any] = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger] = {
     val __obj = js.Dynamic.literal()
     if (attributes != null) __obj.updateDynamic("attributes")(attributes)
@@ -27,6 +29,7 @@ object ContextMenuTrigger
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable)
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ContextMenuTriggerProps

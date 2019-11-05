@@ -21,7 +21,8 @@ object Container
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
     text: js.UndefOr[Boolean] = js.undefined,
-    textAlign: SemanticTEXTALIGNMENTS = null
+    textAlign: SemanticTEXTALIGNMENTS = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
@@ -30,6 +31,7 @@ object Container
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ContainerProps

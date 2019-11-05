@@ -4,6 +4,7 @@ import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import org.scalablytyped.runtime.StringDictionary
 import typings.react.reactMod.HTMLAttributes
 import typings.react.reactMod.ReactType
 import typings.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTriggerProps
@@ -19,7 +20,8 @@ object ContextMenuTrigger {
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
     renderTag: ReactType[js.Any] = null,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -36,6 +38,7 @@ object ContextMenuTrigger {
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTriggerProps, 
