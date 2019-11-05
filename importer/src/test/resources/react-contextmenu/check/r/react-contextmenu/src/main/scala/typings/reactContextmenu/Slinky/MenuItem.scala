@@ -1,15 +1,15 @@
 package typings.reactContextmenu.Slinky
 
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.NativeMouseEvent
 import typings.react.reactMod.HTMLAttributes
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.TouchEvent
 import typings.reactContextmenu.reactContextmenuMod.MenuItemProps
-import typings.std.HTMLDivElement
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -23,7 +23,7 @@ object MenuItem
     data: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any = null,
     divider: js.UndefOr[Boolean] = js.undefined,
     onClick: (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, Event]), 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

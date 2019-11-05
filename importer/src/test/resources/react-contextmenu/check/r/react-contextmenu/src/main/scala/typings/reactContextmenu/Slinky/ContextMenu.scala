@@ -1,12 +1,12 @@
 package typings.reactContextmenu.Slinky
 
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.reactContextmenu.reactContextmenuMod.ContextMenuProps
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -20,7 +20,7 @@ object ContextMenu
     hideOnLeave: js.UndefOr[Boolean] = js.undefined,
     onHide: /* event */ js.Any => Unit = null,
     onMouseLeave: (js.Function3[
-      /* event */ MouseEvent[HTMLElement, NativeMouseEvent], 
+      /* event */ MouseEvent[HTMLElement, Event], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

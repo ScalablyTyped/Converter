@@ -77,9 +77,9 @@ object Annotation {
   def realName(anns: Seq[Annotation], fallback: Name): Name =
     anns
       .collectFirst {
-      case JsName(name)                       => name
-      case JsImport(_, Imported.Named(names)) => names.last
-      case JsGlobal(qname)                    => qname.parts.last
+        case JsName(name)                       => name
+        case JsImport(_, Imported.Named(names)) => names.last
+        case JsGlobal(qname)                    => qname.parts.last
       }
       .filterNot(CleanIllegalNames.Illegal)
       .getOrElse(fallback)

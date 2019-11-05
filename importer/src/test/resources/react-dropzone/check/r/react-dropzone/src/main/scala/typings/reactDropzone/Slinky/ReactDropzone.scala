@@ -12,11 +12,11 @@ import scala.scalajs.js.annotation._
 
 /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
 object ReactDropzone
-  extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any]] {
+  extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
   override val component: String | js.Object = typings.reactDropzone.reactDropzoneMod.default.asInstanceOf[String | js.Object]
   def apply(
     accept: String | js.Array[String] = null,
-    getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
+    getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any = null,
     maxSize: Int | Double = null,
     minSize: Int | Double = null,
     noClick: js.UndefOr[Boolean] = js.undefined,
@@ -24,19 +24,19 @@ object ReactDropzone
     noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
     noKeyboard: js.UndefOr[Boolean] = js.undefined,
     onDrop: (/* acceptedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
     ], /* rejectedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
     ], /* event */ DropEvent) => Unit = null,
     onDropAccepted: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
     ], /* event */ DropEvent) => Unit = null,
     onDropRejected: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined
-  ): BuildingComponent[tag.type, Ref[js.Any]] = {
+  ): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
     if (getFilesFromEvent != null) __obj.updateDynamic("getFilesFromEvent")(js.Any.fromFunction1(getFilesFromEvent))

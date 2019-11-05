@@ -1,9 +1,10 @@
 package typings.semanticUiReact.Slinky
 
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.HTMLButtonElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.web.html.`*`.tag
-import typings.react.NativeMouseEvent
+import slinky.web.html.button.tag
 import typings.react.reactMod.MouseEvent
 import typings.react.reactStrings.button
 import typings.react.reactStrings.reset
@@ -28,7 +29,6 @@ import typings.semanticUiReact.semanticUiReactStrings.twitter
 import typings.semanticUiReact.semanticUiReactStrings.vertical
 import typings.semanticUiReact.semanticUiReactStrings.vk
 import typings.semanticUiReact.semanticUiReactStrings.youtube
-import typings.std.HTMLButtonElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -50,16 +50,16 @@ object Button
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
     icon: Boolean | (SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ js.Any
     ]) = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ js.Any
     ] = null,
     labelPosition: right | left = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     negative: js.UndefOr[Boolean] = js.undefined,
-    onClick: (/* event */ MouseEvent[HTMLButtonElement, NativeMouseEvent], /* data */ ButtonProps) => Unit = null,
+    onClick: (/* event */ MouseEvent[HTMLButtonElement, Event], /* data */ ButtonProps) => Unit = null,
     positive: js.UndefOr[Boolean] = js.undefined,
     primary: js.UndefOr[Boolean] = js.undefined,
     secondary: js.UndefOr[Boolean] = js.undefined,

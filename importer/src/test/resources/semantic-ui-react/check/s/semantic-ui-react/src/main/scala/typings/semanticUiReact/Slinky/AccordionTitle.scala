@@ -1,16 +1,16 @@
 package typings.semanticUiReact.Slinky
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.HTMLDivElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import typings.semanticUiReact.genericMod.SemanticShorthandItem
 import typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps
 import typings.semanticUiReact.modulesAccordionAccordionTitleMod.default
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -25,10 +25,10 @@ object AccordionTitle
     as: js.Any = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ js.Any
     ] = null,
     index: Double | String = null,
-    onClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null
+    onClick: (/* event */ MouseEvent[HTMLDivElement, Event], /* data */ AccordionTitleProps) => Unit = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)

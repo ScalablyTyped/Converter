@@ -10,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: id */
+/* The following DOM/SVG props were specified: children, id */
 object Profiler
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.react.reactMod.Profiler.asInstanceOf[String | js.Object]

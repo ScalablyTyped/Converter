@@ -1,8 +1,9 @@
 package typings.semanticUiReact.Slinky
 
+import org.scalajs.dom.raw.HTMLInputElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.web.html.`*`.tag
+import slinky.web.html.input.tag
 import typings.react.reactMod.ChangeEvent
 import typings.semanticUiReact.elementsInputInputMod.InputOnChangeData
 import typings.semanticUiReact.elementsInputInputMod.InputProps
@@ -19,7 +20,6 @@ import typings.semanticUiReact.semanticUiReactStrings.massive
 import typings.semanticUiReact.semanticUiReactStrings.mini
 import typings.semanticUiReact.semanticUiReactStrings.right
 import typings.semanticUiReact.semanticUiReactStrings.small
-import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -40,7 +40,7 @@ object Input
     input: SemanticShorthandItem[HtmlInputrops] = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ js.Any
     ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,

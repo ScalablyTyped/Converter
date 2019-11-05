@@ -324,7 +324,7 @@ object JapgollyComponents {
       annotations = Nil,
       name        = names.component,
       tpe         = TypeRef.Any,
-      impl        = MemberImpl.Custom(Component.formatReferenceTo(SlinkyComponents.stripTargs(c.ref), c.componentType)),
+      impl        = MemberImpl.Custom(Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType)),
       isReadOnly  = true,
       isOverride  = true,
       comments    = NoComments,
@@ -334,7 +334,7 @@ object JapgollyComponents {
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
-      parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(SlinkyComponents.stripTargs).to[List], NoComments)),
+      parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
       comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
       codePath    = componentCp,
