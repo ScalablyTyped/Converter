@@ -27,13 +27,7 @@ object semanticDashUiDashReactComponents extends semanticDashUiDashReactProps {
   @scala.inline
   def Container: ComponentType[ContainerProps] = typings.semanticDashUiDashReact.srcElementsContainerMod.default.asInstanceOf[typings.react.reactMod.ComponentType[ContainerProps]]
   @scala.inline
-  def Content: ComponentType[ContentProps] = typings.semanticDashUiDashReact.srcElementsButtonMod.default.Content.asInstanceOf[typings.react.reactMod.ComponentType[ContentProps]]
-  @scala.inline
-  def Group: ComponentType[GroupProps] = typings.semanticDashUiDashReact.srcElementsButtonMod.default.Group.asInstanceOf[typings.react.reactMod.ComponentType[GroupProps]]
-  @scala.inline
   def Input: ComponentType[InputProps] = js.constructorOf[typings.semanticDashUiDashReact.srcElementsInputMod.default].asInstanceOf[typings.react.reactMod.ComponentType[InputProps]]
-  @scala.inline
-  def Or: ComponentType[OrProps] = typings.semanticDashUiDashReact.srcElementsButtonMod.default.Or.asInstanceOf[typings.react.reactMod.ComponentType[OrProps]]
   @scala.inline
   def TestContainer: ComponentType[TestContainerProps] = typings.semanticDashUiDashReact.srcElementsTestContainerMod.default.asInstanceOf[typings.react.reactMod.ComponentType[TestContainerProps]]
 }
