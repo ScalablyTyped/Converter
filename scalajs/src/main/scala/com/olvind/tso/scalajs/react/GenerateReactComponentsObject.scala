@@ -20,7 +20,7 @@ object GenerateReactComponentsObject {
         case numDropped => Comments(Comment(s"/* Dropped $numDropped components to please scalac */\n"))
       }
 
-      val traitName     = Name(tree.name.unescaped + "Props")
+      val traitName     = Name(scope.libName.unescaped + "Props")
       val traitCodePath = tree.codePath + traitName
       val `trait` = {
         val forwarders: Seq[Tree] =
@@ -45,7 +45,7 @@ object GenerateReactComponentsObject {
       }
 
       val module = {
-        val moduleName     = Name(tree.name.unescaped + "Components")
+        val moduleName     = Name(scope.libName.unescaped + "Components")
         val moduleCodePath = tree.codePath + moduleName
         ModuleTree(
           annotations = Nil,
