@@ -44,7 +44,8 @@ abstract class SharedApply_ButtonGroupProps564210363 (implicit pw: ExternalProps
     size: SemanticSIZES = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: SemanticWIDTHS = null
+    widths: SemanticWIDTHS = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
@@ -68,6 +69,7 @@ abstract class SharedApply_ButtonGroupProps564210363 (implicit pw: ExternalProps
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     if (widths != null) __obj.updateDynamic("widths")(widths)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ButtonGroupProps

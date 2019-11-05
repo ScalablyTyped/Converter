@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLButtonElement
 import slinky.core.BuildingComponent
@@ -66,7 +67,8 @@ object Button
     size: SemanticSIZES = null,
     tabIndex: Double | String = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
-    `type`: submit | reset | button = null
+    `type`: submit | reset | button = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
@@ -94,6 +96,7 @@ object Button
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
     if (`type` != null) __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ButtonProps

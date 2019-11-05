@@ -1,5 +1,6 @@
 package typings.reactDashContextmenu.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLDivElement
 import org.scalajs.dom.raw.HTMLElement
@@ -28,7 +29,8 @@ object MenuItem
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function = null,
-    preventClose: js.UndefOr[Boolean] = js.undefined
+    preventClose: js.UndefOr[Boolean] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashContextmenu.reactDashContextmenuMod.MenuItem] = {
     val __obj = js.Dynamic.literal()
     if (attributes != null) __obj.updateDynamic("attributes")(attributes)
@@ -36,6 +38,7 @@ object MenuItem
     if (!js.isUndefined(divider)) __obj.updateDynamic("divider")(divider)
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = MenuItemProps

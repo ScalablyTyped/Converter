@@ -29,7 +29,8 @@ object TestContainer
     optFn1Number: /* x */ Double => Double = null,
     optFn1Void: /* x */ Double => Unit = null,
     text: js.UndefOr[Boolean] = js.undefined,
-    textAlign: SemanticTEXTALIGNMENTS = null
+    textAlign: SemanticTEXTALIGNMENTS = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal(requiredFn0Number = js.Any.fromFunction0(requiredFn0Number), requiredFn0Void = js.Any.fromFunction0(requiredFn0Void), requiredFn1Number = js.Any.fromFunction1(requiredFn1Number), requiredFn1Void = js.Any.fromFunction1(requiredFn1Void))
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
@@ -42,6 +43,7 @@ object TestContainer
     if (optFn1Void != null) __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1(optFn1Void))
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = TestContainerProps

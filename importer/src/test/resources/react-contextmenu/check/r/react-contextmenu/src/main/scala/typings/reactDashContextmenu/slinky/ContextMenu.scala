@@ -1,5 +1,6 @@
 package typings.reactDashContextmenu.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
@@ -26,7 +27,8 @@ object ContextMenu
       Unit
     ]) | js.Function = null,
     onShow: /* event */ js.Any => Unit = null,
-    rtl: js.UndefOr[Boolean] = js.undefined
+    rtl: js.UndefOr[Boolean] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] = {
     val __obj = js.Dynamic.literal()
     if (data != null) __obj.updateDynamic("data")(data)
@@ -35,6 +37,7 @@ object ContextMenu
     if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
     if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction1(onShow))
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ContextMenuProps

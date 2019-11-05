@@ -27,7 +27,8 @@ object AccordionAccordion
     defaultActiveIndex: Double | js.Array[Double] = null,
     exclusive: js.UndefOr[Boolean] = js.undefined,
     onTitleClick: (/* event */ MouseEvent[HTMLDivElement, Event], /* data */ AccordionTitleProps) => Unit = null,
-    panels: SemanticShorthandCollection[AccordionPanelProps] = null
+    panels: SemanticShorthandCollection[AccordionPanelProps] = null,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
@@ -37,6 +38,7 @@ object AccordionAccordion
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive)
     if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
     if (panels != null) __obj.updateDynamic("panels")(panels)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = AccordionAccordionProps
