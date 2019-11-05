@@ -31,7 +31,8 @@ object Accordion {
     ] = js.undefined,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null,
     styled: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[AccordionProps, default, Unit, AccordionProps] = {
@@ -49,6 +50,7 @@ object Accordion {
     if (panels != null) __obj.updateDynamic("panels")(panels)
     if (!js.isUndefined(styled)) __obj.updateDynamic("styled")(styled)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesAccordionAccordionMod.AccordionProps, 

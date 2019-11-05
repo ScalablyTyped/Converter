@@ -106,11 +106,11 @@ object ConstructObjectOfType {
 
   def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Param) =
     ref.name -> Param(
-      ParamTree(ref.name, ref, Some(TypeRef.`null`), NoComments),
+      ParamTree(ref.name, false, ref, Some(TypeRef.`null`), NoComments),
       !isRequired,
       Right(
         obj =>
-          if (isRequired) s"if ($obj != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
+          if (isRequired) s"if (${ref.name.value} != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
           else s"js.Dynamic.global.Object.assign($obj, ${ref.name.value})",
       ),
     )

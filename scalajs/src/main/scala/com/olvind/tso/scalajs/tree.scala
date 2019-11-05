@@ -188,7 +188,8 @@ object TypeParamTree {
   implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
 }
 
-final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
+final case class ParamTree(name: Name, isImplicit: Boolean, tpe: TypeRef, default: Option[TypeRef], comments: Comments)
+    extends Tree
 
 final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last

@@ -26,7 +26,8 @@ object AccordionPanel {
       (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
     ] = js.undefined,
     title: SemanticShorthandItem[AccordionTitleProps] = null,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[AccordionPanelProps, default, Unit, AccordionPanelProps] = {
@@ -39,6 +40,7 @@ object AccordionPanel {
     onTitleClick.foreach(p => __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.modulesAccordionAccordionPanelMod.AccordionPanelProps, 

@@ -49,7 +49,7 @@ object ImportEnum {
               ProtectionLevel.Private,
               castName,
               List(TypeParamTree(T, None, NoComments)),
-              List(List(ParamTree(Name("in"), TypeRef.Any, None, NoComments))),
+              List(List(ParamTree(Name("in"), false, TypeRef.Any, None, NoComments))),
               MemberImpl.Custom("in.asInstanceOf[T]"),
               TypeRef(T),
               isOverride = false,
@@ -118,7 +118,7 @@ object ImportEnum {
         val moduleTree: ModuleTree = {
           val applyMethod: Option[MethodTree] =
             if (isValue) {
-              val applyParam = ParamTree(Name.value, underlying, None, NoComments)
+              val applyParam = ParamTree(Name.value, false, underlying, None, NoComments)
               Some(
                 MethodTree(
                   annotations = Annotation.method(name, isBracketAccess = true),

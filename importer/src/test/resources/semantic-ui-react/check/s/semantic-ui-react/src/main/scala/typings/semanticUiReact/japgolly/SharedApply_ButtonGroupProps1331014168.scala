@@ -47,7 +47,8 @@ abstract class SharedApply_ButtonGroupProps1331014168 () {
     toggle: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
     widths: SemanticWIDTHS = null,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -79,6 +80,7 @@ abstract class SharedApply_ButtonGroupProps1331014168 () {
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     if (widths != null) __obj.updateDynamic("widths")(widths)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps, 

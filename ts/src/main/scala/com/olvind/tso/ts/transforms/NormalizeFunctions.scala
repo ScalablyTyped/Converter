@@ -2,6 +2,8 @@ package com.olvind.tso
 package ts
 package transforms
 
+import seqs._
+
 /**
   * To give the scala compiler a fighting chance, we will have to rewrite things like this:
   * ```typescript
@@ -23,38 +25,61 @@ package transforms
   *
   */
 object NormalizeFunctions extends TransformMembers with TransformClassMembers {
+  object ToRewrite {
+    def unapply(tpe: TsType): Option[Seq[TsFunSig]] =
+      tpe match {
+        case TsTypeObject(_, members) if members.nonEmpty =>
+          members.partitionCollect { case x: TsMemberCall => x.signature } match {
+            case (calls, Nil) => Some(calls)
+            case _            => None
+          }
+        case TsTypeFunction(sig) => Some(List(sig))
+        case _                   => None
+      }
+  }
 
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
-    x.members.map {
+    x.members.flatMap {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
-        TsMemberProperty(
-          comments,
-          level,
-          name,
-          Some(TsTypeFunction(signature)),
-          None,
-          isStatic,
-          m.isReadOnly,
-          m.isOptional,
+        List(
+          TsMemberProperty(
+            comments,
+            level,
+            name,
+            Some(TsTypeFunction(signature)),
+            None,
+            isStatic,
+            m.isReadOnly,
+            m.isOptional,
+          ),
         )
-      case TsMemberProperty(cs, level, name, Some(TsTypeFunction(sig)), None, isStatic, isReadOnly, isOptional) =>
-        TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional)
-      case other => other
+      case TsMemberProperty(cs, level, name, Some(ToRewrite(sigs)), None, isStatic, isReadOnly, isOptional) =>
+        sigs.map(sig => TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional))
+      case other => List(other)
     }
 
   override def enterTsExporteeTree(t: TsTreeScope)(x: TsExporteeTree): TsExporteeTree =
-    x.copy(decl = rewriteDecl(x.decl))
-
-  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
-    x.members map {
-      case decl: TsDecl => rewriteDecl(decl)
-      case other => other
+    rewriteDecl(x.decl) match {
+      case Seq(one) => x.copy(decl = one)
+      case _        => x
     }
 
-  private def rewriteDecl(d: TsDecl): TsDecl =
+  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+    x.members flatMap {
+      case decl: TsDecl => rewriteDecl(decl)
+      case other => List(other)
+    }
+
+  override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
+    x match {
+      case TsTypeObject(_, Seq(TsMemberCall(_, _, sig))) => TsTypeFunction(sig)
+      case other                                         => other
+    }
+
+  private def rewriteDecl(d: TsDecl): Seq[TsDecl] =
     d match {
-      case TsDeclVar(cs, declared, true, name, Some(TsTypeFunction(sig)), None, jsLocation, codePath, false) =>
-        TsDeclFunction(cs, declared, name, sig, jsLocation, codePath)
-      case other => other
+      case TsDeclVar(cs, declared, true, name, Some(ToRewrite(sigs)), None, jsLocation, codePath, _) =>
+        sigs.map(sig => TsDeclFunction(cs, declared, name, sig, jsLocation, codePath))
+      case other => List(other)
     }
 }

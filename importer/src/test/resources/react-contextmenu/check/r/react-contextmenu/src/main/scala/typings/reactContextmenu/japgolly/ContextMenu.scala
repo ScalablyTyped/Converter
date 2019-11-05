@@ -5,6 +5,7 @@ import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
 import typings.reactContextmenu.reactContextmenuMod.ContextMenuProps
 import scala.scalajs.js
@@ -26,7 +27,8 @@ object ContextMenu {
     ]) | js.Function = null,
     onShow: js.UndefOr[/* event */ js.Any => Callback] = js.undefined,
     rtl: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -45,6 +47,7 @@ object ContextMenu {
     onShow.foreach(p => __obj.updateDynamic("onShow")(js.Any.fromFunction1(((t0: /* event */ js.Any) => p(t0).runNow()))))
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactContextmenu.reactContextmenuMod.ContextMenuProps, 

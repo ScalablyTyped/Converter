@@ -6,6 +6,7 @@ import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import japgolly.scalajs.react.raw.React.Element
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLDivElement
 import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.ReactText
@@ -28,7 +29,8 @@ object SubMenu {
     ]) | js.Function = null,
     preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
     rtl: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[SubMenuProps, typings.reactContextmenu.reactContextmenuMod.SubMenu, Unit, SubMenuProps] = {
@@ -41,6 +43,7 @@ object SubMenu {
     if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick)
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactContextmenu.reactContextmenuMod.SubMenuProps, 

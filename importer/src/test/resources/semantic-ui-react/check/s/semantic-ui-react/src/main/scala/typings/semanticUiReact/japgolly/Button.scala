@@ -17,6 +17,7 @@ import japgolly.scalajs.react.ReactTransitionEventFrom
 import japgolly.scalajs.react.ReactUIEventFrom
 import japgolly.scalajs.react.ReactWheelEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLButtonElement
 import typings.react.Anon_Html
 import typings.react.reactMod.CSSProperties
@@ -293,7 +294,8 @@ object Button {
     unselectable: on | off = null,
     value: String | js.Array[String] | Double = null,
     vocab: String = null,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
@@ -503,6 +505,7 @@ object Button {
     if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     if (vocab != null) __obj.updateDynamic("vocab")(vocab)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticUiReact.elementsButtonButtonMod.ButtonProps, 

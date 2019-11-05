@@ -18,7 +18,8 @@ abstract class SharedApply_ButtonOrProps2080347855 () {
     as: js.Any = null,
     className: String = null,
     text: Double | String = null,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -32,6 +33,7 @@ abstract class SharedApply_ButtonOrProps2080347855 () {
     if (className != null) __obj.updateDynamic("className")(className)
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps, 
