@@ -7,7 +7,7 @@ import typings.react.reactStrings.I
 import typings.react.reactStrings.`1`
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
-import typings.react.reactStrings.a
+import typings.react.reactStrings.a_
 import typings.react.reactStrings.additions
 import typings.react.reactStrings.all
 import typings.react.reactStrings.ascending
@@ -21,7 +21,7 @@ import typings.react.reactStrings.execute
 import typings.react.reactStrings.grammar
 import typings.react.reactStrings.grid
 import typings.react.reactStrings.horizontal
-import typings.react.reactStrings.i
+import typings.react.reactStrings.i_
 import typings.react.reactStrings.link
 import typings.react.reactStrings.list
 import typings.react.reactStrings.listbox
@@ -51,7 +51,7 @@ import scala.scalajs.js.annotation._
 trait OlHTMLAttributes[T] extends HTMLAttributes[T] {
   var reversed: js.UndefOr[Boolean] = js.undefined
   var start: js.UndefOr[Double] = js.undefined
-  var `type`: js.UndefOr[`1` | a | A | i | I] = js.undefined
+  var `type`: js.UndefOr[`1` | a_ | A | i_ | I] = js.undefined
 }
 
 object OlHTMLAttributes {
@@ -228,7 +228,7 @@ object OlHTMLAttributes {
     suppressHydrationWarning: js.UndefOr[Boolean] = js.undefined,
     tabIndex: Int | Double = null,
     title: String = null,
-    `type`: `1` | a | A | i | I = null,
+    `type`: `1` | a_ | A | i_ | I = null,
     typeof: String = null,
     unselectable: on | off = null,
     vocab: String = null
