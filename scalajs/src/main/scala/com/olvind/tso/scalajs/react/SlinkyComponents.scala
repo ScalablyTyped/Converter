@@ -136,7 +136,7 @@ object SlinkyComponents {
     val noNormalProps: Boolean = optionals.isEmpty && requireds.isEmpty
   }
 
-  def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
+  def apply(_scope: TreeScope, tree: PackageTree, allComponents: Seq[Component]): PackageTree = {
     val scope = _scope / tree
 
     /* for slinky we strip all dom props, because the user can specify them using normal slinky syntax */
@@ -159,7 +159,8 @@ object SlinkyComponents {
 
     /* Every tree knows it's own location (called `CodePath`).
        It's used for a lot of things, so it's important to get right */
-    val pkgCp = tree.codePath + names.Slinky
+    val outerPkgCp = tree.codePath + names.Slinky
+    val pkgCp      = outerPkgCp + scope.libName
 
     val generatedCode: Seq[Tree] =
       allComponents
@@ -246,8 +247,14 @@ object SlinkyComponents {
     generatedCode match {
       case Seq() => tree
       case nonEmpty =>
-        val newPackage = PackageTree(Nil, names.Slinky, nonEmpty, NoComments, pkgCp)
-        tree.withMembers(tree.members :+ newPackage)
+        val newPackage = PackageTree(
+          Nil,
+          names.Slinky,
+          List(PackageTree(Nil, scope.libName, nonEmpty, NoComments, pkgCp)),
+          NoComments,
+          outerPkgCp,
+        )
+        tree.copy(members = tree.members :+ newPackage)
     }
   }
 

@@ -207,9 +207,10 @@ object JapgollyComponents {
       case dontChange => dontChange
     }
 
-  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
-    val scope = _scope / tree
-    val pkgCp = tree.codePath + names.Japgolly
+  def apply(_scope: TreeScope, tree: PackageTree, components: Seq[Component]): PackageTree = {
+    val scope      = _scope / tree
+    val outerPkgCp = tree.codePath + names.Japgolly
+    val pkgCp      = outerPkgCp + scope.libName
 
     val generatedCode: Seq[Tree] =
       components
@@ -226,7 +227,11 @@ object JapgollyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, tparams), scope)(
+                        ConstructObjectOfType(
+                          FillInTParams(cls, newScope, dealiased.targs, tparams),
+                          scope,
+                          maxNum = ConstructObjectOfType.MaxParamsForMethod - additionalOptionalParams.length,
+                        )(
                           memberParameter,
                         )
                     }
@@ -256,8 +261,14 @@ object JapgollyComponents {
     generatedCode match {
       case Seq() => tree
       case nonEmpty =>
-        val newPackage = PackageTree(Nil, names.Japgolly, nonEmpty, NoComments, pkgCp)
-        tree.withMembers(tree.members :+ newPackage)
+        val newPackage = PackageTree(
+          Nil,
+          names.Japgolly,
+          List(PackageTree(Nil, scope.libName, nonEmpty, NoComments, pkgCp)),
+          NoComments,
+          outerPkgCp,
+        )
+        tree.copy(members = tree.members :+ newPackage)
     }
   }
 
