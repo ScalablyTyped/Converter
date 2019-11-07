@@ -58,7 +58,7 @@ lazy val commonSettings =
     Test / unmanagedSourceDirectories := Seq((Test / scalaSource).value),
     Compile / tsoReactBinding := Japgolly,
     Compile / tsoIgnore += "csstype",
-    Compile / tsoMinimize := Selection.AllExcept("semantic-ui-react"),
+    Compile / tsoMinimize := Selection.AllExcept("semantic-ui-react", "react-dropzone", "@stardust-ui", "react-big-calendar", "moment"),
     webpackDevServerPort := 8009,
   )
 

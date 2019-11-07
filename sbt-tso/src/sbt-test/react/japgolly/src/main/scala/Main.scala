@@ -8,7 +8,7 @@ import org.scalajs.dom.raw.HTMLButtonElement
 import typings.semanticUiReact.commonjsElementsButtonButtonMod.ButtonProps
 import typings.semanticUiReact.commonjsGenericMod.SemanticCOLORS
 import typings.semanticUiReact.semanticUiReactStrings.money
-import typings.semanticUiReact.japgolly.{Button, Container, Icon}
+import typings.japgolly.semanticUiReact.{Button, Container, Icon}
 
 import scala.scalajs.js
 

@@ -80,7 +80,7 @@ object LibrarySpecific {
     override val libName: TsIdentLibrary = TsIdentLibrarySimple("semantic-ui-react")
     val stdLib                 = TsQIdent(List(TsIdent.std))
     val reactMod               = TsQIdent(react.libName :: TsIdentModule(None, List("react")) :: Nil)
-    val HTMLAttributes      = reactMod + TsIdent("HTMLAttributes")
+    val HTMLAttributes         = reactMod + TsIdent("HTMLAttributes")
     val AllHTMLAttributes      = reactMod + TsIdent("AllHTMLAttributes")
     val InputHTMLAttributes    = reactMod + TsIdent("InputHTMLAttributes")
     val HTMLInputElement       = stdLib + TsIdent("HTMLInputElement")
@@ -93,7 +93,7 @@ object LibrarySpecific {
     val TdHTMLAttributes       = reactMod + TsIdent("TdHTMLAttributes")
     val HTMLTableCellElement   = stdLib + TsIdent("HTMLTableCellElement")
 //    val TrHTMLAttributes       = reactMod + TsIdent("TrHTMLAttributes")
-    val HTMLTableRowElement   = stdLib + TsIdent("HTMLTableRowElement")
+    val HTMLTableRowElement = stdLib + TsIdent("HTMLTableRowElement")
 
     def event(name: TsQIdent, of: TsQIdent) =
       TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))

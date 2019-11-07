@@ -38,17 +38,8 @@ trait semanticUiReactProps {
   def ContainerProps: typings.semanticUiReact.elementsContainerContainerMod.ContainerProps.type = typings.semanticUiReact.elementsContainerContainerMod.ContainerProps
   type ContainerProps = typings.semanticUiReact.elementsContainerContainerMod.ContainerProps
   @scala.inline
-  def ContentProps: typings.semanticUiReact.elementsButtonButtonContentMod.ButtonContentProps.type = typings.semanticUiReact.elementsButtonButtonContentMod.ButtonContentProps
-  type ContentProps = typings.semanticUiReact.elementsButtonButtonContentMod.ButtonContentProps
-  @scala.inline
-  def GroupProps: typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps.type = typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps
-  type GroupProps = typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps
-  @scala.inline
   def InputProps: StrictInputProps.type = typings.semanticUiReact.elementsInputInputMod.StrictInputProps
   type InputProps = typings.semanticUiReact.elementsInputInputMod.InputProps
-  @scala.inline
-  def OrProps: typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps.type = typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps
-  type OrProps = typings.semanticUiReact.elementsButtonButtonOrMod.ButtonOrProps
   @scala.inline
   def TestContainerProps: typings.semanticUiReact.elementsTestContainerTestContainerMod.TestContainerProps.type = typings.semanticUiReact.elementsTestContainerTestContainerMod.TestContainerProps
   type TestContainerProps = typings.semanticUiReact.elementsTestContainerTestContainerMod.TestContainerProps
