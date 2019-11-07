@@ -54,8 +54,8 @@ val importer = project
     javaOptions in run += "-Xmx12G",
     mainClass := Some("com.olvind.tso.importer.Importer"),
     // fork to keep CI happy with memory usage
-    fork in Test := true,
-    testOptions in Test += Tests.Argument("-P4")
+//    fork in Test := true,
+//    testOptions in Test += Tests.Argument("-P4")
   )
 
 val `sbt-tso` = project

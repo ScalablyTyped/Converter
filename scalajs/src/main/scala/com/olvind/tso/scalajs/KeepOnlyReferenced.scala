@@ -84,7 +84,11 @@ object KeepOnlyReferenced {
               val related = TreeTraverse.collectSeq(refs) {
                 case TypeRef(typeName, _, _) => typeName
               }
-              tree.codePath +: related
+              val fromTree = TreeTraverse.collect(tree) {
+                case TypeRef(typeName, _, _) => typeName
+              }
+
+              tree.codePath +: (fromTree ++ related)
           }
         case _ => None
       }
