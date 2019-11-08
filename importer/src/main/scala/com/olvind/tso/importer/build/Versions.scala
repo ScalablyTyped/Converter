@@ -4,10 +4,7 @@ package importer.build
 import com.olvind.tso.stringUtils.quote
 
 object Versions {
-  val RuntimeOrg     = "com.olvind"
-  val RuntimeName    = "scalablytyped-runtime"
-  val RuntimeVersion = "2.1.0"
-  val sbtVersion     = "1.3.3"
+  val sbtVersion = "1.3.3"
 
   object `scala 2.12 with scala.js 0.6` extends Versions {
     val scalaOrganization   = "org.scala-lang"

@@ -47,6 +47,7 @@ object PathsFromTsLibSource {
     fileOpt match {
       case Some(path) if path.endsWith("typings.json") =>
         import jsonCodecs._
+
         val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
         val typingsJson     = Json[TypingsJson](typingsJsonPath)
         Seq(InFile(typingsJsonPath / os.up / typingsJson.main))

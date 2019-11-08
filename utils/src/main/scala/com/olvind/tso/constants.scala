@@ -16,4 +16,8 @@ object constants {
   val TimeZone            = ZoneId.of("UTC")
   val Utf8                = Codec.UTF8.charSet
   val DateTimePattern     = DateTimeFormatter ofPattern "yyyyMMddhhmm" withLocale Locale.ENGLISH withZone TimeZone
+
+  val RuntimeOrg     = "com.olvind"
+  val RuntimeName    = "scalablytyped-runtime"
+  val RuntimeVersion = "2.1.0"
 }

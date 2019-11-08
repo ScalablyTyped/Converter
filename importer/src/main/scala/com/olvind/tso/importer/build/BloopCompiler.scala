@@ -51,7 +51,7 @@ object BloopCompiler {
       Array(
         scalaCompiler.collect { case path if path.underlying.toString.contains("scala-library") => path },
         resolve(v.scalaJsOrganization, v.s("scalajs-library"), v.scalaJsVersion, bloopLogger)(ec),
-        resolve(Versions.RuntimeOrg, v.sjs(Versions.RuntimeName), Versions.RuntimeVersion, bloopLogger)(ec),
+        resolve(constants.RuntimeOrg, v.sjs(constants.RuntimeName), constants.RuntimeVersion, bloopLogger)(ec),
       ).flatten
 
     val scalaJsCompiler =
