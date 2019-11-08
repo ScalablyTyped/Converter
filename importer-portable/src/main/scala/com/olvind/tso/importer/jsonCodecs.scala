@@ -9,6 +9,8 @@ import io.circe._
 object jsonCodecs {
   implicit val RelPathDecoder:        Decoder[os.RelPath]     = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))
   implicit val RelPathEncoder:        Encoder[os.RelPath]     = Encoder[String].contramap[os.RelPath](_.toString)
+  implicit val PathDecoder:           Decoder[os.Path]        = Decoder[String].map(str => os.Path(str))
+  implicit val PathEncoder:           Encoder[os.Path]        = Encoder[String].contramap[os.Path](_.toString)
   implicit val URIDecoder:            Decoder[URI]            = Decoder[String].map(new URI(_))
   implicit val URIEncoder:            Encoder[URI]            = Encoder[String].contramap[URI](_.toString)
   implicit val TsIdentLibraryDecoder: Decoder[TsIdentLibrary] = Decoder[String].map(TsIdentLibrary.apply)

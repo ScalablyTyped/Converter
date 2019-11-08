@@ -5,6 +5,7 @@ lazy val testProject =
     .settings(
       Compile / tsoReactBinding := ReactBinding.Japgolly,
       Compile / tsoIgnore += "csstype",
+      Compile / tsoMinimize := Selection.All(),
       Compile / npmDependencies ++= Seq(
         "@types/react-dom" -> "16.9.1",
         "@types/react" -> "16.9.5",
