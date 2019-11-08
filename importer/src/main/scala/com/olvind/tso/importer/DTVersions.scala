@@ -5,16 +5,15 @@ import java.net.URI
 import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops.%%
-import com.olvind.tso.ts.PackageJsonDeps
+import com.olvind.tso.ts.{CalculateLibraryVersion, PackageJsonDeps}
 
 import scala.util.{Success, Try}
 
-class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommit: String) {
+class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryVersion {
 
   def apply(
       sourceFolder:   InFolder,
       isStdLib:       Boolean,
-      sourceFiles:    Seq[InFile],
       packageJsonOpt: Option[PackageJsonDeps],
       comments:       Comments,
   ): LibraryVersion = {
@@ -39,7 +38,7 @@ class CalculateLibraryVersion(lastChangedIndex: RepoLastChangedIndex, localCommi
         case _ => None
       }
 
-    LibraryVersion(libraryVersion, inGit, localCommit)
+    LibraryVersion(libraryVersion, inGit)
   }
 
   /**

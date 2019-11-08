@@ -2,7 +2,7 @@ package com.olvind.tso.importer
 
 import scala.collection.mutable
 
-final case class RepoLastChangedIndex private (values: Map[os.Path, Long])
+final case class DTLastChangedIndex private (values: Map[os.Path, Long])
 
 /**
   * It's pretty ridiculous that this is needed, but here we are...
@@ -17,7 +17,7 @@ final case class RepoLastChangedIndex private (values: Map[os.Path, Long])
   *
   * For that reason we pre-compute it here.
   */
-object RepoLastChangedIndex {
+object DTLastChangedIndex {
   private object ExtractLong {
     def unapply(s: String): Option[Long] =
       if (s.nonEmpty && s.forall(_.isDigit)) Some(s.toLong) else None
@@ -28,7 +28,7 @@ object RepoLastChangedIndex {
       os.RelPath(relPath.segments.take(n), 0)
     }
 
-  def apply(cmd: Cmd, repo: os.Path): RepoLastChangedIndex = {
+  def apply(cmd: Cmd, repo: os.Path): DTLastChangedIndex = {
     implicit val wd = repo
 
     val res         = cmd.run git ('log, "--raw", "--pretty=format:%ct")
@@ -61,6 +61,6 @@ object RepoLastChangedIndex {
       case _ =>
     }
 
-    new RepoLastChangedIndex(lastChanged.map { case (relPath, long) => repo / relPath -> long }(collection.breakOut))
+    new DTLastChangedIndex(lastChanged.map { case (relPath, long) => repo / relPath -> long }(collection.breakOut))
   }
 }

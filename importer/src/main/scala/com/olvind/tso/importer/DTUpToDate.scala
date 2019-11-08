@@ -6,7 +6,7 @@ import com.olvind.tso.InFolder
 
 import scala.util.Try
 
-object UpToDateDefinitelyTyped {
+object DTUpToDate {
   def apply(cmd: Cmd, offline: Boolean, cacheFolder: os.Path, repo: URI): InFolder = {
     val clonedDir: os.Path = cacheFolder / 'DefinitelyTyped
 
