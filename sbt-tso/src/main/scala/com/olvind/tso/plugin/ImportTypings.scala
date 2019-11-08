@@ -48,7 +48,7 @@ object ImportTypings {
       .next(
         new Phase1ReadTypescript(
           new LibraryResolver(stdLibSource, Seq(InFolder(fromFolder.path / "@types"), fromFolder), None),
-          None,
+          CalculateLibraryVersion.PackageJsonOnly,
           ignore,
           stdLibSource,
           pedantic = false,
@@ -123,7 +123,7 @@ object ImportTypings {
       ImportTypings(
         List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
         InFolder(tsoCache / "npm" / "node_modules"),
-        Main.existing(tsoCache / 'work),
+        files.existing(tsoCache / 'work),
         stdout.filter(LogLevel.warn),
         ReactBinding.Slinky,
         List("es5", "dom"),

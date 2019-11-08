@@ -5,6 +5,8 @@ import java.nio.file.Files
 import java.nio.file.StandardOpenOption.{CREATE, TRUNCATE_EXISTING}
 import java.util
 
+import scala.util.Try
+
 sealed trait Synced
 object Synced {
   case object New extends Synced
@@ -97,5 +99,14 @@ object files {
     os.makeDir.all(path / os.up)
     Files.write(path.toNIO, newContent, CREATE, TRUNCATE_EXISTING)
     Synced.New
+  }
+
+  def existing(p: os.Path): os.Path = {
+    os.makeDir.all(p)
+    p
+  }
+  def existingEmpty(p: os.Path): os.Path = {
+    Try(os.remove.all(p))
+    existing(p)
   }
 }

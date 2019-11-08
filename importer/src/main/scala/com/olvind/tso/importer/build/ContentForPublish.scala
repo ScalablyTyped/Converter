@@ -116,7 +116,7 @@ object ContentForPublish {
         <dependency org={v.scalaJsOrganization} name={s"scalajs-compiler_${v.scalaVersion}"} rev={v.scalaJsVersion} conf="plugin->default(compile)"/>
         <dependency org={v.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJsVersion} conf="compile->default(compile)"/>
         <dependency org={v.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={v.scalaJsVersion} conf="test->default(compile)"/>
-        <dependency org={Versions.RuntimeOrg} name={v.sjs(Versions.RuntimeName)} rev={Versions.RuntimeVersion} conf="compile->default(compile)"/>
+        <dependency org={constants.RuntimeOrg} name={v.sjs(constants.RuntimeName)} rev={constants.RuntimeVersion} conf="compile->default(compile)"/>
         {
       p.deps.map {
         case (_, d) =>
@@ -160,9 +160,9 @@ object ContentForPublish {
           <scope>test</scope>
         </dependency>
         <dependency>
-          <groupId>{Versions.RuntimeOrg}</groupId>
-          <artifactId>{v.sjs(Versions.RuntimeName)}</artifactId>
-          <version>{Versions.RuntimeVersion}</version>
+          <groupId>{constants.RuntimeOrg}</groupId>
+          <artifactId>{v.sjs(constants.RuntimeName)}</artifactId>
+          <version>{constants.RuntimeVersion}</version>
         </dependency>
         {
       p.deps.map {

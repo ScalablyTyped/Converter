@@ -2,7 +2,6 @@ package com.olvind.tso
 package plugin
 
 import com.olvind.logging.LogLevel
-import com.olvind.tso.importer.build.Versions
 import com.olvind.tso.ts.TsIdentLibrary
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import sbt.Keys._
@@ -96,7 +95,7 @@ object TsoPlugin extends AutoPlugin {
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
     import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
     val outsideConfig = Seq(
-      libraryDependencies ++= Seq(Versions.RuntimeOrg %%% Versions.RuntimeName % Versions.RuntimeVersion),
+      libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
       scalacOptions ++= {
         val old = scalacOptions.value
         if (old.contains("-P:scalajs:sjsDefinedByDefault")) Nil else Seq("-P:scalajs:sjsDefinedByDefault")

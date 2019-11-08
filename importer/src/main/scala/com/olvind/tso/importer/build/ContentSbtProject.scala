@@ -25,7 +25,7 @@ object ContentSbtProject {
   ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
 
     val buildSbt = {
-      val fixed    = List(v.%%%(Versions.RuntimeOrg, Versions.RuntimeName, Versions.RuntimeVersion))
+      val fixed    = List(v.%%%(constants.RuntimeOrg, constants.RuntimeName, constants.RuntimeVersion))
       val external = deps.map(d => v.%%%(d.org, d.artifact, d.version))
       val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))
 

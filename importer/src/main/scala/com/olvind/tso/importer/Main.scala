@@ -29,7 +29,7 @@ class Main(config: Config) {
   private val pool               = new ForkJoinPool(config.parallelLibraries)
   private val ec                 = ExecutionContext.fromExecutorService(pool)
   private val storingErrorLogger = logging.storing()
-  private val logsFolder         = existing(config.cacheFolder / 'logs)
+  private val logsFolder         = files.existing(config.cacheFolder / 'logs)
 
   private val logger = {
     val logFile = new FileWriter((logsFolder / s"${config.runId}.log").toIO)
@@ -71,8 +71,8 @@ class Main(config: Config) {
 
       TargetDirs(
         targetFolder = targetFolder,
-        failFolder   = existingEmpty(targetFolder / 'failures),
-        facadeFolder = existing(targetFolder / 'facades),
+        failFolder   = files.existingEmpty(targetFolder / 'failures),
+        facadeFolder = files.existing(targetFolder / 'facades),
       )
     }(ec)
 
@@ -86,7 +86,7 @@ class Main(config: Config) {
     )(ec)
 
     val dtFolderF: Future[InFolder] = Future(
-      UpToDateDefinitelyTyped(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo),
+      DTUpToDate(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo),
     )(ec)
 
     val localCleaningF: Future[Unit] = Future {
@@ -103,7 +103,7 @@ class Main(config: Config) {
       UpToDateExternals(
         interfaceLogger,
         interfaceCmd,
-        existing(existing(config.cacheFolder / 'npm)),
+        files.existing(config.cacheFolder / 'npm),
         external.packages.map(_.typingsPackageName).to[Set] + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
         Libraries.ignored(config.sequential),
         config.conserveSpace,
@@ -113,7 +113,7 @@ class Main(config: Config) {
 
     val lastChangedIndexF = dtFolderF.map { dtFolder =>
       interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
-      RepoLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
+      DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
     }(ec)
 
     val tsSourcesF: Future[SortedSet[Source]] = {
@@ -163,7 +163,7 @@ class Main(config: Config) {
     val bintray: Option[BinTrayPublisher] = config.publish.map {
       case PublishConfig(user, password) =>
         BinTrayPublisher(
-          existing(config.cacheFolder / 'bintray),
+          files.existing(config.cacheFolder / 'bintray),
           config.ScalablyTypedRepo,
           user,
           password,
@@ -183,14 +183,16 @@ class Main(config: Config) {
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            calculateLibraryVersion = Option(new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha)),
+            calculateLibraryVersion = new DTVersions(lastChangedIndex),
             resolve                 = resolve,
             ignored                 = Libraries.ignored(config.sequential),
             stdlibSource            = stdLibSource,
             pedantic                = config.pedantic,
             parser =
               if (config.enableParseCache)
-                PersistingFunction(nameAndMtimeUnder(existing(config.cacheFolder / 'parse)), logger.void)(parseFile)
+                PersistingFunction(nameAndMtimeUnder(files.existing(config.cacheFolder / 'parse)), logger.void)(
+                  parseFile,
+                )
               else parseFile,
           ),
           "typescript",
@@ -206,7 +208,7 @@ class Main(config: Config) {
             organization    = config.organization,
             publishUser     = publishUser,
             publishFolder   = config.publishFolder,
-            metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
+            metadataFetcher = Npmjs.GigahorseFetcher(files.existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
             reactBindings   = config.reactBindings,
           ),
@@ -337,15 +339,6 @@ object Main {
     /* I havent found a way to configure bloop to customize the global ExecutionContext, so this is it */
     System.setProperty("scala.concurrent.context.numThreads", config.parallelScalas.toString)
     new Main(config).run()
-  }
-
-  def existing(p: os.Path): os.Path = {
-    os.makeDir.all(p)
-    p
-  }
-  def existingEmpty(p: os.Path): os.Path = {
-    Try(os.remove.all(p))
-    existing(p)
   }
 
   case class TargetDirs(targetFolder: os.Path, failFolder: os.Path, facadeFolder: os.Path)
