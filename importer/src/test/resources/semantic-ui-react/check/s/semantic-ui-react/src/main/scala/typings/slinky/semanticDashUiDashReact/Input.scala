@@ -2,14 +2,15 @@ package typings.slinky.semanticDashUiDashReact
 
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
 import org.scalajs.dom.raw.HTMLInputElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.core.SyntheticEvent
+import slinky.web.SyntheticMouseEvent
 import slinky.web.html.input.tag
 import typings.react.reactMod.CSSProperties
 import typings.react.reactMod.ChangeEvent
-import typings.react.reactMod.FormEvent
-import typings.react.reactMod.MouseEvent
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
 import typings.react.reactStrings.additions
@@ -158,10 +159,10 @@ object Input
     loading: js.UndefOr[Boolean] = js.undefined,
     maxLength: Int | Double = null,
     minLength: Int | Double = null,
-    onAuxClick: MouseEvent[HTMLInputElement, Event] => Unit = null,
-    onBeforeInput: FormEvent[HTMLInputElement] => Unit = null,
+    onAuxClick: SyntheticMouseEvent[HTMLInputElement] => Unit = null,
+    onBeforeInput: SyntheticEvent[EventTarget with HTMLInputElement, Event] => Unit = null,
     onChange: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Unit = null,
-    onReset: FormEvent[HTMLInputElement] => Unit = null,
+    onReset: SyntheticEvent[EventTarget with HTMLInputElement, Event] => Unit = null,
     prefix: String = null,
     property: String = null,
     radioGroup: String = null,

@@ -1,12 +1,11 @@
 package typings.slinky.reactDashContextmenu
 
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typings.react.reactMod.MouseEvent
 import typings.reactDashContextmenu.reactDashContextmenuMod.ContextMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -21,7 +20,7 @@ object ContextMenu
     hideOnLeave: js.UndefOr[Boolean] = js.undefined,
     onHide: /* event */ js.Any => Unit = null,
     onMouseLeave: (js.Function3[
-      /* event */ MouseEvent[HTMLElement, Event], 
+      /* event */ SyntheticMouseEvent[HTMLElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

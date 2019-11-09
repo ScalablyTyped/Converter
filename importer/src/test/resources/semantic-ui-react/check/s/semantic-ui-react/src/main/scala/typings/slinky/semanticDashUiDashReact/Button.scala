@@ -2,13 +2,14 @@ package typings.slinky.semanticDashUiDashReact
 
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
 import org.scalajs.dom.raw.HTMLButtonElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.core.SyntheticEvent
+import slinky.web.SyntheticMouseEvent
 import slinky.web.html.button.tag
 import typings.react.reactMod.CSSProperties
-import typings.react.reactMod.FormEvent
-import typings.react.reactMod.MouseEvent
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
 import typings.react.reactStrings.additions
@@ -166,10 +167,10 @@ object Button
     labelPosition: right | left = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     negative: js.UndefOr[Boolean] = js.undefined,
-    onAuxClick: MouseEvent[HTMLButtonElement, Event] => Unit = null,
-    onBeforeInput: FormEvent[HTMLButtonElement] => Unit = null,
-    onClick: (/* event */ MouseEvent[HTMLButtonElement, Event], /* data */ ButtonProps) => Unit = null,
-    onReset: FormEvent[HTMLButtonElement] => Unit = null,
+    onAuxClick: SyntheticMouseEvent[HTMLButtonElement] => Unit = null,
+    onBeforeInput: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit = null,
+    onClick: (/* event */ SyntheticMouseEvent[HTMLButtonElement], /* data */ ButtonProps) => Unit = null,
+    onReset: SyntheticEvent[EventTarget with HTMLButtonElement, Event] => Unit = null,
     positive: js.UndefOr[Boolean] = js.undefined,
     prefix: String = null,
     primary: js.UndefOr[Boolean] = js.undefined,

@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "react-contextmenu"
-version := "2.13.0-087f5a"
+version := "2.13.0-d27989"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

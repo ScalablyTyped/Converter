@@ -49,7 +49,10 @@ object CastConversion {
     val map = replacements.map(x => x.from -> x).toMap
 
     def mapped(x: TypeRef, scope: TreeScope): Option[TypeRef] =
-      map.get(x.typeName).map(conv => x.copy(typeName = conv.to, targs = conv.tparams.map(_.eval(x.targs)).to[Seq]))
+      map.get(x.typeName).map { conv =>
+        val targs = conv.tparams.map(tp => visitTypeRef(scope)(tp.eval(x.targs))).to[Seq]
+        x.copy(typeName = conv.to, targs = targs)
+      }
 
     override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef =
       mapped(x, scope) orElse mapped(FollowAliases(scope)(x), scope) getOrElse x

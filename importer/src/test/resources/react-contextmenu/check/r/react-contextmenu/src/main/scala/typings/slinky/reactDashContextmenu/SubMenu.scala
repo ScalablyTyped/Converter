@@ -1,16 +1,15 @@
 package typings.slinky.reactDashContextmenu
 
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLDivElement
 import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.facade.ReactElement
+import slinky.web.SyntheticMouseEvent
+import slinky.web.SyntheticTouchEvent
 import slinky.web.html.`*`.tag
-import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactText
-import typings.react.reactMod.TouchEvent
 import typings.reactDashContextmenu.reactDashContextmenuMod.SubMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -24,7 +23,7 @@ object SubMenu
     title: ReactElement | ReactText,
     hoverDelay: Int | Double = null,
     onClick: (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, Event]), 
+      /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
