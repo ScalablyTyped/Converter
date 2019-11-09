@@ -16,9 +16,9 @@ object IdentifyReactComponents {
     /* because for instance mui ships with icons called `List` and `Tab` */
     val preferPropsMatchesName = c.props.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
     /* because for instance mui declares both a default and a names export, where only the former exists */
-    val preferDefault = c.scalaLocation.parts.last === Name.Default
+    val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
-    val preferShortModuleName = -length(c.scalaLocation)
+    val preferShortModuleName = -length(c.scalaRef.typeName)
 
     (preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
@@ -53,7 +53,7 @@ object IdentifyReactComponents {
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
-  def maybeMethodComponent(method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
+  def maybeMethodComponent(_method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (current.typeName === QualifiedName.React.ReactElement) Some(current)
       else if (scope.isAbstract(current)) None
@@ -68,6 +68,7 @@ object IdentifyReactComponents {
           }
       }
 
+    val (method, targs) = inlineBounds(scope, _method)
     val flattenedParams = method.params.flatten
 
     flattenedParams.length match {
@@ -89,33 +90,48 @@ object IdentifyReactComponents {
             method.name match {
               case Name.APPLY =>
                 Component(
+                  scalaRef         = TypeRef(owner.codePath, targs, NoComments),
                   fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
                   tparams          = method.tparams,
                   props            = propsTypeOpt,
-                  scalaLocation    = owner.codePath,
                   isGlobal         = isGlobal(owner.annotations),
                   componentType    = ComponentType.Field,
                   isAbstractProps  = isAbstractProps,
                   componentMembers = Nil,
-                  knownRef         = None,
                 )
 
               case _ =>
                 Component(
+                  scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(_method.tparams), NoComments),
                   fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
                   tparams          = method.tparams,
                   props            = propsTypeOpt,
-                  scalaLocation    = method.codePath,
                   isGlobal         = isGlobal(method.annotations),
                   componentType    = ComponentType.Function,
                   isAbstractProps  = isAbstractProps,
                   componentMembers = Nil,
-                  knownRef         = None,
                 )
 
             }
       case _ => None
     }
+  }
+
+  /* support a somewhat rare pattern `class C<Props extends CProps> extends React.Component<Props>`.  */
+  object inlineBounds {
+    def apply(scope: TreeScope, x: MethodTree): (MethodTree, Seq[TypeRef]) =
+      if (x.tparams.forall(_.upperBound.isEmpty)) (x, TypeParamTree.asTypeArgs(x.tparams))
+      else {
+        val fillOriginal = x.tparams.map(tp => tp.upperBound.getOrElse(TypeRef(tp.name)))
+        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(_.upperBound.isEmpty)), fillOriginal)
+      }
+
+    def apply(scope: TreeScope, x: ClassTree): (ClassTree, Seq[TypeRef]) =
+      if (x.tparams.forall(_.upperBound.isEmpty)) (x, TypeParamTree.asTypeArgs(x.tparams))
+      else {
+        val fillOriginal = x.tparams.map(tp => tp.upperBound.getOrElse(TypeRef(tp.name)))
+        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(_.upperBound.isEmpty)), fillOriginal)
+      }
   }
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
@@ -143,15 +159,14 @@ object IdentifyReactComponents {
       props = tr.targs.head
     } yield
       Component(
+        scalaRef         = TypeRef(tree.codePath, Nil, NoComments),
         fullName         = componentName(scope, owner.annotations, QualifiedName(tree.name :: Nil), tree.comments),
         tparams          = Nil,
         props            = Some(props).filterNot(_ === TypeRef.Object),
-        scalaLocation    = tree.codePath,
         isGlobal         = isGlobal(tree.annotations),
         componentType    = ComponentType.Field,
         isAbstractProps  = scope.isAbstract(props),
         componentMembers = Nil,
-        knownRef         = None,
       )
 
     def isAliasToFC: Option[Component] =
@@ -179,25 +194,24 @@ object IdentifyReactComponents {
     fieldResult orElse isAliasToFC
   }
 
-  def maybeClassComponent(cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
-    if (cls.classType =/= ClassType.Class) None
-    else
+  def maybeClassComponent(_cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
+    if (_cls.classType =/= ClassType.Class) None
+    else {
+      val (cls, targs) = inlineBounds(scope, _cls)
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
         case (TypeRef(qname, props +: _, _), _) if QualifiedName.React isComponent qname =>
           Component(
-            fullName        = componentName(scope, owner.annotations, cls.codePath, cls.comments),
-            tparams         = cls.tparams,
-            props           = Some(props).filterNot(_ === TypeRef.Object),
-            scalaLocation   = cls.codePath,
-            isGlobal        = isGlobal(cls.annotations),
-            componentType   = ComponentType.Class,
-            isAbstractProps = scope.isAbstract(props),
-            componentMembers = cls.members.collect {
-              case x: MemberTree => x
-            },
-            knownRef = Some(TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments)),
+            scalaRef         = TypeRef(cls.codePath, targs, NoComments),
+            fullName         = componentName(scope, owner.annotations, cls.codePath, cls.comments),
+            tparams          = cls.tparams,
+            props            = Some(props).filterNot(_ === TypeRef.Object),
+            isGlobal         = isGlobal(cls.annotations),
+            componentType    = ComponentType.Class,
+            isAbstractProps  = scope.isAbstract(props),
+            componentMembers = cls.members.collect { case x: MemberTree => x },
           )
       }
+    }
 
   object componentName {
     def apply(

@@ -112,7 +112,7 @@ object GenerateReactComponentsObject {
       tparams     = comp.tparams,
       params      = Nil,
       impl = MemberImpl.Custom(
-        s"${Component.formatReferenceTo(comp.ref, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(retType)}]",
+        s"${Component.formatReferenceTo(comp.scalaRef, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(retType)}]",
       ),
       resultType = retType,
       isOverride = false,

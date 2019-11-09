@@ -309,7 +309,7 @@ object SlinkyComponents {
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
       members     = List(genComponentField(c, componentCp)),
-      comments    = genDomWarning(props) + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
+      comments    = genDomWarning(props) + CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef))),
       codePath    = componentCp,
     )
   }
@@ -322,7 +322,7 @@ object SlinkyComponents {
       name        = c.fullName,
       parents     = List(parent),
       members     = List(genComponentField(c, componentCp)) ++ applyMethodOpt ++ typeAliasOpt,
-      comments    = genDomWarning(props) + CommentData(KeepOnlyReferenced.Keep(List(c.ref))),
+      comments    = genDomWarning(props) + CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef))),
       codePath    = componentCp,
     )
   }
@@ -400,7 +400,8 @@ object SlinkyComponents {
       names.component,
       TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
       MemberImpl.Custom(
-        Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType) + ".asInstanceOf[String | js.Object]",
+        Component
+          .formatReferenceTo(TypeRef.stripTargs(c.scalaRef), c.componentType) + ".asInstanceOf[String | js.Object]",
       ),
       isReadOnly = true,
       isOverride = true,

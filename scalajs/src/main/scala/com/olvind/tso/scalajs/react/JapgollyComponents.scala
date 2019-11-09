@@ -281,7 +281,7 @@ object JapgollyComponents {
       c:                 Component,
   ): ModuleTree = {
     val componentCp  = pkgCodePath + c.fullName
-    val componentRef = Component.formatReferenceTo(c.ref, c.componentType)
+    val componentRef = Component.formatReferenceTo(c.scalaRef, c.componentType)
     val applyMethod  = genApply(props, params, knownRefRewritten, tparams, componentRef, componentCp)
 
     ModuleTree(
@@ -289,7 +289,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = Nil,
       members     = List(applyMethod),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
       codePath    = componentCp,
     )
   }
@@ -345,7 +345,7 @@ object JapgollyComponents {
       annotations = Nil,
       name        = names.component,
       tpe         = TypeRef.Any,
-      impl        = MemberImpl.Custom(Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType)),
+      impl        = MemberImpl.Custom(Component.formatReferenceTo(TypeRef.stripTargs(c.scalaRef), c.componentType)),
       isReadOnly  = true,
       isOverride  = true,
       comments    = NoComments,
@@ -357,7 +357,7 @@ object JapgollyComponents {
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
       codePath    = componentCp,
     )
   }
