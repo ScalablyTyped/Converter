@@ -55,6 +55,16 @@ object ImportTypings {
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
+    val parseCachePath = os.root / "tmp" / "tso-sbt-cache" / "parse"
+
+    val persistingParser: InFile => Either[String, TsParsedFile] = {
+      val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
+        case (file, bs) => parseCachePath / file.path.last / bs.hashCode.toString
+      }, logger) {
+        case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+      }
+      (inFile: InFile) => pf((inFile, os.read.bytes(inFile.path)))
+    }
     val Pipeline: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
@@ -63,7 +73,7 @@ object ImportTypings {
           ignore,
           stdLibSource,
           pedantic = false,
-          parser.parseFile,
+          persistingParser,
         ),
         "typescript",
       )
