@@ -2,7 +2,6 @@ package com.olvind.tso
 package scalajs
 package flavours
 
-import com.olvind.tso.scalajs.flavours.ConstructObjectOfType.Param
 import com.olvind.tso.seqs._
 
 /**
@@ -28,7 +27,7 @@ object GenCompanions extends TreeTransformation {
     }
 
   def generateModule(scope: TreeScope, cls: ClassTree): Option[ModuleTree] =
-    flavours.ConstructObjectOfType(cls, scope)(memberParameter) match {
+    Param.forClassTree(cls, scope)(memberParameter) match {
       case Nil => None
       case params =>
         val (optionals, inLiterals, Nil) = params.partitionCollect2(
