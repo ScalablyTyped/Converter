@@ -1,5 +1,6 @@
 package typings.reactDashDropzone.reactDashDropzoneMod
 
+import japgolly.scalajs.react.Callback
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -10,9 +11,9 @@ trait DropzoneRef extends js.Object {
 
 object DropzoneRef {
   @scala.inline
-  def apply(open: () => Unit): DropzoneRef = {
-    val __obj = js.Dynamic.literal(open = js.Any.fromFunction0(open))
-  
+  def apply(open: Callback): DropzoneRef = {
+    val __obj = js.Dynamic.literal()
+    __obj.updateDynamic("open")(js.Any.fromFunction0((() => open.runNow())))
     __obj.asInstanceOf[DropzoneRef]
   }
 }

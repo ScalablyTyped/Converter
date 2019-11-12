@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "stardust-ui__react-component-ref"
-version := "0.38.0-bc215c"
+version := "0.38.0-cee40a"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "16.9.2-a21ff1",
+  "org.scalablytyped" %%% "react" % "16.9.2-8af9b5",
   "org.scalablytyped" %%% "std" % "0.0-unknown-c1a9ca")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

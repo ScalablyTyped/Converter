@@ -79,7 +79,7 @@ object CastConversion {
       }
 
     override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef =
-      if (isRisky(scope)) x else mapped(x, scope) orElse mapped(FollowAliases(scope)(x), scope) getOrElse x
+      if (isRisky(scope) || Name.Internal(x.name)) x else mapped(x, scope) orElse mapped(FollowAliases(scope)(x), scope) getOrElse x
   }
 
   // format: off

@@ -1,5 +1,7 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -28,12 +30,14 @@ trait NewLifecycle[P, S, SS] extends js.Object {
 object NewLifecycle {
   @scala.inline
   def apply[P, S, SS](
-    componentDidUpdate: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit = null,
-    getSnapshotBeforeUpdate: (/* prevProps */ P, /* prevState */ S) => SS | Null = null
+    componentDidUpdate: js.UndefOr[
+      (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Callback
+    ] = js.undefined,
+    getSnapshotBeforeUpdate: js.UndefOr[(/* prevProps */ P, /* prevState */ S) => CallbackTo[SS | Null]] = js.undefined
   ): NewLifecycle[P, S, SS] = {
     val __obj = js.Dynamic.literal()
-    if (componentDidUpdate != null) __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3(componentDidUpdate))
-    if (getSnapshotBeforeUpdate != null) __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(getSnapshotBeforeUpdate))
+    componentDidUpdate.foreach(p => __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3(((t0: /* prevProps */ P, t1: /* prevState */ S, t2: /* snapshot */ js.UndefOr[SS]) => p(t0, t1, t2).runNow()))))
+    getSnapshotBeforeUpdate.foreach(p => __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(((t0: /* prevProps */ P, t1: /* prevState */ S) => p(t0, t1).runNow()))))
     __obj.asInstanceOf[NewLifecycle[P, S, SS]]
   }
 }

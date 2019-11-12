@@ -1,6 +1,6 @@
 package typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod
 
-import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
@@ -29,7 +29,7 @@ object ButtonGroupProps {
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     buttons: SemanticShorthandCollection[ButtonProps] = null,
-    children: Node = null,
+    children: VdomNode = null,
     className: String = null,
     color: SemanticCOLORS = null,
     compact: js.UndefOr[Boolean] = js.undefined,
@@ -54,7 +54,7 @@ object ButtonGroupProps {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (buttons != null) __obj.updateDynamic("buttons")(buttons)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)

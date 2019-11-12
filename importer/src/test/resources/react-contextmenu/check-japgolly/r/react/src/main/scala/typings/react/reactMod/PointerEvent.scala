@@ -1,5 +1,7 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import typings.react.NativePointerEvent
@@ -35,11 +37,11 @@ object PointerEvent {
     currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
-    getModifierState: String => Boolean,
+    getModifierState: String => CallbackTo[Boolean],
     height: Double,
-    isDefaultPrevented: () => Boolean,
+    isDefaultPrevented: CallbackTo[Boolean],
     isPrimary: Boolean,
-    isPropagationStopped: () => Boolean,
+    isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
     metaKey: Boolean,
     movementX: Double,
@@ -47,16 +49,16 @@ object PointerEvent {
     nativeEvent: Event,
     pageX: Double,
     pageY: Double,
-    persist: () => Unit,
+    persist: Callback,
     pointerId: Double,
     pointerType: mouse | pen | touch,
     pressure: Double,
-    preventDefault: () => Unit,
+    preventDefault: Callback,
     relatedTarget: EventTarget,
     screenX: Double,
     screenY: Double,
     shiftKey: Boolean,
-    stopPropagation: () => Unit,
+    stopPropagation: Callback,
     target: EventTarget,
     tiltX: Double,
     tiltY: Double,
@@ -64,7 +66,13 @@ object PointerEvent {
     `type`: String,
     width: Double
   ): PointerEvent[T] = {
-    val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, button = button, buttons = buttons, cancelable = cancelable, clientX = clientX, clientY = clientY, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, getModifierState = js.Any.fromFunction1(getModifierState), height = height, isDefaultPrevented = js.Any.fromFunction0(isDefaultPrevented), isPrimary = isPrimary, isPropagationStopped = js.Any.fromFunction0(isPropagationStopped), isTrusted = isTrusted, metaKey = metaKey, movementX = movementX, movementY = movementY, nativeEvent = nativeEvent, pageX = pageX, pageY = pageY, persist = js.Any.fromFunction0(persist), pointerId = pointerId, pointerType = pointerType.asInstanceOf[js.Any], pressure = pressure, preventDefault = js.Any.fromFunction0(preventDefault), relatedTarget = relatedTarget, screenX = screenX, screenY = screenY, shiftKey = shiftKey, stopPropagation = js.Any.fromFunction0(stopPropagation), target = target, tiltX = tiltX, tiltY = tiltY, timeStamp = timeStamp, width = width)
+    val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, button = button, buttons = buttons, cancelable = cancelable, clientX = clientX, clientY = clientY, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, height = height, isPrimary = isPrimary, isTrusted = isTrusted, metaKey = metaKey, movementX = movementX, movementY = movementY, nativeEvent = nativeEvent, pageX = pageX, pageY = pageY, pointerId = pointerId, pointerType = pointerType.asInstanceOf[js.Any], pressure = pressure, relatedTarget = relatedTarget, screenX = screenX, screenY = screenY, shiftKey = shiftKey, target = target, tiltX = tiltX, tiltY = tiltY, timeStamp = timeStamp, width = width)
+    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1(((t0: java.lang.String) => getModifierState(t0).runNow())))
+    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
+    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
+    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
+    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
+    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[PointerEvent[T]]
   }

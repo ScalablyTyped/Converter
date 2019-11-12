@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.CallbackTo
 import typings.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -14,12 +15,12 @@ trait StaticLifecycle[P, S] extends js.Object {
 object StaticLifecycle {
   @scala.inline
   def apply[P, S](
-    getDerivedStateFromError: /* error */ js.Any => Partial[S] | Null = null,
-    getDerivedStateFromProps: (P, S) => Partial[S] | Null = null
+    getDerivedStateFromError: js.UndefOr[/* error */ js.Any => CallbackTo[Partial[S] | Null]] = js.undefined,
+    getDerivedStateFromProps: js.UndefOr[(P, S) => CallbackTo[Partial[S] | Null]] = js.undefined
   ): StaticLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    if (getDerivedStateFromError != null) __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(getDerivedStateFromError))
-    if (getDerivedStateFromProps != null) __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(getDerivedStateFromProps))
+    getDerivedStateFromError.foreach(p => __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(((t0: /* error */ js.Any) => p(t0).runNow()))))
+    getDerivedStateFromProps.foreach(p => __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(((t0: P, t1: S) => p(t0, t1).runNow()))))
     __obj.asInstanceOf[StaticLifecycle[P, S]]
   }
 }

@@ -1,5 +1,7 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.Event
 import typings.react.NativeTouchEvent
 import typings.std.EventTarget
@@ -32,23 +34,29 @@ object TouchEvent {
     currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
-    getModifierState: String => Boolean,
-    isDefaultPrevented: () => Boolean,
-    isPropagationStopped: () => Boolean,
+    getModifierState: String => CallbackTo[Boolean],
+    isDefaultPrevented: CallbackTo[Boolean],
+    isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
     metaKey: Boolean,
     nativeEvent: Event,
-    persist: () => Unit,
-    preventDefault: () => Unit,
+    persist: Callback,
+    preventDefault: Callback,
     shiftKey: Boolean,
-    stopPropagation: () => Unit,
+    stopPropagation: Callback,
     target: org.scalajs.dom.raw.EventTarget,
     targetTouches: TouchList,
     timeStamp: Double,
     touches: TouchList,
     `type`: String
   ): TouchEvent[T] = {
-    val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, cancelable = cancelable, changedTouches = changedTouches, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, getModifierState = js.Any.fromFunction1(getModifierState), isDefaultPrevented = js.Any.fromFunction0(isDefaultPrevented), isPropagationStopped = js.Any.fromFunction0(isPropagationStopped), isTrusted = isTrusted, metaKey = metaKey, nativeEvent = nativeEvent, persist = js.Any.fromFunction0(persist), preventDefault = js.Any.fromFunction0(preventDefault), shiftKey = shiftKey, stopPropagation = js.Any.fromFunction0(stopPropagation), target = target, targetTouches = targetTouches, timeStamp = timeStamp, touches = touches)
+    val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, cancelable = cancelable, changedTouches = changedTouches, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, isTrusted = isTrusted, metaKey = metaKey, nativeEvent = nativeEvent, shiftKey = shiftKey, target = target, targetTouches = targetTouches, timeStamp = timeStamp, touches = touches)
+    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1(((t0: java.lang.String) => getModifierState(t0).runNow())))
+    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
+    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
+    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
+    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
+    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[TouchEvent[T]]
   }

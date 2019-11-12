@@ -103,7 +103,7 @@ trait ImporterHarness extends FunSuiteLike {
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("tso-test-"))
     val checkFolder = testFolder.path / (flavour match {
-      case Flavour.normal        => "check-normal"
+      case Flavour.plain         => "check-plain"
       case Flavour.reactFacade   => "check"
       case Flavour.reactSlinky   => "check-slinky"
       case Flavour.reactJapgolly => "check-japgolly"

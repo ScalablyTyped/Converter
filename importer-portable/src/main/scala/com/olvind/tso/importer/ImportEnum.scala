@@ -27,7 +27,7 @@ object ImportEnum {
       /* exported const enum? type alias */
       case TsDeclEnum(cs, _, true, importName(name), _, _, Some(exportedFrom), _, codePath) =>
         val tpe = ImportType(Wildcards.No, scope, importName)(exportedFrom)
-        List(TypeAliasTree(name, Nil, tpe, cs, importName(codePath)))
+        List(TypeAliasTree(name, Nil, tpe, cs + CommentData(Markers.IsTrivial), importName(codePath)))
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
       case TsDeclEnum(cs, _, true, importName(name), members, _, None, _, codePath) =>

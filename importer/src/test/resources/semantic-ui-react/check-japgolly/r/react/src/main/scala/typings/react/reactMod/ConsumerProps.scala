@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.Node
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -12,8 +13,9 @@ trait ConsumerProps[T] extends js.Object {
 
 object ConsumerProps {
   @scala.inline
-  def apply[T](children: T => Node, unstable_observedBits: Int | Double = null): ConsumerProps[T] = {
-    val __obj = js.Dynamic.literal(children = js.Any.fromFunction1(children))
+  def apply[T](children: T => CallbackTo[Node], unstable_observedBits: Int | Double = null): ConsumerProps[T] = {
+    val __obj = js.Dynamic.literal()
+    __obj.updateDynamic("children")(js.Any.fromFunction1(((t0: T) => children(t0).runNow())))
     if (unstable_observedBits != null) __obj.updateDynamic("unstable_observedBits")(unstable_observedBits.asInstanceOf[js.Any])
     __obj.asInstanceOf[ConsumerProps[T]]
   }

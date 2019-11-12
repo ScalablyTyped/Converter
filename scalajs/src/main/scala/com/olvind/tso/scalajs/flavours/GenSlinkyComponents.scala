@@ -160,7 +160,6 @@ object GenSlinkyComponents {
   }
 
   def apply(scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
-
     /* for slinky we strip all dom props, because the user can specify them using normal slinky syntax */
     val domFields: Map[Name, TypeRef] = {
       def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
@@ -201,25 +200,34 @@ object GenSlinkyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        Param.forClassTree(FillInTParams(cls, newScope, dealiased.targs, tparams), scope) {
-                          case (scope, fieldTree: FieldTree) =>
-                            /* todo: refactor out a name/type check which ignores optionality */
-                            val isDom: Boolean =
-                              domFields.get(fieldTree.name) match {
-                                case Some(tpe) =>
-                                  FollowAliases(scope)(fieldTree.tpe) match {
-                                    case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                                    case ftpe           => ftpe.typeName === tpe.typeName
-                                  }
-                                case None => false
-                              }
-                            if (isDom) {
-                              domParams += fieldTree
-                              None
-                            } else GenCompanions.memberParameter(scope, fieldTree)
-                          case (scope, methodTree: MethodTree) =>
-                            GenCompanions.memberParameter(scope, methodTree)
-                        }
+                        Param
+                          .forClassTree(
+                            FillInTParams(cls, newScope, dealiased.targs, tparams),
+                            scope,
+                            Param.MaxParamsForMethod,
+                          )
+                          .flatMap {
+                            case Left(param) => List(param)
+                            case Right(fieldTree: FieldTree) =>
+                              /* todo: refactor out a name/type check which ignores optionality */
+                              val isDom: Boolean =
+                                domFields.get(fieldTree.name) match {
+                                  case Some(tpe) =>
+                                    FollowAliases(scope)(fieldTree.tpe) match {
+                                      case Nullable(ftpe) => ftpe.typeName === tpe.typeName
+                                      case ftpe           => ftpe.typeName === tpe.typeName
+                                    }
+                                  case None => false
+                                }
+                              if (isDom) {
+                                domParams += fieldTree
+                                Nil
+                              } else MemberParameter.Normal(scope, fieldTree)
+
+                            case Right(methodTree: MethodTree) =>
+                              MemberParameter.Normal(scope, methodTree)
+                          }
+                          .sorted
                     }
 
                   paramsOpt.map { params =>

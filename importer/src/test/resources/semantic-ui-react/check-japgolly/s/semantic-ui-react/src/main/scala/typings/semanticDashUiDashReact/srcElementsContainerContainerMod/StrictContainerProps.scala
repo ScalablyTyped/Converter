@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.srcElementsContainerContainerMod
 
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomNode
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
@@ -28,7 +29,7 @@ object StrictContainerProps {
   @scala.inline
   def apply(
     as: js.Any = null,
-    children: Node = null,
+    children: VdomNode = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
@@ -37,7 +38,7 @@ object StrictContainerProps {
   ): StrictContainerProps = {
     val __obj = js.Dynamic.literal()
     if (as != null) __obj.updateDynamic("as")(as)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
