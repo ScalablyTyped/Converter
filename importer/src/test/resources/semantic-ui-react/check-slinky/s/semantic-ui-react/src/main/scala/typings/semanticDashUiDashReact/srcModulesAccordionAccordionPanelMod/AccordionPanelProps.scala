@@ -1,12 +1,11 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
+import org.scalajs.dom.raw.HTMLDivElement
+import slinky.web.SyntheticMouseEvent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.AccordionContentProps
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -22,7 +21,7 @@ object AccordionPanelProps {
     active: js.UndefOr[Boolean] = js.undefined,
     content: SemanticShorthandItem[AccordionContentProps] = null,
     index: Double | String = null,
-    onTitleClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null,
+    onTitleClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
     title: SemanticShorthandItem[AccordionTitleProps] = null
   ): AccordionPanelProps = {
     val __obj = js.Dynamic.literal()

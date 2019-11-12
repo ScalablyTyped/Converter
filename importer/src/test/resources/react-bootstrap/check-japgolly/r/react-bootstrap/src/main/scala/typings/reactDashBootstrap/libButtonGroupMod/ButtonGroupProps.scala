@@ -1,10 +1,10 @@
 package typings.reactDashBootstrap.libButtonGroupMod
 
+import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.raw.React.Ref
 import typings.react.Anon_Html
 import typings.react.reactMod.HTMLProps
 import typings.react.reactMod.Key
-import typings.react.reactMod.ReactNode
-import typings.react.reactMod.Ref
 import typings.react.reactStrings.foo
 import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
 import scala.scalajs.js
@@ -31,12 +31,12 @@ object ButtonGroupProps {
     block: js.UndefOr[Boolean] = js.undefined,
     bsSize: Sizes = null,
     bsStyle: String = null,
-    children: ReactNode = null,
+    children: Node = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     justified: js.UndefOr[Boolean] = js.undefined,
     key: Key = null,
-    ref: Ref[ButtonGroup] = null,
+    ref: Ref = null,
     vertical: js.UndefOr[Boolean] = js.undefined
   ): ButtonGroupProps = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)

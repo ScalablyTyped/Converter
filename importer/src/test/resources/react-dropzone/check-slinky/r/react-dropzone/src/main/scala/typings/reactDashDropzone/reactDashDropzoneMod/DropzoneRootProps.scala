@@ -1,25 +1,25 @@
 package typings.reactDashDropzone.reactDashDropzoneMod
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
+import slinky.core.SyntheticEvent
+import slinky.core.TagMod
+import slinky.web.SyntheticAnimationEvent
+import slinky.web.SyntheticClipboardEvent
+import slinky.web.SyntheticCompositionEvent
+import slinky.web.SyntheticFocusEvent
+import slinky.web.SyntheticKeyboardEvent
+import slinky.web.SyntheticMouseEvent
+import slinky.web.SyntheticPointerEvent
+import slinky.web.SyntheticTouchEvent
+import slinky.web.SyntheticTransitionEvent
+import slinky.web.SyntheticUIEvent
+import slinky.web.SyntheticWheelEvent
 import typings.react.Anon_Html
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.AnimationEvent
 import typings.react.reactMod.CSSProperties
-import typings.react.reactMod.ClipboardEvent
-import typings.react.reactMod.CompositionEvent
 import typings.react.reactMod.DragEvent
-import typings.react.reactMod.FocusEvent
-import typings.react.reactMod.FormEvent
 import typings.react.reactMod.HTMLAttributes
-import typings.react.reactMod.KeyboardEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.PointerEvent
-import typings.react.reactMod.ReactNode
-import typings.react.reactMod.SyntheticEvent
-import typings.react.reactMod.TouchEvent
-import typings.react.reactMod.TransitionEvent
-import typings.react.reactMod.UIEvent
-import typings.react.reactMod.WheelEvent
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
 import typings.react.reactStrings.additions
@@ -56,7 +56,6 @@ import typings.react.reactStrings.text
 import typings.react.reactStrings.time
 import typings.react.reactStrings.tree
 import typings.react.reactStrings.vertical
-import typings.std.Event
 import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -125,7 +124,7 @@ object DropzoneRootProps {
     autoCapitalize: String = null,
     autoCorrect: String = null,
     autoSave: String = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     color: String = null,
     contentEditable: js.UndefOr[Boolean] = js.undefined,
@@ -147,85 +146,85 @@ object DropzoneRootProps {
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
     lang: String = null,
-    onAbort: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onAnimationEnd: AnimationEvent[HTMLElement] => Unit = null,
-    onAnimationIteration: AnimationEvent[HTMLElement] => Unit = null,
-    onAnimationStart: AnimationEvent[HTMLElement] => Unit = null,
-    onAuxClick: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onBeforeInput: FormEvent[HTMLElement] => Unit = null,
-    onBlur: FocusEvent[HTMLElement] => Unit = null,
-    onCanPlay: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onCanPlayThrough: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onChange: FormEvent[HTMLElement] => Unit = null,
-    onClick: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onCompositionEnd: CompositionEvent[HTMLElement] => Unit = null,
-    onCompositionStart: CompositionEvent[HTMLElement] => Unit = null,
-    onCompositionUpdate: CompositionEvent[HTMLElement] => Unit = null,
-    onContextMenu: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onCopy: ClipboardEvent[HTMLElement] => Unit = null,
-    onCut: ClipboardEvent[HTMLElement] => Unit = null,
-    onDoubleClick: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onDrag: DragEvent[HTMLElement] => Unit = null,
-    onDragEnd: DragEvent[HTMLElement] => Unit = null,
-    onDragEnter: DragEvent[HTMLElement] => Unit = null,
-    onDragExit: DragEvent[HTMLElement] => Unit = null,
-    onDragLeave: DragEvent[HTMLElement] => Unit = null,
-    onDragOver: DragEvent[HTMLElement] => Unit = null,
-    onDragStart: DragEvent[HTMLElement] => Unit = null,
-    onDrop: DragEvent[HTMLElement] => Unit = null,
-    onDurationChange: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onEmptied: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onEncrypted: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onEnded: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onError: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onFocus: FocusEvent[HTMLElement] => Unit = null,
-    onInput: FormEvent[HTMLElement] => Unit = null,
-    onInvalid: FormEvent[HTMLElement] => Unit = null,
-    onKeyDown: KeyboardEvent[HTMLElement] => Unit = null,
-    onKeyPress: KeyboardEvent[HTMLElement] => Unit = null,
-    onKeyUp: KeyboardEvent[HTMLElement] => Unit = null,
-    onLoad: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onLoadStart: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onLoadedData: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onLoadedMetadata: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onMouseDown: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onMouseEnter: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onMouseLeave: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onMouseMove: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onMouseOut: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onMouseOver: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onMouseUp: MouseEvent[HTMLElement, NativeMouseEvent] => Unit = null,
-    onPaste: ClipboardEvent[HTMLElement] => Unit = null,
-    onPause: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onPlay: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onPlaying: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onPointerCancel: PointerEvent[HTMLElement] => Unit = null,
-    onPointerDown: PointerEvent[HTMLElement] => Unit = null,
-    onPointerEnter: PointerEvent[HTMLElement] => Unit = null,
-    onPointerLeave: PointerEvent[HTMLElement] => Unit = null,
-    onPointerMove: PointerEvent[HTMLElement] => Unit = null,
-    onPointerOut: PointerEvent[HTMLElement] => Unit = null,
-    onPointerOver: PointerEvent[HTMLElement] => Unit = null,
-    onPointerUp: PointerEvent[HTMLElement] => Unit = null,
-    onProgress: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onRateChange: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onReset: FormEvent[HTMLElement] => Unit = null,
-    onScroll: UIEvent[HTMLElement] => Unit = null,
-    onSeeked: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onSeeking: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onSelect: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onStalled: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onSubmit: FormEvent[HTMLElement] => Unit = null,
-    onSuspend: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onTimeUpdate: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onTouchCancel: TouchEvent[HTMLElement] => Unit = null,
-    onTouchEnd: TouchEvent[HTMLElement] => Unit = null,
-    onTouchMove: TouchEvent[HTMLElement] => Unit = null,
-    onTouchStart: TouchEvent[HTMLElement] => Unit = null,
-    onTransitionEnd: TransitionEvent[HTMLElement] => Unit = null,
-    onVolumeChange: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onWaiting: SyntheticEvent[HTMLElement, Event] => Unit = null,
-    onWheel: WheelEvent[HTMLElement] => Unit = null,
+    onAbort: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onAnimationEnd: SyntheticAnimationEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onAnimationIteration: SyntheticAnimationEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onAnimationStart: SyntheticAnimationEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onAuxClick: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onBeforeInput: SyntheticEvent[EventTarget with org.scalajs.dom.raw.HTMLElement, Event] => Unit = null,
+    onBlur: SyntheticFocusEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCanPlay: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCanPlayThrough: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onChange: SyntheticEvent[EventTarget with org.scalajs.dom.raw.HTMLElement, Event] => Unit = null,
+    onClick: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCompositionEnd: SyntheticCompositionEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCompositionStart: SyntheticCompositionEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCompositionUpdate: SyntheticCompositionEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onContextMenu: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCopy: SyntheticClipboardEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onCut: SyntheticClipboardEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDoubleClick: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDrag: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDragEnd: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDragEnter: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDragExit: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDragLeave: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDragOver: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDragStart: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDrop: DragEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onDurationChange: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onEmptied: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onEncrypted: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onEnded: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onError: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onFocus: SyntheticFocusEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onInput: SyntheticEvent[EventTarget with org.scalajs.dom.raw.HTMLElement, Event] => Unit = null,
+    onInvalid: SyntheticEvent[EventTarget with org.scalajs.dom.raw.HTMLElement, Event] => Unit = null,
+    onKeyDown: SyntheticKeyboardEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onKeyPress: SyntheticKeyboardEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onKeyUp: SyntheticKeyboardEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onLoad: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onLoadStart: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onLoadedData: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onLoadedMetadata: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseDown: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseEnter: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseLeave: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseMove: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseOut: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseOver: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onMouseUp: SyntheticMouseEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPaste: SyntheticClipboardEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPause: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPlay: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPlaying: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerCancel: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerDown: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerEnter: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerLeave: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerMove: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerOut: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerOver: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onPointerUp: SyntheticPointerEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onProgress: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onRateChange: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onReset: SyntheticEvent[EventTarget with org.scalajs.dom.raw.HTMLElement, Event] => Unit = null,
+    onScroll: SyntheticUIEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onSeeked: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onSeeking: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onSelect: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onStalled: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onSubmit: SyntheticEvent[EventTarget with org.scalajs.dom.raw.HTMLElement, Event] => Unit = null,
+    onSuspend: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onTimeUpdate: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onTouchCancel: SyntheticTouchEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onTouchEnd: SyntheticTouchEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onTouchMove: SyntheticTouchEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onTouchStart: SyntheticTouchEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onTransitionEnd: SyntheticTransitionEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onVolumeChange: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onWaiting: SyntheticEvent[Event, org.scalajs.dom.raw.HTMLElement] => Unit = null,
+    onWheel: SyntheticWheelEvent[org.scalajs.dom.raw.HTMLElement] => Unit = null,
     placeholder: String = null,
     prefix: String = null,
     property: String = null,

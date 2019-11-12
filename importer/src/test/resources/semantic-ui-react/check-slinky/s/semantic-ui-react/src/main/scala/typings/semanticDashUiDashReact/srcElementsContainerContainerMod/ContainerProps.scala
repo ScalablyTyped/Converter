@@ -1,7 +1,7 @@
 package typings.semanticDashUiDashReact.srcElementsContainerContainerMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.reactMod.ReactNode
+import slinky.core.TagMod
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
@@ -17,7 +17,7 @@ object ContainerProps {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,

@@ -1,6 +1,6 @@
 package typings.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod
 
-import typings.react.reactMod.ReactNode
+import japgolly.scalajs.react.raw.React.Node
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
@@ -11,7 +11,7 @@ trait StrictTestContainerProps extends js.Object {
   /** An element type to render as (string or function). */
   var as: js.UndefOr[js.Any] = js.undefined
   /** Primary content. */
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[Node] = js.undefined
   /** Additional classes. */
   var className: js.UndefOr[String] = js.undefined
   /** Shorthand for primary content. */
@@ -48,7 +48,7 @@ object StrictTestContainerProps {
     requiredFn1Number: Double => Double,
     requiredFn1Void: Double => Unit,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: Node = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,

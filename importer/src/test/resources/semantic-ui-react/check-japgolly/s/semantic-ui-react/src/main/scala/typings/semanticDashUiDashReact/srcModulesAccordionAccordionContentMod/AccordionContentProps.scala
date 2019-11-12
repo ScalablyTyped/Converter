@@ -1,7 +1,7 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod
 
+import japgolly.scalajs.react.raw.React.Node
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.reactMod.ReactNode
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -17,7 +17,7 @@ object AccordionContentProps {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: Node = null,
     className: String = null,
     content: SemanticShorthandContent = null
   ): AccordionContentProps = {

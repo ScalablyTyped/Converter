@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
 import typings.react.NativeKeyboardEvent
 import typings.std.EventTarget
 import scala.scalajs.js
@@ -35,7 +36,7 @@ object KeyboardEvent {
     cancelable: Boolean,
     charCode: Double,
     ctrlKey: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -47,13 +48,13 @@ object KeyboardEvent {
     locale: String,
     location: Double,
     metaKey: Boolean,
-    nativeEvent: NativeKeyboardEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     repeat: Boolean,
     shiftKey: Boolean,
     stopPropagation: () => Unit,
-    target: EventTarget,
+    target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String,
     which: Double

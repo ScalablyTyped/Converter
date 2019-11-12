@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Element
 import typings.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -11,6 +12,6 @@ trait RefForwardingComponent[T, P] extends js.Object {
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   var displayName: js.UndefOr[String] = js.native
   var propTypes: js.UndefOr[WeakValidationMap[P]] = js.native
-  def apply(props: PropsWithChildren[P], ref: Ref[T]): ReactElement | Null = js.native
+  def apply(props: PropsWithChildren[P], ref: japgolly.scalajs.react.raw.React.Ref): Element | Null = js.native
 }
 

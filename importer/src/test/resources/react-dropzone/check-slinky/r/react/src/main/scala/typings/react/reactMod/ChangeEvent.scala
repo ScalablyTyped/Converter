@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 
 trait ChangeEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   @JSName("target")
-  var target_ChangeEvent: EventTarget with T
+  var target_ChangeEvent: org.scalajs.dom.raw.EventTarget with T
 }
 
 object ChangeEvent {
@@ -16,17 +16,17 @@ object ChangeEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: org.scalajs.dom.raw.Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     stopPropagation: () => Unit,
-    target: EventTarget with T,
+    target: org.scalajs.dom.raw.EventTarget with T,
     timeStamp: Double,
     `type`: String
   ): ChangeEvent[T] = {

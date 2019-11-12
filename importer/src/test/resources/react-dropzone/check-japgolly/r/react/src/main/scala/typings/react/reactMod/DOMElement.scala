@@ -1,6 +1,6 @@
 package typings.react.reactMod
 
-import typings.std.Element
+import org.scalajs.dom.raw.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

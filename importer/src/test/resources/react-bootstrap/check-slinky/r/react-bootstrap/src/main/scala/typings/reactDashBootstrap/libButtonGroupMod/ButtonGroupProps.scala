@@ -1,9 +1,9 @@
 package typings.reactDashBootstrap.libButtonGroupMod
 
+import slinky.core.TagMod
 import typings.react.Anon_Html
 import typings.react.reactMod.HTMLProps
 import typings.react.reactMod.Key
-import typings.react.reactMod.ReactNode
 import typings.react.reactMod.Ref
 import typings.react.reactStrings.foo
 import typings.reactDashBootstrap.reactDashBootstrapMod.Sizes
@@ -31,7 +31,7 @@ object ButtonGroupProps {
     block: js.UndefOr[Boolean] = js.undefined,
     bsSize: Sizes = null,
     bsStyle: String = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     justified: js.UndefOr[Boolean] = js.undefined,

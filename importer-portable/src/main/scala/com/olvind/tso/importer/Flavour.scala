@@ -29,18 +29,21 @@ object Flavour {
   }
 
   case object normal extends Flavour {
+    override def conversions: Option[Seq[CastConversion]] = None
     override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree = tree
     override def dependencies: Set[Dep] = Set.empty
   }
 
   case object reactFacade extends ReactFlavour {
-    override def dependencies: Set[Dep] = Set.empty
-
+    override def conversions:  Option[Seq[CastConversion]] = None
+    override def dependencies: Set[Dep]                    = Set.empty
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       GenReactFacadeComponents(scope, tree, components)
   }
 
   case object reactSlinky extends ReactFlavour {
+    override def conversions: Option[Seq[CastConversion]] =
+      Some(GenSlinkyComponents.names.conversions)
     override def dependencies: Set[Dep] =
       Set(Dep("me.shadaj", "slinky-web", "0.6.2"))
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
@@ -48,6 +51,8 @@ object Flavour {
   }
 
   case object reactJapgolly extends ReactFlavour {
+    override def conversions: Option[Seq[CastConversion]] =
+      Some(GenJapgollyComponents.japgolly.conversions)
     override def dependencies: Set[Dep] =
       Set(Dep("com.github.japgolly.scalajs-react", "core", "1.4.2"))
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
@@ -56,6 +61,7 @@ object Flavour {
 }
 
 sealed trait Flavour {
+  def conversions: Option[Seq[CastConversion]]
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]
 }

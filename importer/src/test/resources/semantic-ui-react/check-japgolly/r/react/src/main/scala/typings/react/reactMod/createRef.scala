@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.RefHandle
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -7,6 +8,6 @@ import scala.scalajs.js.annotation._
 @JSImport("react", "createRef")
 @js.native
 object createRef extends js.Object {
-  def apply[T](): RefObject[T] = js.native
+  def apply[T](): RefHandle[T] = js.native
 }
 

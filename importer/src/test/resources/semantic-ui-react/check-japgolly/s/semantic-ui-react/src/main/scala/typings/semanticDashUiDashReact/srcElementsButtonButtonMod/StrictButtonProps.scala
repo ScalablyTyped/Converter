@@ -1,24 +1,22 @@
 package typings.semanticDashUiDashReact.srcElementsButtonButtonMod
 
+import japgolly.scalajs.react.ReactAnimationEventFrom
+import japgolly.scalajs.react.ReactClipboardEventFrom
+import japgolly.scalajs.react.ReactCompositionEventFrom
+import japgolly.scalajs.react.ReactDragEventFrom
+import japgolly.scalajs.react.ReactEventFrom
+import japgolly.scalajs.react.ReactFocusEventFrom
+import japgolly.scalajs.react.ReactKeyboardEventFrom
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.ReactPointerEventFrom
+import japgolly.scalajs.react.ReactTouchEventFrom
+import japgolly.scalajs.react.ReactTransitionEventFrom
+import japgolly.scalajs.react.ReactUIEventFrom
+import japgolly.scalajs.react.ReactWheelEventFrom
+import japgolly.scalajs.react.raw.React.Node
 import typings.react.Anon_Html
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.AnimationEvent
 import typings.react.reactMod.ButtonHTMLAttributes
 import typings.react.reactMod.CSSProperties
-import typings.react.reactMod.ClipboardEvent
-import typings.react.reactMod.CompositionEvent
-import typings.react.reactMod.DragEvent
-import typings.react.reactMod.FocusEvent
-import typings.react.reactMod.FormEvent
-import typings.react.reactMod.KeyboardEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.PointerEvent
-import typings.react.reactMod.ReactNode
-import typings.react.reactMod.SyntheticEvent
-import typings.react.reactMod.TouchEvent
-import typings.react.reactMod.TransitionEvent
-import typings.react.reactMod.UIEvent
-import typings.react.reactMod.WheelEvent
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
 import typings.react.reactStrings.additions
@@ -75,7 +73,6 @@ import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typings.std.Event
 import typings.std.HTMLButtonElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -135,7 +132,7 @@ trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
   @JSName("onClick")
   var onClick_StrictButtonProps: js.UndefOr[
     js.Function2[
-      /* event */ MouseEvent[HTMLButtonElement, NativeMouseEvent], 
+      /* event */ ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], 
       /* data */ ButtonProps, 
       Unit
     ]
@@ -217,7 +214,7 @@ object StrictButtonProps {
     autoFocus: js.UndefOr[Boolean] = js.undefined,
     autoSave: String = null,
     basic: js.UndefOr[Boolean] = js.undefined,
-    children: ReactNode = null,
+    children: Node = null,
     circular: js.UndefOr[Boolean] = js.undefined,
     className: String = null,
     color: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube = null,
@@ -262,85 +259,85 @@ object StrictButtonProps {
     loading: js.UndefOr[Boolean] = js.undefined,
     name: String = null,
     negative: js.UndefOr[Boolean] = js.undefined,
-    onAbort: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onAnimationEnd: AnimationEvent[HTMLButtonElement] => Unit = null,
-    onAnimationIteration: AnimationEvent[HTMLButtonElement] => Unit = null,
-    onAnimationStart: AnimationEvent[HTMLButtonElement] => Unit = null,
-    onAuxClick: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onBeforeInput: FormEvent[HTMLButtonElement] => Unit = null,
-    onBlur: FocusEvent[HTMLButtonElement] => Unit = null,
-    onCanPlay: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onCanPlayThrough: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onChange: FormEvent[HTMLButtonElement] => Unit = null,
-    onClick: (/* event */ MouseEvent[HTMLButtonElement, NativeMouseEvent], /* data */ ButtonProps) => Unit = null,
-    onCompositionEnd: CompositionEvent[HTMLButtonElement] => Unit = null,
-    onCompositionStart: CompositionEvent[HTMLButtonElement] => Unit = null,
-    onCompositionUpdate: CompositionEvent[HTMLButtonElement] => Unit = null,
-    onContextMenu: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onCopy: ClipboardEvent[HTMLButtonElement] => Unit = null,
-    onCut: ClipboardEvent[HTMLButtonElement] => Unit = null,
-    onDoubleClick: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onDrag: DragEvent[HTMLButtonElement] => Unit = null,
-    onDragEnd: DragEvent[HTMLButtonElement] => Unit = null,
-    onDragEnter: DragEvent[HTMLButtonElement] => Unit = null,
-    onDragExit: DragEvent[HTMLButtonElement] => Unit = null,
-    onDragLeave: DragEvent[HTMLButtonElement] => Unit = null,
-    onDragOver: DragEvent[HTMLButtonElement] => Unit = null,
-    onDragStart: DragEvent[HTMLButtonElement] => Unit = null,
-    onDrop: DragEvent[HTMLButtonElement] => Unit = null,
-    onDurationChange: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onEmptied: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onEncrypted: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onEnded: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onError: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onFocus: FocusEvent[HTMLButtonElement] => Unit = null,
-    onInput: FormEvent[HTMLButtonElement] => Unit = null,
-    onInvalid: FormEvent[HTMLButtonElement] => Unit = null,
-    onKeyDown: KeyboardEvent[HTMLButtonElement] => Unit = null,
-    onKeyPress: KeyboardEvent[HTMLButtonElement] => Unit = null,
-    onKeyUp: KeyboardEvent[HTMLButtonElement] => Unit = null,
-    onLoad: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onLoadStart: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onLoadedData: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onLoadedMetadata: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onMouseDown: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onMouseEnter: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onMouseLeave: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onMouseMove: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onMouseOut: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onMouseOver: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onMouseUp: MouseEvent[HTMLButtonElement, NativeMouseEvent] => Unit = null,
-    onPaste: ClipboardEvent[HTMLButtonElement] => Unit = null,
-    onPause: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onPlay: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onPlaying: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onPointerCancel: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerDown: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerEnter: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerLeave: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerMove: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerOut: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerOver: PointerEvent[HTMLButtonElement] => Unit = null,
-    onPointerUp: PointerEvent[HTMLButtonElement] => Unit = null,
-    onProgress: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onRateChange: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onReset: FormEvent[HTMLButtonElement] => Unit = null,
-    onScroll: UIEvent[HTMLButtonElement] => Unit = null,
-    onSeeked: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onSeeking: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onSelect: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onStalled: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onSubmit: FormEvent[HTMLButtonElement] => Unit = null,
-    onSuspend: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onTimeUpdate: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onTouchCancel: TouchEvent[HTMLButtonElement] => Unit = null,
-    onTouchEnd: TouchEvent[HTMLButtonElement] => Unit = null,
-    onTouchMove: TouchEvent[HTMLButtonElement] => Unit = null,
-    onTouchStart: TouchEvent[HTMLButtonElement] => Unit = null,
-    onTransitionEnd: TransitionEvent[HTMLButtonElement] => Unit = null,
-    onVolumeChange: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onWaiting: SyntheticEvent[HTMLButtonElement, Event] => Unit = null,
-    onWheel: WheelEvent[HTMLButtonElement] => Unit = null,
+    onAbort: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onAnimationEnd: ReactAnimationEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onAnimationIteration: ReactAnimationEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onAnimationStart: ReactAnimationEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onAuxClick: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onBeforeInput: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onBlur: ReactFocusEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onCanPlay: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onCanPlayThrough: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onChange: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onClick: (/* event */ ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], /* data */ ButtonProps) => Unit = null,
+    onCompositionEnd: ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onCompositionStart: ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onCompositionUpdate: ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onContextMenu: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onCopy: ReactClipboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onCut: ReactClipboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDoubleClick: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDrag: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDragEnd: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDragEnter: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDragExit: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDragLeave: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDragOver: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDragStart: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDrop: ReactDragEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onDurationChange: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onEmptied: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onEncrypted: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onEnded: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onError: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onFocus: ReactFocusEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onInput: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onInvalid: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onKeyDown: ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onKeyPress: ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onKeyUp: ReactKeyboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onLoad: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onLoadStart: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onLoadedData: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onLoadedMetadata: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseDown: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseEnter: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseLeave: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseMove: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseOut: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseOver: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onMouseUp: ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPaste: ReactClipboardEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPause: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPlay: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPlaying: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerCancel: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerDown: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerEnter: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerLeave: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerMove: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerOut: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerOver: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onPointerUp: ReactPointerEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onProgress: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onRateChange: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onReset: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onScroll: ReactUIEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onSeeked: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onSeeking: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onSelect: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onStalled: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onSubmit: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onSuspend: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onTimeUpdate: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onTouchCancel: ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onTouchEnd: ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onTouchMove: ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onTouchStart: ReactTouchEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onTransitionEnd: ReactTransitionEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onVolumeChange: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onWaiting: ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
+    onWheel: ReactWheelEventFrom[org.scalajs.dom.raw.HTMLButtonElement] => Unit = null,
     placeholder: String = null,
     positive: js.UndefOr[Boolean] = js.undefined,
     prefix: String = null,

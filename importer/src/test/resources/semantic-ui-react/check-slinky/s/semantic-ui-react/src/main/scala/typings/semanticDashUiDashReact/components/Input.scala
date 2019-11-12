@@ -153,7 +153,7 @@ object Input
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
     ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,

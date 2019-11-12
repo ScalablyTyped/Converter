@@ -17,7 +17,7 @@ object ReactDashDropzone
   override val component: String | js.Object = typings.reactDashDropzone.reactDashDropzoneMod.default.asInstanceOf[String | js.Object]
   def apply(
     accept: String | js.Array[String] = null,
-    getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any = null,
+    getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
     maxSize: Int | Double = null,
     minSize: Int | Double = null,
     noClick: js.UndefOr[Boolean] = js.undefined,
@@ -25,15 +25,15 @@ object ReactDashDropzone
     noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
     noKeyboard: js.UndefOr[Boolean] = js.undefined,
     onDrop: (/* acceptedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
     ], /* rejectedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onDropAccepted: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onDropRejected: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,

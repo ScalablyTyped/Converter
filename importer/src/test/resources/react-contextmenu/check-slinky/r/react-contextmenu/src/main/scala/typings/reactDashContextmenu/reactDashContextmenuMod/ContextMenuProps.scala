@@ -1,8 +1,7 @@
 package typings.reactDashContextmenu.reactDashContextmenuMod
 
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.std.HTMLElement
+import org.scalajs.dom.raw.HTMLElement
+import slinky.web.SyntheticMouseEvent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +14,7 @@ trait ContextMenuProps extends js.Object {
   var onHide: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
   var onMouseLeave: js.UndefOr[
     (js.Function3[
-      /* event */ MouseEvent[HTMLElement, NativeMouseEvent], 
+      /* event */ SyntheticMouseEvent[HTMLElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
@@ -34,7 +33,7 @@ object ContextMenuProps {
     hideOnLeave: js.UndefOr[Boolean] = js.undefined,
     onHide: /* event */ js.Any => Unit = null,
     onMouseLeave: (js.Function3[
-      /* event */ MouseEvent[HTMLElement, NativeMouseEvent], 
+      /* event */ SyntheticMouseEvent[HTMLElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

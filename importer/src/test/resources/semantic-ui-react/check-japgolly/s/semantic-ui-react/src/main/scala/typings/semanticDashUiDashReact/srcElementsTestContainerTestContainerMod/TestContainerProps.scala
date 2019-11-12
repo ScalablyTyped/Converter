@@ -1,7 +1,7 @@
 package typings.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod
 
+import japgolly.scalajs.react.raw.React.Node
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.reactMod.ReactNode
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
@@ -21,7 +21,7 @@ object TestContainerProps {
     requiredFn1Void: Double => Unit,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: Node = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,

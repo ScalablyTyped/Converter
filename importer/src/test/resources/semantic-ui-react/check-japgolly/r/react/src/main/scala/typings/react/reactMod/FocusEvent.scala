@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
 import typings.react.NativeFocusEvent
 import typings.std.EventTarget
 import scala.scalajs.js
@@ -7,9 +8,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 trait FocusEvent[T] extends BaseSyntheticEvent[NativeFocusEvent, EventTarget with T, EventTarget] {
-  var relatedTarget: EventTarget
+  var relatedTarget: org.scalajs.dom.raw.EventTarget
   @JSName("target")
-  var target_FocusEvent: EventTarget with T
+  var target_FocusEvent: org.scalajs.dom.raw.EventTarget with T
 }
 
 object FocusEvent {
@@ -17,18 +18,18 @@ object FocusEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: NativeFocusEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
-    relatedTarget: EventTarget,
+    relatedTarget: org.scalajs.dom.raw.EventTarget,
     stopPropagation: () => Unit,
-    target: EventTarget with T,
+    target: org.scalajs.dom.raw.EventTarget with T,
     timeStamp: Double,
     `type`: String
   ): FocusEvent[T] = {

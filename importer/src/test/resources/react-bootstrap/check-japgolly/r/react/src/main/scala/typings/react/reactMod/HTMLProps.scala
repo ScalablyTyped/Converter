@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Node
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
 import scala.scalajs.js
@@ -24,11 +25,11 @@ object HTMLProps {
     value: foo,
     accept: String = null,
     acceptCharset: String = null,
-    children: ReactNode = null,
+    children: Node = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     key: Key = null,
-    ref: Ref[T] = null
+    ref: japgolly.scalajs.react.raw.React.Ref = null
   ): HTMLProps[T] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
     __obj.updateDynamic("type")(`type`)

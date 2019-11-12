@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import slinky.core.TagMod
 import typings.react.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,7 +16,7 @@ object AllHTMLAttributes {
   def apply[T](
     accept: String = null,
     acceptCharset: String = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined
   ): AllHTMLAttributes[T] = {

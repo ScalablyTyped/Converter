@@ -1,11 +1,10 @@
 package typings.reactDashContextmenu.reactDashContextmenuMod
 
-import typings.react.NativeMouseEvent
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.ReactTouchEventFrom
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.HTMLAttributes
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.TouchEvent
-import typings.std.HTMLDivElement
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -20,7 +19,7 @@ trait MenuItemProps extends js.Object {
   var divider: js.UndefOr[Boolean] = js.undefined
   var onClick: js.UndefOr[
     (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
@@ -38,7 +37,7 @@ object MenuItemProps {
     disabled: js.UndefOr[Boolean] = js.undefined,
     divider: js.UndefOr[Boolean] = js.undefined,
     onClick: (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

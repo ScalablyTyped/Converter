@@ -1,6 +1,6 @@
 package typings.atStardustDashUiReactDashComponentDashRef
 
-import typings.react.reactMod.Ref
+import japgolly.scalajs.react.raw.React.Ref
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -14,6 +14,6 @@ object distEsHandleRefMod extends js.Object {
     * @param ref An ref object or function
     * @param node A node that should be passed by ref
     */
-  def default[N](ref: Ref[N], node: N): Unit = js.native
+  def default[N](ref: Ref, node: N): Unit = js.native
 }
 

@@ -1,6 +1,6 @@
 package typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod
 
-import typings.react.reactMod.ReactNode
+import slinky.core.TagMod
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,7 +10,7 @@ trait StrictButtonContentProps extends js.Object {
   /** An element type to render as (string or function). */
   var as: js.UndefOr[js.Any] = js.undefined
   /** Primary content. */
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[TagMod[Any]] = js.undefined
   /** Additional classes. */
   var className: js.UndefOr[String] = js.undefined
   /** Shorthand for primary content. */
@@ -25,7 +25,7 @@ object StrictButtonContentProps {
   @scala.inline
   def apply(
     as: js.Any = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     hidden: js.UndefOr[Boolean] = js.undefined,

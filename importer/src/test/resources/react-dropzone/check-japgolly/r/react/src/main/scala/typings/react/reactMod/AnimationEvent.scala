@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
 import typings.react.NativeAnimationEvent
 import typings.std.EventTarget
 import scala.scalajs.js
@@ -18,19 +19,19 @@ object AnimationEvent {
     animationName: String,
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     elapsedTime: Double,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: NativeAnimationEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     pseudoElement: String,
     stopPropagation: () => Unit,
-    target: EventTarget,
+    target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String
   ): AnimationEvent[T] = {

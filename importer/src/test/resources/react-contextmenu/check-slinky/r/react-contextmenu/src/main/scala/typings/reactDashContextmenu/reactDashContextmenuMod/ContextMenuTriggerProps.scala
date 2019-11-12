@@ -1,7 +1,7 @@
 package typings.reactDashContextmenu.reactDashContextmenuMod
 
+import slinky.core.ReactComponentClass
 import typings.react.reactMod.HTMLAttributes
-import typings.react.reactMod.ReactType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,7 +12,7 @@ trait ContextMenuTriggerProps extends js.Object {
   var disable: js.UndefOr[Boolean] = js.undefined
   var holdToDisplay: js.UndefOr[Double] = js.undefined
   var id: String
-  var renderTag: js.UndefOr[ReactType[_]] = js.undefined
+  var renderTag: js.UndefOr[ReactComponentClass[_]] = js.undefined
 }
 
 object ContextMenuTriggerProps {
@@ -23,7 +23,7 @@ object ContextMenuTriggerProps {
     collect: /* data */ js.Any => _ = null,
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
-    renderTag: ReactType[_] = null
+    renderTag: ReactComponentClass[_] = null
   ): ContextMenuTriggerProps = {
     val __obj = js.Dynamic.literal(id = id)
     if (attributes != null) __obj.updateDynamic("attributes")(attributes)

@@ -14,7 +14,7 @@ object ReactSVGElement {
     props: js.Any,
     `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any,
     key: Key = null,
-    ref: LegacyRef[SVGElement] = null
+    ref: LegacyRef[org.scalajs.dom.raw.SVGElement] = null
   ): ReactSVGElement = {
     val __obj = js.Dynamic.literal(props = props)
     __obj.updateDynamic("type")(`type`)

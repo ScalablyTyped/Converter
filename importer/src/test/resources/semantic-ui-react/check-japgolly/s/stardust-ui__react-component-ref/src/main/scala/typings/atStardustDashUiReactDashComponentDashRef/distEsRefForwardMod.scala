@@ -1,9 +1,9 @@
 package typings.atStardustDashUiReactDashComponentDashRef
 
+import org.scalajs.dom.raw.HTMLElement
 import typings.atStardustDashUiReactDashComponentDashRef.distEsRefForwardMod.RefForward
 import typings.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps
 import typings.react.reactMod.Component
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

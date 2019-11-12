@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
 import typings.react.NativeTransitionEvent
 import typings.std.EventTarget
 import scala.scalajs.js
@@ -17,20 +18,20 @@ object TransitionEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     elapsedTime: Double,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: NativeTransitionEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     propertyName: String,
     pseudoElement: String,
     stopPropagation: () => Unit,
-    target: EventTarget,
+    target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String
   ): TransitionEvent[T] = {

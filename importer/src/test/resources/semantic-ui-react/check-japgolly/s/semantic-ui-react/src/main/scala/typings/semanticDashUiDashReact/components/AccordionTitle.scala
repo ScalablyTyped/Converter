@@ -23,7 +23,7 @@ object AccordionTitle {
     className: String = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
     onClick: js.UndefOr[

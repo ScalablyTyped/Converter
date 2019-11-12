@@ -1,7 +1,7 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.HTMLInputElement
 import typings.react.reactStrings.input
-import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +15,7 @@ object createElement_input extends js.Object {
   def apply(`type`: input, children: ReactNode*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
   def apply(
     `type`: input,
-    props: InputHTMLAttributes[HTMLInputElement] with ClassAttributes[HTMLInputElement],
+    props: InputHTMLAttributes[typings.std.HTMLInputElement] with ClassAttributes[typings.std.HTMLInputElement],
     children: ReactNode*
   ): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
 }

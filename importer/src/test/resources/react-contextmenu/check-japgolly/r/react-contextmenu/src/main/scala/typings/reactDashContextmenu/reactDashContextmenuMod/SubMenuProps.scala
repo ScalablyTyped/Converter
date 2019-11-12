@@ -1,12 +1,11 @@
 package typings.reactDashContextmenu.reactDashContextmenuMod
 
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.ReactElement
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.ReactTouchEventFrom
+import japgolly.scalajs.react.raw.React.Element
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.ReactText
-import typings.react.reactMod.TouchEvent
-import typings.std.HTMLDivElement
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -17,7 +16,7 @@ trait SubMenuProps extends js.Object {
   var hoverDelay: js.UndefOr[Double] = js.undefined
   var onClick: js.UndefOr[
     (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
@@ -25,18 +24,18 @@ trait SubMenuProps extends js.Object {
   ] = js.undefined
   var preventCloseOnClick: js.UndefOr[Boolean] = js.undefined
   var rtl: js.UndefOr[Boolean] = js.undefined
-  var title: ReactElement | ReactText
+  var title: Element | ReactText
 }
 
 object SubMenuProps {
   @scala.inline
   def apply(
-    title: ReactElement | ReactText,
+    title: Element | ReactText,
     className: String = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     hoverDelay: Int | Double = null,
     onClick: (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

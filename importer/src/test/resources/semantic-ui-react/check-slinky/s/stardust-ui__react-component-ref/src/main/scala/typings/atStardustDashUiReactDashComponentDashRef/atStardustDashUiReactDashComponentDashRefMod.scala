@@ -1,9 +1,9 @@
 package typings.atStardustDashUiReactDashComponentDashRef
 
+import slinky.core.ReactComponentClass
+import slinky.core.facade.ReactRef
 import typings.atStardustDashUiReactDashComponentDashRef.distEsRefFindNodeMod.default
 import typings.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps
-import typings.react.reactMod.FunctionComponent
-import typings.react.reactMod.RefObject
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -18,7 +18,7 @@ object atStardustDashUiReactDashComponentDashRefMod extends js.Object {
   class RefForward ()
     extends typings.atStardustDashUiReactDashComponentDashRef.distEsRefForwardMod.default
   
-  val Ref: FunctionComponent[RefProps] = js.native
+  val Ref: ReactComponentClass[RefProps] = js.native
   val refPropType: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
   /**
     * The function that correctly handles passing refs.
@@ -30,7 +30,7 @@ object atStardustDashUiReactDashComponentDashRefMod extends js.Object {
   /** Checks that the passed object is a valid React ref object. */
   def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = js.native
   /** Creates a React ref object from existing DOM node. */
-  def toRefObject[T /* <: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefObject[T] = js.native
+  def toRefObject[T /* <: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): ReactRef[T] = js.native
   /* static members */
   @js.native
   object RefFindNode extends js.Object {

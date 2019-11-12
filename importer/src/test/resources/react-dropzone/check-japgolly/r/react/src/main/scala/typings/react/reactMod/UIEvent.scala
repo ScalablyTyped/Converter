@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
 import typings.react.NativeUIEvent
 import typings.std.EventTarget
 import scala.scalajs.js
@@ -16,18 +17,18 @@ object UIEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     detail: Double,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: NativeUIEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     stopPropagation: () => Unit,
-    target: EventTarget,
+    target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String,
     view: AbstractView

@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Node
 import typings.react.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -14,11 +15,11 @@ object HTMLProps {
   def apply[T](
     accept: String = null,
     acceptCharset: String = null,
-    children: ReactNode = null,
+    children: Node = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     key: Key = null,
-    ref: Ref[T] = null
+    ref: japgolly.scalajs.react.raw.React.Ref = null
   ): HTMLProps[T] = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept)

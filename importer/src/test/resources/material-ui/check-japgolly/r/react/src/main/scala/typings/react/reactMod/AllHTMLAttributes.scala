@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Node
 import typings.react.Anon_Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -15,7 +16,7 @@ object AllHTMLAttributes {
   def apply[T](
     accept: String = null,
     acceptCharset: String = null,
-    children: ReactNode = null,
+    children: Node = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined
   ): AllHTMLAttributes[T] = {

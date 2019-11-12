@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Node
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -22,14 +23,14 @@ import scala.scalajs.js.annotation._
   * ```
   */
 trait Props[T] extends js.Object {
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[Node] = js.undefined
   var key: js.UndefOr[Key] = js.undefined
   var ref: js.UndefOr[LegacyRef[T]] = js.undefined
 }
 
 object Props {
   @scala.inline
-  def apply[T](children: ReactNode = null, key: Key = null, ref: LegacyRef[T] = null): Props[T] = {
+  def apply[T](children: Node = null, key: Key = null, ref: LegacyRef[T] = null): Props[T] = {
     val __obj = js.Dynamic.literal()
     if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])

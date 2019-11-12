@@ -11,7 +11,7 @@ trait FunctionComponent[P] extends js.Object {
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   var displayName: js.UndefOr[String] = js.native
   var propTypes: js.UndefOr[WeakValidationMap[P]] = js.native
-  def apply(props: PropsWithChildren[P]): ReactElement | Null = js.native
-  def apply(props: PropsWithChildren[P], context: js.Any): ReactElement | Null = js.native
+  def apply(props: PropsWithChildren[P]): slinky.core.facade.ReactElement | Null = js.native
+  def apply(props: PropsWithChildren[P], context: js.Any): slinky.core.facade.ReactElement | Null = js.native
 }
 
