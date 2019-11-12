@@ -1,6 +1,6 @@
 package com.olvind.tso
 package scalajs
-package react
+package flavours
 
 import com.olvind.tso.seqs._
 

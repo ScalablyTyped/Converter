@@ -1,8 +1,8 @@
 package com.olvind.tso
 package scalajs
-package react
+package flavours
 
-import com.olvind.tso.scalajs.react.CastConversion.TParam._1
+import com.olvind.tso.scalajs.flavours.CastConversion.TParam._1
 
 /**
   * A mapping from one javascript type to another.

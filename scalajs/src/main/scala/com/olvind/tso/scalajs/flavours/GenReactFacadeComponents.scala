@@ -1,6 +1,6 @@
 package com.olvind.tso
 package scalajs
-package react
+package flavours
 
 object GenReactFacadeComponents {
   /* Let's not torture the scala compiler too much, because there *will* be a revenge

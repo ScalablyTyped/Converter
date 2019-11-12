@@ -4,6 +4,7 @@ package importer
 import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
+import com.olvind.tso.scalajs.flavours.Flavour
 import com.olvind.tso.ts.TsIdentLibrary
 
 case class PublishConfig(

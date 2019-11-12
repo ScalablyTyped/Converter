@@ -11,7 +11,8 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.scalajs.react.CastConversion.TypeRewriterCast
+import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
+import com.olvind.tso.scalajs.flavours.Flavour
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrary
 

@@ -2,6 +2,7 @@ package com.olvind
 package tso
 package importer
 
+import com.olvind.tso.scalajs.flavours.Flavour
 import org.scalatest.{FunSuite, ParallelTestExecution}
 
 class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecution {
