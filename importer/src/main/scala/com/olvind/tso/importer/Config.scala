@@ -4,7 +4,6 @@ package importer
 import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
-import com.olvind.tso.scalajs.react.ReactBinding
 import com.olvind.tso.ts.TsIdentLibrary
 
 case class PublishConfig(
@@ -26,7 +25,7 @@ case class Config(
     debugMode:      Boolean,
     wantedLibNames: Set[TsIdentLibrary],
     versions:       Versions,
-    reactBindings:  List[ReactBinding],
+    flavour:        Flavour,
 ) {
 
   // change in source code for now, lazy...
@@ -75,13 +74,11 @@ object Config {
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
-            reactBindings = {
-              List(
-                if (flags contains "-reactSlinky") Some(ReactBinding.slinky) else None,
-                if (flags contains "-reactJapgolly") Some(ReactBinding.japgolly) else None,
-                if (flags contains "-reactFacade") Some(ReactBinding.native) else None,
-              ).flatten
-            },
+            flavour =
+              if (flags contains "-reactSlinky") Flavour.reactSlinky
+              else if (flags contains "-reactJapgolly") Flavour.reactJapgolly
+              else if (flags contains "-reactFacade") Flavour.reactFacade
+              else Flavour.normal,
           ),
         )
     }

@@ -12,7 +12,6 @@ import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versio
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.Name
-import com.olvind.tso.scalajs.react.ReactBinding
 import com.olvind.tso.ts._
 import org.scalatest.{Assertion, FunSuiteLike}
 
@@ -40,7 +39,7 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
-      reactBinding:  List[ReactBinding],
+      flavour:       Flavour,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFolder(source.path), List(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
@@ -61,7 +60,7 @@ trait ImporterHarness extends FunSuiteLike {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic, reactBinding), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic, flavour), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -74,7 +73,7 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             metadataFetcher = Npmjs.No,
             softWrites      = false,
-            reactBindings   = reactBinding,
+            flavour         = flavour,
           ),
           "build",
         )
@@ -89,10 +88,10 @@ trait ImporterHarness extends FunSuiteLike {
   }
 
   def assertImportsOk(
-      testName:      String,
-      pedantic:      Boolean,
-      update:        Boolean,
-      reactBindings: List[ReactBinding] = ReactBinding.all,
+      testName: String,
+      pedantic: Boolean,
+      update:   Boolean,
+      flavour:  Flavour = Flavour.reactFacade,
   ): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
@@ -102,7 +101,12 @@ trait ImporterHarness extends FunSuiteLike {
     }
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("tso-test-"))
-    val checkFolder  = testFolder.path / 'check
+    val checkFolder = testFolder.path / (flavour match {
+      case Flavour.normal        => "check-normal"
+      case Flavour.reactFacade   => "check"
+      case Flavour.reactSlinky   => "check-slinky"
+      case Flavour.reactJapgolly => "check-japgolly"
+    })
 
     val logRegistry =
       new LogRegistry[Source, TsIdentLibrary, StringWriter](
@@ -113,7 +117,7 @@ trait ImporterHarness extends FunSuiteLike {
 
     val publishFolder = os.root / 'tmp / "tso-published-tests" / testName
 
-    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, reactBindings) match {
+    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour) match {
       case PhaseRes.Ok(_) =>
         implicit val wd = os.pwd
 

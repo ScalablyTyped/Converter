@@ -1,7 +1,7 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging.{stdout, LogLevel, Logger}
+import com.olvind.logging.{LogLevel, Logger, stdout}
 import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
@@ -21,7 +21,7 @@ object ImportTypings {
       npmDependencies: Seq[(String, String)],
       fromFolder:      InFolder,
       targetFolder:    os.Path,
-      reactBinding:    ReactBinding,
+      chosenFlavour:   Flavour,
       libs:            List[String],
       ignore:          Set[TsIdentLibrary],
       minimize:        Selection[TsIdentLibrary],
@@ -46,10 +46,11 @@ object ImportTypings {
       )
     }
 
-    val binding = reactBinding match {
-      case ReactBinding.Native   => List(com.olvind.tso.scalajs.react.ReactBinding.native)
-      case ReactBinding.Slinky   => List(com.olvind.tso.scalajs.react.ReactBinding.slinky)
-      case ReactBinding.Japgolly => List(com.olvind.tso.scalajs.react.ReactBinding.japgolly)
+    val flavour = chosenFlavour match {
+      case Flavour.Normal      => com.olvind.tso.scalajs.Flavour.normal
+      case Flavour.ReactFacade => com.olvind.tso.scalajs.Flavour.reactFacade
+      case Flavour.Slinky      => com.olvind.tso.scalajs.Flavour.reactSlinky
+      case Flavour.Japgolly    => com.olvind.tso.scalajs.Flavour.reactJapgolly
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
@@ -77,7 +78,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, binding), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, flavour), "scala.js")
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -147,7 +148,7 @@ object ImportTypings {
           List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
-          ReactBinding.Slinky,
+          Flavour.Slinky,
           List("es5", "dom"),
           Set(TsIdentLibrary("typescript")),
           minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),

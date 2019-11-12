@@ -3,7 +3,7 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(TsoPlugin)
     .settings(
-      Compile / tsoReactBinding := ReactBinding.Japgolly,
+      Compile / tsoFlavour := Flavour.Japgolly,
       Compile / tsoIgnore += "csstype",
       Compile / tsoMinimize := Selection.All(),
       Compile / npmDependencies ++= Seq(
