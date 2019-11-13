@@ -333,7 +333,7 @@ object DropzoneInputProps {
     if (autoSave != null) __obj.updateDynamic("autoSave")(autoSave)
     if (capture != null) __obj.updateDynamic("capture")(capture.asInstanceOf[js.Any])
     if (!js.isUndefined(checked)) __obj.updateDynamic("checked")(checked)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(contentEditable)) __obj.updateDynamic("contentEditable")(contentEditable)

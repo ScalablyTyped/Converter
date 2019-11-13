@@ -138,10 +138,14 @@ class Phase3Compile(
               pedantic      = false,
             )
 
-            val withRewrittenTypes = flavour.conversions match {
-              case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(lib.packageTree)
-              case _              => lib.packageTree
-            }
+            /** We must do this as late as this.
+              *  Dependent libraries need to resolve all their types in complete typescript-land,
+              *  and only before we compile do we do the rewrites. */
+            val withRewrittenTypes =
+              flavour.conversions match {
+                case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(lib.packageTree)
+                case _                 => lib.packageTree
+              }
 
             val scalaFiles    = Printer(scope, withRewrittenTypes)
             val sourcesDir    = os.RelPath("src") / 'main / 'scala

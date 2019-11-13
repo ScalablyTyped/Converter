@@ -46,7 +46,7 @@ object ButtonGroupProps {
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
     if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize)
     if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)

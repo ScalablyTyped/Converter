@@ -9,7 +9,8 @@ import com.olvind.tso.seqs._
   * Generate a package with japgolly's scalajs-react compatible react components
   */
 object GenJapgollyComponents {
-  private object names {
+  object names {
+    val japgolly     = Name("japgolly")
     val components   = Name("components")
     val children     = Name("children")
     val ref          = Name("ref")
@@ -56,10 +57,12 @@ object GenJapgollyComponents {
     val rawReactComponentClassP:         QualifiedName = rawReact + Name("ComponentClassP")
     val rawReactDOMElement:              QualifiedName = rawReact + Name("DomElement")
     val rawReactElement:                 QualifiedName = rawReact + Name("Element")
+    val rawReactElementRef:              QualifiedName = rawReact + Name("ElementRef")
     val rawReactElementType:             QualifiedName = rawReact + Name("ElementType")
     val rawReactNode:                    QualifiedName = rawReact + Name("Node")
     val rawReactRef:                     QualifiedName = rawReact + Name("Ref")
     val rawReactRefHandle:               QualifiedName = rawReact + Name("RefHandle")
+    val rawReactRefFn:                   QualifiedName = rawReact + Name("RefFn")
     val reactKey:                        QualifiedName = react + Name("Key")
 
     val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
@@ -103,7 +106,26 @@ object GenJapgollyComponents {
     }
   }
 
-  val rewriter = TypeRewriterCast(japgolly.conversions)
+  object classDefs {
+    import japgolly._
+
+    /* This to make OptionalCast work for Ref, which is a type reference to a union type and must be casted */
+    val Ref = TypeAliasTree(
+      rawReactRef.parts.last,
+      Nil,
+      TypeRef.Union(
+        List(
+          TypeRef(rawReactRefFn, List(TypeRef(rawReactElementRef)), NoComments),
+          TypeRef(rawReactRefHandle, List(TypeRef.Any), NoComments),
+        ),
+        sort = false,
+      ),
+      NoComments,
+      rawReactRef,
+    )
+  }
+
+  val TypeRewriter = TypeRewriterCast(japgolly.conversions)
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val keyUpdate: String => String = obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""
@@ -127,13 +149,10 @@ object GenJapgollyComponents {
     Seq(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
   }
 
-  val memberParameter: MemberParameter = (scope, x) =>
-    MemberParameter
-      .Normal(scope, x)
-      .map(
-        /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
-        p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope / p.parameter)(p.parameter.tpe))),
-      )
+  val memberToParam: MemberToParam = (scope, x) =>
+    MemberToParam
+      .Default(scope, TypeRewriter.visitMemberTree(scope)(x))
+      .map(p => p.copy(parameter = TypeRewriter.visitParamTree(scope)(p.parameter)))
       .map {
         case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, _), _, _), _, _) =>
           // rewrite functions returning a Callback so that javascript land can call them
@@ -228,7 +247,7 @@ object GenJapgollyComponents {
                         Param.forClassTree(
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope,
-                          memberParameter,
+                          memberToParam,
                           maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length,
                         )
                     }

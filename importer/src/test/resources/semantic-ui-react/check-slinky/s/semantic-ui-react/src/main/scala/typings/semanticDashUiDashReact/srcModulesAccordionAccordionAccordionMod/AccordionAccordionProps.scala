@@ -32,7 +32,7 @@ object AccordionAccordionProps {
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (className != null) __obj.updateDynamic("className")(className)
     if (defaultActiveIndex != null) __obj.updateDynamic("defaultActiveIndex")(defaultActiveIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive)

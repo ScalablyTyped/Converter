@@ -28,7 +28,7 @@ object ContextMenuTrigger
     if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable)
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
-    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
+    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag)
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }

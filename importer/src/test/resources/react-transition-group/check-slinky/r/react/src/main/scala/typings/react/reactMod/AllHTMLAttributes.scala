@@ -23,7 +23,7 @@ object AllHTMLAttributes {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     __obj.asInstanceOf[AllHTMLAttributes[T]]

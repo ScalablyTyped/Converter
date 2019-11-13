@@ -27,7 +27,7 @@ object ContainerProps {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)

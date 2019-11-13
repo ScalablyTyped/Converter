@@ -23,21 +23,27 @@ object Flavour {
         Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(tree)
       } else tree
 
-    def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
-      GenReactFacadeComponents(scope, tree, components)
+    def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree
   }
 
   case object plain extends Flavour {
-    override def conversions: Option[Seq[CastConversion]] = None
-    override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree = tree
-    override def memberParameter: Option[MemberParameter] = None
-    override def dependencies: Set[Dep] = Set.empty
+    override def conversions: Option[Seq[CastConversion]] =
+      None
+    override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree =
+      tree
+    override def memberToParamOpt: Option[MemberToParam] =
+      None
+    override def dependencies: Set[Dep] =
+      Set.empty
   }
 
   case object reactFacade extends ReactFlavour {
-    override def conversions:  Option[Seq[CastConversion]] = None
-    override def dependencies: Set[Dep]                    = Set.empty
-    override def memberParameter: Option[MemberParameter] = Some(MemberParameter.Normal)
+    override def conversions: Option[Seq[CastConversion]] =
+      None
+    override def dependencies: Set[Dep] =
+      Set.empty
+    override def memberToParamOpt: Option[MemberToParam] =
+      Some(MemberToParam.Default)
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       GenReactFacadeComponents(scope, tree, components)
   }
@@ -47,8 +53,8 @@ object Flavour {
       Some(GenSlinkyComponents.names.conversions)
     override def dependencies: Set[Dep] =
       Set(Dep("me.shadaj", "slinky-web", "0.6.2"))
-    override def memberParameter =
-      Some(MemberParameter.Normal)
+    override def memberToParamOpt: Some[MemberToParam] =
+      Some(GenSlinkyComponents.memberToParameter)
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       GenSlinkyComponents(scope, tree, components)
   }
@@ -60,13 +66,14 @@ object Flavour {
       Set(Dep("com.github.japgolly.scalajs-react", "core", "1.4.2"))
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       GenJapgollyComponents(scope, tree, components)
-    override def memberParameter = Some(GenJapgollyComponents.memberParameter)
+    override def memberToParamOpt =
+      Some(GenJapgollyComponents.memberToParam)
   }
 }
 
 trait Flavour {
-  def conversions: Option[Seq[CastConversion]]
-  def memberParameter: Option[MemberParameter]
+  def conversions:      Option[Seq[CastConversion]]
+  def memberToParamOpt: Option[MemberToParam]
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]
 }

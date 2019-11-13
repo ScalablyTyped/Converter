@@ -19,9 +19,10 @@ object GenSlinkyComponents {
     val RefType      = Name("RefType")
     val component    = Name("component")
     val ComponentRef = Name("ComponentRef")
+    val slinkyName   = Name("slinky")
 
     /* Fully qualified references to slinky types */
-    val slinky                      = QualifiedName(List(Name("slinky")))
+    val slinky                      = QualifiedName(List(slinkyName))
     val slinkyCore                  = slinky + Name("core")
     val ReactComponentClass         = slinkyCore + Name("ReactComponentClass")
     val TagMod                      = slinkyCore + Name("TagMod")
@@ -37,6 +38,7 @@ object GenSlinkyComponents {
     val slinkyWeb                   = slinky + Name("web")
     val slinkyWebSvg                = slinkyWeb + Name("svg")
     val slinkyWebHtml               = slinkyWeb + Name("html")
+
     val conversions: Seq[CastConversion] = {
       import CastConversion.TParam._
       CastConversion.All ++ Seq(
@@ -132,7 +134,10 @@ object GenSlinkyComponents {
   val AnyHtmlElement: TypeRef = SlinkyHtmlElement("*")
   val AnySvgElement:  TypeRef = SlinkySvgElement("*")
 
-  val rewriter = TypeRewriterCast(names.conversions)
+  val TypeRewriter = TypeRewriterCast(names.conversions)
+
+  val memberToParameter: MemberToParam =
+    (scope, tree) => MemberToParam.Default(scope, TypeRewriter.visitMemberTree(scope)(tree))
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val overridesUpdate: String => String = obj =>
@@ -222,22 +227,15 @@ object GenSlinkyComponents {
                               if (isDom) {
                                 domParams += fieldTree
                                 Nil
-                              } else MemberParameter.Normal(scope, fieldTree)
+                              } else memberToParameter(scope, fieldTree)
 
                             case Right(methodTree: MethodTree) =>
-                              MemberParameter.Normal(scope, methodTree)
+                              memberToParameter(scope, methodTree)
                           }
                           .sorted
                     }
 
-                  paramsOpt.map { params =>
-                    /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
-                    val rewrittenParams = params.map(
-                      p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
-                    )
-
-                    Props(propsRef, rewrittenParams, domParams.to[Seq])
-                  }
+                  paramsOpt.map(params => Props(propsRef, params, domParams.to[Seq]))
 
                 case None =>
                   Some(Props(TypeRef.Object, Nil, Nil))

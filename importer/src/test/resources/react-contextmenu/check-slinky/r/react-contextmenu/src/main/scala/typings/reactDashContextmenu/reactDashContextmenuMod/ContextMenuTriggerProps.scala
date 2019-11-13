@@ -30,7 +30,7 @@ object ContextMenuTriggerProps {
     if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable)
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
-    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
+    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag)
     __obj.asInstanceOf[ContextMenuTriggerProps]
   }
 }

@@ -54,7 +54,7 @@ object ButtonGroupProps {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (buttons != null) __obj.updateDynamic("buttons")(buttons)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)

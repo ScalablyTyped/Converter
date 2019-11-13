@@ -13,16 +13,15 @@ import scala.scalajs.js.annotation._
 
 object Ref {
   def apply(
-    innerRef: japgolly.scalajs.react.raw.React.Ref = null,
+    innerRef: japgolly.scalajs.react.raw.React.Ref,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[RefProps, MountedWithRawType[RefProps, js.Object, RawMounted[RefProps, js.Object]]] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(innerRef = innerRef.asInstanceOf[js.Any])
   
-      if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[

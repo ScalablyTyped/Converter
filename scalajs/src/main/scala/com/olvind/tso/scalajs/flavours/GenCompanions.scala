@@ -7,7 +7,7 @@ import com.olvind.tso.seqs._
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-class GenCompanions(memberParameter: MemberParameter) extends TreeTransformation {
+class GenCompanions(memberToParam: MemberToParam) extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -27,7 +27,7 @@ class GenCompanions(memberParameter: MemberParameter) extends TreeTransformation
     }
 
   def generateModule(scope: TreeScope, cls: ClassTree): Option[ModuleTree] =
-    Param.forClassTree(cls, scope, memberParameter, Param.MaxParamsForMethod) match {
+    Param.forClassTree(cls, scope, memberToParam, Param.MaxParamsForMethod) match {
       case Nil => None
       case params =>
         val (optionals, inLiterals, Nil) = params.partitionCollect2(

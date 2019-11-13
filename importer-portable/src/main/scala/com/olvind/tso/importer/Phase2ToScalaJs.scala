@@ -67,7 +67,7 @@ class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source,
               /* this last transformation "breaks" the tree, in that we can no longer resolve all `TypeRef`s */
               tree => {
                 val withCompanions =
-                  flavour.memberParameter.fold(tree)(mp => new GenCompanions(mp).visitPackageTree(scope)(tree))
+                  flavour.memberToParamOpt.fold(tree)(m2p => new GenCompanions(m2p).visitPackageTree(scope)(tree))
                 flavour.rewrittenTree(scope, withCompanions)
               },
             )

@@ -12,10 +12,10 @@ trait ReactPortal extends ReactElement {
 
 object ReactPortal {
   @scala.inline
-  def apply(props: js.Any, `type`: js.Any, children: VdomNode = null, key: Key = null): ReactPortal = {
+  def apply(children: VdomNode, props: js.Any, `type`: js.Any, key: Key = null): ReactPortal = {
     val __obj = js.Dynamic.literal(props = props)
-    __obj.updateDynamic("type")(`type`)
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")(`type`)
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactPortal]
   }

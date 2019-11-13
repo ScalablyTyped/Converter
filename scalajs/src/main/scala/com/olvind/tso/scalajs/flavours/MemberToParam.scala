@@ -2,13 +2,12 @@ package com.olvind.tso
 package scalajs
 package flavours
 
-trait MemberParameter {
+trait MemberToParam {
   def apply(scope: TreeScope, x: MemberTree): Option[Param]
 }
 
-object MemberParameter {
-  object Normal extends MemberParameter {
-
+object MemberToParam {
+  object Default extends MemberToParam {
     /* yeah, i know. We'll refactor if we'll do many more rewrites */
     override def apply(scope: TreeScope, x: MemberTree): Option[Param] =
       x match {

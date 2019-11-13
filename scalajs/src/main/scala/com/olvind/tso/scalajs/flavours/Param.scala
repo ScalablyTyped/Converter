@@ -16,16 +16,19 @@ object Param {
     Ordering.by((p: Param) => (p.isOptional, p.parameter.name))
 
   def forClassTree(
-      cls:             ClassTree,
-      _scope:          TreeScope,
-      memberParameter: MemberParameter,
-      maxNum:          Int,
+      cls:           ClassTree,
+      _scope:        TreeScope,
+      memberToParam: MemberToParam,
+      maxNum:        Int,
   ): Seq[Param] =
     forClassTree(cls, _scope, maxNum).flatMap {
       case Left(param)   => Some(param)
-      case Right(member) => memberParameter(_scope / cls, member)
+      case Right(member) => memberToParam(_scope / cls, member)
     }.sorted
 
+  /**
+    * this is only exported separately from the other `forClassTree` overload because the slinky integration does weird things
+    */
   def forClassTree(cls: ClassTree, _scope: TreeScope, maxNum: Int): Seq[Either[Param, MemberTree]] = {
     val scope = _scope / cls
 

@@ -13,7 +13,7 @@ object StrictHtmlSpanProps {
   @scala.inline
   def apply(children: TagMod[Any] = null): StrictHtmlSpanProps = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     __obj.asInstanceOf[StrictHtmlSpanProps]
   }
 }

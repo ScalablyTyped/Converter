@@ -22,6 +22,7 @@ object QualifiedName {
   val scala_js:      QualifiedName = scala_scalajs + Name.js
   val scala_js_ann:  QualifiedName = scala_js + Name("annotation")
   val Runtime:       QualifiedName = QualifiedName(List(Name("org"), Name("scalablytyped"), Name("runtime")))
+  val ScalaJsDom:    QualifiedName = QualifiedName(List(Name("org"), Name("scalajs"), Name("dom")))
 
   val String:           QualifiedName = java_lang + Name.String
   val JArray:           QualifiedName = java_lang + Name.Array
