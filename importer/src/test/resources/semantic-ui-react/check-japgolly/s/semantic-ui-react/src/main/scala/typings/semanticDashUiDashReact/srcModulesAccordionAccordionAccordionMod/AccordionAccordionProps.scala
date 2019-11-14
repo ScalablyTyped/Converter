@@ -26,9 +26,7 @@ object AccordionAccordionProps {
     className: String = null,
     defaultActiveIndex: Double | js.Array[Double] = null,
     exclusive: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: js.UndefOr[
-      (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-    ] = js.undefined,
+    onTitleClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null
   ): AccordionAccordionProps = {
     val __obj = js.Dynamic.literal()
@@ -39,7 +37,7 @@ object AccordionAccordionProps {
     if (className != null) __obj.updateDynamic("className")(className)
     if (defaultActiveIndex != null) __obj.updateDynamic("defaultActiveIndex")(defaultActiveIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive)
-    onTitleClick.foreach(p => __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
+    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow()))
     if (panels != null) __obj.updateDynamic("panels")(panels)
     __obj.asInstanceOf[AccordionAccordionProps]
   }

@@ -102,19 +102,19 @@ object DeprecatedLifecycle {
   @scala.inline
   def apply[P, S](
     UNSAFE_componentWillMount: js.UndefOr[Callback] = js.undefined,
-    UNSAFE_componentWillReceiveProps: js.UndefOr[(/* nextProps */ P, /* nextContext */ js.Any) => Callback] = js.undefined,
-    UNSAFE_componentWillUpdate: js.UndefOr[(/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback] = js.undefined,
+    UNSAFE_componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Callback = null,
+    UNSAFE_componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback = null,
     componentWillMount: js.UndefOr[Callback] = js.undefined,
-    componentWillReceiveProps: js.UndefOr[(/* nextProps */ P, /* nextContext */ js.Any) => Callback] = js.undefined,
-    componentWillUpdate: js.UndefOr[(/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback] = js.undefined
+    componentWillReceiveProps: (/* nextProps */ P, /* nextContext */ js.Any) => Callback = null,
+    componentWillUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback = null
   ): DeprecatedLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0((() => p.runNow()))))
-    UNSAFE_componentWillReceiveProps.foreach(p => __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2(((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => p(t0, t1).runNow()))))
-    UNSAFE_componentWillUpdate.foreach(p => __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3(((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
-    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentWillReceiveProps.foreach(p => __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2(((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => p(t0, t1).runNow()))))
-    componentWillUpdate.foreach(p => __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3(((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
+    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(p.toJsFn))
+    if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => UNSAFE_componentWillReceiveProps(t0, t1).runNow()))
+    if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => UNSAFE_componentWillUpdate(t0, t1, t2).runNow()))
+    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(p.toJsFn))
+    if (componentWillReceiveProps != null) __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => componentWillReceiveProps(t0, t1).runNow()))
+    if (componentWillUpdate != null) __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => componentWillUpdate(t0, t1, t2).runNow()))
     __obj.asInstanceOf[DeprecatedLifecycle[P, S]]
   }
 }

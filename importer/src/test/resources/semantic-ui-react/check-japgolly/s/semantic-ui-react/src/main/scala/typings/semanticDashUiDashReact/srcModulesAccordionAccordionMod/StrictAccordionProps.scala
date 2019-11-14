@@ -32,9 +32,7 @@ object StrictAccordionProps {
     exclusive: js.UndefOr[Boolean] = js.undefined,
     fluid: js.UndefOr[Boolean] = js.undefined,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: js.UndefOr[
-      (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-    ] = js.undefined,
+    onTitleClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null,
     styled: js.UndefOr[Boolean] = js.undefined
   ): StrictAccordionProps = {
@@ -47,7 +45,7 @@ object StrictAccordionProps {
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
-    onTitleClick.foreach(p => __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
+    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow()))
     if (panels != null) __obj.updateDynamic("panels")(panels)
     if (!js.isUndefined(styled)) __obj.updateDynamic("styled")(styled)
     __obj.asInstanceOf[StrictAccordionProps]

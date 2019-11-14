@@ -16,7 +16,7 @@ object ElementClass {
   @scala.inline
   def apply(render: CallbackTo[Node]): ElementClass = {
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("render")(js.Any.fromFunction0((() => render.runNow())))
+    __obj.updateDynamic("render")(render.toJsFn)
     __obj.asInstanceOf[ElementClass]
   }
 }

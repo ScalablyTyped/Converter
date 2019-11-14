@@ -28,9 +28,7 @@ object AccordionTitleProps {
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
-    onClick: js.UndefOr[
-      (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-    ] = js.undefined
+    onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null
   ): AccordionTitleProps = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)
@@ -41,7 +39,7 @@ object AccordionTitleProps {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-    onClick.foreach(p => __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onClick(t0, t1).runNow()))
     __obj.asInstanceOf[AccordionTitleProps]
   }
 }

@@ -21,8 +21,8 @@ object TouchList {
     NumberDictionary: /* index */ NumberDictionary[Touch] = null
   ): TouchList = {
     val __obj = js.Dynamic.literal(length = length)
-    __obj.updateDynamic("identifiedTouch")(js.Any.fromFunction1(((t0: scala.Double) => identifiedTouch(t0).runNow())))
-    __obj.updateDynamic("item")(js.Any.fromFunction1(((t0: scala.Double) => item(t0).runNow())))
+    __obj.updateDynamic("identifiedTouch")(js.Any.fromFunction1((t0: scala.Double) => identifiedTouch(t0).runNow()))
+    __obj.updateDynamic("item")(js.Any.fromFunction1((t0: scala.Double) => item(t0).runNow()))
     js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[TouchList]
   }

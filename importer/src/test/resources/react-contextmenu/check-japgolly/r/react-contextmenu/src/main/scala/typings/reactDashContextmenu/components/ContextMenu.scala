@@ -18,14 +18,14 @@ object ContextMenu {
     className: String = null,
     data: js.Any = null,
     hideOnLeave: js.UndefOr[Boolean] = js.undefined,
-    onHide: js.UndefOr[/* event */ js.Any => Callback] = js.undefined,
+    onHide: /* event */ js.Any => Callback = null,
     onMouseLeave: (js.Function3[
       /* event */ ReactMouseEventFrom[HTMLElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function = null,
-    onShow: js.UndefOr[/* event */ js.Any => Callback] = js.undefined,
+    onShow: /* event */ js.Any => Callback = null,
     rtl: js.UndefOr[Boolean] = js.undefined,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
@@ -42,9 +42,9 @@ object ContextMenu {
       if (className != null) __obj.updateDynamic("className")(className)
     if (data != null) __obj.updateDynamic("data")(data)
     if (!js.isUndefined(hideOnLeave)) __obj.updateDynamic("hideOnLeave")(hideOnLeave)
-    onHide.foreach(p => __obj.updateDynamic("onHide")(js.Any.fromFunction1(((t0: /* event */ js.Any) => p(t0).runNow()))))
+    if (onHide != null) __obj.updateDynamic("onHide")(js.Any.fromFunction1((t0: /* event */ js.Any) => onHide(t0).runNow()))
     if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
-    onShow.foreach(p => __obj.updateDynamic("onShow")(js.Any.fromFunction1(((t0: /* event */ js.Any) => p(t0).runNow()))))
+    if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction1((t0: /* event */ js.Any) => onShow(t0).runNow()))
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
