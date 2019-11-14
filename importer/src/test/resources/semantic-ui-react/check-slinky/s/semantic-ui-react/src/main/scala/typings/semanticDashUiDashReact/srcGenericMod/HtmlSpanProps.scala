@@ -15,7 +15,7 @@ object HtmlSpanProps {
   def apply(StringDictionary: /* key */ StringDictionary[js.Any] = null, children: TagMod[Any] = null): HtmlSpanProps = {
     val __obj = js.Dynamic.literal()
     if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (children != null) __obj.updateDynamic("children")(children)
+    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
     __obj.asInstanceOf[HtmlSpanProps]
   }
 }

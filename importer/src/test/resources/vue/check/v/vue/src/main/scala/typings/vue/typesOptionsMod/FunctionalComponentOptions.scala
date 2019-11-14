@@ -23,9 +23,9 @@ object FunctionalComponentOptions {
     name: String = null,
     props: PropDefs = null
   ): FunctionalComponentOptions[Props, PropDefs] = {
-    val __obj = js.Dynamic.literal(functional = functional, render = js.Any.fromFunction3(render))
+    val __obj = js.Dynamic.literal(functional = functional.asInstanceOf[js.Any], render = js.Any.fromFunction3(render))
     if (inject != null) __obj.updateDynamic("inject")(inject.asInstanceOf[js.Any])
-    if (name != null) __obj.updateDynamic("name")(name)
+    if (name != null) __obj.updateDynamic("name")(name.asInstanceOf[js.Any])
     if (props != null) __obj.updateDynamic("props")(props.asInstanceOf[js.Any])
     __obj.asInstanceOf[FunctionalComponentOptions[Props, PropDefs]]
   }

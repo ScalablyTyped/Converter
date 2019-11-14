@@ -29,10 +29,10 @@ object EventListenerOptions {
     `type`: T,
     capture: js.UndefOr[Boolean] = js.undefined
   ): EventListenerOptions[T] = {
-    val __obj = js.Dynamic.literal(targetRef = targetRef)
+    val __obj = js.Dynamic.literal(targetRef = targetRef.asInstanceOf[js.Any])
     __obj.updateDynamic("listener")(js.Any.fromFunction1((t0: /* import warning: ImportType.apply Failed type conversion: / * import warning: QualifyReferences.resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => listener(t0).runNow()))
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (!js.isUndefined(capture)) __obj.updateDynamic("capture")(capture)
+    if (!js.isUndefined(capture)) __obj.updateDynamic("capture")(capture.asInstanceOf[js.Any])
     __obj.asInstanceOf[EventListenerOptions[T]]
   }
 }

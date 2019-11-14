@@ -18,7 +18,7 @@ trait IntrinsicElements extends js.Object {
 object IntrinsicElements {
   @scala.inline
   def apply(abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement], animate: SVGProps[SVGElement]): IntrinsicElements = {
-    val __obj = js.Dynamic.literal(abbr = abbr, animate = animate)
+    val __obj = js.Dynamic.literal(abbr = abbr.asInstanceOf[js.Any], animate = animate.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[IntrinsicElements]
   }

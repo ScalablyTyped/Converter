@@ -23,9 +23,9 @@ object EventListenerOptions {
     `type`: T,
     capture: js.UndefOr[Boolean] = js.undefined
   ): EventListenerOptions[T] = {
-    val __obj = js.Dynamic.literal(listener = js.Any.fromFunction1(listener), targetRef = targetRef)
+    val __obj = js.Dynamic.literal(listener = js.Any.fromFunction1(listener), targetRef = targetRef.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (!js.isUndefined(capture)) __obj.updateDynamic("capture")(capture)
+    if (!js.isUndefined(capture)) __obj.updateDynamic("capture")(capture.asInstanceOf[js.Any])
     __obj.asInstanceOf[EventListenerOptions[T]]
   }
 }

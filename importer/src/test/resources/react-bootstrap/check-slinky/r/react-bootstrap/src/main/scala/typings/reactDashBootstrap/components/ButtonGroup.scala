@@ -28,14 +28,14 @@ object ButtonGroup
     vertical: js.UndefOr[Boolean] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] = {
-    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
-    __obj.updateDynamic("type")(`type`)
-    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
-    if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
-    if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize)
-    if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle)
-    if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
-    if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
+    val __obj = js.Dynamic.literal(defaultValue = defaultValue.asInstanceOf[js.Any], onChange = onChange.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset.asInstanceOf[js.Any])
+    if (!js.isUndefined(block)) __obj.updateDynamic("block")(block.asInstanceOf[js.Any])
+    if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize.asInstanceOf[js.Any])
+    if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle.asInstanceOf[js.Any])
+    if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified.asInstanceOf[js.Any])
+    if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }

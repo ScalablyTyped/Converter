@@ -18,8 +18,8 @@ object SuspenseProps {
     fallback: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null
   ): SuspenseProps = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children)
-    if (fallback != null) __obj.updateDynamic("fallback")(fallback)
+    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (fallback != null) __obj.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
     __obj.asInstanceOf[SuspenseProps]
   }
 }

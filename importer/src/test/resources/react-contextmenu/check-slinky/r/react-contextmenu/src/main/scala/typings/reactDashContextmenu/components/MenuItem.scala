@@ -32,11 +32,11 @@ object MenuItem
     overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashContextmenu.reactDashContextmenuMod.MenuItem] = {
     val __obj = js.Dynamic.literal()
-    if (attributes != null) __obj.updateDynamic("attributes")(attributes)
-    if (data != null) __obj.updateDynamic("data")(data)
-    if (!js.isUndefined(divider)) __obj.updateDynamic("divider")(divider)
+    if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
+    if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
+    if (!js.isUndefined(divider)) __obj.updateDynamic("divider")(divider.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
-    if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose)
+    if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose.asInstanceOf[js.Any])
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }

@@ -12,7 +12,7 @@ trait Person extends js.Object {
 object Person {
   @scala.inline
   def apply(name: String, age: Int | Double = null): Person = {
-    val __obj = js.Dynamic.literal(name = name)
+    val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
     if (age != null) __obj.updateDynamic("age")(age.asInstanceOf[js.Any])
     __obj.asInstanceOf[Person]
   }

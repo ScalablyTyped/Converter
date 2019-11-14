@@ -37,13 +37,13 @@ object AnimationEvent {
     timeStamp: Double,
     `type`: String
   ): AnimationEvent[T] = {
-    val __obj = js.Dynamic.literal(animationName = animationName, bubbles = bubbles, cancelable = cancelable, currentTarget = currentTarget, defaultPrevented = defaultPrevented, elapsedTime = elapsedTime, eventPhase = eventPhase, isTrusted = isTrusted, nativeEvent = nativeEvent, pseudoElement = pseudoElement, target = target, timeStamp = timeStamp)
+    val __obj = js.Dynamic.literal(animationName = animationName.asInstanceOf[js.Any], bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], elapsedTime = elapsedTime.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], pseudoElement = pseudoElement.asInstanceOf[js.Any], target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any])
     __obj.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
     __obj.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
     __obj.updateDynamic("persist")(persist.toJsFn)
     __obj.updateDynamic("preventDefault")(preventDefault.toJsFn)
     __obj.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
-    __obj.updateDynamic("type")(`type`)
+    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnimationEvent[T]]
   }
 }

@@ -11,7 +11,7 @@ trait Anon_PropTypes extends js.Object {
 object Anon_PropTypes {
   @scala.inline
   def apply(propTypes: /* import warning: ImportType.apply Failed type conversion: infer T */ js.Any): Anon_PropTypes = {
-    val __obj = js.Dynamic.literal(propTypes = propTypes)
+    val __obj = js.Dynamic.literal(propTypes = propTypes.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[Anon_PropTypes]
   }

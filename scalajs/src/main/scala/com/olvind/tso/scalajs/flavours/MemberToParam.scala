@@ -8,6 +8,8 @@ trait MemberToParam {
 
 object MemberToParam {
   object Default extends MemberToParam {
+    private val Cast = ".asInstanceOf[js.Any]"
+
     /* yeah, i know. We'll refactor if we'll do many more rewrites */
     override def apply(scope: TreeScope, x: MemberTree): Option[Param] =
       x match {
@@ -21,10 +23,7 @@ object MemberToParam {
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(
                     obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                        scope,
-                        tpe,
-                      )})""",
+                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -34,10 +33,7 @@ object MemberToParam {
                   ParamTree(name, false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
                   Right(
                     obj =>
-                      s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                        scope,
-                        tpe,
-                      )})""",
+                      s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -71,10 +67,7 @@ object MemberToParam {
                   ParamTree(name, false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(
                     obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                        scope,
-                        tpe,
-                      )})""",
+                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -97,14 +90,11 @@ object MemberToParam {
                 Param(
                   ParamTree(name, false, origTpe, None, NoComments),
                   if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
-                    Left(s"""${name.value} = ${name.value}${OptionalCast(scope, origTpe)}""")
+                    Left(s"""${name.value} = ${name.value}$Cast""")
                   else
                     Right(
                       obj =>
-                        s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
-                          scope,
-                          origTpe,
-                        )})""",
+                        s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
                     ),
                 ),
               )
@@ -129,28 +119,6 @@ object MemberToParam {
                 Right(obj => s"""$obj.updateDynamic("${m.originalName.unescaped}")($convertedTarget)"""),
             ),
           )
-      }
-  }
-
-  /* `js.|` doesn't extend js.Any */
-  private object OptionalCast {
-    private val Cast = ".asInstanceOf[js.Any]"
-
-    def apply(scope: TreeScope, tpe: TypeRef): String =
-      if (resolvesToUnionOrAbstract(tpe, scope)) {
-        Cast
-      } else ""
-
-    def resolvesToUnionOrAbstract(tpe: TypeRef, scope: TreeScope): Boolean =
-      tpe match {
-        case x if scope.tparams.contains(x.typeName.parts.last) => true
-        case TypeRef.Union(_)                                   => true
-        case TypeRef.UndefOr(_)                                 => true
-        case TypeRef.Intersection(types)                        => resolvesToUnionOrAbstract(types.head, scope)
-        case other =>
-          scope.lookup(other.typeName) collectFirst {
-            case (TypeAliasTree(_, _, alias, _, _), newScope) => resolvesToUnionOrAbstract(alias, newScope)
-          } getOrElse false
       }
   }
 }

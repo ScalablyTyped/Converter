@@ -16,7 +16,7 @@ object Anon_Headers {
   def apply(StringDictionary: /* key */ StringDictionary[js.Any] = null, headers: HttpHeaders = null): Anon_Headers = {
     val __obj = js.Dynamic.literal()
     if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (headers != null) __obj.updateDynamic("headers")(headers)
+    if (headers != null) __obj.updateDynamic("headers")(headers.asInstanceOf[js.Any])
     __obj.asInstanceOf[Anon_Headers]
   }
 }

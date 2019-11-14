@@ -24,7 +24,7 @@ object Suspense {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      if (fallback != null) __obj.updateDynamic("fallback")(fallback)
+      if (fallback != null) __obj.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
