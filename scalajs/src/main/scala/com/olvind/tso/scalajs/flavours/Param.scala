@@ -6,7 +6,9 @@ import scala.collection.immutable.SortedMap
 import com.olvind.tso.seqs._
 import com.olvind.tso.maps._
 
-final case class Param(parameter: ParamTree, isOptional: Boolean, asString: Either[String, String => String])
+final case class Param(parameter: ParamTree, asString: Either[String, String => String]) {
+  def isOptional = parameter.default.isDefined
+}
 
 object Param {
   /* javascript limitation */
@@ -119,11 +121,10 @@ object Param {
   def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Left[Param, Nothing]) =
     ref.name -> Left(
       Param(
-        ParamTree(ref.name, isImplicit = false, ref, Some(TypeRef.`null`), NoComments),
-        !isRequired,
+        ParamTree(ref.name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
         Right(
           obj =>
-            if (isRequired) s"if (${ref.name.value} != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
+            if (!isRequired) s"if (${ref.name.value} != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
             else s"js.Dynamic.global.Object.assign($obj, ${ref.name.value})",
         ),
       ),

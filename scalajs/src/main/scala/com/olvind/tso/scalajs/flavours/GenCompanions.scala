@@ -31,8 +31,8 @@ class GenCompanions(memberToParam: MemberToParam) extends TreeTransformation {
       case Nil => None
       case params =>
         val (optionals, inLiterals, Nil) = params.partitionCollect2(
-          { case Param(_, _, Right(f))  => f },
-          { case Param(_, _, Left(str)) => str },
+          { case Param(_, Right(f))  => f },
+          { case Param(_, Left(str)) => str },
         )
         val applyRet = TypeRef(
           QualifiedName(cls.name :: Nil),

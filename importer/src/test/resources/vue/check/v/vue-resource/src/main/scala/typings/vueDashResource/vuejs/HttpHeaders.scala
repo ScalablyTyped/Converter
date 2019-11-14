@@ -27,7 +27,7 @@ object HttpHeaders {
     put: StringDictionary[String] = null
   ): HttpHeaders = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (common != null) __obj.updateDynamic("common")(common)
     if (custom != null) __obj.updateDynamic("custom")(custom)
     if (delete != null) __obj.updateDynamic("delete")(delete)

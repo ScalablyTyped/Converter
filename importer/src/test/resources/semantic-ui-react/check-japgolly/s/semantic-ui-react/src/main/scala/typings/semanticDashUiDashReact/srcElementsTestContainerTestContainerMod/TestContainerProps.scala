@@ -39,7 +39,7 @@ object TestContainerProps {
     __obj.updateDynamic("requiredFn0Void")(requiredFn0Void.toJsFn)
     __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1((t0: scala.Double) => requiredFn1Number(t0).runNow()))
     __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1((t0: scala.Double) => requiredFn1Void(t0).runNow()))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className)

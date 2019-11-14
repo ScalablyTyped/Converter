@@ -22,7 +22,7 @@ object AccordionContentProps {
     content: SemanticShorthandContent = null
   ): AccordionContentProps = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])

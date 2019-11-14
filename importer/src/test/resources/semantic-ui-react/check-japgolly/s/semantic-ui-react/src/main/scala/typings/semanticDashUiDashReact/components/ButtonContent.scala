@@ -30,7 +30,7 @@ object ButtonContent {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])

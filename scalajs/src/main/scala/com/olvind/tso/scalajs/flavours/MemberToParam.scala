@@ -19,7 +19,6 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
-                  isOptional = true,
                   Right(
                     obj =>
                       s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
@@ -33,7 +32,6 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
-                  isOptional = true,
                   Right(
                     obj =>
                       s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
@@ -55,7 +53,6 @@ object MemberToParam {
                     Some(TypeRef.`null`),
                     NoComments,
                   ),
-                  isOptional = true,
                   Right(
                     obj =>
                       s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
@@ -72,7 +69,6 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, false, tpe, Some(TypeRef.`null`), NoComments),
-                  isOptional = true,
                   Right(
                     obj =>
                       s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}${OptionalCast(
@@ -88,7 +84,6 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, false, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
-                  isOptional = false,
                   if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                     Left(s"""${name.value} = $convertedTarget""")
                   else
@@ -101,7 +96,6 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, false, origTpe, None, NoComments),
-                  isOptional = false,
                   if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                     Left(s"""${name.value} = ${name.value}${OptionalCast(scope, origTpe)}""")
                   else
@@ -129,7 +123,6 @@ object MemberToParam {
                 None,
                 NoComments,
               ),
-              isOptional = false,
               if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && m.originalName === m.name)
                 Left(s"""${m.name.value} = $convertedTarget""")
               else

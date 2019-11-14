@@ -569,8 +569,8 @@ object SVGAttributes {
     y1: Double | String = null
   ): SVGAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, AriaAttributes)
-    js.Dynamic.global.Object.assign(__obj, DOMAttributes)
+    if (AriaAttributes != null) js.Dynamic.global.Object.assign(__obj, AriaAttributes)
+    if (DOMAttributes != null) js.Dynamic.global.Object.assign(__obj, DOMAttributes)
     if (accentHeight != null) __obj.updateDynamic("accentHeight")(accentHeight.asInstanceOf[js.Any])
     if (accumulate != null) __obj.updateDynamic("accumulate")(accumulate.asInstanceOf[js.Any])
     if (additive != null) __obj.updateDynamic("additive")(additive.asInstanceOf[js.Any])

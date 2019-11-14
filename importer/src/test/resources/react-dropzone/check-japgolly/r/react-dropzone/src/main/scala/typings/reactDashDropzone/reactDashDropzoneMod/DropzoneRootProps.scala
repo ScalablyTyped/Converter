@@ -245,7 +245,7 @@ object DropzoneRootProps {
     vocab: String = null
   ): DropzoneRootProps = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (about != null) __obj.updateDynamic("about")(about)
     if (accessKey != null) __obj.updateDynamic("accessKey")(accessKey)
     if (`aria-activedescendant` != null) __obj.updateDynamic("aria-activedescendant")(`aria-activedescendant`)
