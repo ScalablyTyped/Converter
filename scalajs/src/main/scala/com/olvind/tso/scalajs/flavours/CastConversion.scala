@@ -61,7 +61,7 @@ object CastConversion {
           current match {
             /* changing inheritance to classes we haven't had the chance to inspect will often fail */
             case _: InheritanceTree => true
-            case _: TypeAliasTree   => true
+            case _: TypeAliasTree => true
             case _: ParamTree =>
               outer match {
                 case TreeScope.Scoped(_, mouter, m: MethodTree) =>
@@ -76,7 +76,7 @@ object CastConversion {
                   }
                 case _ => false
               }
-            case _: TypeRef   => isRisky(outer)
+            case _: TypeRef => isRisky(outer)
             case _ => false
           }
       }

@@ -229,7 +229,7 @@ object GenJapgollyComponents {
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope,
                           memberToParam,
-                          maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1 ,
+                          maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
                         )
                     }
 

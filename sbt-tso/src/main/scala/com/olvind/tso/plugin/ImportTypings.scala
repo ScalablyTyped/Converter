@@ -1,7 +1,7 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging.{LogLevel, Logger, stdout}
+import com.olvind.logging.{stdout, LogLevel, Logger}
 import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
@@ -47,7 +47,7 @@ object ImportTypings {
     }
 
     val flavour = chosenFlavour match {
-      case Flavour.Plain      => com.olvind.tso.scalajs.flavours.Flavour.plain
+      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.plain
       case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.reactFacade
       case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.reactSlinky
       case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.reactJapgolly
