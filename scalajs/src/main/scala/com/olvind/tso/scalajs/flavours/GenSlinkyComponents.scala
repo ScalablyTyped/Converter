@@ -134,10 +134,10 @@ object GenSlinkyComponents {
   val AnyHtmlElement: TypeRef = SlinkyHtmlElement("*")
   val AnySvgElement:  TypeRef = SlinkySvgElement("*")
 
-  val TypeRewriter = TypeRewriterCast(names.conversions)
+  val ToSlinkyTypes = TypeRewriterCast(names.conversions)
 
   val memberToParameter: MemberToParam =
-    (scope, tree) => MemberToParam.Default(scope, TypeRewriter.visitMemberTree(scope)(tree))
+    (scope, tree) => MemberToParam.Default(scope, ToSlinkyTypes.visitMemberTree(scope)(tree))
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val overridesUpdate: String => String = obj =>
@@ -190,6 +190,7 @@ object GenSlinkyComponents {
 
     val generatedCode: Seq[Tree] =
       allComponents
+        .map(_.rewritten(scope, ToSlinkyTypes))
         .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
         .to[Seq]
         .flatMap {

@@ -27,6 +27,13 @@ final case class Component(
       case ComponentType.Function => None
       case ComponentType.Field    => None
     }
+
+  def rewritten(scope: TreeScope, t: TreeTransformation): Component =
+    copy( // don't rewrite scalaRef
+      tparams          = tparams.map(t.visitTypeParamTree(scope)),
+      props            = props.map(t.visitTypeRef(scope)),
+      componentMembers = componentMembers.map(t.visitMemberTree(scope)),
+    )
 }
 
 object Component {

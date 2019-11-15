@@ -2,6 +2,7 @@ package com.olvind.tso
 package scalajs
 
 import scala.util.hashing.MurmurHash3.productHash
+import seqs._
 
 sealed trait Tree extends Product with Serializable {
   val name:     Name
@@ -311,7 +312,12 @@ object TypeRef {
       }
 
     def apply(types: Iterable[TypeRef]): TypeRef = {
-      val base = flattened(types.to[List]).distinct
+      val base: List[TypeRef] =
+        flattened(types.to[List]).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
+          // keep wildcard only if there is nothing else
+          case (wildcards, Nil) => wildcards
+          case (_, rest)        => rest
+        }
 
       base match {
         case Nil        => TypeRef.Nothing

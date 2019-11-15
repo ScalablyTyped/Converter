@@ -90,7 +90,7 @@ object IdentifyReactComponents {
             method.name match {
               case Name.APPLY =>
                 Component(
-                  scalaRef         = TypeRef(owner.codePath, targs, NoComments),
+                  scalaRef         = TypeRef(owner.codePath),
                   fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
                   tparams          = method.tparams,
                   props            = propsTypeOpt,
@@ -159,7 +159,7 @@ object IdentifyReactComponents {
       props = tr.targs.head
     } yield
       Component(
-        scalaRef         = TypeRef(tree.codePath, Nil, NoComments),
+        scalaRef         = TypeRef(tree.codePath),
         fullName         = componentName(scope, owner.annotations, QualifiedName(tree.name :: Nil), tree.comments),
         tparams          = Nil,
         props            = Some(props).filterNot(_ === TypeRef.Object),
@@ -231,8 +231,9 @@ object IdentifyReactComponents {
       val prefix = if (isGlobal(anns)) Nil else extractPrefix(scope)
 
       (prefix ++ name).map(_.unescaped.capitalize).distinct.mkString("") match {
-        case ""    => Name("component")
-        case other => Name(other)
+        case ""                             => Name("component")
+        case other if other.endsWith("Cls") => Name(other.dropRight(3))
+        case other                          => Name(other)
       }
     }
 

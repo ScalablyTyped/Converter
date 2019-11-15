@@ -116,7 +116,8 @@ object GenJapgollyComponents {
     }
   }
 
-  val TypeRewriter = TypeRewriterCast(japgolly.conversions)
+  val ToJapgollyTypes = TypeRewriterCast(japgolly.conversions)
+  val RemoveWildcards = TypeRewriter(Map(TypeRef.Wildcard -> TypeRef.Any))
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val keyUpdate: String => String = obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""
@@ -142,8 +143,8 @@ object GenJapgollyComponents {
 
   val memberToParam: MemberToParam = (scope, x) =>
     MemberToParam
-      .Default(scope, TypeRewriter.visitMemberTree(scope)(x))
-      .map(p => p.copy(parameter = TypeRewriter.visitParamTree(scope)(p.parameter)))
+      .Default(scope, ToJapgollyTypes.visitMemberTree(scope)(x))
+      .map(p => p.copy(parameter = ToJapgollyTypes.visitParamTree(scope)(p.parameter)))
       .map {
         /* rewrite functions returning a Callback so that javascript land can call them */
         case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), Some(_), _), _) =>
@@ -160,7 +161,10 @@ object GenJapgollyComponents {
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, retType), defaultValue, _), _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(_paramTypes, retType), defaultValue, _), _) =>
+          /* we're lifting types from type parameter to top level type, where wildcards are no longer legal */
+          val paramTypes = _paramTypes.map(RemoveWildcards.visitTypeRef(scope))
+
           def fn(obj: String) = {
             val params =
               paramTypes.zipWithIndex
@@ -207,6 +211,7 @@ object GenJapgollyComponents {
 
     val generatedCode: Seq[Tree] =
       components
+        .map(_.rewritten(scope, ToJapgollyTypes))
         .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
         .to[Seq]
         .flatMap {
@@ -224,7 +229,7 @@ object GenJapgollyComponents {
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope,
                           memberToParam,
-                          maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length,
+                          maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1 ,
                         )
                     }
 
@@ -269,7 +274,6 @@ object GenJapgollyComponents {
     val componentCp  = pkgCodePath + c.fullName
     val componentRef = Component.formatReferenceTo(c.scalaRef, c.componentType)
     val applyMethod  = genApply(props, params, knownRefRewritten, tparams, componentRef, componentCp)
-
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,

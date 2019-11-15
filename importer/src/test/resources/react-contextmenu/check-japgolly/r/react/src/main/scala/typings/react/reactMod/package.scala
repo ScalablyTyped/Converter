@@ -100,7 +100,7 @@ package object reactMod {
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
-  type EventHandler[E /* <: ReactEventFrom[_ with Element] */] = js.Function1[/* event */ E, Unit]
+  type EventHandler[E /* <: ReactEventFrom[Element] */] = js.Function1[/* event */ E, Unit]
   type ExactlyAnyPropertyKeys[T] = /* import warning: ImportType.apply Failed type conversion: {[ K in keyof T ]: react.react.IsExactlyAny<T[K]> extends true? K : never}[keyof T] */ js.Any
   type FC[P] = FunctionComponent[P]
   //
