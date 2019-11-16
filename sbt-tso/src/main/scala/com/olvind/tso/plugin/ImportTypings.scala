@@ -47,10 +47,10 @@ object ImportTypings {
     }
 
     val flavour = chosenFlavour match {
-      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.plain
-      case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.reactFacade
-      case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.reactSlinky
-      case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.reactJapgolly
+      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.Plain
+      case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.ReactFacade
+      case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.Slinky
+      case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource

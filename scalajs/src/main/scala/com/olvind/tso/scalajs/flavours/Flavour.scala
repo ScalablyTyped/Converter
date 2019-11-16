@@ -26,7 +26,7 @@ object Flavour {
     def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree
   }
 
-  case object plain extends Flavour {
+  case object Plain extends Flavour {
     override def conversions: Option[Seq[CastConversion]] =
       None
     override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree =
@@ -35,9 +35,13 @@ object Flavour {
       None
     override def dependencies: Set[Dep] =
       Set.empty
+
+    val projectName  = "PlainlyTyped"
+    val repo         = "https://github.com/oyvindberg/PlainlyTyped.git"
+    val organization = "org.plainlytyped"
   }
 
-  case object reactFacade extends ReactFlavour {
+  case object ReactFacade extends ReactFlavour {
     override def conversions: Option[Seq[CastConversion]] =
       None
     override def dependencies: Set[Dep] =
@@ -46,9 +50,13 @@ object Flavour {
       Some(MemberToParam.Default)
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       GenReactFacadeComponents(scope, tree, components)
+
+    val projectName  = "ScalablyTyped"
+    val repo         = "https://github.com/oyvindberg/ScalablyTyped.git"
+    val organization = "org.scalablytyped"
   }
 
-  case object reactSlinky extends ReactFlavour {
+  case object Slinky extends ReactFlavour {
     override def conversions: Option[Seq[CastConversion]] =
       Some(GenSlinkyComponents.names.conversions)
     override def dependencies: Set[Dep] =
@@ -57,9 +65,12 @@ object Flavour {
       Some(GenSlinkyComponents.memberToParameter)
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
       GenSlinkyComponents(scope, tree, components)
+    val projectName  = "SlicklyTyped"
+    val repo         = "https://github.com/oyvindberg/SlicklyTyped.git"
+    val organization = "org.slicklytyped"
   }
 
-  case object reactJapgolly extends ReactFlavour {
+  case object Japgolly extends ReactFlavour {
     override def conversions: Option[Seq[CastConversion]] =
       Some(GenJapgollyComponents.japgolly.conversions)
     override def dependencies: Set[Dep] =
@@ -68,6 +79,9 @@ object Flavour {
       GenJapgollyComponents(scope, tree, components)
     override def memberToParamOpt =
       Some(GenJapgollyComponents.memberToParam)
+    val projectName  = "GulliblyTyped"
+    val repo         = "https://github.com/oyvindberg/GulliblyTyped.git"
+    val organization = "org.gulliblytyped"
   }
 }
 
@@ -76,4 +90,7 @@ trait Flavour {
   def memberToParamOpt: Option[MemberToParam]
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]
+  val projectName:  String
+  val repo:         String
+  val organization: String
 }

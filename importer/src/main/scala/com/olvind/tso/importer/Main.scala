@@ -50,7 +50,9 @@ class Main(config: Config) {
   def run(): Unit = {
 
     val updatedTargetDirF: Future[TargetDirs] = Future {
-      val targetFolder = config.cacheFolder / config.projectName
+      val projectFolder = config.cacheFolder / config.flavour.projectName
+
+      val targetFolder = projectFolder
       if (os.exists(targetFolder)) {
         implicit val wd = targetFolder
         if (!config.offline) {
@@ -63,11 +65,17 @@ class Main(config: Config) {
           interfaceCmd.runVerbose rm ("-f", ".git/gc.log")
           interfaceCmd.runVerbose git 'prune
         }
+      } else
+        Try {
+          implicit val wd = config.cacheFolder
+          interfaceCmd.runVerbose git ('clone, config.flavour.repo)
+        } recover {
+          case _ =>
+            os.makeDir(projectFolder)
 
-      } else {
-        implicit val wd = config.cacheFolder
-        interfaceCmd.runVerbose git ('clone, config.ScalablyTypedRepo)
-      }
+            implicit val wd = projectFolder
+            interfaceCmd.runVerbose git 'init
+        }
 
       TargetDirs(
         targetFolder = targetFolder,
@@ -92,7 +100,7 @@ class Main(config: Config) {
     val localCleaningF: Future[Unit] = Future {
       if (config.conserveSpace) {
         interfaceLogger.warn(s"Cleaning old artifacts in ${config.publishFolder}")
-        LocalCleanup(config.publishFolder, config.organization, keepNum = 2)
+        LocalCleanup(config.publishFolder, config.flavour.organization, keepNum = 2)
       }
     }(ec)
 
@@ -136,17 +144,6 @@ class Main(config: Config) {
       }
     }
 
-    //TODO Consider using for comprehensions, and maybe even use IO instead
-    //    import scala.concurrent.ExecutionContext.Implicits.global
-    //    val fut = for {
-    //      inFolder <- externalsFolderF
-    //      _ <- localCleaningF
-    //      dtFolder <- dtFolderF
-    //      TargetDirs(targetFolder, failFolder, facadeFolder) <- updatedTargetDirF
-    //      compiler <- compilerF
-    //      tsSources <- tsSourcesF
-    //    } yield (inFolder)
-
     val externalsFolder                                    = Await.result(externalsFolderF, Duration.Inf)
     val ()                                                 = Await.result(localCleaningF, Duration.Inf)
     val dtFolder                                           = Await.result(dtFolderF, Duration.Inf)
@@ -164,10 +161,10 @@ class Main(config: Config) {
       case PublishConfig(user, password) =>
         BinTrayPublisher(
           files.existing(config.cacheFolder / 'bintray),
-          config.ScalablyTypedRepo,
+          config.flavour.repo,
           user,
           password,
-          config.projectName,
+          config.flavour.projectName,
         )(ec)
     }
 
@@ -204,8 +201,8 @@ class Main(config: Config) {
             versions        = config.versions,
             compiler        = compiler,
             targetFolder    = targetFolder,
-            projectName     = config.projectName,
-            organization    = config.organization,
+            projectName     = config.flavour.projectName,
+            organization    = config.flavour.organization,
             publishUser     = publishUser,
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(files.existing(config.cacheFolder / 'npmjs))(ec),
@@ -299,11 +296,11 @@ target/
     } else {
       interfaceLogger warn "Generating sbt plugin..."
 
-      val sbtProjectDir = targetFolder / s"sbt-${config.projectName}"
+      val sbtProjectDir = targetFolder / s"sbt-${config.flavour.projectName}"
       GenerateSbtPlugin(
         versions      = config.versions,
-        organization  = config.organization,
-        projectName   = config.projectName,
+        organization  = config.flavour.organization,
+        projectName   = config.flavour.projectName,
         projectDir    = sbtProjectDir,
         projects      = successes,
         pluginVersion = config.runId,
