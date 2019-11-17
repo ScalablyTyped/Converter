@@ -7,13 +7,15 @@ object prettyString {
       .flatMap {
         case '\\'  => "#backslash#" //be safe
         case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
-        case '_'   => "#underscore#" // will be erased otherwise
+        case '_'   => "#" // will be erased otherwise
         case '@'   => "#at#"
         case '$'   => "#dollar#"
-        case '-'   => "#dash#" //causes `` in scala code
+        case '-'   => "#" //causes `` in scala code
         case other => other.toString()
       }
       .split("[#/]")
+      //Some paths names that are probably superfluous and just cause noise.
+      .filter(!Set("src", "dist", "bin").contains(_))
       .filterNot(_.isEmpty)
       .zipWithIndex
       .map[String, Array[String]] {
