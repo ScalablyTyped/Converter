@@ -21,10 +21,27 @@ class GenCompanions(memberToParam: MemberToParam, params: Params) extends TreeTr
 
       container.withMembers(container.members.flatMap {
         case cls: ClassTree if cls.classType === ClassType.Trait && cls.isScalaJsDefined && !nameConflict(cls.name) =>
-          List(cls) ++ generateModule(scope, cls)
+          List(cls) ++ generateModule(scope, cls).filter(ensureNotTooManyStrings)
         case other => List(other)
       })
     }
+
+  /**
+    * Avoid errors like this
+    * [E] [E-1] Error while emitting typingsJapgolly/csstype/csstypeMod/StandardLonghandPropertiesHyphenFallback$
+    * [E]       UTF8 string too large
+    */
+  def ensureNotTooManyStrings(mod: ModuleTree): Boolean = {
+    val MaxWeight = 32768 // an estimate. If you see the error again, decrease this
+
+    var stringLength = 0
+    TreeTraverse.foreach(mod) {
+      case QualifiedName(parts) => parts.foreach(p => stringLength += p.unescaped.length)
+      case _                    => ()
+    }
+
+    stringLength < MaxWeight
+  }
 
   def generateModule(scope: TreeScope, cls: ClassTree): Option[ModuleTree] =
     params.forClassTree(cls, scope, memberToParam, Params.MaxParamsForMethod) match {
