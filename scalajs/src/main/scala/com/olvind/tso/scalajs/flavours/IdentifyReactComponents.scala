@@ -68,7 +68,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
           }
       }
 
-    val (method, targs) = inlineBounds(scope, _method)
+    val (method, _)     = inlineBounds(scope, _method)
     val flattenedParams = method.params.flatten
 
     flattenedParams.length match {
@@ -119,18 +119,26 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
   /* support a somewhat rare pattern `class C<Props extends CProps> extends React.Component<Props>`.  */
   object inlineBounds {
+    val Ignored = Set(TypeRef.Object)
+
+    def emptyBound(ob: TypeParamTree) =
+      ob.upperBound match {
+        case Some(bound) => Ignored(bound)
+        case None        => true
+      }
+
     def apply(scope: TreeScope, x: MethodTree): (MethodTree, Seq[TypeRef]) =
-      if (x.tparams.forall(_.upperBound.isEmpty)) (x, TypeParamTree.asTypeArgs(x.tparams))
+      if (x.tparams.forall(emptyBound)) (x, TypeParamTree.asTypeArgs(x.tparams))
       else {
-        val fillOriginal = x.tparams.map(tp => tp.upperBound.getOrElse(TypeRef(tp.name)))
-        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(_.upperBound.isEmpty)), fillOriginal)
+        val fillOriginal = x.tparams.map(tp => tp.upperBound.filterNot(Ignored).getOrElse(TypeRef(tp.name)))
+        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(emptyBound)), fillOriginal)
       }
 
     def apply(scope: TreeScope, x: ClassTree): (ClassTree, Seq[TypeRef]) =
-      if (x.tparams.forall(_.upperBound.isEmpty)) (x, TypeParamTree.asTypeArgs(x.tparams))
+      if (x.tparams.forall(emptyBound)) (x, TypeParamTree.asTypeArgs(x.tparams))
       else {
-        val fillOriginal = x.tparams.map(tp => tp.upperBound.getOrElse(TypeRef(tp.name)))
-        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(_.upperBound.isEmpty)), fillOriginal)
+        val fillOriginal = x.tparams.map(tp => tp.upperBound.filterNot(Ignored).getOrElse(TypeRef(tp.name)))
+        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(emptyBound)), fillOriginal)
       }
   }
 
