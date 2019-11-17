@@ -80,7 +80,6 @@ object LibrarySpecific {
     override val libName: TsIdentLibrary = TsIdentLibrarySimple("semantic-ui-react")
     val stdLib                 = TsQIdent(List(TsIdent.std))
     val reactMod               = TsQIdent(react.libName :: TsIdentModule(None, List("react")) :: Nil)
-    val HTMLAttributes         = reactMod + TsIdent("HTMLAttributes")
     val AllHTMLAttributes      = reactMod + TsIdent("AllHTMLAttributes")
     val InputHTMLAttributes    = reactMod + TsIdent("InputHTMLAttributes")
     val HTMLInputElement       = stdLib + TsIdent("HTMLInputElement")
@@ -92,8 +91,6 @@ object LibrarySpecific {
     val HTMLButtonElement      = stdLib + TsIdent("HTMLButtonElement")
     val TdHTMLAttributes       = reactMod + TsIdent("TdHTMLAttributes")
     val HTMLTableCellElement   = stdLib + TsIdent("HTMLTableCellElement")
-//    val TrHTMLAttributes       = reactMod + TsIdent("TrHTMLAttributes")
-    val HTMLTableRowElement = stdLib + TsIdent("HTMLTableRowElement")
 
     def event(name: TsQIdent, of: TsQIdent) =
       TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))
@@ -105,7 +102,6 @@ object LibrarySpecific {
       TsIdentSimple("StrictFormProps") -> event(FormHTMLAttributes, HTMLFormElement),
       TsIdentSimple("StrictButtonProps") -> event(ButtonHTMLAttributes, HTMLButtonElement),
       TsIdentSimple("StrictTableCellProps") -> event(TdHTMLAttributes, HTMLTableCellElement),
-      TsIdentSimple("StrictTableRowProps") -> event(HTMLAttributes, HTMLTableRowElement),
     )
     val removeIndex = Set[TsIdent](
       TsIdentSimple("InputProps"),
@@ -113,7 +109,6 @@ object LibrarySpecific {
       TsIdentSimple("FormProps"),
       TsIdentSimple("ButtonProps"),
       TsIdentSimple("TableCellProps"),
-      TsIdentSimple("TableRowProps"),
     )
 
     override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =

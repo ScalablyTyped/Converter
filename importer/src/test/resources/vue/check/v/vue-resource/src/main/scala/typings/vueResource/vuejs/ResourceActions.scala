@@ -24,7 +24,7 @@ object ResourceActions {
     save: Anon_Method,
     update: Anon_Method
   ): ResourceActions = {
-    val __obj = js.Dynamic.literal(delete = delete, get = get, query = query, remove = remove, save = save, update = update)
+    val __obj = js.Dynamic.literal(delete = delete.asInstanceOf[js.Any], get = get.asInstanceOf[js.Any], query = query.asInstanceOf[js.Any], remove = remove.asInstanceOf[js.Any], save = save.asInstanceOf[js.Any], update = update.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[ResourceActions]
   }

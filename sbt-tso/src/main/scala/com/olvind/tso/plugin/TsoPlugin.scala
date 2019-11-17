@@ -1,7 +1,9 @@
 package com.olvind.tso
 package plugin
 
+import _root_.io.circe
 import com.olvind.logging.LogLevel
+import com.olvind.tso.importer.Json
 import com.olvind.tso.ts.TsIdentLibrary
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import sbt.Keys._
@@ -13,12 +15,12 @@ object TsoPlugin extends AutoPlugin {
   object autoImport {
     type Selection[T] = com.olvind.tso.plugin.Selection[T]
     val Selection = com.olvind.tso.plugin.Selection
-    type ReactBinding = com.olvind.tso.plugin.ReactBinding
-    val ReactBinding = com.olvind.tso.plugin.ReactBinding
+    type Flavour = com.olvind.tso.plugin.Flavour
+    val Flavour = com.olvind.tso.plugin.Flavour
 
-    val tsoImport       = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val tsoIgnore       = settingKey[List[String]]("completely ignore libs")
-    val tsoReactBinding = settingKey[ReactBinding]("The type of react binding to use")
+    val tsoImport  = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+    val tsoIgnore  = settingKey[List[String]]("completely ignore libs")
+    val tsoFlavour = settingKey[Flavour]("The type of react binding to use")
 
     /**
       *
@@ -92,21 +94,29 @@ object TsoPlugin extends AutoPlugin {
 
   override def trigger = allRequirements
 
+  implicit val FileEncoder: circe.Encoder[sbt.File] = circe.Encoder[String].contramap[File](_.toString)
+  implicit val FileDecoder: circe.Decoder[sbt.File] = circe.Decoder[String].map[File](file)
+
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
     import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
+    import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
+
     val outsideConfig = Seq(
       libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
       scalacOptions ++= {
+        val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
+
         val old = scalacOptions.value
-        if (old.contains("-P:scalajs:sjsDefinedByDefault")) Nil else Seq("-P:scalajs:sjsDefinedByDefault")
+        if (old.contains("-P:scalajs:sjsDefinedByDefault") || isScalaJs1) Nil
+        else Seq("-P:scalajs:sjsDefinedByDefault")
       },
     )
     inConfig(Compile)(baseTSOImportSettings) ++ outsideConfig
   }
 
   lazy val baseTSOImportSettings: Seq[Def.Setting[_]] = {
-    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
     import autoImport._
+    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
     Seq(
       //Make sure we always include the stdlib
@@ -116,40 +126,52 @@ object TsoPlugin extends AutoPlugin {
           .find(_._1 == "typescript")
           .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
       },
-      tsoReactBinding := com.olvind.tso.plugin.ReactBinding.Native,
+      tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
       tsoTypescriptVersion := "3.6.3",
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),
-      tsoMinimize := com.olvind.tso.plugin.Selection.All(),
+      tsoMinimize := com.olvind.tso.plugin.Selection.None(),
       tsoImport := {
-        val reactBinding = tsoReactBinding.value
-        val tsoLogger    = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        val packageJson  = (crossTarget in npmUpdate).value / "package.json"
-        val nodeModules  = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
-        val stdLib       = tsoStdlib.value
-        val targetFolder = os.Path((sourceManaged in Compile).value / "tso")
-        val npmDeps      = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
-        val ignored      = tsoIgnore.value.to[Set]
-        val minimize     = tsoMinimize.value.map(TsIdentLibrary.apply)
-        val cachedFunction = FileFunction.cached(streams.value.cacheDirectory / "tso")(
-          _ =>
-            ImportTypings(
-              npmDeps.to[Seq],
-              nodeModules,
-              targetFolder,
-              tsoLogger,
-              reactBinding,
-              stdLib,
-              ignored.map(TsIdentLibrary.apply),
-              minimize,
-            ) match {
-              case Right(files) => files
-              case Left(errors) =>
-                errors foreach System.err.println
-                Set.empty
-            },
+        val cacheDirectory = streams.value.cacheDirectory
+        val flavour        = tsoFlavour.value
+        val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val packageJson    = (crossTarget in npmUpdate).value / "package.json"
+        val nodeModules    = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
+        val stdLib         = tsoStdlib.value
+        val targetFolder   = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps        = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
+        val ignored        = tsoIgnore.value.to[Set]
+        val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+
+        val config = ImportTypings.Input(
+          os.read(os.Path(packageJson)).hashCode,
+          npmDeps.to[Seq],
+          nodeModules,
+          targetFolder,
+          flavour,
+          stdLib,
+          ignored.map(TsIdentLibrary.apply),
+          minimize,
         )
-        cachedFunction(Set(packageJson)).to[Seq]
+
+        val inputPath  = os.Path(cacheDirectory / "tso" / "input.json")
+        val outputPath = os.Path(cacheDirectory / "tso" / "output.json")
+
+        (Json.opt[ImportTypings.Input](inputPath), Json.opt[Seq[File]](outputPath)) match {
+          case (Some(`config`), Some(output)) =>
+            tsoLogger.warn("Nothing to do")
+            output
+          case _ =>
+            ImportTypings(config, tsoLogger) match {
+              case Right(files) =>
+                val seqFiles = files.to[Seq]
+                Json.persist(inputPath)(config)
+                Json.persist(outputPath)(seqFiles)
+                seqFiles
+              case Left(errors) =>
+                sys.error(errors.mkString("\n"))
+            }
+        }
       },
       sourceGenerators in Compile += tsoImport.taskValue,
     )

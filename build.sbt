@@ -7,11 +7,11 @@ val baseSettings: Project => Project =
     version := "0.1-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
-      Set("-Ywarn-unused:imports", "-Xfatal-warnings")
+      Set("-Ywarn-unused:imports", "-Xfatal-warnings"),
     )),
     /* disable scaladoc */
-    sources in (Compile,doc) := Seq.empty,
-    publishArtifact in (Compile, packageDoc) := false
+    sources in (Compile, doc) := Seq.empty,
+    publishArtifact in (Compile, packageDoc) := false,
   )
 
 val utils = project
@@ -45,13 +45,13 @@ val importer = project
   .settings(
     buildInfoPackage := "com.olvind.tso",
     buildInfoKeys := Seq[BuildInfoKey](
-      "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim
+      "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
     ),
     libraryDependencies ++= Seq(
       Deps.bloop,
       Deps.bintry,
       Deps.asyncHttpClient,
-      Deps.scalatest % Test
+      Deps.scalatest % Test,
     ),
     fork in run := true,
     javaOptions in run += "-Xmx12G",
@@ -61,16 +61,28 @@ val importer = project
 //    testOptions in Test += Tests.Argument("-P4")
   )
 
+val pluginSettings: Project => Project =
+  _.dependsOn(`importer-portable`)
+    .enablePlugins(ScriptedPlugin)
+    .settings(
+      sbtPlugin := true,
+      // set up 'scripted; sbt plugin for testing sbt plugins
+      scriptedBufferLog := false,
+      scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
+      watchSources ++= { (sourceDirectory.value ** "*").get },
+    )
+
 val `sbt-tso` = project
-  .dependsOn(`importer-portable`)
-  .enablePlugins(ScriptedPlugin)
-  .configure(baseSettings)
+  .configure(pluginSettings, baseSettings)
   .settings(
-    sbtPlugin := true,
     name := "sbt-tso",
-    // set up 'scripted; sbt plugin for testing sbt plugins
-    scriptedBufferLog := false,
-    scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
-    watchSources       ++= { (sourceDirectory.value ** "*").get },
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6")
-)
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6"),
+  )
+
+//val `sbt-tso1` = project
+//  .configure(pluginSettings, baseSettings)
+//  .settings(
+//    name := "sbt-tso1",
+//    Compile / unmanagedSourceDirectories += (`sbt-tso` / Compile / sourceDirectory).value,
+//    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0"),
+//  )

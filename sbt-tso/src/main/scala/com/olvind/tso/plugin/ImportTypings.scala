@@ -8,6 +8,7 @@ import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer, QualifiedName}
 import com.olvind.tso.ts._
+import io.circe.{Decoder, Encoder}
 import sbt.File
 
 import scala.collection.immutable.SortedMap
@@ -15,16 +16,26 @@ import scala.collection.immutable.SortedMap
 object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
-  def apply(
+  case class Input(
+      packageJsonHash: Int,
       npmDependencies: Seq[(String, String)],
       fromFolder:      InFolder,
       targetFolder:    os.Path,
-      logger:          Logger[Unit],
-      reactBinding:    ReactBinding,
+      chosenFlavour:   Flavour,
       libs:            List[String],
       ignore:          Set[TsIdentLibrary],
       minimize:        Selection[TsIdentLibrary],
-  ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+  )
+
+  object Input {
+    import io.circe.generic.auto._
+    import jsonCodecs._
+    implicit val ConfigEncoder: Encoder[Input] = exportEncoder[Input].instance
+    implicit val ConfigDecoder: Decoder[Input] = exportDecoder[Input].instance
+  }
+
+  def apply(config: Input, logger: Logger[Unit]): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+    import config._
 
     val stdLibSource: Source = {
       val folder = fromFolder.path / "typescript" / "lib"
@@ -35,15 +46,26 @@ object ImportTypings {
       )
     }
 
-    val binding = reactBinding match {
-      case ReactBinding.Native   => List(com.olvind.tso.scalajs.react.ReactBinding.native)
-      case ReactBinding.Slinky   => List(com.olvind.tso.scalajs.react.ReactBinding.slinky)
-      case ReactBinding.Japgolly => List(com.olvind.tso.scalajs.react.ReactBinding.japgolly)
+    val flavour = chosenFlavour match {
+      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.plain
+      case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.reactFacade
+      case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.reactSlinky
+      case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.reactJapgolly
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
+    val parseCachePath = os.root / "tmp" / "tso-sbt-cache" / "parse"
+
+    val persistingParser: InFile => Either[String, TsParsedFile] = {
+      val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
+        case (file, bs) => parseCachePath / file.path.last / bs.hashCode.toString
+      }, logger) {
+        case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+      }
+      (inFile: InFile) => pf((inFile, os.read.bytes(inFile.path)))
+    }
     val Pipeline: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
@@ -52,11 +74,11 @@ object ImportTypings {
           ignore,
           stdLibSource,
           pedantic = false,
-          parser.parseFile,
+          persistingParser,
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, binding), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, flavour), "scala.js")
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -121,14 +143,17 @@ object ImportTypings {
     val tsoCache = os.home / "tmp" / "tso-cache"
     println(
       ImportTypings(
-        List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
-        InFolder(tsoCache / "npm" / "node_modules"),
-        files.existing(tsoCache / 'work),
+        Input(
+          0,
+          List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
+          InFolder(tsoCache / "npm" / "node_modules"),
+          files.existing(tsoCache / 'work),
+          Flavour.Slinky,
+          List("es5", "dom"),
+          Set(TsIdentLibrary("typescript")),
+          minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
+        ),
         stdout.filter(LogLevel.warn),
-        ReactBinding.Slinky,
-        List("es5", "dom"),
-        Set(TsIdentLibrary("typescript")),
-        minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
       ).map(_.size),
     )
   }

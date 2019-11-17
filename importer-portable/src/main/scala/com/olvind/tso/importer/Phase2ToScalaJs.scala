@@ -5,10 +5,10 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.scalajs.react.{Component, IdentifyReactComponents, ReactBinding}
+import com.olvind.tso.scalajs.flavours.{Flavour, GenCompanions}
 import com.olvind.tso.scalajs.transforms.Adapter
 import com.olvind.tso.scalajs.{PackageTree, TreeScope, transforms => S}
-import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsTreeTraverse}
+import com.olvind.tso.ts.{TsIdentLibrary, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
 
@@ -16,8 +16,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, reactBindings: List[ReactBinding])
-    extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -49,11 +48,6 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBindings: List[ReactBinding])
 
             logger.warn(s"Processing ${lib.name.value}")
 
-            val involvesReact: Boolean = {
-              val react = TsIdentLibrarySimple("react")
-              source.libName === react || scalaDeps.exists(_._1.libName === react)
-            }
-
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
               S.RemoveDuplicateInheritance >>
@@ -64,20 +58,17 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBindings: List[ReactBinding])
               Adapter(scope)((tree, s) => S.FakeLiterals(s)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
-              S.Companions >>
-                S.RemoveMultipleInheritance visitPackageTree scope,
+              S.RemoveMultipleInheritance visitPackageTree scope,
               S.CombineOverloads visitPackageTree scope, //must have stable types, so FakeLiterals run before
               S.FilterMemberOverrides visitPackageTree scope, //
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
+              /* this last transformation "breaks" the tree, in that we can no longer resolve all `TypeRef`s */
               tree => {
-                if (involvesReact && reactBindings.nonEmpty) {
-                  val components: Seq[Component] =
-                    IdentifyReactComponents.oneOfEach(scope / tree, tree)
-
-                  reactBindings.foldLeft(tree) { case (t, rb) => rb.generateReactComponents(scope, t, components) }
-                } else tree,
+                val withCompanions =
+                  flavour.memberToParamOpt.fold(tree)(m2p => new GenCompanions(m2p).visitPackageTree(scope)(tree))
+                flavour.rewrittenTree(scope, withCompanions)
               },
             )
 

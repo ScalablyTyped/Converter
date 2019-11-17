@@ -33,15 +33,15 @@ object HttpOptions {
   ): HttpOptions = {
     val __obj = js.Dynamic.literal()
     if (before != null) __obj.updateDynamic("before")(js.Any.fromFunction1(before))
-    if (body != null) __obj.updateDynamic("body")(body)
-    if (!js.isUndefined(credentials)) __obj.updateDynamic("credentials")(credentials)
-    if (!js.isUndefined(emulateHTTP)) __obj.updateDynamic("emulateHTTP")(emulateHTTP)
-    if (!js.isUndefined(emulateJSON)) __obj.updateDynamic("emulateJSON")(emulateJSON)
-    if (headers != null) __obj.updateDynamic("headers")(headers)
-    if (method != null) __obj.updateDynamic("method")(method)
-    if (params != null) __obj.updateDynamic("params")(params)
+    if (body != null) __obj.updateDynamic("body")(body.asInstanceOf[js.Any])
+    if (!js.isUndefined(credentials)) __obj.updateDynamic("credentials")(credentials.asInstanceOf[js.Any])
+    if (!js.isUndefined(emulateHTTP)) __obj.updateDynamic("emulateHTTP")(emulateHTTP.asInstanceOf[js.Any])
+    if (!js.isUndefined(emulateJSON)) __obj.updateDynamic("emulateJSON")(emulateJSON.asInstanceOf[js.Any])
+    if (headers != null) __obj.updateDynamic("headers")(headers.asInstanceOf[js.Any])
+    if (method != null) __obj.updateDynamic("method")(method.asInstanceOf[js.Any])
+    if (params != null) __obj.updateDynamic("params")(params.asInstanceOf[js.Any])
     if (progress != null) __obj.updateDynamic("progress")(js.Any.fromFunction1(progress))
-    if (url != null) __obj.updateDynamic("url")(url)
+    if (url != null) __obj.updateDynamic("url")(url.asInstanceOf[js.Any])
     __obj.asInstanceOf[HttpOptions]
   }
 }

@@ -1,13 +1,11 @@
 organization := "org.scalablytyped"
 name := "react-select"
-version := "0.0-unknown-bd08b0"
+version := "0.0-unknown-763cbe"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
-  "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "me.shadaj" %%% "slinky-web" % "0.6.2",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-96cec3",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-b7424e",
   "org.scalablytyped" %%% "std" % "0.0-unknown-04969c")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

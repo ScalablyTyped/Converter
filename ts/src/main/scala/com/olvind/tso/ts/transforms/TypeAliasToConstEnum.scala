@@ -8,7 +8,8 @@ import com.olvind.tso.seqs._
 object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
   override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
     x match {
-      case TsDeclTypeAlias(comments, declared, name, Nil, _, codePath) =>
+      case TsDeclTypeAlias(comments, declared, name, Nil, _, codePath)
+          if scope.surroundingTsContainer.fold(false)(_.membersByName(name).length === 1) =>
         extractOnlyLiterals(scope, x) match {
           case Some(allLits) =>
             val members = allLits.map(

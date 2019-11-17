@@ -11,7 +11,7 @@ trait MainInterface extends CommonInterface {
 object MainInterface {
   @scala.inline
   def apply(app: App): MainInterface = {
-    val __obj = js.Dynamic.literal(app = app)
+    val __obj = js.Dynamic.literal(app = app.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[MainInterface]
   }

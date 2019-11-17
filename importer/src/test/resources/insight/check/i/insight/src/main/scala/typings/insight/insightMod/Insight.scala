@@ -15,7 +15,7 @@ trait Insight extends js.Object {
 object Insight {
   @scala.inline
   def apply(clientId: String, config: IConfigstore, optOut: Boolean, track: /* repeated */ String => Unit): Insight = {
-    val __obj = js.Dynamic.literal(clientId = clientId, config = config, optOut = optOut, track = js.Any.fromFunction1(track))
+    val __obj = js.Dynamic.literal(clientId = clientId.asInstanceOf[js.Any], config = config.asInstanceOf[js.Any], optOut = optOut.asInstanceOf[js.Any], track = js.Any.fromFunction1(track))
   
     __obj.asInstanceOf[Insight]
   }

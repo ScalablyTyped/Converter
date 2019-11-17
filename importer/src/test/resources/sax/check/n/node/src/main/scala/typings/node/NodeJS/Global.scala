@@ -13,7 +13,7 @@ trait Global extends js.Object {
 object Global {
   @scala.inline
   def apply(Array: ArrayConstrucor, global: Global): Global = {
-    val __obj = js.Dynamic.literal(Array = Array, global = global)
+    val __obj = js.Dynamic.literal(Array = Array.asInstanceOf[js.Any], global = global.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[Global]
   }

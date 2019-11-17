@@ -14,7 +14,7 @@ trait WithTheme extends js.Object {
 object WithTheme {
   @scala.inline
   def apply(theme: String, innerRef: Ref[_] | RefObject[_] = null): WithTheme = {
-    val __obj = js.Dynamic.literal(theme = theme)
+    val __obj = js.Dynamic.literal(theme = theme.asInstanceOf[js.Any])
     if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
     __obj.asInstanceOf[WithTheme]
   }

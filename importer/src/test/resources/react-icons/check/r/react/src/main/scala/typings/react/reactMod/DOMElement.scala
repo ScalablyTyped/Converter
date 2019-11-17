@@ -15,8 +15,8 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 object DOMElement {
   @scala.inline
   def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, ref: Ref[T], `type`: String, key: Key = null): DOMElement[P, T] = {
-    val __obj = js.Dynamic.literal(props = props, ref = ref.asInstanceOf[js.Any])
-    __obj.updateDynamic("type")(`type`)
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     __obj.asInstanceOf[DOMElement[P, T]]
   }

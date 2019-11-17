@@ -11,9 +11,10 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.scalajs.react.ReactBinding
+import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
+import com.olvind.tso.scalajs.flavours.Flavour
 import com.olvind.tso.sets.SetOps
-import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple}
+import com.olvind.tso.ts.TsIdentLibrary
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
@@ -34,7 +35,7 @@ class Phase3Compile(
     publishFolder:   os.Path,
     metadataFetcher: Npmjs.Fetcher,
     softWrites:      Boolean,
-    reactBindings:   List[ReactBinding],
+    flavour:         Flavour,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -116,7 +117,7 @@ class Phase3Compile(
             go(
               logger             = logger,
               deps               = deps,
-              externalDeps       = buildJson.dependencies,
+              externalDeps       = buildJson.dependencies ++ flavour.dependencies,
               source             = source,
               name               = source.libName.value,
               sbtLayout          = sbtLayout,
@@ -137,20 +138,22 @@ class Phase3Compile(
               pedantic      = false,
             )
 
-            val scalaFiles    = Printer(scope, lib.packageTree)
+            /** We must do this as late as this.
+              *  Dependent libraries need to resolve all their types in complete typescript-land,
+              *  and only before we compile do we do the rewrites. */
+            val withRewrittenTypes =
+              flavour.conversions match {
+                case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(lib.packageTree)
+                case _                 => lib.packageTree
+              }
+
+            val scalaFiles    = Printer(scope, withRewrittenTypes)
             val sourcesDir    = os.RelPath("src") / 'main / 'scala
             val resourcesDir  = os.RelPath("src") / 'main / 'resources
             val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
             val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
             val resources     = ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
-
-            val involvesReact = {
-              val react = TsIdentLibrarySimple("react")
-              source.libName === react || deps.exists { case (s, _) => s.libName === react }
-            }
-
-            val externalDeps: Set[Dep] =
-              if (involvesReact) reactBindings.flatMap(_.dependencies).to[Set] else Set()
+            val externalDeps  = flavour.dependencies
 
             val sbtLayout = ContentSbtProject(
               v               = versions,

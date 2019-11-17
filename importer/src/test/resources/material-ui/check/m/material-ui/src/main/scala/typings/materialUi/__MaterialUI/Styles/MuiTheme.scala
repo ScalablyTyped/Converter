@@ -12,7 +12,7 @@ object MuiTheme {
   @scala.inline
   def apply(spacing: js.Any = null): MuiTheme = {
     val __obj = js.Dynamic.literal()
-    if (spacing != null) __obj.updateDynamic("spacing")(spacing)
+    if (spacing != null) __obj.updateDynamic("spacing")(spacing.asInstanceOf[js.Any])
     __obj.asInstanceOf[MuiTheme]
   }
 }

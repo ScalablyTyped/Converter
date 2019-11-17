@@ -28,7 +28,7 @@ object HttpResponse {
     statusText: String,
     text: () => String
   ): HttpResponse = {
-    val __obj = js.Dynamic.literal(blob = js.Any.fromFunction0(blob), data = data, headers = headers, json = js.Any.fromFunction0(json), ok = ok, status = status, statusText = statusText, text = js.Any.fromFunction0(text))
+    val __obj = js.Dynamic.literal(blob = js.Any.fromFunction0(blob), data = data.asInstanceOf[js.Any], headers = headers.asInstanceOf[js.Any], json = js.Any.fromFunction0(json), ok = ok.asInstanceOf[js.Any], status = status.asInstanceOf[js.Any], statusText = statusText.asInstanceOf[js.Any], text = js.Any.fromFunction0(text))
   
     __obj.asInstanceOf[HttpResponse]
   }

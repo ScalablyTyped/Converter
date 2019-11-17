@@ -39,20 +39,20 @@ object ButtonGroupProps {
     ref: Ref[ButtonGroup] = null,
     vertical: js.UndefOr[Boolean] = js.undefined
   ): ButtonGroupProps = {
-    val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
-    __obj.updateDynamic("type")(`type`)
-    if (accept != null) __obj.updateDynamic("accept")(accept)
-    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
-    if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
-    if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize)
-    if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle)
+    val __obj = js.Dynamic.literal(defaultValue = defaultValue.asInstanceOf[js.Any], onChange = onChange.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+    if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
+    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset.asInstanceOf[js.Any])
+    if (!js.isUndefined(block)) __obj.updateDynamic("block")(block.asInstanceOf[js.Any])
+    if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize.asInstanceOf[js.Any])
+    if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle.asInstanceOf[js.Any])
     if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
-    if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
-    if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
+    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
+    if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
+    if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified.asInstanceOf[js.Any])
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
-    if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
+    if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
     __obj.asInstanceOf[ButtonGroupProps]
   }
 }

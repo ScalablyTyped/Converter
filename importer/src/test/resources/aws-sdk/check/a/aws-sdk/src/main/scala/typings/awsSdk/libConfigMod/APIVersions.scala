@@ -22,7 +22,7 @@ object APIVersions {
   def apply(apiVersion: latest | String = null, apiVersions: ConfigurationServiceApiVersions = null): APIVersions = {
     val __obj = js.Dynamic.literal()
     if (apiVersion != null) __obj.updateDynamic("apiVersion")(apiVersion.asInstanceOf[js.Any])
-    if (apiVersions != null) __obj.updateDynamic("apiVersions")(apiVersions)
+    if (apiVersions != null) __obj.updateDynamic("apiVersions")(apiVersions.asInstanceOf[js.Any])
     __obj.asInstanceOf[APIVersions]
   }
 }

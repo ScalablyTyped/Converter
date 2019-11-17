@@ -13,8 +13,8 @@ object CommandOptions {
   @scala.inline
   def apply(isDefault: js.UndefOr[Boolean] = js.undefined, noHelp: js.UndefOr[Boolean] = js.undefined): CommandOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(isDefault)) __obj.updateDynamic("isDefault")(isDefault)
-    if (!js.isUndefined(noHelp)) __obj.updateDynamic("noHelp")(noHelp)
+    if (!js.isUndefined(isDefault)) __obj.updateDynamic("isDefault")(isDefault.asInstanceOf[js.Any])
+    if (!js.isUndefined(noHelp)) __obj.updateDynamic("noHelp")(noHelp.asInstanceOf[js.Any])
     __obj.asInstanceOf[CommandOptions]
   }
 }

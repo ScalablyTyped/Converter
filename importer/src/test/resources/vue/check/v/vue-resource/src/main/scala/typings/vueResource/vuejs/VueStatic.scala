@@ -12,7 +12,7 @@ trait VueStatic extends js.Object {
 object VueStatic {
   @scala.inline
   def apply(http: Http, resource: Resource): VueStatic = {
-    val __obj = js.Dynamic.literal(http = http, resource = resource)
+    val __obj = js.Dynamic.literal(http = http.asInstanceOf[js.Any], resource = resource.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[VueStatic]
   }
