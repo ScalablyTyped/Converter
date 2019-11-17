@@ -61,7 +61,8 @@ trait ImporterHarness extends FunSuiteLike {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic, flavour), "scala.js")
+        .next(new Phase2ToScalaJs(pedantic, flavour.outputPkg), "scala.js")
+        .next(new PhaseFlavour(flavour), flavour.toString)
         .next(
           new Phase3Compile(
             resolve         = resolve,
