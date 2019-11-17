@@ -9,7 +9,7 @@ package object std {
 
   type Element = Node
   type HTMLElement = Node
-  type Readonly[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
+  type Readonly[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {readonly [ P in keyof T ]: T[P]}
     */ typings.std.stdStrings.Readonly with T
   type Record[K /* <: String */, T] = StringDictionary[K]

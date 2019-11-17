@@ -91,6 +91,7 @@ object ImportTypings {
       case PhaseRes.Ok(Phase2Res.Unpack(libs: SortedMap[TsLibSource, Phase2Res.LibScalaJs], _)) =>
         /* global because it includes all translated libraries */
         val globalScope = new scalajs.TreeScope.Root(
+          flavour.outputPkg,
           scalajs.Name.dummy,
           libs.map { case (_, l) => (l.scalaName, l.packageTree) },
           logger,

@@ -6,7 +6,7 @@ import com.olvind.tso.seqs._
 
 import scala.collection.mutable
 
-object IdentifyReactComponents {
+class IdentifyReactComponents(reactNames: ReactNames) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
 
@@ -55,7 +55,7 @@ object IdentifyReactComponents {
 
   def maybeMethodComponent(_method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (current.typeName === QualifiedName.React.ReactElement) Some(current)
+      if (current.typeName === reactNames.ReactElement) Some(current)
       else if (scope.isAbstract(current)) None
       else {
         scope
@@ -136,7 +136,7 @@ object IdentifyReactComponents {
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (QualifiedName.React.isComponent(current.typeName)) {
+      if (reactNames.isComponent(current.typeName)) {
         Some(current)
       } else {
         scope
@@ -199,7 +199,7 @@ object IdentifyReactComponents {
     else {
       val (cls, targs) = inlineBounds(scope, _cls)
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, props +: _, _), _) if QualifiedName.React isComponent qname =>
+        case (TypeRef(qname, props +: _, _), _) if reactNames isComponent qname =>
           Component(
             scalaRef         = TypeRef(cls.codePath, targs, NoComments),
             fullName         = componentName(scope, owner.annotations, cls.codePath, cls.comments),

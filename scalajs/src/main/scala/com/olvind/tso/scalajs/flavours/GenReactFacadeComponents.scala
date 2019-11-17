@@ -2,7 +2,7 @@ package com.olvind.tso
 package scalajs
 package flavours
 
-object GenReactFacadeComponents {
+class GenReactFacadeComponents(reactNames: ReactNames) {
   /* Let's not torture the scala compiler too much, because there *will* be a revenge
    * in the form of difficult-to-diagnose autoslaying
    */
@@ -104,7 +104,7 @@ object GenReactFacadeComponents {
       case None     => comp.props getOrElse TypeRef.Object
     }
 
-    val retType = TypeRef(QualifiedName.React.ComponentType, List(shortenedProps), NoComments)
+    val retType = TypeRef(reactNames.ComponentType, List(shortenedProps), NoComments)
     MethodTree(
       annotations = Annotation.Inline :: Nil,
       level       = ProtectionLevel.Default,

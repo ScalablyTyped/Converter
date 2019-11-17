@@ -6,12 +6,13 @@ import scala.collection.mutable
 import scala.util.{Failure, Success, Try}
 
 object FakeLiterals {
-  def apply(scope: TreeScope)(s: ContainerTree): ContainerTree = LiteralRewriter(s, scope).output
-
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
   val LiteralTokenComment: Comments = new Comments(Nil)
 
-  private case class LiteralRewriter(_s: ContainerTree, scope: TreeScope) extends TreeTransformation {
+  def apply(outputPkg: Name, scope: TreeScope)(s: ContainerTree): ContainerTree =
+    LiteralRewriter(outputPkg, s, scope).output
+
+  private case class LiteralRewriter(outputPkg: Name, _s: ContainerTree, scope: TreeScope) extends TreeTransformation {
     val stringsByLowercase: Map[String, Seq[String]] =
       TreeTraverse
         .collect(_s) {
@@ -75,7 +76,7 @@ object FakeLiterals {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
           val name = Name(prettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
           collectedStrings(underlying) = name
-          TypeRef(QualifiedName(List(ScalaConfig.outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
 
         case TypeRef.Literal(underlying) =>
           val (newUnderlying, name) =
@@ -86,11 +87,7 @@ object FakeLiterals {
             }
 
           collectedNumbers(newUnderlying) = name
-          TypeRef(
-            QualifiedName(List(ScalaConfig.outputPkg, _s.name, NumbersModuleName, name)),
-            Nil,
-            LiteralTokenComment,
-          )
+          TypeRef(QualifiedName(List(outputPkg, _s.name, NumbersModuleName, name)), Nil, LiteralTokenComment)
         case other =>
           other
       }
@@ -107,8 +104,9 @@ object FakeLiterals {
     }
   }
 
-  def isTooBigForInt(strNum: String) = Try(java.lang.Long.decode(strNum)) match {
-    case Failure(_)     => false
-    case Success(value) => value > Int.MaxValue
-  }
+  def isTooBigForInt(strNum: String): Boolean =
+    Try(java.lang.Long.decode(strNum)) match {
+      case Failure(_)     => false
+      case Success(value) => value > Int.MaxValue
+    }
 }
