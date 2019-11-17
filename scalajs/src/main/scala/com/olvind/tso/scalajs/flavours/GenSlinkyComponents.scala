@@ -7,11 +7,8 @@ import com.olvind.tso.seqs._
 
 import scala.collection.mutable
 
-/**
-  * Generate a package with Slinky compatible react components
-  */
 object GenSlinkyComponents {
-
+  val slinkyName = Name("slinky")
   object names {
     val components   = Name("components")
     val Props        = Name("Props")
@@ -19,10 +16,9 @@ object GenSlinkyComponents {
     val RefType      = Name("RefType")
     val component    = Name("component")
     val ComponentRef = Name("ComponentRef")
-    val slinkyName   = Name("slinky")
 
     /* Fully qualified references to slinky types */
-    val slinky                      = QualifiedName(List(slinkyName))
+    val slinky                      = QualifiedName(List(GenSlinkyComponents.slinkyName))
     val slinkyCore                  = slinky + Name("core")
     val ReactComponentClass         = slinkyCore + Name("ReactComponentClass")
     val TagMod                      = slinkyCore + Name("TagMod")
@@ -39,42 +35,18 @@ object GenSlinkyComponents {
     val slinkyWebSvg                = slinkyWeb + Name("svg")
     val slinkyWebHtml               = slinkyWeb + Name("html")
 
-    val conversions: Seq[CastConversion] = {
-      import CastConversion.TParam._
-      CastConversion.All ++ Seq(
-        CastConversion(QualifiedName.React.ReactType, ReactComponentClass, _1),
-        CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
-        CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
-        CastConversion(QualifiedName.React.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
-        CastConversion(QualifiedName.React.RefObject, ReactRef, _1),
-//        CastConversion(QualifiedName.React.Component, rawReactComponent, _1, TypeRef.Object),
-//        CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1Object),
-        CastConversion(QualifiedName.React.ReactElement, ReactElement),
-        CastConversion(QualifiedName.React.DOMElement, ReactElement),
-        CastConversion(QualifiedName.React.ElementType, ReactElement),
-        CastConversion(QualifiedName.React.BaseSyntheticEvent, SyntheticEvent, _2, _1),
-//        CastConversion(QualifiedName.React.ChangeEvent, SyntheticEvent, _2, _1),
-//        CastConversion(QualifiedName.React.FormEvent, SyntheticEvent, _2, _1),
-//        CastConversion(QualifiedName.React.InvalidEvent, SyntheticEvent, _2, _1),
-        CastConversion(QualifiedName.React.SyntheticEvent, SyntheticEvent, _2, _1),
-        CastConversion(QualifiedName.React.AnimationEvent, slinkyWeb + Name("SyntheticAnimationEvent"), _1),
-        CastConversion(QualifiedName.React.ClipboardEvent, slinkyWeb + Name("SyntheticClipboardEvent"), _1),
-        CastConversion(QualifiedName.React.CompositionEvent, slinkyWeb + Name("SyntheticCompositionEvent"), _1),
-//        CastConversion(QualifiedName.React.DragEvent, slinkyWeb + Name("ReactDragEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.FocusEvent, slinkyWeb + Name("SyntheticFocusEvent"), _1),
-        CastConversion(QualifiedName.React.KeyboardEvent, slinkyWeb + Name("SyntheticKeyboardEvent"), _1),
-        CastConversion(QualifiedName.React.MouseEvent, slinkyWeb + Name("SyntheticMouseEvent"), _1),
-        CastConversion(QualifiedName.React.PointerEvent, slinkyWeb + Name("SyntheticPointerEvent"), _1),
-        CastConversion(QualifiedName.React.TouchEvent, slinkyWeb + Name("SyntheticTouchEvent"), _1),
-        CastConversion(QualifiedName.React.TransitionEvent, slinkyWeb + Name("SyntheticTransitionEvent"), _1),
-        CastConversion(QualifiedName.React.UIEvent, slinkyWeb + Name("SyntheticUIEvent"), _1),
-        CastConversion(QualifiedName.React.WheelEvent, slinkyWeb + Name("SyntheticWheelEvent"), _1),
-      ) ++ QualifiedName.React.isComponent.map(from => CastConversion(from, ReactComponentClass, _1))
-    }
-
-    private val ignoredNames = Set(Name("key"), Name("children"))
-    def shouldIgnore(paramTree: ParamTree) = ignoredNames(paramTree.name)
+    val ignoredNames = Set(Name("key"), Name("children"))
   }
+  def shouldIgnore(paramTree: ParamTree) = names.ignoredNames(paramTree.name)
+
+  def SlinkyElement(isSvg: Boolean, name: String): TypeRef =
+    TypeRef.Singleton(
+      TypeRef(
+        (if (isSvg) names.slinkyWebSvg else names.slinkyWebHtml) + Name(name) + Name("tag"),
+        Nil,
+        NoComments,
+      ),
+    )
 
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
   object classDefs {
@@ -119,22 +91,61 @@ object GenSlinkyComponents {
       ExternalComponentNoProps,
     )
   }
+}
 
-  def SlinkyElement(isSvg: Boolean, name: String): TypeRef =
-    TypeRef.Singleton(
-      TypeRef(
-        (if (isSvg) names.slinkyWebSvg else names.slinkyWebHtml) + Name(name) + Name("tag"),
-        Nil,
-        NoComments,
-      ),
-    )
+/**
+  * Generate a package with Slinky compatible react components
+  */
+class GenSlinkyComponents(
+    scalaJsDomNames: ScalaJsDomNames,
+    stdNames:        QualifiedName.StdNames,
+    reactNames:      ReactNames,
+    params:          Params,
+) {
+  import GenSlinkyComponents._
+
   def SlinkyHtmlElement(name: String): TypeRef = SlinkyElement(false, name)
   def SlinkySvgElement(name:  String): TypeRef = SlinkyElement(true, name)
 
   val AnyHtmlElement: TypeRef = SlinkyHtmlElement("*")
   val AnySvgElement:  TypeRef = SlinkySvgElement("*")
 
-  val ToSlinkyTypes = TypeRewriterCast(names.conversions)
+  val conversions: Seq[CastConversion] = {
+    import CastConversion.TParam._
+    import names._
+
+    scalaJsDomNames.All ++ Seq(
+      CastConversion(reactNames.ReactType, ReactComponentClass, _1),
+      CastConversion(reactNames.ComponentState, QualifiedName.Object),
+      CastConversion(reactNames.ReactDOM, QualifiedName.Any),
+      CastConversion(reactNames.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
+      CastConversion(reactNames.RefObject, ReactRef, _1),
+      //        CastConversion(reactNames.Component, rawReactComponent, _1, TypeRef.Object),
+      //        CastConversion(reactNames.ComponentClass, rawReactComponentClassP, _1Object),
+      CastConversion(reactNames.ReactElement, ReactElement),
+      CastConversion(reactNames.DOMElement, ReactElement),
+      CastConversion(reactNames.ElementType, ReactElement),
+      CastConversion(reactNames.BaseSyntheticEvent, SyntheticEvent, _2, _1),
+      //        CastConversion(reactNames.ChangeEvent, SyntheticEvent, _2, _1),
+      //        CastConversion(reactNames.FormEvent, SyntheticEvent, _2, _1),
+      //        CastConversion(reactNames.InvalidEvent, SyntheticEvent, _2, _1),
+      CastConversion(reactNames.SyntheticEvent, SyntheticEvent, _2, _1),
+      CastConversion(reactNames.AnimationEvent, slinkyWeb + Name("SyntheticAnimationEvent"), _1),
+      CastConversion(reactNames.ClipboardEvent, slinkyWeb + Name("SyntheticClipboardEvent"), _1),
+      CastConversion(reactNames.CompositionEvent, slinkyWeb + Name("SyntheticCompositionEvent"), _1),
+      //        CastConversion(reactNames.DragEvent, slinkyWeb + Name("ReactDragEventFrom"), _1Element),
+      CastConversion(reactNames.FocusEvent, slinkyWeb + Name("SyntheticFocusEvent"), _1),
+      CastConversion(reactNames.KeyboardEvent, slinkyWeb + Name("SyntheticKeyboardEvent"), _1),
+      CastConversion(reactNames.MouseEvent, slinkyWeb + Name("SyntheticMouseEvent"), _1),
+      CastConversion(reactNames.PointerEvent, slinkyWeb + Name("SyntheticPointerEvent"), _1),
+      CastConversion(reactNames.TouchEvent, slinkyWeb + Name("SyntheticTouchEvent"), _1),
+      CastConversion(reactNames.TransitionEvent, slinkyWeb + Name("SyntheticTransitionEvent"), _1),
+      CastConversion(reactNames.UIEvent, slinkyWeb + Name("SyntheticUIEvent"), _1),
+      CastConversion(reactNames.WheelEvent, slinkyWeb + Name("SyntheticWheelEvent"), _1),
+    ) ++ reactNames.isComponent.map(from => CastConversion(from, ReactComponentClass, _1))
+  }
+
+  val ToSlinkyTypes = TypeRewriterCast(conversions)
 
   val memberToParameter: MemberToParam =
     (scope, tree) => MemberToParam.Default(scope, ToSlinkyTypes.visitMemberTree(scope)(tree))
@@ -154,10 +165,10 @@ object GenSlinkyComponents {
 
   case class Props(ref: TypeRef, params: Seq[Param], domParams: Seq[FieldTree]) {
     val (refTypes, _, _optionals, requireds, Nil) = params.partitionCollect4(
-      { case Param(ParamTree(Name("ref"), _, tpe, _, _), _) => tpe },
-      { case Param(pt, _) if names.shouldIgnore(pt)         => () },
-      { case Param(p, Right(f))                             => p -> f },
-      { case Param(p, Left(str))                            => p -> str },
+      { case Param(ParamTree(Name("ref"), _, tpe, _, _), _)       => tpe },
+      { case Param(pt, _) if GenSlinkyComponents.shouldIgnore(pt) => () },
+      { case Param(p, Right(f))                                   => p -> f },
+      { case Param(p, Left(str))                                  => p -> str },
     )
     val optionals = _optionals ++ additionalOptionalParams
 
@@ -180,13 +191,13 @@ object GenSlinkyComponents {
           .fold(Map.empty[Name, TypeRef])(_.toMap)
           .filterKeys(SlinkyAttributes)
 
-      fieldsFor(scope, QualifiedName.React.AllHTMLAttributes) ++
-        fieldsFor(scope, QualifiedName.React.SVGAttributes)
+      fieldsFor(scope, reactNames.AllHTMLAttributes) ++
+        fieldsFor(scope, reactNames.SVGAttributes)
     }
 
     /* Every tree knows it's own location (called `CodePath`).
        It's used for a lot of things, so it's important to get right */
-    val pkgCp = tree.codePath + names.components
+    val pkgCp = tree.codePath + GenSlinkyComponents.names.components
 
     val generatedCode: Seq[Tree] =
       allComponents
@@ -206,11 +217,11 @@ object GenSlinkyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        Param
+                        params
                           .forClassTree(
                             FillInTParams(cls, newScope, dealiased.targs, tparams),
                             scope,
-                            Param.MaxParamsForMethod,
+                            Params.MaxParamsForMethod,
                           )
                           .flatMap {
                             case Left(param) => List(param)
@@ -247,7 +258,7 @@ object GenSlinkyComponents {
                 props.domParams
                   .firstDefined { f =>
                     val referencedElements = TreeTraverse.collect(f) {
-                      case TypeRef(QualifiedName(List(ScalaConfig.outputPkg, ScalaConfig.std, name)), Nil, _)
+                      case TypeRef(QualifiedName(List(reactNames.outputPkg, stdNames.stdName, name)), Nil, _)
                           if name.value.endsWith("Element") =>
                         name.value
                     }

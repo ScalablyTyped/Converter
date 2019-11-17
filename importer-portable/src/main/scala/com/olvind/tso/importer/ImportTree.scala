@@ -7,15 +7,15 @@ import com.olvind.tso.scalajs._
 import com.olvind.tso.scalajs.transforms.ContainerPolicy
 import com.olvind.tso.ts.{ParentsResolver, _}
 
-object ImportTree {
-  def apply(lib: LibTs, logger: Logger[Unit], importName: ImportName): PackageTree = {
+class ImportTree(importName: ImportName, importType: ImportType) {
+  def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
     val deps = UnpackLibs(lib.dependencies).map {
       case (source, depLib) => source -> depLib.parsed
     }
 
     val scope = TsTreeScope(lib.name, pedantic = true, deps, logger).caching / lib.parsed
 
-    val ret = ImportContainer(
+    val ret = container(
       importName,
       scope,
       lib.parsed.comments,
@@ -36,22 +36,22 @@ object ImportTree {
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath = QualifiedName(ScalaConfig.outputPkg :: libName :: name :: Nil),
+        codePath = QualifiedName(importName.outputPkg :: libName :: name :: Nil),
       )
     }
 
     val withRequire = ret.copy(members = ret.members :+ require)
 
-    PackageTree(Nil, ScalaConfig.outputPkg, List(withRequire), NoComments, QualifiedName(List(ScalaConfig.outputPkg)))
+    PackageTree(Nil, importName.outputPkg, List(withRequire), NoComments, QualifiedName(List(importName.outputPkg)))
   }
 
-  def decl(_scope: TsTreeScope, importName: ImportName)(t1: TsContainerOrDecl): Seq[Tree] = {
+  def decl(_scope: TsTreeScope)(t1: TsContainerOrDecl): Seq[Tree] = {
     val scope: TsTreeScope = _scope / t1
 
     t1 match {
       case TsDeclModule(cs, _, name, decls, codePath, jsLocation) =>
         Seq(
-          ImportContainer(
+          container(
             importName = importName,
             scope      = scope,
             cs         = cs,
@@ -64,7 +64,7 @@ object ImportTree {
 
       case TsAugmentedModule(name, decls, codePath, jsLocation) =>
         Seq(
-          ImportContainer(
+          container(
             importName = importName,
             scope      = scope,
             cs         = Comments(Comment("/* augmented module */\n")),
@@ -77,7 +77,7 @@ object ImportTree {
 
       case TsDeclNamespace(cs, _, name, decls, codePath, jsLocation) =>
         Seq(
-          ImportContainer(
+          container(
             importName = importName,
             scope      = scope,
             cs         = cs,
@@ -90,7 +90,7 @@ object ImportTree {
 
       case TsGlobal(cs, _, ms, codePath) =>
         Seq(
-          ImportContainer(
+          container(
             importName = importName,
             scope      = scope,
             cs         = cs,
@@ -113,7 +113,7 @@ object ImportTree {
         Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath))
 
       case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
-        val tpe = ImportType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
+        val tpe = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
 
         if (name === Name.Symbol) {
           Seq(
@@ -141,7 +141,7 @@ object ImportTree {
           )
 
       case e: TsDeclEnum =>
-        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName)
+        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType)
 
       case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)
@@ -149,7 +149,7 @@ object ImportTree {
           members flatMap tsMember(scope, scalaJsDefined = false, importName, newCodePath)
 
         val anns    = ImportJsLocation(location)
-        val parents = parent.to[Seq] ++ implements map ImportType(Wildcards.Prohibit, scope, importName)
+        val parents = parent.to[Seq] ++ implements map importType(Wildcards.Prohibit, scope, importName)
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassTree(
@@ -187,7 +187,7 @@ object ImportTree {
         val newCodePath    = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, Nil) =
           members flatMap tsMember(scope, scalaJsDefined, importName, newCodePath)
-        val parents = inheritance.map(ImportType(Wildcards.Prohibit, scope, importName))
+        val parents = inheritance.map(importType(Wildcards.Prohibit, scope, importName))
 
         Seq(
           ClassTree(
@@ -209,7 +209,7 @@ object ImportTree {
           TypeAliasTree(
             name     = name,
             tparams  = tparams map typeParam(scope, importName),
-            alias    = ImportType(Wildcards.Prohibit, scope, importName)(alias),
+            alias    = importType(Wildcards.Prohibit, scope, importName)(alias),
             comments = cs,
             codePath = importName(codePath),
           ),
@@ -299,7 +299,7 @@ object ImportTree {
           ),
         )
       case TsMemberCtor(cs, _, _sig) =>
-        Seq(MemberRet.Inheritance(ImportType.newableFunction(scope, importName, _sig, cs)))
+        Seq(MemberRet.Inheritance(importType.newableFunction(scope, importName, _sig, cs)))
 
       case TsMemberFunction(cs, level, TsIdent.constructor, sig, false, _, _) =>
         Seq(
@@ -329,8 +329,8 @@ object ImportTree {
       case m: TsMemberIndex =>
         m.indexing match {
           case IndexingDict(indexName, indexType) =>
-            val indexTpe = ImportType(Wildcards.No, scope, importName)(indexType)
-            val valueTpe = ImportType.orAny(Wildcards.No, scope, importName)(m.valueType)
+            val indexTpe = importType(Wildcards.No, scope, importName)(indexType)
+            val valueTpe = importType.orAny(Wildcards.No, scope, importName)(m.valueType)
 
             val rewritten: TypeRef =
               if (indexTpe === TypeRef.String)
@@ -372,7 +372,7 @@ object ImportTree {
                     FieldTree(
                       annotations = Seq(a),
                       name        = codeName,
-                      tpe         = ImportType.orAny(Wildcards.No, scope, importName)(m.valueType).withOptional(m.isOptional),
+                      tpe         = importType.orAny(Wildcards.No, scope, importName)(m.valueType).withOptional(m.isOptional),
                       impl        = fieldType,
                       isReadOnly  = m.isReadOnly,
                       isOverride  = false,
@@ -422,7 +422,7 @@ object ImportTree {
           )
 
       case (importName(name), tpeOpt: Option[TsType]) =>
-        val importedType = ImportType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
+        val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: MemberImpl =
           (scalaJsDefined, importedType) match {
             case (true, TypeRef.UndefOr(_)) => MemberImpl.Undefined
@@ -458,13 +458,13 @@ object ImportTree {
   def typeParam(scope: TsTreeScope, importName: ImportName)(tp: TsTypeParam): TypeParamTree =
     TypeParamTree(
       name       = importName(tp.name),
-      upperBound = tp.upperBound map ImportType(Wildcards.No, scope / tp, importName),
+      upperBound = tp.upperBound map importType(Wildcards.No, scope / tp, importName),
       comments   = tp.comments,
     )
 
   def tsFunParams(scope: TsTreeScope, importName: ImportName, params: Seq[TsFunParam]): Seq[ParamTree] =
     params map { param =>
-      val tpe       = ImportType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
+      val tpe       = importType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
       val undefType = tpe.withOptional(param.isOptional)
       ParamTree(importName(param.name), false, undefType, None, param.comments)
     }
@@ -487,7 +487,7 @@ object ImportTree {
 
     val resultType: TypeRef = (
       sig.resultType filter (_ =/= TsTypeRef.any)
-        map ImportType(Wildcards.No, scope, importName)
+        map importType(Wildcards.No, scope, importName)
         getOrElse TypeRef.Any
     )
 
@@ -521,4 +521,30 @@ object ImportTree {
 
   def annotationComment(jsLocation: JsLocation) =
     CommentData(ContainerPolicy.ClassAnnotations(ImportJsLocation(jsLocation)))
+
+  def container(
+      importName: ImportName,
+      scope:      TsTreeScope,
+      cs:         Comments,
+      name:       TsIdent,
+      jsLocation: JsLocation,
+      tsMembers:  Seq[TsContainerOrDecl],
+      codePath:   CodePath,
+  ): ModuleTree =
+    RewriteNamespaceMembers(tsMembers flatMap decl(scope)) match {
+      case (inheritance, memberTrees, restTrees) =>
+        val importedCp = importName(codePath)
+
+        setCodePath(
+          importedCp,
+          ModuleTree(
+            annotations = ImportJsLocation(jsLocation),
+            name        = importName(name),
+            parents     = inheritance,
+            members     = memberTrees ++ restTrees,
+            comments    = cs,
+            codePath    = importedCp,
+          ),
+        )
+    }
 }

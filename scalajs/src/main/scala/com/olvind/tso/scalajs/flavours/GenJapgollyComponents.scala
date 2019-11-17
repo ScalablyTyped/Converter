@@ -9,6 +9,7 @@ import com.olvind.tso.seqs._
   * Generate a package with japgolly's scalajs-react compatible react components
   */
 object GenJapgollyComponents {
+
   object names {
     val japgolly     = Name("japgolly")
     val components   = Name("components")
@@ -18,11 +19,11 @@ object GenJapgollyComponents {
     val component    = Name("__component")
     val ComponentRef = Name("ComponentRef")
 
-    //Add here anything else that you want ignored
-    private val ignoredNames = Set(key, children)
-
-    def shouldIgnore(paramTree: ParamTree) = ignoredNames(paramTree.name)
+    val ignoredNames = Set(key, children)
   }
+
+  def shouldIgnore(paramTree: ParamTree): Boolean =
+    names.ignoredNames(paramTree.name)
 
   object japgolly {
     val react:                           QualifiedName = QualifiedName("japgolly.scalajs.react")
@@ -66,57 +67,63 @@ object GenJapgollyComponents {
     val reactKey:                        QualifiedName = react + Name("Key")
 
     val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
-
-    /**
-      - If the method return value is Unit, then convert it to Callback
-      - If the method return value is TYPE, then convert it to Callback[Type]
-      */
-    def CallbackTo(ref: TypeRef): TypeRef =
-      ref match {
-        case TypeRef.Unit => TypeRef(japgolly.reactCallback)
-        case other        => TypeRef(japgolly.reactCallbackTo, List(other), NoComments)
-      }
-
-    val conversions: Seq[CastConversion] = {
-      import CastConversion.TParam._
-      val _1Element = _1.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
-      val _2Element = _2.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
-      val _1Object  = _1.among(Set.empty, QualifiedName.Object)
-
-      CastConversion.All ++ Seq(
-        CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
-        CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
-        CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
-        CastConversion(QualifiedName.React.ReactNode, rawReactNode),
-        CastConversion(QualifiedName.React.Ref, rawReactRef),
-        CastConversion(QualifiedName.React.RefObject, rawReactRefHandle, _1),
-        CastConversion(QualifiedName.React.Component, rawReactComponent, _1Object, TypeRef.Object),
-        CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1Object),
-        CastConversion(QualifiedName.React.ReactElement, rawReactElement),
-        CastConversion(QualifiedName.React.DOMElement, rawReactDOMElement),
-        CastConversion(QualifiedName.React.ElementType, rawReactElementType),
-        CastConversion(QualifiedName.React.BaseSyntheticEvent, reactReactEventFrom, _2Element),
-        CastConversion(QualifiedName.React.ChangeEvent, reactReactEventFrom, _1Element),
-        CastConversion(QualifiedName.React.FormEvent, reactReactEventFrom, _1Element),
-        CastConversion(QualifiedName.React.InvalidEvent, reactReactEventFrom, _1Element),
-        CastConversion(QualifiedName.React.SyntheticEvent, reactReactEventFrom, _1Element),
-        CastConversion(QualifiedName.React.AnimationEvent, react + Name("ReactAnimationEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.ClipboardEvent, react + Name("ReactClipboardEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.CompositionEvent, react + Name("ReactCompositionEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.DragEvent, react + Name("ReactDragEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.FocusEvent, react + Name("ReactFocusEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.MouseEvent, react + Name("ReactMouseEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.PointerEvent, react + Name("ReactPointerEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.TouchEvent, react + Name("ReactTouchEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.TransitionEvent, react + Name("ReactTransitionEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.UIEvent, react + Name("ReactUIEventFrom"), _1Element),
-        CastConversion(QualifiedName.React.WheelEvent, react + Name("ReactWheelEventFrom"), _1Element),
-      )
-    }
   }
 
-  val ToJapgollyTypes = TypeRewriterCast(japgolly.conversions)
+  /**
+    *- If the method return value is Unit, then convert it to Callback
+    *- If the method return value is TYPE, then convert it to Callback[Type]
+    */
+  def CallbackTo(ref: TypeRef): TypeRef =
+    ref match {
+      case TypeRef.Unit => TypeRef(japgolly.reactCallback)
+      case other        => TypeRef(japgolly.reactCallbackTo, List(other), NoComments)
+    }
+}
+
+class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames, params: Params) {
+  import GenJapgollyComponents._
+
+  val conversions: Seq[CastConversion] = {
+    import CastConversion.TParam._
+    import japgolly._
+
+    val _1Element = _1.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
+    val _2Element = _2.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
+    val _1Object  = _1.among(Set.empty, QualifiedName.Object)
+
+    scalaJsDomNames.All ++ Seq(
+      CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
+      CastConversion(reactNames.ComponentState, QualifiedName.Object),
+      CastConversion(reactNames.ReactDOM, QualifiedName.Any),
+      CastConversion(reactNames.ReactNode, rawReactNode),
+      CastConversion(reactNames.Ref, rawReactRef),
+      CastConversion(reactNames.RefObject, rawReactRefHandle, _1),
+      CastConversion(reactNames.Component, rawReactComponent, _1Object, TypeRef.Object),
+      CastConversion(reactNames.ComponentClass, rawReactComponentClassP, _1Object),
+      CastConversion(reactNames.ReactElement, rawReactElement),
+      CastConversion(reactNames.DOMElement, rawReactDOMElement),
+      CastConversion(reactNames.ElementType, rawReactElementType),
+      CastConversion(reactNames.BaseSyntheticEvent, reactReactEventFrom, _2Element),
+      CastConversion(reactNames.ChangeEvent, reactReactEventFrom, _1Element),
+      CastConversion(reactNames.FormEvent, reactReactEventFrom, _1Element),
+      CastConversion(reactNames.InvalidEvent, reactReactEventFrom, _1Element),
+      CastConversion(reactNames.SyntheticEvent, reactReactEventFrom, _1Element),
+      CastConversion(reactNames.AnimationEvent, react + Name("ReactAnimationEventFrom"), _1Element),
+      CastConversion(reactNames.ClipboardEvent, react + Name("ReactClipboardEventFrom"), _1Element),
+      CastConversion(reactNames.CompositionEvent, react + Name("ReactCompositionEventFrom"), _1Element),
+      CastConversion(reactNames.DragEvent, react + Name("ReactDragEventFrom"), _1Element),
+      CastConversion(reactNames.FocusEvent, react + Name("ReactFocusEventFrom"), _1Element),
+      CastConversion(reactNames.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), _1Element),
+      CastConversion(reactNames.MouseEvent, react + Name("ReactMouseEventFrom"), _1Element),
+      CastConversion(reactNames.PointerEvent, react + Name("ReactPointerEventFrom"), _1Element),
+      CastConversion(reactNames.TouchEvent, react + Name("ReactTouchEventFrom"), _1Element),
+      CastConversion(reactNames.TransitionEvent, react + Name("ReactTransitionEventFrom"), _1Element),
+      CastConversion(reactNames.UIEvent, react + Name("ReactUIEventFrom"), _1Element),
+      CastConversion(reactNames.WheelEvent, react + Name("ReactWheelEventFrom"), _1Element),
+    )
+  }
+
+  val ToJapgollyTypes = TypeRewriterCast(conversions)
   val RemoveWildcards = TypeRewriter(Map(TypeRef.Wildcard -> TypeRef.Any))
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
@@ -150,14 +157,14 @@ object GenJapgollyComponents {
         case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), Some(_), _), _) =>
           /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
           p.copy(
-            parameter = pt.copy(tpe = TypeRef.UndefOr(japgolly.CallbackTo(retType)), default = Some(TypeRef.undefined)),
+            parameter = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = Some(TypeRef.undefined)),
             asString =
               Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))"""),
           )
 
         case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), None, _), _) =>
           p.copy(
-            parameter = pt.copy(tpe = japgolly.CallbackTo(retType)),
+            parameter = pt.copy(tpe = CallbackTo(retType)),
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
           )
 
@@ -180,7 +187,7 @@ object GenJapgollyComponents {
             }
           }
 
-          val newRetType = TypeRef.ScalaFunction(paramTypes, japgolly.CallbackTo(retType), NoComments)
+          val newRetType = TypeRef.ScalaFunction(paramTypes, CallbackTo(retType), NoComments)
 
           p.copy(
             parameter = pt.copy(tpe = newRetType, default = defaultValue.map(_ => TypeRef.`null`)),
@@ -225,11 +232,11 @@ object GenJapgollyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        Param.forClassTree(
+                        params.forClassTree(
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope,
                           memberToParam,
-                          maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
+                          maxNum = Params.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
                         )
                     }
 
@@ -370,7 +377,7 @@ object GenJapgollyComponents {
         { case Param(ParamTree(names.ref, _, tpe, _, _), _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
         { case p @ Param(ParamTree(names.children, _, tpe, _, _), _) if !isVdomNode(tpe) => p }, //declaredChildren
-        { case Param(paramTree, _) if names.shouldIgnore(paramTree)                      => () },
+        { case Param(paramTree, _) if shouldIgnore(paramTree)                            => () },
         { case Param(p, Right(f))                                                        => p -> f }, //optionals
         { case Param(p, Left(str))                                                       => p -> str }, //requireds
       )

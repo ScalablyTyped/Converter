@@ -2,8 +2,8 @@ package com.olvind.tso
 package scalajs
 package transforms
 
-object CleanIllegalNames extends TreeTransformation {
-  val Illegal = Set(Name.js, Name.java, ScalaConfig.outputPkg)
+class CleanIllegalNames(outputPkg: Name) extends TreeTransformation {
+  val Illegal = Set(Name.js, Name.java, outputPkg)
 
   override def leaveFieldTree(scope: TreeScope)(s: FieldTree): FieldTree =
     if (Illegal(s.name)) s.withSuffix("") else s

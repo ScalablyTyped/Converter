@@ -6,7 +6,7 @@ import com.olvind.tso.seqs._
 
 import scala.collection.mutable
 
-object IdentifyReactComponents {
+class IdentifyReactComponents(reactNames: ReactNames) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
 
@@ -55,7 +55,7 @@ object IdentifyReactComponents {
 
   def maybeMethodComponent(_method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (current.typeName === QualifiedName.React.ReactElement) Some(current)
+      if (current.typeName === reactNames.ReactElement) Some(current)
       else if (scope.isAbstract(current)) None
       else {
         scope
@@ -68,7 +68,7 @@ object IdentifyReactComponents {
           }
       }
 
-    val (method, targs) = inlineBounds(scope, _method)
+    val (method, _)     = inlineBounds(scope, _method)
     val flattenedParams = method.params.flatten
 
     flattenedParams.length match {
@@ -119,24 +119,32 @@ object IdentifyReactComponents {
 
   /* support a somewhat rare pattern `class C<Props extends CProps> extends React.Component<Props>`.  */
   object inlineBounds {
+    val Ignored = Set(TypeRef.Object)
+
+    def emptyBound(ob: TypeParamTree) =
+      ob.upperBound match {
+        case Some(bound) => Ignored(bound)
+        case None        => true
+      }
+
     def apply(scope: TreeScope, x: MethodTree): (MethodTree, Seq[TypeRef]) =
-      if (x.tparams.forall(_.upperBound.isEmpty)) (x, TypeParamTree.asTypeArgs(x.tparams))
+      if (x.tparams.forall(emptyBound)) (x, TypeParamTree.asTypeArgs(x.tparams))
       else {
-        val fillOriginal = x.tparams.map(tp => tp.upperBound.getOrElse(TypeRef(tp.name)))
-        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(_.upperBound.isEmpty)), fillOriginal)
+        val fillOriginal = x.tparams.map(tp => tp.upperBound.filterNot(Ignored).getOrElse(TypeRef(tp.name)))
+        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(emptyBound)), fillOriginal)
       }
 
     def apply(scope: TreeScope, x: ClassTree): (ClassTree, Seq[TypeRef]) =
-      if (x.tparams.forall(_.upperBound.isEmpty)) (x, TypeParamTree.asTypeArgs(x.tparams))
+      if (x.tparams.forall(emptyBound)) (x, TypeParamTree.asTypeArgs(x.tparams))
       else {
-        val fillOriginal = x.tparams.map(tp => tp.upperBound.getOrElse(TypeRef(tp.name)))
-        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(_.upperBound.isEmpty)), fillOriginal)
+        val fillOriginal = x.tparams.map(tp => tp.upperBound.filterNot(Ignored).getOrElse(TypeRef(tp.name)))
+        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(emptyBound)), fillOriginal)
       }
   }
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (QualifiedName.React.isComponent(current.typeName)) {
+      if (reactNames.isComponent(current.typeName)) {
         Some(current)
       } else {
         scope
@@ -199,7 +207,7 @@ object IdentifyReactComponents {
     else {
       val (cls, targs) = inlineBounds(scope, _cls)
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, props +: _, _), _) if QualifiedName.React isComponent qname =>
+        case (TypeRef(qname, props +: _, _), _) if reactNames isComponent qname =>
           Component(
             scalaRef         = TypeRef(cls.codePath, targs, NoComments),
             fullName         = componentName(scope, owner.annotations, cls.codePath, cls.comments),

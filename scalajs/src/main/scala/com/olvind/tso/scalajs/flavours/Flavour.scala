@@ -2,31 +2,58 @@ package com.olvind.tso
 package scalajs
 package flavours
 
-import com.olvind.tso.scalajs.transforms.Adapter
+import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
+import com.olvind.tso.scalajs.transforms.{Adapter, CleanIllegalNames}
 
 object Flavour {
   trait ReactFlavour extends Flavour {
+    lazy val reactNames =
+      new ReactNames(outputPkg)
+    lazy val identifyComponents =
+      new IdentifyReactComponents(reactNames)
+    lazy val stdNames =
+      new QualifiedName.StdNames(outputPkg)
+    lazy val scalaJsDomNames =
+      new ScalaJsDomNames(stdNames)
+    lazy val params =
+      new Params(new CleanIllegalNames(outputPkg))
+
     private def involvesReact(scope: TreeScope): Boolean = {
       val react = Name("react")
-      def findRoot(scope: TreeScope): TreeScope.Root[_] =
-        scope match {
-          case root: TreeScope.Root[_] => root
-          case TreeScope.Scoped(_, outer, _) => findRoot(outer)
-        }
-      scope.libName === react || findRoot(scope).dependencies.contains(react)
+      scope.libName === react || scope.root.dependencies.contains(react)
     }
 
-    final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree =
-      if (involvesReact(scope)) {
-        val components: Seq[Component] =
-          IdentifyReactComponents.oneOfEach(scope / tree, tree)
-        Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(tree)
-      } else tree
+    final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
+      val withCompanions =
+        memberToParamOpt match {
+          case Some(m2p) =>
+            val gen = new GenCompanions(m2p, params)
+            gen.visitPackageTree(scope)(tree)
+          case None => tree
+        }
+
+      val withComponents =
+        if (involvesReact(scope)) {
+          val components: Seq[Component] =
+            identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
+          Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(withCompanions)
+        } else tree
+
+      conversions match {
+        case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(withComponents)
+        case _                 => withComponents
+      }
+    }
 
     def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree
   }
 
-  case object plain extends Flavour {
+  case object Plain extends Flavour {
+    val projectName  = "PlainlyTyped"
+    val repo         = "https://github.com/oyvindberg/PlainlyTyped.git"
+    val organization = "org.plainlytyped"
+    val outputPkg    = Name("typingsPlain")
+
     override def conversions: Option[Seq[CastConversion]] =
       None
     override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree =
@@ -37,7 +64,13 @@ object Flavour {
       Set.empty
   }
 
-  case object reactFacade extends ReactFlavour {
+  case object ReactFacade extends ReactFlavour {
+    val projectName  = "ScalablyTyped"
+    val repo         = "https://github.com/oyvindberg/ScalablyTyped.git"
+    val organization = "org.scalablytyped"
+    val outputPkg    = Name("typings")
+    val gen          = new GenReactFacadeComponents(reactNames)
+
     override def conversions: Option[Seq[CastConversion]] =
       None
     override def dependencies: Set[Dep] =
@@ -45,29 +78,41 @@ object Flavour {
     override def memberToParamOpt: Option[MemberToParam] =
       Some(MemberToParam.Default)
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
-      GenReactFacadeComponents(scope, tree, components)
+      gen(scope, tree, components)
   }
 
-  case object reactSlinky extends ReactFlavour {
+  case object Slinky extends ReactFlavour {
+    val projectName  = "SlicklyTyped"
+    val repo         = "https://github.com/oyvindberg/SlicklyTyped.git"
+    val organization = "org.slicklytyped"
+    val outputPkg    = Name("typingsSlinky")
+    val gen          = new GenSlinkyComponents(scalaJsDomNames, stdNames, reactNames, params)
+
     override def conversions: Option[Seq[CastConversion]] =
-      Some(GenSlinkyComponents.names.conversions)
+      Some(gen.conversions)
     override def dependencies: Set[Dep] =
       Set(Dep("me.shadaj", "slinky-web", "0.6.2"))
     override def memberToParamOpt: Some[MemberToParam] =
-      Some(GenSlinkyComponents.memberToParameter)
+      Some(gen.memberToParameter)
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
-      GenSlinkyComponents(scope, tree, components)
+      gen(scope, tree, components)
   }
 
-  case object reactJapgolly extends ReactFlavour {
+  case object Japgolly extends ReactFlavour {
+    val projectName  = "GulliblyTyped"
+    val repo         = "https://github.com/oyvindberg/GulliblyTyped.git"
+    val organization = "org.gulliblytyped"
+    val outputPkg    = Name("typingsJapgolly")
+    val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, params)
+
     override def conversions: Option[Seq[CastConversion]] =
-      Some(GenJapgollyComponents.japgolly.conversions)
+      Some(gen.conversions)
     override def dependencies: Set[Dep] =
       Set(Dep("com.github.japgolly.scalajs-react", "core", "1.4.2"))
     override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
-      GenJapgollyComponents(scope, tree, components)
+      gen(scope, tree, components)
     override def memberToParamOpt =
-      Some(GenJapgollyComponents.memberToParam)
+      Some(gen.memberToParam)
   }
 }
 
@@ -76,4 +121,8 @@ trait Flavour {
   def memberToParamOpt: Option[MemberToParam]
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]
+  val projectName:  String
+  val repo:         String
+  val organization: String
+  val outputPkg:    Name
 }

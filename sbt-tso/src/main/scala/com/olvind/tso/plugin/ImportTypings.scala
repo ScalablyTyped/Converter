@@ -47,10 +47,10 @@ object ImportTypings {
     }
 
     val flavour = chosenFlavour match {
-      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.plain
-      case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.reactFacade
-      case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.reactSlinky
-      case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.reactJapgolly
+      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.Plain
+      case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.ReactFacade
+      case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.Slinky
+      case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
@@ -78,7 +78,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, flavour), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, flavour.outputPkg), "scala.js")
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -91,6 +91,7 @@ object ImportTypings {
       case PhaseRes.Ok(Phase2Res.Unpack(libs: SortedMap[TsLibSource, Phase2Res.LibScalaJs], _)) =>
         /* global because it includes all translated libraries */
         val globalScope = new scalajs.TreeScope.Root(
+          flavour.outputPkg,
           scalajs.Name.dummy,
           libs.map { case (_, l) => (l.scalaName, l.packageTree) },
           logger,

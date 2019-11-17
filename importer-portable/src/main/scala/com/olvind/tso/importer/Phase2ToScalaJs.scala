@@ -5,9 +5,8 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.scalajs.flavours.{Flavour, GenCompanions}
-import com.olvind.tso.scalajs.transforms.Adapter
-import com.olvind.tso.scalajs.{PackageTree, TreeScope, transforms => S}
+import com.olvind.tso.scalajs.transforms.{Adapter, CleanIllegalNames}
+import com.olvind.tso.scalajs.{Name, PackageTree, QualifiedName, TreeScope, transforms => S}
 import com.olvind.tso.ts.{TsIdentLibrary, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
@@ -16,7 +15,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, outputPkg: Name) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -33,7 +32,7 @@ class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source,
 
       case lib: LibTs =>
         val knownLibs  = garbageCollectLibs(lib)
-        val importName = new ImportName(knownLibs.map(_.libName) + lib.name)
+        val importName = new ImportName(outputPkg, knownLibs.map(_.libName) + lib.name)
 
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>
@@ -44,18 +43,21 @@ class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source,
               _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic,
+              outputPkg     = outputPkg,
             )
 
             logger.warn(s"Processing ${lib.name.value}")
+
+            val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
-                S.CleanIllegalNames >>
+                cleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>
                 S.Deduplicator visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.FakeLiterals(s)(tree)),
+              Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
               S.RemoveMultipleInheritance visitPackageTree scope,
@@ -64,17 +66,9 @@ class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source,
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
-              /* this last transformation "breaks" the tree, in that we can no longer resolve all `TypeRef`s */
-              tree => {
-                val withCompanions =
-                  flavour.memberToParamOpt.fold(tree)(m2p => new GenCompanions(m2p).visitPackageTree(scope)(tree))
-                flavour.rewrittenTree(scope, withCompanions)
-              },
             )
-
-            val rewrittenTree = ScalaTransforms.foldLeft(ImportTree(lib, logger, importName)) {
-              case (acc, f) => f(acc)
-            }
+            val importTree    = new ImportTree(importName, new ImportType(new QualifiedName.StdNames(outputPkg)))
+            val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
 
             LibScalaJs(lib.source)(
               libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),

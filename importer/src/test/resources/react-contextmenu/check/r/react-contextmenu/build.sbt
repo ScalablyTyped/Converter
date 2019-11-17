@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "react-contextmenu"
-version := "2.13.0-051f0b"
+version := "2.13.0-c4abf2"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "16.9.2-26bf9f",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-c1a9ca")
+  "org.scalablytyped" %%% "react" % "16.9.2-e6484d",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-057021")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
