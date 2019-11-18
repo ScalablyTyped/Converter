@@ -5,38 +5,38 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`1`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`2`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`3`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`4`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`5`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`6`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`7`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`8`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`9`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`10`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`11`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`12`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`13`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`14`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`15`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`16`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.one
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.two
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.three
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.four
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.five
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.six
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.seven
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.eight
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.nine
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.ten
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.eleven
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.twelve
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.thirteen
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.fourteen
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.fifteen
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.sixteen
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`1`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`2`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`3`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`4`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`5`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`6`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`7`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`8`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`9`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`10`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`11`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`12`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`13`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`14`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`15`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`16`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.one
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.two
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.three
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.four
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.five
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.six
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.seven
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.eight
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.nine
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.ten
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.eleven
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.twelve
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.thirteen
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.fourteen
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.fifteen
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.sixteen
 */
 trait SemanticWIDTHSSTRING extends js.Object
 

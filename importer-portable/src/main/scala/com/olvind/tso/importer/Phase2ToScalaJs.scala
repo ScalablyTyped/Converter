@@ -15,7 +15,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, outputPkg: Name) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -32,7 +32,7 @@ class Phase2ToScalaJs(pedantic: Boolean, outputPkg: Name) extends Phase[Source, 
 
       case lib: LibTs =>
         val knownLibs  = garbageCollectLibs(lib)
-        val importName = new ImportName(outputPkg, knownLibs.map(_.libName) + lib.name)
+        val importName = new ImportName(Name.typings, knownLibs.map(_.libName) + lib.name)
 
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>
@@ -43,12 +43,12 @@ class Phase2ToScalaJs(pedantic: Boolean, outputPkg: Name) extends Phase[Source, 
               _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic,
-              outputPkg     = outputPkg,
+              outputPkg     = Name.typings,
             )
 
             logger.warn(s"Processing ${lib.name.value}")
 
-            val cleanIllegalNames = new CleanIllegalNames(outputPkg)
+            val cleanIllegalNames = new CleanIllegalNames(Name.typings)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
@@ -57,7 +57,7 @@ class Phase2ToScalaJs(pedantic: Boolean, outputPkg: Name) extends Phase[Source, 
                 cleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>
                 S.Deduplicator visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s)(tree)),
+              Adapter(scope)((tree, s) => S.FakeLiterals(Name.typings, s)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
               S.RemoveMultipleInheritance visitPackageTree scope,
@@ -67,7 +67,7 @@ class Phase2ToScalaJs(pedantic: Boolean, outputPkg: Name) extends Phase[Source, 
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
             )
-            val importTree    = new ImportTree(importName, new ImportType(new QualifiedName.StdNames(outputPkg)))
+            val importTree    = new ImportTree(importName, new ImportType(new QualifiedName.StdNames(Name.typings)))
             val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
 
             LibScalaJs(lib.source)(

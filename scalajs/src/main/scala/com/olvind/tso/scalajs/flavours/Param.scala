@@ -10,4 +10,3 @@ object Param {
   implicit val ParamOrdering: Ordering[Param] =
     Ordering.by((p: Param) => (p.isOptional, p.parameter.name))
 }
-

@@ -37,7 +37,7 @@ object Flavour {
           val components: Seq[Component] =
             identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
           Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(withCompanions)
-        } else tree
+        } else withCompanions
 
       conversions match {
         case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(withComponents)
@@ -64,7 +64,7 @@ object Flavour {
       Set.empty
   }
 
-  case object ReactFacade extends ReactFlavour {
+  case object Normal extends ReactFlavour {
     val projectName  = "ScalablyTyped"
     val repo         = "https://github.com/oyvindberg/ScalablyTyped.git"
     val organization = "org.scalablytyped"

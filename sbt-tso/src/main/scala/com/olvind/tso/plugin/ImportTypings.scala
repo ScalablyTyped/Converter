@@ -47,10 +47,10 @@ object ImportTypings {
     }
 
     val flavour = chosenFlavour match {
-      case Flavour.Plain       => com.olvind.tso.scalajs.flavours.Flavour.Plain
-      case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.ReactFacade
-      case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.Slinky
-      case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
+      case Flavour.Plain    => com.olvind.tso.scalajs.flavours.Flavour.Plain
+      case Flavour.Normal   => com.olvind.tso.scalajs.flavours.Flavour.Normal
+      case Flavour.Slinky   => com.olvind.tso.scalajs.flavours.Flavour.Slinky
+      case Flavour.Japgolly => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
@@ -78,7 +78,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, flavour.outputPkg), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false), "scala.js")
       .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
