@@ -182,15 +182,25 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
               s"js.Any.fromFunction${paramTypes.length}(($params) => ${name.value}($paramRefs).runNow())"
 
             defaultValue match {
-              case Some(_) => s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
-              case None    => s"""$obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
+              case Some(_) =>
+                val rewrittenFn =
+                  s"js.Any.fromFunction${paramTypes.length}(($params) => x($paramRefs).runNow())"
+                s"""${name.value}.foreach(x => $obj.updateDynamic("${name.unescaped}")($rewrittenFn))"""
+              case None =>
+                val rewrittenFn =
+                  s"js.Any.fromFunction${paramTypes.length}(($params) => ${name.value}($paramRefs).runNow())"
+                s"""$obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
             }
           }
 
-          val newRetType = TypeRef.ScalaFunction(paramTypes, CallbackTo(retType), NoComments)
+          val newRetType =
+            defaultValue match {
+              case Some(_) => TypeRef.UndefOr(TypeRef.ScalaFunction(paramTypes, CallbackTo(retType), NoComments))
+              case None    => TypeRef.ScalaFunction(paramTypes, CallbackTo(retType), NoComments)
+            }
 
           p.copy(
-            parameter = pt.copy(tpe = newRetType, default = defaultValue.map(_ => TypeRef.`null`)),
+            parameter = pt.copy(tpe = newRetType, default = defaultValue.map(_ => TypeRef.undefined)),
             asString  = Right(fn),
           )
 
