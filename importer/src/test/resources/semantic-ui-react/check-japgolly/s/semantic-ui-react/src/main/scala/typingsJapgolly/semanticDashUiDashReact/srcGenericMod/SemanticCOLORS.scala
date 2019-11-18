@@ -5,19 +5,19 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.red
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.orange
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.yellow
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.olive
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.green
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.teal
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.blue
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.violet
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.purple
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.pink
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.brown
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.grey
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.black
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.red
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.orange
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.yellow
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.olive
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.green
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.teal
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.blue
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.violet
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.purple
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.pink
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.brown
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.grey
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.black
 */
 trait SemanticCOLORS extends js.Object
 

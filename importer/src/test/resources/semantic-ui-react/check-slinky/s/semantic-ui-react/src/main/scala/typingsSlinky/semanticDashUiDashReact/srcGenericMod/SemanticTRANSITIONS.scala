@@ -5,37 +5,37 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.browse
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`browse right`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.drop
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.fade
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade up`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade down`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade left`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade right`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly up`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly down`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly left`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly right`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`horizontal flip`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`vertical flip`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.scale
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide up`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide down`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide left`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide right`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing up`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing down`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing left`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing right`
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.zoom
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.jiggle
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.flash
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.shake
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.pulse
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.tada
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.bounce
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.glow
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.browse
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`browse right`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.drop
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.fade
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade up`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade down`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade left`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fade right`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly up`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly down`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly left`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`fly right`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`horizontal flip`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`vertical flip`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.scale
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide up`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide down`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide left`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`slide right`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing up`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing down`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing left`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`swing right`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.zoom
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.jiggle
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.flash
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.shake
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.pulse
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tada
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bounce
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.glow
 */
 trait SemanticTRANSITIONS extends js.Object
 

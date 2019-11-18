@@ -5,14 +5,14 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.medium
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.large
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.huge
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.massive
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.medium
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.large
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.huge
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.massive
 */
 trait SemanticSIZES extends js.Object
 

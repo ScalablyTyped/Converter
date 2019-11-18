@@ -5,10 +5,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.reactDashDropzone.reactDashDropzoneStrings.multiple
-  - typingsJapgolly.reactDashDropzone.reactDashDropzoneStrings.onDragEnter
-  - typingsJapgolly.reactDashDropzone.reactDashDropzoneStrings.onDragOver
-  - typingsJapgolly.reactDashDropzone.reactDashDropzoneStrings.onDragLeave
+  - typings.reactDashDropzone.reactDashDropzoneStrings.multiple
+  - typings.reactDashDropzone.reactDashDropzoneStrings.onDragEnter
+  - typings.reactDashDropzone.reactDashDropzoneStrings.onDragOver
+  - typings.reactDashDropzone.reactDashDropzoneStrings.onDragLeave
 */
 trait PropTypes extends js.Object
 

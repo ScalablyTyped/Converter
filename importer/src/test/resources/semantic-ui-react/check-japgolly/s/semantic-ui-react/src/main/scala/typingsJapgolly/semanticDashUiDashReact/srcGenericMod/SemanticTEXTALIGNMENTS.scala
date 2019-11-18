@@ -5,10 +5,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.center
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.justified
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.center
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.justified
 */
 trait SemanticTEXTALIGNMENTS extends js.Object
 

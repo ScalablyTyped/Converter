@@ -5,9 +5,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.middle
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.middle
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 */
 trait SemanticVERTICALALIGNMENTS extends js.Object
 

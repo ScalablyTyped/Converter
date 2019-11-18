@@ -8,22 +8,22 @@ import scala.scalajs.js.annotation._
 // Widths
 // ======================================================
 /* Rewritten from type alias, can be one of: 
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`1`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`2`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`3`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`4`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`5`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`6`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`7`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`8`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`9`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`10`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`11`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`12`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`13`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`14`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`15`
-  - typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`16`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`1`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`2`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`3`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`4`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`5`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`6`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`7`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`8`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`9`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`10`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`11`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`12`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`13`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`14`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`15`
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`16`
 */
 trait SemanticWIDTHSNUMBER extends js.Object
 

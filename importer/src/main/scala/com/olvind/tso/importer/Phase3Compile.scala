@@ -11,7 +11,6 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
 import com.olvind.tso.scalajs.flavours.Flavour
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrary
@@ -53,8 +52,10 @@ class Phase3Compile(
       _lib:    Phase2Res,
       getDeps: GetDeps[Source, PublishedSbtProject],
       v4:      IsCircular,
-      logger:  Logger[Unit],
-  ): PhaseRes[Source, PublishedSbtProject] =
+      _logger: Logger[Unit],
+  ): PhaseRes[Source, PublishedSbtProject] = {
+    val logger = _logger.withContext("flavour", flavour.toString)
+
     _lib match {
       case Facade =>
         val buildJson = Json[FacadeJson](source.path / "build.json")
@@ -177,6 +178,7 @@ class Phase3Compile(
             )
         }
     }
+  }
 
   def go(
       logger:             Logger[Unit],

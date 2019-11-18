@@ -1,14 +1,19 @@
 package com.olvind.tso
 package importer
 
+import com.olvind.tso.importer.build.PublishedSbtProject
+import com.olvind.tso.phases.PhaseRes
 import com.olvind.tso.ts.TsIdentLibrary
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder}
+
+import scala.collection.mutable
 
 case class Summary(
     successes: Set[TsIdentLibrary],
     failures:  Set[TsIdentLibrary],
 )
+
 case class SummaryDiff(
     sha:          String,
     newSuccesses: Set[TsIdentLibrary],
@@ -17,6 +22,24 @@ case class SummaryDiff(
 )
 
 object Summary {
+  def apply(x: Map[Source, PhaseRes[Source, PublishedSbtProject]]): Summary = {
+    val successes = mutable.Set.empty[TsIdentLibrary]
+    val failures  = mutable.Set.empty[TsIdentLibrary]
+    x foreach {
+      case (current, res) =>
+        res match {
+          case PhaseRes.Ok(_) =>
+            successes += current.libName
+          case PhaseRes.Ignore() =>
+            ()
+          case PhaseRes.Failure(errors) =>
+            failures += current.libName
+            errors.keys.foreach(s => failures += s.libName)
+        }
+    }
+    Summary(successes.to[Set], failures.to[Set])
+  }
+
   implicit val EncoderTsIdentLibrary: Encoder[TsIdentLibrary] = deriveEncoder[TsIdentLibrary]
   implicit val EncoderSummary:        Encoder[Summary]        = deriveEncoder[Summary]
   implicit val EncoderSummaryDiff:    Encoder[SummaryDiff]    = deriveEncoder[SummaryDiff]
