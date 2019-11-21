@@ -253,6 +253,8 @@ object Libraries {
       "w3c-permissions",
       // circular, and somehow breaks sequential mode?
       "koa-compose",
+      // not installable on linux
+      "fsevents",
     )
 
     // some new kind of circular dependency causes the phase runner to wait forever (parallel mode)
