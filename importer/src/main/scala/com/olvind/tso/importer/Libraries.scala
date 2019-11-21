@@ -74,6 +74,7 @@ object Libraries {
     "highcharts-react-official",
     "@hyperloris/tyson",
     "indefinite-observable",
+    "instagram-private-api",
     "ionic",
     "@ionic/angular",
     "@ionic/react",

@@ -164,16 +164,17 @@ class Phase1ReadTypescript(
                 }
 
               val enableExpandTypeMappings = source.libName match {
-                case TsIdentLibraryScoped("material-ui", _)    => true
-                case TsIdentLibrarySimple("styled-components") => true
-                case TsIdentLibrarySimple("antd")              => true
-                case TsIdentLibrarySimple("amap-js-api")       => true
-                case TsIdentLibrarySimple("react-onsenui")     => true
-                case TsIdentLibraryScoped("uifabric", _)       => true
-                case TsIdentLibraryScoped("tensorflow", _)     => true
-                case TsIdentLibraryScoped("ant-design", _)     => true
-                case TsIdentLibraryScoped("nivo", _)           => true
-                case _                                         => false
+                case TsIdentLibraryScoped("material-ui", _)        => true
+                case TsIdentLibrarySimple("styled-components")     => true
+                case TsIdentLibrarySimple("antd")                  => true
+                case TsIdentLibrarySimple("amap-js-api")           => true
+                case TsIdentLibrarySimple("react-onsenui")         => true
+                case TsIdentLibraryScoped("uifabric", _)           => true
+                case TsIdentLibraryScoped("tensorflow", _)         => true
+                case TsIdentLibraryScoped("ant-design", _)         => true
+                case TsIdentLibraryScoped("nivo", _)               => true
+                case TsIdentLibrarySimple("instagram-private-api") => true
+                case _                                             => false
               }
 
               val involvesReact = {
