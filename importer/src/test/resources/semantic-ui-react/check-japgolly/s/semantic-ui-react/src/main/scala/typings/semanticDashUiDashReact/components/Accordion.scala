@@ -36,7 +36,7 @@ object Accordion {
   ): UnmountedWithRoot[AccordionProps, default, Unit, AccordionProps] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)

@@ -154,10 +154,10 @@ object GenSlinkyComponents {
 
   case class Props(ref: TypeRef, params: Seq[Param], domParams: Seq[FieldTree]) {
     val (refTypes, _, _optionals, requireds, Nil) = params.partitionCollect4(
-      { case Param(ParamTree(Name("ref"), _, tpe, _, _), _, _) => tpe },
-      { case Param(pt, _, _) if names.shouldIgnore(pt)         => () },
-      { case Param(p, _, Right(f))                             => p -> f },
-      { case Param(p, _, Left(str))                            => p -> str },
+      { case Param(ParamTree(Name("ref"), _, tpe, _, _), _) => tpe },
+      { case Param(pt, _) if names.shouldIgnore(pt)         => () },
+      { case Param(p, Right(f))                             => p -> f },
+      { case Param(p, Left(str))                            => p -> str },
     )
     val optionals = _optionals ++ additionalOptionalParams
 

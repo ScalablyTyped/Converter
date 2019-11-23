@@ -15,7 +15,7 @@ object Anon_Headers {
   @scala.inline
   def apply(StringDictionary: /* key */ StringDictionary[js.Any] = null, headers: HttpHeaders = null): Anon_Headers = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (headers != null) __obj.updateDynamic("headers")(headers)
     __obj.asInstanceOf[Anon_Headers]
   }

@@ -19,7 +19,7 @@ object JQLite {
     NumberDictionary: /* index */ NumberDictionary[HTMLElement] = null
   ): JQLite = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
-    js.Dynamic.global.Object.assign(__obj, NumberDictionary)
+    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[JQLite]
   }
 }

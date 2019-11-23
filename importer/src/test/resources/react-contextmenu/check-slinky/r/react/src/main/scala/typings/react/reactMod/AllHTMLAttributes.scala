@@ -224,7 +224,7 @@ object AllHTMLAttributes {
     wrap: String = null
   ): AllHTMLAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, HTMLAttributes)
+    if (HTMLAttributes != null) js.Dynamic.global.Object.assign(__obj, HTMLAttributes)
     if (accept != null) __obj.updateDynamic("accept")(accept)
     if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (action != null) __obj.updateDynamic("action")(action)

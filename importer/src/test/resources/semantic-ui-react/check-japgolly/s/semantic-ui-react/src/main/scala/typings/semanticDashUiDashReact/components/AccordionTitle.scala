@@ -34,7 +34,7 @@ object AccordionTitle {
   ): UnmountedWithRoot[AccordionTitleProps, default, Unit, AccordionTitleProps] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)

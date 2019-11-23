@@ -20,7 +20,7 @@ object TouchList {
     NumberDictionary: /* index */ NumberDictionary[Touch] = null
   ): TouchList = {
     val __obj = js.Dynamic.literal(identifiedTouch = js.Any.fromFunction1(identifiedTouch), item = js.Any.fromFunction1(item), length = length)
-    js.Dynamic.global.Object.assign(__obj, NumberDictionary)
+    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[TouchList]
   }
 }

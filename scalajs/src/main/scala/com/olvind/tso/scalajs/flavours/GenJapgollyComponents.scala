@@ -165,7 +165,7 @@ object GenJapgollyComponents {
       .map(p => p.copy(parameter = TypeRewriter.visitParamTree(scope)(p.parameter)))
       .map {
         /* rewrite functions returning a Callback so that javascript land can call them */
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), Some(_), _), _, _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), Some(_), _), _) =>
           /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
           p.copy(
             parameter = pt.copy(tpe = TypeRef.UndefOr(japgolly.CallbackTo(retType)), default = Some(TypeRef.undefined)),
@@ -173,13 +173,13 @@ object GenJapgollyComponents {
               Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))"""),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), None, _), _, _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), None, _), _) =>
           p.copy(
             parameter = pt.copy(tpe = japgolly.CallbackTo(retType)),
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, retType), defaultValue, _), _, _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, retType), defaultValue, _), _) =>
           def fn(obj: String) = {
             val params =
               paramTypes.zipWithIndex
@@ -202,7 +202,7 @@ object GenJapgollyComponents {
             asString  = Right(fn),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _, _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _) =>
           def fn(obj: String) =
             s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
           p.copy(
@@ -210,7 +210,7 @@ object GenJapgollyComponents {
             asString  = Right(fn),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _, _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _) =>
           def fn(obj: String) =
             s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
           p.copy(
@@ -382,12 +382,12 @@ object GenJapgollyComponents {
 
     val (refTypes, declaredChildren, _, _optionals, requireds, Nil) = {
       params.partitionCollect5(
-        { case Param(ParamTree(names.ref, _, tpe, _, _), _, _) => tpe }, //refTypes
+        { case Param(ParamTree(names.ref, _, tpe, _, _), _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
-        { case p @ Param(ParamTree(names.children, _, tpe, _, _), _, _) if !isVdomNode(tpe) => p }, //declaredChildren
-        { case Param(paramTree, _, _) if names.shouldIgnore(paramTree)                      => () },
-        { case Param(p, _, Right(f))                                                        => p -> f }, //optionals
-        { case Param(p, _, Left(str))                                                       => p -> str }, //requireds
+        { case p @ Param(ParamTree(names.children, _, tpe, _, _), _) if !isVdomNode(tpe) => p }, //declaredChildren
+        { case Param(paramTree, _) if names.shouldIgnore(paramTree)                      => () },
+        { case Param(p, Right(f))                                                        => p -> f }, //optionals
+        { case Param(p, Left(str))                                                       => p -> str }, //requireds
       )
     }
 
@@ -452,9 +452,9 @@ object GenJapgollyComponents {
       /* The children value can go in one of three places, depending... */
       val (requireds2, optionals2, formattedVarargsChildren) =
         declaredChildren.headOption match {
-          case Some(Param(p, _, Left(str))) => ((p -> str) +: requireds, optionals, "")
-          case Some(Param(p, _, Right(f)))  => (requireds, (p -> f) +: optionals, "")
-          case None                         => (requireds, optionals, "(children: _*)")
+          case Some(Param(p, Left(str))) => ((p -> str) +: requireds, optionals, "")
+          case Some(Param(p, Right(f)))  => (requireds, (p -> f) +: optionals, "")
+          case None                      => (requireds, optionals, "(children: _*)")
         }
 
       MemberImpl.Custom(

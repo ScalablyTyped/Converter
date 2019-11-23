@@ -30,7 +30,7 @@ object AccordionAccordionProps {
     panels: SemanticShorthandCollection[AccordionPanelProps] = null
   ): AccordionAccordionProps = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
