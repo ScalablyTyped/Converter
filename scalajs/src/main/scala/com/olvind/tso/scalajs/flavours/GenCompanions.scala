@@ -1,14 +1,14 @@
 package com.olvind.tso
 package scalajs
-package transforms
+package flavours
 
+import com.olvind.tso.scalajs.flavours.ConstructObjectOfType.Param
 import com.olvind.tso.seqs._
-import ConstructObjectOfType.Param
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-object Companions extends TreeTransformation {
+object GenCompanions extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -28,7 +28,7 @@ object Companions extends TreeTransformation {
     }
 
   def generateModule(scope: TreeScope, cls: ClassTree): Option[ModuleTree] =
-    ConstructObjectOfType(cls, scope)(memberParameter) match {
+    flavours.ConstructObjectOfType(cls, scope)(memberParameter) match {
       case Nil => None
       case params =>
         val (optionals, inLiterals, Nil) = params.partitionCollect2(

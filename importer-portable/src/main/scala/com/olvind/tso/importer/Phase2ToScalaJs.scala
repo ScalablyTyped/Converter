@@ -5,6 +5,7 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
+import com.olvind.tso.scalajs.flavours.{GenCompanions, Flavour}
 import com.olvind.tso.scalajs.transforms.Adapter
 import com.olvind.tso.scalajs.{PackageTree, TreeScope, transforms => S}
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsTreeTraverse}
@@ -62,7 +63,7 @@ class Phase2ToScalaJs(pedantic: Boolean, flavour: Flavour) extends Phase[Source,
               Adapter(scope)((tree, s) => S.FakeLiterals(s)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
-              S.Companions >>
+              GenCompanions >>
                 S.RemoveMultipleInheritance visitPackageTree scope,
               S.CombineOverloads visitPackageTree scope, //must have stable types, so FakeLiterals run before
               S.FilterMemberOverrides visitPackageTree scope, //

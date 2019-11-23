@@ -1,10 +1,10 @@
-package com.olvind.tso.scalajs
-
-import com.olvind.tso.maps._
-import com.olvind.tso.seqs._
-import com.olvind.tso.{NoComments, Seq}
+package com.olvind.tso
+package scalajs
+package flavours
 
 import scala.collection.immutable.SortedMap
+import com.olvind.tso.seqs._
+import com.olvind.tso.maps._
 
 object ConstructObjectOfType {
   /* javascript limitation */

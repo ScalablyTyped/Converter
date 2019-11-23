@@ -1,10 +1,10 @@
 package com.olvind.tso
 package scalajs
-package react
+package flavours
 
-import com.olvind.tso.scalajs.ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.react.CastConversion.TypeRewriterCast
-import com.olvind.tso.scalajs.transforms.Companions
+import ConstructObjectOfType.Param
+import com.olvind.tso.scalajs.flavours
+import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
 import com.olvind.tso.seqs._
 
 import scala.collection.mutable
@@ -203,7 +203,7 @@ object GenSlinkyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, tparams), scope) {
+                        flavours.ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, tparams), scope) {
                           case (scope, fieldTree: FieldTree) =>
                             /* todo: refactor out a name/type check which ignores optionality */
                             val isDom: Boolean =
@@ -218,9 +218,9 @@ object GenSlinkyComponents {
                             if (isDom) {
                               domParams += fieldTree
                               None
-                            } else Companions.memberParameter(scope, fieldTree)
+                            } else GenCompanions.memberParameter(scope, fieldTree)
                           case (scope, methodTree: MethodTree) =>
-                            Companions.memberParameter(scope, methodTree)
+                            GenCompanions.memberParameter(scope, methodTree)
                         }
                     }
 

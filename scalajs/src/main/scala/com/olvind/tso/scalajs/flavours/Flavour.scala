@@ -1,12 +1,11 @@
 package com.olvind.tso
-package importer
+package scalajs
+package flavours
 
-import com.olvind.tso.scalajs.react._
 import com.olvind.tso.scalajs.transforms.Adapter
-import com.olvind.tso.scalajs.{ContainerTree, Dep, Name, PackageTree, TreeScope}
 
 object Flavour {
-  sealed trait ReactFlavour extends Flavour {
+  trait ReactFlavour extends Flavour {
     private def involvesReact(scope: TreeScope): Boolean = {
       val react = Name("react")
       def findRoot(scope: TreeScope): TreeScope.Root[_] =
@@ -60,7 +59,7 @@ object Flavour {
   }
 }
 
-sealed trait Flavour {
+trait Flavour {
   def conversions: Option[Seq[CastConversion]]
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]

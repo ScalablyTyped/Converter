@@ -1,10 +1,9 @@
 package com.olvind.tso
 package scalajs
-package react
+package flavours
 
-import com.olvind.tso.scalajs.ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.react.CastConversion.TypeRewriterCast
-import com.olvind.tso.scalajs.transforms.Companions
+import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
+import com.olvind.tso.scalajs.flavours.ConstructObjectOfType.Param
 import com.olvind.tso.seqs._
 
 /**
@@ -130,7 +129,7 @@ object GenJapgollyComponents {
   }
 
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] =
-    Companions
+    GenCompanions
       .memberParameter(scope, tree)
       .map(
         /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
@@ -226,7 +225,7 @@ object GenJapgollyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        ConstructObjectOfType(
+                        flavours.ConstructObjectOfType(
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope,
                           maxNum = ConstructObjectOfType.MaxParamsForMethod - additionalOptionalParams.length,
