@@ -3,7 +3,7 @@ package parser
 
 import com.olvind.logging
 import com.olvind.tso.importer.PersistingFunction.nameAndMtimeUnder
-import com.olvind.tso.importer.{Cmd, Config, PersistingFunction, UpToDateDefinitelyTyped}
+import com.olvind.tso.importer.{Cmd, Config, PersistingFunction, DTUpToDate}
 import com.olvind.tso.{InFile, InFolder, constants}
 
 object SuchTestMuchFail extends App {
@@ -15,7 +15,7 @@ object SuchTestMuchFail extends App {
   os.makeDir.all(config.cacheFolder)
 
   val dtFolder: InFolder =
-    UpToDateDefinitelyTyped(new Cmd(logger, None), config.offline, config.cacheFolder, constants.DefinitelyTypedRepo)
+    DTUpToDate(new Cmd(logger, None), config.offline, config.cacheFolder, constants.DefinitelyTypedRepo)
 
   val criterion: Double =
     99.5

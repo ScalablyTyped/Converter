@@ -1,4 +1,5 @@
-package com.olvind.tso.importer
+package com.olvind.tso
+package importer
 import java.io.File
 
 import com.olvind.logging.Pattern.{formatThrowable, prefixFor}

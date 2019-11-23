@@ -46,14 +46,14 @@ trait ImporterHarness extends FunSuiteLike {
       Source.StdLibSource(InFolder(source.path), List(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
     val resolve          = new LibraryResolver(stdLibSource, Seq(source), None)
-    val lastChangedIndex = RepoLastChangedIndex(testCmd, source.path)
+    val lastChangedIndex = DTLastChangedIndex(testCmd, source.path)
 
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
             resolve,
-            Option(new CalculateLibraryVersion(lastChangedIndex, "test")),
+            new DTVersions(lastChangedIndex),
             Set.empty,
             stdLibSource,
             pedantic,

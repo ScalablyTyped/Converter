@@ -35,8 +35,11 @@ val phases = project
   .dependsOn(utils, logging)
   .configure(baseSettings)
 
-val importer = project
+val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
+
+val importer = project
+  .dependsOn(`importer-portable`)
   .configure(baseSettings)
   .enablePlugins(BuildInfoPlugin)
   .settings(
@@ -59,7 +62,7 @@ val importer = project
   )
 
 val `sbt-tso` = project
-  .dependsOn(importer)
+  .dependsOn(`importer-portable`)
   .enablePlugins(ScriptedPlugin)
   .configure(baseSettings)
   .settings(

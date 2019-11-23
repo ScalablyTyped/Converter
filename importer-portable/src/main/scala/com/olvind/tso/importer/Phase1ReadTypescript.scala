@@ -18,7 +18,7 @@ import scala.collection.immutable.SortedMap
   */
 class Phase1ReadTypescript(
     resolve:                 LibraryResolver,
-    calculateLibraryVersion: Option[CalculateLibraryVersion],
+    calculateLibraryVersion: CalculateLibraryVersion,
     ignored:                 Set[TsIdentLibrary],
     stdlibSource:            Source,
     pedantic:                Boolean,
@@ -190,14 +190,11 @@ class Phase1ReadTypescript(
                 .Pipeline(scope, source.libName, enableExpandTypeMappings, involvesReact)
                 .foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
 
-              val version = calculateLibraryVersion.fold(LibraryVersion(None, None, ""))(
-                _(
-                  source.folder,
-                  source.isInstanceOf[Source.StdLibSource],
-                  libParts.keys.map(_.file).to[Seq],
-                  source.packageJsonOpt,
-                  finished.comments,
-                ),
+              val version = calculateLibraryVersion(
+                source.folder,
+                source.isInstanceOf[Source.StdLibSource],
+                source.packageJsonOpt,
+                finished.comments,
               )
 
               LibTs(source)(version, finished, deps, facades)
