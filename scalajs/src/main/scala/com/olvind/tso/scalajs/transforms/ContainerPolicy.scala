@@ -109,7 +109,10 @@ object ContainerPolicy extends TreeTransformation {
             case _                      => false
           }
 
-        mod.members.exists {
+        def failsOnScalaJs1 =
+          mod.annotations.contains(Annotation.JsGlobalScope) && mod.members.exists(_.isInstanceOf[ModuleTree])
+
+        failsOnScalaJs1 || mod.members.exists {
           case x: InheritanceTree => check(x.annotations, x.name)
           case x: ContainerTree   => check(x.annotations, x.name)
           case x: FieldTree       => check(x.annotations, x.name)
