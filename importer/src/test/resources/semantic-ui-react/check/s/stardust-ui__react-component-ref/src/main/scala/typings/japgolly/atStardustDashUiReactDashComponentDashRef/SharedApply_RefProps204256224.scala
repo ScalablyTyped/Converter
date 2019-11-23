@@ -3,7 +3,6 @@ package typings.japgolly.atStardustDashUiReactDashComponentDashRef
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import japgolly.scalajs.react.raw.React.Ref
 import org.scalablytyped.runtime.StringDictionary
 import typings.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps
 import scala.scalajs.js
@@ -13,7 +12,7 @@ import scala.scalajs.js.annotation._
 abstract class SharedApply_RefProps204256224[ComponentRef] () {
   def __component: js.Any
   def apply(
-    innerRef: Ref = null,
+    innerRef: japgolly.scalajs.react.raw.React.Ref = null,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   )(
