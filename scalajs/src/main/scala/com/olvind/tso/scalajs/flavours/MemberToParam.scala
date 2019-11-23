@@ -27,7 +27,7 @@ object MemberToParam {
                   ),
                 ),
               )
-            case Nullable(tpe) if IsPrimitive(tpe, scope / x) =>
+            case Nullable(tpe) if TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, tpe))) =>
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
