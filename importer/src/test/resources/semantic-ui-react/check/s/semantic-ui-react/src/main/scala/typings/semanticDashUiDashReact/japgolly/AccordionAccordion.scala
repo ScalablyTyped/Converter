@@ -2,6 +2,7 @@ package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -26,7 +27,8 @@ object AccordionAccordion {
     onTitleClick: js.UndefOr[
       (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
     ] = js.undefined,
-    panels: SemanticShorthandCollection[AccordionPanelProps] = null
+    panels: SemanticShorthandCollection[AccordionPanelProps] = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[AccordionAccordionProps, default, Unit, AccordionAccordionProps] = {
@@ -40,6 +42,7 @@ object AccordionAccordion {
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive)
     onTitleClick.foreach(p => __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
     if (panels != null) __obj.updateDynamic("panels")(panels)
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.AccordionAccordionProps, 

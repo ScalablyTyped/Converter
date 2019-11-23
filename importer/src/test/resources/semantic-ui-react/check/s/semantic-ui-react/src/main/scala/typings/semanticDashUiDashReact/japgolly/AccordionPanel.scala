@@ -2,6 +2,7 @@ package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -24,7 +25,8 @@ object AccordionPanel {
     onTitleClick: js.UndefOr[
       (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
     ] = js.undefined,
-    title: SemanticShorthandItem[AccordionTitleProps] = null
+    title: SemanticShorthandItem[AccordionTitleProps] = null,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[AccordionPanelProps, default, Unit, AccordionPanelProps] = {
@@ -36,6 +38,7 @@ object AccordionPanel {
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
     onTitleClick.foreach(p => __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
     if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps, 
