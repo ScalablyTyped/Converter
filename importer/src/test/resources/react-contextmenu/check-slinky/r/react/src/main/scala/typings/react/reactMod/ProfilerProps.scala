@@ -21,7 +21,7 @@ object ProfilerProps {
     children: TagMod[Any] = null
   ): ProfilerProps = {
     val __obj = js.Dynamic.literal(id = id, onRender = js.Any.fromFunction7(onRender))
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     __obj.asInstanceOf[ProfilerProps]
   }
 }

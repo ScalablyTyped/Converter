@@ -15,7 +15,7 @@ object DOMAttributes {
   @scala.inline
   def apply[T](children: TagMod[Any] = null, dangerouslySetInnerHTML: Anon_Html = null): DOMAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
     __obj.asInstanceOf[DOMAttributes[T]]
   }

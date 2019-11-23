@@ -10,12 +10,7 @@ trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement]
 
 object ReactSVGElement {
   @scala.inline
-  def apply(
-    props: js.Any,
-    `type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any,
-    key: Key = null,
-    ref: LegacyRef[SVGElement] = null
-  ): ReactSVGElement = {
+  def apply(props: js.Any, `type`: js.Any, key: Key = null, ref: LegacyRef[SVGElement] = null): ReactSVGElement = {
     val __obj = js.Dynamic.literal(props = props)
     __obj.updateDynamic("type")(`type`)
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])

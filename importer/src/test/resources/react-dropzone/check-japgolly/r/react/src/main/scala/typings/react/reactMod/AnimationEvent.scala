@@ -1,5 +1,7 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.Event
 import typings.react.NativeAnimationEvent
 import typings.std.EventTarget
@@ -23,19 +25,24 @@ object AnimationEvent {
     defaultPrevented: Boolean,
     elapsedTime: Double,
     eventPhase: Double,
-    isDefaultPrevented: () => Boolean,
-    isPropagationStopped: () => Boolean,
+    isDefaultPrevented: CallbackTo[Boolean],
+    isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
     nativeEvent: Event,
-    persist: () => Unit,
-    preventDefault: () => Unit,
+    persist: Callback,
+    preventDefault: Callback,
     pseudoElement: String,
-    stopPropagation: () => Unit,
+    stopPropagation: Callback,
     target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String
   ): AnimationEvent[T] = {
-    val __obj = js.Dynamic.literal(animationName = animationName, bubbles = bubbles, cancelable = cancelable, currentTarget = currentTarget, defaultPrevented = defaultPrevented, elapsedTime = elapsedTime, eventPhase = eventPhase, isDefaultPrevented = js.Any.fromFunction0(isDefaultPrevented), isPropagationStopped = js.Any.fromFunction0(isPropagationStopped), isTrusted = isTrusted, nativeEvent = nativeEvent, persist = js.Any.fromFunction0(persist), preventDefault = js.Any.fromFunction0(preventDefault), pseudoElement = pseudoElement, stopPropagation = js.Any.fromFunction0(stopPropagation), target = target, timeStamp = timeStamp)
+    val __obj = js.Dynamic.literal(animationName = animationName, bubbles = bubbles, cancelable = cancelable, currentTarget = currentTarget, defaultPrevented = defaultPrevented, elapsedTime = elapsedTime, eventPhase = eventPhase, isTrusted = isTrusted, nativeEvent = nativeEvent, pseudoElement = pseudoElement, target = target, timeStamp = timeStamp)
+    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
+    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
+    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
+    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
+    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[AnimationEvent[T]]
   }

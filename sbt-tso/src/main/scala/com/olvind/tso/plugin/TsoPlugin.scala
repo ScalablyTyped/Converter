@@ -126,7 +126,7 @@ object TsoPlugin extends AutoPlugin {
           .find(_._1 == "typescript")
           .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
       },
-      tsoFlavour := com.olvind.tso.plugin.Flavour.Normal,
+      tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
       tsoTypescriptVersion := "3.6.3",
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),

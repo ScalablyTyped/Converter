@@ -119,7 +119,7 @@ object ScalaJsClasses {
   val Functions: Seq[ClassTree] =
     0 to 22 flatMap (n => List(ScalaJsF(isThis = false, n), ScalaJsF(isThis = true, n)))
 
-  val ScalaJsTypes: Map[List[Name], ClassTree] =
+  val ScalaJsTypes: Map[List[Name], Tree] =
     (Functions ++ List(
       ScalaJsFunction,
       ScalaJsArray,
@@ -127,6 +127,7 @@ object ScalaJsClasses {
       ObjectMembers.ScalaObject,
       StringDictionary,
       NumberDictionary,
+      flavours.GenJapgollyComponents.classDefs.Ref,
       flavours.GenSlinkyComponents.classDefs.ExternalComponentNoPropsCls,
       flavours.GenSlinkyComponents.classDefs.ExternalComponentPropsCls,
     )).map(x => x.codePath.parts -> x).toMap

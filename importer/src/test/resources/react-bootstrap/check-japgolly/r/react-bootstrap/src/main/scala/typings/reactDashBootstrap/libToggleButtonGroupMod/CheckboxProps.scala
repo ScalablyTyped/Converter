@@ -1,5 +1,6 @@
 package typings.reactDashBootstrap.libToggleButtonGroupMod
 
+import japgolly.scalajs.react.Callback
 import typings.reactDashBootstrap.reactDashBootstrapStrings.checkbox
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -13,11 +14,15 @@ trait CheckboxProps extends js.Object {
 
 object CheckboxProps {
   @scala.inline
-  def apply(`type`: checkbox, name: String = null, onChange: /* values */ js.Array[_] => Unit = null): CheckboxProps = {
+  def apply(
+    `type`: checkbox,
+    name: String = null,
+    onChange: js.UndefOr[/* values */ js.Array[_] => Callback] = js.undefined
+  ): CheckboxProps = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`)
     if (name != null) __obj.updateDynamic("name")(name)
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1(onChange))
+    onChange.foreach(p => __obj.updateDynamic("onChange")(js.Any.fromFunction1(((t0: /* values */ js.Array[_]) => p(t0).runNow()))))
     __obj.asInstanceOf[CheckboxProps]
   }
 }

@@ -3,6 +3,7 @@ package scalajs
 
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.scalajs.TypeRef.ThisType
+import com.olvind.tso.scalajs.flavours.{GenJapgollyComponents, GenSlinkyComponents}
 import com.olvind.tso.seqs.Head
 
 sealed abstract class TreeScope { outer =>
@@ -15,10 +16,12 @@ sealed abstract class TreeScope { outer =>
 
   final def lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
     fragments match {
-      case x if ScalaJsClasses.ScalaJsTypes.contains(x)     => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
-      case Head(Name.scala | Name.java)                     => Nil
-      case fs if fs.startsWith(QualifiedName.Runtime.parts) => Nil
-      case Head(name) if Name.Internal(name)                => Nil
+      case x if ScalaJsClasses.ScalaJsTypes.contains(x) => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
+      case Head(Name.scala | Name.java | GenJapgollyComponents.names.japgolly | GenSlinkyComponents.names.slinkyName) =>
+        Nil
+      case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Nil
+      case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Nil
+      case Head(name) if Name.Internal(name)                   => Nil
       case _ =>
         val res = _lookup(fragments)
 

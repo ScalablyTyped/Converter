@@ -308,7 +308,7 @@ object ScriptHTMLAttributes {
     if (autoCorrect != null) __obj.updateDynamic("autoCorrect")(autoCorrect)
     if (autoSave != null) __obj.updateDynamic("autoSave")(autoSave)
     if (charSet != null) __obj.updateDynamic("charSet")(charSet)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(contentEditable)) __obj.updateDynamic("contentEditable")(contentEditable)

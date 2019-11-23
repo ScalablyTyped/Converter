@@ -1,5 +1,7 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import typings.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -41,9 +43,9 @@ object MouseEvent {
     currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
-    getModifierState: String => Boolean,
-    isDefaultPrevented: () => Boolean,
-    isPropagationStopped: () => Boolean,
+    getModifierState: String => CallbackTo[Boolean],
+    isDefaultPrevented: CallbackTo[Boolean],
+    isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
     metaKey: Boolean,
     movementX: Double,
@@ -51,18 +53,24 @@ object MouseEvent {
     nativeEvent: E,
     pageX: Double,
     pageY: Double,
-    persist: () => Unit,
-    preventDefault: () => Unit,
+    persist: Callback,
+    preventDefault: Callback,
     relatedTarget: org.scalajs.dom.raw.EventTarget,
     screenX: Double,
     screenY: Double,
     shiftKey: Boolean,
-    stopPropagation: () => Unit,
+    stopPropagation: Callback,
     target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String
   ): MouseEvent[T, E] = {
-    val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, button = button, buttons = buttons, cancelable = cancelable, clientX = clientX, clientY = clientY, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, getModifierState = js.Any.fromFunction1(getModifierState), isDefaultPrevented = js.Any.fromFunction0(isDefaultPrevented), isPropagationStopped = js.Any.fromFunction0(isPropagationStopped), isTrusted = isTrusted, metaKey = metaKey, movementX = movementX, movementY = movementY, nativeEvent = nativeEvent.asInstanceOf[js.Any], pageX = pageX, pageY = pageY, persist = js.Any.fromFunction0(persist), preventDefault = js.Any.fromFunction0(preventDefault), relatedTarget = relatedTarget, screenX = screenX, screenY = screenY, shiftKey = shiftKey, stopPropagation = js.Any.fromFunction0(stopPropagation), target = target, timeStamp = timeStamp)
+    val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, button = button, buttons = buttons, cancelable = cancelable, clientX = clientX, clientY = clientY, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, isTrusted = isTrusted, metaKey = metaKey, movementX = movementX, movementY = movementY, nativeEvent = nativeEvent.asInstanceOf[js.Any], pageX = pageX, pageY = pageY, relatedTarget = relatedTarget, screenX = screenX, screenY = screenY, shiftKey = shiftKey, target = target, timeStamp = timeStamp)
+    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1(((t0: java.lang.String) => getModifierState(t0).runNow())))
+    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
+    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
+    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
+    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
+    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[MouseEvent[T, E]]
   }

@@ -1,5 +1,6 @@
 package typings.reactDashTransitionDashGroup
 
+import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -11,9 +12,9 @@ trait Anon_Child extends js.Object {
 
 object Anon_Child {
   @scala.inline
-  def apply(childFactory: /* child */ Element => Element = null): Anon_Child = {
+  def apply(childFactory: js.UndefOr[/* child */ Element => CallbackTo[Element]] = js.undefined): Anon_Child = {
     val __obj = js.Dynamic.literal()
-    if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1(childFactory))
+    childFactory.foreach(p => __obj.updateDynamic("childFactory")(js.Any.fromFunction1(((t0: /* child */ japgolly.scalajs.react.raw.React.Element) => p(t0).runNow()))))
     __obj.asInstanceOf[Anon_Child]
   }
 }

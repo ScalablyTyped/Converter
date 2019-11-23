@@ -1,6 +1,7 @@
 package typings.react.reactMod
 
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomNode
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,9 +14,9 @@ trait ProviderProps[T] extends js.Object {
 
 object ProviderProps {
   @scala.inline
-  def apply[T](value: T, children: Node = null): ProviderProps[T] = {
+  def apply[T](value: T, children: VdomNode = null): ProviderProps[T] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     __obj.asInstanceOf[ProviderProps[T]]
   }
 }

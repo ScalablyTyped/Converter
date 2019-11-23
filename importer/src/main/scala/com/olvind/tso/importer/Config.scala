@@ -79,7 +79,7 @@ object Config {
               if (flags contains "-reactSlinky") Flavour.reactSlinky
               else if (flags contains "-reactJapgolly") Flavour.reactJapgolly
               else if (flags contains "-reactFacade") Flavour.reactFacade
-              else Flavour.normal,
+              else Flavour.plain,
           ),
         )
     }

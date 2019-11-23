@@ -1,7 +1,7 @@
 package typings.reactDashBootstrap.libButtonGroupMod
 
-import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.raw.React.Ref
+import japgolly.scalajs.react.vdom.VdomNode
 import typings.react.Anon_Html
 import typings.react.reactMod.HTMLProps
 import typings.react.reactMod.Key
@@ -31,7 +31,7 @@ object ButtonGroupProps {
     block: js.UndefOr[Boolean] = js.undefined,
     bsSize: Sizes = null,
     bsStyle: String = null,
-    children: Node = null,
+    children: VdomNode = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     justified: js.UndefOr[Boolean] = js.undefined,
@@ -46,7 +46,7 @@ object ButtonGroupProps {
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
     if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize)
     if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)

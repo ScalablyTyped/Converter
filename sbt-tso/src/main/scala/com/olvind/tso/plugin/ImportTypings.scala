@@ -47,7 +47,7 @@ object ImportTypings {
     }
 
     val flavour = chosenFlavour match {
-      case Flavour.Normal      => com.olvind.tso.scalajs.flavours.Flavour.normal
+      case Flavour.Plain      => com.olvind.tso.scalajs.flavours.Flavour.plain
       case Flavour.ReactFacade => com.olvind.tso.scalajs.flavours.Flavour.reactFacade
       case Flavour.Slinky      => com.olvind.tso.scalajs.flavours.Flavour.reactSlinky
       case Flavour.Japgolly    => com.olvind.tso.scalajs.flavours.Flavour.reactJapgolly

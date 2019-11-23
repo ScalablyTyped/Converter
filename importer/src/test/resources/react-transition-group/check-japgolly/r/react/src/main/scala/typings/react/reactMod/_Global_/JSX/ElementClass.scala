@@ -1,5 +1,6 @@
 package typings.react.reactMod._Global_.JSX
 
+import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.Node
 import typings.react.reactMod.Component
 import scala.scalajs.js
@@ -13,9 +14,9 @@ trait ElementClass
 
 object ElementClass {
   @scala.inline
-  def apply(render: () => Node): ElementClass = {
-    val __obj = js.Dynamic.literal(render = js.Any.fromFunction0(render))
-  
+  def apply(render: CallbackTo[Node]): ElementClass = {
+    val __obj = js.Dynamic.literal()
+    __obj.updateDynamic("render")(js.Any.fromFunction0((() => render.runNow())))
     __obj.asInstanceOf[ElementClass]
   }
 }

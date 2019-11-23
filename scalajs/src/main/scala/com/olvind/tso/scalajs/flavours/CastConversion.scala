@@ -45,8 +45,8 @@ object CastConversion {
     case class Constrained(outer: TParam, among: Set[QualifiedName], default: QualifiedName) extends TParam
   }
 
-  case class TypeRewriterCast(replacements: Seq[CastConversion]) extends TreeTransformation {
-    val map = replacements.map(x => x.from -> x).toMap
+  case class TypeRewriterCast(conversions: Seq[CastConversion]) extends TreeTransformation {
+    val map = conversions.map(x => x.from -> x).toMap
 
     def mapped(x: TypeRef, scope: TreeScope): Option[TypeRef] =
       map.get(x.typeName).map { conv =>
@@ -61,25 +61,29 @@ object CastConversion {
           current match {
             /* changing inheritance to classes we haven't had the chance to inspect will often fail */
             case _: InheritanceTree => true
-            case _: TypeAliasTree => true
-            case _: ParamTree      =>
-              /* if this is an overloaded method we might break compilation if we translate both to the same type */
+            case _: TypeAliasTree   => true
+            case _: ParamTree =>
               outer match {
-                case TreeScope.Scoped(_, outerouter, method: MethodTree) =>
-                  outerouter match {
+                case TreeScope.Scoped(_, mouter, m: MethodTree) =>
+                  /* if this is an overloaded method we might break compilation if we translate both to the same type */
+                  mouter match {
                     case TreeScope.Scoped(_, _, owner: InheritanceTree) =>
-                      owner.index(method.name).length > 1
+                      owner.index.get(m.name) match {
+                        case Some(sameName) => sameName.length > 1
+                        case None           => false
+                      }
                     case _ => false
                   }
                 case _ => false
               }
-            case _: TypeRef => isRisky(outer)
+            case _: TypeRef   => isRisky(outer)
             case _ => false
           }
       }
 
     override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef =
-      if (isRisky(scope)) x else mapped(x, scope) orElse mapped(FollowAliases(scope)(x), scope) getOrElse x
+      if (isRisky(scope)) x
+      else mapped(x, scope).orElse(mapped(FollowAliases(scope)(x), scope)).getOrElse(x)
   }
 
   // format: off

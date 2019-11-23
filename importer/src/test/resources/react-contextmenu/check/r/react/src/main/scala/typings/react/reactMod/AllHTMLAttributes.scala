@@ -189,7 +189,6 @@ object AllHTMLAttributes {
     open: js.UndefOr[Boolean] = js.undefined,
     optimum: Int | Double = null,
     pattern: String = null,
-    placeholder: String = null,
     playsInline: js.UndefOr[Boolean] = js.undefined,
     poster: String = null,
     preload: String = null,
@@ -298,7 +297,6 @@ object AllHTMLAttributes {
     if (!js.isUndefined(open)) __obj.updateDynamic("open")(open)
     if (optimum != null) __obj.updateDynamic("optimum")(optimum.asInstanceOf[js.Any])
     if (pattern != null) __obj.updateDynamic("pattern")(pattern)
-    if (placeholder != null) __obj.updateDynamic("placeholder")(placeholder)
     if (!js.isUndefined(playsInline)) __obj.updateDynamic("playsInline")(playsInline)
     if (poster != null) __obj.updateDynamic("poster")(poster)
     if (preload != null) __obj.updateDynamic("preload")(preload)

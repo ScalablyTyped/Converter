@@ -426,7 +426,7 @@ object StrictButtonProps {
     if (!js.isUndefined(autoFocus)) __obj.updateDynamic("autoFocus")(autoFocus)
     if (autoSave != null) __obj.updateDynamic("autoSave")(autoSave)
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (!js.isUndefined(circular)) __obj.updateDynamic("circular")(circular)
     if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])

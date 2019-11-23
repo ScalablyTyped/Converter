@@ -18,7 +18,7 @@ object HTMLAttributes {
     defaultChecked: js.UndefOr[Boolean] = js.undefined
   ): HTMLAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
+    if (children != null) __obj.updateDynamic("children")(children)
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML)
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked)
     __obj.asInstanceOf[HTMLAttributes[T]]

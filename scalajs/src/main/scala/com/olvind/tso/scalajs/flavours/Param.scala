@@ -15,9 +15,21 @@ object Param {
   implicit val ParamOrdering: Ordering[Param] =
     Ordering.by((p: Param) => (p.isOptional, p.parameter.name))
 
-  def forClassTree(cls: ClassTree, _scope: TreeScope, maxNum: Int = MaxParamsForMethod)(
-      _handleMember:    (TreeScope, MemberTree) => Option[Param],
-  ): Seq[Param] = {
+  def forClassTree(
+      cls:           ClassTree,
+      _scope:        TreeScope,
+      memberToParam: MemberToParam,
+      maxNum:        Int,
+  ): Seq[Param] =
+    forClassTree(cls, _scope, maxNum).flatMap {
+      case Left(param)   => Some(param)
+      case Right(member) => memberToParam(_scope / cls, member)
+    }.sorted
+
+  /**
+    * this is only exported separately from the other `forClassTree` overload because the slinky integration does weird things
+    */
+  def forClassTree(cls: ClassTree, _scope: TreeScope, maxNum: Int): Seq[Either[Param, MemberTree]] = {
     val scope = _scope / cls
 
     val parents = ParentsResolver(scope, cls)
@@ -30,29 +42,28 @@ object Param {
           ref
       }
 
-    val clsRef = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments)
+    val RemoveThis = TypeRewriter(
+      Map(
+        TypeRef.ThisType(NoComments) -> TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
+      ),
+    )
 
-    def handleMember(member: MemberTree): Option[Param] =
-      _handleMember(scope, TypeRewriter(Map(TypeRef.ThisType(NoComments) -> clsRef)).visitMemberTree(scope)(member))
-
-    /* extract one per name, undoing some renaming damage that we have done */
-    def membersFrom(cls: ClassTree) =
-      cls.members
+    /* extract one per name, while undoing some renaming damage that we have done */
+    def membersFrom(cls: ClassTree): Map[Name, Either[Param, MemberTree]] =
+      RemoveThis
+        .visitClassTree(scope)(cls)
+        .members
         .collect {
           case (x: FieldTree) =>
             val realName = Annotation.realName(x.annotations, x.name)
-            val xx       = x.copy(name = realName)
-            handleMember(xx).map(p => realName -> p)
+            realName -> Right(x.copy(name = realName))
           case (x: MethodTree) =>
             val realName = Annotation.realName(x.annotations, x.name)
-            val xx       = x.copy(name = realName)
-            handleMember(xx).map(p => realName -> p)
-          case _ => None
+            realName -> Right(x.copy(name = realName))
         }
-        .flatten
         .toMap
 
-    def go(p: ParentsResolver.Parent): Map[Name, Param] =
+    def go(p: ParentsResolver.Parent): Map[Name, Either[Param, MemberTree]] =
       p.parents.flatMap(go).toMap ++ membersFrom(p.classTree)
 
     val builder =
@@ -75,16 +86,17 @@ object Param {
       .allParamsUnique
       .values
       .to[Seq]
-      .sorted
   }
 
   private case class Builder(
-      directParents: Map[ParentsResolver.Parent, Map[Name, Param]],
+      directParents: Map[ParentsResolver.Parent, Map[Name, Either[Param, MemberTree]]],
       unresolved:    Seq[TypeRef],
-      own:           SortedMap[Name, Param],
+      own:           SortedMap[Name, Either[Param, MemberTree]],
   ) {
 
-    def skipParentInlineIfMoreMembersThan(maxNum: Int)(f: ParentsResolver.Parent => (Name, Param)): Builder = {
+    def skipParentInlineIfMoreMembersThan(
+        maxNum: Int,
+    )(f:        ParentsResolver.Parent => (Name, Either[Param, MemberTree])): Builder = {
       val numParentMembers = directParents.foldLeft(0)((acc, p) => acc + p._2.size)
       if (own.size + numParentMembers + unresolved.length > maxNum) {
 
@@ -97,21 +109,23 @@ object Param {
     /** It's not *the* most precise way of going about this (will lose useful overloads),
       *  but has the nice property that it keeps the closest/most specific definition of a member
       * */
-    def allParamsUnique: Map[Name, Param] = {
-      val fromParents    = directParents.foldLeft(Map.empty[Name, Param])(_ ++ _._2)
+    def allParamsUnique: Map[Name, Either[Param, MemberTree]] = {
+      val fromParents    = directParents.foldLeft(Map.empty[Name, Either[Param, MemberTree]])(_ ++ _._2)
       val fromUnresolved = unresolved.map(typeRef => parentParameter(typeRef, isRequired = false))
       fromParents ++ fromUnresolved ++ own
     }
   }
 
-  def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Param) =
-    ref.name -> Param(
-      ParamTree(ref.name, false, ref, Some(TypeRef.`null`), NoComments),
-      !isRequired,
-      Right(
-        obj =>
-          if (isRequired) s"if (${ref.name.value} != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
-          else s"js.Dynamic.global.Object.assign($obj, ${ref.name.value})",
+  def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Left[Param, Nothing]) =
+    ref.name -> Left(
+      Param(
+        ParamTree(ref.name, isImplicit = false, ref, Some(TypeRef.`null`), NoComments),
+        !isRequired,
+        Right(
+          obj =>
+            if (isRequired) s"if (${ref.name.value} != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
+            else s"js.Dynamic.global.Object.assign($obj, ${ref.name.value})",
+        ),
       ),
     )
 }
