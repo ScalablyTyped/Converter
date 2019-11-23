@@ -100,7 +100,7 @@ class GenSlinkyComponents(
     scalaJsDomNames: ScalaJsDomNames,
     stdNames:        QualifiedName.StdNames,
     reactNames:      ReactNames,
-    params:          Params,
+    findParams:      Params,
 ) {
   import GenSlinkyComponents._
 
@@ -206,80 +206,98 @@ class GenSlinkyComponents(
         .to[Seq]
         .flatMap {
           case ((propsRefOpt, hasKnownRef, tparams), components) =>
-            // accept components with no props, but not those with too complicated props (type aliases that ExpandTypeMappings doesnt expand yet)
-            val propsParamsOpt: Option[Props] =
+            val propsOpt: Option[Props] =
               propsRefOpt match {
                 case Some(propsRef) =>
-                  val domParams = mutable.ArrayBuffer.empty[FieldTree]
-
-                  val dealiased = FollowAliases(scope)(propsRef)
-
-                  val paramsOpt: Option[Seq[Param]] =
+                  val referredTrait: Option[ClassTree] = {
+                    val dealiased = FollowAliases(scope)(propsRef)
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        params
-                          .forClassTree(
-                            FillInTParams(cls, newScope, dealiased.targs, tparams),
-                            scope,
-                            Params.MaxParamsForMethod,
-                          )
-                          .flatMap {
-                            case Left(param) => List(param)
-                            case Right(fieldTree: FieldTree) =>
-                              /* todo: refactor out a name/type check which ignores optionality */
-                              val isDom: Boolean =
-                                domFields.get(fieldTree.name) match {
-                                  case Some(tpe) =>
-                                    FollowAliases(scope)(fieldTree.tpe) match {
-                                      case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                                      case ftpe           => ftpe.typeName === tpe.typeName
-                                    }
-                                  case None => false
-                                }
-                              if (isDom) {
-                                domParams += fieldTree
-                                Nil
-                              } else memberToParameter(scope, fieldTree)
-
-                            case Right(methodTree: MethodTree) =>
-                              memberToParameter(scope, methodTree)
-                          }
-                          .sorted
+                        FillInTParams(cls, newScope, dealiased.targs, tparams)
                     }
+                  }
 
-                  paramsOpt.map(params => Props(propsRef, params, domParams.to[Seq]))
+                  referredTrait map { cls =>
+                    val domParams = mutable.ArrayBuffer.empty[FieldTree]
 
-                case None =>
-                  Some(Props(TypeRef.Object, Nil, Nil))
+                    val params = findParams
+                      .forClassTree(cls, scope, Params.MaxParamsForMethod)
+                      .flatMap {
+                        case Left(param) => List(param)
+                        case Right(fieldTree: FieldTree) =>
+                          /* todo: refactor out a name/type check which ignores optionality */
+                          val isDom: Boolean =
+                            domFields.get(fieldTree.name) match {
+                              case Some(tpe) =>
+                                FollowAliases(scope)(fieldTree.tpe) match {
+                                  case Nullable(ftpe) => ftpe.typeName === tpe.typeName
+                                  case ftpe           => ftpe.typeName === tpe.typeName
+                                }
+                              case None => false
+                            }
+                          if (isDom) {
+                            domParams += fieldTree
+                            Nil
+                          } else memberToParameter(scope, fieldTree)
+
+                        case Right(methodTree: MethodTree) =>
+                          memberToParameter(scope, methodTree)
+                      }
+                      .sorted
+
+                    Props(propsRef, params, domParams.to[Seq])
+                  }
+                case None => Some(Props(TypeRef.Object, Nil, Nil))
               }
 
-            propsParamsOpt.to[List].flatMap { props: Props =>
-              val domType: TypeRef =
-                props.domParams
-                  .firstDefined { f =>
-                    val referencedElements = TreeTraverse.collect(f) {
-                      case TypeRef(QualifiedName(List(reactNames.outputPkg, stdNames.stdName, name)), Nil, _)
-                          if name.value.endsWith("Element") =>
-                        name.value
-                    }
-                    referencedElements.toSet.firstDefined(ElementMapping.get)
-                  }
-                  .getOrElse(AnyHtmlElement)
+            val domType: TypeRef =
+              propsOpt
+                .flatMap(
+                  _.domParams
+                    .firstDefined { f =>
+                      val referencedElements = TreeTraverse.collect(f) {
+                        case TypeRef(QualifiedName(List(reactNames.outputPkg, stdNames.stdName, name)), Nil, _)
+                            if name.value.endsWith("Element") =>
+                          name.value
+                      }
+                      referencedElements.toSet.firstDefined(ElementMapping.get)
+                    },
+                )
+                .getOrElse(AnyHtmlElement)
 
-              if (props.noNormalProps)
-                components.map(genComponent(scope, pkgCp, props, domType))
-              else
-                components match {
-                  case Seq(one) =>
-                    List(genComponent(scope, pkgCp, props, domType)(one))
-                  case many =>
-                    /** We share `apply` methods for each props type in abstract classes to limit compilation time.
-                      *  References causes some trouble, so if the component knows it we thread it through a type param.
-                      */
-                    val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
-                    val propsCls          = genSharedPropsClass(scope, pkgCp, props, knownRefRewritten, tparams, domType)
-                    List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls, props))
+            propsOpt match {
+              case Some(props) =>
+                if (props.noNormalProps)
+                  components.map(genComponent(scope, pkgCp, props, domType))
+                else
+                  components match {
+                    case Seq(one) =>
+                      List(genComponent(scope, pkgCp, props, domType)(one))
+                    case many =>
+                      /** We share `apply` methods for each props type in abstract classes to limit compilation time.
+                        *  References causes some trouble, so if the component knows it we thread it through a type param.
+                        */
+                      val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
+                      val propsCls          = genSharedPropsClass(scope, pkgCp, props, knownRefRewritten, tparams, domType)
+                      List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls, props))
+                  }
+
+              case None =>
+                val propsWithObject = propsRefOpt match {
+                  case Some(propsRef) => TypeRef.Intersection(List(propsRef, TypeRef.Object))
+                  case None           => TypeRef.Object
                 }
+                val (_, Left(param)) = findParams.parentParameter(Name("props"), propsWithObject, isRequired = true)
+                val props            = Props(TypeRef.Object, List(param), Nil)
+
+                components.map { c =>
+                  val mod = genComponent(scope, pkgCp, props, domType)(c)
+                  val comment = Comment(
+                    "/* This component has complicated props, you'll have to assemble it yourself using js.Dynamic.literal(...) or similar */\n",
+                  )
+                  mod.copy(comments = mod.comments + comment)
+                }
+
             }
         }
 

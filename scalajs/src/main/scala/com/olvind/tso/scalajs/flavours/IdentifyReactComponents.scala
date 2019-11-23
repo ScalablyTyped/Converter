@@ -40,7 +40,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       fromSelf.toList ++ fromMembers
     }
 
-    go(tree, scope)
+    go(tree, scope).filterNot(c => reactNames.isComponent(c.scalaRef.typeName))
   }
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */

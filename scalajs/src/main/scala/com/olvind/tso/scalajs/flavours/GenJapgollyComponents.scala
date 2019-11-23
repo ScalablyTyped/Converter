@@ -220,10 +220,9 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
         .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
         .to[Seq]
         .flatMap {
-          case ((props, hasKnownRef, tparams), components) =>
-            // accept components with no props, but not those with too complicated props (type aliases that ExpandTypeMappings doesnt expand yet)
-            val propsParamsOpt: Option[(TypeRef, Seq[Param])] =
-              props match {
+          case ((propsOpt, hasKnownRef, tparams), components) =>
+            val (props, paramsOpt): (TypeRef, Option[Seq[Param]]) =
+              propsOpt match {
                 case Some(props) =>
                   val dealiased = FollowAliases(scope)(props)
 
@@ -238,14 +237,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
                         )
                     }
 
-                  paramsOpt.map(params => props -> params)
+                  props -> paramsOpt
 
                 case None =>
-                  Some(TypeRef.Object -> Nil)
+                  TypeRef.Object -> Some(Nil)
               }
 
-            propsParamsOpt.to[List].flatMap {
-              case (props, params) =>
+            paramsOpt match {
+              case Some(params) =>
                 components match {
                   case Seq(one) =>
                     List(genComponent(pkgCp, props, params, one.knownRef, tparams, one))
@@ -256,6 +255,16 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
                     val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
                     val propsCls          = genSharedPropsClass(pkgCp, props, params, knownRefRewritten, tparams)
                     List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
+                }
+              case None =>
+                components.map { c =>
+                  val propsWithObject  = TypeRef.Intersection(List(props, TypeRef.Object))
+                  val (_, Left(param)) = params.parentParameter(Name("props"), propsWithObject, isRequired = true)
+                  val mod              = genComponent(pkgCp, propsWithObject, List(param), c.knownRef, tparams, c)
+                  val comment = Comment(
+                    "/* This component has complicated props, you'll have to assemble it yourself using js.Dynamic.literal(...) or similar */\n",
+                  )
+                  mod.copy(comments = mod.comments + comment)
                 }
             }
         }

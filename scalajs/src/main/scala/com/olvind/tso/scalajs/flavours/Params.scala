@@ -91,7 +91,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
           case _: FieldTree => true
           case _ => false
         }
-        parentParameter(parent.refs.head, isRequired)
+        parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
       }
       .allParamsUnique
       .values
@@ -121,19 +121,19 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
       * */
     def allParamsUnique: Map[Name, Either[Param, MemberTree]] = {
       val fromParents    = directParents.foldLeft(Map.empty[Name, Either[Param, MemberTree]])(_ ++ _._2)
-      val fromUnresolved = unresolved.map(typeRef => parentParameter(typeRef, isRequired = false))
+      val fromUnresolved = unresolved.map(typeRef => parentParameter(typeRef.name, typeRef, isRequired = false))
       fromParents ++ fromUnresolved ++ own
     }
   }
 
-  def parentParameter(ref: TypeRef, isRequired: Boolean): (Name, Left[Param, Nothing]) =
-    ref.name -> Left(
+  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Left[Param, Nothing]) =
+    name -> Left(
       Param(
-        ParamTree(ref.name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
+        ParamTree(name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
         Right(
           obj =>
-            if (!isRequired) s"if (${ref.name.value} != null) js.Dynamic.global.Object.assign($obj, ${ref.name.value})"
-            else s"js.Dynamic.global.Object.assign($obj, ${ref.name.value})",
+            if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
+            else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
         ),
       ),
     )
