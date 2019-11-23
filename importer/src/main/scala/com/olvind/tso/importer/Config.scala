@@ -54,6 +54,17 @@ object Config {
         val wantedLibNames: Set[TsIdentLibrary] = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
           .map(TsIdentLibrary.apply)
 
+        val flavours = List(
+          if (flags.contains("-flavourPlain")) Some(Flavour.Plain) else None,
+          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(Flavour.Slinky) else None,
+          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly")) Some(Flavour.Japgolly)
+          else None,
+          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(Flavour.Normal) else None,
+        ).flatten match {
+          case Nil   => List(Flavour.Normal)
+          case other => other
+        }
+
         Some(
           Config(
             runId            = constants.DateTimePattern format LocalDateTime.now,
@@ -71,13 +82,7 @@ object Config {
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
-            flavours = List(
-              if (flags.contains("-flavourPlain")) Some(Flavour.Plain) else None,
-              if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(Flavour.Slinky) else None,
-              if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly")) Some(Flavour.Japgolly)
-              else None,
-              if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(Flavour.Normal) else None,
-            ).flatten,
+            flavours = flavours,
           ),
         )
     }
