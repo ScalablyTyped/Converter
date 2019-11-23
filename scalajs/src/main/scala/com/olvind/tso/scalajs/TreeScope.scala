@@ -13,11 +13,12 @@ sealed abstract class TreeScope { outer =>
   def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)]
   def logger:   Logger[Unit]
   def pedantic: Boolean
+  val outputPkg: Name
 
   final def root: TreeScope.Root[_] =
     this match {
       case root: TreeScope.Root[_] => root
-      case TreeScope.Scoped(_, outer, _) => outer.root
+      case TreeScope.Scoped(_, _, outer, _) => outer.root
     }
 
   final def lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
@@ -45,7 +46,7 @@ sealed abstract class TreeScope { outer =>
   def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)]
 
   final def /(current: Tree): TreeScope =
-    TreeScope.Scoped(libName, outer, current)
+    TreeScope.Scoped(outputPkg, libName, outer, current)
 
   final lazy val nameStack: List[Name] =
     stack.reverse.map(_.name)
@@ -93,7 +94,7 @@ object TreeScope {
       Seq.empty
   }
 
-  final case class Scoped(libName: Name, outer: TreeScope, current: Tree) extends TreeScope {
+  final case class Scoped(outputPkg: Name, libName: Name, outer: TreeScope, current: Tree) extends TreeScope {
     override val stack: List[Tree] =
       current :: outer.stack
 
@@ -114,8 +115,6 @@ object TreeScope {
 
       outer.tparams ++ newTParams.map(x => x.name -> x)
     }
-
-    lazy val outputPkg = root.outputPkg
 
     def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)] =
       names match {

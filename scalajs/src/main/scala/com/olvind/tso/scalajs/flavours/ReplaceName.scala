@@ -1,5 +1,8 @@
-package com.olvind.tso.scalajs
+package com.olvind.tso
+package scalajs
 package flavours
+
+import com.olvind.tso.scalajs.transforms.UnionToInheritance
 
 class ReplaceName(from: Name, to: Name) extends TreeTransformation {
 
@@ -9,6 +12,21 @@ class ReplaceName(from: Name, to: Name) extends TreeTransformation {
       case _              => qualifiedName
     }
 
+  def replace(comments: Comments): Comments =
+    Comments(comments.cs map {
+      case CommentData(data) =>
+        CommentData(data match {
+          case KeepOnlyReferenced.Keep(related)     => KeepOnlyReferenced.Keep(related map replaceTypeRef)
+          case KeepOnlyReferenced.Related(related)  => KeepOnlyReferenced.Related(related map replaceTypeRef)
+          case UnionToInheritance.WasUnion(related) => UnionToInheritance.WasUnion(related map replaceTypeRef)
+          case other                                => other
+        })
+      case other => other
+    })
+
+  def replaceTypeRef(tr: TypeRef): TypeRef =
+    tr.copy(typeName = replace(tr.typeName), comments = replace(tr.comments))
+
   def replace(name: Name): Name =
     name match {
       case `from` => to
@@ -16,18 +34,17 @@ class ReplaceName(from: Name, to: Name) extends TreeTransformation {
     }
 
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
-    s.copy(name = replace(s.name), codePath = replace(s.codePath))
+    s.copy(comments = replace(s.comments), name = replace(s.name), codePath = replace(s.codePath))
   override def leaveFieldTree(scope: TreeScope)(s: FieldTree): FieldTree =
-    s.copy(name = replace(s.name), codePath = replace(s.codePath))
+    s.copy(comments = replace(s.comments), name = replace(s.name), codePath = replace(s.codePath))
   override def leaveMethodTree(scope: TreeScope)(s: MethodTree): MethodTree =
-    s.copy(name = replace(s.name), codePath = replace(s.codePath))
+    s.copy(comments = replace(s.comments), name = replace(s.name), codePath = replace(s.codePath))
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(name = replace(s.name), codePath = replace(s.codePath))
+    s.copy(comments = replace(s.comments), name = replace(s.name), codePath = replace(s.codePath))
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(name = replace(s.name), codePath = replace(s.codePath))
+    s.copy(comments = replace(s.comments), name = replace(s.name), codePath = replace(s.codePath))
   override def leaveTypeAliasTree(scope: TreeScope)(s: TypeAliasTree): TypeAliasTree =
-    s.copy(name = replace(s.name), codePath = replace(s.codePath))
+    s.copy(comments = replace(s.comments), name = replace(s.name), codePath = replace(s.codePath))
   override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
-    s.copy(typeName = replace(s.typeName))
-
+    replaceTypeRef(s)
 }

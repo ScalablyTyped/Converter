@@ -2,6 +2,7 @@ package com.olvind.tso
 package scalajs
 package flavours
 
+import com.olvind.tso.scalajs.flavours.Params.Res
 import com.olvind.tso.seqs._
 
 /**
@@ -20,16 +21,31 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
         }
 
       container.withMembers(container.members.flatMap {
-        case cls: ClassTree if cls.classType === ClassType.Trait && cls.isScalaJsDefined && !nameConflict(cls.name) =>
-          val params: Seq[Param] =
-            findParams.forClassTree(cls, scope / cls, memberToParam, Params.MaxParamsForMethod)
+        case cls: ClassTree if !nameConflict(cls.name) =>
+          findParams.forClassTree(cls, scope / cls, memberToParam, Params.MaxParamsForMethod) match {
+            case Res.Error(_) =>
+              List(cls)
 
-          val modOpt: Option[ModuleTree] =
-            generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
-              .map(method => ModuleTree(Nil, cls.name, Nil, Seq(method), NoComments, cls.codePath))
-              .filter(ensureNotTooManyStrings)
+            case Res.One(_, params) =>
+              val modOpt: Option[ModuleTree] =
+                generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
+                  .map(method => ModuleTree(Nil, cls.name, Nil, Seq(method), NoComments, cls.codePath))
+                  .filter(ensureNotTooManyStrings)
 
-          List(cls) ++ modOpt
+              List(cls) ++ modOpt
+
+            case Res.Many(paramsMap) =>
+              val methods: Seq[MethodTree] =
+                paramsMap.flatMap {
+                  case (name, params) => generateCreator(name, params, cls.codePath, cls.tparams)
+                }(collection.breakOut)
+
+              val modOpt: Option[ModuleTree] =
+                Some(ModuleTree(Nil, cls.name, Nil, methods, NoComments, cls.codePath)).filter(ensureNotTooManyStrings)
+
+              List(cls) ++ modOpt
+          }
+
         case other => List(other)
       })
     }

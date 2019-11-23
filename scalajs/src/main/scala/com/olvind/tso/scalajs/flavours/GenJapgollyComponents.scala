@@ -3,6 +3,7 @@ package scalajs
 package flavours
 
 import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
+import com.olvind.tso.scalajs.flavours.Params.Res
 import com.olvind.tso.seqs._
 
 /**
@@ -221,14 +222,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
         .to[Seq]
         .flatMap {
           case ((propsOpt, hasKnownRef, tparams), components) =>
-            val (props, paramsOpt): (TypeRef, Option[Seq[Param]]) =
+            val (props, resParams): (TypeRef, Res[Seq[Param]]) =
               propsOpt match {
                 case Some(props) =>
                   val dealiased = FollowAliases(scope)(props)
 
-                  val paramsOpt: Option[Seq[Param]] =
+                  val paramsOpt: Option[Res[Seq[Param]]] =
                     scope lookup dealiased.typeName collectFirst {
-                      case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
+                      case (cls: ClassTree, newScope) =>
                         params.forClassTree(
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope / cls,
@@ -237,14 +238,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
                         )
                     }
 
-                  props -> paramsOpt
+                  props -> paramsOpt.getOrElse(Res.Error(s"Could't extract params from ${props.typeName}."))
 
                 case None =>
-                  TypeRef.Object -> Some(Nil)
+                  TypeRef.Object -> Res.One(TypeRef.Object.name, Nil)
               }
 
-            paramsOpt match {
-              case Some(params) =>
+            resParams match {
+              case Res.Success(params) =>
                 components match {
                   case Seq(one) =>
                     List(genComponent(pkgCp, props, params, one.knownRef, tparams, one))
@@ -256,13 +257,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
                     val propsCls          = genSharedPropsClass(pkgCp, props, params, knownRefRewritten, tparams)
                     List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
                 }
-              case None =>
+              case Res.Error(_) =>
                 components.map { c =>
                   val propsWithObject  = TypeRef.Intersection(List(props, TypeRef.Object))
-                  val (_, Left(param)) = params.parentParameter(Name("props"), propsWithObject, isRequired = true)
-                  val mod              = genComponent(pkgCp, propsWithObject, List(param), c.knownRef, tparams, c)
+                  val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
+                  val mod =
+                    genComponent(pkgCp, propsWithObject, Res.One(props.name, List(param)), c.knownRef, tparams, c)
                   val comment = Comment(
-                    "/* This component has complicated props, you'll have to assemble it yourself using js.Dynamic.literal(...) or similar */\n",
+                    s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. */\n",
                   )
                   mod.copy(comments = mod.comments + comment)
                 }
@@ -280,19 +282,30 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
   def genComponent(
       pkgCodePath:       QualifiedName,
       props:             TypeRef,
-      params:            Seq[Param],
+      resParams:         Res.Success[Seq[Param]],
       knownRefRewritten: Option[TypeRef],
       tparams:           Seq[TypeParamTree],
       c:                 Component,
   ): ModuleTree = {
     val componentCp  = pkgCodePath + c.fullName
     val componentRef = Component.formatReferenceTo(c.scalaRef, c.componentType)
-    val applyMethod  = genApply(props, params, knownRefRewritten, tparams, componentRef, componentCp)
+
+    val methods: Seq[MemberTree] =
+      resParams match {
+        case Res.One(_, params) =>
+          List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, componentRef, componentCp))
+        case Res.Many(values) =>
+          values.map {
+            case (name, params) =>
+              genCreator(name, props, params, knownRefRewritten, tparams, componentRef, componentCp)
+          }(collection.breakOut)
+      }
+
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
       parents     = Nil,
-      members     = List(applyMethod),
+      members     = methods,
       comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
       codePath    = componentCp,
     )
@@ -301,7 +314,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
   def genSharedPropsClass(
       pkgCodePath:       QualifiedName,
       props:             TypeRef,
-      params:            Seq[Param],
+      resParams:         Res.Success[Seq[Param]],
       knownRefRewritten: Option[TypeRef],
       tparams:           Seq[TypeParamTree],
   ): ClassTree = {
@@ -325,7 +338,17 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
       codePath    = classCp + names.component,
     )
 
-    val applyMethod  = genApply(props, params, knownRefRewritten, tparams, names.component.unescaped, classCp)
+    val methods: Seq[MemberTree] =
+      resParams match {
+        case Res.One(_, params) =>
+          List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, names.component.unescaped, classCp))
+        case Res.Many(values) =>
+          values.map {
+            case (name, params) =>
+              genCreator(name, props, params, knownRefRewritten, tparams, names.component.unescaped, classCp)
+          }(collection.breakOut)
+      }
+
     val refInTParams = knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, None, NoComments)).to[List]
 
     ClassTree(
@@ -334,7 +357,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
       tparams     = refInTParams,
       parents     = Nil,
       ctors       = Nil,
-      members     = List(componentRef, applyMethod),
+      members     = List(componentRef) ++ methods,
       classType   = ClassType.AbstractClass,
       isSealed    = false,
       comments    = NoComments,
@@ -370,7 +393,8 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     tpe.typeName == japgolly.vdomVdomNode || tpe.typeName == japgolly.vdomReactElement ||
       tpe.typeName == japgolly.vdomArray || tpe.typeName == japgolly.vdomTagOf
 
-  def genApply(
+  def genCreator(
+      name:              Name,
       props:             TypeRef,
       params:            Seq[Param],
       knownRefRewritten: Option[TypeRef],
@@ -471,14 +495,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     MethodTree(
       annotations = Nil,
       level       = ProtectionLevel.Default,
-      name        = Name.APPLY,
+      name        = name,
       tparams     = tparams,
       params      = List(firstParameterList, secondParameterList),
       impl        = impl,
       resultType  = resultType,
       isOverride  = false,
       comments    = NoComments,
-      codePath    = ownerCp + Name.APPLY,
+      codePath    = ownerCp + name,
     )
   }
 }

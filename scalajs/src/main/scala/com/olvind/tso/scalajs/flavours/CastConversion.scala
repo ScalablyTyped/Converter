@@ -55,16 +55,16 @@ object CastConversion {
     def isRisky(scope: TreeScope): Boolean =
       scope match {
         case _: TreeScope.Root[_] => false
-        case TreeScope.Scoped(_, outer, current) =>
+        case TreeScope.Scoped(_, _, outer, current) =>
           current match {
             /* changing inheritance to classes we haven't had the chance to inspect will often fail */
             case _: InheritanceTree => true
             case p: ParamTree =>
               outer match {
-                case TreeScope.Scoped(_, mouter, m: MethodTree) =>
+                case TreeScope.Scoped(_, _, mouter, m: MethodTree) =>
                   /* if this is an overloaded method we might break compilation if we translate both to the same type */
                   mouter match {
-                    case TreeScope.Scoped(_, _, owner: InheritanceTree) =>
+                    case TreeScope.Scoped(_, _, _, owner: InheritanceTree) =>
                       owner.index.get(m.name) match {
                         case Some(membersSameName) if membersSameName.length > 1 =>
                           val paramIdx = m.params.flatten.indexOf(p)

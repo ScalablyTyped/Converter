@@ -11,10 +11,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
 object ReactDashDropzone
   extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
   override val component: String | js.Object = typingsSlinky.reactDashDropzone.reactDashDropzoneMod.default.asInstanceOf[String | js.Object]
+  /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
   def apply(
     accept: String | js.Array[String] = null,
     getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,

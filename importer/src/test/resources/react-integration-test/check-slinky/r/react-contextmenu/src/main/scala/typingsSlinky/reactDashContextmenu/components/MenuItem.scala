@@ -14,10 +14,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: className, disabled */
 object MenuItem
   extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.MenuItem] {
   override val component: String | js.Object = js.constructorOf[typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.MenuItem].asInstanceOf[String | js.Object]
+  /* The following DOM/SVG props were specified: className, disabled */
   def apply(
     attributes: HTMLAttributes[HTMLDivElement] = null,
     data: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any = null,
