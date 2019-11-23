@@ -36,7 +36,7 @@ object UpToDateExternals {
     /* graalvm bundles a botched version which fails with SOE */
     val npmCommand = sys.env.get("NVM_BIN") match {
       case None       => List("npm")
-      case Some(path) => List(s"$path/node", s"$path/npm")
+      case Some(path) => List(s"$path/node", "--stack-size=4096", s"$path/npm")
     }
 
     if (missingExternals.isEmpty) logger.warn(s"All external libraries present in $nodeModulesPath")
@@ -50,6 +50,7 @@ object UpToDateExternals {
           "--no-cache",
           "--no-audit",
           "--no-bin-links",
+          "--stack-size",
           es,
         )(folder)
       }
