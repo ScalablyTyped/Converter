@@ -30,7 +30,7 @@ object MemberToParam {
             case Nullable(tpe) if IsPrimitive(tpe, scope / x) =>
               Some(
                 Param(
-                  ParamTree(name, false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
+                  ParamTree(name, isImplicit = false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
                   Right(
                     obj =>
                       s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
@@ -39,22 +39,23 @@ object MemberToParam {
               )
             case Nullable(TypeRef.Function(paramTypes, retType)) =>
               val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
-
-              Some(
-                Param(
-                  ParamTree(
-                    name,
-                    false,
-                    TypeRef.ScalaFunction(paramTypes, retType, NoComments),
-                    Some(TypeRef.`null`),
-                    NoComments,
+              if (paramTypes.contains(TypeRef.Nothing)) None // edge case which doesnt work
+              else
+                Some(
+                  Param(
+                    ParamTree(
+                      name,
+                      isImplicit = false,
+                      TypeRef.ScalaFunction(paramTypes, retType, NoComments),
+                      Some(TypeRef.`null`),
+                      NoComments,
+                    ),
+                    Right(
+                      obj =>
+                        s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+                    ),
                   ),
-                  Right(
-                    obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
-                  ),
-                ),
-              )
+                )
             case Nullable(_) =>
               /* Undo effect of FollowAliases above */
               val tpe = Nullable.unapply(origTpe).getOrElse(origTpe) match {
@@ -64,7 +65,7 @@ object MemberToParam {
 
               Some(
                 Param(
-                  ParamTree(name, false, tpe, Some(TypeRef.`null`), NoComments),
+                  ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(
                     obj =>
                       s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
@@ -74,27 +75,34 @@ object MemberToParam {
             case TypeRef.Function(paramTypes, retType) =>
               val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
 
-              Some(
-                Param(
-                  ParamTree(name, false, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
-                  if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
-                    Left(s"""${name.value} = $convertedTarget""")
-                  else
-                    Right(
-                      obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+              if (paramTypes.contains(TypeRef.Nothing)) None
+              else
+                Some(
+                  Param(
+                    ParamTree(
+                      name,
+                      isImplicit = false,
+                      TypeRef.ScalaFunction(paramTypes, retType, NoComments),
+                      None,
+                      NoComments,
                     ),
-                ),
-              )
+                    if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
+                      Left(s"""${name.value} = $convertedTarget""")
+                    else
+                      Right(
+                        obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+                      ),
+                  ),
+                )
             case _ =>
               Some(
                 Param(
-                  ParamTree(name, false, origTpe, None, NoComments),
+                  ParamTree(name, isImplicit = false, origTpe, None, NoComments),
                   if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                     Left(s"""${name.value} = ${name.value}$Cast""")
                   else
                     Right(
-                      obj =>
-                        s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
+                      obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
                     ),
                 ),
               )
@@ -102,23 +110,26 @@ object MemberToParam {
 
         case _m: MethodTree =>
           val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any), Nil)
-          val convertedTarget = s"js.Any.fromFunction${m.params.flatten.length}(${m.name.value})"
+          val flattenedParams = m.params.flatten
+          val convertedTarget = s"js.Any.fromFunction${flattenedParams.length}(${m.name.value})"
 
-          Some(
-            Param(
-              ParamTree(
-                m.name,
-                false,
-                TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
-                None,
-                NoComments,
+          if (flattenedParams.exists(_.tpe === TypeRef.Nothing)) None // edge case which doesnt work
+          else
+            Some(
+              Param(
+                ParamTree(
+                  m.name,
+                  isImplicit = false,
+                  TypeRef.ScalaFunction(flattenedParams.map(p => p.tpe), m.resultType, NoComments),
+                  None,
+                  NoComments,
+                ),
+                if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && m.originalName === m.name)
+                  Left(s"""${m.name.value} = $convertedTarget""")
+                else
+                  Right(obj => s"""$obj.updateDynamic("${m.originalName.unescaped}")($convertedTarget)"""),
               ),
-              if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && m.originalName === m.name)
-                Left(s"""${m.name.value} = $convertedTarget""")
-              else
-                Right(obj => s"""$obj.updateDynamic("${m.originalName.unescaped}")($convertedTarget)"""),
-            ),
-          )
+            )
       }
   }
 }

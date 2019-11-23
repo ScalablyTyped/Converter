@@ -9,6 +9,7 @@ object prettyString {
         case '.'   => "#dot#" // doesn't work in sbt/maven/ivy somewhere
         case '_'   => "#underscore#" // will be erased otherwise
         case '@'   => "#at#"
+        case '$'   => "#dollar#"
         case '-'   => "#dash#" //causes `` in scala code
         case other => other.toString()
       }
