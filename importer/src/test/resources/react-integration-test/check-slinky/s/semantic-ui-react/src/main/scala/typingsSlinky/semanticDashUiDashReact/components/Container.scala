@@ -16,7 +16,6 @@ object Container
   override val component: String | js.Object = typingsSlinky.semanticDashUiDashReact.srcElementsContainerMod.default.asInstanceOf[String | js.Object]
   /* The following DOM/SVG props were specified: className */
   def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     content: SemanticShorthandContent = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
@@ -25,7 +24,6 @@ object Container
     overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])

@@ -20,7 +20,6 @@ object AccordionAccordion
   override val component: String | js.Object = js.constructorOf[typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.default].asInstanceOf[String | js.Object]
   /* The following DOM/SVG props were specified: className */
   def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
     activeIndex: Double | js.Array[Double] = null,
     as: js.Any = null,
     defaultActiveIndex: Double | js.Array[Double] = null,
@@ -30,7 +29,6 @@ object AccordionAccordion
     overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (defaultActiveIndex != null) __obj.updateDynamic("defaultActiveIndex")(defaultActiveIndex.asInstanceOf[js.Any])

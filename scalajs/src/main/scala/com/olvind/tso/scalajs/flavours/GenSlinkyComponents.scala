@@ -227,7 +227,8 @@ class GenSlinkyComponents(
                           findParams
                             .forClassTree(cls, scope / cls, Int.MaxValue)
                             .map(_.flatMap {
-                              case Left(param) => List(param)
+                              case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary => Nil
+                              case Left(param)                                                                    => List(param)
                               case Right(fieldTree: FieldTree) =>
                                 /* todo: refactor out a name/type check which ignores optionality */
                                 val isDom: Boolean =
