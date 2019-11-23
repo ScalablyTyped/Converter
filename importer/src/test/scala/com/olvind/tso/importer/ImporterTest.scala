@@ -17,7 +17,6 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
   test("sax")(assertImportsOk("sax", pedantic                                       = true, update  = update))
   test("serve-static")(assertImportsOk("serve-static", pedantic                     = true, update  = update))
   test("tstl")(assertImportsOk("tstl", pedantic                                     = true, update  = update))
-  test("react-select")(assertImportsOk("react-select", pedantic                     = true, update  = update))
   test("numjs")(assertImportsOk("numjs", pedantic                                   = true, update  = update))
   test("rxjs")(assertImportsOk("rxjs", pedantic                                     = true, update  = update))
   test("virtual-dom")(assertImportsOk("virtual-dom", pedantic                       = true, update  = update))
@@ -54,16 +53,6 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Japgolly),
   )
 
-  test("react-bootstrap")(
-    assertImportsOk("react-bootstrap", pedantic = true, update = update),
-  )
-  test("react-bootstrap-slinky")(
-    assertImportsOk("react-bootstrap", pedantic = true, update = update, flavour = Flavour.Slinky),
-  )
-  test("react-bootstrap-japgolly")(
-    assertImportsOk("react-bootstrap", pedantic = true, update = update, flavour = Flavour.Japgolly),
-  )
-
   test("react-transition-group")(
     assertImportsOk("react-transition-group", pedantic = true, update = update),
   )
@@ -74,33 +63,13 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
     assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Japgolly),
   )
 
-  test("semantic-ui-react")(
-    assertImportsOk("semantic-ui-react", pedantic = false, update = update),
+  test("react-integration-test")(
+    assertImportsOk("react-integration-test", pedantic = false, update = update),
   )
-  test("semantic-ui-react-slinky")(
-    assertImportsOk("semantic-ui-react", pedantic = false, update = update, flavour = Flavour.Slinky),
+  test("react-integration-test-slinky")(
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Slinky),
   )
-  test("semantic-ui-react-japgolly")(
-    assertImportsOk("semantic-ui-react", pedantic = false, update = update, flavour = Flavour.Japgolly),
-  )
-
-  test("react-contextmenu")(
-    assertImportsOk("react-contextmenu", pedantic = false, update = update),
-  )
-  test("react-contextmenu-slinky")(
-    assertImportsOk("react-contextmenu", pedantic = false, update = update, flavour = Flavour.Slinky),
-  )
-  test("react-contextmenu-japgolly")(
-    assertImportsOk("react-contextmenu", pedantic = false, update = update, flavour = Flavour.Japgolly),
-  )
-
-  test("react-dropzone")(
-    assertImportsOk("react-dropzone", pedantic = false, update = update),
-  )
-  test("react-dropzone-slinky")(
-    assertImportsOk("react-dropzone", pedantic = false, update = update, flavour = Flavour.Slinky),
-  )
-  test("react-dropzone-japgolly")(
-    assertImportsOk("react-dropzone", pedantic = false, update = update, flavour = Flavour.Japgolly),
+  test("react-integration-test-japgolly")(
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Japgolly),
   )
 }
