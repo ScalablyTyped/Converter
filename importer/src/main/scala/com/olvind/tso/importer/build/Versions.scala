@@ -11,7 +11,7 @@ object Versions {
     val scalaVersion        = "2.12.10"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "0.6.29"
+    val scalaJsVersion      = "0.6.31"
     val scalaJsBinVersion   = "0.6"
     val scalacOptions       = List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
   }
@@ -21,8 +21,8 @@ object Versions {
     val scalaVersion        = "2.13.0"
     val binVersion          = "2.13"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "1.0.0-M8"
-    val scalaJsBinVersion   = "1.0.0-M8"
+    val scalaJsVersion      = "1.0.0-RC1"
+    val scalaJsBinVersion   = "1.0.0-RC1"
     val scalacOptions       = List("-g:notailcalls")
   }
 }
