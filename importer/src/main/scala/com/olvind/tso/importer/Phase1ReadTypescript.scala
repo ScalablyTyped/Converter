@@ -19,7 +19,7 @@ import scala.collection.immutable.SortedMap
 class Phase1ReadTypescript(
     resolve:                 LibraryResolver,
     calculateLibraryVersion: Option[CalculateLibraryVersion],
-    ignored:                 Set[String],
+    ignored:                 Set[TsIdentLibrary],
     stdlibSource:            Source,
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
@@ -40,8 +40,8 @@ class Phase1ReadTypescript(
   ): PhaseRes[Source, Phase1Res] = {
 
     source match {
-      case _:      Source.FacadeSource                                 => PhaseRes.Ok(Facade)
-      case source: Source.TsLibSource if ignored(source.libName.value) => PhaseRes.Ignore()
+      case _:      Source.FacadeSource                           => PhaseRes.Ok(Facade)
+      case source: Source.TsLibSource if ignored(source.libName) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
       case Source.TsHelperFile(file, _, _) if !file.path.last.endsWith(".d.ts") =>
         PhaseRes.Ignore()
@@ -141,11 +141,9 @@ class Phase1ReadTypescript(
                 )
                 .flatMap(
                   depName =>
-                    resolve.lookup(source, depName) match {
-                      case Some((x, _)) => Some(x)
-                      case None =>
-                        logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
-                        None
+                    resolve.global(depName) orElse {
+                      logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
+                      None
                     },
                 )
 

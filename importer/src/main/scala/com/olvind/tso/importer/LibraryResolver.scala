@@ -27,9 +27,7 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
     (libName.value, facadesFolder) match {
       case (StableStd, _) => Some(stdLib)
       case (FacadePath(facadePath), Some(folder)) =>
-        resolve(folder.path, facadePath).headOption map { found =>
-          Source.FacadeSource(InFolder(found))
-        }
+        resolve(folder.path, facadePath).headOption.map(found => Source.FacadeSource(InFolder(found)))
       case _ =>
         sourceFolders.firstDefined(
           source =>

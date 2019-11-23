@@ -141,7 +141,7 @@ object TsoPlugin extends AutoPlugin {
               tsoLogger,
               reactBinding,
               stdLib,
-              ignored,
+              ignored.map(TsIdentLibrary.apply),
               minimize,
             ) match {
               case Right(files) => files

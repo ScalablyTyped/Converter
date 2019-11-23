@@ -5,6 +5,7 @@ import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
 import com.olvind.tso.scalajs.react.ReactBinding
+import com.olvind.tso.ts.TsIdentLibrary
 
 case class PublishConfig(
     username: String,
@@ -23,7 +24,7 @@ case class Config(
     /* only overwrite changed files to play better with tooling like intellij */
     softWrites:     Boolean,
     debugMode:      Boolean,
-    wantedLibNames: Set[String],
+    wantedLibNames: Set[TsIdentLibrary],
     versions:       Versions,
     reactBindings:  List[ReactBinding],
 ) {
@@ -54,7 +55,8 @@ object Config {
           Some(PublishConfig(values("user"), values("password")))
         } else None
 
-        val wantedLibNames = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
+        val wantedLibNames: Set[TsIdentLibrary] = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
+          .map(TsIdentLibrary.apply)
 
         Some(
           Config(
