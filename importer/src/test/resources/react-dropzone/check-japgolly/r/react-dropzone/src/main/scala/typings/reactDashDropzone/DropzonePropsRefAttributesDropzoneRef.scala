@@ -1,14 +1,13 @@
 package typings.reactDashDropzone
 
-import typings.react.reactMod.DragEvent
+import japgolly.scalajs.react.ReactDragEventFrom
+import japgolly.scalajs.react.raw.React.Element
+import japgolly.scalajs.react.raw.React.Ref
+import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.DragEventHandler
 import typings.react.reactMod.Key
-import typings.react.reactMod.Ref
-import typings.react.reactMod._Global_.JSX.Element
 import typings.reactDashDropzone.reactDashDropzoneMod.DropEvent
-import typings.reactDashDropzone.reactDashDropzoneMod.DropzoneRef
 import typings.reactDashDropzone.reactDashDropzoneMod.DropzoneState
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -67,7 +66,7 @@ trait DropzonePropsRefAttributesDropzoneRef extends js.Object {
   ] = js.undefined
   var onFileDialogCancel: js.UndefOr[js.Function0[Unit]] = js.undefined
   var preventDropOnDocument: js.UndefOr[Boolean] = js.undefined
-  var ref: js.UndefOr[Ref[DropzoneRef]] = js.undefined
+  var ref: js.UndefOr[Ref] = js.undefined
 }
 
 object DropzonePropsRefAttributesDropzoneRef {
@@ -85,9 +84,9 @@ object DropzonePropsRefAttributesDropzoneRef {
     noDrag: js.UndefOr[Boolean] = js.undefined,
     noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
     noKeyboard: js.UndefOr[Boolean] = js.undefined,
-    onDragEnter: DragEvent[HTMLElement] => Unit = null,
-    onDragLeave: DragEvent[HTMLElement] => Unit = null,
-    onDragOver: DragEvent[HTMLElement] => Unit = null,
+    onDragEnter: ReactDragEventFrom[HTMLElement] => Unit = null,
+    onDragLeave: ReactDragEventFrom[HTMLElement] => Unit = null,
+    onDragOver: ReactDragEventFrom[HTMLElement] => Unit = null,
     onDrop: (/* acceptedFiles */ js.Array[
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
     ], /* rejectedFiles */ js.Array[
@@ -101,7 +100,7 @@ object DropzonePropsRefAttributesDropzoneRef {
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
-    ref: Ref[DropzoneRef] = null
+    ref: Ref = null
   ): DropzonePropsRefAttributesDropzoneRef = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])

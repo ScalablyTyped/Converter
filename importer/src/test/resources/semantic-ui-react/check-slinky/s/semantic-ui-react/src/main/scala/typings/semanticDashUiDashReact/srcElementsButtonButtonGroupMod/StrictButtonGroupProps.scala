@@ -1,6 +1,6 @@
 package typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod
 
-import typings.react.reactMod.ReactNode
+import slinky.core.TagMod
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
@@ -26,7 +26,7 @@ trait StrictButtonGroupProps extends js.Object {
   /** Array of shorthand Button values. */
   var buttons: js.UndefOr[SemanticShorthandCollection[ButtonProps]] = js.undefined
   /** Primary content. */
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[TagMod[Any]] = js.undefined
   /** Additional classes. */
   var className: js.UndefOr[String] = js.undefined
   /** Groups can have a shared color. */
@@ -70,7 +70,7 @@ object StrictButtonGroupProps {
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     buttons: SemanticShorthandCollection[ButtonProps] = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     color: SemanticCOLORS = null,
     compact: js.UndefOr[Boolean] = js.undefined,

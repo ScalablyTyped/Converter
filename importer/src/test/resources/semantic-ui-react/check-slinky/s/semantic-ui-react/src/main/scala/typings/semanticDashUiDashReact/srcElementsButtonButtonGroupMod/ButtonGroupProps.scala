@@ -1,7 +1,7 @@
 package typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.reactMod.ReactNode
+import slinky.core.TagMod
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
@@ -29,7 +29,7 @@ object ButtonGroupProps {
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     buttons: SemanticShorthandCollection[ButtonProps] = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     color: SemanticCOLORS = null,
     compact: js.UndefOr[Boolean] = js.undefined,

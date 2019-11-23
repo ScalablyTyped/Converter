@@ -42,7 +42,6 @@ object GenSlinkyComponents {
     val conversions: Seq[CastConversion] = {
       import CastConversion.TParam._
       CastConversion.All ++ Seq(
-        CastConversion(QualifiedName.WILDCARD, QualifiedName.Any), // todo: this should not leak out here
         CastConversion(QualifiedName.React.ReactType, ReactComponentClass, _1),
         CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
         CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),

@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionMod
 
+import japgolly.scalajs.react.raw.React.ComponentClassP
 import typings.react.reactMod.ComponentClass
 import typings.react.reactMod.ComponentState
 import typings.react.reactMod.StatelessComponent
@@ -12,8 +13,8 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait AccordionComponent extends ComponentClass[AccordionProps, ComponentState] {
-  var Accordion: ComponentClass[AccordionAccordionProps, ComponentState] = js.native
+  var Accordion: ComponentClassP[AccordionAccordionProps with js.Object] = js.native
   var Content: StatelessComponent[AccordionContentProps] = js.native
-  var Title: ComponentClass[AccordionTitleProps, ComponentState] = js.native
+  var Title: ComponentClassP[AccordionTitleProps with js.Object] = js.native
 }
 

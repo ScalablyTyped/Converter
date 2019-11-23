@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -21,6 +22,6 @@ trait ExoticComponent[P] extends js.Object {
   /**
     * **NOTE**: Exotic components are not callable.
     */
-  def apply(props: P): ReactElement | Null = js.native
+  def apply(props: P): Element | Null = js.native
 }
 

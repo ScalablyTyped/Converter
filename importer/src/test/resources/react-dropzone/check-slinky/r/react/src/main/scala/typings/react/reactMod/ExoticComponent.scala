@@ -21,6 +21,6 @@ trait ExoticComponent[P] extends js.Object {
   /**
     * **NOTE**: Exotic components are not callable.
     */
-  def apply(props: P): ReactElement | Null = js.native
+  def apply(props: P): slinky.core.facade.ReactElement | Null = js.native
 }
 

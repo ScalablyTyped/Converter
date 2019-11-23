@@ -1,12 +1,11 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.ReactNode
+import org.scalajs.dom.raw.HTMLDivElement
+import slinky.core.TagMod
+import slinky.web.SyntheticMouseEvent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -21,14 +20,14 @@ object AccordionTitleProps {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
-    onClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null
+    onClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null
   ): AccordionTitleProps = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)

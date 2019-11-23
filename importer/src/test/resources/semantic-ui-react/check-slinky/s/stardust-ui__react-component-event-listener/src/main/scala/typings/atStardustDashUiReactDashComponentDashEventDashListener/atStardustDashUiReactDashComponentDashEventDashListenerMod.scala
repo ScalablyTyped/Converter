@@ -1,8 +1,8 @@
 package typings.atStardustDashUiReactDashComponentDashEventDashListener
 
+import slinky.core.facade.ReactRef
 import typings.atStardustDashUiReactDashComponentDashEventDashListener.distEsTypesMod.EventListenerOptions
 import typings.atStardustDashUiReactDashComponentDashEventDashListener.distEsTypesMod.EventTypes
-import typings.atStardustDashUiReactDashComponentDashEventDashListener.distEsTypesMod.TargetRef
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -10,8 +10,12 @@ import scala.scalajs.js.annotation._
 @JSImport("@stardust-ui/react-component-event-listener", JSImport.Namespace)
 @js.native
 object atStardustDashUiReactDashComponentDashEventDashListenerMod extends js.Object {
-  val documentRef: TargetRef = js.native
-  val windowRef: TargetRef = js.native
+  val documentRef: ReactRef[
+    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any
+  ] = js.native
+  val windowRef: ReactRef[
+    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any
+  ] = js.native
   def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = js.native
   @js.native
   object EventListener extends js.Object {

@@ -1,12 +1,11 @@
 package typings.reactDashContextmenu.reactDashContextmenuMod
 
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.ReactElement
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
+import slinky.core.facade.ReactElement
+import slinky.web.SyntheticMouseEvent
+import slinky.web.SyntheticTouchEvent
 import typings.react.reactMod.ReactText
-import typings.react.reactMod.TouchEvent
-import typings.std.HTMLDivElement
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -17,7 +16,7 @@ trait SubMenuProps extends js.Object {
   var hoverDelay: js.UndefOr[Double] = js.undefined
   var onClick: js.UndefOr[
     (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
@@ -36,7 +35,7 @@ object SubMenuProps {
     disabled: js.UndefOr[Boolean] = js.undefined,
     hoverDelay: Int | Double = null,
     onClick: (js.Function3[
-      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit

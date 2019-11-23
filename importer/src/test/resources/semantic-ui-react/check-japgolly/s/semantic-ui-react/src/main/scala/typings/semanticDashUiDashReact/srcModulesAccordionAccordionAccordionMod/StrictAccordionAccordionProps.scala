@@ -1,12 +1,11 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod
 
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.ReactNode
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.React.Node
+import org.scalajs.dom.raw.HTMLDivElement
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -17,7 +16,7 @@ trait StrictAccordionAccordionProps extends js.Object {
   /** An element type to render as (string or function). */
   var as: js.UndefOr[js.Any] = js.undefined
   /** Primary content. */
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[Node] = js.undefined
   /** Additional classes. */
   var className: js.UndefOr[String] = js.undefined
   /** Initial activeIndex value. */
@@ -32,7 +31,7 @@ trait StrictAccordionAccordionProps extends js.Object {
     */
   var onTitleClick: js.UndefOr[
     js.Function2[
-      /* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], 
+      /* event */ ReactMouseEventFrom[HTMLDivElement], 
       /* data */ AccordionTitleProps, 
       Unit
     ]
@@ -46,11 +45,11 @@ object StrictAccordionAccordionProps {
   def apply(
     activeIndex: Double | js.Array[Double] = null,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: Node = null,
     className: String = null,
     defaultActiveIndex: Double | js.Array[Double] = null,
     exclusive: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null,
+    onTitleClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null
   ): StrictAccordionAccordionProps = {
     val __obj = js.Dynamic.literal()

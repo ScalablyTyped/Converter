@@ -1,8 +1,8 @@
 package typings.reactDashDropzone.reactDashDropzoneMod
 
-import typings.react.reactMod.RefObject
-import typings.std.HTMLElement
-import typings.std.HTMLInputElement
+import japgolly.scalajs.react.raw.React.RefHandle
+import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.raw.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -16,7 +16,7 @@ trait DropzoneState extends js.Object {
   var draggedFiles: js.Array[
     /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
   ] = js.native
-  var inputRef: RefObject[HTMLInputElement] = js.native
+  var inputRef: RefHandle[HTMLInputElement] = js.native
   var isDragAccept: Boolean = js.native
   var isDragActive: Boolean = js.native
   var isDragReject: Boolean = js.native
@@ -25,7 +25,7 @@ trait DropzoneState extends js.Object {
   var rejectedFiles: js.Array[
     /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
   ] = js.native
-  var rootRef: RefObject[HTMLElement] = js.native
+  var rootRef: RefHandle[HTMLElement] = js.native
   def getInputProps(): DropzoneInputProps = js.native
   def getInputProps(props: DropzoneInputProps): DropzoneInputProps = js.native
   def getRootProps(): DropzoneRootProps = js.native

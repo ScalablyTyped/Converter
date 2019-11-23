@@ -5,8 +5,12 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactMod {
+  import japgolly.scalajs.react.ReactEventFrom
+  import japgolly.scalajs.react.raw.React.ComponentClassP
   import org.scalablytyped.runtime.Instantiable1
   import org.scalablytyped.runtime.Instantiable2
+  import org.scalajs.dom.raw.Element
+  import org.scalajs.dom.raw.HTMLElement
   import typings.react.Anon_Children
   import typings.react.Anon_RefAny
   import typings.react.Anon_Result
@@ -15,18 +19,16 @@ package object reactMod {
   import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
-  import typings.std.Element
   import typings.std.Event
   import typings.std.EventTarget
-  import typings.std.HTMLElement
   import typings.std.Partial
   import typings.std.Pick
 
   type AnimationEventHandler[T] = EventHandler[AnimationEvent[T]]
   // tslint:disable-next-line:no-empty-interface
   type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
-  type CElement[P, T /* <: Component[P, ComponentState, _] */] = ComponentElement[P, T]
-  type CFactory[P, T /* <: Component[P, ComponentState, _] */] = ComponentFactory[P, T]
+  type CElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = ComponentElement[P, T]
+  type CFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = ComponentFactory[P, T]
   type CSSProperties = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
   type ChangeEventHandler[T] = EventHandler[ChangeEvent[T]]
   /**
@@ -34,11 +36,11 @@ package object reactMod {
     * a single argument, which is useful for many top-level API defs.
     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
     */
-  type ClassType[P, T /* <: Component[P, ComponentState, _] */, C /* <: ComponentClass[P, ComponentState] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
+  type ClassType[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */, C /* <: ComponentClassP[P with js.Object] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
   type ClassicElement[P] = CElement[P, ClassicComponent[P, ComponentState]]
   type ClassicFactory[P] = CFactory[P, ClassicComponent[P, ComponentState]]
   type ClipboardEventHandler[T] = EventHandler[ClipboardEvent[T]]
-  type ComponentFactory[P, T /* <: Component[P, ComponentState, _] */] = js.Function2[
+  type ComponentFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = js.Function2[
     /* props */ js.UndefOr[ClassAttributes[T] with P], 
     /* repeated */ ReactNode, 
     CElement[P, T]
@@ -48,10 +50,10 @@ package object reactMod {
     * or ComponentPropsWithoutRef when refs are not supported.
     */
   type ComponentProps[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */] = js.Object | (/* import warning: ImportType.apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)
-  type ComponentPropsWithRef[T /* <: ElementType[_] */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
+  type ComponentPropsWithRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
     /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify InstanceType<T> */ _
   ]))
-  type ComponentPropsWithoutRef[T /* <: ElementType[_] */] = PropsWithoutRef[ComponentProps[T]]
+  type ComponentPropsWithoutRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = PropsWithoutRef[ComponentProps[T]]
   type ComponentState = js.Any
   type ComponentType[P] = (ComponentClass[P, ComponentState]) | FunctionComponent[P]
   type CompositionEventHandler[T] = EventHandler[CompositionEvent[T]]
@@ -98,7 +100,7 @@ package object reactMod {
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
-  type EventHandler[E /* <: SyntheticEvent[_, Event] */] = js.Function1[/* event */ E, Unit]
+  type EventHandler[E /* <: ReactEventFrom[_ with Element] */] = js.Function1[/* event */ E, Unit]
   type ExactlyAnyPropertyKeys[T] = /* import warning: ImportType.apply Failed type conversion: {[ K in keyof T ]: react.react.IsExactlyAny<T[K]> extends true? K : never}[keyof T] */ js.Any
   type FC[P] = FunctionComponent[P]
   //
@@ -181,7 +183,7 @@ package object reactMod {
   //
   // Component API
   // ----------------------------------------------------------------------
-  type ReactInstance = (Component[js.Any, js.Object, js.Any]) | Element
+  type ReactInstance = (Component[js.Any, js.Object, js.Any]) | typings.std.Element
   type ReactManagedAttributes[C, P] = P | (Defaultize[
     (MergePropTypes[
       P, 

@@ -1,6 +1,6 @@
 package typings.semanticDashUiDashReact
 
-import typings.react.reactMod.StatelessComponent
+import slinky.core.ReactComponentClass
 import typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps
 import typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
 import typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
@@ -18,9 +18,9 @@ object srcElementsButtonMod extends js.Object {
   /* static members */
   @js.native
   object default extends js.Object {
-    var Content: StatelessComponent[ButtonContentProps] = js.native
-    var Group: StatelessComponent[ButtonGroupProps] = js.native
-    var Or: StatelessComponent[ButtonOrProps] = js.native
+    var Content: ReactComponentClass[ButtonContentProps] = js.native
+    var Group: ReactComponentClass[ButtonGroupProps] = js.native
+    var Or: ReactComponentClass[ButtonOrProps] = js.native
   }
   
 }

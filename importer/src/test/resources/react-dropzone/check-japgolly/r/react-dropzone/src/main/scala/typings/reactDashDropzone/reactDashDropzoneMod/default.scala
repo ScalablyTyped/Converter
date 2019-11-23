@@ -1,6 +1,6 @@
 package typings.reactDashDropzone.reactDashDropzoneMod
 
-import typings.react.reactMod._Global_.JSX.Element
+import japgolly.scalajs.react.raw.React.Element
 import typings.reactDashDropzone.DropzonePropsRefAttributesDropzoneRef
 import scala.scalajs.js
 import scala.scalajs.js.`|`

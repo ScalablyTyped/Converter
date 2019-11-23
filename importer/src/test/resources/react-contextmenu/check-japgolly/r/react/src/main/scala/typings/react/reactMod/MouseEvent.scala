@@ -17,7 +17,7 @@ trait MouseEvent[T, E] extends BaseSyntheticEvent[E, EventTarget with T, EventTa
   var movementY: Double
   var pageX: Double
   var pageY: Double
-  var relatedTarget: EventTarget
+  var relatedTarget: org.scalajs.dom.raw.EventTarget
   var screenX: Double
   var screenY: Double
   var shiftKey: Boolean
@@ -38,7 +38,7 @@ object MouseEvent {
     clientX: Double,
     clientY: Double,
     ctrlKey: Boolean,
-    currentTarget: EventTarget with T,
+    currentTarget: org.scalajs.dom.raw.EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -53,12 +53,12 @@ object MouseEvent {
     pageY: Double,
     persist: () => Unit,
     preventDefault: () => Unit,
-    relatedTarget: EventTarget,
+    relatedTarget: org.scalajs.dom.raw.EventTarget,
     screenX: Double,
     screenY: Double,
     shiftKey: Boolean,
     stopPropagation: () => Unit,
-    target: EventTarget,
+    target: org.scalajs.dom.raw.EventTarget,
     timeStamp: Double,
     `type`: String
   ): MouseEvent[T, E] = {

@@ -1,6 +1,7 @@
 package typings.react.reactMod
 
 import org.scalablytyped.runtime.StringDictionary
+import slinky.core.TagMod
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,13 +9,13 @@ import scala.scalajs.js.annotation._
 trait ComponentSpec[P, S]
   extends Mixin[P, S]
      with /* propertyName */ StringDictionary[js.Any] {
-  def render(): ReactNode
+  def render(): TagMod[Any]
 }
 
 object ComponentSpec {
   @scala.inline
   def apply[P, S](
-    render: () => ReactNode,
+    render: () => TagMod[Any],
     StringDictionary: /* propertyName */ StringDictionary[js.Any] = null,
     UNSAFE_componentWillMount: () => Unit = null,
     UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,

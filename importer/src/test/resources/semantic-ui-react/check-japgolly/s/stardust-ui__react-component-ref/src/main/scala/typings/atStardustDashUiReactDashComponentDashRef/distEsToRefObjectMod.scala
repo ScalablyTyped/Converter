@@ -1,6 +1,6 @@
 package typings.atStardustDashUiReactDashComponentDashRef
 
-import typings.react.reactMod.RefObject
+import japgolly.scalajs.react.raw.React.RefHandle
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 @js.native
 object distEsToRefObjectMod extends js.Object {
   /** Creates a React ref object from existing DOM node. */
-  def default[T /* <: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefObject[T] = js.native
+  def default[T /* <: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefHandle[T] = js.native
 }
 

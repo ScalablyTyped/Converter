@@ -7,6 +7,10 @@ import scala.scalajs.js.annotation._
 package object reactMod {
   import org.scalablytyped.runtime.Instantiable1
   import org.scalablytyped.runtime.Instantiable2
+  import org.scalajs.dom.raw.Element
+  import org.scalajs.dom.raw.Event
+  import org.scalajs.dom.raw.HTMLElement
+  import slinky.core.ReactComponentClass
   import typings.react.Anon_Children
   import typings.react.Anon_RefAny
   import typings.react.Anon_Result
@@ -15,18 +19,15 @@ package object reactMod {
   import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
-  import typings.std.Element
-  import typings.std.Event
   import typings.std.EventTarget
-  import typings.std.HTMLElement
   import typings.std.Partial
   import typings.std.Pick
 
   type AnimationEventHandler[T] = EventHandler[AnimationEvent[T]]
   // tslint:disable-next-line:no-empty-interface
   type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
-  type CElement[P, T /* <: Component[P, ComponentState, _] */] = ComponentElement[P, T]
-  type CFactory[P, T /* <: Component[P, ComponentState, _] */] = ComponentFactory[P, T]
+  type CElement[P, T /* <: ReactComponentClass[P] */] = ComponentElement[P, T]
+  type CFactory[P, T /* <: ReactComponentClass[P] */] = ComponentFactory[P, T]
   type CSSProperties = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
   type ChangeEventHandler[T] = EventHandler[ChangeEvent[T]]
   /**
@@ -34,11 +35,11 @@ package object reactMod {
     * a single argument, which is useful for many top-level API defs.
     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
     */
-  type ClassType[P, T /* <: Component[P, ComponentState, _] */, C /* <: ComponentClass[P, ComponentState] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
+  type ClassType[P, T /* <: ReactComponentClass[P] */, C /* <: ReactComponentClass[P] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
   type ClassicElement[P] = CElement[P, ClassicComponent[P, ComponentState]]
   type ClassicFactory[P] = CFactory[P, ClassicComponent[P, ComponentState]]
   type ClipboardEventHandler[T] = EventHandler[ClipboardEvent[T]]
-  type ComponentFactory[P, T /* <: Component[P, ComponentState, _] */] = js.Function2[
+  type ComponentFactory[P, T /* <: ReactComponentClass[P] */] = js.Function2[
     /* props */ js.UndefOr[ClassAttributes[T] with P], 
     /* repeated */ ReactNode, 
     CElement[P, T]
@@ -48,10 +49,10 @@ package object reactMod {
     * or ComponentPropsWithoutRef when refs are not supported.
     */
   type ComponentProps[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */] = js.Object | (/* import warning: ImportType.apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)
-  type ComponentPropsWithRef[T /* <: ElementType[_] */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
+  type ComponentPropsWithRef[T /* <: slinky.core.facade.ReactElement */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
     /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify InstanceType<T> */ _
   ]))
-  type ComponentPropsWithoutRef[T /* <: ElementType[_] */] = PropsWithoutRef[ComponentProps[T]]
+  type ComponentPropsWithoutRef[T /* <: slinky.core.facade.ReactElement */] = PropsWithoutRef[ComponentProps[T]]
   type ComponentState = js.Any
   type ComponentType[P] = (ComponentClass[P, ComponentState]) | FunctionComponent[P]
   type CompositionEventHandler[T] = EventHandler[CompositionEvent[T]]
@@ -98,7 +99,7 @@ package object reactMod {
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
-  type EventHandler[E /* <: SyntheticEvent[_, Event] */] = js.Function1[/* event */ E, Unit]
+  type EventHandler[E /* <: slinky.core.SyntheticEvent[Event, _] */] = js.Function1[/* event */ E, Unit]
   type ExactlyAnyPropertyKeys[T] = /* import warning: ImportType.apply Failed type conversion: {[ K in keyof T ]: react.react.IsExactlyAny<T[K]> extends true? K : never}[keyof T] */ js.Any
   type FC[P] = FunctionComponent[P]
   //
@@ -107,7 +108,7 @@ package object reactMod {
   type Factory[P] = js.Function2[/* props */ js.UndefOr[Attributes with P], /* repeated */ ReactNode, ReactElement]
   type FocusEventHandler[T] = EventHandler[FocusEvent[T]]
   // tslint:disable-next-line:no-empty-interface
-  type FormEvent[T] = BaseSyntheticEvent[Event, EventTarget with T, EventTarget]
+  type FormEvent[T] = BaseSyntheticEvent[typings.std.Event, EventTarget with T, EventTarget]
   type FormEventHandler[T] = EventHandler[FormEvent[T]]
   type FunctionComponentFactory[P] = js.Function2[
     /* props */ js.UndefOr[Attributes with P], 
@@ -132,11 +133,11 @@ package object reactMod {
   type JSXElementConstructor[P] = (js.Function1[/* props */ P, ReactElement | Null]) | (Instantiable1[/* props */ P, Component[P, js.Any, js.Any]])
   type Key = String | Double
   type KeyboardEventHandler[T] = EventHandler[KeyboardEvent[T]]
-  type LazyExoticComponent[T /* <: ComponentType[_] */] = ExoticComponent[ComponentPropsWithRef[T]] with Anon_Result[T]
+  type LazyExoticComponent[T /* <: ReactComponentClass[_] */] = ExoticComponent[ComponentPropsWithRef[T]] with Anon_Result[T]
   type LegacyRef[T] = String | Ref[T]
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name
-  type MemoExoticComponent[T /* <: ComponentType[_] */] = NamedExoticComponent[ComponentPropsWithRef[T]] with Anon_Type[T]
+  type MemoExoticComponent[T /* <: ReactComponentClass[_] */] = NamedExoticComponent[ComponentPropsWithRef[T]] with Anon_Type[T]
   // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
   type MergePropTypes[P, T] = ((Pick[P, NotExactlyAnyPropertyKeys[P]]) with (Pick[
     T, 
@@ -173,7 +174,7 @@ package object reactMod {
   type Provider[T] = ProviderExoticComponent[ProviderProps[T]]
   type ReactChild = ReactElement | ReactText
   type ReactComponentElement[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */, P] = ReactElement
-  type ReactEventHandler[T] = EventHandler[SyntheticEvent[T, Event]]
+  type ReactEventHandler[T] = EventHandler[SyntheticEvent[T, typings.std.Event]]
   type ReactFragment = js.Object | ReactNodeArray
   // ReactHTML for ReactHTMLElement
   // tslint:disable-next-line:no-empty-interface
@@ -181,7 +182,7 @@ package object reactMod {
   //
   // Component API
   // ----------------------------------------------------------------------
-  type ReactInstance = (Component[js.Any, js.Object, js.Any]) | Element
+  type ReactInstance = (Component[js.Any, js.Object, js.Any]) | typings.std.Element
   type ReactManagedAttributes[C, P] = P | (Defaultize[
     (MergePropTypes[
       P, 

@@ -22,7 +22,7 @@ object ReactDashDropzone {
     disabled: js.UndefOr[Boolean] = js.undefined,
     getFilesFromEvent: js.UndefOr[
       /* event */ DropEvent => CallbackTo[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ js.Any
+        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
       ]
     ] = js.undefined,
     maxSize: Int | Double = null,
@@ -37,19 +37,19 @@ object ReactDashDropzone {
     onDragOver: js.UndefOr[ReactDragEventFrom[HTMLElement] => Callback] = js.undefined,
     onDrop: js.UndefOr[
       (/* acceptedFiles */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
       ], /* rejectedFiles */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
       ], /* event */ DropEvent) => Callback
     ] = js.undefined,
     onDropAccepted: js.UndefOr[
       (/* files */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
       ], /* event */ DropEvent) => Callback
     ] = js.undefined,
     onDropRejected: js.UndefOr[
       (/* files */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any
+        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
       ], /* event */ DropEvent) => Callback
     ] = js.undefined,
     onFileDialogCancel: js.UndefOr[Callback] = js.undefined,
@@ -81,12 +81,12 @@ object ReactDashDropzone {
     onDragLeave.foreach(p => __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => p(t0).runNow()))))
     onDragOver.foreach(p => __obj.updateDynamic("onDragOver")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => p(t0).runNow()))))
     onDrop.foreach(p => __obj.updateDynamic("onDrop")(js.Any.fromFunction3(((t0: /* acceptedFiles */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any], t1: /* rejectedFiles */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any], t2: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1, t2).runNow()))))
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* rejectedFiles */ js.Array[
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t2: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1, t2).runNow()))))
     onDropAccepted.foreach(p => __obj.updateDynamic("onDropAccepted")(js.Any.fromFunction2(((t0: /* files */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
     onDropRejected.foreach(p => __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(((t0: /* files */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ js.Any], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
     onFileDialogCancel.foreach(p => __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0((() => p.runNow()))))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))

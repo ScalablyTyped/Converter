@@ -1,10 +1,11 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
 import typings.react.NativePointerEvent
 import typings.react.reactStrings.mouse
 import typings.react.reactStrings.pen
 import typings.react.reactStrings.touch
-import typings.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -43,7 +44,7 @@ object PointerEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: NativePointerEvent,
+    nativeEvent: Event,
     pageX: Double,
     pageY: Double,
     persist: () => Unit,

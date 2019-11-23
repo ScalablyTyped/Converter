@@ -1,11 +1,10 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod
 
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.ReactNode
+import org.scalajs.dom.raw.HTMLDivElement
+import slinky.core.TagMod
+import slinky.web.SyntheticMouseEvent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -16,7 +15,7 @@ trait StrictAccordionTitleProps extends js.Object {
   /** An element type to render as (string or function). */
   var as: js.UndefOr[js.Any] = js.undefined
   /** Primary content. */
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[TagMod[Any]] = js.undefined
   /** Additional classes. */
   var className: js.UndefOr[String] = js.undefined
   /** Shorthand for primary content. */
@@ -37,7 +36,7 @@ trait StrictAccordionTitleProps extends js.Object {
     */
   var onClick: js.UndefOr[
     js.Function2[
-      /* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], 
+      /* event */ SyntheticMouseEvent[HTMLDivElement], 
       /* data */ AccordionTitleProps, 
       Unit
     ]
@@ -49,14 +48,14 @@ object StrictAccordionTitleProps {
   def apply(
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
-    onClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null
+    onClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null
   ): StrictAccordionTitleProps = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)

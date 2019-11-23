@@ -1,5 +1,6 @@
 package typings.react.reactMod
 
+import slinky.core.TagMod
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
 import scala.scalajs.js
@@ -22,7 +23,7 @@ object HTMLProps {
     value: foo,
     accept: String = null,
     acceptCharset: String = null,
-    children: ReactNode = null,
+    children: TagMod[Any] = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined
   ): HTMLProps[T] = {

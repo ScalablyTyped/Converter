@@ -1,6 +1,6 @@
 package typings.atStardustDashUiReactDashComponentDashRef.distEsTypesMod
 
-import typings.react.reactMod.ReactElement
+import slinky.core.facade.ReactElement
 import typings.react.reactMod.Ref
 import scala.scalajs.js
 import scala.scalajs.js.`|`

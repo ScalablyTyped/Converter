@@ -150,7 +150,7 @@ object Button
     formNoValidate: js.UndefOr[Boolean] = js.undefined,
     formTarget: String = null,
     icon: Boolean | (SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
     ]) = null,
     inlist: js.Any = null,
     inputMode: String = null,
@@ -162,7 +162,7 @@ object Button
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ js.Any
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
     ] = null,
     labelPosition: right | left = null,
     loading: js.UndefOr[Boolean] = js.undefined,

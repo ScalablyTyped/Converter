@@ -1,13 +1,12 @@
 package typings.semanticDashUiDashReact.srcModulesAccordionAccordionMod
 
-import typings.react.NativeMouseEvent
-import typings.react.reactMod.MouseEvent
-import typings.react.reactMod.ReactNode
+import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.React.Node
+import org.scalajs.dom.raw.HTMLDivElement
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionAccordionMod.StrictAccordionAccordionProps
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -26,13 +25,13 @@ object StrictAccordionProps {
   def apply(
     activeIndex: Double | js.Array[Double] = null,
     as: js.Any = null,
-    children: ReactNode = null,
+    children: Node = null,
     className: String = null,
     defaultActiveIndex: Double | js.Array[Double] = null,
     exclusive: js.UndefOr[Boolean] = js.undefined,
     fluid: js.UndefOr[Boolean] = js.undefined,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null,
+    onTitleClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null,
     styled: js.UndefOr[Boolean] = js.undefined
   ): StrictAccordionProps = {

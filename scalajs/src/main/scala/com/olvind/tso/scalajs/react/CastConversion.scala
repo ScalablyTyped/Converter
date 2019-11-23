@@ -54,13 +54,36 @@ object CastConversion {
         x.copy(typeName = conv.to, targs = targs)
       }
 
+    def isRisky(scope: TreeScope): Boolean =
+      scope match {
+        case _: TreeScope.Root[_] => false
+        case TreeScope.Scoped(_, outer, current) =>
+          current match {
+            /* changing inheritance to classes we haven't had the chance to inspect will often fail */
+            case _: InheritanceTree => true
+            case _: TypeAliasTree => true
+            case _: ParamTree      =>
+              /* if this is an overloaded method we might break compilation if we translate both to the same type */
+              outer match {
+                case TreeScope.Scoped(_, outerouter, method: MethodTree) =>
+                  outerouter match {
+                    case TreeScope.Scoped(_, _, owner: InheritanceTree) =>
+                      owner.index(method.name).length > 1
+                    case _ => false
+                  }
+                case _ => false
+              }
+            case _: TypeRef => isRisky(outer)
+            case _ => false
+          }
+      }
+
     override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef =
-      mapped(x, scope) orElse mapped(FollowAliases(scope)(x), scope) getOrElse x
+      if (isRisky(scope)) x else mapped(x, scope) orElse mapped(FollowAliases(scope)(x), scope) getOrElse x
   }
 
   // format: off
   val All: Seq[CastConversion] = Seq(
-    CastConversion(QualifiedName("typings.std.ANGLE_instanced_arrays"), QualifiedName("org.scalajs.dom.experimental.webgl.ANGLE_instanced_arrays")),
     CastConversion(QualifiedName("typings.std.AbortController"), QualifiedName("org.scalajs.dom.experimental.AbortController")),
     CastConversion(QualifiedName("typings.std.AbortSignal"), QualifiedName("org.scalajs.dom.experimental.AbortSignal")),
     CastConversion(QualifiedName("typings.std.AbstractWorker"), QualifiedName("org.scalajs.dom.raw.AbstractWorker")),
@@ -131,7 +154,7 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.Crypto"), QualifiedName("org.scalajs.dom.crypto.Crypto")),
     CastConversion(QualifiedName("typings.std.CryptoKey"), QualifiedName("org.scalajs.dom.crypto.CryptoKey")),
     CastConversion(QualifiedName("typings.std.CryptoKeyPair"), QualifiedName("org.scalajs.dom.crypto.CryptoKeyPair")),
-    CastConversion(QualifiedName("typings.std.CustomEvent"), QualifiedName("org.scalajs.dom.raw.CustomEvent"), _1),
+    CastConversion(QualifiedName("typings.std.CustomEvent"), QualifiedName("org.scalajs.dom.raw.CustomEvent")),
     CastConversion(QualifiedName("typings.std.DOMError"), QualifiedName("org.scalajs.dom.raw.DOMError")),
     CastConversion(QualifiedName("typings.std.DOMException"), QualifiedName("org.scalajs.dom.raw.DOMException")),
     CastConversion(QualifiedName("typings.std.DOMImplementation"), QualifiedName("org.scalajs.dom.raw.DOMImplementation")),
@@ -159,11 +182,6 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.DocumentType"), QualifiedName("org.scalajs.dom.raw.DocumentType")),
     CastConversion(QualifiedName("typings.std.DragEvent"), QualifiedName("org.scalajs.dom.raw.DragEvent")),
     CastConversion(QualifiedName("typings.std.DynamicsCompressorNode"), QualifiedName("org.scalajs.dom.raw.DynamicsCompressorNode")),
-    CastConversion(QualifiedName("typings.std.EXT_blend_minmax"), QualifiedName("org.scalajs.dom.experimental.webgl.EXT_blend_minmax")),
-    CastConversion(QualifiedName("typings.std.EXT_frag_depth"), QualifiedName("org.scalajs.dom.experimental.webgl.EXT_frag_depth")),
-    CastConversion(QualifiedName("typings.std.EXT_sRGB"), QualifiedName("org.scalajs.dom.experimental.webgl.EXT_sRGB")),
-    CastConversion(QualifiedName("typings.std.EXT_shader_texture_lod"), QualifiedName("org.scalajs.dom.experimental.webgl.EXT_shader_texture_lod")),
-    CastConversion(QualifiedName("typings.std.EXT_texture_filter_anisotropic"), QualifiedName("org.scalajs.dom.experimental.webgl.EXT_texture_filter_anisotropic")),
     CastConversion(QualifiedName("typings.std.EcKeyAlgorithm"), QualifiedName("org.scalajs.dom.crypto.EcKeyAlgorithm")),
     CastConversion(QualifiedName("typings.std.EcKeyGenParams"), QualifiedName("org.scalajs.dom.crypto.EcKeyGenParams")),
     CastConversion(QualifiedName("typings.std.EcKeyImportParams"), QualifiedName("org.scalajs.dom.crypto.EcKeyImportParams")),
@@ -278,7 +296,7 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.IDBKeyRange"), QualifiedName("org.scalajs.dom.raw.IDBKeyRange")),
     CastConversion(QualifiedName("typings.std.IDBObjectStore"), QualifiedName("org.scalajs.dom.raw.IDBObjectStore")),
     CastConversion(QualifiedName("typings.std.IDBOpenDBRequest"), QualifiedName("org.scalajs.dom.raw.IDBOpenDBRequest")),
-    CastConversion(QualifiedName("typings.std.IDBRequest"), QualifiedName("org.scalajs.dom.raw.IDBRequest"), _1),
+    CastConversion(QualifiedName("typings.std.IDBRequest"), QualifiedName("org.scalajs.dom.raw.IDBRequest")),
     CastConversion(QualifiedName("typings.std.IDBTransaction"), QualifiedName("org.scalajs.dom.raw.IDBTransaction")),
     CastConversion(QualifiedName("typings.std.IDBVersionChangeEvent"), QualifiedName("org.scalajs.dom.raw.IDBVersionChangeEvent")),
     CastConversion(QualifiedName("typings.std.Image"), QualifiedName("org.scalajs.dom.ext.Image")),
@@ -294,7 +312,6 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.Intl.NumberFormatOptions"), QualifiedName("org.scalajs.dom.experimental.intl.NumberFormatOptions")),
     CastConversion(QualifiedName("typings.std.Iterable"), QualifiedName("scala.scalajs.js.Iterable"), _1),
     CastConversion(QualifiedName("typings.std.Iterator"), QualifiedName("scala.scalajs.js.Iterator"), _1),
-    CastConversion(QualifiedName("typings.std.JSON"), QualifiedName("scala.scalajs.js.JSON")),
     CastConversion(QualifiedName("typings.std.JsonWebKey"), QualifiedName("org.scalajs.dom.crypto.JsonWebKey")),
     CastConversion(QualifiedName("typings.std.KeyAlgorithm"), QualifiedName("org.scalajs.dom.crypto.KeyAlgorithm")),
     CastConversion(QualifiedName("typings.std.KeyFormat"), QualifiedName("org.scalajs.dom.crypto.KeyFormat")),
@@ -304,7 +321,6 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.KeyboardEventInit"), QualifiedName("org.scalajs.dom.raw.KeyboardEventInit")),
     CastConversion(QualifiedName("typings.std.LinkStyle"), QualifiedName("org.scalajs.dom.raw.LinkStyle")),
     CastConversion(QualifiedName("typings.std.Location"), QualifiedName("org.scalajs.dom.raw.Location")),
-    CastConversion(QualifiedName("typings.std.Math"), QualifiedName("scala.scalajs.js.Math")),
     CastConversion(QualifiedName("typings.std.MediaDeviceInfo"), QualifiedName("org.scalajs.dom.experimental.mediastream.MediaDeviceInfo")),
     CastConversion(QualifiedName("typings.std.MediaDeviceKind"), QualifiedName("org.scalajs.dom.experimental.mediastream.MediaDeviceKind")),
     CastConversion(QualifiedName("typings.std.MediaDevices"), QualifiedName("org.scalajs.dom.experimental.mediastream.MediaDevices")),
@@ -343,17 +359,10 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.NodeFilter"), QualifiedName("org.scalajs.dom.raw.NodeFilter")),
     CastConversion(QualifiedName("typings.std.NodeIterator"), QualifiedName("org.scalajs.dom.raw.NodeIterator")),
     CastConversion(QualifiedName("typings.std.NodeList"), QualifiedName("org.scalajs.dom.raw.NodeList")),
-    CastConversion(QualifiedName("typings.std.NodeListOf"), QualifiedName("org.scalajs.dom.raw.NodeListOf"), _1),
+    CastConversion(QualifiedName("typings.std.NodeListOf"), QualifiedName("org.scalajs.dom.raw.NodeListOf"), _1.among(Set.empty, QualifiedName("org.scalajs.dom.raw.Node"))),
     CastConversion(QualifiedName("typings.std.NonDocumentTypeChildNode"), QualifiedName("org.scalajs.dom.raw.NonDocumentTypeChildNode")),
     CastConversion(QualifiedName("typings.std.Notification"), QualifiedName("org.scalajs.dom.experimental.Notification")),
     CastConversion(QualifiedName("typings.std.NotificationOptions"), QualifiedName("org.scalajs.dom.experimental.NotificationOptions")),
-    CastConversion(QualifiedName("typings.std.OES_element_index_uint"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_element_index_uint")),
-    CastConversion(QualifiedName("typings.std.OES_standard_derivatives"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_standard_derivatives")),
-    CastConversion(QualifiedName("typings.std.OES_texture_float"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_texture_float")),
-    CastConversion(QualifiedName("typings.std.OES_texture_float_linear"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_texture_float_linear")),
-    CastConversion(QualifiedName("typings.std.OES_texture_half_float"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_texture_half_float")),
-    CastConversion(QualifiedName("typings.std.OES_texture_half_float_linear"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_texture_half_float_linear")),
-    CastConversion(QualifiedName("typings.std.OES_vertex_array_object"), QualifiedName("org.scalajs.dom.experimental.webgl.OES_vertex_array_object")),
     CastConversion(QualifiedName("typings.std.Object"), QualifiedName("scala.scalajs.js.Object")),
     CastConversion(QualifiedName("typings.std.OfflineAudioCompletionEvent"), QualifiedName("org.scalajs.dom.raw.OfflineAudioCompletionEvent")),
     CastConversion(QualifiedName("typings.std.OfflineAudioContext"), QualifiedName("org.scalajs.dom.raw.OfflineAudioContext")),
@@ -596,13 +605,6 @@ object CastConversion {
     CastConversion(QualifiedName("typings.std.Uint8ClampedArray"), QualifiedName("scala.scalajs.js.typedarray.Uint8ClampedArray")),
     CastConversion(QualifiedName("typings.std.ValidityState"), QualifiedName("org.scalajs.dom.raw.ValidityState")),
     CastConversion(QualifiedName("typings.std.VisibilityState"), QualifiedName("org.scalajs.dom.raw.VisibilityState")),
-    CastConversion(QualifiedName("typings.std.WEBGL_color_buffer_float"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_color_buffer_float")),
-    CastConversion(QualifiedName("typings.std.WEBGL_compressed_texture_s3tc"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_compressed_texture_s3tc")),
-    CastConversion(QualifiedName("typings.std.WEBGL_debug_renderer_info"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_debug_renderer_info")),
-    CastConversion(QualifiedName("typings.std.WEBGL_debug_shaders"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_debug_shaders")),
-    CastConversion(QualifiedName("typings.std.WEBGL_depth_texture"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_depth_texture")),
-    CastConversion(QualifiedName("typings.std.WEBGL_draw_buffers"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_draw_buffers")),
-    CastConversion(QualifiedName("typings.std.WEBGL_lose_context"), QualifiedName("org.scalajs.dom.experimental.webgl.WEBGL_lose_context")),
     CastConversion(QualifiedName("typings.std.WaveShaperNode"), QualifiedName("org.scalajs.dom.raw.WaveShaperNode")),
     CastConversion(QualifiedName("typings.std.WebGLActiveInfo"), QualifiedName("org.scalajs.dom.raw.WebGLActiveInfo")),
     CastConversion(QualifiedName("typings.std.WebGLBuffer"), QualifiedName("org.scalajs.dom.raw.WebGLBuffer")),

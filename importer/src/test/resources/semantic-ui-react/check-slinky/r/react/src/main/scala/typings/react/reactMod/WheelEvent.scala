@@ -1,7 +1,8 @@
 package typings.react.reactMod
 
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
 import typings.react.NativeWheelEvent
-import typings.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -38,7 +39,7 @@ object WheelEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: NativeWheelEvent,
+    nativeEvent: Event,
     pageX: Double,
     pageY: Double,
     persist: () => Unit,

@@ -26,7 +26,7 @@ object GenJapgollyComponents {
 
   }
 
-  private object japgolly {
+  object japgolly {
     val react:                           QualifiedName = QualifiedName("japgolly.scalajs.react")
     val reactCallback:                   QualifiedName = react + Name("Callback")
     val reactCallbackTo:                 QualifiedName = react + Name("CallbackTo")
@@ -57,7 +57,7 @@ object GenJapgollyComponents {
     val rawReactChildren:                QualifiedName = rawReact + Name("Children")
     val rawReactComponent:               QualifiedName = rawReact + Name("Component")
     val rawReactComponentClassP:         QualifiedName = rawReact + Name("ComponentClassP")
-    val rawReactDOMElement:              QualifiedName = rawReact + Name("DOMElement")
+    val rawReactDOMElement:              QualifiedName = rawReact + Name("DomElement")
     val rawReactElement:                 QualifiedName = rawReact + Name("Element")
     val rawReactElementType:             QualifiedName = rawReact + Name("ElementType")
     val rawReactNode:                    QualifiedName = rawReact + Name("Node")
@@ -75,13 +75,12 @@ object GenJapgollyComponents {
 
       CastConversion.All ++ Seq(
         CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
-        CastConversion(QualifiedName.WILDCARD, QualifiedName.Any), // todo: this should not leak out here
         CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
         CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
         CastConversion(QualifiedName.React.ReactNode, rawReactNode),
         CastConversion(QualifiedName.React.Ref, rawReactRef),
         CastConversion(QualifiedName.React.RefObject, rawReactRefHandle, _1),
-        CastConversion(QualifiedName.React.Component, rawReactComponent, _1, TypeRef.Object),
+        CastConversion(QualifiedName.React.Component, rawReactComponent, _1Object, TypeRef.Object),
         CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1Object),
         CastConversion(QualifiedName.React.ReactElement, rawReactElement),
         CastConversion(QualifiedName.React.DOMElement, rawReactDOMElement),
@@ -135,7 +134,7 @@ object GenJapgollyComponents {
       .memberParameter(scope, tree)
       .map(
         /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
-        p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
+        p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope / p.parameter)(p.parameter.tpe))),
       ) map {
       case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, _), _, _), _, _) =>
         // rewrite functions returning a Callback so that javascript land can call them

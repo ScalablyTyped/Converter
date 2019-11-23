@@ -1,8 +1,8 @@
 package typings.reactDashDropzone.reactDashDropzoneMod
 
+import org.scalajs.dom.raw.HTMLElement
 import typings.react.reactMod.DragEvent
 import typings.react.reactMod.DragEventHandler
-import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

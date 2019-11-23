@@ -1,6 +1,7 @@
 package typings.react.reactMod
 
 import org.scalablytyped.runtime.StringDictionary
+import slinky.core.TagMod
 import typings.react.Anon_Children
 import typings.std.Pick
 import scala.scalajs.js
@@ -42,7 +43,7 @@ class Component[P, S, SS] protected () extends ComponentLifecycle[P, S, SS] {
   var state: S = js.native
   def forceUpdate(): Unit = js.native
   def forceUpdate(callback: js.Function0[Unit]): Unit = js.native
-  def render(): ReactNode = js.native
+  def render(): TagMod[Any] = js.native
   def setState[K /* <: String */](): Unit = js.native
   def setState[K /* <: String */](state: S): Unit = js.native
   def setState[K /* <: String */](state: S, callback: js.Function0[Unit]): Unit = js.native

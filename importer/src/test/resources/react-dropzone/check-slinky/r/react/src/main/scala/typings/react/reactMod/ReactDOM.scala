@@ -1,63 +1,60 @@
 package typings.react.reactMod
 
-import typings.std.HTMLAnchorElement
-import typings.std.HTMLAreaElement
-import typings.std.HTMLAudioElement
-import typings.std.HTMLBRElement
-import typings.std.HTMLBaseElement
-import typings.std.HTMLBodyElement
-import typings.std.HTMLButtonElement
-import typings.std.HTMLCanvasElement
-import typings.std.HTMLDListElement
-import typings.std.HTMLDataElement
-import typings.std.HTMLDataListElement
-import typings.std.HTMLDialogElement
-import typings.std.HTMLDivElement
-import typings.std.HTMLElement
-import typings.std.HTMLEmbedElement
-import typings.std.HTMLFieldSetElement
-import typings.std.HTMLFormElement
-import typings.std.HTMLHRElement
-import typings.std.HTMLHeadElement
-import typings.std.HTMLHeadingElement
-import typings.std.HTMLHtmlElement
-import typings.std.HTMLIFrameElement
-import typings.std.HTMLImageElement
-import typings.std.HTMLInputElement
-import typings.std.HTMLLIElement
-import typings.std.HTMLLabelElement
-import typings.std.HTMLLegendElement
-import typings.std.HTMLLinkElement
-import typings.std.HTMLMapElement
-import typings.std.HTMLMetaElement
-import typings.std.HTMLModElement
-import typings.std.HTMLOListElement
-import typings.std.HTMLObjectElement
-import typings.std.HTMLOptGroupElement
-import typings.std.HTMLOptionElement
-import typings.std.HTMLParagraphElement
-import typings.std.HTMLParamElement
-import typings.std.HTMLPreElement
-import typings.std.HTMLProgressElement
-import typings.std.HTMLQuoteElement
-import typings.std.HTMLScriptElement
-import typings.std.HTMLSelectElement
-import typings.std.HTMLSourceElement
-import typings.std.HTMLSpanElement
-import typings.std.HTMLStyleElement
-import typings.std.HTMLTableColElement
-import typings.std.HTMLTableDataCellElement
-import typings.std.HTMLTableElement
-import typings.std.HTMLTableHeaderCellElement
-import typings.std.HTMLTableRowElement
-import typings.std.HTMLTableSectionElement
-import typings.std.HTMLTemplateElement
-import typings.std.HTMLTextAreaElement
-import typings.std.HTMLTitleElement
-import typings.std.HTMLTrackElement
-import typings.std.HTMLUListElement
-import typings.std.HTMLVideoElement
-import typings.std.HTMLWebViewElement
+import org.scalajs.dom.raw.Element
+import org.scalajs.dom.raw.HTMLAnchorElement
+import org.scalajs.dom.raw.HTMLAreaElement
+import org.scalajs.dom.raw.HTMLAudioElement
+import org.scalajs.dom.raw.HTMLBRElement
+import org.scalajs.dom.raw.HTMLBaseElement
+import org.scalajs.dom.raw.HTMLBodyElement
+import org.scalajs.dom.raw.HTMLButtonElement
+import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.raw.HTMLDListElement
+import org.scalajs.dom.raw.HTMLDataListElement
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.raw.HTMLEmbedElement
+import org.scalajs.dom.raw.HTMLFieldSetElement
+import org.scalajs.dom.raw.HTMLFormElement
+import org.scalajs.dom.raw.HTMLHRElement
+import org.scalajs.dom.raw.HTMLHeadElement
+import org.scalajs.dom.raw.HTMLHeadingElement
+import org.scalajs.dom.raw.HTMLHtmlElement
+import org.scalajs.dom.raw.HTMLIFrameElement
+import org.scalajs.dom.raw.HTMLImageElement
+import org.scalajs.dom.raw.HTMLInputElement
+import org.scalajs.dom.raw.HTMLLIElement
+import org.scalajs.dom.raw.HTMLLabelElement
+import org.scalajs.dom.raw.HTMLLegendElement
+import org.scalajs.dom.raw.HTMLLinkElement
+import org.scalajs.dom.raw.HTMLMapElement
+import org.scalajs.dom.raw.HTMLMetaElement
+import org.scalajs.dom.raw.HTMLModElement
+import org.scalajs.dom.raw.HTMLOListElement
+import org.scalajs.dom.raw.HTMLObjectElement
+import org.scalajs.dom.raw.HTMLOptGroupElement
+import org.scalajs.dom.raw.HTMLOptionElement
+import org.scalajs.dom.raw.HTMLParagraphElement
+import org.scalajs.dom.raw.HTMLParamElement
+import org.scalajs.dom.raw.HTMLPreElement
+import org.scalajs.dom.raw.HTMLProgressElement
+import org.scalajs.dom.raw.HTMLQuoteElement
+import org.scalajs.dom.raw.HTMLScriptElement
+import org.scalajs.dom.raw.HTMLSelectElement
+import org.scalajs.dom.raw.HTMLSourceElement
+import org.scalajs.dom.raw.HTMLSpanElement
+import org.scalajs.dom.raw.HTMLStyleElement
+import org.scalajs.dom.raw.HTMLTableColElement
+import org.scalajs.dom.raw.HTMLTableDataCellElement
+import org.scalajs.dom.raw.HTMLTableElement
+import org.scalajs.dom.raw.HTMLTableHeaderCellElement
+import org.scalajs.dom.raw.HTMLTableRowElement
+import org.scalajs.dom.raw.HTMLTableSectionElement
+import org.scalajs.dom.raw.HTMLTextAreaElement
+import org.scalajs.dom.raw.HTMLTitleElement
+import org.scalajs.dom.raw.HTMLTrackElement
+import org.scalajs.dom.raw.HTMLUListElement
+import org.scalajs.dom.raw.HTMLVideoElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -94,7 +91,7 @@ object ReactDOM {
     code: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
     col: DetailedHTMLFactory[ColHTMLAttributes[HTMLTableColElement], HTMLTableColElement],
     colgroup: DetailedHTMLFactory[ColgroupHTMLAttributes[HTMLTableColElement], HTMLTableColElement],
-    data: DetailedHTMLFactory[DataHTMLAttributes[HTMLDataElement], HTMLDataElement],
+    data: DetailedHTMLFactory[DataHTMLAttributes[Element], Element],
     datalist: DetailedHTMLFactory[HTMLAttributes[HTMLDataListElement], HTMLDataListElement],
     dd: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
     defs: SVGFactory,
@@ -102,7 +99,7 @@ object ReactDOM {
     desc: SVGFactory,
     details: DetailedHTMLFactory[DetailsHTMLAttributes[HTMLElement], HTMLElement],
     dfn: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
-    dialog: DetailedHTMLFactory[DialogHTMLAttributes[HTMLDialogElement], HTMLDialogElement],
+    dialog: DetailedHTMLFactory[DialogHTMLAttributes[Element], Element],
     div: DetailedHTMLFactory[HTMLAttributes[HTMLDivElement], HTMLDivElement],
     dl: DetailedHTMLFactory[HTMLAttributes[HTMLDListElement], HTMLDListElement],
     dt: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
@@ -219,7 +216,7 @@ object ReactDOM {
     table: DetailedHTMLFactory[TableHTMLAttributes[HTMLTableElement], HTMLTableElement],
     tbody: DetailedHTMLFactory[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement],
     td: DetailedHTMLFactory[TdHTMLAttributes[HTMLTableDataCellElement], HTMLTableDataCellElement],
-    template: DetailedHTMLFactory[HTMLAttributes[HTMLTemplateElement], HTMLTemplateElement],
+    template: DetailedHTMLFactory[HTMLAttributes[Element], Element],
     text: SVGFactory,
     textPath: SVGFactory,
     textarea: DetailedHTMLFactory[TextareaHTMLAttributes[HTMLTextAreaElement], HTMLTextAreaElement],
@@ -238,7 +235,7 @@ object ReactDOM {
     video: DetailedHTMLFactory[VideoHTMLAttributes[HTMLVideoElement], HTMLVideoElement],
     view: SVGFactory,
     wbr: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
-    webview: DetailedHTMLFactory[WebViewHTMLAttributes[HTMLWebViewElement], HTMLWebViewElement]
+    webview: DetailedHTMLFactory[WebViewHTMLAttributes[Element], Element]
   ): ReactDOM = {
     val __obj = js.Dynamic.literal(a = a, abbr = abbr, address = address, animate = animate, area = area, article = article, aside = aside, audio = audio, b = b, base = base, bdi = bdi, bdo = bdo, big = big, blockquote = blockquote, body = body, br = br, button = button, canvas = canvas, caption = caption, circle = circle, cite = cite, clipPath = clipPath, code = code, col = col, colgroup = colgroup, data = data, datalist = datalist, dd = dd, defs = defs, del = del, desc = desc, details = details, dfn = dfn, dialog = dialog, div = div, dl = dl, dt = dt, ellipse = ellipse, em = em, embed = embed, feBlend = feBlend, feColorMatrix = feColorMatrix, feComponentTransfer = feComponentTransfer, feComposite = feComposite, feConvolveMatrix = feConvolveMatrix, feDiffuseLighting = feDiffuseLighting, feDisplacementMap = feDisplacementMap, feDistantLight = feDistantLight, feDropShadow = feDropShadow, feFlood = feFlood, feFuncA = feFuncA, feFuncB = feFuncB, feFuncG = feFuncG, feFuncR = feFuncR, feGaussianBlur = feGaussianBlur, feImage = feImage, feMerge = feMerge, feMergeNode = feMergeNode, feMorphology = feMorphology, feOffset = feOffset, fePointLight = fePointLight, feSpecularLighting = feSpecularLighting, feSpotLight = feSpotLight, feTile = feTile, feTurbulence = feTurbulence, fieldset = fieldset, figcaption = figcaption, figure = figure, filter = filter, footer = footer, foreignObject = foreignObject, form = form, g = g, h1 = h1, h2 = h2, h3 = h3, h4 = h4, h5 = h5, h6 = h6, head = head, header = header, hgroup = hgroup, hr = hr, html = html, i = i, iframe = iframe, image = image, img = img, input = input, ins = ins, kbd = kbd, keygen = keygen, label = label, legend = legend, li = li, line = line, linearGradient = linearGradient, link = link, main = main, map = map, mark = mark, marker = marker, mask = mask, menu = menu, menuitem = menuitem, meta = meta, metadata = metadata, meter = meter, nav = nav, noscript = noscript, ol = ol, optgroup = optgroup, option = option, output = output, p = p, param = param, path = path, pattern = pattern, picture = picture, polygon = polygon, polyline = polyline, pre = pre, progress = progress, q = q, radialGradient = radialGradient, rect = rect, rp = rp, rt = rt, ruby = ruby, s = s, samp = samp, script = script, section = section, select = select, small = small, source = source, span = span, stop = stop, strong = strong, style = style, sub = sub, summary = summary, sup = sup, svg = svg, switch = switch, symbol = symbol, table = table, tbody = tbody, td = td, template = template, text = text, textPath = textPath, textarea = textarea, tfoot = tfoot, th = th, thead = thead, time = time, title = title, tr = tr, track = track, tspan = tspan, u = u, ul = ul, use = use, video = video, view = view, wbr = wbr, webview = webview)
     __obj.updateDynamic("object")(`object`)

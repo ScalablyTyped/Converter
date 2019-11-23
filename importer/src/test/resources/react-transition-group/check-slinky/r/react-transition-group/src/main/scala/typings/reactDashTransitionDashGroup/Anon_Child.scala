@@ -1,6 +1,6 @@
 package typings.reactDashTransitionDashGroup
 
-import typings.react.reactMod.ReactElement
+import slinky.core.facade.ReactElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

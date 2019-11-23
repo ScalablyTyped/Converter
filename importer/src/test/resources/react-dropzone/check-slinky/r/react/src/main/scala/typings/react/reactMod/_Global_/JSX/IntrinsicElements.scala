@@ -1,5 +1,112 @@
 package typings.react.reactMod._Global_.JSX
 
+import org.scalajs.dom.raw.HTMLAnchorElement
+import org.scalajs.dom.raw.HTMLAreaElement
+import org.scalajs.dom.raw.HTMLAudioElement
+import org.scalajs.dom.raw.HTMLBRElement
+import org.scalajs.dom.raw.HTMLBaseElement
+import org.scalajs.dom.raw.HTMLBodyElement
+import org.scalajs.dom.raw.HTMLButtonElement
+import org.scalajs.dom.raw.HTMLCanvasElement
+import org.scalajs.dom.raw.HTMLDListElement
+import org.scalajs.dom.raw.HTMLDataListElement
+import org.scalajs.dom.raw.HTMLDivElement
+import org.scalajs.dom.raw.HTMLElement
+import org.scalajs.dom.raw.HTMLEmbedElement
+import org.scalajs.dom.raw.HTMLFieldSetElement
+import org.scalajs.dom.raw.HTMLFormElement
+import org.scalajs.dom.raw.HTMLHRElement
+import org.scalajs.dom.raw.HTMLHeadElement
+import org.scalajs.dom.raw.HTMLHeadingElement
+import org.scalajs.dom.raw.HTMLHtmlElement
+import org.scalajs.dom.raw.HTMLIFrameElement
+import org.scalajs.dom.raw.HTMLImageElement
+import org.scalajs.dom.raw.HTMLInputElement
+import org.scalajs.dom.raw.HTMLLIElement
+import org.scalajs.dom.raw.HTMLLabelElement
+import org.scalajs.dom.raw.HTMLLegendElement
+import org.scalajs.dom.raw.HTMLLinkElement
+import org.scalajs.dom.raw.HTMLMapElement
+import org.scalajs.dom.raw.HTMLMetaElement
+import org.scalajs.dom.raw.HTMLModElement
+import org.scalajs.dom.raw.HTMLOListElement
+import org.scalajs.dom.raw.HTMLObjectElement
+import org.scalajs.dom.raw.HTMLOptGroupElement
+import org.scalajs.dom.raw.HTMLOptionElement
+import org.scalajs.dom.raw.HTMLParagraphElement
+import org.scalajs.dom.raw.HTMLParamElement
+import org.scalajs.dom.raw.HTMLPreElement
+import org.scalajs.dom.raw.HTMLProgressElement
+import org.scalajs.dom.raw.HTMLQuoteElement
+import org.scalajs.dom.raw.HTMLScriptElement
+import org.scalajs.dom.raw.HTMLSelectElement
+import org.scalajs.dom.raw.HTMLSourceElement
+import org.scalajs.dom.raw.HTMLSpanElement
+import org.scalajs.dom.raw.HTMLStyleElement
+import org.scalajs.dom.raw.HTMLTableColElement
+import org.scalajs.dom.raw.HTMLTableDataCellElement
+import org.scalajs.dom.raw.HTMLTableElement
+import org.scalajs.dom.raw.HTMLTableHeaderCellElement
+import org.scalajs.dom.raw.HTMLTableRowElement
+import org.scalajs.dom.raw.HTMLTableSectionElement
+import org.scalajs.dom.raw.HTMLTextAreaElement
+import org.scalajs.dom.raw.HTMLTitleElement
+import org.scalajs.dom.raw.HTMLTrackElement
+import org.scalajs.dom.raw.HTMLUListElement
+import org.scalajs.dom.raw.HTMLVideoElement
+import org.scalajs.dom.raw.SVGCircleElement
+import org.scalajs.dom.raw.SVGClipPathElement
+import org.scalajs.dom.raw.SVGDefsElement
+import org.scalajs.dom.raw.SVGDescElement
+import org.scalajs.dom.raw.SVGElement
+import org.scalajs.dom.raw.SVGEllipseElement
+import org.scalajs.dom.raw.SVGFEBlendElement
+import org.scalajs.dom.raw.SVGFEColorMatrixElement
+import org.scalajs.dom.raw.SVGFEComponentTransferElement
+import org.scalajs.dom.raw.SVGFECompositeElement
+import org.scalajs.dom.raw.SVGFEConvolveMatrixElement
+import org.scalajs.dom.raw.SVGFEDiffuseLightingElement
+import org.scalajs.dom.raw.SVGFEDisplacementMapElement
+import org.scalajs.dom.raw.SVGFEDistantLightElement
+import org.scalajs.dom.raw.SVGFEFloodElement
+import org.scalajs.dom.raw.SVGFEFuncAElement
+import org.scalajs.dom.raw.SVGFEFuncBElement
+import org.scalajs.dom.raw.SVGFEFuncGElement
+import org.scalajs.dom.raw.SVGFEFuncRElement
+import org.scalajs.dom.raw.SVGFEGaussianBlurElement
+import org.scalajs.dom.raw.SVGFEImageElement
+import org.scalajs.dom.raw.SVGFEMergeElement
+import org.scalajs.dom.raw.SVGFEMergeNodeElement
+import org.scalajs.dom.raw.SVGFEMorphologyElement
+import org.scalajs.dom.raw.SVGFEOffsetElement
+import org.scalajs.dom.raw.SVGFEPointLightElement
+import org.scalajs.dom.raw.SVGFESpecularLightingElement
+import org.scalajs.dom.raw.SVGFESpotLightElement
+import org.scalajs.dom.raw.SVGFETileElement
+import org.scalajs.dom.raw.SVGFETurbulenceElement
+import org.scalajs.dom.raw.SVGFilterElement
+import org.scalajs.dom.raw.SVGGElement
+import org.scalajs.dom.raw.SVGImageElement
+import org.scalajs.dom.raw.SVGLineElement
+import org.scalajs.dom.raw.SVGLinearGradientElement
+import org.scalajs.dom.raw.SVGMarkerElement
+import org.scalajs.dom.raw.SVGMaskElement
+import org.scalajs.dom.raw.SVGMetadataElement
+import org.scalajs.dom.raw.SVGPathElement
+import org.scalajs.dom.raw.SVGPatternElement
+import org.scalajs.dom.raw.SVGPolygonElement
+import org.scalajs.dom.raw.SVGPolylineElement
+import org.scalajs.dom.raw.SVGRadialGradientElement
+import org.scalajs.dom.raw.SVGRectElement
+import org.scalajs.dom.raw.SVGSVGElement
+import org.scalajs.dom.raw.SVGStopElement
+import org.scalajs.dom.raw.SVGSwitchElement
+import org.scalajs.dom.raw.SVGSymbolElement
+import org.scalajs.dom.raw.SVGTSpanElement
+import org.scalajs.dom.raw.SVGTextElement
+import org.scalajs.dom.raw.SVGTextPathElement
+import org.scalajs.dom.raw.SVGUseElement
+import org.scalajs.dom.raw.SVGViewElement
 import typings.react.reactMod.AnchorHTMLAttributes
 import typings.react.reactMod.AreaHTMLAttributes
 import typings.react.reactMod.AudioHTMLAttributes
@@ -52,119 +159,6 @@ import typings.react.reactMod.TimeHTMLAttributes
 import typings.react.reactMod.TrackHTMLAttributes
 import typings.react.reactMod.VideoHTMLAttributes
 import typings.react.reactMod.WebViewHTMLAttributes
-import typings.std.HTMLAnchorElement
-import typings.std.HTMLAreaElement
-import typings.std.HTMLAudioElement
-import typings.std.HTMLBRElement
-import typings.std.HTMLBaseElement
-import typings.std.HTMLBodyElement
-import typings.std.HTMLButtonElement
-import typings.std.HTMLCanvasElement
-import typings.std.HTMLDListElement
-import typings.std.HTMLDataElement
-import typings.std.HTMLDataListElement
-import typings.std.HTMLDialogElement
-import typings.std.HTMLDivElement
-import typings.std.HTMLElement
-import typings.std.HTMLEmbedElement
-import typings.std.HTMLFieldSetElement
-import typings.std.HTMLFormElement
-import typings.std.HTMLHRElement
-import typings.std.HTMLHeadElement
-import typings.std.HTMLHeadingElement
-import typings.std.HTMLHtmlElement
-import typings.std.HTMLIFrameElement
-import typings.std.HTMLImageElement
-import typings.std.HTMLInputElement
-import typings.std.HTMLLIElement
-import typings.std.HTMLLabelElement
-import typings.std.HTMLLegendElement
-import typings.std.HTMLLinkElement
-import typings.std.HTMLMapElement
-import typings.std.HTMLMetaElement
-import typings.std.HTMLModElement
-import typings.std.HTMLOListElement
-import typings.std.HTMLObjectElement
-import typings.std.HTMLOptGroupElement
-import typings.std.HTMLOptionElement
-import typings.std.HTMLParagraphElement
-import typings.std.HTMLParamElement
-import typings.std.HTMLPreElement
-import typings.std.HTMLProgressElement
-import typings.std.HTMLQuoteElement
-import typings.std.HTMLScriptElement
-import typings.std.HTMLSelectElement
-import typings.std.HTMLSourceElement
-import typings.std.HTMLSpanElement
-import typings.std.HTMLStyleElement
-import typings.std.HTMLTableColElement
-import typings.std.HTMLTableDataCellElement
-import typings.std.HTMLTableElement
-import typings.std.HTMLTableHeaderCellElement
-import typings.std.HTMLTableRowElement
-import typings.std.HTMLTableSectionElement
-import typings.std.HTMLTemplateElement
-import typings.std.HTMLTextAreaElement
-import typings.std.HTMLTitleElement
-import typings.std.HTMLTrackElement
-import typings.std.HTMLUListElement
-import typings.std.HTMLVideoElement
-import typings.std.HTMLWebViewElement
-import typings.std.SVGCircleElement
-import typings.std.SVGClipPathElement
-import typings.std.SVGDefsElement
-import typings.std.SVGDescElement
-import typings.std.SVGElement
-import typings.std.SVGEllipseElement
-import typings.std.SVGFEBlendElement
-import typings.std.SVGFEColorMatrixElement
-import typings.std.SVGFEComponentTransferElement
-import typings.std.SVGFECompositeElement
-import typings.std.SVGFEConvolveMatrixElement
-import typings.std.SVGFEDiffuseLightingElement
-import typings.std.SVGFEDisplacementMapElement
-import typings.std.SVGFEDistantLightElement
-import typings.std.SVGFEDropShadowElement
-import typings.std.SVGFEFloodElement
-import typings.std.SVGFEFuncAElement
-import typings.std.SVGFEFuncBElement
-import typings.std.SVGFEFuncGElement
-import typings.std.SVGFEFuncRElement
-import typings.std.SVGFEGaussianBlurElement
-import typings.std.SVGFEImageElement
-import typings.std.SVGFEMergeElement
-import typings.std.SVGFEMergeNodeElement
-import typings.std.SVGFEMorphologyElement
-import typings.std.SVGFEOffsetElement
-import typings.std.SVGFEPointLightElement
-import typings.std.SVGFESpecularLightingElement
-import typings.std.SVGFESpotLightElement
-import typings.std.SVGFETileElement
-import typings.std.SVGFETurbulenceElement
-import typings.std.SVGFilterElement
-import typings.std.SVGForeignObjectElement
-import typings.std.SVGGElement
-import typings.std.SVGImageElement
-import typings.std.SVGLineElement
-import typings.std.SVGLinearGradientElement
-import typings.std.SVGMarkerElement
-import typings.std.SVGMaskElement
-import typings.std.SVGMetadataElement
-import typings.std.SVGPathElement
-import typings.std.SVGPatternElement
-import typings.std.SVGPolygonElement
-import typings.std.SVGPolylineElement
-import typings.std.SVGRadialGradientElement
-import typings.std.SVGRectElement
-import typings.std.SVGSVGElement
-import typings.std.SVGStopElement
-import typings.std.SVGSwitchElement
-import typings.std.SVGSymbolElement
-import typings.std.SVGTSpanElement
-import typings.std.SVGTextElement
-import typings.std.SVGTextPathElement
-import typings.std.SVGUseElement
-import typings.std.SVGViewElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -200,7 +194,7 @@ trait IntrinsicElements extends js.Object {
   var code: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
   var col: DetailedHTMLProps[ColHTMLAttributes[HTMLTableColElement], HTMLTableColElement]
   var colgroup: DetailedHTMLProps[ColgroupHTMLAttributes[HTMLTableColElement], HTMLTableColElement]
-  var data: DetailedHTMLProps[DataHTMLAttributes[HTMLDataElement], HTMLDataElement]
+  var data: DetailedHTMLProps[DataHTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element]
   var datalist: DetailedHTMLProps[HTMLAttributes[HTMLDataListElement], HTMLDataListElement]
   var dd: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
   var defs: SVGProps[SVGDefsElement]
@@ -208,7 +202,7 @@ trait IntrinsicElements extends js.Object {
   var desc: SVGProps[SVGDescElement]
   var details: DetailedHTMLProps[DetailsHTMLAttributes[HTMLElement], HTMLElement]
   var dfn: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
-  var dialog: DetailedHTMLProps[DialogHTMLAttributes[HTMLDialogElement], HTMLDialogElement]
+  var dialog: DetailedHTMLProps[DialogHTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element]
   var div: DetailedHTMLProps[HTMLAttributes[HTMLDivElement], HTMLDivElement]
   var dl: DetailedHTMLProps[HTMLAttributes[HTMLDListElement], HTMLDListElement]
   var dt: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
@@ -223,7 +217,7 @@ trait IntrinsicElements extends js.Object {
   var feDiffuseLighting: SVGProps[SVGFEDiffuseLightingElement]
   var feDisplacementMap: SVGProps[SVGFEDisplacementMapElement]
   var feDistantLight: SVGProps[SVGFEDistantLightElement]
-  var feDropShadow: SVGProps[SVGFEDropShadowElement]
+  var feDropShadow: SVGProps[org.scalajs.dom.raw.Element]
   var feFlood: SVGProps[SVGFEFloodElement]
   var feFuncA: SVGProps[SVGFEFuncAElement]
   var feFuncB: SVGProps[SVGFEFuncBElement]
@@ -245,7 +239,7 @@ trait IntrinsicElements extends js.Object {
   var figure: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
   var filter: SVGProps[SVGFilterElement]
   var footer: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
-  var foreignObject: SVGProps[SVGForeignObjectElement]
+  var foreignObject: SVGProps[org.scalajs.dom.raw.Element]
   var form: DetailedHTMLProps[FormHTMLAttributes[HTMLFormElement], HTMLFormElement]
   var g: SVGProps[SVGGElement]
   var h1: DetailedHTMLProps[HTMLAttributes[HTMLHeadingElement], HTMLHeadingElement]
@@ -328,7 +322,7 @@ trait IntrinsicElements extends js.Object {
   var table: DetailedHTMLProps[TableHTMLAttributes[HTMLTableElement], HTMLTableElement]
   var tbody: DetailedHTMLProps[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement]
   var td: DetailedHTMLProps[TdHTMLAttributes[HTMLTableDataCellElement], HTMLTableDataCellElement]
-  var template: DetailedHTMLProps[HTMLAttributes[HTMLTemplateElement], HTMLTemplateElement]
+  var template: DetailedHTMLProps[HTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element]
   var text: SVGProps[SVGTextElement]
   var textPath: SVGProps[SVGTextPathElement]
   var textarea: DetailedHTMLProps[TextareaHTMLAttributes[HTMLTextAreaElement], HTMLTextAreaElement]
@@ -347,7 +341,7 @@ trait IntrinsicElements extends js.Object {
   var video: DetailedHTMLProps[VideoHTMLAttributes[HTMLVideoElement], HTMLVideoElement]
   var view: SVGProps[SVGViewElement]
   var wbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
-  var webview: DetailedHTMLProps[WebViewHTMLAttributes[HTMLWebViewElement], HTMLWebViewElement]
+  var webview: DetailedHTMLProps[WebViewHTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element]
 }
 
 object IntrinsicElements {
@@ -380,7 +374,7 @@ object IntrinsicElements {
     code: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
     col: DetailedHTMLProps[ColHTMLAttributes[HTMLTableColElement], HTMLTableColElement],
     colgroup: DetailedHTMLProps[ColgroupHTMLAttributes[HTMLTableColElement], HTMLTableColElement],
-    data: DetailedHTMLProps[DataHTMLAttributes[HTMLDataElement], HTMLDataElement],
+    data: DetailedHTMLProps[DataHTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element],
     datalist: DetailedHTMLProps[HTMLAttributes[HTMLDataListElement], HTMLDataListElement],
     dd: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
     defs: SVGProps[SVGDefsElement],
@@ -388,7 +382,7 @@ object IntrinsicElements {
     desc: SVGProps[SVGDescElement],
     details: DetailedHTMLProps[DetailsHTMLAttributes[HTMLElement], HTMLElement],
     dfn: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
-    dialog: DetailedHTMLProps[DialogHTMLAttributes[HTMLDialogElement], HTMLDialogElement],
+    dialog: DetailedHTMLProps[DialogHTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element],
     div: DetailedHTMLProps[HTMLAttributes[HTMLDivElement], HTMLDivElement],
     dl: DetailedHTMLProps[HTMLAttributes[HTMLDListElement], HTMLDListElement],
     dt: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
@@ -403,7 +397,7 @@ object IntrinsicElements {
     feDiffuseLighting: SVGProps[SVGFEDiffuseLightingElement],
     feDisplacementMap: SVGProps[SVGFEDisplacementMapElement],
     feDistantLight: SVGProps[SVGFEDistantLightElement],
-    feDropShadow: SVGProps[SVGFEDropShadowElement],
+    feDropShadow: SVGProps[org.scalajs.dom.raw.Element],
     feFlood: SVGProps[SVGFEFloodElement],
     feFuncA: SVGProps[SVGFEFuncAElement],
     feFuncB: SVGProps[SVGFEFuncBElement],
@@ -425,7 +419,7 @@ object IntrinsicElements {
     figure: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
     filter: SVGProps[SVGFilterElement],
     footer: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
-    foreignObject: SVGProps[SVGForeignObjectElement],
+    foreignObject: SVGProps[org.scalajs.dom.raw.Element],
     form: DetailedHTMLProps[FormHTMLAttributes[HTMLFormElement], HTMLFormElement],
     g: SVGProps[SVGGElement],
     h1: DetailedHTMLProps[HTMLAttributes[HTMLHeadingElement], HTMLHeadingElement],
@@ -507,7 +501,7 @@ object IntrinsicElements {
     table: DetailedHTMLProps[TableHTMLAttributes[HTMLTableElement], HTMLTableElement],
     tbody: DetailedHTMLProps[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement],
     td: DetailedHTMLProps[TdHTMLAttributes[HTMLTableDataCellElement], HTMLTableDataCellElement],
-    template: DetailedHTMLProps[HTMLAttributes[HTMLTemplateElement], HTMLTemplateElement],
+    template: DetailedHTMLProps[HTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element],
     text: SVGProps[SVGTextElement],
     textPath: SVGProps[SVGTextPathElement],
     textarea: DetailedHTMLProps[TextareaHTMLAttributes[HTMLTextAreaElement], HTMLTextAreaElement],
@@ -526,7 +520,7 @@ object IntrinsicElements {
     video: DetailedHTMLProps[VideoHTMLAttributes[HTMLVideoElement], HTMLVideoElement],
     view: SVGProps[SVGViewElement],
     wbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement],
-    webview: DetailedHTMLProps[WebViewHTMLAttributes[HTMLWebViewElement], HTMLWebViewElement]
+    webview: DetailedHTMLProps[WebViewHTMLAttributes[org.scalajs.dom.raw.Element], org.scalajs.dom.raw.Element]
   ): IntrinsicElements = {
     val __obj = js.Dynamic.literal(a = a, abbr = abbr, address = address, animate = animate, animateMotion = animateMotion, animateTransform = animateTransform, area = area, article = article, aside = aside, audio = audio, b = b, base = base, bdi = bdi, bdo = bdo, big = big, blockquote = blockquote, body = body, br = br, button = button, canvas = canvas, caption = caption, circle = circle, cite = cite, clipPath = clipPath, code = code, col = col, colgroup = colgroup, data = data, datalist = datalist, dd = dd, defs = defs, del = del, desc = desc, details = details, dfn = dfn, dialog = dialog, div = div, dl = dl, dt = dt, ellipse = ellipse, em = em, embed = embed, feBlend = feBlend, feColorMatrix = feColorMatrix, feComponentTransfer = feComponentTransfer, feComposite = feComposite, feConvolveMatrix = feConvolveMatrix, feDiffuseLighting = feDiffuseLighting, feDisplacementMap = feDisplacementMap, feDistantLight = feDistantLight, feDropShadow = feDropShadow, feFlood = feFlood, feFuncA = feFuncA, feFuncB = feFuncB, feFuncG = feFuncG, feFuncR = feFuncR, feGaussianBlur = feGaussianBlur, feImage = feImage, feMerge = feMerge, feMergeNode = feMergeNode, feMorphology = feMorphology, feOffset = feOffset, fePointLight = fePointLight, feSpecularLighting = feSpecularLighting, feSpotLight = feSpotLight, feTile = feTile, feTurbulence = feTurbulence, fieldset = fieldset, figcaption = figcaption, figure = figure, filter = filter, footer = footer, foreignObject = foreignObject, form = form, g = g, h1 = h1, h2 = h2, h3 = h3, h4 = h4, h5 = h5, h6 = h6, head = head, header = header, hgroup = hgroup, hr = hr, html = html, i = i, iframe = iframe, image = image, img = img, input = input, ins = ins, kbd = kbd, keygen = keygen, label = label, legend = legend, li = li, line = line, linearGradient = linearGradient, link = link, main = main, map = map, mark = mark, marker = marker, mask = mask, menu = menu, menuitem = menuitem, meta = meta, metadata = metadata, meter = meter, mpath = mpath, nav = nav, noindex = noindex, noscript = noscript, ol = ol, optgroup = optgroup, option = option, output = output, p = p, param = param, path = path, pattern = pattern, picture = picture, polygon = polygon, polyline = polyline, pre = pre, progress = progress, q = q, radialGradient = radialGradient, rect = rect, rp = rp, rt = rt, ruby = ruby, s = s, samp = samp, script = script, section = section, select = select, small = small, source = source, span = span, stop = stop, strong = strong, style = style, sub = sub, summary = summary, sup = sup, svg = svg, switch = switch, symbol = symbol, table = table, tbody = tbody, td = td, template = template, text = text, textPath = textPath, textarea = textarea, tfoot = tfoot, th = th, thead = thead, time = time, title = title, tr = tr, track = track, tspan = tspan, u = u, ul = ul, use = use, video = video, view = view, wbr = wbr, webview = webview)
     __obj.updateDynamic("object")(`object`)

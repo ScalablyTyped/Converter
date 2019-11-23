@@ -15,11 +15,11 @@ import scala.scalajs.js.annotation._
 object ContextMenuTrigger {
   def apply(
     id: String,
-    attributes: HTMLAttributes[js.Any] = null,
-    collect: js.UndefOr[/* data */ js.Any => CallbackTo[js.Any]] = js.undefined,
+    attributes: HTMLAttributes[_] = null,
+    collect: js.UndefOr[/* data */ js.Any => CallbackTo[_]] = js.undefined,
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
-    renderTag: ReactType[js.Any] = null,
+    renderTag: ReactType[_] = null,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   )(
