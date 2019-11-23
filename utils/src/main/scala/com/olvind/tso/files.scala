@@ -33,12 +33,9 @@ trait Layout[F, V] {
 }
 
 object files {
-  val BOM = "\uFEFF"
 
-  def content(file: InFile): String = {
-    val ret = new String(os.read.bytes(file.path), constants.Utf8)
-    if (ret.startsWith(BOM)) ret.replace(BOM, "") else ret
-  }
+  def content(file: InFile): String =
+    new String(os.read.bytes(file.path), constants.Utf8)
 
   val IgnoreProjectFiles: os.Path => Boolean = p => {
     val name = p.last
