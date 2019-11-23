@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import org.scalajs.dom.raw.Event
 import typingsSlinky.react.NativeTransitionEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
@@ -25,7 +24,7 @@ object TransitionEvent {
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeTransitionEvent,
     persist: () => Unit,
     preventDefault: () => Unit,
     propertyName: String,

@@ -7,11 +7,10 @@ import scala.scalajs.js.annotation._
 package object JSX {
   import typingsSlinky.react.reactMod.Attributes
   import typingsSlinky.react.reactMod.ClassAttributes
-  import typingsSlinky.react.reactMod.ReactElement
   import typingsSlinky.react.reactMod.ReactManagedAttributes
 
   // tslint:disable-next-line:no-empty-interface
-  type Element = ReactElement
+  type Element = slinky.core.facade.ReactElement
   // tslint:disable-next-line:no-empty-interface
   type IntrinsicAttributes = Attributes
   // tslint:disable-next-line:no-empty-interface

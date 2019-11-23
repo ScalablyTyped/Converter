@@ -2,7 +2,6 @@ package typingsJapgolly.react.reactMod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import org.scalajs.dom.raw.Event
 import typingsJapgolly.react.NativeKeyboardEvent
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
@@ -50,7 +49,7 @@ object KeyboardEvent {
     locale: String,
     location: Double,
     metaKey: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeKeyboardEvent,
     persist: Callback,
     preventDefault: Callback,
     repeat: Boolean,

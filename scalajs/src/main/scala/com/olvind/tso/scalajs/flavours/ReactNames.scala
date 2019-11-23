@@ -20,6 +20,8 @@ class ReactNames(val outputPkg: Name) {
   val ComponentClass    = mod + Name("ComponentClass")
   val ReactDOM          = mod + Name("ReactDOM")
   val ComponentState    = mod + Name("ComponentState")
+  val JsxReactElement   = mod + Name("_Global_") + Name("JSX") + Name("Element")
+  val isElement         = Set(ReactElement, JsxReactElement)
 
   val ComponentNames: Set[String] =
     Set(

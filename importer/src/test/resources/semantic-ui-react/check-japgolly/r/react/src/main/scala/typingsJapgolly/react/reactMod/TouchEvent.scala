@@ -2,7 +2,6 @@ package typingsJapgolly.react.reactMod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import org.scalajs.dom.raw.Event
 import typingsJapgolly.react.NativeTouchEvent
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
@@ -39,7 +38,7 @@ object TouchEvent {
     isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
     metaKey: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeTouchEvent,
     persist: Callback,
     preventDefault: Callback,
     shiftKey: Boolean,

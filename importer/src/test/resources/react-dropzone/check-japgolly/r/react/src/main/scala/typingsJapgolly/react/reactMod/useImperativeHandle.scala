@@ -17,7 +17,7 @@ object useImperativeHandle extends js.Object {
     * @version 16.8.0
     * @see https://reactjs.org/docs/hooks-reference.html#useimperativehandle
     */
-  def apply[T, R /* <: T */](ref: js.UndefOr[Ref[T]], init: js.Function0[R]): Unit = js.native
-  def apply[T, R /* <: T */](ref: js.UndefOr[Ref[T]], init: js.Function0[R], deps: DependencyList): Unit = js.native
+  def apply[T, R /* <: T */](ref: js.UndefOr[japgolly.scalajs.react.raw.React.Ref], init: js.Function0[R]): Unit = js.native
+  def apply[T, R /* <: T */](ref: js.UndefOr[japgolly.scalajs.react.raw.React.Ref], init: js.Function0[R], deps: DependencyList): Unit = js.native
 }
 

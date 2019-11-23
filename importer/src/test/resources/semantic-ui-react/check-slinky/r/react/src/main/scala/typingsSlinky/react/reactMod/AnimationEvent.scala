@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import org.scalajs.dom.raw.Event
 import typingsSlinky.react.NativeAnimationEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
@@ -26,7 +25,7 @@ object AnimationEvent {
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeAnimationEvent,
     persist: () => Unit,
     preventDefault: () => Unit,
     pseudoElement: String,

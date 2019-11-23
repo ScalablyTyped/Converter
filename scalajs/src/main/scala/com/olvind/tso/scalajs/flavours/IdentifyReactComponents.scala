@@ -55,7 +55,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
   def maybeMethodComponent(_method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (current.typeName === reactNames.ReactElement) Some(current)
+      if (reactNames.isElement(current.typeName)) Some(current)
       else if (scope.isAbstract(current)) None
       else {
         scope

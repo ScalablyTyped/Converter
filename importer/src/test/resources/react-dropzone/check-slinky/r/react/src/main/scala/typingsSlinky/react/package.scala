@@ -5,18 +5,18 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object react {
-  import typingsSlinky.std.AnimationEvent
-  import typingsSlinky.std.ClipboardEvent
-  import typingsSlinky.std.CompositionEvent
-  import typingsSlinky.std.DragEvent
-  import typingsSlinky.std.FocusEvent
-  import typingsSlinky.std.KeyboardEvent
-  import typingsSlinky.std.MouseEvent
-  import typingsSlinky.std.PointerEvent
-  import typingsSlinky.std.TouchEvent
-  import typingsSlinky.std.TransitionEvent
-  import typingsSlinky.std.UIEvent
-  import typingsSlinky.std.WheelEvent
+  import org.scalajs.dom.raw.AnimationEvent
+  import org.scalajs.dom.raw.ClipboardEvent
+  import org.scalajs.dom.raw.CompositionEvent
+  import org.scalajs.dom.raw.DragEvent
+  import org.scalajs.dom.raw.FocusEvent
+  import org.scalajs.dom.raw.KeyboardEvent
+  import org.scalajs.dom.raw.MouseEvent
+  import org.scalajs.dom.raw.PointerEvent
+  import org.scalajs.dom.raw.TouchEvent
+  import org.scalajs.dom.raw.TransitionEvent
+  import org.scalajs.dom.raw.UIEvent
+  import org.scalajs.dom.raw.WheelEvent
 
   type NativeAnimationEvent = AnimationEvent
   type NativeClipboardEvent = ClipboardEvent

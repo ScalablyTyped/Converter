@@ -22,7 +22,7 @@ object CastConversion {
         case TParam.Constrained(outer, among, default) =>
           outer.eval(provided) match {
             case tr @ TypeRef(x, _, _) if among(x) => tr
-            case tr                                => TypeRef.Intersection(List(tr, TypeRef(default)))
+            case tr                                => TypeRef.Intersection(List(tr, TypeRef(default, Nil, UndoDamage.comment(among))))
           }
       }
     def among(among: Set[QualifiedName], default: QualifiedName): TParam =
@@ -59,16 +59,25 @@ object CastConversion {
           current match {
             /* changing inheritance to classes we haven't had the chance to inspect will often fail */
             case _: InheritanceTree => true
-            case _: TypeAliasTree => true
-            case _: ParamTree =>
+            case p: ParamTree =>
               outer match {
                 case TreeScope.Scoped(_, mouter, m: MethodTree) =>
                   /* if this is an overloaded method we might break compilation if we translate both to the same type */
                   mouter match {
                     case TreeScope.Scoped(_, _, owner: InheritanceTree) =>
                       owner.index.get(m.name) match {
-                        case Some(sameName) => sameName.length > 1
-                        case None           => false
+                        case Some(membersSameName) if membersSameName.length > 1 =>
+                          val paramIdx = m.params.flatten.indexOf(p)
+                          /* but not if all overloads have the same type (or none) for the same parameter number */
+                          val sameInAllOverloads = membersSameName.forall {
+                            case mm: MethodTree =>
+                              val mmParams = mm.params.flatten
+                              if (mmParams.size < paramIdx + 1) true
+                              else mmParams(paramIdx).tpe === p.tpe
+                            case _ => false
+                          }
+                          !sameInAllOverloads
+                        case _ => false
                       }
                     case _ => false
                   }
@@ -79,8 +88,30 @@ object CastConversion {
           }
       }
 
-    override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef =
+    override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef = UndoDamage(
       if (isRisky(scope)) x
-      else mapped(x, scope).orElse(mapped(FollowAliases(scope)(x), scope)).getOrElse(x)
+      else mapped(x, scope).orElse(mapped(FollowAliases(scope)(x), scope)).getOrElse(x),
+    )
   }
+
+  /**
+    * Fix needless intersection type arising from using a constrained type in a type alias,
+    *  then replacing the type parameter with something that actually comforms.
+    */
+  object UndoDamage {
+    case class WasDefaulted(among: Set[QualifiedName]) extends Comment.Data
+
+    def comment(among: Set[QualifiedName]) =
+      Comments(CommentData(WasDefaulted(among)))
+
+    def apply(x: TypeRef): TypeRef = x match {
+      case TypeRef.Intersection(Seq(original, TypeRef(bound @ _, Nil, comments))) =>
+        comments.extract { case WasDefaulted(among) => among } match {
+          case Some((among, _)) if among.contains(original.typeName) => original
+          case _                                                     => x
+        }
+      case _ => x
+    }
+  }
+
 }

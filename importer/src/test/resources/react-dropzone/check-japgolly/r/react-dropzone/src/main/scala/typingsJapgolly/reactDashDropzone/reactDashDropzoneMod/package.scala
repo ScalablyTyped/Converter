@@ -5,11 +5,12 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactDashDropzoneMod {
-  import typingsJapgolly.react.reactMod.ChangeEvent
-  import typingsJapgolly.react.reactMod.DragEvent
-  import typingsJapgolly.std.Event
-  import typingsJapgolly.std.HTMLElement
-  import typingsJapgolly.std.HTMLInputElement
+  import japgolly.scalajs.react.ReactDragEventFrom
+  import japgolly.scalajs.react.ReactEventFrom
+  import org.scalajs.dom.raw.DragEvent
+  import org.scalajs.dom.raw.Event
+  import org.scalajs.dom.raw.HTMLElement
+  import org.scalajs.dom.raw.HTMLInputElement
 
-  type DropEvent = DragEvent[HTMLElement] | ChangeEvent[HTMLInputElement] | typingsJapgolly.std.DragEvent | Event
+  type DropEvent = ReactDragEventFrom[HTMLElement] | ReactEventFrom[HTMLInputElement] | DragEvent | Event
 }

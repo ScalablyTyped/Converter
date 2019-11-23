@@ -3,11 +3,11 @@ package typingsJapgolly.reactDashDropzone
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactDragEventFrom
-import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.react.reactMod.DragEventHandler
 import typingsJapgolly.react.reactMod.Key
+import typingsJapgolly.react.reactMod._Global_.JSX.Element
 import typingsJapgolly.reactDashDropzone.reactDashDropzoneMod.DropEvent
 import typingsJapgolly.reactDashDropzone.reactDashDropzoneMod.DropzoneState
 import scala.scalajs.js

@@ -107,7 +107,7 @@ package object reactMod {
   type Factory[P] = js.Function2[/* props */ js.UndefOr[Attributes with P], /* repeated */ ReactNode, ReactElement]
   type FocusEventHandler[T] = EventHandler[FocusEvent[T]]
   // tslint:disable-next-line:no-empty-interface
-  type FormEvent[T] = BaseSyntheticEvent[Event, EventTarget with T, EventTarget]
+  type FormEvent[T] = SyntheticEvent[T, Event]
   type FormEventHandler[T] = EventHandler[FormEvent[T]]
   type FunctionComponentFactory[P] = js.Function2[
     /* props */ js.UndefOr[Attributes with P], 

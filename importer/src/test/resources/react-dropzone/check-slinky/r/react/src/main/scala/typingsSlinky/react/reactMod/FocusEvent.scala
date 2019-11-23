@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import org.scalajs.dom.raw.Event
 import typingsSlinky.react.NativeFocusEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
@@ -24,7 +23,7 @@ object FocusEvent {
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeFocusEvent,
     persist: () => Unit,
     preventDefault: () => Unit,
     relatedTarget: org.scalajs.dom.raw.EventTarget,

@@ -65,8 +65,6 @@ object GenJapgollyComponents {
     val rawReactRefHandle:               QualifiedName = rawReact + Name("RefHandle")
     val rawReactRefFn:                   QualifiedName = rawReact + Name("RefFn")
     val reactKey:                        QualifiedName = react + Name("Key")
-
-    val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
   }
 
   /**
@@ -150,7 +148,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
   val memberToParam: MemberToParam = (scope, x) =>
     MemberToParam
-      .Default(scope, ToJapgollyTypes.visitMemberTree(scope)(x))
+      .Default(scope, x)
       .map(p => p.copy(parameter = ToJapgollyTypes.visitParamTree(scope)(p.parameter)))
       .map {
         /* rewrite functions returning a Callback so that javascript land can call them */

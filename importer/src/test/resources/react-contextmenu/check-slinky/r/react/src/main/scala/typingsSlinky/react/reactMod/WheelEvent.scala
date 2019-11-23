@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import typingsSlinky.react.NativeWheelEvent
 import scala.scalajs.js
@@ -39,7 +38,7 @@ object WheelEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: Event,
+    nativeEvent: NativeWheelEvent,
     pageX: Double,
     pageY: Double,
     persist: () => Unit,

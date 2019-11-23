@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import org.scalajs.dom.raw.Event
 import typingsSlinky.react.NativeKeyboardEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
@@ -48,7 +47,7 @@ object KeyboardEvent {
     locale: String,
     location: Double,
     metaKey: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeKeyboardEvent,
     persist: () => Unit,
     preventDefault: () => Unit,
     repeat: Boolean,

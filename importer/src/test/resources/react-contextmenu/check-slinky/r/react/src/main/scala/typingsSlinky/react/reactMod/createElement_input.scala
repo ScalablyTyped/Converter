@@ -1,6 +1,7 @@
 package typingsSlinky.react.reactMod
 
 import org.scalajs.dom.raw.HTMLInputElement
+import slinky.core.TagMod
 import typingsSlinky.react.reactStrings.input
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -16,7 +17,7 @@ object createElement_input extends js.Object {
   def apply(
     `type`: input,
     props: InputHTMLAttributes[typingsSlinky.std.HTMLInputElement] with ClassAttributes[typingsSlinky.std.HTMLInputElement],
-    children: ReactNode*
+    children: TagMod[Any]*
   ): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
 }
 

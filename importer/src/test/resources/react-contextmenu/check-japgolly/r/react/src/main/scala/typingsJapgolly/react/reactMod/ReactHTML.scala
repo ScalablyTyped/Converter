@@ -1,6 +1,5 @@
 package typingsJapgolly.react.reactMod
 
-import org.scalajs.dom.raw.Element
 import org.scalajs.dom.raw.HTMLAnchorElement
 import org.scalajs.dom.raw.HTMLAreaElement
 import org.scalajs.dom.raw.HTMLAudioElement
@@ -55,6 +54,10 @@ import org.scalajs.dom.raw.HTMLTitleElement
 import org.scalajs.dom.raw.HTMLTrackElement
 import org.scalajs.dom.raw.HTMLUListElement
 import org.scalajs.dom.raw.HTMLVideoElement
+import typingsJapgolly.std.HTMLDataElement
+import typingsJapgolly.std.HTMLDialogElement
+import typingsJapgolly.std.HTMLTemplateElement
+import typingsJapgolly.std.HTMLWebViewElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -85,13 +88,13 @@ trait ReactHTML extends js.Object {
   var code: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement]
   var col: DetailedHTMLFactory[ColHTMLAttributes[HTMLTableColElement], HTMLTableColElement]
   var colgroup: DetailedHTMLFactory[ColgroupHTMLAttributes[HTMLTableColElement], HTMLTableColElement]
-  var data: DetailedHTMLFactory[DataHTMLAttributes[Element], Element]
+  var data: DetailedHTMLFactory[DataHTMLAttributes[HTMLDataElement], HTMLDataElement]
   var datalist: DetailedHTMLFactory[HTMLAttributes[HTMLDataListElement], HTMLDataListElement]
   var dd: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement]
   var del: DetailedHTMLFactory[DelHTMLAttributes[HTMLElement], HTMLElement]
   var details: DetailedHTMLFactory[DetailsHTMLAttributes[HTMLElement], HTMLElement]
   var dfn: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement]
-  var dialog: DetailedHTMLFactory[DialogHTMLAttributes[Element], Element]
+  var dialog: DetailedHTMLFactory[DialogHTMLAttributes[HTMLDialogElement], HTMLDialogElement]
   var div: DetailedHTMLFactory[HTMLAttributes[HTMLDivElement], HTMLDivElement]
   var dl: DetailedHTMLFactory[HTMLAttributes[HTMLDListElement], HTMLDListElement]
   var dt: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement]
@@ -163,7 +166,7 @@ trait ReactHTML extends js.Object {
   var table: DetailedHTMLFactory[TableHTMLAttributes[HTMLTableElement], HTMLTableElement]
   var tbody: DetailedHTMLFactory[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement]
   var td: DetailedHTMLFactory[TdHTMLAttributes[HTMLTableDataCellElement], HTMLTableDataCellElement]
-  var template: DetailedHTMLFactory[HTMLAttributes[Element], Element]
+  var template: DetailedHTMLFactory[HTMLAttributes[HTMLTemplateElement], HTMLTemplateElement]
   var textarea: DetailedHTMLFactory[TextareaHTMLAttributes[HTMLTextAreaElement], HTMLTextAreaElement]
   var tfoot: DetailedHTMLFactory[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement]
   var th: DetailedHTMLFactory[ThHTMLAttributes[HTMLTableHeaderCellElement], HTMLTableHeaderCellElement]
@@ -177,7 +180,7 @@ trait ReactHTML extends js.Object {
   var `var`: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement]
   var video: DetailedHTMLFactory[VideoHTMLAttributes[HTMLVideoElement], HTMLVideoElement]
   var wbr: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement]
-  var webview: DetailedHTMLFactory[WebViewHTMLAttributes[Element], Element]
+  var webview: DetailedHTMLFactory[WebViewHTMLAttributes[HTMLWebViewElement], HTMLWebViewElement]
 }
 
 object ReactHTML {
@@ -205,13 +208,13 @@ object ReactHTML {
     code: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
     col: DetailedHTMLFactory[ColHTMLAttributes[HTMLTableColElement], HTMLTableColElement],
     colgroup: DetailedHTMLFactory[ColgroupHTMLAttributes[HTMLTableColElement], HTMLTableColElement],
-    data: DetailedHTMLFactory[DataHTMLAttributes[Element], Element],
+    data: DetailedHTMLFactory[DataHTMLAttributes[HTMLDataElement], HTMLDataElement],
     datalist: DetailedHTMLFactory[HTMLAttributes[HTMLDataListElement], HTMLDataListElement],
     dd: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
     del: DetailedHTMLFactory[DelHTMLAttributes[HTMLElement], HTMLElement],
     details: DetailedHTMLFactory[DetailsHTMLAttributes[HTMLElement], HTMLElement],
     dfn: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
-    dialog: DetailedHTMLFactory[DialogHTMLAttributes[Element], Element],
+    dialog: DetailedHTMLFactory[DialogHTMLAttributes[HTMLDialogElement], HTMLDialogElement],
     div: DetailedHTMLFactory[HTMLAttributes[HTMLDivElement], HTMLDivElement],
     dl: DetailedHTMLFactory[HTMLAttributes[HTMLDListElement], HTMLDListElement],
     dt: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
@@ -283,7 +286,7 @@ object ReactHTML {
     table: DetailedHTMLFactory[TableHTMLAttributes[HTMLTableElement], HTMLTableElement],
     tbody: DetailedHTMLFactory[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement],
     td: DetailedHTMLFactory[TdHTMLAttributes[HTMLTableDataCellElement], HTMLTableDataCellElement],
-    template: DetailedHTMLFactory[HTMLAttributes[Element], Element],
+    template: DetailedHTMLFactory[HTMLAttributes[HTMLTemplateElement], HTMLTemplateElement],
     textarea: DetailedHTMLFactory[TextareaHTMLAttributes[HTMLTextAreaElement], HTMLTextAreaElement],
     tfoot: DetailedHTMLFactory[HTMLAttributes[HTMLTableSectionElement], HTMLTableSectionElement],
     th: DetailedHTMLFactory[ThHTMLAttributes[HTMLTableHeaderCellElement], HTMLTableHeaderCellElement],
@@ -297,7 +300,7 @@ object ReactHTML {
     `var`: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
     video: DetailedHTMLFactory[VideoHTMLAttributes[HTMLVideoElement], HTMLVideoElement],
     wbr: DetailedHTMLFactory[HTMLAttributes[HTMLElement], HTMLElement],
-    webview: DetailedHTMLFactory[WebViewHTMLAttributes[Element], Element]
+    webview: DetailedHTMLFactory[WebViewHTMLAttributes[HTMLWebViewElement], HTMLWebViewElement]
   ): ReactHTML = {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], abbr = abbr.asInstanceOf[js.Any], address = address.asInstanceOf[js.Any], area = area.asInstanceOf[js.Any], article = article.asInstanceOf[js.Any], aside = aside.asInstanceOf[js.Any], audio = audio.asInstanceOf[js.Any], b = b.asInstanceOf[js.Any], base = base.asInstanceOf[js.Any], bdi = bdi.asInstanceOf[js.Any], bdo = bdo.asInstanceOf[js.Any], big = big.asInstanceOf[js.Any], blockquote = blockquote.asInstanceOf[js.Any], body = body.asInstanceOf[js.Any], br = br.asInstanceOf[js.Any], button = button.asInstanceOf[js.Any], canvas = canvas.asInstanceOf[js.Any], caption = caption.asInstanceOf[js.Any], cite = cite.asInstanceOf[js.Any], code = code.asInstanceOf[js.Any], col = col.asInstanceOf[js.Any], colgroup = colgroup.asInstanceOf[js.Any], data = data.asInstanceOf[js.Any], datalist = datalist.asInstanceOf[js.Any], dd = dd.asInstanceOf[js.Any], del = del.asInstanceOf[js.Any], details = details.asInstanceOf[js.Any], dfn = dfn.asInstanceOf[js.Any], dialog = dialog.asInstanceOf[js.Any], div = div.asInstanceOf[js.Any], dl = dl.asInstanceOf[js.Any], dt = dt.asInstanceOf[js.Any], em = em.asInstanceOf[js.Any], embed = embed.asInstanceOf[js.Any], fieldset = fieldset.asInstanceOf[js.Any], figcaption = figcaption.asInstanceOf[js.Any], figure = figure.asInstanceOf[js.Any], footer = footer.asInstanceOf[js.Any], form = form.asInstanceOf[js.Any], h1 = h1.asInstanceOf[js.Any], h2 = h2.asInstanceOf[js.Any], h3 = h3.asInstanceOf[js.Any], h4 = h4.asInstanceOf[js.Any], h5 = h5.asInstanceOf[js.Any], h6 = h6.asInstanceOf[js.Any], head = head.asInstanceOf[js.Any], header = header.asInstanceOf[js.Any], hgroup = hgroup.asInstanceOf[js.Any], hr = hr.asInstanceOf[js.Any], html = html.asInstanceOf[js.Any], i = i.asInstanceOf[js.Any], iframe = iframe.asInstanceOf[js.Any], img = img.asInstanceOf[js.Any], input = input.asInstanceOf[js.Any], ins = ins.asInstanceOf[js.Any], kbd = kbd.asInstanceOf[js.Any], keygen = keygen.asInstanceOf[js.Any], label = label.asInstanceOf[js.Any], legend = legend.asInstanceOf[js.Any], li = li.asInstanceOf[js.Any], link = link.asInstanceOf[js.Any], main = main.asInstanceOf[js.Any], map = map.asInstanceOf[js.Any], mark = mark.asInstanceOf[js.Any], menu = menu.asInstanceOf[js.Any], menuitem = menuitem.asInstanceOf[js.Any], meta = meta.asInstanceOf[js.Any], meter = meter.asInstanceOf[js.Any], nav = nav.asInstanceOf[js.Any], noscript = noscript.asInstanceOf[js.Any], ol = ol.asInstanceOf[js.Any], optgroup = optgroup.asInstanceOf[js.Any], option = option.asInstanceOf[js.Any], output = output.asInstanceOf[js.Any], p = p.asInstanceOf[js.Any], param = param.asInstanceOf[js.Any], picture = picture.asInstanceOf[js.Any], pre = pre.asInstanceOf[js.Any], progress = progress.asInstanceOf[js.Any], q = q.asInstanceOf[js.Any], rp = rp.asInstanceOf[js.Any], rt = rt.asInstanceOf[js.Any], ruby = ruby.asInstanceOf[js.Any], s = s.asInstanceOf[js.Any], samp = samp.asInstanceOf[js.Any], script = script.asInstanceOf[js.Any], section = section.asInstanceOf[js.Any], select = select.asInstanceOf[js.Any], small = small.asInstanceOf[js.Any], source = source.asInstanceOf[js.Any], span = span.asInstanceOf[js.Any], strong = strong.asInstanceOf[js.Any], style = style.asInstanceOf[js.Any], sub = sub.asInstanceOf[js.Any], summary = summary.asInstanceOf[js.Any], sup = sup.asInstanceOf[js.Any], table = table.asInstanceOf[js.Any], tbody = tbody.asInstanceOf[js.Any], td = td.asInstanceOf[js.Any], template = template.asInstanceOf[js.Any], textarea = textarea.asInstanceOf[js.Any], tfoot = tfoot.asInstanceOf[js.Any], th = th.asInstanceOf[js.Any], thead = thead.asInstanceOf[js.Any], time = time.asInstanceOf[js.Any], title = title.asInstanceOf[js.Any], tr = tr.asInstanceOf[js.Any], track = track.asInstanceOf[js.Any], u = u.asInstanceOf[js.Any], ul = ul.asInstanceOf[js.Any], video = video.asInstanceOf[js.Any], wbr = wbr.asInstanceOf[js.Any], webview = webview.asInstanceOf[js.Any])
     __obj.updateDynamic("object")(`object`.asInstanceOf[js.Any])

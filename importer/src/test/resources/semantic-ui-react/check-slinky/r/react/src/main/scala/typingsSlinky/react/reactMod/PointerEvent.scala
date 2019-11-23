@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import typingsSlinky.react.NativePointerEvent
 import typingsSlinky.react.reactStrings.mouse
@@ -44,7 +43,7 @@ object PointerEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: Event,
+    nativeEvent: NativePointerEvent,
     pageX: Double,
     pageY: Double,
     persist: () => Unit,

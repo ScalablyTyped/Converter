@@ -1,11 +1,11 @@
 package typingsSlinky.reactDashDropzone
 
 import org.scalajs.dom.raw.HTMLElement
-import slinky.core.facade.ReactElement
 import typingsSlinky.react.reactMod.DragEvent
 import typingsSlinky.react.reactMod.DragEventHandler
 import typingsSlinky.react.reactMod.Key
 import typingsSlinky.react.reactMod.Ref
+import typingsSlinky.react.reactMod._Global_.JSX.Element
 import typingsSlinky.reactDashDropzone.reactDashDropzoneMod.DropEvent
 import typingsSlinky.reactDashDropzone.reactDashDropzoneMod.DropzoneRef
 import typingsSlinky.reactDashDropzone.reactDashDropzoneMod.DropzoneState
@@ -16,7 +16,7 @@ import scala.scalajs.js.annotation._
 /* Inlined react-dropzone.react-dropzone.DropzoneProps & react.react.RefAttributes<react-dropzone.react-dropzone.DropzoneRef> */
 trait DropzonePropsRefAttributesDropzoneRef extends js.Object {
   var accept: js.UndefOr[String | js.Array[String]] = js.undefined
-  var children: js.UndefOr[js.Function1[/* state */ DropzoneState, ReactElement]] = js.undefined
+  var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.undefined
   var disabled: js.UndefOr[Boolean] = js.undefined
   var getFilesFromEvent: js.UndefOr[
     js.Function1[
@@ -74,7 +74,7 @@ object DropzonePropsRefAttributesDropzoneRef {
   @scala.inline
   def apply(
     accept: String | js.Array[String] = null,
-    children: /* state */ DropzoneState => ReactElement = null,
+    children: /* state */ DropzoneState => Element = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
     key: Key = null,

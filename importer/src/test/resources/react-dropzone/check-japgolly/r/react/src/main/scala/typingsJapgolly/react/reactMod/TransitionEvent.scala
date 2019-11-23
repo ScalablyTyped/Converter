@@ -2,7 +2,6 @@ package typingsJapgolly.react.reactMod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import org.scalajs.dom.raw.Event
 import typingsJapgolly.react.NativeTransitionEvent
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
@@ -27,7 +26,7 @@ object TransitionEvent {
     isDefaultPrevented: CallbackTo[Boolean],
     isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeTransitionEvent,
     persist: Callback,
     preventDefault: Callback,
     propertyName: String,

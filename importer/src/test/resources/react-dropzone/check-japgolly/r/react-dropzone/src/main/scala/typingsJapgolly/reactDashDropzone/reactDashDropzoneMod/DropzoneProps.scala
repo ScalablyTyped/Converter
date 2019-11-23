@@ -3,9 +3,9 @@ package typingsJapgolly.reactDashDropzone.reactDashDropzoneMod
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactDragEventFrom
-import japgolly.scalajs.react.raw.React.Element
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.react.reactMod.DragEventHandler
+import typingsJapgolly.react.reactMod._Global_.JSX.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

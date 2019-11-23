@@ -1,7 +1,6 @@
 package typingsSlinky.react.reactMod
 
 import org.scalajs.dom.raw.DataTransfer
-import org.scalajs.dom.raw.Event
 import typingsSlinky.react.NativeClipboardEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
@@ -24,7 +23,7 @@ object ClipboardEvent {
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeClipboardEvent,
     persist: () => Unit,
     preventDefault: () => Unit,
     stopPropagation: () => Unit,

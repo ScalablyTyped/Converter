@@ -1,5 +1,6 @@
 package typingsJapgolly.react.reactMod
 
+import japgolly.scalajs.react.raw.React.Node
 import org.scalajs.dom.raw.HTMLInputElement
 import typingsJapgolly.react.reactStrings.input
 import scala.scalajs.js
@@ -16,7 +17,7 @@ object createElement_input extends js.Object {
   def apply(
     `type`: input,
     props: InputHTMLAttributes[typingsJapgolly.std.HTMLInputElement] with ClassAttributes[typingsJapgolly.std.HTMLInputElement],
-    children: ReactNode*
+    children: Node*
   ): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
 }
 

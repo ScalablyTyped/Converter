@@ -1,9 +1,9 @@
 package typingsSlinky.reactDashDropzone.reactDashDropzoneMod
 
 import org.scalajs.dom.raw.HTMLElement
-import slinky.core.facade.ReactElement
 import typingsSlinky.react.reactMod.DragEvent
 import typingsSlinky.react.reactMod.DragEventHandler
+import typingsSlinky.react.reactMod._Global_.JSX.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +11,7 @@ import scala.scalajs.js.annotation._
 /* Inlined parent react-dropzone.react-dropzone.DropzoneOptions */
 trait DropzoneProps extends js.Object {
   var accept: js.UndefOr[String | js.Array[String]] = js.undefined
-  var children: js.UndefOr[js.Function1[/* state */ DropzoneState, ReactElement]] = js.undefined
+  var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.undefined
   var disabled: js.UndefOr[Boolean] = js.undefined
   var getFilesFromEvent: js.UndefOr[
     js.Function1[
@@ -67,7 +67,7 @@ object DropzoneProps {
   @scala.inline
   def apply(
     accept: String | js.Array[String] = null,
-    children: /* state */ DropzoneState => ReactElement = null,
+    children: /* state */ DropzoneState => Element = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
     maxSize: Int | Double = null,

@@ -5,10 +5,10 @@ import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
-import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
+import typingsJapgolly.react.reactMod._Global_.JSX.Element
 import typingsJapgolly.reactDashDropzone.DropzonePropsRefAttributesDropzoneRef
 import typingsJapgolly.reactDashDropzone.reactDashDropzoneMod.DropEvent
 import typingsJapgolly.reactDashDropzone.reactDashDropzoneMod.DropzoneState

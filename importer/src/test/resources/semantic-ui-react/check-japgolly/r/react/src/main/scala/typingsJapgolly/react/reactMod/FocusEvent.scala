@@ -2,7 +2,6 @@ package typingsJapgolly.react.reactMod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import org.scalajs.dom.raw.Event
 import typingsJapgolly.react.NativeFocusEvent
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
@@ -26,7 +25,7 @@ object FocusEvent {
     isDefaultPrevented: CallbackTo[Boolean],
     isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
-    nativeEvent: Event,
+    nativeEvent: NativeFocusEvent,
     persist: Callback,
     preventDefault: Callback,
     relatedTarget: org.scalajs.dom.raw.EventTarget,

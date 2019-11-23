@@ -5,44 +5,57 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactMod {
+  import japgolly.scalajs.react.ReactAnimationEventFrom
+  import japgolly.scalajs.react.ReactClipboardEventFrom
+  import japgolly.scalajs.react.ReactCompositionEventFrom
+  import japgolly.scalajs.react.ReactDragEventFrom
   import japgolly.scalajs.react.ReactEventFrom
+  import japgolly.scalajs.react.ReactFocusEventFrom
+  import japgolly.scalajs.react.ReactKeyboardEventFrom
+  import japgolly.scalajs.react.ReactMouseEventFrom
+  import japgolly.scalajs.react.ReactPointerEventFrom
+  import japgolly.scalajs.react.ReactTouchEventFrom
+  import japgolly.scalajs.react.ReactTransitionEventFrom
+  import japgolly.scalajs.react.ReactUIEventFrom
+  import japgolly.scalajs.react.ReactWheelEventFrom
   import japgolly.scalajs.react.raw.React.ComponentClassP
+  import japgolly.scalajs.react.raw.React.DomElement
+  import japgolly.scalajs.react.raw.React.Node
+  import japgolly.scalajs.react.raw.React.RefHandle
   import org.scalablytyped.runtime.Instantiable1
   import org.scalablytyped.runtime.Instantiable2
   import org.scalajs.dom.raw.Element
+  import org.scalajs.dom.raw.EventTarget
   import org.scalajs.dom.raw.HTMLElement
   import typingsJapgolly.react.Anon_Children
   import typingsJapgolly.react.Anon_RefAny
   import typingsJapgolly.react.Anon_Result
   import typingsJapgolly.react.Anon_Type
-  import typingsJapgolly.react.NativeMouseEvent
   import typingsJapgolly.react.NotExactlyAnyPropertyKeys
   import typingsJapgolly.react.reactStrings.mount
   import typingsJapgolly.react.reactStrings.update
-  import typingsJapgolly.std.Event
-  import typingsJapgolly.std.EventTarget
   import typingsJapgolly.std.Partial
   import typingsJapgolly.std.Pick
 
-  type AnimationEventHandler[T] = EventHandler[AnimationEvent[T]]
+  type AnimationEventHandler[T] = EventHandler[ReactAnimationEventFrom[T with Element]]
   // tslint:disable-next-line:no-empty-interface
   type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
   type CElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = ComponentElement[P, T]
   type CFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = ComponentFactory[P, T]
   type CSSProperties = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
-  type ChangeEventHandler[T] = EventHandler[ChangeEvent[T]]
+  type ChangeEventHandler[T] = EventHandler[ReactEventFrom[T with Element]]
   /**
     * We use an intersection type to infer multiple type parameters from
     * a single argument, which is useful for many top-level API defs.
     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
     */
   type ClassType[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */, C /* <: ComponentClassP[P with js.Object] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
-  type ClassicElement[P] = CElement[P, ClassicComponent[P, ComponentState]]
-  type ClassicFactory[P] = CFactory[P, ClassicComponent[P, ComponentState]]
-  type ClipboardEventHandler[T] = EventHandler[ClipboardEvent[T]]
+  type ClassicElement[P] = CElement[P, ClassicComponent[P, js.Object]]
+  type ClassicFactory[P] = CFactory[P, ClassicComponent[P, js.Object]]
+  type ClipboardEventHandler[T] = EventHandler[ReactClipboardEventFrom[T with Element]]
   type ComponentFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = js.Function2[
     /* props */ js.UndefOr[ClassAttributes[T] with P], 
-    /* repeated */ ReactNode, 
+    /* repeated */ Node, 
     CElement[P, T]
   ]
   /**
@@ -55,14 +68,14 @@ package object reactMod {
   ]))
   type ComponentPropsWithoutRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = PropsWithoutRef[ComponentProps[T]]
   type ComponentState = js.Any
-  type ComponentType[P] = (ComponentClass[P, ComponentState]) | FunctionComponent[P]
-  type CompositionEventHandler[T] = EventHandler[CompositionEvent[T]]
+  type ComponentType[P] = (ComponentClassP[P with js.Object]) | FunctionComponent[P]
+  type CompositionEventHandler[T] = EventHandler[ReactCompositionEventFrom[T with Element]]
   type Consumer[T] = ExoticComponent[ConsumerProps[T]]
   type ContextType[C /* <: Context[_] */] = js.Any
   type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
     /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
-    /* repeated */ ReactNode, 
-    DOMElement[P, T]
+    /* repeated */ Node, 
+    DomElement
   ]
   // Any prop that has a default prop becomes optional, but its type is unchanged
   // Undeclared default props are augmented into the resulting allowable attributes
@@ -89,7 +102,7 @@ package object reactMod {
   // this technically does accept a second argument, but it's already under a deprecation warning
   // and it's not even released so probably better to not define it.
   type Dispatch[A] = js.Function1[/* value */ A, Unit]
-  type DragEventHandler[T] = EventHandler[DragEvent[T]]
+  type DragEventHandler[T] = EventHandler[ReactDragEventFrom[T with Element]]
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
   type EffectCallback = js.Function0[Unit | js.Function0[js.UndefOr[Unit]]]
@@ -106,14 +119,18 @@ package object reactMod {
   //
   // Factories
   // ----------------------------------------------------------------------
-  type Factory[P] = js.Function2[/* props */ js.UndefOr[Attributes with P], /* repeated */ ReactNode, ReactElement]
-  type FocusEventHandler[T] = EventHandler[FocusEvent[T]]
+  type Factory[P] = js.Function2[
+    /* props */ js.UndefOr[Attributes with P], 
+    /* repeated */ Node, 
+    japgolly.scalajs.react.raw.React.Element
+  ]
+  type FocusEventHandler[T] = EventHandler[ReactFocusEventFrom[T with Element]]
   // tslint:disable-next-line:no-empty-interface
-  type FormEvent[T] = BaseSyntheticEvent[Event, EventTarget with T, EventTarget]
-  type FormEventHandler[T] = EventHandler[FormEvent[T]]
+  type FormEvent[T] = ReactEventFrom[T with Element]
+  type FormEventHandler[T] = EventHandler[ReactEventFrom[T with Element]]
   type FunctionComponentFactory[P] = js.Function2[
     /* props */ js.UndefOr[Attributes with P], 
-    /* repeated */ ReactNode, 
+    /* repeated */ Node, 
     FunctionComponentElement[P]
   ]
   type GetDerivedStateFromError[P, S] = /**
@@ -131,11 +148,14 @@ package object reactMod {
   js.Function2[/* nextProps */ P, /* prevState */ S, Partial[S] | Null]
   // tslint:disable-next-line:no-empty-interface
   type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
-  type JSXElementConstructor[P] = (js.Function1[/* props */ P, ReactElement | Null]) | (Instantiable1[/* props */ P, Component[P, js.Any, js.Any]])
+  type JSXElementConstructor[P] = (js.Function1[/* props */ P, japgolly.scalajs.react.raw.React.Element | Null]) | (Instantiable1[
+    /* props */ P, 
+    japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
+  ])
   type Key = String | Double
-  type KeyboardEventHandler[T] = EventHandler[KeyboardEvent[T]]
+  type KeyboardEventHandler[T] = EventHandler[ReactKeyboardEventFrom[T with Element]]
   type LazyExoticComponent[T /* <: ComponentType[_] */] = ExoticComponent[ComponentPropsWithRef[T]] with Anon_Result[T]
-  type LegacyRef[T] = String | Ref[T]
+  type LegacyRef[T] = String | japgolly.scalajs.react.raw.React.Ref
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name
   type MemoExoticComponent[T /* <: ComponentType[_] */] = NamedExoticComponent[ComponentPropsWithRef[T]] with Anon_Type[T]
@@ -147,8 +167,8 @@ package object reactMod {
     P, 
     /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
   ])) | P | T
-  type MouseEventHandler[T] = EventHandler[MouseEvent[T, NativeMouseEvent]]
-  type PointerEventHandler[T] = EventHandler[PointerEvent[T]]
+  type MouseEventHandler[T] = EventHandler[ReactMouseEventFrom[T with Element]]
+  type PointerEventHandler[T] = EventHandler[ReactPointerEventFrom[T with Element]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
     */
@@ -173,9 +193,9 @@ package object reactMod {
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
   type Provider[T] = ProviderExoticComponent[ProviderProps[T]]
-  type ReactChild = ReactElement | ReactText
-  type ReactComponentElement[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */, P] = ReactElement
-  type ReactEventHandler[T] = EventHandler[SyntheticEvent[T, Event]]
+  type ReactChild = japgolly.scalajs.react.raw.React.Element | ReactText
+  type ReactComponentElement[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */, P] = japgolly.scalajs.react.raw.React.Element
+  type ReactEventHandler[T] = EventHandler[ReactEventFrom[T with Element]]
   type ReactFragment = js.Object | ReactNodeArray
   // ReactHTML for ReactHTMLElement
   // tslint:disable-next-line:no-empty-interface
@@ -183,7 +203,7 @@ package object reactMod {
   //
   // Component API
   // ----------------------------------------------------------------------
-  type ReactInstance = (Component[js.Any, js.Object, js.Any]) | typingsJapgolly.std.Element
+  type ReactInstance = (japgolly.scalajs.react.raw.React.Component[js.Any with js.Object, js.Object]) | Element
   type ReactManagedAttributes[C, P] = P | (Defaultize[
     (MergePropTypes[
       P, 
@@ -203,14 +223,14 @@ package object reactMod {
   /**
     * @deprecated Please use `ElementType`
     */
-  type ReactType[P] = ElementType[P]
+  type ReactType[P] = japgolly.scalajs.react.raw.React.ElementType
   // Unlike redux, the actions _can_ be anything
   type Reducer[S, A] = js.Function2[/* prevState */ S, /* action */ A, S]
   type ReducerAction[R /* <: Reducer[_, _] */] = js.Any
   // types used to try and prevent the compiler from reducing S
   // to a supertype common with the second argument to useReducer()
   type ReducerState[R /* <: Reducer[_, _] */] = js.Any
-  type Ref[T] = (js.Function1[/* instance */ T | Null, Unit]) | RefObject[T] | Null
+  type Ref[T] = (js.Function1[/* instance */ T | Null, Unit]) | RefHandle[T] | Null
   type Requireable[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
   //
   // Class Interfaces
@@ -250,10 +270,10 @@ package object reactMod {
     * This might be a child element to the element on which the event listener is registered.
     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     */
-  type SyntheticEvent[T, E] = BaseSyntheticEvent[E, EventTarget with T, EventTarget]
-  type TouchEventHandler[T] = EventHandler[TouchEvent[T]]
-  type TransitionEventHandler[T] = EventHandler[TransitionEvent[T]]
-  type UIEventHandler[T] = EventHandler[UIEvent[T]]
+  type SyntheticEvent[T, E] = ReactEventFrom[EventTarget with T with Element]
+  type TouchEventHandler[T] = EventHandler[ReactTouchEventFrom[T with Element]]
+  type TransitionEventHandler[T] = EventHandler[ReactTransitionEventFrom[T with Element]]
+  type UIEventHandler[T] = EventHandler[ReactUIEventFrom[T with Element]]
   type ValidationMap[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.ValidationMap<T> */ js.Any
   //
   // React.PropTypes
@@ -262,5 +282,5 @@ package object reactMod {
   type WeakValidationMap[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
     */ typingsJapgolly.react.reactStrings.WeakValidationMap with js.Any
-  type WheelEventHandler[T] = EventHandler[WheelEvent[T]]
+  type WheelEventHandler[T] = EventHandler[ReactWheelEventFrom[T with Element]]
 }

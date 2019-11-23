@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 
 @JSGlobal("Buffer")
 @js.native
-class BufferCls protected () extends Buffer {
+class BufferCls protected () extends NodeBuffer {
   /**
     * Produces a Buffer backed by the same allocated memory as
     * the given {ArrayBuffer}.

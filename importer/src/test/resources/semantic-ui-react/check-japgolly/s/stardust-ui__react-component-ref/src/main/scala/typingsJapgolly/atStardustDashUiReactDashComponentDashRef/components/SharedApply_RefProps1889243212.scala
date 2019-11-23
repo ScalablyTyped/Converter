@@ -12,15 +12,16 @@ import scala.scalajs.js.annotation._
 abstract class SharedApply_RefProps1889243212[ComponentRef] () {
   def __component: js.Any
   def apply(
-    innerRef: japgolly.scalajs.react.raw.React.Ref,
+    innerRef: japgolly.scalajs.react.raw.React.Ref = null,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[RefProps, ComponentRef, Unit, RefProps] = {
-    val __obj = js.Dynamic.literal(innerRef = innerRef.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal()
   
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+      if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[

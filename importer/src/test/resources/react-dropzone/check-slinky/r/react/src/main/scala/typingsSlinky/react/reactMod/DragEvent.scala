@@ -1,7 +1,6 @@
 package typingsSlinky.react.reactMod
 
 import org.scalajs.dom.raw.DataTransfer
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import typingsSlinky.react.NativeDragEvent
 import scala.scalajs.js
@@ -34,7 +33,7 @@ object DragEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: Event,
+    nativeEvent: NativeDragEvent,
     pageX: Double,
     pageY: Double,
     persist: () => Unit,

@@ -5,7 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object srcModulesAccordionAccordionPanelMod {
-  import typingsSlinky.react.reactMod.Component
+  import slinky.core.ReactComponentClass
 
-  type AccordionPanel = Component[AccordionPanelProps, js.Object, js.Any]
+  type AccordionPanel = ReactComponentClass[AccordionPanelProps]
 }
