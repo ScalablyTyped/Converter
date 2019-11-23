@@ -28,13 +28,9 @@ case class Config(
     versions:       Versions,
     flavour:        Flavour,
 ) {
-
   // change in source code for now, lazy...
-  val projectName       = "ScalablyTyped"
-  val organization      = "org.scalablytyped"
   val cacheFolder       = os.home / 'tmp / "tso-cache"
   val publishFolder     = os.home / ".ivy2" / "local"
-  val ScalablyTypedRepo = "https://github.com/oyvindberg/ScalablyTyped.git"
   val parallelLibraries = 100
   val parallelScalas    = 4
 }
@@ -76,10 +72,10 @@ object Config {
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
             flavour =
-              if (flags contains "-reactSlinky") Flavour.reactSlinky
-              else if (flags contains "-reactJapgolly") Flavour.reactJapgolly
-              else if (flags contains "-reactFacade") Flavour.reactFacade
-              else Flavour.plain,
+              if (flags contains "-reactSlinky") Flavour.Slinky
+              else if (flags contains "-reactJapgolly") Flavour.Japgolly
+              else if (flags contains "-reactPlain") Flavour.Plain
+              else Flavour.ReactFacade,
           ),
         )
     }
