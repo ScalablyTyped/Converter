@@ -14,10 +14,16 @@ sealed abstract class TreeScope { outer =>
   def logger:   Logger[Unit]
   def pedantic: Boolean
 
+  final def root: TreeScope.Root[_] =
+    this match {
+      case root: TreeScope.Root[_] => root
+      case TreeScope.Scoped(_, outer, _) => outer.root
+    }
+
   final def lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
     fragments match {
       case x if ScalaJsClasses.ScalaJsTypes.contains(x) => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
-      case Head(Name.scala | Name.java | GenJapgollyComponents.names.japgolly | GenSlinkyComponents.names.slinkyName) =>
+      case Head(Name.scala | Name.java | GenJapgollyComponents.names.japgolly | GenSlinkyComponents.slinkyName) =>
         Nil
       case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Nil
       case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Nil
@@ -58,6 +64,7 @@ object TreeScope {
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
   class Root[Source](
+      val outputPkg: Name,
       val libName:   Name,
       _dependencies: Map[Name, ContainerTree],
       val logger:    Logger[Unit],
@@ -74,9 +81,9 @@ object TreeScope {
 
     override def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
       fragments match {
-        case ScalaConfig.outputPkg :: head :: tail =>
+        case `outputPkg` :: head :: tail =>
           dependencies.get(head) match {
-            case Some(dep) => dep.lookupNoBacktrack(ScalaConfig.outputPkg :: head :: tail)
+            case Some(dep) => dep.lookupNoBacktrack(outputPkg :: head :: tail)
             case None      => Seq.empty
           }
         case _ => Seq.empty
@@ -108,13 +115,15 @@ object TreeScope {
       outer.tparams ++ newTParams.map(x => x.name -> x)
     }
 
+    lazy val outputPkg = root.outputPkg
+
     def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)] =
       names match {
         case current.name :: Nil =>
           Seq((current, this))
 
         // 99% a shortcut, plus handle fully qualified types more places in the pipeline
-        case ScalaConfig.outputPkg :: rest if rest.startsWith(nameStack) =>
+        case `outputPkg` :: rest if rest.startsWith(nameStack) =>
           lookupNoBacktrack(names.drop(nameStack.length))
 
         case current.name :: head :: tail =>

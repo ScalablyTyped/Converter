@@ -1,14 +1,14 @@
 package com.olvind.tso
 package importer
 
-import com.olvind.tso.scalajs.{Name, QualifiedName, ScalaConfig}
+import com.olvind.tso.scalajs.{Name, QualifiedName}
 import com.olvind.tso.ts._
 
 /**
   * @param knownLibraries A known library in this context is the one we
   *                       are converting, or any of it's dependencies
   */
-class ImportName(knownLibraries: Set[TsIdentLibrary]) {
+class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) {
   def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
@@ -19,11 +19,11 @@ class ImportName(knownLibraries: Set[TsIdentLibrary]) {
     ident match {
       /* hack/shortcut: all qualified idents are fully qualified, which means only abstract things should have length one */
       case TsQIdent(one :: Nil) => QualifiedName(List(apply(one)))
-      case TsQIdent(parts)      => QualifiedName(ScalaConfig.outputPkg +: (parts map apply))
+      case TsQIdent(parts)      => QualifiedName(`outputPkg` +: (parts map apply))
     }
 
   def apply(cp: CodePath): QualifiedName =
-    QualifiedName(ScalaConfig.outputPkg +: (cp.forceHasPath.codePath.parts map apply))
+    QualifiedName(outputPkg +: (cp.forceHasPath.codePath.parts map apply))
 
   def apply(i: TsIdent): Name =
     i match {

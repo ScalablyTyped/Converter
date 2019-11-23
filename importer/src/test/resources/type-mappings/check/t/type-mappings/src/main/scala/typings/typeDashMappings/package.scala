@@ -34,7 +34,7 @@ package object typeDashMappings {
   type PartialPerson = Partial[Person]
   type PersonRecord = Record[name | age, String]
   type ProxiedPerson = Proxify[Person]
-  type Proxify[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
+  type Proxify[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ P in keyof T ]: {get (): T[P], set (v : T[P]): void}}
     */ typings.typeDashMappings.typeDashMappingsStrings.Proxify with js.Any
   type ReadonlyPerson = Person

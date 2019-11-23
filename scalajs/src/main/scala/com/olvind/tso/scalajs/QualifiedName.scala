@@ -55,94 +55,21 @@ object QualifiedName {
   val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
   val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
 
-  object Std {
-    val std = QualifiedName(ScalaConfig.outputPkg :: ScalaConfig.std :: Nil)
-
-    val Array:         QualifiedName = std + Name.Array
-    val Boolean:       QualifiedName = std + Name.Boolean
-    val BigInt:        QualifiedName = std + Name("BigInt")
-    val ConcatArray:   QualifiedName = std + Name("ConcatArray")
-    val Function:      QualifiedName = std + Name.Function
-    val Number:        QualifiedName = std + Name("Number")
-    val Object:        QualifiedName = std + Name.Object
-    val Promise:       QualifiedName = std + Name("Promise")
-    val PromiseLike:   QualifiedName = std + Name("PromiseLike")
-    val ReadonlyArray: QualifiedName = std + Name("ReadonlyArray")
-    val String:        QualifiedName = std + Name.String
-    val Symbol:        QualifiedName = std + Name.Symbol
-  }
-
-  object React {
-    val lib = QualifiedName(List(ScalaConfig.outputPkg, Name("react")))
-    val mod = lib + Name("reactMod")
-
-    val Ref               = mod + Name("Ref")
-    val RefObject         = mod + Name("RefObject")
-    val ReactNode         = mod + Name("ReactNode")
-    val ReactElement      = mod + Name("ReactElement")
-    val DOMElement        = mod + Name("DOMElement")
-    val ElementType       = mod + Name("ElementType")
-    val ReactType         = mod + Name("ReactType")
-    val AllHTMLAttributes = mod + Name("AllHTMLAttributes")
-    val SVGAttributes     = mod + Name("SVGAttributes")
-    val Component         = mod + Name("Component")
-    val ComponentType     = mod + Name("ComponentType")
-    val ComponentClass    = mod + Name("ComponentClass")
-    val ReactDOM          = mod + Name("ReactDOM")
-    val ComponentState    = mod + Name("ComponentState")
-
-    val ComponentNames: Set[String] =
-      Set(
-        "ClassicComponent",
-        "ClassicComponentClass",
-        "Component",
-        "ComponentClass",
-        "ComponentType",
-        "ExoticComponent",
-        "FC",
-        "FunctionComponent",
-        "LazyExoticComponent",
-        "MemoExoticComponent",
-        "NamedExoticComponent",
-        "ProviderExoticComponent",
-        "PureComponent",
-        "RefForwardingComponent",
-        "SFC",
-        "StatelessComponent",
-      )
-
-    val isComponent: Set[QualifiedName] = ComponentNames.map(mod + Name(_))
-
-    // events
-    val BaseSyntheticEvent     = mod + Name("BaseSyntheticEvent")
-    val ChangeEvent            = mod + Name("ChangeEvent")
-    val InvalidEvent           = mod + Name("InvalidEvent")
-    val AnimationEvent         = mod + Name("AnimationEvent")
-    val ClipboardEvent         = mod + Name("ClipboardEvent")
-    val CompositionEvent       = mod + Name("CompositionEvent")
-    val DragEvent              = mod + Name("DragEvent")
-    val FormEvent              = mod + Name("FormEvent")
-    val FocusEvent             = mod + Name("FocusEvent")
-    val KeyboardEvent          = mod + Name("KeyboardEvent")
-    val MouseEvent             = mod + Name("MouseEvent")
-    val PointerEvent           = mod + Name("PointerEvent")
-    val SyntheticEvent         = mod + Name("SyntheticEvent")
-    val TouchEvent             = mod + Name("TouchEvent")
-    val TransitionEvent        = mod + Name("TransitionEvent")
-    val UIEvent                = mod + Name("UIEvent")
-    val WheelEvent             = mod + Name("WheelEvent")
-    val NativeAnimationEvent   = lib + Name("NativeAnimationEvent")
-    val NativeClipboardEvent   = lib + Name("NativeClipboardEvent")
-    val NativeCompositionEvent = lib + Name("NativeCompositionEvent")
-    val NativeDragEvent        = lib + Name("NativeDragEvent")
-    val NativeFocusEvent       = lib + Name("NativeFocusEvent")
-    val NativeKeyboardEvent    = lib + Name("NativeKeyboardEvent")
-    val NativeMouseEvent       = lib + Name("NativeMouseEvent")
-    val NativePointerEvent     = lib + Name("NativePointerEvent")
-    val NativeTouchEvent       = lib + Name("NativeTouchEvent")
-    val NativeTransitionEvent  = lib + Name("NativeTransitionEvent")
-    val NativeUIEvent          = lib + Name("NativeUIEvent")
-    val NativeWheelEvent       = lib + Name("NativeWheelEvent")
+  class StdNames(outputPkg: Name) {
+    val stdName:       Name          = Name("std")
+    val lib:           QualifiedName = QualifiedName(outputPkg :: stdName :: Nil)
+    val Array:         QualifiedName = lib + Name.Array
+    val Boolean:       QualifiedName = lib + Name.Boolean
+    val BigInt:        QualifiedName = lib + Name("BigInt")
+    val ConcatArray:   QualifiedName = lib + Name("ConcatArray")
+    val Function:      QualifiedName = lib + Name.Function
+    val Number:        QualifiedName = lib + Name("Number")
+    val Object:        QualifiedName = lib + Name.Object
+    val Promise:       QualifiedName = lib + Name("Promise")
+    val PromiseLike:   QualifiedName = lib + Name("PromiseLike")
+    val ReadonlyArray: QualifiedName = lib + Name("ReadonlyArray")
+    val String:        QualifiedName = lib + Name.String
+    val Symbol:        QualifiedName = lib + Name.Symbol
   }
 
   def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")

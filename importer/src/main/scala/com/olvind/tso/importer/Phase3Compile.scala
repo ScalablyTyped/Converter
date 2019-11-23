@@ -136,6 +136,7 @@ class Phase3Compile(
               _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
               logger        = logger,
               pedantic      = false,
+              outputPkg     = flavour.outputPkg,
             )
 
             /** We must do this as late as this.
