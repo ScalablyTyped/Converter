@@ -176,7 +176,7 @@ object Companions extends TreeTransformation {
         }
 
       case _m: MethodTree =>
-        val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any))
+        val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any), Nil)
         val convertedTarget = s"js.Any.fromFunction${m.params.flatten.length}(${m.name.value})"
 
         Some(
