@@ -6,7 +6,6 @@ import typings.react.HTMLAudioElement
 import typings.react.HTMLBRElement
 import typings.react.HTMLBaseElement
 import typings.react.HTMLBodyElement
-import typings.react.HTMLButtonElement
 import typings.react.HTMLCanvasElement
 import typings.react.HTMLDListElement
 import typings.react.HTMLDataElement
@@ -16,7 +15,6 @@ import typings.react.HTMLDivElement
 import typings.react.HTMLElement
 import typings.react.HTMLEmbedElement
 import typings.react.HTMLFieldSetElement
-import typings.react.HTMLFormElement
 import typings.react.HTMLHRElement
 import typings.react.HTMLHeadElement
 import typings.react.HTMLHeadingElement
@@ -164,6 +162,8 @@ import typings.react.reactMod.TimeHTMLAttributes
 import typings.react.reactMod.TrackHTMLAttributes
 import typings.react.reactMod.VideoHTMLAttributes
 import typings.react.reactMod.WebViewHTMLAttributes
+import typings.std.HTMLButtonElement
+import typings.std.HTMLFormElement
 import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`

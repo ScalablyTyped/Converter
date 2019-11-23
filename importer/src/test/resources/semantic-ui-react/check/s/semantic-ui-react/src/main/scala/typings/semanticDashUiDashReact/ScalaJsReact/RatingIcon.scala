@@ -1,6 +1,7 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -22,6 +23,8 @@ object RatingIcon {
     onKeyUp: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ RatingIconProps) => Callback = null,
     onMouseEnter: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ RatingIconProps) => Callback = null,
     selected: js.UndefOr[Boolean] = js.undefined
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[RatingIconProps, default, Unit, RatingIconProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -37,9 +40,9 @@ object RatingIcon {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesRatingRatingIconMod.RatingIconProps])(children: _*)
   }
 }
 

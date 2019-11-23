@@ -1,5 +1,6 @@
 package typings.semanticDashUiDashReact.ScalaJsReact
 
+import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagNameValues
@@ -15,6 +16,8 @@ object Flag {
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null
+  )(
+    children: ChildArg*
   ): UnmountedWithRoot[FlagProps, default, Unit, FlagProps] = {
     val __obj = js.Dynamic.literal(name = name)
   
@@ -24,9 +27,9 @@ object Flag {
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagProps, 
-  japgolly.scalajs.react.Children.None, 
+  japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcElementsFlagMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsFlagMod.default])
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagProps])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsFlagFlagMod.FlagProps])(children: _*)
   }
 }
 
