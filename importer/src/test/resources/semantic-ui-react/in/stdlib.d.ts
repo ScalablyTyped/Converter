@@ -3,6 +3,8 @@
 declare interface Array<T> {}
 declare interface Function {}
 declare interface HTMLInputElement {}
+declare interface HTMLButtonElement {}
+declare interface HTMLFormElement {}
 
 /**
  * Make all properties in T optional

@@ -84,7 +84,7 @@ object Label {
     if (size != null) __obj.updateDynamic("size")(size)
     if (!js.isUndefined(tag)) __obj.updateDynamic("tag")(tag)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcElementsLabelMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcElementsLabelMod.default])

@@ -82,7 +82,7 @@ object Modal {
     if (style != null) __obj.updateDynamic("style")(style)
     if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesModalMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesModalMod.default])

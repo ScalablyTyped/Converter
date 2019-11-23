@@ -11,7 +11,7 @@ object SvgIcon {
   
     
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   js.Object, 
   japgolly.scalajs.react.Children.None, 
   typings.materialDashUi.__MaterialUI.SvgIcon](js.constructorOf[typings.materialDashUi.__MaterialUI.SvgIcon])

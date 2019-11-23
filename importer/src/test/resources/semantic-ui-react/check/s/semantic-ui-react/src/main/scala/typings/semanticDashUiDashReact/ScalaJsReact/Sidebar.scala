@@ -62,7 +62,7 @@ object Sidebar {
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesSidebarSidebarMod.SidebarProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesSidebarMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSidebarMod.default])

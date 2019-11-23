@@ -87,7 +87,7 @@ object Search {
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
     if (value != null) __obj.updateDynamic("value")(value)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesSearchSearchMod.SearchProps, 
   japgolly.scalajs.react.Children.None, 
   typings.semanticDashUiDashReact.srcModulesSearchMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesSearchMod.default])

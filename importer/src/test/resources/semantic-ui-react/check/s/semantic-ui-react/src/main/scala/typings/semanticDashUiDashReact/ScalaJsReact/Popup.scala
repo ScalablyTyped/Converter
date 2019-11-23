@@ -98,7 +98,7 @@ object Popup {
     if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
     if (wide != null) __obj.updateDynamic("wide")(wide.asInstanceOf[js.Any])
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesPopupPopupMod.PopupProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesPopupMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesPopupMod.default])

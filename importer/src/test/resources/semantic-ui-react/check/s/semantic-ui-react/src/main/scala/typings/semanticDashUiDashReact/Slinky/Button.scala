@@ -1,12 +1,13 @@
 package typings.semanticDashUiDashReact.Slinky
 
-import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLButtonElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
+import typings.react.reactStrings.button
+import typings.react.reactStrings.reset
+import typings.react.reactStrings.submit
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`google plus`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.facebook
@@ -29,16 +30,16 @@ import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.std.HTMLButtonElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled, role */
+/* The following DOM/SVG props were specified: about, accessKey, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-colcount, aria-colindex, aria-colspan, aria-controls, aria-current, aria-describedby, aria-details, aria-disabled, aria-dropeffect, aria-errormessage, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-keyshortcuts, aria-label, aria-labelledby, aria-level, aria-live, aria-modal, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-placeholder, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-roledescription, aria-rowcount, aria-rowindex, aria-rowspan, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, autoCapitalize, autoCorrect, autoFocus, autoSave, children, className, color, contentEditable, contextMenu, dangerouslySetInnerHTML, datatype, defaultChecked, defaultValue, dir, disabled, draggable, form, formAction, formEncType, formMethod, formNoValidate, formTarget, hidden, id, inlist, inputMode, is, itemID, itemProp, itemRef, itemScope, itemType, lang, name, onAbort, onAnimationEnd, onAnimationIteration, onAnimationStart, onAuxClick, onBeforeInput, onBlur, onCanPlay, onCanPlayThrough, onChange, onClick, onCompositionEnd, onCompositionStart, onCompositionUpdate, onContextMenu, onCopy, onCut, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver, onDragStart, onDrop, onDurationChange, onEmptied, onEncrypted, onEnded, onError, onFocus, onInput, onInvalid, onKeyDown, onKeyPress, onKeyUp, onLoad, onLoadStart, onLoadedData, onLoadedMetadata, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp, onPaste, onPause, onPlay, onPlaying, onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOut, onPointerOver, onPointerUp, onProgress, onRateChange, onReset, onScroll, onSeeked, onSeeking, onSelect, onStalled, onSubmit, onSuspend, onTimeUpdate, onTouchCancel, onTouchEnd, onTouchMove, onTouchStart, onTransitionEnd, onVolumeChange, onWaiting, onWheel, placeholder, prefix, property, radioGroup, resource, results, role, security, slot, spellCheck, style, suppressContentEditableWarning, suppressHydrationWarning, tabIndex, title, typeof, unselectable, value, vocab */
 object Button
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcElementsButtonMod.default].asInstanceOf[String | js.Object]
   def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     animated: Boolean | fade | vertical = null,
     as: js.Any = null,
@@ -62,10 +63,10 @@ object Button
     secondary: js.UndefOr[Boolean] = js.undefined,
     size: SemanticSIZES = null,
     tabIndex: Double | String = null,
-    toggle: js.UndefOr[Boolean] = js.undefined
+    toggle: js.UndefOr[Boolean] = js.undefined,
+    `type`: submit | reset | button = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (animated != null) __obj.updateDynamic("animated")(animated.asInstanceOf[js.Any])
     if (as != null) __obj.updateDynamic("as")(as)
@@ -90,6 +91,7 @@ object Button
     if (size != null) __obj.updateDynamic("size")(size)
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
+    if (`type` != null) __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ButtonProps

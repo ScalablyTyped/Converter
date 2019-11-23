@@ -47,7 +47,7 @@ object Transition {
     if (!js.isUndefined(unmountOnHide)) __obj.updateDynamic("unmountOnHide")(unmountOnHide)
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.semanticDashUiDashReact.srcModulesTransitionTransitionMod.TransitionProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typings.semanticDashUiDashReact.srcModulesTransitionMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesTransitionMod.default])

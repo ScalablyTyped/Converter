@@ -13,7 +13,7 @@ object BottomNavigationItem {
   
       if (className != null) __obj.updateDynamic("className")(className)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent[
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps, 
   japgolly.scalajs.react.Children.None, 
   typings.materialDashUi.bottomNavigationBottomNavigationItemMod.default](js.constructorOf[typings.materialDashUi.bottomNavigationBottomNavigationItemMod.default])
