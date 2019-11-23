@@ -1,4 +1,4 @@
-package typings.semanticUiReact.japgolly
+package typings.semanticDashUiDashReact.japgolly
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CtorType.ChildArg
@@ -7,17 +7,16 @@ import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLDivElement
-import typings.semanticUiReact.genericMod.SemanticShorthandContent
-import typings.semanticUiReact.genericMod.SemanticShorthandItem
-import typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps
-import typings.semanticUiReact.modulesAccordionAccordionTitleMod.default
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
+import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object AccordionTitle {
   def apply(
-    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,
     as: js.Any = null,
@@ -29,28 +28,28 @@ object AccordionTitle {
     index: Double | String = null,
     onClick: js.UndefOr[
       (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-    ] = js.undefined
+    ] = js.undefined,
+    key: js.UndefOr[Key] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedWithRoot[AccordionTitleProps, default, Unit, AccordionTitleProps] = {
     val __obj = js.Dynamic.literal()
   
-    
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
+      js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-    onClick.foreach(p => __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
+    onClick.foreach(p => __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => p(t0, t1).runNow()))))
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps, 
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typings.semanticUiReact.modulesAccordionAccordionTitleMod.default](js.constructorOf[typings.semanticUiReact.modulesAccordionAccordionTitleMod.default])
-    f(__obj.asInstanceOf[typings.semanticUiReact.modulesAccordionAccordionTitleMod.AccordionTitleProps])(children: _*)
+  typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default](js.constructorOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default])
+    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps])(children: _*)
   }
 }
 

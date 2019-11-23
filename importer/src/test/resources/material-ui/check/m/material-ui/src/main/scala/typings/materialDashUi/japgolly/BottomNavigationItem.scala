@@ -10,16 +10,16 @@ import scala.scalajs.js.annotation._
 
 object BottomNavigationItem {
   def apply(className: String = null, key: js.UndefOr[Key] = js.undefined)(children: Double): UnmountedWithRoot[BottomNavigationItemProps, default, Unit, BottomNavigationItemProps] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(children = children)
   
       if (className != null) __obj.updateDynamic("className")(className)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps, 
-  japgolly.scalajs.react.Children.Varargs, 
+  japgolly.scalajs.react.Children.None, 
   typings.materialDashUi.bottomNavigationBottomNavigationItemMod.default](js.constructorOf[typings.materialDashUi.bottomNavigationBottomNavigationItemMod.default])
-    f(__obj.asInstanceOf[typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps])(japgolly.scalajs.react.vdom.VdomNode.cast(children))
+    f(__obj.asInstanceOf[typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps])
   }
 }
 
