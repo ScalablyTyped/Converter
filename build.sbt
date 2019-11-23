@@ -67,7 +67,7 @@ val `sbt-tso` = project
     name := "sbt-tso",
     // set up 'scripted; sbt plugin for testing sbt plugins
     scriptedBufferLog := false,
-    scriptedLaunchOpts ++= Seq("-Xmx1024M", "-Dplugin.version=" + version.value),
+    scriptedLaunchOpts ++= Seq("-Xmx2048M", "-Dplugin.version=" + version.value),
     watchSources       ++= { (sourceDirectory.value ** "*").get },
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6")
 )
