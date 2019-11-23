@@ -27,12 +27,12 @@ object ScalaJsClasses {
       Nil,
       Nil,
       Seq(
-        CtorTree(ProtectionLevel.Default, Seq(ParamTree(Name("args"), TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments),
+        CtorTree(ProtectionLevel.Default, Seq(ParamTree(Name("args"), isImplicit = false, TypeRef.Repeated(TypeRef.String, NoComments), None, NoComments)), NoComments),
       ),
       Seq(
         FieldTree(Nil, Name("length"), TypeRef.Int, MemberImpl.Native, isReadOnly = false, isOverride = false, NoComments, QualifiedName.Function + Name("length")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind")),
+        MethodTree(Nil, ProtectionLevel.Default, Name("call"), Nil, Seq(Seq(ParamTree(Name("thisArg"), isImplicit = false, TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), isImplicit = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("call")),
+        MethodTree(Nil, ProtectionLevel.Default, Name("bind"), Nil, Seq(Seq(ParamTree(Name("thisArg"), isImplicit = false, TypeRef.Any, None, NoComments), ParamTree(Name("argArray"), isImplicit = false, TypeRef.Repeated(TypeRef.Dynamic, NoComments), None, NoComments))), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Function + Name("bind")),
       ),
       ClassType.Class,
       isSealed = false,
@@ -45,9 +45,9 @@ object ScalaJsClasses {
     def T(n: Int) = Name(s"T" + n)
 
     val ThisParam: Seq[ParamTree] =
-      if (isThis) Seq(ParamTree(Name.This, TypeRef.ThisType(NoComments), None, NoComments)) else Nil
+      if (isThis) Seq(ParamTree(Name.This, false, TypeRef.ThisType(NoComments), None, NoComments)) else Nil
 
-    val inputParams = 0 until arity map (n => ParamTree(T(n), TypeRef(T(n)), None, NoComments))
+    val inputParams = 0 until arity map (n => ParamTree(T(n), false, TypeRef(T(n)), None, NoComments))
     val R           = TypeRef(Name("R"))
     val codePath    = QualifiedName.FunctionArity(isThis, arity)
 

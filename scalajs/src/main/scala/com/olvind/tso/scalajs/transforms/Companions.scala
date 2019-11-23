@@ -80,7 +80,7 @@ object Companions extends TreeTransformation {
             val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
             Some(
               Param(
-                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -94,7 +94,7 @@ object Companions extends TreeTransformation {
           case Nullable(tpe) if IsPrimitive(tpe, scope / x) =>
             Some(
               Param(
-                ParamTree(name, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
+                ParamTree(name, false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -112,6 +112,7 @@ object Companions extends TreeTransformation {
               Param(
                 ParamTree(
                   name,
+                  false,
                   TypeRef.ScalaFunction(paramTypes, retType, NoComments),
                   Some(TypeRef.`null`),
                   NoComments,
@@ -132,7 +133,7 @@ object Companions extends TreeTransformation {
 
             Some(
               Param(
-                ParamTree(name, tpe, Some(TypeRef.`null`), NoComments),
+                ParamTree(name, false, tpe, Some(TypeRef.`null`), NoComments),
                 isOptional = true,
                 Right(
                   obj =>
@@ -148,7 +149,7 @@ object Companions extends TreeTransformation {
 
             Some(
               Param(
-                ParamTree(name, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
+                ParamTree(name, false, TypeRef.ScalaFunction(paramTypes, retType, NoComments), None, NoComments),
                 isOptional = false,
                 if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                   Left(s"""${name.value} = $convertedTarget""")
@@ -161,7 +162,7 @@ object Companions extends TreeTransformation {
           case _ =>
             Some(
               Param(
-                ParamTree(name, origTpe, None, NoComments),
+                ParamTree(name, false, origTpe, None, NoComments),
                 isOptional = false,
                 if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
                   Left(s"""${name.value} = ${name.value}${OptionalCast(scope, origTpe)}""")
@@ -182,6 +183,7 @@ object Companions extends TreeTransformation {
           Param(
             ParamTree(
               m.name,
+              false,
               TypeRef.ScalaFunction(m.params.flatten.map(p => p.tpe), m.resultType, NoComments),
               None,
               NoComments,

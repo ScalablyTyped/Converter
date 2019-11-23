@@ -110,10 +110,11 @@ object JapgollyComponents {
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val keyUpdate: String => String = obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""
     val keyParam = ParamTree(
-      name     = Name("key"),
-      tpe      = TypeRef.UndefOr(TypeRef(japgolly.reactKey)),
-      default  = Some(TypeRef.undefined),
-      comments = NoComments,
+      name       = Name("key"),
+      isImplicit = false,
+      tpe        = TypeRef.UndefOr(TypeRef(japgolly.reactKey)),
+      default    = Some(TypeRef.undefined),
+      comments   = NoComments,
     )
     Seq(keyParam -> keyUpdate)
   }
@@ -125,7 +126,7 @@ object JapgollyComponents {
         /* rewrite types after `memberParameter`, as it's resolving aliases, referencing superclasses and so on */
         p => p.copy(parameter = p.parameter.copy(tpe = rewriter.visitTypeRef(scope)(p.parameter.tpe))),
       ) map {
-      case p @ Param(pt @ ParamTree(name, TypeRef.ScalaFunction(paramTypes, _), _, _), _, _) =>
+      case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, _), _, _), _, _) =>
         // rewrite functions returning a Callback so that javascript land can call them
         // this is more complicated than you think:
         // - There's no point in wrapping into () => Callback, just wrap into Callback (same with CallbackTo)
@@ -178,7 +179,7 @@ object JapgollyComponents {
           asString  = Right(fn),
         )
 
-      case p @ Param(pt @ ParamTree(name, TypeRef(japgolly.rawReactElement, _, _), _, _), _, _) =>
+      case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _, _) =>
         def fn(obj: String) =
           s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
         p.copy(
@@ -186,7 +187,7 @@ object JapgollyComponents {
           asString  = Right(fn),
         )
 
-      case p @ Param(pt @ ParamTree(name, TypeRef(japgolly.rawReactNode, _, _), _, _), _, _) =>
+      case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _, _) =>
         def fn(obj: String) =
           s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
         p.copy(
@@ -324,7 +325,7 @@ object JapgollyComponents {
       annotations = Nil,
       name        = names.component,
       tpe         = TypeRef.Any,
-      impl        = MemberImpl.Custom(Component.formatReferenceTo(SlinkyComponents.stripTargs(c.ref), c.componentType)),
+      impl        = MemberImpl.Custom(Component.formatReferenceTo(TypeRef.stripTargs(c.ref), c.componentType)),
       isReadOnly  = true,
       isOverride  = true,
       comments    = NoComments,
@@ -334,7 +335,7 @@ object JapgollyComponents {
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
-      parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(SlinkyComponents.stripTargs).to[List], NoComments)),
+      parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
       comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.ref)))),
       codePath    = componentCp,
@@ -356,12 +357,12 @@ object JapgollyComponents {
 
     val (refTypes, declaredChildren, _, _optionals, requireds, Nil) = {
       params.partitionCollect5(
-        { case Param(ParamTree(names.ref, tpe, _, _), _, _) => tpe }, //refTypes
+        { case Param(ParamTree(names.ref, _, tpe, _, _), _, _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
-        { case p @ Param(ParamTree(names.children, tpe, _, _), _, _) if !isVdomNode(tpe) => p }, //declaredChildren
-        { case Param(paramTree, _, _) if names.shouldIgnore(paramTree)                   => () },
-        { case Param(p, _, Right(f))                                                     => p -> f }, //optionals
-        { case Param(p, _, Left(str))                                                    => p -> str }, //requireds
+        { case p @ Param(ParamTree(names.children, _, tpe, _, _), _, _) if !isVdomNode(tpe) => p }, //declaredChildren
+        { case Param(paramTree, _, _) if names.shouldIgnore(paramTree)                      => () },
+        { case Param(p, _, Right(f))                                                        => p -> f }, //optionals
+        { case Param(p, _, Left(str))                                                       => p -> str }, //requireds
       )
     }
 
@@ -409,10 +410,11 @@ object JapgollyComponents {
           case Some(param) => param.parameter
           case None =>
             ParamTree(
-              name     = names.children,
-              tpe      = TypeRef.Repeated(TypeRef(japgolly.reactChildArg), NoComments),
-              default  = None,
-              comments = NoComments,
+              name       = names.children,
+              isImplicit = false,
+              tpe        = TypeRef.Repeated(TypeRef(japgolly.reactChildArg), NoComments),
+              default    = None,
+              comments   = NoComments,
             )
         },
       )
