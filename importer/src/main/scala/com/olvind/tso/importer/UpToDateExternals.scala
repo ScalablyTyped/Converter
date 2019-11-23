@@ -50,7 +50,6 @@ object UpToDateExternals {
           "--no-cache",
           "--no-audit",
           "--no-bin-links",
-          "--stack-size",
           es,
         )(folder)
       }
