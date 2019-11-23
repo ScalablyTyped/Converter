@@ -1,5 +1,6 @@
 package typings.reactDashBootstrap.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
@@ -23,7 +24,8 @@ object ButtonGroup
     bsSize: Sizes = null,
     bsStyle: String = null,
     justified: js.UndefOr[Boolean] = js.undefined,
-    vertical: js.UndefOr[Boolean] = js.undefined
+    vertical: js.UndefOr[Boolean] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
     __obj.updateDynamic("type")(`type`)
@@ -32,6 +34,7 @@ object ButtonGroup
     if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle)
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ButtonGroupProps

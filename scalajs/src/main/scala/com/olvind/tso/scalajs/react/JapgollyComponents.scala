@@ -116,7 +116,15 @@ object JapgollyComponents {
       default    = Some(TypeRef.undefined),
       comments   = NoComments,
     )
-    Seq(keyParam -> keyUpdate)
+    val overridesUpdate: String => String = obj => s"if (overrides != null) js.Dynamic.global.Object.assign($obj, overrides)"
+    val overridesParam = ParamTree(
+      name = Name("overrides"),
+      isImplicit = false,
+      tpe = TypeRef.StringDictionary(TypeRef.Any, NoComments),
+      default = Some(TypeRef.`null`),
+      comments = NoComments
+    )
+    Seq(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
   }
 
   private def memberParameter(scope: TreeScope, tree: MemberTree): Option[Param] =

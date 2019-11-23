@@ -3,6 +3,7 @@ package typings.reactDashBootstrap.japgolly
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import org.scalablytyped.runtime.StringDictionary
 import typings.react.Anon_Html
 import typings.react.reactStrings.foo
 import typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps
@@ -26,7 +27,8 @@ object ButtonGroup {
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     justified: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -48,6 +50,7 @@ object ButtonGroup {
     if (!js.isUndefined(justified)) __obj.updateDynamic("justified")(justified)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typings.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps, 

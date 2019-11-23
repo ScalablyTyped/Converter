@@ -21,7 +21,8 @@ abstract class SharedApply_ButtonContentProps_1110248541 () {
     content: SemanticShorthandContent = null,
     hidden: js.UndefOr[Boolean] = js.undefined,
     visible: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    key: js.UndefOr[Key] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -37,6 +38,7 @@ abstract class SharedApply_ButtonContentProps_1110248541 () {
     if (!js.isUndefined(hidden)) __obj.updateDynamic("hidden")(hidden)
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
   typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps, 

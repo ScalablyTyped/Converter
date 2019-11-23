@@ -1,5 +1,6 @@
 package typings.reactDashContextmenu.slinky
 
+import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLDivElement
 import org.scalajs.dom.raw.HTMLElement
@@ -29,13 +30,15 @@ object SubMenu
       Unit
     ]) | js.Function = null,
     preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
-    rtl: js.UndefOr[Boolean] = js.undefined
+    rtl: js.UndefOr[Boolean] = js.undefined,
+    overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typings.reactDashContextmenu.reactDashContextmenuMod.SubMenu] = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
     if (hoverDelay != null) __obj.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick)
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl)
+    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = SubMenuProps

@@ -1,14 +1,11 @@
 package typings.materialDashUi.slinky
 
-import slinky.core.ExternalComponentNoPropsWithAttributesWithRefType
-import slinky.web.html.`*`.tag
 import typings.materialDashUi.svgDashIconsActionAccessibilityMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object Accessibility
-  extends ExternalComponentNoPropsWithAttributesWithRefType[tag.type, default] {
+object Accessibility extends SharedApply_Object152536094[default] {
   override val component: String | js.Object = js.constructorOf[typings.materialDashUi.svgDashIconsActionAccessibilityMod.default].asInstanceOf[String | js.Object]
 }
 

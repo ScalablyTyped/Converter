@@ -111,13 +111,26 @@ object SlinkyComponents {
 
   val rewriter = TypeRewriterCast(names.conversions)
 
+  val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
+    val overridesUpdate: String => String = obj => s"if (overrides != null) js.Dynamic.global.Object.assign($obj, overrides)"
+    val overridesParam = ParamTree(
+      name = Name("overrides"),
+      isImplicit = false,
+      tpe = TypeRef.StringDictionary(TypeRef.Any, NoComments),
+      default = Some(TypeRef.`null`),
+      comments = NoComments
+    )
+    Seq(overridesParam -> overridesUpdate)
+  }
+
   case class Props(ref: TypeRef, params: Seq[Param], domParams: Seq[FieldTree]) {
-    val (refTypes, _, optionals, requireds, Nil) = params.partitionCollect4(
+    val (refTypes, _, _optionals, requireds, Nil) = params.partitionCollect4(
       { case Param(ParamTree(Name("ref"), _, tpe, _, _), _, _) => tpe },
       { case Param(pt, _, _) if names.shouldIgnore(pt)         => () },
       { case Param(p, _, Right(f))                             => p -> f },
       { case Param(p, _, Left(str))                            => p -> str },
     )
+    val optionals = _optionals ++ additionalOptionalParams
 
     val noNormalProps: Boolean = optionals.isEmpty && requireds.isEmpty
   }
