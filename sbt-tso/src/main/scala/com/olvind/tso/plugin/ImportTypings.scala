@@ -8,6 +8,7 @@ import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer, QualifiedName}
 import com.olvind.tso.ts._
+import io.circe.{Decoder, Encoder}
 import sbt.File
 
 import scala.collection.immutable.SortedMap
@@ -15,16 +16,26 @@ import scala.collection.immutable.SortedMap
 object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
-  def apply(
+  case class Input(
+      packageJsonHash: Int,
       npmDependencies: Seq[(String, String)],
       fromFolder:      InFolder,
       targetFolder:    os.Path,
-      logger:          Logger[Unit],
       reactBinding:    ReactBinding,
       libs:            List[String],
       ignore:          Set[TsIdentLibrary],
       minimize:        Selection[TsIdentLibrary],
-  ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+  )
+
+  object Input {
+    import io.circe.generic.auto._
+    import jsonCodecs._
+    implicit val ConfigEncoder: Encoder[Input] = exportEncoder[Input].instance
+    implicit val ConfigDecoder: Decoder[Input] = exportDecoder[Input].instance
+  }
+
+  def apply(config: Input, logger: Logger[Unit]): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+    import config._
 
     val stdLibSource: Source = {
       val folder = fromFolder.path / "typescript" / "lib"
@@ -121,14 +132,17 @@ object ImportTypings {
     val tsoCache = os.home / "tmp" / "tso-cache"
     println(
       ImportTypings(
-        List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
-        InFolder(tsoCache / "npm" / "node_modules"),
-        files.existing(tsoCache / 'work),
+        Input(
+          0,
+          List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
+          InFolder(tsoCache / "npm" / "node_modules"),
+          files.existing(tsoCache / 'work),
+          ReactBinding.Slinky,
+          List("es5", "dom"),
+          Set(TsIdentLibrary("typescript")),
+          minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
+        ),
         stdout.filter(LogLevel.warn),
-        ReactBinding.Slinky,
-        List("es5", "dom"),
-        Set(TsIdentLibrary("typescript")),
-        minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
       ).map(_.size),
     )
   }
