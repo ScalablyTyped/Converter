@@ -244,7 +244,8 @@ object Phase1ReadTypescript {
           T.InferReturnTypes >>
           T.RewriteTypeThis >>
           T.InlineConstEnum >>
-          T.InlineTrivialTypeAlias
+          T.InlineTrivialTypeAlias >>
+          T.Simplify
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams

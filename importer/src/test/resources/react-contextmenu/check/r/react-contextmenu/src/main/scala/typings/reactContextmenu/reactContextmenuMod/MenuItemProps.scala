@@ -1,8 +1,11 @@
 package typings.reactContextmenu.reactContextmenuMod
 
+import typings.react.NativeMouseEvent
 import typings.react.reactMod.HTMLAttributes
-import typings.reactContextmenu.Fn_DataEvent
+import typings.react.reactMod.MouseEvent
+import typings.react.reactMod.TouchEvent
 import typings.std.HTMLDivElement
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +18,14 @@ trait MenuItemProps extends js.Object {
   ] = js.undefined
   var disabled: js.UndefOr[Boolean] = js.undefined
   var divider: js.UndefOr[Boolean] = js.undefined
-  var onClick: js.UndefOr[Fn_DataEvent | js.Function] = js.undefined
+  var onClick: js.UndefOr[
+    (js.Function3[
+      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* target */ HTMLElement, 
+      Unit
+    ]) | js.Function
+  ] = js.undefined
   var preventClose: js.UndefOr[Boolean] = js.undefined
 }
 
@@ -27,7 +37,12 @@ object MenuItemProps {
     data: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     divider: js.UndefOr[Boolean] = js.undefined,
-    onClick: Fn_DataEvent | js.Function = null,
+    onClick: (js.Function3[
+      /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* target */ HTMLElement, 
+      Unit
+    ]) | js.Function = null,
     preventClose: js.UndefOr[Boolean] = js.undefined
   ): MenuItemProps = {
     val __obj = js.Dynamic.literal()

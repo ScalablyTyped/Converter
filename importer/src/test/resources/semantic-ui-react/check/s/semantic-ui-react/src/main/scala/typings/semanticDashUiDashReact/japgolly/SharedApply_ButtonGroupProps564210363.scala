@@ -1,4 +1,4 @@
-package typings.semanticDashUiDashReact.japgolly
+package typings.semanticUiReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
@@ -6,25 +6,26 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
-import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
-import typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
-import typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
+import typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps
+import typings.semanticUiReact.elementsButtonButtonMod.ButtonProps
+import typings.semanticUiReact.genericMod.SemanticCOLORS
+import typings.semanticUiReact.genericMod.SemanticFLOATS
+import typings.semanticUiReact.genericMod.SemanticSIZES
+import typings.semanticUiReact.genericMod.SemanticShorthandCollection
+import typings.semanticUiReact.genericMod.SemanticShorthandContent
+import typings.semanticUiReact.genericMod.SemanticWIDTHS
+import typings.semanticUiReact.semanticUiReactStrings.bottom
+import typings.semanticUiReact.semanticUiReactStrings.left
+import typings.semanticUiReact.semanticUiReactStrings.right
+import typings.semanticUiReact.semanticUiReactStrings.top
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_ButtonGroupProps564210363 () {
+abstract class SharedApply_ButtonGroupProps1331014168 () {
   def __component: js.Any
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     attached: Boolean | left | right | top | bottom = null,
@@ -46,8 +47,7 @@ abstract class SharedApply_ButtonGroupProps564210363 () {
     size: SemanticSIZES = null,
     toggle: js.UndefOr[Boolean] = js.undefined,
     vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: SemanticWIDTHS = null,
-    key: js.UndefOr[Key] = js.undefined
+    widths: SemanticWIDTHS = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -56,7 +56,9 @@ abstract class SharedApply_ButtonGroupProps564210363 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
@@ -78,13 +80,12 @@ abstract class SharedApply_ButtonGroupProps564210363 () {
     if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle)
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical)
     if (widths != null) __obj.updateDynamic("widths")(widths)
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
-  typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps, 
+  typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](__component)
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps])(children: _*)
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsButtonButtonGroupMod.ButtonGroupProps])(children: _*)
   }
 }
 

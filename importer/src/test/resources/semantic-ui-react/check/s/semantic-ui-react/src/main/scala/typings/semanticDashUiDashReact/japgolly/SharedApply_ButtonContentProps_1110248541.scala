@@ -1,4 +1,4 @@
-package typings.semanticDashUiDashReact.japgolly
+package typings.semanticUiReact.japgolly
 
 import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
@@ -6,22 +6,22 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps
-import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
+import typings.semanticUiReact.elementsButtonButtonContentMod.ButtonContentProps
+import typings.semanticUiReact.genericMod.SemanticShorthandContent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_ButtonContentProps_1110248541 () {
+abstract class SharedApply_ButtonContentProps_1963840884 () {
   def __component: js.Any
   def apply(
+    key: js.UndefOr[Key] = js.undefined,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     className: String = null,
     content: SemanticShorthandContent = null,
     hidden: js.UndefOr[Boolean] = js.undefined,
-    visible: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined
+    visible: js.UndefOr[Boolean] = js.undefined
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -30,19 +30,20 @@ abstract class SharedApply_ButtonContentProps_1110248541 () {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    
+      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(hidden)) __obj.updateDynamic("hidden")(hidden)
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible)
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
   
     val f = japgolly.scalajs.react.JsComponent[
-  typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps, 
+  typings.semanticUiReact.elementsButtonButtonContentMod.ButtonContentProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](__component)
-    f(__obj.asInstanceOf[typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps])(children: _*)
+    f(__obj.asInstanceOf[typings.semanticUiReact.elementsButtonButtonContentMod.ButtonContentProps])(children: _*)
   }
 }
 
