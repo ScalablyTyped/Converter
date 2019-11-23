@@ -6,7 +6,7 @@ import java.time.Instant
 import fansi.Str
 import sourcecode.{Enclosing, File, Line, Text}
 
-sealed trait Logger[U] { self =>
+trait Logger[U] { self =>
   def underlying: U
 
   def withContext[T: Formatter](key: String, value: T): Logger[U]

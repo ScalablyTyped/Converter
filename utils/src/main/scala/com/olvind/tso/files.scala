@@ -43,11 +43,12 @@ object files {
     name === ".idea" || name === "target"
   }
 
-  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit = {
-
-    val absolutePathFiles: Map[os.Path, Array[Byte]] = fs.map {
-      case (relPath, content) => folder / relPath -> content
-    }
+  def syncAbs(
+      absolutePathFiles: Map[os.Path, Array[Byte]],
+      folder:            os.Path,
+      deleteUnknowns:    Boolean,
+      soft:              Boolean,
+  ): Unit = {
 
     if (deleteUnknowns)
       folder match {
@@ -64,6 +65,11 @@ object files {
         if (soft) softWriteBytes(file, content) else writeBytes(file, content)
     }
   }
+
+  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
+    syncAbs(fs.map {
+      case (relPath, content) => folder / relPath -> content
+    }, folder, deleteUnknowns, soft)
 
   def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced = {
     val baos: ByteArrayOutputStream =

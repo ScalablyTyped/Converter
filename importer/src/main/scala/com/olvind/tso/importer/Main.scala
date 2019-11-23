@@ -140,6 +140,17 @@ class Main(config: Config) {
       }
     }
 
+    //TODO Consider using for comprehensions, and maybe even use IO instead
+    //    import scala.concurrent.ExecutionContext.Implicits.global
+    //    val fut = for {
+    //      inFolder <- externalsFolderF
+    //      _ <- localCleaningF
+    //      dtFolder <- dtFolderF
+    //      TargetDirs(targetFolder, failFolder, facadeFolder) <- updatedTargetDirF
+    //      compiler <- compilerF
+    //      tsSources <- tsSourcesF
+    //    } yield (inFolder)
+
     val externalsFolder                                    = Await.result(externalsFolderF, Duration.Inf)
     val ()                                                 = Await.result(localCleaningF, Duration.Inf)
     val dtFolder                                           = Await.result(dtFolderF, Duration.Inf)
@@ -177,7 +188,7 @@ class Main(config: Config) {
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            calculateLibraryVersion = new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha),
+            calculateLibraryVersion = Option(new CalculateLibraryVersion(lastChangedIndex, BuildInfo.gitSha)),
             resolve                 = resolve,
             ignored                 = Libraries.ignored(config.sequential),
             stdlibSource            = stdLibSource,
@@ -185,11 +196,11 @@ class Main(config: Config) {
             parser =
               if (config.enableParseCache)
                 PersistingFunction(nameAndMtimeUnder(existing(config.cacheFolder / 'parse)), logger.void)(parseFile)
-              else parseFile,
+              else parseFile
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
+        .next(new Phase2ToScalaJs(config.pedantic, config.reactBinding), "scala.js")
         .next(
           new Phase3Compile(
             resolve         = resolve,
@@ -202,6 +213,7 @@ class Main(config: Config) {
             publishFolder   = config.publishFolder,
             metadataFetcher = Npmjs.GigahorseFetcher(existing(config.cacheFolder / 'npmjs))(ec),
             softWrites      = config.softWrites,
+            reactBinding    = config.reactBinding,
           ),
           "build",
         )
