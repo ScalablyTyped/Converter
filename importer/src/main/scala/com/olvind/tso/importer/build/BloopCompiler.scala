@@ -108,7 +108,7 @@ class BloopCompiler private (
       (globalClassPath ++ fromExternalDeps ++ fromDependencyJars ++ fromDependencyClassDirs).map(_.underlying).toList
     }
     val projectFile = BloopConfig.File(
-      "1.3.0",
+      "1.3.3",
       BloopConfig.Project(
         name         = name,
         directory    = compilerPaths.baseDir.toNIO,
