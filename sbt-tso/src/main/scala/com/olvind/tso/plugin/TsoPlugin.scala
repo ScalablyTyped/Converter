@@ -15,12 +15,12 @@ object TsoPlugin extends AutoPlugin {
   object autoImport {
     type Selection[T] = com.olvind.tso.plugin.Selection[T]
     val Selection = com.olvind.tso.plugin.Selection
-    type ReactBinding = com.olvind.tso.plugin.ReactBinding
-    val ReactBinding = com.olvind.tso.plugin.ReactBinding
+    type Flavour = com.olvind.tso.plugin.Flavour
+    val Flavour = com.olvind.tso.plugin.Flavour
 
-    val tsoImport       = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val tsoIgnore       = settingKey[List[String]]("completely ignore libs")
-    val tsoReactBinding = settingKey[ReactBinding]("The type of react binding to use")
+    val tsoImport  = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+    val tsoIgnore  = settingKey[List[String]]("completely ignore libs")
+    val tsoFlavour = settingKey[Flavour]("The type of react binding to use")
 
     /**
       *
@@ -126,14 +126,14 @@ object TsoPlugin extends AutoPlugin {
           .find(_._1 == "typescript")
           .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
       },
-      tsoReactBinding := com.olvind.tso.plugin.ReactBinding.Native,
+      tsoFlavour := com.olvind.tso.plugin.Flavour.Normal,
       tsoTypescriptVersion := "3.6.3",
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),
       tsoMinimize := com.olvind.tso.plugin.Selection.None(),
       tsoImport := {
         val cacheDirectory = streams.value.cacheDirectory
-        val reactBinding   = tsoReactBinding.value
+        val flavour        = tsoFlavour.value
         val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
         val packageJson    = (crossTarget in npmUpdate).value / "package.json"
         val nodeModules    = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
@@ -148,7 +148,7 @@ object TsoPlugin extends AutoPlugin {
           npmDeps.to[Seq],
           nodeModules,
           targetFolder,
-          reactBinding,
+          flavour,
           stdLib,
           ignored.map(TsIdentLibrary.apply),
           minimize,
