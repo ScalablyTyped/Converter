@@ -51,7 +51,7 @@ object Flavour {
   case object Plain extends Flavour {
     val projectName  = "PlainlyTyped"
     val repo         = "https://github.com/oyvindberg/PlainlyTyped.git"
-    val organization = "org.plainlytyped"
+    val organization = "org.scalablytyped.plain"
     val outputPkg    = Name("typingsPlain")
 
     override def conversions: Option[Seq[CastConversion]] =
@@ -82,9 +82,9 @@ object Flavour {
   }
 
   case object Slinky extends ReactFlavour {
-    val projectName  = "SlicklyTyped"
-    val repo         = "https://github.com/oyvindberg/SlicklyTyped.git"
-    val organization = "org.slicklytyped"
+    val projectName  = "SlinkyTyped"
+    val repo         = "https://github.com/oyvindberg/SlinkyTypes.git"
+    val organization = "org.scalablytyped.slinky"
     val outputPkg    = Name("typingsSlinky")
     val gen          = new GenSlinkyComponents(scalaJsDomNames, stdNames, reactNames, params)
 
@@ -99,9 +99,9 @@ object Flavour {
   }
 
   case object Japgolly extends ReactFlavour {
-    val projectName  = "GulliblyTyped"
-    val repo         = "https://github.com/oyvindberg/GulliblyTyped.git"
-    val organization = "org.gulliblytyped"
+    val projectName  = "ScalajsReactTyped"
+    val repo         = "https://github.com/oyvindberg/ScalajsReactTyped.git"
+    val organization = "org.gulliblytyped.japgolly"
     val outputPkg    = Name("typingsJapgolly")
     val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, params)
 
