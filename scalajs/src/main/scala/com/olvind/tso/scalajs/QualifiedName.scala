@@ -76,6 +76,7 @@ object QualifiedName {
     val mod = lib + Name("reactMod")
 
     val Ref               = mod + Name("Ref")
+    val RefObject         = mod + Name("RefObject")
     val ReactNode         = mod + Name("ReactNode")
     val ReactElement      = mod + Name("ReactElement")
     val DOMElement        = mod + Name("DOMElement")

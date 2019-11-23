@@ -1,12 +1,11 @@
 package typings.slinky.semanticDashUiDashReact
 
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLDivElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typings.react.reactMod.MouseEvent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps
@@ -28,7 +27,7 @@ object Accordion
     exclusive: js.UndefOr[Boolean] = js.undefined,
     fluid: js.UndefOr[Boolean] = js.undefined,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: (/* event */ MouseEvent[HTMLDivElement, Event], /* data */ AccordionTitleProps) => Unit = null,
+    onTitleClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null,
     styled: js.UndefOr[Boolean] = js.undefined,
     overrides: StringDictionary[js.Any] = null

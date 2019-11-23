@@ -62,6 +62,7 @@ object JapgollyComponents {
     val rawReactElementType:             QualifiedName = rawReact + Name("ElementType")
     val rawReactNode:                    QualifiedName = rawReact + Name("Node")
     val rawReactRef:                     QualifiedName = rawReact + Name("Ref")
+    val rawReactRefHandle:               QualifiedName = rawReact + Name("RefHandle")
     val reactKey:                        QualifiedName = react + Name("Key")
 
     val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
@@ -79,6 +80,7 @@ object JapgollyComponents {
         CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
         CastConversion(QualifiedName.React.ReactNode, rawReactNode),
         CastConversion(QualifiedName.React.Ref, rawReactRef),
+        CastConversion(QualifiedName.React.RefObject, rawReactRefHandle, _1),
         CastConversion(QualifiedName.React.Component, rawReactComponent, _1, TypeRef.Object),
         CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1Object),
         CastConversion(QualifiedName.React.ReactElement, rawReactElement),

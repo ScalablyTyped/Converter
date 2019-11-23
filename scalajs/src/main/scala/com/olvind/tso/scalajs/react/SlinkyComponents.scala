@@ -33,7 +33,9 @@ object SlinkyComponents {
     val TagElement                  = slinkyCore + Name("TagElement")
     val SlinkyCoreFacade            = slinkyCore + Name("facade")
     val ExternalPropsWriterProvider = slinkyCore + Name("ExternalPropsWriterProvider")
+    val SyntheticEvent              = slinkyCore + Name("SyntheticEvent")
     val ReactElement                = SlinkyCoreFacade + Name("ReactElement")
+    val ReactRef                    = SlinkyCoreFacade + Name("ReactRef")
     val slinkyWeb                   = slinky + Name("web")
     val slinkyWebSvg                = slinkyWeb + Name("svg")
     val slinkyWebHtml               = slinkyWeb + Name("html")
@@ -41,9 +43,33 @@ object SlinkyComponents {
       import CastConversion.TParam._
       CastConversion.All ++ Seq(
         CastConversion(QualifiedName.WILDCARD, QualifiedName.Any), // todo: this should not leak out here
-        CastConversion(QualifiedName.React.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
-        CastConversion(QualifiedName.React.ReactElement, ReactElement),
         CastConversion(QualifiedName.React.ReactType, ReactComponentClass, _1),
+        CastConversion(QualifiedName.React.ComponentState, QualifiedName.Object),
+        CastConversion(QualifiedName.React.ReactDOM, QualifiedName.Any),
+        CastConversion(QualifiedName.React.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
+        CastConversion(QualifiedName.React.RefObject, ReactRef, _1),
+//        CastConversion(QualifiedName.React.Component, rawReactComponent, _1, TypeRef.Object),
+//        CastConversion(QualifiedName.React.ComponentClass, rawReactComponentClassP, _1Object),
+        CastConversion(QualifiedName.React.ReactElement, ReactElement),
+        CastConversion(QualifiedName.React.DOMElement, ReactElement),
+        CastConversion(QualifiedName.React.ElementType, ReactElement),
+        CastConversion(QualifiedName.React.BaseSyntheticEvent, SyntheticEvent, _2, _1),
+//        CastConversion(QualifiedName.React.ChangeEvent, SyntheticEvent, _2, _1),
+//        CastConversion(QualifiedName.React.FormEvent, SyntheticEvent, _2, _1),
+//        CastConversion(QualifiedName.React.InvalidEvent, SyntheticEvent, _2, _1),
+        CastConversion(QualifiedName.React.SyntheticEvent, SyntheticEvent, _2, _1),
+        CastConversion(QualifiedName.React.AnimationEvent, slinkyWeb + Name("SyntheticAnimationEvent"), _1),
+        CastConversion(QualifiedName.React.ClipboardEvent, slinkyWeb + Name("SyntheticClipboardEvent"), _1),
+        CastConversion(QualifiedName.React.CompositionEvent, slinkyWeb + Name("SyntheticCompositionEvent"), _1),
+//        CastConversion(QualifiedName.React.DragEvent, slinkyWeb + Name("ReactDragEventFrom"), _1Element),
+        CastConversion(QualifiedName.React.FocusEvent, slinkyWeb + Name("SyntheticFocusEvent"), _1),
+        CastConversion(QualifiedName.React.KeyboardEvent, slinkyWeb + Name("SyntheticKeyboardEvent"), _1),
+        CastConversion(QualifiedName.React.MouseEvent, slinkyWeb + Name("SyntheticMouseEvent"), _1),
+        CastConversion(QualifiedName.React.PointerEvent, slinkyWeb + Name("SyntheticPointerEvent"), _1),
+        CastConversion(QualifiedName.React.TouchEvent, slinkyWeb + Name("SyntheticTouchEvent"), _1),
+        CastConversion(QualifiedName.React.TransitionEvent, slinkyWeb + Name("SyntheticTransitionEvent"), _1),
+        CastConversion(QualifiedName.React.UIEvent, slinkyWeb + Name("SyntheticUIEvent"), _1),
+        CastConversion(QualifiedName.React.WheelEvent, slinkyWeb + Name("SyntheticWheelEvent"), _1),
       ) ++ QualifiedName.React.isComponent.map(from => CastConversion(from, ReactComponentClass, _1))
     }
 

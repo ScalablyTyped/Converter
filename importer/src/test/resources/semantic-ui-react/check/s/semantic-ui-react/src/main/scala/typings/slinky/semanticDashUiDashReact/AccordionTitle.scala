@@ -1,12 +1,11 @@
 package typings.slinky.semanticDashUiDashReact
 
 import org.scalablytyped.runtime.StringDictionary
-import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.HTMLDivElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typings.react.reactMod.MouseEvent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
@@ -28,7 +27,7 @@ object AccordionTitle
       /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ js.Any
     ] = null,
     index: Double | String = null,
-    onClick: (/* event */ MouseEvent[HTMLDivElement, Event], /* data */ AccordionTitleProps) => Unit = null,
+    onClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
     overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
