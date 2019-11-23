@@ -76,7 +76,7 @@ object Config {
             reactBindings = {
               List(
                 if (flags contains "-reactSlinky") Some(ReactBinding.slinky) else None,
-                if (flags contains "-reactScalaJsReact") Some(ReactBinding.scalajsReact) else None,
+                if (flags contains "-reactJapgolly") Some(ReactBinding.japgolly) else None,
                 if (flags contains "-reactFacade") Some(ReactBinding.native) else None,
               ).flatten
             },

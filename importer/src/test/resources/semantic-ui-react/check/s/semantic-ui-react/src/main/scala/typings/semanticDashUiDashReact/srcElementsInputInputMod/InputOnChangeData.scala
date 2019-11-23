@@ -65,7 +65,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.massive
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
-import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.std.Event
@@ -182,7 +181,9 @@ object InputOnChangeData {
     itemRef: String = null,
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     lang: String = null,
     list: String = null,

@@ -17,7 +17,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
 import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData
 import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
 import typings.semanticDashUiDashReact.srcElementsInputMod.default
-import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.std.HTMLInputElement
@@ -40,7 +39,9 @@ object Input
     iconPosition: left = null,
     input: SemanticShorthandItem[HtmlInputrops] = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     loading: js.UndefOr[Boolean] = js.undefined,
     onChange: (/* event */ ChangeEvent[HTMLInputElement], /* data */ InputOnChangeData) => Unit = null,

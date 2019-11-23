@@ -70,8 +70,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.twitter
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.vertical
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.vk
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.youtube
-import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconProps
-import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
@@ -110,11 +108,19 @@ trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
   /** A button can take the width of its container. */
   var fluid: js.UndefOr[Boolean] = js.undefined
   /** Add an Icon by name, props object, or pass an <Icon />. */
-  var icon: js.UndefOr[Boolean | SemanticShorthandItem[IconProps]] = js.undefined
+  var icon: js.UndefOr[
+    Boolean | (SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ])
+  ] = js.undefined
   /** A button can be formatted to appear on dark backgrounds. */
   var inverted: js.UndefOr[Boolean] = js.undefined
   /** Add a Label by text, props object, or pass a <Label />. */
-  var label: js.UndefOr[SemanticShorthandItem[LabelProps]] = js.undefined
+  var label: js.UndefOr[
+    SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ]
+  ] = js.undefined
   /** A labeled button can format a Label or Icon to appear on the left or right. */
   var labelPosition: js.UndefOr[right | left] = js.undefined
   /** A button can show a loading indicator. */
@@ -235,7 +241,9 @@ object StrictButtonProps {
     formNoValidate: js.UndefOr[Boolean] = js.undefined,
     formTarget: String = null,
     hidden: js.UndefOr[Boolean] = js.undefined,
-    icon: Boolean | SemanticShorthandItem[IconProps] = null,
+    icon: Boolean | (SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+    ]) = null,
     id: String = null,
     inlist: js.Any = null,
     inputMode: String = null,
@@ -246,7 +254,9 @@ object StrictButtonProps {
     itemRef: String = null,
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
-    label: SemanticShorthandItem[LabelProps] = null,
+    label: SemanticShorthandItem[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+    ] = null,
     labelPosition: right | left = null,
     lang: String = null,
     loading: js.UndefOr[Boolean] = js.undefined,
