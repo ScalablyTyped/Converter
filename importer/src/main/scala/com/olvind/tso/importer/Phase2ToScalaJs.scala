@@ -6,7 +6,8 @@ import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.react.{Component, IdentifyReactComponents, ReactBinding}
-import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
+import com.olvind.tso.scalajs.transforms.Adapter
+import com.olvind.tso.scalajs.{PackageTree, TreeScope, transforms => S}
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsTreeTraverse}
 
 import scala.collection.immutable.SortedSet
@@ -48,16 +49,6 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBindings: List[ReactBinding])
 
             logger.warn(s"Processing ${lib.name.value}")
 
-            /** Some of the transformations were written before we added the `typings` outermost package.
-              *  This maintains that somewhat simpler world view */
-            object Adapter {
-              def apply(scope: TreeScope)(f: (ContainerTree, TreeScope) => ContainerTree): PackageTree => PackageTree = {
-                case pkg @ PackageTree(_, _, Seq(one: ContainerTree), _, _) =>
-                  pkg.copy(members = List(f(one, scope / pkg)))
-                case other =>
-                  sys.error(s"Expected top level package, got: ${other}")
-              }
-            }
             val involvesReact: Boolean = {
               val react = TsIdentLibrarySimple("react")
               source.libName === react || scalaDeps.exists(_._1.libName === react)
@@ -80,13 +71,13 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBindings: List[ReactBinding])
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
-              Adapter(scope) { (tree, s) =>
+              tree => {
                 if (involvesReact && reactBindings.nonEmpty) {
                   val components: Seq[Component] =
                     IdentifyReactComponents.oneOfEach(scope / tree, tree)
 
-                  reactBindings.foldLeft(tree) { case (t, rb) => rb.generateReactComponents(s, t, components) }
-                } else tree
+                  reactBindings.foldLeft(tree) { case (t, rb) => rb.generateReactComponents(scope, t, components) }
+                } else tree,
               },
             )
 

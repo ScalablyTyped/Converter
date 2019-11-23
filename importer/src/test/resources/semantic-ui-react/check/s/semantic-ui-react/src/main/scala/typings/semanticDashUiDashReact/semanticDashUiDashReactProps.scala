@@ -38,17 +38,8 @@ trait semanticDashUiDashReactProps {
   def ContainerProps: typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps.type = typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps
   type ContainerProps = typings.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps
   @scala.inline
-  def ContentProps: typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps.type = typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps
-  type ContentProps = typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps
-  @scala.inline
-  def GroupProps: typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps.type = typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
-  type GroupProps = typings.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
-  @scala.inline
   def InputProps: StrictInputProps.type = typings.semanticDashUiDashReact.srcElementsInputInputMod.StrictInputProps
   type InputProps = typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
-  @scala.inline
-  def OrProps: typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps.type = typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
-  type OrProps = typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
   @scala.inline
   def TestContainerProps: typings.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps.type = typings.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps
   type TestContainerProps = typings.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps
