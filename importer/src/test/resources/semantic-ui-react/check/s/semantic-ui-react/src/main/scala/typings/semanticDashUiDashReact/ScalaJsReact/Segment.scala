@@ -18,7 +18,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled */
 object Segment {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -26,10 +25,12 @@ object Segment {
     attached: Boolean | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     circular: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     clearing: js.UndefOr[Boolean] = js.undefined,
     color: SemanticCOLORS = null,
     compact: js.UndefOr[Boolean] = js.undefined,
     content: SemanticShorthandContent = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     inverted: js.UndefOr[Boolean] = js.undefined,
     loading: js.UndefOr[Boolean] = js.undefined,
@@ -44,8 +45,7 @@ object Segment {
     textAlign: SemanticTEXTALIGNMENTS = null,
     vertical: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     SegmentProps, 
     MountedWithRawType[SegmentProps, js.Object, RawMounted[SegmentProps, js.Object]]
@@ -57,10 +57,12 @@ object Segment {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (!js.isUndefined(circular)) __obj.updateDynamic("circular")(circular)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (!js.isUndefined(clearing)) __obj.updateDynamic("clearing")(clearing)
     if (color != null) __obj.updateDynamic("color")(color)
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted)
     if (!js.isUndefined(loading)) __obj.updateDynamic("loading")(loading)

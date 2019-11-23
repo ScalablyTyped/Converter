@@ -7,6 +7,7 @@ import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
+import typings.react.reactMod.CSSProperties
 import typings.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`true`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.blurring
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.fullscreen
@@ -25,7 +26,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, open, style */
 object Modal {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -33,6 +33,7 @@ object Modal {
     as: js.Any = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     centered: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     closeIcon: js.Any = null,
     closeOnDimmerClick: js.UndefOr[Boolean] = js.undefined,
     closeOnDocumentClick: js.UndefOr[Boolean] = js.undefined,
@@ -47,11 +48,12 @@ object Modal {
     onMount: (/* nothing */ Null, /* data */ ModalProps) => Callback = null,
     onOpen: (/* event */ ReactMouseEventFrom[HTMLElement], /* data */ ModalProps) => Callback = null,
     onUnmount: (/* nothing */ Null, /* data */ ModalProps) => Callback = null,
+    open: js.UndefOr[Boolean] = js.undefined,
     size: mini | tiny | small | large | fullscreen = null,
+    style: CSSProperties = null,
     trigger: VdomNode = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[ModalProps, default, Unit, ModalProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -60,6 +62,7 @@ object Modal {
     if (as != null) __obj.updateDynamic("as")(as)
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (!js.isUndefined(centered)) __obj.updateDynamic("centered")(centered)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (closeIcon != null) __obj.updateDynamic("closeIcon")(closeIcon)
     if (!js.isUndefined(closeOnDimmerClick)) __obj.updateDynamic("closeOnDimmerClick")(closeOnDimmerClick)
     if (!js.isUndefined(closeOnDocumentClick)) __obj.updateDynamic("closeOnDocumentClick")(closeOnDocumentClick)
@@ -74,7 +77,9 @@ object Modal {
         if (onMount != null) __obj.updateDynamic("onMount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onMount(t0, t1).runNow())))
         if (onOpen != null) __obj.updateDynamic("onOpen")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onOpen(t0, t1).runNow())))
         if (onUnmount != null) __obj.updateDynamic("onUnmount")(js.Any.fromFunction2(((t0: /* nothing */ scala.Null, t1: /* data */ typings.semanticDashUiDashReact.srcModulesModalModalMod.ModalProps) => onUnmount(t0, t1).runNow())))
+    if (!js.isUndefined(open)) __obj.updateDynamic("open")(open)
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
+    if (style != null) __obj.updateDynamic("style")(style)
         if (trigger != null) __obj.updateDynamic("trigger")(trigger.rawNode.asInstanceOf[js.Any])
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[

@@ -20,21 +20,20 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className */
 object Rail {
   def apply(
     position: SemanticFLOATS,
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
     attached: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     close: Boolean | very = null,
     content: SemanticShorthandContent = null,
     dividing: js.UndefOr[Boolean] = js.undefined,
     internal: js.UndefOr[Boolean] = js.undefined,
     size: mini | tiny | small | large | big | huge | massive = null
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedSimple[
     RailProps, 
     MountedWithRawType[RailProps, js.Object, RawMounted[RailProps, js.Object]]
@@ -44,6 +43,7 @@ object Rail {
       js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as)
     if (!js.isUndefined(attached)) __obj.updateDynamic("attached")(attached)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (close != null) __obj.updateDynamic("close")(close.asInstanceOf[js.Any])
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(dividing)) __obj.updateDynamic("dividing")(dividing)

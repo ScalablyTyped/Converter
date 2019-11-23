@@ -28,7 +28,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className */
 object Label {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -37,6 +36,7 @@ object Label {
     attached: top | bottom | (`top right`) | (`top left`) | (`bottom left`) | (`bottom right`) = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     circular: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     color: SemanticCOLORS = null,
     content: SemanticShorthandContent = null,
     corner: Boolean | left | right = null,
@@ -55,8 +55,7 @@ object Label {
     size: SemanticSIZES = null,
     tag: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[LabelProps, default, Unit, LabelProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -66,6 +65,7 @@ object Label {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (!js.isUndefined(circular)) __obj.updateDynamic("circular")(circular)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (corner != null) __obj.updateDynamic("corner")(corner.asInstanceOf[js.Any])

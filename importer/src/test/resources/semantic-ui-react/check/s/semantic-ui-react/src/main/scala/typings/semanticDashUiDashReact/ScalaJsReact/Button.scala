@@ -32,7 +32,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled, role */
 object Button {
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
@@ -42,9 +41,11 @@ object Button {
     attached: Boolean | left | right | top | bottom = null,
     basic: js.UndefOr[Boolean] = js.undefined,
     circular: js.UndefOr[Boolean] = js.undefined,
+    className: String = null,
     color: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube = null,
     compact: js.UndefOr[Boolean] = js.undefined,
     content: SemanticShorthandContent = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     floated: SemanticFLOATS = null,
     fluid: js.UndefOr[Boolean] = js.undefined,
     icon: Boolean | SemanticShorthandItem[IconProps] = null,
@@ -56,13 +57,13 @@ object Button {
     onClick: (/* event */ ReactMouseEventFrom[HTMLButtonElement], /* data */ ButtonProps) => Callback = null,
     positive: js.UndefOr[Boolean] = js.undefined,
     primary: js.UndefOr[Boolean] = js.undefined,
+    role: String = null,
     secondary: js.UndefOr[Boolean] = js.undefined,
     size: SemanticSIZES = null,
     tabIndex: Double | String = null,
     toggle: js.UndefOr[Boolean] = js.undefined
   )(
-    children: /** Primary content. */
-  ChildArg*
+    children: ChildArg*
   ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
     val __obj = js.Dynamic.literal()
   
@@ -73,9 +74,11 @@ object Button {
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic)
     if (!js.isUndefined(circular)) __obj.updateDynamic("circular")(circular)
+    if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])
     if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (floated != null) __obj.updateDynamic("floated")(floated)
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
@@ -87,6 +90,7 @@ object Button {
         if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps) => onClick(t0, t1).runNow())))
     if (!js.isUndefined(positive)) __obj.updateDynamic("positive")(positive)
     if (!js.isUndefined(primary)) __obj.updateDynamic("primary")(primary)
+    if (role != null) __obj.updateDynamic("role")(role)
     if (!js.isUndefined(secondary)) __obj.updateDynamic("secondary")(secondary)
     if (size != null) __obj.updateDynamic("size")(size)
     if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
