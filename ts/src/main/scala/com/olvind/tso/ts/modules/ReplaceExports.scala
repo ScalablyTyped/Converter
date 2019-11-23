@@ -94,10 +94,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
     val missingTypes: Seq[TsContainerOrDecl] =
       old.members.collect {
-        case TsExport(_, _, TsExporteeTree(Picker.Types(tpe)))
-            if !newTypes.contains(tpe.name) => //todo: remove probably
-          DeriveCopy.downgrade(tpe)
-        case Picker.Types(tpe) if !newTypes.contains(tpe.name) => DeriveCopy.downgrade(tpe)
+        case TsExport(_, _, TsExporteeTree(Picker.Types(tpe))) if !newTypes.contains(tpe.name) => KeepTypesOnly(tpe)
+        case Picker.Types(tpe) if !newTypes.contains(tpe.name)                                 => KeepTypesOnly(tpe)
       }.flatten
 
     `new`.withMembers(`new`.members ++ missingTypes).asInstanceOf[T]
@@ -142,7 +140,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
       case x: TsDeclModule      => Seq(x)
       case x: TsAugmentedModule => Seq(x)
-      case x: TsNamedValueDecl  => if (hasExportedValues) DeriveCopy.downgrade(x).to[List] else Seq(x)
+      case x: TsNamedValueDecl  => if (hasExportedValues) KeepTypesOnly(x).to[List] else Seq(x)
 //      case _: TsImport          => Nil
       case x => Seq(x)
     }

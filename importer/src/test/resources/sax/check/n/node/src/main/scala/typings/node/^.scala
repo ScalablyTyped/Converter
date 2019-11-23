@@ -1,6 +1,6 @@
 package typings.node
 
-import typings.node.NodeJSNs.Global
+import typings.node.NodeJS.Global
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

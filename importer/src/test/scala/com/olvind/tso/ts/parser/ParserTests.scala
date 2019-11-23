@@ -326,7 +326,7 @@ final class ParserTests extends FunSuite {
     val tree: TsDeclClass =
       parseAs(content, TsParser.tsDeclClass)
 
-    TreeTraverse
+    TsTreeTraverse
       .collect(tree) {
         case t: TsMemberFunction => t.comments
         case t: TsMemberProperty => t.comments
@@ -334,12 +334,12 @@ final class ParserTests extends FunSuite {
       .flatMap(_.cs)
       .size should be(3)
 
-    TreeTraverse.collect(tree) {
+    TsTreeTraverse.collect(tree) {
       case TsMemberProperty(_, level, _, _, _, false, _, _)                => level
       case TsMemberFunction(_, level, TsIdent.constructor, _, false, _, _) => level
     } should be(List(ProtectionLevel.Protected, ProtectionLevel.Private, ProtectionLevel.Default))
 
-    TreeTraverse
+    TsTreeTraverse
       .collect(tree) {
         case TsMemberProperty(_, _, _, tpe, _, false, _, _) => tpe
       }
@@ -359,7 +359,7 @@ final class ParserTests extends FunSuite {
       parseAs(content, TsParser.tsDeclModule)
 
     val names: Traversable[String] =
-      TreeTraverse.collect(res) {
+      TsTreeTraverse.collect(res) {
         case TsDeclVar(
             _,
             _,
@@ -957,7 +957,7 @@ final class ParserTests extends FunSuite {
           TsDeclNamespace(
             NoComments,
             declared = false,
-            TsIdentNamespace("JSX"),
+            TsIdent("JSX"),
             List(elementInterface),
             CodePath.NoPath,
             JsLocation.Zero,

@@ -6,7 +6,7 @@ import scala.scalajs.js.annotation._
 
 trait materialDashUiProps {
   @scala.inline
-  def BottomNavigationItemProps: typings.materialDashUi.underscoreUnderscoreMaterialUINs.BottomNavigationNs.BottomNavigationItemProps.type = typings.materialDashUi.underscoreUnderscoreMaterialUINs.BottomNavigationNs.BottomNavigationItemProps
-  type BottomNavigationItemProps = typings.materialDashUi.underscoreUnderscoreMaterialUINs.BottomNavigationNs.BottomNavigationItemProps
+  def BottomNavigationItemProps: typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps.type = typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps
+  type BottomNavigationItemProps = typings.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps
 }
 

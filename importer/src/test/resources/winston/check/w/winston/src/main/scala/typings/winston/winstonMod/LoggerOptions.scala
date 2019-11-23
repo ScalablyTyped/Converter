@@ -13,7 +13,7 @@ object LoggerOptions {
   @scala.inline
   def apply(levels: AbstractConfigSetLevels = null): LoggerOptions = {
     val __obj = js.Dynamic.literal()
-    if (levels != null) __obj.updateDynamic("levels")(levels)
+    if (levels != null) __obj.updateDynamic("levels")(levels.asInstanceOf[js.Any])
     __obj.asInstanceOf[LoggerOptions]
   }
 }

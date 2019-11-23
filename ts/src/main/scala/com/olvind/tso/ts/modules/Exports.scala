@@ -43,7 +43,7 @@ object Exports {
                     val restNs = TsDeclNamespace(
                       NoComments,
                       false,
-                      TsIdentNamespace(ident.value),
+                      ident,
                       rest,
                       CodePath.NoPath,
                       JsLocation.Zero,
@@ -134,59 +134,28 @@ object Exports {
 
     exportType match {
       case ExportType.Namespaced =>
-        val members = rewritten match {
-          case x: TsDeclModule =>
+        rewritten match {
+          case x: TsContainer =>
             val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
 
             xx.members flatMap {
-              case xxx: TsNamedDecl =>
-                DeriveCopy(xxx, None)
-              case _ => Nil
-            }
-
-          case x: TsDeclNamespace =>
-            val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
-            xx.members flatMap {
-              case xxx: TsNamedDecl => DeriveCopy(xxx, None)
+              case xxx: TsNamedDecl => DeriveCopy(xxx, ownerCp, None)
               case _ => Nil
             }
 
           case x =>
             val xx = Utils.withJsLocation(x, jsLocation(ModuleSpec.Namespaced))
-            DeriveCopy(xx, Some(TsIdent.namespaced))
+            DeriveCopy(xx, ownerCp, Some(TsIdent.namespaced))
         }
-        members.map(SetCodePath.visitTsNamedDecl(ownerCp))
 
       case ExportType.Named =>
-        val shouldDerive: Boolean =
-          if (renamedOpt.isDefined) true
-          else if (rewritten.codePath === CodePath.NoPath) true
-          else {
-            val moduleParts = ownerCp.codePath.parts
-            val thisParts   = rewritten.codePath.forceHasPath.codePath.parts
-            thisParts =/= moduleParts && thisParts.dropRight(1) =/= moduleParts
-          }
-
-        val base =
-          if (shouldDerive) DeriveCopy(rewritten, renamedOpt)
-          else Seq(withRename(renamedOpt)(rewritten))
-
-        base
-          .map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec.Specified(x.name :: Nil))))
-          .map(SetCodePath.visitTsNamedDecl(ownerCp))
+        DeriveCopy(rewritten, ownerCp, renamedOpt).map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec(x.name))))
 
       case ExportType.Defaulted =>
-        DeriveCopy(rewritten, Some(TsIdent.default))
+        DeriveCopy(rewritten, ownerCp, Some(TsIdent.default))
           .map(x => Utils.withJsLocation(x, jsLocation(ModuleSpec.Defaulted)))
-          .map(SetCodePath.visitTsNamedDecl(ownerCp))
     }
   }
-
-  def withRename[T <: TsNamedDecl](renamedOpt: Option[TsIdent])(tree: T): T =
-    renamedOpt match {
-      case None          => tree
-      case Some(newName) => tree.withName(newName).asInstanceOf[T]
-    }
 
   case class PickedExport(export: TsExport, newWanted: List[TsIdent])
 
@@ -229,12 +198,13 @@ object Exports {
     * Structures which come from an `import` do not have a fixed javascript location, that can
     *  only be determined once they are exported
     */
-  def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation = (jsLocation, ms) match {
-    case (m: JsLocation.Module, spec) => m.copy(spec = spec)
-    case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
-    case (JsLocation.Global(jsPath), other)                        => sys.error(s"Unexpected $jsPath and $other")
-    case (JsLocation.Zero, _)                                      => JsLocation.Zero
-  }
+  def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation =
+    (jsLocation, ms) match {
+      case (m: JsLocation.Module, spec) => m.copy(spec = spec)
+      case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
+      case (JsLocation.Global(jsPath), other)                        => sys.error(s"Unexpected $jsPath and $other")
+      case (JsLocation.Zero, _)                                      => JsLocation.Zero
+    }
 
   def lookupExportFrom[T <: TsNamedDecl](
       scope:        TsTreeScope.Scoped,
@@ -245,9 +215,9 @@ object Exports {
   ): Seq[(T, TsTreeScope)] =
     pickExports(scope.exports, wanted).flatMap {
       case PickedExport(e, newWanteds) =>
-        expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner) match {
-          case Nil       => Nil
-          case expandeds => Utils.searchAmong(scope, Pick, newWanteds, expandeds, loopDetector)
-        }
+        val expanded: Seq[TsNamedDecl] =
+          expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner)
+
+        Utils.searchAmong(scope, Pick, newWanteds, expanded, loopDetector)
     }
 }

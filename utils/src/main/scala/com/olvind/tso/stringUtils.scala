@@ -23,7 +23,7 @@ object stringUtils {
         val `/*` = s.substring(0, start + 2)
         val `*/` = s.substring(end)
         val escaped =
-          s.substring(start + 2, end).replaceAll("/\\*", "/ *").replaceAll("\\*/", "* /")
+          s.substring(Math.min(end, start + 2), end).replaceAll("/\\*", "/ *").replaceAll("\\*/", "* /")
         `/*` + escaped + `*/`
     }
 

@@ -5,14 +5,14 @@ object TypeParamsReferencedInTree {
   def apply(inScope: Map[TsIdent, TsTypeParam], tree: TsTree): Seq[TsTypeParam] = {
 
     val locallyDefined: Seq[TsIdent] =
-      TreeTraverse
+      TsTreeTraverse
         .collect(tree) {
           case HasTParams(tparams) => tparams.map(_.name)
         }
         .flatten
 
     val referencedInTree: Set[TsIdent] =
-      TreeTraverse
+      TsTreeTraverse
         .collect(tree) {
           case TsTypeRef(_, TsQIdent(List(unprefixedName)), _) if inScope.contains(unprefixedName) => unprefixedName
         }

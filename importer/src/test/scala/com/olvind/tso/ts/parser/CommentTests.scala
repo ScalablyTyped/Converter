@@ -108,6 +108,13 @@ final class CommentTests extends FunSuite with Matchers {
     )(DirectiveToken("reference", "no-default-lib", "true"))
   }
 
+  test("amd-module") {
+    shouldParseAs(
+      """/// <amd-module name="angular/packages/zone.js/lib/zone"/>""",
+      TsParser.lexical.directive,
+    )(DirectiveToken("amd-module", "name", "angular/packages/zone.js/lib/zone"))
+  }
+
   test("parameter comments") {
     val content = """	/** A parser and formatter for DSV (CSV and TSV) files.
                     |Extracted from D3. */
@@ -118,7 +125,7 @@ final class CommentTests extends FunSuite with Matchers {
                     |        encoding?: string) => _d3dsv.D3Dsv
                     |""".stripMargin
 
-    TreeTraverse
+    TsTreeTraverse
       .collectSeq(parseAs(content, TsParser.tsDeclVars)) {
         case s: TsDeclVar  => s.comments
         case s: TsFunParam => s.comments
@@ -143,7 +150,7 @@ final class CommentTests extends FunSuite with Matchers {
       )
 
     val cs: Traversable[Seq[Comment]] =
-      TreeTraverse
+      TsTreeTraverse
         .collect(res) {
           case t: TsDeclEnum   => t.comments.cs
           case t: TsEnumMember => t.comments.cs

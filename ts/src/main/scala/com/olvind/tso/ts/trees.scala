@@ -63,7 +63,7 @@ sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl w
 final case class TsDeclNamespace(
     comments:   Comments,
     declared:   Boolean,
-    name:       TsIdentNamespace,
+    name:       TsIdent,
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
@@ -79,8 +79,7 @@ final case class TsDeclNamespace(
     copy(jsLocation = newLocation)
 
   override def withName(newName: TsIdent): TsNamedDecl =
-    // todo: a glitch in the matrix here
-    copy(name = TsIdentNamespace(newName.value))
+    copy(name = newName)
 }
 
 final case class TsDeclModule(
@@ -323,19 +322,7 @@ sealed trait TsIdent extends TsTerm {
   def value: String
 }
 
-// here be dragons, i guess
-sealed trait TsIdentInterchangeable extends TsIdent {
-  override def equals(obj: Any): Boolean =
-    obj match {
-      case TsIdentSimple(v)    => value == v
-      case TsIdentNamespace(v) => value == v
-      case _                   => false
-    }
-
-  override lazy val hashCode: Int = value.hashCode
-}
-
-final case class TsIdentSimple(value: String) extends TsIdentInterchangeable
+final case class TsIdentSimple(value: String) extends TsIdent
 
 final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
   override def value: String = from.value
@@ -346,7 +333,7 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
   lazy val inLibrary: TsIdentLibrary =
     scopeOpt match {
       case None        => TsIdentLibrarySimple(fragments.head)
-      case Some(scope) => ts.TsIdentLibraryScoped(scope, fragments.headOption)
+      case Some(scope) => TsIdentLibraryScoped(scope, fragments.head)
     }
 
   lazy val value: String =
@@ -361,38 +348,34 @@ object TsIdentModule {
     TsIdentModule(None, s :: Nil)
 }
 
-final case class TsIdentNamespace(value: String) extends TsIdentInterchangeable
-
 sealed trait TsIdentLibrary extends TsIdent {
   def `__value`: String = this match {
-    case TsIdentLibraryScoped(scope, Some(name)) => s"${scope}__$name"
-    case TsIdentLibraryScoped(scope, None)       => scope
-    case TsIdentLibrarySimple(value)             => value
+    case TsIdentLibraryScoped(scope, name) => s"${scope}__$name"
+    case TsIdentLibrarySimple(value)       => value
   }
 }
 
 object TsIdentLibrary {
   implicit val FormatterTsIdentLibrary: Formatter[TsIdentLibrary] =
     i => i.value
-  val Scoped   = "@([/]+)/(.+)".r
+
+  val Scoped   = "@([^/]+)/(.+)".r
   val Scoped__ = "(.+)__(.+)".r
 
   def apply(str: String): TsIdentLibrary =
     str match {
-      case Scoped(scope, name)   => TsIdentLibraryScoped(scope, Some(name))
-      case Scoped__(scope, name) => TsIdentLibraryScoped(scope, Some(name))
-      case other                 => TsIdentLibrarySimple(other)
+      case Scoped("types", name)   => TsIdentLibrarySimple(name)
+      case Scoped(scope, name)     => TsIdentLibraryScoped(scope, name)
+      case Scoped__("types", name) => TsIdentLibrarySimple(name)
+      case Scoped__(scope, name)   => TsIdentLibraryScoped(scope, name)
+      case other                   => TsIdentLibrarySimple(other)
     }
 }
 
 final case class TsIdentLibrarySimple(value: String) extends TsIdentLibrary
 
-final case class TsIdentLibraryScoped(scope: String, nameOpt: Option[String]) extends TsIdentLibrary {
-  def value: String =
-    nameOpt match {
-      case Some(name) => s"@$scope/$name"
-      case None       => s"@$scope"
-    }
+final case class TsIdentLibraryScoped(scope: String, name: String) extends TsIdentLibrary {
+  def value: String = s"@$scope/$name"
 }
 
 object TsIdent {
@@ -411,7 +394,7 @@ object TsIdent {
   val namespaced:    TsIdent = TsIdent("^")
   val namespacedCls: TsIdent = TsIdent("Class")
   val Symbol:        TsIdent = TsIdent("Symbol")
-  val Global:        TsIdent = TsIdent("Global")
+  val Global:        TsIdent = TsIdent("_Global_")
   val Record:        TsIdent = TsIdent("Record")
 
   val dummy: TsIdentLibrary = TsIdentLibrarySimple("dummy")
@@ -447,7 +430,8 @@ object TsQIdent {
   val undefined: TsQIdent = TsQIdent.of("undefined")
   val unknown:   TsQIdent = TsQIdent.of("unknown")
   val void:      TsQIdent = TsQIdent.of("void")
-  val Primitive = Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
+  val Primitive =
+    Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
 
   val Array:    TsQIdent = TsQIdent.of("Array")
   val Boolean:  TsQIdent = TsQIdent.of("Boolean")
@@ -531,7 +515,7 @@ object TsTypeIntersect {
     } match {
       case (Nil, all)      => all
       case (Seq(_), _)     => types // just keep order
-      case (objects, rest) => TsTypeObject(NoComments, objects.flatMap(_.members)) +: rest
+      case (objects, rest) => TsTypeObject(NoComments, objects.flatMap(_.members).distinct) +: rest
     }
     flatten(withCombinedObjects.to[List]).distinct match {
       case Nil      => TsTypeRef.never

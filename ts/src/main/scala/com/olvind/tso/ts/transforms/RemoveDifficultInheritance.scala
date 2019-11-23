@@ -1,7 +1,6 @@
 package com.olvind.tso
 package ts
 package transforms
-import com.olvind.tso.maps.EmptyMap
 
 /**
   * In typescript we can inherit from type references pointing to a pretty much arbitrary shape.
@@ -10,12 +9,14 @@ import com.olvind.tso.maps.EmptyMap
   * Some information (like from intersections of type objects, for instance) is retrieved
   * ("lifted", in this code)
   *
+  * We also inline all type aliases in parents.
+  *
   * We'll do better eventually, this is the fallback to make things compile
   */
 object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
-  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass =
-    Res.combine(s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)) match {
-      case Res(_, Nil, EmptyMap()) => s
+  override def enterTsDeclClass(scope: TsTreeScope)(s: TsDeclClass): TsDeclClass = {
+    val cleaned = s.parent.to[Seq] ++ s.implements map cleanParentRef(scope)
+    Res.combine(cleaned) match {
       case Res(keep, drop, lifted) =>
         s.copy(
           parent     = keep.headOption,
@@ -24,10 +25,10 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
           members    = FlattenTrees.newClassMembers(s.members, lifted.flatMap(_._2).to[Seq]),
         )
     }
+  }
 
   override def enterTsDeclInterface(scope: TsTreeScope)(s: TsDeclInterface): TsDeclInterface =
     Res.combine(s.inheritance map cleanParentRef(scope)) match {
-      case Res(keep, _, _) if s.inheritance === keep => s
       case Res(keep, drop, lifted) =>
         s.copy(
           inheritance = keep,
@@ -56,6 +57,10 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
       /* inline type aliases just to make things simpler */
       case tr: TsTypeRef =>
         scope.lookupTypeIncludeScope(tr.name).collectFirst {
+          /* see through thin interfaces which might be translated into type aliases */
+          case (i @ TsDeclInterface(_, _, _, _, Seq(one @ _), Nil, _), newScope) =>
+            cleanParentRef(newScope)(FillInTParams(i, tr.tparams).inheritance.head)
+
           case (found: TsDeclTypeAlias, newScope) =>
             val rewritten = FillInTParams(found, tr.tparams)
 

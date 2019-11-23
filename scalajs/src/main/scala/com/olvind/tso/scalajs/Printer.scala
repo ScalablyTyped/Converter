@@ -162,16 +162,16 @@ object Printer {
         print(formatAnns(anns))
 
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
-          case Nil                                 => (CtorTree.defaultPublic, Nil)
-          case head :: tail if head.params.isEmpty => (head, tail)
-          case all                                 => (CtorTree.defaultProtected, all)
+          case Nil                                                    => (CtorTree.defaultPublic, Nil)
+          case head :: tail if (head.params.isEmpty || !cls.isNative) => (head, tail)
+          case all                                                    => (CtorTree.defaultProtected, all)
         }
 
         print(Comments.format(defaultCtor.comments))
         print(if (isSealed) "sealed " else "", classType.asString, " ", formatName(name))
 
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(cls.isNative, indent) mkString ", ", "]")
 
         if (classType =/= ClassType.Trait) {
           print(" ")
@@ -213,7 +213,7 @@ object Printer {
         print(Comments.format(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(isNative = true, indent) mkString ", ", "]")
 
         println(s" = ", formatTypeRef(indent)(alias))
 
@@ -246,7 +246,7 @@ object Printer {
         val tparamString =
           if (tparams.isEmpty) ""
           else
-            tparams.map(formatTypeParamTree(indent)).mkString("[", ", ", "]")
+            tparams.map(formatTypeParamTree(isNative = true, indent)).mkString("[", ", ", "]")
 
         var paramString = params.map(_.map(formatParamTree(indent)).mkString("(", ", ", ")"))
         if (paramString.map(_.length).sum > 100) {
@@ -273,13 +273,13 @@ object Printer {
           " = this()",
         )
 
-      case tree @ ParamTree(_, _, _, comments) =>
+      case tree @ ParamTree(_, _, _, _, comments) =>
         print(Comments.format(comments))
         println(formatParamTree(indent)(tree))
 
       case tree @ TypeParamTree(_, _, comments) =>
         print(Comments.format(comments))
-        print(formatTypeParamTree(indent)(tree))
+        print(formatTypeParamTree(isNative = true, indent)(tree))
 
       case tree @ TypeRef(_, _, comments) =>
         print(Comments.format(comments))
@@ -305,14 +305,19 @@ object Printer {
       case head :: tail                       => "\n  extends " + head + tail.mkString("\n     with ", "\n     with ", "")
     }
 
-  def formatTypeParamTree(indent: Int)(tree: TypeParamTree): String =
+  def formatTypeParamTree(isNative: Boolean, indent: Int)(tree: TypeParamTree): String =
     Comments.format(tree.comments) |+|
       formatName(tree.name) |+|
-      tree.upperBound.fold("")(bound => " /* <: " |+| formatTypeRef(indent)(bound) |+| " */")
+      (tree.upperBound match {
+        case Some(bound) if isNative => " /* <: " |+| formatTypeRef(indent)(bound) |+| " */"
+        case Some(bound)             => " <: " |+| formatTypeRef(indent)(bound)
+        case None                    => ""
+      })
 
   def formatParamTree(indent: Int)(tree: ParamTree): String =
     Seq(
       Comments.format(tree.comments),
+      if (tree.isImplicit) "implicit " else "",
       typeAnnotation(formatName(tree.name), indent + 2, tree.tpe, Name.WILDCARD),
       tree.default.fold("")(d => s" = ${formatDefaultedTypeRef(indent)(d)}"),
     ).mkString
@@ -419,9 +424,9 @@ object Printer {
         s"@JSName(${formatQN(name)})"
       case Annotation.JsImport(module, imported) =>
         val importedString = imported match {
-          case Imported.Namespace   => "JSImport.Namespace"
-          case Imported.Default     => "JSImport.Default"
-          case Imported.Named(name) => quote(name.unescaped)
+          case Imported.Namespace    => "JSImport.Namespace"
+          case Imported.Default      => "JSImport.Default"
+          case Imported.Named(names) => quote(names.map(_.unescaped).mkString("."))
         }
         s"@JSImport(${quote(module)}, $importedString)"
       case Annotation.ScalaJSDefined =>

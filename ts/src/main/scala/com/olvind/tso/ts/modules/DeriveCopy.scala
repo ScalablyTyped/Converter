@@ -1,139 +1,120 @@
 package com.olvind.tso
-package ts.modules
+package ts
+package modules
 
-import com.olvind.tso.ts._
+import com.olvind.tso.ts.CodePath.{HasPath, NoPath}
+import com.olvind.tso.ts.transforms.SetCodePath
 
 object DeriveCopy {
-  def apply(x: TsNamedDecl, rename: Option[TsIdent]): Seq[TsNamedDecl] = {
+  def apply(x: TsNamedDecl, ownerCp: CodePath, _rename: Option[TsIdent]): Seq[TsNamedDecl] = {
+    val rename = _rename.filter(_ =/= x.name) // I think this only happens with `default`, but as might as well make sure
+
     //keep as def, we need to let `TsDeclNamespace` through without a codePath as it might be synthetic
     def origin = x.codePath.forceHasPath.codePath
 
-    x match {
-      case x: TsDeclClass =>
-        val `class` = x.copy(
-          name = rename getOrElse x.name,
-          members = x.members.collect {
-            case c: TsMemberCtor => c
-            case c @ TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => c
-            case x: TsMemberProperty if x.isStatic => x
-            case x: TsMemberFunction if x.isStatic => x
-          },
-          declared   = true,
-          implements = Nil,
-          parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
-        )
+    (x, x.codePath, ownerCp) match {
+      case (x: TsDeclFunction, _, ownerCodePath: CodePath.HasPath) =>
+        List(SetCodePath.visitTsDeclFunction(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
 
-        List(`class`)
+      case (x: TsDeclVar, _, ownerCodePath: CodePath.HasPath) =>
+        List(SetCodePath.visitTsDeclVar(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
 
-      case x: TsDeclInterface =>
-        List(
-          TsDeclTypeAlias(
-            comments = Comments(CommentData(Markers.IsTrivial)),
-            declared = true,
-            name     = rename getOrElse x.name,
-            tparams  = x.tparams,
-            alias    = TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
-            codePath = x.codePath,
-          ),
-        )
+      case (x, xCp: HasPath, ownerCp: HasPath)
+          if xCp.codePath.parts.length === ownerCp.codePath.parts.length + 1 &&
+            xCp.codePath.parts.startsWith(ownerCp.codePath.parts) &&
+            rename.isEmpty =>
+        List(x)
 
-      case x: TsDeclEnum =>
-        List(
-          x.copy(
-            name         = rename getOrElse x.name,
-            isValue      = true,
-            exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Nil)),
-          ),
-        )
+      case (x, _, ownerCp) =>
+        val name = rename getOrElse x.name
 
-      case x: TsDeclVar =>
-        List(x.copy(name = rename getOrElse x.name))
-
-      case x: TsDeclFunction =>
-        List(x.copy(name = rename getOrElse x.name))
-
-      case x: TsDeclNamespace =>
-        val newMembers = x.members.flatMap {
-          case m: TsNamedDecl => apply(m, None)
-          case other => Seq(other)
-        }
-        val name = rename match {
-          case Some(renamed) => TsIdentNamespace(renamed.value)
-          case None          => x.name
-        }
-        List(x.copy(name = name, members = newMembers))
-
-      case x: TsDeclModule =>
-        val newMembers = x.members.flatMap {
-          case m: TsNamedDecl => apply(m, None)
-          case other => Seq(other)
+        val codePath = ownerCp match {
+          case NoPath => x.codePath
+          case hasPath: HasPath => hasPath / name
         }
 
-        val name = rename match {
-          case Some(renamed) => TsIdentNamespace(renamed.value)
-          case None          => TsIdentNamespace(x.name.value)
+        val derived = x match {
+          case x: TsDeclClass =>
+            x.copy(
+              name = name,
+              members = x.members.collect {
+                case c: TsMemberCtor => c
+                case c @ TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => c
+                case x: TsMemberProperty if x.isStatic => x
+                case x: TsMemberFunction if x.isStatic => x
+              },
+              declared   = true,
+              implements = Nil,
+              parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
+              codePath   = codePath,
+            )
+
+          case x: TsDeclInterface =>
+            TsDeclTypeAlias(
+              comments = Comments(CommentData(Markers.IsTrivial)),
+              declared = true,
+              name     = name,
+              tparams  = x.tparams,
+              alias    = TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
+              codePath = codePath,
+            )
+
+          case x: TsDeclEnum =>
+            x.copy(
+              name         = name,
+              isValue      = true,
+              exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Nil)),
+              codePath     = codePath,
+            )
+
+          case x: TsDeclVar =>
+            x.copy(name = name, codePath = codePath)
+
+          case x: TsDeclFunction =>
+            x.copy(name = name, codePath = codePath)
+
+          case x: TsDeclNamespace =>
+            updatedContainer(ownerCp, x.copy(name = name, codePath = codePath))
+
+          case x: TsDeclModule =>
+            val asNs = TsDeclNamespace(x.comments, declared = false, name, x.members, codePath, x.jsLocation)
+            updatedContainer(ownerCp, asNs)
+
+          case x: TsAugmentedModule =>
+            val name = rename match {
+              case Some(renamed) => TsIdentModule(None, renamed.value.split("/").toList)
+              case None          => x.name
+            }
+            updatedContainer(ownerCp, x.copy(name = name, codePath = codePath))
+
+          case x: TsDeclTypeAlias =>
+            TsDeclTypeAlias(
+              Comments(CommentData(Markers.IsTrivial)),
+              declared = false,
+              name,
+              x.tparams,
+              TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams)),
+              codePath,
+            )
         }
 
-        List(
-          TsDeclNamespace(
-            x.comments,
-            declared = false,
-            name,
-            newMembers,
-            x.codePath,
-            x.jsLocation,
-          ),
-        )
-
-      case x: TsAugmentedModule =>
-        val newMembers = x.members.collect { case m: TsNamedDecl => apply(m, None) }.flatten
-        val name = rename match {
-          case Some(renamed) => TsIdentModule(None, renamed.value.split("/").toList)
-          case None          => x.name
-        }
-        List(x.copy(name = name, members = newMembers))
-
-      case x: TsDeclTypeAlias =>
-        List(
-          TsDeclTypeAlias(
-            Comments(CommentData(Markers.IsTrivial)),
-            declared = false,
-            rename getOrElse x.name,
-            x.tparams,
-            TsTypeRef(NoComments, x.codePath.forceHasPath.codePath, TsTypeParam.asTypeArgs(x.tparams)),
-            x.codePath,
-          ),
-        )
+        List(derived)
     }
   }
 
-  def downgradeClass(x: TsDeclClass): TsDeclInterface = {
-    val nonStatics: Seq[TsMember] =
-      x.members filterNot {
-        case _:  TsMemberCtor     => true
-        case xx: TsMemberProperty => xx.isStatic
-        case xx: TsMemberFunction => xx.isStatic || xx.name === TsIdent.constructor
-        case _ => false
+  def updatedContainer(ownerCp: CodePath, x: TsContainer with TsNamedDecl): TsNamedDecl = {
+    /* For this to be correct we convert nested members with old codePath, then recursively update it afterwards */
+    val newMembers: Seq[TsContainerOrDecl] =
+      x.members.flatMap {
+        case m: TsNamedDecl =>
+          apply(m, x.codePath, None)
+        case other => List(other)
       }
 
-    TsDeclInterface(x.comments, x.declared, x.name, x.tparams, x.parent.to[Seq] ++ x.implements, nonStatics, x.codePath)
-  }
-
-  def downgrade(x: TsContainerOrDecl): Option[TsContainerOrDecl] = x match {
-    case e @ TsExport(_, _, TsExporteeTree(decl)) =>
-      downgrade(decl) flatMap {
-        case d: TsNamedDecl => Some(e.copy(exported = TsExporteeTree(d)))
-        case _ => Some(e)
-      }
-    case _: TsDeclVar | _: TsDeclFunction => None
-    case cls: TsDeclClass =>
-      Some(downgradeClass(cls))
-    case x: TsDeclNamespace =>
-      Some(x.copy(members = x.members flatMap downgrade))
-    case x: TsAugmentedModule =>
-      Some(x.copy(members = x.members flatMap downgrade))
-    case x: TsDeclEnum =>
-      Some(x.copy(isValue = false))
-    case other => Some(other)
+    (ownerCp, x.withMembers(newMembers)) match {
+      case (p:                   HasPath, xx: TsNamedDecl) => SetCodePath.enterTsNamedDecl(p)(xx)
+      case (CodePath.NoPath, xx: TsNamedDecl) => xx
+      case wrong => sys.error(s"Unexpected $wrong")
+    }
   }
 }

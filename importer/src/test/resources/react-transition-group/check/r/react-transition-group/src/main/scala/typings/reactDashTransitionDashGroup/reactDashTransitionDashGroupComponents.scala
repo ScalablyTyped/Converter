@@ -8,10 +8,8 @@ import scala.scalajs.js.annotation._
 
 object reactDashTransitionDashGroupComponents extends reactDashTransitionDashGroupProps {
   @scala.inline
-  def TransitionGroup: ComponentType[
-    typings.reactDashTransitionDashGroup.transitionGroupMod.TransitionGroupProps[abbr, js.Any]
-  ] = js.constructorOf[typings.reactDashTransitionDashGroup.transitionGroupMod.^].asInstanceOf[typings.react.reactMod.ComponentType[
-  typings.reactDashTransitionDashGroup.transitionGroupMod.TransitionGroupProps[
+  def TransitionGroup: ComponentType[TransitionGroupProps[abbr, js.Any]] = js.constructorOf[typings.reactDashTransitionDashGroup.transitionGroupMod.^].asInstanceOf[typings.react.reactMod.ComponentType[
+  TransitionGroupProps[
     typings.reactDashTransitionDashGroup.reactDashTransitionDashGroupStrings.abbr, 
     js.Any
   ]]]

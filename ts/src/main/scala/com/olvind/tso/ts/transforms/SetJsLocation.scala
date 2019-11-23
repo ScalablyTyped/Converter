@@ -9,6 +9,12 @@ object SetJsLocation extends TreeTransformation[JsLocation] {
       case other => other
     }
 
+  override def enterTsNamedDecl(loc: JsLocation)(x: TsNamedDecl): TsNamedDecl =
+    x match {
+      case xx: HasJsLocation => xx.withJsLocation(loc).asInstanceOf[TsNamedDecl]
+      case other => other
+    }
+
   override def enterTsContainer(loc: JsLocation)(x: TsContainer): TsContainer =
     x match {
       case xx: HasJsLocation => xx.withJsLocation(loc).asInstanceOf[TsContainer]

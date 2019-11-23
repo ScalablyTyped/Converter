@@ -69,6 +69,7 @@ import com.olvind.tso.seqs._
   * ```
   */
 object UnionToInheritance {
+  final case class WasUnion(related: Seq[TypeRef]) extends Comment.Data
 
   def apply(scope: TreeScope, tree: ContainerTree, inLib: Name): ContainerTree = {
     val rewrites = Rewrite.identify(inLib, tree, scope / tree)
@@ -106,7 +107,7 @@ object UnionToInheritance {
         }
 
         indexedRewrites(ta.codePath) match {
-          case Rewrite(_, _, Nil) =>
+          case Rewrite(_, asInheritance, Nil) =>
             val cls = ClassTree(
               List(Annotation.ScalaJSDefined),
               ta.name,
@@ -116,12 +117,13 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              ta.comments +? comment,
+              ta.comments +? comment + CommentData(KeepOnlyReferenced.Related(asInheritance)) +
+                CommentData(WasUnion(asInheritance)),
               ta.codePath,
             )
 
             cls :: Nil
-          case Rewrite(_, _, noRewrites) =>
+          case Rewrite(_, asInheritance, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
               List(Annotation.ScalaJSDefined),
@@ -132,7 +134,9 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              NoComments,
+              Comments(
+                List(CommentData(KeepOnlyReferenced.Related(asInheritance)), CommentData(WasUnion(asInheritance))),
+              ),
               patchedTa.codePath,
             )
             val newTa = ta.copy(
@@ -177,12 +181,18 @@ object UnionToInheritance {
 
   object Rewrite {
     def identify(inLib: Name, p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
-      def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] =
+      def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
+        def legalClassName(name: Name): Boolean =
+          p index name forall {
+            case _: PackageTree => false
+            case _ => true
+          }
         p.members.flatMap {
-          case p:  ContainerTree => identify(inLib, p, scope / p)
-          case ta: TypeAliasTree => canRewrite(inLib, ta, scope / ta).toList
+          case p:  ContainerTree                            => identify(inLib, p, scope / p)
+          case ta: TypeAliasTree if legalClassName(ta.name) => canRewrite(inLib, ta, scope / ta).toList
           case _ => Nil
         }
+      }
 
       val all = go(p, scope)
 

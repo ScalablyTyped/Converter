@@ -23,6 +23,32 @@ object FillInTParams {
   def apply(x: TsFunSig, providedTParams: Seq[TsType]): TsFunSig =
     rewriter(x.tparams, providedTParams).fold(x)(rws => new TypeRewriter(x).visitTsFunSig(rws)(x).copy(tparams = Nil))
 
+  /* A function in scala cannot have type parameters, so we inline them with their defaults or upper bounds */
+  def inlineTParams(sig: TsFunSig): TsFunSig = {
+    def recursiveBound(name: TsIdent, b: TsType): Boolean =
+      TsTreeTraverse.collect(b) { case `name` => name }.nonEmpty
+
+    val defaulted = sig.tparams.map { tp =>
+      tp.default orElse tp.upperBound match {
+        case Some(b) if !recursiveBound(tp.name, b) => b
+        case _                                      => TsTypeRef.any
+      }
+    }
+
+    /* Handle when type parameters reference each other */
+    val replacements: Map[TsType, TsType] =
+      sig.tparams
+        .zip(defaulted)
+        .map {
+          case (TsTypeParam(_, name, _, _), tpe) => TsTypeRef.of(name) -> tpe
+        }
+        .toMap
+
+    val rewritten = defaulted.map(tpe => new ts.transforms.TypeRewriter(sig).visitTsType(replacements)(tpe))
+
+    FillInTParams(sig, rewritten)
+  }
+
   private def rewriter(expectedTParams: Seq[TsTypeParam], providedTParams: Seq[TsType]): Option[Map[TsType, TsType]] =
     if (expectedTParams.isEmpty) None
     else {
@@ -36,11 +62,6 @@ object FillInTParams {
             TsTypeRef.of(expected) -> provided
         }.toMap
 
-      /* in case the type params refer to each other. This is probably not perfect, but it was quick to write */
-      val rw2 = rewrites.map {
-        case (k, v) => (k, new TypeRewriter(v).visitTsType(rewrites)(v))
-      }
-
-      Some(rw2)
+      Some(rewrites)
     }
 }

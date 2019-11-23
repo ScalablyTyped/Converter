@@ -74,8 +74,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         }
 
       case TsDeclTypeAlias(comments, declared, name, tparams, alias, codePath)
-          if comments.extract({ case Markers.IsTrivial => () }).isEmpty
-            && !pointsToConcreteType(scope, alias) =>
+          if !comments.has(Markers.IsTrivial) && !pointsToConcreteType(scope, alias) =>
         AllMembersFor.forType(scope)(alias) match {
           case Problems(problems) =>
             if (Debug) {
@@ -225,6 +224,11 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
               case TsMemberFunction(_, _, name, _, _, _, _)    => name.value
             }
             Ok(names.to[Set], wasRewritten = false)
+          case (x: TsDeclEnum, _) if x.isConst =>
+            val names = x.members.collect {
+              case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) => stringUtils.unquote(lit.literal)
+            }
+            Ok(names.to[Set], wasRewritten = false)
         }
 
         res.getOrElse(Problems(List(TypeNotFound(scope, tr))))
@@ -273,11 +277,6 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case x: TsTypeRef => apply(scope)(x)
         case x: TsTypeIntersect =>
           Res.sequence(x.types.map(forType(scope))).map(_.flatten).withIsRewritten
-        case x: TsTypeUnion =>
-          Res
-            .sequence(x.types.map(forType(scope)))
-            .map(_.flatten.map(TsMember.optional(isOptional = true)))
-
         case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, from: TsTypeRef, _, _)) if scope.isAbstract(from.name) =>
           Problems(List(NotStatic(scope, from)))
         case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, _, _, to: TsTypeRef)) if scope.isAbstract(to.name) =>
@@ -349,6 +348,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case x: TsTypeKeyOf       => Problems(List(InvalidType(scope, x)))
         case x: TsTypeLookup      => Problems(List(InvalidType(scope, x)))
         case x: TsTypeThis        => Problems(List(InvalidType(scope, x)))
+        case x: TsTypeUnion       => Problems(List(InvalidType(scope, x)))
       }
 
     def extract(members: Seq[TsMember], wanted: Set[String]): Option[Seq[TsMember]] =

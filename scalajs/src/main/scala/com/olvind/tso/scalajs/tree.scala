@@ -2,6 +2,7 @@ package com.olvind.tso
 package scalajs
 
 import scala.util.hashing.MurmurHash3.productHash
+import seqs._
 
 sealed trait Tree extends Product with Serializable {
   val name:     Name
@@ -32,6 +33,12 @@ sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: Seq[ClassAnnotation]
   def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
   val index: Map[Name, Seq[Tree]]
+
+  def isNative: Boolean = annotations.exists {
+    case Annotation.JsNative       => true
+    case Annotation.ScalaJSDefined => true
+    case _                         => false
+  }
 }
 
 final case class PackageTree(
@@ -64,11 +71,15 @@ final case class ClassTree(
   lazy val index: Map[Name, Seq[Tree]] =
     members.groupBy(_.name)
 
-  def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
-  }
+  def renamed(newName: Name): ClassTree =
+    copy(
+      name        = newName,
+      annotations = Annotation.classRenamedFrom(name)(annotations),
+      codePath    = QualifiedName(codePath.parts.init :+ newName),
+    )
+
+  def withSuffix[T: ToSuffix](t: T): ClassTree =
+    renamed(name withSuffix t)
 }
 
 final case class ModuleTree(
@@ -79,13 +90,7 @@ final case class ModuleTree(
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends ContainerTree
-    with InheritanceTree {
-  def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
-  }
-}
+    with InheritanceTree {}
 
 final case class TypeAliasTree(
     name:     Name,
@@ -96,9 +101,8 @@ final case class TypeAliasTree(
 ) extends Tree
     with HasCodePath
 
-sealed trait MemberTree extends Tree {
+sealed trait MemberTree extends Tree with HasCodePath {
   val isOverride: Boolean
-  val codePath:   QualifiedName
   def withCodePath(newCodePath: QualifiedName): MemberTree
 }
 
@@ -185,7 +189,8 @@ object TypeParamTree {
   implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
 }
 
-final case class ParamTree(name: Name, tpe: TypeRef, default: Option[TypeRef], comments: Comments) extends Tree
+final case class ParamTree(name: Name, isImplicit: Boolean, tpe: TypeRef, default: Option[TypeRef], comments: Comments)
+    extends Tree
 
 final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
@@ -203,8 +208,10 @@ object TypeRef {
   def apply(qn: QualifiedName): TypeRef =
     TypeRef(qn, Nil, NoComments)
 
+  def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
+
   val Wildcard     = TypeRef(QualifiedName.WILDCARD, Nil, NoComments)
-  val JObject      = TypeRef(QualifiedName.JObject, Nil, NoComments)
+  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
   val Any          = TypeRef(QualifiedName.Any, Nil, NoComments)
   val Boolean      = TypeRef(QualifiedName.Boolean, Nil, NoComments)
   val Double       = TypeRef(QualifiedName.Double, Nil, NoComments)
@@ -305,7 +312,12 @@ object TypeRef {
       }
 
     def apply(types: Iterable[TypeRef]): TypeRef = {
-      val base = flattened(types.to[List]).distinct
+      val base: List[TypeRef] =
+        flattened(types.to[List]).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
+          // keep wildcard only if there is nothing else
+          case (wildcards, Nil) => wildcards
+          case (_, rest)        => rest
+        }
 
       base match {
         case Nil        => TypeRef.Nothing

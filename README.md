@@ -16,6 +16,7 @@ For development you'll always use "debug mode".
 | option | description |
 | --- | --- |
 | `-conserveSpace`    | The CI server (and perhaps your developer laptop) doesn't have much hard drive space. This thins out the `node_modules` folder resulting from installing all the libraries outside DefinitelyTyped and keeps only what we need
+| `-debugMode`        | Force debugMode
 | `-demoSet`          | Adds the set of all libraries used in the [demos](https://github.com/oyvindberg/ScalablyTypedDemos/)
 | `-dontCleanProject` | Normally the CI build aggressively resets the ScalablyTyped git repo. Enabling this will skip that
 | `-enableParseCache` | The Typescript parser is somewhat slow. Enabling this uses java serialization to cache when possible 
@@ -26,6 +27,10 @@ For development you'll always use "debug mode".
 | `-publish`          | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
 | `-sequential`       | We have some [issues](https://github.com/oyvindberg/tso/issues/74) with parallel conversion. For now it's a must for consistent CI builds
 | `-softWrites`       | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
+| `-flavourPlain`     | Don't generate companion objects, react components and so on. Fastest.
+| `-flavourNormal`    | (default, but need to specify if you want more flavours). 
+| `-flavourSlinky`    | Use slinky flavour, integrate with scalajs-dom, and generate slinky components 
+| `-flavourJapgolly`  | Use scalajs-react flavour, integrate with scalajs-dom, and generate scalajs-react components 
 
 ## Directories
 By default, all files will be written to `~/tmp/tso-cache`. The only exception is the ivy artifacts, which are local-published

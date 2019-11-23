@@ -16,7 +16,7 @@ trait TypeExpansionHarness  {
       scope                    = TsTreeScope(libName, pedantic = true, Map(), logging.stdout),
       libName                  = libName,
       enableExpandTypeMappings = true,
-      enableExpandCallables    = true,
+      involvesReact    = true,
     )
   }
 

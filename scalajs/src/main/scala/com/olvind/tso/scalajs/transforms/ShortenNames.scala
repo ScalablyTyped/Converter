@@ -13,7 +13,7 @@ object ShortenNames {
     val collectedImports = mutable.Map.empty[Name, QualifiedName]
 
     object V extends TreeTransformation {
-      override def enterTypeRef(scope: TreeScope)(tr: TypeRef): TypeRef = {
+      override def leaveTypeRef(scope: TreeScope)(tr: TypeRef): TypeRef = {
         val shortName = tr.name
         val longName  = tr.typeName
 
@@ -73,13 +73,18 @@ object ShortenNames {
             among(x.index, longName, methodsAreConflict) ||
             amongParents(scope, x, longName, methodsAreConflict)
         case x: PackageTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName) || among(x.index, longName, methodsAreConflict)
+          (x.name === longName.parts.last && x.codePath =/= longName) || among(
+            x.index,
+            longName,
+            methodsAreConflict = true,
+          )
         case x: TypeAliasTree =>
           (x.name === longName.parts.last && x.codePath =/= longName)
         case x: FieldTree =>
           (x.name === longName.parts.last && x.codePath =/= longName)
         case x: MethodTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName)
+          (x.name === longName.parts.last && x.codePath =/= longName) ||
+            (methodsAreConflict && x.params.exists(_.exists(_.name === longName.parts.last)))
         case _ => false
       }
 
@@ -98,7 +103,7 @@ object ShortenNames {
         case Some(trees) =>
           trees exists {
             case x: ClassTree     => x.codePath =/= longName
-            case x: ModuleTree    => x.codePath =/= longName
+            case x: ModuleTree    => x.codePath =/= longName && methodsAreConflict
             case x: PackageTree   => x.codePath =/= longName
             case x: TypeAliasTree => x.codePath =/= longName
             case x: FieldTree     => x.isReadOnly

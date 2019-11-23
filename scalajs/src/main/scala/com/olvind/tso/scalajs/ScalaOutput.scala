@@ -11,11 +11,13 @@ object ScalaOutput {
 
   final case class File(name: Name) extends ScalaOutput {
     // account for case insensitive file systems
-    override def equals(obj: scala.Any): Boolean = obj match {
-      case other: File => name.value.toLowerCase === other.name.value.toLowerCase
-      case _ => false
-    }
-    override def hashCode(): Int = name.value.toLowerCase.hashCode
+    override def equals(obj: Any): Boolean =
+      obj match {
+        case other: File => name.value.toLowerCase === other.name.value.toLowerCase
+        case _ => false
+      }
+    override lazy val hashCode: Int =
+      name.value.toLowerCase.hashCode
   }
 
   final case class Package(name: Name) extends ScalaOutput
@@ -24,8 +26,7 @@ object ScalaOutput {
     s match {
       case s: PackageTree => Package(s.name)
       case s: ModuleTree  => File(s.name)
-      case s: ClassTree   => File(Annotation.realName(s.annotations, s.name))
+      case s: ClassTree   => File(s.name)
       case _ => PackageObject
     }
-
 }

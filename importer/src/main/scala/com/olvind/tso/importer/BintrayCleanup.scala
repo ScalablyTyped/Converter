@@ -19,35 +19,37 @@ object BintrayCleanup extends App {
 
   private val user     = values("user")
   private val password = values("password")
-  private val repoName = config.projectName
 
   private lazy val client = Client(user, password)
-  private lazy val repo   = client.repo(user, repoName)
 
   val deleted = AtomicLong(0)
 
-  def deleteFrom(pos: Int): Unit =
-    repo.packages(pos)().foreach { packages =>
-      packages.foreach {
-        case PackageSummary(name, _) =>
-          if (!name.startsWith("sbt-")) { // leave old versions of plugin
-            val Pkg = repo.get(name)
-            Pkg().foreach { pkg =>
-              pkg.versions.drop(5).foreach { d =>
-                Pkg.version(d).delete().foreach {
-                  case Message(msg) =>
-                    deleted.increment()
-                    println(s"Deleted $name $d $msg (${deleted.get})")
+  config.flavours.foreach { flavour =>
+    lazy val repo = client.repo(user, flavour.projectName)
+
+    def deleteFrom(pos: Int): Unit =
+      repo.packages(pos)().foreach { packages =>
+        packages.foreach {
+          case PackageSummary(name, _) =>
+            if (!name.startsWith("sbt-")) { // leave old versions of plugin
+              val Pkg = repo.get(name)
+              Pkg().foreach { pkg =>
+                pkg.versions.drop(5).foreach { d =>
+                  Pkg.version(d).delete().foreach {
+                    case Message(msg) =>
+                      deleted.increment()
+                      println(s"Deleted $name $d $msg (${deleted.get})")
+                  }
                 }
               }
             }
-          }
+        }
+
+        if (packages.nonEmpty) {
+          deleteFrom(pos + packages.length)
+        }
       }
 
-      if (packages.nonEmpty) {
-        deleteFrom(pos + packages.length)
-      }
-    }
-
-  deleteFrom(0)
+    deleteFrom(0)
+  }
 }

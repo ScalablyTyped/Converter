@@ -72,7 +72,7 @@ object AugmentModules {
       }
       override def leaveTsDeclModule(t: Unit)(x: TsDeclModule): TsDeclModule = {
         val newMembers = x.members.flatMap {
-          case aux: TsAugmentedModule if toRemove(aux.codePath) => DeriveCopy.downgrade(aux)
+          case aux: TsAugmentedModule if toRemove(aux.codePath) => KeepTypesOnly(aux)
           case other => Some(other)
         }
         x.copy(members = newMembers)
