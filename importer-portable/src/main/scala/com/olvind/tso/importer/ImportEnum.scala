@@ -22,7 +22,7 @@ object ImportEnum {
       anns:       Seq[ClassAnnotation],
       scope:      TsTreeScope,
       importName: ImportName,
-      importType: ImportType
+      importType: ImportType,
   ): Seq[Tree] =
     e match {
       /* exported const enum? type alias */

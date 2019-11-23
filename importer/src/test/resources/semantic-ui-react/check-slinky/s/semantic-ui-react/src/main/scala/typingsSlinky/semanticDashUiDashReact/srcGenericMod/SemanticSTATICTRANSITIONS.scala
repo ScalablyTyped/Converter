@@ -5,13 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.jiggle
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.flash
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.shake
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.pulse
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.tada
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.bounce
-  - typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.glow
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.jiggle
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.flash
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.shake
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.pulse
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tada
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.bounce
+  - typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.glow
 */
 trait SemanticSTATICTRANSITIONS extends js.Object
 

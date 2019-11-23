@@ -16,11 +16,11 @@ object Params {
 class Params(cleanIllegalNames: CleanIllegalNames) {
 
   def forClassTree(
-                    cls:           ClassTree,
-                    _scope:        TreeScope,
-                    memberToParam: MemberToParam,
-                    maxNum:        Int,
-                  ): Seq[Param] =
+      cls:           ClassTree,
+      _scope:        TreeScope,
+      memberToParam: MemberToParam,
+      maxNum:        Int,
+  ): Seq[Param] =
     forClassTree(cls, _scope, maxNum).flatMap {
       case Left(param)   => Some(param)
       case Right(member) => memberToParam(_scope / cls, member)
@@ -48,7 +48,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
     val (treatAsUnresolved, keptDirectParents) =
       parents.directParents.partitionCollect {
         case ParentsResolver.Parent(ref +: _)
-          if ref.typeName === QualifiedName.StringDictionary || ref.typeName === QualifiedName.NumberDictionary =>
+            if ref.typeName === QualifiedName.StringDictionary || ref.typeName === QualifiedName.NumberDictionary =>
           ref
       }
 
@@ -99,14 +99,14 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
   }
 
   private case class Builder(
-                              directParents: Map[ParentsResolver.Parent, Map[Name, Either[Param, MemberTree]]],
-                              unresolved:    Seq[TypeRef],
-                              own:           SortedMap[Name, Either[Param, MemberTree]],
-                            ) {
+      directParents: Map[ParentsResolver.Parent, Map[Name, Either[Param, MemberTree]]],
+      unresolved:    Seq[TypeRef],
+      own:           SortedMap[Name, Either[Param, MemberTree]],
+  ) {
 
     def skipParentInlineIfMoreMembersThan(
-                                           maxNum: Int,
-                                         )(f:        ParentsResolver.Parent => (Name, Either[Param, MemberTree])): Builder = {
+        maxNum: Int,
+    )(f:        ParentsResolver.Parent => (Name, Either[Param, MemberTree])): Builder = {
       val numParentMembers = directParents.foldLeft(0)((acc, p) => acc + p._2.size)
       if (own.size + numParentMembers + unresolved.length > maxNum) {
 
