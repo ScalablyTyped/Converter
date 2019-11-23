@@ -44,7 +44,7 @@ object Rating {
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (maxRating != null) __obj.updateDynamic("maxRating")(maxRating.asInstanceOf[js.Any])
-        if (onRate != null) __obj.updateDynamic("onRate")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingMod.RatingProps) => onRate(t0, t1).runNow())))
+    if (onRate != null) __obj.updateDynamic("onRate")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesRatingRatingMod.RatingProps) => onRate(t0, t1).runNow())))
     if (rating != null) __obj.updateDynamic("rating")(rating.asInstanceOf[js.Any])
     if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
   

@@ -54,7 +54,7 @@ object Header {
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
     if (className != null) __obj.updateDynamic("className")(className)
     if (color != null) __obj.updateDynamic("color")(color)
-        if (content != null) __obj.updateDynamic("content")(content.rawNode.asInstanceOf[js.Any])
+    if (content != null) __obj.updateDynamic("content")(content.rawNode.asInstanceOf[js.Any])
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
     if (!js.isUndefined(dividing)) __obj.updateDynamic("dividing")(dividing)
     if (floated != null) __obj.updateDynamic("floated")(floated)

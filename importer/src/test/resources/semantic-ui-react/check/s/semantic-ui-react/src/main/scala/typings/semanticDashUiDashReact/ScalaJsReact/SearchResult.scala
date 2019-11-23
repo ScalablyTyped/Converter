@@ -37,9 +37,9 @@ object SearchResult {
     if (description != null) __obj.updateDynamic("description")(description)
     if (id != null) __obj.updateDynamic("id")(id.asInstanceOf[js.Any])
     if (image != null) __obj.updateDynamic("image")(image)
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => onClick(t0, t1).runNow())))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => onClick(t0, t1).runNow())))
     if (price != null) __obj.updateDynamic("price")(price)
-        if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => renderer(t0).runNow())))
+    if (renderer != null) __obj.updateDynamic("renderer")(js.Any.fromFunction1(((t0: /* props */ typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps) => renderer(t0).runNow())))
   
     val f = japgolly.scalajs.react.JsForwardRefComponent[
   typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps, 

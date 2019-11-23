@@ -51,7 +51,7 @@ object ListItem {
     if (header != null) __obj.updateDynamic("header")(header.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (image != null) __obj.updateDynamic("image")(image.asInstanceOf[js.Any])
-        if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps) => onClick(t0, t1).runNow())))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLAnchorElement], t1: /* data */ typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps) => onClick(t0, t1).runNow())))
     if (value != null) __obj.updateDynamic("value")(value)
   
     val f = japgolly.scalajs.react.JsComponent[
