@@ -24,11 +24,11 @@ object Event {
     metaKey: js.UndefOr[Boolean] = js.undefined,
     shiftKey: js.UndefOr[Boolean] = js.undefined
   ): Event = {
-    val __obj = js.Dynamic.literal(preventDefault = js.Any.fromFunction0(preventDefault), returnValue = returnValue)
-    if (!js.isUndefined(altKey)) __obj.updateDynamic("altKey")(altKey)
-    if (!js.isUndefined(ctrlKey)) __obj.updateDynamic("ctrlKey")(ctrlKey)
-    if (!js.isUndefined(metaKey)) __obj.updateDynamic("metaKey")(metaKey)
-    if (!js.isUndefined(shiftKey)) __obj.updateDynamic("shiftKey")(shiftKey)
+    val __obj = js.Dynamic.literal(preventDefault = js.Any.fromFunction0(preventDefault), returnValue = returnValue.asInstanceOf[js.Any])
+    if (!js.isUndefined(altKey)) __obj.updateDynamic("altKey")(altKey.asInstanceOf[js.Any])
+    if (!js.isUndefined(ctrlKey)) __obj.updateDynamic("ctrlKey")(ctrlKey.asInstanceOf[js.Any])
+    if (!js.isUndefined(metaKey)) __obj.updateDynamic("metaKey")(metaKey.asInstanceOf[js.Any])
+    if (!js.isUndefined(shiftKey)) __obj.updateDynamic("shiftKey")(shiftKey.asInstanceOf[js.Any])
     __obj.asInstanceOf[Event]
   }
 }

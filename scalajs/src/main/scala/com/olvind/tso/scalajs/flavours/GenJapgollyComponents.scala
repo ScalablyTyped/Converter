@@ -116,25 +116,6 @@ object GenJapgollyComponents {
     }
   }
 
-  object classDefs {
-    import japgolly._
-
-    /* This to make OptionalCast work for Ref, which is a type reference to a union type and must be casted */
-    val Ref = TypeAliasTree(
-      rawReactRef.parts.last,
-      Nil,
-      TypeRef.Union(
-        List(
-          TypeRef(rawReactRefFn, List(TypeRef(rawReactElementRef)), NoComments),
-          TypeRef(rawReactRefHandle, List(TypeRef.Any), NoComments),
-        ),
-        sort = false,
-      ),
-      NoComments,
-      rawReactRef,
-    )
-  }
-
   val TypeRewriter = TypeRewriterCast(japgolly.conversions)
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {

@@ -17,9 +17,9 @@ object BottomNavigationItem {
   )(
     children: Double
   ): UnmountedWithRoot[BottomNavigationItemProps, default, Unit, BottomNavigationItemProps] = {
-    val __obj = js.Dynamic.literal(children = children)
+    val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
   
-      if (className != null) __obj.updateDynamic("className")(className)
+      if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   

@@ -17,7 +17,7 @@ trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement] 
 object ReactSVGElement {
   @scala.inline
   def apply(props: js.Any, ref: Ref[SVGElement], `type`: animate | circle | clipPath, key: Key = null): ReactSVGElement = {
-    val __obj = js.Dynamic.literal(props = props, ref = ref.asInstanceOf[js.Any])
+    val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactSVGElement]

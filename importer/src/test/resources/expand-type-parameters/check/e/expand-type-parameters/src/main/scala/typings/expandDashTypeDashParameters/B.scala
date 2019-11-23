@@ -11,7 +11,7 @@ trait B extends TA {
 object B {
   @scala.inline
   def apply(b: String): B = {
-    val __obj = js.Dynamic.literal(b = b)
+    val __obj = js.Dynamic.literal(b = b.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[B]
   }

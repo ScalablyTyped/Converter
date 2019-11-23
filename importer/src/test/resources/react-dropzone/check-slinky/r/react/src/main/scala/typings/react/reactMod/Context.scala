@@ -18,8 +18,8 @@ object Context {
     Provider: ReactComponentClass[ProviderProps[T]],
     displayName: String = null
   ): Context[T] = {
-    val __obj = js.Dynamic.literal(Consumer = Consumer, Provider = Provider)
-    if (displayName != null) __obj.updateDynamic("displayName")(displayName)
+    val __obj = js.Dynamic.literal(Consumer = Consumer.asInstanceOf[js.Any], Provider = Provider.asInstanceOf[js.Any])
+    if (displayName != null) __obj.updateDynamic("displayName")(displayName.asInstanceOf[js.Any])
     __obj.asInstanceOf[Context[T]]
   }
 }

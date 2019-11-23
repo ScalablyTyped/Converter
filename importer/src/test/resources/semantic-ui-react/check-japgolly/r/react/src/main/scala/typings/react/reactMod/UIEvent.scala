@@ -35,13 +35,13 @@ object UIEvent {
     `type`: String,
     view: AbstractView
   ): UIEvent[T] = {
-    val __obj = js.Dynamic.literal(bubbles = bubbles, cancelable = cancelable, currentTarget = currentTarget, defaultPrevented = defaultPrevented, detail = detail, eventPhase = eventPhase, isTrusted = isTrusted, nativeEvent = nativeEvent, target = target, timeStamp = timeStamp, view = view)
+    val __obj = js.Dynamic.literal(bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], detail = detail.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any], view = view.asInstanceOf[js.Any])
     __obj.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
     __obj.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
     __obj.updateDynamic("persist")(persist.toJsFn)
     __obj.updateDynamic("preventDefault")(preventDefault.toJsFn)
     __obj.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
-    __obj.updateDynamic("type")(`type`)
+    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[UIEvent[T]]
   }
 }

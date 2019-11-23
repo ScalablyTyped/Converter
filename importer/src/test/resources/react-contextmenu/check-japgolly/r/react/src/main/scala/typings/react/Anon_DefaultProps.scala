@@ -15,7 +15,7 @@ object Anon_DefaultProps {
     defaultProps: /* import warning: ImportType.apply Failed type conversion: infer D */ js.Any,
     propTypes: /* import warning: ImportType.apply Failed type conversion: infer T */ js.Any
   ): Anon_DefaultProps = {
-    val __obj = js.Dynamic.literal(defaultProps = defaultProps, propTypes = propTypes)
+    val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any], propTypes = propTypes.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[Anon_DefaultProps]
   }

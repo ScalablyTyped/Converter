@@ -18,7 +18,7 @@ object Anon_Global {
     global: ChartOptions with ChartFontOptions,
     StringDictionary: /* key */ StringDictionary[js.Any] = null
   ): Anon_Global = {
-    val __obj = js.Dynamic.literal(global = global)
+    val __obj = js.Dynamic.literal(global = global.asInstanceOf[js.Any])
     if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     __obj.asInstanceOf[Anon_Global]
   }

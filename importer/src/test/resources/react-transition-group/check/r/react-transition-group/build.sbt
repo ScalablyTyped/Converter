@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "react-transition-group"
-version := "2.0-51bd7e"
+version := "2.0-77ef80"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-49d694",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-3cd64c",
   "org.scalablytyped" %%% "std" % "0.0-unknown-06df7e")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

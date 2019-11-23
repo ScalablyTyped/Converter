@@ -16,8 +16,8 @@ trait RadioProps extends js.Object {
 object RadioProps {
   @scala.inline
   def apply(name: String, `type`: radio, onChange: /* value */ js.Any => Callback = null): RadioProps = {
-    val __obj = js.Dynamic.literal(name = name)
-    __obj.updateDynamic("type")(`type`)
+    val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
+    __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1((t0: /* value */ js.Any) => onChange(t0).runNow()))
     __obj.asInstanceOf[RadioProps]
   }

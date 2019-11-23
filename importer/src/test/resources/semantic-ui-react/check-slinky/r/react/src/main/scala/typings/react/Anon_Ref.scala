@@ -12,7 +12,7 @@ object Anon_Ref {
   @scala.inline
   def apply(ref: /* import warning: ImportType.apply Failed type conversion: infer R */ js.Any = null): Anon_Ref = {
     val __obj = js.Dynamic.literal()
-    if (ref != null) __obj.updateDynamic("ref")(ref)
+    if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
     __obj.asInstanceOf[Anon_Ref]
   }
 }

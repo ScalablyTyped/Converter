@@ -19,7 +19,7 @@ object ProfilerProps {
     onRender: (/* id */ String, /* phase */ mount | update, /* actualDuration */ Double, /* baseDuration */ Double, /* startTime */ Double, /* commitTime */ Double, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => Unit,
     children: ReactNode = null
   ): ProfilerProps = {
-    val __obj = js.Dynamic.literal(id = id, onRender = js.Any.fromFunction7(onRender))
+    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any], onRender = js.Any.fromFunction7(onRender))
     if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
     __obj.asInstanceOf[ProfilerProps]
   }

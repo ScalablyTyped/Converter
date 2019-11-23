@@ -25,10 +25,10 @@ object ContextMenuTriggerProps {
     holdToDisplay: Int | Double = null,
     renderTag: ReactType[_] = null
   ): ContextMenuTriggerProps = {
-    val __obj = js.Dynamic.literal(id = id)
-    if (attributes != null) __obj.updateDynamic("attributes")(attributes)
+    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
+    if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
     if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
-    if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable)
+    if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable.asInstanceOf[js.Any])
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     __obj.asInstanceOf[ContextMenuTriggerProps]

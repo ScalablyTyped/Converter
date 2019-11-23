@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "react-bootstrap"
-version := "0.32-fc1556"
+version := "0.32-ada11c"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-ee48ea",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-92d6ca",
   "org.scalablytyped" %%% "std" % "0.0-unknown-f35b5d")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
