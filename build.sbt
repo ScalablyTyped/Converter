@@ -72,17 +72,17 @@ val pluginSettings: Project => Project =
       watchSources ++= { (sourceDirectory.value ** "*").get },
     )
 
-val `sbt-tso` = project
+val `sbt-scalablytypedconverter` = project
   .configure(pluginSettings, baseSettings)
   .settings(
-    name := "sbt-tso",
+    name := "sbt-scalablytypedconverter",
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6"),
   )
 
-val `sbt-tso1` = project
+val `sbt-scalablytypedconverter1` = project
   .configure(pluginSettings, baseSettings)
   .settings(
-    name := "sbt-tso1",
-    Compile / unmanagedSourceDirectories += (`sbt-tso` / Compile / sourceDirectory).value,
+    name := "sbt-scalablytypedconverter1",
+    Compile / unmanagedSourceDirectories += (`sbt-scalablytypedconverter` / Compile / sourceDirectory).value,
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0"),
   )
