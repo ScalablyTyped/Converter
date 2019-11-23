@@ -194,7 +194,8 @@ class Main(config: Config) {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(config.pedantic, config.flavour), "scala.js")
+        .next(new Phase2ToScalaJs(config.pedantic, config.flavour.outputPkg), "scala.js")
+        .next(new PhaseFlavour(config.flavour), config.flavour.toString)
         .next(
           new Phase3Compile(
             resolve         = resolve,

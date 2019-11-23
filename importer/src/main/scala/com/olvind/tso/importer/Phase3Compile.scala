@@ -139,16 +139,7 @@ class Phase3Compile(
               outputPkg     = flavour.outputPkg,
             )
 
-            /** We must do this as late as this.
-              *  Dependent libraries need to resolve all their types in complete typescript-land,
-              *  and only before we compile do we do the rewrites. */
-            val withRewrittenTypes =
-              flavour.conversions match {
-                case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(lib.packageTree)
-                case _                 => lib.packageTree
-              }
-
-            val scalaFiles    = Printer(scope, withRewrittenTypes)
+            val scalaFiles    = Printer(scope, lib.packageTree)
             val sourcesDir    = os.RelPath("src") / 'main / 'scala
             val resourcesDir  = os.RelPath("src") / 'main / 'resources
             val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten

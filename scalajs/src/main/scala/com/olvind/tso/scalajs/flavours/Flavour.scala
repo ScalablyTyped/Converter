@@ -2,6 +2,7 @@ package com.olvind.tso
 package scalajs
 package flavours
 
+import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
 import com.olvind.tso.scalajs.transforms.{Adapter, CleanIllegalNames}
 
 object Flavour {
@@ -22,11 +23,27 @@ object Flavour {
       scope.libName === react || scope.root.dependencies.contains(react)
     }
 
-    final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree =
-      if (involvesReact(scope)) {
-        val components: Seq[Component] = identifyComponents.oneOfEach(scope / tree, tree)
-        Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(tree)
-      } else tree
+    final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
+      val withCompanions =
+        memberToParamOpt match {
+          case Some(m2p) =>
+            val gen = new GenCompanions(m2p, params)
+            gen.visitPackageTree(scope)(tree)
+          case None => tree
+        }
+
+      val withComponents =
+        if (involvesReact(scope)) {
+          val components: Seq[Component] =
+            identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
+          Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(withCompanions)
+        } else tree
+
+      conversions match {
+        case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(withComponents)
+        case _                 => withComponents
+      }
+    }
 
     def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree
   }
