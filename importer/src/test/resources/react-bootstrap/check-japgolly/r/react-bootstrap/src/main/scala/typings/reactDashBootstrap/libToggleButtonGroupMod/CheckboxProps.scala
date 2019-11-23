@@ -14,15 +14,11 @@ trait CheckboxProps extends js.Object {
 
 object CheckboxProps {
   @scala.inline
-  def apply(
-    `type`: checkbox,
-    name: String = null,
-    onChange: js.UndefOr[/* values */ js.Array[_] => Callback] = js.undefined
-  ): CheckboxProps = {
+  def apply(`type`: checkbox, name: String = null, onChange: /* values */ js.Array[_] => Callback = null): CheckboxProps = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`)
     if (name != null) __obj.updateDynamic("name")(name)
-    onChange.foreach(p => __obj.updateDynamic("onChange")(js.Any.fromFunction1(((t0: /* values */ js.Array[_]) => p(t0).runNow()))))
+    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1((t0: /* values */ js.Array[_]) => onChange(t0).runNow()))
     __obj.asInstanceOf[CheckboxProps]
   }
 }

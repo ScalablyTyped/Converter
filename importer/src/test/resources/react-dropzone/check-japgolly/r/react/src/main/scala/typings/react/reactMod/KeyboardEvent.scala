@@ -62,12 +62,12 @@ object KeyboardEvent {
     which: Double
   ): KeyboardEvent[T] = {
     val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, cancelable = cancelable, charCode = charCode, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, isTrusted = isTrusted, key = key, keyCode = keyCode, locale = locale, location = location, metaKey = metaKey, nativeEvent = nativeEvent, repeat = repeat, shiftKey = shiftKey, target = target, timeStamp = timeStamp, which = which)
-    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1(((t0: java.lang.String) => getModifierState(t0).runNow())))
-    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
-    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
-    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
-    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
-    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
+    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1((t0: java.lang.String) => getModifierState(t0).runNow()))
+    __obj.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
+    __obj.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
+    __obj.updateDynamic("persist")(persist.toJsFn)
+    __obj.updateDynamic("preventDefault")(preventDefault.toJsFn)
+    __obj.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[KeyboardEvent[T]]
   }

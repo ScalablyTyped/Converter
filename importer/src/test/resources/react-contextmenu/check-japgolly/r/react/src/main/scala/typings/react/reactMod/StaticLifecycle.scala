@@ -15,12 +15,12 @@ trait StaticLifecycle[P, S] extends js.Object {
 object StaticLifecycle {
   @scala.inline
   def apply[P, S](
-    getDerivedStateFromError: js.UndefOr[/* error */ js.Any => CallbackTo[Partial[S] | Null]] = js.undefined,
-    getDerivedStateFromProps: js.UndefOr[(P, S) => CallbackTo[Partial[S] | Null]] = js.undefined
+    getDerivedStateFromError: /* error */ js.Any => CallbackTo[Partial[S] | Null] = null,
+    getDerivedStateFromProps: (P, S) => CallbackTo[Partial[S] | Null] = null
   ): StaticLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    getDerivedStateFromError.foreach(p => __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(((t0: /* error */ js.Any) => p(t0).runNow()))))
-    getDerivedStateFromProps.foreach(p => __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(((t0: P, t1: S) => p(t0, t1).runNow()))))
+    if (getDerivedStateFromError != null) __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1((t0: /* error */ js.Any) => getDerivedStateFromError(t0).runNow()))
+    if (getDerivedStateFromProps != null) __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2((t0: P, t1: S) => getDerivedStateFromProps(t0, t1).runNow()))
     __obj.asInstanceOf[StaticLifecycle[P, S]]
   }
 }

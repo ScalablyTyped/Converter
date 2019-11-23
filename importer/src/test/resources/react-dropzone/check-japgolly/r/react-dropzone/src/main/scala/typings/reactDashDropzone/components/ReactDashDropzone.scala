@@ -20,11 +20,9 @@ object ReactDashDropzone {
   def apply(
     accept: String | js.Array[String] = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
-    getFilesFromEvent: js.UndefOr[
-      /* event */ DropEvent => CallbackTo[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
-      ]
-    ] = js.undefined,
+    getFilesFromEvent: /* event */ DropEvent => CallbackTo[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+    ] = null,
     maxSize: Int | Double = null,
     minSize: Int | Double = null,
     multiple: js.UndefOr[Boolean] = js.undefined,
@@ -32,32 +30,26 @@ object ReactDashDropzone {
     noDrag: js.UndefOr[Boolean] = js.undefined,
     noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
     noKeyboard: js.UndefOr[Boolean] = js.undefined,
-    onDragEnter: js.UndefOr[ReactDragEventFrom[HTMLElement] => Callback] = js.undefined,
-    onDragLeave: js.UndefOr[ReactDragEventFrom[HTMLElement] => Callback] = js.undefined,
-    onDragOver: js.UndefOr[ReactDragEventFrom[HTMLElement] => Callback] = js.undefined,
-    onDrop: js.UndefOr[
-      (/* acceptedFiles */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
-      ], /* rejectedFiles */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
-      ], /* event */ DropEvent) => Callback
-    ] = js.undefined,
-    onDropAccepted: js.UndefOr[
-      (/* files */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
-      ], /* event */ DropEvent) => Callback
-    ] = js.undefined,
-    onDropRejected: js.UndefOr[
-      (/* files */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
-      ], /* event */ DropEvent) => Callback
-    ] = js.undefined,
+    onDragEnter: ReactDragEventFrom[HTMLElement] => Callback = null,
+    onDragLeave: ReactDragEventFrom[HTMLElement] => Callback = null,
+    onDragOver: ReactDragEventFrom[HTMLElement] => Callback = null,
+    onDrop: (/* acceptedFiles */ js.Array[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+    ], /* rejectedFiles */ js.Array[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+    ], /* event */ DropEvent) => Callback = null,
+    onDropAccepted: (/* files */ js.Array[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+    ], /* event */ DropEvent) => Callback = null,
+    onDropRejected: (/* files */ js.Array[
+      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+    ], /* event */ DropEvent) => Callback = null,
     onFileDialogCancel: js.UndefOr[Callback] = js.undefined,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   )(
-    children: js.UndefOr[/* state */ DropzoneState => CallbackTo[Element]] = js.undefined
+    children: /* state */ DropzoneState => CallbackTo[Element] = null
   ): UnmountedWithRoot[
     DropzonePropsRefAttributesDropzoneRef, 
     Ref, 
@@ -66,10 +58,10 @@ object ReactDashDropzone {
   ] = {
     val __obj = js.Dynamic.literal()
   
-      children.foreach(p => __obj.updateDynamic("children")(js.Any.fromFunction1(((t0: /* state */ typings.reactDashDropzone.reactDashDropzoneMod.DropzoneState) => p(t0).runNow()))))
+      if (children != null) __obj.updateDynamic("children")(js.Any.fromFunction1((t0: /* state */ typings.reactDashDropzone.reactDashDropzoneMod.DropzoneState) => children(t0).runNow()))
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled)
-    getFilesFromEvent.foreach(p => __obj.updateDynamic("getFilesFromEvent")(js.Any.fromFunction1(((t0: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0).runNow()))))
+    if (getFilesFromEvent != null) __obj.updateDynamic("getFilesFromEvent")(js.Any.fromFunction1((t0: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => getFilesFromEvent(t0).runNow()))
     if (maxSize != null) __obj.updateDynamic("maxSize")(maxSize.asInstanceOf[js.Any])
     if (minSize != null) __obj.updateDynamic("minSize")(minSize.asInstanceOf[js.Any])
     if (!js.isUndefined(multiple)) __obj.updateDynamic("multiple")(multiple)
@@ -77,17 +69,17 @@ object ReactDashDropzone {
     if (!js.isUndefined(noDrag)) __obj.updateDynamic("noDrag")(noDrag)
     if (!js.isUndefined(noDragEventsBubbling)) __obj.updateDynamic("noDragEventsBubbling")(noDragEventsBubbling)
     if (!js.isUndefined(noKeyboard)) __obj.updateDynamic("noKeyboard")(noKeyboard)
-    onDragEnter.foreach(p => __obj.updateDynamic("onDragEnter")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => p(t0).runNow()))))
-    onDragLeave.foreach(p => __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => p(t0).runNow()))))
-    onDragOver.foreach(p => __obj.updateDynamic("onDragOver")(js.Any.fromFunction1(((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => p(t0).runNow()))))
-    onDrop.foreach(p => __obj.updateDynamic("onDrop")(js.Any.fromFunction3(((t0: /* acceptedFiles */ js.Array[
+    if (onDragEnter != null) __obj.updateDynamic("onDragEnter")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => onDragEnter(t0).runNow()))
+    if (onDragLeave != null) __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => onDragLeave(t0).runNow()))
+    if (onDragOver != null) __obj.updateDynamic("onDragOver")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement]) => onDragOver(t0).runNow()))
+    if (onDrop != null) __obj.updateDynamic("onDrop")(js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[
   /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* rejectedFiles */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t2: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1, t2).runNow()))))
-    onDropAccepted.foreach(p => __obj.updateDynamic("onDropAccepted")(js.Any.fromFunction2(((t0: /* files */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
-    onDropRejected.foreach(p => __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(((t0: /* files */ js.Array[
-  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => p(t0, t1).runNow()))))
-    onFileDialogCancel.foreach(p => __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0((() => p.runNow()))))
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t2: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => onDrop(t0, t1, t2).runNow()))
+    if (onDropAccepted != null) __obj.updateDynamic("onDropAccepted")(js.Any.fromFunction2((t0: /* files */ js.Array[
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => onDropAccepted(t0, t1).runNow()))
+    if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2((t0: /* files */ js.Array[
+  /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _], t1: /* event */ typings.reactDashDropzone.reactDashDropzoneMod.DropEvent) => onDropRejected(t0, t1).runNow()))
+    onFileDialogCancel.foreach(p => __obj.updateDynamic("onFileDialogCancel")(p.toJsFn))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)

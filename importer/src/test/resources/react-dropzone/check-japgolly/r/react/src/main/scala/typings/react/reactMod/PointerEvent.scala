@@ -67,12 +67,12 @@ object PointerEvent {
     width: Double
   ): PointerEvent[T] = {
     val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, button = button, buttons = buttons, cancelable = cancelable, clientX = clientX, clientY = clientY, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, height = height, isPrimary = isPrimary, isTrusted = isTrusted, metaKey = metaKey, movementX = movementX, movementY = movementY, nativeEvent = nativeEvent, pageX = pageX, pageY = pageY, pointerId = pointerId, pointerType = pointerType.asInstanceOf[js.Any], pressure = pressure, relatedTarget = relatedTarget, screenX = screenX, screenY = screenY, shiftKey = shiftKey, target = target, tiltX = tiltX, tiltY = tiltY, timeStamp = timeStamp, width = width)
-    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1(((t0: java.lang.String) => getModifierState(t0).runNow())))
-    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
-    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
-    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
-    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
-    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
+    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1((t0: java.lang.String) => getModifierState(t0).runNow()))
+    __obj.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
+    __obj.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
+    __obj.updateDynamic("persist")(persist.toJsFn)
+    __obj.updateDynamic("preventDefault")(preventDefault.toJsFn)
+    __obj.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[PointerEvent[T]]
   }

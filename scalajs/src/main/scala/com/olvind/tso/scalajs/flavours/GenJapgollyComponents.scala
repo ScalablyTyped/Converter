@@ -67,6 +67,16 @@ object GenJapgollyComponents {
 
     val scalaJsDomRaw = QualifiedName("org.scalajs.dom.raw")
 
+    /**
+      - If the method return value is Unit, then convert it to Callback
+      - If the method return value is TYPE, then convert it to Callback[Type]
+      */
+    def CallbackTo(ref: TypeRef): TypeRef =
+      ref match {
+        case TypeRef.Unit => TypeRef(japgolly.reactCallback)
+        case other        => TypeRef(japgolly.reactCallbackTo, List(other), NoComments)
+      }
+
     val conversions: Seq[CastConversion] = {
       import CastConversion.TParam._
       val _1Element = _1.among(CastConversion.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
@@ -154,56 +164,41 @@ object GenJapgollyComponents {
       .Default(scope, TypeRewriter.visitMemberTree(scope)(x))
       .map(p => p.copy(parameter = TypeRewriter.visitParamTree(scope)(p.parameter)))
       .map {
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, _), _, _), _, _) =>
-          // rewrite functions returning a Callback so that javascript land can call them
-          // this is more complicated than you think:
-          // - There's no point in wrapping into () => Callback, just wrap into Callback (same with CallbackTo)
-          // - If the member is optional, you have to wrap it into a js.UndefOr, Callback is AnyVal, so it's not nullable
-          // - If the method return value is Unit, then convert it to Callback
-          // - If the method return value is TYPE, then convert it to Callback[Type]
+        /* rewrite functions returning a Callback so that javascript land can call them */
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), Some(_), _), _, _) =>
+          /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
+          p.copy(
+            parameter = pt.copy(tpe = TypeRef.UndefOr(japgolly.CallbackTo(retType)), default = Some(TypeRef.undefined)),
+            asString =
+              Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))"""),
+          )
 
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), None, _), _, _) =>
+          p.copy(
+            parameter = pt.copy(tpe = japgolly.CallbackTo(retType)),
+            asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
+          )
+
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, retType), defaultValue, _), _, _) =>
           def fn(obj: String) = {
             val params =
               paramTypes.zipWithIndex
                 .map { case (tpe, idx) => s"t$idx: ${Printer.formatTypeRef(0)(tpe)}" }
                 .mkString(", ")
             val paramRefs = paramTypes.zipWithIndex.map { case (_, idx) => s"t$idx" }.mkString(", ")
+            val rewrittenFn =
+              s"js.Any.fromFunction${paramTypes.length}(($params) => ${name.value}($paramRefs).runNow())"
 
-            pt.default.fold(
-              s"""$obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${paramTypes.length}((($params) => ${name.unescaped}${if (paramRefs.isEmpty)
-                ""
-              else s"($paramRefs)"}.runNow())))""",
-            )(
-              _ =>
-                s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(js.Any.fromFunction${paramTypes.length}((($params) => p${if (paramRefs.isEmpty)
-                  ""
-                else s"($paramRefs)"}.runNow()))))""",
-            )
+            defaultValue match {
+              case Some(_) => s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
+              case None    => s"""$obj.updateDynamic("${name.unescaped}")($rewrittenFn)"""
+            }
           }
 
-          val retType = pt.tpe.targs.lastOption match {
-            case Some(x) if x.name.unescaped.equals("Unit") => TypeRef(japgolly.reactCallback)
-            case Some(x)                                    => TypeRef(japgolly.reactCallbackTo, List(x), NoComments)
-            case None                                       => TypeRef(japgolly.reactCallback)
-          }
-
-          val newParam = paramTypes match {
-            case Nil =>
-              pt.default.fold(pt.copy(tpe = retType))(
-                _ => pt.copy(tpe = TypeRef.UndefOr(retType), default = Some(TypeRef.undefined)),
-              )
-            case _ =>
-              pt.default.fold(pt.copy(tpe = TypeRef.ScalaFunction(paramTypes, retType, NoComments)))(
-                _ =>
-                  pt.copy(
-                    tpe     = TypeRef.UndefOr(TypeRef.ScalaFunction(paramTypes, retType, NoComments)),
-                    default = Some(TypeRef.undefined),
-                  ),
-              )
-          }
+          val newRetType = TypeRef.ScalaFunction(paramTypes, japgolly.CallbackTo(retType), NoComments)
 
           p.copy(
-            parameter = newParam,
+            parameter = pt.copy(tpe = newRetType, default = defaultValue.map(_ => TypeRef.`null`)),
             asString  = Right(fn),
           )
 

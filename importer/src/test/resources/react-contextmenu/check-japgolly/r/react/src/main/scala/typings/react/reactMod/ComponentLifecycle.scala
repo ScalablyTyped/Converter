@@ -54,35 +54,31 @@ object ComponentLifecycle {
   @scala.inline
   def apply[P, S, SS](
     UNSAFE_componentWillMount: js.UndefOr[Callback] = js.undefined,
-    UNSAFE_componentWillReceiveProps: js.UndefOr[(P, /* nextContext */ js.Any) => Callback] = js.undefined,
-    UNSAFE_componentWillUpdate: js.UndefOr[(P, S, /* nextContext */ js.Any) => Callback] = js.undefined,
-    componentDidCatch: js.UndefOr[
-      (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback
-    ] = js.undefined,
+    UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
+    UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
+    componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback = null,
     componentDidMount: js.UndefOr[Callback] = js.undefined,
-    componentDidUpdate: js.UndefOr[(P, S, /* snapshot */ js.UndefOr[SS]) => Callback] = js.undefined,
+    componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[SS]) => Callback = null,
     componentWillMount: js.UndefOr[Callback] = js.undefined,
-    componentWillReceiveProps: js.UndefOr[(P, /* nextContext */ js.Any) => Callback] = js.undefined,
+    componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
     componentWillUnmount: js.UndefOr[Callback] = js.undefined,
-    componentWillUpdate: js.UndefOr[(P, S, /* nextContext */ js.Any) => Callback] = js.undefined,
-    getSnapshotBeforeUpdate: js.UndefOr[(P, S) => CallbackTo[SS | Null]] = js.undefined,
-    shouldComponentUpdate: js.UndefOr[
-      (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => CallbackTo[Boolean]
-    ] = js.undefined
+    componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
+    getSnapshotBeforeUpdate: (P, S) => CallbackTo[SS | Null] = null,
+    shouldComponentUpdate: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => CallbackTo[Boolean] = null
   ): ComponentLifecycle[P, S, SS] = {
     val __obj = js.Dynamic.literal()
-    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0((() => p.runNow()))))
-    UNSAFE_componentWillReceiveProps.foreach(p => __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2(((t0: P, t1: /* nextContext */ js.Any) => p(t0, t1).runNow()))))
-    UNSAFE_componentWillUpdate.foreach(p => __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
-    componentDidCatch.foreach(p => __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2(((t0: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ typings.react.reactMod.ErrorInfo) => p(t0, t1).runNow()))))
-    componentDidMount.foreach(p => __obj.updateDynamic("componentDidMount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentDidUpdate.foreach(p => __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* snapshot */ js.UndefOr[SS]) => p(t0, t1, t2).runNow()))))
-    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentWillReceiveProps.foreach(p => __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2(((t0: P, t1: /* nextContext */ js.Any) => p(t0, t1).runNow()))))
-    componentWillUnmount.foreach(p => __obj.updateDynamic("componentWillUnmount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentWillUpdate.foreach(p => __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
-    getSnapshotBeforeUpdate.foreach(p => __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(((t0: P, t1: S) => p(t0, t1).runNow()))))
-    shouldComponentUpdate.foreach(p => __obj.updateDynamic("shouldComponentUpdate")(js.Any.fromFunction3(((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
+    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(p.toJsFn))
+    if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => UNSAFE_componentWillReceiveProps(t0, t1).runNow()))
+    if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => UNSAFE_componentWillUpdate(t0, t1, t2).runNow()))
+    if (componentDidCatch != null) __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2((t0: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ typings.react.reactMod.ErrorInfo) => componentDidCatch(t0, t1).runNow()))
+    componentDidMount.foreach(p => __obj.updateDynamic("componentDidMount")(p.toJsFn))
+    if (componentDidUpdate != null) __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* snapshot */ js.UndefOr[SS]) => componentDidUpdate(t0, t1, t2).runNow()))
+    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(p.toJsFn))
+    if (componentWillReceiveProps != null) __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => componentWillReceiveProps(t0, t1).runNow()))
+    componentWillUnmount.foreach(p => __obj.updateDynamic("componentWillUnmount")(p.toJsFn))
+    if (componentWillUpdate != null) __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => componentWillUpdate(t0, t1, t2).runNow()))
+    if (getSnapshotBeforeUpdate != null) __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2((t0: P, t1: S) => getSnapshotBeforeUpdate(t0, t1).runNow()))
+    if (shouldComponentUpdate != null) __obj.updateDynamic("shouldComponentUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => shouldComponentUpdate(t0, t1, t2).runNow()))
     __obj.asInstanceOf[ComponentLifecycle[P, S, SS]]
   }
 }

@@ -23,48 +23,46 @@ object Mixin {
   @scala.inline
   def apply[P, S](
     UNSAFE_componentWillMount: js.UndefOr[Callback] = js.undefined,
-    UNSAFE_componentWillReceiveProps: js.UndefOr[(P, /* nextContext */ js.Any) => Callback] = js.undefined,
-    UNSAFE_componentWillUpdate: js.UndefOr[(P, S, /* nextContext */ js.Any) => Callback] = js.undefined,
+    UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
+    UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
     childContextTypes: ValidationMap[_] = null,
-    componentDidCatch: js.UndefOr[
-      (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback
-    ] = js.undefined,
+    componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback = null,
     componentDidMount: js.UndefOr[Callback] = js.undefined,
-    componentDidUpdate: js.UndefOr[(P, S, /* snapshot */ js.UndefOr[js.Any]) => Callback] = js.undefined,
+    componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[js.Any]) => Callback = null,
     componentWillMount: js.UndefOr[Callback] = js.undefined,
-    componentWillReceiveProps: js.UndefOr[(P, /* nextContext */ js.Any) => Callback] = js.undefined,
+    componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
     componentWillUnmount: js.UndefOr[Callback] = js.undefined,
-    componentWillUpdate: js.UndefOr[(P, S, /* nextContext */ js.Any) => Callback] = js.undefined,
+    componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
     contextTypes: ValidationMap[_] = null,
     displayName: String = null,
     getDefaultProps: js.UndefOr[CallbackTo[P]] = js.undefined,
     getInitialState: js.UndefOr[CallbackTo[S]] = js.undefined,
-    getSnapshotBeforeUpdate: js.UndefOr[(P, S) => CallbackTo[js.Any | Null]] = js.undefined,
+    getSnapshotBeforeUpdate: (P, S) => CallbackTo[js.Any | Null] = null,
     mixins: js.Array[Mixin[P, S]] = null,
     propTypes: ValidationMap[_] = null,
-    shouldComponentUpdate: js.UndefOr[(P, S, /* nextContext */ js.Any) => CallbackTo[Boolean]] = js.undefined,
+    shouldComponentUpdate: (P, S, /* nextContext */ js.Any) => CallbackTo[Boolean] = null,
     statics: StringDictionary[js.Any] = null
   ): Mixin[P, S] = {
     val __obj = js.Dynamic.literal()
-    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0((() => p.runNow()))))
-    UNSAFE_componentWillReceiveProps.foreach(p => __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2(((t0: P, t1: /* nextContext */ js.Any) => p(t0, t1).runNow()))))
-    UNSAFE_componentWillUpdate.foreach(p => __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
+    UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(p.toJsFn))
+    if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => UNSAFE_componentWillReceiveProps(t0, t1).runNow()))
+    if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => UNSAFE_componentWillUpdate(t0, t1, t2).runNow()))
     if (childContextTypes != null) __obj.updateDynamic("childContextTypes")(childContextTypes)
-    componentDidCatch.foreach(p => __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2(((t0: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ typings.react.reactMod.ErrorInfo) => p(t0, t1).runNow()))))
-    componentDidMount.foreach(p => __obj.updateDynamic("componentDidMount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentDidUpdate.foreach(p => __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* snapshot */ js.UndefOr[js.Any]) => p(t0, t1, t2).runNow()))))
-    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentWillReceiveProps.foreach(p => __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2(((t0: P, t1: /* nextContext */ js.Any) => p(t0, t1).runNow()))))
-    componentWillUnmount.foreach(p => __obj.updateDynamic("componentWillUnmount")(js.Any.fromFunction0((() => p.runNow()))))
-    componentWillUpdate.foreach(p => __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
+    if (componentDidCatch != null) __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2((t0: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ typings.react.reactMod.ErrorInfo) => componentDidCatch(t0, t1).runNow()))
+    componentDidMount.foreach(p => __obj.updateDynamic("componentDidMount")(p.toJsFn))
+    if (componentDidUpdate != null) __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* snapshot */ js.UndefOr[js.Any]) => componentDidUpdate(t0, t1, t2).runNow()))
+    componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(p.toJsFn))
+    if (componentWillReceiveProps != null) __obj.updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => componentWillReceiveProps(t0, t1).runNow()))
+    componentWillUnmount.foreach(p => __obj.updateDynamic("componentWillUnmount")(p.toJsFn))
+    if (componentWillUpdate != null) __obj.updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => componentWillUpdate(t0, t1, t2).runNow()))
     if (contextTypes != null) __obj.updateDynamic("contextTypes")(contextTypes)
     if (displayName != null) __obj.updateDynamic("displayName")(displayName)
-    getDefaultProps.foreach(p => __obj.updateDynamic("getDefaultProps")(js.Any.fromFunction0((() => p.runNow()))))
-    getInitialState.foreach(p => __obj.updateDynamic("getInitialState")(js.Any.fromFunction0((() => p.runNow()))))
-    getSnapshotBeforeUpdate.foreach(p => __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(((t0: P, t1: S) => p(t0, t1).runNow()))))
+    getDefaultProps.foreach(p => __obj.updateDynamic("getDefaultProps")(p.toJsFn))
+    getInitialState.foreach(p => __obj.updateDynamic("getInitialState")(p.toJsFn))
+    if (getSnapshotBeforeUpdate != null) __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2((t0: P, t1: S) => getSnapshotBeforeUpdate(t0, t1).runNow()))
     if (mixins != null) __obj.updateDynamic("mixins")(mixins)
     if (propTypes != null) __obj.updateDynamic("propTypes")(propTypes)
-    shouldComponentUpdate.foreach(p => __obj.updateDynamic("shouldComponentUpdate")(js.Any.fromFunction3(((t0: P, t1: S, t2: /* nextContext */ js.Any) => p(t0, t1, t2).runNow()))))
+    if (shouldComponentUpdate != null) __obj.updateDynamic("shouldComponentUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => shouldComponentUpdate(t0, t1, t2).runNow()))
     if (statics != null) __obj.updateDynamic("statics")(statics)
     __obj.asInstanceOf[Mixin[P, S]]
   }

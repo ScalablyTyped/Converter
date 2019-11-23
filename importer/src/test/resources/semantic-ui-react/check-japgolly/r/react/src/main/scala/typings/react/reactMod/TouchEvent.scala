@@ -51,12 +51,12 @@ object TouchEvent {
     `type`: String
   ): TouchEvent[T] = {
     val __obj = js.Dynamic.literal(altKey = altKey, bubbles = bubbles, cancelable = cancelable, changedTouches = changedTouches, ctrlKey = ctrlKey, currentTarget = currentTarget, defaultPrevented = defaultPrevented, eventPhase = eventPhase, isTrusted = isTrusted, metaKey = metaKey, nativeEvent = nativeEvent, shiftKey = shiftKey, target = target, targetTouches = targetTouches, timeStamp = timeStamp, touches = touches)
-    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1(((t0: java.lang.String) => getModifierState(t0).runNow())))
-    __obj.updateDynamic("isDefaultPrevented")(js.Any.fromFunction0((() => isDefaultPrevented.runNow())))
-    __obj.updateDynamic("isPropagationStopped")(js.Any.fromFunction0((() => isPropagationStopped.runNow())))
-    __obj.updateDynamic("persist")(js.Any.fromFunction0((() => persist.runNow())))
-    __obj.updateDynamic("preventDefault")(js.Any.fromFunction0((() => preventDefault.runNow())))
-    __obj.updateDynamic("stopPropagation")(js.Any.fromFunction0((() => stopPropagation.runNow())))
+    __obj.updateDynamic("getModifierState")(js.Any.fromFunction1((t0: java.lang.String) => getModifierState(t0).runNow()))
+    __obj.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
+    __obj.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
+    __obj.updateDynamic("persist")(persist.toJsFn)
+    __obj.updateDynamic("preventDefault")(preventDefault.toJsFn)
+    __obj.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
     __obj.updateDynamic("type")(`type`)
     __obj.asInstanceOf[TouchEvent[T]]
   }

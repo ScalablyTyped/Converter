@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "react-dropzone"
-version := "10.1.10-1c401a"
+version := "10.1.10-dbca79"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalajs-react" %%% "core" % "1.4.2",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "16.9.2-c68721",
+  "org.scalablytyped" %%% "react" % "16.9.2-13977c",
   "org.scalablytyped" %%% "std" % "0.0-unknown-f92e33")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

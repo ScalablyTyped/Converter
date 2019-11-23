@@ -13,7 +13,7 @@ object DropzoneRef {
   @scala.inline
   def apply(open: Callback): DropzoneRef = {
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("open")(js.Any.fromFunction0((() => open.runNow())))
+    __obj.updateDynamic("open")(open.toJsFn)
     __obj.asInstanceOf[DropzoneRef]
   }
 }

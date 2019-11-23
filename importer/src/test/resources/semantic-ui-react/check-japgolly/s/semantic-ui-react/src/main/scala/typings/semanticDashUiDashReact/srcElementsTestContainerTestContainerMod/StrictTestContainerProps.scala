@@ -57,25 +57,25 @@ object StrictTestContainerProps {
     fluid: js.UndefOr[Boolean] = js.undefined,
     optFn0Number: js.UndefOr[CallbackTo[Double]] = js.undefined,
     optFn0Void: js.UndefOr[Callback] = js.undefined,
-    optFn1Number: js.UndefOr[/* x */ Double => CallbackTo[Double]] = js.undefined,
-    optFn1Void: js.UndefOr[/* x */ Double => Callback] = js.undefined,
+    optFn1Number: /* x */ Double => CallbackTo[Double] = null,
+    optFn1Void: /* x */ Double => Callback = null,
     text: js.UndefOr[Boolean] = js.undefined,
     textAlign: SemanticTEXTALIGNMENTS = null
   ): StrictTestContainerProps = {
     val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("requiredFn0Number")(js.Any.fromFunction0((() => requiredFn0Number.runNow())))
-    __obj.updateDynamic("requiredFn0Void")(js.Any.fromFunction0((() => requiredFn0Void.runNow())))
-    __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1(((t0: scala.Double) => requiredFn1Number(t0).runNow())))
-    __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1(((t0: scala.Double) => requiredFn1Void(t0).runNow())))
+    __obj.updateDynamic("requiredFn0Number")(requiredFn0Number.toJsFn)
+    __obj.updateDynamic("requiredFn0Void")(requiredFn0Void.toJsFn)
+    __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1((t0: scala.Double) => requiredFn1Number(t0).runNow()))
+    __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1((t0: scala.Double) => requiredFn1Void(t0).runNow()))
     if (as != null) __obj.updateDynamic("as")(as)
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className)
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid)
-    optFn0Number.foreach(p => __obj.updateDynamic("optFn0Number")(js.Any.fromFunction0((() => p.runNow()))))
-    optFn0Void.foreach(p => __obj.updateDynamic("optFn0Void")(js.Any.fromFunction0((() => p.runNow()))))
-    optFn1Number.foreach(p => __obj.updateDynamic("optFn1Number")(js.Any.fromFunction1(((t0: /* x */ scala.Double) => p(t0).runNow()))))
-    optFn1Void.foreach(p => __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1(((t0: /* x */ scala.Double) => p(t0).runNow()))))
+    optFn0Number.foreach(p => __obj.updateDynamic("optFn0Number")(p.toJsFn))
+    optFn0Void.foreach(p => __obj.updateDynamic("optFn0Void")(p.toJsFn))
+    if (optFn1Number != null) __obj.updateDynamic("optFn1Number")(js.Any.fromFunction1((t0: /* x */ scala.Double) => optFn1Number(t0).runNow()))
+    if (optFn1Void != null) __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1((t0: /* x */ scala.Double) => optFn1Void(t0).runNow()))
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text)
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign)
     __obj.asInstanceOf[StrictTestContainerProps]

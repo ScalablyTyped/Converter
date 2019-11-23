@@ -23,7 +23,7 @@ object ProfilerProps {
     children: VdomNode = null
   ): ProfilerProps = {
     val __obj = js.Dynamic.literal(id = id)
-    __obj.updateDynamic("onRender")(js.Any.fromFunction7(((t0: /* id */ java.lang.String, t1: /* phase */ typings.react.reactStrings.mount | typings.react.reactStrings.update, t2: /* actualDuration */ scala.Double, t3: /* baseDuration */ scala.Double, t4: /* startTime */ scala.Double, t5: /* commitTime */ scala.Double, t6: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow())))
+    __obj.updateDynamic("onRender")(js.Any.fromFunction7((t0: /* id */ java.lang.String, t1: /* phase */ typings.react.reactStrings.mount | typings.react.reactStrings.update, t2: /* actualDuration */ scala.Double, t3: /* baseDuration */ scala.Double, t4: /* startTime */ scala.Double, t5: /* commitTime */ scala.Double, t6: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow()))
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     __obj.asInstanceOf[ProfilerProps]
   }
