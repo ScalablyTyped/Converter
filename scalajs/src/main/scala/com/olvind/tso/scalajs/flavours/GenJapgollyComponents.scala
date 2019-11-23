@@ -3,7 +3,6 @@ package scalajs
 package flavours
 
 import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
-import com.olvind.tso.scalajs.flavours.ConstructObjectOfType.Param
 import com.olvind.tso.seqs._
 
 /**
@@ -225,10 +224,10 @@ object GenJapgollyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        flavours.ConstructObjectOfType(
+                        Param.forClassTree(
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
                           scope,
-                          maxNum = ConstructObjectOfType.MaxParamsForMethod - additionalOptionalParams.length,
+                          maxNum = Param.MaxParamsForMethod - additionalOptionalParams.length,
                         )(
                           memberParameter,
                         )

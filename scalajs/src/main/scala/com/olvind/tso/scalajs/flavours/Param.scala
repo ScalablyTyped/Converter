@@ -6,17 +6,17 @@ import scala.collection.immutable.SortedMap
 import com.olvind.tso.seqs._
 import com.olvind.tso.maps._
 
-object ConstructObjectOfType {
+final case class Param(parameter: ParamTree, isOptional: Boolean, asString: Either[String, String => String])
+
+object Param {
   /* javascript limitation */
   val MaxParamsForMethod = 254
-
-  final case class Param(parameter: ParamTree, isOptional: Boolean, asString: Either[String, String => String])
 
   implicit val ParamOrdering: Ordering[Param] =
     Ordering.by((p: Param) => (p.isOptional, p.parameter.name))
 
-  def apply(cls:     ClassTree, _scope: TreeScope, maxNum: Int = MaxParamsForMethod)(
-      _handleMember: (TreeScope, MemberTree) => Option[Param],
+  def forClassTree(cls: ClassTree, _scope: TreeScope, maxNum: Int = MaxParamsForMethod)(
+      _handleMember:    (TreeScope, MemberTree) => Option[Param],
   ): Seq[Param] = {
     val scope = _scope / cls
 

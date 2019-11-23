@@ -2,8 +2,6 @@ package com.olvind.tso
 package scalajs
 package flavours
 
-import ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.flavours
 import com.olvind.tso.scalajs.flavours.CastConversion.TypeRewriterCast
 import com.olvind.tso.seqs._
 
@@ -203,7 +201,7 @@ object GenSlinkyComponents {
                   val paramsOpt: Option[Seq[Param]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        flavours.ConstructObjectOfType(FillInTParams(cls, newScope, dealiased.targs, tparams), scope) {
+                        Param.forClassTree(FillInTParams(cls, newScope, dealiased.targs, tparams), scope) {
                           case (scope, fieldTree: FieldTree) =>
                             /* todo: refactor out a name/type check which ignores optionality */
                             val isDom: Boolean =
