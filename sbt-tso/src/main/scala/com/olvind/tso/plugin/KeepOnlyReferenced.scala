@@ -4,6 +4,7 @@ package plugin
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.{Phase2Res, Source}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.react.VIP
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -13,11 +14,14 @@ object KeepOnlyReferenced {
       globalScope: TreeScope,
       libs:        Map[Source.TsLibSource, Phase2Res.LibScalaJs],
   ): Seq[QualifiedName] = {
+
     val vipsTrees: Seq[QualifiedName] =
       libs.values.to[Seq].flatMap { lib =>
-        TreeTraverse.collect(lib.packageTree) {
-          case x: HasCodePath if x.comments has Markers.VIP => x.codePath
-        }
+        TreeTraverse
+          .collect(lib.packageTree) {
+            case VIP.FromTree(refs) => refs
+          }
+          .flatten
       }
 
     var queue: List[QualifiedName]                            = vipsTrees.toList
@@ -51,7 +55,7 @@ object KeepOnlyReferenced {
 
   final class FilteringTransformation(keep: Set[QualifiedName]) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-      if (s.comments has Markers.VIP) s
+      if (s.comments.extract { case VIP(_) => () }.nonEmpty) s
       else
         s.copy(
           parents = s.parents.filter(tr => keep(tr.typeName)),
