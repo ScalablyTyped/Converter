@@ -1,10 +1,8 @@
 package typings.semanticDashUiDashReact.Slinky
 
-import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typings.react.HTMLInputElement
 import typings.react.reactMod.ChangeEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
@@ -22,16 +20,16 @@ import typings.semanticDashUiDashReact.srcElementsInputMod.default
 import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
+import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, disabled, type */
+/* The following DOM/SVG props were specified: about, accept, accessKey, alt, aria-activedescendant, aria-atomic, aria-autocomplete, aria-busy, aria-checked, aria-colcount, aria-colindex, aria-colspan, aria-controls, aria-current, aria-describedby, aria-details, aria-disabled, aria-dropeffect, aria-errormessage, aria-expanded, aria-flowto, aria-grabbed, aria-haspopup, aria-hidden, aria-invalid, aria-keyshortcuts, aria-label, aria-labelledby, aria-level, aria-live, aria-modal, aria-multiline, aria-multiselectable, aria-orientation, aria-owns, aria-placeholder, aria-posinset, aria-pressed, aria-readonly, aria-relevant, aria-required, aria-roledescription, aria-rowcount, aria-rowindex, aria-rowspan, aria-selected, aria-setsize, aria-sort, aria-valuemax, aria-valuemin, aria-valuenow, aria-valuetext, autoCapitalize, autoComplete, autoCorrect, autoFocus, autoSave, capture, checked, children, className, color, contentEditable, contextMenu, crossOrigin, dangerouslySetInnerHTML, datatype, defaultChecked, defaultValue, dir, disabled, draggable, form, formAction, formEncType, formMethod, formNoValidate, formTarget, height, hidden, id, inlist, inputMode, is, itemID, itemProp, itemRef, itemScope, itemType, lang, list, max, maxLength, min, minLength, multiple, name, onAbort, onAnimationEnd, onAnimationIteration, onAnimationStart, onAuxClick, onBeforeInput, onBlur, onCanPlay, onCanPlayThrough, onChange, onChange, onClick, onCompositionEnd, onCompositionStart, onCompositionUpdate, onContextMenu, onCopy, onCut, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver, onDragStart, onDrop, onDurationChange, onEmptied, onEncrypted, onEnded, onError, onFocus, onInput, onInvalid, onKeyDown, onKeyPress, onKeyUp, onLoad, onLoadStart, onLoadedData, onLoadedMetadata, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp, onPaste, onPause, onPlay, onPlaying, onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOut, onPointerOver, onPointerUp, onProgress, onRateChange, onReset, onScroll, onSeeked, onSeeking, onSelect, onStalled, onSubmit, onSuspend, onTimeUpdate, onTouchCancel, onTouchEnd, onTouchMove, onTouchStart, onTransitionEnd, onVolumeChange, onWaiting, onWheel, pattern, placeholder, prefix, property, radioGroup, readOnly, required, resource, results, role, security, size, slot, spellCheck, src, step, style, suppressContentEditableWarning, suppressHydrationWarning, tabIndex, title, type, typeof, unselectable, value, vocab, width */
 object Input
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcElementsInputMod.default].asInstanceOf[String | js.Object]
   def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
     action: js.Any | Boolean = null,
     actionPosition: left = null,
     as: js.Any = null,
@@ -51,7 +49,6 @@ object Input
     transparent: js.UndefOr[Boolean] = js.undefined
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (action != null) __obj.updateDynamic("action")(action.asInstanceOf[js.Any])
     if (actionPosition != null) __obj.updateDynamic("actionPosition")(actionPosition)
     if (as != null) __obj.updateDynamic("as")(as)
