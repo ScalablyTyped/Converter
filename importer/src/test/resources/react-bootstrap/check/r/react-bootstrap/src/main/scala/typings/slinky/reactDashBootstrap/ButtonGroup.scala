@@ -11,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: accept, acceptCharset, children, dangerouslySetInnerHTML, defaultChecked */
+/* The following DOM/SVG props were specified: accept, dangerouslySetInnerHTML, defaultChecked */
 object ButtonGroup
   extends ExternalComponentWithAttributesWithRefType[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] {
   override val component: String | js.Object = js.constructorOf[typings.reactDashBootstrap.libMod.ButtonGroup].asInstanceOf[String | js.Object]
@@ -20,6 +20,7 @@ object ButtonGroup
     onChange: foo,
     value: foo,
     `type`: foo,
+    acceptCharset: String = null,
     block: js.UndefOr[Boolean] = js.undefined,
     bsSize: Sizes = null,
     bsStyle: String = null,
@@ -29,6 +30,7 @@ object ButtonGroup
   ): BuildingComponent[tag.type, typings.reactDashBootstrap.libMod.ButtonGroup] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue, onChange = onChange, value = value)
     __obj.updateDynamic("type")(`type`)
+    if (acceptCharset != null) __obj.updateDynamic("acceptCharset")(acceptCharset)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block)
     if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize)
     if (bsStyle != null) __obj.updateDynamic("bsStyle")(bsStyle)

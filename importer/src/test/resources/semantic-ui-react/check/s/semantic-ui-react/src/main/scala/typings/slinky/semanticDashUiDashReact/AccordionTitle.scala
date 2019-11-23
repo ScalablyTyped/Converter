@@ -15,7 +15,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className */
+/* The following DOM/SVG props were specified: className */
 object AccordionTitle
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default].asInstanceOf[String | js.Object]

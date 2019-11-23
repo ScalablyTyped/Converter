@@ -10,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* The following DOM/SVG props were specified: children, className, hidden */
+/* The following DOM/SVG props were specified: className, hidden */
 object ButtonContent
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsButtonButtonContentMod.default.asInstanceOf[String | js.Object]
