@@ -221,7 +221,7 @@ class GenSlinkyComponents(
                     val domParams = mutable.ArrayBuffer.empty[FieldTree]
 
                     val params = findParams
-                      .forClassTree(cls, scope, Params.MaxParamsForMethod)
+                      .forClassTree(cls, scope / cls, Params.MaxParamsForMethod)
                       .flatMap {
                         case Left(param) => List(param)
                         case Right(fieldTree: FieldTree) =>

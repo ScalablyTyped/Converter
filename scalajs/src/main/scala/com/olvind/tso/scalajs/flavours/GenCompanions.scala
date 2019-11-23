@@ -7,7 +7,7 @@ import com.olvind.tso.seqs._
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-class GenCompanions(memberToParam: MemberToParam, params: Params) extends TreeTransformation {
+class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -21,7 +21,15 @@ class GenCompanions(memberToParam: MemberToParam, params: Params) extends TreeTr
 
       container.withMembers(container.members.flatMap {
         case cls: ClassTree if cls.classType === ClassType.Trait && cls.isScalaJsDefined && !nameConflict(cls.name) =>
-          List(cls) ++ generateModule(scope, cls).filter(ensureNotTooManyStrings)
+          val params: Seq[Param] =
+            findParams.forClassTree(cls, scope / cls, memberToParam, Params.MaxParamsForMethod)
+
+          val modOpt: Option[ModuleTree] =
+            generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
+              .map(method => ModuleTree(Nil, cls.name, Nil, Seq(method), NoComments, cls.codePath))
+              .filter(ensureNotTooManyStrings)
+
+          List(cls) ++ modOpt
         case other => List(other)
       })
     }
@@ -43,45 +51,39 @@ class GenCompanions(memberToParam: MemberToParam, params: Params) extends TreeTr
     stringLength < MaxWeight
   }
 
-  def generateModule(scope: TreeScope, cls: ClassTree): Option[ModuleTree] =
-    params.forClassTree(cls, scope, memberToParam, Params.MaxParamsForMethod) match {
+  def generateCreator(
+      name:        Name,
+      params:      Seq[Param],
+      typeCp:      QualifiedName,
+      typeTparams: Seq[TypeParamTree],
+  ): Option[MethodTree] =
+    params match {
       case Nil => None
       case params =>
         val (optionals, inLiterals, Nil) = params.partitionCollect2(
           { case Param(_, Right(f))  => f },
           { case Param(_, Left(str)) => str },
         )
-        val applyRet = TypeRef(
-          QualifiedName(cls.name :: Nil),
-          cls.tparams.map(tp => TypeRef(QualifiedName(tp.name :: Nil), Nil, NoComments)),
-          NoComments,
-        )
+        val typeName = typeCp.parts.last
+
+        val ret = TypeRef(QualifiedName(typeName :: Nil), TypeParamTree.asTypeArgs(typeTparams), NoComments)
 
         Some(
-          ModuleTree(
-            Nil,
-            cls.name,
-            Nil,
-            Seq(
-              MethodTree(
-                Annotation.Inline :: Nil,
-                ProtectionLevel.Default,
-                Name.APPLY,
-                cls.tparams,
-                params.map(_.parameter) :: Nil,
-                MemberImpl.Custom(s"""{
-                                       |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
-                                       |${optionals.map(f => "  " + f("__obj")).mkString("\n")}
-                                       |  __obj.asInstanceOf[${Printer.formatTypeRef(0)(applyRet)}]
-                                       |}""".stripMargin),
-                applyRet,
-                isOverride = false,
-                NoComments,
-                cls.codePath + Name.APPLY,
-              ),
-            ),
+          MethodTree(
+            Annotation.Inline :: Nil,
+            ProtectionLevel.Default,
+            name,
+            typeTparams,
+            params.map(_.parameter) :: Nil,
+            MemberImpl.Custom(s"""{
+                  |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
+                  |${optionals.map(f => "  " + f("__obj")).mkString("\n")}
+                  |  __obj.asInstanceOf[${Printer.formatTypeRef(0)(ret)}]
+                  |}""".stripMargin),
+            ret,
+            isOverride = false,
             NoComments,
-            cls.codePath,
+            typeCp + name,
           ),
         )
     }

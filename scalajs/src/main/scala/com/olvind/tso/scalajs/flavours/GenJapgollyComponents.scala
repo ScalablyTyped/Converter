@@ -231,7 +231,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
                       case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
                         params.forClassTree(
                           FillInTParams(cls, newScope, dealiased.targs, tparams),
-                          scope,
+                          scope / cls,
                           memberToParam,
                           maxNum = Params.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
                         )

@@ -17,13 +17,13 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
 
   def forClassTree(
       cls:           ClassTree,
-      _scope:        TreeScope,
+      scope:        TreeScope,
       memberToParam: MemberToParam,
       maxNum:        Int,
   ): Seq[Param] =
-    forClassTree(cls, _scope, maxNum).flatMap {
+    forClassTree(cls, scope, maxNum).flatMap {
       case Left(param)   => Some(param)
-      case Right(member) => memberToParam(_scope / cls, member)
+      case Right(member) => memberToParam(scope, member)
     }.sorted
 
   def realNameFrom(anns: Seq[Annotation], fallback: Name): Name =
@@ -39,8 +39,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
   /**
     * this is only exported separately from the other `forClassTree` overload because the slinky integration does weird things
     */
-  def forClassTree(cls: ClassTree, _scope: TreeScope, maxNum: Int): Seq[Either[Param, MemberTree]] = {
-    val scope = _scope / cls
+  def forClassTree(cls: ClassTree, scope: TreeScope, maxNum: Int): Seq[Either[Param, MemberTree]] = {
 
     val parents = ParentsResolver(scope, cls)
 
