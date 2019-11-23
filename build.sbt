@@ -79,10 +79,10 @@ val `sbt-tso` = project
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6"),
   )
 
-//val `sbt-tso1` = project
-//  .configure(pluginSettings, baseSettings)
-//  .settings(
-//    name := "sbt-tso1",
-//    Compile / unmanagedSourceDirectories += (`sbt-tso` / Compile / sourceDirectory).value,
-//    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0"),
-//  )
+val `sbt-tso1` = project
+  .configure(pluginSettings, baseSettings)
+  .settings(
+    name := "sbt-tso1",
+    Compile / unmanagedSourceDirectories += (`sbt-tso` / Compile / sourceDirectory).value,
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0"),
+  )
