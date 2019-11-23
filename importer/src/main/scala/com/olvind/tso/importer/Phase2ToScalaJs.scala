@@ -5,7 +5,7 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
-import com.olvind.tso.scalajs.react.ReactBinding
+import com.olvind.tso.scalajs.react.{Component, IdentifyReactComponents, ReactBinding}
 import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsTreeTraverse}
 
@@ -15,7 +15,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding])
+class Phase2ToScalaJs(pedantic: Boolean, reactBindings: List[ReactBinding])
     extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
@@ -81,8 +81,11 @@ class Phase2ToScalaJs(pedantic: Boolean, reactBinding: Option[ReactBinding])
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
               Adapter(scope) { (tree, s) =>
-                if (involvesReact) {
-                  reactBinding.fold(tree)(_.generateReactComponents(s, tree))
+                if (involvesReact && reactBindings.nonEmpty) {
+                  val components: Seq[Component] =
+                    IdentifyReactComponents.oneOfEach(scope / tree, tree)
+
+                  reactBindings.foldLeft(tree) { case (t, rb) => rb.generateReactComponents(s, t, components) }
                 } else tree
               },
             )

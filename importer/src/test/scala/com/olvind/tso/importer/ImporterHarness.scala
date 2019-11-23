@@ -40,7 +40,7 @@ trait ImporterHarness extends FunSuiteLike {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
-      reactBinding:  Option[ReactBinding],
+      reactBinding:  List[ReactBinding],
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: Source =
       Source.StdLibSource(InFolder(source.path), List(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
@@ -74,7 +74,7 @@ trait ImporterHarness extends FunSuiteLike {
             publishFolder   = publishFolder,
             metadataFetcher = Npmjs.No,
             softWrites      = false,
-            reactBinding    = reactBinding,
+            reactBindings   = reactBinding,
           ),
           "build",
         )
@@ -89,10 +89,10 @@ trait ImporterHarness extends FunSuiteLike {
   }
 
   def assertImportsOk(
-      testName:     String,
-      pedantic:     Boolean,
-      update:       Boolean,
-      reactBinding: Option[ReactBinding] = Some(ReactBinding.native),
+      testName:      String,
+      pedantic:      Boolean,
+      update:        Boolean,
+      reactBindings: List[ReactBinding] = List(ReactBinding.slinky, ReactBinding.native),
   ): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
@@ -113,7 +113,7 @@ trait ImporterHarness extends FunSuiteLike {
 
     val publishFolder = os.root / 'tmp / "tso-published-tests" / testName
 
-    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, reactBinding) match {
+    runImport(source, targetFolder, pedantic, logRegistry, publishFolder, reactBindings) match {
       case PhaseRes.Ok(_) =>
         implicit val wd = os.pwd
 

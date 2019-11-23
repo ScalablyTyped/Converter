@@ -176,18 +176,15 @@ object ScalaJsReactComponents {
     }
   }
 
-  def apply(_scope: TreeScope, tree: ContainerTree): ContainerTree = {
+  def apply(_scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
     val scope = _scope / tree
 
     val domFields: Map[Name, TypeRef] = fieldsFor(scope, QualifiedName.React.AllHTMLAttributes) ++
       fieldsFor(scope, QualifiedName.React.SVGAttributes)
 
-    val allComponents: Seq[Component] =
-      IdentifyReactComponents.oneOfEach(scope, tree)
-
     val scalaJsReactModCp = tree.codePath + scalaJsReact.ScalaJsReact
 
-    val scalaJsReactMembers = allComponents.flatMap { c =>
+    val scalaJsReactMembers = components.flatMap { c =>
       val componentCp = scalaJsReactModCp + c.fullName
 
       val props = c.props getOrElse TypeRef.Object
