@@ -58,7 +58,7 @@ val importer = project
     mainClass := Some("com.olvind.tso.importer.Importer"),
     // fork to keep CI happy with memory usage
     fork in Test := true,
-//    testOptions in Test += Tests.Argument("-P4")
+    // testOptions in Test += Tests.Argument("-P4")
   )
 
 val pluginSettings: Project => Project =
