@@ -3,6 +3,7 @@ package scalajs
 
 import com.olvind.logging.{Formatter, Logger}
 import com.olvind.tso.scalajs.TypeRef.ThisType
+import com.olvind.tso.scalajs.flavours.{GenJapgollyComponents, GenSlinkyComponents}
 import com.olvind.tso.seqs.Head
 
 sealed abstract class TreeScope { outer =>
@@ -12,13 +13,22 @@ sealed abstract class TreeScope { outer =>
   def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)]
   def logger:   Logger[Unit]
   def pedantic: Boolean
+  val outputPkg: Name
+
+  final def root: TreeScope.Root[_] =
+    this match {
+      case root: TreeScope.Root[_] => root
+      case TreeScope.Scoped(_, _, outer, _) => outer.root
+    }
 
   final def lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
     fragments match {
-      case x if ScalaJsClasses.ScalaJsTypes.contains(x)     => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
-      case Head(Name.scala | Name.java)                     => Nil
-      case fs if fs.startsWith(QualifiedName.Runtime.parts) => Nil
-      case Head(name) if Name.Internal(name)                => Nil
+      case x if ScalaJsClasses.ScalaJsTypes.contains(x) => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
+      case Head(Name.scala | Name.java | GenJapgollyComponents.names.japgolly | GenSlinkyComponents.slinkyName) =>
+        Nil
+      case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Nil
+      case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Nil
+      case Head(name) if Name.Internal(name)                   => Nil
       case _ =>
         val res = _lookup(fragments)
 
@@ -36,7 +46,7 @@ sealed abstract class TreeScope { outer =>
   def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)]
 
   final def /(current: Tree): TreeScope =
-    TreeScope.Scoped(libName, outer, current)
+    TreeScope.Scoped(outputPkg, libName, outer, current)
 
   final lazy val nameStack: List[Name] =
     stack.reverse.map(_.name)
@@ -55,6 +65,7 @@ object TreeScope {
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
   class Root[Source](
+      val outputPkg: Name,
       val libName:   Name,
       _dependencies: Map[Name, ContainerTree],
       val logger:    Logger[Unit],
@@ -71,9 +82,9 @@ object TreeScope {
 
     override def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
       fragments match {
-        case ScalaConfig.outputPkg :: head :: tail =>
+        case `outputPkg` :: head :: tail =>
           dependencies.get(head) match {
-            case Some(dep) => dep.lookupNoBacktrack(ScalaConfig.outputPkg :: head :: tail)
+            case Some(dep) => dep.lookupNoBacktrack(outputPkg :: head :: tail)
             case None      => Seq.empty
           }
         case _ => Seq.empty
@@ -83,7 +94,7 @@ object TreeScope {
       Seq.empty
   }
 
-  final case class Scoped(libName: Name, outer: TreeScope, current: Tree) extends TreeScope {
+  final case class Scoped(outputPkg: Name, libName: Name, outer: TreeScope, current: Tree) extends TreeScope {
     override val stack: List[Tree] =
       current :: outer.stack
 
@@ -109,6 +120,10 @@ object TreeScope {
       names match {
         case current.name :: Nil =>
           Seq((current, this))
+
+        // 99% a shortcut, plus handle fully qualified types more places in the pipeline
+        case `outputPkg` :: rest if rest.startsWith(nameStack) =>
+          lookupNoBacktrack(names.drop(nameStack.length))
 
         case current.name :: head :: tail =>
           current match {

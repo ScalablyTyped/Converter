@@ -26,7 +26,7 @@ object FillInTParams {
   /* A function in scala cannot have type parameters, so we inline them with their defaults or upper bounds */
   def inlineTParams(sig: TsFunSig): TsFunSig = {
     def recursiveBound(name: TsIdent, b: TsType): Boolean =
-      TreeTraverse.collect(b) { case `name` => name }.nonEmpty
+      TsTreeTraverse.collect(b) { case `name` => name }.nonEmpty
 
     val defaulted = sig.tparams.map { tp =>
       tp.default orElse tp.upperBound match {

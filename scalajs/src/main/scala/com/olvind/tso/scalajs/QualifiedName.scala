@@ -13,12 +13,16 @@ final case class QualifiedName(parts: List[Name]) {
 }
 
 object QualifiedName {
+
+  def apply(str: String): QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
+
   val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
   val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)
   val scala_scalajs: QualifiedName = scala + Name.scalajs
   val scala_js:      QualifiedName = scala_scalajs + Name.js
   val scala_js_ann:  QualifiedName = scala_js + Name("annotation")
   val Runtime:       QualifiedName = QualifiedName(List(Name("org"), Name("scalablytyped"), Name("runtime")))
+  val ScalaJsDom:    QualifiedName = QualifiedName(List(Name("org"), Name("scalajs"), Name("dom")))
 
   val String:           QualifiedName = java_lang + Name.String
   val JArray:           QualifiedName = java_lang + Name.Array
@@ -51,21 +55,21 @@ object QualifiedName {
   val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
   val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
 
-  object Std {
-    private val std = QualifiedName(ScalaConfig.outputPkg :: ScalaConfig.std :: Nil)
-
-    val Array:         QualifiedName = std + Name.Array
-    val Boolean:       QualifiedName = std + Name.Boolean
-    val BigInt:        QualifiedName = std + Name("BigInt")
-    val ConcatArray:   QualifiedName = std + Name("ConcatArray")
-    val Function:      QualifiedName = std + Name.Function
-    val Number:        QualifiedName = std + Name("Number")
-    val Object:        QualifiedName = std + Name.Object
-    val Promise:       QualifiedName = std + Name("Promise")
-    val PromiseLike:   QualifiedName = std + Name("PromiseLike")
-    val ReadonlyArray: QualifiedName = std + Name("ReadonlyArray")
-    val String:        QualifiedName = std + Name.String
-    val Symbol:        QualifiedName = std + Name.Symbol
+  class StdNames(outputPkg: Name) {
+    val stdName:       Name          = Name("std")
+    val lib:           QualifiedName = QualifiedName(outputPkg :: stdName :: Nil)
+    val Array:         QualifiedName = lib + Name.Array
+    val Boolean:       QualifiedName = lib + Name.Boolean
+    val BigInt:        QualifiedName = lib + Name("BigInt")
+    val ConcatArray:   QualifiedName = lib + Name("ConcatArray")
+    val Function:      QualifiedName = lib + Name.Function
+    val Number:        QualifiedName = lib + Name("Number")
+    val Object:        QualifiedName = lib + Name.Object
+    val Promise:       QualifiedName = lib + Name("Promise")
+    val PromiseLike:   QualifiedName = lib + Name("PromiseLike")
+    val ReadonlyArray: QualifiedName = lib + Name("ReadonlyArray")
+    val String:        QualifiedName = lib + Name.String
+    val Symbol:        QualifiedName = lib + Name.Symbol
   }
 
   def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")

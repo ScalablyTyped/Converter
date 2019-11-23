@@ -23,13 +23,13 @@ object DuplexOptions {
     read: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _] = null
   ): DuplexOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(allowHalfOpen)) __obj.updateDynamic("allowHalfOpen")(allowHalfOpen)
+    if (!js.isUndefined(allowHalfOpen)) __obj.updateDynamic("allowHalfOpen")(allowHalfOpen.asInstanceOf[js.Any])
     if (destroy != null) __obj.updateDynamic("destroy")(js.Any.fromFunction1(destroy))
-    if (encoding != null) __obj.updateDynamic("encoding")(encoding)
+    if (encoding != null) __obj.updateDynamic("encoding")(encoding.asInstanceOf[js.Any])
     if (`final` != null) __obj.updateDynamic("final")(js.Any.fromFunction1(`final`))
     if (highWaterMark != null) __obj.updateDynamic("highWaterMark")(highWaterMark.asInstanceOf[js.Any])
-    if (!js.isUndefined(objectMode)) __obj.updateDynamic("objectMode")(objectMode)
-    if (read != null) __obj.updateDynamic("read")(read)
+    if (!js.isUndefined(objectMode)) __obj.updateDynamic("objectMode")(objectMode.asInstanceOf[js.Any])
+    if (read != null) __obj.updateDynamic("read")(read.asInstanceOf[js.Any])
     __obj.asInstanceOf[DuplexOptions]
   }
 }

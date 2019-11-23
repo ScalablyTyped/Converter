@@ -21,9 +21,9 @@ case class TsConfig(
 
 case class PackageJsonDeps(
     version:          Option[String],
-    dependencies:     Option[Map[String, String]],
-    devDependencies:  Option[Map[String, String]],
-    peerDependencies: Option[Map[String, String]],
+    dependencies:     Option[Map[TsIdentLibrary, String]],
+    devDependencies:  Option[Map[TsIdentLibrary, String]],
+    peerDependencies: Option[Map[TsIdentLibrary, String]],
     typings:          Option[String],
     types:            Option[String],
     files:            Option[Seq[String]],
@@ -31,7 +31,7 @@ case class PackageJsonDeps(
 
 case class NotNeededPackage(
     libraryName:        String,
-    typingsPackageName: String,
+    typingsPackageName: TsIdentLibrary,
     sourceRepoURL:      String,
     asOfVersion:        String,
 )

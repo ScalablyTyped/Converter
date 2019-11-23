@@ -16,7 +16,7 @@ object HasTParams {
       case x: TsTypeFunction => Some(x.signature.tparams)
       case x: TsFunSig => Some(x.tparams)
       case x: TsTypeConditional =>
-        val found = TreeTraverse.collect(x.pred) {
+        val found = TsTreeTraverse.collect(x.pred) {
           case TsTypeInfer(tparam) => tparam
         }
         if (found.nonEmpty) Some(found) else None

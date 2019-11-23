@@ -11,6 +11,7 @@ import com.olvind.tso.importer.build._
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.flavours.Flavour
 import com.olvind.tso.sets.SetOps
 import com.olvind.tso.ts.TsIdentLibrary
 
@@ -19,6 +20,9 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 import scala.util.Try
 
+/**
+  * This phase goes from scala AST to compiled jar files on the local file system
+  */
 class Phase3Compile(
     resolve:         LibraryResolver,
     versions:        Versions,
@@ -30,6 +34,7 @@ class Phase3Compile(
     publishFolder:   os.Path,
     metadataFetcher: Npmjs.Fetcher,
     softWrites:      Boolean,
+    flavour:         Flavour,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -47,8 +52,10 @@ class Phase3Compile(
       _lib:    Phase2Res,
       getDeps: GetDeps[Source, PublishedSbtProject],
       v4:      IsCircular,
-      logger:  Logger[Unit],
-  ): PhaseRes[Source, PublishedSbtProject] =
+      _logger: Logger[Unit],
+  ): PhaseRes[Source, PublishedSbtProject] = {
+    val logger = _logger.withContext("flavour", flavour.toString)
+
     _lib match {
       case Facade =>
         val buildJson = Json[FacadeJson](source.path / "build.json")
@@ -100,7 +107,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = buildJson.dependencies,
+              deps            = buildJson.dependencies,
               scalaFiles      = sourceFiles,
               resources       = Map(),
               projectName     = projectName,
@@ -111,7 +118,7 @@ class Phase3Compile(
             go(
               logger             = logger,
               deps               = deps,
-              externalDeps       = buildJson.dependencies,
+              externalDeps       = buildJson.dependencies ++ flavour.dependencies,
               source             = source,
               name               = source.libName.value,
               sbtLayout          = sbtLayout,
@@ -130,6 +137,7 @@ class Phase3Compile(
               _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },
               logger        = logger,
               pedantic      = false,
+              outputPkg     = flavour.outputPkg,
             )
 
             val scalaFiles    = Printer(scope, lib.packageTree)
@@ -138,6 +146,7 @@ class Phase3Compile(
             val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
             val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
             val resources     = ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
+            val externalDeps  = flavour.dependencies
 
             val sbtLayout = ContentSbtProject(
               v               = versions,
@@ -147,7 +156,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = deps.values.to[Seq],
-              facadeDeps      = Set(),
+              deps            = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
               projectName     = projectName,
@@ -158,7 +167,7 @@ class Phase3Compile(
             go(
               logger             = logger,
               deps               = deps,
-              externalDeps       = Set(),
+              externalDeps       = externalDeps,
               source             = source,
               name               = lib.libName,
               sbtLayout          = sbtLayout,
@@ -169,11 +178,12 @@ class Phase3Compile(
             )
         }
     }
+  }
 
   def go(
       logger:             Logger[Unit],
       deps:               Map[Source, PublishedSbtProject],
-      externalDeps:       Set[FacadeJson.Dep],
+      externalDeps:       Set[Dep],
       source:             Source,
       name:               String,
       sbtLayout:          SbtProjectLayout[os.RelPath, Array[Byte]],
@@ -186,6 +196,7 @@ class Phase3Compile(
     val digest                = Digest.of(sbtLayout.all collect ScalaFiles)
     val finalVersion          = makeVersion(digest)
     val allFilesProperVersion = VersionHack.templateVersion(sbtLayout, finalVersion)
+    //Next line is that actually spits out files
     files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
 
     val sbtProject =

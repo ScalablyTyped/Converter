@@ -31,6 +31,7 @@ object ExtractClasses extends TransformLeaveMembers {
       }
 
   def typeCtorToClass(
+      scope:    TsTreeScope,
       findName: FindAvailableName,
       ownerLoc: JsLocation,
       ownerCp:  CodePath,
@@ -54,7 +55,7 @@ object ExtractClasses extends TransformLeaveMembers {
         isAbstract = false,
         name,
         tparams,
-        Some(resultType),
+        Some(FollowAliases.typeRef(scope)(resultType)),
         Nil,
         List(
           TsMemberFunction(
@@ -120,7 +121,7 @@ object ExtractClasses extends TransformLeaveMembers {
 
         /* extract named constructors inside the value into proper classes in a namespace, if possible */
         val newNamespacesAndV: Seq[TsNamedValueDecl] =
-          allMembers collect typeCtorToClass(findName, jsLocation, cp) match {
+          allMembers collect typeCtorToClass(scope, findName, jsLocation, cp) match {
             case Nil => namespaces :+ v
             case some =>
               val inlinedVar = v.copy(name = TsIdent.namespaced, codePath = cp + TsIdent.namespaced)
@@ -173,7 +174,7 @@ object ExtractClasses extends TransformLeaveMembers {
                   isAbstract = false,
                   name       = clsName,
                   tparams    = longestTParams,
-                  parent     = Some(resultType),
+                  parent     = Some(FollowAliases.typeRef(scope)(resultType)),
                   implements = Nil,
                   members    = ctors,
                   jsLocation = jsLocation,

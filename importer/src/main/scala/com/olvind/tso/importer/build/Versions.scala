@@ -4,12 +4,14 @@ package importer.build
 import com.olvind.tso.stringUtils.quote
 
 object Versions {
+  val sbtVersion = "1.3.3"
+
   object `scala 2.12 with scala.js 0.6` extends Versions {
     val scalaOrganization   = "org.scala-lang"
     val scalaVersion        = "2.12.10"
     val binVersion          = "2.12"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "0.6.29"
+    val scalaJsVersion      = "0.6.31"
     val scalaJsBinVersion   = "0.6"
     val scalacOptions       = List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
   }
@@ -19,8 +21,8 @@ object Versions {
     val scalaVersion        = "2.13.0"
     val binVersion          = "2.13"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "1.0.0-M8"
-    val scalaJsBinVersion   = "1.0.0-M8"
+    val scalaJsVersion      = "1.0.0-RC1"
+    val scalaJsBinVersion   = "1.0.0-RC1"
     val scalacOptions       = List("-g:notailcalls")
   }
 }
@@ -34,11 +36,7 @@ trait Versions {
   val scalaJsBinVersion:   String
   val scalacOptions:       List[String]
 
-  val RuntimeOrganization = "com.olvind"
-  val RuntimeName         = "scalablytyped-runtime"
-  val RuntimeVersion      = "2.1.0"
-  val sbtVersion          = "1.3.2"
-  val sbtBintray          = %("org.foundweekends", "sbt-bintray", "0.5.4")
+  val sbtBintray = %("org.foundweekends", "sbt-bintray", "0.5.4")
 
   def s(artifact: String): String =
     s"${artifact}_$binVersion"

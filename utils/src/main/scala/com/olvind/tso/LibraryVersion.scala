@@ -9,9 +9,8 @@ import java.time.format.DateTimeFormatter
   *
   * @param libraryVersion declared either in package.json or in comments for DefinitelyTyped
   * @param inGit we include git information if the definition files were defined in one. This to signal that they are not "official"
-  * @param localCommit The commit sha of the tso build
   */
-case class LibraryVersion(libraryVersion: Option[String], inGit: Option[InGit], localCommit: String) {
+case class LibraryVersion(libraryVersion: Option[String], inGit: Option[InGit]) {
 
   def libraryVersionOrDefault = libraryVersion getOrElse "0.0-unknown"
 

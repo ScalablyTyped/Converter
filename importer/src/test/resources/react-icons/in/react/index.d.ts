@@ -1,6 +1,4 @@
 
-/// <reference path="global.d.ts" />
-
 // tslint:disable-next-line:export-just-namespace
 
 export = React;
@@ -43,6 +41,15 @@ declare namespace React {
         dangerouslySetInnerHTML?: {
             __html: string;
         };
+    }
+
+    interface HTMLAttributes<T> extends DOMAttributes<T> {
+        defaultChecked?: boolean;
+    }
+
+    interface AllHTMLAttributes<T> extends HTMLAttributes<T> {
+        accept?: string;
+        acceptCharset?: string;
     }
 
     interface HTMLAttributes<T> extends DOMAttributes<T> {

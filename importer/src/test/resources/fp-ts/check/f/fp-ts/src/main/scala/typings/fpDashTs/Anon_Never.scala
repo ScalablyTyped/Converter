@@ -12,7 +12,7 @@ trait Anon_Never extends js.Object {
 object Anon_Never {
   @scala.inline
   def apply(never: HKT[scala.Nothing, scala.Nothing]): Anon_Never = {
-    val __obj = js.Dynamic.literal(never = never)
+    val __obj = js.Dynamic.literal(never = never.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[Anon_Never]
   }

@@ -27,13 +27,13 @@ object HttpHeaders {
     put: StringDictionary[String] = null
   ): HttpHeaders = {
     val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (common != null) __obj.updateDynamic("common")(common)
-    if (custom != null) __obj.updateDynamic("custom")(custom)
-    if (delete != null) __obj.updateDynamic("delete")(delete)
-    if (patch != null) __obj.updateDynamic("patch")(patch)
-    if (post != null) __obj.updateDynamic("post")(post)
-    if (put != null) __obj.updateDynamic("put")(put)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (common != null) __obj.updateDynamic("common")(common.asInstanceOf[js.Any])
+    if (custom != null) __obj.updateDynamic("custom")(custom.asInstanceOf[js.Any])
+    if (delete != null) __obj.updateDynamic("delete")(delete.asInstanceOf[js.Any])
+    if (patch != null) __obj.updateDynamic("patch")(patch.asInstanceOf[js.Any])
+    if (post != null) __obj.updateDynamic("post")(post.asInstanceOf[js.Any])
+    if (put != null) __obj.updateDynamic("put")(put.asInstanceOf[js.Any])
     __obj.asInstanceOf[HttpHeaders]
   }
 }

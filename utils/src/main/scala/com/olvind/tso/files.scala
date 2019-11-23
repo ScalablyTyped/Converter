@@ -5,6 +5,8 @@ import java.nio.file.Files
 import java.nio.file.StandardOpenOption.{CREATE, TRUNCATE_EXISTING}
 import java.util
 
+import scala.util.Try
+
 sealed trait Synced
 object Synced {
   case object New extends Synced
@@ -31,23 +33,21 @@ trait Layout[F, V] {
 }
 
 object files {
-  val BOM = "\uFEFF"
 
-  def content(file: InFile): String = {
-    val ret = new String(os.read.bytes(file.path), constants.Utf8)
-    if (ret.startsWith(BOM)) ret.replace(BOM, "") else ret
-  }
+  def content(file: InFile): String =
+    new String(os.read.bytes(file.path), constants.Utf8)
 
   val IgnoreProjectFiles: os.Path => Boolean = p => {
     val name = p.last
-    name === ".idea" || name === "target"
+    name === ".idea" || name === "target" || name === ".git"
   }
 
-  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit = {
-
-    val absolutePathFiles: Map[os.Path, Array[Byte]] = fs.map {
-      case (relPath, content) => folder / relPath -> content
-    }
+  def syncAbs(
+      absolutePathFiles: Map[os.Path, Array[Byte]],
+      folder:            os.Path,
+      deleteUnknowns:    Boolean,
+      soft:              Boolean,
+  ): Unit = {
 
     if (deleteUnknowns)
       folder match {
@@ -64,6 +64,11 @@ object files {
         if (soft) softWriteBytes(file, content) else writeBytes(file, content)
     }
   }
+
+  def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
+    syncAbs(fs.map {
+      case (relPath, content) => folder / relPath -> content
+    }, folder, deleteUnknowns, soft)
 
   def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced = {
     val baos: ByteArrayOutputStream =
@@ -91,5 +96,14 @@ object files {
     os.makeDir.all(path / os.up)
     Files.write(path.toNIO, newContent, CREATE, TRUNCATE_EXISTING)
     Synced.New
+  }
+
+  def existing(p: os.Path): os.Path = {
+    os.makeDir.all(p)
+    p
+  }
+  def existingEmpty(p: os.Path): os.Path = {
+    Try(os.remove.all(p))
+    existing(p)
   }
 }

@@ -26,11 +26,10 @@ class Interface(debugMode: Boolean, storingErrorLogger: Logger[Array[Logger.Stor
   private def succeeded = status.collect { case (lib, x: Success[Source]) => lib -> x }
   private val hasExited = AtomicBoolean(false)
 
-  def finish(): Summary = {
+  def finish(): Unit = {
     require(blocked.isEmpty)
     require(active.isEmpty)
     hasExited.set(true)
-    Summary(succeeded.keys.to[Set], failed.keys.to[Set])
   }
 
   override def on(phaseName: String, id: Source, event: PhaseListener.Event[Source]): Unit =

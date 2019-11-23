@@ -4,6 +4,8 @@ package importer
 import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
+import com.olvind.tso.scalajs.flavours.Flavour
+import com.olvind.tso.ts.TsIdentLibrary
 
 case class PublishConfig(
     username: String,
@@ -22,16 +24,13 @@ case class Config(
     /* only overwrite changed files to play better with tooling like intellij */
     softWrites:     Boolean,
     debugMode:      Boolean,
-    wantedLibNames: Set[String],
+    wantedLibNames: Set[TsIdentLibrary],
     versions:       Versions,
+    flavours:       List[Flavour],
 ) {
-
   // change in source code for now, lazy...
-  val projectName       = "ScalablyTyped"
-  val organization      = "org.scalablytyped"
   val cacheFolder       = os.home / 'tmp / "tso-cache"
   val publishFolder     = os.home / ".ivy2" / "local"
-  val ScalablyTypedRepo = "https://github.com/oyvindberg/ScalablyTyped.git"
   val parallelLibraries = 100
   val parallelScalas    = 4
 }
@@ -52,7 +51,19 @@ object Config {
           Some(PublishConfig(values("user"), values("password")))
         } else None
 
-        val wantedLibNames = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
+        val wantedLibNames: Set[TsIdentLibrary] = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
+          .map(TsIdentLibrary.apply)
+
+        val flavours = List(
+          if (flags.contains("-flavourPlain")) Some(Flavour.Plain) else None,
+          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(Flavour.Slinky) else None,
+          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly")) Some(Flavour.Japgolly)
+          else None,
+          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(Flavour.Normal) else None,
+        ).flatten match {
+          case Nil   => List(Flavour.Normal)
+          case other => other
+        }
 
         Some(
           Config(
@@ -71,6 +82,7 @@ object Config {
             versions =
               if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
               else Versions.`scala 2.12 with scala.js 0.6`,
+            flavours = flavours,
           ),
         )
     }

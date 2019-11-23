@@ -12,7 +12,7 @@ object ChartData {
   @scala.inline
   def apply(labels: js.Array[String | js.Array[String]] = null): ChartData = {
     val __obj = js.Dynamic.literal()
-    if (labels != null) __obj.updateDynamic("labels")(labels)
+    if (labels != null) __obj.updateDynamic("labels")(labels.asInstanceOf[js.Any])
     __obj.asInstanceOf[ChartData]
   }
 }

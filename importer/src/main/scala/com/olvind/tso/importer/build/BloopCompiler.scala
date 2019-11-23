@@ -12,6 +12,7 @@ import bloop.io.AbsolutePath
 import bloop.logging.{DebugFilter, Logger => BloopLogger}
 import bloop.{Cli, DependencyResolution}
 import com.olvind.logging.{Formatter, Logger}
+import com.olvind.tso.scalajs.Dep
 
 import scala.concurrent.ExecutionContext
 
@@ -50,7 +51,7 @@ object BloopCompiler {
       Array(
         scalaCompiler.collect { case path if path.underlying.toString.contains("scala-library") => path },
         resolve(v.scalaJsOrganization, v.s("scalajs-library"), v.scalaJsVersion, bloopLogger)(ec),
-        resolve(v.RuntimeOrganization, v.sjs(v.RuntimeName), v.RuntimeVersion, bloopLogger)(ec),
+        resolve(constants.RuntimeOrg, v.sjs(constants.RuntimeName), constants.RuntimeVersion, bloopLogger)(ec),
       ).flatten
 
     val scalaJsCompiler =
@@ -85,7 +86,7 @@ class BloopCompiler private (
       digest:        Digest,
       compilerPaths: CompilerPaths,
       deps:          Seq[BloopCompiler.InternalDep],
-      externalDeps:  Set[FacadeJson.Dep],
+      externalDeps:  Set[Dep],
   ): Either[String, Unit] = {
     val bloopFolder = compilerPaths.baseDir / ".bloop"
     val classPath = {
@@ -107,7 +108,7 @@ class BloopCompiler private (
       (globalClassPath ++ fromExternalDeps ++ fromDependencyJars ++ fromDependencyClassDirs).map(_.underlying).toList
     }
     val projectFile = BloopConfig.File(
-      "1.3.0",
+      "1.3.3",
       BloopConfig.Project(
         name         = name,
         directory    = compilerPaths.baseDir.toNIO,

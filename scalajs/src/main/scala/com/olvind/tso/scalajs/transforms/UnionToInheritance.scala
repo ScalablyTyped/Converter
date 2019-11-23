@@ -69,6 +69,7 @@ import com.olvind.tso.seqs._
   * ```
   */
 object UnionToInheritance {
+  final case class WasUnion(related: Seq[TypeRef]) extends Comment.Data
 
   def apply(scope: TreeScope, tree: ContainerTree, inLib: Name): ContainerTree = {
     val rewrites = Rewrite.identify(inLib, tree, scope / tree)
@@ -106,7 +107,7 @@ object UnionToInheritance {
         }
 
         indexedRewrites(ta.codePath) match {
-          case Rewrite(_, _, Nil) =>
+          case Rewrite(_, asInheritance, Nil) =>
             val cls = ClassTree(
               List(Annotation.ScalaJSDefined),
               ta.name,
@@ -116,12 +117,13 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              ta.comments +? comment,
+              ta.comments +? comment + CommentData(KeepOnlyReferenced.Related(asInheritance)) +
+                CommentData(WasUnion(asInheritance)),
               ta.codePath,
             )
 
             cls :: Nil
-          case Rewrite(_, _, noRewrites) =>
+          case Rewrite(_, asInheritance, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
               List(Annotation.ScalaJSDefined),
@@ -132,7 +134,9 @@ object UnionToInheritance {
               Nil,
               ClassType.Trait,
               isSealed = false,
-              NoComments,
+              Comments(
+                List(CommentData(KeepOnlyReferenced.Related(asInheritance)), CommentData(WasUnion(asInheritance))),
+              ),
               patchedTa.codePath,
             )
             val newTa = ta.copy(

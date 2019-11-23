@@ -3,30 +3,24 @@ package importer
 
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.jsonCodecs._
-import com.olvind.tso.ts.PackageJsonDeps
+import com.olvind.tso.ts.{PackageJsonDeps, TsIdentLibrary}
 
 object UpToDateExternals {
   def apply(
       logger:                Logger[_],
       cmd:                   Cmd,
       folder:                os.Path,
-      ensurePresentPackages: Set[String],
-      ignored:               Set[String],
+      ensurePresentPackages: Set[TsIdentLibrary],
+      ignored:               Set[TsIdentLibrary],
       conserveSpace:         Boolean,
       offline:               Boolean,
   ): InFolder = {
-
-    val ensurePresentPackagesFixes = ensurePresentPackages.map {
-      // you can apparently not resolve scoped packages with this syntax
-      case s if s.contains("__") => s.split("__").mkString("@", "/", "")
-      case other                 => other
-    }
 
     val packageJsonPath = folder / "package.json"
     val nodeModulesPath = folder / "node_modules"
     val packageJson     = Json.opt[PackageJsonDeps](packageJsonPath)
 
-    val alreadyAddedExternals: Set[String] =
+    val alreadyAddedExternals: Set[TsIdentLibrary] =
       packageJson match {
         case Some(PackageJsonDeps(_, deps, _, peerDeps, _, _, _)) =>
           (deps.getOrElse(Map.empty) ++ peerDeps.getOrElse(Map.empty))
@@ -36,19 +30,19 @@ object UpToDateExternals {
           Set.empty
       }
 
-    val missingExternals: Set[String] =
-      ensurePresentPackagesFixes -- alreadyAddedExternals -- ignored
+    val missingExternals: Set[TsIdentLibrary] =
+      ensurePresentPackages -- alreadyAddedExternals -- ignored
 
     /* graalvm bundles a botched version which fails with SOE */
     val npmCommand = sys.env.get("NVM_BIN") match {
       case None       => List("npm")
-      case Some(path) => List(s"$path/node", s"$path/npm")
+      case Some(path) => List(s"$path/node", "--stack-size=4096", s"$path/npm")
     }
 
     if (missingExternals.isEmpty) logger.warn(s"All external libraries present in $nodeModulesPath")
     else {
       logger.warn(s"Adding ${missingExternals.size} missing libraries to $nodeModulesPath")
-      missingExternals.toSeq.sorted.grouped(100).foreach { es =>
+      missingExternals.toSeq.map(_.value).sorted.grouped(100).foreach { es =>
         cmd.runVerbose(
           npmCommand,
           "add",
@@ -81,7 +75,7 @@ object UpToDateExternals {
       )(folder)
     }
 
-    if (missingExternals.exists(_.startsWith("@material-ui")) || !offline) {
+    if (missingExternals.exists(_.value.startsWith("@material-ui")) || !offline) {
       cmd.runVerbose(
         npmCommand,
         "add",

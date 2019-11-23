@@ -27,6 +27,10 @@ For development you'll always use "debug mode".
 | `-publish`          | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
 | `-sequential`       | We have some [issues](https://github.com/oyvindberg/tso/issues/74) with parallel conversion. For now it's a must for consistent CI builds
 | `-softWrites`       | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
+| `-flavourPlain`     | Don't generate companion objects, react components and so on. Fastest.
+| `-flavourNormal`    | (default, but need to specify if you want more flavours). 
+| `-flavourSlinky`    | Use slinky flavour, integrate with scalajs-dom, and generate slinky components 
+| `-flavourJapgolly`  | Use scalajs-react flavour, integrate with scalajs-dom, and generate scalajs-react components 
 
 ## Directories
 By default, all files will be written to `~/tmp/tso-cache`. The only exception is the ivy artifacts, which are local-published

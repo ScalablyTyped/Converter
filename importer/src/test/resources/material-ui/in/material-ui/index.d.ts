@@ -16,6 +16,7 @@ declare namespace __MaterialUI {
 
         export interface BottomNavigationItemProps  {
             className?: string;
+            children: number;
         }
 
         export class BottomNavigationItem extends React.Component<BottomNavigationItemProps> { }

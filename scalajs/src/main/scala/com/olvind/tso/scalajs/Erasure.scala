@@ -23,7 +23,7 @@ object Erasure {
     )
   }
 
-  private def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
+  def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
       case QualifiedName.UndefOr   => QualifiedName.`|`
       case QualifiedName.WILDCARD  => QualifiedName.ScalaAny

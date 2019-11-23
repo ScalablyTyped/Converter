@@ -71,11 +71,4 @@ object Annotation {
 
     others ++ updatedNames
   }
-
-  def realName(anns: Seq[Annotation], fallback: Name): Name =
-    anns collectFirst {
-      case JsName(name)                       => name
-      case JsImport(_, Imported.Named(names)) => names.last
-      case JsGlobal(qname)                    => qname.parts.last
-    } getOrElse fallback
 }

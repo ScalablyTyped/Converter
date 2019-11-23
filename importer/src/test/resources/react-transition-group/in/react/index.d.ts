@@ -1,6 +1,4 @@
 
-/// <reference path="global.d.ts" />
-
 type NativeAnimationEvent = AnimationEvent;
 
 // tslint:disable-next-line:export-just-namespace
@@ -74,6 +72,9 @@ declare namespace React {
     }
 
     interface HTMLProps<T> extends AllHTMLAttributes<T>, ClassAttributes<T> {
+    }
+
+    interface SVGAttributes<T> extends DOMAttributes<T> {
     }
 
     type DetailedHTMLProps<E extends HTMLAttributes<T>, T> = ClassAttributes<T> & E;
