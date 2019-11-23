@@ -58,6 +58,6 @@ declare module 'original-fs' {
 
 declare namespace NodeJS {
   interface Process extends EventEmitter {
-    foo: "bar"
+    foo: "bar" | "Bar"
   }
 }

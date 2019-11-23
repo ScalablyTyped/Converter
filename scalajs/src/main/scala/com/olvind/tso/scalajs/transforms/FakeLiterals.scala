@@ -12,6 +12,19 @@ object FakeLiterals {
   val LiteralTokenComment: Comments = new Comments(Nil)
 
   private case class LiteralRewriter(_s: ContainerTree, scope: TreeScope) extends TreeTransformation {
+    val stringsByLowercase: Map[String, Seq[String]] =
+      TreeTraverse
+        .collect(_s) {
+          case TypeRef.Literal(x) if x.startsWith("\"") => stringUtils.unquote(x)
+        }
+        .groupBy(_.toLowerCase)
+        .mapValues(_.distinct.sorted)
+
+    def suffixed(underlying: String) = {
+      val n = stringsByLowercase(underlying.toLowerCase).indexWhere(_ === underlying)
+      underlying + ("_" * n)
+    }
+
     val StringModuleName  = Name(_s.name.unescaped + "Strings")
     val collectedStrings  = mutable.HashMap.empty[String, Name]
     val NumbersModuleName = Name(_s.name.unescaped + "Numbers")
@@ -60,7 +73,7 @@ object FakeLiterals {
     override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
-          val name = Name(prettyString.nameFor(stringUtils.unquote(underlying)))
+          val name = Name(prettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
           collectedStrings(underlying) = name
           TypeRef(QualifiedName(List(ScalaConfig.outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
 
