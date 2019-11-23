@@ -4,6 +4,7 @@ package importer
 import java.time.LocalDateTime
 
 import com.olvind.tso.importer.build.Versions
+import com.olvind.tso.scalajs.react.ReactBinding
 
 case class PublishConfig(
     username: String,

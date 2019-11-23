@@ -1,9 +1,9 @@
 package com.olvind.tso
 package scalajs
-package transforms
+package react
 
 import com.olvind.tso.scalajs.ConstructObjectOfType.Param
-import com.olvind.tso.scalajs.IdentifyReactComponents.{Component, ComponentType}
+import com.olvind.tso.scalajs.transforms.Companions
 import com.olvind.tso.seqs._
 
 import scala.collection.mutable

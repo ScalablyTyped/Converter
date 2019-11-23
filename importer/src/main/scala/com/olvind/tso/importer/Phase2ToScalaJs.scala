@@ -5,6 +5,7 @@ import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, LibraryPart}
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
+import com.olvind.tso.scalajs.react.ReactBinding
 import com.olvind.tso.scalajs.{ContainerTree, PackageTree, TreeScope, transforms => S}
 import com.olvind.tso.ts.{TsIdentLibrary, TsIdentLibrarySimple, TsTreeTraverse}
 
