@@ -13,40 +13,16 @@ object FakeLiterals {
 
   private case class LiteralRewriter(_s: ContainerTree, scope: TreeScope) extends TreeTransformation {
     val StringModuleName  = Name(_s.name.unescaped + "Strings")
-    val collectedStrings  = mutable.HashSet.empty[String]
+    val collectedStrings  = mutable.HashMap.empty[String, Name]
     val NumbersModuleName = Name(_s.name.unescaped + "Numbers")
-    val collectedNumbers  = mutable.HashSet.empty[String]
+    val collectedNumbers  = mutable.HashMap.empty[String, Name]
 
-    def nameFor(underlying: String): Name = {
-      val base =
-        stringUtils unquote underlying flatMap {
-          case '.'   => "DOT"
-          case '`'   => "BACKTICK"
-          case '\\'  => "BACKSLASH"
-          case '$'   => "DOLLAR"
-          case other => other.toString
-        }
-
-      val str = base match {
-        case "_"       => "Underscore"
-        case "^"       => "`^`" // this is insane, it's a legal name for traits and objects, but not defs
-        case ""        => "Empty"
-        case "package" => "PACKAGE"
-        case "js"      => "JS"
-        case "scala"   => "SCALA"
-        case other     => other
-      }
-
-      Name(str)
-    }
-
-    def module(collected: mutable.Set[String], moduleName: Name): Option[ModuleTree] =
-      collected match {
-        case empty if empty.isEmpty => None
-        case found =>
-          val members =
-            found flatMap { underlying: String =>
-              val name     = nameFor(underlying)
+    def module(collected: mutable.HashMap[String, Name], moduleName: Name): Option[ModuleTree] =
+      if (collected.isEmpty) None
+      else {
+        val members =
+          collected.flatMap {
+            case (underlying: String, name) =>
               val codePath = _s.codePath + moduleName + name
               val `trait` =
                 ClassTree(
@@ -61,6 +37,7 @@ object FakeLiterals {
                   NoComments,
                   codePath,
                 )
+
               val `def` =
                 MethodTree(
                   Annotation.jsName(name) :+ Annotation.Inline,
@@ -75,32 +52,29 @@ object FakeLiterals {
                   codePath,
                 )
               Seq(`trait`, `def`)
-            }
+          }
 
-          Some(ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, _s.codePath + moduleName))
+        Some(ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, _s.codePath + moduleName))
       }
 
     override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
-          collectedStrings += underlying
-          TypeRef(
-            QualifiedName(List(ScalaConfig.outputPkg, _s.name, StringModuleName, nameFor(underlying))),
-            Nil,
-            LiteralTokenComment,
-          )
+          val name = Name(prettyString.nameFor(stringUtils.unquote(underlying)))
+          collectedStrings(underlying) = name
+          TypeRef(QualifiedName(List(ScalaConfig.outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
 
         case TypeRef.Literal(underlying) =>
-          def isTooBigForInt(strNum: String) = Try(java.lang.Long.decode(strNum)) match {
-            case Failure(_)     => false
-            case Success(value) => value > Int.MaxValue
-          }
+          val (newUnderlying, name) =
+            (prettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
+              case (baseName, true) =>
+                (underlying + ".0", Name("_" + baseName))
+              case (baseName, _) => (underlying, Name(baseName))
+            }
 
-          val fixed = if (isTooBigForInt(underlying)) "_" + underlying else underlying
-
-          collectedNumbers += fixed
+          collectedNumbers(newUnderlying) = name
           TypeRef(
-            QualifiedName(List(ScalaConfig.outputPkg, _s.name, NumbersModuleName, nameFor(fixed))),
+            QualifiedName(List(ScalaConfig.outputPkg, _s.name, NumbersModuleName, name)),
             Nil,
             LiteralTokenComment,
           )
@@ -118,5 +92,10 @@ object FakeLiterals {
         case m: ModuleTree  => m.copy(members = newMembers)
       }
     }
+  }
+
+  def isTooBigForInt(strNum: String) = Try(java.lang.Long.decode(strNum)) match {
+    case Failure(_)     => false
+    case Success(value) => value > Int.MaxValue
   }
 }
