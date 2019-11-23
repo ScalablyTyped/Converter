@@ -109,7 +109,7 @@ object ImportType {
        */
       case tpe @ TsTypeObject(_, Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
         val lookups: Seq[TsTypeRef] =
-          TreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
+          TsTreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
 
         val base = lookups match {
           case Seq(one) => apply(wildcards, scope, importName)(one)

@@ -11,8 +11,8 @@ object PathsFromTsLibSource {
 
     val foundAndShorten: Map[InFile, Boolean] =
       source match {
-        case Source.StdLibSource(file, _) =>
-          Map(file -> false)
+        case Source.StdLibSource(_, files, _) =>
+          files.map(f => f -> false).toMap
 
         case f: Source.FromFolder =>
           val base = Seq(
