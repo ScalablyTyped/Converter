@@ -5,7 +5,6 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
-import typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -14,7 +13,6 @@ import scala.scalajs.js.annotation._
 object ButtonOr
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsButtonButtonOrMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

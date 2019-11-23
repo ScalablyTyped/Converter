@@ -1,7 +1,7 @@
 {
   val pluginVersion = System.getProperty("plugin.version")
   if (pluginVersion == null) {
-    addSbtPlugin("com.olvind" % """sbt-tso""" % "0.1-snapshot")
+    addSbtPlugin("com.olvind" % """sbt-tso""" % "0.1-SNAPSHOT")
   } else {
     addSbtPlugin("com.olvind" % """sbt-tso""" % pluginVersion)
   }

@@ -11,7 +11,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.vertically
 import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconCorner
 import typings.semanticDashUiDashReact.srcElementsIconIconMod.IconSizeProp
 import typings.semanticDashUiDashReact.srcElementsListListIconMod.ListIconProps
-import typings.semanticDashUiDashReact.srcElementsListListIconMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticICONS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticVERTICALALIGNMENTS
@@ -23,7 +22,6 @@ import scala.scalajs.js.annotation._
 object ListIcon
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsListListIconMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     `aria-hidden`: String = null,

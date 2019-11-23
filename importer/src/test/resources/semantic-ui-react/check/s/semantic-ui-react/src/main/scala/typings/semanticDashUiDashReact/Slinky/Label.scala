@@ -33,7 +33,6 @@ import scala.scalajs.js.annotation._
 object Label
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcElementsLabelMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

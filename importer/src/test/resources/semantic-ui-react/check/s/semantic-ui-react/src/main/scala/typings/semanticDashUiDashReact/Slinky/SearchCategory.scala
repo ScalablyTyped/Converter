@@ -9,7 +9,6 @@ import typings.react.reactMod.ComponentState
 import typings.react.reactMod.ReactElement
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps
-import typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.default
 import typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -19,7 +18,6 @@ import scala.scalajs.js.annotation._
 object SearchCategory
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

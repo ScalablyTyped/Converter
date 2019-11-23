@@ -6,7 +6,6 @@ import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
 import typings.semanticDashUiDashReact.srcModulesTabTabPaneMod.TabPaneProps
-import typings.semanticDashUiDashReact.srcModulesTabTabPaneMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +14,6 @@ import scala.scalajs.js.annotation._
 object TabPane
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcModulesTabTabPaneMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

@@ -16,7 +16,6 @@ import scala.scalajs.js.annotation._
 object TransitionGroup
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcModulesTransitionTransitionGroupMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     animation: SemanticTRANSITIONS | String = null,

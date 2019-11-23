@@ -13,7 +13,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.srcElementsHeaderHeaderMod.HeaderProps
-import typings.semanticDashUiDashReact.srcElementsHeaderMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
@@ -25,7 +24,6 @@ import scala.scalajs.js.annotation._
 object Header
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsHeaderMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

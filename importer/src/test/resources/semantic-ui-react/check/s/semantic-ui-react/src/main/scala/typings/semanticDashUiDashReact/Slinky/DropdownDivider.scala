@@ -14,7 +14,6 @@ import scala.scalajs.js.annotation._
 object DropdownDivider
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcModulesDropdownDropdownDividerMod.default].asInstanceOf[String | js.Object]
-  type dummy = default
   def apply(StringDictionary: /* key */ StringDictionary[js.Any] = null, as: js.Any = null): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     js.Dynamic.global.Object.assign(__obj, StringDictionary)

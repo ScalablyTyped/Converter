@@ -19,7 +19,6 @@ import scala.scalajs.js.annotation._
 object Inner
   extends ExternalComponentWithAttributesWithRefType[tag.type, typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner] {
   override val component: String | js.Object = js.constructorOf[typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner].asInstanceOf[String | js.Object]
-  type dummy = typings.semanticDashUiDashReact.srcModulesDimmerMod.default.Inner
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

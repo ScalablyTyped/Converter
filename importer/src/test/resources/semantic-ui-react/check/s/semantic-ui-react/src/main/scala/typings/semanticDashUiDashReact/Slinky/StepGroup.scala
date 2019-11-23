@@ -15,7 +15,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tablet
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.tiny
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.srcElementsStepStepGroupMod.StepGroupProps
-import typings.semanticDashUiDashReact.srcElementsStepStepGroupMod.default
 import typings.semanticDashUiDashReact.srcElementsStepStepMod.StepProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
@@ -27,7 +26,6 @@ import scala.scalajs.js.annotation._
 object StepGroup
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsStepStepGroupMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

@@ -5,7 +5,6 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typings.semanticDashUiDashReact.srcElementsListListContentMod.ListContentProps
-import typings.semanticDashUiDashReact.srcElementsListListContentMod.default
 import typings.semanticDashUiDashReact.srcElementsListListDescriptionMod.ListDescriptionProps
 import typings.semanticDashUiDashReact.srcElementsListListHeaderMod.ListHeaderProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
@@ -20,7 +19,6 @@ import scala.scalajs.js.annotation._
 object ListContent
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsListListContentMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

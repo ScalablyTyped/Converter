@@ -10,7 +10,6 @@ import typings.react.reactMod.MouseEvent
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.very
 import typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps
 import typings.semanticDashUiDashReact.srcElementsListListMod.ListProps
-import typings.semanticDashUiDashReact.srcElementsListMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
@@ -24,7 +23,6 @@ import scala.scalajs.js.annotation._
 object List
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsListMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     animated: js.UndefOr[Boolean] = js.undefined,

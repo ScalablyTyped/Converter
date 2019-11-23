@@ -11,7 +11,6 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.long
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.medium
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.short
 import typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.PlaceholderLineProps
-import typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -20,7 +19,6 @@ import scala.scalajs.js.annotation._
 object PlaceholderLine
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsPlaceholderPlaceholderLineMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,

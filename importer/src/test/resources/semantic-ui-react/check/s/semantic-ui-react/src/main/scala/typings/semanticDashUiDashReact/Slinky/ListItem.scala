@@ -13,7 +13,6 @@ import typings.semanticDashUiDashReact.srcElementsListListDescriptionMod.ListDes
 import typings.semanticDashUiDashReact.srcElementsListListHeaderMod.ListHeaderProps
 import typings.semanticDashUiDashReact.srcElementsListListIconMod.ListIconProps
 import typings.semanticDashUiDashReact.srcElementsListListItemMod.ListItemProps
-import typings.semanticDashUiDashReact.srcElementsListListItemMod.default
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -23,7 +22,6 @@ import scala.scalajs.js.annotation._
 object ListItem
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsListListItemMod.default.asInstanceOf[String | js.Object]
-  type dummy = default.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     active: js.UndefOr[Boolean] = js.undefined,

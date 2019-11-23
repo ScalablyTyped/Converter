@@ -13,7 +13,6 @@ import scala.scalajs.js.annotation._
 object Or
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   override val component: String | js.Object = typings.semanticDashUiDashReact.srcElementsButtonMod.default.Or.asInstanceOf[String | js.Object]
-  type dummy = typings.semanticDashUiDashReact.srcElementsButtonMod.default.Or.type
   def apply(
     StringDictionary: /* key */ StringDictionary[js.Any] = null,
     as: js.Any = null,
