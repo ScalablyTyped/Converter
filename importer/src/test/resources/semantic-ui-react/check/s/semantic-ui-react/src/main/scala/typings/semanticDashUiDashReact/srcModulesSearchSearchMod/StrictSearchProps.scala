@@ -1,7 +1,5 @@
 package typings.semanticDashUiDashReact.srcModulesSearchSearchMod
 
-import typings.react.HTMLDivElement
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactElement
@@ -17,6 +15,8 @@ import typings.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesSearchSearchCategoryMod.SearchCategoryProps
 import typings.semanticDashUiDashReact.srcModulesSearchSearchResultMod.SearchResultProps
+import typings.std.HTMLDivElement
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -1,8 +1,6 @@
 package typings.semanticDashUiDashReact.srcModulesDropdownDropdownMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.Event
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.KeyboardEvent
 import typings.react.reactMod.MouseEvent
@@ -18,6 +16,8 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
 import typings.semanticDashUiDashReact.srcElementsLabelLabelMod.LabelProps
 import typings.semanticDashUiDashReact.srcModulesDropdownDropdownItemMod.DropdownItemProps
+import typings.std.Event
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

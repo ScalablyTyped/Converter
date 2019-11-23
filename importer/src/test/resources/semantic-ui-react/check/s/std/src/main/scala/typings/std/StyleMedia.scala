@@ -1,9 +1,8 @@
-package typings
+package typings.std
 
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-package object react {
-  type SVGElement = Element
-}
+trait StyleMedia extends js.Object
+

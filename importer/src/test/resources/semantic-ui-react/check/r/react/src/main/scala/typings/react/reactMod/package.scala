@@ -11,18 +11,18 @@ package object reactMod {
   import typings.react.Anon_RefAny
   import typings.react.Anon_Result
   import typings.react.Anon_Type
-  import typings.react.Element
-  import typings.react.Event
-  import typings.react.EventTarget
-  import typings.react.HTMLElement
   import typings.react.NativeMouseEvent
   import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
+  import typings.std.Element
+  import typings.std.Event
+  import typings.std.EventTarget
+  import typings.std.HTMLElement
   import typings.std.Partial
   import typings.std.Pick
 
-  type AnimationEventHandler[T] = EventHandler[typings.react.reactMod.AnimationEvent[T]]
+  type AnimationEventHandler[T] = EventHandler[AnimationEvent[T]]
   // tslint:disable-next-line:no-empty-interface
   type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
   type CElement[P, T /* <: Component[P, ComponentState, _] */] = ComponentElement[P, T]
@@ -37,7 +37,7 @@ package object reactMod {
   type ClassType[P, T /* <: Component[P, ComponentState, _] */, C /* <: ComponentClass[P, ComponentState] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
   type ClassicElement[P] = CElement[P, ClassicComponent[P, ComponentState]]
   type ClassicFactory[P] = CFactory[P, ClassicComponent[P, ComponentState]]
-  type ClipboardEventHandler[T] = EventHandler[typings.react.reactMod.ClipboardEvent[T]]
+  type ClipboardEventHandler[T] = EventHandler[ClipboardEvent[T]]
   type ComponentFactory[P, T /* <: Component[P, ComponentState, _] */] = js.Function2[
     /* props */ js.UndefOr[ClassAttributes[T] with P], 
     /* repeated */ ReactNode, 
@@ -54,7 +54,7 @@ package object reactMod {
   type ComponentPropsWithoutRef[T /* <: ElementType[_] */] = PropsWithoutRef[ComponentProps[T]]
   type ComponentState = js.Any
   type ComponentType[P] = (ComponentClass[P, ComponentState]) | FunctionComponent[P]
-  type CompositionEventHandler[T] = EventHandler[typings.react.reactMod.CompositionEvent[T]]
+  type CompositionEventHandler[T] = EventHandler[CompositionEvent[T]]
   type Consumer[T] = ExoticComponent[ConsumerProps[T]]
   type ContextType[C /* <: Context[_] */] = js.Any
   type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
@@ -87,7 +87,7 @@ package object reactMod {
   // this technically does accept a second argument, but it's already under a deprecation warning
   // and it's not even released so probably better to not define it.
   type Dispatch[A] = js.Function1[/* value */ A, Unit]
-  type DragEventHandler[T] = EventHandler[typings.react.reactMod.DragEvent[T]]
+  type DragEventHandler[T] = EventHandler[DragEvent[T]]
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
   type EffectCallback = js.Function0[Unit | js.Function0[js.UndefOr[Unit]]]
@@ -105,7 +105,7 @@ package object reactMod {
   // Factories
   // ----------------------------------------------------------------------
   type Factory[P] = js.Function2[/* props */ js.UndefOr[Attributes with P], /* repeated */ ReactNode, ReactElement]
-  type FocusEventHandler[T] = EventHandler[typings.react.reactMod.FocusEvent[T]]
+  type FocusEventHandler[T] = EventHandler[FocusEvent[T]]
   // tslint:disable-next-line:no-empty-interface
   type FormEvent[T] = BaseSyntheticEvent[Event, EventTarget with T, EventTarget]
   type FormEventHandler[T] = EventHandler[FormEvent[T]]
@@ -131,7 +131,7 @@ package object reactMod {
   type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
   type JSXElementConstructor[P] = (js.Function1[/* props */ P, ReactElement | Null]) | (Instantiable1[/* props */ P, Component[P, js.Any, js.Any]])
   type Key = String | Double
-  type KeyboardEventHandler[T] = EventHandler[typings.react.reactMod.KeyboardEvent[T]]
+  type KeyboardEventHandler[T] = EventHandler[KeyboardEvent[T]]
   type LazyExoticComponent[T /* <: ComponentType[_] */] = ExoticComponent[ComponentPropsWithRef[T]] with Anon_Result[T]
   type LegacyRef[T] = String | Ref[T]
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
@@ -145,8 +145,8 @@ package object reactMod {
     P, 
     /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
   ])) | P | T
-  type MouseEventHandler[T] = EventHandler[typings.react.reactMod.MouseEvent[T, NativeMouseEvent]]
-  type PointerEventHandler[T] = EventHandler[typings.react.reactMod.PointerEvent[T]]
+  type MouseEventHandler[T] = EventHandler[MouseEvent[T, NativeMouseEvent]]
+  type PointerEventHandler[T] = EventHandler[PointerEvent[T]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
     */
@@ -249,9 +249,9 @@ package object reactMod {
     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     */
   type SyntheticEvent[T, E] = BaseSyntheticEvent[E, EventTarget with T, EventTarget]
-  type TouchEventHandler[T] = EventHandler[typings.react.reactMod.TouchEvent[T]]
-  type TransitionEventHandler[T] = EventHandler[typings.react.reactMod.TransitionEvent[T]]
-  type UIEventHandler[T] = EventHandler[typings.react.reactMod.UIEvent[T]]
+  type TouchEventHandler[T] = EventHandler[TouchEvent[T]]
+  type TransitionEventHandler[T] = EventHandler[TransitionEvent[T]]
+  type UIEventHandler[T] = EventHandler[UIEvent[T]]
   type ValidationMap[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.ValidationMap<T> */ js.Any
   //
   // React.PropTypes
@@ -260,5 +260,5 @@ package object reactMod {
   type WeakValidationMap[T] = /* import warning: ImportType.apply c Unsupported type mapping: 
   {[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
     */ typings.react.reactStrings.WeakValidationMap with js.Any
-  type WheelEventHandler[T] = EventHandler[typings.react.reactMod.WheelEvent[T]]
+  type WheelEventHandler[T] = EventHandler[WheelEvent[T]]
 }

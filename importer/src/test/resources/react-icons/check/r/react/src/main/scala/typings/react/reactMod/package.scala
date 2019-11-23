@@ -5,7 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object reactMod {
-  import typings.react.Element
+  import typings.std.Element
 
   type ComponentState = js.Object
   type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[

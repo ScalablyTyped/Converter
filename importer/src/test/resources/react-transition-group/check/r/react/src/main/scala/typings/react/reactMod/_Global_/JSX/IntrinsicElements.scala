@@ -1,10 +1,10 @@
 package typings.react.reactMod._Global_.JSX
 
-import typings.react.HTMLElement
-import typings.react.SVGElement
 import typings.react.reactMod.DetailedHTMLProps
 import typings.react.reactMod.HTMLAttributes
 import typings.react.reactMod.SVGProps
+import typings.std.HTMLElement
+import typings.std.SVGElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

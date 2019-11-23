@@ -1,6 +1,4 @@
 
-/// <reference path="global.d.ts" />
-
 type NativeAnimationEvent = AnimationEvent;
 
 // tslint:disable-next-line:export-just-namespace

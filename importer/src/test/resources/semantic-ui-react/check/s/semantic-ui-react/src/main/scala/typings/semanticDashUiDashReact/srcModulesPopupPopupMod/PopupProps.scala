@@ -1,7 +1,6 @@
 package typings.semanticDashUiDashReact.srcModulesPopupPopupMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.react.HTMLElement
 import typings.react.NativeMouseEvent
 import typings.react.reactMod.MouseEvent
 import typings.react.reactMod.ReactNode
@@ -26,6 +25,7 @@ import typings.semanticDashUiDashReact.semanticDashUiDashReactStrings.very
 import typings.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import typings.semanticDashUiDashReact.srcModulesPopupPopupContentMod.PopupContentProps
 import typings.semanticDashUiDashReact.srcModulesPopupPopupHeaderMod.PopupHeaderProps
+import typings.std.HTMLElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
