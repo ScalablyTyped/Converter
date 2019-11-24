@@ -103,4 +103,31 @@ class JsonTests extends FunSuite {
 
     assert(decode[TypingsJson](content) === Right(expected))
   }
+
+  test("summary.json") {
+    val content = """{
+  "successes": [
+    {
+      "TsIdentLibraryScoped": {
+        "scope": "feathersjs",
+        "nameOpt": "authentication-oauth2"
+      }
+    },
+    {
+      "TsIdentLibraryScoped": {
+        "scope": "feathersjs"
+      }
+    }
+  ],
+  "failures": []
+}
+"""
+    val expected =
+      Summary(
+        Set(TsIdentLibraryScoped("feathersjs", "authentication-oauth2"), TsIdentLibrarySimple("@feathersjs")),
+        Set(),
+      )
+
+    assert(decode[Summary](content) === Right(expected))
+  }
 }

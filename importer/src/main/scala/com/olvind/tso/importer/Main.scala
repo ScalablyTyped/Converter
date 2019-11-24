@@ -51,10 +51,8 @@ class Main(config: Config) {
   def updatedTargetDir(flavour: Flavour): Future[TargetDirs] =
     Future {
       val projectFolder = config.cacheFolder / flavour.projectName
-
-      val targetFolder = projectFolder
-      if (os.exists(targetFolder)) {
-        implicit val wd = targetFolder
+      if (os.exists(projectFolder)) {
+        implicit val wd = projectFolder
         if (!config.offline) {
           Try(interfaceCmd.runVerbose git 'fetch)
         }
@@ -78,7 +76,7 @@ class Main(config: Config) {
             interfaceCmd.runVerbose git ("remote", "add", "origin", flavour.repo)
         }
 
-      TargetDirs(targetFolder = targetFolder, facadeFolder = files.existing(targetFolder / 'facades))
+      TargetDirs(targetFolder = projectFolder, facadeFolder = files.existing(projectFolder / 'facades))
     }(ec)
 
   def localCleaning(flavour: Flavour): Future[Unit] =
