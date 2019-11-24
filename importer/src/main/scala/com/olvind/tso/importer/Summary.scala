@@ -44,13 +44,12 @@ object Summary {
   object legacyLibDecoder extends Decoder[TsIdentLibrary] {
     override def apply(c: HCursor): Result[TsIdentLibrary] = {
       val obj = c.downField("TsIdentLibraryScoped")
-      obj.get[String]("scope").map {
-        scope =>
-          val nameOpt = obj.get[String]("nameOpt").toOption
-          nameOpt match {
-            case None => ts.TsIdentLibrarySimple(s"@$scope")
-            case Some(name) => ts.TsIdentLibraryScoped(scope, name)
-          }
+      obj.get[String]("scope").map { scope =>
+        val nameOpt = obj.get[String]("nameOpt").toOption
+        nameOpt match {
+          case None       => ts.TsIdentLibrarySimple(s"@$scope")
+          case Some(name) => ts.TsIdentLibraryScoped(scope, name)
+        }
       }
     }
   }

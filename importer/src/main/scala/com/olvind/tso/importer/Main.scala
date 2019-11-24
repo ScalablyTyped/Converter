@@ -193,9 +193,6 @@ class Main(config: Config) {
       )
       .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
 
-    val interface = new Interface(config.debugMode, storingErrorLogger)
-    interface.start()
-
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)
       val publishUser                            = bintray.fold("oyvindberg")(_.user)
@@ -228,17 +225,20 @@ class Main(config: Config) {
           .nextOpt(bintray.map(Phase4Publish), "publish")
 
       val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
-        if (config.sequential)
-          tsSources.toVector
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, interface))
-            .toMap
-        else {
-          val par = tsSources.toVector.par
-          par.tasksupport = new ForkJoinTaskSupport(pool)
-          par
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, interface))
-            .seq
-            .toMap
+        Interface(false, storingErrorLogger) {
+          case listener if config.sequential =>
+            tsSources.toVector
+              .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+              .toMap
+
+          case listener =>
+            val par = tsSources.toVector.par
+            par.tasksupport = new ForkJoinTaskSupport(pool)
+            par
+              .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+              .seq
+              .toMap
+
         }
 
       val successes: Set[PublishedSbtProject] = {
@@ -311,8 +311,6 @@ target/
         )(targetFolder)
       }
     }
-
-    interface.finish()
 
     pool.shutdown()
 
