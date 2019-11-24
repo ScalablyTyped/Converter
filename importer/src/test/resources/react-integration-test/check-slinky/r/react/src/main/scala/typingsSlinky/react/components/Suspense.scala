@@ -11,7 +11,11 @@ import scala.scalajs.js.annotation._
 
 object Suspense
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  override val component: String | js.Object = typingsSlinky.react.reactMod.Suspense.asInstanceOf[String | js.Object]
+  @JSImport("react", "Suspense")
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   def apply(
     fallback: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null,
     overrides: StringDictionary[js.Any] = null

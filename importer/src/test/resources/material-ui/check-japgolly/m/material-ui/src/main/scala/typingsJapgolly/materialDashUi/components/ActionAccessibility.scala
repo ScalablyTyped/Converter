@@ -8,6 +8,9 @@ object ActionAccessibility
   extends SharedApply_Object152536094[
       typingsJapgolly.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility
     ] {
-  override val __component: js.Any = js.constructorOf[typingsJapgolly.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility]
+  @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
+  @js.native
+  override object componentImport extends js.Object
+  
 }
 

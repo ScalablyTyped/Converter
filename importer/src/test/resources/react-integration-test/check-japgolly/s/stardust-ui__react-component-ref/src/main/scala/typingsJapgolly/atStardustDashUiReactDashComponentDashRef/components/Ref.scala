@@ -28,8 +28,12 @@ object Ref {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsRefMod.default.asInstanceOf[js.Any])
+  js.Object](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps])(children: _*)
   }
+  @JSImport("@stardust-ui/react-component-ref/dist/es/Ref", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

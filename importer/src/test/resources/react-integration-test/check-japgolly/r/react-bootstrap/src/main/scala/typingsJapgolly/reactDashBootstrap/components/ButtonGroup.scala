@@ -46,8 +46,12 @@ object ButtonGroup {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup](js.constructorOf[typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup].asInstanceOf[js.Any])
+  typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps])(children: _*)
   }
+  @JSImport("react-bootstrap/lib", "ButtonGroup")
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

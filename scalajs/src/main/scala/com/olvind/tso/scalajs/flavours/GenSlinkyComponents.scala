@@ -11,12 +11,13 @@ import scala.collection.mutable
 object GenSlinkyComponents {
   val slinkyName = Name("slinky")
   object names {
-    val components   = Name("components")
-    val Props        = Name("Props")
-    val Element      = Name("Element")
-    val RefType      = Name("RefType")
-    val component    = Name("component")
-    val ComponentRef = Name("ComponentRef")
+    val components      = Name("components")
+    val Props           = Name("Props")
+    val Element         = Name("Element")
+    val RefType         = Name("RefType")
+    val component       = Name("component")
+    val componentImport = Name("componentImport")
+    val ComponentRef    = Name("ComponentRef")
 
     /* Fully qualified references to slinky types */
     val slinky                      = QualifiedName(List(GenSlinkyComponents.slinkyName))
@@ -164,7 +165,7 @@ class GenSlinkyComponents(
     Seq(overridesParam -> overridesUpdate)
   }
 
-  case class Props(params: Seq[Param], domParams: Seq[FieldTree]) {
+  case class SplitProps(params: Seq[Param], domParams: Seq[FieldTree]) {
     val (refTypes, _, _optionals, requireds, Nil) = params.partitionCollect4(
       { case Param(ParamTree(Name("ref"), _, tpe, _, _), _)       => tpe },
       { case Param(pt, _) if GenSlinkyComponents.shouldIgnore(pt) => () },
@@ -207,7 +208,7 @@ class GenSlinkyComponents(
         .to[Seq]
         .flatMap {
           case ((propsRefOpt, hasKnownRef, tparams), components) =>
-            val (propsRef, resProps): (TypeRef, Res[Props]) =
+            val (propsRef, resProps): (TypeRef, Res[SplitProps]) =
               propsRefOpt match {
                 case Some(propsRef) =>
                   val referredTrait: Option[ClassTree] = {
@@ -218,7 +219,7 @@ class GenSlinkyComponents(
                     }
                   }
 
-                  val resProps: Res[Props] =
+                  val resProps: Res[SplitProps] =
                     referredTrait match {
                       case Some(cls) =>
                         val domParams = mutable.ArrayBuffer.empty[FieldTree]
@@ -249,13 +250,13 @@ class GenSlinkyComponents(
                                 memberToParameter(scope, methodTree)
                             }.sorted.take(Params.MaxParamsForMethod))
 
-                        resParams.map(params => Props(params, domParams.to[Seq]))
+                        resParams.map(params => SplitProps(params, domParams.distinct.to[Seq]))
                       case None => Res.Error(s"${propsRef.typeName} was not a @ScalaJSDefined trait")
                     }
 
                   (propsRef, resProps)
                 case None =>
-                  (TypeRef.Object, Res.One(TypeRef.Object.name, Props(Nil, Nil)))
+                  (TypeRef.Object, Res.One(TypeRef.Object.name, SplitProps(Nil, Nil)))
               }
 
             val domType: TypeRef =
@@ -297,7 +298,7 @@ class GenSlinkyComponents(
                   case None           => TypeRef.Object
                 }
                 val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
-                val props            = Props(List(param), Nil)
+                val props            = SplitProps(List(param), Nil)
 
                 components.map { c =>
                   val mod = genComponent(scope, pkgCp, propsRef, Res.One(TypeRef.Object.name, props), domType)(c)
@@ -323,7 +324,7 @@ class GenSlinkyComponents(
       propsRef:          TypeRef,
       scope:             TreeScope,
       pkgCp:             QualifiedName,
-      resProps:          Res.Success[Props],
+      resProps:          Res.Success[SplitProps],
       knownRefRewritten: Option[TypeRef],
       tparams:           Seq[TypeParamTree],
       domType:           TypeRef,
@@ -368,9 +369,10 @@ class GenSlinkyComponents(
       annotations = Nil,
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
-      members     = List(genComponentField(c, componentCp)),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
+      members     = genComponentField(c, componentCp),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
       codePath    = componentCp,
+      isOverride  = false,
     )
   }
 
@@ -378,7 +380,7 @@ class GenSlinkyComponents(
       scope:    TreeScope,
       pkgCp:    QualifiedName,
       propsRef: TypeRef,
-      resProps: Res.Success[Props],
+      resProps: Res.Success[SplitProps],
       domType:  TypeRef,
   )(c:          Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
@@ -388,16 +390,17 @@ class GenSlinkyComponents(
       annotations = Nil,
       name        = c.fullName,
       parents     = List(parent),
-      members     = List(genComponentField(c, componentCp)) ++ methods ++ typeAliasOpt,
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
+      members     = genComponentField(c, componentCp) ++ methods ++ typeAliasOpt,
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
       codePath    = componentCp,
+      isOverride  = false,
     )
   }
 
   def genContent(
       scope:    TreeScope,
       propsRef: TypeRef,
-      props:    Res.Success[Props],
+      props:    Res.Success[SplitProps],
       tparams:  Seq[TypeParamTree],
       knownRef: Option[TypeRef],
       domType:  TypeRef,
@@ -429,7 +432,7 @@ class GenSlinkyComponents(
         *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
         *  a case class and suffer macro execution time.
         */
-      def applyMethod(name: Name, props: Props): MethodTree = {
+      def applyMethod(name: Name, props: SplitProps): MethodTree = {
         val ret  = TypeRef(names.BuildingComponent, List(domType, refType), NoComments)
         val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
 
@@ -462,26 +465,34 @@ class GenSlinkyComponents(
     }
   }
 
-  def genDomWarning(props: Props): Comments =
+  def genDomWarning(props: SplitProps): Comments =
     if (props.domParams.isEmpty) NoComments
     else {
       val details = props.domParams.map(_.name.unescaped).sorted.mkString(", ")
       Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
     }
 
-  def genComponentField(c: Component, componentCp: QualifiedName): FieldTree =
-    FieldTree(
-      Nil,
-      names.component,
-      TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
-      MemberImpl.Custom(
-        Component
-          .formatReferenceTo(TypeRef.stripTargs(c.scalaRef), c.componentType) + ".asInstanceOf[String | js.Object]",
+  def genComponentField(c: Component, componentCp: QualifiedName): List[Tree] =
+    List(
+      ModuleTree(
+        List(Annotation.JsNative, c.location),
+        names.componentImport,
+        Nil,
+        Nil,
+        NoComments,
+        componentCp + names.componentImport,
+        isOverride = false,
       ),
-      isReadOnly = true,
-      isOverride = true,
-      NoComments,
-      componentCp + names.component,
+      FieldTree(
+        Nil,
+        names.component,
+        TypeRef.Union(List(TypeRef.String, TypeRef.Object), sort = false),
+        MemberImpl.Custom(s"this.${names.componentImport.value}"),
+        isReadOnly = true,
+        isOverride = true,
+        NoComments,
+        componentCp + names.component,
+      ),
     )
 
   // todo: this was all the mapping i had the energy to do.

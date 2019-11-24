@@ -43,8 +43,12 @@ object AccordionPanel {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default].asInstanceOf[js.Any])
+  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps])(children: _*)
   }
+  @JSImport("semantic-ui-react/src/modules/Accordion/AccordionPanel", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

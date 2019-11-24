@@ -6,6 +6,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Accessibility extends SharedApply_Object152536094[default] {
-  override val component: String | js.Object = js.constructorOf[typingsSlinky.materialDashUi.svgDashIconsActionAccessibilityMod.default].asInstanceOf[String | js.Object]
+  @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
 }
 

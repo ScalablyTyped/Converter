@@ -17,7 +17,11 @@ import scala.scalajs.js.annotation._
 
 object SubMenu
   extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.SubMenu] {
-  override val component: String | js.Object = js.constructorOf[typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.SubMenu].asInstanceOf[String | js.Object]
+  @JSImport("react-contextmenu", "SubMenu")
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className, disabled */
   def apply(
     title: ReactElement | ReactText,

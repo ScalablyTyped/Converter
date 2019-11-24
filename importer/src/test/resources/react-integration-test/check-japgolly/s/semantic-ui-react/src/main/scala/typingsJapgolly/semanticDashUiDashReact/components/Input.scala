@@ -525,8 +525,12 @@ object Input {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default].asInstanceOf[js.Any])
+  typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps])(children: _*)
   }
+  @JSImport("semantic-ui-react/src/elements/Input", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

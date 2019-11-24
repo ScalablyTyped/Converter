@@ -68,7 +68,9 @@ object FakeLiterals {
               Seq(`trait`, `def`)
           }
 
-        Some(ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, _s.codePath + moduleName))
+        Some(
+          ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, _s.codePath + moduleName, isOverride = false),
+        )
       }
 
     override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =

@@ -12,7 +12,11 @@ import scala.scalajs.js.annotation._
 
 object ReactDashSelect
   extends ExternalComponentWithAttributesWithRefType[tag.type, default[js.Any]] {
-  override val component: String | js.Object = js.constructorOf[typingsSlinky.reactDashSelect.reactDashSelectMod.default[js.Any]].asInstanceOf[String | js.Object]
+  @JSImport("react-select", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   def apply[TValue](addLabelText: String = null, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, default[js.Any]] = {
     val __obj = js.Dynamic.literal()
     if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])

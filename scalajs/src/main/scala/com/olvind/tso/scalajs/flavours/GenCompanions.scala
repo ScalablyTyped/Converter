@@ -29,7 +29,9 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
             case Res.One(_, params) =>
               val modOpt: Option[ModuleTree] =
                 generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
-                  .map(method => ModuleTree(Nil, cls.name, Nil, Seq(method), NoComments, cls.codePath))
+                  .map(
+                    method => ModuleTree(Nil, cls.name, Nil, Seq(method), NoComments, cls.codePath, isOverride = false),
+                  )
                   .filter(ensureNotTooManyStrings)
 
               List(cls) ++ modOpt
@@ -41,7 +43,8 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
                 }(collection.breakOut)
 
               val modOpt: Option[ModuleTree] =
-                Some(ModuleTree(Nil, cls.name, Nil, methods, NoComments, cls.codePath)).filter(ensureNotTooManyStrings)
+                Some(ModuleTree(Nil, cls.name, Nil, methods, NoComments, cls.codePath, isOverride = false))
+                  .filter(ensureNotTooManyStrings)
 
               List(cls) ++ modOpt
           }

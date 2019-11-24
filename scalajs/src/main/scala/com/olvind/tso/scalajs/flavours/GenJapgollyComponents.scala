@@ -12,13 +12,13 @@ import com.olvind.tso.seqs._
 object GenJapgollyComponents {
 
   object names {
-    val japgolly     = Name("japgolly")
-    val components   = Name("components")
-    val children     = Name("children")
-    val ref          = Name("ref")
-    val key          = Name("key")
-    val component    = Name("__component")
-    val ComponentRef = Name("ComponentRef")
+    val japgolly        = Name("japgolly")
+    val components      = Name("components")
+    val children        = Name("children")
+    val ref             = Name("ref")
+    val key             = Name("key")
+    val componentImport = Name("componentImport")
+    val ComponentRef    = Name("ComponentRef")
 
     val ignoredNames = Set(key, children)
   }
@@ -283,27 +283,37 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
       tparams:           Seq[TypeParamTree],
       c:                 Component,
   ): ModuleTree = {
-    val componentCp  = pkgCodePath + c.fullName
-    val componentRef = Component.formatReferenceTo(c.scalaRef, c.componentType)
+    val componentCp = pkgCodePath + c.fullName
 
     val methods: Seq[MemberTree] =
       resParams match {
         case Res.One(_, params) =>
-          List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, componentRef, componentCp))
+          List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, componentCp))
         case Res.Many(values) =>
           values.map {
             case (name, params) =>
-              genCreator(name, props, params, knownRefRewritten, tparams, componentRef, componentCp)
+              genCreator(name, props, params, knownRefRewritten, tparams, componentCp)
           }(collection.breakOut)
       }
+
+    val componentRef = ModuleTree(
+      annotations = List(Annotation.JsNative, c.location),
+      name        = names.componentImport,
+      parents     = Nil,
+      members     = Nil,
+      comments    = NoComments,
+      codePath    = componentCp + names.componentImport,
+      isOverride  = false,
+    )
 
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
       parents     = Nil,
-      members     = methods,
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
+      members     = methods :+ componentRef,
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
       codePath    = componentCp,
+      isOverride  = false,
     )
   }
 
@@ -321,27 +331,25 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     )
     val classCp = pkgCodePath + name
 
-    val componentRef = MethodTree(
+    val componentRef = FieldTree(
       annotations = Nil,
-      level       = ProtectionLevel.Default,
-      name        = names.component,
-      tparams     = Nil,
-      params      = Nil,
+      name        = names.componentImport,
+      tpe         = TypeRef.Any,
       impl        = MemberImpl.NotImplemented,
-      resultType  = TypeRef.Any,
+      isReadOnly  = true,
       isOverride  = false,
       comments    = NoComments,
-      codePath    = classCp + names.component,
+      codePath    = classCp + names.componentImport,
     )
 
     val methods: Seq[MemberTree] =
       resParams match {
         case Res.One(_, params) =>
-          List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, names.component.unescaped, classCp))
+          List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, classCp))
         case Res.Many(values) =>
           values.map {
             case (name, params) =>
-              genCreator(name, props, params, knownRefRewritten, tparams, names.component.unescaped, classCp)
+              genCreator(name, props, params, knownRefRewritten, tparams, classCp)
           }(collection.breakOut)
       }
 
@@ -364,15 +372,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
   def genComponentForSharedProps(pkgCodePath: QualifiedName, propsClass: ClassTree)(c: Component): ModuleTree = {
     val componentCp = pkgCodePath + c.fullName
 
-    val componentRef = FieldTree(
-      annotations = Nil,
-      name        = names.component,
-      tpe         = TypeRef.Any,
-      impl        = MemberImpl.Custom(Component.formatReferenceTo(TypeRef.stripTargs(c.scalaRef), c.componentType)),
-      isReadOnly  = true,
-      isOverride  = true,
+    val componentRef = ModuleTree(
+      annotations = List(Annotation.JsNative, c.location),
+      name        = names.componentImport,
+      parents     = Nil,
+      members     = Nil,
       comments    = NoComments,
-      codePath    = componentCp + names.component,
+      codePath    = componentCp + names.componentImport,
+      isOverride  = true,
     )
 
     ModuleTree(
@@ -380,8 +387,9 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
       members     = List(componentRef),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(List(c.scalaRef)))),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
       codePath    = componentCp,
+      isOverride  = false,
     )
   }
 
@@ -395,7 +403,6 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
       params:            Seq[Param],
       knownRefRewritten: Option[TypeRef],
       tparams:           Seq[TypeParamTree],
-      componentRef:      String,
       ownerCp:           QualifiedName,
   ): MethodTree = {
 
@@ -482,7 +489,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
            |
            |  ${optionals2.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
            |
-           |  val f = $formattedCreateWrapper($componentRef.asInstanceOf[js.Any])
+           |  val f = $formattedCreateWrapper(this.${names.componentImport.value})
            |  f(__obj.asInstanceOf[$formattedProps])$formattedVarargsChildren
            |}""".stripMargin,
       )

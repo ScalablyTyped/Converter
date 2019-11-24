@@ -43,8 +43,12 @@ object ContextMenuTrigger {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTriggerProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger](js.constructorOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger].asInstanceOf[js.Any])
+  typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTriggerProps])(children: _*)
   }
+  @JSImport("react-contextmenu", "ContextMenuTrigger")
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

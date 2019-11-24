@@ -166,10 +166,10 @@ object ContainerPolicy extends TreeTransformation {
       case (members, rest) =>
         val rewritten: List[Ior[MemberTree, ModuleTree]] =
           members.toList zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
-            case (f @ FieldTree(_, name, tpe, _, isReadonly, _, _, codePath), extracted) =>
+            case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted) =>
               extracted match {
                 case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS_TYPE =>
-                  val mod = ModuleTree(anns, name, List(TypeRef.TopLevel(tpe)), Nil, restCs, codePath)
+                  val mod = ModuleTree(anns, name, List(TypeRef.TopLevel(tpe)), Nil, restCs, codePath, isOverride)
                   if (isReadonly) Ior.Right(mod)
                   else Ior.Both(f, mod)
                 case _ =>
@@ -181,7 +181,7 @@ object ContainerPolicy extends TreeTransformation {
                 case Some((anns, restCs)) if m.name =/= Name.APPLY =>
                   val asApply =
                     m.copy(annotations = Nil, name = Name.APPLY, codePath = m.codePath + Name.APPLY, comments = restCs)
-                  Ior.Right(ModuleTree(anns, m.name, Nil, List(asApply), NoComments, m.codePath))
+                  Ior.Right(ModuleTree(anns, m.name, Nil, List(asApply), NoComments, m.codePath, m.isOverride))
                 case _ =>
                   Ior.Left(m)
               }
@@ -191,7 +191,10 @@ object ContainerPolicy extends TreeTransformation {
         val (mutables, hoisted) = rewritten.separate
 
         val hatModule =
-          setCodePath(hatCp, ModuleTree(s.annotations, Name.namespaced, inheritance, mutables, NoComments, hatCp))
+          setCodePath(
+            hatCp,
+            ModuleTree(s.annotations, Name.namespaced, inheritance, mutables, NoComments, hatCp, isOverride = false),
+          )
         combineModules(s.withMembers(rest ++ hoisted :+ hatModule))
     }
   }
@@ -211,6 +214,7 @@ object ContainerPolicy extends TreeTransformation {
                   members     = (mod1.members ++ mod2.members).distinct,
                   comments    = mod1.comments ++ mod2.comments,
                   codePath    = mod1.codePath,
+                  isOverride  = false,
                 )
               }
 

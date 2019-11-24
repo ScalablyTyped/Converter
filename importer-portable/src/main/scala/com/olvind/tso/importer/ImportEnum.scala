@@ -75,7 +75,7 @@ object ImportEnum {
                 importedCodePath + memberName,
               )
           }
-          ModuleTree(Nil, name, Nil, cast +: newMembers, NoComments, importedCodePath)
+          ModuleTree(Nil, name, Nil, cast +: newMembers, NoComments, importedCodePath, isOverride = false)
         }
 
         List(ta, module)
@@ -182,10 +182,11 @@ object ImportEnum {
           ModuleTree(
             anns,
             name,
-            parents  = Nil,
-            members  = membersSyms ++ applyMethod,
-            comments = cs + CommentData(Markers.EnumObject),
-            codePath = importedCodePath,
+            parents    = Nil,
+            members    = membersSyms ++ applyMethod,
+            comments   = cs + CommentData(Markers.EnumObject),
+            codePath   = importedCodePath,
+            isOverride = false,
           )
         }
 

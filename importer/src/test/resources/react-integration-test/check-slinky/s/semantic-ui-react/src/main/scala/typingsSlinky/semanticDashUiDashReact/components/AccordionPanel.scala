@@ -17,7 +17,11 @@ import scala.scalajs.js.annotation._
 
 object AccordionPanel
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  override val component: String | js.Object = js.constructorOf[typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default].asInstanceOf[String | js.Object]
+  @JSImport("semantic-ui-react/src/modules/Accordion/AccordionPanel", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   def apply(
     active: js.UndefOr[Boolean] = js.undefined,
     content: SemanticShorthandItem[AccordionContentProps] = null,

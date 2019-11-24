@@ -12,7 +12,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 abstract class SharedApply_Anon_Children_632066307 () {
-  def __component: js.Any
+  val componentImport: js.Any
   def apply(
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
@@ -30,7 +30,7 @@ abstract class SharedApply_Anon_Children_632066307 () {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.react.Anon_Children, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](__component.asInstanceOf[js.Any])
+  js.Object](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.react.Anon_Children])(children: _*)
   }
 }

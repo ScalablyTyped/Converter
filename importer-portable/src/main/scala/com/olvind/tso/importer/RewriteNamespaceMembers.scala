@@ -27,7 +27,7 @@ object RewriteNamespaceMembers {
           val fromFields = namespacedFields.map(x => x.tpe)
           val fromContainers = namespacedContainers.flatMap {
             case _: PackageTree => Nil
-            case ModuleTree(_, _, parents, _, _, _) =>
+            case ModuleTree(_, _, parents, _, _, _, _) =>
               parents map {
                 case TypeRef(QualifiedName.TopLevel, Seq(parent), _) => parent
                 case parent                                          => parent
