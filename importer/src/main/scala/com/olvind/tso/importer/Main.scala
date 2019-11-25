@@ -225,7 +225,7 @@ class Main(config: Config) {
           .nextOpt(bintray.map(Phase4Publish), "publish")
 
       val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
-        Interface(false, storingErrorLogger) {
+        Interface(config.debugMode, storingErrorLogger) {
           case listener if config.sequential =>
             tsSources.toVector
               .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
