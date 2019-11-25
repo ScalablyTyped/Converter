@@ -30,7 +30,7 @@ object PartialObserver {
     error: js.Any => Unit,
     closed: js.UndefOr[Boolean] = js.undefined,
     complete: () => Unit = null,
-    next: /* value */ T => Unit = null
+    next: T => Unit = null
   ): PartialObserver[T] = {
     val __obj = js.Dynamic.literal(error = js.Any.fromFunction1(error))
     if (!js.isUndefined(closed)) __obj.updateDynamic("closed")(closed.asInstanceOf[js.Any])
@@ -43,7 +43,7 @@ object PartialObserver {
     complete: () => Unit,
     closed: js.UndefOr[Boolean] = js.undefined,
     error: /* err */ js.Any => Unit = null,
-    next: /* value */ T => Unit = null
+    next: T => Unit = null
   ): PartialObserver[T] = {
     val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete))
     if (!js.isUndefined(closed)) __obj.updateDynamic("closed")(closed.asInstanceOf[js.Any])
