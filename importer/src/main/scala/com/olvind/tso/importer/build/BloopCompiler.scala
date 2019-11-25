@@ -35,6 +35,7 @@ object BloopCompiler {
     override def isVerbose:   Boolean     = true
     override def debugFilter: DebugFilter = DebugFilter.All
     override def printDebug(line: String): Unit = logger.debug(line)
+    override def withOriginId(originId: Option[String]): BloopLogger = this
   }
 
   implicit val AbsolutePathFormatter: Formatter[AbsolutePath] = x => x.syntax
@@ -129,11 +130,12 @@ class BloopCompiler private (
             setup        = None,
           ),
         ),
-        java       = None,
-        sbt        = None,
-        test       = None,
-        platform   = None,
-        resolution = None,
+        java         = None,
+        sbt          = None,
+        test         = None,
+        platform     = None,
+        resolution   = None,
+        workspaceDir = None,
       ),
     )
     os.makeDir.all(bloopFolder)

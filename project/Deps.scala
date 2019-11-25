@@ -7,7 +7,7 @@ object Deps {
   val sourcecode        = "com.lihaoyi" %% "sourcecode" % "0.1.7"
   val scalatest         = "org.scalatest" %% "scalatest" % "3.0.8"
   val fansi             = "com.lihaoyi" %% "fansi" % "0.2.7"
-  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.3.2"
+  val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.3.5"
   val bintry            = "org.foundweekends" %% "bintry" % "0.5.2"
   val asyncHttpClient   = "com.ning" % "async-http-client" % "1.9.40"
 

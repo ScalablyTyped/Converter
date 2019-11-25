@@ -18,11 +18,13 @@ object TypescriptSources {
       .collect { case dir if os.isDir(dir) => dir }
       .flatMap {
         case path if path.last.startsWith("@") =>
-          os.list(path)
-            .map(
-              nestedPath =>
-                FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")): TsLibSource,
-            )
+          if (path.last.startsWith("@types")) Nil
+          else
+            os.list(path)
+              .map(
+                nestedPath =>
+                  FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")): TsLibSource,
+              )
         case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
       }
       .filterNot(s => ignored(s.libName))

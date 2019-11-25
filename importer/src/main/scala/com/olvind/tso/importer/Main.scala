@@ -51,10 +51,8 @@ class Main(config: Config) {
   def updatedTargetDir(flavour: Flavour): Future[TargetDirs] =
     Future {
       val projectFolder = config.cacheFolder / flavour.projectName
-
-      val targetFolder = projectFolder
-      if (os.exists(targetFolder)) {
-        implicit val wd = targetFolder
+      if (os.exists(projectFolder)) {
+        implicit val wd = projectFolder
         if (!config.offline) {
           Try(interfaceCmd.runVerbose git 'fetch)
         }
@@ -78,7 +76,7 @@ class Main(config: Config) {
             interfaceCmd.runVerbose git ("remote", "add", "origin", flavour.repo)
         }
 
-      TargetDirs(targetFolder = targetFolder, facadeFolder = files.existing(targetFolder / 'facades))
+      TargetDirs(targetFolder = projectFolder, facadeFolder = files.existing(projectFolder / 'facades))
     }(ec)
 
   def localCleaning(flavour: Flavour): Future[Unit] =
@@ -195,9 +193,6 @@ class Main(config: Config) {
       )
       .next(new Phase2ToScalaJs(config.pedantic), "scala.js")
 
-    val interface = new Interface(config.debugMode, storingErrorLogger)
-    interface.start()
-
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)
       val publishUser                            = bintray.fold("oyvindberg")(_.user)
@@ -230,17 +225,20 @@ class Main(config: Config) {
           .nextOpt(bintray.map(Phase4Publish), "publish")
 
       val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
-        if (config.sequential)
-          tsSources.toVector
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, interface))
-            .toMap
-        else {
-          val par = tsSources.toVector.par
-          par.tasksupport = new ForkJoinTaskSupport(pool)
-          par
-            .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, interface))
-            .seq
-            .toMap
+        Interface(config.debugMode, storingErrorLogger) {
+          case listener if config.sequential =>
+            tsSources.toVector
+              .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+              .toMap
+
+          case listener =>
+            val par = tsSources.toVector.par
+            par.tasksupport = new ForkJoinTaskSupport(pool)
+            par
+              .map(source => source -> PhaseRunner.go(Pipeline, source, Nil, logRegistry.get, listener))
+              .seq
+              .toMap
+
         }
 
       val successes: Set[PublishedSbtProject] = {
@@ -313,8 +311,6 @@ target/
         )(targetFolder)
       }
     }
-
-    interface.finish()
 
     pool.shutdown()
 

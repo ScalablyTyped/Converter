@@ -1,10 +1,11 @@
-package com.olvind.tso.importer
+package com.olvind.tso
+package importer
 
 object LocalCleanup {
   implicit val Newest = Ordering.by[os.Path, Long](-_.toIO.lastModified)
 
   def apply(ivyLocal: os.Path, organization: String, keepNum: Int): Unit =
-    os.list(ivyLocal / organization).foreach { project =>
+    os.list(files.existing(ivyLocal / organization)).foreach { project =>
       os.list(project).sorted drop keepNum foreach os.remove.all
     }
 }
