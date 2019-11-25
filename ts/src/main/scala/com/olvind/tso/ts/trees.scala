@@ -364,9 +364,9 @@ object TsIdentLibrary {
 
   def apply(str: String): TsIdentLibrary =
     str match {
-      case Scoped("types", name)   => TsIdentLibrarySimple(name)
+      case Scoped("types", name)   => apply(name) // @types/babel__core exists
       case Scoped(scope, name)     => TsIdentLibraryScoped(scope, name)
-      case Scoped__("types", name) => TsIdentLibrarySimple(name)
+      case Scoped__("types", name) => apply(name)
       case Scoped__(scope, name)   => TsIdentLibraryScoped(scope, name)
       case other                   => TsIdentLibrarySimple(other)
     }
