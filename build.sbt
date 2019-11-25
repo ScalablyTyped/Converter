@@ -55,7 +55,13 @@ val importer = project
     ),
     fork in run := true,
     javaOptions in run += "-Xmx12G",
-    mainClass := Some("com.olvind.tso.importer.Importer"),
+    test in assembly := {},
+    mainClass in assembly := Some("com.olvind.tso.importer.Importer"),
+    assemblyMergeStrategy in assembly := {
+      case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
+      case foo if foo.endsWith("module-info.class") => MergeStrategy.discard
+      case other => (assembly / assemblyMergeStrategy).value(other)
+    },
     // fork to keep CI happy with memory usage
     fork in Test := true,
     // testOptions in Test += Tests.Argument("-P4")
