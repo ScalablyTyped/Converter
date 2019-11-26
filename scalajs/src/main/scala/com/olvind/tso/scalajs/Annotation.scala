@@ -4,6 +4,7 @@ package scalajs
 sealed trait Annotation extends Product with Serializable
 sealed trait MemberAnnotation extends Annotation
 sealed trait ClassAnnotation extends Annotation
+sealed trait LocationAnnotation extends ClassAnnotation
 
 sealed trait Imported
 object Imported {
@@ -17,13 +18,13 @@ object Annotation {
   case object JsBracketCall extends MemberAnnotation
   case object JsNative extends ClassAnnotation
   case object ScalaJSDefined extends ClassAnnotation
-  case object JsGlobalScope extends ClassAnnotation
+  case object JsGlobalScope extends LocationAnnotation
   case object Inline extends MemberAnnotation
 
   case class JsName(name:       Name) extends MemberAnnotation with ClassAnnotation
   case class JsNameSymbol(name: QualifiedName) extends MemberAnnotation
-  case class JsImport(module:   String, imported: Imported) extends ClassAnnotation
-  case class JsGlobal(name:     QualifiedName) extends ClassAnnotation
+  case class JsImport(module:   String, imported: Imported) extends LocationAnnotation
+  case class JsGlobal(name:     QualifiedName) extends LocationAnnotation
 
   def jsName(name: Name): Seq[JsName] =
     if (name.unescaped.contains("$")) Seq(JsName(name))

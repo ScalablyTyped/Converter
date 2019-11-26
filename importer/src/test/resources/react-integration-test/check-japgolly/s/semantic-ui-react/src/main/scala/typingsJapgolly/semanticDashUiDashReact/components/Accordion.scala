@@ -53,8 +53,12 @@ object Accordion {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default].asInstanceOf[js.Any])
+  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps])(children: _*)
   }
+  @JSImport("semantic-ui-react/src/modules/Accordion", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

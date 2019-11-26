@@ -40,8 +40,12 @@ object AccordionContent {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.AccordionContentProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.default.asInstanceOf[js.Any])
+  js.Object](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.AccordionContentProps])(children: _*)
   }
+  @JSImport("semantic-ui-react/src/modules/Accordion/AccordionContent", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

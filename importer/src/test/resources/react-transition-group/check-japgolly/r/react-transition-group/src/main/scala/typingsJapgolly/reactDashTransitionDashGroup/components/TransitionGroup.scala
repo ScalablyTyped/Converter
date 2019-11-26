@@ -37,10 +37,14 @@ object TransitionGroup {
     js.Any
   ]) with js.Object, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashTransitionDashGroup.transitionGroupMod.^](js.constructorOf[typingsJapgolly.reactDashTransitionDashGroup.transitionGroupMod.^].asInstanceOf[js.Any])
+  typingsJapgolly.reactDashTransitionDashGroup.transitionGroupMod.^](this.componentImport)
     f(__obj.asInstanceOf[(typingsJapgolly.reactDashTransitionDashGroup.transitionGroupMod.TransitionGroupProps[
   typingsJapgolly.reactDashTransitionDashGroup.reactDashTransitionDashGroupStrings.abbr, 
   js.Any]) with js.Object])(children: _*)
   }
+  @JSImport("react-transition-group/TransitionGroup", JSImport.Namespace)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

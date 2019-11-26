@@ -87,8 +87,12 @@ object ReactDashDropzone {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashDropzone.DropzonePropsRefAttributesDropzoneRef, 
   japgolly.scalajs.react.Children.None, 
-  japgolly.scalajs.react.raw.React.Ref](typingsJapgolly.reactDashDropzone.reactDashDropzoneMod.default.asInstanceOf[js.Any])
+  japgolly.scalajs.react.raw.React.Ref](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.reactDashDropzone.DropzonePropsRefAttributesDropzoneRef])
   }
+  @JSImport("react-dropzone", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

@@ -59,6 +59,7 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
             members     = components.map(comp => genComponentRef(scope, comp, moduleCodePath)),
             comments    = comments,
             codePath    = moduleCodePath,
+            isOverride  = false,
           ),
         )
       }

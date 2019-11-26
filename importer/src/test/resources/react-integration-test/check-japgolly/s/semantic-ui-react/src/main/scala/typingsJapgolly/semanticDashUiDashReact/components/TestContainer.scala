@@ -63,8 +63,12 @@ object TestContainer {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerMod.default.asInstanceOf[js.Any])
+  js.Object](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps])(children: _*)
   }
+  @JSImport("semantic-ui-react/src/elements/TestContainer", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

@@ -89,6 +89,7 @@ final case class ModuleTree(
     members:     Seq[Tree],
     comments:    Comments,
     codePath:    QualifiedName,
+    isOverride:  Boolean,
 ) extends ContainerTree
     with InheritanceTree {}
 

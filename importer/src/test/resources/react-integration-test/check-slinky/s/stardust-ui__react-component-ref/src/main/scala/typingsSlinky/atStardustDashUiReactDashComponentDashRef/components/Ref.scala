@@ -11,7 +11,11 @@ import scala.scalajs.js.annotation._
 
 object Ref
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  override val component: String | js.Object = typingsSlinky.atStardustDashUiReactDashComponentDashRef.distEsRefMod.default.asInstanceOf[String | js.Object]
+  @JSImport("@stardust-ui/react-component-ref/dist/es/Ref", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   def apply(innerRef: typingsSlinky.react.reactMod.Ref[_] = null, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
     if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])

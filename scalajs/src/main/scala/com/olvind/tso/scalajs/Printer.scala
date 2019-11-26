@@ -194,11 +194,16 @@ object Printer {
 
         println()
 
-      case m @ ModuleTree(anns, name, parents, members, comments, _) =>
+      case m @ ModuleTree(anns, name, parents, members, comments, _, isOverride) =>
         print(Comments.format(comments))
         print(formatAnns(anns))
 
-        print("object ", formatName(name), extendsClause(parents, m.isNative, indent))
+        print(
+          if (isOverride) "override " else "",
+          "object ",
+          formatName(name),
+          extendsClause(parents, m.isNative, indent),
+        )
 
         if (members.nonEmpty) {
           println(" {")

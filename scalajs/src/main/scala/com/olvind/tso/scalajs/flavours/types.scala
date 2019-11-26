@@ -11,6 +11,7 @@ object ComponentType {
 }
 
 final case class Component(
+    location:         LocationAnnotation,
     scalaRef:         TypeRef,
     fullName:         Name,
     tparams:          Seq[TypeParamTree],
@@ -21,6 +22,7 @@ final case class Component(
     componentMembers: Seq[MemberTree],
 ) {
   val shortenedPropsName = Name(fullName.unescaped + "Props")
+
   val knownRef: Option[TypeRef] =
     componentType match {
       case ComponentType.Class    => Some(scalaRef)

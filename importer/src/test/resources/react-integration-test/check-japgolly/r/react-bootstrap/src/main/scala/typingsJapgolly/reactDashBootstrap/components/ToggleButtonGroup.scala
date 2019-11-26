@@ -32,8 +32,12 @@ object ToggleButtonGroup {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashBootstrap.libToggleButtonGroupMod.ToggleButtonGroupProps with js.Object, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup](js.constructorOf[typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup].asInstanceOf[js.Any])
+  typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.reactDashBootstrap.libToggleButtonGroupMod.ToggleButtonGroupProps with js.Object])(children: _*)
   }
+  @JSImport("react-bootstrap/lib", "ToggleButtonGroup")
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

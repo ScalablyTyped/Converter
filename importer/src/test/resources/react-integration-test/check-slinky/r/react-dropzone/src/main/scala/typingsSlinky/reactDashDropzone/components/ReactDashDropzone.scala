@@ -13,7 +13,11 @@ import scala.scalajs.js.annotation._
 
 object ReactDashDropzone
   extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
-  override val component: String | js.Object = typingsSlinky.reactDashDropzone.reactDashDropzoneMod.default.asInstanceOf[String | js.Object]
+  @JSImport("react-dropzone", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
   def apply(
     accept: String | js.Array[String] = null,

@@ -27,8 +27,20 @@ class IdentifyReactComponents(reactNames: ReactNames) {
   def all(scope: TreeScope, tree: ContainerTree): List[Component] = {
     def go(p: ContainerTree, scope: TreeScope): List[Component] = {
       val fromSelf = p match {
-        case ModuleTree(_, name, Seq(TypeRef(QualifiedName.TopLevel, Seq(tpe), _)), _, comments, codePath) =>
-          maybeFieldComponent(FieldTree(Nil, name, tpe, MemberImpl.Native, true, false, comments, codePath), p, scope)
+        case ModuleTree(
+            _,
+            name,
+            Seq(TypeRef(QualifiedName.TopLevel, Seq(tpe), _)),
+            _,
+            comments,
+            codePath,
+            isOverride,
+            ) =>
+          maybeFieldComponent(
+            FieldTree(Nil, name, tpe, MemberImpl.Native, true, isOverride, comments, codePath),
+            p,
+            scope,
+          )
         case _ => None
       }
       val fromMembers = p.members.flatMap {
@@ -90,6 +102,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
             method.name match {
               case Name.APPLY =>
                 Component(
+                  location         = locationFrom(scope),
                   scalaRef         = TypeRef(owner.codePath),
                   fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
                   tparams          = method.tparams,
@@ -102,6 +115,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
               case _ =>
                 Component(
+                  location         = locationFrom(scope),
                   scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
                   fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
                   tparams          = method.tparams,
@@ -117,7 +131,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     }
   }
 
-  def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
+  def maybeFieldComponent(field: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (reactNames.isComponent(current.typeName)) {
         Some(current)
@@ -138,35 +152,36 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       }
 
     val fieldResult = for {
-      tr <- pointsAtComponentType(scope, tree.tpe)
+      tr <- pointsAtComponentType(scope, field.tpe)
       props = tr.targs.head
     } yield
       Component(
-        scalaRef         = TypeRef(tree.codePath),
-        fullName         = componentName(scope, owner.annotations, QualifiedName(tree.name :: Nil), tree.comments),
+        location         = locationFrom(scope),
+        scalaRef         = TypeRef(field.codePath),
+        fullName         = componentName(scope, owner.annotations, QualifiedName(field.name :: Nil), field.comments),
         tparams          = Nil,
         props            = Some(props).filterNot(_ === TypeRef.Object),
-        isGlobal         = isGlobal(tree.annotations),
+        isGlobal         = isGlobal(field.annotations),
         componentType    = ComponentType.Field,
         isAbstractProps  = scope.isAbstract(props),
         componentMembers = Nil,
       )
 
     def isAliasToFC: Option[Component] =
-      FollowAliases(scope)(tree.tpe) match {
+      FollowAliases(scope)(field.tpe) match {
         case TypeRef.Function(params, ret) =>
           maybeMethodComponent(
             MethodTree(
-              annotations = tree.annotations,
+              annotations = field.annotations,
               level       = ProtectionLevel.Default,
-              name        = tree.name,
+              name        = field.name,
               tparams     = Nil,
               params      = List(params.map(p => ParamTree(Name.dummy, false, p, None, NoComments))),
-              impl        = tree.impl,
+              impl        = field.impl,
               resultType  = ret,
               isOverride  = false,
-              comments    = tree.comments,
-              codePath    = tree.codePath,
+              comments    = field.comments,
+              codePath    = field.codePath,
             ),
             owner,
             scope,
@@ -183,6 +198,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
         case (TypeRef(qname, props +: _, _), _) if reactNames isComponent qname =>
           Component(
+            location         = locationFrom(scope),
             scalaRef         = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
             fullName         = componentName(scope, owner.annotations, cls.codePath, cls.comments),
             tparams          = cls.tparams,
@@ -280,4 +296,61 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     }
 
   def isUpper(n: Name): Boolean = n.value.head.isUpper
+
+  def locationFrom(scope: TreeScope): LocationAnnotation = {
+    object Location {
+      def unapply(anns: Seq[ClassAnnotation]): Option[LocationAnnotation] =
+        anns.collectFirst {
+          case a: Annotation.JsImport => a
+          case a: Annotation.JsGlobal => a
+          case Annotation.JsGlobalScope => Annotation.JsGlobalScope
+        }
+    }
+    var baseLocationOpt: Option[LocationAnnotation] = None
+    var after = List.empty[Tree]
+    var idx   = 0
+
+    while (idx < scope.stack.length && baseLocationOpt.isEmpty) {
+      val current = scope.stack(idx)
+      val base: Option[LocationAnnotation] =
+        current match {
+          case ClassTree(Location(loc), _, _, _, _, _, _, _, _, _) => Some(loc)
+          case ModuleTree(Location(loc), _, _, _, _, _, _)         => Some(loc)
+          case PackageTree(Location(loc), _, _, _, _)              => Some(loc)
+          case _                                                   => None
+        }
+
+      if (base.isEmpty) {
+        after = current :: after
+      } else {
+        baseLocationOpt = base
+      }
+
+      idx += 1
+    }
+
+    val ret = baseLocationOpt match {
+      case Some(baseLocation) =>
+        after.foldLeft(baseLocation) {
+          case (ann, tree) if tree.name === Name.APPLY => ann
+          case (Annotation.JsImport(mod, imported), tree) =>
+            val newImported: Imported =
+              imported match {
+                case Imported.Namespace =>
+                  tree.name match {
+                    case Name.Default => Imported.Default
+                    case other        => Imported.Named(List(other))
+                  }
+                case Imported.Default     => Imported.Named(List(Name.Default, tree.name))
+                case Imported.Named(name) => Imported.Named(name :+ tree.name)
+              }
+            Annotation.JsImport(mod, newImported)
+          case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
+          case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(List(tree.name)))
+
+        }
+      case None => sys.error("Couldnt find base location for component")
+    }
+    ret
+  }
 }

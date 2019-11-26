@@ -10,7 +10,11 @@ import scala.scalajs.js.annotation._
 
 object Component
   extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.componentstest.componentstestMod.Component] {
-  override val component: String | js.Object = js.constructorOf[typingsSlinky.componentstest.componentstestMod.Component].asInstanceOf[String | js.Object]
+  @JSImport("componentstest", "Component")
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   def A(aCallback: () => Double, aMember: Double, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, typingsSlinky.componentstest.componentstestMod.Component] = {
     val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)

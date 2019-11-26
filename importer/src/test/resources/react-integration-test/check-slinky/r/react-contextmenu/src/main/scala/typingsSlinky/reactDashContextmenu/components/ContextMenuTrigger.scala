@@ -16,7 +16,11 @@ object ContextMenuTrigger
       tag.type, 
       typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
     ] {
-  override val component: String | js.Object = js.constructorOf[typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger].asInstanceOf[String | js.Object]
+  @JSImport("react-contextmenu", "ContextMenuTrigger")
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: id */
   def apply(
     attributes: HTMLAttributes[_] = null,

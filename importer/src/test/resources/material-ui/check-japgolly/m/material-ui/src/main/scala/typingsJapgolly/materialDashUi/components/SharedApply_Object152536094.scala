@@ -9,7 +9,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 abstract class SharedApply_Object152536094[ComponentRef] () {
-  def __component: js.Any
+  val componentImport: js.Any
   def apply(
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
@@ -21,7 +21,7 @@ abstract class SharedApply_Object152536094[ComponentRef] () {
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](__component.asInstanceOf[js.Any])
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](this.componentImport)
     f(__obj.asInstanceOf[js.Object])(children: _*)
   }
 }

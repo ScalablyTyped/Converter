@@ -35,8 +35,12 @@ object Profiler {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.react.reactMod.ProfilerProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.react.reactMod.Profiler.asInstanceOf[js.Any])
+  js.Object](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.react.reactMod.ProfilerProps])(children: _*)
   }
+  @JSImport("react", "Profiler")
+  @js.native
+  object componentImport extends js.Object
+  
 }
 

@@ -36,7 +36,8 @@ class ImportTree(importName: ImportName, importType: ImportType) {
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath = QualifiedName(importName.outputPkg :: libName :: name :: Nil),
+        codePath   = QualifiedName(importName.outputPkg :: libName :: name :: Nil),
+        isOverride = false,
       )
     }
 
@@ -110,7 +111,7 @@ class ImportTree(importName: ImportName, importType: ImportType) {
           scope.logger.warn(s"Dropping static members from var ${statics.map(_.codePath)}")
         }
 
-        Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath))
+        Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath, isOverride = false))
 
       case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
         val tpe = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
@@ -124,6 +125,7 @@ class ImportTree(importName: ImportName, importType: ImportType) {
               members     = Nil,
               comments    = cs,
               codePath    = importName(codePath),
+              isOverride  = false,
             ),
           )
         } else
@@ -175,6 +177,7 @@ class ImportTree(importName: ImportName, importType: ImportType) {
                 statics,
                 Comments(Comment("/* static members */\n")),
                 newCodePath,
+                isOverride = false,
               ),
             )
           else None
@@ -544,6 +547,7 @@ class ImportTree(importName: ImportName, importType: ImportType) {
             members     = memberTrees ++ restTrees,
             comments    = cs,
             codePath    = importedCp,
+            isOverride  = false,
           ),
         )
     }

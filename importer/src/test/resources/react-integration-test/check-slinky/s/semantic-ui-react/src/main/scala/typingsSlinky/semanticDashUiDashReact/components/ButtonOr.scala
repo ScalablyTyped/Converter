@@ -11,7 +11,11 @@ import scala.scalajs.js.annotation._
 
 object ButtonOr
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  override val component: String | js.Object = typingsSlinky.semanticDashUiDashReact.srcElementsButtonButtonOrMod.default.asInstanceOf[String | js.Object]
+  @JSImport("semantic-ui-react/src/elements/Button/ButtonOr", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className */
   def apply(as: js.Any = null, text: Double | String = null, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()

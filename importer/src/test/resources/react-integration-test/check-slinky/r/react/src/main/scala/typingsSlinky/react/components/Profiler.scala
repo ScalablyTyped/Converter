@@ -13,7 +13,11 @@ import scala.scalajs.js.annotation._
 
 object Profiler
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  override val component: String | js.Object = typingsSlinky.react.reactMod.Profiler.asInstanceOf[String | js.Object]
+  @JSImport("react", "Profiler")
+  @js.native
+  object componentImport extends js.Object
+  
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: id */
   def apply(
     onRender: (/* id */ String, /* phase */ mount | update, /* actualDuration */ Double, /* baseDuration */ Double, /* startTime */ Double, /* commitTime */ Double, /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => Unit,
