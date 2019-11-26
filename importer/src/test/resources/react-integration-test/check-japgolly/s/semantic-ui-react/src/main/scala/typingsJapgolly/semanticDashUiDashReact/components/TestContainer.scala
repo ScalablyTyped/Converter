@@ -63,7 +63,7 @@ object TestContainer {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerMod.default)
+  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps])(children: _*)
   }
 }

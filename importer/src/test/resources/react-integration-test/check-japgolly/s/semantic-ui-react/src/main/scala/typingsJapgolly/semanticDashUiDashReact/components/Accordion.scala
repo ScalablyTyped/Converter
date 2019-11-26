@@ -53,7 +53,7 @@ object Accordion {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default])
+  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps])(children: _*)
   }
 }

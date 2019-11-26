@@ -30,30 +30,36 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
               case comp                         => genPropsRef(scope, comp, traitCodePath) ++ genPropsAlias(scope, comp, traitCodePath)
             }
 
-        ClassTree(
-          annotations = Nil,
-          name        = traitName,
-          tparams     = Nil,
-          parents     = Nil,
-          ctors       = Nil,
-          members     = forwarders,
-          classType   = ClassType.Trait,
-          isSealed    = false,
-          comments    = NoComments,
-          codePath    = traitCodePath,
+        setCodePath(
+          traitCodePath,
+          ClassTree(
+            annotations = Nil,
+            name        = traitName,
+            tparams     = Nil,
+            parents     = Nil,
+            ctors       = Nil,
+            members     = forwarders,
+            classType   = ClassType.Trait,
+            isSealed    = false,
+            comments    = NoComments,
+            codePath    = traitCodePath,
+          ),
         )
       }
 
       val module = {
         val moduleName     = Name(scope.libName.unescaped + "Components")
         val moduleCodePath = tree.codePath + moduleName
-        ModuleTree(
-          annotations = Nil,
-          name        = moduleName,
-          parents     = List(TypeRef(traitCodePath)),
-          members     = components.map(comp => genComponentRef(scope, comp, moduleCodePath)),
-          comments    = comments,
-          codePath    = moduleCodePath,
+        setCodePath(
+          moduleCodePath,
+          ModuleTree(
+            annotations = Nil,
+            name        = moduleName,
+            parents     = List(TypeRef(traitCodePath)),
+            members     = components.map(comp => genComponentRef(scope, comp, moduleCodePath)),
+            comments    = comments,
+            codePath    = moduleCodePath,
+          ),
         )
       }
 

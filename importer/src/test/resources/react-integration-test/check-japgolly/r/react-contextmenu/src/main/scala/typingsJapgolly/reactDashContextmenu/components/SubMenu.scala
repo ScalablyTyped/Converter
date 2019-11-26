@@ -53,7 +53,7 @@ object SubMenu {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.SubMenuProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.SubMenu](js.constructorOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.SubMenu])
+  typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.SubMenu](js.constructorOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.SubMenu].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.SubMenuProps])(children: _*)
   }
 }

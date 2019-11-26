@@ -28,7 +28,7 @@ object Ref {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsRefMod.default)
+  js.Object](typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsRefMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps])(children: _*)
   }
 }

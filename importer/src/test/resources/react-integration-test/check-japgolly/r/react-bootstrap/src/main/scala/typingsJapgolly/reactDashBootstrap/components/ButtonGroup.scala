@@ -46,7 +46,7 @@ object ButtonGroup {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup](js.constructorOf[typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup])
+  typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup](js.constructorOf[typingsJapgolly.reactDashBootstrap.libMod.ButtonGroup].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.reactDashBootstrap.libButtonGroupMod.ButtonGroupProps])(children: _*)
   }
 }

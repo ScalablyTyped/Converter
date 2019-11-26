@@ -42,7 +42,7 @@ object ButtonContent {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonContentMod.default)
+  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonContentMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonContentMod.ButtonContentProps])(children: _*)
   }
 }

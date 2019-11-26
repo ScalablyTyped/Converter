@@ -21,9 +21,9 @@ object ModuleNameParser {
     rewritten match {
       case Nil => sys.error("Unexpected empty module name")
       /* relative module names handled in ResolveExternalReferences */
-      case head :: _ if head.startsWith(".")      => TsIdentModule(None, fragments)
-      case scope :: rest if scope.startsWith("@") => TsIdentModule(Some(scope.drop(1)), rest)
-      case all                                    => TsIdentModule(None, all)
+      case head :: _ if head.startsWith(".")                       => TsIdentModule(None, fragments)
+      case scope :: rest if scope.startsWith("@") && rest.nonEmpty => TsIdentModule(Some(scope.drop(1)), rest)
+      case all                                                     => TsIdentModule(None, all)
     }
   }
 }

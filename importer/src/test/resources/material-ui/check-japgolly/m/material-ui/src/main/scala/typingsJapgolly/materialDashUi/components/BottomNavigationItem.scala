@@ -26,7 +26,7 @@ object BottomNavigationItem {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps, 
   japgolly.scalajs.react.Children.None, 
-  typingsJapgolly.materialDashUi.bottomNavigationBottomNavigationItemMod.default](js.constructorOf[typingsJapgolly.materialDashUi.bottomNavigationBottomNavigationItemMod.default])
+  typingsJapgolly.materialDashUi.bottomNavigationBottomNavigationItemMod.default](js.constructorOf[typingsJapgolly.materialDashUi.bottomNavigationBottomNavigationItemMod.default].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.materialDashUi.__MaterialUI.BottomNavigation.BottomNavigationItemProps])
   }
 }

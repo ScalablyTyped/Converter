@@ -78,11 +78,19 @@ object Json {
       finishDecodeAccumulating[A](parseFile(file))
   }
 
-  def apply[T: Decoder](path: os.Path): T =
-    CustomJacksonParser.decode[T](files content InFile(path)) match {
+  private val BOM = "\uFEFF"
+
+  def apply[T: Decoder](path: os.Path): T = {
+    val str = files content InFile(path) match {
+      case withBom if withBom.startsWith(BOM) => withBom.replace(BOM, "")
+      case ok                                 => ok
+    }
+
+    CustomJacksonParser.decode[T](str) match {
       case Left(error) => sys.error(s"Error while parsing: $path: $error")
       case Right(t)    => t
     }
+  }
 
   def opt[T: Decoder](path: os.Path): Option[T] =
     if (os.exists(path)) Some(apply[T](path)) else None

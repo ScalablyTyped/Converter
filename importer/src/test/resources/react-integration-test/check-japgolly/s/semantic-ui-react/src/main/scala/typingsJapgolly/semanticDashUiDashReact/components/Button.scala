@@ -508,7 +508,7 @@ object Button {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcElementsButtonMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonMod.default])
+  typingsJapgolly.semanticDashUiDashReact.srcElementsButtonMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonMod.default].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps])(children: _*)
   }
 }
