@@ -54,7 +54,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
 
-  def maybeMethodComponent(_method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
+  def maybeMethodComponent(method: MethodTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (reactNames.isElement(current.typeName)) Some(current)
       else if (scope.isAbstract(current)) None
@@ -69,7 +69,6 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
           }
       }
 
-    val (method, _)     = inlineBounds(scope, _method)
     val flattenedParams = method.params.flatten
 
     flattenedParams.length match {
@@ -103,7 +102,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
 
               case _ =>
                 Component(
-                  scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(_method.tparams), NoComments),
+                  scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
                   fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
                   tparams          = method.tparams,
                   props            = propsTypeOpt,
@@ -116,31 +115,6 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
             }
       case _ => None
     }
-  }
-
-  /* support a somewhat rare pattern `class C<Props extends CProps> extends React.Component<Props>`.  */
-  object inlineBounds {
-    val Ignored = Set(TypeRef.Object)
-
-    def emptyBound(ob: TypeParamTree) =
-      ob.upperBound match {
-        case Some(bound) => Ignored(bound)
-        case None        => true
-      }
-
-    def apply(scope: TreeScope, x: MethodTree): (MethodTree, Seq[TypeRef]) =
-      if (x.tparams.forall(emptyBound)) (x, TypeParamTree.asTypeArgs(x.tparams))
-      else {
-        val fillOriginal = x.tparams.map(tp => tp.upperBound.filterNot(Ignored).getOrElse(TypeRef(tp.name)))
-        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(emptyBound)), fillOriginal)
-      }
-
-    def apply(scope: TreeScope, x: ClassTree): (ClassTree, Seq[TypeRef]) =
-      if (x.tparams.forall(emptyBound)) (x, TypeParamTree.asTypeArgs(x.tparams))
-      else {
-        val fillOriginal = x.tparams.map(tp => tp.upperBound.filterNot(Ignored).getOrElse(TypeRef(tp.name)))
-        (FillInTParams(x, scope, fillOriginal, x.tparams.filter(emptyBound)), fillOriginal)
-      }
   }
 
   def maybeFieldComponent(tree: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
@@ -203,14 +177,13 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
     fieldResult orElse isAliasToFC
   }
 
-  def maybeClassComponent(_cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
-    if (_cls.classType =/= ClassType.Class) None
-    else {
-      val (cls, targs) = inlineBounds(scope, _cls)
+  def maybeClassComponent(cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
+    if (cls.classType =/= ClassType.Class) None
+    else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
         case (TypeRef(qname, props +: _, _), _) if reactNames isComponent qname =>
           Component(
-            scalaRef         = TypeRef(cls.codePath, targs, NoComments),
+            scalaRef         = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
             fullName         = componentName(scope, owner.annotations, cls.codePath, cls.comments),
             tparams          = cls.tparams,
             props            = Some(props).filterNot(_ === TypeRef.Object),
@@ -220,7 +193,6 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
             componentMembers = cls.members.collect { case x: MemberTree => x },
           )
       }
-    }
 
   object componentName {
     def apply(
