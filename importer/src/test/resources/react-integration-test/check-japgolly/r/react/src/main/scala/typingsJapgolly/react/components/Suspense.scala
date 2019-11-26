@@ -31,7 +31,7 @@ object Suspense {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.react.reactMod.SuspenseProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.react.reactMod.Suspense)
+  js.Object](typingsJapgolly.react.reactMod.Suspense.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.react.reactMod.SuspenseProps])(children: _*)
   }
 }

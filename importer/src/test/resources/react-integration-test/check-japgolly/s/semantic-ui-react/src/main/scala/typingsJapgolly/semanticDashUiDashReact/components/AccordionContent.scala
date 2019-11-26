@@ -40,7 +40,7 @@ object AccordionContent {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.AccordionContentProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.default)
+  js.Object](typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.AccordionContentProps])(children: _*)
   }
 }

@@ -123,7 +123,6 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
   }
 
   val ToJapgollyTypes = TypeRewriterCast(conversions)
-  val RemoveWildcards = TypeRewriter(Map(TypeRef.Wildcard -> TypeRef.Any))
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val keyUpdate: String => String = obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""
@@ -167,10 +166,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(_paramTypes, retType), defaultValue, _), _) =>
-          /* we're lifting types from type parameter to top level type, where wildcards are no longer legal */
-          val paramTypes = _paramTypes.map(RemoveWildcards.visitTypeRef(scope))
-
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, retType), defaultValue, _), _) =>
           def fn(obj: String) = {
             val params =
               paramTypes.zipWithIndex
@@ -274,7 +270,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     generatedCode match {
       case Seq() => tree
       case nonEmpty =>
-        val newPackage = PackageTree(Nil, names.components, nonEmpty, NoComments, pkgCp)
+        val newPackage = setCodePath(pkgCp, PackageTree(Nil, names.components, nonEmpty, NoComments, pkgCp))
         tree.withMembers(members = tree.members :+ newPackage)
     }
   }
@@ -486,7 +482,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
            |
            |  ${optionals2.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
            |
-           |  val f = $formattedCreateWrapper($componentRef)
+           |  val f = $formattedCreateWrapper($componentRef.asInstanceOf[js.Any])
            |  f(__obj.asInstanceOf[$formattedProps])$formattedVarargsChildren
            |}""".stripMargin,
       )

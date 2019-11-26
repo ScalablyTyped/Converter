@@ -27,7 +27,7 @@ abstract class SharedApply_RefProps1889243212[ComponentRef] () {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  ComponentRef](__component)
+  ComponentRef](__component.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps])(children: _*)
   }
 }

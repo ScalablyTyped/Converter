@@ -314,7 +314,7 @@ class GenSlinkyComponents(
     generatedCode match {
       case Seq() => tree
       case nonEmpty =>
-        val newPackage = PackageTree(Nil, names.components, nonEmpty, NoComments, pkgCp)
+        val newPackage = setCodePath(pkgCp, PackageTree(Nil, names.components, nonEmpty, NoComments, pkgCp))
         tree.withMembers(tree.members :+ newPackage)
     }
   }

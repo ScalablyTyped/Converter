@@ -21,7 +21,7 @@ abstract class SharedApply_Object152536094[ComponentRef] () {
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](__component)
+    val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](__component.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[js.Object])(children: _*)
   }
 }

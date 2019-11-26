@@ -28,7 +28,7 @@ object Component {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.componentstest.componentstestMod.Props, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.componentstest.componentstestMod.Component](js.constructorOf[typingsJapgolly.componentstest.componentstestMod.Component])
+  typingsJapgolly.componentstest.componentstestMod.Component](js.constructorOf[typingsJapgolly.componentstest.componentstestMod.Component].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.componentstest.componentstestMod.Props])(children: _*)
   }
   def B(
@@ -48,7 +48,7 @@ object Component {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.componentstest.componentstestMod.Props, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.componentstest.componentstestMod.Component](js.constructorOf[typingsJapgolly.componentstest.componentstestMod.Component])
+  typingsJapgolly.componentstest.componentstestMod.Component](js.constructorOf[typingsJapgolly.componentstest.componentstestMod.Component].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.componentstest.componentstestMod.Props])(children: _*)
   }
 }

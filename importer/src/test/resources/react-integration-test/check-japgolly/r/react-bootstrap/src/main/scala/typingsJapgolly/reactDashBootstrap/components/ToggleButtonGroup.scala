@@ -32,7 +32,7 @@ object ToggleButtonGroup {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashBootstrap.libToggleButtonGroupMod.ToggleButtonGroupProps with js.Object, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup](js.constructorOf[typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup])
+  typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup](js.constructorOf[typingsJapgolly.reactDashBootstrap.libMod.ToggleButtonGroup].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.reactDashBootstrap.libToggleButtonGroupMod.ToggleButtonGroupProps with js.Object])(children: _*)
   }
 }

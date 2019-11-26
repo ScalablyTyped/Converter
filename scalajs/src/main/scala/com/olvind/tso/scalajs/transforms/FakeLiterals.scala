@@ -81,8 +81,8 @@ object FakeLiterals {
         case TypeRef.Literal(underlying) =>
           val (newUnderlying, name) =
             (RegularPrettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
-              case (baseName, true) =>
-                (underlying + ".0", Name("_" + baseName))
+              case (baseName, Some(long)) =>
+                (long.toString + ".0", Name("_" + baseName))
               case (baseName, _) => (underlying, Name(baseName))
             }
 
@@ -104,9 +104,9 @@ object FakeLiterals {
     }
   }
 
-  def isTooBigForInt(strNum: String): Boolean =
+  def isTooBigForInt(strNum: String): Option[Long] =
     Try(java.lang.Long.decode(strNum)) match {
-      case Failure(_)     => false
-      case Success(value) => value > Int.MaxValue
+      case Success(value) if value > Int.MaxValue => Some(value)
+      case _                                      => None
     }
 }

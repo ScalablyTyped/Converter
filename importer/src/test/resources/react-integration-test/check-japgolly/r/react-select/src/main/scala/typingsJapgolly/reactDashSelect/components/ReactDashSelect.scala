@@ -27,7 +27,7 @@ object ReactDashSelect {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashSelect.reactDashSelectMod.ReactSelectProps[TValue], 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashSelect.reactDashSelectMod.default[TValue]](js.constructorOf[typingsJapgolly.reactDashSelect.reactDashSelectMod.default[TValue]])
+  typingsJapgolly.reactDashSelect.reactDashSelectMod.default[TValue]](js.constructorOf[typingsJapgolly.reactDashSelect.reactDashSelectMod.default[TValue]].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.reactDashSelect.reactDashSelectMod.ReactSelectProps[TValue]])(children: _*)
   }
 }

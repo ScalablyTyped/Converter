@@ -53,7 +53,7 @@ object MenuItem {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.MenuItemProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.MenuItem](js.constructorOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.MenuItem])
+  typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.MenuItem](js.constructorOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.MenuItem].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.MenuItemProps])(children: _*)
   }
 }

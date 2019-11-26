@@ -30,7 +30,7 @@ abstract class SharedApply_Anon_Children_632066307 () {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.react.Anon_Children, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](__component)
+  js.Object](__component.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.react.Anon_Children])(children: _*)
   }
 }

@@ -84,7 +84,7 @@ object ButtonGroup {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.default)
+  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps])(children: _*)
   }
 }

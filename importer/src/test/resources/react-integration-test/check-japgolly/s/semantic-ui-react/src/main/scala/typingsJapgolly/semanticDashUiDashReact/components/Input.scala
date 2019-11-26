@@ -525,7 +525,7 @@ object Input {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default])
+  typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default](js.constructorOf[typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default].asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps])(children: _*)
   }
 }

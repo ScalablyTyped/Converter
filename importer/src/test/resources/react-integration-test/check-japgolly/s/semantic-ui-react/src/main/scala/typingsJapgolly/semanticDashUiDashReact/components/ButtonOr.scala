@@ -37,7 +37,7 @@ object ButtonOr {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.default)
+  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps])(children: _*)
   }
 }

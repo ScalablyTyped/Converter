@@ -45,7 +45,7 @@ object Container {
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsContainerMod.default)
+  js.Object](typingsJapgolly.semanticDashUiDashReact.srcElementsContainerMod.default.asInstanceOf[js.Any])
     f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsContainerContainerMod.ContainerProps])(children: _*)
   }
 }
