@@ -1,6 +1,7 @@
 package com.olvind.tso.importer
 
 import com.olvind.logging.Logger
+import com.olvind.tso.PrettyString
 import com.olvind.tso.importer.Phase2Res.LibScalaJs
 import com.olvind.tso.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import com.olvind.tso.scalajs.{Name, TreeScope}
@@ -8,7 +9,7 @@ import com.olvind.tso.scalajs.flavours.{Flavour, ReplaceName}
 
 import scala.collection.immutable.SortedSet
 
-class PhaseFlavour(flavour: Flavour) extends Phase[Source, Phase2Res, Phase2Res] {
+class PhaseFlavour(flavour: Flavour, prettyString: PrettyString) extends Phase[Source, Phase2Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -35,7 +36,7 @@ class PhaseFlavour(flavour: Flavour) extends Phase[Source, Phase2Res, Phase2Res]
 
             val correctedPackage =
               new ReplaceName(Name.typings, flavour.outputPkg).visitPackageTree(scope)(lib.packageTree)
-            val tree = flavour.rewrittenTree(scope, correctedPackage)
+            val tree = flavour.rewrittenTree(scope, correctedPackage, prettyString)
 
             LibScalaJs(lib.source)(
               lib.libName,

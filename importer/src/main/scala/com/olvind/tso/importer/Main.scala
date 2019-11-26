@@ -205,7 +205,7 @@ class Main(config: Config) {
 
       val Pipeline: RecPhase[Source, PublishedSbtProject] =
         CommonPhases
-          .next(new PhaseFlavour(flavour), flavour.toString)
+          .next(new PhaseFlavour(flavour, RegularPrettyString), flavour.toString)
           .next(
             new Phase3Compile(
               resolve         = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
