@@ -8,7 +8,7 @@ import com.olvind.tso.ts._
   * @param knownLibraries A known library in this context is the one we
   *                       are converting, or any of it's dependencies
   */
-class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) {
+class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary], prettyString: PrettyString) {
   def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
@@ -29,7 +29,7 @@ class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) {
     i match {
       case TsIdent.Apply        => Name.APPLY
       case TsIdentSimple(value) => Name(value)
-      case x: TsIdentLibrary => Name(prettyString(x.value, "", forceCamelCase = true))
+      case x: TsIdentLibrary => Name(prettyString.prettifyName(x.value, "", forceCamelCase = true))
       case x: TsIdentModule  => rewriteModuleName(x)
       case x: TsIdentImport  => sys.error(s"Unexpected: $x")
     }
@@ -51,7 +51,7 @@ class ImportName(val outputPkg: Name, knownLibraries: Set[TsIdentLibrary]) {
         case _ => None
       }
 
-    Name(prettyString(shortenedOpt.filter(_.nonEmpty).getOrElse(x.value), "Mod", forceCamelCase = true))
+    Name(prettyString.prettifyName(shortenedOpt.filter(_.nonEmpty).getOrElse(x.value), "Mod", forceCamelCase = true))
   }
 }
 

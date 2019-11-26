@@ -12,19 +12,21 @@ import io.circe.{Decoder, Encoder}
 import sbt.File
 
 import scala.collection.immutable.SortedMap
+import com.olvind.tso.plugin.PrettyStringType
 
 object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      packageJsonHash: Int,
-      npmDependencies: Seq[(String, String)],
-      fromFolder:      InFolder,
-      targetFolder:    os.Path,
-      chosenFlavour:   Flavour,
-      libs:            List[String],
-      ignore:          Set[TsIdentLibrary],
-      minimize:        Selection[TsIdentLibrary],
+      packageJsonHash:  Int,
+      npmDependencies:  Seq[(String, String)],
+      fromFolder:       InFolder,
+      targetFolder:     os.Path,
+      chosenFlavour:    Flavour,
+      prettyStringType: PrettyStringType,
+      libs:             List[String],
+      ignore:           Set[TsIdentLibrary],
+      minimize:         Selection[TsIdentLibrary],
   )
 
   object Input {
@@ -53,6 +55,11 @@ object ImportTypings {
       case Flavour.Japgolly => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
     }
 
+    val prettyString = prettyStringType match {
+      case PrettyStringType.Regular     => RegularPrettyString
+      case PrettyStringType.Simplifying => SimplifyingPrettyString
+    }
+
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
@@ -78,7 +85,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, prettyString), "scala.js")
       .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
@@ -151,6 +158,7 @@ object ImportTypings {
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
+          PrettyStringType.Regular,
           List("es5", "dom"),
           Set(TsIdentLibrary("typescript")),
           minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),

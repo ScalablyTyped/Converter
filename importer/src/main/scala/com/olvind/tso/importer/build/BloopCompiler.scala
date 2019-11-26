@@ -34,7 +34,7 @@ object BloopCompiler {
     override def trace(t:   Throwable): Unit = logger.debug(t.getMessage)
     override def isVerbose:   Boolean     = true
     override def debugFilter: DebugFilter = DebugFilter.All
-    override def printDebug(line: String): Unit = logger.debug(line)
+    override def printDebug(line:       String):         Unit        = logger.debug(line)
     override def withOriginId(originId: Option[String]): BloopLogger = this
   }
 

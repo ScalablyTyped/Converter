@@ -10,7 +10,7 @@ object Flavour {
     lazy val reactNames =
       new ReactNames(outputPkg)
     lazy val identifyComponents =
-      new IdentifyReactComponents(reactNames)
+      new IdentifyReactComponents(reactNames, RegularPrettyString)
     lazy val stdNames =
       new QualifiedName.StdNames(outputPkg)
     lazy val scalaJsDomNames =
