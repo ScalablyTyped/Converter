@@ -94,6 +94,7 @@ object RegularPrettyString extends PrettyString {
       case "_"       => "Underscore"
       case "^"       => "`^`" // todo: think this might be solved in the printer
       case ""        => "Empty"
+      case "Empty"   => "Empty_"
       case "package" => "PACKAGE"
       case "js"      => "JS"
       case "scala"   => "SCALA"
