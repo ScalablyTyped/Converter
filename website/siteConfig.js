@@ -21,8 +21,8 @@ const users = [
 ];
 
 const siteConfig = {
-  title: 'TSO', // Title for your website.
-  tagline: 'The official website of the TSO project',
+  title: 'ScalablyTyped', // Title for your website.
+  tagline: 'The official website of the ScalablyTyped project',
   url: 'https://scalablytyped.org', // Your website URL
   baseUrl: '/', // Base URL for your project */
   // For github.io type URLs, you would set the url and baseUrl like:
@@ -44,8 +44,8 @@ const siteConfig = {
   users,
 
   /* path to images for header/footer */
-  headerIcon: 'img/favicon.ico',
-  footerIcon: 'img/favicon.ico',
+  headerIcon: 'img/scalablytyped.svg',
+  footerIcon: 'img/scalablytyped.svg',
   favicon: 'img/favicon.ico',
 
   /* Colors for website */
@@ -90,13 +90,13 @@ const siteConfig = {
 
   // For sites with a sizable amount of content, set collapsible to true.
   // Expand/collapse the links and subcategories under categories.
-  // docsSideNavCollapsible: true,
+  docsSideNavCollapsible: true,
 
   // Show documentation's last contributor's name.
-  // enableUpdateBy: true,
+  enableUpdateBy: true,
 
   // Show documentation's last update time.
-  // enableUpdateTime: true,
+  enableUpdateTime: true,
 
   // You may provide arbitrary config keys to be used as needed by your
   // template. For example, if you need your repo's URL...

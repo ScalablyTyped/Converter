@@ -1,3 +1,8 @@
+---
+id: plugin
+title: SBT Plugin
+---
+
 #SBT Plugin
 
 First, add to your project/plugins.sbt

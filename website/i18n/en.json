@@ -3,23 +3,23 @@
   "localized-strings": {
     "next": "Next",
     "previous": "Previous",
-    "tagline": "The official website of the TSO project",
+    "tagline": "The official website of the ScalablyTyped project",
     "docs": {
       "devel": {
-        "title": "devel"
+        "title": "Development of TSO"
       },
       "plugin": {
-        "title": "plugin"
+        "title": "SBT Plugin"
       },
       "readme": {
-        "title": "readme"
+        "title": "Typescript to Scala converter (intro)"
       }
     },
     "links": {},
     "categories": {
-      "Docusaurus": "Docusaurus",
-      "First Category": "First Category",
-      "Second Category": "Second Category"
+      "ScalablyTyped": "ScalablyTyped",
+      "SBT Plugin": "SBT Plugin",
+      "Development": "Development"
     }
   },
   "pages-strings": {
