@@ -75,10 +75,9 @@ class Phase1ReadTypescript(
                 {
                   case r @ DirectivePathRef(value) =>
                     def src(f: InFile): Source =
-                      Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
-
-                    PhaseRes
-                      .fromOption(source, resolve.file(file.folder, value).map(src), Right(s"Couldn't resolve $r"))
+                      Source.TsHelperFile(f, inLib, resolve.inferredModule(f.path, inLib))
+                    val maybeSource = resolve.file(file.folder, value).map(src)
+                    PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
@@ -161,7 +160,9 @@ class Phase1ReadTypescript(
                   case (thisSource, file) =>
                     logger.info(s"Preprocessing $thisSource")
                     val _1 = modules.InferredDefaultModule(file.file, thisSource.moduleName, logger)
+//                    val _2 = FlattenTrees(_1 +: file.toInline.to[Seq].map(_._2))
                     val _2 = FlattenTrees(_1 +: file.toInline.filterNot(_._2.isModule).to[Seq].map(_._2))
+
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
                 }
 
