@@ -30,9 +30,10 @@ val ts: Project = project
 val docs: Project = project
   .in(file("tso-docs"))
   .settings(
-    mdocVariables := Map("VERSION" -> version.value)
+    mdocVariables := Map("VERSION" -> version.value),
+    moduleName := "tso-docs"
   )
-  .enablePlugins(MdocPlugin)
+  .enablePlugins(MdocPlugin, DocusaurusPlugin)
 
 val scalajs = project
   .dependsOn(utils, logging)
