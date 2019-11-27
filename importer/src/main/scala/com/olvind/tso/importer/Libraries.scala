@@ -171,6 +171,8 @@ object Libraries {
     "@react-native-firebase/app",
     "react-native-gesture-handler",
     "react-native-svg",
+    "react-navigation-drawer",
+    "react-navigation-stack",
     "react-player",
     "react-popper",
     "react-pose",
@@ -273,7 +275,7 @@ object Libraries {
           "egg",
         )
 
-    def slow = if (constants.isCi) Set() else Set("@pulumi/aws", "aws-sdk")
+    def slow = Set("@pulumi/aws", "aws-sdk", "googleapis")
 
     base ++ circular ++ slow map TsIdentLibrary.apply
   }
@@ -370,6 +372,8 @@ object Libraries {
     "react-native-gesture-handler",
     "react-native-vector-icons",
     "react-navigation",
+    "react-navigation-drawer",
+    "react-navigation-stack",
     "react-redux",
     "react-redux-facade",
     "react-router-dom",
