@@ -15,12 +15,7 @@
         "title": "readme"
       }
     },
-    "links": {
-      "Docs": "Docs",
-      "API": "API",
-      "Help": "Help",
-      "Blog": "Blog"
-    },
+    "links": {},
     "categories": {
       "Docusaurus": "Docusaurus",
       "First Category": "First Category",
