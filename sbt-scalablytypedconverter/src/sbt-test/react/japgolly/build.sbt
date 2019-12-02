@@ -15,6 +15,6 @@ lazy val testProject =
       ),
       libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.5.0-RC2",
       scalaJSUseMainModuleInitializer := true,
-      scalaVersion := "2.13.1",
+      scalaVersion := "2.12.10",
       organization := "net.leibman",
     )

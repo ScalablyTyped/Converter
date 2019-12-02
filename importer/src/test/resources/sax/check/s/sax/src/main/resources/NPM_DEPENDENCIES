@@ -1,0 +1,16 @@
+{
+  "compile-dependencies" : [
+    {
+      "sax" : "1.x"
+    }
+  ],
+  "test-dependencies" : [
+    {
+      "sax" : "1.x"
+    }
+  ],
+  "compile-devDependencies" : [
+  ],
+  "test-devDependencies" : [
+  ]
+}

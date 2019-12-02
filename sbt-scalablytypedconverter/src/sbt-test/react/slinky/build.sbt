@@ -15,6 +15,6 @@ lazy val testProject =
       ),
       libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.6.2",
       scalaJSUseMainModuleInitializer := true,
-      scalaVersion := "2.13.1",
+      scalaVersion := "2.12.10",
       organization := "net.leibman",
     )
