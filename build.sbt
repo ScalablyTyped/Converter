@@ -27,6 +27,14 @@ val ts: Project = project
   .dependsOn(utils, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
+val docs: Project = project
+  .in(file("tso-docs"))
+  .settings(
+    mdocVariables := Map("VERSION" -> version.value),
+    moduleName := "tso-docs"
+  )
+  .enablePlugins(MdocPlugin, DocusaurusPlugin)
+
 val scalajs = project
   .dependsOn(utils, logging)
   .configure(baseSettings)

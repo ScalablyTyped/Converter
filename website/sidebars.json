@@ -1,0 +1,9 @@
+{
+  "docs": {
+    "ScalablyTyped": ["readme"],
+    "SBT Plugin": ["plugin"],
+    "Development": ["devel"]
+  },
+  "docs-other": {
+  }
+}
