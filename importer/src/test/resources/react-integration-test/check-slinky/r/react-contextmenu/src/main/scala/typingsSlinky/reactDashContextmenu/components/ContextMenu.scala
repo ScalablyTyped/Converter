@@ -25,7 +25,7 @@ object ContextMenu
     onHide: /* event */ js.Any => Unit = null,
     onMouseLeave: (js.Function3[
       /* event */ SyntheticMouseEvent[HTMLElement], 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function = null,

@@ -1,7 +1,7 @@
 package typingsSlinky.semanticDashUiDashReact
 
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHSNUMBER
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticWIDTHS
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticWIDTHSNUMBER
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

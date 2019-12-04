@@ -21,7 +21,7 @@ object ComponentSpec {
     UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,
     UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Unit = null,
     childContextTypes: ValidationMap[_] = null,
-    componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit = null,
+    componentDidCatch: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit = null,
     componentDidMount: () => Unit = null,
     componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[js.Any]) => Unit = null,
     componentWillMount: () => Unit = null,

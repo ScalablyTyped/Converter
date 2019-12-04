@@ -62,14 +62,10 @@ class Phase3Compile(
 
         val dependencies: PhaseRes[Source, Set[Source]] =
           PhaseRes.sequenceSet(
-            buildJson.typings.map(
-              t =>
-                PhaseRes.fromOption(
-                  source,
-                  resolve.global(TsIdentLibrary(t)),
-                  Right(s"Couldn't resolve $t"),
-                ),
-            ),
+            buildJson.typings.map { t =>
+              val maybeSource: Option[Source] = resolve.libraryOrFacade(TsIdentLibrary(t))
+              PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $t"))
+            },
           )
 
         dependencies flatMap (x => getDeps(x.sorted)) flatMap {

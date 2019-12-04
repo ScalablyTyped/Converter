@@ -9,6 +9,6 @@ import scala.scalajs.js.annotation._
 @js.native
 object distEsToRefObjectMod extends js.Object {
   /** Creates a React ref object from existing DOM node. */
-  def default[T /* <: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefObject[T] = js.native
+  def default[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefObject[T] = js.native
 }
 

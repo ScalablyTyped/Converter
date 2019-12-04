@@ -6,17 +6,17 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
+import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object AccordionTitle
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("semantic-ui-react/src/modules/Accordion/AccordionTitle", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   
@@ -27,7 +27,7 @@ object AccordionTitle
     as: js.Any = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
     onClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,

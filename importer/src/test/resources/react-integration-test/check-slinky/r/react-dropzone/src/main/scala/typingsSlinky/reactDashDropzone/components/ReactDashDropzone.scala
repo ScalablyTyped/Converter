@@ -21,7 +21,7 @@ object ReactDashDropzone
   /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
   def apply(
     accept: String | js.Array[String] = null,
-    getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
+    getFilesFromEvent: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
     maxSize: Int | Double = null,
     minSize: Int | Double = null,
     noClick: js.UndefOr[Boolean] = js.undefined,
@@ -29,15 +29,15 @@ object ReactDashDropzone
     noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
     noKeyboard: js.UndefOr[Boolean] = js.undefined,
     onDrop: (/* acceptedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* rejectedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onDropAccepted: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onDropRejected: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,

@@ -24,27 +24,37 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
             Some(ref.copy(name = exportedFrom.name))
           case (next: TsDeclTypeAlias, newScope) =>
             followTrivialAliases(newScope)(next).map(newName => ref.copy(name = newName))
-          case _ => Some(x)
+          case _ => None
         }
       case _ => None
     }
 
+  /* bugfix for a case where we have ended up combining two types which are structurally equal */
+  object EffectiveTypeRef {
+    def unapply(tpe: TsType): Option[TsTypeRef] =
+      tpe match {
+        case tr: TsTypeRef => Some(tr)
+        case TsTypeIntersect(types) =>
+          types.partitionCollect { case x: TsTypeRef => x } match {
+            case (all, Nil) if all.map(_.name.parts.last).distinct.size === 1 => Some(all.head)
+            case _                                                            => None
+          }
+        case _ => None
+      }
+  }
+
   def followTrivialAliases(scope: TsTreeScope)(cur: TsDeclTypeAlias): Option[TsQIdent] =
     cur match {
-      case TsDeclTypeAlias(cs, _, _, _, currentAlias @ TsTypeRef(_, nextName, _), codePath)
+      case TsDeclTypeAlias(cs, _, _, _, EffectiveTypeRef(TsTypeRef(_, nextName, _)), codePath)
           if cs has Markers.IsTrivial =>
         scope
           .lookupTypeIncludeScope(nextName)
-          .collectFirst {
+          .firstDefined {
             case (next: TsDeclTypeAlias, newScope) if next.codePath =/= codePath => // avoid SOE on invalid code
-              followTrivialAliases(newScope)(next).getOrElse(currentAlias.name)
-            case (other, _) =>
-              other.codePath.forceHasPath.codePath
+              followTrivialAliases(newScope)(next)
+            case _ => None
           }
-          .orElse(Some(currentAlias.name))
-
-      case TsDeclTypeAlias(_, _, _, _, _, codePath) =>
-        Some(codePath.forceHasPath.codePath)
+          .orElse(Some(nextName))
       case _ => None
     }
 }

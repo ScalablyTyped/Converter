@@ -1,7 +1,6 @@
 package typingsSlinky.react.reactMod
 
 import org.scalajs.dom.raw.DataTransfer
-import typingsSlinky.react.NativeClipboardEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`

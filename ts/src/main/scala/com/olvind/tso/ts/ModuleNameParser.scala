@@ -2,9 +2,9 @@ package com.olvind.tso
 package ts
 
 object ModuleNameParser {
-  def apply(lit: TsLiteralString): TsIdentModule = apply(lit.value.split("/").toList)
+  def apply(lit: TsLiteralString): TsIdentModule = apply(lit.value.split("/").toList, keepIndexFragment = false)
 
-  def apply(fragments: List[String]): TsIdentModule = {
+  def apply(fragments: List[String], keepIndexFragment: Boolean): TsIdentModule = {
     val rewritten: List[String] =
       fragments.flatMap {
         case f if f.startsWith("~") => List(f.drop(1))
@@ -12,10 +12,10 @@ object ModuleNameParser {
         case f if f.contains("__") =>
           val Array(one, two) = f.split("__")
           List("@" + one, two)
-        case "index" | "index.d.ts"   => Nil
-        case f if f.endsWith(".d.ts") => List(f.replaceAll(".d.ts", ""))
-        case f if f.endsWith(".ts")   => List(f.replaceAll(".ts", ""))
-        case f                        => List(f)
+        case "index" | "index.d.ts" if !keepIndexFragment => Nil
+        case f if f.endsWith(".d.ts")                     => List(f.replaceAll(".d.ts", ""))
+        case f if f.endsWith(".ts")                       => List(f.replaceAll(".ts", ""))
+        case f                                            => List(f)
       }
 
     rewritten match {

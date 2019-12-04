@@ -19,7 +19,7 @@ object atStardustDashUiReactDashComponentDashRefMod extends js.Object {
     extends typings.atStardustDashUiReactDashComponentDashRef.distEsRefForwardMod.default
   
   val Ref: FunctionComponent[RefProps] = js.native
-  val refPropType: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
+  val refPropType: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<React.Ref<any>> */ js.Any = js.native
   /**
     * The function that correctly handles passing refs.
     *
@@ -30,7 +30,7 @@ object atStardustDashUiReactDashComponentDashRefMod extends js.Object {
   /** Checks that the passed object is a valid React ref object. */
   def isRefObject(ref: js.Any): /* is react.react.RefObject<any> */ Boolean = js.native
   /** Creates a React ref object from existing DOM node. */
-  def toRefObject[T /* <: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefObject[T] = js.native
+  def toRefObject[T /* <: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any */](node: T): RefObject[T] = js.native
   /* static members */
   @js.native
   object RefFindNode extends js.Object {

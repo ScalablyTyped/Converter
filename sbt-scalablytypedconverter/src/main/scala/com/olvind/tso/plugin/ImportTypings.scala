@@ -37,7 +37,7 @@ object ImportTypings {
   def apply(config: Input, logger: Logger[Unit]): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
     import config._
 
-    val stdLibSource: Source = {
+    val stdLibSource: StdLibSource = {
       val folder = fromFolder.path / "typescript" / "lib"
       StdLibSource(
         InFolder(folder),

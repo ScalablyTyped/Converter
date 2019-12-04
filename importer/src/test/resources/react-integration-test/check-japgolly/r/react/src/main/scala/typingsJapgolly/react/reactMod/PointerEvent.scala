@@ -3,7 +3,6 @@ package typingsJapgolly.react.reactMod
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.EventTarget
-import typingsJapgolly.react.NativePointerEvent
 import typingsJapgolly.react.reactStrings.mouse
 import typingsJapgolly.react.reactStrings.pen
 import typingsJapgolly.react.reactStrings.touch

@@ -11,8 +11,6 @@ package object reactMod {
   import typings.react.Anon_RefAny
   import typings.react.Anon_Result
   import typings.react.Anon_Type
-  import typings.react.NativeMouseEvent
-  import typings.react.NotExactlyAnyPropertyKeys
   import typings.react.reactStrings.mount
   import typings.react.reactStrings.update
   import typings.std.Element
@@ -27,7 +25,7 @@ package object reactMod {
   type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
   type CElement[P, T /* <: Component[P, ComponentState, _] */] = ComponentElement[P, T]
   type CFactory[P, T /* <: Component[P, ComponentState, _] */] = ComponentFactory[P, T]
-  type CSSProperties = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
+  type CSSProperties = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
   type ChangeEventHandler[T] = EventHandler[ChangeEvent[T]]
   /**
     * We use an intersection type to infer multiple type parameters from
@@ -49,7 +47,7 @@ package object reactMod {
     */
   type ComponentProps[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */] = js.Object | (/* import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)
   type ComponentPropsWithRef[T /* <: ElementType[_] */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify InstanceType<T> */ _
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify InstanceType<T> */ _
   ]))
   type ComponentPropsWithoutRef[T /* <: ElementType[_] */] = PropsWithoutRef[ComponentProps[T]]
   type ComponentState = js.Any
@@ -68,21 +66,21 @@ package object reactMod {
   // Wrap in an outer-level conditional type to allow distribution over props that are unions
   type Defaultize[P, D] = ((Pick[
     P, 
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
   ]) with (Partial[
     Pick[
       P, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
     ]
   ]) with (Partial[
     Pick[
       D, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
     ]
   ])) | P
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
-  type DependencyList = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify ReadonlyArray<any> */ js.Any
+  type DependencyList = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify ReadonlyArray<any> */ js.Any
   type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
   // this technically does accept a second argument, but it's already under a deprecation warning
   // and it's not even released so probably better to not define it.
@@ -140,12 +138,25 @@ package object reactMod {
   // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
   type MergePropTypes[P, T] = ((Pick[P, NotExactlyAnyPropertyKeys[P]]) with (Pick[
     T, 
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
   ]) with (Pick[
     P, 
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
   ])) | P | T
   type MouseEventHandler[T] = EventHandler[MouseEvent[T, NativeMouseEvent]]
+  type NativeAnimationEvent = typings.std.AnimationEvent
+  type NativeClipboardEvent = typings.std.ClipboardEvent
+  type NativeCompositionEvent = typings.std.CompositionEvent
+  type NativeDragEvent = typings.std.DragEvent
+  type NativeFocusEvent = typings.std.FocusEvent
+  type NativeKeyboardEvent = typings.std.KeyboardEvent
+  type NativeMouseEvent = typings.std.MouseEvent
+  type NativePointerEvent = typings.std.PointerEvent
+  type NativeTouchEvent = typings.std.TouchEvent
+  type NativeTransitionEvent = typings.std.TransitionEvent
+  type NativeUIEvent = typings.std.UIEvent
+  type NativeWheelEvent = typings.std.WheelEvent
+  type NotExactlyAnyPropertyKeys[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
   type PointerEventHandler[T] = EventHandler[PointerEvent[T]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
@@ -157,7 +168,7 @@ package object reactMod {
     /* baseDuration */ Double, 
     /* startTime */ Double, 
     /* commitTime */ Double, 
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any, 
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any, 
     Unit
   ]
   type PropsWithChildren[P] = P with Anon_Children
@@ -166,7 +177,7 @@ package object reactMod {
   /** Ensures that the props do not include ref at all */
   type PropsWithoutRef[P] = P | (Pick[
     P, 
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
   ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
@@ -185,12 +196,12 @@ package object reactMod {
   type ReactManagedAttributes[C, P] = P | (Defaultize[
     (MergePropTypes[
       P, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
     ]) | P, 
     js.Any
   ]) | (MergePropTypes[
     P, 
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
   ])
   type ReactNode = js.UndefOr[ReactChild | ReactFragment | ReactPortal | Boolean]
   //
@@ -209,7 +220,7 @@ package object reactMod {
   // to a supertype common with the second argument to useReducer()
   type ReducerState[R /* <: Reducer[_, _] */] = js.Any
   type Ref[T] = (js.Function1[/* instance */ T | Null, Unit]) | RefObject[T] | Null
-  type Requireable[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
+  type Requireable[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
   //
   // Class Interfaces
   // ----------------------------------------------------------------------
@@ -252,11 +263,11 @@ package object reactMod {
   type TouchEventHandler[T] = EventHandler[TouchEvent[T]]
   type TransitionEventHandler[T] = EventHandler[TransitionEvent[T]]
   type UIEventHandler[T] = EventHandler[UIEvent[T]]
-  type ValidationMap[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.ValidationMap<T> */ js.Any
+  type ValidationMap[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.ValidationMap<T> */ js.Any
   //
   // React.PropTypes
   // ----------------------------------------------------------------------
-  type Validator[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify PropTypes.Validator<T> */ js.Any
+  type Validator[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Validator<T> */ js.Any
   type WeakValidationMap[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
     */ typings.react.reactStrings.WeakValidationMap with js.Any

@@ -328,6 +328,8 @@ final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
   override def value: String = from.value
 }
 
+final case class ModuleAliases(aliases: List[TsIdentModule]) extends Comment.Data
+
 final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]) extends TsIdent {
   @deprecated("this doesnt really work for node", "")
   lazy val inLibrary: TsIdentLibrary =

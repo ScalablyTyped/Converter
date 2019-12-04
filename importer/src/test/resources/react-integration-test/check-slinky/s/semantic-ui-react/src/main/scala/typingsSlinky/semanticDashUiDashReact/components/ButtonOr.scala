@@ -4,14 +4,14 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typingsSlinky.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ButtonOr
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  @JSImport("semantic-ui-react/src/elements/Button/ButtonOr", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonOr", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

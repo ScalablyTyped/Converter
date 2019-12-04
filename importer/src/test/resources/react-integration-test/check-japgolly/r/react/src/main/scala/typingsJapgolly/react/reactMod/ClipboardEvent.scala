@@ -3,7 +3,6 @@ package typingsJapgolly.react.reactMod
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.DataTransfer
-import typingsJapgolly.react.NativeClipboardEvent
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`

@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package modules
 
-import com.olvind.tso.ts.transforms.SetCodePath
+import com.olvind.tso.ts.transforms.{QualifyReferences, SetCodePath}
 import seqs._
 
 /**
@@ -58,10 +58,34 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
   override def enterTsDeclModule(t: TsTreeScope)(mod: TsDeclModule): TsDeclModule =
     mod match {
       case EqualsExport(((export, target :: Nil), notExports)) =>
-        val (namespaces, toplevel, rest) = notExports.partitionCollect2(
+        val (namespaces, toplevel, _rest) = notExports.partitionCollect2(
           { case x: TsDeclNamespace if x.name.value === target.value => x },
           { case x: TsNamedDecl if x.name === target                 => x },
         )
+
+        /**
+          * Support things like this:
+          *
+          * ```typescript
+          * type Err = Error;
+          *
+          * declare namespace createError {
+          *     interface Error<T extends Err> extends Err {
+          *         new (message?: string, obj?: any): T;
+          *     }
+          * }
+          *
+          * export = createError;
+          * ```
+          * `Err` refers to global error, not the one defined in the namespace.
+          * Note that we cannot do this in arbitrary modules, as we might leave
+          *  conflicting definitions in the same scope (2x `type Props = ...` for instance)
+          */
+        val rest = {
+          val Q = new QualifyReferences(skipValidation = true)
+          val patchedScope = t.`..` / mod.copy(members = _rest.filter(_.isInstanceOf[TsImport]))
+          _rest.map(Q.visitTsContainerOrDecl(patchedScope))
+        }
 
         if (namespaces.isEmpty) mod
         else {
@@ -136,6 +160,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
 
           EraseNamespaceRefs.visitTsDeclModule(())(mod.withMembers(patchedNewMembers))
         }
+
       case _ => mod
     }
 }

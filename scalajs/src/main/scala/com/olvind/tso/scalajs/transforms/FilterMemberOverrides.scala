@@ -16,15 +16,15 @@ import com.olvind.tso.seqs.TraversableOps
 object FilterMemberOverrides extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
-    s.copy(members = newMembers(scope, s, s.members))
+    s.copy(members = newMembers(scope, s, s.members, s.parents))
 
   override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-    s.copy(members = newMembers(scope, s, s.members))
+    s.copy(members = newMembers(scope, s, s.members, s.parents))
 
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = newMembers(scope, s, s.members))
+    s.copy(members = newMembers(scope, s, s.members, Nil))
 
-  private def newMembers(scope: TreeScope, owner: Tree, members: Seq[Tree]): Seq[Tree] = {
+  private def newMembers(scope: TreeScope, owner: Tree, members: Seq[Tree], inheritance: Seq[TypeRef]): Seq[Tree] = {
     val (methods, fields, modules, other) = members.partitionCollect3(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
@@ -60,10 +60,18 @@ object FilterMemberOverrides extends TreeTransformation {
     val allMethods = inheritedMethodsByName ++ methodsByName
     val allFields  = inheritedFieldsByName ++ fieldsByName
 
+    /* This is a bit of a hack.
+      Ideally, we would run the transformation in such a manner that all parents were already done.
+      That is not currently done, so here we approximate and say that if we inherit from a class with
+       the same name (likely due to it being reexported) we probably already have retained the suffixed
+       overloads we generate, so we won't do it again here
+     */
+    lazy val alreadySuffixed = inheritance.exists(_.name === owner.name)
+
     val newFields: Seq[FieldTree] = fields.flatMap { f =>
       allMethods.get(f.name) match {
         case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === f.name) =>
-          Seq(f withSuffix "F" + owner.name.value)
+          if (alreadySuffixed) Nil else Seq(f withSuffix "F" + owner.name.value)
         case _ =>
           inheritedFieldsByName.get(f.name) match {
             case Some(conflicting: Seq[FieldTree]) =>
@@ -74,6 +82,7 @@ object FilterMemberOverrides extends TreeTransformation {
                 /* there is no point in emitting duplicate fields */
                 Nil
               else if (allFields.contains(withSuffix.name)) Nil
+              else if (alreadySuffixed) Nil
               else Seq(withSuffix)
 
             case None =>
@@ -93,8 +102,9 @@ object FilterMemberOverrides extends TreeTransformation {
     val newMethods: Seq[MethodTree] = methods.flatMap { m =>
 //        val mErasure = Erasure.erasure(scope)(m)
 
-      if (inheritedFieldsByName.contains(m.name)) Seq(m withSuffix "M" + owner.name.value)
-      else {
+      if (inheritedFieldsByName.contains(m.name)) {
+        if (alreadySuffixed) Nil else Seq(m withSuffix "M" + owner.name.value)
+      } else {
         val mBase = Erasure.base(scope)(m)
 
         inheritedMethodsByBase get mBase match {

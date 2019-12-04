@@ -188,7 +188,7 @@ class ImportTree(importName: ImportName, importType: ImportType) {
         val withParents    = ParentsResolver(scope, i)
         val scalaJsDefined = CanBeScalaJsDefined(withParents)
         val newCodePath    = importName(codePath)
-        val MemberRet(ctors, ms, extraInheritance, Nil) =
+        val MemberRet(ctors, ms, extraInheritance, _) =
           members flatMap tsMember(scope, scalaJsDefined, importName, newCodePath)
         val parents = inheritance.map(importType(Wildcards.Prohibit, scope, importName))
 

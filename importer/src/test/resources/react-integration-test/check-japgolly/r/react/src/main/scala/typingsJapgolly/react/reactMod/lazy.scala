@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 object `lazy` extends js.Object {
   def apply[T /* <: ComponentType[_] */](
     factory: js.Function0[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<{  default  :T}> */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<{  default  :T}> */ _
     ]
   ): LazyExoticComponent[T] = js.native
 }

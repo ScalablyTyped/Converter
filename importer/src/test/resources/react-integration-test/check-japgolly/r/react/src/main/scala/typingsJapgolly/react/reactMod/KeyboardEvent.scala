@@ -2,7 +2,6 @@ package typingsJapgolly.react.reactMod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import typingsJapgolly.react.NativeKeyboardEvent
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`

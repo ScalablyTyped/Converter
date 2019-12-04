@@ -111,6 +111,12 @@ object LibrarySpecific {
       TsIdentSimple("TableCellProps"),
     )
 
+    override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
+      x.copy(members = x.members.filter {
+        case xx: TsDeclModule => !xx.name.fragments.contains("src")
+        case _ => true
+      })
+
     override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
       x match {
         case i @ TsDeclInterface(_, _, name, _, inheritance, members, _) =>

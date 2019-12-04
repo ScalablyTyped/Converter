@@ -6,18 +6,18 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticCOLORS
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticFLOATS
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticSIZES
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandCollection
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticWIDTHS
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
-import typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -82,12 +82,12 @@ object ButtonGroup {
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/elements/Button/ButtonGroup", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

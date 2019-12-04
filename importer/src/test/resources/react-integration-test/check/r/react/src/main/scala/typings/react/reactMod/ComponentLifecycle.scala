@@ -19,7 +19,7 @@ trait ComponentLifecycle[P, S, SS]
     */
   var componentDidCatch: js.UndefOr[
     js.Function2[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, 
       /* errorInfo */ ErrorInfo, 
       Unit
     ]
@@ -54,7 +54,7 @@ object ComponentLifecycle {
     UNSAFE_componentWillMount: () => Unit = null,
     UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Unit = null,
     UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Unit = null,
-    componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit = null,
+    componentDidCatch: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit = null,
     componentDidMount: () => Unit = null,
     componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[SS]) => Unit = null,
     componentWillMount: () => Unit = null,
