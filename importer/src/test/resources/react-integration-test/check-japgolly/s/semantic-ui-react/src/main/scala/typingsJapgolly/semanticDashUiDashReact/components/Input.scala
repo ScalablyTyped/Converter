@@ -57,6 +57,11 @@ import typingsJapgolly.react.reactStrings.text
 import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.react.reactStrings.vertical
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputOnChangeData
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputMod.default
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.HtmlInputrops
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -67,11 +72,6 @@ import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.ma
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
-import typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData
-import typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
-import typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -421,7 +421,7 @@ object Input {
     if (onBlur != null) __obj.updateDynamic("onBlur")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactFocusEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => onBlur(t0).runNow()))
     if (onCanPlay != null) __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => onCanPlay(t0).runNow()))
     if (onCanPlayThrough != null) __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => onCanPlayThrough(t0).runNow()))
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData) => onChange(t0, t1).runNow()))
+    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputOnChangeData) => onChange(t0, t1).runNow()))
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => onClick(t0).runNow()))
     if (onCompositionEnd != null) __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => onCompositionEnd(t0).runNow()))
     if (onCompositionStart != null) __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLInputElement]) => onCompositionStart(t0).runNow()))
@@ -523,12 +523,12 @@ object Input {
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcElementsInputMod.default](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsInputInputMod.InputProps])(children: _*)
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputMod.default](this.componentImport)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/elements/Input", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

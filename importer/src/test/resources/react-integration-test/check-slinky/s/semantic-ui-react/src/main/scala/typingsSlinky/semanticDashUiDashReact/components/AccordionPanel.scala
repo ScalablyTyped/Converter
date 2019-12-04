@@ -6,18 +6,18 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionContentMod.AccordionContentProps
-import typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps
-import typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.default
-import typingsSlinky.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
+import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.default
+import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object AccordionPanel
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("semantic-ui-react/src/modules/Accordion/AccordionPanel", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionPanel", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

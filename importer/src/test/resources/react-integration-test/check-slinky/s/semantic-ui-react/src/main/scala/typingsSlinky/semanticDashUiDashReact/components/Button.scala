@@ -48,6 +48,13 @@ import typingsSlinky.react.reactStrings.submit
 import typingsSlinky.react.reactStrings.text
 import typingsSlinky.react.reactStrings.time
 import typingsSlinky.react.reactStrings.tree
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsButtonMod.default
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticCOLORS
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticFLOATS
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticSIZES
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`google plus`
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.facebook
@@ -61,20 +68,13 @@ import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.twit
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.vertical
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.vk
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.youtube
-import typingsSlinky.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
-import typingsSlinky.semanticDashUiDashReact.srcElementsButtonMod.default
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Button
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("semantic-ui-react/src/elements/Button", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

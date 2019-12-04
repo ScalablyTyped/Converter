@@ -4,25 +4,25 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsButtonButtonGroupMod.ButtonGroupProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticCOLORS
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticFLOATS
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticSIZES
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandCollection
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticWIDTHS
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.left
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.top
-import typingsSlinky.semanticDashUiDashReact.srcElementsButtonButtonGroupMod.ButtonGroupProps
-import typingsSlinky.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticWIDTHS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ButtonGroup
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  @JSImport("semantic-ui-react/src/elements/Button/ButtonGroup", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

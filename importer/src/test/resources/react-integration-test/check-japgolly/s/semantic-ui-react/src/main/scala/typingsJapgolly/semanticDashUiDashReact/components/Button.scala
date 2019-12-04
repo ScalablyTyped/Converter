@@ -59,6 +59,13 @@ import typingsJapgolly.react.reactStrings.submit
 import typingsJapgolly.react.reactStrings.text
 import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonMod.default
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticCOLORS
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticFLOATS
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticSIZES
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`google plus`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.bottom
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.facebook
@@ -72,13 +79,6 @@ import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.tw
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.vertical
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.vk
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.youtube
-import typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps
-import typingsJapgolly.semanticDashUiDashReact.srcElementsButtonMod.default
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticCOLORS
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticFLOATS
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticSIZES
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -408,7 +408,7 @@ object Button {
     if (onCanPlay != null) __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCanPlay(t0).runNow()))
     if (onCanPlayThrough != null) __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCanPlayThrough(t0).runNow()))
     if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onChange(t0).runNow()))
-    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps) => onClick(t0, t1).runNow()))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLButtonElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps) => onClick(t0, t1).runNow()))
     if (onCompositionEnd != null) __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCompositionEnd(t0).runNow()))
     if (onCompositionStart != null) __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCompositionStart(t0).runNow()))
     if (onCompositionUpdate != null) __obj.updateDynamic("onCompositionUpdate")(js.Any.fromFunction1((t0: japgolly.scalajs.react.ReactCompositionEventFrom[org.scalajs.dom.raw.HTMLButtonElement]) => onCompositionUpdate(t0).runNow()))
@@ -506,12 +506,12 @@ object Button {
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcElementsButtonMod.default](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonMod.ButtonProps])(children: _*)
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonMod.default](this.componentImport)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonMod.ButtonProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/elements/Button", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

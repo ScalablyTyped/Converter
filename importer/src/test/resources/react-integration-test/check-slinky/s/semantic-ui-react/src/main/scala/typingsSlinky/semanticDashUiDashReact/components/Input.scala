@@ -47,6 +47,11 @@ import typingsSlinky.react.reactStrings.text
 import typingsSlinky.react.reactStrings.time
 import typingsSlinky.react.reactStrings.tree
 import typingsSlinky.react.reactStrings.vertical
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputOnChangeData
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsInputMod.default
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.HtmlInputrops
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`left corner`
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.`right corner`
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.big
@@ -57,18 +62,13 @@ import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.mass
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.mini
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.right
 import typingsSlinky.semanticDashUiDashReact.semanticDashUiDashReactStrings.small
-import typingsSlinky.semanticDashUiDashReact.srcElementsInputInputMod.InputOnChangeData
-import typingsSlinky.semanticDashUiDashReact.srcElementsInputInputMod.InputProps
-import typingsSlinky.semanticDashUiDashReact.srcElementsInputMod.default
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.HtmlInputrops
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object Input
   extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("semantic-ui-react/src/elements/Input", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

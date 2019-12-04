@@ -8,9 +8,9 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -61,12 +61,12 @@ object TestContainer {
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/elements/TestContainer", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

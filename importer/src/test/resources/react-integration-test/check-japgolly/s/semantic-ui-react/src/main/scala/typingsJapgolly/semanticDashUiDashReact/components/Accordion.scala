@@ -7,11 +7,11 @@ import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLDivElement
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandCollection
-import typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps
-import typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionPanelMod.AccordionPanelProps
-import typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandCollection
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -44,19 +44,19 @@ object Accordion {
     if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive.asInstanceOf[js.Any])
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
     if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
-    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow()))
+    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps) => onTitleClick(t0, t1).runNow()))
     if (panels != null) __obj.updateDynamic("panels")(panels.asInstanceOf[js.Any])
     if (!js.isUndefined(styled)) __obj.updateDynamic("styled")(styled.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionMod.default](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionMod.AccordionProps])(children: _*)
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionMod.default](this.componentImport)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/modules/Accordion", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

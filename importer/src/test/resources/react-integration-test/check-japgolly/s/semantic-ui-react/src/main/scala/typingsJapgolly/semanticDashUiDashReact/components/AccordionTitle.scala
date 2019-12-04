@@ -7,10 +7,10 @@ import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLDivElement
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsJapgolly.semanticDashUiDashReact.srcGenericMod.SemanticShorthandItem
-import typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps
-import typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandItem
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -41,17 +41,17 @@ object AccordionTitle {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps) => onClick(t0, t1).runNow()))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps) => onClick(t0, t1).runNow()))
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.default](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcModulesAccordionAccordionTitleMod.AccordionTitleProps])(children: _*)
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.default](this.componentImport)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.AccordionTitleProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/modules/Accordion/AccordionTitle", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

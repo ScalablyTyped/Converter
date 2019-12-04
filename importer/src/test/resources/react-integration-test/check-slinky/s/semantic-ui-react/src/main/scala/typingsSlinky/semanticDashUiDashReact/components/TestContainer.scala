@@ -4,16 +4,16 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typingsSlinky.semanticDashUiDashReact.srcElementsTestContainerTestContainerMod.TestContainerProps
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticShorthandContent
-import typingsSlinky.semanticDashUiDashReact.srcGenericMod.SemanticTEXTALIGNMENTS
+import typingsSlinky.semanticDashUiDashReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandContent
+import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticTEXTALIGNMENTS
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object TestContainer
   extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-  @JSImport("semantic-ui-react/src/elements/TestContainer", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   

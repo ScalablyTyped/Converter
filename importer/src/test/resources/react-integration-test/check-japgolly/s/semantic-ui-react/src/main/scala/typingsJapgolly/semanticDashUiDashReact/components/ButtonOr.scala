@@ -6,7 +6,7 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps
+import typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -35,12 +35,12 @@ object ButtonOr {
     if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps, 
+  typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.srcElementsButtonButtonOrMod.ButtonOrProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsButtonButtonOrMod.ButtonOrProps])(children: _*)
   }
-  @JSImport("semantic-ui-react/src/elements/Button/ButtonOr", JSImport.Default)
+  @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonOr", JSImport.Default)
   @js.native
   object componentImport extends js.Object
   
