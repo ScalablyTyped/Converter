@@ -168,7 +168,7 @@ class Main(config: Config) {
     val lastChangedIndex = Await.result(lastChangedIndexF, Duration.Inf)
     val compiler         = Await.result(compilerF, Duration.Inf)
 
-    val stdLibSource: Source = {
+    val stdLibSource: StdLibSource = {
       val folder = externalsFolder.path / "typescript" / "lib"
       StdLibSource(InFolder(folder), List(InFile(folder / "lib.esnext.full.d.ts")), TsIdent.std)
     }

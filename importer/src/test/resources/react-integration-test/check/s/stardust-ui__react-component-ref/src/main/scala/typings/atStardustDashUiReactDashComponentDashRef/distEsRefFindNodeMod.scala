@@ -13,7 +13,7 @@ object distEsRefFindNodeMod extends js.Object {
   @js.native
   trait RefFindNode
     extends Component[RefProps, js.Object, js.Any] {
-    var prevNode: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any) | Null = js.native
+    var prevNode: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any) | Null = js.native
     @JSName("componentDidMount")
     def componentDidMount_MRefFindNode(): Unit = js.native
     @JSName("componentDidUpdate")

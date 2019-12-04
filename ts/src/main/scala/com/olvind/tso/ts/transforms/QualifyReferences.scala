@@ -2,7 +2,7 @@ package com.olvind.tso
 package ts
 package transforms
 
-object QualifyReferences extends TreeTransformationScopedChanges {
+class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScopedChanges {
 
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
@@ -26,7 +26,8 @@ object QualifyReferences extends TreeTransformationScopedChanges {
 
   def resolveTypeRef(scope: TsTreeScope, tr: TsTypeRef, picker: Picker[TsNamedDecl]): Seq[TsTypeRef] =
     if (shouldQualify(tr.name, scope)) {
-      val many = referenceFrom(scope.lookupBase(picker, tr.name)) match {
+      val many = referenceFrom(scope.lookupBase(picker, tr.name, skipValidation = skipValidation)) match {
+        case Nil if skipValidation => List(tr)
         case Nil =>
           val msg = s"Couldn't qualify ${TsTypeFormatter(tr)}"
           scope.logger.warn(msg)

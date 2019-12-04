@@ -114,24 +114,8 @@ sealed trait TsTreeScope {
 
 object TsTreeScope {
   trait TsLib {
-    def libName: TsIdentLibrary
-
-    /** the module resolution in typescript is somehow able to sometimes, maybe,
-      *  use a module path discovered through `typings` in package.json:
-      *
-      *  in a given library foo:
-      *  /package.json <-- {typings: typings/index.d.ts}
-      *  /typings/index.d.ts <-- includes /typings/bar.d.ts
-      *  /typings/bar.d.ts
-      *
-      *  in a downstream library you can then, sometimes, maybe, require `foo/bar` even though the module doesn't exist.
-      *  Note that requiring `foo/typings/bar` will always work, even though *that* doesn't necessary refer to any javascript code!
-      *
-      *  utter madness.
-      */
-    def impliedPath:    Option[os.RelPath]
+    def libName:        TsIdentLibrary
     def packageJsonOpt: Option[PackageJsonDeps]
-    def tsConfig:       Option[TsConfig]
   }
 
   type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
@@ -197,21 +181,15 @@ object TsTreeScope {
     override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
       depScopes.values.foreach {
-        case (libSource, dep: TsParsedFile, depScope: Scoped) =>
+        case (_, dep: TsParsedFile, depScope: Scoped) =>
           dep.modules.foreach {
             case (modName, mod) =>
               val modScope = depScope / mod
               ret += (modName -> modScope)
-
-              libSource.impliedPath.foreach { impliedPath =>
-                modName match {
-                  case TsIdentModule(scopeOpt, libName :: rest) if rest.startsWith(impliedPath) =>
-                    val shortenedModuleName = TsIdentModule(scopeOpt, libName :: rest.drop(impliedPath.segments.length))
-                    if (!ret.contains(shortenedModuleName))
-                      ret += (shortenedModuleName -> modScope)
-
-                  case _ => ()
-                }
+              mod.comments.cs.foreach {
+                case CommentData(ModuleAliases(aliases)) =>
+                  aliases.foreach(alias => ret += ((alias, modScope)))
+                case _ => ()
               }
           }
       }
@@ -221,22 +199,12 @@ object TsTreeScope {
     override lazy val moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
       depScopes.values.foreach {
-        case (libSource, dep: TsParsedFile, depScope: Scoped) =>
+        case (_, dep: TsParsedFile, depScope: Scoped) =>
           dep.augmentedModulesMap.foreach {
-            case (modName, mod) =>
-              val modScope = depScope / mod.reduce(FlattenTrees.mergeAugmentedModule)
+            case (modName, auxMods) =>
+              val mod      = auxMods.reduce(FlattenTrees.mergeAugmentedModule)
+              val modScope = depScope / mod
               ret += (modName -> modScope)
-
-              libSource.impliedPath.foreach { impliedPath =>
-                modName match {
-                  case TsIdentModule(scopeOpt, libName :: rest) if rest.startsWith(impliedPath) =>
-                    val shortenedModuleName = TsIdentModule(scopeOpt, libName :: rest.drop(impliedPath.segments.length))
-                    if (!ret.contains(shortenedModuleName))
-                      ret += (shortenedModuleName -> modScope)
-
-                  case _ => ()
-                }
-              }
           }
       }
       ret.toMap

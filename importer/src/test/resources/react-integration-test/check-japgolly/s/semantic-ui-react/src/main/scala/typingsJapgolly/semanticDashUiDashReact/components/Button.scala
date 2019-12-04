@@ -168,7 +168,7 @@ object Button {
     formTarget: String = null,
     hidden: js.UndefOr[Boolean] = js.undefined,
     icon: Boolean | (SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ]) = null,
     id: String = null,
     inlist: js.Any = null,
@@ -181,7 +181,7 @@ object Button {
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
     ] = null,
     labelPosition: right | left = null,
     lang: String = null,

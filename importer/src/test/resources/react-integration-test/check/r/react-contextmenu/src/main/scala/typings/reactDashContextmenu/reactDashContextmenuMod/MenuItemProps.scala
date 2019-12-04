@@ -14,14 +14,14 @@ trait MenuItemProps extends js.Object {
   var attributes: js.UndefOr[HTMLAttributes[HTMLDivElement]] = js.undefined
   var className: js.UndefOr[String] = js.undefined
   var data: js.UndefOr[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any
   ] = js.undefined
   var disabled: js.UndefOr[Boolean] = js.undefined
   var divider: js.UndefOr[Boolean] = js.undefined
   var onClick: js.UndefOr[
     (js.Function3[
       /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function
@@ -34,12 +34,12 @@ object MenuItemProps {
   def apply(
     attributes: HTMLAttributes[HTMLDivElement] = null,
     className: String = null,
-    data: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ js.Any = null,
+    data: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     divider: js.UndefOr[Boolean] = js.undefined,
     onClick: (js.Function3[
       /* event */ TouchEvent[HTMLDivElement] | (MouseEvent[HTMLDivElement, NativeMouseEvent]), 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function = null,

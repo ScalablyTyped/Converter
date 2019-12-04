@@ -50,11 +50,7 @@ class Phase1ReadTypescript(
         val L = logger.withContext(file)
 
         val resolveDep = (value: String) =>
-          PhaseRes.fromOption(
-            source,
-            resolve.lookup(s, value).map(_._1),
-            Right(s"Couldn't resolve $value"),
-          )
+          PhaseRes.fromOption(source, resolve.module(s, value).map(_._1: Source), Right(s"Couldn't resolve $value"))
 
         def assertPartsOnly(m: SortedMap[Source, Phase1Res]): SortedMap[Source, LibraryPart] =
           m.map {
@@ -74,21 +70,15 @@ class Phase1ReadTypescript(
               .partitionCollect3(
                 {
                   case r @ DirectivePathRef(value) =>
-                    def src(f: InFile): Source =
-                      Source.TsHelperFile(f, inLib, LibraryResolver.moduleNameFor(inLib, file))
-                    val maybeSource = LibraryResolver.file(file.folder, value).map(src)
+                    val maybeSource: Option[Source] =
+                      LibraryResolver.file(file.folder, value).map(Source.helperFile(inLib))
                     PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
-                    def src(f: InFile): Source =
-                      Source.TsHelperFile(f, inLib, LibraryResolver.moduleNameFor(inLib, file))
-
-                    PhaseRes.fromOption(
-                      source,
-                      LibraryResolver.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
-                      Right(s"Couldn't resolve $r"),
-                    )
+                    val maybeSource: Option[Source] =
+                      LibraryResolver.file(stdlibSource.folder, s"lib.$value.d.ts").map(Source.helperFile(inLib))
+                    PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
               )
 
@@ -140,7 +130,7 @@ class Phase1ReadTypescript(
                 )
                 .flatMap(
                   depName =>
-                    resolve.global(depName) orElse {
+                    resolve.library(depName) orElse {
                       logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
                       None
                     },
@@ -157,13 +147,21 @@ class Phase1ReadTypescript(
 
               val preprocessed: Seq[TsParsedFile] =
                 libParts.to[Seq] map {
-                  case (thisSource, file) =>
-                    logger.info(s"Preprocessing $thisSource")
-                    val _1 = modules.InferredDefaultModule(file.file, thisSource.moduleName, logger)
-//                    val _2 = FlattenTrees(_1 +: file.toInline.to[Seq].map(_._2))
+                  case (helperSource, file) =>
+                    logger.info(s"Preprocessing $helperSource")
+                    val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
                     val _2 = FlattenTrees(_1 +: file.toInline.filterNot(_._2.isModule).to[Seq].map(_._2))
 
-                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_2)
+                    val _3 = helperSource.moduleNames match {
+                      case _ :: Nil => _2
+                      case more =>
+                        _2.copy(members = _2.members.map {
+                          case m: TsDeclModule if more.contains(m.name) =>
+                            m.copy(comments = m.comments + CommentData(ModuleAliases(more.filterNot(_ === m.name))))
+                          case other => other
+                        })
+                    }
+                    T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
                 }
 
               val enableExpandTypeMappings = source.libName match {
@@ -178,6 +176,7 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("tensorflow", _)                           => true
                 case TsIdentLibraryScoped("ant-design", _)                           => true
                 case TsIdentLibraryScoped("nivo", _)                                 => true
+                case TsIdentLibraryScoped("storybook", "api")                        => true
                 case TsIdentLibrarySimple("instagram-private-api")                   => true
                 case _                                                               => false
               }
@@ -216,14 +215,14 @@ object Phase1ReadTypescript {
     List(
       T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),
       T.SetJsLocation.visitTsParsedFile(JsLocation.Global(TsQIdent.empty)),
-      modules.HandleCommonJsModules.visitTsParsedFile(scope),
       (T.SimplifyParents >>
-        T.RemoveStubs >> //before QualifyReferences
+        T.RemoveStubs >> //before HandleCommonJsModules and QualifyReferences
         T.InferTypeFromExpr >>
         T.InferEnumTypes /* before InlineConstEnum */ >>
         T.NormalizeFunctions /* before FlattenTrees */
       ).visitTsParsedFile(scope.caching),
-      T.QualifyReferences.visitTsParsedFile(scope.caching),
+      modules.HandleCommonJsModules.visitTsParsedFile(scope), //before QualifyReferences
+      new T.QualifyReferences(skipValidation = false).visitTsParsedFile(scope.caching),
       modules.AugmentModules(scope.caching),
       T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),

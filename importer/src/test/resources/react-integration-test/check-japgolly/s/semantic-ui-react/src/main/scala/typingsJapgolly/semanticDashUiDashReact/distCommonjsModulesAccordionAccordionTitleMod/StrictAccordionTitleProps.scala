@@ -25,7 +25,7 @@ trait StrictAccordionTitleProps extends js.Object {
   /** Shorthand for Icon. */
   var icon: js.UndefOr[
     SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ]
   ] = js.undefined
   /** AccordionTitle index inside Accordion. */
@@ -54,7 +54,7 @@ object StrictAccordionTitleProps {
     className: String = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
     onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback = null

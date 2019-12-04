@@ -32,9 +32,9 @@ object ResolveExternalReferences {
     val doResolve: TsIdentModule => Option[(Source, TsIdentModule)] = {
       case TsIdentModule(None, "events" :: Nil) => None
       case jsName if jsName.value.endsWith(".js") =>
-        resolve.lookup(source, jsName.value.dropRight(".js".length))
+        resolve.module(source, jsName.value.dropRight(".js".length))
       case name =>
-        resolve.lookup(source, name.value)
+        resolve.module(source, name.value)
     }
     val v = new V(doResolve, imported)
 

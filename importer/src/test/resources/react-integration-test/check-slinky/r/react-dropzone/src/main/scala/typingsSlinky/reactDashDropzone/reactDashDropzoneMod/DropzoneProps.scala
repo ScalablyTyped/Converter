@@ -16,7 +16,7 @@ trait DropzoneProps extends js.Object {
   var getFilesFromEvent: js.UndefOr[
     js.Function1[
       /* event */ DropEvent, 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
     ]
   ] = js.undefined
   var maxSize: js.UndefOr[Double] = js.undefined
@@ -32,10 +32,10 @@ trait DropzoneProps extends js.Object {
   var onDrop: js.UndefOr[
     js.Function3[
       /* acceptedFiles */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
       ], 
       /* rejectedFiles */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
       ], 
       /* event */ DropEvent, 
       Unit
@@ -44,7 +44,7 @@ trait DropzoneProps extends js.Object {
   var onDropAccepted: js.UndefOr[
     js.Function2[
       /* files */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
       ], 
       /* event */ DropEvent, 
       Unit
@@ -53,7 +53,7 @@ trait DropzoneProps extends js.Object {
   var onDropRejected: js.UndefOr[
     js.Function2[
       /* files */ js.Array[
-        /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
       ], 
       /* event */ DropEvent, 
       Unit
@@ -69,7 +69,7 @@ object DropzoneProps {
     accept: String | js.Array[String] = null,
     children: /* state */ DropzoneState => Element = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
-    getFilesFromEvent: /* event */ DropEvent => /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
+    getFilesFromEvent: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
     maxSize: Int | Double = null,
     minSize: Int | Double = null,
     multiple: js.UndefOr[Boolean] = js.undefined,
@@ -81,15 +81,15 @@ object DropzoneProps {
     onDragLeave: DragEvent[HTMLElement] => Unit = null,
     onDragOver: DragEvent[HTMLElement] => Unit = null,
     onDrop: (/* acceptedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* rejectedFiles */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onDropAccepted: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onDropRejected: (/* files */ js.Array[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify File */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined

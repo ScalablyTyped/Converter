@@ -110,7 +110,7 @@ trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
   /** Add an Icon by name, props object, or pass an <Icon />. */
   var icon: js.UndefOr[
     Boolean | (SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ])
   ] = js.undefined
   /** A button can be formatted to appear on dark backgrounds. */
@@ -118,7 +118,7 @@ trait StrictButtonProps extends ButtonHTMLAttributes[HTMLButtonElement] {
   /** Add a Label by text, props object, or pass a <Label />. */
   var label: js.UndefOr[
     SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
     ]
   ] = js.undefined
   /** A labeled button can format a Label or Icon to appear on the left or right. */
@@ -242,7 +242,7 @@ object StrictButtonProps {
     formTarget: String = null,
     hidden: js.UndefOr[Boolean] = js.undefined,
     icon: Boolean | (SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ]) = null,
     id: String = null,
     inlist: js.Any = null,
@@ -255,7 +255,7 @@ object StrictButtonProps {
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
     ] = null,
     labelPosition: right | left = null,
     lang: String = null,

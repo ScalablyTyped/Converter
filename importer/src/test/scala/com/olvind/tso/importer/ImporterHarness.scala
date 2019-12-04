@@ -7,7 +7,7 @@ import java.nio.file.Files
 
 import ammonite.ops.{%, %%, ShelloutException}
 import com.olvind.logging.{LogLevel, LogRegistry}
-import com.olvind.tso.importer.Source.TsLibSource
+import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer.build.{BloopCompiler, PublishedSbtProject, Versions}
 import com.olvind.tso.importer.documentation.Npmjs
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
@@ -42,8 +42,8 @@ trait ImporterHarness extends FunSuiteLike {
       publishFolder: os.Path,
       flavour:       Flavour,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
-    val stdLibSource: Source =
-      Source.StdLibSource(InFolder(source.path), List(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
+    val stdLibSource: StdLibSource =
+      StdLibSource(InFolder(source.path), List(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
     val resolve          = new LibraryResolver(stdLibSource, Seq(source), None)
     val lastChangedIndex = DTLastChangedIndex(testCmd, source.path)

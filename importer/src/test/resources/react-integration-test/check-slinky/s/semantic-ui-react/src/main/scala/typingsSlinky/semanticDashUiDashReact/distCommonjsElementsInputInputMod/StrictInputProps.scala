@@ -97,7 +97,7 @@ trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
   /** Optional Label to display along side the Input. */
   var label: js.UndefOr[
     SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
     ]
   ] = js.undefined
   /** A Label can appear outside an Input on the left or right. */
@@ -231,7 +231,7 @@ object StrictInputProps {
     itemScope: js.UndefOr[Boolean] = js.undefined,
     itemType: String = null,
     label: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify LabelProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
     ] = null,
     labelPosition: left | right | (`left corner`) | (`right corner`) = null,
     lang: String = null,

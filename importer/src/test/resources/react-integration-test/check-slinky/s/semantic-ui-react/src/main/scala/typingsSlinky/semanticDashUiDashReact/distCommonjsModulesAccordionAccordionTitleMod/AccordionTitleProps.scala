@@ -24,7 +24,7 @@ object AccordionTitleProps {
     className: String = null,
     content: SemanticShorthandContent = null,
     icon: SemanticShorthandItem[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify IconProps */ _
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ] = null,
     index: Double | String = null,
     onClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null

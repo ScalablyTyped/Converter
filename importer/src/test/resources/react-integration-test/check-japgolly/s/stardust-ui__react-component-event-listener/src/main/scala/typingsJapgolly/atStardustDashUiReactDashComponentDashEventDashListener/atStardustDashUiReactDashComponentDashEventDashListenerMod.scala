@@ -11,10 +11,10 @@ import scala.scalajs.js.annotation._
 @js.native
 object atStardustDashUiReactDashComponentDashEventDashListenerMod extends js.Object {
   val documentRef: RefHandle[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ] = js.native
   val windowRef: RefHandle[
-    /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Node */ js.Any
+    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ] = js.native
   def useEventListener[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 91 */ js.Any */](options: EventListenerOptions[T]): Unit = js.native
   @js.native

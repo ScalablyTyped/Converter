@@ -36,23 +36,9 @@ object Source {
         /* discover stdlib package.json as well */
         Json.opt[PackageJsonDeps](folder.path / os.up / "package.json")
 
-    override lazy val tsConfig: Option[TsConfig] =
+    lazy val tsConfig: Option[TsConfig] =
       Json.opt[TsConfig](folder.path / "tsconfig.json")
 
-    override lazy val impliedPath: Option[os.RelPath] = {
-      packageJsonOpt.flatMap(_.types) orElse packageJsonOpt.flatMap(_.typings) flatMap { value =>
-        val base = value match {
-          case str if str.endsWith("index.d.ts") => str.dropRight("index.d.ts".length)
-          case str if str.endsWith(".d.ts")      => str.dropRight(".d.ts".length)
-          case other                             => other
-        }
-        val typingsFolder = folder.path / os.RelPath(base)
-        typingsFolder relativeTo folder.path match {
-          case empty if empty.segments.isEmpty => None
-          case other                           => Some(other)
-        }
-      }
-    }
     lazy val shortenedFiles: Seq[InFile] = findShortenedFiles(this)
   }
 
@@ -60,10 +46,13 @@ object Source {
 
   final case class FromFolder(folder: InFolder, libName: TsIdentLibrary) extends TsLibSource
 
-  final case class TsHelperFile(file: InFile, inLib: TsLibSource, moduleName: TsIdentModule) extends TsSource {
+  final case class TsHelperFile(file: InFile, inLib: TsLibSource, moduleNames: List[TsIdentModule]) extends TsSource {
     override def libName: TsIdentLibrary = inLib.libName
     override def folder:  InFolder       = file.folder
   }
+
+  def helperFile(inLib: TsLibSource)(file: InFile): TsHelperFile =
+    Source.TsHelperFile(file, inLib, LibraryResolver.moduleNameFor(inLib, file))
 
   final case class FacadeSource(folder: InFolder) extends Source {
     override val libName = TsIdentLibrarySimple(folder.path.last + "-" + "facade")

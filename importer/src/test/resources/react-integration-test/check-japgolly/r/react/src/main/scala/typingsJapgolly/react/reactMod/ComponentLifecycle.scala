@@ -21,7 +21,7 @@ trait ComponentLifecycle[P, S, SS]
     */
   var componentDidCatch: js.UndefOr[
     js.Function2[
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, 
       /* errorInfo */ ErrorInfo, 
       Unit
     ]
@@ -56,7 +56,7 @@ object ComponentLifecycle {
     UNSAFE_componentWillMount: js.UndefOr[Callback] = js.undefined,
     UNSAFE_componentWillReceiveProps: (P, /* nextContext */ js.Any) => Callback = null,
     UNSAFE_componentWillUpdate: (P, S, /* nextContext */ js.Any) => Callback = null,
-    componentDidCatch: (/* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback = null,
+    componentDidCatch: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Callback = null,
     componentDidMount: js.UndefOr[Callback] = js.undefined,
     componentDidUpdate: (P, S, /* snapshot */ js.UndefOr[SS]) => Callback = null,
     componentWillMount: js.UndefOr[Callback] = js.undefined,
@@ -70,7 +70,7 @@ object ComponentLifecycle {
     UNSAFE_componentWillMount.foreach(p => __obj.updateDynamic("UNSAFE_componentWillMount")(p.toJsFn))
     if (UNSAFE_componentWillReceiveProps != null) __obj.updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: P, t1: /* nextContext */ js.Any) => UNSAFE_componentWillReceiveProps(t0, t1).runNow()))
     if (UNSAFE_componentWillUpdate != null) __obj.updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* nextContext */ js.Any) => UNSAFE_componentWillUpdate(t0, t1, t2).runNow()))
-    if (componentDidCatch != null) __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2((t0: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ typingsJapgolly.react.reactMod.ErrorInfo) => componentDidCatch(t0, t1).runNow()))
+    if (componentDidCatch != null) __obj.updateDynamic("componentDidCatch")(js.Any.fromFunction2((t0: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, t1: /* errorInfo */ typingsJapgolly.react.reactMod.ErrorInfo) => componentDidCatch(t0, t1).runNow()))
     componentDidMount.foreach(p => __obj.updateDynamic("componentDidMount")(p.toJsFn))
     if (componentDidUpdate != null) __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: P, t1: S, t2: /* snapshot */ js.UndefOr[SS]) => componentDidUpdate(t0, t1, t2).runNow()))
     componentWillMount.foreach(p => __obj.updateDynamic("componentWillMount")(p.toJsFn))

@@ -30,5 +30,5 @@ package object react {
   type NativeTransitionEvent = TransitionEvent
   type NativeUIEvent = UIEvent
   type NativeWheelEvent = WheelEvent
-  type NotExactlyAnyPropertyKeys[T] = /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
+  type NotExactlyAnyPropertyKeys[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
 }

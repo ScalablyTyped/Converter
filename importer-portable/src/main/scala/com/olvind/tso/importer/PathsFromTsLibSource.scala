@@ -8,15 +8,18 @@ object PathsFromTsLibSource {
 
     val files: Seq[InFile] =
       source match {
-        case Source.StdLibSource(_, files, _)                             => files
-        case f @ Source.FromFolder(_, TsIdentLibrarySimple("typescript")) => allTopLevel(f.folder)
+        case Source.StdLibSource(_, files, _) =>
+          files
+        case f @ Source.FromFolder(_, TsIdentLibrarySimple("typescript")) =>
+          /* don't include std */
+          f.shortenedFiles
         case f: Source.FromFolder =>
           /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
           val bound = f.shortenedFiles.headOption.map(_.folder).getOrElse(f.folder)
           filesFrom(bound, f.libName)
       }
 
-    files.map(file => Source.TsHelperFile(file, source, LibraryResolver.moduleNameFor(source, file))).toSet
+    files.map(Source.helperFile(source)).toSet
   }
 
   val V  = "v[\\d\\.]+".r

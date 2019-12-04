@@ -16,7 +16,7 @@ trait ContextMenuProps extends js.Object {
   var onMouseLeave: js.UndefOr[
     (js.Function3[
       /* event */ ReactMouseEventFrom[HTMLElement], 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function
@@ -35,7 +35,7 @@ object ContextMenuProps {
     onHide: /* event */ js.Any => Callback = null,
     onMouseLeave: (js.Function3[
       /* event */ ReactMouseEventFrom[HTMLElement], 
-      /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function = null,

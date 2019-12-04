@@ -13,7 +13,7 @@ import scala.scalajs.js.annotation._
 
 object Suspense {
   def apply(
-    fallback: /* import warning: QualifyReferences.resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null,
+    fallback: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null,
     key: js.UndefOr[Key] = js.undefined,
     overrides: StringDictionary[js.Any] = null
   )(
