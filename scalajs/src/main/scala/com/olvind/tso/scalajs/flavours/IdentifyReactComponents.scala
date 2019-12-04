@@ -10,8 +10,12 @@ class IdentifyReactComponents(reactNames: ReactNames) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
 
-  /* this is effectively a heurestic which component to use */
+  /* this is effectively a heuristic which component to use */
   implicit val ComponentOrdering: Ordering[Component] = Ordering.by { c =>
+    /* sometimes there are typings both for transpiled and original code. Default to transpiled */
+    val preferNotSrc =
+      !c.scalaRef.typeName.parts.exists(part => part.unescaped.startsWith("src") && part.unescaped.endsWith("Mod"))
+
     val preferModule = !c.isGlobal
     /* because for instance mui ships with icons called `List` and `Tab` */
     val preferPropsMatchesName = c.props.fold(false)(_.name.unescaped.startsWith(c.fullName.unescaped))
@@ -20,7 +24,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
     val preferShortModuleName = -length(c.scalaRef.typeName)
 
-    (preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
+    (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
   val RemoveWildcards = TypeRewriter(Map(TypeRef.Wildcard -> TypeRef.Any))
 

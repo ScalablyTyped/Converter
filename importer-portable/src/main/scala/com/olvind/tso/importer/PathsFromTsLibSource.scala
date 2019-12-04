@@ -12,15 +12,23 @@ object PathsFromTsLibSource {
           files.map(f => f -> false).toMap
 
         case f: Source.FromFolder =>
-          /* for files referenced through here we must shorten the paths (see below) */
-          val prioritized: Map[InFile, Boolean] =
+          /* for files referenced through here we must shorten the paths (done right below) */
+          val shortened: Seq[InFile] =
             Seq(
-              fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.types)).map(x   => (x, true)),
-              fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.typings)).map(x => (x, true)),
-              fromTypingsJson(f, source.packageJsonOpt.flatMap(_.typings)).map(x        => (x, true)),
-            ).flatten.toMap
+              fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.types)),
+              fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.typings)),
+              fromTypingsJson(f, source.packageJsonOpt.flatMap(_.typings)),
+            ).flatten
 
-          allFrom(f).map(x => (x, false)).toMap ++ prioritized
+          val rest =
+            if (f.libName === TsIdentLibrarySimple("typescript")) allTopLevel(f.folder)
+            else {
+              /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
+              val bound = shortened.headOption.map(_.folder).getOrElse(f.folder)
+              filesFrom(bound, f.libName)
+            }
+
+          rest.map(x => (x, false)).toMap ++ shortened.map(x => (x, true))
       }
 
     foundAndShorten.map {
@@ -57,24 +65,35 @@ object PathsFromTsLibSource {
   val V  = "v[\\d\\.]+".r
   val TS = "ts[\\d\\.]+".r
 
-  def allFrom(fromFolder: Source.FromFolder): Seq[InFile] =
-    if (fromFolder.libName === TsIdentLibrarySimple("typescript")) {
-      os.list(fromFolder.folder.path)
-        .filter(_.last.endsWith("d.ts"))
-        .to[Seq]
-        .map(InFile.apply)
-    } else {
-      def skip(dir: os.Path) =
-        dir.last match {
-          case "node_modules" => true
-          case TS()           => true
-          case V()            => true
-          case _              => false
-        }
+  def allTopLevel(folder: InFolder): Seq[InFile] =
+    os.list(folder.path)
+      .filter(_.last.endsWith("d.ts"))
+      .to[Seq]
+      .map(InFile.apply)
 
-      os.walk(fromFolder.folder.path, skip)
-        .filter(_.last.endsWith("d.ts"))
-        .to[Seq]
-        .map(InFile.apply)
-    }
+  def filesFrom(bound: InFolder, libName: TsIdentLibrary): Seq[InFile] = {
+    def skip(dir: os.Path) =
+      dir.last match {
+        case "node_modules" => true
+        /* The presence of these folders mostly means unnecessary duplication.
+           If we desperately want these perhaps the user can configure that,
+            though it won't be as easy as just discarding them
+         */
+        case "amd" => true
+        case "umd" => true
+        case "es"  => true
+        case "es6" => true
+        /* DefinitelyTyped uses this pattern for newer versions of typescript. We just use the default */
+        case TS() => true
+        /* DefinitelyTyped uses this pattern for old versions of the library */
+        case V() => true
+        case _   => false
+      }
+
+    os.walk(bound.path, skip)
+      .filter(_.last.endsWith(".d.ts"))
+      .filterNot(_.last.contains(".src.")) // filter out files like highlight.src.d.ts,
+      .to[Seq]
+      .map(InFile.apply)
+  }
 }

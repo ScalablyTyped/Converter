@@ -6,8 +6,15 @@ import com.olvind.tso.seqs.TraversableOps
 import com.olvind.tso.ts.{ModuleNameParser, TsIdent, TsIdentLibrary, TsIdentModule}
 
 class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolder: Option[InFolder]) {
-  def inferredModule(path: os.Path, inLib: TsLibSource): TsIdentModule =
-    ModuleNameParser(inLib.libName.`__value` +: path.relativeTo(inLib.folder.path).segments.to[List])
+  def inferredModule(path: os.Path, inLib: TsLibSource): TsIdentModule = {
+    val keepIndexPath = path.segments.toList.reverse match {
+      case "index.d.ts" :: path :: rest =>
+        val patchedSegments = rest.reverse :+ (path + ".d.ts")
+        os.exists(os.Path(patchedSegments.mkString("/", "/", "")))
+      case _ => false
+    }
+    ModuleNameParser(inLib.libName.`__value` +: path.relativeTo(inLib.folder.path).segments.to[List], keepIndexPath)
+  }
 
   def lookup(current: TsSource, value: String): Option[(Source, TsIdentModule)] =
     value match {
@@ -18,7 +25,7 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
         }
 
       case globalRef =>
-        val modName = ModuleNameParser(globalRef.split("/").to[List])
+        val modName = ModuleNameParser(globalRef.split("/").to[List], keepIndexFragment = false)
         global(modName.inLibrary).map(source => (source, modName))
     }
 

@@ -75,7 +75,7 @@ class Phase1ReadTypescript(
                 {
                   case r @ DirectivePathRef(value) =>
                     def src(f: InFile): Source =
-                      Source.TsHelperFile(f, inLib, resolve.inferredModule(f.path, inLib))
+                      Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
                     val maybeSource = resolve.file(file.folder, value).map(src)
                     PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
