@@ -4,63 +4,20 @@ package importer
 import com.olvind.tso.ts._
 
 object PathsFromTsLibSource {
-  def apply(resolve: LibraryResolver, source: Source.TsLibSource): Set[Source.TsHelperFile] = {
+  def apply(source: Source.TsLibSource): Set[Source.TsHelperFile] = {
 
-    val foundAndShorten: Map[InFile, Boolean] =
+    val files: Seq[InFile] =
       source match {
-        case Source.StdLibSource(_, files, _) =>
-          files.map(f => f -> false).toMap
-
+        case Source.StdLibSource(_, files, _)                             => files
+        case f @ Source.FromFolder(_, TsIdentLibrarySimple("typescript")) => allTopLevel(f.folder)
         case f: Source.FromFolder =>
-          /* for files referenced through here we must shorten the paths (done right below) */
-          val shortened: Seq[InFile] =
-            Seq(
-              fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.types)),
-              fromFileEntry(resolve, f, source.packageJsonOpt.flatMap(_.typings)),
-              fromTypingsJson(f, source.packageJsonOpt.flatMap(_.typings)),
-            ).flatten
-
-          val rest =
-            if (f.libName === TsIdentLibrarySimple("typescript")) allTopLevel(f.folder)
-            else {
-              /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
-              val bound = shortened.headOption.map(_.folder).getOrElse(f.folder)
-              filesFrom(bound, f.libName)
-            }
-
-          rest.map(x => (x, false)).toMap ++ shortened.map(x => (x, true))
+          /* There are often whole trees parallel to what is specified in `typings` (or similar). This ignores them */
+          val bound = f.shortenedFiles.headOption.map(_.folder).getOrElse(f.folder)
+          filesFrom(bound, f.libName)
       }
 
-    foundAndShorten.map {
-      case (file, true) =>
-        source.libName match {
-          case TsIdentLibraryScoped(scope, name) =>
-            Source.TsHelperFile(file, source, TsIdentModule(Some(scope), List(name)))
-          case TsIdentLibrarySimple(value) =>
-            Source.TsHelperFile(file, source, TsIdentModule(None, value :: Nil))
-        }
-      case (file, false) => Source.TsHelperFile(file, source, resolve.inferredModule(file.path, source))
-
-    }.toSet
+    files.map(file => Source.TsHelperFile(file, source, LibraryResolver.moduleNameFor(source, file))).toSet
   }
-
-  private def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): Seq[InFile] =
-    fileOpt match {
-      case Some(path) if path.endsWith("typings.json") =>
-        import jsonCodecs._
-
-        val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
-        val typingsJson     = Json[TypingsJson](typingsJsonPath)
-        Seq(InFile(typingsJsonPath / os.up / typingsJson.main))
-      case _ => Nil
-    }
-
-  private def fromFileEntry(
-      resolve:    LibraryResolver,
-      fromFolder: Source.FromFolder,
-      fileOpt:    Option[String],
-  ): Seq[InFile] =
-    fileOpt.flatMap(file => resolve.file(fromFolder.folder, file)).to[Seq]
 
   val V  = "v[\\d\\.]+".r
   val TS = "ts[\\d\\.]+".r

@@ -3,24 +3,23 @@ package importer
 
 import com.olvind.tso.importer.Source.{TsLibSource, TsSource}
 import com.olvind.tso.seqs.TraversableOps
-import com.olvind.tso.ts.{ModuleNameParser, TsIdent, TsIdentLibrary, TsIdentModule}
+import com.olvind.tso.ts.{
+  ModuleNameParser,
+  TsIdent,
+  TsIdentLibrary,
+  TsIdentLibraryScoped,
+  TsIdentLibrarySimple,
+  TsIdentModule,
+}
 
 class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolder: Option[InFolder]) {
-  def inferredModule(path: os.Path, inLib: TsLibSource): TsIdentModule = {
-    val keepIndexPath = path.segments.toList.reverse match {
-      case "index.d.ts" :: path :: rest =>
-        val patchedSegments = rest.reverse :+ (path + ".d.ts")
-        os.exists(os.Path(patchedSegments.mkString("/", "/", "")))
-      case _ => false
-    }
-    ModuleNameParser(inLib.libName.`__value` +: path.relativeTo(inLib.folder.path).segments.to[List], keepIndexPath)
-  }
+  import LibraryResolver._
 
   def lookup(current: TsSource, value: String): Option[(Source, TsIdentModule)] =
     value match {
       case LocalPath(localPath) =>
         file(current.folder, localPath).map { file =>
-          val modName = inferredModule(file.path, current.inLibrary)
+          val modName = LibraryResolver.moduleNameFor(current.inLibrary, file)
           (Source.TsHelperFile(file, current.inLibrary, modName), modName)
         }
 
@@ -29,7 +28,6 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
         global(modName.inLibrary).map(source => (source, modName))
     }
 
-  private val StableStd = TsIdent.std.value
   def global(libName: TsIdentLibrary): Option[Source] =
     (libName.value, facadesFolder) match {
       case (StableStd, _) => Some(stdLib)
@@ -41,6 +39,32 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
             (folder(source, libName.value) orElse
               folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName)),
         )
+    }
+}
+
+object LibraryResolver {
+  val StableStd = TsIdent.std.value
+
+  def moduleNameFor(source: TsLibSource, file: InFile): TsIdentModule =
+    if (source.shortenedFiles.contains(file)) {
+      source.libName match {
+        case TsIdentLibraryScoped(scope, name) =>
+          TsIdentModule(Some(scope), List(name))
+        case TsIdentLibrarySimple(value) =>
+          TsIdentModule(None, value :: Nil)
+      }
+    } else {
+      val keepIndexPath = file.path.segments.toList.reverse match {
+        case "index.d.ts" :: path :: rest =>
+          val patchedSegments = rest.reverse :+ (path + ".d.ts")
+          os.exists(os.Path(patchedSegments.mkString("/", "/", "")))
+        case _ => false
+      }
+
+      ModuleNameParser(
+        source.libName.`__value` +: file.path.relativeTo(source.folder.path).segments.to[List],
+        keepIndexPath,
+      )
     }
 
   def file(folder: InFolder, fragment: String): Option[InFile] =
@@ -57,6 +81,7 @@ class LibraryResolver(stdLib: Source, sourceFolders: Seq[InFolder], facadesFolde
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None
   }
+
   private object FacadePath {
     private val Suffix = "-facade"
     def unapply(s: String): Option[String] =

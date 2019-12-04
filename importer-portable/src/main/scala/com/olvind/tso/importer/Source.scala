@@ -53,6 +53,7 @@ object Source {
         }
       }
     }
+    lazy val shortenedFiles: Seq[InFile] = findShortenedFiles(this)
   }
 
   final case class StdLibSource(folder: InFolder, files: Seq[InFile], libName: TsIdentLibrary) extends TsLibSource
@@ -71,4 +72,31 @@ object Source {
   implicit val SourceKey:                   Key[Source]       = Key.of[Source, String](_.key)
   implicit def SourceOrdering[S <: Source]: Ordering[S]       = Ordering.by[S, String](_.key)
   implicit val SourceFormatter:             Formatter[Source] = _.libName.value
+
+  /* for files referenced through here we must shorten the paths (done right below) */
+  def findShortenedFiles(src: Source.TsLibSource): Seq[InFile] = {
+    def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): Seq[InFile] =
+      fileOpt match {
+        case Some(path) if path.endsWith("typings.json") =>
+          import jsonCodecs._
+
+          val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
+          val typingsJson     = Json[TypingsJson](typingsJsonPath)
+          Seq(InFile(typingsJsonPath / os.up / typingsJson.main))
+        case _ => Nil
+      }
+
+    def fromFileEntry(fromFolder: Source.FromFolder, fileOpt: Option[String]): Seq[InFile] =
+      fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)).to[Seq]
+
+    src match {
+      case _: StdLibSource => Nil
+      case f: FromFolder =>
+        Seq(
+          fromFileEntry(f, f.packageJsonOpt.flatMap(_.types)),
+          fromFileEntry(f, f.packageJsonOpt.flatMap(_.typings)),
+          fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),
+        ).flatten
+    }
+  }
 }

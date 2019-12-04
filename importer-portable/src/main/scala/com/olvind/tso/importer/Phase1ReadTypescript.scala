@@ -75,18 +75,18 @@ class Phase1ReadTypescript(
                 {
                   case r @ DirectivePathRef(value) =>
                     def src(f: InFile): Source =
-                      Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
-                    val maybeSource = resolve.file(file.folder, value).map(src)
+                      Source.TsHelperFile(f, inLib, LibraryResolver.moduleNameFor(inLib, file))
+                    val maybeSource = LibraryResolver.file(file.folder, value).map(src)
                     PhaseRes.fromOption(source, maybeSource, Right(s"Couldn't resolve $r"))
                 },
                 { case DirectiveTypesRef(value) => resolveDep(value) }, {
                   case r @ DirectiveLibRef(value) if inLib.libName === TsIdent.std =>
                     def src(f: InFile): Source =
-                      Source.TsHelperFile(f, inLib, resolve.inferredModule(file.path, inLib))
+                      Source.TsHelperFile(f, inLib, LibraryResolver.moduleNameFor(inLib, file))
 
                     PhaseRes.fromOption(
                       source,
-                      resolve.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
+                      LibraryResolver.file(stdlibSource.folder, s"lib.$value.d.ts").map(src),
                       Right(s"Couldn't resolve $r"),
                     )
                 },
@@ -121,7 +121,7 @@ class Phase1ReadTypescript(
 
       case source: Source.TsLibSource =>
         val fileSources: Set[Source.TsHelperFile] =
-          PathsFromTsLibSource(resolve, source)
+          PathsFromTsLibSource(source)
 
         val stdlibSourceOpt: Option[Source] =
           if (fileSources.exists(_.path === stdlibSource.path)) None else Option(stdlibSource)
