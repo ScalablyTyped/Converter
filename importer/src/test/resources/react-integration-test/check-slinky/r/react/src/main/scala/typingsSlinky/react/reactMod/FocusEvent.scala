@@ -1,6 +1,5 @@
 package typingsSlinky.react.reactMod
 
-import typingsSlinky.react.NativeFocusEvent
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`

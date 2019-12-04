@@ -4,7 +4,6 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.DataTransfer
 import org.scalajs.dom.raw.EventTarget
-import typingsJapgolly.react.NativeDragEvent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

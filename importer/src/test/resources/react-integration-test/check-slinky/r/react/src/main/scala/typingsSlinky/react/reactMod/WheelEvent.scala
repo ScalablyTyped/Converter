@@ -1,7 +1,6 @@
 package typingsSlinky.react.reactMod
 
 import org.scalajs.dom.raw.EventTarget
-import typingsSlinky.react.NativeWheelEvent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -31,7 +31,6 @@ package object reactMod {
   import typingsJapgolly.react.Anon_RefAny
   import typingsJapgolly.react.Anon_Result
   import typingsJapgolly.react.Anon_Type
-  import typingsJapgolly.react.NotExactlyAnyPropertyKeys
   import typingsJapgolly.react.reactStrings.mount
   import typingsJapgolly.react.reactStrings.update
   import typingsJapgolly.std.Partial
@@ -168,6 +167,19 @@ package object reactMod {
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
   ])) | P | T
   type MouseEventHandler[T] = EventHandler[ReactMouseEventFrom[T with Element]]
+  type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent
+  type NativeClipboardEvent = org.scalajs.dom.raw.ClipboardEvent
+  type NativeCompositionEvent = org.scalajs.dom.raw.CompositionEvent
+  type NativeDragEvent = org.scalajs.dom.raw.DragEvent
+  type NativeFocusEvent = org.scalajs.dom.raw.FocusEvent
+  type NativeKeyboardEvent = org.scalajs.dom.raw.KeyboardEvent
+  type NativeMouseEvent = org.scalajs.dom.raw.MouseEvent
+  type NativePointerEvent = org.scalajs.dom.raw.PointerEvent
+  type NativeTouchEvent = org.scalajs.dom.raw.TouchEvent
+  type NativeTransitionEvent = org.scalajs.dom.raw.TransitionEvent
+  type NativeUIEvent = org.scalajs.dom.raw.UIEvent
+  type NativeWheelEvent = org.scalajs.dom.raw.WheelEvent
+  type NotExactlyAnyPropertyKeys[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
   type PointerEventHandler[T] = EventHandler[ReactPointerEventFrom[T with Element]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}

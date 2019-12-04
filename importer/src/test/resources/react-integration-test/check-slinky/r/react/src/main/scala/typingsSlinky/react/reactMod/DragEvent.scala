@@ -2,7 +2,6 @@ package typingsSlinky.react.reactMod
 
 import org.scalajs.dom.raw.DataTransfer
 import org.scalajs.dom.raw.EventTarget
-import typingsSlinky.react.NativeDragEvent
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
