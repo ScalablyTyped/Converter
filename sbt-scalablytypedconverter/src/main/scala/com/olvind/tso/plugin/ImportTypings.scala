@@ -1,12 +1,12 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging.{stdout, LogLevel, Logger}
+import com.olvind.logging.{LogLevel, Logger, stdout}
 import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer, QualifiedName}
+import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer}
 import com.olvind.tso.ts._
 import io.circe.{Decoder, Encoder}
 import sbt.File
@@ -100,7 +100,7 @@ object ImportTypings {
           false,
         )
 
-        lazy val referencesToKeep: Set[QualifiedName] =
+        lazy val referencesToKeep: KeepOnlyReferenced.Index =
           KeepOnlyReferenced.findReferences(globalScope, libs.to[Seq].map {
             case (s, l) => (minimize(s.libName), l.packageTree)
           })
@@ -149,13 +149,13 @@ object ImportTypings {
       ImportTypings(
         Input(
           0,
-          List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
+          List(("@storybook/react" -> "1")),
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
           List("es5", "dom"),
-          Set("typescript"),
-          minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
+          Set("typescript", "csstype"),
+          minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
         ),
         stdout.filter(LogLevel.warn),
       ).map(_.size),

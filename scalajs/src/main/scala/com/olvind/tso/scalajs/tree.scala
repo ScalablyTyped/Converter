@@ -91,7 +91,7 @@ final case class ModuleTree(
     codePath:    QualifiedName,
     isOverride:  Boolean,
 ) extends ContainerTree
-    with InheritanceTree {}
+    with InheritanceTree
 
 final case class TypeAliasTree(
     name:     Name,

@@ -10,7 +10,7 @@ object KeepOnlyReferenced {
   final case class Keep(related:    Seq[TypeRef]) extends Comment.Data
   final case class Related(related: Seq[TypeRef]) extends Comment.Data
 
-  def findReferences(globalScope: TreeScope, trees: Traversable[(Boolean, PackageTree)]): Set[QualifiedName] = {
+  def findReferences(globalScope: TreeScope, trees: Traversable[(Boolean, PackageTree)]): Index = {
     val allKeptReferences: Set[QualifiedName] =
       trees
         .flatMap {
@@ -66,13 +66,36 @@ object KeepOnlyReferenced {
               case TypeRef(typeName, _, _) if typeName =/= head && !cache.contains(typeName) => typeName
             }
 
+//          println(s"${Printer.formatQN(head)} => ${referenced.map(Printer.formatQN).mkString(",  ")}")
           cache.put(head, referenced)
           keep ++= referenced
           queue = referenced.toList ++ tail
       }
     }
 
-    keep.flatMap(qname => qname.parts.indices.map(n => QualifiedName(qname.parts.take(n + 1))))(collection.breakOut)
+    Index(keep)
+  }
+
+  /* some refs we only keep when they refer to objects/packages */
+  type OnlyStatic = Boolean
+
+  type Index = Map[QualifiedName, OnlyStatic]
+
+  object Index {
+    def apply(keep: ArrayBuffer[QualifiedName]): Index = {
+      val ret = mutable.Map.empty[QualifiedName, OnlyStatic]
+      keep.foreach(k => ret(k) = false)
+
+      keep.foreach { qname =>
+        qname.parts.indices.foreach(n => {
+          val subQname = QualifiedName(qname.parts.take(n + 1))
+          if (!ret.contains(subQname)) {
+            ret(subQname) = true
+          }
+        })
+      }
+      ret.toMap
+    }
   }
 
   private object KeptRefs {
@@ -94,24 +117,26 @@ object KeepOnlyReferenced {
       }
   }
 
-  def apply(globalScope: TreeScope, keep: Set[QualifiedName], logger: Logger[Unit], lib: PackageTree): PackageTree =
+  def apply(globalScope: TreeScope, keep: Index, logger: Logger[Unit], lib: PackageTree): PackageTree =
     new FilteringTransformation(keep).visitPackageTree(globalScope)(lib)
 
-  private final class FilteringTransformation(keep: Set[QualifiedName]) extends TreeTransformation {
+  private final class FilteringTransformation(keep: Index) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
       if (s.comments.extract { case Keep(_) => () }.nonEmpty) s
       else
         s.copy(
-          parents = s.parents.filter(tr => keep(tr.typeName)),
+          parents = s.parents.filter(tr => keep.contains(tr.typeName)),
           members = s.members.filter {
+            case x: ClassTree                           => keep.contains(x.codePath) && !keep(x.codePath)
             case x: MemberTree if x.name === Name.APPLY => true
-            case x: HasCodePath                         => keep(x.codePath)
+            case x: HasCodePath                         => keep.contains(x.codePath)
             case _ => false
           },
         )
     override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
       s.copy(members = s.members.filter {
-        case x: HasCodePath => keep(x.codePath)
+        case x: ClassTree   => keep.contains(x.codePath) && !keep(x.codePath)
+        case x: HasCodePath => keep.contains(x.codePath)
         case _ => false
       })
   }

@@ -9,6 +9,9 @@ import com.olvind.tso.seqs._
 import scala.collection.mutable
 
 object GenSlinkyComponents {
+  /* Disable the minimizer for component objects */
+  val Keep = Comments(CommentData(KeepOnlyReferenced.Keep(Nil)))
+
   val slinkyName = Name("slinky")
 
   object names {
@@ -371,21 +374,24 @@ class GenSlinkyComponents(
   def genComponentForSharedProps(pkgCp: QualifiedName, propsClass: ClassTree)(c: Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
 
-    val rawModule = ModuleTree(
-      Nil,
-      names.raw,
-      List(TypeRef(names.Raw)),
-      genComponentField(c, componentCp),
-      NoComments,
-      codePath   = componentCp + names.raw,
-      isOverride = true,
-    )
+    val rawModule = {
+      val members = genComponentField(c, componentCp)
+      ModuleTree(
+        Nil,
+        names.raw,
+        List(TypeRef(names.Raw)),
+        members,
+        Keep,
+        codePath   = componentCp + names.raw,
+        isOverride = true,
+      )
+    }
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
       members     = List(rawModule),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
+      comments    = Keep,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -416,7 +422,7 @@ class GenSlinkyComponents(
       names.raw,
       List(parent),
       genComponentField(c, componentCp) ++ typeAliasOpt,
-      NoComments,
+      Keep,
       componentCp + names.raw,
       isOverride = false,
     )
@@ -426,7 +432,7 @@ class GenSlinkyComponents(
       name        = c.fullName,
       parents     = Nil,
       members     = List(rawModule) ++ methods,
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))) +? errorCommentOpt,
+      comments    = Keep +? errorCommentOpt,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -442,7 +448,7 @@ class GenSlinkyComponents(
       ownerCp:  QualifiedName,
   ): (TypeRef, List[MethodTree], Option[TypeAliasTree]) = {
     /* Observe type bound of :< js.Object */
-    val refType = {
+    val refType: TypeRef = {
       def refFromProps = resProps.asMap.values.flatMap(_.refTypes).headOption
 
       knownRef orElse refFromProps map TypeRef.stripTargs match {
@@ -520,7 +526,7 @@ class GenSlinkyComponents(
       Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
     }
 
-  def genComponentField(c: Component, componentCp: QualifiedName): List[Tree] =
+  def genComponentField(c: Component, componentCp: QualifiedName): List[Tree with HasCodePath] =
     List(
       ModuleTree(
         List(Annotation.JsNative, c.location),
@@ -538,7 +544,7 @@ class GenSlinkyComponents(
         MemberImpl.Custom(s"this.${names.componentImport.value}"),
         isReadOnly = true,
         isOverride = true,
-        NoComments,
+        Keep,
         componentCp + names.component,
       ),
     )
