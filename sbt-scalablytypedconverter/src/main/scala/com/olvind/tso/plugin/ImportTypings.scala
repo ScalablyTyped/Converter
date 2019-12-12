@@ -23,7 +23,7 @@ object ImportTypings {
       targetFolder:    os.Path,
       chosenFlavour:   Flavour,
       libs:            List[String],
-      ignore:          Set[TsIdentLibrary],
+      ignore:          Set[String],
       minimize:        Selection[TsIdentLibrary],
   )
 
@@ -71,7 +71,8 @@ object ImportTypings {
         new Phase1ReadTypescript(
           new LibraryResolver(stdLibSource, Seq(InFolder(fromFolder.path / "@types"), fromFolder), None),
           CalculateLibraryVersion.PackageJsonOnly,
-          ignore,
+          ignore.map(TsIdentLibrary.apply),
+          ignore.map(_.split("/").toList),
           stdLibSource,
           pedantic = false,
           persistingParser,
@@ -137,7 +138,8 @@ object ImportTypings {
       }
       .groupBy(_.libName)
       .flatMap {
-        case (_, sameName) => sameName.find(s => os.walk.stream(s.folder.path).exists(_.last.endsWith(".d.ts")))
+        case (_, sameName) =>
+          sameName.find(s => os.walk.stream(s.folder.path, _.last === "node_modules").exists(_.last.endsWith(".d.ts")))
       }
       .to[Set]
 
@@ -152,7 +154,7 @@ object ImportTypings {
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
           List("es5", "dom"),
-          Set(TsIdentLibrary("typescript")),
+          Set("typescript"),
           minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
         ),
         stdout.filter(LogLevel.warn),

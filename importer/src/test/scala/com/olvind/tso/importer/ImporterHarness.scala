@@ -52,12 +52,13 @@ trait ImporterHarness extends FunSuiteLike {
       RecPhase[Source]
         .next(
           new Phase1ReadTypescript(
-            resolve,
-            new DTVersions(lastChangedIndex),
-            Set.empty,
-            stdLibSource,
-            pedantic,
-            parser.parseFile,
+            resolve                 = resolve,
+            calculateLibraryVersion = new DTVersions(lastChangedIndex),
+            ignored                 = Set.empty,
+            ignoredModulePrefixes   = Set.empty,
+            stdlibSource            = stdLibSource,
+            pedantic                = pedantic,
+            parser                  = parser.parseFile,
           ),
           "typescript",
         )

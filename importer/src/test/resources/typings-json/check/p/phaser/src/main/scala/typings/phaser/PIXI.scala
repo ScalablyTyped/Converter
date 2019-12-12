@@ -1,7 +1,13 @@
 package typings.phaser
 
+import org.scalablytyped.runtime.TopLevel
 import typings.phaser.PIXI.blendModes
+import typings.phaser.PIXI.blendModes.ADD
+import typings.phaser.PIXI.blendModes.NORMAL
 import typings.phaser.PIXI.scaleModes
+import typings.phaser.PIXI.scaleModes.DEFAULT
+import typings.phaser.PIXI.scaleModes.LINEAR
+import typings.phaser.PIXI.scaleModes.NEAREST
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -26,10 +32,14 @@ object PIXI extends js.Object {
     @js.native
     sealed trait NORMAL extends blendModes
     
-    /* 1 */ val ADD: typings.phaser.PIXI.blendModes.ADD with Double = js.native
-    /* 0 */ val NORMAL: typings.phaser.PIXI.blendModes.NORMAL with Double = js.native
     @JSBracketAccess
     def apply(value: Double): js.UndefOr[blendModes with Double] = js.native
+    /* 1 */ @js.native
+    object ADD extends TopLevel[ADD with Double]
+    
+    /* 0 */ @js.native
+    object NORMAL extends TopLevel[NORMAL with Double]
+    
   }
   
   @js.native
@@ -43,11 +53,17 @@ object PIXI extends js.Object {
     @js.native
     sealed trait NEAREST extends scaleModes
     
-    /* 0 */ val DEFAULT: typings.phaser.PIXI.scaleModes.DEFAULT with Double = js.native
-    /* 1 */ val LINEAR: typings.phaser.PIXI.scaleModes.LINEAR with Double = js.native
-    /* 2 */ val NEAREST: typings.phaser.PIXI.scaleModes.NEAREST with Double = js.native
     @JSBracketAccess
     def apply(value: Double): js.UndefOr[scaleModes with Double] = js.native
+    /* 0 */ @js.native
+    object DEFAULT extends TopLevel[DEFAULT with Double]
+    
+    /* 1 */ @js.native
+    object LINEAR extends TopLevel[LINEAR with Double]
+    
+    /* 2 */ @js.native
+    object NEAREST extends TopLevel[NEAREST with Double]
+    
   }
   
 }

@@ -60,14 +60,18 @@ class Phase2ToScalaJs(pedantic: Boolean) extends Phase[Source, Phase1Res, Phase2
               Adapter(scope)((tree, s) => S.FakeLiterals(Name.typings, s)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
-              S.RemoveMultipleInheritance visitPackageTree scope,
+              (S.AvoidMacroParadiseBug >> S.RemoveMultipleInheritance) visitPackageTree scope,
               S.CombineOverloads visitPackageTree scope, //must have stable types, so FakeLiterals run before
               S.FilterMemberOverrides visitPackageTree scope, //
               S.InferMemberOverrides visitPackageTree scope, //runs in phase after FilterMemberOverrides
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
             )
-            val importTree    = new ImportTree(importName, new ImportType(new QualifiedName.StdNames(Name.typings)))
+            val importTree = new ImportTree(
+              importName,
+              new ImportType(new QualifiedName.StdNames(Name.typings)),
+              cleanIllegalNames,
+            )
             val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
 
             LibScalaJs(lib.source)(

@@ -8,6 +8,7 @@ lazy val testProject =
       Compile / tsoMinimize := Selection.AllExcept("react-dom"),
       Compile / npmDependencies ++= Seq(
         "@types/react-dom" -> "16.9.1",
+        "@types/node" -> "12.12.14",
         "@types/react" -> "16.9.5",
         "react-dom" -> "16.9",
         "react" -> "16.9",

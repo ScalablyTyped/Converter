@@ -1,5 +1,6 @@
 package typingsJapgolly.semanticDashUiDashReact
 
+import org.scalablytyped.runtime.TopLevel
 import typingsJapgolly.react.reactMod.Component
 import typingsJapgolly.react.reactMod.ComponentState
 import typingsJapgolly.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionComponent
@@ -18,6 +19,8 @@ object distCommonjsModulesAccordionMod extends js.Object {
     def this(props: AccordionProps, context: js.Any) = this()
   }
   
-  val default: AccordionComponent = js.native
+  @js.native
+  object default extends TopLevel[AccordionComponent]
+  
 }
 

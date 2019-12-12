@@ -4,10 +4,10 @@ package importer
 import com.olvind.logging.Logger
 import com.olvind.tso.importer.Phase1Res.{LibTs, UnpackLibs}
 import com.olvind.tso.scalajs._
-import com.olvind.tso.scalajs.transforms.ContainerPolicy
+import com.olvind.tso.scalajs.transforms.{CleanIllegalNames, ContainerPolicy}
 import com.olvind.tso.ts.{ParentsResolver, _}
 
-class ImportTree(importName: ImportName, importType: ImportType) {
+class ImportTree(importName: ImportName, importType: ImportType, illegalNames: CleanIllegalNames) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
     val deps = UnpackLibs(lib.dependencies).map {
       case (source, depLib) => source -> depLib.parsed
@@ -143,7 +143,7 @@ class ImportTree(importName: ImportName, importType: ImportType) {
           )
 
       case e: TsDeclEnum =>
-        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType)
+        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType, illegalNames)
 
       case TsDeclClass(cs, _, isAbstract, importName(name), tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)

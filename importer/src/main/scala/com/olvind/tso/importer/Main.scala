@@ -180,6 +180,7 @@ class Main(config: Config) {
           calculateLibraryVersion = new DTVersions(lastChangedIndex),
           resolve                 = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), None),
           ignored                 = Libraries.ignored(config.sequential),
+          ignoredModulePrefixes   = Set.empty,
           stdlibSource            = stdLibSource,
           pedantic                = config.pedantic,
           parser =

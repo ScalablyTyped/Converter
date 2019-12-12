@@ -88,9 +88,15 @@ object CastConversion {
           }
       }
 
-    override def leaveTypeRef(scope: TreeScope)(x: TypeRef): TypeRef = UndoDamage(
-      if (isRisky(scope)) x
-      else mapped(x, scope).orElse(mapped(FollowAliases(scope)(x), scope)).getOrElse(x),
+    override def leaveTypeRef(scope: TreeScope)(original: TypeRef): TypeRef = UndoDamage(
+      if (isRisky(scope)) original
+      else
+        mapped(original, scope).orElse(mapped(FollowAliases(scope)(original), scope)) match {
+          case Some(TypeRef.Intersection(types)) => TypeRef.Intersection(types)
+          case Some(TypeRef.Union(types))        => TypeRef.Union(types, sort = false)
+          case Some(rewritten)                   => rewritten
+          case None                              => original
+        },
     )
   }
 
@@ -113,5 +119,4 @@ object CastConversion {
       case _ => x
     }
   }
-
 }
