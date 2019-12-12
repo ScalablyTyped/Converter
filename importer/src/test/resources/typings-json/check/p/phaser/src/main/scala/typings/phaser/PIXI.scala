@@ -1,13 +1,6 @@
 package typings.phaser
 
 import org.scalablytyped.runtime.TopLevel
-import typings.phaser.PIXI.blendModes
-import typings.phaser.PIXI.blendModes.ADD
-import typings.phaser.PIXI.blendModes.NORMAL
-import typings.phaser.PIXI.scaleModes
-import typings.phaser.PIXI.scaleModes.DEFAULT
-import typings.phaser.PIXI.scaleModes.LINEAR
-import typings.phaser.PIXI.scaleModes.NEAREST
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

@@ -61,10 +61,8 @@ val importer = project
       Deps.asyncHttpClient,
       Deps.scalatest % Test,
     ),
-    fork in run := true,
-    javaOptions in run += "-Xmx12G",
     test in assembly := {},
-    mainClass in assembly := Some("com.olvind.tso.importer.Importer"),
+    mainClass in assembly := Some("com.olvind.tso.importer.Main"),
     assemblyMergeStrategy in assembly := {
       case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
       case foo if foo.endsWith("module-info.class") => MergeStrategy.discard

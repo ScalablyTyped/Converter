@@ -1,6 +1,5 @@
 package typings.phaser
 
-import typings.phaser.p2.AABB
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

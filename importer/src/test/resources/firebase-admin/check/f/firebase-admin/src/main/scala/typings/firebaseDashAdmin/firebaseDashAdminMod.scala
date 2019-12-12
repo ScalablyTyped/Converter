@@ -1,7 +1,6 @@
 package typings.firebaseDashAdmin
 
 import typings.atGoogleDashCloudFirestore.FirebaseFirestore.Settings
-import typings.firebaseDashAdmin.firebaseDashAdminMod.firestore.Firestore
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

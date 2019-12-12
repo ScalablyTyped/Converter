@@ -1,7 +1,5 @@
 package typings.node
 
-import typings.node.streamMod.Readable
-import typings.node.streamMod.Stream
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
