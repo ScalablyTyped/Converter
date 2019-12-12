@@ -26,7 +26,6 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
-  val RemoveWildcards = TypeRewriter(Map(TypeRef.Wildcard -> TypeRef.Any))
 
   def all(scope: TreeScope, tree: ContainerTree): List[Component] = {
     def go(p: ContainerTree, scope: TreeScope): List[Component] = {
@@ -57,7 +56,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       fromSelf.toList ++ fromMembers
     }
 
-    go(tree, scope).filterNot(c => reactNames.isComponent(c.scalaRef.typeName)).map(_.rewritten(scope, RemoveWildcards))
+    go(tree, scope).filterNot(c => reactNames.isComponent(c.scalaRef.typeName)).map(_.rewritten(scope, Wildcards.Remove))
   }
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */

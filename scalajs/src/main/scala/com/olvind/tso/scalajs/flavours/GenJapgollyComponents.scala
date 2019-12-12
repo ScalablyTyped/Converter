@@ -146,13 +146,22 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     Seq(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
   }
 
-  val memberToParam: MemberToParam = (scope, x) =>
+  val memberToParam: MemberToParam = (scope, x) => {
+
+    object StripWildcards {
+      def unapply(tr: TypeRef): Some[TypeRef] =
+        Some(Wildcards.Remove.visitTypeRef(scope)(tr))
+
+      def unapply(trs: Seq[TypeRef]): Some[Seq[TypeRef]] =
+        Some(trs.map(Wildcards.Remove.visitTypeRef(scope)))
+    }
+
     MemberToParam
       .Default(scope, x)
       .map(p => p.copy(parameter = ToJapgollyTypes.visitParamTree(scope)(p.parameter)))
       .map {
         /* rewrite functions returning a Callback so that javascript land can call them */
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), Some(_), _), _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, StripWildcards(retType)), Some(_), _), _) =>
           /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
           p.copy(
             parameter = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = Some(TypeRef.undefined)),
@@ -160,13 +169,22 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
               Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))"""),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, retType), None, _), _) =>
+        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Nil, StripWildcards(retType)), None, _), _) =>
           p.copy(
             parameter = pt.copy(tpe = CallbackTo(retType)),
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(paramTypes, retType), defaultValue, _), _) =>
+        case p @ Param(
+              pt @ ParamTree(
+                name,
+                _,
+                TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(retType)),
+                defaultValue,
+                _,
+              ),
+              _,
+            ) =>
           def fn(obj: String) = {
             val params =
               paramTypes.zipWithIndex
@@ -207,6 +225,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
         case dontChange => dontChange
       }
+  }
 
   def apply(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree = {
     val pkgCp = tree.codePath + names.components
@@ -231,6 +250,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
                           scope / cls,
                           memberToParam,
                           maxNum = Params.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
+                          acceptNativeTraits = true
                         )
                     }
 

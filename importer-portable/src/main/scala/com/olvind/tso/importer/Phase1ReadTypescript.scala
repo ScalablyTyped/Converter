@@ -178,6 +178,7 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("nivo", _)                                 => true
                 case TsIdentLibraryScoped("storybook", "api")                        => true
                 case TsIdentLibrarySimple("instagram-private-api")                   => true
+                case TsIdentLibrarySimple("react-select")                            => true
                 case _                                                               => false
               }
 

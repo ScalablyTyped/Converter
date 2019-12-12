@@ -16,7 +16,7 @@ object ContextMenuTrigger {
   def apply(
     id: String,
     attributes: HTMLAttributes[_] = null,
-    collect: /* data */ js.Any => CallbackTo[_] = null,
+    collect: /* data */ js.Any => CallbackTo[js.Any] = null,
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
     renderTag: ReactType[_] = null,

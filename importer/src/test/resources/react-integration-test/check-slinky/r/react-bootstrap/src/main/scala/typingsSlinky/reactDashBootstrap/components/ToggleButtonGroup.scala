@@ -1,7 +1,5 @@
 package typingsSlinky.reactDashBootstrap.components
 
-import org.scalablytyped.runtime.StringDictionary
-import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typingsSlinky.reactDashBootstrap.libToggleButtonGroupMod.ToggleButtonGroupProps
@@ -17,12 +15,6 @@ object ToggleButtonGroup
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  def apply(props: ToggleButtonGroupProps with js.Object, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, typingsSlinky.reactDashBootstrap.libMod.ToggleButtonGroup] = {
-    val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, props)
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
-  }
   type Props = ToggleButtonGroupProps
 }
 

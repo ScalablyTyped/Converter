@@ -1,7 +1,5 @@
 package typingsSlinky.reactDashTransitionDashGroup.components
 
-import org.scalablytyped.runtime.StringDictionary
-import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
 import typingsSlinky.reactDashTransitionDashGroup.reactDashTransitionDashGroupStrings.abbr
@@ -19,15 +17,6 @@ object TransitionGroup
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  def apply(
-    props: (TransitionGroupProps[abbr, js.Any]) with js.Object,
-    overrides: StringDictionary[js.Any] = null
-  ): BuildingComponent[tag.type, ^] = {
-    val __obj = js.Dynamic.literal()
-    js.Dynamic.global.Object.assign(__obj, props)
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
-  }
-  type Props = TransitionGroupProps[js.Any, js.Any]
+  type Props = TransitionGroupProps[abbr, js.Any]
 }
 

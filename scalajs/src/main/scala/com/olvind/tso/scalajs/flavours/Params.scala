@@ -73,12 +73,13 @@ object Params {
 class Params(cleanIllegalNames: CleanIllegalNames) {
 
   def forClassTree(
-      cls:           ClassTree,
-      scope:         TreeScope,
-      memberToParam: MemberToParam,
-      maxNum:        Int,
+      cls:                ClassTree,
+      scope:              TreeScope,
+      memberToParam:      MemberToParam,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
   ): Res[Seq[Param]] =
-    forClassTree(cls, scope, maxNum).map { eithers =>
+    forClassTree(cls, scope, maxNum, acceptNativeTraits).map { eithers =>
       eithers.flatMap {
         case Left(param)   => Some(param)
         case Right(member) => memberToParam(scope, member)
@@ -88,7 +89,12 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
   /**
     * this is only exported separately from the other `forClassTree` overload because the slinky integration does weird things
     */
-  def forClassTree(cls: ClassTree, scope: TreeScope, maxNum: Int): Res[Seq[Either[Param, MemberTree]]] =
+  def forClassTree(
+      cls:                ClassTree,
+      scope:              TreeScope,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
+  ): Res[Seq[Either[Param, MemberTree]]] =
     cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
@@ -96,13 +102,19 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
             .lookup(subClsRef.typeName)
             .collectFirst {
               case (subCls: ClassTree, _) =>
-                forClassTree(FillInTParams(subCls, scope, subClsRef.targs, cls.tparams), scope, maxNum)
+                forClassTree(
+                  FillInTParams(subCls, scope, subClsRef.targs, cls.tparams),
+                  scope,
+                  maxNum,
+                  acceptNativeTraits,
+                )
             }
             .getOrElse(Res.Error(s"Could not find ${subClsRef.typeName}"))
         })
 
       case None =>
-        if (cls.classType =/= ClassType.Trait || !cls.isScalaJsDefined) Res.Error("Not @ScalaJSDefined trait")
+        if (cls.classType =/= ClassType.Trait) Res.Error("Not a trait")
+        else if (!acceptNativeTraits && !cls.isScalaJsDefined) Res.Error("Not a @ScalaJSDefined trait")
         else {
           val parents = ParentsResolver(scope, cls)
 
@@ -125,15 +137,11 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
             RemoveThis
               .visitClassTree(scope)(cls)
               .members
-              .collect {
-                case (x: FieldTree) =>
-                  val realName = realNameFrom(x.annotations, x.name)
-                  realName -> Right(x.copy(name = realName))
-                case (x: MethodTree) =>
-                  val realName = realNameFrom(x.annotations, x.name)
-                  realName -> Right(x.copy(name = realName))
+              .collect { case (x: MemberTree) => x }
+              .groupBy(x => realNameFrom(x.annotations, x.name))
+              .map {
+                case (name, ms) => name -> Right(combine(ms).renamed(name))
               }
-              .toMap
 
           def go(p: ParentsResolver.Parent): Map[Name, Either[Param, MemberTree]] =
             p.parents.flatMap(go).toMap ++ membersFrom(p.classTree)
@@ -164,6 +172,29 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
         }
     }
 
+  def combine(ms: Seq[MemberTree]): MemberTree =
+    ms.partitionCollect2({ case x: FieldTree => x }, { case x: MethodTree => x }) match {
+      case (_, Seq(method), Nil) => method
+      case (_, methods, Nil) if methods.nonEmpty =>
+        val tparams          = methods.maxBy(_.tparams.length).tparams
+        val paramsForMethods = methods.map(_.params.flatten)
+        val longestParams    = paramsForMethods.maxBy(_.length)
+        val params = longestParams.zipWithIndex.map {
+          case (param, idx) =>
+            val forIdx: Seq[TypeRef] =
+              paramsForMethods.map(
+                paramsForMethod => if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
+              )
+            param.copy(tpe = TypeRef.Union(forIdx, sort = true))
+        }
+        val resultType = TypeRef.Union(methods.map(_.resultType), sort = true)
+        methods.head.copy(tparams = tparams, params = List(params), resultType = resultType)
+      case (Seq(field), _, Nil) => field
+      case (fields, _, Nil) if fields.nonEmpty =>
+        fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), sort = true))
+
+      case other => sys.error(s"Unexpected: ${other}")
+    }
   private case class Builder(
       directParents: Map[ParentsResolver.Parent, Map[Name, Either[Param, MemberTree]]],
       unresolved:    Seq[TypeRef],

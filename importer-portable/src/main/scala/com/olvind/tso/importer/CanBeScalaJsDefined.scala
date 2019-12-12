@@ -8,6 +8,9 @@ object CanBeScalaJsDefined {
   def apply(interface: WithParents[TsDeclInterface]): Boolean =
     pred(interface.value) && (interface.parents forall pred)
 
+  def legalName(name: TsIdent) =
+    name =/= TsIdent.Apply && name =/= TsIdent.namespaced && !name.value.startsWith("$")
+
   def pred(x: HasClassMembers): Boolean =
     x match {
       case _:   TsDeclClass => false
@@ -24,8 +27,8 @@ object CanBeScalaJsDefined {
           case (_, Seq(one)) =>
             one match {
               case _: TsMemberCtor | _: TsMemberCall => false
-              case x: TsMemberProperty => !x.isStatic && x.name =/= TsIdent.namespaced
-              case x: TsMemberFunction => !x.isStatic && x.name =/= TsIdent.Apply && x.name =/= TsIdent.namespaced
+              case x: TsMemberProperty => !x.isStatic && legalName(x.name)
+              case x: TsMemberFunction => !x.isStatic && legalName(x.name)
               case _ => true
             }
           case (_, many) =>

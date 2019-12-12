@@ -14,6 +14,8 @@ sealed abstract class Wildcards(val allowed: Boolean) {
 }
 
 object Wildcards {
+  val Remove = TypeRewriter(Map(TypeRef.Wildcard -> TypeRef.Any))
+
   case object Yes extends Wildcards(true)
   case object No extends Wildcards(false)
   case object Prohibit extends Wildcards(false)
