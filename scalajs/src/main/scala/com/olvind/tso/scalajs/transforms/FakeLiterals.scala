@@ -76,13 +76,13 @@ object FakeLiterals {
     override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
-          val name = Name(PrettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
+          val name = Name(prettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
           collectedStrings(underlying) = name
           TypeRef(QualifiedName(List(outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
 
         case TypeRef.Literal(underlying) =>
           val (newUnderlying, name) =
-            (PrettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
+            (prettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
               case (baseName, Some(long)) =>
                 (long.toString + ".0", Name("_" + baseName))
               case (baseName, _) => (underlying, Name(baseName))

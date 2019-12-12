@@ -6,7 +6,7 @@ import com.olvind.tso.seqs._
 
 import scala.collection.mutable
 
-class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString) {
+class IdentifyReactComponents(reactNames: ReactNames) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
 
@@ -288,7 +288,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
               .split("/")
               .filterNot(x => Unnamed(Name(x)))
               .last
-          Name(prettyString.prettifyName(fragment, "", forceCamelCase = true))
+          Name(prettyString(fragment, "", forceCamelCase = true))
         case Annotation.JsGlobal(qname) => qname.parts.last
       }
   }
