@@ -244,13 +244,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
                   val paramsOpt: Option[Res[Seq[Param]]] =
                     scope lookup dealiased.typeName collectFirst {
-                      case (cls: ClassTree, newScope) =>
+                      case (_cls: ClassTree, newScope) =>
+                        val cls = FillInTParams(_cls, newScope, dealiased.targs, tparams)
                         params.forClassTree(
-                          FillInTParams(cls, newScope, dealiased.targs, tparams),
+                          cls,
                           scope / cls,
                           memberToParam,
-                          maxNum = Params.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
-                          acceptNativeTraits = true
+                          maxNum             = Params.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
+                          acceptNativeTraits = true,
                         )
                     }
 
@@ -310,10 +311,9 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
         case Res.One(_, params) =>
           List(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, componentCp))
         case Res.Many(values) =>
-          values.map {
-            case (name, params) =>
-              genCreator(name, props, params, knownRefRewritten, tparams, componentCp)
-          }(collection.breakOut)
+          values.map { case (name, params) => genCreator(name, props, params, knownRefRewritten, tparams, componentCp) }(
+            collection.breakOut,
+          )
       }
 
     val componentRef = ModuleTree(

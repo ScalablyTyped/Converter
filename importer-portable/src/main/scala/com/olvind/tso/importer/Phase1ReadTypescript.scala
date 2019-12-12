@@ -179,6 +179,7 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("storybook", "api")                        => true
                 case TsIdentLibrarySimple("instagram-private-api")                   => true
                 case TsIdentLibrarySimple("react-select")                            => true
+                case TsIdentLibrarySimple("react-autosuggest")                       => true
                 case _                                                               => false
               }
 
