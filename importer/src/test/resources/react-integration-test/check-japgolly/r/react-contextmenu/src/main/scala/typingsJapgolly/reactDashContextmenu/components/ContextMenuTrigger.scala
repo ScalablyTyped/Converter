@@ -21,7 +21,7 @@ object ContextMenuTrigger {
     holdToDisplay: Int | Double = null,
     renderTag: ReactType[_] = null,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -38,7 +38,7 @@ object ContextMenuTrigger {
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTriggerProps, 

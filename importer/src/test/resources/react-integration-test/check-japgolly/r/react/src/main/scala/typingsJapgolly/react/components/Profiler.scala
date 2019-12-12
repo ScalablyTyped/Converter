@@ -19,7 +19,7 @@ object Profiler {
     id: String,
     onRender: (/* id */ String, /* phase */ mount | update, /* actualDuration */ Double, /* baseDuration */ Double, /* startTime */ Double, /* commitTime */ Double, /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => Callback,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -30,7 +30,7 @@ object Profiler {
   
       __obj.updateDynamic("onRender")(js.Any.fromFunction7((t0: /* id */ java.lang.String, t1: /* phase */ typingsJapgolly.react.reactStrings.mount | typingsJapgolly.react.reactStrings.update, t2: /* actualDuration */ scala.Double, t3: /* baseDuration */ scala.Double, t4: /* startTime */ scala.Double, t5: /* commitTime */ scala.Double, t6: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow()))
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.react.reactMod.ProfilerProps, 

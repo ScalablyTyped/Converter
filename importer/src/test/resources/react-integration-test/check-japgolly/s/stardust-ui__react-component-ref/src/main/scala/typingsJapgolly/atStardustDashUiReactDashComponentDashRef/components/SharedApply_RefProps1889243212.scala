@@ -14,7 +14,7 @@ abstract class SharedApply_RefProps1889243212[ComponentRef] () {
   def apply(
     innerRef: japgolly.scalajs.react.raw.React.Ref = null,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[RefProps, ComponentRef, Unit, RefProps] = {
@@ -22,7 +22,7 @@ abstract class SharedApply_RefProps1889243212[ComponentRef] () {
   
       if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps, 

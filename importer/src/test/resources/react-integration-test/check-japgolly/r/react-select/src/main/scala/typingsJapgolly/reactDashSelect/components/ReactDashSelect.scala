@@ -14,7 +14,7 @@ object ReactDashSelect {
   def apply[TValue](
     addLabelText: String = null,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[ReactSelectProps[TValue], default[TValue], Unit, ReactSelectProps[TValue]] = {
@@ -22,7 +22,7 @@ object ReactDashSelect {
   
       if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashSelect.reactDashSelectMod.ReactSelectProps[TValue], 

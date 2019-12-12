@@ -297,7 +297,7 @@ object Input {
     vocab: String = null,
     width: Double | String = null,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
@@ -520,7 +520,7 @@ object Input {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsInputInputMod.InputProps, 

@@ -3,7 +3,7 @@ package scalajs
 package transforms
 
 import scala.collection.mutable
-import scala.util.{Failure, Success, Try}
+import scala.util.{Success, Try}
 
 object FakeLiterals {
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
@@ -108,7 +108,7 @@ object FakeLiterals {
 
   def isTooBigForInt(strNum: String): Option[Long] =
     Try(java.lang.Long.decode(strNum)) match {
-      case Success(value) if value > Int.MaxValue => Some(value)
-      case _                                      => None
+      case Success(value) if value > Int.MaxValue || value < Int.MinValue => Some(value)
+      case _                                                              => None
     }
 }

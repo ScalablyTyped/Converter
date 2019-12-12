@@ -28,7 +28,7 @@ object ContextMenuTrigger
     disable: js.UndefOr[Boolean] = js.undefined,
     holdToDisplay: Int | Double = null,
     renderTag: ReactComponentClass[_] = null,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[
     tag.type, 
     typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
@@ -39,7 +39,7 @@ object ContextMenuTrigger
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable.asInstanceOf[js.Any])
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ContextMenuTriggerProps

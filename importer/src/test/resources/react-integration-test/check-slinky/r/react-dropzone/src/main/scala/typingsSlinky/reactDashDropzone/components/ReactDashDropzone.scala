@@ -41,7 +41,7 @@ object ReactDashDropzone
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
@@ -57,7 +57,7 @@ object ReactDashDropzone
     if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(onDropRejected))
     if (onFileDialogCancel != null) __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0(onFileDialogCancel))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = DropzonePropsRefAttributesDropzoneRef

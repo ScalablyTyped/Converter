@@ -16,7 +16,7 @@ object TransitionGroup {
   def apply(
     props: (TransitionGroupProps[abbr, js.Any]) with js.Object,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[
@@ -29,7 +29,7 @@ object TransitionGroup {
   
       js.Dynamic.global.Object.assign(__obj, props)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   (typingsJapgolly.reactDashTransitionDashGroup.transitionGroupMod.TransitionGroupProps[

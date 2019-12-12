@@ -12,10 +12,10 @@ import scala.scalajs.js.annotation._
 
 abstract class SharedApply_RefProps_896306386[ComponentRef <: js.Object] (implicit pw: ExternalPropsWriterProvider)
   extends ExternalComponentWithAttributesWithRefType[tag.type, ComponentRef] {
-  def apply(innerRef: typingsSlinky.react.reactMod.Ref[_] = null, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, ComponentRef] = {
+  def apply(innerRef: typingsSlinky.react.reactMod.Ref[_] = null, _overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, ComponentRef] = {
     val __obj = js.Dynamic.literal()
     if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = RefProps

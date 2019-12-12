@@ -33,7 +33,7 @@ object MenuItem
       Unit
     ]) | js.Function = null,
     preventClose: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.MenuItem] = {
     val __obj = js.Dynamic.literal()
     if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
@@ -41,7 +41,7 @@ object MenuItem
     if (!js.isUndefined(divider)) __obj.updateDynamic("divider")(divider.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = MenuItemProps

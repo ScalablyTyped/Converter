@@ -16,10 +16,10 @@ object Ref
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  def apply(innerRef: typingsSlinky.react.reactMod.Ref[_] = null, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, js.Object] = {
+  def apply(innerRef: typingsSlinky.react.reactMod.Ref[_] = null, _overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
     if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = RefProps

@@ -180,6 +180,7 @@ class Phase1ReadTypescript(
                 case TsIdentLibrarySimple("instagram-private-api")                   => true
                 case TsIdentLibrarySimple("react-select")                            => true
                 case TsIdentLibrarySimple("react-autosuggest")                       => true
+                case TsIdentLibrarySimple("jest-config")                             => true
                 case _                                                               => false
               }
 

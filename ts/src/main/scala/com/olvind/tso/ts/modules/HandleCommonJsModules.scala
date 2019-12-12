@@ -82,7 +82,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
           *  conflicting definitions in the same scope (2x `type Props = ...` for instance)
           */
         val rest = {
-          val Q = new QualifyReferences(skipValidation = true)
+          val Q            = new QualifyReferences(skipValidation = true)
           val patchedScope = t.`..` / mod.copy(members = _rest.filter(_.isInstanceOf[TsImport]))
           _rest.map(Q.visitTsContainerOrDecl(patchedScope))
         }

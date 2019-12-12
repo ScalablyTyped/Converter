@@ -16,10 +16,10 @@ object FillInTParams {
       val newCls   = rewriter.visitClassTree(scope)(cls)
 
       newCls.comments.extract { case UnionToInheritance.WasUnion(related) => related } match {
-        case None => newCls
+        case None                  => newCls
         case Some((related, rest)) =>
           // https://en.wikipedia.org/wiki/Leaky_abstraction
-        val newRelated = CommentData(UnionToInheritance.WasUnion(related map rewriter.visitTypeRef(scope)))
+          val newRelated = CommentData(UnionToInheritance.WasUnion(related map rewriter.visitTypeRef(scope)))
           newCls.copy(comments = rest + newRelated)
       }
     }.copy(tparams = newTParams)

@@ -37,7 +37,7 @@ object ReactDashDropzone {
     onFileDialogCancel: js.UndefOr[Callback] = js.undefined,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: /* state */ DropzoneState => CallbackTo[Element] = null
   ): UnmountedWithRoot[
@@ -68,7 +68,7 @@ object ReactDashDropzone {
     onFileDialogCancel.foreach(p => __obj.updateDynamic("onFileDialogCancel")(p.toJsFn))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.reactDashDropzone.DropzonePropsRefAttributesDropzoneRef, 

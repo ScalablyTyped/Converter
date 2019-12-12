@@ -183,7 +183,8 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
           case (param, idx) =>
             val forIdx: Seq[TypeRef] =
               paramsForMethods.map(
-                paramsForMethod => if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
+                paramsForMethod =>
+                  if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
               )
             param.copy(tpe = TypeRef.Union(forIdx, sort = true))
         }

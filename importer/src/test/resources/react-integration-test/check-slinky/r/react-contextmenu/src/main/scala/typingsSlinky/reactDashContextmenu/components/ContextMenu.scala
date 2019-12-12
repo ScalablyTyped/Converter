@@ -31,7 +31,7 @@ object ContextMenu
     ]) | js.Function = null,
     onShow: /* event */ js.Any => Unit = null,
     rtl: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] = {
     val __obj = js.Dynamic.literal()
     if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
@@ -40,7 +40,7 @@ object ContextMenu
     if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
     if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction1(onShow))
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ContextMenuProps

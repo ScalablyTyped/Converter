@@ -103,10 +103,10 @@ final case class TypeAliasTree(
     with HasCodePath
 
 sealed trait MemberTree extends Tree with HasCodePath {
-  val isOverride: Boolean
+  val isOverride:  Boolean
   val annotations: Seq[MemberAnnotation]
   def withCodePath(newCodePath: QualifiedName): MemberTree
-  def renamed(newName: Name): MemberTree
+  def renamed(newName:          Name):          MemberTree
 }
 
 sealed trait MemberImpl

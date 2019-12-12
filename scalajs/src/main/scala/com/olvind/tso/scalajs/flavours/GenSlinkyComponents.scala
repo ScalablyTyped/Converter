@@ -155,9 +155,9 @@ class GenSlinkyComponents(
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val overridesUpdate: String => String = obj =>
-      s"if (overrides != null) js.Dynamic.global.Object.assign($obj, overrides)"
+      s"if (_overrides != null) js.Dynamic.global.Object.assign($obj, _overrides)"
     val overridesParam = ParamTree(
-      name       = Name("overrides"),
+      name       = Name("_overrides"),
       isImplicit = false,
       tpe        = TypeRef.StringDictionary(TypeRef.Any, NoComments),
       default    = Some(TypeRef.`null`),

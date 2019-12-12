@@ -193,7 +193,7 @@ object ButtonGroup
     vertical: js.UndefOr[Boolean] = js.undefined,
     vocab: String = null,
     wmode: String = null,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashBootstrap.libMod.ButtonGroup] = {
     val __obj = js.Dynamic.literal()
     if (about != null) __obj.updateDynamic("about")(about.asInstanceOf[js.Any])
@@ -323,7 +323,7 @@ object ButtonGroup
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     if (wmode != null) __obj.updateDynamic("wmode")(wmode.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
   type Props = ButtonGroupProps
