@@ -12,14 +12,14 @@ abstract class SharedApply_Object152536094[ComponentRef] () {
   val componentImport: js.Any
   def apply(
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[js.Object, ComponentRef, Unit, js.Object] = {
     val __obj = js.Dynamic.literal()
   
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](this.componentImport)
     f(__obj.asInstanceOf[js.Object])(children: _*)

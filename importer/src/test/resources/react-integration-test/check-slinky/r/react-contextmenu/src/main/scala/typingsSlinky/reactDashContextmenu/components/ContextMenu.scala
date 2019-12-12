@@ -11,13 +11,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ContextMenu
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] {
-  @JSImport("react-contextmenu", "ContextMenu")
-  @js.native
-  object componentImport extends js.Object
+object ContextMenu {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] {
+    @JSImport("react-contextmenu", "ContextMenu")
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = ContextMenuProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className, id */
   def apply(
     data: js.Any = null,
@@ -31,7 +35,7 @@ object ContextMenu
     ]) | js.Function = null,
     onShow: /* event */ js.Any => Unit = null,
     rtl: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] = {
     val __obj = js.Dynamic.literal()
     if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
@@ -40,9 +44,8 @@ object ContextMenu
     if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
     if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction1(onShow))
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = ContextMenuProps
 }
 

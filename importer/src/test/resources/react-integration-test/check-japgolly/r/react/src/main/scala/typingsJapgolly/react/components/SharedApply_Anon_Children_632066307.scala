@@ -15,7 +15,7 @@ abstract class SharedApply_Anon_Children_632066307 () {
   val componentImport: js.Any
   def apply(
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -25,7 +25,7 @@ abstract class SharedApply_Anon_Children_632066307 () {
     val __obj = js.Dynamic.literal()
   
       key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.react.Anon_Children, 

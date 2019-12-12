@@ -1,12 +1,27 @@
 package com.olvind.tso
 package scalajs
 
+import com.olvind.tso.scalajs.transforms.UnionToInheritance
+
 object FillInTParams {
-  def apply(x: ClassTree, scope: TreeScope, providedTParams: Seq[TypeRef], newTParams: Seq[TypeParamTree]): ClassTree =
-    if (providedTParams.isEmpty) x
+  def apply(
+      cls:             ClassTree,
+      scope:           TreeScope,
+      providedTParams: Seq[TypeRef],
+      newTParams:      Seq[TypeParamTree],
+  ): ClassTree =
+    if (providedTParams.isEmpty) cls
     else {
-      val refToRef = rewrites(x.tparams, providedTParams)
-      TypeRewriter(refToRef).visitClassTree(scope)(x)
+      val rewriter = TypeRewriter(rewrites(cls.tparams, providedTParams))
+      val newCls   = rewriter.visitClassTree(scope)(cls)
+
+      newCls.comments.extract { case UnionToInheritance.WasUnion(related) => related } match {
+        case None                  => newCls
+        case Some((related, rest)) =>
+          // https://en.wikipedia.org/wiki/Leaky_abstraction
+          val newRelated = CommentData(UnionToInheritance.WasUnion(related map rewriter.visitTypeRef(scope)))
+          newCls.copy(comments = rest + newRelated)
+      }
     }.copy(tparams = newTParams)
 
   def apply(

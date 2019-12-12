@@ -10,19 +10,22 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object BottomNavigationItem
-  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)
-  @js.native
-  object componentImport extends js.Object
+object BottomNavigationItem {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+    @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = BottomNavigationItemProps
+  }
   
-  override val component: String | js.Object = this.componentImport
-  def apply(className: String = null, overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, default] = {
+  def apply(className: String = null, _overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = BottomNavigationItemProps
 }
 

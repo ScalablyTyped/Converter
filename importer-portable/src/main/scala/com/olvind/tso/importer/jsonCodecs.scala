@@ -1,12 +1,15 @@
 package com.olvind.tso
 package importer
 
+import java.io.File
 import java.net.URI
 
 import com.olvind.tso.ts._
 import io.circe._
 
 object jsonCodecs {
+  implicit val FileEncoder:           Encoder[File]           = Encoder[String].contramap[File](_.toString)
+  implicit val FileDecoder:           Decoder[File]           = Decoder[String].map[File](new File(_))
   implicit val RelPathDecoder:        Decoder[os.RelPath]     = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))
   implicit val RelPathEncoder:        Encoder[os.RelPath]     = Encoder[String].contramap[os.RelPath](_.toString)
   implicit val PathDecoder:           Decoder[os.Path]        = Decoder[String].map(str => os.Path(str))

@@ -9,8 +9,8 @@ object Flavour {
   trait ReactFlavour extends Flavour {
     lazy val reactNames =
       new ReactNames(outputPkg)
-    lazy val identifyComponents =
-      new IdentifyReactComponents(reactNames)
+    def identifyComponents(prettyString: PrettyString) =
+      new IdentifyReactComponents(reactNames, prettyString)
     lazy val stdNames =
       new QualifiedName.StdNames(outputPkg)
     lazy val scalaJsDomNames =
@@ -23,7 +23,7 @@ object Flavour {
       scope.libName === react || scope.root.dependencies.contains(react)
     }
 
-    final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
+    final override def rewrittenTree(scope: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree = {
       val withCompanions =
         memberToParamOpt match {
           case Some(m2p) =>
@@ -35,7 +35,7 @@ object Flavour {
       val withComponents =
         if (involvesReact(scope)) {
           val components: Seq[Component] =
-            identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
+            identifyComponents(prettyString).oneOfEach(scope / withCompanions, withCompanions)
           Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(withCompanions)
         } else withCompanions
 
@@ -56,7 +56,7 @@ object Flavour {
 
     override def conversions: Option[Seq[CastConversion]] =
       None
-    override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree =
+    override def rewrittenTree(s: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree =
       tree
     override def memberToParamOpt: Option[MemberToParam] =
       None
@@ -101,7 +101,7 @@ object Flavour {
   case object Japgolly extends ReactFlavour {
     val projectName  = "ScalajsReactTyped"
     val repo         = "https://github.com/oyvindberg/ScalajsReactTyped.git"
-    val organization = "org.gulliblytyped.japgolly"
+    val organization = "org.scalablytyped.japgolly"
     val outputPkg    = Name("typingsJapgolly")
     val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, params)
 
@@ -119,7 +119,7 @@ object Flavour {
 trait Flavour {
   def conversions:      Option[Seq[CastConversion]]
   def memberToParamOpt: Option[MemberToParam]
-  def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
+  def rewrittenTree(s: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree
   def dependencies: Set[Dep]
   val projectName:  String
   val repo:         String

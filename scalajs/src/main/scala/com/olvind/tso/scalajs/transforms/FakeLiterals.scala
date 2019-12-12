@@ -3,7 +3,7 @@ package scalajs
 package transforms
 
 import scala.collection.mutable
-import scala.util.{Failure, Success, Try}
+import scala.util.{Success, Try}
 
 object FakeLiterals {
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
@@ -76,13 +76,13 @@ object FakeLiterals {
     override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
         case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
-          val name = Name(prettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
+          val name = Name(PrettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
           collectedStrings(underlying) = name
           TypeRef(QualifiedName(List(outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
 
         case TypeRef.Literal(underlying) =>
           val (newUnderlying, name) =
-            (prettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
+            (PrettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
               case (baseName, Some(long)) =>
                 (long.toString + ".0", Name("_" + baseName))
               case (baseName, _) => (underlying, Name(baseName))
@@ -108,7 +108,7 @@ object FakeLiterals {
 
   def isTooBigForInt(strNum: String): Option[Long] =
     Try(java.lang.Long.decode(strNum)) match {
-      case Success(value) if value > Int.MaxValue => Some(value)
-      case _                                      => None
+      case Success(value) if value > Int.MaxValue || value < Int.MinValue => Some(value)
+      case _                                                              => None
     }
 }

@@ -1,12 +1,12 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging.{stdout, LogLevel, Logger}
+import com.olvind.logging.{LogLevel, Logger, stdout}
 import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
 import com.olvind.tso.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer, QualifiedName}
+import com.olvind.tso.scalajs.{KeepOnlyReferenced, Printer}
 import com.olvind.tso.ts._
 import io.circe.{Decoder, Encoder}
 import sbt.File
@@ -22,8 +22,9 @@ object ImportTypings {
       fromFolder:      InFolder,
       targetFolder:    os.Path,
       chosenFlavour:   Flavour,
+      prettyStringType: PrettyStringType,
       libs:            List[String],
-      ignore:          Set[TsIdentLibrary],
+      ignore:          Set[String],
       minimize:        Selection[TsIdentLibrary],
   )
 
@@ -53,6 +54,11 @@ object ImportTypings {
       case Flavour.Japgolly => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
     }
 
+    val prettyString = prettyStringType match {
+      case PrettyStringType.Regular     => PrettyString.Regular
+      case PrettyStringType.Simplifying => PrettyString.Simplifying
+    }
+
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
@@ -71,15 +77,16 @@ object ImportTypings {
         new Phase1ReadTypescript(
           new LibraryResolver(stdLibSource, Seq(InFolder(fromFolder.path / "@types"), fromFolder), None),
           CalculateLibraryVersion.PackageJsonOnly,
-          ignore,
+          ignore.map(TsIdentLibrary.apply),
+          ignore.map(_.split("/").toList),
           stdLibSource,
           pedantic = false,
           persistingParser,
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false), "scala.js")
-      .next(new PhaseFlavour(flavour), flavour.toString)
+      .next(new Phase2ToScalaJs(pedantic = false, prettyString), "scala.js")
+      .next(new PhaseFlavour(flavour, prettyString), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -99,7 +106,7 @@ object ImportTypings {
           false,
         )
 
-        lazy val referencesToKeep: Set[QualifiedName] =
+        lazy val referencesToKeep: KeepOnlyReferenced.Index =
           KeepOnlyReferenced.findReferences(globalScope, libs.to[Seq].map {
             case (s, l) => (minimize(s.libName), l.packageTree)
           })
@@ -137,7 +144,8 @@ object ImportTypings {
       }
       .groupBy(_.libName)
       .flatMap {
-        case (_, sameName) => sameName.find(s => os.walk.stream(s.folder.path).exists(_.last.endsWith(".d.ts")))
+        case (_, sameName) =>
+          sameName.find(s => os.walk.stream(s.folder.path, _.last === "node_modules").exists(_.last.endsWith(".d.ts")))
       }
       .to[Set]
 
@@ -147,13 +155,14 @@ object ImportTypings {
       ImportTypings(
         Input(
           0,
-          List(("semantic-ui-react" -> "1"), ("@material-ui/core" -> "1")),
+          List(("@storybook/react" -> "1")),
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
+          PrettyStringType.Regular,
           List("es5", "dom"),
-          Set(TsIdentLibrary("typescript")),
-          minimize = Selection.AllExcept(TsIdentLibrarySimple("react-dom")),
+          Set("typescript", "csstype"),
+          minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
         ),
         stdout.filter(LogLevel.warn),
       ).map(_.size),

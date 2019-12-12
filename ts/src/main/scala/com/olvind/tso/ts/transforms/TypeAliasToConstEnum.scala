@@ -16,7 +16,7 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
               lit =>
                 TsEnumMember(
                   NoComments,
-                  TsIdentSimple(prettyString.nameFor(unquote(lit.literal))),
+                  TsIdentSimple(PrettyString.nameFor(unquote(lit.literal))),
                   Some(TsExpr.Literal(lit)),
                 ),
             )

@@ -11,13 +11,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ReactDashDropzone
-  extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
-  @JSImport("react-dropzone", JSImport.Default)
-  @js.native
-  object componentImport extends js.Object
+object ReactDashDropzone {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
+    @JSImport("react-dropzone", JSImport.Default)
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = DropzonePropsRefAttributesDropzoneRef
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
   def apply(
     accept: String | js.Array[String] = null,
@@ -41,7 +45,7 @@ object ReactDashDropzone
     ], /* event */ DropEvent) => Unit = null,
     onFileDialogCancel: () => Unit = null,
     preventDropOnDocument: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = {
     val __obj = js.Dynamic.literal()
     if (accept != null) __obj.updateDynamic("accept")(accept.asInstanceOf[js.Any])
@@ -57,9 +61,8 @@ object ReactDashDropzone
     if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(onDropRejected))
     if (onFileDialogCancel != null) __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0(onFileDialogCancel))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = DropzonePropsRefAttributesDropzoneRef
 }
 

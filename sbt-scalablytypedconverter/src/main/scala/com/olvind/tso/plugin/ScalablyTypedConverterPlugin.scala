@@ -1,29 +1,163 @@
 package com.olvind.tso
 package plugin
 
-import _root_.io.circe
+import com.olvind.tso.importer.jsonCodecs.{FileDecoder, FileEncoder, PackageJsonDepsDecoder}
 import com.olvind.logging.LogLevel
 import com.olvind.tso.importer.Json
-import com.olvind.tso.ts.TsIdentLibrary
+import com.olvind.tso.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import sbt.Keys._
 import sbt._
 import sbt.plugins.JvmPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 
+object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
+  object autoImport {
+    val externalNpm = taskKey[File]("Runs npm and returns the folder with package.json and node_modules")
+  }
+
+  override def requires = ScalablyTypedPluginBase
+
+  lazy val tsoExternalNpmIntegration: Seq[Def.Setting[_]] = {
+    import ScalablyTypedPluginBase.autoImport._
+    import autoImport._
+
+    Seq(
+      tsoImport := {
+        val cacheDirectory = streams.value.cacheDirectory
+        val flavour        = tsoFlavour.value
+        val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val folder         = os.Path(externalNpm.value)
+        val packageJson    = folder / "package.json"
+        val nodeModules    = InFolder(folder / "node_modules")
+        val stdLib         = tsoStdlib.value
+        val targetFolder   = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps        = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
+        val ignored        = tsoIgnore.value.to[Set]
+        val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val prettyStringType = tsoPrettyStringType.value
+
+        val config = ImportTypings.Input(
+          os.read(packageJson).hashCode,
+          npmDeps.to[Seq],
+          nodeModules,
+          targetFolder,
+          flavour,
+          prettyStringType,
+          stdLib,
+          ignored,
+          minimize,
+        )
+
+        val inputPath  = os.Path(cacheDirectory / "tso" / "input.json")
+        val outputPath = os.Path(cacheDirectory / "tso" / "output.json")
+
+        (Json.opt[ImportTypings.Input](inputPath), Json.opt[Seq[File]](outputPath)) match {
+          case (Some(`config`), Some(output)) =>
+            tsoLogger.warn("Nothing to do")
+            output
+          case _ =>
+            ImportTypings(config, tsoLogger) match {
+              case Right(files) =>
+                val seqFiles = files.to[Seq]
+                Json.persist(inputPath)(config)
+                Json.persist(outputPath)(seqFiles)
+                seqFiles
+              case Left(errors) =>
+                sys.error(errors.mkString("\n"))
+            }
+        }
+      },
+    )
+  }
+
+  override lazy val projectSettings: scala.Seq[Def.Setting[_]] =
+    inConfig(Compile)(tsoExternalNpmIntegration)
+}
+
 object ScalablyTypedConverterPlugin extends AutoPlugin {
+  override def requires = ScalablyTypedPluginBase && ScalaJSBundlerPlugin
+
+  lazy val tsoScalaJsBundlerIntegration: Seq[Def.Setting[_]] = {
+    import ScalablyTypedPluginBase.autoImport._
+    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+
+    Seq(
+      //Make sure we always include the stdlib
+      npmDependencies in Compile ++= {
+        //Make sure it doesn't already exist
+        (npmDependencies in Compile).value
+          .find(_._1 == "typescript")
+          .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
+      },
+      tsoImport := {
+        val cacheDirectory = streams.value.cacheDirectory
+        val flavour        = tsoFlavour.value
+        val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val packageJson    = (crossTarget in npmUpdate).value / "package.json"
+        val nodeModules    = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
+        val stdLib         = tsoStdlib.value
+        val targetFolder   = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps        = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
+        val ignored        = tsoIgnore.value.to[Set]
+        val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val prettyStringType = tsoPrettyStringType.value
+
+        val config = ImportTypings.Input(
+          os.read(os.Path(packageJson)).hashCode,
+          npmDeps.to[Seq],
+          nodeModules,
+          targetFolder,
+          flavour,
+          prettyStringType,
+          stdLib,
+          ignored,
+          minimize,
+        )
+
+        val inputPath  = os.Path(cacheDirectory / "tso" / "input.json")
+        val outputPath = os.Path(cacheDirectory / "tso" / "output.json")
+
+        (Json.opt[ImportTypings.Input](inputPath), Json.opt[Seq[File]](outputPath)) match {
+          case (Some(`config`), Some(output)) =>
+            tsoLogger.warn("Nothing to do")
+            output
+          case _ =>
+            ImportTypings(config, tsoLogger) match {
+              case Right(files) =>
+                val seqFiles = files.to[Seq]
+                Json.persist(inputPath)(config)
+                Json.persist(outputPath)(seqFiles)
+                seqFiles
+              case Left(errors) =>
+                sys.error(errors.mkString("\n"))
+            }
+        }
+      },
+    )
+  }
+
+  override lazy val projectSettings: scala.Seq[Def.Setting[_]] =
+    inConfig(Compile)(tsoScalaJsBundlerIntegration)
+}
+
+object ScalablyTypedPluginBase extends AutoPlugin {
   object autoImport {
     type Selection[T] = com.olvind.tso.plugin.Selection[T]
     val Selection = com.olvind.tso.plugin.Selection
     type Flavour = com.olvind.tso.plugin.Flavour
     val Flavour = com.olvind.tso.plugin.Flavour
+    type PrettyStringType = com.olvind.tso.plugin.PrettyStringType
+    val PrettyStringType = com.olvind.tso.plugin.PrettyStringType
 
     val tsoImport  = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
     val tsoIgnore  = settingKey[List[String]]("completely ignore libs")
     val tsoFlavour = settingKey[Flavour]("The type of react binding to use")
+    val tsoPrettyStringType = settingKey[PrettyStringType](
+      "Temporary, don't use unless you know what you're doing. Used to choose which name prettyfier will be used",
+    )
 
     /**
-      *
       * A list of library names you don't care too much about.
       * The idea is that we can limit compile time (by a lot!)
       */
@@ -90,18 +224,12 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     )
   }
 
-  override def requires = JvmPlugin && ScalaJSBundlerPlugin && PlatformDepsPlugin
+  override def requires = JvmPlugin && PlatformDepsPlugin
 
-  override def trigger = allRequirements
-
-  implicit val FileEncoder: circe.Encoder[sbt.File] = circe.Encoder[String].contramap[File](_.toString)
-  implicit val FileDecoder: circe.Decoder[sbt.File] = circe.Decoder[String].map[File](file)
-
-  override lazy val projectSettings: scala.Seq[Def.Setting[_]] = {
+  lazy val tsoOutsideConfig: Seq[Def.Setting[_]] = {
     import org.portablescala.sbtplatformdeps.PlatformDepsPlugin.autoImport._
     import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
-
-    val outsideConfig = Seq(
+    Seq(
       libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
       scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
@@ -111,69 +239,21 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         else Seq("-P:scalajs:sjsDefinedByDefault")
       },
     )
-    inConfig(Compile)(baseTSOImportSettings) ++ outsideConfig
   }
 
-  lazy val baseTSOImportSettings: Seq[Def.Setting[_]] = {
+  lazy val tsoDefaults: Seq[Def.Setting[_]] = {
     import autoImport._
-    import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
-
     Seq(
-      //Make sure we always include the stdlib
-      npmDependencies in Compile ++= {
-        //Make sure it doesn't already exist
-        (npmDependencies in Compile).value
-          .find(_._1 == "typescript")
-          .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
-      },
       tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
+      tsoPrettyStringType := com.olvind.tso.plugin.PrettyStringType.Regular,
       tsoTypescriptVersion := "3.7.2",
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),
       tsoMinimize := com.olvind.tso.plugin.Selection.None(),
-      tsoImport := {
-        val cacheDirectory = streams.value.cacheDirectory
-        val flavour        = tsoFlavour.value
-        val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        val packageJson    = (crossTarget in npmUpdate).value / "package.json"
-        val nodeModules    = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
-        val stdLib         = tsoStdlib.value
-        val targetFolder   = os.Path((sourceManaged in Compile).value / "tso")
-        val npmDeps        = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
-        val ignored        = tsoIgnore.value.to[Set]
-        val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
-
-        val config = ImportTypings.Input(
-          os.read(os.Path(packageJson)).hashCode,
-          npmDeps.to[Seq],
-          nodeModules,
-          targetFolder,
-          flavour,
-          stdLib,
-          ignored.map(TsIdentLibrary.apply),
-          minimize,
-        )
-
-        val inputPath  = os.Path(cacheDirectory / "tso" / "input.json")
-        val outputPath = os.Path(cacheDirectory / "tso" / "output.json")
-
-        (Json.opt[ImportTypings.Input](inputPath), Json.opt[Seq[File]](outputPath)) match {
-          case (Some(`config`), Some(output)) =>
-            tsoLogger.warn("Nothing to do")
-            output
-          case _ =>
-            ImportTypings(config, tsoLogger) match {
-              case Right(files) =>
-                val seqFiles = files.to[Seq]
-                Json.persist(inputPath)(config)
-                Json.persist(outputPath)(seqFiles)
-                seqFiles
-              case Left(errors) =>
-                sys.error(errors.mkString("\n"))
-            }
-        }
-      },
       sourceGenerators in Compile += tsoImport.taskValue,
     )
   }
+
+  override lazy val projectSettings: scala.Seq[Def.Setting[_]] =
+    inConfig(Compile)(tsoDefaults) ++ tsoOutsideConfig
 }

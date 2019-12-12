@@ -20,7 +20,7 @@ object swizDashTestDashDefaultMod extends js.Object {
     /* 2 */ @JSName("js")
     val js_ : typings.swiz.swizMod.SERIALIZATION.js with Double = js.native
     /* 1 */ @JSName("notify")
-    val notify_Fdefault: notify with Double = js.native
+    val notify_ : notify with Double = js.native
     @JSBracketAccess
     def apply(value: Double): js.UndefOr[SERIALIZATION with Double] = js.native
   }

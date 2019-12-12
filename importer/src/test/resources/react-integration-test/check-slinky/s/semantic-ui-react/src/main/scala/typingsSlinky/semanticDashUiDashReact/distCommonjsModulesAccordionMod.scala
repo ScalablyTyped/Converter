@@ -1,5 +1,6 @@
 package typingsSlinky.semanticDashUiDashReact
 
+import org.scalablytyped.runtime.TopLevel
 import typingsSlinky.react.reactMod.Component
 import typingsSlinky.react.reactMod.ComponentState
 import typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionComponent
@@ -18,6 +19,8 @@ object distCommonjsModulesAccordionMod extends js.Object {
     def this(props: AccordionProps, context: js.Any) = this()
   }
   
-  val default: AccordionComponent = js.native
+  @js.native
+  object default extends TopLevel[AccordionComponent]
+  
 }
 

@@ -15,7 +15,7 @@ object Component {
     aMember: Double,
     aCallback: CallbackTo[Double],
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[Props, typingsJapgolly.componentstest.componentstestMod.Component, Unit, Props] = {
@@ -23,7 +23,7 @@ object Component {
   
       __obj.updateDynamic("aCallback")(aCallback.toJsFn)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.componentstest.componentstestMod.Props, 
@@ -35,7 +35,7 @@ object Component {
     bMember: String,
     bCallback: js.UndefOr[CallbackTo[String]] = js.undefined,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[Props, typingsJapgolly.componentstest.componentstestMod.Component, Unit, Props] = {
@@ -43,7 +43,7 @@ object Component {
   
       bCallback.foreach(p => __obj.updateDynamic("bCallback")(p.toJsFn))
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.componentstest.componentstestMod.Props, 

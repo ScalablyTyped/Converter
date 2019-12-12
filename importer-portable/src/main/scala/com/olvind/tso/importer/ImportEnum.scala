@@ -2,6 +2,7 @@ package com.olvind.tso
 package importer
 
 import com.olvind.tso.scalajs._
+import com.olvind.tso.scalajs.transforms.CleanIllegalNames
 import com.olvind.tso.ts._
 
 object ImportEnum {
@@ -18,11 +19,12 @@ object ImportEnum {
   }
 
   def apply(
-      e:          TsDeclEnum,
-      anns:       Seq[ClassAnnotation],
-      scope:      TsTreeScope,
-      importName: ImportName,
-      importType: ImportType,
+      e:            TsDeclEnum,
+      anns:         Seq[ClassAnnotation],
+      scope:        TsTreeScope,
+      importName:   ImportName,
+      importType:   ImportType,
+      illegalNames: CleanIllegalNames,
   ): Seq[Tree] =
     e match {
       /* exported const enum? type alias */
@@ -75,7 +77,12 @@ object ImportEnum {
                 importedCodePath + memberName,
               )
           }
-          ModuleTree(Nil, name, Nil, cast +: newMembers, NoComments, importedCodePath, isOverride = false)
+
+          /* keep module members when minimizing */
+          val related = Comments(
+            CommentData(KeepOnlyReferenced.Related(TypeRef(cast.codePath) +: newMembers.map(m => TypeRef(m.codePath)))),
+          )
+          ModuleTree(Nil, name, Nil, cast +: newMembers, related, importedCodePath, isOverride = false)
         }
 
         List(ta, module)
@@ -159,19 +166,26 @@ object ImportEnum {
 
                 val memberTypeRef = baseInterface.copy(typeName = baseInterface.typeName + memberName)
 
-                val memberValue: Option[FieldTree] =
+                val memberValue: Option[Tree] =
                   if (isValue) {
+                    val (anns, name) =
+                      if (illegalNames.Illegal(memberName) || ObjectMembers.byName.contains(memberName))
+                        (List(Annotation.JsName(memberName)), memberName.withSuffix(""))
+                      else (Nil, memberName)
+
+                    val comments =
+                      exprOpt.fold(Comments(Nil))(expr => Comments(Comment(s"/* ${TsExpr.format(expr)} */ ")))
+
                     Some(
                       FieldTree(
-                        annotations = Nil,
-                        name        = memberName,
+                        annotations = anns,
+                        name        = name,
                         tpe         = TypeRef.Intersection(memberTypeRef :: underlying :: Nil),
                         impl        = MemberImpl.Native,
                         isReadOnly  = true,
                         isOverride  = false,
-                        comments =
-                          exprOpt.fold(Comments(Nil))(expr => Comments(Comment(s"/* ${TsExpr.format(expr)} */ "))),
-                        codePath = importedCodePath + memberName,
+                        comments    = comments,
+                        codePath    = importedCodePath + memberName,
                       ),
                     )
                   } else None

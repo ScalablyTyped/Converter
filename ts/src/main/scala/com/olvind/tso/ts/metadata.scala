@@ -21,9 +21,9 @@ case class TsConfig(
 
 case class PackageJsonDeps(
     version:          Option[String],
-    dependencies:     Option[Map[TsIdentLibrary, String]],
-    devDependencies:  Option[Map[TsIdentLibrary, String]],
-    peerDependencies: Option[Map[TsIdentLibrary, String]],
+    dependencies:     Option[Map[String, String]],
+    devDependencies:  Option[Map[String, String]],
+    peerDependencies: Option[Map[String, String]],
     typings:          Option[String],
     types:            Option[String],
     files:            Option[Seq[String]],

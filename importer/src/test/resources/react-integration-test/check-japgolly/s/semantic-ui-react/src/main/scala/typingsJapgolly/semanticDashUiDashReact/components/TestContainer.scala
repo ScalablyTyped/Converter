@@ -33,7 +33,7 @@ object TestContainer {
     text: js.UndefOr[Boolean] = js.undefined,
     textAlign: SemanticTEXTALIGNMENTS = null,
     key: js.UndefOr[Key] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedSimple[
@@ -58,7 +58,7 @@ object TestContainer {
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
   typingsJapgolly.semanticDashUiDashReact.distCommonjsElementsTestContainerTestContainerMod.TestContainerProps, 

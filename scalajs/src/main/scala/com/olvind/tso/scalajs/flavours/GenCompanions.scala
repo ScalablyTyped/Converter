@@ -22,7 +22,13 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
 
       container.withMembers(container.members.flatMap {
         case cls: ClassTree if !nameConflict(cls.name) =>
-          findParams.forClassTree(cls, scope / cls, memberToParam, Params.MaxParamsForMethod) match {
+          findParams.forClassTree(
+            cls,
+            scope / cls,
+            memberToParam,
+            Params.MaxParamsForMethod,
+            acceptNativeTraits = false,
+          ) match {
             case Res.Error(_) =>
               List(cls)
 

@@ -9,7 +9,11 @@ import com.olvind.tso.seqs._
 import scala.collection.mutable
 
 object GenSlinkyComponents {
+  /* Disable the minimizer for component objects */
+  val Keep = Comments(CommentData(KeepOnlyReferenced.Keep(Nil)))
+
   val slinkyName = Name("slinky")
+
   object names {
     val components      = Name("components")
     val Props           = Name("Props")
@@ -17,6 +21,8 @@ object GenSlinkyComponents {
     val RefType         = Name("RefType")
     val component       = Name("component")
     val componentImport = Name("componentImport")
+    val raw             = Name("raw")
+    val Raw             = Name("Raw")
     val ComponentRef    = Name("ComponentRef")
 
     /* Fully qualified references to slinky types */
@@ -154,9 +160,9 @@ class GenSlinkyComponents(
 
   val additionalOptionalParams: Seq[(ParamTree, String => String)] = {
     val overridesUpdate: String => String = obj =>
-      s"if (overrides != null) js.Dynamic.global.Object.assign($obj, overrides)"
+      s"if (_overrides != null) js.Dynamic.global.Object.assign($obj, _overrides)"
     val overridesParam = ParamTree(
-      name       = Name("overrides"),
+      name       = Name("_overrides"),
       isImplicit = false,
       tpe        = TypeRef.StringDictionary(TypeRef.Any, NoComments),
       default    = Some(TypeRef.`null`),
@@ -226,7 +232,7 @@ class GenSlinkyComponents(
 
                         val resParams: Res[Seq[Param]] =
                           findParams
-                            .forClassTree(cls, scope / cls, Int.MaxValue)
+                            .forClassTree(cls, scope / cls, Int.MaxValue, acceptNativeTraits = true)
                             .map(_.flatMap {
                               case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary => Nil
                               case Left(param)                                                                    => List(param)
@@ -274,40 +280,19 @@ class GenSlinkyComponents(
                 )
                 .getOrElse(AnyHtmlElement)
 
-            resProps match {
-              case Res.Success(successProps) =>
-                if (successProps.asMap.forall { case (_, props) => props.noNormalProps })
-                  components.map(genComponent(scope, pkgCp, propsRef, successProps, domType))
-                else
-                  components match {
-                    case Seq(one) =>
-                      List(genComponent(scope, pkgCp, propsRef, successProps, domType)(one))
-                    case many =>
-                      /** We share `apply` methods for each props type in abstract classes to limit compilation time.
-                        *  References causes some trouble, so if the component knows it we thread it through a type param.
-                        */
-                      val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
-                      val propsCls =
-                        genSharedPropsClass(propsRef, scope, pkgCp, successProps, knownRefRewritten, tparams, domType)
-                      List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
-                  }
-
-              case Res.Error(msg) =>
-                val propsWithObject = propsRefOpt match {
-                  case Some(propsRef) => TypeRef.Intersection(List(propsRef, TypeRef.Object))
-                  case None           => TypeRef.Object
-                }
-                val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
-                val props            = SplitProps(List(param), Nil)
-
-                components.map { c =>
-                  val mod = genComponent(scope, pkgCp, propsRef, Res.One(TypeRef.Object.name, props), domType)(c)
-                  val comment = Comment(
-                    s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. $msg */\n",
-                  )
-                  mod.copy(comments = mod.comments + comment)
-                }
-
+            (resProps, components) match {
+              case (successProps: Res.Success[SplitProps], many)
+                  if many.size > 1 &&
+                    !resProps.asMap.forall { case (_, props) => props.noNormalProps } =>
+                /** We share `apply` methods for each props type in abstract classes to limit compilation time.
+                  *  References causes some trouble, so if the component knows it we thread it through a type param.
+                  */
+                val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
+                val propsCls =
+                  genSharedPropsClass(propsRef, scope, pkgCp, successProps, knownRefRewritten, tparams, domType)
+                List(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
+              case (_, components) =>
+                components.map(genComponent(scope, pkgCp, propsRef, resProps, domType))
             }
         }
 
@@ -342,10 +327,10 @@ class GenSlinkyComponents(
     val refInTParams =
       knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, Some(TypeRef.Object), NoComments)).to[List]
 
-    ClassTree(
+    val rawClass = ClassTree(
       Nil,
-      name,
-      refInTParams,
+      names.Raw,
+      Nil,
       List(parent),
       List(
         CtorTree(
@@ -354,7 +339,31 @@ class GenSlinkyComponents(
           NoComments,
         ),
       ),
-      methods ++ typeAliasOpt,
+      typeAliasOpt.toList,
+      ClassType.AbstractClass,
+      isSealed = false,
+      NoComments,
+      classCp + names.Raw,
+    )
+
+    val rawField = FieldTree(
+      Nil,
+      names.raw,
+      TypeRef(names.Raw),
+      MemberImpl.NotImplemented,
+      isReadOnly = true,
+      isOverride = false,
+      NoComments,
+      codePath = classCp + names.raw,
+    )
+
+    ClassTree(
+      Nil,
+      name,
+      refInTParams,
+      Nil,
+      Nil,
+      List(rawClass, rawField) ++ methods,
       ClassType.AbstractClass,
       isSealed = false,
       NoComments,
@@ -365,12 +374,24 @@ class GenSlinkyComponents(
   def genComponentForSharedProps(pkgCp: QualifiedName, propsClass: ClassTree)(c: Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
 
+    val rawModule = {
+      val members = genComponentField(c, componentCp)
+      ModuleTree(
+        Nil,
+        names.raw,
+        List(TypeRef(names.Raw)),
+        members,
+        Keep,
+        codePath   = componentCp + names.raw,
+        isOverride = true,
+      )
+    }
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
-      members     = genComponentField(c, componentCp),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
+      members     = List(rawModule),
+      comments    = Keep,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -380,18 +401,38 @@ class GenSlinkyComponents(
       scope:    TreeScope,
       pkgCp:    QualifiedName,
       propsRef: TypeRef,
-      resProps: Res.Success[SplitProps],
+      resProps: Res[SplitProps],
       domType:  TypeRef,
   )(c:          Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
     val (parent, methods, typeAliasOpt) =
       genContent(scope, propsRef, resProps, c.tparams, c.knownRef, domType, componentCp)
+
+    val errorCommentOpt =
+      resProps match {
+        case Res.Success(_) => None
+        case Res.Error(msg) =>
+          val str =
+            s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. $msg */\n"
+          Some(Comment(str))
+      }
+
+    val rawModule = ModuleTree(
+      Nil,
+      names.raw,
+      List(parent),
+      genComponentField(c, componentCp) ++ typeAliasOpt,
+      Keep,
+      componentCp + names.raw,
+      isOverride = false,
+    )
+
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
-      parents     = List(parent),
-      members     = genComponentField(c, componentCp) ++ methods ++ typeAliasOpt,
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
+      parents     = Nil,
+      members     = List(rawModule) ++ methods,
+      comments    = Keep +? errorCommentOpt,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -400,16 +441,16 @@ class GenSlinkyComponents(
   def genContent(
       scope:    TreeScope,
       propsRef: TypeRef,
-      props:    Res.Success[SplitProps],
+      resProps: Res[SplitProps],
       tparams:  Seq[TypeParamTree],
       knownRef: Option[TypeRef],
       domType:  TypeRef,
       ownerCp:  QualifiedName,
   ): (TypeRef, List[MethodTree], Option[TypeAliasTree]) = {
     /* Observe type bound of :< js.Object */
-    def refFromProps = props.asMap.values.flatMap(_.refTypes).headOption
+    val refType: TypeRef = {
+      def refFromProps = resProps.asMap.values.flatMap(_.refTypes).headOption
 
-    val refType = {
       knownRef orElse refFromProps map TypeRef.stripTargs match {
         case Some(x @ TypeRef(QualifiedName(List(names.ComponentRef)), _, _)) => x
         case Some(value) =>
@@ -421,11 +462,19 @@ class GenSlinkyComponents(
       }
     }
 
-    if (props.asMap.forall { case (_, props) => props.noNormalProps }) {
+    val exposeProps: Boolean =
+      resProps match {
+        case Res.Many(propss)  => !propss.forall { case (_, props) => props.noNormalProps }
+        case Res.One(_, props) => !props.noNormalProps
+        case Res.Error(_)      => true
+      }
+
+    if (!exposeProps) {
       (TypeRef(names.ExternalComponentNoProps, List(domType, refType), NoComments), Nil, None)
     } else {
+      val EraseTParams = TypeRewriter(tparams.map(x => TypeRef(x.name) -> TypeRef.Any).toMap)
       val propsAlias =
-        TypeAliasTree(names.Props, Nil, TypeRef.stripTargs(propsRef), NoComments, ownerCp + names.Props)
+        TypeAliasTree(names.Props, Nil, EraseTParams.visitTypeRef(scope)(propsRef), NoComments, ownerCp + names.Props)
 
       /**
         *  The `apply` method that the slinky method would normally construct.
@@ -446,7 +495,7 @@ class GenSlinkyComponents(
             s"""{
                |  val __obj = js.Dynamic.literal(${props.requireds.map(_._2).mkString(", ")})
                |${props.optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-               |  super.apply(__obj.asInstanceOf[Props])$cast
+               |  this.${names.raw.unescaped}.apply(__obj.asInstanceOf[this.${names.raw.unescaped}.Props])$cast
                |}""".stripMargin,
           ),
           resultType = ret,
@@ -457,7 +506,12 @@ class GenSlinkyComponents(
       }
 
       val methods: List[MethodTree] =
-        props match {
+        resProps match {
+          case Res.Error(_) =>
+            val propsWithObject  = TypeRef.Intersection(List(propsRef, TypeRef.Object))
+            val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
+            val props            = SplitProps(List(param), Nil)
+            List(applyMethod(Name.APPLY, props))
           case Res.One(_, props) => List(applyMethod(Name.APPLY, props))
           case Res.Many(values)  => values.map { case (name, props) => applyMethod(name, props) }(collection.breakOut)
         }
@@ -472,7 +526,7 @@ class GenSlinkyComponents(
       Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
     }
 
-  def genComponentField(c: Component, componentCp: QualifiedName): List[Tree] =
+  def genComponentField(c: Component, componentCp: QualifiedName): List[Tree with HasCodePath] =
     List(
       ModuleTree(
         List(Annotation.JsNative, c.location),
@@ -490,7 +544,7 @@ class GenSlinkyComponents(
         MemberImpl.Custom(s"this.${names.componentImport.value}"),
         isReadOnly = true,
         isOverride = true,
-        NoComments,
+        Keep,
         componentCp + names.component,
       ),
     )

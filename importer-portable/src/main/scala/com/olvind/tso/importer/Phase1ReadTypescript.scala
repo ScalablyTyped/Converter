@@ -20,6 +20,7 @@ class Phase1ReadTypescript(
     resolve:                 LibraryResolver,
     calculateLibraryVersion: CalculateLibraryVersion,
     ignored:                 Set[TsIdentLibrary],
+    ignoredModulePrefixes:   Set[List[String]],
     stdlibSource:            Source,
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
@@ -30,6 +31,12 @@ class Phase1ReadTypescript(
       if (inFile.path.segments.length > 3)
         inFile.path.segments.toList.takeRight(3).mkString("../", "/", "")
       else inFile.path.segments.mkString("/")
+
+  def ignoreModule(moduleNames: List[TsIdentModule]): Boolean =
+    moduleNames exists ignoreModule
+
+  def ignoreModule(modName: TsIdentModule): Boolean =
+    1 to modName.fragments.length exists (n => ignoredModulePrefixes(modName.fragments.take(n)))
 
   override def apply(
       source:     Source,
@@ -44,6 +51,8 @@ class Phase1ReadTypescript(
       case source: Source.TsLibSource if ignored(source.libName) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
       case Source.TsHelperFile(file, _, _) if !file.path.last.endsWith(".d.ts") =>
+        PhaseRes.Ignore()
+      case h: Source.TsHelperFile if ignoreModule(h.moduleNames) =>
         PhaseRes.Ignore()
 
       case s @ Source.TsHelperFile(file, inLib, _) =>
@@ -130,7 +139,7 @@ class Phase1ReadTypescript(
                 )
                 .flatMap(
                   depName =>
-                    resolve.library(depName) orElse {
+                    resolve.library(TsIdentLibrary(depName)) orElse {
                       logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
                       None
                     },
@@ -178,6 +187,9 @@ class Phase1ReadTypescript(
                 case TsIdentLibraryScoped("nivo", _)                                 => true
                 case TsIdentLibraryScoped("storybook", "api")                        => true
                 case TsIdentLibrarySimple("instagram-private-api")                   => true
+                case TsIdentLibrarySimple("react-select")                            => true
+                case TsIdentLibrarySimple("react-autosuggest")                       => true
+                case TsIdentLibrarySimple("jest-config")                             => true
                 case _                                                               => false
               }
 
@@ -187,9 +199,21 @@ class Phase1ReadTypescript(
               }
 
               logger.warn(s"Processing ${source.libName}")
+
+              val flattened = FlattenTrees(preprocessed)
+
+              val filteredModules: TsParsedFile =
+                if (ignoredModulePrefixes.nonEmpty)
+                  flattened.copy(members = flattened.members.filterNot {
+                    case x: TsDeclModule      => ignoreModule(x.name)
+                    case x: TsAugmentedModule => ignoreModule(x.name)
+                    case _ => false
+                  })
+                else flattened
+
               val finished = Phase1ReadTypescript
                 .Pipeline(scope, source.libName, enableExpandTypeMappings, involvesReact)
-                .foldLeft(FlattenTrees(preprocessed)) { case (acc, f) => f(acc) }
+                .foldLeft(filteredModules) { case (acc, f) => f(acc) }
 
               val version = calculateLibraryVersion(
                 source.folder,

@@ -51,13 +51,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ButtonGroup
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashBootstrap.libMod.ButtonGroup] {
-  @JSImport("react-bootstrap/lib", "ButtonGroup")
-  @js.native
-  object componentImport extends js.Object
+object ButtonGroup {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashBootstrap.libMod.ButtonGroup] {
+    @JSImport("react-bootstrap/lib", "ButtonGroup")
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = ButtonGroupProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: accept, action, alt, async, autoComplete, autoFocus, capture, challenge, checked, className, colSpan, cols, content, contentEditable, controls, coords, dangerouslySetInnerHTML, default, defaultChecked, defaultValue, defer, dir, disabled, download, draggable, headers, height, hidden, high, href, htmlFor, id, integrity, kind, lang, list, loop, low, manifest, max, media, method, min, multiple, muted, name, nonce, onAbort, onAnimationEnd, onAnimationIteration, onAnimationStart, onBlur, onCanPlay, onCanPlayThrough, onChange, onClick, onCompositionEnd, onCompositionStart, onCompositionUpdate, onContextMenu, onCopy, onCut, onDoubleClick, onDrag, onDragEnd, onDragEnter, onDragExit, onDragLeave, onDragOver, onDragStart, onDrop, onDurationChange, onEmptied, onEncrypted, onEnded, onError, onFocus, onInput, onInvalid, onKeyDown, onKeyPress, onKeyUp, onLoad, onLoadStart, onLoadedData, onLoadedMetadata, onMouseDown, onMouseEnter, onMouseLeave, onMouseMove, onMouseOut, onMouseOver, onMouseUp, onPaste, onPause, onPlay, onPlaying, onPointerCancel, onPointerDown, onPointerEnter, onPointerLeave, onPointerMove, onPointerOut, onPointerOver, onPointerUp, onProgress, onRateChange, onScroll, onSeeked, onSeeking, onSelect, onStalled, onSubmit, onSuspend, onTimeUpdate, onTouchCancel, onTouchEnd, onTouchMove, onTouchStart, onTransitionEnd, onVolumeChange, onWaiting, onWheel, open, optimum, pattern, placeholder, poster, preload, readOnly, rel, required, reversed, rowSpan, rows, sandbox, scope, scoped, scrolling, selected, shape, size, sizes, spellCheck, src, start, step, suppressContentEditableWarning, tabIndex, target, type, value, width, wrap */
   def apply(
     about: String = null,
@@ -193,7 +197,7 @@ object ButtonGroup
     vertical: js.UndefOr[Boolean] = js.undefined,
     vocab: String = null,
     wmode: String = null,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashBootstrap.libMod.ButtonGroup] = {
     val __obj = js.Dynamic.literal()
     if (about != null) __obj.updateDynamic("about")(about.asInstanceOf[js.Any])
@@ -323,9 +327,8 @@ object ButtonGroup
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     if (wmode != null) __obj.updateDynamic("wmode")(wmode.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = ButtonGroupProps
 }
 

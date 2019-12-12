@@ -8,10 +8,13 @@ object ActionAccessibility
   extends SharedApply_Object152536094[
       typingsSlinky.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility
     ] {
-  @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
-  @js.native
-  object componentImport extends js.Object
+  override object raw extends Raw {
+    @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+  }
   
-  override val component: String | js.Object = this.componentImport
 }
 

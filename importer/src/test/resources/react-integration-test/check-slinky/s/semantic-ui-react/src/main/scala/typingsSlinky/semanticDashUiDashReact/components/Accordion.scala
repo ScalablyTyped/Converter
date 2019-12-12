@@ -15,13 +15,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object Accordion
-  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
-  @js.native
-  object componentImport extends js.Object
+object Accordion {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion", JSImport.Default)
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = AccordionProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className */
   def apply(
     activeIndex: Double | js.Array[Double] = null,
@@ -33,7 +37,7 @@ object Accordion
     onTitleClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
     panels: SemanticShorthandCollection[AccordionPanelProps] = null,
     styled: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
@@ -45,9 +49,8 @@ object Accordion
     if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
     if (panels != null) __obj.updateDynamic("panels")(panels.asInstanceOf[js.Any])
     if (!js.isUndefined(styled)) __obj.updateDynamic("styled")(styled.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = AccordionProps
 }
 

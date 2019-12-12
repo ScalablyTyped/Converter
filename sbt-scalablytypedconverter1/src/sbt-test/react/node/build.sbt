@@ -9,6 +9,6 @@ lazy val testProject =
       Compile / tsoMinimize := Selection.AllOf("std"),
       Compile / tsoStdlib := List("es5"),
       scalaJSUseMainModuleInitializer := true,
-      scalaVersion := "2.12.8",
+      scalaVersion := "2.13.1",
       organization := "com.olvind",
     )

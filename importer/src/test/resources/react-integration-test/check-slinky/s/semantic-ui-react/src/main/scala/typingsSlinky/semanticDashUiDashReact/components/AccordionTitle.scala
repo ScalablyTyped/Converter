@@ -14,13 +14,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object AccordionTitle
-  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
-  @js.native
-  object componentImport extends js.Object
+object AccordionTitle {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = AccordionTitleProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className */
   def apply(
     active: js.UndefOr[Boolean] = js.undefined,
@@ -31,7 +35,7 @@ object AccordionTitle
     ] = null,
     index: Double | String = null,
     onClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, default] = {
     val __obj = js.Dynamic.literal()
     if (!js.isUndefined(active)) __obj.updateDynamic("active")(active.asInstanceOf[js.Any])
@@ -40,9 +44,8 @@ object AccordionTitle
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(onClick))
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = AccordionTitleProps
 }
 

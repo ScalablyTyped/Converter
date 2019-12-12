@@ -15,13 +15,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object SubMenu
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.SubMenu] {
-  @JSImport("react-contextmenu", "SubMenu")
-  @js.native
-  object componentImport extends js.Object
+object SubMenu {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.SubMenu] {
+    @JSImport("react-contextmenu", "SubMenu")
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = SubMenuProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className, disabled */
   def apply(
     title: ReactElement | ReactText,
@@ -34,16 +38,15 @@ object SubMenu
     ]) | js.Function = null,
     preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
     rtl: js.UndefOr[Boolean] = js.undefined,
-    overrides: StringDictionary[js.Any] = null
+    _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.SubMenu] = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
     if (hoverDelay != null) __obj.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick.asInstanceOf[js.Any])
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
-    if (overrides != null) js.Dynamic.global.Object.assign(__obj, overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = SubMenuProps
 }
 

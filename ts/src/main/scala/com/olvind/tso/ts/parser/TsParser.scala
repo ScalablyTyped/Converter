@@ -448,7 +448,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     val tsTypeLookupAndArray: Parser[TsType] = memo {
       baseTypeDesc ~ rep("[" ~> tsType.? <~ "]") ^^ {
         case base ~ typeLookups =>
-          (base /: typeLookups) {
+          typeLookups.foldLeft(base) {
             case (elem, Some(key)) => TsTypeLookup(elem, key)
             case (elem, None)      => ArrayType(elem)
           }
