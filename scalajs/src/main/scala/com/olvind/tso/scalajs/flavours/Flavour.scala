@@ -101,7 +101,7 @@ object Flavour {
   case object Japgolly extends ReactFlavour {
     val projectName  = "ScalajsReactTyped"
     val repo         = "https://github.com/oyvindberg/ScalajsReactTyped.git"
-    val organization = "org.gulliblytyped.japgolly"
+    val organization = "org.scalablytyped.japgolly"
     val outputPkg    = Name("typingsJapgolly")
     val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, params)
 
