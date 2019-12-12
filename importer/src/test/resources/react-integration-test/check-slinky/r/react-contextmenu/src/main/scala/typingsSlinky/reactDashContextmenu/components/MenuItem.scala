@@ -14,13 +14,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object MenuItem
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.MenuItem] {
-  @JSImport("react-contextmenu", "MenuItem")
-  @js.native
-  object componentImport extends js.Object
+object MenuItem {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.MenuItem] {
+    @JSImport("react-contextmenu", "MenuItem")
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = MenuItemProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className, disabled */
   def apply(
     attributes: HTMLAttributes[HTMLDivElement] = null,
@@ -42,8 +46,7 @@ object MenuItem
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = MenuItemProps
 }
 

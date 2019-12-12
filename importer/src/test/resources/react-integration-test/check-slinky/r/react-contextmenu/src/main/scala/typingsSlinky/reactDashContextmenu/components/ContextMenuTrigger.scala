@@ -11,16 +11,20 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ContextMenuTrigger
-  extends ExternalComponentWithAttributesWithRefType[
-      tag.type, 
-      typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
-    ] {
-  @JSImport("react-contextmenu", "ContextMenuTrigger")
-  @js.native
-  object componentImport extends js.Object
+object ContextMenuTrigger {
+  object raw
+    extends ExternalComponentWithAttributesWithRefType[
+          tag.type, 
+          typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
+        ] {
+    @JSImport("react-contextmenu", "ContextMenuTrigger")
+    @js.native
+    object componentImport extends js.Object
+    
+    override val component: String | js.Object = this.componentImport
+    type Props = ContextMenuTriggerProps
+  }
   
-  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: id */
   def apply(
     attributes: HTMLAttributes[_] = null,
@@ -40,8 +44,7 @@ object ContextMenuTrigger
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props])
+    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
   }
-  type Props = ContextMenuTriggerProps
 }
 
