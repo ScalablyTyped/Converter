@@ -1,7 +1,7 @@
 package com.olvind.tso
 package plugin
 
-import com.olvind.logging.{LogLevel, Logger, stdout}
+import com.olvind.logging.{stdout, LogLevel, Logger}
 import com.olvind.tso.importer.Source.{StdLibSource, TsLibSource}
 import com.olvind.tso.importer._
 import com.olvind.tso.maps._
@@ -17,15 +17,15 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      packageJsonHash: Int,
-      npmDependencies: Seq[(String, String)],
-      fromFolder:      InFolder,
-      targetFolder:    os.Path,
-      chosenFlavour:   Flavour,
+      packageJsonHash:  Int,
+      npmDependencies:  Seq[(String, String)],
+      fromFolder:       InFolder,
+      targetFolder:     os.Path,
+      chosenFlavour:    Flavour,
       prettyStringType: PrettyStringType,
-      libs:            List[String],
-      ignore:          Set[String],
-      minimize:        Selection[TsIdentLibrary],
+      libs:             List[String],
+      ignore:           Set[String],
+      minimize:         Selection[TsIdentLibrary],
   )
 
   object Input {

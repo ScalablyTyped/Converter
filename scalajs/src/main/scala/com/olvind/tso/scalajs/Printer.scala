@@ -372,7 +372,7 @@ object Printer {
           /* ensure we have ran the logic in the apply method */
           TypeRef.Intersection(types) match {
             case TypeRef.Intersection(types) => types map formatTypeRef(indent) map paramsIfNeeded mkString " with "
-            case other => formatTypeRef(indent)(other)
+            case other                       => formatTypeRef(indent)(other)
           }
 
         case TypeRef.UndefOr(tpe) =>

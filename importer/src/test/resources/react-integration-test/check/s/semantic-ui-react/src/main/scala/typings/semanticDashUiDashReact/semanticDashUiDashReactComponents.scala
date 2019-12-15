@@ -13,8 +13,6 @@ object semanticDashUiDashReactComponents extends semanticDashUiDashReactProps {
   @scala.inline
   def AccordionContent: ComponentType[AccordionContentProps] = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionContentMod.default.asInstanceOf[typings.react.reactMod.ComponentType[AccordionContentProps]]
   @scala.inline
-  def AccordionDefault: ComponentType[AccordionDefaultProps] = typings.semanticDashUiDashReact.distCommonjsModulesAccordionMod.default.asInstanceOf[typings.react.reactMod.ComponentType[AccordionDefaultProps]]
-  @scala.inline
   def AccordionPanel: ComponentType[AccordionPanelProps] = js.constructorOf[typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.default].asInstanceOf[typings.react.reactMod.ComponentType[AccordionPanelProps]]
   @scala.inline
   def AccordionTitle: ComponentType[AccordionTitleProps] = js.constructorOf[typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionTitleMod.default].asInstanceOf[typings.react.reactMod.ComponentType[AccordionTitleProps]]

@@ -128,6 +128,7 @@ object KeepOnlyReferenced {
           parents = s.parents.filter(tr => keep.contains(tr.typeName)),
           members = s.members.filter {
             case x: ClassTree                           => keep.contains(x.codePath) && !keep(x.codePath)
+            case x: TypeAliasTree                       => keep.contains(x.codePath) && !keep(x.codePath)
             case x: MemberTree if x.name === Name.APPLY => true
             case x: HasCodePath                         => keep.contains(x.codePath)
             case _ => false
@@ -135,8 +136,9 @@ object KeepOnlyReferenced {
         )
     override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
       s.copy(members = s.members.filter {
-        case x: ClassTree   => keep.contains(x.codePath) && !keep(x.codePath)
-        case x: HasCodePath => keep.contains(x.codePath)
+        case x: ClassTree     => keep.contains(x.codePath) && !keep(x.codePath)
+        case x: TypeAliasTree => keep.contains(x.codePath) && !keep(x.codePath)
+        case x: HasCodePath   => keep.contains(x.codePath)
         case _ => false
       })
   }

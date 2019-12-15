@@ -227,7 +227,12 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
         case other           => Some(other)
       }
 
-      def fromNameHint = comments.extract { case Markers.NameHint(hint) => Name(hint) }.map(_._1)
+      def fromNameHint =
+        comments
+          .extract {
+            case Markers.NameHint(hint) if !Unnamed(Name(hint)) => Name(hint)
+          }
+          .map(_._1)
 
       val name   = fromCodePath orElse fromAnnotations(anns) orElse fromNameHint
       val prefix = if (isGlobal(anns)) Nil else extractPrefix(scope)

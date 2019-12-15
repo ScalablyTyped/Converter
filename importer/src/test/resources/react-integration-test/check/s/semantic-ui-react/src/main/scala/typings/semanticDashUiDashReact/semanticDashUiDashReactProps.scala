@@ -17,9 +17,6 @@ trait semanticDashUiDashReactProps {
   def AccordionContentProps: typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps.type = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
   type AccordionContentProps = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionContentMod.AccordionContentProps
   @scala.inline
-  def AccordionDefaultProps: typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionProps.type = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionProps
-  type AccordionDefaultProps = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionMod.AccordionProps
-  @scala.inline
   def AccordionPanelProps: typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps.type = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
   type AccordionPanelProps = typings.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionPanelMod.AccordionPanelProps
   @scala.inline

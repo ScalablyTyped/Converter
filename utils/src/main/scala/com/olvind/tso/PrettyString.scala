@@ -29,6 +29,7 @@ object PrettyString {
       case other     => other
     }
   }
+
   /**
     * This PrettyString class tries to do a maximum simplification, removing src, dist, bin as well as extra "Dash"
     */

@@ -45,8 +45,8 @@ sealed trait TsTreeScope {
 
   final def isAbstract(qident: TsQIdent): Boolean =
     qident.parts match {
-      case one :: _ => tparams.contains(one) || tkeys.contains(one)
-      case _        => false
+      case one :: Nil => tparams.contains(one) || tkeys.contains(one)
+      case _          => false
     }
 
   final def lookup(qname: TsQIdent, skipValidation: Boolean = false): Seq[TsNamedDecl] =

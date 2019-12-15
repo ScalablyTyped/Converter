@@ -24,17 +24,17 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     Seq(
       tsoImport := {
-        val cacheDirectory = streams.value.cacheDirectory
-        val flavour        = tsoFlavour.value
-        val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        val folder         = os.Path(externalNpm.value)
-        val packageJson    = folder / "package.json"
-        val nodeModules    = InFolder(folder / "node_modules")
-        val stdLib         = tsoStdlib.value
-        val targetFolder   = os.Path((sourceManaged in Compile).value / "tso")
-        val npmDeps        = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
-        val ignored        = tsoIgnore.value.to[Set]
-        val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val cacheDirectory   = streams.value.cacheDirectory
+        val flavour          = tsoFlavour.value
+        val tsoLogger        = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val folder           = os.Path(externalNpm.value)
+        val packageJson      = folder / "package.json"
+        val nodeModules      = InFolder(folder / "node_modules")
+        val stdLib           = tsoStdlib.value
+        val targetFolder     = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps          = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
+        val ignored          = tsoIgnore.value.to[Set]
+        val minimize         = tsoMinimize.value.map(TsIdentLibrary.apply)
         val prettyStringType = tsoPrettyStringType.value
 
         val config = ImportTypings.Input(
@@ -91,16 +91,16 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
       },
       tsoImport := {
-        val cacheDirectory = streams.value.cacheDirectory
-        val flavour        = tsoFlavour.value
-        val tsoLogger      = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        val packageJson    = (crossTarget in npmUpdate).value / "package.json"
-        val nodeModules    = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
-        val stdLib         = tsoStdlib.value
-        val targetFolder   = os.Path((sourceManaged in Compile).value / "tso")
-        val npmDeps        = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
-        val ignored        = tsoIgnore.value.to[Set]
-        val minimize       = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val cacheDirectory   = streams.value.cacheDirectory
+        val flavour          = tsoFlavour.value
+        val tsoLogger        = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val packageJson      = (crossTarget in npmUpdate).value / "package.json"
+        val nodeModules      = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
+        val stdLib           = tsoStdlib.value
+        val targetFolder     = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps          = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
+        val ignored          = tsoIgnore.value.to[Set]
+        val minimize         = tsoMinimize.value.map(TsIdentLibrary.apply)
         val prettyStringType = tsoPrettyStringType.value
 
         val config = ImportTypings.Input(
