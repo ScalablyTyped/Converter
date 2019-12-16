@@ -83,7 +83,7 @@ class Main(config: Config) {
     Future {
       if (config.conserveSpace) {
         interfaceLogger.warn(s"Cleaning old artifacts in ${config.publishFolder}")
-        LocalCleanup(config.publishFolder, flavour.organization, keepNum = 2)
+        LocalCleanup(config.publishFolder, flavour.organization, keepNum = 1)
       }
     }(ec)
 
