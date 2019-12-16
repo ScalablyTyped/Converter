@@ -17,15 +17,16 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      packageJsonHash:  Int,
-      npmDependencies:  Seq[(String, String)],
-      fromFolder:       InFolder,
-      targetFolder:     os.Path,
-      chosenFlavour:    Flavour,
-      prettyStringType: PrettyStringType,
-      libs:             List[String],
-      ignore:           Set[String],
-      minimize:         Selection[TsIdentLibrary],
+      packageJsonHash:          Int,
+      npmDependencies:          Seq[(String, String)],
+      fromFolder:               InFolder,
+      targetFolder:             os.Path,
+      chosenFlavour:            Flavour,
+      shouldGenerateCompanions: Boolean,
+      prettyStringType:         PrettyStringType,
+      libs:                     List[String],
+      ignore:                   Set[String],
+      minimize:                 Selection[TsIdentLibrary],
   )
 
   object Input {
@@ -46,12 +47,11 @@ object ImportTypings {
         TsIdent.std,
       )
     }
-
     val flavour = chosenFlavour match {
       case Flavour.Plain    => com.olvind.tso.scalajs.flavours.Flavour.Plain
-      case Flavour.Normal   => com.olvind.tso.scalajs.flavours.Flavour.Normal
-      case Flavour.Slinky   => com.olvind.tso.scalajs.flavours.Flavour.Slinky
-      case Flavour.Japgolly => com.olvind.tso.scalajs.flavours.Flavour.Japgolly
+      case Flavour.Normal   => com.olvind.tso.scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions)
+      case Flavour.Slinky   => com.olvind.tso.scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions)
+      case Flavour.Japgolly => com.olvind.tso.scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions)
     }
 
     val prettyString = prettyStringType match {
@@ -159,6 +159,7 @@ object ImportTypings {
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
+          shouldGenerateCompanions = true,
           PrettyStringType.Regular,
           List("es5", "dom"),
           Set("typescript", "csstype"),

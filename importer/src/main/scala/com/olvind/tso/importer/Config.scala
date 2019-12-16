@@ -54,14 +54,17 @@ object Config {
         val wantedLibNames: Set[TsIdentLibrary] = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
           .map(TsIdentLibrary.apply)
 
+        val companions = !(flags contains "-skipCompanions")
         val flavours = List(
           if (flags.contains("-flavourPlain")) Some(Flavour.Plain) else None,
-          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(Flavour.Slinky) else None,
-          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly")) Some(Flavour.Japgolly)
+          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(Flavour.Slinky(companions))
           else None,
-          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(Flavour.Normal) else None,
+          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly")) Some(Flavour.Japgolly(companions))
+          else None,
+          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(Flavour.Normal(companions))
+          else None,
         ).flatten match {
-          case Nil   => List(Flavour.Normal)
+          case Nil   => List(Flavour.Normal(companions))
           case other => other
         }
 

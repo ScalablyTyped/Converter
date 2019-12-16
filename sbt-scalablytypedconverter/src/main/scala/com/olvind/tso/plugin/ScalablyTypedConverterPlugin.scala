@@ -24,18 +24,19 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     Seq(
       tsoImport := {
-        val cacheDirectory   = streams.value.cacheDirectory
-        val flavour          = tsoFlavour.value
-        val tsoLogger        = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        val folder           = os.Path(externalNpm.value)
-        val packageJson      = folder / "package.json"
-        val nodeModules      = InFolder(folder / "node_modules")
-        val stdLib           = tsoStdlib.value
-        val targetFolder     = os.Path((sourceManaged in Compile).value / "tso")
-        val npmDeps          = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
-        val ignored          = tsoIgnore.value.to[Set]
-        val minimize         = tsoMinimize.value.map(TsIdentLibrary.apply)
-        val prettyStringType = tsoPrettyStringType.value
+        val cacheDirectory     = streams.value.cacheDirectory
+        val flavour            = tsoFlavour.value
+        val tsoLogger          = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val folder             = os.Path(externalNpm.value)
+        val packageJson        = folder / "package.json"
+        val nodeModules        = InFolder(folder / "node_modules")
+        val stdLib             = tsoStdlib.value
+        val targetFolder       = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps            = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
+        val ignored            = tsoIgnore.value.to[Set]
+        val minimize           = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val prettyStringType   = tsoPrettyStringType.value
+        val generateCompanions = tsoGenerateCompanions.value
 
         val config = ImportTypings.Input(
           os.read(packageJson).hashCode,
@@ -43,6 +44,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
           nodeModules,
           targetFolder,
           flavour,
+          generateCompanions,
           prettyStringType,
           stdLib,
           ignored,
@@ -91,17 +93,18 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           .fold(Seq("typescript" -> (tsoTypescriptVersion).value))(_ => Seq.empty)
       },
       tsoImport := {
-        val cacheDirectory   = streams.value.cacheDirectory
-        val flavour          = tsoFlavour.value
-        val tsoLogger        = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
-        val packageJson      = (crossTarget in npmUpdate).value / "package.json"
-        val nodeModules      = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
-        val stdLib           = tsoStdlib.value
-        val targetFolder     = os.Path((sourceManaged in Compile).value / "tso")
-        val npmDeps          = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
-        val ignored          = tsoIgnore.value.to[Set]
-        val minimize         = tsoMinimize.value.map(TsIdentLibrary.apply)
-        val prettyStringType = tsoPrettyStringType.value
+        val cacheDirectory     = streams.value.cacheDirectory
+        val flavour            = tsoFlavour.value
+        val tsoLogger          = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val packageJson        = (crossTarget in npmUpdate).value / "package.json"
+        val nodeModules        = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
+        val stdLib             = tsoStdlib.value
+        val targetFolder       = os.Path((sourceManaged in Compile).value / "tso")
+        val npmDeps            = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
+        val ignored            = tsoIgnore.value.to[Set]
+        val minimize           = tsoMinimize.value.map(TsIdentLibrary.apply)
+        val prettyStringType   = tsoPrettyStringType.value
+        val generateCompanions = tsoGenerateCompanions.value
 
         val config = ImportTypings.Input(
           os.read(os.Path(packageJson)).hashCode,
@@ -109,6 +112,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           nodeModules,
           targetFolder,
           flavour,
+          generateCompanions,
           prettyStringType,
           stdLib,
           ignored,
@@ -150,8 +154,11 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     type PrettyStringType = com.olvind.tso.plugin.PrettyStringType
     val PrettyStringType = com.olvind.tso.plugin.PrettyStringType
 
-    val tsoImport  = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val tsoIgnore  = settingKey[List[String]]("completely ignore libs")
+    val tsoImport = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
+    val tsoIgnore = settingKey[List[String]]("completely ignore libraries or modules")
+    val tsoGenerateCompanions = settingKey[Boolean](
+      "Whether to generate companion objects with apply methods for most traits",
+    )
     val tsoFlavour = settingKey[Flavour]("The type of react binding to use")
     val tsoPrettyStringType = settingKey[PrettyStringType](
       "Temporary, don't use unless you know what you're doing. Used to choose which name prettyfier will be used",
@@ -247,6 +254,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
       tsoPrettyStringType := com.olvind.tso.plugin.PrettyStringType.Regular,
       tsoTypescriptVersion := "3.7.2",
+      tsoGenerateCompanions := true,
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),
       tsoMinimize := com.olvind.tso.plugin.Selection.None(),

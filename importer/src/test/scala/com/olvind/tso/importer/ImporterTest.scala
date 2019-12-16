@@ -47,29 +47,29 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
     assertImportsOk("material-ui", pedantic = true, update = update),
   )
   test("material-ui-slinky")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Slinky),
+    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Slinky(true)),
   )
   test("material-ui-japgolly")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Japgolly),
+    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Japgolly(true)),
   )
 
   test("react-transition-group")(
     assertImportsOk("react-transition-group", pedantic = true, update = update),
   )
   test("react-transition-group-slinky")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Slinky),
+    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Slinky(true)),
   )
   test("react-transition-group-japgolly")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Japgolly),
+    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Japgolly(true)),
   )
 
   test("react-integration-test")(
     assertImportsOk("react-integration-test", pedantic = false, update = update),
   )
   test("react-integration-test-slinky")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Slinky),
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Slinky(true)),
   )
   test("react-integration-test-japgolly")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Japgolly),
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Japgolly(true)),
   )
 }
