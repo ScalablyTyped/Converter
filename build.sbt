@@ -103,12 +103,12 @@ lazy val pluginSettings: Project => Project =
       watchSources ++= { (sourceDirectory.value ** "*").get },
     )
 
-val baseSettings: Project => Project =
+lazy val baseSettings: Project => Project =
   _.settings(
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     scalaVersion := "2.12.10",
     organization := "com.olvind",
-    version := "0.1-SNAPSHOT",
+    version := "1.0.0-M1",
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings"),
@@ -139,7 +139,7 @@ lazy val publicationSettings: Project => Project = _.settings(
   resolvers += Resolver.bintrayRepo("oyvindberg", "not-quite-public"),
 )
 
-val preventPublication: Project => Project =
+lazy val preventPublication: Project => Project =
   _.settings(
     publish := {},
     publishTo := Some(Resolver.file("Unused transient repository", target.value / "fakepublish")),
