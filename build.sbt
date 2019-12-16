@@ -108,7 +108,7 @@ lazy val baseSettings: Project => Project =
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     scalaVersion := "2.12.10",
     organization := "com.olvind",
-    version := "1.0.0-M1",
+    version := "1.0.0-M2-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings"),
