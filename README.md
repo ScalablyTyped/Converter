@@ -77,4 +77,4 @@ This project took [scala-js-ts-importer](http://github.com/sjrd/scala-js-ts-impo
 and inherited a lot of decisions from it.
 
 ## License
-Tso is distributed under the [Scala License](http://www.scala-lang.org/license.html).
+Tso is distributed under the [GPL version 3](https://opensource.org/licenses/GPL-3.0).
