@@ -9,6 +9,9 @@ object Libraries {
     * A good combination of interesting libraries, and libraries that are needed by libs in DT.
     */
   val extraExternals: Set[TsIdentLibrary] = awsSdk ++ expo ++ Set(
+    "react-phone-number-input",
+    "libphonenumber-js",
+    "ant-design-pro",
     "activex-helpers",
     "ajv-keywords",
     "androiduix",
