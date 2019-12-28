@@ -1,0 +1,475 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Anticipated questions about encoding · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="Finding a working encoding within the strict limits of Scala.js was hard, "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Anticipated questions about encoding · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="Finding a working encoding within the strict limits of Scala.js was hard, "/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/img/favicon.ico"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><img class="logo" src="/img/scalablytyped.svg" alt="ScalablyTyped"/><h2 class="headerTitleWithLogo">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>ScalablyTyped</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">ScalablyTyped<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/readme">The Javascript ecosystem for Scala.js!</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin">Getting started - SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/encoding">Anticipated questions about encoding</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Anticipated questions about encoding</h1></header><article><div><span><p>Finding a working encoding within the strict limits of Scala.js was hard,
+and certainly a bunch of things are decidedly suboptimal.</p>
+<p>However, we've made it to a place where most things work, which is great.</p>
+<p>The following points try to explain the big picture:</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-naming"></a><a href="#whatsup-with-naming" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with naming?</h3>
+<p>Modules receive pretty long names, because we flatten the namespace.
+The names should be predicable once you get the hang of it.</p>
+<p>for instance a typescript import such as this:</p>
+<pre><code class="hljs css language-typescript"><span class="hljs-keyword">import</span> AnchorLong <span class="hljs-keyword">from</span> <span class="hljs-string">"antd/es/anchor/AnchorLink"</span>;
+</code></pre>
+<p>will be in ScalablyTyped:</p>
+<pre><code class="hljs"><span class="hljs-keyword">import</span> typings.antd.esAnchorAnchorLinkMod.{<span class="hljs-keyword">default</span> =&gt; AnchorLong}
+</code></pre>
+<p>A somewhat smart way of handling this is to bundle your commonly used imports somewhere, for instance:</p>
+<pre><code class="hljs css language-scala">
+<span class="hljs-keyword">package</span> <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">myapp</span> </span>{
+  <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">AnchorLong</span> </span>= typings.antd.esAnchorAnchorLinkMod.<span class="hljs-keyword">default</span>
+  <span class="hljs-keyword">val</span> <span class="hljs-type">AnchorLong</span> = typings.antd.esAnchorAnchorLinkMod.<span class="hljs-keyword">default</span>
+}
+
+</code></pre>
+<p>Note: Earlier we used <code>Lib</code> and <code>NS</code> as a suffixes for all library and namespace names, we now managed to drop them.
+Migration should be easy with a search/replace of <code>typings.xxxLib =&gt; typings.xxx</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-the-hats"></a><a href="#whatsup-with-the-hats" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with the hats?</h3>
+<p>We convert typescript namespaces and modules into scala packages.</p>
+<p>In idiomatic scala top level members inside would be placed into package objects,
+but those are unfortunately <a href="https://github.com/scala-js/scala-js/issues/1892">broken</a> when used as javascript facades.
+For that reason we upgrade <code>var</code> and <code>def</code> to <code>object</code> instead.</p>
+<p>You will see that quite a few packages have an object (and/or a class) called <code>^</code>. This is a reference to the module itself,
+and you might need to refer it.</p>
+<ul>
+<li>To use classes which are exported as a module in commonjs (defined in Typescript as <code>export = class Foo {}</code>, used in Scala as <code>new typings.node.eventsMod.^()</code>)</li>
+<li>If you want to mutate top-level members (<code>typings.std.^.onerror = (x, _, _, _, _) =&gt; typings.std.console.warn(x)</code>)</li>
+</ul>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-numbers"></a><a href="#whatsup-with-numbers" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with numbers?</h3>
+<p>We're used to deal with <code>Int</code>, <code>Double</code>, and so on. Javascript isn't.
+In the general case it's hopeless to guess what a <code>number</code> is, so <code>Double</code> is all we get here.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-casting"></a><a href="#whatsup-with-casting" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with casting?</h3>
+<p>Since Typescript is structurally typed it's impossible that all subtyping relationships transfer to
+For instance:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">ArrayLike</span>[<span class="hljs-type">T</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title">/*</span> <span class="hljs-title">n</span> <span class="hljs-title">*/</span> <span class="hljs-title">ScalablyTyped</span>.<span class="hljs-title">runtime</span>.<span class="hljs-title">NumberDictionary</span>[<span class="hljs-type">T</span>] </span>{
+  <span class="hljs-keyword">val</span> length: <span class="hljs-type">Double</span>
+}
+</code></pre>
+<p>is a description of something that conforms to a minimal version of the <code>Array</code> interface.</p>
+<p>You'll find that <code>Array</code> itself doesn't inherit it:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Array</span>[<span class="hljs-type">T</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title">/*</span> <span class="hljs-title">n</span> <span class="hljs-title">*/</span> <span class="hljs-title">ScalablyTyped</span>.<span class="hljs-title">runtime</span>.<span class="hljs-title">NumberDictionary</span>[<span class="hljs-type">T</span>] </span>{
+  <span class="hljs-keyword">val</span> length: <span class="hljs-type">Double</span> = js.native
+  <span class="hljs-comment">//...</span>
+}
+</code></pre>
+<p>Although we could extend the converter to recognize some of these cases, it is not currently done.
+The fix is straightforward cast, demonstrating that you know something the compiler doesn't:</p>
+<pre><code class="hljs css language-scala">typings.std.<span class="hljs-type">Array</span>(<span class="hljs-number">1</span>).asInstanceOf[<span class="hljs-type">ArrayLike</span>[<span class="hljs-type">Int</span>]]
+</code></pre>
+<p>For good measure, bundle your knowledge somewhere so you don't litter you code with casts:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">ArrayIsArrayLike</span></span>[<span class="hljs-type">T</span>](ts: typings.std.<span class="hljs-type">Array</span>[<span class="hljs-type">T</span>]): typings.std.<span class="hljs-type">ArrayLike</span>[<span class="hljs-type">T</span>] = ts.asInstanceOf[typings.std.<span class="hljs-type">ArrayLike</span>[<span class="hljs-type">T</span>]]
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-bounds"></a><a href="#whatsup-with-bounds" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with bounds?</h3>
+<p>After conversion, all bounds are commented out. The converter has support for translating them,
+but they're commented out for now since they are often impractical to conform to.</p>
+<p>Take for instance this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Crypto</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getRandomValues</span></span>[<span class="hljs-type">T</span> <span class="hljs-comment">/* &lt;: Int8Array | Int16Array | Int32Array | Uint8Array | Uint16Array | Uint32Array | Uint8ClampedArray | Float32Array | Float64Array | DataView | Null */</span>](array: <span class="hljs-type">T</span>): <span class="hljs-type">T</span>
+}
+</code></pre>
+<p>For now you'll have to be aware of this limitation and treat bounds as documentation.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-classes"></a><a href="#whatsup-with-classes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with classes?</h3>
+<p>In Javascript classes are first class values, while in Scala they just float around in a parallel type-dimension.</p>
+<p>To capture this (and the idea of a &quot;newable&quot; function), a family of interfaces is introduced (in the <code>runtime</code> helper artifact):</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Instantiable1</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">R</span>] <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">Instantiable1</span> </span>{
+  <span class="hljs-meta">@inline</span> <span class="hljs-keyword">implicit</span> <span class="hljs-keyword">final</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Instantiable1Opts</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">R</span>](<span class="hljs-params">private val ctor: <span class="hljs-type">Instantiable1</span>[<span class="hljs-type">T1</span>, <span class="hljs-type">R</span>]</span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">AnyVal</span> </span>{
+    <span class="hljs-meta">@inline</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">newInstance1</span></span>(t1: <span class="hljs-type">T1</span>): <span class="hljs-type">R</span> =
+      js.<span class="hljs-type">Dynamic</span>.newInstance(ctor.asInstanceOf[js.<span class="hljs-type">Dynamic</span>])(t1.asInstanceOf[js.<span class="hljs-type">Any</span>]).asInstanceOf[<span class="hljs-type">R</span>]
+  }
+}
+</code></pre>
+<p>Given this, we can capture that <code>window</code> owns a newable <code>Blob</code> thing for instance:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Window</span> </span>{
+  <span class="hljs-keyword">var</span> <span class="hljs-type">Blob</span>: <span class="hljs-type">Anon_BlobParts</span> = ???
+}
+
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Anon_BlobParts</span></span>
+  <span class="hljs-keyword">extends</span> <span class="hljs-type">ScalablyTyped</span>.runtime.<span class="hljs-type">Instantiable0</span>[<span class="hljs-type">Blob</span>]
+  <span class="hljs-keyword">with</span> <span class="hljs-type">ScalablyTyped</span>.runtime.<span class="hljs-type">Instantiable1</span>[<span class="hljs-comment">/* blobParts */</span> js.<span class="hljs-type">Array</span>[<span class="hljs-type">BlobPart</span>], <span class="hljs-type">Blob</span>]
+  <span class="hljs-keyword">with</span> <span class="hljs-type">ScalablyTyped</span>.runtime.<span class="hljs-type">Instantiable2</span>[<span class="hljs-comment">/* blobParts */</span> js.<span class="hljs-type">Array</span>[<span class="hljs-type">BlobPart</span>], <span class="hljs-comment">/* options */</span> <span class="hljs-type">BlobPropertyBag</span>, <span class="hljs-type">Blob</span>]
+
+<span class="hljs-comment">//usage</span>
+<span class="hljs-keyword">val</span> blob: <span class="hljs-type">Blob</span> = typings.std.window.<span class="hljs-type">Blob</span>.newInstance0()
+</code></pre>
+<h4><a class="anchor" aria-hidden="true" id="inferred-classes"></a><a href="#inferred-classes" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>inferred classes</h4>
+<p>Since <code>Instantiable</code> has some drawbacks, statically reachable <code>Instantiable</code>s are upgraded to proper classes.</p>
+<p>For instance for this</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">HTMLDivElement</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTMLElement</span></span>
+
+<span class="hljs-meta">@JSGlobal</span>(<span class="hljs-string">"HTMLDivElement"</span>)
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">HTMLDivElement</span></span>
+  <span class="hljs-keyword">extends</span> org.scalablytyped.runtime.<span class="hljs-type">Instantiable0</span>[<span class="hljs-type">HTMLDivElement</span>]
+</code></pre>
+<p>We will infer this class</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@JSGlobal</span>(<span class="hljs-string">"HTMLDivElement"</span>)
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HTMLDivElementCls</span> (<span class="hljs-params"></span>) <span class="hljs-keyword">extends</span> <span class="hljs-title">HTMLDivElement</span></span>
+</code></pre>
+<p>These classes will frequently have a <code>Cls</code> suffix, again to avoid name conflicts.
+We keep both interface/type alias and the class because both might be useful (and in the case of angular, needed).</p>
+<p>Note: Be a bit wary with these classes. In typescript this pattern is sometimes used to signal
+that a it can participate in an instanceof check, but can't be instantiated.
+This applies to <code>HTMLDivElement</code> for instance.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-this"></a><a href="#whatsup-with-this" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with <code>this</code>?</h3>
+<p>Javascript and <code>this</code> is a long story. Surprisingly, it's not getting shorter with Scala.js</p>
+<p>The problem is that Scala.js discards the Javascript <code>this</code> when it calls functions, even if the function is
+owned (in Javascript terms) by an object. When calling methods it behaves as expected.</p>
+<p>For instance given the following trait:</p>
+<pre><code class="hljs css language-scala">
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">UnderlyingSink</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span> </span>{
+  <span class="hljs-keyword">val</span> start: <span class="hljs-type">WritableStreamDefaultControllerCallback</span> = js.native
+}
+
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">WritableStreamDefaultControllerCallback</span> </span>=
+  js.<span class="hljs-type">Function1</span>[<span class="hljs-comment">/* controller */</span> <span class="hljs-type">WritableStreamDefaultController</span>, <span class="hljs-type">Unit</span>]
+</code></pre>
+<p>It's generally impossible to know whether <code>this</code> is important in this context, and Scala.js is not going to supply it.
+We play it safe and rewrite most such cases to methods, like this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">UnderlyingSink</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">start</span></span>(controller: <span class="hljs-type">WritableStreamDefaultController</span>): <span class="hljs-type">Unit</span> = js.native
+}
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-strings"></a><a href="#whatsup-with-strings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with strings?</h3>
+<p>The Javascript world is a stringly-typed world.
+Typescript models the insanity with literal types.
+Literal types are supposed to land in Scala 2.13/dotty, but we don't have them yet.
+Even when we get them, erasure probably means they won't be too useful in this particular context.</p>
+<p>Soo, we cheat a bit. Let's have a look at what it looks like in the <code>csstype</code> library:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">package</span> typings
+<span class="hljs-keyword">package</span> csstype
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">csstypeStrings</span> </span>{
+  <span class="hljs-meta">@js</span>.native
+  <span class="hljs-keyword">sealed</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> `<span class="hljs-title">-moz-initial</span>` <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span></span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> `<span class="hljs-title">-moz-initial</span>`</span>: `-moz-initial` = <span class="hljs-string">"-moz-initial"</span>.asInstanceOf[`-moz-initial`]
+}
+
+</code></pre>
+<p>A more precise encoding might still be</p>
+<pre><code class="hljs css language-scala">  <span class="hljs-function"><span class="hljs-keyword">def</span> `<span class="hljs-title">-moz-initial</span>`</span>: `-moz-initial` <span class="hljs-keyword">with</span> <span class="hljs-type">String</span> = <span class="hljs-string">"-moz-initial"</span>.asInstanceOf[`-moz-initial` <span class="hljs-keyword">with</span> <span class="hljs-type">String</span>]
+</code></pre>
+<p>but that hasn't been explored yet. Erasure feels fairly arbitrary when it comes to intersection types.</p>
+<p>So there is that. A neat lie to fool <code>scalac</code> into accepting things it was never built to be prepared for,
+just have a glance at the method encoding below.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-all-those-methods"></a><a href="#whatsup-with-all-those-methods" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with all those methods?</h3>
+<p>The method encoding is somewhat complex, because of the huge disconnect between the flexible encoding
+Typescript provides to very richly describe an interface,
+and Scala's more rigid, JVM-conforming idea of what a method is.</p>
+<p>Let's first take a case like <code>HTMLCanvasElement.getContext</code>,
+where the value of the first parameter determines the return type.
+Typescript is built to handle this, where you define very specific overloads, and a more general definition.</p>
+<pre><code class="hljs css language-typescript">
+<span class="hljs-keyword">interface</span> HTMLCanvasElement <span class="hljs-keyword">extends</span> HTMLElement {
+    getContext(contextId: <span class="hljs-string">"2d"</span>, contextAttributes?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D | <span class="hljs-literal">null</span>;
+    getContext(contextId: <span class="hljs-string">"webgl"</span> | <span class="hljs-string">"experimental-webgl"</span>, contextAttributes?: WebGLContextAttributes): WebGLRenderingContext | <span class="hljs-literal">null</span>;
+    getContext(contextId: <span class="hljs-built_in">string</span>, contextAttributes?: {}): CanvasRenderingContext2D | WebGLRenderingContext | <span class="hljs-literal">null</span>;
+}
+</code></pre>
+<p>So what do we do in Scala? We could consolidate/discard the methods and go for a union type:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">HTMLCanvasElement</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTMLElement</span> </span>{
+  <span class="hljs-comment">// we don't actually do this</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext</span></span>(contextId: <span class="hljs-type">String</span>, contextAttributes: js.<span class="hljs-type">UndefOr</span>[js.<span class="hljs-type">Object</span> | <span class="hljs-type">CanvasRenderingContext2DSettings</span> | <span class="hljs-type">WebGLContextAttributes</span>]): <span class="hljs-type">CanvasRenderingContext2D</span> | <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+}
+</code></pre>
+<p>But where would the fun be? And the type-safety? This is what we actually end up with:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> typings.std.stdStrings.{`<span class="hljs-number">2</span>d`, `experimental-webgl`, webgl}
+
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">HTMLCanvasElement</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">HTMLElement</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext</span></span>(contextId: <span class="hljs-type">String</span>): <span class="hljs-type">CanvasRenderingContext2D</span> | <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext</span></span>(contextId: <span class="hljs-type">String</span>, contextAttributes: js.<span class="hljs-type">Object</span>): <span class="hljs-type">CanvasRenderingContext2D</span> | <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"getContext"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext_2d</span></span>(contextId: `<span class="hljs-number">2</span>d`): <span class="hljs-type">CanvasRenderingContext2D</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"getContext"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext_2d</span></span>(contextId: `<span class="hljs-number">2</span>d`, contextAttributes: <span class="hljs-type">CanvasRenderingContext2DSettings</span>): <span class="hljs-type">CanvasRenderingContext2D</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"getContext"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> `<span class="hljs-title">getContext_experimental-webgl</span>`</span>(contextId: `experimental-webgl`): <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"getContext"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> `<span class="hljs-title">getContext_experimental-webgl</span>`</span>(contextId: `experimental-webgl`, contextAttributes: <span class="hljs-type">WebGLContextAttributes</span>): <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"getContext"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext_webgl</span></span>(contextId: webgl): <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"getContext"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">getContext_webgl</span></span>(contextId: webgl, contextAttributes: <span class="hljs-type">WebGLContextAttributes</span>): <span class="hljs-type">WebGLRenderingContext</span> | <span class="hljs-type">Null</span> = js.native
+}
+</code></pre>
+<p>Several things are in motion here.</p>
+<ul>
+<li>We use the faked literal strings to distinguish the different values <code>contextId</code> can have.
+In this particular case the methods are also renamed (<code>getContext_2d</code>),
+that's mostly only the case in the presence of type literals.</li>
+<li>All the overloads are duplicated to account for optional parameters,
+because default parameters in Scala don't work in the presence of overloads.
+Because of the renames it isn't strictly necessary in this case,
+but it's done all over the generated code, because further overloads might also appear in sub/super classes
+(including in dependencies)</li>
+</ul>
+<p>Talking about overloads/overrides, there are more things to consider for the conversion.
+Let's take a new example, <code>EventTarget</code></p>
+<pre><code class="hljs css language-typescript"><span class="hljs-keyword">interface</span> EventTarget {
+    addEventListener(<span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, listener: EventListenerOrEventListenerObject | <span class="hljs-literal">null</span>, options?: <span class="hljs-built_in">boolean</span> | AddEventListenerOptions): <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">type</span> EventListenerOrEventListenerObject = EventListener | EventListenerObject;
+
+<span class="hljs-keyword">interface</span> EventListener {
+    (evt: Event): <span class="hljs-built_in">void</span>;
+}
+<span class="hljs-keyword">interface</span> EventListenerObject {
+    handleEvent(evt: Event): <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-keyword">interface</span> MediaStream <span class="hljs-keyword">extends</span> EventTarget {
+    addEventListener&lt;K <span class="hljs-keyword">extends</span> keyof MediaStreamEventMap&gt;<span class="hljs-function">(<span class="hljs-params"><span class="hljs-keyword">type</span>: K, listener: (<span class="hljs-params"><span class="hljs-keyword">this</span>: MediaStream, ev: MediaStreamEventMap[K]</span>) =&gt; <span class="hljs-built_in">any</span>, options?: <span class="hljs-built_in">boolean</span> | AddEventListenerOptions</span>): <span class="hljs-params">void</span>;
+    <span class="hljs-params">addEventListener</span>(<span class="hljs-params"><span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>, listener: EventListenerOrEventListenerObject, options?: <span class="hljs-built_in">boolean</span> | AddEventListenerOptions</span>): <span class="hljs-params">void</span>;
+}
+
+<span class="hljs-params">interface</span> <span class="hljs-params">MediaStreamEventMap</span> {
+    "<span class="hljs-params">active</span>": <span class="hljs-params">Event</span>;
+    "<span class="hljs-params">addtrack</span>": <span class="hljs-params">MediaStreamTrackEvent</span>;
+}
+</span></code></pre>
+<p>Notice that the second parameter of <code>addEventListener</code> in <code>EventTarget</code> has type <code>EventListenerOrEventListenerObject | null</code>,
+while in <code>MediaStream</code> it is not nullable. Boom - compile error!</p>
+<p>To solve this situation, we also duplicate methods rather liberally around union types, such that <code>EventTarget</code> ends up as</p>
+<pre><code class="hljs css language-scala">
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">EventTarget</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: <span class="hljs-type">String</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: <span class="hljs-type">String</span>, listener: <span class="hljs-type">EventListenerOrEventListenerObject</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: <span class="hljs-type">String</span>, listener: <span class="hljs-type">EventListenerOrEventListenerObject</span>, options: <span class="hljs-type">AddEventListenerOptions</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: <span class="hljs-type">String</span>, listener: <span class="hljs-type">EventListenerOrEventListenerObject</span>, options: <span class="hljs-type">Boolean</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: <span class="hljs-type">String</span>, listener: <span class="hljs-type">Null</span>, options: <span class="hljs-type">AddEventListenerOptions</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: <span class="hljs-type">String</span>, listener: <span class="hljs-type">Null</span>, options: <span class="hljs-type">Boolean</span>): <span class="hljs-type">Unit</span> = js.native
+}
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">EventListenerOrEventListenerObject</span> </span>= <span class="hljs-type">EventListener</span> | <span class="hljs-type">EventListenerObject</span>
+
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">EventListener</span> </span>= js.<span class="hljs-type">Function1</span>[<span class="hljs-comment">/* evt */</span> <span class="hljs-type">Event</span>, <span class="hljs-type">Unit</span>]
+
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">EventListenerObject</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">handleEvent</span></span>(evt: <span class="hljs-type">Event</span>): <span class="hljs-type">Unit</span>
+}
+
+</code></pre>
+<p>The point is not necessarily that this is awesome, but that it compiles - even in
+the presence of overrides in subclasses with different optionality of parameters</p>
+<p>Let's have a look at <code>MediaStream</code> as well:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> typings.std.stdStrings.{active, addtrack}
+
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">MediaStream</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventTarget</span> </span>{
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"addEventListener"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener_active</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: active, listener: js.<span class="hljs-type">ThisFunction1</span>[<span class="hljs-comment">/* this */</span> <span class="hljs-keyword">this</span><span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">/*</span> <span class="hljs-title">ev</span> <span class="hljs-title">*/</span> <span class="hljs-title">Event</span>, <span class="hljs-title">_</span>])</span>: <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"addEventListener"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener_active</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: active, listener: js.<span class="hljs-type">ThisFunction1</span>[<span class="hljs-comment">/* this */</span> <span class="hljs-keyword">this</span><span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">/*</span> <span class="hljs-title">ev</span> <span class="hljs-title">*/</span> <span class="hljs-title">Event</span>, <span class="hljs-title">_</span>], <span class="hljs-title">options</span></span>: <span class="hljs-type">AddEventListenerOptions</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"addEventListener"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener_active</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: active, listener: js.<span class="hljs-type">ThisFunction1</span>[<span class="hljs-comment">/* this */</span> <span class="hljs-keyword">this</span><span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">/*</span> <span class="hljs-title">ev</span> <span class="hljs-title">*/</span> <span class="hljs-title">Event</span>, <span class="hljs-title">_</span>], <span class="hljs-title">options</span></span>: <span class="hljs-type">Boolean</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"addEventListener"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener_addtrack</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: addtrack, listener: js.<span class="hljs-type">ThisFunction1</span>[<span class="hljs-comment">/* this */</span> <span class="hljs-keyword">this</span><span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">/*</span> <span class="hljs-title">ev</span> <span class="hljs-title">*/</span> <span class="hljs-title">MediaStreamTrackEvent</span>, <span class="hljs-title">_</span>])</span>: <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"addEventListener"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener_addtrack</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: addtrack, listener: js.<span class="hljs-type">ThisFunction1</span>[<span class="hljs-comment">/* this */</span> <span class="hljs-keyword">this</span><span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">/*</span> <span class="hljs-title">ev</span> <span class="hljs-title">*/</span> <span class="hljs-title">MediaStreamTrackEvent</span>, <span class="hljs-title">_</span>], <span class="hljs-title">options</span></span>: <span class="hljs-type">AddEventListenerOptions</span>): <span class="hljs-type">Unit</span> = js.native
+  <span class="hljs-meta">@JSName</span>(<span class="hljs-string">"addEventListener"</span>)
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">addEventListener_addtrack</span></span>(`<span class="hljs-class"><span class="hljs-keyword">type</span>`</span>: addtrack, listener: js.<span class="hljs-type">ThisFunction1</span>[<span class="hljs-comment">/* this */</span> <span class="hljs-keyword">this</span><span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">/*</span> <span class="hljs-title">ev</span> <span class="hljs-title">*/</span> <span class="hljs-title">MediaStreamTrackEvent</span>, <span class="hljs-title">_</span>], <span class="hljs-title">options</span></span>: <span class="hljs-type">Boolean</span>): <span class="hljs-type">Unit</span> = js.native
+
+</code></pre>
+<ul>
+<li>The general fallback definition of <code>addEventListener</code> is omitted since it didn't enrich what was defined in the superclass</li>
+<li>we use <code>this.type</code> to allow overrides which take the same callback function but with a more specific <code>this</code> context</li>
+<li>we expand the <code>&lt;K extends keyof MediaStreamEventMap&gt;</code> construct such that we maintain full type-safety of the callback based on the <code>type</code> parameter</li>
+</ul>
+<p>Note also that this although this section mainly explores duplication of methods, there is also a consolidation step,
+which combines methods with the same JVM erasure, as Scala cares about that a lot.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-rewriting-type-unions-to-inheritance"></a><a href="#whatsup-with-rewriting-type-unions-to-inheritance" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with rewriting type unions to inheritance?</h3>
+<p>We've had some issues where unions of many types, among other issues like compile time, bumps
+into the JVMs limit for how many string literals can be referenced in a class/method.</p>
+<p>Scala is much better prepared to handle <code>trait</code>s with many implementations, so as long as all
+types in a long type union is contained in the same library, we rewrite for instance this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">BlobPart</span> </span>= <span class="hljs-type">BufferSource</span> | <span class="hljs-type">Blob</span> | <span class="hljs-type">String</span>
+</code></pre>
+<p>Into this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-comment">/* Rewritten from type alias, can be one of:
+  - BufferSource
+  - Blob
+  - String
+*/</span>
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">BlobPart</span> </span>= _BlobPart | <span class="hljs-type">String</span>
+
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">_BlobPart</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">Blob</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">_BlobPart</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">BufferSource</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">_BlobPart</span></span>
+
+</code></pre>
+<p>This mechanism also means that the fake string literals seen above can inherit from traits:</p>
+<pre><code class="hljs"><span class="hljs-meta">@js</span>.native
+<span class="hljs-keyword">sealed</span> <span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">center</span></span>
+  <span class="hljs-keyword">extends</span> <span class="hljs-type">AlignSetting</span>
+     <span class="hljs-keyword">with</span> <span class="hljs-type">CanvasTextAlign</span>
+     <span class="hljs-keyword">with</span> <span class="hljs-type">LineAlignSetting</span>
+     <span class="hljs-keyword">with</span> <span class="hljs-type">PositionAlignSetting</span>
+     <span class="hljs-keyword">with</span> <span class="hljs-type">ScrollLogicalPosition</span>
+</code></pre>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-jsnative-and-all-that"></a><a href="#whatsup-with-jsnative-and-all-that" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with @js.native and all that?</h3>
+<p>So Scala.js has two types of interop, which is better described in the Scala.js documentation.</p>
+<h4><a class="anchor" aria-hidden="true" id="scalajsdefined"></a><a href="#scalajsdefined" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>@ScalaJSDefined</h4>
+<p>We don't really use this annotation anymore, it's just the default for types which extend <code>js.Object</code>.</p>
+<p>This is a nice encoding for objects the user themselves create, since it's newable:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">new</span> <span class="hljs-type">Props</span> {
+  <span class="hljs-keyword">override</span> <span class="hljs-keyword">val</span> foo = <span class="hljs-number">1</span>
+}
+</code></pre>
+<p>We try to convert everything into this format, but we give up in case the structure is callable,
+or if it has overloads.</p>
+<h4><a class="anchor" aria-hidden="true" id="jsnative"></a><a href="#jsnative" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>@js.native</h4>
+<p>This describes things you can only consume, which is most of the surface of most libraries.</p>
+<p>Because of the rather liberal use of method duplication (which causes overloads) described above,
+there will be cases where you'll need to instantiate a <code>@js.native</code> annotated trait.</p>
+<p>This is done by casting, with no compiler help:</p>
+<pre><code class="hljs css language-scala">js.<span class="hljs-type">Dynamic</span>.literal(foo = <span class="hljs-number">1</span>).asInstanceof[<span class="hljs-type">Props</span>]
+</code></pre>
+<p>This will be improved in the future, but for now it is what it is.
+Based on using 0.01% of the libraries it hasn't been a problem so far.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-type-mappings"></a><a href="#whatsup-with-type-mappings" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with type mappings?</h3>
+<p>Typescript provides this awesome way of transforming types called type mappings.</p>
+<p>They work more or less like this:</p>
+<pre><code class="hljs css language-typescript"><span class="hljs-comment">// from typescript's bundled definitions</span>
+<span class="hljs-comment">/**
+ * Make all properties in T optional
+ */</span>
+<span class="hljs-keyword">type</span> Partial&lt;T&gt; = {
+    [P <span class="hljs-keyword">in</span> keyof T]?: T[P];
+};
+
+<span class="hljs-comment">/**
+ * From T pick a set of properties K
+ */</span>
+<span class="hljs-keyword">type</span> Pick&lt;T, K <span class="hljs-keyword">extends</span> keyof T&gt; = {
+    [P <span class="hljs-keyword">in</span> K]: T[P];
+};
+
+<span class="hljs-comment">/**
+ * Construct a type with a set of properties K of type T
+ */</span>
+<span class="hljs-keyword">type</span> Record&lt;K <span class="hljs-keyword">extends</span> keyof <span class="hljs-built_in">any</span>, T&gt; = {
+    [P <span class="hljs-keyword">in</span> K]: T;
+};
+
+<span class="hljs-keyword">interface</span> Person {
+    age: <span class="hljs-built_in">number</span>;
+    name: <span class="hljs-built_in">string</span>;
+}
+
+<span class="hljs-comment">// these compile</span>
+<span class="hljs-keyword">const</span> named: Pick&lt;Person, <span class="hljs-string">"name"</span>&gt; = {name: <span class="hljs-string">"asdasd"</span>};
+<span class="hljs-keyword">const</span> empty: Partial&lt;Person&gt; = {};
+<span class="hljs-keyword">const</span> record: Record&lt;<span class="hljs-string">"a"</span> | <span class="hljs-string">"b"</span>, <span class="hljs-built_in">number</span>&gt; = {a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>}
+</code></pre>
+<p>As you might imagine, converting these to Scala is not straightforward.
+For static cases we can evaluate them and generate interfaces (though it's not implemented yet!),
+but for generic cases (say <code>Partial&lt;T&gt;</code>) there isn't much we can do for now.</p>
+<p>Just to get things working, we mostly ignore the effects of the type mappings in Scala for now,
+and keep the transformation in a comment:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Partial</span>[<span class="hljs-type">T</span>] </span>= <span class="hljs-comment">/* import warning: ImportType.apply c Unsupported type mapping:
+  {[ P in keyof T ]:? T[P]}
+  */</span> typings.std.stdStrings.<span class="hljs-type">Partial</span> <span class="hljs-keyword">with</span> <span class="hljs-type">T</span>
+</code></pre>
+<p>This is again not necessarily awesome, but it works.</p>
+<p>Crucially, the encoding leaves a trace in the form of the string literal in the intersection type.</p>
+<p>When you consume a structure like this it acts like a (subtle) red flag to indicate that you might not
+get exactly the data the type system indicates.
+When you produce such a value, you need to cast yourself:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">val</span> partialPerson: <span class="hljs-type">Partial</span>[<span class="hljs-type">Person</span>] = js.<span class="hljs-type">Dynamic</span>.literal(name = <span class="hljs-string">"dsa"</span>).asInstanceOf[<span class="hljs-type">Partial</span>[<span class="hljs-type">Person</span>]]
+</code></pre>
+<p>Also notice that for <code>Record</code> the transformation is such that we cannot just ignore it,
+so we fall back to <code>js.Any</code>.</p>
+<h3><a class="anchor" aria-hidden="true" id="whatsup-with-interface-augmentation"></a><a href="#whatsup-with-interface-augmentation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with interface augmentation?</h3>
+<p>Another awesome feature of typescript is how you can describe that a library or a module augments
+an existing structure.</p>
+<pre><code class="hljs css language-typescript"><span class="hljs-comment">// in library foo</span>
+<span class="hljs-keyword">interface</span> FooStatic {
+    sayHello();
+}
+
+<span class="hljs-comment">// in library foo-augmented</span>
+<span class="hljs-keyword">interface</span> FooStatic {
+    sayGoodbye();
+}
+
+<span class="hljs-keyword">import</span> foo <span class="hljs-keyword">from</span> <span class="hljs-string">'foo'</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-string">'augments-foo'</span>;
+foo.sayGoodbye();
+</code></pre>
+<p>The converter has some internal support for detecting this,
+but we haven't experimented with outputting anything yet.
+That means that you have to detect this yourself and cast.
+Have a look at the <code>jquery</code>/<code>jquery-ui</code>
+<a href="https://github.com/oyvindberg/ScalablyTypedDemos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala">demo</a>
+to see how it's done.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/plugin-no-bundler"><span class="arrow-prev">← </span><span>SBT plugin without scalajs-bundler</span></a><a class="docs-next button" href="/docs/devel/about"><span>Development</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"><img src="/img/scalablytyped.svg" alt="ScalablyTyped" width="66" height="58"/></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2019 Øyvind Raddum Berg</section></footer></div></body></html>
