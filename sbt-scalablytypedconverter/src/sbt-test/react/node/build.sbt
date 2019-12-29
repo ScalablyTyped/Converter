@@ -3,6 +3,7 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(ScalablyTypedConverterPlugin)
     .settings(
+      useYarn := true,
       Compile / npmDependencies ++= Seq(
         "@types/express" -> "4.17.2",
       ),
