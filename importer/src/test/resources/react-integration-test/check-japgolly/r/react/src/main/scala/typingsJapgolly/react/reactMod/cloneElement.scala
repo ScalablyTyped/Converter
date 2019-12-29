@@ -23,10 +23,9 @@ object cloneElement extends js.Object {
   // DOM Element (has to be the last, because type checking stops at first overload that fits)
   def apply[P /* <: DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](element: DOMElement[P, T]): DomElement = js.native
   def apply[P /* <: DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */](element: DOMElement[P, T], props: DOMAttributes[T] with P, children: Node*): DomElement = js.native
-  // DOM Elements
-  // ReactHTMLElement
-  def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](element: DetailedReactHTMLElement[P, T]): DetailedReactHTMLElement[P, T] = js.native
-  def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](element: DetailedReactHTMLElement[P, T], props: P, children: Node*): DetailedReactHTMLElement[P, T] = js.native
+  // ReactHTMLElement, less specific
+  def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](element: ReactHTMLElement[T]): ReactHTMLElement[T] = js.native
+  def apply[P /* <: HTMLAttributes[T] */, T /* <: HTMLElement */](element: ReactHTMLElement[T], props: P, children: Node*): ReactHTMLElement[T] = js.native
   // SVGElement
   def apply[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](element: ReactSVGElement): ReactSVGElement = js.native
   def apply[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](element: ReactSVGElement, props: P, children: Node*): ReactSVGElement = js.native

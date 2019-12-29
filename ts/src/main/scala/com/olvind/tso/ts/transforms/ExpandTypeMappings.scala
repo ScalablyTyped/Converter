@@ -226,14 +226,14 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             Ok(names.to[Set], wasRewritten = false)
           case (x: TsDeclEnum, _) if x.isConst =>
             val names = x.members.collect {
-              case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) => stringUtils.unquote(lit.literal)
+              case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) => lit.literal
             }
             Ok(names.to[Set], wasRewritten = false)
         }
 
         res.getOrElse(Problems(List(TypeNotFound(scope, tr))))
 
-      case TsTypeLiteral(literal) => Ok(Set(stringUtils.unquote(literal.literal)), wasRewritten = false)
+      case TsTypeLiteral(literal) => Ok(Set(literal.literal), wasRewritten = false)
       case TsTypeKeyOf(key) =>
         AllMembersFor.forType(scope)(key).map(ms => keysFor(ms).to[Set])
       case TsTypeObject(_, members) => Ok(keysFor(members).to[Set], wasRewritten = false)

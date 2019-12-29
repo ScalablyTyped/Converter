@@ -161,7 +161,7 @@ object ImportTypings {
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
           shouldGenerateCompanions = true,
-          enableScalaJsDefined = false,
+          enableScalaJsDefined     = false,
           PrettyStringType.Regular,
           List("es5", "dom"),
           Set("typescript", "csstype"),

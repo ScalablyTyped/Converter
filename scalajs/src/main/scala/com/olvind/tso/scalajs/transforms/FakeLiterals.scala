@@ -9,27 +9,43 @@ object FakeLiterals {
   /* hack: I needed some out of band communication that a TypeRef is actually to a fake literal type. We use reference equality */
   val LiteralTokenComment: Comments = new Comments(Nil)
 
-  def apply(outputPkg: Name, scope: TreeScope)(s: ContainerTree): ContainerTree =
-    LiteralRewriter(outputPkg, s, scope).output
+  def apply(outputPkg: Name, scope: TreeScope, illegalNames: CleanIllegalNames)(tree: ContainerTree): ContainerTree =
+    LiteralRewriter(outputPkg, illegalNames, tree, scope).output
 
-  private case class LiteralRewriter(outputPkg: Name, _s: ContainerTree, scope: TreeScope) extends TreeTransformation {
+  private case class LiteralRewriter(
+      outputPkg:    Name,
+      illegalNames: CleanIllegalNames,
+      tree:         ContainerTree,
+      scope:        TreeScope,
+  ) extends TreeTransformation {
+
     val stringsByLowercase: Map[String, Seq[String]] =
       TreeTraverse
-        .collect(_s) {
-          case TypeRef.Literal(x) if x.startsWith("\"") => stringUtils.unquote(x)
+        .collect(tree) {
+          case TypeRef.StringLiteral(underlying) => cleanName(underlying)
         }
         .groupBy(_.toLowerCase)
         .mapValues(_.distinct.sorted)
 
-    def suffixed(underlying: String) = {
-      val n = stringsByLowercase(underlying.toLowerCase).indexWhere(_ === underlying)
-      underlying + ("_" * n)
+    def calculateName(underlying: String): Name = {
+      val cleaned = cleanName(underlying)
+      val n       = stringsByLowercase(cleaned.toLowerCase).indexWhere(_ === underlying)
+      val suffix  = "_" * n
+      Name(cleaned + suffix)
     }
 
-    val StringModuleName  = Name(_s.name.unescaped + "Strings")
-    val collectedStrings  = mutable.HashMap.empty[String, Name]
-    val NumbersModuleName = Name(_s.name.unescaped + "Numbers")
-    val collectedNumbers  = mutable.HashMap.empty[String, Name]
+    def cleanName(str: String): String =
+      str match {
+        case illegal if illegalNames.Illegal(Name(illegal)) => illegal + "_"
+        case fine                                           => Name.necessaryRewrite(fine).getOrElse(fine)
+      }
+
+    val StringModuleName   = Name(tree.name.unescaped + "Strings")
+    val collectedStrings   = mutable.HashMap.empty[String, Name]
+    val NumbersModuleName  = Name(tree.name.unescaped + "Numbers")
+    val collectedNumbers   = mutable.HashMap.empty[String, Name]
+    val BooleansModuleName = Name(tree.name.unescaped + "Booleans")
+    val collectedBooleans  = mutable.HashMap.empty[String, Name]
 
     def module(collected: mutable.HashMap[String, Name], moduleName: Name): Option[ModuleTree] =
       if (collected.isEmpty) None
@@ -37,7 +53,7 @@ object FakeLiterals {
         val members =
           collected.flatMap {
             case (underlying: String, name) =>
-              val codePath = _s.codePath + moduleName + name
+              val codePath = tree.codePath + moduleName + name
               val `trait` =
                 ClassTree(
                   Seq(Annotation.JsNative),
@@ -54,7 +70,7 @@ object FakeLiterals {
 
               val `def` =
                 MethodTree(
-                  Annotation.jsName(name) :+ Annotation.Inline,
+                  List(Annotation.Inline),
                   ProtectionLevel.Default,
                   name,
                   Nil,
@@ -69,36 +85,43 @@ object FakeLiterals {
           }
 
         Some(
-          ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, _s.codePath + moduleName, isOverride = false),
+          ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, tree.codePath + moduleName, isOverride = false),
         )
       }
 
     override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef =
       s match {
-        case TypeRef.Literal(underlying) if underlying.charAt(0) === '"' =>
-          val name = Name(PrettyString.nameFor(suffixed(stringUtils.unquote(underlying))))
-          collectedStrings(underlying) = name
-          TypeRef(QualifiedName(List(outputPkg, _s.name, StringModuleName, name)), Nil, LiteralTokenComment)
+        case TypeRef.StringLiteral(underlying) =>
+          val name = calculateName(underlying)
+          collectedStrings(stringUtils.quote(underlying)) = name
+          TypeRef(QualifiedName(List(outputPkg, tree.name, StringModuleName, name)), Nil, LiteralTokenComment)
 
-        case TypeRef.Literal(underlying) =>
+        case TypeRef.BooleanLiteral(underlying) =>
+          val name = Name(underlying)
+          collectedBooleans(underlying) = name
+          TypeRef(QualifiedName(List(outputPkg, tree.name, BooleansModuleName, name)), Nil, LiteralTokenComment)
+
+        case TypeRef.NumberLiteral(underlying) =>
           val (newUnderlying, name) =
-            (PrettyString.nameFor(underlying), isTooBigForInt(underlying)) match {
+            (underlying, isTooBigForInt(underlying)) match {
               case (baseName, Some(long)) =>
                 (long.toString + ".0", Name("_" + baseName))
               case (baseName, _) => (underlying, Name(baseName))
             }
 
           collectedNumbers(newUnderlying) = name
-          TypeRef(QualifiedName(List(outputPkg, _s.name, NumbersModuleName, name)), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(outputPkg, tree.name, NumbersModuleName, name)), Nil, LiteralTokenComment)
+
         case other =>
           other
       }
 
     lazy val output: ContainerTree = {
-      val ss         = visitContainerTree(scope)(_s)
+      val ss         = visitContainerTree(scope)(tree)
       val nums       = module(collectedNumbers, NumbersModuleName)
       val strings    = module(collectedStrings, StringModuleName)
-      val newMembers = ss.members ++ nums ++ strings
+      val booleans   = module(collectedBooleans, BooleansModuleName)
+      val newMembers = ss.members ++ nums ++ strings ++ booleans
       ss match {
         case p: PackageTree => p.copy(members = newMembers)
         case m: ModuleTree  => m.copy(members = newMembers)
@@ -111,4 +134,5 @@ object FakeLiterals {
       case Success(value) if value > Int.MaxValue || value < Int.MinValue => Some(value)
       case _                                                              => None
     }
+
 }

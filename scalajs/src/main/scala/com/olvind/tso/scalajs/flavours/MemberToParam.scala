@@ -7,6 +7,9 @@ trait MemberToParam {
 }
 
 object MemberToParam {
+  def escapeIntoString(name: Name) =
+    stringUtils.quote(name.unescaped)
+
   object Default extends MemberToParam {
     private val Cast = ".asInstanceOf[js.Any]"
 
@@ -23,7 +26,7 @@ object MemberToParam {
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(
                     obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
+                      s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -33,7 +36,7 @@ object MemberToParam {
                   ParamTree(name, isImplicit = false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
                   Right(
                     obj =>
-                      s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
+                      s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -52,7 +55,7 @@ object MemberToParam {
                     ),
                     Right(
                       obj =>
-                        s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+                        s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)""",
                     ),
                   ),
                 )
@@ -68,7 +71,7 @@ object MemberToParam {
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(
                     obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
+                      s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -86,11 +89,11 @@ object MemberToParam {
                       None,
                       NoComments,
                     ),
-                    if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
+                    if (!name.isEscaped && f.originalName === name)
                       Left(s"""${name.value} = $convertedTarget""")
                     else
                       Right(
-                        obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")($convertedTarget)""",
+                        obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)""",
                       ),
                   ),
                 )
@@ -98,11 +101,11 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, origTpe, None, NoComments),
-                  if (!ScalaNameEscape.needsEscaping(name.unescaped) && f.originalName === name)
+                  if (!name.isEscaped && f.originalName === name)
                     Left(s"""${name.value} = ${name.value}$Cast""")
                   else
                     Right(
-                      obj => s"""$obj.updateDynamic("${f.originalName.unescaped}")(${name.value}$Cast)""",
+                      obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                     ),
                 ),
               )
@@ -124,10 +127,10 @@ object MemberToParam {
                   None,
                   NoComments,
                 ),
-                if (!ScalaNameEscape.needsEscaping(m.name.unescaped) && m.originalName === m.name)
+                if (!m.name.isEscaped && m.originalName === m.name)
                   Left(s"""${m.name.value} = $convertedTarget""")
                 else
-                  Right(obj => s"""$obj.updateDynamic("${m.originalName.unescaped}")($convertedTarget)"""),
+                  Right(obj => s"""$obj.updateDynamic(${escapeIntoString(m.originalName)})($convertedTarget)"""),
               ),
             )
       }

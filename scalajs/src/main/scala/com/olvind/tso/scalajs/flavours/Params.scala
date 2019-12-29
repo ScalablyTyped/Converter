@@ -232,5 +232,6 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
         case Annotation.JsGlobal(qname)                    => qname.parts.last
       }
       .filterNot(cleanIllegalNames.Illegal)
+      .map(Name.necessaryRewrite)
       .getOrElse(fallback)
 }

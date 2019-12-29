@@ -408,19 +408,21 @@ object TypeRef {
         case _ => None
       }
   }
-
-  object Literal {
+  abstract class LiteralCompanion(qname: QualifiedName) {
     def apply(underlying: String): TypeRef =
-      TypeRef(QualifiedName.LITERAL, Seq(TypeRef(QualifiedName(List(Name(underlying))), Nil, NoComments)), NoComments)
+      TypeRef(qname, Seq(TypeRef(QualifiedName(List(Name(underlying))), Nil, NoComments)), NoComments)
 
     def unapply(typeRef: TypeRef): Option[String] =
       typeRef match {
-        case TypeRef(QualifiedName.LITERAL, Seq(TypeRef(QualifiedName(name :: Nil), Nil, _)), _) =>
+        case TypeRef(`qname`, Seq(TypeRef(QualifiedName(name :: Nil), Nil, _)), _) =>
           Some(name.unescaped)
 
         case _ => None
       }
   }
+  object StringLiteral extends LiteralCompanion(QualifiedName.STRING_LITERAL)
+  object NumberLiteral extends LiteralCompanion(QualifiedName.NUMBER_LITERAL)
+  object BooleanLiteral extends LiteralCompanion(QualifiedName.BOOLEAN_LITERAL)
 
   object Repeated {
     def apply(underlying: TypeRef, comments: Comments): TypeRef =

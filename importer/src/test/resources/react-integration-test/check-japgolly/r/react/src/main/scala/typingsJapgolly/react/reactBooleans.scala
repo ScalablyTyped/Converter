@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object reactNumbers {
+object reactBooleans {
   @js.native
   sealed trait `false`
     extends IsExactlyAny[js.Any]

@@ -381,8 +381,8 @@ object Printer {
         case TypeRef.Union(types) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
 
-        case TypeRef.Literal(literal: String) =>
-          literal |+| ".type"
+        case TypeRef.StringLiteral(_) | TypeRef.NumberLiteral(_) | TypeRef.BooleanLiteral(_) =>
+          sys.error("Should be rewritten")
 
         case TypeRef.Repeated(underlying: TypeRef, _) =>
           paramsIfNeeded(formatTypeRef(indent)(underlying)) |+| "*"

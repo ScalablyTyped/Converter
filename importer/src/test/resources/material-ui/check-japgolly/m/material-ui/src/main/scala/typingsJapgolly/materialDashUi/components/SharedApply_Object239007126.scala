@@ -8,7 +8,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_Object152536094[ComponentRef] () {
+abstract class SharedApply_Object239007126[ComponentRef] () {
   val componentImport: js.Any
   def apply(
     key: js.UndefOr[Key] = js.undefined,

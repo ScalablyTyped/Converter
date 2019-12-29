@@ -100,9 +100,6 @@ object semanticDashUiDashReactStrings {
        with SemanticWIDTHSSTRING
   
   @js.native
-  sealed trait JS extends SemanticICONS
-  
-  @js.native
   sealed trait accessible extends SemanticICONS
   
   @js.native
@@ -2100,6 +2097,9 @@ object semanticDashUiDashReactStrings {
   
   @js.native
   sealed trait `js square` extends SemanticICONS
+  
+  @js.native
+  sealed trait js_ extends SemanticICONS
   
   @js.native
   sealed trait jsfiddle extends SemanticICONS
@@ -4210,8 +4210,6 @@ object semanticDashUiDashReactStrings {
   @scala.inline
   def `9`: `9` = "9".asInstanceOf[`9`]
   @scala.inline
-  def JS: JS = "js".asInstanceOf[JS]
-  @scala.inline
   def accessible: accessible = "accessible".asInstanceOf[accessible]
   @scala.inline
   def accusoft: accusoft = "accusoft".asInstanceOf[accusoft]
@@ -5511,6 +5509,8 @@ object semanticDashUiDashReactStrings {
   def jpy: jpy = "jpy".asInstanceOf[jpy]
   @scala.inline
   def `js square`: `js square` = "js square".asInstanceOf[`js square`]
+  @scala.inline
+  def js_ : js_ = "js".asInstanceOf[js_]
   @scala.inline
   def jsfiddle: jsfiddle = "jsfiddle".asInstanceOf[jsfiddle]
   @scala.inline

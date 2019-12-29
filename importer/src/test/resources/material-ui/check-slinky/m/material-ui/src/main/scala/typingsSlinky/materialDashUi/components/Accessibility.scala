@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object Accessibility extends SharedApply_Object152536094[default] {
+object Accessibility extends SharedApply_Object239007126[default] {
   override object raw extends Raw {
     @JSImport("material-ui/svg-icons/action/accessibility", JSImport.Default)
     @js.native

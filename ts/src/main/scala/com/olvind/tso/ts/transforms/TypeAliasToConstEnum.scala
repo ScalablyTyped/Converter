@@ -2,7 +2,6 @@ package com.olvind.tso
 package ts
 package transforms
 
-import stringUtils.unquote
 import com.olvind.tso.seqs._
 
 object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
@@ -16,7 +15,7 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
               lit =>
                 TsEnumMember(
                   NoComments,
-                  TsIdentSimple(PrettyString.nameFor(unquote(lit.literal))),
+                  TsIdentSimple(lit.literal),
                   Some(TsExpr.Literal(lit)),
                 ),
             )

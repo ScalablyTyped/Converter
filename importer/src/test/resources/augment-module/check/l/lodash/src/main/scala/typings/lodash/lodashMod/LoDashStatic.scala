@@ -32,10 +32,10 @@ trait LoDashStatic extends js.Object {
     * @return Returns the new array of picked elements.
     */
   def at[T](`object`: List[T], props: PropertyPath*): js.Array[T] = js.native
-  def at[T](props: PropertyPath*): js.Array[T] = js.native
-  @JSName("at")
-  def at_T_Object[T /* <: js.Object */](props: Many[String]*): js.Array[
+  def at[T /* <: js.Object */](props: Many[String]*): js.Array[
     /* import warning: importer.ImportType#apply Failed type conversion: T[keyof T] */ js.Any
   ] = js.native
+  @JSName("at")
+  def at_T[T](props: PropertyPath*): js.Array[T] = js.native
 }
 

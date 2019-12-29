@@ -30,8 +30,11 @@ object Erasure {
       case QualifiedName.THIS_TYPE => QualifiedName.THIS_TYPE
       case QualifiedName.UNION     => QualifiedName.`|`
       case QualifiedName.REPEATED  => QualifiedName.JArray
-      case QualifiedName.LITERAL =>
-        tpe.targs.head.typeName // the way we fake literal means this is true enough
+      // the way we fake literal means these are true enough
+      case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName
+      case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
+      case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
+
       case QualifiedName.INTERSECTION =>
         val primitive = tpe.targs.collectFirst {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName

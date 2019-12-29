@@ -1,18 +1,15 @@
-package typingsSlinky.react
+package typingsJapgolly.atStardustDashUiReactDashComponentDashRef
 
-import typingsSlinky.react.reactMod.IsExactlyAny
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object reactNumbers {
+object atStardustDashUiReactDashComponentDashRefBooleans {
   @js.native
-  sealed trait `false`
-    extends IsExactlyAny[js.Any]
+  sealed trait `false` extends js.Object
   
   @js.native
-  sealed trait `true`
-    extends IsExactlyAny[js.Any]
+  sealed trait `true` extends js.Object
   
   @scala.inline
   def `false`: `false` = false.asInstanceOf[`false`]

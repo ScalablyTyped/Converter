@@ -67,7 +67,8 @@ final case class TsDeclNamespace(
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
-) extends TsDeclNamespaceOrModule with TsNamedDecl {
+) extends TsDeclNamespaceOrModule
+    with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclNamespace =
     copy(codePath = newCodePath)
@@ -194,7 +195,7 @@ final case class TsDeclEnum(
     codePath:     CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
-  with TsNamedDecl {
+    with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclEnum =
     copy(codePath = newCodePath)
@@ -220,7 +221,7 @@ final case class TsDeclVar(
     isOptional: Boolean,
 ) extends TsNamedValueDecl
     with HasJsLocation
-  with TsNamedDecl {
+    with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclVar =
     copy(codePath = newCodePath)
@@ -241,7 +242,7 @@ final case class TsDeclFunction(
     codePath:   CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
-  with TsNamedDecl {
+    with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclFunction =
     copy(codePath = newCodePath)
@@ -312,7 +313,7 @@ sealed abstract class TsLiteral(repr: String) extends TsTerm {
 
 final case class TsLiteralNumber(value: String) extends TsLiteral(value)
 
-final case class TsLiteralString(value: String) extends TsLiteral(stringUtils.quote(value))
+final case class TsLiteralString(value: String) extends TsLiteral(value)
 
 final case class TsLiteralBoolean(value: Boolean) extends TsLiteral(value.toString)
 

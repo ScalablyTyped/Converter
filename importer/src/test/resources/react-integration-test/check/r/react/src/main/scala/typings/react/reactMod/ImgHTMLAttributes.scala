@@ -1,7 +1,7 @@
 package typings.react.reactMod
 
 import typings.react.Anon_Html
-import typings.react.reactStrings.Empty
+import typings.react.reactStrings._empty
 import typings.react.reactStrings.`additions text`
 import typings.react.reactStrings.`inline`
 import typings.react.reactStrings.`use-credentials`
@@ -51,7 +51,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait ImgHTMLAttributes[T] extends HTMLAttributes[T] {
   var alt: js.UndefOr[String] = js.native
-  var crossOrigin: js.UndefOr[anonymous | `use-credentials` | Empty] = js.native
+  var crossOrigin: js.UndefOr[anonymous | `use-credentials` | _empty] = js.native
   var decoding: js.UndefOr[async | auto | sync] = js.native
   var height: js.UndefOr[Double | String] = js.native
   var sizes: js.UndefOr[String] = js.native
@@ -123,7 +123,7 @@ object ImgHTMLAttributes {
     color: String = null,
     contentEditable: js.UndefOr[Boolean] = js.undefined,
     contextMenu: String = null,
-    crossOrigin: anonymous | `use-credentials` | Empty = null,
+    crossOrigin: anonymous | `use-credentials` | _empty = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     datatype: String = null,
     decoding: async | auto | sync = null,

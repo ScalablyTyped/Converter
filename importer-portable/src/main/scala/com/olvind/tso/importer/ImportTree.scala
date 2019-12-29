@@ -7,7 +7,12 @@ import com.olvind.tso.scalajs._
 import com.olvind.tso.scalajs.transforms.{CleanIllegalNames, ContainerPolicy}
 import com.olvind.tso.ts.{ParentsResolver, _}
 
-class ImportTree(importName: ImportName, importType: ImportType, illegalNames: CleanIllegalNames, enableScalaJsDefined: Boolean) {
+class ImportTree(
+    importName:           ImportName,
+    importType:           ImportType,
+    illegalNames:         CleanIllegalNames,
+    enableScalaJsDefined: Boolean,
+) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
     val deps = UnpackLibs(lib.dependencies).map {
       case (source, depLib) => source -> depLib.parsed
@@ -113,7 +118,17 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
 
         Seq(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath, isOverride = false))
 
-      case TsDeclVar(cs, _, readOnly, importName(name), tpeOpt, _, jsLocation, codePath, isOptional) =>
+      case TsDeclVar(
+          cs,
+          _,
+          readOnly,
+          ImportName.valueDefinition(name, annOpt),
+          tpeOpt,
+          _,
+          jsLocation,
+          codePath,
+          isOptional,
+          ) =>
         val tpe = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
 
         if (name === Name.Symbol) {
@@ -131,7 +146,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
         } else
           Seq(
             FieldTree(
-              annotations = Annotation.jsName(name),
+              annotations = annOpt.toList,
               name        = name,
               tpe         = tpe,
               impl        = MemberImpl.Native,
@@ -224,13 +239,14 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
           ),
         )
 
-      case TsDeclFunction(cs, _, importName(name), sig, jsLocation, codePath) =>
+      case TsDeclFunction(cs, _, ImportName.valueDefinition(name, annOpt), sig, jsLocation, codePath) =>
         Seq(
           tsMethod(
             scope          = scope,
             importName     = importName,
             level          = ProtectionLevel.Default,
             name           = name,
+            annOpt         = annOpt,
             cs             = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
             sig            = sig,
             scalaJsDefined = false,
@@ -303,7 +319,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       case TsMemberCall(cs, level, signature) =>
         Seq(
           MemberRet(
-            tsMethod(scope, importName, level, Name.APPLY, cs, signature, scalaJsDefined, ownerCP),
+            tsMethod(scope, importName, level, Name.APPLY, None, cs, signature, scalaJsDefined, ownerCP),
             isStatic = false,
           ),
         )
@@ -327,9 +343,10 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
 
           tsMemberProperty(scope.`..`, scalaJsDefined, importName, ownerCP)(asFunction)
         } else {
+          val (newName, annOpt) = ImportName.valueDefinition(name)
           Seq(
             MemberRet(
-              tsMethod(scope, importName, level, importName(name), cs, signature, scalaJsDefined, ownerCP),
+              tsMethod(scope, importName, level, newName, annOpt, cs, signature, scalaJsDefined, ownerCP),
               isStatic,
             ),
           )
@@ -365,7 +382,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
             )
             name.parts match {
               case TsIdent.Symbol :: symName :: Nil if KnownSymbols(symName.value) =>
-                val a = Annotation.jsNameSymbol(QualifiedName.Symbol + ImportName.skipConversion(symName))
+                val a = Annotation.JsNameSymbol(QualifiedName.Symbol + ImportName.skipConversion(symName))
 
                 val fieldType: MemberImpl =
                   (scalaJsDefined, m.isOptional) match {
@@ -410,7 +427,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       case (_, Some(TsTypeQuery(_))) =>
         scope.logger.info(s"Dropping $m")
         Nil
-      case (importName(name), Some(TsTypeObject(_, members)))
+      case (ImportName.valueDefinition((name, annOpt)), Some(TsTypeObject(_, members)))
           if !m.isOptional && members.forall(_.isInstanceOf[TsMemberCall]) =>
         // alternative notation for overload methods
         members.collect { case x: TsMemberCall => x } map (
@@ -421,6 +438,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
                   importName,
                   call.level,
                   name,
+                  annOpt,
                   call.comments,
                   call.signature,
                   scalaJsDefined,
@@ -430,7 +448,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
               ),
           )
 
-      case (importName(name), tpeOpt: Option[TsType]) =>
+      case (ImportName.valueDefinition(name, annOpt), tpeOpt: Option[TsType]) =>
         val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: MemberImpl =
           (scalaJsDefined, importedType) match {
@@ -441,7 +459,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
 
         hack(
           FieldTree(
-            annotations = Annotation.jsName(name),
+            annotations = annOpt.toList,
             name        = name,
             tpe         = importedType,
             impl        = impl,
@@ -483,13 +501,12 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
       importName:     ImportName,
       level:          ProtectionLevel,
       name:           Name,
+      annOpt:         Option[Annotation.JsName],
       cs:             Comments,
       sig:            TsFunSig,
       scalaJsDefined: Boolean,
       ownerCP:        QualifiedName,
   ): MethodTree = {
-
-    val as = Annotation.method(name, isBracketAccess = false)
 
     val fieldType: MemberImpl =
       if (scalaJsDefined) MemberImpl.NotImplemented else MemberImpl.Native
@@ -501,7 +518,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
     )
 
     val ret = MethodTree(
-      annotations = as,
+      annotations = annOpt.toList,
       level       = level,
       name        = name,
       tparams     = sig.tparams map typeParam(scope, importName),
@@ -517,7 +534,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
     else {
       val containedLiterals: Seq[String] =
         TsTreeTraverse.collectSeq(sig.params) {
-          case x: TsLiteral => stringUtils.unquote(x.literal)
+          case x: TsLiteral => x.literal
         }
 
       containedLiterals.distinct.toList.map(_.filter(_.isLetterOrDigit)).filter(_.nonEmpty) match {

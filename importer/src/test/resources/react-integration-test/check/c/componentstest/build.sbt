@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "componentstest"
-version := "0.0-unknown-a722d9"
+version := "0.0-unknown-cf116a"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "16.9.2-1e2c98",
+  "org.scalablytyped" %%% "react" % "16.9.2-465b5a",
   "org.scalablytyped" %%% "std" % "0.0-unknown-dee320")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

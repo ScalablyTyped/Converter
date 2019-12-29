@@ -594,7 +594,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   }
 
   lazy val tsLiteralString: Parser[TsLiteralString] =
-    stringLit ^^ EscapeStrings.java ^^ TsLiteralString.apply
+    stringLit ^^ TsLiteralString.apply
 
   lazy val tsIdentModule: Parser[TsIdentModule] =
     tsLiteralString ^^ ModuleNameParser.apply

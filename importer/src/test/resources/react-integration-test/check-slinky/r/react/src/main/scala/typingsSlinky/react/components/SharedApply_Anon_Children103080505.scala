@@ -10,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_Anon_Children2015617199 () {
+abstract class SharedApply_Anon_Children103080505 () {
   abstract class Raw (implicit pw: ExternalPropsWriterProvider)
     extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
     type Props = Anon_Children

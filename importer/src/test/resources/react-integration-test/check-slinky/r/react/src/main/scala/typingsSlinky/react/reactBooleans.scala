@@ -1,11 +1,11 @@
-package typings.react
+package typingsSlinky.react
 
-import typings.react.reactMod.IsExactlyAny
+import typingsSlinky.react.reactMod.IsExactlyAny
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object reactNumbers {
+object reactBooleans {
   @js.native
   sealed trait `false`
     extends IsExactlyAny[js.Any]
