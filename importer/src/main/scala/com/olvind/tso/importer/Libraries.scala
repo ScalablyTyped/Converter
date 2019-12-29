@@ -279,9 +279,7 @@ object Libraries {
           "egg",
         )
 
-    def slow = Set("@pulumi/aws", "aws-sdk", "googleapis")
-
-    base ++ circular ++ slow map TsIdentLibrary.apply
+    base ++ circular map TsIdentLibrary.apply
   }
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
