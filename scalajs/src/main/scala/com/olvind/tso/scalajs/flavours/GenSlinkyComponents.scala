@@ -178,7 +178,7 @@ class GenSlinkyComponents(
     )
     val optionals = _optionals ++ additionalOptionalParams
 
-    val noNormalProps: Boolean = optionals.isEmpty && requireds.isEmpty
+    val noNormalProps: Boolean = _optionals.isEmpty && requireds.isEmpty
   }
 
   def apply(scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
@@ -427,14 +427,15 @@ class GenSlinkyComponents(
       val propsAlias =
         TypeAliasTree(names.Props, Nil, EraseTParams.visitTypeRef(scope)(propsRef), NoComments, ownerCp + names.Props)
 
+      val BuildingComponent = TypeRef(names.BuildingComponent, List(domType, refType), NoComments)
+
       /**
         *  The `apply` method that the slinky method would normally construct.
         *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
         *  a case class and suffer macro execution time.
         */
       def applyMethod(name: Name, props: SplitProps): MethodTree = {
-        val ret  = TypeRef(names.BuildingComponent, List(domType, refType), NoComments)
-        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
+        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(BuildingComponent)}]" else ""
 
         MethodTree(
           annotations = Nil,
@@ -449,12 +450,43 @@ class GenSlinkyComponents(
                |  super.apply(__obj.asInstanceOf[Props])$cast
                |}""".stripMargin,
           ),
-          resultType = ret,
+          resultType = BuildingComponent,
           isOverride = false,
           comments   = genDomWarning(props),
           codePath   = ownerCp + name,
         )
       }
+
+      /* directly accept slinky attributes/children if there are no required props */
+      def noPropsApplyOpt =
+        if (resProps.asMap.exists(_._2.requireds.isEmpty))
+          Some(
+            MethodTree(
+              Nil,
+              ProtectionLevel.Default,
+              Name.APPLY,
+              Nil,
+              List(
+                List(
+                  ParamTree(
+                    Name("mods"),
+                    isImplicit = false,
+                    TypeRef.Repeated(TypeRef(names.TagMod, List(domType), NoComments), NoComments),
+                    None,
+                    NoComments,
+                  ),
+                ),
+              ),
+              MemberImpl.Custom(
+                s"new ${Printer.formatTypeRef(0)(BuildingComponent)}(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)",
+              ),
+              BuildingComponent,
+              isOverride = false,
+              NoComments,
+              ownerCp + Name.APPLY,
+            ),
+          )
+        else None
 
       val methods: List[MethodTree] =
         resProps match {
@@ -462,7 +494,12 @@ class GenSlinkyComponents(
           case Res.One(_, props) => List(applyMethod(Name.APPLY, props))
           case Res.Many(values)  => values.map { case (name, props) => applyMethod(name, props) }(collection.breakOut)
         }
-      (TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments), methods, Some(propsAlias))
+
+      (
+        TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
+        methods ++ noPropsApplyOpt,
+        Some(propsAlias),
+      )
     }
   }
 

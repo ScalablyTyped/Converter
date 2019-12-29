@@ -3,6 +3,7 @@ package typingsSlinky.reactDashSelect.components
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.core.TagMod
 import slinky.web.html.`*`.tag
 import typingsSlinky.reactDashSelect.reactDashSelectMod.ReactSelectProps
 import typingsSlinky.reactDashSelect.reactDashSelectMod.default
@@ -25,6 +26,9 @@ object ReactDashSelect
   slinky.web.html.`*`.tag.type, 
   typingsSlinky.reactDashSelect.reactDashSelectMod.default[js.Any]]]
   }
+  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default[js.Any]] = new slinky.core.BuildingComponent[
+  slinky.web.html.`*`.tag.type, 
+  typingsSlinky.reactDashSelect.reactDashSelectMod.default[js.Any]](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
   type Props = ReactSelectProps[js.Any]
 }
 
