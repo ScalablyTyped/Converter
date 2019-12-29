@@ -242,15 +242,18 @@ class Main(config: Config) {
 
         }
 
-      val successes: Set[PublishedSbtProject] = {
-        def go(p: PublishedSbtProject): Set[PublishedSbtProject] =
-          p.project.deps.values.flatMap(go).to[Set] + p
+      val successes: Map[Source, PublishedSbtProject] = {
+        def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
+          Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
 
-        results.collect { case (_, PhaseRes.Ok(res)) => go(res) }.flatten.to[Set]
+        results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
       }
 
-      val summary               = Summary(results)
-      val lists                 = TopLists(successes)
+      val failures: Map[Source, Either[Throwable, String]] =
+        results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
+
+      val summary               = Summary(successes.keys.to[Set].map(_.libName), failures.keys.to[Set].map(_.libName))
+      val lists                 = TopLists(successes.values.to[Set])
       val gitIgnore             = targetFolder / ".gitignore"
       val readme                = targetFolder / "readme.md"
       val librariesByName       = targetFolder / "libraries_by_name.md"
@@ -289,7 +292,7 @@ target/
           organization  = flavour.organization,
           projectName   = flavour.projectName,
           projectDir    = sbtProjectDir,
-          projects      = successes,
+          projects      = successes.values.to[Set],
           pluginVersion = config.runId,
           publishUser   = publishUser,
           action        = if (bintray.isDefined) "^publish" else "publishLocal",
@@ -298,7 +301,7 @@ target/
         CommitChanges(
           interfaceCmd,
           summary,
-          successes.map(_.project.baseDir).to[Seq],
+          successes.values.map(_.project.baseDir).to[Seq],
           Seq(
             sbtProjectDir,
             readme,

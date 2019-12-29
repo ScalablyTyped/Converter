@@ -1,14 +1,10 @@
 package com.olvind.tso
 package importer
 
-import com.olvind.tso.importer.build.PublishedSbtProject
-import com.olvind.tso.phases.PhaseRes
 import com.olvind.tso.ts.TsIdentLibrary
 import io.circe.Decoder.Result
 import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder, HCursor}
-
-import scala.collection.mutable
 
 case class Summary(
     successes: Set[TsIdentLibrary],
@@ -23,24 +19,6 @@ case class SummaryDiff(
 )
 
 object Summary {
-  def apply(x: Map[Source, PhaseRes[Source, PublishedSbtProject]]): Summary = {
-    val successes = mutable.Set.empty[TsIdentLibrary]
-    val failures  = mutable.Set.empty[TsIdentLibrary]
-    x foreach {
-      case (current, res) =>
-        res match {
-          case PhaseRes.Ok(_) =>
-            successes += current.libName
-          case PhaseRes.Ignore() =>
-            ()
-          case PhaseRes.Failure(errors) =>
-            failures += current.libName
-            errors.keys.foreach(s => failures += s.libName)
-        }
-    }
-    Summary(successes.to[Set], failures.to[Set])
-  }
-
   object legacyLibDecoder extends Decoder[TsIdentLibrary] {
     override def apply(c: HCursor): Result[TsIdentLibrary] = {
       val obj = c.downField("TsIdentLibraryScoped")
