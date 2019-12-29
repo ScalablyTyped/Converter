@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DropzoneRef extends js.Object {
-  def open(): Unit
+  def open(): Unit = js.native
 }
 
 object DropzoneRef {

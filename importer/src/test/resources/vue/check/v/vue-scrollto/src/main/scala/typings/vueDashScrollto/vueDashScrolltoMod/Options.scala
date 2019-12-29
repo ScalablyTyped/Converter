@@ -6,29 +6,30 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Options extends js.Object {
   // Indicates if user can cancel the scroll or not. Default: true
-  var cancelable: js.UndefOr[Boolean] = js.undefined
+  var cancelable: js.UndefOr[Boolean] = js.native
   // The container that has to be scrolled. Default: body
-  var container: js.UndefOr[String | Element] = js.undefined
+  var container: js.UndefOr[String | Element] = js.native
   // The duration (in milliseconds) of the scrolling animation. Default: 500
-  var duration: js.UndefOr[Double] = js.undefined
+  var duration: js.UndefOr[Double] = js.native
   // The easing to be used when animating. Default: ease
-  var easing: js.UndefOr[String] = js.undefined
+  var easing: js.UndefOr[String] = js.native
   // The element you want to scroll to.
-  var el: js.UndefOr[String | Element] = js.undefined
-  var element: js.UndefOr[String | Element] = js.undefined
+  var el: js.UndefOr[String | Element] = js.native
+  var element: js.UndefOr[String | Element] = js.native
   // The offset that should be applied when scrolling. Default: 0
-  var offset: js.UndefOr[Double] = js.undefined
+  var offset: js.UndefOr[Double] = js.native
   // A callback function that should be called when scrolling has been aborted by the user (user scrolled, clicked
   // etc.). Default: noop
-  var onCancel: js.UndefOr[js.Function0[Unit] | `false`] = js.undefined
+  var onCancel: js.UndefOr[js.Function0[Unit] | `false`] = js.native
   // A callback function that should be called when scrolling has ended. Default: noop
-  var onDone: js.UndefOr[js.Function0[Unit] | `false`] = js.undefined
+  var onDone: js.UndefOr[js.Function0[Unit] | `false`] = js.native
   // Whether or not we want scrolling on the x axis. Default: true
-  var x: js.UndefOr[Boolean] = js.undefined
+  var x: js.UndefOr[Boolean] = js.native
   // Whether or not we want scrolling on the y axis. Default: true
-  var y: js.UndefOr[Boolean] = js.undefined
+  var y: js.UndefOr[Boolean] = js.native
 }
 
 object Options {

@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ChartData extends js.Object {
-  var labels: js.UndefOr[js.Array[String | js.Array[String]]] = js.undefined
+  var labels: js.UndefOr[js.Array[String | js.Array[String]]] = js.native
 }
 
 object ChartData {

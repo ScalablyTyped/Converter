@@ -4,16 +4,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Options extends js.Object {
-  var cascade: js.UndefOr[Boolean] = js.undefined
-  var compress: js.UndefOr[Boolean] = js.undefined
-  var global: js.UndefOr[Boolean] = js.undefined
-  var keyframe: js.UndefOr[Boolean] = js.undefined
+  var cascade: js.UndefOr[Boolean] = js.native
+  var compress: js.UndefOr[Boolean] = js.native
+  var global: js.UndefOr[Boolean] = js.native
+  var keyframe: js.UndefOr[Boolean] = js.native
   var prefix: js.UndefOr[
     Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
-  ] = js.undefined
-  var preserve: js.UndefOr[Boolean] = js.undefined
-  var semicolon: js.UndefOr[Boolean] = js.undefined
+  ] = js.native
+  var preserve: js.UndefOr[Boolean] = js.native
+  var semicolon: js.UndefOr[Boolean] = js.native
 }
 
 object Options {

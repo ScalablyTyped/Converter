@@ -57,16 +57,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait LinkHTMLAttributes[T] extends HTMLAttributes[T] {
-  var as: js.UndefOr[String] = js.undefined
-  var crossOrigin: js.UndefOr[String] = js.undefined
-  var href: js.UndefOr[String] = js.undefined
-  var hrefLang: js.UndefOr[String] = js.undefined
-  var integrity: js.UndefOr[String] = js.undefined
-  var media: js.UndefOr[String] = js.undefined
-  var rel: js.UndefOr[String] = js.undefined
-  var sizes: js.UndefOr[String] = js.undefined
-  var `type`: js.UndefOr[String] = js.undefined
+  var as: js.UndefOr[String] = js.native
+  var crossOrigin: js.UndefOr[String] = js.native
+  var href: js.UndefOr[String] = js.native
+  var hrefLang: js.UndefOr[String] = js.native
+  var integrity: js.UndefOr[String] = js.native
+  var media: js.UndefOr[String] = js.native
+  var rel: js.UndefOr[String] = js.native
+  var sizes: js.UndefOr[String] = js.native
+  var `type`: js.UndefOr[String] = js.native
 }
 
 object LinkHTMLAttributes {

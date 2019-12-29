@@ -42,9 +42,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CanvasHTMLAttributes[T] extends HTMLAttributes[T] {
-  var height: js.UndefOr[Double | String] = js.undefined
-  var width: js.UndefOr[Double | String] = js.undefined
+  var height: js.UndefOr[Double | String] = js.native
+  var width: js.UndefOr[Double | String] = js.native
 }
 
 object CanvasHTMLAttributes {

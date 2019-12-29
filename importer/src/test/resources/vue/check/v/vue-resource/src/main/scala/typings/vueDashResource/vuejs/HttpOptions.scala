@@ -4,17 +4,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HttpOptions extends js.Object {
-  var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.undefined
-  var body: js.UndefOr[js.Any] = js.undefined
-  var credentials: js.UndefOr[Boolean] = js.undefined
-  var emulateHTTP: js.UndefOr[Boolean] = js.undefined
-  var emulateJSON: js.UndefOr[Boolean] = js.undefined
-  var headers: js.UndefOr[js.Any] = js.undefined
-  var method: js.UndefOr[String] = js.undefined
-  var params: js.UndefOr[js.Any] = js.undefined
-  var progress: js.UndefOr[js.Function1[/* event */ js.Any, _]] = js.undefined
-  var url: js.UndefOr[String] = js.undefined
+  var before: js.UndefOr[js.Function1[/* request */ js.Any, _]] = js.native
+  var body: js.UndefOr[js.Any] = js.native
+  var credentials: js.UndefOr[Boolean] = js.native
+  var emulateHTTP: js.UndefOr[Boolean] = js.native
+  var emulateJSON: js.UndefOr[Boolean] = js.native
+  var headers: js.UndefOr[js.Any] = js.native
+  var method: js.UndefOr[String] = js.native
+  var params: js.UndefOr[js.Any] = js.native
+  var progress: js.UndefOr[js.Function1[/* event */ js.Any, _]] = js.native
+  var url: js.UndefOr[String] = js.native
 }
 
 object HttpOptions {

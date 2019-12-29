@@ -10,25 +10,26 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Inlined std.Pick<react.react.HTMLProps<std.HTMLElement>, react-dropzone.react-dropzone.PropTypes> & {  accept ? :string | std.Array<string>,   minSize ? :number,   maxSize ? :number,   preventDropOnDocument ? :boolean,   noClick ? :boolean,   noKeyboard ? :boolean,   noDrag ? :boolean,   noDragEventsBubbling ? :boolean,   disabled ? :boolean,   onDrop ? :<T extends / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>(acceptedFiles : std.Array<T>, rejectedFiles : std.Array<T>, event : react-dropzone.react-dropzone.DropEvent): void,   onDropAccepted ? :<T extends / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>(files : std.Array<T>, event : react-dropzone.react-dropzone.DropEvent): void,   onDropRejected ? :<T extends / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>(files : std.Array<T>, event : react-dropzone.react-dropzone.DropEvent): void,   getFilesFromEvent ? :(event : react-dropzone.react-dropzone.DropEvent): / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> * / any,   onFileDialogCancel ? :(): void} */
+@js.native
 trait DropzoneOptions extends js.Object {
-  var accept: js.UndefOr[String | js.Array[String]] = js.undefined
-  var disabled: js.UndefOr[Boolean] = js.undefined
+  var accept: js.UndefOr[String | js.Array[String]] = js.native
+  var disabled: js.UndefOr[Boolean] = js.native
   var getFilesFromEvent: js.UndefOr[
     js.Function1[
       /* event */ DropEvent, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
     ]
-  ] = js.undefined
-  var maxSize: js.UndefOr[Double] = js.undefined
-  var minSize: js.UndefOr[Double] = js.undefined
-  var multiple: js.UndefOr[Boolean] = js.undefined
-  var noClick: js.UndefOr[Boolean] = js.undefined
-  var noDrag: js.UndefOr[Boolean] = js.undefined
-  var noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined
-  var noKeyboard: js.UndefOr[Boolean] = js.undefined
-  var onDragEnter: js.UndefOr[DragEventHandler[HTMLElement]] = js.undefined
-  var onDragLeave: js.UndefOr[DragEventHandler[HTMLElement]] = js.undefined
-  var onDragOver: js.UndefOr[DragEventHandler[HTMLElement]] = js.undefined
+  ] = js.native
+  var maxSize: js.UndefOr[Double] = js.native
+  var minSize: js.UndefOr[Double] = js.native
+  var multiple: js.UndefOr[Boolean] = js.native
+  var noClick: js.UndefOr[Boolean] = js.native
+  var noDrag: js.UndefOr[Boolean] = js.native
+  var noDragEventsBubbling: js.UndefOr[Boolean] = js.native
+  var noKeyboard: js.UndefOr[Boolean] = js.native
+  var onDragEnter: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
+  var onDragLeave: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
+  var onDragOver: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
   var onDrop: js.UndefOr[
     js.Function3[
       /* acceptedFiles */ js.Array[
@@ -40,7 +41,7 @@ trait DropzoneOptions extends js.Object {
       /* event */ DropEvent, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
   var onDropAccepted: js.UndefOr[
     js.Function2[
       /* files */ js.Array[
@@ -49,7 +50,7 @@ trait DropzoneOptions extends js.Object {
       /* event */ DropEvent, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
   var onDropRejected: js.UndefOr[
     js.Function2[
       /* files */ js.Array[
@@ -58,9 +59,9 @@ trait DropzoneOptions extends js.Object {
       /* event */ DropEvent, 
       Unit
     ]
-  ] = js.undefined
-  var onFileDialogCancel: js.UndefOr[js.Function0[Unit]] = js.undefined
-  var preventDropOnDocument: js.UndefOr[Boolean] = js.undefined
+  ] = js.native
+  var onFileDialogCancel: js.UndefOr[js.Function0[Unit]] = js.native
+  var preventDropOnDocument: js.UndefOr[Boolean] = js.native
 }
 
 object DropzoneOptions {

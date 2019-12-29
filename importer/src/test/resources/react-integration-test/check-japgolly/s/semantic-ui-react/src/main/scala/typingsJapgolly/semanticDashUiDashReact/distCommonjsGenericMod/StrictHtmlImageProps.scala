@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictHtmlImageProps extends js.Object {
-  var src: js.UndefOr[String] = js.undefined
+  var src: js.UndefOr[String] = js.native
 }
 
 object StrictHtmlImageProps {

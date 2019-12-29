@@ -4,12 +4,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait IConfigstore extends js.Object {
-  var all: js.Any
-  var path: String
-  def del(key: String): Unit
-  def get(key: String): js.Any
-  def set(key: String, `val`: js.Any): Unit
+  var all: js.Any = js.native
+  var path: String = js.native
+  def del(key: String): Unit = js.native
+  def get(key: String): js.Any = js.native
+  def set(key: String, `val`: js.Any): Unit = js.native
 }
 
 object IConfigstore {

@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait BaseTag extends js.Object {
-  var isSelfClosing: Boolean
-  var name: String
+  var isSelfClosing: Boolean = js.native
+  var name: String = js.native
 }
 
 object BaseTag {

@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait C extends js.Object {
-  var c: js.UndefOr[Double] = js.undefined
+  var c: js.UndefOr[Double] = js.native
 }
 
 object C {

@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MainInterface extends CommonInterface {
-  var app: App
+  var app: App = js.native
 }
 
 object MainInterface {

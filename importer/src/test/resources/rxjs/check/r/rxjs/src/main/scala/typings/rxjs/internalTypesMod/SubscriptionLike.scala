@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SubscriptionLike extends Unsubscribable {
-  val closed: Boolean
+  val closed: Boolean = js.native
 }
 
 object SubscriptionLike {

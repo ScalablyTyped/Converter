@@ -7,8 +7,9 @@ import scala.scalajs.js.annotation._
 /**
   * Inside env you can pass any variable
   */
+@js.native
 trait NodeProcess extends js.Object {
-  var env: js.UndefOr[js.Any] = js.undefined
+  var env: js.UndefOr[js.Any] = js.native
 }
 
 object NodeProcess {

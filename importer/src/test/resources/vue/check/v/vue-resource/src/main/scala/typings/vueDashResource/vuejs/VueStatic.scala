@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VueStatic extends js.Object {
-  var http: Http
-  var resource: Resource
+  var http: Http = js.native
+  var resource: Resource = js.native
 }
 
 object VueStatic {

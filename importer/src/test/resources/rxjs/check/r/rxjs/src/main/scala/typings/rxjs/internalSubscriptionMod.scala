@@ -18,10 +18,6 @@ object internalSubscriptionMod extends js.Object {
     def this(unsubscribe: js.Function0[Unit]) = this()
     /** @internal */
     var _subscriptions: js.Any = js.native
-    /* CompleteClass */
-    override val closed: Boolean = js.native
-    /* CompleteClass */
-    override def unsubscribe(): Unit = js.native
   }
   
   /* static members */

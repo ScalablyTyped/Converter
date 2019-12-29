@@ -6,8 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ClipboardEvent[T] extends BaseSyntheticEvent[NativeClipboardEvent, EventTarget with T, EventTarget] {
-  var clipboardData: DataTransfer
+  var clipboardData: DataTransfer = js.native
 }
 
 object ClipboardEvent {

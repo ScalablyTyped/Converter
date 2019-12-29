@@ -42,17 +42,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MediaHTMLAttributes[T] extends HTMLAttributes[T] {
-  var autoPlay: js.UndefOr[Boolean] = js.undefined
-  var controls: js.UndefOr[Boolean] = js.undefined
-  var controlsList: js.UndefOr[String] = js.undefined
-  var crossOrigin: js.UndefOr[String] = js.undefined
-  var loop: js.UndefOr[Boolean] = js.undefined
-  var mediaGroup: js.UndefOr[String] = js.undefined
-  var muted: js.UndefOr[Boolean] = js.undefined
-  var playsinline: js.UndefOr[Boolean] = js.undefined
-  var preload: js.UndefOr[String] = js.undefined
-  var src: js.UndefOr[String] = js.undefined
+  var autoPlay: js.UndefOr[Boolean] = js.native
+  var controls: js.UndefOr[Boolean] = js.native
+  var controlsList: js.UndefOr[String] = js.native
+  var crossOrigin: js.UndefOr[String] = js.native
+  var loop: js.UndefOr[Boolean] = js.native
+  var mediaGroup: js.UndefOr[String] = js.native
+  var muted: js.UndefOr[Boolean] = js.native
+  var playsinline: js.UndefOr[Boolean] = js.native
+  var preload: js.UndefOr[String] = js.native
+  var src: js.UndefOr[String] = js.native
 }
 
 object MediaHTMLAttributes {

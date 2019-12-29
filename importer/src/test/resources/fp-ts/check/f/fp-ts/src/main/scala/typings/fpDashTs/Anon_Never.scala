@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Never extends js.Object {
-  var never: HKT[scala.Nothing, scala.Nothing]
+  var never: HKT[scala.Nothing, scala.Nothing] = js.native
 }
 
 object Anon_Never {

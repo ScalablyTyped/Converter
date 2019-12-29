@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ConfigurationServiceApiVersions extends js.Object {
-  var dynamodb: js.UndefOr[apiVersion] = js.undefined
+  var dynamodb: js.UndefOr[apiVersion] = js.native
 }
 
 object ConfigurationServiceApiVersions {

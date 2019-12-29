@@ -4,11 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait QualifiedName extends js.Object {
-  var local: String
-  var name: String
-  var prefix: String
-  var uri: String
+  var local: String = js.native
+  var name: String = js.native
+  var prefix: String = js.native
+  var uri: String = js.native
 }
 
 object QualifiedName {

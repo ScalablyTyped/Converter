@@ -5,6 +5,7 @@ package com.olvind.tso
     the typescript side we rather just work with special comments.
  */
 object Markers {
+  case object CouldBeScalaJsDefined extends Comment.Data
   case object IsTrivial extends Comment.Data
   case object ExpandedCallables extends Comment.Data
   case object EnumObject extends Comment.Data

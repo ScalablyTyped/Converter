@@ -60,18 +60,19 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ButtonHTMLAttributes[T] extends HTMLAttributes[T] {
-  var autoFocus: js.UndefOr[Boolean] = js.undefined
-  var disabled: js.UndefOr[Boolean] = js.undefined
-  var form: js.UndefOr[String] = js.undefined
-  var formAction: js.UndefOr[String] = js.undefined
-  var formEncType: js.UndefOr[String] = js.undefined
-  var formMethod: js.UndefOr[String] = js.undefined
-  var formNoValidate: js.UndefOr[Boolean] = js.undefined
-  var formTarget: js.UndefOr[String] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
-  var `type`: js.UndefOr[submit | reset | button] = js.undefined
-  var value: js.UndefOr[String | js.Array[String] | Double] = js.undefined
+  var autoFocus: js.UndefOr[Boolean] = js.native
+  var disabled: js.UndefOr[Boolean] = js.native
+  var form: js.UndefOr[String] = js.native
+  var formAction: js.UndefOr[String] = js.native
+  var formEncType: js.UndefOr[String] = js.native
+  var formMethod: js.UndefOr[String] = js.native
+  var formNoValidate: js.UndefOr[Boolean] = js.native
+  var formTarget: js.UndefOr[String] = js.native
+  var name: js.UndefOr[String] = js.native
+  var `type`: js.UndefOr[submit | reset | button] = js.native
+  var value: js.UndefOr[String | js.Array[String] | Double] = js.native
 }
 
 object ButtonHTMLAttributes {

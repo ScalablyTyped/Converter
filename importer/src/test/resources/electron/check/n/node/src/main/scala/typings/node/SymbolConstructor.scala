@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SymbolConstructor extends js.Object {
-  val asyncIterator: js.Symbol
-  val iterator: js.Symbol
+  val asyncIterator: js.Symbol = js.native
+  val iterator: js.Symbol = js.native
 }
 
 object SymbolConstructor {

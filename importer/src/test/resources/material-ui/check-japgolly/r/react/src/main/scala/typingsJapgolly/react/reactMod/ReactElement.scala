@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ReactElement extends js.Object {
-  var key: Key | Null
-  var props: js.Any
-  var `type`: String | ComponentClassP[js.Object] | SFC[_]
+  var key: Key | Null = js.native
+  var props: js.Any = js.native
+  var `type`: String | ComponentClassP[js.Object] | SFC[_] = js.native
 }
 
 object ReactElement {

@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Person extends js.Object {
-  var age: js.UndefOr[Double | Null] = js.undefined
-  var name: String
+  var age: js.UndefOr[Double | Null] = js.native
+  var name: String = js.native
 }
 
 object Person {

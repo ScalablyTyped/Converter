@@ -5,15 +5,16 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Touch extends js.Object {
-  var clientX: Double
-  var clientY: Double
-  var identifier: Double
-  var pageX: Double
-  var pageY: Double
-  var screenX: Double
-  var screenY: Double
-  var target: EventTarget
+  var clientX: Double = js.native
+  var clientY: Double = js.native
+  var identifier: Double = js.native
+  var pageX: Double = js.native
+  var pageY: Double = js.native
+  var screenX: Double = js.native
+  var screenY: Double = js.native
+  var target: EventTarget = js.native
 }
 
 object Touch {

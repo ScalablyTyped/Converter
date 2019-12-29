@@ -4,11 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CldrFactory extends js.Object {
-  def load(json: js.Any, otherJson: js.Any*): Unit
-  def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
-  def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
-  def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit
+  def load(json: js.Any, otherJson: js.Any*): Unit = js.native
+  def off(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+  def on(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
+  def once(event: String, listener: js.Function2[/* path */ String, /* value */ js.Any, Unit]): Unit = js.native
 }
 
 object CldrFactory {

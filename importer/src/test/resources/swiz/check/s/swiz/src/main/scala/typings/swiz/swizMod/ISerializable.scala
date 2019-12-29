@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ISerializable extends js.Object {
-  def getSerializerType(): String
+  def getSerializerType(): String = js.native
 }
 
 object ISerializable {

@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ComputedOptions[T] extends js.Object {
-  var cache: js.UndefOr[Boolean] = js.undefined
-  var get: js.UndefOr[js.Function0[T]] = js.undefined
-  var set: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
+  var cache: js.UndefOr[Boolean] = js.native
+  var get: js.UndefOr[js.Function0[T]] = js.native
+  var set: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
 }
 
 object ComputedOptions {

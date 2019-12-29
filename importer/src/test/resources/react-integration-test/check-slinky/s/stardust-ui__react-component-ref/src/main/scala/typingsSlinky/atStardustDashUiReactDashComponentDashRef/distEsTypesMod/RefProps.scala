@@ -6,14 +6,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait RefProps extends js.Object {
-  var children: ReactElement
+  var children: ReactElement = js.native
   /**
     * Called when a child component will be mounted or updated.
     *
     * @param {HTMLElement} node - Referred node.
     */
-  var innerRef: Ref[_]
+  var innerRef: Ref[_] = js.native
 }
 
 object RefProps {

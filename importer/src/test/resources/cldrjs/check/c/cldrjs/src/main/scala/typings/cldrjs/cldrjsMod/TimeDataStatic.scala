@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait TimeDataStatic extends js.Object {
-  def allowed(): String
-  def preferred(): String
+  def allowed(): String = js.native
+  def preferred(): String = js.native
 }
 
 object TimeDataStatic {

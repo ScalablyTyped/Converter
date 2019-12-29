@@ -6,12 +6,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
-  var functional: Boolean
-  var inject: js.UndefOr[InjectOptions] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
-  var props: js.UndefOr[PropDefs] = js.undefined
-  def render(`this`: js.UndefOr[scala.Nothing], createElement: CreateElement, context: RenderContext[Props]): VNode
+  var functional: Boolean = js.native
+  var inject: js.UndefOr[InjectOptions] = js.native
+  var name: js.UndefOr[String] = js.native
+  var props: js.UndefOr[PropDefs] = js.native
+  def render(`this`: js.UndefOr[scala.Nothing], createElement: CreateElement, context: RenderContext[Props]): VNode = js.native
 }
 
 object FunctionalComponentOptions {

@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait BottomNavigationItemProps extends js.Object {
-  var children: Double
-  var className: js.UndefOr[String] = js.undefined
+  var children: Double = js.native
+  var className: js.UndefOr[String] = js.native
 }
 
 object BottomNavigationItemProps {

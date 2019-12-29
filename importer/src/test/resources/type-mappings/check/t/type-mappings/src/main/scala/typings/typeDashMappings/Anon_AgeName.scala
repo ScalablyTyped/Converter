@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_AgeName extends js.Object {
-  var age: Double
-  var name: String
+  var age: Double = js.native
+  var name: String = js.native
 }
 
 object Anon_AgeName {

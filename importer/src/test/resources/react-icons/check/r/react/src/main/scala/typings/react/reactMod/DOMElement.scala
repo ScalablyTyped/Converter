@@ -6,10 +6,11 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 // string fallback for custom web-components
+@js.native
 trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */] extends ReactElement {
-  var ref: Ref[T]
+  var ref: Ref[T] = js.native
   @JSName("type")
-  var type_DOMElement: String
+  var type_DOMElement: String = js.native
 }
 
 object DOMElement {

@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Tag extends BaseTag {
-  var attributes: StringDictionary[String]
+  var attributes: StringDictionary[String] = js.native
 }
 
 object Tag {

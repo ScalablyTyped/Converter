@@ -55,9 +55,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait LabelHTMLAttributes[T] extends HTMLAttributes[T] {
-  var form: js.UndefOr[String] = js.undefined
-  var htmlFor: js.UndefOr[String] = js.undefined
+  var form: js.UndefOr[String] = js.native
+  var htmlFor: js.UndefOr[String] = js.native
 }
 
 object LabelHTMLAttributes {

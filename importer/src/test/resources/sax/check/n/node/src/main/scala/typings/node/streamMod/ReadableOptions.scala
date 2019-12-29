@@ -5,12 +5,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ReadableOptions extends js.Object {
-  var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], _]] = js.undefined
-  var encoding: js.UndefOr[String] = js.undefined
-  var highWaterMark: js.UndefOr[Double] = js.undefined
-  var objectMode: js.UndefOr[Boolean] = js.undefined
-  var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _]] = js.undefined
+  var destroy: js.UndefOr[js.Function1[/* error */ js.UndefOr[Error], _]] = js.native
+  var encoding: js.UndefOr[String] = js.native
+  var highWaterMark: js.UndefOr[Double] = js.native
+  var objectMode: js.UndefOr[Boolean] = js.native
+  var read: js.UndefOr[js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _]] = js.native
 }
 
 object ReadableOptions {

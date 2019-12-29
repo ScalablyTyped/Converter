@@ -7,7 +7,7 @@ import com.olvind.tso.scalajs._
 import com.olvind.tso.scalajs.transforms.{CleanIllegalNames, ContainerPolicy}
 import com.olvind.tso.ts.{ParentsResolver, _}
 
-class ImportTree(importName: ImportName, importType: ImportType, illegalNames: CleanIllegalNames) {
+class ImportTree(importName: ImportName, importType: ImportType, illegalNames: CleanIllegalNames, enableScalaJsDefined: Boolean) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
     val deps = UnpackLibs(lib.dependencies).map {
       case (source, depLib) => source -> depLib.parsed
@@ -185,16 +185,22 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
         cls :: module.to[List]
 
       case i @ TsDeclInterface(cs, _, importName(name), tparams, inheritance, members, codePath) =>
-        val withParents    = ParentsResolver(scope, i)
-        val scalaJsDefined = CanBeScalaJsDefined(withParents)
-        val newCodePath    = importName(codePath)
+        val withParents = ParentsResolver(scope, i)
+
+        val (anns, newComments, isScalaJsDefined) = (CanBeScalaJsDefined(withParents), enableScalaJsDefined) match {
+          case (true, true)  => (List(Annotation.ScalaJSDefined), cs, true)
+          case (true, false) => (List(Annotation.JsNative), cs + CommentData(Markers.CouldBeScalaJsDefined), false)
+          case (false, _)    => (List(Annotation.JsNative), cs, false)
+        }
+
+        val newCodePath = importName(codePath)
         val MemberRet(ctors, ms, extraInheritance, _) =
-          members flatMap tsMember(scope, scalaJsDefined, importName, newCodePath)
+          members flatMap tsMember(scope, isScalaJsDefined, importName, newCodePath)
         val parents = inheritance.map(importType(Wildcards.Prohibit, scope, importName))
 
         Seq(
           ClassTree(
-            annotations = Seq(if (scalaJsDefined) Annotation.ScalaJSDefined else Annotation.JsNative),
+            annotations = anns,
             name        = name,
             tparams     = tparams map typeParam(scope, importName),
             parents     = parents ++ extraInheritance,
@@ -202,7 +208,7 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
             members     = ms,
             classType   = ClassType.Trait,
             isSealed    = false,
-            comments    = cs,
+            comments    = newComments,
             codePath    = newCodePath,
           ),
         )
@@ -259,12 +265,12 @@ class ImportTree(importName: ImportName, importType: ImportType, illegalNames: C
     def apply(value: MemberTree, isStatic: Boolean): MemberRet =
       if (isStatic) Static(value) else Normal(value)
 
-    final case class Ctor(value: CtorTree) extends MemberRet
+    case class Ctor(value: CtorTree) extends MemberRet
 
-    final case class Normal(value: MemberTree) extends MemberRet
-    final case class Static(value: MemberTree) extends MemberRet
+    case class Normal(value: MemberTree) extends MemberRet
+    case class Static(value: MemberTree) extends MemberRet
 
-    final case class Inheritance(value: TypeRef) extends MemberRet
+    case class Inheritance(value: TypeRef) extends MemberRet
 
     def unapply(es: Seq[MemberRet]): Some[(Seq[CtorTree], Seq[MemberTree], Seq[TypeRef], Seq[MemberTree])] = {
       val ctors = es.collect {

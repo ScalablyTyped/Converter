@@ -5,6 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HtmlImageProps
   extends StrictHtmlImageProps
      with /* key */ StringDictionary[js.Any]

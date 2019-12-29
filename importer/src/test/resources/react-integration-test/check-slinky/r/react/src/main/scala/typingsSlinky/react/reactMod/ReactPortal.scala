@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ReactPortal extends ReactElement {
-  var children: TagMod[Any]
+  var children: TagMod[Any] = js.native
 }
 
 object ReactPortal {

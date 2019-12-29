@@ -57,9 +57,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait BaseHTMLAttributes[T] extends HTMLAttributes[T] {
-  var href: js.UndefOr[String] = js.undefined
-  var target: js.UndefOr[String] = js.undefined
+  var href: js.UndefOr[String] = js.native
+  var target: js.UndefOr[String] = js.native
 }
 
 object BaseHTMLAttributes {

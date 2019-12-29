@@ -5,9 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Default extends js.Object {
-  var default: js.UndefOr[js.Any] = js.undefined
-  var from: js.UndefOr[InjectKey] = js.undefined
+  var default: js.UndefOr[js.Any] = js.native
+  var from: js.UndefOr[InjectKey] = js.native
 }
 
 object Anon_Default {

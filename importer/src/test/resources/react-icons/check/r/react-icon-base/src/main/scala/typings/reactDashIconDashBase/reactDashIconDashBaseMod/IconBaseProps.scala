@@ -8,8 +8,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait IconBaseProps extends ClassAttributes[ReactSVGElement] {
-  var size: js.UndefOr[String | Double] = js.undefined
+  var size: js.UndefOr[String | Double] = js.native
 }
 
 object IconBaseProps {

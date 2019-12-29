@@ -16,51 +16,52 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictButtonGroupProps extends js.Object {
   /** An element type to render as (string or function). */
-  var as: js.UndefOr[js.Any] = js.undefined
+  var as: js.UndefOr[js.Any] = js.native
   /** Groups can be attached to other content. */
-  var attached: js.UndefOr[Boolean | left | right | top | bottom] = js.undefined
+  var attached: js.UndefOr[Boolean | left | right | top | bottom] = js.native
   /** Groups can be less pronounced. */
-  var basic: js.UndefOr[Boolean] = js.undefined
+  var basic: js.UndefOr[Boolean] = js.native
   /** Array of shorthand Button values. */
-  var buttons: js.UndefOr[SemanticShorthandCollection[ButtonProps]] = js.undefined
+  var buttons: js.UndefOr[SemanticShorthandCollection[ButtonProps]] = js.native
   /** Primary content. */
-  var children: js.UndefOr[TagMod[Any]] = js.undefined
+  var children: js.UndefOr[TagMod[Any]] = js.native
   /** Additional classes. */
-  var className: js.UndefOr[String] = js.undefined
+  var className: js.UndefOr[String] = js.native
   /** Groups can have a shared color. */
-  var color: js.UndefOr[SemanticCOLORS] = js.undefined
+  var color: js.UndefOr[SemanticCOLORS] = js.native
   /** Groups can reduce their padding to fit into tighter spaces. */
-  var compact: js.UndefOr[Boolean] = js.undefined
+  var compact: js.UndefOr[Boolean] = js.native
   /** Shorthand for primary content. */
-  var content: js.UndefOr[SemanticShorthandContent] = js.undefined
+  var content: js.UndefOr[SemanticShorthandContent] = js.native
   /** Groups can be aligned to the left or right of its container. */
-  var floated: js.UndefOr[SemanticFLOATS] = js.undefined
+  var floated: js.UndefOr[SemanticFLOATS] = js.native
   /** Groups can take the width of their container. */
-  var fluid: js.UndefOr[Boolean] = js.undefined
+  var fluid: js.UndefOr[Boolean] = js.native
   /** Groups can be formatted as icons. */
-  var icon: js.UndefOr[Boolean] = js.undefined
+  var icon: js.UndefOr[Boolean] = js.native
   /** Groups can be formatted to appear on dark backgrounds. */
-  var inverted: js.UndefOr[Boolean] = js.undefined
+  var inverted: js.UndefOr[Boolean] = js.native
   /** Groups can be formatted as labeled icon buttons. */
-  var labeled: js.UndefOr[Boolean] = js.undefined
+  var labeled: js.UndefOr[Boolean] = js.native
   /** Groups can hint towards a negative consequence. */
-  var negative: js.UndefOr[Boolean] = js.undefined
+  var negative: js.UndefOr[Boolean] = js.native
   /** Groups can hint towards a positive consequence. */
-  var positive: js.UndefOr[Boolean] = js.undefined
+  var positive: js.UndefOr[Boolean] = js.native
   /** Groups can be formatted to show different levels of emphasis. */
-  var primary: js.UndefOr[Boolean] = js.undefined
+  var primary: js.UndefOr[Boolean] = js.native
   /** Groups can be formatted to show different levels of emphasis. */
-  var secondary: js.UndefOr[Boolean] = js.undefined
+  var secondary: js.UndefOr[Boolean] = js.native
   /** Groups can have different sizes. */
-  var size: js.UndefOr[SemanticSIZES] = js.undefined
+  var size: js.UndefOr[SemanticSIZES] = js.native
   /** Groups can be formatted to toggle on and off. */
-  var toggle: js.UndefOr[Boolean] = js.undefined
+  var toggle: js.UndefOr[Boolean] = js.native
   /** Groups can be formatted to appear vertically. */
-  var vertical: js.UndefOr[Boolean] = js.undefined
+  var vertical: js.UndefOr[Boolean] = js.native
   /** Groups can have their widths divided evenly. */
-  var widths: js.UndefOr[SemanticWIDTHS] = js.undefined
+  var widths: js.UndefOr[SemanticWIDTHS] = js.native
 }
 
 object StrictButtonGroupProps {

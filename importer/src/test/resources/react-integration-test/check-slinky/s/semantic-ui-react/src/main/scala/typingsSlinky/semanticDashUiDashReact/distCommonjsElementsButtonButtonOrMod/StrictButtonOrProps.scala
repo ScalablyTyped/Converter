@@ -4,13 +4,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictButtonOrProps extends js.Object {
   /** An element type to render as (string or function). */
-  var as: js.UndefOr[js.Any] = js.undefined
+  var as: js.UndefOr[js.Any] = js.native
   /** Additional classes. */
-  var className: js.UndefOr[String] = js.undefined
+  var className: js.UndefOr[String] = js.native
   /** Or buttons can have their text localized, or adjusted by using the text prop. */
-  var text: js.UndefOr[Double | String] = js.undefined
+  var text: js.UndefOr[Double | String] = js.native
 }
 
 object StrictButtonOrProps {

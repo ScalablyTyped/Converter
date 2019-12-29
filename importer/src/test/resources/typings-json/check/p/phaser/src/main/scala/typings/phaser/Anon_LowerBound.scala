@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_LowerBound extends js.Object {
-  var lowerBound: js.UndefOr[js.Array[Double]] = js.undefined
-  var upperBound: js.UndefOr[js.Array[Double]] = js.undefined
+  var lowerBound: js.UndefOr[js.Array[Double]] = js.native
+  var upperBound: js.UndefOr[js.Array[Double]] = js.native
 }
 
 object Anon_LowerBound {

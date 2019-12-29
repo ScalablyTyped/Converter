@@ -42,12 +42,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VideoHTMLAttributes[T] extends MediaHTMLAttributes[T] {
-  var disablePictureInPicture: js.UndefOr[Boolean] = js.undefined
-  var height: js.UndefOr[Double | String] = js.undefined
-  var playsInline: js.UndefOr[Boolean] = js.undefined
-  var poster: js.UndefOr[String] = js.undefined
-  var width: js.UndefOr[Double | String] = js.undefined
+  var disablePictureInPicture: js.UndefOr[Boolean] = js.native
+  var height: js.UndefOr[Double | String] = js.native
+  var playsInline: js.UndefOr[Boolean] = js.native
+  var poster: js.UndefOr[String] = js.native
+  var width: js.UndefOr[Double | String] = js.native
 }
 
 object VideoHTMLAttributes {

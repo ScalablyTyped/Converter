@@ -8,21 +8,22 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictContainerProps extends js.Object {
   /** An element type to render as (string or function). */
-  var as: js.UndefOr[js.Any] = js.undefined
+  var as: js.UndefOr[js.Any] = js.native
   /** Primary content. */
-  var children: js.UndefOr[Node] = js.undefined
+  var children: js.UndefOr[Node] = js.native
   /** Additional classes. */
-  var className: js.UndefOr[String] = js.undefined
+  var className: js.UndefOr[String] = js.native
   /** Shorthand for primary content. */
-  var content: js.UndefOr[SemanticShorthandContent] = js.undefined
+  var content: js.UndefOr[SemanticShorthandContent] = js.native
   /** Container has no maximum width. */
-  var fluid: js.UndefOr[Boolean] = js.undefined
+  var fluid: js.UndefOr[Boolean] = js.native
   /** Reduce maximum width to more naturally accommodate text. */
-  var text: js.UndefOr[Boolean] = js.undefined
+  var text: js.UndefOr[Boolean] = js.native
   /** Describes how the text inside this component should be aligned. */
-  var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.undefined
+  var textAlign: js.UndefOr[SemanticTEXTALIGNMENTS] = js.native
 }
 
 object StrictContainerProps {

@@ -5,16 +5,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Mixin[P, S]
   extends ComponentLifecycle[P, S, js.Any] {
-  var childContextTypes: js.UndefOr[ValidationMap[_]] = js.undefined
-  var contextTypes: js.UndefOr[ValidationMap[_]] = js.undefined
-  var displayName: js.UndefOr[String] = js.undefined
-  var getDefaultProps: js.UndefOr[js.Function0[P]] = js.undefined
-  var getInitialState: js.UndefOr[js.Function0[S]] = js.undefined
-  var mixins: js.UndefOr[js.Array[Mixin[P, S]]] = js.undefined
-  var propTypes: js.UndefOr[ValidationMap[_]] = js.undefined
-  var statics: js.UndefOr[StringDictionary[js.Any]] = js.undefined
+  var childContextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var contextTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var displayName: js.UndefOr[String] = js.native
+  var getDefaultProps: js.UndefOr[js.Function0[P]] = js.native
+  var getInitialState: js.UndefOr[js.Function0[S]] = js.native
+  var mixins: js.UndefOr[js.Array[Mixin[P, S]]] = js.native
+  var propTypes: js.UndefOr[ValidationMap[_]] = js.native
+  var statics: js.UndefOr[StringDictionary[js.Any]] = js.native
 }
 
 object Mixin {

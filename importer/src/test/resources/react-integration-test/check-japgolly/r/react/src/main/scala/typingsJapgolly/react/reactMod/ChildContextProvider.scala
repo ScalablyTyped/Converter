@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ChildContextProvider[CC] extends js.Object {
-  def getChildContext(): CC
+  def getChildContext(): CC = js.native
 }
 
 object ChildContextProvider {

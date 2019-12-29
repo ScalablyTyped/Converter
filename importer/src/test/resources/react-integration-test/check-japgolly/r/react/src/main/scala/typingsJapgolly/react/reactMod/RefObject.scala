@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait RefObject[T] extends js.Object {
-  val current: T | Null
+  val current: T | Null = js.native
 }
 
 object RefObject {

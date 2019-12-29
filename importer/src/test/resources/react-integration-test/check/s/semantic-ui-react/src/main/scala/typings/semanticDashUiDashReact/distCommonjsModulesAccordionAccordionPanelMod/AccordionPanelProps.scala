@@ -11,6 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait AccordionPanelProps
   extends StrictAccordionPanelProps
      with /* key */ StringDictionary[js.Any]

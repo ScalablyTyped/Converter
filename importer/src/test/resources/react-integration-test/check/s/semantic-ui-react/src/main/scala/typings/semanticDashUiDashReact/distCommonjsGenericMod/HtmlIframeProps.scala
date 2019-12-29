@@ -5,6 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HtmlIframeProps
   extends StrictHtmlIframeProps
      with /* key */ StringDictionary[js.Any]

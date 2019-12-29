@@ -57,9 +57,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DelHTMLAttributes[T] extends HTMLAttributes[T] {
-  var cite: js.UndefOr[String] = js.undefined
-  var dateTime: js.UndefOr[String] = js.undefined
+  var cite: js.UndefOr[String] = js.native
+  var dateTime: js.UndefOr[String] = js.native
 }
 
 object DelHTMLAttributes {

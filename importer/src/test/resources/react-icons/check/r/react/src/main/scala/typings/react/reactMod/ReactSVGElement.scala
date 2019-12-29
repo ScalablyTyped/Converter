@@ -9,9 +9,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 // ReactSVG for ReactSVGElement
+@js.native
 trait ReactSVGElement extends DOMElement[SVGAttributes[SVGElement], SVGElement] {
   @JSName("type")
-  var type_ReactSVGElement: animate | circle | clipPath
+  var type_ReactSVGElement: animate | circle | clipPath = js.native
 }
 
 object ReactSVGElement {

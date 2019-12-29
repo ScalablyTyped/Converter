@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_End extends js.Object {
-  var end: js.UndefOr[Boolean] = js.undefined
+  var end: js.UndefOr[Boolean] = js.native
 }
 
 object Anon_End {

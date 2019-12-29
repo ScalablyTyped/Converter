@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ndarray[T] extends js.Object {
-  var T: typings.ndarray.ndarrayMod.ndarray[T]
-  var data: Data[T]
+  var T: typings.ndarray.ndarrayMod.ndarray[T] = js.native
+  var data: Data[T] = js.native
 }
 
 object ndarray {

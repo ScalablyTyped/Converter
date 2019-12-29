@@ -47,10 +47,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait OlHTMLAttributes[T] extends HTMLAttributes[T] {
-  var reversed: js.UndefOr[Boolean] = js.undefined
-  var start: js.UndefOr[Double] = js.undefined
-  var `type`: js.UndefOr[`1` | a_ | A | i_ | I] = js.undefined
+  var reversed: js.UndefOr[Boolean] = js.native
+  var start: js.UndefOr[Double] = js.native
+  var `type`: js.UndefOr[`1` | a_ | A | i_ | I] = js.native
 }
 
 object OlHTMLAttributes {

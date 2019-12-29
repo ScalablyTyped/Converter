@@ -8,6 +8,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ContainerProps
   extends StrictContainerProps
      with /* key */ StringDictionary[js.Any]

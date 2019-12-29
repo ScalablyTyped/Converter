@@ -7,8 +7,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CompositionEvent[T] extends BaseSyntheticEvent[NativeCompositionEvent, EventTarget with T, EventTarget] {
-  var data: String
+  var data: String = js.native
 }
 
 object CompositionEvent {

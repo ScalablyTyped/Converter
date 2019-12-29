@@ -192,7 +192,7 @@ class Main(config: Config) {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(config.pedantic, PrettyString.Regular), "scala.js")
+      .next(new Phase2ToScalaJs(config.pedantic, PrettyString.Regular, config.enableScalaJsDefined), "scala.js")
 
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)

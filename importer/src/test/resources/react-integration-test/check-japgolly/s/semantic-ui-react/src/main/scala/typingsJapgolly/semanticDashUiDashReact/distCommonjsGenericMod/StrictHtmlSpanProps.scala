@@ -6,8 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictHtmlSpanProps extends js.Object {
-  var children: js.UndefOr[Node] = js.undefined
+  var children: js.UndefOr[Node] = js.native
 }
 
 object StrictHtmlSpanProps {

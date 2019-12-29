@@ -57,8 +57,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DialogHTMLAttributes[T] extends HTMLAttributes[T] {
-  var open: js.UndefOr[Boolean] = js.undefined
+  var open: js.UndefOr[Boolean] = js.native
 }
 
 object DialogHTMLAttributes {

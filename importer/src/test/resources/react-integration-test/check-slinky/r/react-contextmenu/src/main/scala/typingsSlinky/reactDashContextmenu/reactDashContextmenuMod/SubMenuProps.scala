@@ -10,10 +10,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SubMenuProps extends js.Object {
-  var className: js.UndefOr[String] = js.undefined
-  var disabled: js.UndefOr[Boolean] = js.undefined
-  var hoverDelay: js.UndefOr[Double] = js.undefined
+  var className: js.UndefOr[String] = js.native
+  var disabled: js.UndefOr[Boolean] = js.native
+  var hoverDelay: js.UndefOr[Double] = js.native
   var onClick: js.UndefOr[
     (js.Function3[
       /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
@@ -21,10 +22,10 @@ trait SubMenuProps extends js.Object {
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function
-  ] = js.undefined
-  var preventCloseOnClick: js.UndefOr[Boolean] = js.undefined
-  var rtl: js.UndefOr[Boolean] = js.undefined
-  var title: ReactElement | ReactText
+  ] = js.native
+  var preventCloseOnClick: js.UndefOr[Boolean] = js.native
+  var rtl: js.UndefOr[Boolean] = js.native
+  var title: ReactElement | ReactText = js.native
 }
 
 object SubMenuProps {

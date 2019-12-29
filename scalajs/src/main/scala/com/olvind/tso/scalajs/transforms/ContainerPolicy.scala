@@ -78,7 +78,7 @@ object ContainerPolicy extends TreeTransformation {
 
       def containsIllegal = mod.members.exists {
         case x: ClassTree =>
-          x.isScalaJsDefined // means it'll have a companion object
+          x.receivesCompanion
         case x: ModuleTree =>
           x.annotations.isEmpty
         case _ => false

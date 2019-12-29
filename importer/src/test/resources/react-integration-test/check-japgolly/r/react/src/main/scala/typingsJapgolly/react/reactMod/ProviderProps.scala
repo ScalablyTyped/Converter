@@ -7,9 +7,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 // Context via RenderProps
+@js.native
 trait ProviderProps[T] extends js.Object {
-  var children: js.UndefOr[Node] = js.undefined
-  var value: T
+  var children: js.UndefOr[Node] = js.native
+  var value: T = js.native
 }
 
 object ProviderProps {

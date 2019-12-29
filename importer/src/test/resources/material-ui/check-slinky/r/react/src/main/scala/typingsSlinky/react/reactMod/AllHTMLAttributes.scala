@@ -6,9 +6,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait AllHTMLAttributes[T] extends HTMLAttributes[T] {
-  var accept: js.UndefOr[String] = js.undefined
-  var acceptCharset: js.UndefOr[String] = js.undefined
+  var accept: js.UndefOr[String] = js.native
+  var acceptCharset: js.UndefOr[String] = js.native
 }
 
 object AllHTMLAttributes {

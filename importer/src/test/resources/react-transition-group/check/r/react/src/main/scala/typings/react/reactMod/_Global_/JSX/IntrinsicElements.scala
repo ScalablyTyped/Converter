@@ -9,10 +9,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait IntrinsicElements extends js.Object {
   // HTML
-  var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement]
-  var animate: SVGProps[SVGElement]
+  var abbr: DetailedHTMLProps[HTMLAttributes[HTMLElement], HTMLElement] = js.native
+  var animate: SVGProps[SVGElement] = js.native
 }
 
 object IntrinsicElements {

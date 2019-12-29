@@ -42,8 +42,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DataHTMLAttributes[T] extends HTMLAttributes[T] {
-  var value: js.UndefOr[String | js.Array[String] | Double] = js.undefined
+  var value: js.UndefOr[String | js.Array[String] | Double] = js.native
 }
 
 object DataHTMLAttributes {

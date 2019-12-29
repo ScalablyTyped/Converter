@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait IOptions extends js.Object {
-  var trackingCode: String
+  var trackingCode: String = js.native
 }
 
 object IOptions {

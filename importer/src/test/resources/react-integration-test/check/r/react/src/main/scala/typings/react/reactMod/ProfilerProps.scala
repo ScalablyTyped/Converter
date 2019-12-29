@@ -6,10 +6,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ProfilerProps extends js.Object {
-  var children: js.UndefOr[ReactNode] = js.undefined
-  var id: String
-  var onRender: ProfilerOnRenderCallback
+  var children: js.UndefOr[ReactNode] = js.native
+  var id: String = js.native
+  var onRender: ProfilerOnRenderCallback = js.native
 }
 
 object ProfilerProps {

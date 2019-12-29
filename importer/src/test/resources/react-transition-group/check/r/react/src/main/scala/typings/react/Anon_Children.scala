@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Children extends js.Object {
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[ReactNode] = js.native
 }
 
 object Anon_Children {

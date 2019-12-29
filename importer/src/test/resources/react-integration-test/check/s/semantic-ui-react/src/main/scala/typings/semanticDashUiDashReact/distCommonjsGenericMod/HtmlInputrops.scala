@@ -5,6 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HtmlInputrops
   extends StrictHtmlInputrops
      with /* key */ StringDictionary[js.Any]

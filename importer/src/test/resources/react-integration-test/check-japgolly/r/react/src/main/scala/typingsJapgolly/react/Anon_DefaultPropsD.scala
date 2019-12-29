@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_DefaultPropsD extends js.Object {
-  var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
+  var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
 }
 
 object Anon_DefaultPropsD {

@@ -61,8 +61,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DropzoneInputProps extends InputHTMLAttributes[HTMLInputElement] {
-  var refKey: js.UndefOr[String] = js.undefined
+  var refKey: js.UndefOr[String] = js.native
 }
 
 object DropzoneInputProps {

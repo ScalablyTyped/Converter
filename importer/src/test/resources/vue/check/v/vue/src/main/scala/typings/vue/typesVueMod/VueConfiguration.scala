@@ -7,16 +7,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VueConfiguration extends js.Object {
-  var devtools: Boolean
-  var ignoredElements: js.Array[String | RegExp]
-  var keyCodes: StringDictionary[Double | js.Array[Double]]
-  var optionMergeStrategies: js.Any
-  var performance: Boolean
-  var productionTip: Boolean
-  var silent: Boolean
-  def errorHandler(err: Error, vm: Vue, info: String): Unit
-  def warnHandler(msg: String, vm: Vue, trace: String): Unit
+  var devtools: Boolean = js.native
+  var ignoredElements: js.Array[String | RegExp] = js.native
+  var keyCodes: StringDictionary[Double | js.Array[Double]] = js.native
+  var optionMergeStrategies: js.Any = js.native
+  var performance: Boolean = js.native
+  var productionTip: Boolean = js.native
+  var silent: Boolean = js.native
+  def errorHandler(err: Error, vm: Vue, info: String): Unit = js.native
+  def warnHandler(msg: String, vm: Vue, trace: String): Unit = js.native
 }
 
 object VueConfiguration {

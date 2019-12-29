@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait AnimationEvent[T] extends BaseSyntheticEvent[NativeAnimationEvent, EventTarget with T, EventTarget] {
-  var animationName: String
-  var elapsedTime: Double
-  var pseudoElement: String
+  var animationName: String = js.native
+  var elapsedTime: Double = js.native
+  var pseudoElement: String = js.native
 }
 
 object AnimationEvent {

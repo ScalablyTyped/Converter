@@ -42,8 +42,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MenuHTMLAttributes[T] extends HTMLAttributes[T] {
-  var `type`: js.UndefOr[String] = js.undefined
+  var `type`: js.UndefOr[String] = js.native
 }
 
 object MenuHTMLAttributes {

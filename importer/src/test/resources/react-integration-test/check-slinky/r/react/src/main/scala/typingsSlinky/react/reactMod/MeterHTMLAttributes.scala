@@ -55,14 +55,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MeterHTMLAttributes[T] extends HTMLAttributes[T] {
-  var form: js.UndefOr[String] = js.undefined
-  var high: js.UndefOr[Double] = js.undefined
-  var low: js.UndefOr[Double] = js.undefined
-  var max: js.UndefOr[Double | String] = js.undefined
-  var min: js.UndefOr[Double | String] = js.undefined
-  var optimum: js.UndefOr[Double] = js.undefined
-  var value: js.UndefOr[String | js.Array[String] | Double] = js.undefined
+  var form: js.UndefOr[String] = js.native
+  var high: js.UndefOr[Double] = js.native
+  var low: js.UndefOr[Double] = js.native
+  var max: js.UndefOr[Double | String] = js.native
+  var min: js.UndefOr[Double | String] = js.native
+  var optimum: js.UndefOr[Double] = js.native
+  var value: js.UndefOr[String | js.Array[String] | Double] = js.native
 }
 
 object MeterHTMLAttributes {

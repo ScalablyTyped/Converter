@@ -11,13 +11,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictAccordionProps extends StrictAccordionAccordionProps {
   /** Format to take up the width of its container. */
-  var fluid: js.UndefOr[Boolean] = js.undefined
+  var fluid: js.UndefOr[Boolean] = js.native
   /** Format for dark backgrounds. */
-  var inverted: js.UndefOr[Boolean] = js.undefined
+  var inverted: js.UndefOr[Boolean] = js.native
   /** Adds some basic styling to accordion panels. */
-  var styled: js.UndefOr[Boolean] = js.undefined
+  var styled: js.UndefOr[Boolean] = js.native
 }
 
 object StrictAccordionProps {

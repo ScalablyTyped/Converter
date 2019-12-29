@@ -5,9 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DOMAttributes[T] extends js.Object {
-  var children: js.UndefOr[ReactNode] = js.undefined
-  var dangerouslySetInnerHTML: js.UndefOr[Anon_Html] = js.undefined
+  var children: js.UndefOr[ReactNode] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Anon_Html] = js.native
 }
 
 object DOMAttributes {

@@ -8,9 +8,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ChangeEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   @JSName("target")
-  var target_ChangeEvent: org.scalajs.dom.raw.EventTarget with T
+  var target_ChangeEvent: org.scalajs.dom.raw.EventTarget with T = js.native
 }
 
 object ChangeEvent {

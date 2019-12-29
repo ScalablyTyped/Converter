@@ -6,9 +6,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait InvalidEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   @JSName("target")
-  var target_InvalidEvent: EventTarget with T
+  var target_InvalidEvent: EventTarget with T = js.native
 }
 
 object InvalidEvent {

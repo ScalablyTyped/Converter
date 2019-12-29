@@ -57,12 +57,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SourceHTMLAttributes[T] extends HTMLAttributes[T] {
-  var media: js.UndefOr[String] = js.undefined
-  var sizes: js.UndefOr[String] = js.undefined
-  var src: js.UndefOr[String] = js.undefined
-  var srcSet: js.UndefOr[String] = js.undefined
-  var `type`: js.UndefOr[String] = js.undefined
+  var media: js.UndefOr[String] = js.native
+  var sizes: js.UndefOr[String] = js.native
+  var src: js.UndefOr[String] = js.native
+  var srcSet: js.UndefOr[String] = js.native
+  var `type`: js.UndefOr[String] = js.native
 }
 
 object SourceHTMLAttributes {

@@ -72,9 +72,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait InputOnChangeData extends StrictInputProps {
   @JSName("value")
-  var value_InputOnChangeData: String
+  var value_InputOnChangeData: String = js.native
 }
 
 object InputOnChangeData {

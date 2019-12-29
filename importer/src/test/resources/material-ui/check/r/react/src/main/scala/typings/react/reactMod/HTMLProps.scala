@@ -6,11 +6,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HTMLProps[T] extends AllHTMLAttributes[T] {
-  var defaultValue: foo
-  var onChange: foo
-  var `type`: foo
-  var value: foo
+  var defaultValue: foo = js.native
+  var onChange: foo = js.native
+  var `type`: foo = js.native
+  var value: foo = js.native
 }
 
 object HTMLProps {

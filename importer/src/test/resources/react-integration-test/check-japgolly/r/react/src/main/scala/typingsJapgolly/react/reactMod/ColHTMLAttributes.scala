@@ -57,9 +57,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ColHTMLAttributes[T] extends HTMLAttributes[T] {
-  var span: js.UndefOr[Double] = js.undefined
-  var width: js.UndefOr[Double | String] = js.undefined
+  var span: js.UndefOr[Double] = js.native
+  var width: js.UndefOr[Double | String] = js.native
 }
 
 object ColHTMLAttributes {

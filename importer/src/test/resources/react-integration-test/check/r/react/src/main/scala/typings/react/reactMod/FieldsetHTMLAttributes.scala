@@ -42,10 +42,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait FieldsetHTMLAttributes[T] extends HTMLAttributes[T] {
-  var disabled: js.UndefOr[Boolean] = js.undefined
-  var form: js.UndefOr[String] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
+  var disabled: js.UndefOr[Boolean] = js.native
+  var form: js.UndefOr[String] = js.native
+  var name: js.UndefOr[String] = js.native
 }
 
 object FieldsetHTMLAttributes {

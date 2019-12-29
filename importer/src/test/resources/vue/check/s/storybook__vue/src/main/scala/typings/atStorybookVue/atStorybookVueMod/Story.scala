@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Story extends js.Object {
-  val kind: String
-  def add(storyName: String, getStory: StoryFunction): this.type
-  def addDecorator(decorator: StoryDecorator): this.type
+  val kind: String = js.native
+  def add(storyName: String, getStory: StoryFunction): this.type = js.native
+  def addDecorator(decorator: StoryDecorator): this.type = js.native
 }
 
 object Story {

@@ -32,13 +32,16 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: Seq[ClassAnnotation]
   def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
+  def receivesCompanion: Boolean =
+    isScalaJsDefined || comments.extract { case Markers.CouldBeScalaJsDefined => () }.nonEmpty
   val index: Map[Name, Seq[Tree]]
 
-  def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
-  }
+  def isNative: Boolean =
+    annotations.exists {
+      case Annotation.JsNative       => true
+      case Annotation.ScalaJSDefined => true
+      case _                         => false
+    }
 }
 
 final case class PackageTree(

@@ -23,6 +23,7 @@ object ImportTypings {
       targetFolder:             os.Path,
       chosenFlavour:            Flavour,
       shouldGenerateCompanions: Boolean,
+      enableScalaJsDefined:     Boolean,
       prettyStringType:         PrettyStringType,
       libs:                     List[String],
       ignore:                   Set[String],
@@ -85,7 +86,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, prettyString), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, prettyString, enableScalaJsDefined), "scala.js")
       .next(new PhaseFlavour(flavour, prettyString), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
@@ -160,6 +161,7 @@ object ImportTypings {
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
           shouldGenerateCompanions = true,
+          enableScalaJsDefined = false,
           PrettyStringType.Regular,
           List("es5", "dom"),
           Set("typescript", "csstype"),

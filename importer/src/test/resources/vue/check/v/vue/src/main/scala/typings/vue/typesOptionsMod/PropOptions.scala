@@ -4,11 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait PropOptions[T] extends js.Object {
-  var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.undefined
-  var required: js.UndefOr[Boolean] = js.undefined
-  var `type`: js.UndefOr[Prop[T] | js.Array[Prop[T]]] = js.undefined
-  var validator: js.UndefOr[js.Function1[/* value */ T, Boolean]] = js.undefined
+  var default: js.UndefOr[T | Null | js.Function0[js.Object]] = js.native
+  var required: js.UndefOr[Boolean] = js.native
+  var `type`: js.UndefOr[Prop[T] | js.Array[Prop[T]]] = js.native
+  var validator: js.UndefOr[js.Function1[/* value */ T, Boolean]] = js.native
 }
 
 object PropOptions {

@@ -22,104 +22,105 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DOMAttributes[T] extends js.Object {
-  var children: js.UndefOr[Node] = js.undefined
-  var dangerouslySetInnerHTML: js.UndefOr[Anon_Html] = js.undefined
+  var children: js.UndefOr[Node] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Anon_Html] = js.native
   // Media Events
-  var onAbort: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onAnimationEnd: js.UndefOr[AnimationEventHandler[T]] = js.undefined
-  var onAnimationIteration: js.UndefOr[AnimationEventHandler[T]] = js.undefined
+  var onAbort: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onAnimationEnd: js.UndefOr[AnimationEventHandler[T]] = js.native
+  var onAnimationIteration: js.UndefOr[AnimationEventHandler[T]] = js.native
   // Animation Events
-  var onAnimationStart: js.UndefOr[AnimationEventHandler[T]] = js.undefined
+  var onAnimationStart: js.UndefOr[AnimationEventHandler[T]] = js.native
   // MouseEvents
-  var onAuxClick: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onBeforeInput: js.UndefOr[FormEventHandler[T]] = js.undefined
-  var onBlur: js.UndefOr[FocusEventHandler[T]] = js.undefined
-  var onCanPlay: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onCanPlayThrough: js.UndefOr[ReactEventHandler[T]] = js.undefined
+  var onAuxClick: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onBeforeInput: js.UndefOr[FormEventHandler[T]] = js.native
+  var onBlur: js.UndefOr[FocusEventHandler[T]] = js.native
+  var onCanPlay: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onCanPlayThrough: js.UndefOr[ReactEventHandler[T]] = js.native
   // Form Events
-  var onChange: js.UndefOr[FormEventHandler[T]] = js.undefined
-  var onClick: js.UndefOr[MouseEventHandler[T]] = js.undefined
+  var onChange: js.UndefOr[FormEventHandler[T]] = js.native
+  var onClick: js.UndefOr[MouseEventHandler[T]] = js.native
   // Composition Events
-  var onCompositionEnd: js.UndefOr[CompositionEventHandler[T]] = js.undefined
-  var onCompositionStart: js.UndefOr[CompositionEventHandler[T]] = js.undefined
-  var onCompositionUpdate: js.UndefOr[CompositionEventHandler[T]] = js.undefined
-  var onContextMenu: js.UndefOr[MouseEventHandler[T]] = js.undefined
+  var onCompositionEnd: js.UndefOr[CompositionEventHandler[T]] = js.native
+  var onCompositionStart: js.UndefOr[CompositionEventHandler[T]] = js.native
+  var onCompositionUpdate: js.UndefOr[CompositionEventHandler[T]] = js.native
+  var onContextMenu: js.UndefOr[MouseEventHandler[T]] = js.native
   // Clipboard Events
-  var onCopy: js.UndefOr[ClipboardEventHandler[T]] = js.undefined
-  var onCut: js.UndefOr[ClipboardEventHandler[T]] = js.undefined
-  var onDoubleClick: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onDrag: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDragEnd: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDragEnter: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDragExit: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDragLeave: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDragOver: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDragStart: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDrop: js.UndefOr[DragEventHandler[T]] = js.undefined
-  var onDurationChange: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onEmptied: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onEncrypted: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onEnded: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onError: js.UndefOr[ReactEventHandler[T]] = js.undefined
+  var onCopy: js.UndefOr[ClipboardEventHandler[T]] = js.native
+  var onCut: js.UndefOr[ClipboardEventHandler[T]] = js.native
+  var onDoubleClick: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onDrag: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDragEnd: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDragEnter: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDragExit: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDragLeave: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDragOver: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDragStart: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDrop: js.UndefOr[DragEventHandler[T]] = js.native
+  var onDurationChange: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onEmptied: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onEncrypted: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onEnded: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onError: js.UndefOr[ReactEventHandler[T]] = js.native
   // Focus Events
-  var onFocus: js.UndefOr[FocusEventHandler[T]] = js.undefined
-  var onInput: js.UndefOr[FormEventHandler[T]] = js.undefined
-  var onInvalid: js.UndefOr[FormEventHandler[T]] = js.undefined
+  var onFocus: js.UndefOr[FocusEventHandler[T]] = js.native
+  var onInput: js.UndefOr[FormEventHandler[T]] = js.native
+  var onInvalid: js.UndefOr[FormEventHandler[T]] = js.native
    // also a Media Event
   // Keyboard Events
-  var onKeyDown: js.UndefOr[KeyboardEventHandler[T]] = js.undefined
-  var onKeyPress: js.UndefOr[KeyboardEventHandler[T]] = js.undefined
-  var onKeyUp: js.UndefOr[KeyboardEventHandler[T]] = js.undefined
+  var onKeyDown: js.UndefOr[KeyboardEventHandler[T]] = js.native
+  var onKeyPress: js.UndefOr[KeyboardEventHandler[T]] = js.native
+  var onKeyUp: js.UndefOr[KeyboardEventHandler[T]] = js.native
   // Image Events
-  var onLoad: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onLoadStart: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onLoadedData: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onLoadedMetadata: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onMouseDown: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onMouseEnter: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onMouseLeave: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onMouseMove: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onMouseOut: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onMouseOver: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onMouseUp: js.UndefOr[MouseEventHandler[T]] = js.undefined
-  var onPaste: js.UndefOr[ClipboardEventHandler[T]] = js.undefined
-  var onPause: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onPlay: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onPlaying: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onPointerCancel: js.UndefOr[PointerEventHandler[T]] = js.undefined
+  var onLoad: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onLoadStart: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onLoadedData: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onLoadedMetadata: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onMouseDown: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onMouseEnter: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onMouseLeave: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onMouseMove: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onMouseOut: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onMouseOver: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onMouseUp: js.UndefOr[MouseEventHandler[T]] = js.native
+  var onPaste: js.UndefOr[ClipboardEventHandler[T]] = js.native
+  var onPause: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onPlay: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onPlaying: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onPointerCancel: js.UndefOr[PointerEventHandler[T]] = js.native
   // Pointer Events
-  var onPointerDown: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onPointerEnter: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onPointerLeave: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onPointerMove: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onPointerOut: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onPointerOver: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onPointerUp: js.UndefOr[PointerEventHandler[T]] = js.undefined
-  var onProgress: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onRateChange: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onReset: js.UndefOr[FormEventHandler[T]] = js.undefined
+  var onPointerDown: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onPointerEnter: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onPointerLeave: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onPointerMove: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onPointerOut: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onPointerOver: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onPointerUp: js.UndefOr[PointerEventHandler[T]] = js.native
+  var onProgress: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onRateChange: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onReset: js.UndefOr[FormEventHandler[T]] = js.native
   // UI Events
-  var onScroll: js.UndefOr[UIEventHandler[T]] = js.undefined
-  var onSeeked: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onSeeking: js.UndefOr[ReactEventHandler[T]] = js.undefined
+  var onScroll: js.UndefOr[UIEventHandler[T]] = js.native
+  var onSeeked: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onSeeking: js.UndefOr[ReactEventHandler[T]] = js.native
   // Selection Events
-  var onSelect: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onStalled: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onSubmit: js.UndefOr[FormEventHandler[T]] = js.undefined
-  var onSuspend: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onTimeUpdate: js.UndefOr[ReactEventHandler[T]] = js.undefined
+  var onSelect: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onStalled: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onSubmit: js.UndefOr[FormEventHandler[T]] = js.native
+  var onSuspend: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onTimeUpdate: js.UndefOr[ReactEventHandler[T]] = js.native
   // Touch Events
-  var onTouchCancel: js.UndefOr[TouchEventHandler[T]] = js.undefined
-  var onTouchEnd: js.UndefOr[TouchEventHandler[T]] = js.undefined
-  var onTouchMove: js.UndefOr[TouchEventHandler[T]] = js.undefined
-  var onTouchStart: js.UndefOr[TouchEventHandler[T]] = js.undefined
+  var onTouchCancel: js.UndefOr[TouchEventHandler[T]] = js.native
+  var onTouchEnd: js.UndefOr[TouchEventHandler[T]] = js.native
+  var onTouchMove: js.UndefOr[TouchEventHandler[T]] = js.native
+  var onTouchStart: js.UndefOr[TouchEventHandler[T]] = js.native
   // Transition Events
-  var onTransitionEnd: js.UndefOr[TransitionEventHandler[T]] = js.undefined
-  var onVolumeChange: js.UndefOr[ReactEventHandler[T]] = js.undefined
-  var onWaiting: js.UndefOr[ReactEventHandler[T]] = js.undefined
+  var onTransitionEnd: js.UndefOr[TransitionEventHandler[T]] = js.native
+  var onVolumeChange: js.UndefOr[ReactEventHandler[T]] = js.native
+  var onWaiting: js.UndefOr[ReactEventHandler[T]] = js.native
   // Wheel Events
-  var onWheel: js.UndefOr[WheelEventHandler[T]] = js.undefined
+  var onWheel: js.UndefOr[WheelEventHandler[T]] = js.native
 }
 
 object DOMAttributes {

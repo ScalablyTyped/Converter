@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Render extends js.Object {
-  var render: js.Function
-  var staticRenderFns: js.Array[js.Function]
+  var render: js.Function = js.native
+  var staticRenderFns: js.Array[js.Function] = js.native
 }
 
 object Anon_Render {

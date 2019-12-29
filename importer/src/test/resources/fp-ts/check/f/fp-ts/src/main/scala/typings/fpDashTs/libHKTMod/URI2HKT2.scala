@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait URI2HKT2[L, A] extends js.Object {
-  var Const: typings.fpDashTs.libConstMod.Const[L, A]
+  var Const: typings.fpDashTs.libConstMod.Const[L, A] = js.native
 }
 
 object URI2HKT2 {

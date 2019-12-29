@@ -55,8 +55,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait QuoteHTMLAttributes[T] extends HTMLAttributes[T] {
-  var cite: js.UndefOr[String] = js.undefined
+  var cite: js.UndefOr[String] = js.native
 }
 
 object QuoteHTMLAttributes {

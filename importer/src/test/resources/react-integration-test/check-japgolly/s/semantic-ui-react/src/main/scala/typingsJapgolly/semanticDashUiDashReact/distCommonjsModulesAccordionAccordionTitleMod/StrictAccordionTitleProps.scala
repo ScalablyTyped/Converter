@@ -11,25 +11,26 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictAccordionTitleProps extends js.Object {
   /** Whether or not the title is in the open state. */
-  var active: js.UndefOr[Boolean] = js.undefined
+  var active: js.UndefOr[Boolean] = js.native
   /** An element type to render as (string or function). */
-  var as: js.UndefOr[js.Any] = js.undefined
+  var as: js.UndefOr[js.Any] = js.native
   /** Primary content. */
-  var children: js.UndefOr[Node] = js.undefined
+  var children: js.UndefOr[Node] = js.native
   /** Additional classes. */
-  var className: js.UndefOr[String] = js.undefined
+  var className: js.UndefOr[String] = js.native
   /** Shorthand for primary content. */
-  var content: js.UndefOr[SemanticShorthandContent] = js.undefined
+  var content: js.UndefOr[SemanticShorthandContent] = js.native
   /** Shorthand for Icon. */
   var icon: js.UndefOr[
     SemanticShorthandItem[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
     ]
-  ] = js.undefined
+  ] = js.native
   /** AccordionTitle index inside Accordion. */
-  var index: js.UndefOr[Double | String] = js.undefined
+  var index: js.UndefOr[Double | String] = js.native
   /**
     * Called on click.
     *
@@ -42,7 +43,7 @@ trait StrictAccordionTitleProps extends js.Object {
       /* data */ AccordionTitleProps, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
 }
 
 object StrictAccordionTitleProps {

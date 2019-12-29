@@ -5,11 +5,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Insight extends js.Object {
-  var clientId: String
-  var config: IConfigstore
-  var optOut: Boolean
-  def track(args: String*): Unit
+  var clientId: String = js.native
+  var config: IConfigstore = js.native
+  var optOut: Boolean = js.native
+  def track(args: String*): Unit = js.native
 }
 
 object Insight {

@@ -5,15 +5,16 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HttpResponse extends js.Object {
-  var data: js.Object
-  var headers: js.Function
-  var ok: Boolean
-  var status: Double
-  var statusText: String
-  def blob(): Blob
-  def json(): js.Any
-  def text(): String
+  var data: js.Object = js.native
+  var headers: js.Function = js.native
+  var ok: Boolean = js.native
+  var status: Double = js.native
+  var statusText: String = js.native
+  def blob(): Blob = js.native
+  def json(): js.Any = js.native
+  def text(): String = js.native
 }
 
 object HttpResponse {

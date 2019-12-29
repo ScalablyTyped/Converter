@@ -5,9 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ConsumerProps[T] extends js.Object {
-  var unstable_observedBits: js.UndefOr[Double] = js.undefined
-  def children(value: T): TagMod[Any]
+  var unstable_observedBits: js.UndefOr[Double] = js.native
+  def children(value: T): TagMod[Any] = js.native
 }
 
 object ConsumerProps {

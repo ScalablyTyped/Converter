@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Unsubscribable extends js.Object {
-  def unsubscribe(): Unit
+  def unsubscribe(): Unit = js.native
 }
 
 object Unsubscribable {

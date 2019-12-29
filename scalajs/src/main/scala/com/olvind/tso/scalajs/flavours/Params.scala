@@ -114,7 +114,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
 
       case None =>
         if (cls.classType =/= ClassType.Trait) Res.Error("Not a trait")
-        else if (!acceptNativeTraits && !cls.isScalaJsDefined) Res.Error("Not a @ScalaJSDefined trait")
+        else if (!acceptNativeTraits && !cls.receivesCompanion) Res.Error("Not a @ScalaJSDefined trait")
         else {
           val parents = ParentsResolver(scope, cls)
 

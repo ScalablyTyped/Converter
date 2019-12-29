@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DuplexOptions
   extends ReadableOptions
      with WritableOptions {
-  var allowHalfOpen: js.UndefOr[Boolean] = js.undefined
+  var allowHalfOpen: js.UndefOr[Boolean] = js.native
 }
 
 object DuplexOptions {

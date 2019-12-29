@@ -6,9 +6,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DOMAttributes[T] extends js.Object {
-  var children: js.UndefOr[TagMod[Any]] = js.undefined
-  var dangerouslySetInnerHTML: js.UndefOr[Anon_Html] = js.undefined
+  var children: js.UndefOr[TagMod[Any]] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Anon_Html] = js.native
 }
 
 object DOMAttributes {

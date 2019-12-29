@@ -5,13 +5,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ResourceActions extends js.Object {
-  var delete: Anon_Method
-  var get: Anon_Method
-  var query: Anon_Method
-  var remove: Anon_Method
-  var save: Anon_Method
-  var update: Anon_Method
+  var delete: Anon_Method = js.native
+  var get: Anon_Method = js.native
+  var query: Anon_Method = js.native
+  var remove: Anon_Method = js.native
+  var save: Anon_Method = js.native
+  var update: Anon_Method = js.native
 }
 
 object ResourceActions {

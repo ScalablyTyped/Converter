@@ -4,5 +4,6 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Uint8Array extends js.Object
 
