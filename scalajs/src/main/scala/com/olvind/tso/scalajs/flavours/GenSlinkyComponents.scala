@@ -190,7 +190,7 @@ class GenSlinkyComponents(
           .collectFirst {
             case (x: ClassTree, newScope) =>
               ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-                case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+                case FieldTree(_, name, Optional(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
                 case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
               }
           }
@@ -243,7 +243,7 @@ class GenSlinkyComponents(
                                       case Some(tpe) =>
                                         /* todo: refactor out a name/type check which ignores optionality */
                                         FollowAliases(scope)(fieldTree.tpe) match {
-                                          case Nullable(ftpe) => ftpe.typeName === tpe.typeName
+                                          case Optional(ftpe) => ftpe.typeName === tpe.typeName
                                           case ftpe           => ftpe.typeName === tpe.typeName
                                         }
                                       case None => false

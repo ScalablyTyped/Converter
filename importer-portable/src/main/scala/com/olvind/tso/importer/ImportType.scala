@@ -189,7 +189,11 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
           }
 
-        TypeRef.Union(patched map apply(wildcards, scope, importName), sort = false)
+        val rewritten = patched map {
+          case TsTypeRef.undefined => TypeRef.undefined
+          case other => apply(wildcards, scope, importName)(other)
+        }
+        TypeRef.Union(rewritten, sort = false)
 
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types map apply(Wildcards.No, scope, importName))

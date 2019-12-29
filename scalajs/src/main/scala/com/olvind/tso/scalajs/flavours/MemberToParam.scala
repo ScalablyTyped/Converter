@@ -19,7 +19,7 @@ object MemberToParam {
         /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
         case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
           FollowAliases(scope)(origTpe) match {
-            case Nullable(TypeRef.Double) =>
+            case Optional(TypeRef.Double) =>
               val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
               Some(
                 Param(
@@ -30,7 +30,7 @@ object MemberToParam {
                   ),
                 ),
               )
-            case Nullable(tpe) if TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, tpe))) =>
+            case Optional(tpe) if TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, tpe))) =>
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
@@ -40,7 +40,7 @@ object MemberToParam {
                   ),
                 ),
               )
-            case Nullable(TypeRef.Function(paramTypes, retType)) =>
+            case Optional(TypeRef.Function(paramTypes, retType)) =>
               val convertedTarget = s"js.Any.fromFunction${paramTypes.length}(${name.value})"
               if (paramTypes.contains(TypeRef.Nothing)) None // edge case which doesnt work
               else
@@ -59,9 +59,9 @@ object MemberToParam {
                     ),
                   ),
                 )
-            case Nullable(_) =>
+            case Optional(_) =>
               /* Undo effect of FollowAliases above */
-              val tpe = Nullable.unapply(origTpe).getOrElse(origTpe) match {
+              val tpe = Optional.unapply(origTpe).getOrElse(origTpe) match {
                 case TypeRef.Wildcard => TypeRef.Any
                 case other            => other
               }

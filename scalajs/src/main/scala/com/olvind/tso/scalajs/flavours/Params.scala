@@ -159,7 +159,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
               .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
                 val isRequired = parent.classTree.members.exists {
                   case _: MethodTree => true
-                  case FieldTree(_, _, Nullable(_), _, _, _, _, _) => false
+                  case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
                   case _: FieldTree => true
                   case _ => false
                 }
