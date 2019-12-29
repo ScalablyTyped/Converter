@@ -80,7 +80,7 @@ object Config {
             conserveSpace        = flags contains "-conserveSpace",
             enableParseCache     = flags contains "-enableParseCache",
             dontCleanProject     = flags contains "-dontCleanProject",
-            enableScalaJsDefined = if (flags contains "-enableScalaJsDefined") Selection.All() else Selection.None(),
+            enableScalaJsDefined = if (flags contains "-enableScalaJsDefined") Selection.All else Selection.None,
             softWrites           = flags contains "-softWrites",
             debugMode            = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
             wantedLibNames       = wantedLibNames,

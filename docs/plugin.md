@@ -133,17 +133,12 @@ By minimization we mean to remove everything from a library except what is refer
 The point is that you typically want everything from your main libraries, 
  but you care less about their (transitive) dependencies. 
 
-Since you typically don't want to enumerate all transitive dependencies, there is a helper type provided for this:
+Since you typically don't want to enumerate all transitive dependencies, the `Selection` helper type provided for this:
 
-```scala 
-sealed trait Selection[T]
-object Selection {
-  case class AllOf[T](values: T*) extends Selection[T]
-  case class AllExcept[T](values: T*) extends Selection[T]
-  case class All[T]() extends Selection[T]
-  case class None[T]() extends Selection[T]
-}
-```
+- `Selection.None` disables for all libraries (default)
+- `Selection.NoneExcept(String*)` enables only given libraries 
+- `Selection.All` enables for all libraries
+- `Selection.AllExcept(String*)` enables only not given libraries (most useful) 
 
 Using that, typical usage of `tsoMinimize` looks like this:
 

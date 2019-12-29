@@ -42,6 +42,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val generateCompanions   = tsoGenerateCompanions.value
 
         val config = ImportTypings.Input(
+          BuildInfo.gitSha,
           os.read(packageJson).hashCode,
           npmDeps.to[Seq],
           nodeModules,
@@ -112,6 +113,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val generateCompanions   = tsoGenerateCompanions.value
 
         val config = ImportTypings.Input(
+          BuildInfo.gitSha,
           os.read(os.Path(packageJson)).hashCode,
           npmDeps.to[Seq],
           nodeModules,
@@ -261,13 +263,13 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     import autoImport._
     Seq(
       tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
-      tsoEnableScalaJsDefined := com.olvind.tso.Selection.All(),
+      tsoEnableScalaJsDefined := com.olvind.tso.Selection.All,
       tsoPrettyStringType := com.olvind.tso.plugin.PrettyStringType.Regular,
       tsoTypescriptVersion := "3.7.2",
       tsoGenerateCompanions := true,
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),
-      tsoMinimize := com.olvind.tso.Selection.None(),
+      tsoMinimize := com.olvind.tso.Selection.None,
       sourceGenerators in Compile += tsoImport.taskValue,
     )
   }

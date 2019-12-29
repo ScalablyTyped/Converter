@@ -35,16 +35,18 @@ lazy val phases = project
 lazy val `importer-portable` = project
   .configure(baseSettings, publicationSettings)
   .dependsOn(ts, scalajs, phases)
-
-lazy val importer = project
-  .dependsOn(`importer-portable`)
-  .configure(baseSettings, preventPublication)
   .enablePlugins(BuildInfoPlugin)
   .settings(
     buildInfoPackage := "com.olvind.tso",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
     ),
+  )
+
+lazy val importer = project
+  .dependsOn(`importer-portable`)
+  .configure(baseSettings, preventPublication)
+  .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,
       Deps.bintry,

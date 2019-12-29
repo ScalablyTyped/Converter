@@ -14,7 +14,7 @@ lazy val testProject =
       ),
       Compile / tsoFlavour := Flavour.Japgolly,
       Compile / tsoIgnore += "csstype",
-      Compile / tsoMinimize := Selection.All(),
+      Compile / tsoMinimize := Selection.All,
       libraryDependencies += "com.github.japgolly.scalajs-react" %%% "core" % "1.5.0-RC2",
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.1",

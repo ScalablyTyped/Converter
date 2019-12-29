@@ -17,6 +17,7 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
+      gitSha:                   String,
       packageJsonHash:          Int,
       npmDependencies:          Seq[(String, String)],
       fromFolder:               InFolder,
@@ -63,7 +64,7 @@ object ImportTypings {
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    val parseCachePath = os.root / "tmp" / "tso-sbt-cache" / "parse"
+    val parseCachePath = os.root / "tmp" / "tso-sbt-cache" / "parse" / BuildInfo.gitSha.take(6)
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
@@ -155,13 +156,14 @@ object ImportTypings {
     println(
       ImportTypings(
         Input(
+          "0",
           0,
           List(("@storybook/react" -> "1")),
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
           shouldGenerateCompanions = true,
-          enableScalaJsDefined     = Selection.None(),
+          enableScalaJsDefined     = Selection.None,
           PrettyStringType.Regular,
           List("es5", "dom"),
           Set("typescript", "csstype"),
