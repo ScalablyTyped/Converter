@@ -99,6 +99,9 @@ class Main(config: Config) {
         )(ec)
     }
 
+  val ignoredLibs: Set[TsIdentLibrary] =
+    Libraries.ignored(config.sequential, config.enableScalaJsDefined)
+
   def tsSourcesF(
       externalsFolderF:  Future[InFolder],
       dtFolderF:         Future[InFolder],
@@ -114,7 +117,7 @@ class Main(config: Config) {
         os.list(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
 
       (
-        TypescriptSources(externalsFolder, dtFolder, Libraries.ignored(config.sequential)).sorted ++ facadeSources,
+        TypescriptSources(externalsFolder, dtFolder, ignoredLibs).sorted ++ facadeSources,
         config.wantedLibNames,
       ) match {
         case (sources, sets.EmptySet())   => sources
@@ -151,7 +154,7 @@ class Main(config: Config) {
           external.packages
             .map(_.typingsPackageName)
             .to[Set] + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
-          Libraries.ignored(config.sequential),
+          ignoredLibs,
           config.conserveSpace,
           config.offline,
         )
@@ -179,7 +182,7 @@ class Main(config: Config) {
         new Phase1ReadTypescript(
           calculateLibraryVersion = new DTVersions(lastChangedIndex),
           resolve                 = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), None),
-          ignored                 = Libraries.ignored(config.sequential),
+          ignored                 = ignoredLibs,
           ignoredModulePrefixes   = Set.empty,
           stdlibSource            = stdLibSource,
           pedantic                = config.pedantic,
@@ -192,7 +195,16 @@ class Main(config: Config) {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(config.pedantic, PrettyString.Regular, config.enableScalaJsDefined), "scala.js")
+      .next(
+        new Phase2ToScalaJs(
+          config.pedantic,
+          PrettyString.Regular,
+          enableScalaJsDefined =
+            if (config.enableScalaJsDefined) Selection.All
+            else Selection.None,
+        ),
+        "scala.js",
+      )
 
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)
