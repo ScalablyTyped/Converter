@@ -85,7 +85,7 @@ object ExtractClasses extends TransformLeaveMembers {
   }
 
   class FindAvailableName private (index: Map[TsIdent, Seq[TsNamedDecl]]) {
-    def apply(potentialName: TsIdent): Option[TsIdent] = {
+    def apply(potentialName: TsIdentSimple): Option[TsIdentSimple] = {
       def backupName =
         if (potentialName === TsIdent.namespaced) TsIdent.namespacedCls
         else TsIdentSimple(potentialName.value + "Cls")
@@ -93,7 +93,7 @@ object ExtractClasses extends TransformLeaveMembers {
       availableTypeName(potentialName) orElse availableTypeName(backupName)
     }
 
-    def availableTypeName(potentialName: TsIdent): Option[TsIdent] =
+    def availableTypeName(potentialName: TsIdentSimple): Option[TsIdentSimple] =
       index.get(potentialName) match {
         case None => Some(potentialName)
         case Some(existings) =>

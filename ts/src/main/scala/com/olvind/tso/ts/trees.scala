@@ -34,7 +34,7 @@ sealed trait TsContainer extends TsContainerOrDecl with MemberCache with HasCode
 
 sealed trait TsNamedDecl extends TsDecl with HasCodePath {
   def name: TsIdent
-  def withName(name: TsIdent): TsNamedDecl
+  def withName(name: TsIdentSimple): TsNamedDecl
 }
 
 sealed trait TsNamedValueDecl extends TsNamedDecl
@@ -63,11 +63,11 @@ sealed trait TsDeclNamespaceOrModule extends TsContainer with TsNamedValueDecl w
 final case class TsDeclNamespace(
     comments:   Comments,
     declared:   Boolean,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     members:    Seq[TsContainerOrDecl],
     codePath:   CodePath,
     jsLocation: JsLocation,
-) extends TsDeclNamespaceOrModule {
+) extends TsDeclNamespaceOrModule with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclNamespace =
     copy(codePath = newCodePath)
@@ -78,7 +78,7 @@ final case class TsDeclNamespace(
   override def withJsLocation(newLocation: JsLocation): TsDeclNamespace =
     copy(jsLocation = newLocation)
 
-  override def withName(newName: TsIdent): TsNamedDecl =
+  override def withName(newName: TsIdentSimple): TsNamedDecl =
     copy(name = newName)
 }
 
@@ -91,9 +91,6 @@ final case class TsDeclModule(
     jsLocation: JsLocation,
 ) extends TsDeclNamespaceOrModule {
 
-  override def withName(name: TsIdent): TsNamedDecl =
-    copy(name = TsIdentModule(None, name.value.split("/").toList))
-
   override def withMembers(newMembers: Seq[TsContainerOrDecl]): TsDeclModule =
     copy(members = newMembers)
 
@@ -102,6 +99,9 @@ final case class TsDeclModule(
 
   override def withJsLocation(newLocation: JsLocation): TsDeclModule =
     copy(jsLocation = newLocation)
+
+  override def withName(name: TsIdentSimple): TsDeclNamespace =
+    TsDeclNamespace(comments, declared = false, name, members, codePath, jsLocation)
 }
 
 final case class TsAugmentedModule(
@@ -119,8 +119,8 @@ final case class TsAugmentedModule(
   override def withJsLocation(newLocation: JsLocation): TsAugmentedModule =
     copy(jsLocation = newLocation)
 
-  override def withName(name: TsIdent): TsNamedDecl =
-    copy(name = TsIdentModule(None, name.value.split("/").toList))
+  override def withName(name: TsIdentSimple): TsDeclNamespace =
+    TsDeclNamespace(NoComments, declared = false, name, members, codePath, jsLocation)
 }
 
 final case class TsGlobal(
@@ -140,7 +140,7 @@ final case class TsDeclClass(
     comments:   Comments,
     declared:   Boolean,
     isAbstract: Boolean,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     tparams:    Seq[TsTypeParam],
     parent:     Option[TsTypeRef],
     implements: Seq[TsTypeRef],
@@ -150,7 +150,7 @@ final case class TsDeclClass(
 ) extends TsNamedValueDecl
     with HasJsLocation
     with HasClassMembers
-    with HasCodePath {
+    with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclClass =
     copy(codePath = newCodePath)
@@ -158,26 +158,25 @@ final case class TsDeclClass(
   override def withJsLocation(newLocation: JsLocation): TsDeclClass =
     copy(jsLocation = newLocation)
 
-  override def withName(newName: TsIdent): TsDeclClass =
+  override def withName(newName: TsIdentSimple): TsDeclClass =
     copy(name = newName)
 }
 
 final case class TsDeclInterface(
     comments:    Comments,
     declared:    Boolean,
-    name:        TsIdent,
+    name:        TsIdentSimple,
     tparams:     Seq[TsTypeParam],
     inheritance: Seq[TsTypeRef],
     members:     Seq[TsMember],
     codePath:    CodePath,
 ) extends TsNamedDecl
-    with HasClassMembers
-    with HasCodePath {
+    with HasClassMembers {
 
   override def withCodePath(newCodePath: CodePath): TsDeclInterface =
     copy(codePath = newCodePath)
 
-  override def withName(newName: TsIdent): TsDeclInterface =
+  override def withName(newName: TsIdentSimple): TsDeclInterface =
     copy(name = newName)
 }
 
@@ -187,7 +186,7 @@ final case class TsDeclEnum(
     comments:     Comments,
     declared:     Boolean,
     isConst:      Boolean,
-    name:         TsIdent,
+    name:         TsIdentSimple,
     members:      Seq[TsEnumMember],
     isValue:      Boolean,
     exportedFrom: Option[TsTypeRef],
@@ -195,7 +194,7 @@ final case class TsDeclEnum(
     codePath:     CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
-    with HasCodePath {
+  with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclEnum =
     copy(codePath = newCodePath)
@@ -203,17 +202,17 @@ final case class TsDeclEnum(
   override def withJsLocation(newLocation: JsLocation): TsDeclEnum =
     copy(jsLocation = newLocation)
 
-  override def withName(newName: TsIdent): TsDeclEnum =
+  override def withName(newName: TsIdentSimple): TsDeclEnum =
     copy(name = newName)
 }
 
-final case class TsEnumMember(comments: Comments, name: TsIdent, expr: Option[TsExpr]) extends TsTree
+final case class TsEnumMember(comments: Comments, name: TsIdentSimple, expr: Option[TsExpr]) extends TsTree
 
 final case class TsDeclVar(
     comments:   Comments,
     declared:   Boolean,
     readOnly:   Boolean,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     tpe:        Option[TsType],
     expr:       Option[TsExpr],
     jsLocation: JsLocation,
@@ -221,7 +220,7 @@ final case class TsDeclVar(
     isOptional: Boolean,
 ) extends TsNamedValueDecl
     with HasJsLocation
-    with HasCodePath {
+  with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclVar =
     copy(codePath = newCodePath)
@@ -229,20 +228,20 @@ final case class TsDeclVar(
   override def withJsLocation(newLocation: JsLocation): TsDeclVar =
     copy(jsLocation = newLocation)
 
-  override def withName(newName: TsIdent): TsDeclVar =
+  override def withName(newName: TsIdentSimple): TsDeclVar =
     copy(name = newName)
 }
 
 final case class TsDeclFunction(
     comments:   Comments,
     declared:   Boolean,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     signature:  TsFunSig,
     jsLocation: JsLocation,
     codePath:   CodePath,
 ) extends TsNamedValueDecl
     with HasJsLocation
-    with HasCodePath {
+  with TsNamedDecl {
 
   override def withCodePath(newCodePath: CodePath): TsDeclFunction =
     copy(codePath = newCodePath)
@@ -250,23 +249,22 @@ final case class TsDeclFunction(
   override def withJsLocation(newLocation: JsLocation): TsDeclFunction =
     copy(jsLocation = newLocation)
 
-  override def withName(newName: TsIdent): TsDeclFunction =
+  override def withName(newName: TsIdentSimple): TsDeclFunction =
     copy(name = newName)
 }
 
 final case class TsDeclTypeAlias(
     comments: Comments,
     declared: Boolean,
-    name:     TsIdent,
+    name:     TsIdentSimple,
     tparams:  Seq[TsTypeParam],
     alias:    TsType,
     codePath: CodePath,
-) extends TsNamedDecl
-    with HasCodePath {
+) extends TsNamedDecl {
   override def withCodePath(newCodePath: CodePath): TsDeclTypeAlias =
     copy(codePath = newCodePath)
 
-  override def withName(newName: TsIdent): TsDeclTypeAlias =
+  override def withName(newName: TsIdentSimple): TsDeclTypeAlias =
     copy(name = newName)
 }
 
@@ -279,7 +277,7 @@ final case class TsFunSig(
     resultType: Option[TsType],
 ) extends TsTree
 
-final case class TsFunParam(comments: Comments, name: TsIdent, tpe: Option[TsType], isOptional: Boolean)
+final case class TsFunParam(comments: Comments, name: TsIdentSimple, tpe: Option[TsType], isOptional: Boolean)
     extends TsTree {
 
   override def equals(obj: Any): Boolean =
@@ -295,7 +293,7 @@ final case class TsFunParam(comments: Comments, name: TsIdent, tpe: Option[TsTyp
 
 final case class TsTypeParam(
     comments:   Comments,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     upperBound: Option[TsType],
     default:    Option[TsType],
 ) extends TsTree
@@ -387,20 +385,21 @@ object TsIdent {
   def unapply(ident: TsIdent): Some[String] =
     Some(ident.value)
 
-  val `this`:        TsIdent = TsIdent("this")
-  val Apply:         TsIdent = TsIdent("<apply>")
-  val update:        TsIdent = TsIdent("update")
-  val prototype:     TsIdent = TsIdent("prototype")
-  val constructor:   TsIdent = TsIdent("constructor")
-  val default:       TsIdent = TsIdent("default")
-  val namespaced:    TsIdent = TsIdent("^")
-  val namespacedCls: TsIdent = TsIdent("Class")
-  val Symbol:        TsIdent = TsIdent("Symbol")
-  val Global:        TsIdent = TsIdent("_Global_")
-  val Record:        TsIdent = TsIdent("Record")
+  val `this`:        TsIdentSimple = TsIdent("this")
+  val Apply:         TsIdentSimple = TsIdent("<apply>")
+  val update:        TsIdentSimple = TsIdent("update")
+  val prototype:     TsIdentSimple = TsIdent("prototype")
+  val constructor:   TsIdentSimple = TsIdent("constructor")
+  val default:       TsIdentSimple = TsIdent("default")
+  val namespaced:    TsIdentSimple = TsIdent("^")
+  val namespacedCls: TsIdentSimple = TsIdent("Class")
+  val Symbol:        TsIdentSimple = TsIdent("Symbol")
+  val Global:        TsIdentSimple = TsIdent("_Global_")
+  val Record:        TsIdentSimple = TsIdent("Record")
+  val dummy:         TsIdentSimple = TsIdent("dummy")
 
-  val dummy: TsIdentLibrary = TsIdentLibrarySimple("dummy")
-  val std:   TsIdentLibrary = TsIdentLibrarySimple("std")
+  val dummyLibrary: TsIdentLibrary = TsIdentLibrarySimple("dummyLibrary")
+  val std:          TsIdentLibrary = TsIdentLibrarySimple("std")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 }
@@ -577,7 +576,7 @@ final case class TsMemberCtor(comments: Comments, level: ProtectionLevel, signat
 final case class TsMemberFunction(
     comments:   Comments,
     level:      ProtectionLevel,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     signature:  TsFunSig,
     isStatic:   Boolean,
     isReadOnly: Boolean,
@@ -625,7 +624,7 @@ final case class TsMemberTypeMapped(
 final case class TsMemberProperty(
     comments:   Comments,
     level:      ProtectionLevel,
-    name:       TsIdent,
+    name:       TsIdentSimple,
     tpe:        Option[TsType],
     expr:       Option[TsExpr],
     isStatic:   Boolean,
@@ -637,11 +636,11 @@ final case class TsMemberProperty(
 
 sealed trait TsImported extends TsTree
 
-final case class TsImportedIdent(ident: TsIdent) extends TsImported
+final case class TsImportedIdent(ident: TsIdentSimple) extends TsImported
 
-final case class TsImportedDestructured(idents: List[(TsIdent, Option[TsIdent])]) extends TsImported
+final case class TsImportedDestructured(idents: List[(TsIdent, Option[TsIdentSimple])]) extends TsImported
 
-final case class TsImportedStar(asOpt: Option[TsIdent]) extends TsImported
+final case class TsImportedStar(asOpt: Option[TsIdentSimple]) extends TsImported
 
 sealed trait TsImportee extends TsTree
 
@@ -657,7 +656,7 @@ final case class TsImport(imported: Seq[TsImported], from: TsImportee) extends T
 
 sealed trait TsExportee extends TsTree
 
-final case class TsExporteeNames(idents: Seq[(TsQIdent, Option[TsIdent])], fromOpt: Option[TsIdentModule])
+final case class TsExporteeNames(idents: Seq[(TsQIdent, Option[TsIdentSimple])], fromOpt: Option[TsIdentModule])
     extends TsExportee
 
 final case class TsExporteeTree(decl: TsDecl) extends TsExportee

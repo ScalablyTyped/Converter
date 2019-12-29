@@ -14,7 +14,7 @@ object CanBeScalaJsDefined {
   def pred(x: HasClassMembers): Boolean =
     x match {
       case _:   TsDeclClass => false
-      case int: TsDeclInterface if int.name === TsQIdent.Function.parts.head => false
+      case int: TsDeclInterface if TsQIdent.Function.parts.head === int.name => false
       case int: TsDeclInterface =>
         val fromUnnamed = int.unnamed.forall {
           case _: TsMemberTypeMapped => false

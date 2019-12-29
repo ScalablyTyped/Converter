@@ -66,7 +66,7 @@ trait MemberCache {
 trait HasClassMembers {
   def members: Seq[TsMember]
 
-  lazy val (membersByName: Map[TsIdent, Seq[TsMember]], unnamed: Seq[TsMember]) = {
+  lazy val (membersByName: Map[TsIdentSimple, Seq[TsMember]], unnamed: Seq[TsMember]) = {
     val (named, unnamed: Seq[TsMember]) =
       members.partitionCollect {
         case x: TsMemberCall     => x

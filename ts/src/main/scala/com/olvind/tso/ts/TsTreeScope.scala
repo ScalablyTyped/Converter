@@ -346,7 +346,7 @@ object TsTreeScope {
 
       def prototype: Seq[(T, TsTreeScope)] =
         wanted match {
-          case head :: TsIdent.prototype :: tail :: Nil =>
+          case head :: TsIdent.prototype :: (tail: TsIdentSimple) :: Nil =>
             lookupInternal(Picker.HasClassMemberss, head :: Nil, loopDetector).flatMap {
               case (cls, newScope) =>
                 cls.membersByName.get(tail) match {
@@ -377,7 +377,7 @@ object TsTreeScope {
           ret = exportedFromModule
         if (ret.isEmpty)
           ret = fromGlobals
-        if (ret.isEmpty && !wanted.headOption.contains(TsIdent.dummy)) //optimization
+        if (ret.isEmpty && !wanted.headOption.contains(TsIdent.dummyLibrary)) //optimization
           ret = ExtendingScope(this, Pick, wanted, loopDetector)
         if (ret.isEmpty)
           ret = prototype
@@ -431,7 +431,7 @@ object TsTreeScope {
                     *  On the positive side it feels almost as hacked in in typescript
                     */
                   case x: TsDeclEnum if t.length === 1 =>
-                    val member = x.members.find(_.name === t.head).toList.flatMap { m =>
+                    val member = x.members.find(m => t.head === m.name).toList.flatMap { m =>
                       val fakeTa = {
                         val codePath = x.exportedFrom.fold(x.codePath.forceHasPath.codePath)(_.name).parts match {
                           case Nil             => sys.error("Unexpected empty codePath")

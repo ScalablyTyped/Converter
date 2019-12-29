@@ -27,8 +27,8 @@ object RewriteTypeThis extends TreeTransformationScopedChanges {
 
   def isReferenceToOwner(stack: List[TsTree], ownerName: TsQIdent): Boolean =
     stack exists {
-      case owner: TsDeclInterface if owner.name === ownerName.parts.last => true
-      case owner: TsDeclClass if owner.name === ownerName.parts.last     => true
+      case owner: TsDeclInterface if ownerName.parts.last === owner.name => true
+      case owner: TsDeclClass if ownerName.parts.last === owner.name     => true
       case _ => false
     }
 

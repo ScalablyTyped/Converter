@@ -149,7 +149,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
         sig.copy(tparams = rewrittenTparams)
       }
 
-    val sigCleaned = sig.copy(tparams = sig.tparams.filterNot(_.name === exp.typeParam))
+    val sigCleaned = sig.copy(tparams = sig.tparams.filterNot(tp => exp.typeParam === tp.name))
 
     val expanded = exp.toExpand.flatMap {
       case Left(tr) =>

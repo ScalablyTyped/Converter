@@ -110,7 +110,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                 TsTypeRef(_, TsQIdent(`target` :: referredName :: Nil), Nil),
                 _,
                 ) =>
-              typeName =/= referredName
+              referredName =/= typeName
             case _ => true
           }
           val newMembers = flattened ++ patchedRest ++ toplevel ++ maybeKeepOriginalExport
