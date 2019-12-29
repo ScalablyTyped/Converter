@@ -116,16 +116,17 @@ object ImportTypings {
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
             case (source, lib) =>
+              val willMinimize = minimize(source.libName)
               val minimized =
-                if (minimize(source.libName)) {
-                  globalScope.logger.warn(s"Minimizing ${source.libName.value}")
+                if (willMinimize) {
                   KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
               val outFiles = Printer(globalScope, minimized) map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
-              logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
+              val minimizedMessage = if (willMinimize) "minimized " else ""
+              logger warn s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder..."
               outFiles
           }.seq
 
