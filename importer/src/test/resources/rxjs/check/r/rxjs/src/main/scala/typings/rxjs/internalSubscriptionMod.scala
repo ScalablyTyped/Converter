@@ -1,6 +1,5 @@
 package typings.rxjs
 
-import typings.rxjs.internalSubscriptionMod.Subscription
 import typings.rxjs.internalTypesMod.SubscriptionLike
 import scala.scalajs.js
 import scala.scalajs.js.`|`

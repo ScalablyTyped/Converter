@@ -1,6 +1,5 @@
 package typingsJapgolly.atStardustDashUiReactDashComponentDashRef
 
-import typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsRefFindNodeMod.RefFindNode
 import typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps
 import typingsJapgolly.react.reactMod.Component
 import scala.scalajs.js

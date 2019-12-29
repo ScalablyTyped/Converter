@@ -1,6 +1,5 @@
 package typings.rxjs
 
-import typings.rxjs.internalObservableMod.Observable
 import typings.rxjs.internalTypesMod.OperatorFunction
 import typings.rxjs.internalTypesMod.Subscribable
 import scala.scalajs.js

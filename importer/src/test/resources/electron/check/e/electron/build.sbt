@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "electron"
-version := "2.0.0-7dbe32"
+version := "2.0.0-8079f1"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "node" % "0.0-unknown-bda088",
+  "org.scalablytyped" %%% "node" % "0.0-unknown-852776",
   "org.scalablytyped" %%% "std" % "0.0-unknown-590025")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

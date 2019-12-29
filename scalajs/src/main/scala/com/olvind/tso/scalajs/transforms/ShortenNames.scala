@@ -5,7 +5,7 @@ package transforms
 import scala.collection.mutable
 
 object ShortenNames {
-  val Forbidden: Set[Name] = Set(Name("|"), Name("scala"), Name("js"), Name("com"), Name("org"))
+  val Forbidden: Set[Name] = Set(Name("|"), Name("_"), Name("scala"), Name("js"), Name("com"), Name("org"))
 
   case class ImportTree(imported: QualifiedName)
 
@@ -31,16 +31,15 @@ object ShortenNames {
               tr =/= TypeRef.Nothing &&
               TypeRef.ScalaFunction.unapply(tr).isEmpty &&
               !tr.typeName.startsWith(QualifiedName.scala_js) &&
-              /* keep more expensive checks last */
-              !nameCollision.among(owner.index, longName, methodsAreConflict = isSingleton) &&
-              !nameCollision.inScope(scope, longName, methodsAreConflict     = isSingleton)) {
+              /* keep more expensive check last */
+              !nameCollision(scope, longName, methodsAreConflict = isSingleton)) {
 
             collectedImports.get(shortName) match {
               case Some(alreadyImported) =>
                 if (alreadyImported === tr.typeName) Some(tr.copy(typeName = QualifiedName(List(shortName))))
                 else None
               case None =>
-                val importNecessary = tr.typeName.parts.dropRight(1) =/= owner.codePath.parts
+                val importNecessary = !inScope(scope, longName)
                 if (importNecessary)
                   collectedImports += ((shortName, tr.typeName))
                 Some(tr.copy(typeName = QualifiedName(List(shortName))))
@@ -65,9 +64,29 @@ object ShortenNames {
     (imports, newMembers)
   }
 
+  def dropOuterPackages(scope: TreeScope): List[Tree] = {
+    val numPackages = scope.stack.count(_.isInstanceOf[PackageTree])
+    scope.stack.dropRight(numPackages - 1)
+  }
+
+  def inScope(scope: TreeScope, longName: QualifiedName): Boolean =
+    dropOuterPackages(scope).exists {
+      case x: ContainerTree =>
+        x.index get longName.parts.last match {
+          case Some(trees) =>
+            trees exists {
+              case _: ClassTree     => true
+              case _: TypeAliasTree => true
+              case _ => false
+            }
+          case None => false
+        }
+      case _ => false
+    }
+
   object nameCollision {
-    def inScope(scope: TreeScope, longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
-      scope.stack.exists {
+    def apply(scope: TreeScope, longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
+      dropOuterPackages(scope).exists {
         case x: InheritanceTree =>
           (x.name === longName.parts.last && x.codePath =/= longName) ||
             among(x.index, longName, methodsAreConflict) ||
@@ -88,7 +107,7 @@ object ShortenNames {
         case _ => false
       }
 
-    def amongParents(
+    private def amongParents(
         scope:              TreeScope,
         x:                  InheritanceTree,
         longName:           QualifiedName,
@@ -98,7 +117,7 @@ object ShortenNames {
         case (_, cls) => among(cls.index, longName, methodsAreConflict)
       }
 
-    def among(index: Map[Name, Seq[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
+    private def among(index: Map[Name, Seq[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
       index get longName.parts.last match {
         case Some(trees) =>
           trees exists {
