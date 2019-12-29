@@ -235,20 +235,24 @@ class GenSlinkyComponents(
                               case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary => Nil
                               case Left(param)                                                                    => List(param)
                               case Right(fieldTree: FieldTree) =>
-                                /* todo: refactor out a name/type check which ignores optionality */
-                                val isDom: Boolean =
-                                  domFields.get(fieldTree.name) match {
-                                    case Some(tpe) =>
-                                      FollowAliases(scope)(fieldTree.tpe) match {
-                                        case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                                        case ftpe           => ftpe.typeName === tpe.typeName
-                                      }
-                                    case None => false
-                                  }
-                                if (isDom) {
+                                val param = memberToParameter(scope, fieldTree)
+
+                                val isOptionalDom: Boolean =
+                                  if (param.exists(!_.isOptional)) false
+                                  else domFields.get(fieldTree.name) match {
+                                      case Some(tpe) =>
+                                        /* todo: refactor out a name/type check which ignores optionality */
+                                        FollowAliases(scope)(fieldTree.tpe) match {
+                                          case Nullable(ftpe) => ftpe.typeName === tpe.typeName
+                                          case ftpe           => ftpe.typeName === tpe.typeName
+                                        }
+                                      case None => false
+                                    }
+
+                                if (isOptionalDom) {
                                   domParams += fieldTree
                                   Nil
-                                } else memberToParameter(scope, fieldTree)
+                                } else param
 
                               case Right(methodTree: MethodTree) =>
                                 memberToParameter(scope, methodTree)

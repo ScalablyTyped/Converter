@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.ReactComponentClass
-import slinky.core.TagMod
 import slinky.web.html.`*`.tag
 import typingsSlinky.react.reactMod.HTMLAttributes
 import typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTriggerProps
@@ -22,8 +21,8 @@ object ContextMenuTrigger
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: id */
   def apply(
+    id: String,
     attributes: HTMLAttributes[_] = null,
     collect: /* data */ js.Any => _ = null,
     disable: js.UndefOr[Boolean] = js.undefined,
@@ -34,7 +33,7 @@ object ContextMenuTrigger
     tag.type, 
     typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
   ] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
     if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
     if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable.asInstanceOf[js.Any])
@@ -43,12 +42,6 @@ object ContextMenuTrigger
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
-  def apply(mods: TagMod[tag.type]*): BuildingComponent[
-    tag.type, 
-    typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
-  ] = new slinky.core.BuildingComponent[
-  slinky.web.html.`*`.tag.type, 
-  typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
   type Props = ContextMenuTriggerProps
 }
 

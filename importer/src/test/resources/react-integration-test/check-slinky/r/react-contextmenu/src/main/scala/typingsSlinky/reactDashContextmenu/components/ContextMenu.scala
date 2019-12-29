@@ -4,7 +4,6 @@ import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
-import slinky.core.TagMod
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
 import typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuProps
@@ -19,8 +18,9 @@ object ContextMenu
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: className, id */
+  /* The following DOM/SVG props were specified: className */
   def apply(
+    id: String,
     data: js.Any = null,
     hideOnLeave: js.UndefOr[Boolean] = js.undefined,
     onHide: /* event */ js.Any => Unit = null,
@@ -34,7 +34,7 @@ object ContextMenu
     rtl: js.UndefOr[Boolean] = js.undefined,
     _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
     if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
     if (!js.isUndefined(hideOnLeave)) __obj.updateDynamic("hideOnLeave")(hideOnLeave.asInstanceOf[js.Any])
     if (onHide != null) __obj.updateDynamic("onHide")(js.Any.fromFunction1(onHide))
@@ -44,9 +44,6 @@ object ContextMenu
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
-  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu] = new slinky.core.BuildingComponent[
-  slinky.web.html.`*`.tag.type, 
-  typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenu](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
   type Props = ContextMenuProps
 }
 
