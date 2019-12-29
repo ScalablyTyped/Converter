@@ -14,17 +14,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object AccordionTitle {
-  object raw
-    extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
-    @js.native
-    object componentImport extends js.Object
-    
-    override val component: String | js.Object = this.componentImport
-    type Props = AccordionTitleProps
-  }
+object AccordionTitle
+  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionTitle", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
   
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className */
   def apply(
     active: js.UndefOr[Boolean] = js.undefined,
@@ -45,7 +41,8 @@ object AccordionTitle {
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2(onClick))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
+    super.apply(__obj.asInstanceOf[Props])
   }
+  type Props = AccordionTitleProps
 }
 

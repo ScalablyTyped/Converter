@@ -10,17 +10,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_Anon_Children103080505 () {
-  abstract class Raw (implicit pw: ExternalPropsWriterProvider)
-    extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
-    type Props = Anon_Children
-  }
-  
-  val raw: Raw
+abstract class SharedApply_Anon_Children103080505 (implicit pw: ExternalPropsWriterProvider)
+  extends ExternalComponentWithAttributesWithRefType[tag.type, js.Object] {
   def apply(_overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, js.Object] = {
     val __obj = js.Dynamic.literal()
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
+    super.apply(__obj.asInstanceOf[Props])
   }
+  type Props = Anon_Children
 }
 

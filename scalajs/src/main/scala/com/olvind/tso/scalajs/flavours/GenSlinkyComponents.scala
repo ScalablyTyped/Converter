@@ -21,8 +21,6 @@ object GenSlinkyComponents {
     val RefType         = Name("RefType")
     val component       = Name("component")
     val componentImport = Name("componentImport")
-    val raw             = Name("raw")
-    val Raw             = Name("Raw")
     val ComponentRef    = Name("ComponentRef")
 
     /* Fully qualified references to slinky types */
@@ -327,10 +325,10 @@ class GenSlinkyComponents(
     val refInTParams =
       knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, Some(TypeRef.Object), NoComments)).to[List]
 
-    val rawClass = ClassTree(
+    ClassTree(
       Nil,
-      names.Raw,
-      Nil,
+      name,
+      refInTParams,
       List(parent),
       List(
         CtorTree(
@@ -339,31 +337,7 @@ class GenSlinkyComponents(
           NoComments,
         ),
       ),
-      typeAliasOpt.toList,
-      ClassType.AbstractClass,
-      isSealed = false,
-      NoComments,
-      classCp + names.Raw,
-    )
-
-    val rawField = FieldTree(
-      Nil,
-      names.raw,
-      TypeRef(names.Raw),
-      MemberImpl.NotImplemented,
-      isReadOnly = true,
-      isOverride = false,
-      NoComments,
-      codePath = classCp + names.raw,
-    )
-
-    ClassTree(
-      Nil,
-      name,
-      refInTParams,
-      Nil,
-      Nil,
-      List(rawClass, rawField) ++ methods,
+      methods ++ typeAliasOpt,
       ClassType.AbstractClass,
       isSealed = false,
       NoComments,
@@ -374,24 +348,12 @@ class GenSlinkyComponents(
   def genComponentForSharedProps(pkgCp: QualifiedName, propsClass: ClassTree)(c: Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
 
-    val rawModule = {
-      val members = genComponentField(c, componentCp)
-      ModuleTree(
-        Nil,
-        names.raw,
-        List(TypeRef(names.Raw)),
-        members,
-        Keep,
-        codePath   = componentCp + names.raw,
-        isOverride = true,
-      )
-    }
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
-      members     = List(rawModule),
-      comments    = Keep,
+      members     = genComponentField(c, componentCp),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -416,23 +378,12 @@ class GenSlinkyComponents(
             s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. $msg */\n"
           Some(Comment(str))
       }
-
-    val rawModule = ModuleTree(
-      Nil,
-      names.raw,
-      List(parent),
-      genComponentField(c, componentCp) ++ typeAliasOpt,
-      Keep,
-      componentCp + names.raw,
-      isOverride = false,
-    )
-
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
-      parents     = Nil,
-      members     = List(rawModule) ++ methods,
-      comments    = Keep +? errorCommentOpt,
+      parents     = List(parent),
+      members     = genComponentField(c, componentCp) ++ methods ++ typeAliasOpt,
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))) +? errorCommentOpt,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -495,7 +446,7 @@ class GenSlinkyComponents(
             s"""{
                |  val __obj = js.Dynamic.literal(${props.requireds.map(_._2).mkString(", ")})
                |${props.optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-               |  this.${names.raw.unescaped}.apply(__obj.asInstanceOf[this.${names.raw.unescaped}.Props])$cast
+               |  super.apply(__obj.asInstanceOf[Props])$cast
                |}""".stripMargin,
           ),
           resultType = ret,
@@ -507,11 +458,7 @@ class GenSlinkyComponents(
 
       val methods: List[MethodTree] =
         resProps match {
-          case Res.Error(_) =>
-            val propsWithObject  = TypeRef.Intersection(List(propsRef, TypeRef.Object))
-            val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
-            val props            = SplitProps(List(param), Nil)
-            List(applyMethod(Name.APPLY, props))
+          case Res.Error(_)      => Nil // we could generate something, but there is already an `apply` in the parent
           case Res.One(_, props) => List(applyMethod(Name.APPLY, props))
           case Res.Many(values)  => values.map { case (name, props) => applyMethod(name, props) }(collection.breakOut)
         }
