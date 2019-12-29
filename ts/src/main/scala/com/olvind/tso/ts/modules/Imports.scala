@@ -206,10 +206,7 @@ object Imports {
 
           case im @ TsImportedStar(Some(`first`)) =>
             Some(im)
-          case im @ TsImportedStar(None) =>
-            Some(im)
-          case TsImportedStar(Some(_)) =>
-            None
+          case TsImportedStar(_) => None
         }
 
         if (newImported.nonEmpty) Some(i.copy(imported = newImported)) else None
