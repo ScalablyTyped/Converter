@@ -1,11 +1,9 @@
 ---
-id: devel
-title: Development of TSO
+id: about
+title: Development
 ---
 
-#Development
-
-Help us work on this library!
+## Come help us work on ScalablyTyped!
 
 Developing a compiler is complex. Testing it well is expensive, so we focus on getting as wide testing as possible for the time spent.
 For that reason we have a few levels of testing:
@@ -24,6 +22,9 @@ In CI it's enforced that the checked in results are current, so we know which co
 
 ### Demo set
 Do your changes look good when running `ImporterTest`? The next step is to run `tso` on the demo set. 
+
+See [Running](devel/running) for more information about the parameters.
+
 A good command to run might be:
 ```
 sbt:tso-public> importer/runMain com.olvind.tso.importer.Main -softWrites -parseCache -offline -dontCleanProject -forceCommit -demoSet

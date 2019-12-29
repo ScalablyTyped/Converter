@@ -1,5 +1,7 @@
 import scala.sys.process.stringToProcess
 
+version in ThisBuild := "1.0.0-M2-SNAPSHOT"
+
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -108,7 +110,6 @@ lazy val baseSettings: Project => Project =
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     scalaVersion := "2.12.10",
     organization := "com.olvind",
-    version := "1.0.0-M2-SNAPSHOT",
     scalacOptions ++= ScalacOptions.flags,
     scalacOptions in (Compile, console) ~= (_.filterNot(
       Set("-Ywarn-unused:imports", "-Xfatal-warnings"),

@@ -1,9 +1,6 @@
 {
   "docs": {
-    "ScalablyTyped": ["readme"],
-    "SBT Plugin": ["plugin"],
-    "Development": ["devel"]
-  },
-  "docs-other": {
+    "ScalablyTyped": ["readme","plugin", "plugin-no-bundler", "encoding"],
+    "Development": ["devel/about", "devel/running"]
   }
 }

@@ -30,8 +30,8 @@ const siteConfig = {
   //   baseUrl: '/test-site/',
 
   // Used for publishing and more
-  projectName: 'tso',
-  organizationName: 'scalablytyped',
+  projectName: 'ScalablyTypedConverter',
+  organizationName: 'oyvindberg',
   // For top-level user or org sites, the organization is still the same.
   // e.g., for the https://JoelMarcey.github.io site, it would be set like...
   //   organizationName: 'JoelMarcey'
@@ -69,7 +69,7 @@ const siteConfig = {
   */
 
   // This copyright info is used in /core/Footer.js and blog RSS/Atom feeds.
-  copyright: `Copyright © ${new Date().getFullYear()} Your Name or Your Company Name`,
+  copyright: `Copyright © ${new Date().getFullYear()} Øyvind Raddum Berg`,
 
   highlight: {
     // Highlight.js theme to use for syntax highlighting in code blocks.
