@@ -6,12 +6,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ContextMenuProps extends js.Object {
-  var className: js.UndefOr[String] = js.undefined
-  var data: js.UndefOr[js.Any] = js.undefined
-  var hideOnLeave: js.UndefOr[Boolean] = js.undefined
-  var id: String
-  var onHide: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
+  var className: js.UndefOr[String] = js.native
+  var data: js.UndefOr[js.Any] = js.native
+  var hideOnLeave: js.UndefOr[Boolean] = js.native
+  var id: String = js.native
+  var onHide: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.native
   var onMouseLeave: js.UndefOr[
     (js.Function3[
       /* event */ SyntheticMouseEvent[HTMLElement], 
@@ -19,9 +20,9 @@ trait ContextMenuProps extends js.Object {
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function
-  ] = js.undefined
-  var onShow: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.undefined
-  var rtl: js.UndefOr[Boolean] = js.undefined
+  ] = js.native
+  var onShow: js.UndefOr[js.Function1[/* event */ js.Any, Unit]] = js.native
+  var rtl: js.UndefOr[Boolean] = js.native
 }
 
 object ContextMenuProps {

@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ReactSVG extends js.Object {
-  var animate: SVGFactory
-  var circle: SVGFactory
-  var clipPath: SVGFactory
+  var animate: SVGFactory = js.native
+  var circle: SVGFactory = js.native
+  var clipPath: SVGFactory = js.native
 }
 
 object ReactSVG {

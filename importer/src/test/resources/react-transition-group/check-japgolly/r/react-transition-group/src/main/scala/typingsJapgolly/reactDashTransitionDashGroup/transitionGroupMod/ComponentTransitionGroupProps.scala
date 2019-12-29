@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ComponentTransitionGroupProps[T /* <: ReactType[_] */] extends js.Object {
-  var component: T
+  var component: T = js.native
 }
 
 object ComponentTransitionGroupProps {

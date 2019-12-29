@@ -6,9 +6,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Headers
   extends /* key */ StringDictionary[js.Any] {
-  var headers: js.UndefOr[HttpHeaders] = js.undefined
+  var headers: js.UndefOr[HttpHeaders] = js.native
 }
 
 object Anon_Headers {

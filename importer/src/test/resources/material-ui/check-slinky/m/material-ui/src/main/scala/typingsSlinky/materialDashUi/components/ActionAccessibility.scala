@@ -1,20 +1,20 @@
 package typingsSlinky.materialDashUi.components
 
+import slinky.core.ExternalComponentNoPropsWithAttributesWithRefType
+import slinky.web.html.`*`.tag
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object ActionAccessibility
-  extends SharedApply_Object152536094[
+  extends ExternalComponentNoPropsWithAttributesWithRefType[
+      tag.type, 
       typingsSlinky.materialDashUi.svgDashIconsActionAccessibilityMod.ActionAccessibility
     ] {
-  override object raw extends Raw {
-    @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
-    @js.native
-    object componentImport extends js.Object
-    
-    override val component: String | js.Object = this.componentImport
-  }
+  @JSImport("material-ui/svg-icons/action/accessibility", "ActionAccessibility")
+  @js.native
+  object componentImport extends js.Object
   
+  override val component: String | js.Object = this.componentImport
 }
 

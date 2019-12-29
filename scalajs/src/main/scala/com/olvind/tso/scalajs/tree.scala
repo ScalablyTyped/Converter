@@ -32,13 +32,16 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: Seq[ClassAnnotation]
   def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
+  def receivesCompanion: Boolean =
+    isScalaJsDefined || comments.extract { case Markers.CouldBeScalaJsDefined => () }.nonEmpty
   val index: Map[Name, Seq[Tree]]
 
-  def isNative: Boolean = annotations.exists {
-    case Annotation.JsNative       => true
-    case Annotation.ScalaJSDefined => true
-    case _                         => false
-  }
+  def isNative: Boolean =
+    annotations.exists {
+      case Annotation.JsNative       => true
+      case Annotation.ScalaJSDefined => true
+      case _                         => false
+    }
 }
 
 final case class PackageTree(
@@ -358,7 +361,7 @@ object TypeRef {
   object Union {
     private def flatten(types: List[TypeRef]): List[TypeRef] =
       types flatMap {
-        case Union(inner) => flatten(inner.toList)
+        case TypeRef(QualifiedName.UNION, inner, _) => flatten(inner.toList)
         case other        => List(other)
       }
 
@@ -405,19 +408,21 @@ object TypeRef {
         case _ => None
       }
   }
-
-  object Literal {
+  abstract class LiteralCompanion(qname: QualifiedName) {
     def apply(underlying: String): TypeRef =
-      TypeRef(QualifiedName.LITERAL, Seq(TypeRef(QualifiedName(List(Name(underlying))), Nil, NoComments)), NoComments)
+      TypeRef(qname, Seq(TypeRef(QualifiedName(List(Name(underlying))), Nil, NoComments)), NoComments)
 
     def unapply(typeRef: TypeRef): Option[String] =
       typeRef match {
-        case TypeRef(QualifiedName.LITERAL, Seq(TypeRef(QualifiedName(name :: Nil), Nil, _)), _) =>
+        case TypeRef(`qname`, Seq(TypeRef(QualifiedName(name :: Nil), Nil, _)), _) =>
           Some(name.unescaped)
 
         case _ => None
       }
   }
+  object StringLiteral extends LiteralCompanion(QualifiedName.STRING_LITERAL)
+  object NumberLiteral extends LiteralCompanion(QualifiedName.NUMBER_LITERAL)
+  object BooleanLiteral extends LiteralCompanion(QualifiedName.BOOLEAN_LITERAL)
 
   object Repeated {
     def apply(underlying: TypeRef, comments: Comments): TypeRef =

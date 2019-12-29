@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait RefAttributes[T] extends Attributes {
-  var ref: js.UndefOr[Ref[T]] = js.undefined
+  var ref: js.UndefOr[Ref[T]] = js.native
 }
 
 object RefAttributes {

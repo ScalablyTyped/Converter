@@ -5,9 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait A extends Props {
-  var aMember: Double
-  def aCallback(): Double
+  var aMember: Double = js.native
+  def aCallback(): Double = js.native
 }
 
 object A {

@@ -5,9 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Global extends js.Object {
-  var Array: ArrayConstrucor
-  var global: Global
+  var Array: ArrayConstrucor = js.native
+  var global: Global = js.native
 }
 
 object Global {

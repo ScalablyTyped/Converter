@@ -114,7 +114,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
 
       case None =>
         if (cls.classType =/= ClassType.Trait) Res.Error("Not a trait")
-        else if (!acceptNativeTraits && !cls.isScalaJsDefined) Res.Error("Not a @ScalaJSDefined trait")
+        else if (!acceptNativeTraits && !cls.receivesCompanion) Res.Error("Not a @ScalaJSDefined trait")
         else {
           val parents = ParentsResolver(scope, cls)
 
@@ -159,7 +159,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
               .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
                 val isRequired = parent.classTree.members.exists {
                   case _: MethodTree => true
-                  case FieldTree(_, _, Nullable(_), _, _, _, _, _) => false
+                  case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
                   case _: FieldTree => true
                   case _ => false
                 }
@@ -232,5 +232,6 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
         case Annotation.JsGlobal(qname)                    => qname.parts.last
       }
       .filterNot(cleanIllegalNames.Illegal)
+      .map(Name.necessaryRewrite)
       .getOrElse(fallback)
 }

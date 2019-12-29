@@ -7,25 +7,26 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait KeyboardEvent[T] extends BaseSyntheticEvent[NativeKeyboardEvent, EventTarget with T, EventTarget] {
-  var altKey: Boolean
-  var charCode: Double
-  var ctrlKey: Boolean
+  var altKey: Boolean = js.native
+  var charCode: Double = js.native
+  var ctrlKey: Boolean = js.native
   /**
     * See the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values). for possible values
     */
-  var key: String
-  var keyCode: Double
-  var locale: String
-  var location: Double
-  var metaKey: Boolean
-  var repeat: Boolean
-  var shiftKey: Boolean
-  var which: Double
+  var key: String = js.native
+  var keyCode: Double = js.native
+  var locale: String = js.native
+  var location: Double = js.native
+  var metaKey: Boolean = js.native
+  var repeat: Boolean = js.native
+  var shiftKey: Boolean = js.native
+  var which: Double = js.native
   /**
     * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
     */
-  def getModifierState(key: String): Boolean
+  def getModifierState(key: String): Boolean = js.native
 }
 
 object KeyboardEvent {

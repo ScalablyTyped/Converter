@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HKT[URI, A] extends js.Object {
-  val _A: A
-  val _URI: URI
+  val _A: A = js.native
+  val _URI: URI = js.native
 }
 
 object HKT {

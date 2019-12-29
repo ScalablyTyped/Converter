@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait B extends Props {
-  var bCallback: js.UndefOr[js.Function0[String]] = js.undefined
-  var bMember: String
+  var bCallback: js.UndefOr[js.Function0[String]] = js.native
+  var bMember: String = js.native
 }
 
 object B {

@@ -12,6 +12,7 @@ import scala.scalajs.js.annotation._
 // This should actually be something like `Lifecycle<P, S> | DeprecatedLifecycle<P, S>`,
 // as React will _not_ call the deprecated lifecycle methods if any of the new lifecycle
 // methods are present.
+@js.native
 trait ComponentLifecycle[P, S, SS]
   extends NewLifecycle[P, S, SS]
      with DeprecatedLifecycle[P, S] {
@@ -25,16 +26,16 @@ trait ComponentLifecycle[P, S, SS]
       /* errorInfo */ ErrorInfo, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
   /**
     * Called immediately after a component is mounted. Setting state here will trigger re-rendering.
     */
-  var componentDidMount: js.UndefOr[js.Function0[Unit]] = js.undefined
+  var componentDidMount: js.UndefOr[js.Function0[Unit]] = js.native
   /**
     * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
     * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
     */
-  var componentWillUnmount: js.UndefOr[js.Function0[Unit]] = js.undefined
+  var componentWillUnmount: js.UndefOr[js.Function0[Unit]] = js.native
   /**
     * Called to determine whether the change in props and state should trigger a re-render.
     *
@@ -47,7 +48,7 @@ trait ComponentLifecycle[P, S, SS]
     */
   var shouldComponentUpdate: js.UndefOr[
     js.Function3[/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any, Boolean]
-  ] = js.undefined
+  ] = js.native
 }
 
 object ComponentLifecycle {

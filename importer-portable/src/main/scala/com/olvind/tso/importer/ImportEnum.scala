@@ -129,7 +129,7 @@ object ImportEnum {
               val applyParam = ParamTree(Name.value, false, underlying, None, NoComments)
               Some(
                 MethodTree(
-                  annotations = Annotation.method(name, isBracketAccess = true),
+                  annotations = List(Annotation.JsBracketAccess),
                   level       = ProtectionLevel.Default,
                   name        = Name.APPLY,
                   tparams     = Nil,

@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait FocusEvent[T] extends BaseSyntheticEvent[NativeFocusEvent, EventTarget with T, EventTarget] {
-  var relatedTarget: EventTarget
+  var relatedTarget: EventTarget = js.native
   @JSName("target")
-  var target_FocusEvent: EventTarget with T
+  var target_FocusEvent: EventTarget with T = js.native
 }
 
 object FocusEvent {

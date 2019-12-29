@@ -1,6 +1,5 @@
 package typings.monacoDashEditor
 
-import typings.monacoDashEditor.monaco.Promise
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

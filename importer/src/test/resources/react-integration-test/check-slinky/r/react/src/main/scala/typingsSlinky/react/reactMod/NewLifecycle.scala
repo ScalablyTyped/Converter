@@ -5,6 +5,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 // This should be "infer SS" but can't use it yet
+@js.native
 trait NewLifecycle[P, S, SS] extends js.Object {
   /**
     * Called immediately after updating occurs. Not called for the initial render.
@@ -13,7 +14,7 @@ trait NewLifecycle[P, S, SS] extends js.Object {
     */
   var componentDidUpdate: js.UndefOr[
     js.Function3[/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS], Unit]
-  ] = js.undefined
+  ] = js.native
   /**
     * Runs before React applies the result of `render` to the document, and
     * returns an object to be given to componentDidUpdate. Useful for saving
@@ -22,7 +23,7 @@ trait NewLifecycle[P, S, SS] extends js.Object {
     * Note: the presence of getSnapshotBeforeUpdate prevents any of the deprecated
     * lifecycle events from running.
     */
-  var getSnapshotBeforeUpdate: js.UndefOr[js.Function2[/* prevProps */ P, /* prevState */ S, SS | Null]] = js.undefined
+  var getSnapshotBeforeUpdate: js.UndefOr[js.Function2[/* prevProps */ P, /* prevState */ S, SS | Null]] = js.native
 }
 
 object NewLifecycle {

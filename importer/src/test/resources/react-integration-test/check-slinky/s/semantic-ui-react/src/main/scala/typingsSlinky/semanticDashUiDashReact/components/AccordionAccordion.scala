@@ -4,6 +4,7 @@ import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLDivElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.core.TagMod
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
 import typingsSlinky.semanticDashUiDashReact.distCommonjsGenericMod.SemanticShorthandCollection
@@ -15,17 +16,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object AccordionAccordion {
-  object raw
-    extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
-    @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
-    @js.native
-    object componentImport extends js.Object
-    
-    override val component: String | js.Object = this.componentImport
-    type Props = AccordionAccordionProps
-  }
+object AccordionAccordion
+  extends ExternalComponentWithAttributesWithRefType[tag.type, default] {
+  @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
   
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: className */
   def apply(
     activeIndex: Double | js.Array[Double] = null,
@@ -44,7 +41,11 @@ object AccordionAccordion {
     if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
     if (panels != null) __obj.updateDynamic("panels")(panels.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
+    super.apply(__obj.asInstanceOf[Props])
   }
+  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default] = new slinky.core.BuildingComponent[
+  slinky.web.html.`*`.tag.type, 
+  typingsSlinky.semanticDashUiDashReact.distCommonjsModulesAccordionAccordionAccordionMod.default](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
+  type Props = AccordionAccordionProps
 }
 

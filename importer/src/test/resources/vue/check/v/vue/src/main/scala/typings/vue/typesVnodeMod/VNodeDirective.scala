@@ -5,13 +5,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VNodeDirective extends js.Object {
-  val arg: String
-  val expression: js.Any
-  val modifiers: StringDictionary[Boolean]
-  val name: String
-  val oldValue: js.Any
-  val value: js.Any
+  val arg: String = js.native
+  val expression: js.Any = js.native
+  val modifiers: StringDictionary[Boolean] = js.native
+  val name: String = js.native
+  val oldValue: js.Any = js.native
+  val value: js.Any = js.native
 }
 
 object VNodeDirective {

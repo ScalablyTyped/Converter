@@ -3,6 +3,7 @@ package typingsSlinky.reactDashDropzone.components
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
+import slinky.core.TagMod
 import slinky.web.html.`*`.tag
 import typingsSlinky.react.reactMod.Ref
 import typingsSlinky.reactDashDropzone.DropzonePropsRefAttributesDropzoneRef
@@ -11,17 +12,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ReactDashDropzone {
-  object raw
-    extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
-    @JSImport("react-dropzone", JSImport.Default)
-    @js.native
-    object componentImport extends js.Object
-    
-    override val component: String | js.Object = this.componentImport
-    type Props = DropzonePropsRefAttributesDropzoneRef
-  }
+object ReactDashDropzone
+  extends ExternalComponentWithAttributesWithRefType[tag.type, Ref[js.Any] with js.Object] {
+  @JSImport("react-dropzone", JSImport.Default)
+  @js.native
+  object componentImport extends js.Object
   
+  override val component: String | js.Object = this.componentImport
   /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
   def apply(
     accept: String | js.Array[String] = null,
@@ -62,7 +59,11 @@ object ReactDashDropzone {
     if (onFileDialogCancel != null) __obj.updateDynamic("onFileDialogCancel")(js.Any.fromFunction0(onFileDialogCancel))
     if (!js.isUndefined(preventDropOnDocument)) __obj.updateDynamic("preventDropOnDocument")(preventDropOnDocument.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
+    super.apply(__obj.asInstanceOf[Props])
   }
+  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, Ref[js.Any] with js.Object] = new slinky.core.BuildingComponent[
+  slinky.web.html.`*`.tag.type, 
+  typingsSlinky.react.reactMod.Ref[js.Any] with js.Object](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
+  type Props = DropzonePropsRefAttributesDropzoneRef
 }
 

@@ -42,10 +42,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait TableHTMLAttributes[T] extends HTMLAttributes[T] {
-  var cellPadding: js.UndefOr[Double | String] = js.undefined
-  var cellSpacing: js.UndefOr[Double | String] = js.undefined
-  var summary: js.UndefOr[String] = js.undefined
+  var cellPadding: js.UndefOr[Double | String] = js.native
+  var cellSpacing: js.UndefOr[Double | String] = js.native
+  var summary: js.UndefOr[String] = js.native
 }
 
 object TableHTMLAttributes {

@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MuiTheme extends js.Object {
-  var spacing: js.UndefOr[js.Any] = js.undefined
+  var spacing: js.UndefOr[js.Any] = js.native
 }
 
 object MuiTheme {

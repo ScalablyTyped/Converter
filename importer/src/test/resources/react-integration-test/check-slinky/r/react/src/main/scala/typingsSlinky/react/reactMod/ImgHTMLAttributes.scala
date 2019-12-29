@@ -15,7 +15,7 @@ import slinky.web.SyntheticTransitionEvent
 import slinky.web.SyntheticUIEvent
 import slinky.web.SyntheticWheelEvent
 import typingsSlinky.react.Anon_Html
-import typingsSlinky.react.reactStrings.Empty
+import typingsSlinky.react.reactStrings._empty
 import typingsSlinky.react.reactStrings.`additions text`
 import typingsSlinky.react.reactStrings.`inline`
 import typingsSlinky.react.reactStrings.`use-credentials`
@@ -61,16 +61,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ImgHTMLAttributes[T] extends HTMLAttributes[T] {
-  var alt: js.UndefOr[String] = js.undefined
-  var crossOrigin: js.UndefOr[anonymous | `use-credentials` | Empty] = js.undefined
-  var decoding: js.UndefOr[async | auto | sync] = js.undefined
-  var height: js.UndefOr[Double | String] = js.undefined
-  var sizes: js.UndefOr[String] = js.undefined
-  var src: js.UndefOr[String] = js.undefined
-  var srcSet: js.UndefOr[String] = js.undefined
-  var useMap: js.UndefOr[String] = js.undefined
-  var width: js.UndefOr[Double | String] = js.undefined
+  var alt: js.UndefOr[String] = js.native
+  var crossOrigin: js.UndefOr[anonymous | `use-credentials` | _empty] = js.native
+  var decoding: js.UndefOr[async | auto | sync] = js.native
+  var height: js.UndefOr[Double | String] = js.native
+  var sizes: js.UndefOr[String] = js.native
+  var src: js.UndefOr[String] = js.native
+  var srcSet: js.UndefOr[String] = js.native
+  var useMap: js.UndefOr[String] = js.native
+  var width: js.UndefOr[Double | String] = js.native
 }
 
 object ImgHTMLAttributes {
@@ -135,7 +136,7 @@ object ImgHTMLAttributes {
     color: String = null,
     contentEditable: js.UndefOr[Boolean] = js.undefined,
     contextMenu: String = null,
-    crossOrigin: anonymous | `use-credentials` | Empty = null,
+    crossOrigin: anonymous | `use-credentials` | _empty = null,
     dangerouslySetInnerHTML: Anon_Html = null,
     datatype: String = null,
     decoding: async | auto | sync = null,

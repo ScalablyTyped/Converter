@@ -6,27 +6,28 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VNodeData extends js.Object {
-  var attrs: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var `class`: js.UndefOr[js.Any] = js.undefined
-  var directives: js.UndefOr[js.Array[VNodeDirective]] = js.undefined
-  var domProps: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var hook: js.UndefOr[StringDictionary[js.Function]] = js.undefined
-  var inlineTemplate: js.UndefOr[Anon_Render] = js.undefined
-  var keepAlive: js.UndefOr[Boolean] = js.undefined
-  var key: js.UndefOr[String | Double] = js.undefined
-  var nativeOn: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
-  var on: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.undefined
-  var props: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var ref: js.UndefOr[String] = js.undefined
-  var scopedSlots: js.UndefOr[StringDictionary[ScopedSlot]] = js.undefined
-  var show: js.UndefOr[Boolean] = js.undefined
-  var slot: js.UndefOr[String] = js.undefined
-  var staticClass: js.UndefOr[String] = js.undefined
-  var staticStyle: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var style: js.UndefOr[js.Array[js.Object] | js.Object] = js.undefined
-  var tag: js.UndefOr[String] = js.undefined
-  var transition: js.UndefOr[js.Object] = js.undefined
+  var attrs: js.UndefOr[StringDictionary[js.Any]] = js.native
+  var `class`: js.UndefOr[js.Any] = js.native
+  var directives: js.UndefOr[js.Array[VNodeDirective]] = js.native
+  var domProps: js.UndefOr[StringDictionary[js.Any]] = js.native
+  var hook: js.UndefOr[StringDictionary[js.Function]] = js.native
+  var inlineTemplate: js.UndefOr[Anon_Render] = js.native
+  var keepAlive: js.UndefOr[Boolean] = js.native
+  var key: js.UndefOr[String | Double] = js.native
+  var nativeOn: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.native
+  var on: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.native
+  var props: js.UndefOr[StringDictionary[js.Any]] = js.native
+  var ref: js.UndefOr[String] = js.native
+  var scopedSlots: js.UndefOr[StringDictionary[ScopedSlot]] = js.native
+  var show: js.UndefOr[Boolean] = js.native
+  var slot: js.UndefOr[String] = js.native
+  var staticClass: js.UndefOr[String] = js.native
+  var staticStyle: js.UndefOr[StringDictionary[js.Any]] = js.native
+  var style: js.UndefOr[js.Array[js.Object] | js.Object] = js.native
+  var tag: js.UndefOr[String] = js.native
+  var transition: js.UndefOr[js.Object] = js.native
 }
 
 object VNodeData {

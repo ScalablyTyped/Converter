@@ -10,22 +10,23 @@ import scala.scalajs.js.annotation._
 // Event System
 // ----------------------------------------------------------------------
 // TODO: change any to unknown when moving to TS v3
+@js.native
 trait BaseSyntheticEvent[E, C, T] extends js.Object {
-  var bubbles: Boolean
-  var cancelable: Boolean
-  var currentTarget: C
-  var defaultPrevented: Boolean
-  var eventPhase: Double
-  var isTrusted: Boolean
-  var nativeEvent: E
-  var target: T
-  var timeStamp: Double
-  var `type`: String
-  def isDefaultPrevented(): Boolean
-  def isPropagationStopped(): Boolean
-  def persist(): Unit
-  def preventDefault(): Unit
-  def stopPropagation(): Unit
+  var bubbles: Boolean = js.native
+  var cancelable: Boolean = js.native
+  var currentTarget: C = js.native
+  var defaultPrevented: Boolean = js.native
+  var eventPhase: Double = js.native
+  var isTrusted: Boolean = js.native
+  var nativeEvent: E = js.native
+  var target: T = js.native
+  var timeStamp: Double = js.native
+  var `type`: String = js.native
+  def isDefaultPrevented(): Boolean = js.native
+  def isPropagationStopped(): Boolean = js.native
+  def persist(): Unit = js.native
+  def preventDefault(): Unit = js.native
+  def stopPropagation(): Unit = js.native
 }
 
 object BaseSyntheticEvent {

@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait B extends TA {
-  var b: String
+  var b: String = js.native
 }
 
 object B {

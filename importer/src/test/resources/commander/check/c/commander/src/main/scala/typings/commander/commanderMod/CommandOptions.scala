@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CommandOptions extends js.Object {
-  var isDefault: js.UndefOr[Boolean] = js.undefined
-  var noHelp: js.UndefOr[Boolean] = js.undefined
+  var isDefault: js.UndefOr[Boolean] = js.native
+  var noHelp: js.UndefOr[Boolean] = js.native
 }
 
 object CommandOptions {

@@ -1,7 +1,7 @@
 package com.olvind.tso.plugin
 
 import com.olvind.logging._
-import fansi.Str
+import fansi.{Color, EscapeAttr, Str}
 import sbt.internal.util.ManagedLogger
 import sourcecode.Text
 
@@ -26,26 +26,37 @@ object WrapSbtLogger {
   def apply(x: ManagedLogger) = new WrapSbtLogger(x, Map.empty)
 
   object pattern extends Pattern {
+    @inline def colorFor(l: LogLevel): EscapeAttr =
+      l.level match {
+        case LogLevel.trace.level => Color.Reset
+        case LogLevel.debug.level => Color.LightGreen
+        case LogLevel.info.level  => Color.LightYellow
+        case LogLevel.warn.level  => Color.LightBlue
+        case LogLevel.error.level => Color.LightRed
+      }
+
+    @inline def subtleColorFor(l: LogLevel): EscapeAttr =
+      l.level match {
+        case LogLevel.trace.level => Color.Reset
+        case LogLevel.debug.level => Color.Green
+        case LogLevel.info.level  => Color.Yellow
+        case LogLevel.warn.level  => Color.Blue
+        case LogLevel.error.level => Color.Red
+      }
+
     override def apply[T: Formatter](t: => Text[T], throwable: Option[Throwable], m: Metadata, ctx: Ctx): Str = {
-      val Color  = Pattern.colorFor(m.logLevel)
-      val Subtle = Pattern.subtleColorFor(m.logLevel)
-      val source = if (t.source.startsWith("\"") || t.source.startsWith("s\"")) "" else t.source
+      val color  = colorFor(m.logLevel)
+      val subtle = subtleColorFor(m.logLevel)
 
       Str.join(
-        Subtle(m.instant.toString),
+        subtle(Str.join(Formatter(new sbt.File(m.file.value)), ":", Formatter(m.line.value))),
         " ",
-        Subtle(Formatter(new sbt.File(m.file.value))),
-        ":",
-        Subtle(Formatter(m.line.value)),
+        color(Formatter(t.value)),
         " ",
-        Color(source),
-        " ",
-        Color(Formatter(t.value)),
-        " ",
-        Subtle(Formatter(ctx)),
+        subtle(Formatter(ctx)),
         throwable match {
           case None     => ""
-          case Some(th) => Subtle(Pattern.formatThrowable(th))
+          case Some(th) => subtle(Pattern.formatThrowable(th))
         },
       )
     }

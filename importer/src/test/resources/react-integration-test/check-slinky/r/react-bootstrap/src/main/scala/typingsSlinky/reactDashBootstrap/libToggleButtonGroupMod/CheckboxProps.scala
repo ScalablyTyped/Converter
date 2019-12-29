@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CheckboxProps extends js.Object {
-  var name: js.UndefOr[String] = js.undefined
-  var onChange: js.UndefOr[js.Function1[/* values */ js.Array[_], Unit]] = js.undefined
-  var `type`: checkbox
+  var name: js.UndefOr[String] = js.native
+  var onChange: js.UndefOr[js.Function1[/* values */ js.Array[_], Unit]] = js.native
+  var `type`: checkbox = js.native
 }
 
 object CheckboxProps {

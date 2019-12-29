@@ -11,22 +11,18 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ContextMenuTrigger {
-  object raw
-    extends ExternalComponentWithAttributesWithRefType[
-          tag.type, 
-          typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
-        ] {
-    @JSImport("react-contextmenu", "ContextMenuTrigger")
-    @js.native
-    object componentImport extends js.Object
-    
-    override val component: String | js.Object = this.componentImport
-    type Props = ContextMenuTriggerProps
-  }
+object ContextMenuTrigger
+  extends ExternalComponentWithAttributesWithRefType[
+      tag.type, 
+      typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
+    ] {
+  @JSImport("react-contextmenu", "ContextMenuTrigger")
+  @js.native
+  object componentImport extends js.Object
   
-  /* The following DOM/SVG props were specified: id */
+  override val component: String | js.Object = this.componentImport
   def apply(
+    id: String,
     attributes: HTMLAttributes[_] = null,
     collect: /* data */ js.Any => _ = null,
     disable: js.UndefOr[Boolean] = js.undefined,
@@ -37,14 +33,15 @@ object ContextMenuTrigger {
     tag.type, 
     typingsSlinky.reactDashContextmenu.reactDashContextmenuMod.ContextMenuTrigger
   ] = {
-    val __obj = js.Dynamic.literal()
+    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
     if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
     if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
     if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable.asInstanceOf[js.Any])
     if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
     if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    this.raw.apply(__obj.asInstanceOf[this.raw.Props])
+    super.apply(__obj.asInstanceOf[Props])
   }
+  type Props = ContextMenuTriggerProps
 }
 

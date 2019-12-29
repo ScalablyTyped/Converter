@@ -15,7 +15,8 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString) extends Phase[Source, Phase1Res, Phase2Res] {
+class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScalaJsDefined: Selection[TsIdentLibrary])
+    extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -57,7 +58,7 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString) extends Pha
                 cleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>
                 S.Deduplicator visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.FakeLiterals(Name.typings, s)(tree)),
+              Adapter(scope)((tree, s) => S.FakeLiterals(Name.typings, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
               (S.AvoidMacroParadiseBug >> S.RemoveMultipleInheritance) visitPackageTree scope,
@@ -71,6 +72,7 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString) extends Pha
               importName,
               new ImportType(new QualifiedName.StdNames(Name.typings)),
               cleanIllegalNames,
+              enableScalaJsDefined(lib.name),
             )
             val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
 

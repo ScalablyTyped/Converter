@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait WritableOptions extends js.Object {
   var `final`: js.UndefOr[
     js.Function1[/* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit], Unit]
-  ] = js.undefined
+  ] = js.native
 }
 
 object WritableOptions {

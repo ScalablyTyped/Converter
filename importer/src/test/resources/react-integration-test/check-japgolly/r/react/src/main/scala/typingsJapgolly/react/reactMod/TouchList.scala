@@ -6,10 +6,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait TouchList extends /* index */ NumberDictionary[Touch] {
-  var length: Double
-  def identifiedTouch(identifier: Double): Touch
-  def item(index: Double): Touch
+  var length: Double = js.native
+  def identifiedTouch(identifier: Double): Touch = js.native
+  def item(index: Double): Touch = js.native
 }
 
 object TouchList {

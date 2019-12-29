@@ -2498,6 +2498,12 @@ export {};
     )
   }
 
+  test("asserts types") {
+    shouldParseAs("""asserts assertion""", TsParser.tsType)(
+      TsTypeAsserts(TsIdent("assertion"))
+    )
+  }
+
   test("expr") {
     shouldParseAs(
       """export declare const start = ActionTypes.Start""",

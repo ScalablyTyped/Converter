@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HTMLAttributes[T] extends DOMAttributes[T] {
-  var defaultChecked: js.UndefOr[Boolean] = js.undefined
+  var defaultChecked: js.UndefOr[Boolean] = js.native
 }
 
 object HTMLAttributes {

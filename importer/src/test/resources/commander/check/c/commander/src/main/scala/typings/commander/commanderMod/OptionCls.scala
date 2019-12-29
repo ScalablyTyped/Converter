@@ -16,17 +16,5 @@ class OptionCls protected ()
     */
   def this(flags: String) = this()
   def this(flags: String, description: String) = this()
-  /* CompleteClass */
-  override var bool: Boolean = js.native
-  /* CompleteClass */
-  override var description: String = js.native
-  /* CompleteClass */
-  override var flags: String = js.native
-  /* CompleteClass */
-  override var long: String = js.native
-  /* CompleteClass */
-  override var optional: Boolean = js.native
-  /* CompleteClass */
-  override var required: Boolean = js.native
 }
 

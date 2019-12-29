@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait FunctionComponentElement[P] extends ReactElement {
-  var ref: js.UndefOr[js.Any] = js.undefined
+  var ref: js.UndefOr[js.Any] = js.native
 }
 
 object FunctionComponentElement {

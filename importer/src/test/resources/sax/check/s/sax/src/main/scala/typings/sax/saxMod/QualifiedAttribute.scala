@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait QualifiedAttribute extends QualifiedName {
-  var value: String
+  var value: String = js.native
 }
 
 object QualifiedAttribute {

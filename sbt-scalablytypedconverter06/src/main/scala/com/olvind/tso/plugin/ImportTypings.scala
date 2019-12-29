@@ -17,12 +17,14 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
+      gitSha:                   String,
       packageJsonHash:          Int,
       npmDependencies:          Seq[(String, String)],
       fromFolder:               InFolder,
       targetFolder:             os.Path,
       chosenFlavour:            Flavour,
       shouldGenerateCompanions: Boolean,
+      enableScalaJsDefined:     Selection[TsIdentLibrary],
       prettyStringType:         PrettyStringType,
       libs:                     List[String],
       ignore:                   Set[String],
@@ -62,7 +64,7 @@ object ImportTypings {
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    val parseCachePath = os.root / "tmp" / "tso-sbt-cache" / "parse"
+    val parseCachePath = os.root / "tmp" / "tso-sbt-cache" / "parse" / BuildInfo.gitSha.take(6)
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
@@ -85,7 +87,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, prettyString), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, prettyString, enableScalaJsDefined), "scala.js")
       .next(new PhaseFlavour(flavour, prettyString), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
@@ -114,16 +116,17 @@ object ImportTypings {
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
             case (source, lib) =>
+              val willMinimize = minimize(source.libName)
               val minimized =
-                if (minimize(source.libName)) {
-                  globalScope.logger.warn(s"Minimizing ${source.libName.value}")
+                if (willMinimize) {
                   KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
               val outFiles = Printer(globalScope, minimized) map {
                 case (relPath, content) => targetFolder / relPath -> content
               }
-              logger warn s"Writing ${source.libName.value} (${outFiles.size} files) to $targetFolder..."
+              val minimizedMessage = if (willMinimize) "minimized " else ""
+              logger warn s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder..."
               outFiles
           }.seq
 
@@ -154,12 +157,14 @@ object ImportTypings {
     println(
       ImportTypings(
         Input(
+          "0",
           0,
           List(("@storybook/react" -> "1")),
           InFolder(tsoCache / "npm" / "node_modules"),
           files.existing(tsoCache / 'work),
           Flavour.Slinky,
           shouldGenerateCompanions = true,
+          enableScalaJsDefined     = Selection.None,
           PrettyStringType.Regular,
           List("es5", "dom"),
           Set("typescript", "csstype"),

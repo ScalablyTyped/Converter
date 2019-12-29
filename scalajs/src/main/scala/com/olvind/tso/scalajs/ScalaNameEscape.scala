@@ -3,19 +3,8 @@ package scalajs
 
 object ScalaNameEscape {
   def apply(ident: String): String =
-    ident match {
-      case i if i.isEmpty        => "Empty"
-      case i if needsEscaping(i) =>
-        /* can't just escape these with backticks */
-        val patched = i
-          .replaceAllLiterally("`", "_backtick")
-          .replaceAllLiterally("'", "_quote")
-          .replaceAllLiterally("\\n", "_newline")
-          .replaceAllLiterally("\\b", "_backslash_b")
-
-        if (needsEscaping(patched)) "`" + patched + "`" else patched
-      case i => i
-    }
+    if (needsEscaping(ident)) "`" + ident + "`"
+    else ident
 
   def isValidIdentifier(name: String): Boolean = {
     val c = name.head
@@ -23,10 +12,7 @@ object ScalaNameEscape {
     name.tail.forall(c => c === '$' || c.isUnicodeIdentifierPart)
   }
 
-  def requireValidIdent(name: String): Unit =
-    require(isValidIdentifier(name), s"$name is not a valid identifier")
-
-  def needsEscaping(ident: String): Boolean =
+  private def needsEscaping(ident: String): Boolean =
     ident match {
       case "^"                                             => false
       case str if str.isEmpty                              => true
@@ -91,5 +77,4 @@ object ScalaNameEscape {
       "#",
       "@",
     )
-
 }

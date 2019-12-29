@@ -8,10 +8,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ComponentSpec[P, S]
   extends Mixin[P, S]
      with /* propertyName */ StringDictionary[js.Any] {
-  def render(): Node
+  def render(): Node = js.native
 }
 
 object ComponentSpec {

@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Attributes extends js.Object {
-  var language: js.Any
+  var language: js.Any = js.native
 }
 
 object Attributes {

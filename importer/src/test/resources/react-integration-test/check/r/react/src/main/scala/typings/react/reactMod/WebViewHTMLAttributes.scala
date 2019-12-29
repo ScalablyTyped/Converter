@@ -42,24 +42,25 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait WebViewHTMLAttributes[T] extends HTMLAttributes[T] {
-  var allowFullScreen: js.UndefOr[Boolean] = js.undefined
-  var allowpopups: js.UndefOr[Boolean] = js.undefined
-  var autoFocus: js.UndefOr[Boolean] = js.undefined
-  var autosize: js.UndefOr[Boolean] = js.undefined
-  var blinkfeatures: js.UndefOr[String] = js.undefined
-  var disableblinkfeatures: js.UndefOr[String] = js.undefined
-  var disableguestresize: js.UndefOr[Boolean] = js.undefined
-  var disablewebsecurity: js.UndefOr[Boolean] = js.undefined
-  var guestinstance: js.UndefOr[String] = js.undefined
-  var httpreferrer: js.UndefOr[String] = js.undefined
-  var nodeintegration: js.UndefOr[Boolean] = js.undefined
-  var partition: js.UndefOr[String] = js.undefined
-  var plugins: js.UndefOr[Boolean] = js.undefined
-  var preload: js.UndefOr[String] = js.undefined
-  var src: js.UndefOr[String] = js.undefined
-  var useragent: js.UndefOr[String] = js.undefined
-  var webpreferences: js.UndefOr[String] = js.undefined
+  var allowFullScreen: js.UndefOr[Boolean] = js.native
+  var allowpopups: js.UndefOr[Boolean] = js.native
+  var autoFocus: js.UndefOr[Boolean] = js.native
+  var autosize: js.UndefOr[Boolean] = js.native
+  var blinkfeatures: js.UndefOr[String] = js.native
+  var disableblinkfeatures: js.UndefOr[String] = js.native
+  var disableguestresize: js.UndefOr[Boolean] = js.native
+  var disablewebsecurity: js.UndefOr[Boolean] = js.native
+  var guestinstance: js.UndefOr[String] = js.native
+  var httpreferrer: js.UndefOr[String] = js.native
+  var nodeintegration: js.UndefOr[Boolean] = js.native
+  var partition: js.UndefOr[String] = js.native
+  var plugins: js.UndefOr[Boolean] = js.native
+  var preload: js.UndefOr[String] = js.native
+  var src: js.UndefOr[String] = js.native
+  var useragent: js.UndefOr[String] = js.native
+  var webpreferences: js.UndefOr[String] = js.native
 }
 
 object WebViewHTMLAttributes {

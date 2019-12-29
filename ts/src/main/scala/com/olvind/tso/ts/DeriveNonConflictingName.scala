@@ -41,7 +41,7 @@ object DeriveNonConflictingName {
     case x: TsFunParam       => if (x.isOptional) "Optional" else ""
   }
 
-  def apply[T](prefix: String, minNumParts: Int, members: Seq[TsTree])(tryCreate: TsIdent => Option[T]): T = {
+  def apply[T](prefix: String, minNumParts: Int, members: Seq[TsTree])(tryCreate: TsIdentSimple => Option[T]): T = {
     /* note, we sort below. This is beneficial from a consistency perspective, and
      *   negative for the number of names we can generate. Prefer the former for now */
     val names     = TsTreeTraverse.collectSeq(members)(ExtractNameParts).sorted

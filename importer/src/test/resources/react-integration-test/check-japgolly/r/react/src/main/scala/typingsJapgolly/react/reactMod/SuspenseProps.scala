@@ -6,10 +6,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SuspenseProps extends js.Object {
-  var children: js.UndefOr[Node] = js.undefined
+  var children: js.UndefOr[Node] = js.native
   /** A fallback react tree to show when a Suspense child (like React.lazy) suspends */
-  var fallback: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any) | Null
+  var fallback: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any) | Null = js.native
 }
 
 object SuspenseProps {

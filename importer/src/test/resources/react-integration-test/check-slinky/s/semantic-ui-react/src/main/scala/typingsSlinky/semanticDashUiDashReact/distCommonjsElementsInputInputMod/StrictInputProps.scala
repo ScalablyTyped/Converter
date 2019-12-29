@@ -73,37 +73,38 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
   /** An Input can be formatted to alert the user to an action they may perform. */
-  var action: js.UndefOr[js.Any | Boolean] = js.undefined
+  var action: js.UndefOr[js.Any | Boolean] = js.native
   /** An action can appear along side an Input on the left or right. */
-  var actionPosition: js.UndefOr[left] = js.undefined
+  var actionPosition: js.UndefOr[left] = js.native
   /** An element type to render as (string or function). */
-  var as: js.UndefOr[js.Any] = js.undefined
+  var as: js.UndefOr[js.Any] = js.native
   /** An Input field can show the data contains errors. */
-  var error: js.UndefOr[Boolean] = js.undefined
+  var error: js.UndefOr[Boolean] = js.native
   /** Take on the size of its container. */
-  var fluid: js.UndefOr[Boolean] = js.undefined
+  var fluid: js.UndefOr[Boolean] = js.native
   /** An Input field can show a user is currently interacting with it. */
-  var focus: js.UndefOr[Boolean] = js.undefined
+  var focus: js.UndefOr[Boolean] = js.native
   /** Optional Icon to display inside the Input. */
-  var icon: js.UndefOr[js.Any | SemanticShorthandItem[InputProps]] = js.undefined
+  var icon: js.UndefOr[js.Any | SemanticShorthandItem[InputProps]] = js.native
   /** An Icon can appear inside an Input on the left. */
-  var iconPosition: js.UndefOr[left] = js.undefined
+  var iconPosition: js.UndefOr[left] = js.native
   /** Shorthand for creating the HTML Input. */
-  var input: js.UndefOr[SemanticShorthandItem[HtmlInputrops]] = js.undefined
+  var input: js.UndefOr[SemanticShorthandItem[HtmlInputrops]] = js.native
   /** Format to appear on dark backgrounds. */
-  var inverted: js.UndefOr[Boolean] = js.undefined
+  var inverted: js.UndefOr[Boolean] = js.native
   /** Optional Label to display along side the Input. */
   var label: js.UndefOr[
     SemanticShorthandItem[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
     ]
-  ] = js.undefined
+  ] = js.native
   /** A Label can appear outside an Input on the left or right. */
-  var labelPosition: js.UndefOr[left | right | (`left corner`) | (`right corner`)] = js.undefined
+  var labelPosition: js.UndefOr[left | right | (`left corner`) | (`right corner`)] = js.native
   /** An Icon Input field can show that it is currently loading data. */
-  var loading: js.UndefOr[Boolean] = js.undefined
+  var loading: js.UndefOr[Boolean] = js.native
   /**
     * Called on change.
     *
@@ -117,15 +118,15 @@ trait StrictInputProps extends InputHTMLAttributes[HTMLInputElement] {
       /* data */ InputOnChangeData, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
   /** An Input can vary in size. */
   @JSName("size")
-  var size_StrictInputProps: js.UndefOr[mini | small | large | big | huge | massive] = js.undefined
+  var size_StrictInputProps: js.UndefOr[mini | small | large | big | huge | massive] = js.native
   /** An Input can receive focus. */
   @JSName("tabIndex")
-  var tabIndex_StrictInputProps: js.UndefOr[Double | String] = js.undefined
+  var tabIndex_StrictInputProps: js.UndefOr[Double | String] = js.native
   /** Transparent Input has no background. */
-  var transparent: js.UndefOr[Boolean] = js.undefined
+  var transparent: js.UndefOr[Boolean] = js.native
 }
 
 object StrictInputProps {

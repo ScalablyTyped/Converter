@@ -41,6 +41,7 @@ trait TreeTransformation[T] { self =>
   def enterTsMemberTypeMapped(t:     T)(x: TsMemberTypeMapped):     TsMemberTypeMapped     = x
   def enterTsParsedFile(t:           T)(x: TsParsedFile):           TsParsedFile           = x
   def enterTsQIdent(t:               T)(x: TsQIdent):               TsQIdent               = x
+  def enterTsTypeAsserts(t:          T)(x: TsTypeAsserts):          TsTypeAsserts          = x
   def enterTsTypeConstructor(t:      T)(x: TsTypeConstructor):      TsTypeConstructor      = x
   def enterTsTypeConditional(t:      T)(x: TsTypeConditional):      TsTypeConditional      = x
   def enterTsTypeExtends(t:          T)(x: TsTypeExtends):          TsTypeExtends          = x
@@ -338,6 +339,14 @@ trait TreeTransformation[T] { self =>
 
   final def visitTsQIdent(t: T)(x: TsQIdent): TsQIdent =
     enterTsQIdent(withTree(t, x))(x)
+
+  final def visitTsTypeAsserts(t: T)(x: TsTypeAsserts): TsTypeAsserts = {
+    val xx = enterTsTypeAsserts(withTree(t, x))(x)
+    xx match {
+      case TsTypeAsserts(_1) => TsTypeAsserts(_1)
+    }
+  }
+
   final def visitTsTypeConstructor(t: T)(x: TsTypeConstructor): TsTypeConstructor = {
     val xx = enterTsTypeConstructor(withTree(t, x))(x)
     val tt = withTree(t, xx)
@@ -558,7 +567,7 @@ trait TreeTransformation[T] { self =>
 
   final def visitTsType(t: T)(x: TsType): TsType =
     leaveTsType(withTree(t, x))(enterTsType(withTree(t, x))(x) match {
-      case x: TsTypeThis        => visitTsTypeThis(t)(x)
+      case x: TsTypeAsserts     => visitTsTypeAsserts(t)(x)
       case x: TsTypeConstructor => visitTsTypeConstructor(t)(x)
       case x: TsTypeConditional => visitTsTypeConditional(t)(x)
       case x: TsTypeExtends     => visitTsTypeExtends(t)(x)
@@ -573,6 +582,7 @@ trait TreeTransformation[T] { self =>
       case x: TsTypeQuery       => visitTsTypeQuery(t)(x)
       case x: TsTypeRef         => visitTsTypeRef(t)(x)
       case x: TsTypeRepeated    => visitTsTypeRepeated(t)(x)
+      case x: TsTypeThis        => visitTsTypeThis(t)(x)
       case x: TsTypeTuple       => visitTsTypeTuple(t)(x)
       case x: TsTypeUnion       => visitTsTypeUnion(t)(x)
     })
@@ -684,6 +694,8 @@ trait TreeTransformation[T] { self =>
         self.enterTsParsedFile(t)(that.enterTsParsedFile(t)(x))
       override def enterTsQIdent(t: T)(x: TsQIdent): TsQIdent =
         self.enterTsQIdent(t)(that.enterTsQIdent(t)(x))
+      override def enterTsTypeAsserts(t: T)(x: TsTypeAsserts): TsTypeAsserts =
+        self.enterTsTypeAsserts(t)(that.enterTsTypeAsserts(t)(x))
       override def enterTsTypeConstructor(t: T)(x: TsTypeConstructor): TsTypeConstructor =
         self.enterTsTypeConstructor(t)(that.enterTsTypeConstructor(t)(x))
       override def enterTsTypeConditional(t: T)(x: TsTypeConditional): TsTypeConditional =

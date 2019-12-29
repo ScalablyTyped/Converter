@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Kind extends js.Object {
-  var kind: String
-  var story: String
+  var kind: String = js.native
+  var story: String = js.native
 }
 
 object Anon_Kind {

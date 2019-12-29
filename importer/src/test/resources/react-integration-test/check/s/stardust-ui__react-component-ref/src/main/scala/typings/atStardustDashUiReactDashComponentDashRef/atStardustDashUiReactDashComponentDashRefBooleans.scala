@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object atStardustDashUiReactDashComponentDashRefNumbers {
+object atStardustDashUiReactDashComponentDashRefBooleans {
   @js.native
   sealed trait `false` extends js.Object
   

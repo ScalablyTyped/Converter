@@ -7,14 +7,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait RefProps extends js.Object {
-  var children: Element
+  var children: Element = js.native
   /**
     * Called when a child component will be mounted or updated.
     *
     * @param {HTMLElement} node - Referred node.
     */
-  var innerRef: Ref
+  var innerRef: Ref = js.native
 }
 
 object RefProps {

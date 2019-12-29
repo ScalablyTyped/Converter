@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ReactElement extends js.Object {
-  var key: Key | Null
-  var props: js.Any
-  var `type`: js.Any
+  var key: Key | Null = js.native
+  var props: js.Any = js.native
+  var `type`: js.Any = js.native
 }
 
 object ReactElement {

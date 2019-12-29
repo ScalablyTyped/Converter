@@ -4,11 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CompletionObserver[T] extends PartialObserver[T] {
-  var closed: js.UndefOr[Boolean] = js.undefined
-  var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.undefined
-  var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.undefined
-  def complete(): Unit
+  var closed: js.UndefOr[Boolean] = js.native
+  var error: js.UndefOr[js.Function1[/* err */ js.Any, Unit]] = js.native
+  var next: js.UndefOr[js.Function1[/* value */ T, Unit]] = js.native
+  def complete(): Unit = js.native
 }
 
 object CompletionObserver {

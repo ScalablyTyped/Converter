@@ -246,7 +246,7 @@ object Libraries {
     "zipkin",
   ).map(TsIdentLibrary.apply)
 
-  def ignored(sequential: Boolean): Set[TsIdentLibrary] = {
+  def ignored(sequential: Boolean, enableScalaJsDefined: Boolean): Set[TsIdentLibrary] = {
     val base = Set[String](
       "graphene-pk11",
       "rvo2",
@@ -279,7 +279,7 @@ object Libraries {
           "egg",
         )
 
-    def slow = Set("@pulumi/aws", "aws-sdk", "googleapis")
+    def slow = if (enableScalaJsDefined) Set("@pulumi/aws", "aws-sdk", "googleapis") else Set()
 
     base ++ circular ++ slow map TsIdentLibrary.apply
   }

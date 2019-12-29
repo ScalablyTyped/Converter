@@ -1,16 +1,29 @@
 package com.olvind.tso
 package scalajs
 
-final case class Name(unescaped: String) extends AnyVal {
-
+final case class Name(unescaped: String) {
   def withSuffix[T: ToSuffix](t: T): Name =
     new Name(unescaped + "_" + ToSuffix(t).unescaped)
 
   def value: String =
     ScalaNameEscape(unescaped)
+
+  def isEscaped: Boolean =
+    value =/= unescaped
 }
 
 object Name {
+  def clean(original: String): (Name, Option[Annotation.JsName]) = {
+    val originalName = Name(original)
+
+    necessaryRewrite(original) match {
+      case Some(rewritten)                => (Name(rewritten), Some(Annotation.JsName(originalName)))
+      case None if original.contains("$") => (originalName, Some(Annotation.JsName(originalName)))
+      case None if original === "apply"   => (originalName, Some(Annotation.JsName(originalName)))
+      case None                           => (originalName, None)
+    }
+  }
+
   /* Using `Name.typings` for the top-level package allows us to reuse the results of phase two accross flavours */
   val typings:    Name = Name("typings")
   val dummy:      Name = Name("dummy")
@@ -43,36 +56,103 @@ object Name {
   val namespaced: Name = Name("^")
   val underscore: Name = Name("_")
 
-  val APPLY:        Name = Name("<apply>")
-  val CONSTRUCTOR:  Name = Name("<init>")
-  val UNION:        Name = Name("<union>")
-  val INTERSECTION: Name = Name("<intersection>")
-  val SINGLETON:    Name = Name("<typeof>")
-  val LITERAL:      Name = Name("<literal>")
-  val THIS_TYPE:    Name = Name("<this>")
-  val WILDCARD:     Name = Name("<wildcard>")
-  val REPEATED:     Name = Name("*")
+  val APPLY:           Name = Name("<apply>")
+  val CONSTRUCTOR:     Name = Name("<init>")
+  val UNION:           Name = Name("<union>")
+  val INTERSECTION:    Name = Name("<intersection>")
+  val SINGLETON:       Name = Name("<typeof>")
+  val STRING_LITERAL:  Name = Name("<string_literal>")
+  val NUMBER_LITERAL:  Name = Name("<number_literal>")
+  val BOOLEAN_LITERAL: Name = Name("<boolean_literal>")
+  val THIS_TYPE:       Name = Name("<this>")
+  val WILDCARD:        Name = Name("<wildcard>")
+  val REPEATED:        Name = Name("*")
 
   def FunctionArity(isThis: Boolean, arity: Int): Name =
     Name((if (isThis) This.unescaped else "") + "Function" + arity.toString)
 
-  val Internal = Set(UNION, INTERSECTION, SINGLETON, LITERAL, THIS_TYPE, WILDCARD, REPEATED, APPLY)
+  val Internal = Set(
+    UNION,
+    INTERSECTION,
+    SINGLETON,
+    STRING_LITERAL,
+    NUMBER_LITERAL,
+    BOOLEAN_LITERAL,
+    THIS_TYPE,
+    WILDCARD,
+    REPEATED,
+    APPLY,
+  )
 
-  implicit val NameSuffix: ToSuffix[Name] = new ToSuffix[Name] {
-    override def to(t: Name): Suffix = t match {
-      case UNION        => Suffix("Union")
-      case INTERSECTION => Suffix("Intersection")
-      case SINGLETON    => Suffix("Singleton")
-      case LITERAL      => Suffix("Literal")
-      case THIS_TYPE    => Suffix("This")
-      case WILDCARD     => Suffix("Wildcard")
-      case REPEATED     => Suffix("Repeated")
-      case APPLY        => Suffix("Apply")
-      case other        => Suffix(other.unescaped)
-    }
+  implicit val NameSuffix: ToSuffix[Name] = {
+    case UNION           => Suffix("Union")
+    case INTERSECTION    => Suffix("Intersection")
+    case SINGLETON       => Suffix("Singleton")
+    case BOOLEAN_LITERAL => Suffix("Boolean")
+    case NUMBER_LITERAL  => Suffix("Number")
+    case STRING_LITERAL  => Suffix("String")
+    case THIS_TYPE       => Suffix("This")
+    case WILDCARD        => Suffix("Wildcard")
+    case REPEATED        => Suffix("Repeated")
+    case APPLY           => Suffix("Apply")
+    case other           => Suffix(other.unescaped)
   }
 
   implicit val OrderedName = Ordering[String].on[Name](_.unescaped)
 
   implicit object NameKey extends IsKey[Name]
+
+  def necessaryRewrite(name: Name): Name =
+    necessaryRewrite(name.unescaped) match {
+      case Some(rewritten) => Name(rewritten)
+      case None            => name
+    }
+
+  /* All names pass through here, including the ones from arbitrary javascript strings. */
+  def necessaryRewrite(ident: String): Option[String] = {
+    def unicodeName(c: Char): String =
+      Character
+        .getName(c.toInt)
+        .takeWhile(_ =/= '(')
+        .filter(_.isLetterOrDigit)
+        .toLowerCase
+        .capitalize
+
+    val patchedChars =
+      ident.flatMap {
+        // we keep these, and only rewrite it for packages and modules, where it will be very visible
+        case '-' => "-"
+        case '@' => "@"
+        case '^' => "^"
+        /* Zinc fails with two dollar signs in a name, while we want to keep for instance the JQuery `$` */
+        case '$' => if (ident.count(_ === '$') > 1) "Dollar" else "$"
+        /* override names from unicode */
+        case '.'                                            => "Dot"
+        case '\\'                                           => "Backslash"
+        case '/'                                            => "Slash"
+        case '\u0000'                                       => "Null"
+        case ' '                                            => " "
+        case c if !c.isUnicodeIdentifierPart || c.isControl => unicodeName(c)
+        case c                                              => c.toString
+      }
+
+    /* can't have heading spaces, but inside the name we can escape them */
+    val fixedSpaces: String = {
+      val initialSpaces = patchedChars.takeWhile(_.isSpaceChar)
+      "Space" * initialSpaces.length + patchedChars.drop(initialSpaces.length)
+    }
+
+    /* No kidding, instagram-private-api broke scalac with a stack overflow in the parser */
+    val notTooLong = if (fixedSpaces.length > 500) fixedSpaces.take(500) else fixedSpaces
+
+    val legal = notTooLong match {
+      case ""        => "_empty" // must have a name
+      case "-"       => "_dash" // `def `-`(d: Double) = d; `-`(d) doesn't do what you would think
+      case "_"       => "_underscore" // can't import a top level member with this name
+      case "package" => "_package" // does't work
+      case i         => i
+    }
+
+    if (legal === ident) None else Some(legal)
+  }
 }

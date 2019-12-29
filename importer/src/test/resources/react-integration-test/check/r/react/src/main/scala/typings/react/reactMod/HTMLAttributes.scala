@@ -42,59 +42,60 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HTMLAttributes[T]
   extends AriaAttributes
      with DOMAttributes[T] {
   // RDFa Attributes
-  var about: js.UndefOr[String] = js.undefined
+  var about: js.UndefOr[String] = js.native
   // Standard HTML Attributes
-  var accessKey: js.UndefOr[String] = js.undefined
+  var accessKey: js.UndefOr[String] = js.native
   // Non-standard Attributes
-  var autoCapitalize: js.UndefOr[String] = js.undefined
-  var autoCorrect: js.UndefOr[String] = js.undefined
-  var autoSave: js.UndefOr[String] = js.undefined
-  var className: js.UndefOr[String] = js.undefined
-  var color: js.UndefOr[String] = js.undefined
-  var contentEditable: js.UndefOr[Boolean] = js.undefined
-  var contextMenu: js.UndefOr[String] = js.undefined
-  var datatype: js.UndefOr[String] = js.undefined
+  var autoCapitalize: js.UndefOr[String] = js.native
+  var autoCorrect: js.UndefOr[String] = js.native
+  var autoSave: js.UndefOr[String] = js.native
+  var className: js.UndefOr[String] = js.native
+  var color: js.UndefOr[String] = js.native
+  var contentEditable: js.UndefOr[Boolean] = js.native
+  var contextMenu: js.UndefOr[String] = js.native
+  var datatype: js.UndefOr[String] = js.native
   // React-specific Attributes
-  var defaultChecked: js.UndefOr[Boolean] = js.undefined
-  var defaultValue: js.UndefOr[String | js.Array[String]] = js.undefined
-  var dir: js.UndefOr[String] = js.undefined
-  var draggable: js.UndefOr[Boolean] = js.undefined
-  var hidden: js.UndefOr[Boolean] = js.undefined
-  var id: js.UndefOr[String] = js.undefined
-  var inlist: js.UndefOr[js.Any] = js.undefined
+  var defaultChecked: js.UndefOr[Boolean] = js.native
+  var defaultValue: js.UndefOr[String | js.Array[String]] = js.native
+  var dir: js.UndefOr[String] = js.native
+  var draggable: js.UndefOr[Boolean] = js.native
+  var hidden: js.UndefOr[Boolean] = js.native
+  var id: js.UndefOr[String] = js.native
+  var inlist: js.UndefOr[js.Any] = js.native
   // Unknown
-  var inputMode: js.UndefOr[String] = js.undefined
-  var is: js.UndefOr[String] = js.undefined
-  var itemID: js.UndefOr[String] = js.undefined
-  var itemProp: js.UndefOr[String] = js.undefined
-  var itemRef: js.UndefOr[String] = js.undefined
-  var itemScope: js.UndefOr[Boolean] = js.undefined
-  var itemType: js.UndefOr[String] = js.undefined
-  var lang: js.UndefOr[String] = js.undefined
-  var placeholder: js.UndefOr[String] = js.undefined
-  var prefix: js.UndefOr[String] = js.undefined
-  var property: js.UndefOr[String] = js.undefined
-  var radioGroup: js.UndefOr[String] = js.undefined
-  var resource: js.UndefOr[String] = js.undefined
-  var results: js.UndefOr[Double] = js.undefined
+  var inputMode: js.UndefOr[String] = js.native
+  var is: js.UndefOr[String] = js.native
+  var itemID: js.UndefOr[String] = js.native
+  var itemProp: js.UndefOr[String] = js.native
+  var itemRef: js.UndefOr[String] = js.native
+  var itemScope: js.UndefOr[Boolean] = js.native
+  var itemType: js.UndefOr[String] = js.native
+  var lang: js.UndefOr[String] = js.native
+  var placeholder: js.UndefOr[String] = js.native
+  var prefix: js.UndefOr[String] = js.native
+  var property: js.UndefOr[String] = js.native
+  var radioGroup: js.UndefOr[String] = js.native
+  var resource: js.UndefOr[String] = js.native
+  var results: js.UndefOr[Double] = js.native
    // <command>, <menuitem>
   // WAI-ARIA
-  var role: js.UndefOr[String] = js.undefined
-  var security: js.UndefOr[String] = js.undefined
-  var slot: js.UndefOr[String] = js.undefined
-  var spellCheck: js.UndefOr[Boolean] = js.undefined
-  var style: js.UndefOr[CSSProperties] = js.undefined
-  var suppressContentEditableWarning: js.UndefOr[Boolean] = js.undefined
-  var suppressHydrationWarning: js.UndefOr[Boolean] = js.undefined
-  var tabIndex: js.UndefOr[Double] = js.undefined
-  var title: js.UndefOr[String] = js.undefined
-  var typeof: js.UndefOr[String] = js.undefined
-  var unselectable: js.UndefOr[on | off] = js.undefined
-  var vocab: js.UndefOr[String] = js.undefined
+  var role: js.UndefOr[String] = js.native
+  var security: js.UndefOr[String] = js.native
+  var slot: js.UndefOr[String] = js.native
+  var spellCheck: js.UndefOr[Boolean] = js.native
+  var style: js.UndefOr[CSSProperties] = js.native
+  var suppressContentEditableWarning: js.UndefOr[Boolean] = js.native
+  var suppressHydrationWarning: js.UndefOr[Boolean] = js.native
+  var tabIndex: js.UndefOr[Double] = js.native
+  var title: js.UndefOr[String] = js.native
+  var typeof: js.UndefOr[String] = js.native
+  var unselectable: js.UndefOr[on | off] = js.native
+  var vocab: js.UndefOr[String] = js.native
 }
 
 object HTMLAttributes {

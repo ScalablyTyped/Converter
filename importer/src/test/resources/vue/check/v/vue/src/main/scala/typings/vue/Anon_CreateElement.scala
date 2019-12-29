@@ -6,9 +6,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_CreateElement extends js.Object {
-  var staticRenderFns: js.Array[js.Function0[VNode]]
-  def render(createElement: CreateElement): VNode
+  var staticRenderFns: js.Array[js.Function0[VNode]] = js.native
+  def render(createElement: CreateElement): VNode = js.native
 }
 
 object Anon_CreateElement {

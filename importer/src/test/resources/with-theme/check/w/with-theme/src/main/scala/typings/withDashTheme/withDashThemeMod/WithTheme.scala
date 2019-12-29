@@ -6,9 +6,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait WithTheme extends js.Object {
-  var innerRef: js.UndefOr[Ref[_] | RefObject[_]] = js.undefined
-  var theme: String
+  var innerRef: js.UndefOr[Ref[_] | RefObject[_]] = js.native
+  var theme: String = js.native
 }
 
 object WithTheme {

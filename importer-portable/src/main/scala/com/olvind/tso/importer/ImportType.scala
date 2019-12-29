@@ -122,7 +122,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
             TypeRef.StringDictionary(TypeRef(importName(x.tparams.head.name)), NoComments)
           case x: TsNamedDecl =>
-            TypeRef.Intersection(Seq(TypeRef.Literal(stringUtils.quote(x.name.value)), base)).withComments(c)
+            TypeRef.Intersection(Seq(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
         } getOrElse base.withComments(c)
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
@@ -189,7 +189,11 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
           }
 
-        TypeRef.Union(patched map apply(wildcards, scope, importName), sort = false)
+        val rewritten = patched map {
+          case TsTypeRef.undefined => TypeRef.undefined
+          case other => apply(wildcards, scope, importName)(other)
+        }
+        TypeRef.Union(rewritten, sort = false)
 
       case TsTypeIntersect(types) =>
         TypeRef.Intersection(types map apply(Wildcards.No, scope, importName))
@@ -221,8 +225,15 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             TypeRef.Boolean
         }
 
+      case TsTypeAsserts(ident) =>
+        TypeRef.Boolean.withComments(Comments(s"/* asserts ${ident.value} */"))
+
       case TsTypeLiteral(lit) =>
-        TypeRef.Literal(lit.literal)
+        lit match {
+          case TsLiteralNumber(value)  => TypeRef.NumberLiteral(value)
+          case TsLiteralString(value)  => TypeRef.StringLiteral(value)
+          case TsLiteralBoolean(value) => TypeRef.BooleanLiteral(value.toString)
+        }
 
       case TsTypeThis() =>
         TypeRef.ThisType(NoComments)

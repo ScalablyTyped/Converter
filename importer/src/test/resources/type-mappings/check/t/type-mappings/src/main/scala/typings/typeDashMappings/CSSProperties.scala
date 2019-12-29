@@ -4,14 +4,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait CSSProperties extends js.Object {
-  var color: String
-  var fontFamily: String
-  var fontSize: String
-  var fontWeight: String
-  var letterSpacing: String
-  var lineHeight: String
-  var textTransform: String
+  var color: String = js.native
+  var fontFamily: String = js.native
+  var fontSize: String = js.native
+  var fontWeight: String = js.native
+  var letterSpacing: String = js.native
+  var lineHeight: String = js.native
+  var textTransform: String = js.native
 }
 
 object CSSProperties {

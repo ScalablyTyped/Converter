@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Context[T] extends js.Object {
-  var Consumer: typingsJapgolly.react.reactMod.Consumer[T]
-  var Provider: typingsJapgolly.react.reactMod.Provider[T]
-  var displayName: js.UndefOr[String] = js.undefined
+  var Consumer: typingsJapgolly.react.reactMod.Consumer[T] = js.native
+  var Provider: typingsJapgolly.react.reactMod.Provider[T] = js.native
+  var displayName: js.UndefOr[String] = js.native
 }
 
 object Context {

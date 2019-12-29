@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Type[T /* <: ReactComponentClass[_] */] extends js.Object {
-  val `type`: T
+  val `type`: T = js.native
 }
 
 object Anon_Type {

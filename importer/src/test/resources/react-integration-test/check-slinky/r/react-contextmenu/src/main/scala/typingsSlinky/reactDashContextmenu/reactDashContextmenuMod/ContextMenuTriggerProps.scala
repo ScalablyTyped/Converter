@@ -6,13 +6,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ContextMenuTriggerProps extends js.Object {
-  var attributes: js.UndefOr[HTMLAttributes[_]] = js.undefined
-  var collect: js.UndefOr[js.Function1[/* data */ js.Any, _]] = js.undefined
-  var disable: js.UndefOr[Boolean] = js.undefined
-  var holdToDisplay: js.UndefOr[Double] = js.undefined
-  var id: String
-  var renderTag: js.UndefOr[ReactComponentClass[_]] = js.undefined
+  var attributes: js.UndefOr[HTMLAttributes[_]] = js.native
+  var collect: js.UndefOr[js.Function1[/* data */ js.Any, _]] = js.native
+  var disable: js.UndefOr[Boolean] = js.native
+  var holdToDisplay: js.UndefOr[Double] = js.native
+  var id: String = js.native
+  var renderTag: js.UndefOr[ReactComponentClass[_]] = js.native
 }
 
 object ContextMenuTriggerProps {

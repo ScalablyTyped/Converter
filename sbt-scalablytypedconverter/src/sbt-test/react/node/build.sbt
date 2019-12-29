@@ -3,10 +3,11 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(ScalablyTypedConverterPlugin)
     .settings(
+      useYarn := true,
       Compile / npmDependencies ++= Seq(
         "@types/express" -> "4.17.2",
       ),
-      Compile / tsoMinimize := Selection.AllOf("std"),
+      Compile / tsoMinimize := Selection.NoneExcept("std"),
       Compile / tsoStdlib := List("es5"),
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.1",

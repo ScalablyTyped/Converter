@@ -7,10 +7,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait TransitionEvent[T] extends BaseSyntheticEvent[NativeTransitionEvent, EventTarget with T, EventTarget] {
-  var elapsedTime: Double
-  var propertyName: String
-  var pseudoElement: String
+  var elapsedTime: Double = js.native
+  var propertyName: String = js.native
+  var pseudoElement: String = js.native
 }
 
 object TransitionEvent {

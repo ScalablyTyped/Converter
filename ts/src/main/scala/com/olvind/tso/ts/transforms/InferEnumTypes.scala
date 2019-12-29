@@ -23,7 +23,7 @@ object InferEnumTypes extends TreeTransformationScopedChanges {
     members.map {
       case em @ TsEnumMember(_, _, Some(expr)) =>
         val newExpr = TsExpr.visit(expr) {
-          case TsExpr.Ref(TsTypeRef(_, TsQIdent(List(name)), Nil)) if byName.contains(name) =>
+          case TsExpr.Ref(TsTypeRef(_, TsQIdent(List(name: TsIdentSimple)), Nil)) if byName.contains(name) =>
             byName(name).head.expr.get
           case other => other
         }

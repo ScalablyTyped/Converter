@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait BSProps extends js.Object {
-  var bsClass: js.Any
+  var bsClass: js.Any = js.native
 }
 
 object BSProps {

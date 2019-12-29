@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StoryStore extends js.Object {
-  var fileName: js.UndefOr[String] = js.undefined
-  var kind: String
-  var stories: js.Array[StoryObject]
+  var fileName: js.UndefOr[String] = js.native
+  var kind: String = js.native
+  var stories: js.Array[StoryObject] = js.native
 }
 
 object StoryStore {

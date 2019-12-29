@@ -23,10 +23,11 @@ import scala.scalajs.js.annotation._
   * };
   * ```
   */
+@js.native
 trait Props[T] extends js.Object {
-  var children: js.UndefOr[Node] = js.undefined
-  var key: js.UndefOr[Key] = js.undefined
-  var ref: js.UndefOr[LegacyRef[T]] = js.undefined
+  var children: js.UndefOr[Node] = js.native
+  var key: js.UndefOr[Key] = js.native
+  var ref: js.UndefOr[LegacyRef[T]] = js.native
 }
 
 object Props {

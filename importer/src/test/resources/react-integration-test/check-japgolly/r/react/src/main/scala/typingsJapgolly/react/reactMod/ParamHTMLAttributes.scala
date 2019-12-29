@@ -57,9 +57,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ParamHTMLAttributes[T] extends HTMLAttributes[T] {
-  var name: js.UndefOr[String] = js.undefined
-  var value: js.UndefOr[String | js.Array[String] | Double] = js.undefined
+  var name: js.UndefOr[String] = js.native
+  var value: js.UndefOr[String | js.Array[String] | Double] = js.native
 }
 
 object ParamHTMLAttributes {

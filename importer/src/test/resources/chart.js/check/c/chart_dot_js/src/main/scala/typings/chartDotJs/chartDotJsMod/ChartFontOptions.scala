@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ChartFontOptions extends js.Object {
-  var foo: Boolean
+  var foo: Boolean = js.native
 }
 
 object ChartFontOptions {

@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_ChildrenInnerRef extends js.Object {
-  var children: js.UndefOr[scala.Nothing] = js.undefined
-  var innerRef: js.UndefOr[scala.Nothing] = js.undefined
+  var children: js.UndefOr[scala.Nothing] = js.native
+  var innerRef: js.UndefOr[scala.Nothing] = js.native
 }
 
 object Anon_ChildrenInnerRef {

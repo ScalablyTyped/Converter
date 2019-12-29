@@ -5,18 +5,19 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait TouchEvent[T] extends BaseSyntheticEvent[NativeTouchEvent, EventTarget with T, EventTarget] {
-  var altKey: Boolean
-  var changedTouches: TouchList
-  var ctrlKey: Boolean
-  var metaKey: Boolean
-  var shiftKey: Boolean
-  var targetTouches: TouchList
-  var touches: TouchList
+  var altKey: Boolean = js.native
+  var changedTouches: TouchList = js.native
+  var ctrlKey: Boolean = js.native
+  var metaKey: Boolean = js.native
+  var shiftKey: Boolean = js.native
+  var targetTouches: TouchList = js.native
+  var touches: TouchList = js.native
   /**
     * See [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#keys-modifier). for a list of valid (case-sensitive) arguments to this method.
     */
-  def getModifierState(key: String): Boolean
+  def getModifierState(key: String): Boolean = js.native
 }
 
 object TouchEvent {

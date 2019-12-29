@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait WatchOptions extends js.Object {
-  var deep: js.UndefOr[Boolean] = js.undefined
-  var immediate: js.UndefOr[Boolean] = js.undefined
+  var deep: js.UndefOr[Boolean] = js.native
+  var immediate: js.UndefOr[Boolean] = js.native
 }
 
 object WatchOptions {

@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait LoggerOptions extends js.Object {
-  var levels: js.UndefOr[AbstractConfigSetLevels] = js.undefined
+  var levels: js.UndefOr[AbstractConfigSetLevels] = js.native
 }
 
 object LoggerOptions {

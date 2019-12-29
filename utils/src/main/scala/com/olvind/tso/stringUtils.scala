@@ -4,13 +4,11 @@ import java.net.URLEncoder
 import scala.annotation.switch
 
 object stringUtils {
-  val Quote = '"'
+  val Quote    = '"'
+  val QuoteStr = Quote.toString
 
   def quote(s: String): String =
-    s"$Quote$s$Quote"
-
-  def unquote(s: String): String =
-    s.replaceAllLiterally(Quote.toString, "")
+    s"$Quote${EscapeStrings.java(s)}$Quote"
 
   /**
     * pff, scala apparently cares about nested comments, especially when they're not balanced

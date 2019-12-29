@@ -6,11 +6,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait RadioProps extends js.Object {
   /** Required if `type` is set to "radio" */
-  var name: String
-  var onChange: js.UndefOr[js.Function1[/* value */ js.Any, Unit]] = js.undefined
-  var `type`: radio
+  var name: String = js.native
+  var onChange: js.UndefOr[js.Function1[/* value */ js.Any, Unit]] = js.native
+  var `type`: radio = js.native
 }
 
 object RadioProps {

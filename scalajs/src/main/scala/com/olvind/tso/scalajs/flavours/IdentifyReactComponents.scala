@@ -293,7 +293,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
               .split("/")
               .filterNot(x => Unnamed(Name(x)))
               .last
-          Name(prettyString.prettifyName(fragment, "", forceCamelCase = true))
+          Name(prettyString(fragment, "", forceCamelCase = true))
         case Annotation.JsGlobal(qname) => qname.parts.last
       }
   }

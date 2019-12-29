@@ -5,8 +5,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* let's pretend */
+@js.native
 trait TwoFoo[Foo1, Foo2] extends js.Object {
-  var value: Foo1
+  var value: Foo1 = js.native
 }
 
 object TwoFoo {

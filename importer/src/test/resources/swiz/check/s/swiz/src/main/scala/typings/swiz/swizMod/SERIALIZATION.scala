@@ -17,7 +17,7 @@ object SERIALIZATION extends js.Object {
   sealed trait SERIALIZATION_XML extends SERIALIZATION
   
   @js.native
-  sealed trait `_` extends SERIALIZATION
+  sealed trait _underscore extends SERIALIZATION
   
   @js.native
   sealed trait java extends SERIALIZATION

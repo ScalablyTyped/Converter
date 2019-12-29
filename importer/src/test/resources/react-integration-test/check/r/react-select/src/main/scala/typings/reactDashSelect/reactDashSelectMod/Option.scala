@@ -5,6 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Option[TValue]
   extends /**
   * In the event that a custom menuRenderer is provided, Option should be able
@@ -12,7 +13,7 @@ trait Option[TValue]
   */
 /* property */ StringDictionary[js.Any] {
   /** Value for searching */
-  var value: js.UndefOr[TValue] = js.undefined
+  var value: js.UndefOr[TValue] = js.native
 }
 
 object Option {

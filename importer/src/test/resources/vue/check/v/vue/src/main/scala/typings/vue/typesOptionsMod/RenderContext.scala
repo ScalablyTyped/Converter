@@ -7,13 +7,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait RenderContext[Props] extends js.Object {
-  var children: js.Array[VNode]
-  var data: VNodeData
-  var injections: js.Any
-  var parent: Vue
-  var props: Props
-  def slots(): js.Any
+  var children: js.Array[VNode] = js.native
+  var data: VNodeData = js.native
+  var injections: js.Any = js.native
+  var parent: Vue = js.native
+  var props: Props = js.native
+  def slots(): js.Any = js.native
 }
 
 object RenderContext {

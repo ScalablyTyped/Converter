@@ -5,14 +5,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait HttpHeaders
   extends /* key */ StringDictionary[js.Any] {
-  var common: js.UndefOr[StringDictionary[String]] = js.undefined
-  var custom: js.UndefOr[StringDictionary[String]] = js.undefined
-  var delete: js.UndefOr[StringDictionary[String]] = js.undefined
-  var patch: js.UndefOr[StringDictionary[String]] = js.undefined
-  var post: js.UndefOr[StringDictionary[String]] = js.undefined
-  var put: js.UndefOr[StringDictionary[String]] = js.undefined
+  var common: js.UndefOr[StringDictionary[String]] = js.native
+  var custom: js.UndefOr[StringDictionary[String]] = js.native
+  var delete: js.UndefOr[StringDictionary[String]] = js.native
+  var patch: js.UndefOr[StringDictionary[String]] = js.native
+  var post: js.UndefOr[StringDictionary[String]] = js.native
+  var put: js.UndefOr[StringDictionary[String]] = js.native
 }
 
 object HttpHeaders {

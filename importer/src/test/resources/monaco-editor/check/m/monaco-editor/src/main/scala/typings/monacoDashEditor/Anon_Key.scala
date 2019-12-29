@@ -5,9 +5,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Key[T] extends js.Object {
-  var key: String
-  var value: Promise[T, _]
+  var key: String = js.native
+  var value: Promise[T, _] = js.native
 }
 
 object Anon_Key {

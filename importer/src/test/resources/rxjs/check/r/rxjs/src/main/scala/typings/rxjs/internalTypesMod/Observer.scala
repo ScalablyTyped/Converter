@@ -4,11 +4,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Observer[T] extends js.Object {
-  var closed: js.UndefOr[Boolean] = js.undefined
-  def complete(): Unit
-  def error(err: js.Any): Unit
-  def next(value: T): Unit
+  var closed: js.UndefOr[Boolean] = js.native
+  def complete(): Unit = js.native
+  def error(err: js.Any): Unit = js.native
+  def next(value: T): Unit = js.native
 }
 
 object Observer {

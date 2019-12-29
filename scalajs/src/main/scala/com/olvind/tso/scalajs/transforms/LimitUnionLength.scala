@@ -13,7 +13,7 @@ object LimitUnionLength extends TreeTransformation {
         val (undefineds, rest) = types.partition(_ === TypeRef.undefined)
 
         val base =
-          if (rest.forall(x => TypeRef.Literal.unapply(x).exists(_.startsWith("\"")))) TypeRef.String else TypeRef.Any
+          if (rest.forall(x => TypeRef.StringLiteral.unapply(x).isDefined)) TypeRef.String else TypeRef.Any
 
         base
           .withComments(Comments(Comment.warning(s"Was union type with length ${types.length}")))

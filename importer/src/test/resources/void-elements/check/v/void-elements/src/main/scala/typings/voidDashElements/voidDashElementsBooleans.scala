@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object voidDashElementsNumbers {
+object voidDashElementsBooleans {
   @js.native
   sealed trait `true` extends js.Object
   

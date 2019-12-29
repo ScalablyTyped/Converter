@@ -5,11 +5,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ErrnoException extends Error {
-  var code: js.UndefOr[String] = js.undefined
-  var errno: js.UndefOr[Double] = js.undefined
-  var path: js.UndefOr[String] = js.undefined
-  var syscall: js.UndefOr[String] = js.undefined
+  var code: js.UndefOr[String] = js.native
+  var errno: js.UndefOr[Double] = js.native
+  var path: js.UndefOr[String] = js.native
+  var syscall: js.UndefOr[String] = js.native
 }
 
 object ErrnoException {

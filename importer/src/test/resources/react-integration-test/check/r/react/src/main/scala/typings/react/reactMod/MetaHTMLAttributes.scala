@@ -42,11 +42,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MetaHTMLAttributes[T] extends HTMLAttributes[T] {
-  var charSet: js.UndefOr[String] = js.undefined
-  var content: js.UndefOr[String] = js.undefined
-  var httpEquiv: js.UndefOr[String] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
+  var charSet: js.UndefOr[String] = js.native
+  var content: js.UndefOr[String] = js.native
+  var httpEquiv: js.UndefOr[String] = js.native
+  var name: js.UndefOr[String] = js.native
 }
 
 object MetaHTMLAttributes {

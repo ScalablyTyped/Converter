@@ -3,9 +3,7 @@ lazy val testProject =
     .in(file("."))
     .enablePlugins(ScalablyTypedConverterPlugin)
     .settings(
-      Compile / tsoFlavour := Flavour.Slinky,
-      Compile / tsoIgnore += "csstype",
-      Compile / tsoMinimize := Selection.AllExcept("react-dom"),
+      useYarn := true,
       Compile / npmDependencies ++= Seq(
         "@types/react-dom" -> "16.9.1",
         "@types/node" -> "12.12.14",
@@ -14,6 +12,9 @@ lazy val testProject =
         "react" -> "16.9",
         "semantic-ui-react" -> "0.88.1",
       ),
+      Compile / tsoFlavour := Flavour.Slinky,
+      Compile / tsoIgnore += "csstype",
+      Compile / tsoMinimize := Selection.AllExcept("react-dom"),
       libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.6.2",
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.1",

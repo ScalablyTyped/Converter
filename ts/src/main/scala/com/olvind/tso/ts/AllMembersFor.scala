@@ -11,6 +11,7 @@ object AllMembersFor {
       case x: TsTypeIntersect   => x.types.flatMap(forType(scope, loopDetector))
       case x: TsTypeUnion       => x.types.flatMap(forType(scope, loopDetector)).map(TsMember.optional(true))
       case x: TsTypeObject      => x.members
+      case _: TsTypeAsserts     => Nil
       case _: TsTypeLiteral     => Nil
       case _: TsTypeFunction    => Nil
       case _: TsTypeConstructor => Nil

@@ -42,8 +42,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ColgroupHTMLAttributes[T] extends HTMLAttributes[T] {
-  var span: js.UndefOr[Double] = js.undefined
+  var span: js.UndefOr[Double] = js.native
 }
 
 object ColgroupHTMLAttributes {

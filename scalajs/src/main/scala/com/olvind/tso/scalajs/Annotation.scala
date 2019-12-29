@@ -26,18 +26,6 @@ object Annotation {
   case class JsImport(module:   String, imported: Imported) extends LocationAnnotation
   case class JsGlobal(name:     QualifiedName) extends LocationAnnotation
 
-  def jsName(name: Name): Seq[JsName] =
-    if (name.unescaped.contains("$")) Seq(JsName(name))
-    else if (name.unescaped === "apply") Seq(JsName(name))
-    else Nil
-
-  def jsNameSymbol(qname: QualifiedName): JsNameSymbol =
-    JsNameSymbol(qname)
-
-  def method(name: Name, isBracketAccess: Boolean): Seq[MemberAnnotation] =
-    if (isBracketAccess) jsName(name) :+ JsBracketAccess
-    else jsName(name)
-
   def renamedFrom(newName: Name)(oldAnnotations: Seq[MemberAnnotation]): Seq[MemberAnnotation] = {
     val (names, others) =
       oldAnnotations partition {

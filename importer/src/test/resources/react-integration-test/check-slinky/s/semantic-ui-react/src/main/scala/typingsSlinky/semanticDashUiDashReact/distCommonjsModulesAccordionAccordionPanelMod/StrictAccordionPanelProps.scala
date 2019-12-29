@@ -9,13 +9,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictAccordionPanelProps extends js.Object {
   /** Whether or not the title is in the open state. */
-  var active: js.UndefOr[Boolean] = js.undefined
+  var active: js.UndefOr[Boolean] = js.native
   /** A shorthand for Accordion.Content. */
-  var content: js.UndefOr[SemanticShorthandItem[AccordionContentProps]] = js.undefined
+  var content: js.UndefOr[SemanticShorthandItem[AccordionContentProps]] = js.native
   /** A panel index. */
-  var index: js.UndefOr[Double | String] = js.undefined
+  var index: js.UndefOr[Double | String] = js.native
   /**
     * Called when a panel title is clicked.
     *
@@ -28,9 +29,9 @@ trait StrictAccordionPanelProps extends js.Object {
       /* data */ AccordionTitleProps, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
   /** A shorthand for Accordion.Title. */
-  var title: js.UndefOr[SemanticShorthandItem[AccordionTitleProps]] = js.undefined
+  var title: js.UndefOr[SemanticShorthandItem[AccordionTitleProps]] = js.native
 }
 
 object StrictAccordionPanelProps {

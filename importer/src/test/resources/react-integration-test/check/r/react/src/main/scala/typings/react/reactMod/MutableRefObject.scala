@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MutableRefObject[T] extends js.Object {
-  var current: T
+  var current: T = js.native
 }
 
 object MutableRefObject {

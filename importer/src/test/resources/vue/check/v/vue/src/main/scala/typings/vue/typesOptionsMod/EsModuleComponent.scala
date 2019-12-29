@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait EsModuleComponent extends js.Object {
-  var default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]
+  var default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps] = js.native
 }
 
 object EsModuleComponent {

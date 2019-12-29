@@ -9,7 +9,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_RefProps1889243212[ComponentRef] () {
+abstract class SharedApply_RefProps_1952142610[ComponentRef] () {
   val componentImport: js.Any
   def apply(
     innerRef: japgolly.scalajs.react.raw.React.Ref = null,

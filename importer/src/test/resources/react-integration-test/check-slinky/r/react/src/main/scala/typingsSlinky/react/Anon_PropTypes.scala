@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_PropTypes extends js.Object {
-  var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any
+  var propTypes: /* import warning: importer.ImportType#apply Failed type conversion: infer T */ js.Any = js.native
 }
 
 object Anon_PropTypes {

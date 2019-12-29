@@ -2,19 +2,19 @@ package typingsJapgolly.semanticDashUiDashReact.distCommonjsGenericMod
 
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`10`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`12`
+import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`14`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`15`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`16`
+import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`1`
+import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`2`
+import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`3`
+import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`6`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`7`
-import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`8`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`11`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`13`
-import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`14`
-import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`1`
-import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`2`
-import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`3`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`4`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`5`
-import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`6`
+import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`8`
 import typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`9`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -74,7 +74,7 @@ trait SemanticWIDTHS extends js.Object
 
 object SemanticWIDTHS {
   @scala.inline
-  def `1`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`1` = this.cast(1)
+  def `1`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`1` = this.cast("1")
   @scala.inline
   def `10`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`10` = this.cast("10")
   @JSName("10")
@@ -96,10 +96,10 @@ object SemanticWIDTHS {
   @scala.inline
   def `13_13`: `13` = this.cast("13")
   @scala.inline
-  def `14`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`14` = this.cast(14)
+  def `14`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`14` = this.cast("14")
   @JSName("14")
   @scala.inline
-  def `14_14`: `14` = this.cast("14")
+  def `14_14`: `14` = this.cast(14)
   @scala.inline
   def `15`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`15` = this.cast("15")
   @JSName("15")
@@ -112,17 +112,17 @@ object SemanticWIDTHS {
   def `16_16`: `16` = this.cast(16)
   @JSName("1")
   @scala.inline
-  def `1_1`: `1` = this.cast("1")
+  def `1_1`: `1` = this.cast(1)
   @scala.inline
-  def `2`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`2` = this.cast(2)
+  def `2`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`2` = this.cast("2")
   @JSName("2")
   @scala.inline
-  def `2_2`: `2` = this.cast("2")
+  def `2_2`: `2` = this.cast(2)
   @scala.inline
-  def `3`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`3` = this.cast(3)
+  def `3`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`3` = this.cast("3")
   @JSName("3")
   @scala.inline
-  def `3_3`: `3` = this.cast("3")
+  def `3_3`: `3` = this.cast(3)
   @scala.inline
   def `4`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`4` = this.cast(4)
   @JSName("4")
@@ -134,20 +134,20 @@ object SemanticWIDTHS {
   @scala.inline
   def `5_5`: `5` = this.cast("5")
   @scala.inline
-  def `6`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`6` = this.cast(6)
+  def `6`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`6` = this.cast("6")
   @JSName("6")
   @scala.inline
-  def `6_6`: `6` = this.cast("6")
+  def `6_6`: `6` = this.cast(6)
   @scala.inline
   def `7`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`7` = this.cast("7")
   @JSName("7")
   @scala.inline
   def `7_7`: `7` = this.cast(7)
   @scala.inline
-  def `8`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactStrings.`8` = this.cast("8")
+  def `8`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`8` = this.cast(8)
   @JSName("8")
   @scala.inline
-  def `8_8`: `8` = this.cast(8)
+  def `8_8`: `8` = this.cast("8")
   @scala.inline
   def `9`: typingsJapgolly.semanticDashUiDashReact.semanticDashUiDashReactNumbers.`9` = this.cast(9)
   @JSName("9")

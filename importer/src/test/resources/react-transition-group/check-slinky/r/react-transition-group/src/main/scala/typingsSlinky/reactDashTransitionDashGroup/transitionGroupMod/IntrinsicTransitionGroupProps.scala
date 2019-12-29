@@ -6,8 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait IntrinsicTransitionGroupProps[T /* <: abbr | animate */] extends js.Object {
-  var component: js.UndefOr[T] = js.undefined
+  var component: js.UndefOr[T] = js.native
 }
 
 object IntrinsicTransitionGroupProps {

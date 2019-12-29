@@ -11,19 +11,20 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait StrictAccordionAccordionProps extends js.Object {
   /** Index of the currently active panel. */
-  var activeIndex: js.UndefOr[Double | js.Array[Double]] = js.undefined
+  var activeIndex: js.UndefOr[Double | js.Array[Double]] = js.native
   /** An element type to render as (string or function). */
-  var as: js.UndefOr[js.Any] = js.undefined
+  var as: js.UndefOr[js.Any] = js.native
   /** Primary content. */
-  var children: js.UndefOr[ReactNode] = js.undefined
+  var children: js.UndefOr[ReactNode] = js.native
   /** Additional classes. */
-  var className: js.UndefOr[String] = js.undefined
+  var className: js.UndefOr[String] = js.native
   /** Initial activeIndex value. */
-  var defaultActiveIndex: js.UndefOr[Double | js.Array[Double]] = js.undefined
+  var defaultActiveIndex: js.UndefOr[Double | js.Array[Double]] = js.native
   /** Only allow one panel open at a time. */
-  var exclusive: js.UndefOr[Boolean] = js.undefined
+  var exclusive: js.UndefOr[Boolean] = js.native
   /**
     * Called when a panel title is clicked.
     *
@@ -36,9 +37,9 @@ trait StrictAccordionAccordionProps extends js.Object {
       /* data */ AccordionTitleProps, 
       Unit
     ]
-  ] = js.undefined
+  ] = js.native
   /** Shorthand array of props for Accordion. */
-  var panels: js.UndefOr[SemanticShorthandCollection[AccordionPanelProps]] = js.undefined
+  var panels: js.UndefOr[SemanticShorthandCollection[AccordionPanelProps]] = js.native
 }
 
 object StrictAccordionAccordionProps {

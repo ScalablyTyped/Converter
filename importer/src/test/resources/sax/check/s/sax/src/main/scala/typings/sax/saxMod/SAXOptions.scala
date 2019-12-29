@@ -4,13 +4,14 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SAXOptions extends js.Object {
-  var lowercase: js.UndefOr[Boolean] = js.undefined
-  var normalize: js.UndefOr[Boolean] = js.undefined
-  var noscript: js.UndefOr[Boolean] = js.undefined
-  var position: js.UndefOr[Boolean] = js.undefined
-  var trim: js.UndefOr[Boolean] = js.undefined
-  var xmlns: js.UndefOr[Boolean] = js.undefined
+  var lowercase: js.UndefOr[Boolean] = js.native
+  var normalize: js.UndefOr[Boolean] = js.native
+  var noscript: js.UndefOr[Boolean] = js.native
+  var position: js.UndefOr[Boolean] = js.native
+  var trim: js.UndefOr[Boolean] = js.native
+  var xmlns: js.UndefOr[Boolean] = js.native
 }
 
 object SAXOptions {

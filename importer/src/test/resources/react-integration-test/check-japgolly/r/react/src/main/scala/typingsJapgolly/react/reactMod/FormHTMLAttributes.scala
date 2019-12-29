@@ -57,15 +57,16 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait FormHTMLAttributes[T] extends HTMLAttributes[T] {
-  var acceptCharset: js.UndefOr[String] = js.undefined
-  var action: js.UndefOr[String] = js.undefined
-  var autoComplete: js.UndefOr[String] = js.undefined
-  var encType: js.UndefOr[String] = js.undefined
-  var method: js.UndefOr[String] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
-  var noValidate: js.UndefOr[Boolean] = js.undefined
-  var target: js.UndefOr[String] = js.undefined
+  var acceptCharset: js.UndefOr[String] = js.native
+  var action: js.UndefOr[String] = js.native
+  var autoComplete: js.UndefOr[String] = js.native
+  var encType: js.UndefOr[String] = js.native
+  var method: js.UndefOr[String] = js.native
+  var name: js.UndefOr[String] = js.native
+  var noValidate: js.UndefOr[Boolean] = js.native
+  var target: js.UndefOr[String] = js.native
 }
 
 object FormHTMLAttributes {

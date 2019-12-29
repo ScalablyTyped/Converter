@@ -5,8 +5,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ComponentOption extends js.Object {
-  var http: js.UndefOr[Anon_Headers with HttpOptions] = js.undefined
+  var http: js.UndefOr[Anon_Headers with HttpOptions] = js.native
 }
 
 object ComponentOption {

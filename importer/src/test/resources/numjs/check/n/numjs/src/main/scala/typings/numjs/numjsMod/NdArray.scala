@@ -6,11 +6,12 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait NdArray[T] extends ndarray[T] {
   @JSName("T")
-  var T_NdArray: NdArray[T]
-  var ndim: Double
-  def slice(args: Double*): NdArray[T]
+  var T_NdArray: NdArray[T] = js.native
+  var ndim: Double = js.native
+  def slice(args: Double*): NdArray[T] = js.native
 }
 
 object NdArray {

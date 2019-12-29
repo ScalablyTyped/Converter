@@ -117,7 +117,7 @@ object Exports {
       scope:        TsTreeScope,
       exportType:   ExportType,
       _namedDecl:   TsNamedDecl,
-      renamedOpt:   Option[TsIdent],
+      renamedOpt:   Option[TsIdentSimple],
       loopDetector: LoopDetector,
   ): Seq[TsNamedDecl] = {
     val limitedScope = scope match {

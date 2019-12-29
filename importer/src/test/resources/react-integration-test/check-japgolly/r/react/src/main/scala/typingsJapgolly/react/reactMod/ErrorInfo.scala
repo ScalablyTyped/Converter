@@ -7,11 +7,12 @@ import scala.scalajs.js.annotation._
 //
 // Error Interfaces
 // ----------------------------------------------------------------------
+@js.native
 trait ErrorInfo extends js.Object {
   /**
     * Captures which component contained the exception, and its ancestors.
     */
-  var componentStack: String
+  var componentStack: String = js.native
 }
 
 object ErrorInfo {

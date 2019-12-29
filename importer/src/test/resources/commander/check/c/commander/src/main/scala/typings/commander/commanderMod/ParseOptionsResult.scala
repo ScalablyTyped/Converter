@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ParseOptionsResult extends js.Object {
-  var args: js.Array[String]
-  var unknown: js.Array[String]
+  var args: js.Array[String] = js.native
+  var unknown: js.Array[String] = js.native
 }
 
 object ParseOptionsResult {

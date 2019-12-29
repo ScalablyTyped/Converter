@@ -9,14 +9,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait MenuItemProps extends js.Object {
-  var attributes: js.UndefOr[HTMLAttributes[HTMLDivElement]] = js.undefined
-  var className: js.UndefOr[String] = js.undefined
+  var attributes: js.UndefOr[HTMLAttributes[HTMLDivElement]] = js.native
+  var className: js.UndefOr[String] = js.native
   var data: js.UndefOr[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any
-  ] = js.undefined
-  var disabled: js.UndefOr[Boolean] = js.undefined
-  var divider: js.UndefOr[Boolean] = js.undefined
+  ] = js.native
+  var disabled: js.UndefOr[Boolean] = js.native
+  var divider: js.UndefOr[Boolean] = js.native
   var onClick: js.UndefOr[
     (js.Function3[
       /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
@@ -24,8 +25,8 @@ trait MenuItemProps extends js.Object {
       /* target */ HTMLElement, 
       Unit
     ]) | js.Function
-  ] = js.undefined
-  var preventClose: js.UndefOr[Boolean] = js.undefined
+  ] = js.native
+  var preventClose: js.UndefOr[Boolean] = js.native
 }
 
 object MenuItemProps {

@@ -6,22 +6,23 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VNode extends js.Object {
-  var children: js.UndefOr[js.Array[VNode]] = js.undefined
-  var componentInstance: js.UndefOr[Vue] = js.undefined
-  var componentOptions: js.UndefOr[VNodeComponentOptions] = js.undefined
-  var context: js.UndefOr[Vue] = js.undefined
-  var data: js.UndefOr[VNodeData] = js.undefined
-  var elm: js.UndefOr[Node] = js.undefined
-  var isComment: Boolean
-  var isRootInsert: Boolean
-  var isStatic: js.UndefOr[Boolean] = js.undefined
-  var key: js.UndefOr[String | Double] = js.undefined
-  var ns: js.UndefOr[String] = js.undefined
-  var parent: js.UndefOr[VNode] = js.undefined
-  var raw: js.UndefOr[Boolean] = js.undefined
-  var tag: js.UndefOr[String] = js.undefined
-  var text: js.UndefOr[String] = js.undefined
+  var children: js.UndefOr[js.Array[VNode]] = js.native
+  var componentInstance: js.UndefOr[Vue] = js.native
+  var componentOptions: js.UndefOr[VNodeComponentOptions] = js.native
+  var context: js.UndefOr[Vue] = js.native
+  var data: js.UndefOr[VNodeData] = js.native
+  var elm: js.UndefOr[Node] = js.native
+  var isComment: Boolean = js.native
+  var isRootInsert: Boolean = js.native
+  var isStatic: js.UndefOr[Boolean] = js.native
+  var key: js.UndefOr[String | Double] = js.native
+  var ns: js.UndefOr[String] = js.native
+  var parent: js.UndefOr[VNode] = js.native
+  var raw: js.UndefOr[Boolean] = js.native
+  var tag: js.UndefOr[String] = js.native
+  var text: js.UndefOr[String] = js.native
 }
 
 object VNode {

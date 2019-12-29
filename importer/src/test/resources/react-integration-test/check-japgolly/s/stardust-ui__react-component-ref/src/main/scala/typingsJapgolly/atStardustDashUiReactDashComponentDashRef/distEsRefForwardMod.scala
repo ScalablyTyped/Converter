@@ -1,7 +1,6 @@
 package typingsJapgolly.atStardustDashUiReactDashComponentDashRef
 
 import org.scalajs.dom.raw.HTMLElement
-import typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsRefForwardMod.RefForward
 import typingsJapgolly.atStardustDashUiReactDashComponentDashRef.distEsTypesMod.RefProps
 import typingsJapgolly.react.reactMod.Component
 import scala.scalajs.js

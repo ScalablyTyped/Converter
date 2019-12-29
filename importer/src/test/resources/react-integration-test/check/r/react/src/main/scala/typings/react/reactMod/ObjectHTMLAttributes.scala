@@ -42,16 +42,17 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ObjectHTMLAttributes[T] extends HTMLAttributes[T] {
-  var classID: js.UndefOr[String] = js.undefined
-  var data: js.UndefOr[String] = js.undefined
-  var form: js.UndefOr[String] = js.undefined
-  var height: js.UndefOr[Double | String] = js.undefined
-  var name: js.UndefOr[String] = js.undefined
-  var `type`: js.UndefOr[String] = js.undefined
-  var useMap: js.UndefOr[String] = js.undefined
-  var width: js.UndefOr[Double | String] = js.undefined
-  var wmode: js.UndefOr[String] = js.undefined
+  var classID: js.UndefOr[String] = js.native
+  var data: js.UndefOr[String] = js.native
+  var form: js.UndefOr[String] = js.native
+  var height: js.UndefOr[Double | String] = js.native
+  var name: js.UndefOr[String] = js.native
+  var `type`: js.UndefOr[String] = js.native
+  var useMap: js.UndefOr[String] = js.native
+  var width: js.UndefOr[Double | String] = js.native
+  var wmode: js.UndefOr[String] = js.native
 }
 
 object ObjectHTMLAttributes {

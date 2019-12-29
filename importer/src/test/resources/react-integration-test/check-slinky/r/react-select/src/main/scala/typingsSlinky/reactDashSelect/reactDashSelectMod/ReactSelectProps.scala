@@ -8,12 +8,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ReactSelectProps[TValue] extends Props[ReactSelectClass[TValue]] {
   /**
     * text to display when `allowCreate` is true.
     * @default 'Add "{label}"?'
     */
-  var addLabelText: js.UndefOr[String] = js.undefined
+  var addLabelText: js.UndefOr[String] = js.native
 }
 
 object ReactSelectProps {

@@ -12,6 +12,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait AccordionProps
   extends StrictAccordionProps
      with /* key */ StringDictionary[js.Any]

@@ -55,9 +55,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait OptgroupHTMLAttributes[T] extends HTMLAttributes[T] {
-  var disabled: js.UndefOr[Boolean] = js.undefined
-  var label: js.UndefOr[String] = js.undefined
+  var disabled: js.UndefOr[Boolean] = js.native
+  var label: js.UndefOr[String] = js.native
 }
 
 object OptgroupHTMLAttributes {

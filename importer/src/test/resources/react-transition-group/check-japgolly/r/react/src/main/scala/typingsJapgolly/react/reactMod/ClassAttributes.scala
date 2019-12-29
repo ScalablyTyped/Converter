@@ -4,8 +4,9 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ClassAttributes[T] extends Attributes {
-  var ref: js.UndefOr[japgolly.scalajs.react.raw.React.Ref] = js.undefined
+  var ref: js.UndefOr[japgolly.scalajs.react.raw.React.Ref] = js.native
 }
 
 object ClassAttributes {

@@ -42,9 +42,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ProgressHTMLAttributes[T] extends HTMLAttributes[T] {
-  var max: js.UndefOr[Double | String] = js.undefined
-  var value: js.UndefOr[String | js.Array[String] | Double] = js.undefined
+  var max: js.UndefOr[Double | String] = js.native
+  var value: js.UndefOr[String | js.Array[String] | Double] = js.native
 }
 
 object ProgressHTMLAttributes {

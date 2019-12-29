@@ -99,6 +99,9 @@ class Main(config: Config) {
         )(ec)
     }
 
+  val ignoredLibs: Set[TsIdentLibrary] =
+    Libraries.ignored(config.sequential, config.enableScalaJsDefined)
+
   def tsSourcesF(
       externalsFolderF:  Future[InFolder],
       dtFolderF:         Future[InFolder],
@@ -114,7 +117,7 @@ class Main(config: Config) {
         os.list(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
 
       (
-        TypescriptSources(externalsFolder, dtFolder, Libraries.ignored(config.sequential)).sorted ++ facadeSources,
+        TypescriptSources(externalsFolder, dtFolder, ignoredLibs).sorted ++ facadeSources,
         config.wantedLibNames,
       ) match {
         case (sources, sets.EmptySet())   => sources
@@ -151,7 +154,7 @@ class Main(config: Config) {
           external.packages
             .map(_.typingsPackageName)
             .to[Set] + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
-          Libraries.ignored(config.sequential),
+          ignoredLibs,
           config.conserveSpace,
           config.offline,
         )
@@ -179,7 +182,7 @@ class Main(config: Config) {
         new Phase1ReadTypescript(
           calculateLibraryVersion = new DTVersions(lastChangedIndex),
           resolve                 = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), None),
-          ignored                 = Libraries.ignored(config.sequential),
+          ignored                 = ignoredLibs,
           ignoredModulePrefixes   = Set.empty,
           stdlibSource            = stdLibSource,
           pedantic                = config.pedantic,
@@ -192,7 +195,16 @@ class Main(config: Config) {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(config.pedantic, PrettyString.Regular), "scala.js")
+      .next(
+        new Phase2ToScalaJs(
+          config.pedantic,
+          PrettyString.Regular,
+          enableScalaJsDefined =
+            if (config.enableScalaJsDefined) Selection.All
+            else Selection.None,
+        ),
+        "scala.js",
+      )
 
     config.flavours.foreach { flavour =>
       val bintray                                = bintrayFor(flavour)
@@ -242,15 +254,18 @@ class Main(config: Config) {
 
         }
 
-      val successes: Set[PublishedSbtProject] = {
-        def go(p: PublishedSbtProject): Set[PublishedSbtProject] =
-          p.project.deps.values.flatMap(go).to[Set] + p
+      val successes: Map[Source, PublishedSbtProject] = {
+        def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
+          Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
 
-        results.collect { case (_, PhaseRes.Ok(res)) => go(res) }.flatten.to[Set]
+        results.collect { case (s, PhaseRes.Ok(res)) => go(s, res) }.reduceOption(_ ++ _).getOrElse(Map.empty)
       }
 
-      val summary               = Summary(results)
-      val lists                 = TopLists(successes)
+      val failures: Map[Source, Either[Throwable, String]] =
+        results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
+
+      val summary               = Summary(successes.keys.to[Set].map(_.libName), failures.keys.to[Set].map(_.libName))
+      val lists                 = TopLists(successes.values.to[Set])
       val gitIgnore             = targetFolder / ".gitignore"
       val readme                = targetFolder / "readme.md"
       val librariesByName       = targetFolder / "libraries_by_name.md"
@@ -289,7 +304,7 @@ target/
           organization  = flavour.organization,
           projectName   = flavour.projectName,
           projectDir    = sbtProjectDir,
-          projects      = successes,
+          projects      = successes.values.to[Set],
           pluginVersion = config.runId,
           publishUser   = publishUser,
           action        = if (bintray.isDefined) "^publish" else "publishLocal",
@@ -298,7 +313,7 @@ target/
         CommitChanges(
           interfaceCmd,
           summary,
-          successes.map(_.project.baseDir).to[Seq],
+          successes.values.map(_.project.baseDir).to[Seq],
           Seq(
             sbtProjectDir,
             readme,

@@ -21,8 +21,6 @@ object GenSlinkyComponents {
     val RefType         = Name("RefType")
     val component       = Name("component")
     val componentImport = Name("componentImport")
-    val raw             = Name("raw")
-    val Raw             = Name("Raw")
     val ComponentRef    = Name("ComponentRef")
 
     /* Fully qualified references to slinky types */
@@ -180,7 +178,7 @@ class GenSlinkyComponents(
     )
     val optionals = _optionals ++ additionalOptionalParams
 
-    val noNormalProps: Boolean = optionals.isEmpty && requireds.isEmpty
+    val noNormalProps: Boolean = _optionals.isEmpty && requireds.isEmpty
   }
 
   def apply(scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
@@ -192,7 +190,7 @@ class GenSlinkyComponents(
           .collectFirst {
             case (x: ClassTree, newScope) =>
               ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-                case FieldTree(_, name, Nullable(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+                case FieldTree(_, name, Optional(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
                 case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
               }
           }
@@ -237,20 +235,24 @@ class GenSlinkyComponents(
                               case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary => Nil
                               case Left(param)                                                                    => List(param)
                               case Right(fieldTree: FieldTree) =>
-                                /* todo: refactor out a name/type check which ignores optionality */
-                                val isDom: Boolean =
-                                  domFields.get(fieldTree.name) match {
-                                    case Some(tpe) =>
-                                      FollowAliases(scope)(fieldTree.tpe) match {
-                                        case Nullable(ftpe) => ftpe.typeName === tpe.typeName
-                                        case ftpe           => ftpe.typeName === tpe.typeName
-                                      }
-                                    case None => false
-                                  }
-                                if (isDom) {
+                                val param = memberToParameter(scope, fieldTree)
+
+                                val isOptionalDom: Boolean =
+                                  if (param.exists(!_.isOptional)) false
+                                  else domFields.get(fieldTree.name) match {
+                                      case Some(tpe) =>
+                                        /* todo: refactor out a name/type check which ignores optionality */
+                                        FollowAliases(scope)(fieldTree.tpe) match {
+                                          case Optional(ftpe) => ftpe.typeName === tpe.typeName
+                                          case ftpe           => ftpe.typeName === tpe.typeName
+                                        }
+                                      case None => false
+                                    }
+
+                                if (isOptionalDom) {
                                   domParams += fieldTree
                                   Nil
-                                } else memberToParameter(scope, fieldTree)
+                                } else param
 
                               case Right(methodTree: MethodTree) =>
                                 memberToParameter(scope, methodTree)
@@ -327,10 +329,10 @@ class GenSlinkyComponents(
     val refInTParams =
       knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, Some(TypeRef.Object), NoComments)).to[List]
 
-    val rawClass = ClassTree(
+    ClassTree(
       Nil,
-      names.Raw,
-      Nil,
+      name,
+      refInTParams,
       List(parent),
       List(
         CtorTree(
@@ -339,31 +341,7 @@ class GenSlinkyComponents(
           NoComments,
         ),
       ),
-      typeAliasOpt.toList,
-      ClassType.AbstractClass,
-      isSealed = false,
-      NoComments,
-      classCp + names.Raw,
-    )
-
-    val rawField = FieldTree(
-      Nil,
-      names.raw,
-      TypeRef(names.Raw),
-      MemberImpl.NotImplemented,
-      isReadOnly = true,
-      isOverride = false,
-      NoComments,
-      codePath = classCp + names.raw,
-    )
-
-    ClassTree(
-      Nil,
-      name,
-      refInTParams,
-      Nil,
-      Nil,
-      List(rawClass, rawField) ++ methods,
+      methods ++ typeAliasOpt,
       ClassType.AbstractClass,
       isSealed = false,
       NoComments,
@@ -374,24 +352,12 @@ class GenSlinkyComponents(
   def genComponentForSharedProps(pkgCp: QualifiedName, propsClass: ClassTree)(c: Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
 
-    val rawModule = {
-      val members = genComponentField(c, componentCp)
-      ModuleTree(
-        Nil,
-        names.raw,
-        List(TypeRef(names.Raw)),
-        members,
-        Keep,
-        codePath   = componentCp + names.raw,
-        isOverride = true,
-      )
-    }
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
       parents     = List(TypeRef(propsClass.codePath, c.knownRef.map(TypeRef.stripTargs).to[List], NoComments)),
-      members     = List(rawModule),
-      comments    = Keep,
+      members     = genComponentField(c, componentCp),
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))),
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -416,23 +382,12 @@ class GenSlinkyComponents(
             s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. $msg */\n"
           Some(Comment(str))
       }
-
-    val rawModule = ModuleTree(
-      Nil,
-      names.raw,
-      List(parent),
-      genComponentField(c, componentCp) ++ typeAliasOpt,
-      Keep,
-      componentCp + names.raw,
-      isOverride = false,
-    )
-
     ModuleTree(
       annotations = Nil,
       name        = c.fullName,
-      parents     = Nil,
-      members     = List(rawModule) ++ methods,
-      comments    = Keep +? errorCommentOpt,
+      parents     = List(parent),
+      members     = genComponentField(c, componentCp) ++ methods ++ typeAliasOpt,
+      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Nil))) +? errorCommentOpt,
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -476,14 +431,15 @@ class GenSlinkyComponents(
       val propsAlias =
         TypeAliasTree(names.Props, Nil, EraseTParams.visitTypeRef(scope)(propsRef), NoComments, ownerCp + names.Props)
 
+      val BuildingComponent = TypeRef(names.BuildingComponent, List(domType, refType), NoComments)
+
       /**
         *  The `apply` method that the slinky method would normally construct.
         *  We implement it ourselves for flexibility and performance. Otherwise we would need to generate
         *  a case class and suffer macro execution time.
         */
       def applyMethod(name: Name, props: SplitProps): MethodTree = {
-        val ret  = TypeRef(names.BuildingComponent, List(domType, refType), NoComments)
-        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(ret)}]" else ""
+        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(BuildingComponent)}]" else ""
 
         MethodTree(
           annotations = Nil,
@@ -495,27 +451,59 @@ class GenSlinkyComponents(
             s"""{
                |  val __obj = js.Dynamic.literal(${props.requireds.map(_._2).mkString(", ")})
                |${props.optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-               |  this.${names.raw.unescaped}.apply(__obj.asInstanceOf[this.${names.raw.unescaped}.Props])$cast
+               |  super.apply(__obj.asInstanceOf[Props])$cast
                |}""".stripMargin,
           ),
-          resultType = ret,
+          resultType = BuildingComponent,
           isOverride = false,
           comments   = genDomWarning(props),
           codePath   = ownerCp + name,
         )
       }
 
+      /* directly accept slinky attributes/children if there are no required props */
+      def noPropsApplyOpt =
+        if (resProps.asMap.exists(_._2.requireds.isEmpty))
+          Some(
+            MethodTree(
+              Nil,
+              ProtectionLevel.Default,
+              Name.APPLY,
+              Nil,
+              List(
+                List(
+                  ParamTree(
+                    Name("mods"),
+                    isImplicit = false,
+                    TypeRef.Repeated(TypeRef(names.TagMod, List(domType), NoComments), NoComments),
+                    None,
+                    NoComments,
+                  ),
+                ),
+              ),
+              MemberImpl.Custom(
+                s"new ${Printer.formatTypeRef(0)(BuildingComponent)}(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)",
+              ),
+              BuildingComponent,
+              isOverride = false,
+              NoComments,
+              ownerCp + Name.APPLY,
+            ),
+          )
+        else None
+
       val methods: List[MethodTree] =
         resProps match {
-          case Res.Error(_) =>
-            val propsWithObject  = TypeRef.Intersection(List(propsRef, TypeRef.Object))
-            val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
-            val props            = SplitProps(List(param), Nil)
-            List(applyMethod(Name.APPLY, props))
+          case Res.Error(_)      => Nil // we could generate something, but there is already an `apply` in the parent
           case Res.One(_, props) => List(applyMethod(Name.APPLY, props))
           case Res.Many(values)  => values.map { case (name, props) => applyMethod(name, props) }(collection.breakOut)
         }
-      (TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments), methods, Some(propsAlias))
+
+      (
+        TypeRef(names.ExternalComponentProps, List(domType, refType), NoComments),
+        methods ++ noPropsApplyOpt,
+        Some(propsAlias),
+      )
     }
   }
 

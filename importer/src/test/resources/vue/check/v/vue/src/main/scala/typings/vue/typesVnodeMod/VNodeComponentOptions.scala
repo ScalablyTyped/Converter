@@ -6,12 +6,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait VNodeComponentOptions extends js.Object {
-  var Ctor: VueConstructor[Vue]
-  var children: js.UndefOr[VNodeChildren] = js.undefined
-  var listeners: js.UndefOr[js.Object] = js.undefined
-  var propsData: js.UndefOr[js.Object] = js.undefined
-  var tag: js.UndefOr[String] = js.undefined
+  var Ctor: VueConstructor[Vue] = js.native
+  var children: js.UndefOr[VNodeChildren] = js.native
+  var listeners: js.UndefOr[js.Object] = js.native
+  var propsData: js.UndefOr[js.Object] = js.native
+  var tag: js.UndefOr[String] = js.native
 }
 
 object VNodeComponentOptions {

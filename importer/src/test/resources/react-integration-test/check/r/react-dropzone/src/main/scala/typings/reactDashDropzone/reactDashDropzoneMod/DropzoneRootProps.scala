@@ -62,10 +62,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait DropzoneRootProps
   extends HTMLAttributes[HTMLElement]
      with /* key */ StringDictionary[js.Any] {
-  var refKey: js.UndefOr[String] = js.undefined
+  var refKey: js.UndefOr[String] = js.native
 }
 
 object DropzoneRootProps {

@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait WeekDataStatic extends js.Object {
-  def firstDay(): String
-  def minDays(): Double
+  def firstDay(): String = js.native
+  def minDays(): Double = js.native
 }
 
 object WeekDataStatic {

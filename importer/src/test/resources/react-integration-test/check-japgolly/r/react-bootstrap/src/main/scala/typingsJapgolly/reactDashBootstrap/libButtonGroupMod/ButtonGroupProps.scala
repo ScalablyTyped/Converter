@@ -7,14 +7,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ButtonGroupProps
   extends AllHTMLAttributes[ButtonGroup]
      with ClassAttributes[ButtonGroup] {
-  var block: js.UndefOr[Boolean] = js.undefined
-  var bsSize: js.UndefOr[Sizes] = js.undefined
-  var bsStyle: js.UndefOr[String] = js.undefined
-  var justified: js.UndefOr[Boolean] = js.undefined
-  var vertical: js.UndefOr[Boolean] = js.undefined
+  var block: js.UndefOr[Boolean] = js.native
+  var bsSize: js.UndefOr[Sizes] = js.native
+  var bsStyle: js.UndefOr[String] = js.native
+  var justified: js.UndefOr[Boolean] = js.native
+  var vertical: js.UndefOr[Boolean] = js.native
 }
 
 object ButtonGroupProps {

@@ -5,10 +5,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait ChartOptions extends js.Object {
   // Plugins can require any options
-  var plugins: js.UndefOr[StringDictionary[js.Any]] = js.undefined
-  var responsive: js.UndefOr[Boolean] = js.undefined
+  var plugins: js.UndefOr[StringDictionary[js.Any]] = js.native
+  var responsive: js.UndefOr[Boolean] = js.native
 }
 
 object ChartOptions {

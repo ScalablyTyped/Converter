@@ -7,9 +7,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Global
   extends /* key */ StringDictionary[js.Any] {
-  var global: ChartOptions with ChartFontOptions
+  var global: ChartOptions with ChartFontOptions = js.native
 }
 
 object Anon_Global {

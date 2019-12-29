@@ -121,6 +121,7 @@ object TsTypeFormatter {
       case TsTypeKeyOf(key)                         => s"keyof ${apply(key)}"
       case TsTypeLookup(from, key)                  => s"${apply(from)}[${apply(key)}]"
       case TsTypeThis()                             => "this"
+      case TsTypeAsserts(ident)                     => "asserts " + ident.value
       case TsTypeUnion(types)                       => types map apply mkString " | "
       case TsTypeIntersect(types)                   => types map apply mkString " & "
       case TsTypeConditional(pred, ifTrue, ifFalse) => s"${apply(pred)} ? ${apply(ifTrue)} : ${apply(ifFalse)}"

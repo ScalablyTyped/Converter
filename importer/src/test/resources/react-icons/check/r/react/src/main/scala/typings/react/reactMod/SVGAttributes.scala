@@ -5,12 +5,13 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait SVGAttributes[T] extends DOMAttributes[T] {
   // Attributes which also defined in HTMLAttributes
   // See comment in SVGDOMPropertyConfig.js
-  var className: js.UndefOr[String] = js.undefined
-  var color: js.UndefOr[String] = js.undefined
-  var height: js.UndefOr[Double | String] = js.undefined
+  var className: js.UndefOr[String] = js.native
+  var color: js.UndefOr[String] = js.native
+  var height: js.UndefOr[Double | String] = js.native
 }
 
 object SVGAttributes {

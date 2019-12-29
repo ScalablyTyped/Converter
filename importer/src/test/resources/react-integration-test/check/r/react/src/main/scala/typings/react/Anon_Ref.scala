@@ -4,10 +4,11 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Ref extends js.Object {
   var ref: js.UndefOr[
     /* import warning: importer.ImportType#apply Failed type conversion: infer R */ js.Any
-  ] = js.undefined
+  ] = js.native
 }
 
 object Anon_Ref {

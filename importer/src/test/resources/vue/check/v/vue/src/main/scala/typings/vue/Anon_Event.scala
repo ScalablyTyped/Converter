@@ -4,9 +4,10 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Anon_Event extends js.Object {
-  var event: js.UndefOr[String] = js.undefined
-  var prop: js.UndefOr[String] = js.undefined
+  var event: js.UndefOr[String] = js.native
+  var prop: js.UndefOr[String] = js.native
 }
 
 object Anon_Event {

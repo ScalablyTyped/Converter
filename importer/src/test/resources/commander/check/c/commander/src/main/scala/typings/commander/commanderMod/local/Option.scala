@@ -4,14 +4,15 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
+@js.native
 trait Option extends js.Object {
-  var bool: Boolean
-  var description: String
-  var flags: String
-  var long: String
-  var optional: Boolean
-  var required: Boolean
-  var short: js.UndefOr[String] = js.undefined
+  var bool: Boolean = js.native
+  var description: String = js.native
+  var flags: String = js.native
+  var long: String = js.native
+  var optional: Boolean = js.native
+  var required: Boolean = js.native
+  var short: js.UndefOr[String] = js.native
 }
 
 object Option {
