@@ -33,7 +33,7 @@ object DeriveCopy {
           case hasPath: HasPath => hasPath / name
         }
 
-        val derived = x match {
+        val derived = List(x) collect {
           case x: TsDeclClass =>
             x.copy(
               name = name,
@@ -76,16 +76,16 @@ object DeriveCopy {
           case x: TsDeclNamespace =>
             updatedContainer(ownerCp, x.copy(name = name, codePath = codePath))
 
-          case x: TsDeclModule =>
-            val asNs = TsDeclNamespace(x.comments, declared = false, name, x.members, codePath, x.jsLocation)
-            updatedContainer(ownerCp, asNs)
-
-          case x: TsAugmentedModule =>
-            val name = rename match {
-              case Some(renamed) => TsIdentModule(None, renamed.value.split("/").toList)
-              case None          => x.name
-            }
-            updatedContainer(ownerCp, x.copy(name = name, codePath = codePath))
+//          case x: TsDeclModule =>
+//            val asNs = TsDeclNamespace(x.comments, declared = false, name, x.members, codePath, x.jsLocation)
+//            updatedContainer(ownerCp, asNs)
+//
+//          case x: TsAugmentedModule =>
+//            val name = rename match {
+//              case Some(renamed) => TsIdentModule(None, renamed.value.split("/").toList)
+//              case None          => x.name
+//            }
+//            updatedContainer(ownerCp, x.copy(name = name, codePath = codePath))
 
           case x: TsDeclTypeAlias =>
             TsDeclTypeAlias(
@@ -98,7 +98,7 @@ object DeriveCopy {
             )
         }
 
-        List(derived)
+        derived
     }
   }
 
