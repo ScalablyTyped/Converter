@@ -517,12 +517,19 @@ class ImportTree(
         getOrElse TypeRef.Any
     )
 
+    /** This is how typescript specifies what types of objects the given method can be legally called on.
+      * It's useful information, but only if we wanted to output say implicit conversions where we add
+      * the given methods. Let's drop them for now
+      */
+    val trimmedParams =
+      if (sig.params.headOption.exists(_.name === TsIdent.`this`)) sig.params.drop(1) else sig.params
+
     val ret = MethodTree(
       annotations = annOpt.toList,
       level       = level,
       name        = name,
       tparams     = sig.tparams map typeParam(scope, importName),
-      params      = Seq(tsFunParams(scope, importName, sig.params)),
+      params      = Seq(tsFunParams(scope, importName, trimmedParams)),
       impl        = fieldType,
       resultType  = resultType,
       isOverride  = false,
