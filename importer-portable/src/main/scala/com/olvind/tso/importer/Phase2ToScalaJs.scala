@@ -15,7 +15,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScalaJsDefined: Boolean)
+class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScalaJsDefined: Selection[TsIdentLibrary])
     extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
@@ -72,7 +72,7 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScala
               importName,
               new ImportType(new QualifiedName.StdNames(Name.typings)),
               cleanIllegalNames,
-              enableScalaJsDefined,
+              enableScalaJsDefined(lib.name),
             )
             val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
 

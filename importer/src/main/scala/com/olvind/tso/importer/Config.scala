@@ -21,7 +21,7 @@ case class Config(
     conserveSpace:        Boolean,
     enableParseCache:     Boolean,
     dontCleanProject:     Boolean,
-    enableScalaJsDefined: Boolean,
+    enableScalaJsDefined: Selection[TsIdentLibrary],
     /* only overwrite changed files to play better with tooling like intellij */
     softWrites:     Boolean,
     debugMode:      Boolean,
@@ -80,7 +80,7 @@ object Config {
             conserveSpace        = flags contains "-conserveSpace",
             enableParseCache     = flags contains "-enableParseCache",
             dontCleanProject     = flags contains "-dontCleanProject",
-            enableScalaJsDefined = flags contains "-enableScalaJsDefined",
+            enableScalaJsDefined = if (flags contains "-enableScalaJsDefined") Selection.All() else Selection.None(),
             softWrites           = flags contains "-softWrites",
             debugMode            = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
             wantedLibNames       = wantedLibNames,

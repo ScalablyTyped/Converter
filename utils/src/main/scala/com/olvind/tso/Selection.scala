@@ -1,4 +1,4 @@
-package com.olvind.tso.plugin
+package com.olvind.tso
 
 sealed trait Selection[T] {
   def map[U](f: T => U): Selection[U] =

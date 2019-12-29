@@ -28,7 +28,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       tsoImport := {
         val cacheDirectory       = streams.value.cacheDirectory
         val flavour              = tsoFlavour.value
-        val enableScalaJsDefined = tsoEnableScalaJsDefined.value
+        val enableScalaJsDefined = tsoEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
         val tsoLogger            = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
         val folder               = os.Path(externalNpm.value)
         val packageJson          = folder / "package.json"
@@ -58,7 +58,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val inputPath  = os.Path(cacheDirectory / "tso" / "input.json")
         val outputPath = os.Path(cacheDirectory / "tso" / "output.json")
 
-        (Json.opt[ImportTypings.Input](inputPath), Json.opt[Seq[File]](outputPath)) match {
+        (Try(Json[ImportTypings.Input](inputPath)).toOption, Json.opt[Seq[File]](outputPath)) match {
           case (Some(`config`), Some(output)) =>
             tsoLogger.warn("Nothing to do")
             output
@@ -99,7 +99,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       tsoImport := {
         val cacheDirectory       = streams.value.cacheDirectory
         val flavour              = tsoFlavour.value
-        val enableScalaJsDefined = tsoEnableScalaJsDefined.value
+        val enableScalaJsDefined = tsoEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
         val tsoLogger            = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
         val packageJson          = (crossTarget in npmUpdate).value / "package.json"
         val nodeModules          = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
@@ -153,8 +153,8 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
 object ScalablyTypedPluginBase extends AutoPlugin {
   object autoImport {
-    type Selection[T] = com.olvind.tso.plugin.Selection[T]
-    val Selection = com.olvind.tso.plugin.Selection
+    type Selection[T] = com.olvind.tso.Selection[T]
+    val Selection = com.olvind.tso.Selection
     type Flavour = com.olvind.tso.plugin.Flavour
     val Flavour = com.olvind.tso.plugin.Flavour
     type PrettyStringType = com.olvind.tso.plugin.PrettyStringType
@@ -169,8 +169,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val tsoPrettyStringType = settingKey[PrettyStringType](
       "Temporary, don't use unless you know what you're doing. Used to choose which name prettyfier will be used",
     )
-    val tsoEnableScalaJsDefined = settingKey[Boolean](
-      "Generate @ScalaJSDefined traits when necessary. This enables you to `new` them, but it requires tons of compilation time",
+    val tsoEnableScalaJsDefined = settingKey[Selection[String]](
+      "Generate @ScalaJSDefined traits when necessary. This enables you to `new` them, but it may require tons of compilation time",
     )
 
     /**
@@ -261,13 +261,13 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     import autoImport._
     Seq(
       tsoFlavour := com.olvind.tso.plugin.Flavour.Plain,
-      tsoEnableScalaJsDefined := false,
+      tsoEnableScalaJsDefined := com.olvind.tso.Selection.All(),
       tsoPrettyStringType := com.olvind.tso.plugin.PrettyStringType.Regular,
       tsoTypescriptVersion := "3.7.2",
       tsoGenerateCompanions := true,
       tsoStdlib := List("es6"),
       tsoIgnore := List("typescript"),
-      tsoMinimize := com.olvind.tso.plugin.Selection.None(),
+      tsoMinimize := com.olvind.tso.Selection.None(),
       sourceGenerators in Compile += tsoImport.taskValue,
     )
   }
