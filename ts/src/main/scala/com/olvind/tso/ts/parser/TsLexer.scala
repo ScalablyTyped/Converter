@@ -30,7 +30,7 @@ object TsLexer extends Lexical with StdTokens with ParserHelpers with ImplicitCo
 
   /** The set of reserved identifiers: these will be returned as `Keyword`s */
   val keywords = HashSet(
-    "abstract", "as", "break", "case", "catch", "class", "const", "continue", "debugger",
+    "abstract", "as", "asserts", "break", "case", "catch", "class", "const", "continue", "debugger",
     "declare", "default", "delete", "do", "else", "enum", "export", "extends", "false",
     "finally", "for", "from", "function", "global", "if", "implements", "import", "in",
     "instanceof", "infer", "interface", "is", "keyof", "let", "module", "namespace", "never",

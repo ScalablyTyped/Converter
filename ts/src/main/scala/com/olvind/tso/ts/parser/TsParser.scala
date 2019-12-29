@@ -438,6 +438,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       | "(" ~> tsType <~ ")"
       | tsLiteral ^^ TsTypeLiteral
       | "this" ~> success(TsTypeThis())
+      | "asserts" ~> tsIdent ^^ TsTypeAsserts
       | tsTypeKeyOf
       | "infer" ~> typeParam ^^ TsTypeInfer
       | "readonly" ~> tsType

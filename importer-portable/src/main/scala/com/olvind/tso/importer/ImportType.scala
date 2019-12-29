@@ -221,6 +221,9 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             TypeRef.Boolean
         }
 
+      case TsTypeAsserts(ident) =>
+        TypeRef.Boolean.withComments(Comments(s"/* asserts ${ident.value} */"))
+
       case TsTypeLiteral(lit) =>
         lit match {
           case TsLiteralNumber(value)  => TypeRef.NumberLiteral(value)

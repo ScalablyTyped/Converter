@@ -490,6 +490,8 @@ final case class TsTypeConstructor(signature: TsTypeFunction) extends TsType
 
 final case class TsTypeIs(ident: TsIdent, tpe: TsType) extends TsType
 
+final case class TsTypeAsserts(ident: TsIdentSimple) extends TsType
+
 final case class TsTypeTuple(tparams: Seq[TsType]) extends TsType
 
 final case class TsTypeQuery(expr: TsQIdent) extends TsType
