@@ -10,12 +10,12 @@ lazy val logging = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.sourcecode, Deps.fansi))
 
-lazy val ts: Project = project
+lazy val ts = project
   .configure(baseSettings, publicationSettings)
   .dependsOn(utils, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
-lazy val docs: Project = project
+lazy val docs = project
   .in(file("tso-docs"))
   .settings(
     mdocVariables := Map("VERSION" -> version.value),
@@ -53,8 +53,6 @@ lazy val importer = project
       Deps.asyncHttpClient,
       Deps.scalatest % Test,
     ),
-    fork in run := true,
-    javaOptions in run += "-Xmx12G",
     test in assembly := {},
     mainClass in assembly := Some("com.olvind.tso.importer.Main"),
     assemblyMergeStrategy in assembly := {
@@ -64,7 +62,7 @@ lazy val importer = project
     },
     // fork to keep CI happy with memory usage
     fork in Test := true,
-    // testOptions in Test += Tests.Argument("-P4")
+    testOptions in Test += Tests.Argument("-P4"),
   )
 
 lazy val `sbt-scalablytypedconverter06` = project
@@ -112,9 +110,12 @@ lazy val baseSettings: Project => Project =
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     scalaVersion := "2.12.10",
     organization := "com.olvind",
-    scalacOptions ++= ScalacOptions.flags,
-    scalacOptions in (Compile, console) ~= (_.filterNot(
-      Set("-Ywarn-unused:imports", "-Xfatal-warnings"),
+    scalacOptions ~= (_.filterNot(
+      Set(
+        "-Ywarn-unused:imports",
+        "-Ywarn-unused:params",
+        "-Xfatal-warnings",
+      ),
     )),
     /* disable scaladoc */
     sources in (Compile, doc) := Seq.empty,
