@@ -72,8 +72,12 @@ object bufferMod extends js.Object {
   var INSPECT_MAX_BYTES: Double = js.native
   @js.native
   object Buffer
-    extends Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer]
-       with /**
+    extends /**
+    * Allocates a new buffer containing the given {array} of octets.
+    *
+    * @param array The octets to store.
+    */
+  /**
     * Allocates a new buffer containing the given {str}.
     *
     * @param str String to store in buffer.
@@ -85,9 +89,9 @@ object bufferMod extends js.Object {
     * @param size count of octets to allocate.
     */
   /**
-    * Allocates a new buffer containing the given {array} of octets.
+    * Copies the passed {buffer} data onto a new {Buffer} instance.
     *
-    * @param array The octets to store.
+    * @param buffer The buffer to copy.
     */
   /**
     * Produces a Buffer backed by the same allocated memory as
@@ -96,15 +100,11 @@ object bufferMod extends js.Object {
     *
     * @param arrayBuffer The ArrayBuffer with which to share memory.
     */
-  /**
-    * Copies the passed {buffer} data onto a new {Buffer} instance.
-    *
-    * @param buffer The buffer to copy.
-    */
   Instantiable1[
           (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ ArrayBuffer) | (/* buffer */ typings.node.Buffer) | (/* size */ Double) | (/* str */ String) | (/* array */ Uint8Array), 
           typings.node.Buffer
-        ] {
+        ]
+       with Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer] {
     /**
       * Allocates a new Buffer using an {array} of octets.
       */
@@ -113,11 +113,11 @@ object bufferMod extends js.Object {
   
   @js.native
   object SlowBuffer
-    extends Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer]
-       with Instantiable1[
+    extends Instantiable1[
           (/* array */ js.Array[js.Any]) | (/* size */ Double) | (/* str */ String) | (/* size */ Uint8Array), 
           typings.node.Buffer
-        ] {
+        ]
+       with Instantiable2[/* str */ String, /* encoding */ String, typings.node.Buffer] {
     def byteLength(string: String): Double = js.native
     def byteLength(string: String, encoding: String): Double = js.native
     def concat(list: js.Array[typings.node.Buffer]): typings.node.Buffer = js.native

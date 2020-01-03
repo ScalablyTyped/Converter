@@ -21,13 +21,13 @@ This means that after successfully running the test, the next step is to review 
 In CI it's enforced that the checked in results are current, so we know which commit introduces which change.  
 
 ### Demo set
-Do your changes look good when running `ImporterTest`? The next step is to run `tso` on the demo set. 
+Do your changes look good when running `ImporterTest`? The next step is to run the demo set. 
 
 See [Running](devel/running) for more information about the parameters.
 
 A good command to run might be:
 ```
-sbt:tso-public> importer/runMain com.olvind.tso.importer.Main -softWrites -parseCache -offline -dontCleanProject -forceCommit -demoSet
+sbt:ScalablyTypedConverter> importer/runMain org.scalablytyped.converter.Main -softWrites -parseCache -offline -dontCleanProject -forceCommit -demoSet
 ```
 
 Does any library fail? Fix it.

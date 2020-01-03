@@ -44,7 +44,6 @@
   "_resolved": "https://registry.npmjs.org/@google-cloud/firestore/-/firestore-2.2.3.tgz",
   "_shasum": "838d023571fc79896c5783a1ca0438f87b7690d2",
   "_spec": "@google-cloud/firestore@^2.0.0",
-  "_where": "/home/olvind/tmp/tso-cache/npm/node_modules/firebase-admin",
   "author": {
     "name": "Google Inc."
   },

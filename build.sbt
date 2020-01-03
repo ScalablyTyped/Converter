@@ -10,12 +10,12 @@ lazy val logging = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.sourcecode, Deps.fansi))
 
-lazy val ts: Project = project
+lazy val ts = project
   .configure(baseSettings, publicationSettings)
   .dependsOn(utils, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
-lazy val docs: Project = project
+lazy val docs = project
   .in(file("tso-docs"))
   .settings(
     mdocVariables := Map("VERSION" -> version.value),
@@ -37,7 +37,7 @@ lazy val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
-    buildInfoPackage := "com.olvind.tso",
+    buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
     ),
@@ -53,48 +53,35 @@ lazy val importer = project
       Deps.asyncHttpClient,
       Deps.scalatest % Test,
     ),
-    fork in run := true,
-    javaOptions in run += "-Xmx12G",
     test in assembly := {},
-    mainClass in assembly := Some("com.olvind.tso.importer.Main"),
+    mainClass in assembly := Some("org.scalablytyped.converter.Main"),
     assemblyMergeStrategy in assembly := {
       case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
       case foo if foo.endsWith("module-info.class")          => MergeStrategy.discard
       case other                                             => (assembly / assemblyMergeStrategy).value(other)
     },
-    // fork to keep CI happy with memory usage
-    fork in Test := true,
-    // testOptions in Test += Tests.Argument("-P4")
+    testOptions in Test += Tests.Argument("-P4"),
   )
 
-lazy val `sbt-scalablytypedconverter06` = project
+lazy val `sbt-converter06` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
-    name := "sbt-scalablytypedconverter06",
+    name := "sbt-converter06",
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6"),
   )
 
-lazy val `sbt-scalablytypedconverter` = project
+lazy val `sbt-converter` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
-    name := "sbt-scalablytypedconverter",
-    Compile / unmanagedSourceDirectories += (`sbt-scalablytypedconverter06` / Compile / sourceDirectory).value,
+    name := "sbt-converter",
+    Compile / unmanagedSourceDirectories += (`sbt-converter06` / Compile / sourceDirectory).value,
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.16.0"),
   )
 
 lazy val root = project
   .in(file("."))
   .configure(baseSettings, preventPublication)
-  .aggregate(
-    logging,
-    utils,
-    phases,
-    ts,
-    scalajs,
-    `importer-portable`,
-    `sbt-scalablytypedconverter06`,
-    `sbt-scalablytypedconverter`,
-  )
+  .aggregate(logging, utils, phases, ts, scalajs, `importer-portable`, `sbt-converter06`, `sbt-converter`, importer)
 
 lazy val pluginSettings: Project => Project =
   _.dependsOn(`importer-portable`)
@@ -111,25 +98,28 @@ lazy val baseSettings: Project => Project =
   _.settings(
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     scalaVersion := "2.12.10",
-    organization := "com.olvind",
-    scalacOptions ++= ScalacOptions.flags,
-    scalacOptions in (Compile, console) ~= (_.filterNot(
-      Set("-Ywarn-unused:imports", "-Xfatal-warnings"),
+    organization := "org.scalablytyped.converter",
+    scalacOptions ~= (_.filterNot(
+      Set(
+        "-Ywarn-unused:imports",
+        "-Ywarn-unused:params",
+        "-Xfatal-warnings",
+      ),
     )),
     /* disable scaladoc */
-    sources in (Compile, doc) := Seq.empty,
+    sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
   )
 
 lazy val publicationSettings: Project => Project = _.settings(
   publishMavenStyle := true,
-  homepage := Some(new URL("https://github.com/oyvindberg/tso")),
+  homepage := Some(new URL("https://github.com/oyvindberg/ScalablyTypedConverter")),
   startYear := Some(2019),
   pomExtra := (
     <scm>
-      <connection>scm:git:github.com:/oyvindberg/tso</connection>
-      <developerConnection>scm:git:git@github.com:oyvindberg/tso.git</developerConnection>
-      <url>github.com:oyvindberg/tso.git</url>
+      <connection>scm:git:github.com:/oyvindberg/ScalablyTypedConverter</connection>
+      <developerConnection>scm:git:git@github.com:oyvindberg/ScalablyTypedConverter.git</developerConnection>
+      <url>github.com:oyvindberg/ScalablyTypedConverter.git</url>
     </scm>
       <developers>
         <developer>
