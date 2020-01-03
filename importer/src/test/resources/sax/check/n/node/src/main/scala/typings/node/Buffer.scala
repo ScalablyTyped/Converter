@@ -16,8 +16,12 @@ import scala.scalajs.js.annotation._
 @JSGlobal("Buffer")
 @js.native
 object Buffer
-  extends Instantiable2[/* str */ String, /* encoding */ String, Buffer]
-     with /**
+  extends /**
+  * Allocates a new buffer containing the given {array} of octets.
+  *
+  * @param array The octets to store.
+  */
+/**
   * Allocates a new buffer containing the given {str}.
   *
   * @param str String to store in buffer.
@@ -29,9 +33,9 @@ object Buffer
   * @param size count of octets to allocate.
   */
 /**
-  * Allocates a new buffer containing the given {array} of octets.
+  * Copies the passed {buffer} data onto a new {Buffer} instance.
   *
-  * @param array The octets to store.
+  * @param buffer The buffer to copy.
   */
 /**
   * Produces a Buffer backed by the same allocated memory as
@@ -40,15 +44,11 @@ object Buffer
   *
   * @param arrayBuffer The ArrayBuffer with which to share memory.
   */
-/**
-  * Copies the passed {buffer} data onto a new {Buffer} instance.
-  *
-  * @param buffer The buffer to copy.
-  */
 Instantiable1[
       (/* array */ js.Array[js.Any]) | (/* arrayBuffer */ ArrayBuffer) | (/* buffer */ Buffer) | (/* size */ Double) | (/* str */ String) | (/* array */ Uint8Array), 
       Buffer
-    ] {
+    ]
+     with Instantiable2[/* str */ String, /* encoding */ String, Buffer] {
   /**
     * Allocates a new Buffer using an {array} of octets.
     */

@@ -11,7 +11,14 @@ final case class QualifiedName(parts: List[Name]) {
   def startsWith(other: QualifiedName): Boolean =
     parts.startsWith(other.parts)
 
-//  override lazy val hashCode = parts.hashCode
+  override lazy val hashCode = parts.hashCode
+
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case other: QualifiedName if other.hashCode === hashCode =>
+        parts === other.parts
+      case _ => false
+    }
 }
 
 object QualifiedName {

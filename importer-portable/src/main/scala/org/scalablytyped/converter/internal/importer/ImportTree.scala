@@ -116,7 +116,9 @@ class ImportTree(
           scope.logger.warn(s"Dropping static members from var ${statics.map(_.codePath)}")
         }
 
-        IArray(ModuleTree(ImportJsLocation(location), name, inheritance, ms, cs, newCodePath, isOverride = false))
+        IArray(
+          ModuleTree(ImportJsLocation(location), name, inheritance.sorted, ms, cs, newCodePath, isOverride = false),
+        )
 
       case TsDeclVar(
           cs,
@@ -173,7 +175,7 @@ class ImportTree(
           annotations = anns,
           name        = name,
           tparams     = tparams map typeParam(scope, importName),
-          parents     = parents ++ extraInheritance,
+          parents     = parents ++ extraInheritance.sorted,
           ctors       = ctors,
           members     = ms,
           classType   = classType,
@@ -218,7 +220,7 @@ class ImportTree(
             annotations = anns,
             name        = name,
             tparams     = tparams map typeParam(scope, importName),
-            parents     = parents ++ extraInheritance,
+            parents     = parents ++ extraInheritance.sorted,
             ctors       = ctors,
             members     = ms,
             classType   = ClassType.Trait,

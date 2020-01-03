@@ -463,4 +463,7 @@ object TypeRef {
 
   implicit val TypeRefSuffix: ToSuffix[TypeRef] =
     t => ToSuffix(t.typeName) ++ t.targs
+
+  implicit val TypeRefOrdering: Ordering[TypeRef] =
+    Ordering.by[TypeRef, String](Printer.formatTypeRef(0))
 }

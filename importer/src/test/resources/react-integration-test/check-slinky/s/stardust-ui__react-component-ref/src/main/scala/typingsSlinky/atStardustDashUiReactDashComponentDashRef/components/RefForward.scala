@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object RefForward extends SharedApply_RefProps2093507133[default] {
+object RefForward extends SharedApply_RefProps1180852495[default] {
   @JSImport("@stardust-ui/react-component-ref/dist/es/RefForward", JSImport.Default)
   @js.native
   object componentImport extends js.Object

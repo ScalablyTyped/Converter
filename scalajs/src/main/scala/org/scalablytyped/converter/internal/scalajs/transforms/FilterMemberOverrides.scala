@@ -102,7 +102,7 @@ object FilterMemberOverrides extends TreeTransformation {
       }
     }
 
-    val newMethods: IArray[MethodTree] = methods.flatMap { m =>
+    val newMethods: IArray[MethodTree] = methods.sorted(Sorter.TreeOrdering).flatMap { m =>
 //        val mErasure = Erasure.erasure(scope)(m)
 
       if (inheritedFieldsByName.contains(m.name)) {

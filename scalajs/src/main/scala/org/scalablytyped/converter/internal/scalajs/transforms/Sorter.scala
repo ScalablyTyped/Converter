@@ -15,7 +15,7 @@ object Sorter extends TreeTransformation {
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
     s.copy(members = s.members.sorted(TreeOrdering))
 
-  private object TreeOrdering extends Ordering[Tree] {
+  object TreeOrdering extends Ordering[Tree] {
     override def compare(x: Tree, y: Tree): Int =
       (x, y) match {
         case (m1: MethodTree, m2: MethodTree) =>

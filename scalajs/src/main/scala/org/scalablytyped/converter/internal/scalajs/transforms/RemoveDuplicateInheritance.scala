@@ -3,6 +3,8 @@ package scalajs.transforms
 
 import org.scalablytyped.converter.internal.scalajs._
 
+import scala.collection.mutable
+
 /**
   * Scala is again more strict with inheritance with differing type parameters,
   *  and we only augment the problem by freely tagging things as instantiatable and
@@ -23,17 +25,29 @@ object RemoveDuplicateInheritance extends TreeTransformation {
     Option(parents groupBy (_.typeName) filter (_._2.lengthCompare(1) > 0)) filter (_.nonEmpty)
 
   def resolved(parents: IArray[TypeRef], conflicts: Map[QualifiedName, IArray[TypeRef]]): IArray[TypeRef] = {
-    val resolved: IArray[TypeRef] =
-      IArray.fromTraversable(conflicts map {
-        case (name, sameParentRef: IArray[TypeRef]) =>
-          TypeRef(
-            name,
-            sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, true)),
-            Comments.flatten(sameParentRef)(_.comments),
-          )
-      })
+    val resolved: Map[QualifiedName, TypeRef] =
+      conflicts
+        .map {
+          case (name, sameParentRef: IArray[TypeRef]) =>
+            name -> TypeRef(
+              name,
+              sameParentRef.map(_.targs).transpose.map(ts => TypeRef.Union(ts, true)),
+              Comments.flatten(sameParentRef)(_.comments),
+            )
+        }
 
-    parents.filterNot(p => conflicts.contains(p.typeName)) ++ resolved
+    /* take care to keep original order in spite of using a map above */
+
+    val mentioned = mutable.HashSet.empty[QualifiedName]
+    parents.mapNotNone {
+      case p if conflicts.contains(p.typeName) =>
+        if (mentioned.contains(p.typeName)) None
+        else {
+          mentioned += p.typeName
+          Some(resolved(p.typeName))
+        }
+      case p => Some(p)
+    }
   }
 
   /**
