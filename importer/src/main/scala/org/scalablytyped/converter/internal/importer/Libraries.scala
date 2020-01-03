@@ -246,7 +246,7 @@ object Libraries {
     "zipkin",
   ).map(TsIdentLibrary.apply)
 
-  def ignored(sequential: Boolean, enableScalaJsDefined: Boolean): Set[TsIdentLibrary] = {
+  def ignored(sequential: Boolean): Set[TsIdentLibrary] = {
     val base = Set[String](
       "graphene-pk11",
       "rvo2",
@@ -279,10 +279,10 @@ object Libraries {
           "egg",
         )
 
-    def slow = if (enableScalaJsDefined) Set("@pulumi/aws", "aws-sdk", "googleapis") else Set()
-
-    base ++ circular ++ slow map TsIdentLibrary.apply
+    base ++ circular map TsIdentLibrary.apply
   }
+
+  val Slow = Set("@pulumi/aws", "aws-sdk", "googleapis") map TsIdentLibrary.apply
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
   val DemoSet: Set[TsIdentLibrary] = expo ++ Set(

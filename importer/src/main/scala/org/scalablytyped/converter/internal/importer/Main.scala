@@ -99,7 +99,7 @@ class Main(config: Config) {
     }
 
   val ignoredLibs: Set[TsIdentLibrary] =
-    Libraries.ignored(config.sequential, config.enableScalaJsDefined)
+    Libraries.ignored(config.sequential)
 
   def tsSourcesF(
       externalsFolderF:  Future[InFolder],
@@ -199,7 +199,7 @@ class Main(config: Config) {
           config.pedantic,
           PrettyString.Regular,
           enableScalaJsDefined =
-            if (config.enableScalaJsDefined) Selection.All
+            if (config.enableScalaJsDefined) Selection.AllExcept(Libraries.Slow.to[Seq] :_*)
             else Selection.None,
         ),
         "scala.js",
