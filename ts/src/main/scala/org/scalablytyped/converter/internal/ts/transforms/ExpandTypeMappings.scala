@@ -359,12 +359,12 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
     def forInterface(newScope: TsTreeScope)(i: TsDeclInterface): Res[Seq[TsMember]] =
       Res
         .sequence(i.inheritance.map(AllMembersFor(newScope)))
-        .map(fromParents => handleOverridingFields(i.members, fromParents.flatten))
+        .map(fromParents => handleOverridingFields(i.members, fromParents))
 
     /* would want to do this for methods too, and in a more principled way. */
-    def handleOverridingFields(fromThis: Seq[TsMember], fromParents: Seq[TsMember]): Seq[TsMember] = {
+    def handleOverridingFields(fromThis: Seq[TsMember], fromParents: Seq[Seq[TsMember]]): Seq[TsMember] = {
       val thisFieldOverrides           = fromThis.collect { case x: TsMemberProperty => x.name }.toSet
-      val (parentsFields, parentsRest) = fromParents.partitionCollect { case x: TsMemberProperty => x }
+      val (parentsFields, parentsRest) = fromParents.flatten.partitionCollect { case x: TsMemberProperty => x }
 
       fromThis ++ parentsFields.filterNot(x => thisFieldOverrides(x.name)) ++ parentsRest
     }
@@ -388,7 +388,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             case TsDeclClass(_, _, _, _, _, parent, implements, members, _, _) =>
               Res
                 .sequence((implements ++ parent).map(AllMembersFor(newScope)))
-                .map(fromParents => handleOverridingFields(members, fromParents.flatten))
+                .map(fromParents => handleOverridingFields(members, fromParents))
           }
 
         case (x: TsDeclTypeAlias, _) =>

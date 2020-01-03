@@ -52,19 +52,27 @@ object CastConversion {
         x.copy(typeName = conv.to, targs = targs)
       }
 
+    object Scoped {
+      def unapply(ts: TreeScope): Option[(TreeScope, Tree)] =
+        ts match {
+          case x: TreeScope.Scoped => Some((x.outer, x.current))
+          case _   => None
+        }
+    }
+
     def isRisky(scope: TreeScope): Boolean =
       scope match {
         case _: TreeScope.Root[_] => false
-        case TreeScope.Scoped(_, _, outer, current) =>
+        case Scoped(outer, current) =>
           current match {
             /* changing inheritance to classes we haven't had the chance to inspect will often fail */
             case _: InheritanceTree => true
             case p: ParamTree =>
               outer match {
-                case TreeScope.Scoped(_, _, mouter, m: MethodTree) =>
+                case Scoped(mouter, m: MethodTree) =>
                   /* if this is an overloaded method we might break compilation if we translate both to the same type */
                   mouter match {
-                    case TreeScope.Scoped(_, _, _, owner: InheritanceTree) =>
+                    case Scoped(_, owner: InheritanceTree) =>
                       owner.index.get(m.name) match {
                         case Some(membersSameName) if membersSameName.length > 1 =>
                           val paramIdx = m.params.flatten.indexOf(p)

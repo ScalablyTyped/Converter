@@ -18,35 +18,35 @@ sealed abstract class TreeScope { outer =>
   final def root: TreeScope.Root[_] =
     this match {
       case root: TreeScope.Root[_] => root
-      case TreeScope.Scoped(_, _, outer, _) => outer.root
+      case x:    TreeScope.Scoped  => x.outer.root
     }
 
-  final def lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
-    fragments match {
-      case x if ScalaJsClasses.ScalaJsTypes.contains(x) => Seq((ScalaJsClasses.ScalaJsTypes(x), this))
-      case Head(Name.scala | Name.java | GenJapgollyComponents.names.japgolly | GenSlinkyComponents.slinkyName) =>
-        Nil
-      case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Nil
-      case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Nil
-      case Head(name) if Name.Internal(name)                   => Nil
-      case _ =>
-        val res = _lookup(fragments)
+  final def lookup(wanted: QualifiedName): Seq[(Tree, TreeScope)] =
+    if (ScalaJsClasses.ScalaJsTypes.contains(wanted)) Seq((ScalaJsClasses.ScalaJsTypes(wanted), this))
+    else
+      wanted.parts match {
+        case Name.scala :: _                                     => Nil
+        case Name.java :: _                                      => Nil
+        case GenJapgollyComponents.names.japgolly :: _           => Nil
+        case GenSlinkyComponents.slinkyName :: _                 => Nil
+        case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Nil
+        case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Nil
+        case Head(name) if Name.Internal(name)                   => Nil
+        case parts =>
+          val res = _lookup(parts)
 
-        if (res.isEmpty && pedantic) {
-          _lookup(fragments)
-          logger fatal s"Couldn't resolve $fragments"
-        }
+          if (res.isEmpty && pedantic) {
+            _lookup(parts)
+            logger fatal s"Couldn't resolve $parts"
+          }
 
-        res
-    }
-
-  final def lookup(qname: QualifiedName): Seq[(Tree, TreeScope)] =
-    lookup(qname.parts)
+          res
+      }
 
   def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)]
 
   final def /(current: Tree): TreeScope =
-    TreeScope.Scoped(outputPkg, libName, outer, current)
+    new TreeScope.Scoped(outputPkg, libName, outer, current)
 
   final lazy val nameStack: List[Name] =
     stack.reverse.map(_.name)
@@ -58,6 +58,14 @@ sealed abstract class TreeScope { outer =>
     tr match {
       case TypeRef(QualifiedName(one :: Nil), Nil, _) => tparams.contains(one)
       case _                                          => false
+    }
+
+  override lazy val hashCode: Int = (13 * root.libName.hashCode) * stack.hashCode
+
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case that: TreeScope if root.libName === that.root.libName && hashCode === that.hashCode => stack === that.stack
+      case _ => false
     }
 }
 
@@ -94,9 +102,16 @@ object TreeScope {
       Seq.empty
   }
 
-  final case class Scoped(outputPkg: Name, libName: Name, outer: TreeScope, current: Tree) extends TreeScope {
-    override val stack: List[Tree] =
-      current :: outer.stack
+  final class Scoped(val outputPkg: Name, val libName: Name, val outer: TreeScope, val current: Tree)
+      extends TreeScope {
+
+    var _stack: List[Tree] = null
+    override def stack: List[Tree] = {
+      if (_stack == null) {
+        _stack = current :: outer.stack
+      }
+      _stack
+    }
 
     override lazy val logger =
       outer.logger.withContext(this)
@@ -119,7 +134,7 @@ object TreeScope {
     def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)] =
       names match {
         case current.name :: Nil =>
-          Seq((current, this))
+          List((current, this))
 
         // 99% a shortcut, plus handle fully qualified types more places in the pipeline
         case `outputPkg` :: rest if rest.startsWith(nameStack) =>
@@ -128,18 +143,18 @@ object TreeScope {
         case current.name :: head :: tail =>
           current match {
             case c: ContainerTree =>
-              c.index
-                .get(head)
-                .to[Seq]
-                .flatten
-                .flatMap {
-                  case FieldTree(_, _, ThisType(_), _, _, _, _, _) =>
-                    lookupNoBacktrack(tail)
-                  case tree =>
-                    this / tree lookupNoBacktrack (head :: tail)
-                }
+              c.index.get(head) match {
+                case Some(founds) =>
+                  founds.flatMap {
+                    case FieldTree(_, _, ThisType(_), _, _, _, _, _) =>
+                      lookupNoBacktrack(tail)
+                    case tree =>
+                      this / tree lookupNoBacktrack (head :: tail)
+                  }
+                case None => Nil
+              }
             case _ =>
-              Seq.empty
+              Nil
           }
 
         case _ => Nil

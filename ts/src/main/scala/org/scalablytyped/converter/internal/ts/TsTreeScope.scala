@@ -8,12 +8,14 @@ import org.scalablytyped.converter.internal.ts.transforms.ExpandTypeMappings
 import sourcecode.{Enclosing, File, Line, Text}
 
 import scala.collection.mutable
+import scala.util.hashing.MurmurHash3.productHash
 
 /**
   * The facility for looking up types and terms in a given tree.
   */
 sealed trait TsTreeScope {
-  val root: TsTreeScope.Root
+  val root:              TsTreeScope.Root
+  val lookupUnqualified: Boolean
   def logger:          Logger[Unit]
   def stack:           List[TsTree]
   def tparams:         Map[TsIdent, TsTypeParam]
@@ -27,7 +29,7 @@ sealed trait TsTreeScope {
     if (root.pedantic) logger.fatal(t) else logger.warn(t)
 
   final def /(current: TsTree): TsTreeScope.Scoped =
-    new TsTreeScope.Scoped(this, current)
+    new TsTreeScope.Scoped(this, current, lookupUnqualified)
 
   final def surroundingTsContainer: Option[TsContainer] =
     this match {
@@ -110,6 +112,14 @@ sealed trait TsTreeScope {
       case _: TsAugmentedModule => true
       case _ => false
     }
+
+  override lazy val hashCode: Int = (13 * root.libName.hashCode) * stack.hashCode
+
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case that: TsTreeScope if root.libName === that.root.libName && hashCode === that.hashCode => stack === that.stack
+      case _ => false
+    }
 }
 
 object TsTreeScope {
@@ -118,14 +128,14 @@ object TsTreeScope {
     def packageJsonOpt: Option[PackageJsonDeps]
   }
 
-  type C = mutable.Map[(String, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
+  type C = mutable.Map[(TsTreeScope, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
   case class Cache(
       applyTypeMapping:  mutable.Map[TsTypeRef, ExpandTypeMappings.Res[Seq[TsMember]]] = mutable.Map.empty,
       lookupExportFrom:  C                                                             = mutable.Map.empty,
       lookupFromImports: C                                                             = mutable.Map.empty,
       replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]                      = mutable.Map.empty,
-      expandExport:      mutable.Map[(String, TsExport), Seq[TsNamedDecl]]             = mutable.Map.empty,
-      expandImportee:    mutable.Map[(String, TsImportee), ExpandedMod]                = mutable.Map.empty,
+      expandExport:      mutable.Map[(TsTreeScope, TsExport), Seq[TsNamedDecl]]        = mutable.Map.empty,
+      expandImportee:    mutable.Map[(TsTreeScope, TsImportee), ExpandedMod]           = mutable.Map.empty,
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
@@ -135,25 +145,27 @@ object TsTreeScope {
       deps:     Map[_ <: TsLib, TsParsedFile],
       logger:   Logger[Unit],
   ): TsTreeScope.Root =
-    new Root(libName, pedantic, deps, logger)
+    new Root(libName, pedantic, deps, logger, None, false)
 
   class LoopDetector private (val stack: List[Entry]) {
     def including(wanted: List[TsIdent], scope: TsTreeScope): Either[Unit, LoopDetector] = {
-      val e = Entry.Idents(wanted, scope.toString)
+      val e = Entry.Idents(wanted, scope)
       if (stack.contains(e)) Left(())
       else Right(new LoopDetector(e :: stack))
     }
     def including(ref: TsTypeRef, scope: TsTreeScope): Either[Unit, LoopDetector] = {
-      val e = Entry.Ref(ref, scope.toString)
+      val e = Entry.Ref(ref, scope)
       if (stack.contains(e)) Left(())
       else Right(new LoopDetector(e :: stack))
     }
   }
 
-  sealed trait Entry
+  sealed trait Entry extends Product {
+    override lazy val hashCode: Int = productHash(this)
+  }
   object Entry {
-    final case class Idents(strings: List[TsIdent], scope: String) extends Entry
-    final case class Ref(ref:        TsTypeRef, scope:     String) extends Entry
+    final case class Idents(strings: List[TsIdent], scope: TsTreeScope) extends Entry
+    final case class Ref(ref:        TsTypeRef, scope:     TsTreeScope) extends Entry
   }
 
   object LoopDetector {
@@ -161,11 +173,12 @@ object TsTreeScope {
   }
 
   final class Root private[TsTreeScope] (
-      val libName:  TsIdentLibrary,
-      val pedantic: Boolean,
-      _deps:        Map[_ <: TsLib, TsParsedFile],
-      val logger:   Logger[Unit],
-      val cache:    Option[Cache] = None,
+      val libName:           TsIdentLibrary,
+      val pedantic:          Boolean,
+      _deps:                 Map[_ <: TsLib, TsParsedFile],
+      val logger:            Logger[Unit],
+      val cache:             Option[Cache],
+      val lookupUnqualified: Boolean,
   ) extends TsTreeScope {
     override val root    = this
     override def stack   = Nil
@@ -174,9 +187,15 @@ object TsTreeScope {
     override def tkeys   = Set.empty
     override def exports = Nil
 
-    private lazy val depScopes = _deps.map { case (s, file) => s.libName -> ((s, file, this / file)) }
+    private lazy val depScopes: Map[TsIdentLibrary, (TsLib, TsParsedFile, Scoped)] = _deps.map {
+      case (s, file) => s.libName -> ((s, file, this / file))
+    }
 
-    def caching: Root = new Root(libName, pedantic, _deps, logger, Some(Cache()))
+    def caching: Root =
+      new Root(libName, pedantic, _deps, logger, Some(Cache()), lookupUnqualified)
+
+    def enableUnqualifiedLookup: Root =
+      new Root(libName, pedantic, _deps, logger, cache, lookupUnqualified = true)
 
     override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
@@ -224,8 +243,8 @@ object TsTreeScope {
 
         case _ =>
           depScopes
-            .find(_._1 === TsIdent.std)
-            .map { case (_, (_, lib, libScope)) => search(libScope, picker, lib, fragments, loopDetector) }
+            .get(TsIdent.std)
+            .map { case (_, lib, libScope) => search(libScope, picker, lib, fragments, loopDetector) }
             .getOrElse(Nil) match {
             case Nil =>
               depScopes.values.to[Seq] flatMap {
@@ -245,10 +264,20 @@ object TsTreeScope {
       }
   }
 
-  final class Scoped private[TsTreeScope] (val outer: TsTreeScope, val current: TsTree) extends TsTreeScope {
+  final class Scoped private[TsTreeScope] (val outer: TsTreeScope, val current: TsTree, val lookupUnqualified: Boolean)
+      extends TsTreeScope {
+
+    var _stack: List[TsTree] = null
+    override def stack = {
+      if (_stack == null) {
+        _stack = current :: outer.stack
+      }
+      _stack
+    }
+
     override val root         = outer.root
     override lazy val logger  = outer.logger.withContext("scope", this)
-    override val stack        = current :: outer.stack
+//    override val stack        = current :: outer.stack
     override def `..`         = outer
     override lazy val tparams = outer.tparams ++ HasTParams(current).map(x => x.name -> x)
     override lazy val tkeys =
@@ -257,9 +286,9 @@ object TsTreeScope {
         case _ => outer.tkeys
       }
 
-    if (stack.drop(1).contains(current)) {
-      logger.fatal(s"Circular tree detected")
-    }
+//    if (stack.drop(1).contains(current)) {
+//      logger.fatal(s"Circular tree detected")
+//    }
 
     lazy val exports: Seq[TsExport] =
       current match {
@@ -367,15 +396,15 @@ object TsTreeScope {
       if (current.isInstanceOf[TsDecl] || current.isInstanceOf[TsContainer]) {
         ret = local
 
-        if (ret.isEmpty)
+        if (ret.isEmpty && lookupUnqualified)
           ret = importedFromModule
-        if (ret.isEmpty)
+        if (ret.isEmpty && lookupUnqualified)
           ret = augmentedModule
-        if (ret.isEmpty)
+        if (ret.isEmpty && lookupUnqualified)
           ret = exportedFromModule
         if (ret.isEmpty)
           ret = fromGlobals
-        if (ret.isEmpty && !wanted.headOption.contains(TsIdent.dummyLibrary)) //optimization
+        if (ret.isEmpty && lookupUnqualified && !wanted.headOption.contains(TsIdent.dummyLibrary)) //optimization
           ret = ExtendingScope(this, Pick, wanted, loopDetector)
         if (ret.isEmpty)
           ret = prototype

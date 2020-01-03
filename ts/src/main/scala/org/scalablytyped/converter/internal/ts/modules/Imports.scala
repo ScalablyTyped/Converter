@@ -13,7 +13,7 @@ object Imports {
       loopDetector: LoopDetector,
       imports:      Seq[TsImport],
   ): Seq[(T, TsTreeScope)] = {
-    lazy val key: (String, Picker[T], List[TsIdent]) = (scope.toString, Pick, wanted)
+    lazy val key: (TsTreeScope, Picker[T], List[TsIdent]) = (scope, Pick, wanted)
 
     if (scope.root.cache.isDefined && scope.root.cache.get.lookupFromImports.contains(key)) {
       return scope.root.cache.get.lookupFromImports(key).asInstanceOf[Seq[(T, TsTreeScope)]]
@@ -111,7 +111,7 @@ object Imports {
   }
 
   def expandImportee(from: TsImportee, scope: TsTreeScope, loopDetector: LoopDetector): ExpandedMod = {
-    lazy val key = (scope.toString, from)
+    lazy val key = (scope, from)
 
     if (scope.root.cache.isDefined && scope.root.cache.get.expandImportee.contains(key)) {
       return scope.root.cache.get.expandImportee(key)

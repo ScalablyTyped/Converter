@@ -318,20 +318,20 @@ final case class TsLiteralString(value: String) extends TsLiteral(value)
 final case class TsLiteralBoolean(value: Boolean) extends TsLiteral(value.toString)
 
 sealed trait TsIdent extends TsTerm {
-  def value: String
+  val value: String
 }
 
 final case class TsIdentSimple(value: String) extends TsIdent
 
 final case class TsIdentImport(from: TsIdentModule) extends TsIdent {
-  override def value: String = from.value
+  override val value: String = from.value
 }
 
 final case class ModuleAliases(aliases: List[TsIdentModule]) extends Comment.Data
 
 final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]) extends TsIdent {
   @deprecated("this doesnt really work for node", "")
-  lazy val inLibrary: TsIdentLibrary =
+  def inLibrary: TsIdentLibrary =
     scopeOpt match {
       case None        => TsIdentLibrarySimple(fragments.head)
       case Some(scope) => TsIdentLibraryScoped(scope, fragments.head)
@@ -341,6 +341,14 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
     scopeOpt match {
       case None        => fragments.mkString("/")
       case Some(scope) => "@" + scope + "/" + fragments.mkString("/")
+    }
+
+  override lazy val hashCode: Int = value.hashCode
+
+  override def equals(obj: Any): Boolean =
+    obj match {
+      case other: TsIdentModule if other.hashCode === hashCode => other.value === value
+      case _ => false
     }
 }
 
@@ -376,7 +384,7 @@ object TsIdentLibrary {
 final case class TsIdentLibrarySimple(value: String) extends TsIdentLibrary
 
 final case class TsIdentLibraryScoped(scope: String, name: String) extends TsIdentLibrary {
-  def value: String = s"@$scope/$name"
+  val value: String = s"@$scope/$name"
 }
 
 object TsIdent {

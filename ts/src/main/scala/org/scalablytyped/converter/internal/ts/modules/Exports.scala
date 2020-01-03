@@ -14,7 +14,7 @@ object Exports {
       owner:        TsDeclNamespaceOrModule,
   ): Seq[TsNamedDecl] = {
 
-    lazy val key = (scope.toString, e)
+    lazy val key = (scope, e)
 
     if (scope.root.cache.isDefined && scope.root.cache.get.expandExport.contains(key)) {
       return scope.root.cache.get.expandExport(key)

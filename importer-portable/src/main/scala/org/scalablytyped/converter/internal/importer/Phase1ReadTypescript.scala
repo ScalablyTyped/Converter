@@ -243,12 +243,12 @@ object Phase1ReadTypescript {
         T.InferTypeFromExpr >>
         T.InferEnumTypes /* before InlineConstEnum */ >>
         T.NormalizeFunctions /* before FlattenTrees */
-      ).visitTsParsedFile(scope.caching),
+      ).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
       modules.HandleCommonJsModules.visitTsParsedFile(scope), //before QualifyReferences
-      new T.QualifyReferences(skipValidation = false).visitTsParsedFile(scope.caching),
+      new T.QualifyReferences(skipValidation = false).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
       modules.AugmentModules(scope.caching),
-      T.ResolveTypeQueries.visitTsParsedFile(scope.caching), // before ReplaceExports
-      new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.caching),
+      T.ResolveTypeQueries.visitTsParsedFile(scope.enableUnqualifiedLookup.caching), // before ReplaceExports
+      new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
       T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
