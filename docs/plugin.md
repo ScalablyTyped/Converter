@@ -58,7 +58,7 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
 
 ```scala
 project.settings(
-  Compile / tsoFlavour := Flavour.Slinky
+  Compile / stFlavour := Flavour.Slinky
 )
 ```
 
@@ -66,7 +66,7 @@ project.settings(
 
 ```scala
 project.settings(
-  Compile / tsoFlavour := Flavour.Japgolly
+  Compile / stFlavour := Flavour.Japgolly
 )
 ```
 
@@ -92,11 +92,11 @@ Yarn will need to be present on your system for this to work. You should also ch
 The main reason we do that is that `npm` uses seconds to verify that everything is current, and that will
  be done for **every** compile.
 
-### `tsoImport`
+### `stImport`
 ScalablyTypedConverter is not that fast yet. Surely there are low hanging fruits for speeding it up, 
  but we're following an old development [mantra](https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast). 
   
-The most important way to speed it up is to make it do less work. Enter `tsoIgnore`.
+The most important way to speed it up is to make it do less work. Enter `stIgnore`.
 
 So what can we ignore?
 
@@ -108,7 +108,7 @@ Let's take a few examples:
 
 ```scala
 project.settings(
-  Compile / tsoIgnore += "csstype"
+  Compile / stIgnore += "csstype"
 )
 ```
 
@@ -117,7 +117,7 @@ You also don't need the icons. If that's the case, you can also exclude prefixes
 
 ```scala
 project.settings(
-  Compile / tsoIgnore ++= List("material-ui/svg-icons")
+  Compile / stIgnore ++= List("material-ui/svg-icons")
 )
 ```
 
@@ -125,7 +125,7 @@ project.settings(
 
 There may be a **lot**. 
 
-Ignoring libraries or modules will help, but our main tool here is called `tsoMinimize`.
+Ignoring libraries or modules will help, but our main tool here is called `stMinimize`.
 
 By minimization we mean to remove everything from a library except what is referenced from somewhere else, so that
  things keep compiling.
@@ -140,11 +140,11 @@ Since you typically don't want to enumerate all transitive dependencies, the `Se
 - `Selection.All` enables for all libraries
 - `Selection.AllExcept(String*)` enables only not given libraries (most useful) 
 
-Using that, typical usage of `tsoMinimize` looks like this:
+Using that, typical usage of `stMinimize` looks like this:
 
 ```scala
 project.settings(
-  Compile / tsoMinimize := Selection.AllExcept("axios", "material-ui", "mobx-react", "mobx")
+  Compile / stMinimize := Selection.AllExcept("axios", "material-ui", "mobx-react", "mobx")
 )
 ``` 
 
@@ -153,7 +153,7 @@ components are considered "entry points", and are not eligible for removal.
 In other words, if you use **only** react components from a library, it's fine to minimize that, too. 
  
 ## Customize the generated code
-### `tsoEnableScalaJsDefined` 
+### `stEnableScalaJsDefined` 
 
 As explained in the corresponding [Scala.js documentation page](http://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html),
 `@ScalaJSDefined` traits are more convenient because they can be `new`ed, extended and so on.
@@ -165,11 +165,11 @@ However, there an imperfection somewhere in Scala.js and/or scalac with handling
 This setting also uses `Selection`, so an example usage is:
 ```scala
 project.settings(
-  Compile / tsoEnableScalaJsDefined := Selection.All()
+  Compile / stEnableScalaJsDefined := Selection.All()
 )
 ```
 
-### `tsoStdLib`
+### `stStdLib`
 This mirrors the `--lib` option to typescript, see 
 [compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html).
 
@@ -179,7 +179,7 @@ For instance, a node application should not access the DOM at all,
       
 ```scala
 project.settings(
-  Compile / tsoStdlib := List("es6", "es2018.asyncgenerator")
+  Compile / stStdlib := List("es6", "es2018.asyncgenerator")
 )
 ```
 

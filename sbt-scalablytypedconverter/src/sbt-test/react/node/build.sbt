@@ -7,8 +7,8 @@ lazy val testProject =
       Compile / npmDependencies ++= Seq(
         "@types/express" -> "4.17.2",
       ),
-      Compile / tsoMinimize := Selection.NoneExcept("std"),
-      Compile / tsoStdlib := List("es5"),
+      Compile / stMinimize := Selection.NoneExcept("std"),
+      Compile / stStdlib := List("es5"),
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.1",
       organization := "com.olvind",

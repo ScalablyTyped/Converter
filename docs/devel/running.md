@@ -3,7 +3,7 @@ id: running
 title: Running
 ---
 
-In batch mode tso will process all the files from the [DefinitelyTyped](http://definitelytyped.org/) project, as well as a selection of libraries from npm.
+In batch mode ScalablyTypedConverter will process all files from the [DefinitelyTyped](http://definitelytyped.org/) project, as well as a selection of libraries from npm.
 
 You can run the [main](importer/src/main/scala/com/olvind/tso/importer/Main.scala) 
  directly from from sbt (`importer/run`) or intellij. Since it's used both for development and for CI,
@@ -28,7 +28,7 @@ For development you'll always use "debug mode".
 | `-offline`          | Skip pulling newest DefinitelyTyped and running `npm update`
 | `-pedantic`         | Make the converter more strict. Most things don't work yet in this mode
 | `-publish`          | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
-| `-sequential`       | We have some [issues](https://github.com/oyvindberg/tso/issues/74) with parallel conversion. For now it's a must for consistent CI builds
+| `-sequential`       | We have some [issues](https://github.com/oyvindberg/ScalablyTypedConverter/issues/74) with parallel conversion. For now it's a must for consistent CI builds
 | `-softWrites`       | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
 | `-flavourPlain`     | Don't generate companion objects, react components and so on. Fastest.
 | `-flavourNormal`    | (default, but need to specify if you want more flavours). 

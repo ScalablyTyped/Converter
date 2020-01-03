@@ -22,7 +22,6 @@
   "_resolved": "https://registry.npmjs.org/@types/react/-/react-16.9.2.tgz",
   "_shasum": "6d1765431a1ad1877979013906731aae373de268",
   "_spec": "@types/react@*",
-  "_where": "/Users/rleibman/tmp/tso-cache/npm/node_modules/@types/react-slick",
   "bugs": {
     "url": "https://github.com/DefinitelyTyped/DefinitelyTyped/issues"
   },

@@ -33,7 +33,6 @@
   "_resolved": "https://registry.npmjs.org/firebase-admin/-/firebase-admin-8.2.0.tgz",
   "_shasum": "d2ff17fc427f7db5e9b1ee897bdf9c0c26773cc0",
   "_spec": "firebase-admin",
-  "_where": "/home/olvind/tmp/tso-cache/npm",
   "author": {
     "name": "Firebase",
     "email": "firebase-support@google.com",

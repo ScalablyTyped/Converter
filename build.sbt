@@ -37,7 +37,7 @@ lazy val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
-    buildInfoPackage := "com.olvind.tso",
+    buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
     ),
@@ -54,7 +54,7 @@ lazy val importer = project
       Deps.scalatest % Test,
     ),
     test in assembly := {},
-    mainClass in assembly := Some("com.olvind.tso.importer.Main"),
+    mainClass in assembly := Some("org.scalablytyped.converter.Main"),
     assemblyMergeStrategy in assembly := {
       case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
       case foo if foo.endsWith("module-info.class")          => MergeStrategy.discard
@@ -124,13 +124,13 @@ lazy val baseSettings: Project => Project =
 
 lazy val publicationSettings: Project => Project = _.settings(
   publishMavenStyle := true,
-  homepage := Some(new URL("https://github.com/oyvindberg/tso")),
+  homepage := Some(new URL("https://github.com/oyvindberg/ScalablyTypedConverter")),
   startYear := Some(2019),
   pomExtra := (
     <scm>
-      <connection>scm:git:github.com:/oyvindberg/tso</connection>
-      <developerConnection>scm:git:git@github.com:oyvindberg/tso.git</developerConnection>
-      <url>github.com:oyvindberg/tso.git</url>
+      <connection>scm:git:github.com:/oyvindberg/ScalablyTypedConverter</connection>
+      <developerConnection>scm:git:git@github.com:oyvindberg/ScalablyTypedConverter.git</developerConnection>
+      <url>github.com:oyvindberg/ScalablyTypedConverter.git</url>
     </scm>
       <developers>
         <developer>
