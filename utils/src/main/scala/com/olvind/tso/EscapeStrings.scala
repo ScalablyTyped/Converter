@@ -50,7 +50,8 @@ object EscapeStrings {
         case _ =>
           if (ch > 0xf) out.write("\\u00" + hex(ch))
           else out.write("\\u000" + hex(ch))
-      } else
+      }
+      else
         ch match {
           case '\'' =>
             if (escapeSingleQuote) out.write('\\')

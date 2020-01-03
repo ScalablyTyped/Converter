@@ -20,7 +20,8 @@ object RemoveMultipleInheritance extends TreeTransformation {
         case x: MethodTree => x.copy(impl = MemberImpl.Native)
         case x: FieldTree  => x.copy(impl = MemberImpl.Native)
         case other => other
-      } else newMembers
+      }
+      else newMembers
 
     cls.copy(comments = newComments, parents = newParents, members = cls.members ++ patchedNewMembers)
   }
@@ -53,12 +54,11 @@ object RemoveMultipleInheritance extends TreeTransformation {
     else None
 
   def firstReferringToClass(parents: Parents): Option[Parent] =
-    parents.directParents.find(
-      p =>
-        p.transitiveParents.exists {
-          case (_, cs) => cs.classType =/= ClassType.Trait
-          case _       => false
-        },
+    parents.directParents.find(p =>
+      p.transitiveParents.exists {
+        case (_, cs) => cs.classType =/= ClassType.Trait
+        case _       => false
+      },
     )
 
   def step(
@@ -91,12 +91,12 @@ object RemoveMultipleInheritance extends TreeTransformation {
 
         def alreadyInherits: Option[Dropped] =
           included firstDefined
-            (_.transitiveParents.keys.firstDefined(
-              i =>
-                if (h.refs.exists(_.typeName === i.typeName))
-                  Some(Dropped(h.refs.last, "Already inherited", Nil))
-                else None,
-            ))
+            (_.transitiveParents.keys.firstDefined(i =>
+              if (h.refs.exists(_.typeName === i.typeName))
+                Some(Dropped(h.refs.last, "Already inherited", Nil))
+              else None,
+            ),
+            )
 
         def alreadyInheritsUnresolved: Option[Dropped] =
           included firstDefined (_.transitiveUnresolved.firstDefined { u =>

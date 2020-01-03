@@ -278,9 +278,7 @@ object TsTreeScope {
     override lazy val moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = outer.moduleAuxScopes ++ (current match {
         case x: TsContainer =>
-          x.augmentedModulesMap.mapValues(
-            mods => this / mods.reduce(FlattenTrees.mergeAugmentedModule),
-          )
+          x.augmentedModulesMap.mapValues(mods => this / mods.reduce(FlattenTrees.mergeAugmentedModule))
         case _ => Map.empty
       })
       ret
@@ -352,8 +350,8 @@ object TsTreeScope {
                 cls.membersByName.get(tail) match {
                   case Some(found) =>
                     found
-                      .flatMap(
-                        member => Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member),
+                      .flatMap(member =>
+                        Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member),
                       )
                       .collect {
                         case Pick(x) => (x, newScope)

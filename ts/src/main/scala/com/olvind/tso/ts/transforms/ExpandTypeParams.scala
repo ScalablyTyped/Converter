@@ -98,12 +98,11 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
         case other              => List(other)
       }
 
-    lazy val isParam = sig.params.exists(
-      p =>
-        p.tpe.exists {
-          case TsTypeRef(_, TsQIdent(Seq(tp.name)), _) => true
-          case _                                       => false
-        },
+    lazy val isParam = sig.params.exists(p =>
+      p.tpe.exists {
+        case TsTypeRef(_, TsQIdent(Seq(tp.name)), _) => true
+        case _                                       => false
+      },
     )
 
     tp.upperBound flatMap { bound =>

@@ -147,20 +147,19 @@ object CombineOverloads extends TreeTransformation {
     */
   def ctorHack(scope: TreeScope, members: Seq[CtorTree]): Seq[CtorTree] = {
     val asMethods: Seq[MethodTree] =
-      members.map(
-        ctor =>
-          MethodTree(
-            Nil,
-            ctor.level,
-            ctor.name,
-            Nil,
-            Seq(ctor.params),
-            MemberImpl.Native,
-            TypeRef.Nothing,
-            false,
-            ctor.comments,
-            QualifiedName(Nil),
-          ),
+      members.map(ctor =>
+        MethodTree(
+          Nil,
+          ctor.level,
+          ctor.name,
+          Nil,
+          Seq(ctor.params),
+          MemberImpl.Native,
+          TypeRef.Nothing,
+          false,
+          ctor.comments,
+          QualifiedName(Nil),
+        ),
       )
     val ret = combineOverloads(scope, asMethods)
     ret.map {

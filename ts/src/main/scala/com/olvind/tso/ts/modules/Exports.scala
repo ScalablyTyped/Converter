@@ -48,8 +48,8 @@ object Exports {
                       CodePath.NoPath,
                       JsLocation.Zero,
                     )
-                    (defaults ++ namespaceds :+ restNs).flatMap(
-                      m => export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector),
+                    (defaults ++ namespaceds :+ restNs).flatMap(m =>
+                      export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector),
                     )
                 }
 

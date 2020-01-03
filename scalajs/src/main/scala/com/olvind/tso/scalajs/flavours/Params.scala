@@ -61,10 +61,9 @@ object Params {
     name -> Left(
       Param(
         ParamTree(name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
-        Right(
-          obj =>
-            if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
-            else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
+        Right(obj =>
+          if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
+          else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
         ),
       ),
     )
@@ -182,9 +181,8 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
         val params = longestParams.zipWithIndex.map {
           case (param, idx) =>
             val forIdx: Seq[TypeRef] =
-              paramsForMethods.map(
-                paramsForMethod =>
-                  if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
+              paramsForMethods.map(paramsForMethod =>
+                if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
               )
             param.copy(tpe = TypeRef.Union(forIdx, sort = true))
         }

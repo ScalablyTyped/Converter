@@ -36,12 +36,12 @@ class PhaseCache[Id, U](initialCapacity: Int = 1000) {
       }
     }
 
-    op.foreach(p => {
+    op.foreach { p =>
       try compute(p)
       catch {
         case th: Throwable => p.failure(th)
       },
-    })
+    }
 
     ret
   }

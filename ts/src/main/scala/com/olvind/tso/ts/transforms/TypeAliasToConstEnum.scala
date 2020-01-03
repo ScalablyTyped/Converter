@@ -11,13 +11,12 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
           if scope.surroundingTsContainer.fold(false)(_.membersByName(name).length === 1) =>
         extractOnlyLiterals(scope, x) match {
           case Some(allLits) =>
-            val members = allLits.map(
-              lit =>
-                TsEnumMember(
-                  NoComments,
-                  TsIdentSimple(lit.literal),
-                  Some(TsExpr.Literal(lit)),
-                ),
+            val members = allLits.map(lit =>
+              TsEnumMember(
+                NoComments,
+                TsIdentSimple(lit.literal),
+                Some(TsExpr.Literal(lit)),
+              ),
             )
             TsDeclEnum(
               comments,
@@ -42,8 +41,8 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
           case (lits, refs, Nil) =>
             /* All type refs must also be to type unions with type literals */
             val nested: Seq[Option[Seq[TsLiteral]]] =
-              refs.map(
-                ref => scope.lookupTypeIncludeScope(ref).firstDefined { case (xx, s) => extractOnlyLiterals(s, xx) },
+              refs.map(ref =>
+                scope.lookupTypeIncludeScope(ref).firstDefined { case (xx, s) => extractOnlyLiterals(s, xx) },
               )
 
             nested.partitionCollect2({ case Some(valid) => valid }, { case None => () }) match {

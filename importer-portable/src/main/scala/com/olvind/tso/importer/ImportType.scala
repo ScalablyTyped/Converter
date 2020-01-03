@@ -191,7 +191,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         val rewritten = patched map {
           case TsTypeRef.undefined => TypeRef.undefined
-          case other => apply(wildcards, scope, importName)(other)
+          case other               => apply(wildcards, scope, importName)(other)
         }
         TypeRef.Union(rewritten, sort = false)
 

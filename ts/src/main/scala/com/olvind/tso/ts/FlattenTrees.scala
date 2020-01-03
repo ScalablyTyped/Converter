@@ -47,9 +47,7 @@ object FlattenTrees {
 
     thatsUnnamed foreach {
       case that: TsGlobal =>
-        rets.addOrUpdateMatching(that)(
-          x => x.copy(members = newMembers(Seq.empty, x.members)),
-        ) {
+        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Seq.empty, x.members))) {
           case existing: TsGlobal => mergeGlobal(that, existing)
         }
       case that => rets += that

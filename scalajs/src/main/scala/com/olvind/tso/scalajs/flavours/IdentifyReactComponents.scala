@@ -103,35 +103,34 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
         else
           for {
             _ <- returnsElement(scope, method.resultType)
-          } yield
-            method.name match {
-              case Name.APPLY =>
-                Component(
-                  location         = locationFrom(scope),
-                  scalaRef         = TypeRef(owner.codePath),
-                  fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
-                  tparams          = method.tparams,
-                  props            = propsTypeOpt,
-                  isGlobal         = isGlobal(owner.annotations),
-                  componentType    = ComponentType.Field,
-                  isAbstractProps  = isAbstractProps,
-                  componentMembers = Nil,
-                )
+          } yield method.name match {
+            case Name.APPLY =>
+              Component(
+                location         = locationFrom(scope),
+                scalaRef         = TypeRef(owner.codePath),
+                fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
+                tparams          = method.tparams,
+                props            = propsTypeOpt,
+                isGlobal         = isGlobal(owner.annotations),
+                componentType    = ComponentType.Field,
+                isAbstractProps  = isAbstractProps,
+                componentMembers = Nil,
+              )
 
-              case _ =>
-                Component(
-                  location         = locationFrom(scope),
-                  scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
-                  fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
-                  tparams          = method.tparams,
-                  props            = propsTypeOpt,
-                  isGlobal         = isGlobal(method.annotations),
-                  componentType    = ComponentType.Function,
-                  isAbstractProps  = isAbstractProps,
-                  componentMembers = Nil,
-                )
+            case _ =>
+              Component(
+                location         = locationFrom(scope),
+                scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
+                fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
+                tparams          = method.tparams,
+                props            = propsTypeOpt,
+                isGlobal         = isGlobal(method.annotations),
+                componentType    = ComponentType.Function,
+                isAbstractProps  = isAbstractProps,
+                componentMembers = Nil,
+              )
 
-            }
+          }
       case _ => None
     }
   }
@@ -159,18 +158,17 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
     val fieldResult = for {
       tr <- pointsAtComponentType(scope, field.tpe)
       props = tr.targs.head
-    } yield
-      Component(
-        location         = locationFrom(scope),
-        scalaRef         = TypeRef(field.codePath),
-        fullName         = componentName(scope, owner.annotations, QualifiedName(field.name :: Nil), field.comments),
-        tparams          = Nil,
-        props            = Some(props).filterNot(_ === TypeRef.Object),
-        isGlobal         = isGlobal(field.annotations),
-        componentType    = ComponentType.Field,
-        isAbstractProps  = scope.isAbstract(props),
-        componentMembers = Nil,
-      )
+    } yield Component(
+      location         = locationFrom(scope),
+      scalaRef         = TypeRef(field.codePath),
+      fullName         = componentName(scope, owner.annotations, QualifiedName(field.name :: Nil), field.comments),
+      tparams          = Nil,
+      props            = Some(props).filterNot(_ === TypeRef.Object),
+      isGlobal         = isGlobal(field.annotations),
+      componentType    = ComponentType.Field,
+      isAbstractProps  = scope.isAbstract(props),
+      componentMembers = Nil,
+    )
 
     def isAliasToFC: Option[Component] =
       FollowAliases(scope)(field.tpe) match {

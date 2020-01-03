@@ -21,10 +21,9 @@ class LibraryResolver(stdLib: StdLibSource, sourceFolders: Seq[InFolder], facade
     libName.value match {
       case StableStd => Some(stdLib)
       case _ =>
-        sourceFolders.firstDefined(
-          source =>
-            (folder(source, libName.value) orElse
-              folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName)),
+        sourceFolders.firstDefined(source =>
+          (folder(source, libName.value) orElse
+            folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName)),
         )
     }
 

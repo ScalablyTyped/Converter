@@ -69,40 +69,38 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
   }
 
   def genPropsAlias(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): Option[TypeAliasTree] =
-    comp.props.flatMap(
-      propsType =>
-        scope lookup propsType.typeName collectFirst {
-          case (x: TypeAliasTree, _) => x.tparams
-          case (x: ClassTree, _)     => x.tparams
-        } map { tps =>
-          TypeAliasTree(
-            comp.shortenedPropsName,
-            tps,
-            propsType.copy(targs = TypeParamTree.asTypeArgs(tps)),
-            NoComments,
-            moduleCodePath + comp.shortenedPropsName,
-          )
-        },
+    comp.props.flatMap(propsType =>
+      scope lookup propsType.typeName collectFirst {
+        case (x: TypeAliasTree, _) => x.tparams
+        case (x: ClassTree, _)     => x.tparams
+      } map { tps =>
+        TypeAliasTree(
+          comp.shortenedPropsName,
+          tps,
+          propsType.copy(targs = TypeParamTree.asTypeArgs(tps)),
+          NoComments,
+          moduleCodePath + comp.shortenedPropsName,
+        )
+      },
     )
 
   def genPropsRef(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): Option[MethodTree] =
-    comp.props.flatMap(
-      propsType =>
-        scope.lookup(FollowAliases(scope)(propsType).typeName).collectFirst {
-          case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
-            MethodTree(
-              annotations = Annotation.Inline :: Nil,
-              level       = ProtectionLevel.Default,
-              name        = comp.shortenedPropsName,
-              tparams     = Nil,
-              params      = Nil,
-              impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
-              resultType  = TypeRef.Singleton(TypeRef(generatedPropsCompanion.codePath, Nil, NoComments)),
-              isOverride  = false,
-              comments    = NoComments,
-              codePath    = moduleCodePath + comp.shortenedPropsName,
-            )
-        },
+    comp.props.flatMap(propsType =>
+      scope.lookup(FollowAliases(scope)(propsType).typeName).collectFirst {
+        case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
+          MethodTree(
+            annotations = Annotation.Inline :: Nil,
+            level       = ProtectionLevel.Default,
+            name        = comp.shortenedPropsName,
+            tparams     = Nil,
+            params      = Nil,
+            impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
+            resultType  = TypeRef.Singleton(TypeRef(generatedPropsCompanion.codePath, Nil, NoComments)),
+            isOverride  = false,
+            comments    = NoComments,
+            codePath    = moduleCodePath + comp.shortenedPropsName,
+          )
+      },
     )
 
   def genComponentRef(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): MethodTree = {

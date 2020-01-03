@@ -87,12 +87,12 @@ object KeepOnlyReferenced {
       keep.foreach(k => ret(k) = false)
 
       keep.foreach { qname =>
-        qname.parts.indices.foreach(n => {
+        qname.parts.indices.foreach { n =>
           val subQname = QualifiedName(qname.parts.take(n + 1))
           if (!ret.contains(subQname)) {
             ret(subQname) = true
           }
-        })
+        }
       }
       ret.toMap
     }

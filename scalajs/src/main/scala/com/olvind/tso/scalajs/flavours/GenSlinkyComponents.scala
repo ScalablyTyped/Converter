@@ -239,7 +239,8 @@ class GenSlinkyComponents(
 
                                 val isOptionalDom: Boolean =
                                   if (param.exists(!_.isOptional)) false
-                                  else domFields.get(fieldTree.name) match {
+                                  else
+                                    domFields.get(fieldTree.name) match {
                                       case Some(tpe) =>
                                         /* todo: refactor out a name/type check which ignores optionality */
                                         FollowAliases(scope)(fieldTree.tpe) match {

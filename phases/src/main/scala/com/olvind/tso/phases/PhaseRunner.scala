@@ -74,8 +74,8 @@ object PhaseRunner {
           }
 
           val result: PhaseRes[Id, TT] =
-            resLastPhase.flatMap(
-              lastValue => PhaseRes.attempt(id, logger, next.trans(id, lastValue, calculateDeps, isCircular, logger)),
+            resLastPhase.flatMap(lastValue =>
+              PhaseRes.attempt(id, logger, next.trans(id, lastValue, calculateDeps, isCircular, logger)),
             )
 
           result match {

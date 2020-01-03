@@ -259,18 +259,15 @@ object UnionToInheritance {
       val parentType: TypeAliasTree =
         if (r.unchanged.isEmpty) r.original else patchCodePath(r.original)
 
-      r.asInheritance.map(
-        (newParent: TypeRef) => {
-          val tParamReferencedAt: Seq[(TypeParamTree, Option[Int])] =
-            parentType.tparams.map(
-              tparam =>
-                tparam -> newParent.targs.zipWithIndex.collectFirst {
-                  case (x, idx) if x.name === tparam.name => idx
-                },
-            )
-          newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
-        },
-      )
+      r.asInheritance.map { (newParent: TypeRef) =>
+        val tParamReferencedAt: Seq[(TypeParamTree, Option[Int])] =
+          parentType.tparams.map(tparam =>
+            tparam -> newParent.targs.zipWithIndex.collectFirst {
+              case (x, idx) if x.name === tparam.name => idx
+            },
+          )
+        newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
+      },
     }
   }
 }

@@ -24,9 +24,8 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
-                  Right(
-                    obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
+                  Right(obj =>
+                    s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -34,9 +33,8 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
-                  Right(
-                    obj =>
-                      s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
+                  Right(obj =>
+                    s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -53,9 +51,8 @@ object MemberToParam {
                       Some(TypeRef.`null`),
                       NoComments,
                     ),
-                    Right(
-                      obj =>
-                        s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)""",
+                    Right(obj =>
+                      s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)""",
                     ),
                   ),
                 )
@@ -69,9 +66,8 @@ object MemberToParam {
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
-                  Right(
-                    obj =>
-                      s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
+                  Right(obj =>
+                    s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
                 ),
               )
@@ -92,9 +88,7 @@ object MemberToParam {
                     if (!name.isEscaped && f.originalName === name)
                       Left(s"""${name.value} = $convertedTarget""")
                     else
-                      Right(
-                        obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)""",
-                      ),
+                      Right(obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)"""),
                   ),
                 )
             case _ =>
@@ -104,9 +98,7 @@ object MemberToParam {
                   if (!name.isEscaped && f.originalName === name)
                     Left(s"""${name.value} = ${name.value}$Cast""")
                   else
-                    Right(
-                      obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
-                    ),
+                    Right(obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)"""),
                 ),
               )
           }

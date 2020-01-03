@@ -36,11 +36,10 @@ object InferMemberOverrides extends TreeTransformation {
 
     val inheritedFields: Map[Name, Seq[(FieldTree, TypeRef)]] =
       sum(
-        root.directParents.map(
-          branch =>
-            branch.transitiveParents.flatMap {
-              case (parentRef, p) => p.members collect { case c: FieldTree => c.name -> (c -> parentRef) }
-            },
+        root.directParents.map(branch =>
+          branch.transitiveParents.flatMap {
+            case (parentRef, p) => p.members collect { case c: FieldTree => c.name -> (c -> parentRef) }
+          },
         ),
       ).filter {
         case (_, containedFields) => containedFields.map(_._2).distinct.size > 1

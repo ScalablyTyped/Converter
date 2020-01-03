@@ -21,9 +21,8 @@ object TypescriptSources {
           if (path.last.startsWith("@types")) Nil
           else
             os.list(path)
-              .map(
-                nestedPath =>
-                  FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")): TsLibSource,
+              .map(nestedPath =>
+                FromFolder(InFolder(nestedPath), TsIdentLibrary(s"${path.last}/${nestedPath.last}")): TsLibSource,
               )
         case path => List(FromFolder(InFolder(path), TsIdentLibrary(path.last)))
       }

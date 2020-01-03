@@ -362,7 +362,7 @@ object TypeRef {
     private def flatten(types: List[TypeRef]): List[TypeRef] =
       types flatMap {
         case TypeRef(QualifiedName.UNION, inner, _) => flatten(inner.toList)
-        case other        => List(other)
+        case other                                  => List(other)
       }
 
     /**

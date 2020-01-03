@@ -134,15 +134,14 @@ class Phase1ReadTypescript(
             else
               source.packageJsonOpt
                 .to[Set]
-                .flatMap(
-                  x => x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
+                .flatMap(x =>
+                  x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
                 )
-                .flatMap(
-                  depName =>
-                    resolve.library(TsIdentLibrary(depName)) orElse {
-                      logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
-                      None
-                    },
+                .flatMap(depName =>
+                  resolve.library(TsIdentLibrary(depName)) orElse {
+                    logger.fatalMaybe(s"Could not resolve declared dependency $depName", pedantic)
+                    None
+                  },
                 )
 
           getDeps((fileSources ++ declaredDependencies ++ stdlibSourceOpt).sorted) map {
