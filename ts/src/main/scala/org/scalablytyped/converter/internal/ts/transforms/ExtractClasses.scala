@@ -2,15 +2,14 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.seqs._
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 
 object ExtractClasses extends TransformLeaveMembers {
-  override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] = {
+  override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] = {
     val findName = FindAvailableName(x, scope)
 
-    val byNames = x.membersByName.flatMap {
-      case (_, sameName: Seq[TsNamedDecl]) =>
+    val byNames = IArray.fromTraversable(x.membersByName).flatMap {
+      case (_, sameName: IArray[TsNamedDecl]) =>
         extractClasses(scope, sameName, findName).getOrElse(sameName)
     }
 
@@ -56,13 +55,13 @@ object ExtractClasses extends TransformLeaveMembers {
         name,
         tparams,
         Some(FollowAliases.typeRef(scope)(resultType)),
-        Nil,
-        List(
+        Empty,
+        IArray(
           TsMemberFunction(
             cs1,
             level,
             TsIdent.constructor,
-            TsFunSig(NoComments, Nil, params, None),
+            TsFunSig(NoComments, Empty, params, None),
             isStatic,
             isReadOnly,
             isOptional = false,
@@ -77,14 +76,14 @@ object ExtractClasses extends TransformLeaveMembers {
     def apply(x: TsContainer, scope: TsTreeScope): FindAvailableName = {
       val idx = scope.stack match {
         case (x1: TsDeclNamespace) :: (x2: TsContainer) :: _ if x1.name === TsIdent.namespaced =>
-          maps.combine(List(x1.membersByName, x2.membersByName))
+          maps.combine(IArray(x1.membersByName, x2.membersByName))
         case _ => x.membersByName
       }
       new FindAvailableName(idx)
     }
   }
 
-  class FindAvailableName private (index: Map[TsIdent, Seq[TsNamedDecl]]) {
+  class FindAvailableName private (index: Map[TsIdent, IArray[TsNamedDecl]]) {
     def apply(potentialName: TsIdentSimple): Option[TsIdentSimple] = {
       def backupName =
         if (potentialName === TsIdent.namespaced) TsIdent.namespacedCls
@@ -109,30 +108,31 @@ object ExtractClasses extends TransformLeaveMembers {
 
   private def extractClasses(
       scope:    TsTreeScope,
-      sameName: Seq[TsNamedDecl],
+      sameName: IArray[TsNamedDecl],
       findName: FindAvailableName,
-  ): Option[List[TsNamedDecl]] = {
-    val (vars, namespaces, rest: Seq[TsNamedDecl]) =
+  ): Option[IArray[TsNamedDecl]] = {
+    val (vars, namespaces, rest: IArray[TsNamedDecl]) =
       sameName.partitionCollect2({ case x: TsDeclVar => x }, { case x: TsDeclNamespace => x })
 
-    vars.toList match {
-      case (v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false)) :: restVars =>
+    vars match {
+      case IArray.headTail(v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false), restVars) =>
         val allMembers = AllMembersFor.forType(scope, LoopDetector.initial)(tpe)
 
         /* extract named constructors inside the value into proper classes in a namespace, if possible */
-        val newNamespacesAndV: Seq[TsNamedValueDecl] =
+        val newNamespacesAndV: IArray[TsNamedValueDecl] =
           allMembers collect typeCtorToClass(scope, findName, jsLocation, cp) match {
-            case Nil => namespaces :+ v
+            case IArray.Empty => namespaces :+ v
             case some =>
               val inlinedVar = v.copy(name = TsIdent.namespaced, codePath = cp + TsIdent.namespaced)
               namespaces match {
-                case Nil              => List(TsDeclNamespace(cs, declared, name, some :+ inlinedVar, cp, jsLocation))
-                case existing :: rest => existing.copy(members = existing.members ++ some :+ inlinedVar) :: rest
+                case IArray.Empty => IArray(TsDeclNamespace(cs, declared, name, some :+ inlinedVar, cp, jsLocation))
+                case IArray.headTail(existing, rest) =>
+                  existing.copy(members = existing.members ++ some :+ inlinedVar) +: rest
               }
           }
 
         object ValidCtors {
-          def unapply(arg: List[TsMemberCtor]): Option[List[(TsMemberCtor, TsTypeRef)]] =
+          def unapply(arg: IArray[TsMemberCtor]): Option[IArray[(TsMemberCtor, TsTypeRef)]] =
             arg.collect {
               case x @ TsMemberCtor(_, _, sig @ TsFunSig(_, _, _, Some(rt: TsTypeRef)))
                   if isSimpleType(rt, scope / sig) =>
@@ -141,7 +141,7 @@ object ExtractClasses extends TransformLeaveMembers {
         }
 
         val clsOpt: Option[TsDeclClass] =
-          allMembers.toList.collect { case x: TsMemberCtor => x } match {
+          allMembers.collect { case x: TsMemberCtor => x } match {
             case ValidCtors(ctorsBase) =>
               /* need to take care here, as constructors with fewer type parameters might underspecify,
                * for instance `Array<T>` has a constructor `new(): Array<any>` */
@@ -151,7 +151,7 @@ object ExtractClasses extends TransformLeaveMembers {
               }
 
               /* keep only constructors with compatible type parameters and return type */
-              val ctors: List[TsMemberFunction] =
+              val ctors: IArray[TsMemberFunction] =
                 ctorsBase collect {
                   case (ctor, _)
                       if longestTParams.startsWith(ctor.signature.tparams) &&
@@ -160,7 +160,7 @@ object ExtractClasses extends TransformLeaveMembers {
                       ctor.comments ++ ctor.signature.comments,
                       ctor.level,
                       TsIdent.constructor,
-                      TsFunSig(NoComments, Nil, ctor.signature.params, None),
+                      TsFunSig(NoComments, Empty, ctor.signature.params, None),
                       isStatic   = false,
                       isReadOnly = false,
                       isOptional = false,
@@ -175,7 +175,7 @@ object ExtractClasses extends TransformLeaveMembers {
                   name       = clsName,
                   tparams    = longestTParams,
                   parent     = Some(FollowAliases.typeRef(scope)(resultType)),
-                  implements = Nil,
+                  implements = Empty,
                   members    = ctors,
                   jsLocation = jsLocation,
                   codePath   = cp replaceLast clsName,
@@ -185,7 +185,7 @@ object ExtractClasses extends TransformLeaveMembers {
             case _ => None
           }
 
-        Some(restVars ++ clsOpt ++ newNamespacesAndV ++ rest)
+        Some(restVars ++ IArray.fromOption(clsOpt) ++ newNamespacesAndV ++ rest)
 
       case _ => None
     }

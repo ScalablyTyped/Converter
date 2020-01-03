@@ -8,15 +8,15 @@ sealed trait ExpandedMod {
 
 object ExpandedMod {
   final case class Whole(
-      defaults:   Seq[TsNamedDecl],
-      namespaced: Seq[TsNamedDecl],
-      rest:       Seq[TsNamedDecl],
+      defaults:   IArray[TsNamedDecl],
+      namespaced: IArray[TsNamedDecl],
+      rest:       IArray[TsNamedDecl],
       scope:      TsTreeScope,
   ) extends ExpandedMod {
     override def nonEmpty: Boolean = defaults.nonEmpty || namespaced.nonEmpty || rest.nonEmpty
   }
 
-  final case class Picked(things: Seq[(TsNamedDecl, TsTreeScope)]) extends ExpandedMod {
+  final case class Picked(things: IArray[(TsNamedDecl, TsTreeScope)]) extends ExpandedMod {
     override def nonEmpty: Boolean = things.nonEmpty
   }
 }

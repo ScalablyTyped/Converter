@@ -12,11 +12,11 @@ object Hoisting {
       ownerLoc: JsLocation,
       ld:       LoopDetector,
       tpe:      TsType,
-  ): Seq[TsNamedValueDecl] =
+  ): IArray[TsNamedValueDecl] =
     tpe match {
       case ref: TsTypeRef => fromRef(scope, ownerCp, ownerLoc, ld, ref)
-      case TsTypeObject(_, ms) => ms.flatMap(memberToDecl(ownerCp, ownerLoc))
-      case _                   => Nil
+      case TsTypeObject(_, ms) => ms.mapNotNone(memberToDecl(ownerCp, ownerLoc))
+      case _                   => Empty
     }
 
   def fromRef(
@@ -25,8 +25,8 @@ object Hoisting {
       ownerLoc: JsLocation,
       ld:       LoopDetector,
       typeRef:  TsTypeRef,
-  ): Seq[TsNamedValueDecl] =
-    AllMembersFor(scope, ld)(typeRef) flatMap memberToDecl(ownerCp, ownerLoc)
+  ): IArray[TsNamedValueDecl] =
+    AllMembersFor(scope, ld)(typeRef) mapNotNone memberToDecl(ownerCp, ownerLoc)
 
   def memberToDecl(ownerCp: CodePath, ownerLoc: JsLocation)(x: TsMember): Option[TsNamedValueDecl] =
     x match {

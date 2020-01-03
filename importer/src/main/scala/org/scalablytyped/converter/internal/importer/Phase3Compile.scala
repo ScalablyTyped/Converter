@@ -102,7 +102,7 @@ class Phase3Compile(
               name            = source.libName.value,
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
-              localDeps       = deps.values.to[Seq],
+              localDeps       = IArray.fromTraversable(deps.values),
               deps            = buildJson.dependencies,
               scalaFiles      = sourceFiles,
               resources       = Map(),
@@ -151,7 +151,7 @@ class Phase3Compile(
               name            = lib.libName,
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
-              localDeps       = deps.values.to[Seq],
+              localDeps       = IArray.fromTraversable(deps.values),
               deps            = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
@@ -212,8 +212,8 @@ class Phase3Compile(
       }
       os.makeDir.all(compilerPaths.classesDir)
 
-      val jarDeps =
-        deps.values.to[Seq].map(x => BloopCompiler.InternalDepJar(AbsolutePath(x.localIvyFiles.jarFile._1.toIO)))
+      val jarDeps: Set[BloopCompiler.InternalDep] =
+        deps.values.to[Set].map(x => BloopCompiler.InternalDepJar(AbsolutePath(x.localIvyFiles.jarFile._1.toIO)))
 
       if (os.exists(compilerPaths.resourcesDir))
         os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)

@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 
@@ -72,7 +71,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
   def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: ImportName)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
-      case TsTypeRef(cs, TsQIdent.Std.Readonly, Seq(one)) =>
+      case TsTypeRef(cs, TsQIdent.Std.Readonly, IArray.exactlyOne(one)) =>
         val withComments = one match {
           case ref: TsTypeRef => ref.copy(comments = cs ++ ref.comments)
           case other => other
@@ -80,7 +79,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         apply(wildcards, scope, importName)(withComments)
 
-      case TsTypeRef(cs, base: TsQIdent, targs: Seq[TsType]) =>
+      case TsTypeRef(cs, base: TsQIdent, targs: IArray[TsType]) =>
         base match {
           case TsQIdent.any | TsQIdent.unknown =>
             (if (wildcards.allowed) TypeRef.Wildcard else TypeRef.Any).withComments(cs)
@@ -98,8 +97,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             }
         }
 
-      case TsTypeObject(_, Nil) =>
-        TypeRef(QualifiedName.Object, Nil, NoComments)
+      case TsTypeObject(_, Empty) =>
+        TypeRef(QualifiedName.Object, Empty, NoComments)
 
       /* Proper handling (of static) cases will be done in `ApplyTypeMapping`.
        * This piece of code just ignores the effect of the type mapping.
@@ -107,13 +106,13 @@ class ImportType(stdNames: QualifiedName.StdNames) {
        * It is crucial that this "logic" live here in the importer, since it needs to be exported
        *  in it's original form to dependencies
        */
-      case tpe @ TsTypeObject(_, Seq(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
-        val lookups: Seq[TsTypeRef] =
+      case tpe @ TsTypeObject(_, IArray.exactlyOne(TsMemberTypeMapped(_, _, _, _, _, _, to))) =>
+        val lookups: IArray[TsTypeRef] =
           TsTreeTraverse.collect(to) { case TsTypeLookup(from: TsTypeRef, _) => from }
 
         val base = lookups match {
-          case Seq(one) => apply(wildcards, scope, importName)(one)
-          case _        => TypeRef.Any
+          case IArray.exactlyOne(one) => apply(wildcards, scope, importName)(one)
+          case _                      => TypeRef.Any
         }
 
         def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))
@@ -122,11 +121,11 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
             TypeRef.StringDictionary(TypeRef(importName(x.tparams.head.name)), NoComments)
           case x: TsNamedDecl =>
-            TypeRef.Intersection(Seq(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
+            TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
         } getOrElse base.withComments(c)
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
-        val (strings, numbers, Nil) = ms.partitionCollect2(
+        val (strings, numbers, Empty) = ms.partitionCollect2(
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.string), _, _) => x },
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _, _) => x },
         )
@@ -135,8 +134,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
-        val stringDict = translatedStrings.toList match {
-          case Nil => None
+        val stringDict = translatedStrings match {
+          case Empty => None
           case some =>
             Some(
               TypeRef
@@ -147,24 +146,24 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.number), isOptional, valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
-        val numberDict = translatedNumbers.toList match {
-          case Nil => None
+        val numberDict = translatedNumbers match {
+          case Empty => None
           case some =>
             Some(
               TypeRef
                 .NumberDictionary(TypeRef.Intersection(some.map(_._2)), Comments.flatten(some.map(_._1))(identity)),
             )
         }
-        TypeRef.Intersection(stringDict.toList ++ numberDict)
+        TypeRef.Intersection(IArray.fromOptions(stringDict, numberDict))
 
       case TsTypeFunction(sig) =>
-        if (sig.params.size > 22) TypeRef.FunctionBase
+        if (sig.params.length > 22) TypeRef.FunctionBase
         else {
           val newSig = ts.FillInTParams.inlineTParams(sig)
 
           val (thisType, restParams) =
-            newSig.params.to[List] match {
-              case first :: tail if first.name === TsIdent.`this` =>
+            newSig.params match {
+              case IArray.headTail(first, tail) if first.name === TsIdent.`this` =>
                 (Some(funParam(wildcards, scope, importName)(first)), tail)
               case all =>
                 (None, all)
@@ -182,8 +181,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           if (!types.contains(TsTypeRef.boolean)) types
           else {
             types.partitionCollect {
-              case TsTypeLiteral(TsLiteralString("true" | "false")) => ()
-              case TsTypeLiteral(TsLiteralBoolean(true | false))    => ()
+              case TsTypeLiteral(TsLiteralString("true" | "false")) => null
+              case TsTypeLiteral(TsLiteralBoolean(true | false))    => null
             } match {
               case (_, rest) => rest
             }
@@ -207,7 +206,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeTuple(StrippedRepeat(targs)) =>
         TypeRef(
           QualifiedName.Array,
-          List(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope, importName), false)),
+          IArray(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope, importName), false)),
           NoComments,
         )
 
@@ -239,12 +238,12 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         TypeRef.ThisType(NoComments)
 
       case x: TsTypeConditional =>
-        apply(wildcards, _scope, importName)(unify(List(x.ifFalse, x.ifTrue)))
+        apply(wildcards, _scope, importName)(unify(IArray(x.ifFalse, x.ifTrue)))
 
       case other =>
         val msg = s"Failed type conversion: ${TsTypeFormatter(other)}"
         scope.logger.info(msg)
-        TypeRef(QualifiedName.Any, Nil, Comments(Comment.warning(msg)))
+        TypeRef(QualifiedName.Any, Empty, Comments(Comment.warning(msg)))
     }
   }
 
@@ -254,7 +253,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     * TsTypeUnion.simplified simplifies a set of types into a union types, a normal type, or `never`.
     *    The latter is the least useful, so let's rewrite it to any
     */
-  def unify(types: Seq[TsType]): TsType =
+  def unify(types: IArray[TsType]): TsType =
     TsTypeUnion.simplified(types filterNot toIgnore) match {
       case TsTypeRef.never => TsTypeRef.any
       case other           => other
@@ -270,7 +269,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     val targs = _sig.tparams.map(p => p.upperBound getOrElse TsTypeRef.`object`)
     val sig   = ts.FillInTParams(_sig, targs)
 
-    val params: Seq[TypeRef] =
+    val params: IArray[TypeRef] =
       sig.params.map { param =>
         val (baseType, isRepeated) = param.tpe match {
           case Some(TsTypeRepeated(repeated)) => (Some(repeated), true)
@@ -300,7 +299,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     )
 
   private object StrippedRepeat {
-    def unapply(types: Seq[TsType]): Option[Seq[TsType]] = {
+    def unapply(types: IArray[TsType]): Option[IArray[TsType]] = {
       var found = false
       val ret = types.map {
         case TsTypeRepeated(x) =>

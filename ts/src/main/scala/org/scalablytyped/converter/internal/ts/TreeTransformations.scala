@@ -26,7 +26,7 @@ trait TransformMembers extends TreeTransformationScopedChanges {
   override def enterTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
     x.copy(members = newMembers(t, x))
 
-  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl]
+  def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl]
 }
 
 trait TransformLeaveMembers extends TreeTransformationScopedChanges {
@@ -45,7 +45,7 @@ trait TransformLeaveMembers extends TreeTransformationScopedChanges {
   override def leaveTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule =
     x.copy(members = newMembers(t, x))
 
-  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl]
+  def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl]
 }
 
 trait TransformClassMembers extends TreeTransformationScopedChanges {
@@ -58,7 +58,7 @@ trait TransformClassMembers extends TreeTransformationScopedChanges {
   override def enterTsTypeObject(t: TsTreeScope)(x: TsTypeObject): TsTypeObject =
     x.copy(members = newClassMembers(t, x))
 
-  def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember]
+  def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember]
 }
 
 trait TransformLeaveClassMembers extends TreeTransformationScopedChanges {
@@ -71,5 +71,5 @@ trait TransformLeaveClassMembers extends TreeTransformationScopedChanges {
   override def leaveTsTypeObject(t: TsTreeScope)(x: TsTypeObject): TsTypeObject =
     x.copy(members = newClassMembersLeaving(t, x))
 
-  def newClassMembersLeaving(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember]
+  def newClassMembersLeaving(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember]
 }

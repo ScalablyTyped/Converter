@@ -1,22 +1,19 @@
-package org.scalablytyped.converter.internal
+package org.scalablytyped.converter
+package internal
 package ts
-
-import org.scalablytyped.converter.internal.seqs.{BufferOps, TraversableOps}
-
-import scala.collection.mutable
 
 /**
   * In Typescript, classes, interfaces and namespaces can be extended,
   *  both within the same file, or by includes.
   */
 object FlattenTrees {
-  private val Empty = TsParsedFile(NoComments, Seq.empty, Seq.empty, CodePath.NoPath)
+  private val EmptyFile = TsParsedFile(NoComments, Empty, Empty, CodePath.NoPath)
 
-  def apply(files: Traversable[TsParsedFile]): TsParsedFile =
-    files.foldLeft(Empty)(mergeFile)
+  def apply(files: IArray[TsParsedFile]): TsParsedFile =
+    files.foldLeft(EmptyFile)(mergeFile)
 
   def apply(file: TsParsedFile): TsParsedFile =
-    mergeFile(Empty, file)
+    mergeFile(EmptyFile, file)
 
   def mergeCodePath(one: CodePath, two: CodePath): CodePath =
     (one, two) match {
@@ -38,32 +35,32 @@ object FlattenTrees {
       codePath   = mergeCodePath(one.codePath, two.codePath),
     )
 
-  def newMembers(these: Seq[TsContainerOrDecl], thats: Seq[TsContainerOrDecl]): Seq[TsContainerOrDecl] = {
+  def newMembers(these: IArray[TsContainerOrDecl], thats: IArray[TsContainerOrDecl]): IArray[TsContainerOrDecl] = {
 
     val (theseNamed, theseUnnamed) = these.partitionCollect { case x: TsNamedDecl => x }
     val (thatsNamed, thatsUnnamed) = thats.partitionCollect { case x: TsNamedDecl => x }
 
-    val rets = mutable.ArrayBuffer[TsContainerOrDecl](theseUnnamed: _*)
+    val rets = IArray.Builder[TsContainerOrDecl](theseUnnamed)
 
     thatsUnnamed foreach {
       case that: TsGlobal =>
-        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Seq.empty, x.members))) {
+        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Empty, x.members))) {
           case existing: TsGlobal => mergeGlobal(that, existing)
         }
       case that => rets += that
     }
 
-    rets ++= newNamedMembers(theseNamed, thatsNamed)
+    rets ++= newNamedMembers(theseNamed, thatsNamed).toList
 
-    rets.to[Seq].distinct
+    rets.result().distinct
   }
 
-  def newNamedMembers(these: Seq[TsNamedDecl], thats: Seq[TsNamedDecl]): Seq[TsNamedDecl] = {
-    val rets = mutable.ArrayBuffer[TsNamedDecl](these: _*)
+  def newNamedMembers(these: IArray[TsNamedDecl], thats: IArray[TsNamedDecl]): IArray[TsNamedDecl] = {
+    val rets = IArray.Builder[TsNamedDecl](these)
 
     thats foreach {
       case that: TsDeclNamespace =>
-        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Nil, x.members))) {
+        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Empty, x.members))) {
           case existing: TsDeclNamespace if that.name === existing.name =>
             mergeNamespaces(that, existing)
           case existing: TsDeclFunction if that.name === existing.name =>
@@ -79,18 +76,18 @@ object FlattenTrees {
         }
 
       case that: TsDeclModule =>
-        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Nil, x.members))) {
+        rets.addOrUpdateMatching(that)(x => x.copy(members = newMembers(Empty, x.members))) {
           case existing: TsDeclModule if that.name === existing.name =>
             mergeModule(that, existing)
         }
       case that: TsDeclClass =>
-        rets.addOrUpdateMatching(that)(m => m.copy(members = newClassMembers(Nil, m.members))) {
+        rets.addOrUpdateMatching(that)(m => m.copy(members = newClassMembers(Empty, m.members))) {
           case existing: TsDeclClass if that.name === existing.name     => mergeClass(that, existing)
           case existing: TsDeclInterface if that.name === existing.name => mergedClassAndInterface(that, existing)
         }
 
       case that: TsDeclInterface =>
-        rets.addOrUpdateMatching(that.copy(members = newClassMembers(Nil, that.members)): TsNamedDecl)(m => m) {
+        rets.addOrUpdateMatching(that.copy(members = newClassMembers(Empty, that.members)): TsNamedDecl)(m => m) {
           case existing: TsDeclInterface if that.name === existing.name => mergeInterface(that, existing)
           case existing: TsDeclClass if that.name === existing.name     => mergedClassAndInterface(existing, that)
         }
@@ -112,7 +109,7 @@ object FlattenTrees {
         }
 
       case that: TsAugmentedModule =>
-        rets.addOrUpdateMatching(that: TsAugmentedModule)(x => x.copy(members = newMembers(Nil, x.members))) {
+        rets.addOrUpdateMatching(that: TsAugmentedModule)(x => x.copy(members = newMembers(Empty, x.members))) {
           case existing: TsAugmentedModule if that.name === existing.name =>
             mergeAugmentedModule(that, existing)
         }
@@ -130,7 +127,7 @@ object FlattenTrees {
               declared = existing.declared || that.declared,
               name     = existing.name,
               tparams  = mergeTypeParams(existing.tparams, that.tparams),
-              alias    = TsTypeIntersect.simplified(existing.alias :: that.alias :: Nil),
+              alias    = TsTypeIntersect.simplified(IArray(existing.alias, that.alias)),
               codePath = mergeCodePath(existing.codePath, that.codePath),
             )
 
@@ -139,12 +136,12 @@ object FlattenTrees {
       case that => rets += that
     }
 
-    rets.to[Seq]
+    rets.result()
   }
 
-  def newClassMembers(these: Seq[TsMember], thats: Seq[TsMember]): Seq[TsMember] = {
+  def newClassMembers(these: IArray[TsMember], thats: IArray[TsMember]): IArray[TsMember] = {
 
-    val rets = mutable.ArrayBuffer[TsMember]()
+    val rets = IArray.Builder[TsMember](IArray.Empty)
 
     (these ++ thats) foreach {
       case that: TsMemberProperty =>
@@ -162,7 +159,7 @@ object FlattenTrees {
           case existing: TsMemberIndex if that.indexing === existing.indexing =>
             existing.copy(
               comments   = mergeComments(existing.comments, that.comments),
-              valueType  = Some(TsTypeIntersect.simplified(Seq(existing.valueType, that.valueType).flatten)),
+              valueType  = Some(TsTypeIntersect.simplified(IArray.fromOptions(existing.valueType, that.valueType))),
               isOptional = existing.isOptional || that.isOptional,
             )
         }
@@ -171,21 +168,21 @@ object FlattenTrees {
         rets += other
     }
 
-    rets.to[Seq].distinct
+    rets.result().distinct
   }
 
   def bothTypes(one: Option[TsType], two: Option[TsType]): Option[TsType] =
-    one ++ two match {
-      case Nil      => None
-      case Seq(one) => Some(one)
-      case more     =>
+    IArray.fromOptions(one, two) match {
+      case IArray.Empty           => None
+      case IArray.exactlyOne(one) => Some(one)
+      case more                   =>
         /* if we combine a type query with an actual type, drop the former */
         val filtered = more.filterNot(_.isInstanceOf[TsTypeQuery]) match {
-          case Nil      => more
-          case Seq(one) => List(one)
-          case _        => more
+          case IArray.Empty           => more
+          case IArray.exactlyOne(one) => IArray(one)
+          case _                      => more
         }
-        Some(TsTypeIntersect.simplified(filtered.to[List]))
+        Some(TsTypeIntersect.simplified(filtered))
     }
 
   def mergeAugmentedModule(that: TsAugmentedModule, existing: TsAugmentedModule) =
@@ -208,9 +205,9 @@ object FlattenTrees {
     )
 
   def mergeEnum(that: TsDeclEnum, existing: TsDeclEnum) = {
-    val both         = Seq(existing, that)
+    val both         = IArray(existing, that)
     val codePaths    = both.map(_.codePath.forceHasPath.codePath).toSet
-    val exportedFrom = both.flatMap(_.exportedFrom).filterNot(x => codePaths(x.name)).headOption
+    val exportedFrom = both.mapNotNone(_.exportedFrom).filterNot(x => codePaths(x.name)).headOption
 
     TsDeclEnum(
       comments     = mergeComments(existing.comments, that.comments),
@@ -225,11 +222,12 @@ object FlattenTrees {
     )
   }
 
-  def mergeTypeParams(thats: Seq[TsTypeParam], existings: Seq[TsTypeParam]): Seq[TsTypeParam] =
+  def mergeTypeParams(thats: IArray[TsTypeParam], existings: IArray[TsTypeParam]): IArray[TsTypeParam] =
     if (thats.length >= existings.length) thats else existings
 
   def mergeClass(that: TsDeclClass, existing: TsDeclClass): TsDeclClass = {
-    val inheritance = (existing.parent.to[Seq] ++ that.parent ++ existing.implements ++ that.implements).distinct
+    val inheritance =
+      (IArray.fromOptions(existing.parent, that.parent) ++ existing.implements ++ that.implements).distinct
     TsDeclClass(
       comments   = mergeComments(existing.comments, that.comments),
       declared   = existing.declared || that.declared,

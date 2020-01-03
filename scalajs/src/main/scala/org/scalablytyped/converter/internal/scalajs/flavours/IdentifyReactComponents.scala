@@ -2,10 +2,6 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.seqs._
-
-import scala.collection.mutable
-
 class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
@@ -27,20 +23,20 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
 
-  def all(scope: TreeScope, tree: ContainerTree): List[Component] = {
-    def go(p: ContainerTree, scope: TreeScope): List[Component] = {
+  def all(scope: TreeScope, tree: ContainerTree): IArray[Component] = {
+    def go(p: ContainerTree, scope: TreeScope): IArray[Component] = {
       val fromSelf = p match {
         case ModuleTree(
             _,
             name,
-            Seq(TypeRef(QualifiedName.TopLevel, Seq(tpe), _)),
+            IArray.exactlyOne(TypeRef(QualifiedName.TopLevel, IArray.exactlyOne(tpe), _)),
             _,
             comments,
             codePath,
             isOverride,
             ) =>
           maybeFieldComponent(
-            FieldTree(Nil, name, tpe, MemberImpl.Native, true, isOverride, comments, codePath),
+            FieldTree(Empty, name, tpe, MemberImpl.Native, true, isOverride, comments, codePath),
             p,
             scope,
           )
@@ -48,12 +44,12 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
       }
       val fromMembers = p.members.flatMap {
         case x: ContainerTree => all(scope / x, x)
-        case x: ClassTree     => maybeClassComponent(x, p, scope / x).toList
-        case x: FieldTree     => maybeFieldComponent(x, p, scope / x).toList
-        case x: MethodTree    => maybeMethodComponent(x, p, scope / x).toList
-        case _ => Nil
+        case x: ClassTree     => IArray.fromOption(maybeClassComponent(x, p, scope / x))
+        case x: FieldTree     => IArray.fromOption(maybeFieldComponent(x, p, scope / x))
+        case x: MethodTree    => IArray.fromOption(maybeMethodComponent(x, p, scope / x))
+        case _ => Empty
       }
-      fromSelf.toList ++ fromMembers
+      IArray.fromOption(fromSelf) ++ fromMembers
     }
 
     go(tree, scope)
@@ -62,11 +58,13 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
   }
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
-  def oneOfEach(scope: TreeScope, tree: ContainerTree): Seq[Component] =
-    all(scope, tree)
-      .groupBy(_.fullName)
-      .map { case (_, sameName) => sameName.max }
-      .to[Seq]
+  def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =
+    IArray
+      .fromTraversable(
+        all(scope, tree)
+          .groupBy(_.fullName)
+          .map { case (_, sameName) => sameName.max },
+      )
       .sortBy(_.fullName)
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)
@@ -80,7 +78,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
           .lookup(current.typeName)
           .firstDefined {
             case (x: TypeAliasTree, newScope) =>
-              val rewritten = FillInTParams(x, newScope, current.targs, Nil)
+              val rewritten = FillInTParams(x, newScope, current.targs, Empty)
               returnsElement(scope, rewritten.alias)
             case _ => None
           }
@@ -114,7 +112,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
                 isGlobal         = isGlobal(owner.annotations),
                 componentType    = ComponentType.Field,
                 isAbstractProps  = isAbstractProps,
-                componentMembers = Nil,
+                componentMembers = Empty,
               )
 
             case _ =>
@@ -127,7 +125,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
                 isGlobal         = isGlobal(method.annotations),
                 componentType    = ComponentType.Function,
                 isAbstractProps  = isAbstractProps,
-                componentMembers = Nil,
+                componentMembers = Empty,
               )
 
           }
@@ -144,12 +142,12 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
           .lookup(current.typeName)
           .firstDefined {
             case (x: ClassTree, newScope) =>
-              val rewritten = FillInTParams(x, newScope, current.targs, Nil)
+              val rewritten = FillInTParams(x, newScope, current.targs, Empty)
               ParentsResolver(newScope, rewritten).transitiveParents.collectFirst {
                 case (tr, _) => pointsAtComponentType(newScope, tr)
               }.flatten
             case (x: TypeAliasTree, newScope) =>
-              val rewritten = FillInTParams(x, newScope, current.targs, Nil)
+              val rewritten = FillInTParams(x, newScope, current.targs, Empty)
               pointsAtComponentType(scope, rewritten.alias)
             case _ => None
           }
@@ -162,12 +160,12 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
       location         = locationFrom(scope),
       scalaRef         = TypeRef(field.codePath),
       fullName         = componentName(scope, owner.annotations, QualifiedName(field.name :: Nil), field.comments),
-      tparams          = Nil,
+      tparams          = Empty,
       props            = Some(props).filterNot(_ === TypeRef.Object),
       isGlobal         = isGlobal(field.annotations),
       componentType    = ComponentType.Field,
       isAbstractProps  = scope.isAbstract(props),
-      componentMembers = Nil,
+      componentMembers = Empty,
     )
 
     def isAliasToFC: Option[Component] =
@@ -178,8 +176,8 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
               annotations = field.annotations,
               level       = ProtectionLevel.Default,
               name        = field.name,
-              tparams     = Nil,
-              params      = List(params.map(p => ParamTree(Name.dummy, false, p, None, NoComments))),
+              tparams     = Empty,
+              params      = IArray(params.map(p => ParamTree(Name.dummy, false, p, None, NoComments))),
               impl        = field.impl,
               resultType  = ret,
               isOverride  = false,
@@ -199,7 +197,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
     if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, props +: _, _), _) if reactNames isComponent qname =>
+        case (TypeRef(qname, IArray.first(props), _), _) if reactNames isComponent qname =>
           Component(
             location         = locationFrom(scope),
             scalaRef         = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
@@ -216,7 +214,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
   object componentName {
     def apply(
         scope:    TreeScope,
-        anns:     Seq[Annotation],
+        anns:     IArray[Annotation],
         codePath: QualifiedName,
         comments: Comments,
     ): Name = {
@@ -233,9 +231,9 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
           .map(_._1)
 
       val name   = fromCodePath orElse fromAnnotations(anns) orElse fromNameHint
-      val prefix = if (isGlobal(anns)) Nil else extractPrefix(scope)
+      val prefix = if (isGlobal(anns)) Empty else extractPrefix(scope)
 
-      (prefix ++ name).map(_.unescaped.capitalize).distinct.mkString("") match {
+      (prefix ++ IArray.fromOption(name)).map(_.unescaped.capitalize).distinct.mkString("") match {
         case ""                             => Name("component")
         case other if other.endsWith("Cls") => Name(other.dropRight(3))
         case other                          => Name(other)
@@ -248,10 +246,10 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
       * If that owner is something called `default` or `namespaced` we want to dig out the
       *  last part of the name of the module
       */
-    def extractPrefix(scope: TreeScope): List[Name] = {
+    def extractPrefix(scope: TreeScope): IArray[Name] = {
 
       val containers  = scope.stack.dropRight(2).collect { case x: ContainerTree => x } // drop typings and lib
-      val kept        = mutable.ArrayBuffer.empty[Name]
+      val kept        = IArray.Builder.empty[Name]
       var idx         = 0
       var seenUnnamed = false
 
@@ -278,10 +276,10 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
         idx += 1
       }
 
-      kept.reverse.toList
+      kept.result().reverse
     }
 
-    def fromAnnotations(anns: Seq[Annotation]): Option[Name] =
+    def fromAnnotations(anns: IArray[Annotation]): Option[Name] =
       anns collectFirst {
         case Annotation.JsName(name)                                               => name
         case Annotation.JsImport(_, Imported.Named(names)) if !Unnamed(names.last) => names.last
@@ -296,7 +294,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
       }
   }
 
-  def isGlobal(as: Seq[Annotation]): Boolean =
+  def isGlobal(as: IArray[Annotation]): Boolean =
     as exists {
       case Annotation.JsGlobal(_)   => true
       case Annotation.JsGlobalScope => true
@@ -307,7 +305,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
 
   def locationFrom(scope: TreeScope): LocationAnnotation = {
     object Location {
-      def unapply(anns: Seq[ClassAnnotation]): Option[LocationAnnotation] =
+      def unapply(anns: IArray[ClassAnnotation]): Option[LocationAnnotation] =
         anns.collectFirst {
           case a: Annotation.JsImport => a
           case a: Annotation.JsGlobal => a
@@ -347,9 +345,9 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
                 case Imported.Namespace =>
                   tree.name match {
                     case Name.Default => Imported.Default
-                    case other        => Imported.Named(List(other))
+                    case other        => Imported.Named(IArray(other))
                   }
-                case Imported.Default     => Imported.Named(List(Name.Default, tree.name))
+                case Imported.Default     => Imported.Named(IArray(Name.Default, tree.name))
                 case Imported.Named(name) => Imported.Named(name :+ tree.name)
               }
             Annotation.JsImport(mod, newImported)

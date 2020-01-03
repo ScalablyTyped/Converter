@@ -5,7 +5,7 @@ import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.importer.Json
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder, PackageJsonDepsDecoder}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{BuildInfo, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{BuildInfo, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
 import sbt._
 
@@ -42,14 +42,14 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val config = ImportTypings.Input(
           BuildInfo.gitSha,
           os.read(packageJson).hashCode,
-          npmDeps.to[List],
+          IArray.fromTraversable(npmDeps),
           nodeModules,
           targetFolder,
           flavour,
           generateCompanions,
           enableScalaJsDefined,
           prettyStringType,
-          stdLib,
+          IArray.fromTraversable(stdLib),
           ignored,
           minimize,
         )

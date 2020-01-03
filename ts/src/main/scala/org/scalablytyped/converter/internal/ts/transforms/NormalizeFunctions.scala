@@ -2,8 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import seqs._
-
 /**
   * To give the scala compiler a fighting chance, we will have to rewrite things like this:
   * ```typescript
@@ -26,22 +24,22 @@ import seqs._
   */
 object NormalizeFunctions extends TransformMembers with TransformClassMembers {
   object ToRewrite {
-    def unapply(tpe: TsType): Option[Seq[TsFunSig]] =
+    def unapply(tpe: TsType): Option[IArray[TsFunSig]] =
       tpe match {
         case TsTypeObject(_, members) if members.nonEmpty =>
           members.partitionCollect { case x: TsMemberCall => x.signature } match {
-            case (calls, Nil) => Some(calls)
-            case _            => None
+            case (calls, Empty) => Some(calls)
+            case _              => None
           }
-        case TsTypeFunction(sig) => Some(List(sig))
+        case TsTypeFunction(sig) => Some(IArray(sig))
         case _                   => None
       }
   }
 
-  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.flatMap {
       case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
-        List(
+        IArray(
           TsMemberProperty(
             comments,
             level,
@@ -55,31 +53,31 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
         )
       case TsMemberProperty(cs, level, name, Some(ToRewrite(sigs)), None, isStatic, isReadOnly, isOptional) =>
         sigs.map(sig => TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional))
-      case other => List(other)
+      case other => IArray(other)
     }
 
   override def enterTsExporteeTree(t: TsTreeScope)(x: TsExporteeTree): TsExporteeTree =
     rewriteDecl(x.decl) match {
-      case Seq(one) => x.copy(decl = one)
-      case _        => x
+      case IArray.exactlyOne(one) => x.copy(decl = one)
+      case _                      => x
     }
 
-  def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+  def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
     x.members flatMap {
       case decl: TsDecl => rewriteDecl(decl)
-      case other => List(other)
+      case other => IArray(other)
     }
 
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
-      case TsTypeObject(_, Seq(TsMemberCall(_, _, sig))) => TsTypeFunction(sig)
-      case other                                         => other
+      case TsTypeObject(_, IArray.exactlyOne(TsMemberCall(_, _, sig))) => TsTypeFunction(sig)
+      case other                                                       => other
     }
 
-  private def rewriteDecl(d: TsDecl): Seq[TsDecl] =
+  private def rewriteDecl(d: TsDecl): IArray[TsDecl] =
     d match {
       case TsDeclVar(cs, declared, true, name, Some(ToRewrite(sigs)), None, jsLocation, codePath, _) =>
         sigs.map(sig => TsDeclFunction(cs, declared, name, sig, jsLocation, codePath))
-      case other => List(other)
+      case other => IArray(other)
     }
 }

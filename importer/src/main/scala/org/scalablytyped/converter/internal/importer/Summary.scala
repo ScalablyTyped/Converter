@@ -59,12 +59,12 @@ object Summary {
     s"""|Converter: ${diff.sha} - ${diff.newSuccesses.size} new successes, ${diff.newFailures.size} new failures
         |
         |New successes:
-        |${diff.newSuccesses.map[String, Seq[String]](x => x.value)(collection.breakOut).sorted.mkString("\n")}
+        |${diff.newSuccesses.map(x => x.value).toArray.sorted.mkString("\n")}
         |
         |New failures:
-        |${diff.newFailures.map[String, Seq[String]](x => x.value)(collection.breakOut).sorted.mkString("\n")}
+        |${diff.newFailures.map(x => x.value).toArray.sorted.mkString("\n")}
         |
         |Old failures
-        |${diff.oldFailures.map[String, Seq[String]](x => x.value)(collection.breakOut).sorted.mkString("\n")}
+        |${diff.oldFailures.map(x => x.value).toArray.sorted.mkString("\n")}
         |""".stripMargin
 }

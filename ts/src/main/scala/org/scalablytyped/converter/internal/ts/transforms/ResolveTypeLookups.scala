@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 
 object ResolveTypeLookups extends TreeTransformationScopedChanges {
@@ -18,7 +17,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
   private val toIgnore = Set[TsType](TsTypeRef.never, TsTypeRef.any, TsTypeRef.`object`)
 
   def optional(tpe: TsType, isOptional: Boolean): TsType =
-    if (isOptional) TsTypeUnion.simplified(tpe :: TsTypeRef.undefined :: Nil)
+    if (isOptional) TsTypeUnion.simplified(IArray(tpe, TsTypeRef.undefined))
     else tpe
 
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
@@ -38,19 +37,19 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   val NonStatic = false
 
-  def pick(members: Seq[TsMember], strings: Set[String]): Option[TsType] =
+  def pick(members: IArray[TsMember], strings: Set[String]): Option[TsType] =
     if (strings.isEmpty) {
       members.collectFirst {
         case TsMemberIndex(_, _, _, _, isOptional, valueType) =>
           optional(valueType.getOrElse(TsTypeRef.any), isOptional)
       }
     } else
-      TsTypeUnion.simplified(strings.toList.map(x => pick(members, x)) filterNot toIgnore) match {
+      TsTypeUnion.simplified(IArray.fromTraversable(strings.map(x => pick(members, x))) filterNot toIgnore) match {
         case TsTypeRef.never => None
         case other           => Some(other)
       }
 
-  def pick(members: Seq[TsMember], Wanted: String): TsType = {
+  def pick(members: IArray[TsMember], Wanted: String): TsType = {
     val (functions, fields, _) = members.partitionCollect2(
       { case TsMemberFunction(_, _, TsIdent(Wanted), sig, NonStatic, _, false) => sig }, {
         case TsMemberProperty(_, _, TsIdent(Wanted), tpeOpt, _, NonStatic, _, isOptional) =>
@@ -59,8 +58,8 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
       },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {
-      case Nil      => None
-      case Seq(one) => Some(TsTypeFunction(one))
+      case IArray.Empty           => None
+      case IArray.exactlyOne(one) => Some(TsTypeFunction(one))
       case more =>
         Some(TsTypeObject(NoComments, more.map(sig => TsMemberCall(NoComments, ProtectionLevel.Default, sig))))
     }

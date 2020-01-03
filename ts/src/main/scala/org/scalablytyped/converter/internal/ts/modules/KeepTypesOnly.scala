@@ -17,7 +17,7 @@ object KeepTypesOnly {
   def named(x: TsNamedDecl): Option[TsNamedDecl] = x match {
     case _: TsDeclVar | _: TsDeclFunction => None
     case TsDeclClass(comments, declared, _, name, tparams, parent, implements, members, _, _) =>
-      val nonStatics: Seq[TsMember] =
+      val nonStatics: IArray[TsMember] =
         members filterNot {
           case _:  TsMemberCtor     => true
           case xx: TsMemberProperty => xx.isStatic
@@ -25,10 +25,20 @@ object KeepTypesOnly {
           case _ => false
         }
 
-      Some(TsDeclInterface(comments, declared, name, tparams, parent.to[Seq] ++ implements, nonStatics, x.codePath))
+      Some(
+        TsDeclInterface(
+          comments,
+          declared,
+          name,
+          tparams,
+          IArray.fromOption(parent) ++ implements,
+          nonStatics,
+          x.codePath,
+        ),
+      )
 
-    case x: TsDeclNamespace   => Some(x.copy(members = x.members flatMap apply))
-    case x: TsAugmentedModule => Some(x.copy(members = x.members flatMap apply))
+    case x: TsDeclNamespace   => Some(x.copy(members = x.members mapNotNone apply))
+    case x: TsAugmentedModule => Some(x.copy(members = x.members mapNotNone apply))
     case x: TsDeclEnum        => Some(x.copy(isValue = false))
     case other => Some(other)
   }

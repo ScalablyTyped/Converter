@@ -11,7 +11,7 @@ object ExtractInterfaces {
     val V     = new LiftTypeObjects(store)
     val asd   = V.visitTsParsedFile(scope)(file)
 
-    asd.copy(members = asd.members ++ store.interfaces.values)
+    asd.copy(members = asd.members ++ IArray.fromTraversable(store.interfaces.values))
   }
 
   class ConflictHandlingStore(inLibrary: TsIdent) {
@@ -20,7 +20,7 @@ object ExtractInterfaces {
     def addInterface(
         scope:       TsTreeScope,
         prefix:      String,
-        members:     Seq[TsTree],
+        members:     IArray[TsTree],
         minNumParts: Int,
         construct:   TsIdentSimple => TsDeclInterface,
     ): CodePath.HasPath = {
@@ -46,13 +46,13 @@ object ExtractInterfaces {
   def partOfTypeMapping(stack: List[TsTree], obj: TsTypeObject): Boolean =
     stack.exists(_.isInstanceOf[TsMemberTypeMapped]) || isTypeMapping(obj.members)
 
-  def isTypeMapping(members: Seq[TsMember]): Boolean =
+  def isTypeMapping(members: IArray[TsMember]): Boolean =
     members match {
-      case Seq(_: TsMemberTypeMapped) => true
+      case IArray.exactlyOne(_: TsMemberTypeMapped) => true
       case _ => false
     }
 
-  def isDictionary(members: Seq[TsMember]): Boolean =
+  def isDictionary(members: IArray[TsMember]): Boolean =
     members.nonEmpty && members.forall {
       case TsMemberIndex(_, _, _, IndexingDict(_, _), _, _) => true
       case _                                                => false
@@ -66,7 +66,7 @@ object ExtractInterfaces {
               !isDictionary(obj.members) &&
               !partOfTypeMapping(scope.stack, obj) &&
               shouldBeExtracted(scope) =>
-          val referencedTparams: Seq[TsTypeParam] =
+          val referencedTparams: IArray[TsTypeParam] =
             TypeParamsReferencedInTree(scope.tparams, obj)
 
           val nameHint = obj.comments.extract {
@@ -86,7 +86,7 @@ object ExtractInterfaces {
                 declared = true,
                 name,
                 referencedTparams,
-                Nil,
+                Empty,
                 obj.members,
                 CodePath.NoPath,
               ),

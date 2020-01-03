@@ -15,7 +15,7 @@ object FollowAliases {
           .lookup(ref.typeName)
           .collectFirst {
             case (ta: TypeAliasTree, newScope) =>
-              apply(newScope)(FillInTParams(ta, scope, ref.targs, Nil).alias)
+              apply(newScope)(FillInTParams(ta, scope, ref.targs, Empty).alias)
           }
           .getOrElse(ref)
     }

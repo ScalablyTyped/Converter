@@ -11,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_RefProps_1191556847[ComponentRef <: js.Object] (implicit pw: ExternalPropsWriterProvider)
+abstract class SharedApply_RefProps2093507133[ComponentRef <: js.Object] (implicit pw: ExternalPropsWriterProvider)
   extends ExternalComponentWithAttributesWithRefType[tag.type, ComponentRef] {
   def apply(innerRef: typingsSlinky.react.reactMod.Ref[_] = null, _overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, ComponentRef] = {
     val __obj = js.Dynamic.literal()

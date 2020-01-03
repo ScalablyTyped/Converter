@@ -32,7 +32,7 @@ object TsTypeFormatter {
         ).flatten.mkString(" ")
     }
 
-  def tparams[T](ts: Seq[T])(f: T => String): Option[String] =
+  def tparams[T <: AnyRef](ts: IArray[T])(f: T => String): Option[String] =
     if (ts.isEmpty) None else Some("<" + ts.map(f).mkString(", ") + ">")
 
   def level(l: ProtectionLevel): Option[String] =

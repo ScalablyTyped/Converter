@@ -1,21 +1,19 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import scala.collection.mutable
-
 object TsTreeTraverse {
-  def collect[T](tree: TsTree)(extract: PartialFunction[TsTree, T]): Seq[T] =
-    collectSeq(Seq(tree))(extract)
+  def collect[T <: AnyRef](tree: TsTree)(extract: PartialFunction[TsTree, T]): IArray[T] =
+    collectIArray(IArray(tree))(extract)
 
-  def collectSeq[T](tree: Traversable[TsTree])(extract: PartialFunction[TsTree, T]): Seq[T] = {
-    val buf = mutable.Buffer.empty[T]
+  def collectIArray[T <: AnyRef](tree: IArray[TsTree])(extract: PartialFunction[TsTree, T]): IArray[T] = {
+    val buf = IArray.Builder.empty[T]
 
     tree foreach go(extract, buf)
 
-    buf.to[Seq]
+    buf.result()
   }
 
-  private def go[T](extract: PartialFunction[TsTree, T], buf: mutable.Buffer[T])(tree: TsTree): Unit = {
+  private def go[T <: AnyRef](extract: PartialFunction[TsTree, T], buf: IArray.Builder[T])(tree: TsTree): Unit = {
     if (extract.isDefinedAt(tree)) {
       buf += extract(tree)
     }
@@ -24,6 +22,7 @@ object TsTreeTraverse {
       a match {
         case x:  TsTree if x ne tree => go(extract, buf)(x)
         case xs: TraversableOnce[_]  => xs foreach rec
+        case xs: IArray[_]           => xs foreach rec
         case p:  Product             => p.productIterator foreach rec
         case _ => ()
       }

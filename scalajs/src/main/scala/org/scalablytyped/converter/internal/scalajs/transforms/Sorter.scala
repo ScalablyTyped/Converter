@@ -5,6 +5,7 @@ package transforms
 import scala.annotation.switch
 
 object Sorter extends TreeTransformation {
+
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
     s.copy(members = s.members.sorted(TreeOrdering), ctors = s.ctors.sorted(TreeOrdering))
 
@@ -20,9 +21,9 @@ object Sorter extends TreeTransformation {
         case (m1: MethodTree, m2: MethodTree) =>
           (m1.name.unescaped.compareTo(m2.name.unescaped): @switch) match {
             case 0 =>
-              (m1.tparams.size.compareTo(m2.tparams.size): @switch) match {
+              (m1.tparams.length.compareTo(m2.tparams.length): @switch) match {
                 case 0 =>
-                  (m1.params.size.compareTo(m2.params.size): @switch) match {
+                  (m1.params.length.compareTo(m2.params.length): @switch) match {
                     case 0 =>
                       // well, the rest was fast enough, so... :)
                       val p1: String =
@@ -42,7 +43,7 @@ object Sorter extends TreeTransformation {
           }
 
         case (c1: CtorTree, c2: CtorTree) =>
-          (c1.params.size.compareTo(c2.params.size): @switch) match {
+          (c1.params.length.compareTo(c2.params.length): @switch) match {
             case 0 =>
               val p1: String =
                 c1.params.map(p => p.name.unescaped + Printer.formatQN(p.tpe.typeName)).mkString

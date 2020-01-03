@@ -117,7 +117,7 @@ lazy val baseSettings: Project => Project =
       ),
     )),
     /* disable scaladoc */
-    sources in (Compile, doc) := Seq.empty,
+    sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
   )
 

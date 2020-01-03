@@ -126,10 +126,11 @@ final class CommentTests extends FunSuite with Matchers {
                     |""".stripMargin
 
     TsTreeTraverse
-      .collectSeq(parseAs(content, TsParser.tsDeclVars)) {
+      .collectIArray(parseAs(content, TsParser.tsDeclVars)) {
         case s: TsDeclVar  => s.comments
         case s: TsFunParam => s.comments
       }
+      .toList
       .flatMap(_.cs)
       .size should be(3)
   }
@@ -149,7 +150,7 @@ final class CommentTests extends FunSuite with Matchers {
         TsParser.tsDeclEnum,
       )
 
-    val cs: Traversable[Seq[Comment]] =
+    val cs: IArray[List[Comment]] =
       TsTreeTraverse
         .collect(res) {
           case t: TsDeclEnum   => t.comments.cs
@@ -158,10 +159,10 @@ final class CommentTests extends FunSuite with Matchers {
         .filter(_.nonEmpty)
 
     cs should be(
-      Seq(
-        Seq(Comment("/** A */\n"), Comment("        //asd\n")),
-        Seq(Comment("/** B */\n"), Comment(" //bjarne\n")),
-        Seq(Comment("/** C */\n"), Comment(" //arne\n")),
+      IArray(
+        List(Comment("/** A */\n"), Comment("        //asd\n")),
+        List(Comment("/** B */\n"), Comment(" //bjarne\n")),
+        List(Comment("/** C */\n"), Comment(" //arne\n")),
       ),
     )
   }
@@ -183,7 +184,7 @@ final class CommentTests extends FunSuite with Matchers {
       {//arne
                     |member: any, //arne2
                     |}""".stripMargin, TsParser.tsMembers)(
-      List(
+      IArray(
         TsMemberProperty(
           NoComments,
           ProtectionLevel.Default,
@@ -209,7 +210,7 @@ final class CommentTests extends FunSuite with Matchers {
     )(
       TsTypeObject(
         NoComments,
-        List(
+        IArray(
           TsMemberProperty(
             NoComments,
             ProtectionLevel.Default,
@@ -224,7 +225,7 @@ final class CommentTests extends FunSuite with Matchers {
             NoComments,
             ProtectionLevel.Default,
             TsIdent("size"),
-            Some(TsTypeRef(NoComments, TsQIdent.number, Nil)),
+            Some(TsTypeRef(NoComments, TsQIdent.number, Empty)),
             None,
             isStatic   = false,
             isReadOnly = false,
@@ -248,11 +249,11 @@ final class CommentTests extends FunSuite with Matchers {
             TsIdent("Map"),
             TsFunSig(
               NoComments,
-              List(
+              IArray(
                 TsTypeParam(NoComments, TsIdent("K"), None, None),
                 TsTypeParam(NoComments, TsIdent("V"), None, None),
               ),
-              List(
+              IArray(
                 TsFunParam(
                   NoComments,
                   TsIdent("iter"),
@@ -260,7 +261,7 @@ final class CommentTests extends FunSuite with Matchers {
                     TsTypeRef(
                       NoComments,
                       TsQIdent(List(TsIdent("Iterable"))),
-                      List(TsTypeRef.any, TsTypeRef(NoComments, TsQIdent(List(TsIdent("Array"))), List(TsTypeRef.any))),
+                      IArray(TsTypeRef.any, TsTypeRef(NoComments, TsQIdent(List(TsIdent("Array"))), IArray(TsTypeRef.any))),
                     ),
                   ),
                   isOptional = false,
@@ -270,9 +271,9 @@ final class CommentTests extends FunSuite with Matchers {
                 TsTypeRef(
                   NoComments,
                   TsQIdent(List(TsIdent("Map"))),
-                  List(
-                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Nil),
-                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Nil),
+                  IArray(
+                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Empty),
+                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Empty),
                   ),
                 ),
               ),
@@ -382,9 +383,9 @@ final class CommentTests extends FunSuite with Matchers {
       TsTypeRef(
         NoComments,
         TsQIdent(List(TsIdentSimple("F"))),
-        List(
-          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), List()),
-          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), List()),
+        IArray(
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), IArray()),
+          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), IArray()),
         ),
       ),
     )
@@ -463,6 +464,6 @@ declare const Infinity: number;
 """
 
     val forced: TsParsedFile = TsParser(content).force
-    assert(forced.directives.size == 1)
+    assert(forced.directives.length == 1)
   }
 }

@@ -5,7 +5,7 @@ import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.importer.Json
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal.{BuildInfo, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{BuildInfo, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
@@ -25,7 +25,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         //Make sure it doesn't already exist
         (npmDependencies in Compile).value
           .find(_._1 == "typescript")
-          .fold(Seq("typescript" -> (stTypescriptVersion).value))(_ => Seq.empty)
+          .fold(Seq("typescript" -> (stTypescriptVersion).value))(_ => Nil)
       },
       stImport := {
         val cacheDirectory       = streams.value.cacheDirectory
@@ -45,14 +45,14 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val config = ImportTypings.Input(
           BuildInfo.gitSha,
           os.read(os.Path(packageJson)).hashCode,
-          npmDeps.to[List],
+          IArray.fromTraversable(npmDeps),
           nodeModules,
           targetFolder,
           flavour,
           generateCompanions,
           enableScalaJsDefined,
           prettyStringType,
-          stdLib,
+          IArray.fromTraversable(stdLib),
           ignored,
           minimize,
         )

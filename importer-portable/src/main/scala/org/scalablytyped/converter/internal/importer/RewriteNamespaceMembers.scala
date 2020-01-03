@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.seqs._
 
 /**
   * Account for an... interesting case of piece of modelling. We'll fix it some day, but for now I doubled down on it.
@@ -15,7 +14,7 @@ import org.scalablytyped.converter.internal.seqs._
   * This undoes the damage.
   */
 object RewriteNamespaceMembers {
-  def apply(original: Seq[Tree]): (Seq[TypeRef], Seq[MemberTree], Seq[Tree]) =
+  def apply(original: IArray[Tree]): (IArray[TypeRef], IArray[MemberTree], IArray[Tree]) =
     original.partitionCollect4(
       { case x: FieldTree if x.name === Name.namespaced     => x },
       { case x: MethodTree if x.name === Name.namespaced    => x },
@@ -23,20 +22,20 @@ object RewriteNamespaceMembers {
       { case x: MemberTree                                  => x },
     ) match {
       case (namespacedFields, namespacedMethods, namespacedContainers, memberTrees, remaining) =>
-        val inheritance: Seq[TypeRef] = {
+        val inheritance: IArray[TypeRef] = {
           val fromFields = namespacedFields.map(x => x.tpe)
           val fromContainers = namespacedContainers.flatMap {
-            case _: PackageTree => Nil
+            case _: PackageTree => Empty
             case ModuleTree(_, _, parents, _, _, _, _) =>
               parents map {
-                case TypeRef(QualifiedName.TopLevel, Seq(parent), _) => parent
-                case parent                                          => parent
+                case TypeRef(QualifiedName.TopLevel, IArray.exactlyOne(parent), _) => parent
+                case parent                                                        => parent
               }
           }
-          (fromFields ++ fromContainers).toList.distinct match {
-            case Nil => Nil
+          (fromFields ++ fromContainers).distinct match {
+            case Empty => Empty
             /* This is a shortcut so we don't have to implement the members */
-            case more => Seq(TypeRef.TopLevel(TypeRef.Intersection(more)))
+            case more => IArray(TypeRef.TopLevel(TypeRef.Intersection(more)))
           }
         }
 

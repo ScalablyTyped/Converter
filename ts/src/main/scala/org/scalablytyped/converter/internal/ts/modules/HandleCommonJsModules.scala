@@ -3,7 +3,6 @@ package ts
 package modules
 
 import org.scalablytyped.converter.internal.ts.transforms.{QualifyReferences, SetCodePath}
-import seqs._
 
 /**
   * It's really difficult to reconcile two module systems, this is a preparational step which
@@ -47,9 +46,10 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
     * If this is a commonjs module we extract the name of the exported thing
     */
   object EqualsExport {
-    def unapply(x: TsDeclModule): Option[((TsExport, List[TsIdent]), Seq[TsContainerOrDecl])] = {
+    def unapply(x: TsDeclModule): Option[((TsExport, List[TsIdent]), IArray[TsContainerOrDecl])] = {
       val (es, rest) = x.members.partitionCollect {
-        case e @ TsExport(_, ExportType.Namespaced, TsExporteeNames(Seq((TsQIdent(qident), None)), _)) => e -> qident
+        case e @ TsExport(_, ExportType.Namespaced, TsExporteeNames(IArray.exactlyOne((TsQIdent(qident), None)), _)) =>
+          e -> qident
       }
       es.headOption.map(e => e -> rest)
     }
@@ -98,7 +98,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
             }
             .map(x => SetCodePath.visitTsContainerOrDecl(mod.codePath.forceHasPath)(x))
 
-          val maybeKeepOriginalExport = if (toplevel.nonEmpty) List(export) else Nil
+          val maybeKeepOriginalExport = if (toplevel.nonEmpty) IArray(export) else Empty
 
           /* handle (3) */
           val patchedRest = rest.filter {
@@ -106,8 +106,8 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                 _,
                 _,
                 typeName,
-                Nil,
-                TsTypeRef(_, TsQIdent(`target` :: referredName :: Nil), Nil),
+                Empty,
+                TsTypeRef(_, TsQIdent(`target` :: referredName :: Nil), Empty),
                 _,
                 ) =>
               referredName =/= typeName
@@ -122,7 +122,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   _,
                   ExportType.Named,
                   TsExporteeTree(
-                    TsImport(Seq(TsImportedIdent(newName)), TsImporteeLocal(TsQIdent(List(name)))),
+                    TsImport(IArray.exactlyOne(TsImportedIdent(newName)), TsImporteeLocal(TsQIdent(List(name)))),
                   ),
                   ) if name.value === target.value =>
                 TsExport(

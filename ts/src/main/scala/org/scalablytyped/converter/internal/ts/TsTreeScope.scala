@@ -23,7 +23,7 @@ sealed trait TsTreeScope {
   def `..`           : TsTreeScope
   def moduleScopes:    Map[TsIdentModule, TsTreeScope.Scoped]
   def moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped]
-  def exports:         Seq[TsExport]
+  def exports:         IArray[TsExport]
 
   def fatalMaybe[T: Formatter](t: Text[T])(implicit l: Line, f: File, e: Enclosing): Unit =
     if (root.pedantic) logger.fatal(t) else logger.warn(t)
@@ -51,25 +51,28 @@ sealed trait TsTreeScope {
       case _          => false
     }
 
-  final def lookup(qname: TsQIdent, skipValidation: Boolean = false): Seq[TsNamedDecl] =
+  final def lookup(qname: TsQIdent, skipValidation: Boolean = false): IArray[TsNamedDecl] =
     lookupIncludeScope(qname, skipValidation).map(_._1)
 
-  final def lookupIncludeScope(qname: TsQIdent, skipValidation: Boolean = false): Seq[(TsNamedDecl, TsTreeScope)] =
+  final def lookupIncludeScope(qname: TsQIdent, skipValidation: Boolean = false): IArray[(TsNamedDecl, TsTreeScope)] =
     lookupBase(Picker.All, qname, skipValidation)
 
-  final def lookupType(qname: TsQIdent, skipValidation: Boolean = false): Seq[TsNamedDecl] =
+  final def lookupType(qname: TsQIdent, skipValidation: Boolean = false): IArray[TsNamedDecl] =
     lookupBase(Picker.Types, qname, skipValidation).map(_._1)
 
-  final def lookupTypeIncludeScope(qname: TsQIdent, skipValidation: Boolean = false): Seq[(TsNamedDecl, TsTreeScope)] =
+  final def lookupTypeIncludeScope(
+      qname:          TsQIdent,
+      skipValidation: Boolean = false,
+  ): IArray[(TsNamedDecl, TsTreeScope)] =
     lookupBase(Picker.Types, qname, skipValidation)
 
   final def lookupBase[T <: TsNamedDecl](
       picker:         Picker[T],
       qname:          TsQIdent,
       skipValidation: Boolean = false,
-  ): Seq[(T, TsTreeScope)] = {
+  ): IArray[(T, TsTreeScope)] = {
     if ((TsQIdent Primitive qname) || isAbstract(qname))
-      return Nil
+      return Empty
 
     val res = lookupInternal(picker, qname.parts, LoopDetector.initial)
 
@@ -86,10 +89,10 @@ sealed trait TsTreeScope {
       picker:       Picker[T],
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
-  ): Seq[(T, TsTreeScope)] =
+  ): IArray[(T, TsTreeScope)] =
     loopDetector.including(wanted, this) match {
       case Left(_) =>
-        Nil
+        Empty
       case Right(newLoopDetector) =>
         wanted match {
           case root.libName :: rest => lookupImpl(picker, rest, newLoopDetector)
@@ -101,7 +104,7 @@ sealed trait TsTreeScope {
       picker:       Picker[T],
       fragments:    List[TsIdent],
       loopDetector: LoopDetector,
-  ): Seq[(T, TsTreeScope)]
+  ): IArray[(T, TsTreeScope)]
 
   final override lazy val toString: String =
     s"TreeScope(${stack.reverse.map(_.asString).mkString(" / ")})"
@@ -128,14 +131,14 @@ object TsTreeScope {
     def packageJsonOpt: Option[PackageJsonDeps]
   }
 
-  type C = mutable.Map[(TsTreeScope, Picker[_], List[TsIdent]), Seq[(TsNamedDecl, TsTreeScope)]]
+  type C = mutable.Map[(TsTreeScope, Picker[_], List[TsIdent]), IArray[(TsNamedDecl, TsTreeScope)]]
   case class Cache(
-      applyTypeMapping:  mutable.Map[TsTypeRef, ExpandTypeMappings.Res[Seq[TsMember]]] = mutable.Map.empty,
-      lookupExportFrom:  C                                                             = mutable.Map.empty,
-      lookupFromImports: C                                                             = mutable.Map.empty,
-      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]                      = mutable.Map.empty,
-      expandExport:      mutable.Map[(TsTreeScope, TsExport), Seq[TsNamedDecl]]        = mutable.Map.empty,
-      expandImportee:    mutable.Map[(TsTreeScope, TsImportee), ExpandedMod]           = mutable.Map.empty,
+      applyTypeMapping:  mutable.Map[TsTypeRef, ExpandTypeMappings.Res[IArray[TsMember]]] = mutable.Map.empty,
+      lookupExportFrom:  C                                                                = mutable.Map.empty,
+      lookupFromImports: C                                                                = mutable.Map.empty,
+      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]                         = mutable.Map.empty,
+      expandExport:      mutable.Map[(TsTreeScope, TsExport), IArray[TsNamedDecl]]        = mutable.Map.empty,
+      expandImportee:    mutable.Map[(TsTreeScope, TsImportee), ExpandedMod]              = mutable.Map.empty,
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 
@@ -185,7 +188,7 @@ object TsTreeScope {
     override def tparams = Map.empty
     override def `..`    = this
     override def tkeys   = Set.empty
-    override def exports = Nil
+    override def exports = Empty
 
     private lazy val depScopes: Map[TsIdentLibrary, (TsLib, TsParsedFile, Scoped)] = _deps.map {
       case (s, file) => s.libName -> ((s, file, this / file))
@@ -233,23 +236,22 @@ object TsTreeScope {
         picker:       Picker[T],
         fragments:    List[TsIdent],
         loopDetector: LoopDetector,
-    ): Seq[(T, TsTreeScope)] =
+    ): IArray[(T, TsTreeScope)] =
       fragments match {
         case (depName: TsIdentLibrary) :: tail =>
           depScopes.get(depName) match {
             case Some((_, dep, libScope)) => search(libScope, picker, dep, tail, loopDetector)
-            case None                     => Nil
+            case None                     => Empty
           }
 
         case _ =>
           depScopes
             .get(TsIdent.std)
             .map { case (_, lib, libScope) => search(libScope, picker, lib, fragments, loopDetector) }
-            .getOrElse(Nil) match {
-            case Nil =>
-              depScopes.values.to[Seq] flatMap {
-                case (_, lib, libScope) =>
-                  search(libScope, picker, lib, fragments, loopDetector)
+            .getOrElse(Empty) match {
+            case Empty =>
+              IArray.fromTraversable(depScopes.values) flatMap {
+                case (_, lib, libScope) => search(libScope, picker, lib, fragments, loopDetector)
               }
             case found => found
           }
@@ -275,11 +277,11 @@ object TsTreeScope {
       _stack
     }
 
-    override val root         = outer.root
-    override lazy val logger  = outer.logger.withContext("scope", this)
+    override val root        = outer.root
+    override lazy val logger = outer.logger.withContext("scope", this)
 //    override val stack        = current :: outer.stack
     override def `..`         = outer
-    override lazy val tparams = outer.tparams ++ HasTParams(current).map(x => x.name -> x)
+    override lazy val tparams = outer.tparams ++ HasTParams(current).map(x => x.name -> x).toMap
     override lazy val tkeys =
       current match {
         case x: TsMemberTypeMapped => outer.tkeys + x.key
@@ -290,10 +292,10 @@ object TsTreeScope {
 //      logger.fatal(s"Circular tree detected")
 //    }
 
-    lazy val exports: Seq[TsExport] =
+    lazy val exports: IArray[TsExport] =
       current match {
         case x: TsContainer => x.exports
-        case _ => Seq.empty
+        case _ => Empty
       }
 
     override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
@@ -317,61 +319,61 @@ object TsTreeScope {
         Pick:         Picker[T],
         wanted:       List[TsIdent],
         loopDetector: LoopDetector,
-    ): Seq[(T, TsTreeScope)] = {
+    ): IArray[(T, TsTreeScope)] = {
 
-      def local: Seq[(T, TsTreeScope)] =
+      def local: IArray[(T, TsTreeScope)] =
         (wanted, current) match {
-          case (Nil, Pick(x)) => Seq((x, this))
+          case (Nil, Pick(x)) => IArray((x, this))
           case (frags, x: TsContainer) =>
             search(this, Pick, x, frags, loopDetector)
           case (frags, x: TsDeclVar) =>
             search(this, Pick, x, frags, loopDetector)
-          case _ => Nil
+          case _ => Empty
         }
 
-      def exportedFromModule: Seq[(T, TsTreeScope)] =
+      def exportedFromModule: IArray[(T, TsTreeScope)] =
         current match {
           case x: TsDeclNamespaceOrModule => Exports.lookupExportFrom(this, Pick, wanted, loopDetector, x)
-          case _ => Nil
+          case _ => Empty
         }
 
-      def importedFromModule: Seq[(T, TsTreeScope)] =
+      def importedFromModule: IArray[(T, TsTreeScope)] =
         current match {
           case x: TsContainer =>
             Imports.lookupFromImports(this, Pick, wanted, loopDetector, x.imports)
-          case _ => Nil
+          case _ => Empty
         }
 
-      def augmentedModule: Seq[(T, TsTreeScope)] =
+      def augmentedModule: IArray[(T, TsTreeScope)] =
         current match {
           case x: TsAugmentedModule =>
             moduleScopes.get(x.name) match {
               case Some(xx) => xx.lookupInternal(Pick, wanted, loopDetector)
-              case None     => Nil
+              case None     => Empty
             }
 
           case x: TsDeclModule =>
             moduleAuxScopes.get(x.name) match {
               case Some(xx) => xx lookupInternal (Pick, wanted, loopDetector)
-              case None     => Nil
+              case None     => Empty
             }
 
-          case _ => Nil
+          case _ => Empty
         }
 
-      def fromGlobals: Seq[(T, TsTreeScope)] =
+      def fromGlobals: IArray[(T, TsTreeScope)] =
         (wanted, current) match {
           case (TsIdent.Global :: tail, x: TsContainer) =>
             val globalOpt = x.unnamed collectFirst { case x: TsGlobal => x }
             globalOpt match {
               case Some(global) =>
                 search(this, Pick, global, tail, loopDetector)
-              case None => Nil
+              case None => Empty
             }
-          case _ => Nil
+          case _ => Empty
         }
 
-      def prototype: Seq[(T, TsTreeScope)] =
+      def prototype: IArray[(T, TsTreeScope)] =
         wanted match {
           case head :: TsIdent.prototype :: (tail: TsIdentSimple) :: Nil =>
             lookupInternal(Picker.HasClassMemberss, head :: Nil, loopDetector).flatMap {
@@ -379,19 +381,19 @@ object TsTreeScope {
                 cls.membersByName.get(tail) match {
                   case Some(found) =>
                     found
-                      .flatMap(member =>
+                      .mapNotNone(member =>
                         Hoisting.memberToDecl(cls.codePath + TsIdent.prototype, JsLocation.Zero)(member),
                       )
                       .collect {
                         case Pick(x) => (x, newScope)
                       }
-                  case None => Nil
+                  case None => Empty
                 }
             }
-          case _ => Nil
+          case _ => Empty
         }
 
-      var ret: Seq[(T, TsTreeScope)] = Nil
+      var ret: IArray[(T, TsTreeScope)] = Empty
 
       if (current.isInstanceOf[TsDecl] || current.isInstanceOf[TsContainer]) {
         ret = local
@@ -423,12 +425,12 @@ object TsTreeScope {
       c:            TsTree,
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
-  ): Seq[(T, TsTreeScope)] =
+  ): IArray[(T, TsTreeScope)] =
     wanted match {
       case Nil =>
         c match {
-          case Pick(x) => Seq((x, scope / x))
-          case _       => Nil
+          case Pick(x) => IArray((x, scope / x))
+          case _       => Empty
         }
 
       case one :: Nil =>
@@ -436,7 +438,7 @@ object TsTreeScope {
           case cc: TsContainer =>
             cc.membersByNameMeh get one match {
               case Some(decls) => decls collect { case Pick(x) => (x, scope / x) }
-              case None        => Nil
+              case None        => Empty
             }
 
           case TsDeclVar(_, _, _, _, Some(tpe), _, jsLocation, cp, false) =>
@@ -444,7 +446,7 @@ object TsTreeScope {
               case Pick(x) if one === x.name => x -> scope
             }
 
-          case _ => Nil
+          case _ => Empty
         }
 
       case h :: t =>
@@ -458,24 +460,27 @@ object TsTreeScope {
                     *  On the positive side it feels almost as hacked in in typescript
                     */
                   case x: TsDeclEnum if t.length === 1 =>
-                    val member = x.members.find(m => t.head === m.name).toList.flatMap { m =>
+                    val member = x.members.find(m => t.head === m.name).map { m =>
                       val fakeTa = {
                         val codePath = x.exportedFrom.fold(x.codePath.forceHasPath.codePath)(_.name).parts match {
                           case Nil             => sys.error("Unexpected empty codePath")
                           case libName :: rest => CodePath.HasPath(libName, TsQIdent(rest :+ m.name))
                         }
-                        TsDeclTypeAlias(NoComments, false, m.name, Nil, TsExpr.typeOfOpt(m.expr), codePath)
+                        TsDeclTypeAlias(NoComments, false, m.name, Empty, TsExpr.typeOfOpt(m.expr), codePath)
                       }
 
                       def fakeVar = {
                         val loc = x.jsLocation + m.name
                         TsDeclVar(NoComments, false, true, m.name, None, m.expr, loc, x.codePath + m.name, false)
                       }
-                      if (x.isConst) List(fakeTa) else List(fakeTa, fakeVar)
+                      if (x.isConst) IArray(fakeTa) else IArray(fakeTa, fakeVar)
                     }
-
-                    member.collect {
-                      case Pick(x) => x -> scope
+                    member match {
+                      case Some(founds) =>
+                        founds.collect {
+                          case Pick(x) => x -> scope
+                        }
+                      case _ => IArray.Empty
                     }
                   case x: TsContainer =>
                     (scope / x).lookupInternal(Pick, t, loopDetector)
@@ -487,11 +492,11 @@ object TsTreeScope {
                       case Pick(x) if t.headOption.contains(x.name) => x -> scope
                     }
 
-                  case _ => Nil
+                  case _ => IArray.Empty
                 }
-              case None => Nil
+              case None => Empty
             }
-          case _ => Nil
+          case _ => Empty
         }
     }
 }
@@ -508,7 +513,7 @@ object ExtendingScope {
       Pick:         Picker[T],
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
-  ): Seq[(T, TsTreeScope)] =
+  ): IArray[(T, TsTreeScope)] =
     scope.current match {
       case x: TsDeclNamespace =>
         val p: Picker[TsDeclNamespace] = {
@@ -519,7 +524,7 @@ object ExtendingScope {
           case (c, extScope) =>
             TsTreeScope.search(extScope, Pick, c, wanted, loopDetector)
         }
-      case _ => Nil
+      case _ => Empty
     }
 
 }

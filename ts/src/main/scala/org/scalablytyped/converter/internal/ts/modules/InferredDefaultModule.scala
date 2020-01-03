@@ -34,7 +34,7 @@ object InferredDefaultModule {
         )
 
         logger.info(s"Inferred module $moduleName")
-        file.copy(members = Seq(module))
+        file.copy(members = IArray(module))
 
       case other => other
     }

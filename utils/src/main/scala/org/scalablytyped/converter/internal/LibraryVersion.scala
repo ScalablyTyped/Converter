@@ -15,11 +15,13 @@ case class LibraryVersion(libraryVersion: Option[String], inGit: Option[InGit]) 
   def libraryVersionOrDefault = libraryVersion getOrElse "0.0-unknown"
 
   def version(digest: Digest): String =
-    Seq(
-      Some(libraryVersionOrDefault),
-      inGit.map(_.format),
-      Some(digest.hexString.take(6)),
-    ).flatten.mkString("-")
+    IArray
+      .fromOptions(
+        Some(libraryVersionOrDefault),
+        inGit.map(_.format),
+        Some(digest.hexString.take(6)),
+      )
+      .mkString("-")
 }
 
 /**

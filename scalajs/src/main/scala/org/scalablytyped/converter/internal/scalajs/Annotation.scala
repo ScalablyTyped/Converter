@@ -10,7 +10,7 @@ sealed trait Imported
 object Imported {
   case object Namespace extends Imported
   case object Default extends Imported
-  case class Named(name: Seq[Name]) extends Imported
+  case class Named(name: IArray[Name]) extends Imported
 }
 
 object Annotation {
@@ -26,24 +26,24 @@ object Annotation {
   case class JsImport(module:   String, imported: Imported) extends LocationAnnotation
   case class JsGlobal(name:     QualifiedName) extends LocationAnnotation
 
-  def renamedFrom(newName: Name)(oldAnnotations: Seq[MemberAnnotation]): Seq[MemberAnnotation] = {
+  def renamedFrom(newName: Name)(oldAnnotations: IArray[MemberAnnotation]): IArray[MemberAnnotation] = {
     val (names, others) =
       oldAnnotations partition {
         case _: JsName | _: JsNameSymbol | JsBracketCall => true
         case _ => false
       }
 
-    val updatedNames: Seq[MemberAnnotation] =
+    val updatedNames: IArray[MemberAnnotation] =
       (names, newName) match {
-        case (Nil, n @ (Name.APPLY | Name.namespaced)) => sys.error(s"Cannot rename `$n`")
-        case (Nil, old)                                => Seq(JsName(old))
-        case (existing, _)                             => existing
+        case (Empty, n @ (Name.APPLY | Name.namespaced)) => sys.error(s"Cannot rename `$n`")
+        case (Empty, old)                                => IArray(JsName(old))
+        case (existing, _)                               => existing
       }
 
     others ++ updatedNames
   }
 
-  def classRenamedFrom(oldName: Name)(oldAnnotations: Seq[ClassAnnotation]): Seq[ClassAnnotation] = {
+  def classRenamedFrom(oldName: Name)(oldAnnotations: IArray[ClassAnnotation]): IArray[ClassAnnotation] = {
     val (names, others) =
       oldAnnotations partition {
         case _: JsName   => true
@@ -52,9 +52,9 @@ object Annotation {
         case _ => false
       }
 
-    val updatedNames: Seq[ClassAnnotation] =
+    val updatedNames: IArray[ClassAnnotation] =
       (names, oldName) match {
-        case (Nil, old)    => Seq(JsName(old))
+        case (Empty, old)  => IArray(JsName(old))
         case (existing, _) => existing
       }
 

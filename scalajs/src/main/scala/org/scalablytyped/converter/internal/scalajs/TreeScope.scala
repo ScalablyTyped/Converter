@@ -4,13 +4,12 @@ package scalajs
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.scalajs.TypeRef.ThisType
 import org.scalablytyped.converter.internal.scalajs.flavours.{GenJapgollyComponents, GenSlinkyComponents}
-import org.scalablytyped.converter.internal.seqs.Head
 
 sealed abstract class TreeScope { outer =>
   def stack: List[Tree]
   val libName: Name
   def tparams: Map[Name, TypeParamTree]
-  def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)]
+  def _lookup(fragments: List[Name]): IArray[(Tree, TreeScope)]
   def logger:   Logger[Unit]
   def pedantic: Boolean
   val outputPkg: Name
@@ -21,17 +20,17 @@ sealed abstract class TreeScope { outer =>
       case x:    TreeScope.Scoped  => x.outer.root
     }
 
-  final def lookup(wanted: QualifiedName): Seq[(Tree, TreeScope)] =
-    if (ScalaJsClasses.ScalaJsTypes.contains(wanted)) Seq((ScalaJsClasses.ScalaJsTypes(wanted), this))
+  final def lookup(wanted: QualifiedName): IArray[(Tree, TreeScope)] =
+    if (ScalaJsClasses.ScalaJsTypes.contains(wanted)) IArray((ScalaJsClasses.ScalaJsTypes(wanted), this))
     else
       wanted.parts match {
-        case Name.scala :: _                                     => Nil
-        case Name.java :: _                                      => Nil
-        case GenJapgollyComponents.names.japgolly :: _           => Nil
-        case GenSlinkyComponents.slinkyName :: _                 => Nil
-        case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Nil
-        case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Nil
-        case Head(name) if Name.Internal(name)                   => Nil
+        case Name.scala :: _                                     => Empty
+        case Name.java :: _                                      => Empty
+        case GenJapgollyComponents.names.japgolly :: _           => Empty
+        case GenSlinkyComponents.slinkyName :: _                 => Empty
+        case fs if fs.startsWith(QualifiedName.Runtime.parts)    => Empty
+        case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Empty
+        case name :: _ if Name.Internal(name)                    => Empty
         case parts =>
           val res = _lookup(parts)
 
@@ -43,7 +42,7 @@ sealed abstract class TreeScope { outer =>
           res
       }
 
-  def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)]
+  def lookupNoBacktrack(names: List[Name]): IArray[(Tree, TreeScope)]
 
   final def /(current: Tree): TreeScope =
     new TreeScope.Scoped(outputPkg, libName, outer, current)
@@ -56,8 +55,8 @@ sealed abstract class TreeScope { outer =>
 
   final def isAbstract(tr: TypeRef): Boolean =
     tr match {
-      case TypeRef(QualifiedName(one :: Nil), Nil, _) => tparams.contains(one)
-      case _                                          => false
+      case TypeRef(QualifiedName(one :: Nil), Empty, _) => tparams.contains(one)
+      case _                                            => false
     }
 
   override lazy val hashCode: Int = (13 * root.libName.hashCode) * stack.hashCode
@@ -88,18 +87,18 @@ object TreeScope {
 
     def tparams: Map[Name, TypeParamTree] = Map.empty
 
-    override def _lookup(fragments: List[Name]): Seq[(Tree, TreeScope)] =
+    override def _lookup(fragments: List[Name]): IArray[(Tree, TreeScope)] =
       fragments match {
         case `outputPkg` :: head :: tail =>
           dependencies.get(head) match {
             case Some(dep) => dep.lookupNoBacktrack(outputPkg :: head :: tail)
-            case None      => Seq.empty
+            case None      => Empty
           }
-        case _ => Seq.empty
+        case _ => Empty
       }
 
-    override def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)] =
-      Seq.empty
+    override def lookupNoBacktrack(names: List[Name]): IArray[(Tree, TreeScope)] =
+      Empty
   }
 
   final class Scoped(val outputPkg: Name, val libName: Name, val outer: TreeScope, val current: Tree)
@@ -120,21 +119,21 @@ object TreeScope {
       outer.pedantic
 
     lazy val tparams: Map[Name, TypeParamTree] = {
-      val newTParams: Seq[TypeParamTree] =
+      val newTParams: IArray[TypeParamTree] =
         current match {
           case x: ClassTree     => x.tparams
           case x: TypeAliasTree => x.tparams
           case x: MethodTree    => x.tparams
-          case _ => Nil
+          case _ => Empty
         }
 
-      outer.tparams ++ newTParams.map(x => x.name -> x)
+      outer.tparams ++ newTParams.map(x => x.name -> x).toMap
     }
 
-    def lookupNoBacktrack(names: List[Name]): Seq[(Tree, TreeScope)] =
+    def lookupNoBacktrack(names: List[Name]): IArray[(Tree, TreeScope)] =
       names match {
         case current.name :: Nil =>
-          List((current, this))
+          IArray((current, this))
 
         // 99% a shortcut, plus handle fully qualified types more places in the pipeline
         case `outputPkg` :: rest if rest.startsWith(nameStack) =>
@@ -151,18 +150,18 @@ object TreeScope {
                     case tree =>
                       this / tree lookupNoBacktrack (head :: tail)
                   }
-                case None => Nil
+                case None => Empty
               }
             case _ =>
-              Nil
+              Empty
           }
 
-        case _ => Nil
+        case _ => Empty
       }
 
-    override def _lookup(names: List[Name]): Seq[(Tree, TreeScope)] =
+    override def _lookup(names: List[Name]): IArray[(Tree, TreeScope)] =
       lookupNoBacktrack(names) match {
-        case Nil   => outer _lookup names
+        case Empty => outer _lookup names
         case found => found
       }
   }

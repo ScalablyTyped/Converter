@@ -8,7 +8,7 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
    */
   val MaxNumComponents = 3500
 
-  def apply(_scope: TreeScope, tree: ContainerTree, allComponents: Seq[Component]): ContainerTree = {
+  def apply(_scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree = {
     val scope = _scope / tree
 
     val components = allComponents take MaxNumComponents sortBy (_.fullName.unescaped)
@@ -23,21 +23,22 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
       val traitName     = Name(scope.libName.unescaped + "Props")
       val traitCodePath = tree.codePath + traitName
       val `trait` = {
-        val forwarders: Seq[Tree] =
+        val forwarders: IArray[Tree] =
           components
             .flatMap {
-              case comp if comp.isAbstractProps => Nil
-              case comp                         => genPropsRef(scope, comp, traitCodePath) ++ genPropsAlias(scope, comp, traitCodePath)
+              case comp if comp.isAbstractProps => Empty
+              case comp =>
+                IArray.fromOptions(genPropsRef(scope, comp, traitCodePath), genPropsAlias(scope, comp, traitCodePath))
             }
 
         setCodePath(
           traitCodePath,
           ClassTree(
-            annotations = Nil,
+            annotations = Empty,
             name        = traitName,
-            tparams     = Nil,
-            parents     = Nil,
-            ctors       = Nil,
+            tparams     = Empty,
+            parents     = Empty,
+            ctors       = Empty,
             members     = forwarders,
             classType   = ClassType.Trait,
             isSealed    = false,
@@ -53,9 +54,9 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
         setCodePath(
           moduleCodePath,
           ModuleTree(
-            annotations = Nil,
+            annotations = Empty,
             name        = moduleName,
-            parents     = List(TypeRef(traitCodePath)),
+            parents     = IArray(TypeRef(traitCodePath)),
             members     = components.map(comp => genComponentRef(scope, comp, moduleCodePath)),
             comments    = comments,
             codePath    = moduleCodePath,
@@ -89,13 +90,13 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
       scope.lookup(FollowAliases(scope)(propsType).typeName).collectFirst {
         case (generatedPropsCompanion: ModuleTree, _) if !generatedPropsCompanion.isNative =>
           MethodTree(
-            annotations = Annotation.Inline :: Nil,
+            annotations = IArray(Annotation.Inline),
             level       = ProtectionLevel.Default,
             name        = comp.shortenedPropsName,
-            tparams     = Nil,
-            params      = Nil,
+            tparams     = Empty,
+            params      = Empty,
             impl        = MemberImpl.Custom(Printer.formatQN(generatedPropsCompanion.codePath)),
-            resultType  = TypeRef.Singleton(TypeRef(generatedPropsCompanion.codePath, Nil, NoComments)),
+            resultType  = TypeRef.Singleton(TypeRef(generatedPropsCompanion.codePath, Empty, NoComments)),
             isOverride  = false,
             comments    = NoComments,
             codePath    = moduleCodePath + comp.shortenedPropsName,
@@ -109,13 +110,13 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
       case None     => comp.props getOrElse TypeRef.Object
     }
 
-    val retType = TypeRef(reactNames.ComponentType, List(shortenedProps), NoComments)
+    val retType = TypeRef(reactNames.ComponentType, IArray(shortenedProps), NoComments)
     MethodTree(
-      annotations = Annotation.Inline :: Nil,
+      annotations = IArray(Annotation.Inline),
       level       = ProtectionLevel.Default,
       name        = comp.fullName,
       tparams     = comp.tparams,
-      params      = Nil,
+      params      = Empty,
       impl = MemberImpl.Custom(
         s"${Component.formatReferenceTo(comp.scalaRef, comp.componentType)}.asInstanceOf[${Printer.formatTypeRef(0)(retType)}]",
       ),

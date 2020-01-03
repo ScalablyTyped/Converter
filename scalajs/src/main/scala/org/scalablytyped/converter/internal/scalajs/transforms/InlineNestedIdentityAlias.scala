@@ -15,21 +15,23 @@ package transforms
 object InlineNestedIdentityAlias extends TreeTransformation {
   override def leaveTypeRef(scope: TreeScope)(ref: TypeRef): TypeRef =
     ref match {
-      case TypeRef(_, Seq(TypeRef(QualifiedName(Seq(tp)), Nil, _)), _) if scope.tparams.contains(tp) => ref
-      case _                                                                                         => simplify(scope, ref) getOrElse ref
+      case TypeRef(_, IArray.exactlyOne(TypeRef(QualifiedName(List(tp)), Empty, _)), _) if scope.tparams.contains(tp) =>
+        ref
+      case _ => simplify(scope, ref) getOrElse ref
     }
 
   def isIdentityFor(body: Name)(tr: TypeRef): Boolean =
     tr match {
-      case TypeRef(QualifiedName(`body` :: Nil), Nil, _) => true
-      case TypeRef.Intersection(types)                   => types exists isIdentityFor(body)
-      case _                                             => false
+      case TypeRef(QualifiedName(`body` :: Nil), Empty, _) => true
+      case TypeRef.Intersection(types)                     => types exists isIdentityFor(body)
+      case _                                               => false
     }
 
   private def simplify(scope: TreeScope, ref: TypeRef): Option[TypeRef] = ref match {
-    case TypeRef(maybeIdentityWrapper, Seq(realType), cs) =>
+    case TypeRef(maybeIdentityWrapper, IArray.exactlyOne(realType), cs) =>
       scope.lookup(maybeIdentityWrapper) collectFirst {
-        case (TypeAliasTree(_, Seq(TypeParamTree(tparam, _, _)), alias, _, _), _) if isIdentityFor(tparam)(alias) =>
+        case (TypeAliasTree(_, IArray.exactlyOne(TypeParamTree(tparam, _, _)), alias, _, _), _)
+            if isIdentityFor(tparam)(alias) =>
           // at this point we know that the referenced type is identity, now consider if the only type param references the same wrapper
 
           val mustSimplify: Option[Boolean] =

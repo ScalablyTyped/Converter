@@ -5,7 +5,7 @@ package transforms
 object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
-      case TsTypeKeyOf(TsTypeRef(_, key, Nil)) if !scope.isAbstract(key) =>
+      case TsTypeKeyOf(TsTypeRef(_, key, Empty)) if !scope.isAbstract(key) =>
         scope.lookup(key).headOption match {
           case Some(TsDeclInterface(_, _, _, _, _, members, _)) =>
             scope.logger.info(s"Expanded keyof $key")
@@ -15,7 +15,7 @@ object UnionTypesFromKeyOf extends TreeTransformationScopedChanges {
                 TsTypeLiteral(TsLiteralString(name))
             }
 
-            literals.size match {
+            literals.length match {
               case 0 => x
               case _ => TsTypeUnion.simplified(literals)
             }

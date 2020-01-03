@@ -1,21 +1,19 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-import scala.collection.mutable
-
 object TreeTraverse {
-  def collect[T](tree: Tree)(extract: PartialFunction[Tree, T]): Seq[T] =
-    collectSeq(Seq(tree))(extract)
+  def collect[T <: AnyRef](tree: Tree)(extract: PartialFunction[Tree, T]): IArray[T] =
+    collectIArray(IArray(tree))(extract)
 
-  def collectSeq[T](tree: Traversable[Tree])(extract: PartialFunction[Tree, T]): Seq[T] = {
-    val buf = mutable.Buffer.empty[T]
+  def collectIArray[T <: AnyRef](tree: IArray[Tree])(extract: PartialFunction[Tree, T]): IArray[T] = {
+    val buf = IArray.Builder.empty[T]
 
     tree foreach go(extract, buf)
 
-    buf.to[Seq]
+    buf.result()
   }
 
-  private def go[T](extract: PartialFunction[Tree, T], buf: mutable.Buffer[T])(tree: Tree): Unit = {
+  private def go[T <: AnyRef](extract: PartialFunction[Tree, T], buf: IArray.Builder[T])(tree: Tree): Unit = {
     if (extract.isDefinedAt(tree)) {
       buf += extract(tree)
     }
@@ -24,6 +22,7 @@ object TreeTraverse {
       a match {
         case x:  Tree if x ne tree  => go(extract, buf)(x)
         case xs: TraversableOnce[_] => xs foreach rec
+        case xs: IArray[_]          => xs foreach rec
         case p:  Product            => p.productIterator foreach rec
         case _ => ()
       }

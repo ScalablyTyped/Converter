@@ -9,7 +9,7 @@ object ShortenNames {
 
   case class ImportTree(imported: QualifiedName)
 
-  def apply(owner: ContainerTree, scope: TreeScope)(members: Seq[Tree]): (Seq[ImportTree], Seq[Tree]) = {
+  def apply(owner: ContainerTree, scope: TreeScope)(members: IArray[Tree]): (IArray[ImportTree], IArray[Tree]) = {
     val collectedImports = mutable.Map.empty[Name, QualifiedName]
 
     object V extends TreeTransformation {
@@ -53,11 +53,13 @@ object ShortenNames {
 
     val newMembers = members.map(V.visitTree(scope))
 
-    val imports: Seq[ImportTree] =
-      collectedImports.values
-        .filterNot(_.startsWith(QualifiedName.scala))
-        .filterNot(_.startsWith(QualifiedName.java_lang))
-        .to[Seq]
+    val imports: IArray[ImportTree] =
+      IArray
+        .fromTraversable(
+          collectedImports.values
+            .filterNot(_.startsWith(QualifiedName.scala))
+            .filterNot(_.startsWith(QualifiedName.java_lang)),
+        )
         .sortBy(Printer.formatQN)
         .map(ImportTree.apply)
 
@@ -117,7 +119,7 @@ object ShortenNames {
         case (_, cls) => among(cls.index, longName, methodsAreConflict)
       }
 
-    private def among(index: Map[Name, Seq[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
+    private def among(index: Map[Name, IArray[Tree]], longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
       index get longName.parts.last match {
         case Some(trees) =>
           trees exists {

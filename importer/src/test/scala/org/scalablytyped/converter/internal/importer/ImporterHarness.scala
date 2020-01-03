@@ -44,9 +44,9 @@ trait ImporterHarness extends FunSuiteLike {
       flavour:       Flavour,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: StdLibSource =
-      StdLibSource(InFolder(source.path), List(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
+      StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
-    val resolve          = new LibraryResolver(stdLibSource, Seq(source), None)
+    val resolve          = new LibraryResolver(stdLibSource, IArray(source), None)
     val lastChangedIndex = DTLastChangedIndex(testCmd, source.path)
 
     val phase: RecPhase[Source, PublishedSbtProject] =

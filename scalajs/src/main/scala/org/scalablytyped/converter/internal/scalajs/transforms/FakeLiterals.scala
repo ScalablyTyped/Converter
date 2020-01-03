@@ -19,7 +19,7 @@ object FakeLiterals {
       scope:        TreeScope,
   ) extends TreeTransformation {
 
-    val stringsByLowercase: Map[String, Seq[String]] =
+    val stringsByLowercase: Map[String, IArray[String]] =
       TreeTraverse
         .collect(tree) {
           case TypeRef.StringLiteral(underlying) => cleanName(underlying)
@@ -56,12 +56,12 @@ object FakeLiterals {
               val codePath = tree.codePath + moduleName + name
               val `trait` =
                 ClassTree(
-                  Seq(Annotation.JsNative),
+                  IArray(Annotation.JsNative),
                   name,
-                  Nil,
-                  Nil,
-                  Nil,
-                  Nil,
+                  Empty,
+                  Empty,
+                  Empty,
+                  Empty,
                   ClassType.Trait,
                   isSealed = true,
                   NoComments,
@@ -70,22 +70,30 @@ object FakeLiterals {
 
               val `def` =
                 MethodTree(
-                  List(Annotation.Inline),
+                  IArray(Annotation.Inline),
                   ProtectionLevel.Default,
                   name,
-                  Nil,
-                  Nil,
+                  Empty,
+                  Empty,
                   MemberImpl.Custom(s"$underlying.asInstanceOf[${name.value}]"),
-                  TypeRef(QualifiedName(name :: Nil), Nil, NoComments),
+                  TypeRef(QualifiedName(name :: Nil), Empty, NoComments),
                   isOverride = false,
                   comments   = NoComments,
                   codePath,
                 )
-              Seq(`trait`, `def`)
+              List(`trait`, `def`)
           }
 
         Some(
-          ModuleTree(Nil, moduleName, Nil, members.to[Seq], NoComments, tree.codePath + moduleName, isOverride = false),
+          ModuleTree(
+            Empty,
+            moduleName,
+            Empty,
+            IArray.fromTraversable(members),
+            NoComments,
+            tree.codePath + moduleName,
+            isOverride = false,
+          ),
         )
       }
 
@@ -94,12 +102,12 @@ object FakeLiterals {
         case TypeRef.StringLiteral(underlying) =>
           val name = calculateName(underlying)
           collectedStrings(stringUtils.quote(underlying)) = name
-          TypeRef(QualifiedName(List(outputPkg, tree.name, StringModuleName, name)), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(outputPkg, tree.name, StringModuleName, name)), Empty, LiteralTokenComment)
 
         case TypeRef.BooleanLiteral(underlying) =>
           val name = Name(underlying)
           collectedBooleans(underlying) = name
-          TypeRef(QualifiedName(List(outputPkg, tree.name, BooleansModuleName, name)), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(outputPkg, tree.name, BooleansModuleName, name)), Empty, LiteralTokenComment)
 
         case TypeRef.NumberLiteral(underlying) =>
           val (newUnderlying, name) =
@@ -110,7 +118,7 @@ object FakeLiterals {
             }
 
           collectedNumbers(newUnderlying) = name
-          TypeRef(QualifiedName(List(outputPkg, tree.name, NumbersModuleName, name)), Nil, LiteralTokenComment)
+          TypeRef(QualifiedName(List(outputPkg, tree.name, NumbersModuleName, name)), Empty, LiteralTokenComment)
 
         case other =>
           other
@@ -121,7 +129,7 @@ object FakeLiterals {
       val nums       = module(collectedNumbers, NumbersModuleName)
       val strings    = module(collectedStrings, StringModuleName)
       val booleans   = module(collectedBooleans, BooleansModuleName)
-      val newMembers = ss.members ++ nums ++ strings ++ booleans
+      val newMembers = ss.members ++ IArray.fromOptions(nums, strings, booleans)
       ss match {
         case p: PackageTree => p.copy(members = newMembers)
         case m: ModuleTree  => m.copy(members = newMembers)

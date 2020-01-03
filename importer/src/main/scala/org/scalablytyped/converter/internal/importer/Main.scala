@@ -152,7 +152,7 @@ class Main(config: Config) {
           files.existing(config.cacheFolder / 'npm),
           external.packages
             .map(_.typingsPackageName)
-            .to[Set] + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
+            .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
           ignoredLibs,
           config.conserveSpace,
           config.offline,
@@ -172,7 +172,7 @@ class Main(config: Config) {
 
     val stdLibSource: StdLibSource = {
       val folder = externalsFolder.path / "typescript" / "lib"
-      StdLibSource(InFolder(folder), List(InFile(folder / "lib.esnext.full.d.ts")), TsIdent.std)
+      StdLibSource(InFolder(folder), IArray(InFile(folder / "lib.esnext.full.d.ts")), TsIdent.std)
     }
 
     // keep as `val`, it comes with a cache meaning we reuse the work of the first two phases for all flavours
@@ -180,7 +180,7 @@ class Main(config: Config) {
       .next(
         new Phase1ReadTypescript(
           calculateLibraryVersion = new DTVersions(lastChangedIndex),
-          resolve                 = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), None),
+          resolve                 = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), None),
           ignored                 = ignoredLibs,
           ignoredModulePrefixes   = Set.empty,
           stdlibSource            = stdLibSource,
@@ -220,7 +220,8 @@ class Main(config: Config) {
           .next(new PhaseFlavour(flavour, PrettyString.Regular), flavour.toString)
           .next(
             new Phase3Compile(
-              resolve         = new LibraryResolver(stdLibSource, Seq(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
+              resolve =
+                new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
               versions        = config.versions,
               compiler        = compiler,
               targetFolder    = targetFolder,
@@ -312,8 +313,8 @@ target/
         CommitChanges(
           interfaceCmd,
           summary,
-          successes.values.map(_.project.baseDir).to[Seq],
-          Seq(
+          successes.values.map(_.project.baseDir).to[Vector],
+          Vector(
             sbtProjectDir,
             readme,
             librariesByScore,

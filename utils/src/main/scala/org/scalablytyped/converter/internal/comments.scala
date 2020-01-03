@@ -90,7 +90,7 @@ object Comments {
   def apply(c: Comment): Comments =
     new Comments(List(c))
 
-  def flatten[T](ts: Iterable[T])(f: T => Comments): Comments = {
+  def flatten[T <: AnyRef](ts: IArray[T])(f: T => Comments): Comments = {
     val buf = mutable.ArrayBuffer.empty[Comment]
     ts.foreach(t => buf ++= f(t).cs)
     apply(buf.distinct.toList)

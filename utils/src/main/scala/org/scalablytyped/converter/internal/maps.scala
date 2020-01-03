@@ -10,19 +10,19 @@ object maps {
       map.isEmpty
   }
 
-  def sum[K, V](ms: Iterable[Map[K, V]]): Map[K, List[V]] = {
-    val ret = mutable.Map.empty[K, List[V]]
-    ms.foreach(_.foreach { case (k, v) => ret.update(k, ret.get(k).fold(v :: Nil)(v :: _)) })
+  def sum[K, V <: AnyRef](ms: IArray[Map[K, V]]): Map[K, IArray[V]] = {
+    val ret = mutable.Map.empty[K, IArray[V]]
+    ms.foreach(_.foreach { case (k, v) => ret.update(k, ret.get(k).fold(IArray(v))(v +: _)) })
     ret.toMap
   }
 
-  def smash[K, V](ms: scala.Iterable[Map[K, V]]): Map[K, V] =
+  def smash[K, V](ms: IArray[Map[K, V]]): Map[K, V] =
     ms.foldLeft(Map.empty[K, V]) {
       case (acc, current) => acc ++ current
     }
 
-  def combine[K, V](ms: Iterable[Map[K, Seq[V]]]): Map[K, Seq[V]] = {
-    val ret = mutable.Map.empty[K, Seq[V]]
+  def combine[K, V <: AnyRef](ms: IArray[Map[K, IArray[V]]]): Map[K, IArray[V]] = {
+    val ret = mutable.Map.empty[K, IArray[V]]
     ms.foreach(_.foreach { case (k, v) => ret.update(k, ret.get(k).fold(v)(v ++ _)) })
     ret.toMap
   }

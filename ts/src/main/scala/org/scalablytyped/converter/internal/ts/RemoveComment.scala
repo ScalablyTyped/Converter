@@ -11,7 +11,7 @@ object RemoveComment {
   implicit val r2: RemoveComment[TsMemberCall]     = _.copy(comments = NoComments)
   implicit val r3: RemoveComment[TsDeclFunction]   = _.copy(comments = NoComments)
 
-  def keepFirstOnly[T: RemoveComment](fs: Seq[T]): Seq[T] =
+  def keepFirstOnly[T <: AnyRef: RemoveComment](fs: IArray[T]): IArray[T] =
     fs.zipWithIndex.map {
       case (f, 0) => f
       case (f, _) => implicitly[RemoveComment[T]].remove(f)

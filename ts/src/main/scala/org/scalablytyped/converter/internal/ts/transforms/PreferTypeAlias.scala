@@ -3,7 +3,6 @@ package ts
 package transforms
 
 import scala.collection.mutable
-import seqs._
 
 object PreferTypeAlias extends TreeTransformationScopedChanges {
   override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
@@ -20,7 +19,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * ```
         * There is little value in keep these two types distinct
         */
-      case i @ TsDeclInterface(comments, declared, name, tparams, Nil, members, codePath)
+      case i @ TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
           if ExtractInterfaces.isTypeMapping(members) || ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head)) i
         else
@@ -30,7 +29,7 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
       case ta @ TsDeclTypeAlias(comments, declared, name, tparams, TsTypeObject(_, members), codePath)
           if ExtractInterfaces.isDictionary(members) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, members.head))
-          TsDeclInterface(comments, declared, name, tparams, Nil, members, codePath)
+          TsDeclInterface(comments, declared, name, tparams, Empty, members, codePath)
         else ta
 
       /**
@@ -49,7 +48,15 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
         * Note that we rewrite interfaces which extends one type, not more.
         * The reason is that scala wont't let you `new` an intersection type
         */
-      case i @ TsDeclInterface(comments, declared, name, tparams, Seq(singleInheritance), Nil, codePath) =>
+      case i @ TsDeclInterface(
+            comments,
+            declared,
+            name,
+            tparams,
+            IArray.exactlyOne(singleInheritance),
+            Empty,
+            codePath,
+          ) =>
         if (hasCircularReference(codePath.forceHasPath.codePath, mutable.Set(), t, singleInheritance)) i
         else {
           t.logger.info("Simplified to type alias")
@@ -95,14 +102,14 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
           if members.nonEmpty &&
             !ExtractInterfaces.isTypeMapping(members) &&
             !ExtractInterfaces.isDictionary(members) =>
-        TsDeclInterface(cs, dec, name, tparams, Nil, members, cp)
+        TsDeclInterface(cs, dec, name, tparams, Empty, members, cp)
 
       case other => other
     }
 
   private object IsFunction {
     def unapply(i: TsDeclInterface): Option[TsDeclTypeAlias] =
-      if (i.members.size =/= 1 || i.inheritance.nonEmpty) None
+      if (i.members.length =/= 1 || i.inheritance.nonEmpty) None
       else {
         i.members.head match {
           case call: TsMemberCall =>
@@ -151,8 +158,8 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
   def hasCircularReference(self: TsQIdent, cache: mutable.Set[TsTypeRef], scope: TsTreeScope, tree: TsTree): Boolean = {
     val minimizedTree = memberHack(tree)
     TsTreeTraverse.collect(minimizedTree) { case x: TsQIdent if x === self => x } match {
-      case Nil =>
-        val refs = TsTreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.to[Set]
+      case Empty =>
+        val refs = TsTreeTraverse.collect(minimizedTree) { case x: TsTypeRef => x }.toSet
         refs exists { ref =>
           if (cache(ref)) false
           else
@@ -173,14 +180,14 @@ object PreferTypeAlias extends TreeTransformationScopedChanges {
   }
 
   object AllTypeObjects {
-    def unapply(arg: TsType): Option[Seq[TsMember]] =
+    def unapply(arg: TsType): Option[IArray[TsMember]] =
       arg match {
         case TsTypeObject(_, members) => Some(members)
 
         case TsTypeIntersect(types) =>
           types.partitionCollect { case AllTypeObjects(members) => members } match {
-            case (members, Nil) => Some(members.flatten)
-            case _              => None
+            case (members, Empty) => Some(members.flatten)
+            case _                => None
           }
         case _ => None
       }

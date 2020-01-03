@@ -1,8 +1,6 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import seqs._
-
 object FollowAliases {
   def apply(scope: TsTreeScope)(tpe: TsType): TsType =
     tpe match {
@@ -12,7 +10,7 @@ object FollowAliases {
           .collectFirst {
             case (ta: TsDeclTypeAlias, newScope) => apply(newScope)(FillInTParams(ta, typeRef.tparams).alias)
             /* see through thin interfaces which might be translated into type aliases */
-            case (i @ TsDeclInterface(_, _, _, _, Seq(one @ _), Nil, _), newScope) =>
+            case (i @ TsDeclInterface(_, _, _, _, IArray.exactlyOne(_), Empty, _), newScope) =>
               apply(newScope)(FillInTParams(i, typeRef.tparams).inheritance.head)
           }
           .getOrElse(typeRef)
@@ -33,7 +31,7 @@ object FollowAliases {
             case _ => None
           }
         /* see through thin interfaces which might be translated into type aliases */
-        case (i @ TsDeclInterface(_, _, _, _, Seq(one @ _), Nil, _), newScope) =>
+        case (i @ TsDeclInterface(_, _, _, _, IArray.exactlyOne(_), Empty, _), newScope) =>
           Some(typeRef(newScope)(FillInTParams(i, tr.tparams).inheritance.head))
 
         case _ => None

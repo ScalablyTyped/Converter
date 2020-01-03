@@ -22,14 +22,14 @@ object ImportTypings {
   case class Input(
       gitSha:                   String,
       packageJsonHash:          Int,
-      npmDependencies:          Seq[(String, String)],
+      npmDependencies:          IArray[(String, String)],
       fromFolder:               InFolder,
       targetFolder:             os.Path,
       chosenFlavour:            Flavour,
       shouldGenerateCompanions: Boolean,
       enableScalaJsDefined:     Selection[TsIdentLibrary],
       prettyStringType:         PrettyStringType,
-      libs:                     List[String],
+      libs:                     IArray[String],
       ignore:                   Set[String],
       minimize:                 Selection[TsIdentLibrary],
   )
@@ -81,7 +81,7 @@ object ImportTypings {
     val Pipeline: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          new LibraryResolver(stdLibSource, List(InFolder(fromFolder.path / "@types"), fromFolder), None),
+          new LibraryResolver(stdLibSource, IArray(InFolder(fromFolder.path / "@types"), fromFolder), None),
           CalculateLibraryVersion.PackageJsonOnly,
           ignore.map(TsIdentLibrary.apply),
           ignore.map(_.split("/").toList),
@@ -113,7 +113,7 @@ object ImportTypings {
         )
 
         lazy val referencesToKeep: KeepOnlyReferenced.Index =
-          KeepOnlyReferenced.findReferences(globalScope, libs.to[Seq].map {
+          KeepOnlyReferenced.findReferences(globalScope, IArray.fromTraversable(libs).map {
             case (s, l) => (minimize(s.libName), l.packageTree)
           })
 
@@ -144,7 +144,7 @@ object ImportTypings {
   }
 
   /* `npmDependencies` should exist (have been downloaded by npm/yarn) in `fromFolder` */
-  def findSources(fromFolder: os.Path, npmDependencies: Seq[(String, String)]): Set[Source] =
+  def findSources(fromFolder: os.Path, npmDependencies: IArray[(String, String)]): Set[Source] =
     npmDependencies
       .map {
         case (name, _) => Source.FromFolder(InFolder(fromFolder / os.RelPath(name)), TsIdentLibrary(name)): Source
@@ -163,14 +163,14 @@ object ImportTypings {
         Input(
           "0",
           0,
-          List(("@storybook/react" -> "1")),
+          IArray(("@storybook/react" -> "1")),
           InFolder(cacheDir / "npm" / "node_modules"),
           files.existing(cacheDir / 'work),
           Flavour.Slinky,
           shouldGenerateCompanions = true,
           enableScalaJsDefined     = Selection.None,
           PrettyStringType.Regular,
-          List("es5", "dom"),
+          IArray("es5", "dom"),
           Set("typescript", "csstype"),
           minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
         ),

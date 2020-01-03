@@ -56,14 +56,14 @@ object Printer {
       targetFolder: os.RelPath,
       tree:         ContainerTree,
   ): Unit = {
-    val files: Map[ScalaOutput, Seq[Tree]] = tree match {
+    val files: Map[ScalaOutput, IArray[Tree]] = tree match {
       case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
-      case other => Map(ScalaOutput.File(other.name) -> Seq(other))
+      case other => Map(ScalaOutput.File(other.name) -> IArray(other))
     }
     val scope = _scope / tree
 
     files foreach {
-      case (ScalaOutput.File(name), members: Seq[Tree]) =>
+      case (ScalaOutput.File(name), members: IArray[Tree]) =>
         reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
           val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
           writer println s"package ${formatQN(QualifiedName(packages))}"
@@ -161,7 +161,7 @@ object Printer {
         print(Comments.format(comments))
         print(formatAnns(anns))
 
-        val (defaultCtor, restCtors) = ctors.sortBy(_.params.size).toList match {
+        val (defaultCtor, restCtors) = ctors.sortBy(_.params.length).toList match {
           case Nil                                                    => (CtorTree.defaultPublic, Nil)
           case head :: tail if (head.params.isEmpty || !cls.isNative) => (head, tail)
           case all                                                    => (CtorTree.defaultProtected, all)
@@ -254,7 +254,7 @@ object Printer {
             tparams.map(formatTypeParamTree(isNative = true, indent)).mkString("[", ", ", "]")
 
         var paramString = params.map(_.map(formatParamTree(indent)).mkString("(", ", ", ")"))
-        if (paramString.map(_.length).sum > 100) {
+        if (paramString.toList.map(_.length).sum > 100) {
           paramString = params.map(_.map(formatParamTree(indent)).mkString("(\n  ", ",\n  ", "\n)"))
         }
 
@@ -292,7 +292,7 @@ object Printer {
     }
   }
 
-  def formatParams(indent: Int)(ps: Seq[ParamTree]): String = {
+  def formatParams(indent: Int)(ps: IArray[ParamTree]): String = {
     val base        = ps.map(formatParamTree(indent))
     var paramString = base.mkString("(", ", ", ")")
     if (paramString.length > 100 && ps.length > 1) {
@@ -301,7 +301,7 @@ object Printer {
     paramString
   }
 
-  def extendsClause(parents: Seq[TypeRef], isNative: Boolean, indent: Int): String =
+  def extendsClause(parents: IArray[TypeRef], isNative: Boolean, indent: Int): String =
     parents.toList.map(parent => formatTypeRef(indent + 6)(parent)) match {
       case Nil if isNative                    => " extends js.Object"
       case Nil                                => ""
@@ -320,7 +320,7 @@ object Printer {
       })
 
   def formatParamTree(indent: Int)(tree: ParamTree): String =
-    Seq(
+    IArray(
       Comments.format(tree.comments),
       if (tree.isImplicit) "implicit " else "",
       typeAnnotation(formatName(tree.name), indent + 2, tree.tpe, Name.WILDCARD),
@@ -359,8 +359,8 @@ object Printer {
       t1 match {
         case TypeRef.ScalaFunction(paramTypes, retType) =>
           val params = paramTypes match {
-            case Seq(one) => formatTypeRef(indent)(one)
-            case many     => (many map formatTypeRef(indent)).mkString("(", ", ", ")")
+            case IArray.exactlyOne(one) => formatTypeRef(indent)(one)
+            case many                   => (many map formatTypeRef(indent)).mkString("(", ", ", ")")
           }
           s"$params => ${formatTypeRef(indent)(retType)}"
 
@@ -376,7 +376,7 @@ object Printer {
           }
 
         case TypeRef.UndefOr(tpe) =>
-          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, List(tpe), NoComments))
+          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(tpe), NoComments))
 
         case TypeRef.Union(types) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
@@ -389,10 +389,10 @@ object Printer {
 
         case TypeRef(typeName, targs, _) =>
           val targsStr = targs match {
-            case Nil => ""
+            case Empty => ""
             case nonEmpty =>
               val targStrs    = nonEmpty map formatTypeRef(indent + 2)
-              val targsLength = targStrs.foldLeft(0)(_ + _.length)
+              val targsLength = targStrs.foldLeft[Integer](0)(_ + _.length)
               val sep         = if (targsLength > 80) "\n" + (" " * indent) else ""
               targStrs.mkString(s"[$sep", s", $sep", s"${sep.dropRight(2)}]")
           }
@@ -446,9 +446,9 @@ object Printer {
         s"@JSGlobalScope"
     }
 
-  def formatAnns(anns: Seq[Annotation]): String =
+  def formatAnns(anns: IArray[Annotation]): String =
     anns map formatAnn filterNot (_.isEmpty) match {
-      case Nil       => ""
+      case Empty     => ""
       case formatted => formatted.sorted.mkString("", "\n", "\n")
     }
 }

@@ -11,7 +11,7 @@ import org.scalablytyped.converter.internal.seqs._
   */
 object RemoveMultipleInheritance extends TreeTransformation {
 
-  final case class Dropped(typeRef: TypeRef, because: String, members: Seq[Tree])
+  final case class Dropped(typeRef: TypeRef, because: String, members: IArray[Tree])
 
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
@@ -31,11 +31,12 @@ object RemoveMultipleInheritance extends TreeTransformation {
     mod.copy(comments = newComments, parents = newParents, members = mod.members ++ newMembers)
   }
 
-  def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, List[TypeRef], List[Tree]) = {
-    val allParents    = ParentsResolver(scope, c)
-    val first         = firstReferringToClass(allParents) orElse longestInheritance(allParents)
-    val remaining     = first ++ (allParents.directParents filterNot first.contains)
-    val (changes, ps) = step(included = Nil, newParents = Nil, dropped = Nil, remaining = remaining.to[List])
+  def findNewParents(scope: TreeScope, c: InheritanceTree): (Comments, IArray[TypeRef], IArray[Tree]) = {
+    val allParents = ParentsResolver(scope, c)
+    val first      = firstReferringToClass(allParents) orElse longestInheritance(allParents)
+    val remaining  = IArray.fromOption(first) ++ (allParents.directParents filterNot first.contains)
+    val (changes, ps) =
+      step(included = IArray.Empty, newParents = IArray.Empty, dropped = IArray.Empty, remaining = remaining)
 
     val newComments: Comments =
       if (changes.nonEmpty) {
@@ -45,7 +46,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
         c.comments + Comment.warning(msg)
       } else c.comments
 
-    (newComments, ps.reverse ::: allParents.unresolved.to[List], changes.flatMap(_.members))
+    (newComments, ps.reverse ++ allParents.unresolved, changes.flatMap(_.members))
   }
 
   def longestInheritance(parents: Parents): Option[Parent] =
@@ -62,22 +63,22 @@ object RemoveMultipleInheritance extends TreeTransformation {
     )
 
   def step(
-      included:   List[Parent],
-      newParents: List[TypeRef],
-      dropped:    List[Dropped],
-      remaining:  List[Parent],
-  ): (List[Dropped], List[TypeRef]) =
+      included:   IArray[Parent],
+      newParents: IArray[TypeRef],
+      dropped:    IArray[Dropped],
+      remaining:  IArray[Parent],
+  ): (IArray[Dropped], IArray[TypeRef]) =
     remaining match {
-      case Nil =>
+      case IArray.Empty =>
         (dropped, newParents)
-      case h :: rest =>
+      case IArray.headTail(h, rest) =>
         def inheritsClass: Option[Dropped] =
           h.transitiveParents.collectFirst {
             case (_, c)
                 if included.nonEmpty && c.classType =/= ClassType.Trait && !included.exists(
                   _.transitiveParents.exists(_._2 === c),
                 ) =>
-              val includedFields: Seq[Name] =
+              val includedFields: IArray[Name] =
                 (/* baseMembers ++ */ dropped.flatMap(_.members) ++ included.flatMap(_.fields)).map(_.name)
 
               val inlined = h.classTree.members.filterNot(m => includedFields.contains(m.name))
@@ -93,7 +94,7 @@ object RemoveMultipleInheritance extends TreeTransformation {
           included firstDefined
             (_.transitiveParents.keys.firstDefined(i =>
               if (h.refs.exists(_.typeName === i.typeName))
-                Some(Dropped(h.refs.last, "Already inherited", Nil))
+                Some(Dropped(h.refs.last, "Already inherited", Empty))
               else None,
             ),
             )
@@ -101,10 +102,10 @@ object RemoveMultipleInheritance extends TreeTransformation {
         def alreadyInheritsUnresolved: Option[Dropped] =
           included firstDefined (_.transitiveUnresolved.firstDefined { u =>
             h.transitiveUnresolved.filter(_.typeName === u.typeName) match {
-              case Nil => None
+              case Empty => None
               case some =>
                 val someString = some.map(Printer.formatTypeRef(0)).mkString(", ")
-                Some(Dropped(h.refs.last, s"Already inherited $someString", Nil))
+                Some(Dropped(h.refs.last, s"Already inherited $someString", Empty))
             }
           })
 
@@ -112,21 +113,21 @@ object RemoveMultipleInheritance extends TreeTransformation {
           val includedMembersByName: Map[Name, Tree] =
             (dropped.flatMap(_.members) ++ included.flatMap(_.members)).map(x => x.name -> x).toMap
 
-          val conflictingFields: Seq[FieldTree] = h.fields.flatMap {
-            case f if !f.isReadOnly && includedMembersByName.contains(f.name) => List(f)
+          val conflictingFields: IArray[FieldTree] = h.fields.flatMap {
+            case f if !f.isReadOnly && includedMembersByName.contains(f.name) => IArray(f)
             case f =>
               includedMembersByName.get(f.name) match {
                 case Some(existing) =>
                   existing match {
-                    case existingField: FieldTree => if (existingField.isReadOnly) Nil else List(f)
-                    case _ => List(f)
+                    case existingField: FieldTree => if (existingField.isReadOnly) Empty else IArray(f)
+                    case _ => IArray(f)
                   }
-                case None => Nil
+                case None => Empty
               }
           }
 
           conflictingFields match {
-            case Nil => None
+            case Empty => None
             case conflict =>
               val conflictString =
                 conflict.map(_.name).distinct.sortBy(_.unescaped).map(Printer.formatName).mkString(", ")
@@ -145,10 +146,10 @@ object RemoveMultipleInheritance extends TreeTransformation {
           alreadyInherits orElse
           alreadyInheritsUnresolved orElse
           inheritsConflictingVars match {
-          case None => step(h :: included, h.refs.last :: newParents, dropped, rest)
+          case None => step(h +: included, h.refs.last +: newParents, dropped, rest)
           case Some(d) =>
             val newRemaining = h.parents.filterNot(included.contains).filterNot(rest.contains)
-            step(included, newParents, d :: dropped, rest ++ newRemaining)
+            step(included, newParents, d +: dropped, rest ++ newRemaining)
         }
     }
 }

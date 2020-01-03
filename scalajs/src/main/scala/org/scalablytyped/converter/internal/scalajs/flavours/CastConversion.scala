@@ -13,7 +13,7 @@ case class CastConversion(from: QualifiedName, to: QualifiedName, tparams: CastC
 
 object CastConversion {
   sealed trait TParam {
-    def eval(provided: Seq[TypeRef]): TypeRef =
+    def eval(provided: IArray[TypeRef]): TypeRef =
       this match {
         case TParam._1           => provided(0)
         case TParam._2           => provided(1)
@@ -22,7 +22,7 @@ object CastConversion {
         case TParam.Constrained(outer, among, default) =>
           outer.eval(provided) match {
             case tr @ TypeRef(x, _, _) if among(x) => tr
-            case tr                                => TypeRef.Intersection(List(tr, TypeRef(default, Nil, UndoDamage.comment(among))))
+            case tr                                => TypeRef.Intersection(IArray(tr, TypeRef(default, Empty, UndoDamage.comment(among))))
           }
       }
     def among(among: Set[QualifiedName], default: QualifiedName): TParam =
@@ -43,12 +43,12 @@ object CastConversion {
     case class Constrained(outer: TParam, among: Set[QualifiedName], default: QualifiedName) extends TParam
   }
 
-  case class TypeRewriterCast(conversions: Seq[CastConversion]) extends TreeTransformation {
+  case class TypeRewriterCast(conversions: IArray[CastConversion]) extends TreeTransformation {
     val map = conversions.map(x => x.from -> x).toMap
 
     def mapped(x: TypeRef, scope: TreeScope): Option[TypeRef] =
       map.get(x.typeName).map { conv =>
-        val targs = conv.tparams.map(tp => visitTypeRef(scope)(tp.eval(x.targs))).to[Seq]
+        val targs = IArray.apply(conv.tparams.map(tp => visitTypeRef(scope)(tp.eval(x.targs))): _*)
         x.copy(typeName = conv.to, targs = targs)
       }
 
@@ -56,7 +56,7 @@ object CastConversion {
       def unapply(ts: TreeScope): Option[(TreeScope, Tree)] =
         ts match {
           case x: TreeScope.Scoped => Some((x.outer, x.current))
-          case _   => None
+          case _ => None
         }
     }
 
@@ -80,7 +80,7 @@ object CastConversion {
                           val sameInAllOverloads = membersSameName.forall {
                             case mm: MethodTree =>
                               val mmParams = mm.params.flatten
-                              if (mmParams.size < paramIdx + 1) true
+                              if (mmParams.length < paramIdx + 1) true
                               else mmParams(paramIdx).tpe === p.tpe
                             case _ => false
                           }
@@ -119,7 +119,7 @@ object CastConversion {
       Comments(CommentData(WasDefaulted(among)))
 
     def apply(x: TypeRef): TypeRef = x match {
-      case TypeRef.Intersection(Seq(original, TypeRef(bound @ _, Nil, comments))) =>
+      case TypeRef.Intersection(IArray.exactlyTwo(original, TypeRef(bound @ _, Empty, comments))) =>
         comments.extract { case WasDefaulted(among) => among } match {
           case Some((among, _)) if among.contains(original.typeName) => original
           case _                                                     => x

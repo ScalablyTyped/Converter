@@ -5,25 +5,25 @@ object ObjectMembers {
   // format: off
   val ScalaObject =
     ClassTree(
-      Nil,
+      Empty,
       Name.Object,
-      Nil,
-      Nil,
-      Nil,
-      Seq(
-        MethodTree(Nil, ProtectionLevel.Default, Name("getClass"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef(QualifiedName(Name.java :: Name.lang :: Name("Class") :: Nil), Nil, NoComments), isOverride = false, NoComments, QualifiedName.ScalaAny + Name("getClass")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("hashCode"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("hashCode")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("eq"), Nil, Seq(Seq(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("eq")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("equals"), Nil, Seq(Seq(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("equals")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("toString"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.String, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("toString")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("ne"), Nil, Seq(Seq(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("ne")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("notify"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("notify")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("notifyAll"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("notifyAll")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("wait"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("wait")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("wait"), Nil, Seq(Seq(ParamTree(Name("timeout"), isImplicit = false, TypeRef.Long, None, NoComments))), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("wait")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("wait"), Nil, Seq(Seq(ParamTree(Name("timeout"), isImplicit = false, TypeRef.Long, None, NoComments), ParamTree(Name("nanos"), isImplicit = false, TypeRef.Int, None, NoComments))), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("wait")),
-        MethodTree(Nil, ProtectionLevel.Protected, Name("clone"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.ScalaAny, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("clone")),
-        MethodTree(Nil, ProtectionLevel.Protected, Name("finalize"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("finalize")),
+      Empty,
+      Empty,
+      Empty,
+      IArray(
+        MethodTree(Empty, ProtectionLevel.Default, Name("getClass"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef(QualifiedName(Name.java :: Name.lang :: Name("Class") :: Nil), Empty, NoComments), isOverride = false, NoComments, QualifiedName.ScalaAny + Name("getClass")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("hashCode"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("hashCode")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("eq"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("eq")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("equals"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("equals")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("toString"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.String, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("toString")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("ne"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("ne")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("notify"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("notify")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("notifyAll"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("notifyAll")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("wait"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("wait")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("wait"), Empty, IArray(IArray(ParamTree(Name("timeout"), isImplicit = false, TypeRef.Long, None, NoComments))), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("wait")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("wait"), Empty, IArray(IArray(ParamTree(Name("timeout"), isImplicit = false, TypeRef.Long, None, NoComments), ParamTree(Name("nanos"), isImplicit = false, TypeRef.Int, None, NoComments))), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("wait")),
+        MethodTree(Empty, ProtectionLevel.Protected, Name("clone"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.ScalaAny, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("clone")),
+        MethodTree(Empty, ProtectionLevel.Protected, Name("finalize"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Unit, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("finalize")),
       ),
       ClassType.Class,
       isSealed = false,
@@ -33,17 +33,17 @@ object ObjectMembers {
 
   val ScalaJsObject =
     ClassTree(
-      Nil,
+      Empty,
       Name.Object,
-      Nil,
-      Nil,
-      Nil,
-      Seq(
-        MethodTree(Nil, ProtectionLevel.Default, Name("toLocaleString"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.String, isOverride = false, NoComments, QualifiedName.Object + Name("toLocaleString")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("valueOf"), Nil, Seq(Seq()), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Object + Name("valueOf")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("hasOwnProperty"), Nil, Seq(Seq(ParamTree(Name("v"), isImplicit = false, TypeRef.String, None, NoComments))), MemberImpl.Native, TypeRef.Boolean, isOverride = false, NoComments, QualifiedName.Object + Name("hasOwnProperty")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("isPrototypeOf"), Nil, Seq(Seq(ParamTree(Name("v"), isImplicit = false, TypeRef.Object, None, NoComments))), MemberImpl.Native, TypeRef.Boolean, isOverride = false, NoComments, QualifiedName.Object + Name("isPrototypeOf")),
-        MethodTree(Nil, ProtectionLevel.Default, Name("propertyIsEnumerable"), Nil, Seq(Seq(ParamTree(Name("v"), isImplicit = false, TypeRef.String, None, NoComments))), MemberImpl.Native, TypeRef.Boolean, isOverride = false, NoComments, QualifiedName.Object + Name("propertyIsEnumerable")),
+      Empty,
+      Empty,
+      Empty,
+      IArray(
+        MethodTree(Empty, ProtectionLevel.Default, Name("toLocaleString"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.String, isOverride = false, NoComments, QualifiedName.Object + Name("toLocaleString")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("valueOf"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Any, isOverride = false, NoComments, QualifiedName.Object + Name("valueOf")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("hasOwnProperty"), Empty, IArray(IArray(ParamTree(Name("v"), isImplicit = false, TypeRef.String, None, NoComments))), MemberImpl.Native, TypeRef.Boolean, isOverride = false, NoComments, QualifiedName.Object + Name("hasOwnProperty")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("isPrototypeOf"), Empty, IArray(IArray(ParamTree(Name("v"), isImplicit = false, TypeRef.Object, None, NoComments))), MemberImpl.Native, TypeRef.Boolean, isOverride = false, NoComments, QualifiedName.Object + Name("isPrototypeOf")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("propertyIsEnumerable"), Empty, IArray(IArray(ParamTree(Name("v"), isImplicit = false, TypeRef.String, None, NoComments))), MemberImpl.Native, TypeRef.Boolean, isOverride = false, NoComments, QualifiedName.Object + Name("propertyIsEnumerable")),
       ),
       ClassType.Class,
       isSealed = false,
@@ -52,10 +52,10 @@ object ObjectMembers {
     )
   // format: on
 
-  val members: Seq[Tree] =
+  val members: IArray[Tree] =
     ScalaObject.members ++ ScalaJsObject.members
 
-  val byName: Map[Name, Seq[Tree]] =
+  val byName: Map[Name, IArray[Tree]] =
     members.groupBy(_.name)
 
 }

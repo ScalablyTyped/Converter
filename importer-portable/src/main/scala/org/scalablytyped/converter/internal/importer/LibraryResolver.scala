@@ -2,10 +2,9 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource, TsSource}
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts._
 
-class LibraryResolver(stdLib: StdLibSource, sourceFolders: Seq[InFolder], facadesFolder: Option[InFolder]) {
+class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], facadesFolder: Option[InFolder]) {
   import LibraryResolver._
 
   def module(current: TsSource, value: String): Option[(TsSource, TsIdentModule)] =
@@ -40,16 +39,16 @@ class LibraryResolver(stdLib: StdLibSource, sourceFolders: Seq[InFolder], facade
 object LibraryResolver {
   val StableStd = TsIdent.std.value
 
-  def moduleNameFor(source: TsLibSource, file: InFile): List[TsIdentModule] = {
-    val shortened: List[TsIdentModule] =
+  def moduleNameFor(source: TsLibSource, file: InFile): IArray[TsIdentModule] = {
+    val shortened: Option[TsIdentModule] =
       if (source.shortenedFiles.contains(file)) {
         source.libName match {
           case TsIdentLibraryScoped(scope, name) =>
-            List(TsIdentModule(Some(scope), List(name)))
+            Some(TsIdentModule(Some(scope), List(name)))
           case TsIdentLibrarySimple(value) =>
-            List(TsIdentModule(None, value :: Nil))
+            Some(TsIdentModule(None, value :: Nil))
         }
-      } else Nil
+      } else None
 
     val longName: TsIdentModule = {
       val keepIndexPath = file.path.segments.toList.reverse match {
@@ -65,7 +64,7 @@ object LibraryResolver {
       )
     }
 
-    shortened :+ longName
+    IArray.fromOptions(shortened, Some(longName))
   }
 
   def file(folder: InFolder, fragment: String): Option[InFile] =
@@ -76,8 +75,8 @@ object LibraryResolver {
   def folder(folder: InFolder, fragment: String): Option[InFolder] =
     resolve(folder.path, fragment) collectFirst { case dir if os.isDir(dir) => InFolder(dir) }
 
-  private def resolve(path: os.Path, frags: String*): Seq[os.Path] =
-    frags.to[Seq].flatMap(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter os.exists)
+  private def resolve(path: os.Path, frags: String*): IArray[os.Path] =
+    IArray(frags: _*).mapNotNone(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter os.exists)
 
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None

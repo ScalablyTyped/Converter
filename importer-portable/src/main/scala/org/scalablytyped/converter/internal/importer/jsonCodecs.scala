@@ -8,6 +8,12 @@ import org.scalablytyped.converter.internal.ts._
 import io.circe._
 
 object jsonCodecs {
+  implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
+    Encoder[List[T]].contramap[IArray[T]](_.toList)
+
+  implicit def IArrayDecoder[T <: AnyRef: Decoder]: Decoder[IArray[T]] =
+    Decoder[List[T]].map[IArray[T]](IArray.fromTraversable)
+
   implicit val FileEncoder:           Encoder[File]           = Encoder[String].contramap[File](_.toString)
   implicit val FileDecoder:           Decoder[File]           = Decoder[String].map[File](new File(_))
   implicit val RelPathDecoder:        Decoder[os.RelPath]     = Decoder[String].map(str => os.RelPath(str.dropWhile(_ === '/')))

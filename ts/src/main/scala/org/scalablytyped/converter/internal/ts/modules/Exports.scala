@@ -12,7 +12,7 @@ object Exports {
       e:            TsExport,
       loopDetector: LoopDetector,
       owner:        TsDeclNamespaceOrModule,
-  ): Seq[TsNamedDecl] = {
+  ): IArray[TsNamedDecl] = {
 
     lazy val key = (scope, e)
 
@@ -22,13 +22,13 @@ object Exports {
 
     val codePath = owner.codePath.forceHasPath
 
-    val ret: Seq[TsNamedDecl] = e match {
+    val ret: IArray[TsNamedDecl] = e match {
       case TsExport(_, exportType, TsExporteeTree(exported)) =>
         exported match {
           case decl: TsNamedDecl =>
             export(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
 
-          case i @ TsImport(Seq(TsImportedIdent(ident)), _) =>
+          case i @ TsImport(IArray.exactlyOne(TsImportedIdent(ident)), _) =>
             Imports.expandImportee(i.from, scope, loopDetector) match {
               case founds if founds.nonEmpty =>
                 founds match {
@@ -36,7 +36,7 @@ object Exports {
                     things.flatMap {
                       case (m: TsNamedDecl, newScope) =>
                         export(codePath, jsLocation, newScope, exportType, m, Some(ident), loopDetector)
-                      case _ => Nil
+                      case _ => Empty
                     }
 
                   case ExpandedMod.Whole(defaults, namespaceds, rest, newScope) =>
@@ -56,7 +56,7 @@ object Exports {
               case _ =>
                 Imports.expandImportee(i.from, scope, loopDetector)
                 scope.fatalMaybe(s"Could not resolve import $i")
-                Nil
+                Empty
             }
         }
 
@@ -94,12 +94,12 @@ object Exports {
               else CachedReplaceExports(newScope, loopDetector, mod)
 
             resolvedModule.nameds.flatMap {
-              case n if n.name === TsIdent.default => Nil
+              case n if n.name === TsIdent.default => Empty
               case n                               => export(codePath, jsLocation, newScope, exportType, n, None, loopDetector)
             }
           case _ =>
             scope.fatalMaybe(s"Couldn't find expected module $from")
-            Nil
+            Empty
         }
     }
 
@@ -119,7 +119,7 @@ object Exports {
       _namedDecl:   TsNamedDecl,
       renamedOpt:   Option[TsIdentSimple],
       loopDetector: LoopDetector,
-  ): Seq[TsNamedDecl] = {
+  ): IArray[TsNamedDecl] = {
     val limitedScope = scope match {
       case TsTreeScope.Scoped(outer, `_namedDecl`) => outer
       case other                                   => other
@@ -140,7 +140,7 @@ object Exports {
 
             xx.members flatMap {
               case xxx: TsNamedDecl => DeriveCopy(xxx, ownerCp, None)
-              case _ => Nil
+              case _ => Empty
             }
 
           case x =>
@@ -163,8 +163,8 @@ object Exports {
     * This is used when resolving. If we have an import in current scope which points
     * to a module, this finds the matching export in the pointee.
     */
-  def pickExports(exports: Seq[TsExport], wanted: List[TsIdent]): Seq[PickedExport] =
-    exports.flatMap {
+  def pickExports(exports: IArray[TsExport], wanted: List[TsIdent]): IArray[PickedExport] =
+    exports.mapNotNone {
       case e @ TsExport(_, ExportType.Namespaced, _) =>
         Some(PickedExport(e, wanted))
 
@@ -177,7 +177,7 @@ object Exports {
           case exported @ TsExporteeNames(idents, _) => //
             idents.collectFirst {
               case tuple @ (TsQIdent(parts), None) if wanted.startsWith(parts) =>
-                PickedExport(e.copy(exported = exported.copy(idents = List(tuple))), wanted.drop(parts.length))
+                PickedExport(e.copy(exported = exported.copy(idents = IArray(tuple))), wanted.drop(parts.length))
             }
 
           case TsExporteeTree(i: TsImport) =>
@@ -201,7 +201,7 @@ object Exports {
   def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation =
     (jsLocation, ms) match {
       case (m: JsLocation.Module, spec) => m.copy(spec = spec)
-      case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
+      case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents.toList)
       case (JsLocation.Global(jsPath), other)                        => sys.error(s"Unexpected $jsPath and $other")
       case (JsLocation.Zero, _)                                      => JsLocation.Zero
     }
@@ -212,10 +212,10 @@ object Exports {
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
       owner:        TsDeclNamespaceOrModule,
-  ): Seq[(T, TsTreeScope)] =
+  ): IArray[(T, TsTreeScope)] =
     pickExports(scope.exports, wanted).flatMap {
       case PickedExport(e, newWanteds) =>
-        val expanded: Seq[TsNamedDecl] =
+        val expanded: IArray[TsNamedDecl] =
           expandExport(scope, ms => rewriteLocationToOwner(owner.jsLocation, ms), e, loopDetector, owner)
 
         Utils.searchAmong(scope, Pick, newWanteds, expanded, loopDetector)

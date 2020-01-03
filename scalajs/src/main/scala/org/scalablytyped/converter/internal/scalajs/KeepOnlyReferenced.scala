@@ -4,27 +4,25 @@ package scalajs
 import com.olvind.logging.Logger
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
 
 object KeepOnlyReferenced {
-  final case class Keep(related:    Seq[TypeRef]) extends Comment.Data
-  final case class Related(related: Seq[TypeRef]) extends Comment.Data
+  final case class Keep(related:    IArray[TypeRef]) extends Comment.Data
+  final case class Related(related: IArray[TypeRef]) extends Comment.Data
 
-  def findReferences(globalScope: TreeScope, trees: Traversable[(Boolean, PackageTree)]): Index = {
-    val allKeptReferences: Set[QualifiedName] =
-      trees
-        .flatMap {
-          case (true, tree) =>
-            TreeTraverse.collect(tree) { case KeptRefs(refs) => refs }.flatten.to[Set]
-          case (false, tree) =>
-            TreeTraverse
-              .collect(tree) {
-                case KeptRefs(refs)          => refs
-                case TypeRef(typeName, _, _) => List(typeName)
-              }
-              .flatten
-        }
-        .to[Set]
+  def findReferences(globalScope: TreeScope, trees: IArray[(Boolean, PackageTree)]): Index = {
+    val allKeptReferences: IArray[QualifiedName] =
+      trees.flatMap {
+        case (true, tree) =>
+          TreeTraverse.collect(tree) { case KeptRefs(refs) => refs }.flatten.distinct
+        case (false, tree) =>
+          TreeTraverse
+            .collect(tree) {
+              case KeptRefs(refs)          => refs
+              case TypeRef(typeName, _, _) => IArray(typeName)
+            }
+            .flatten
+            .distinct
+      }.distinct
 
 //    val inheritanceTree: Map[QualifiedName, Traversable[QualifiedName]] = {
 //      val superSub = trees.flatMap {
@@ -41,28 +39,28 @@ object KeepOnlyReferenced {
 //      superSub.groupBy(_._1).map { case (supr, subs) => supr -> subs.map(_._2) }
 //    }
 
-    var queue: List[QualifiedName]                            = allKeptReferences.toList
-    val keep:  ArrayBuffer[QualifiedName]                     = mutable.ArrayBuffer(queue: _*)
-    val cache: mutable.Map[QualifiedName, Seq[QualifiedName]] = mutable.Map.empty
+    var queue: List[QualifiedName]                               = allKeptReferences.toList
+    val keep:  IArray.Builder[QualifiedName]                     = IArray.Builder(allKeptReferences)
+    val cache: mutable.Map[QualifiedName, IArray[QualifiedName]] = mutable.Map.empty
 
     while (queue.nonEmpty) {
       queue match {
         case head :: tail if cache contains head =>
           queue = tail
         case head :: tail =>
-          val trees: Seq[Tree] =
+          val trees: IArray[Tree] =
             globalScope lookup head map (_._1)
 
-          val relatedRefs: Seq[TypeRef] =
+          val relatedRefs: IArray[TypeRef] =
             trees.flatMap { t =>
               t.comments.extract { case Related(x) => x } match {
                 case Some(value) => value._1
-                case None        => Nil
+                case None        => Empty
               }
             }
 
-          val referenced: Seq[QualifiedName] =
-            TreeTraverse.collectSeq(relatedRefs ++ trees) {
+          val referenced: IArray[QualifiedName] =
+            TreeTraverse.collectIArray(relatedRefs ++ trees) {
               case TypeRef(typeName, _, _) if typeName =/= head && !cache.contains(typeName) => typeName
             }
 
@@ -73,7 +71,7 @@ object KeepOnlyReferenced {
       }
     }
 
-    Index(keep)
+    Index(keep.result())
   }
 
   /* some refs we only keep when they refer to objects/packages */
@@ -82,7 +80,7 @@ object KeepOnlyReferenced {
   type Index = Map[QualifiedName, OnlyStatic]
 
   object Index {
-    def apply(keep: ArrayBuffer[QualifiedName]): Index = {
+    def apply(keep: IArray[QualifiedName]): Index = {
       val ret = mutable.Map.empty[QualifiedName, OnlyStatic]
       keep.foreach(k => ret(k) = false)
 
@@ -99,12 +97,12 @@ object KeepOnlyReferenced {
   }
 
   private object KeptRefs {
-    def unapply(arg: Tree): Option[Seq[QualifiedName]] =
+    def unapply(arg: Tree): Option[IArray[QualifiedName]] =
       arg match {
         case tree: HasCodePath =>
           tree.comments.extract { case Keep(related) => related }.map {
             case (refs, _) =>
-              val related = TreeTraverse.collectSeq(refs) {
+              val related = TreeTraverse.collectIArray(refs) {
                 case TypeRef(typeName, _, _) => typeName
               }
               val fromTree = TreeTraverse.collect(tree) {

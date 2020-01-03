@@ -14,16 +14,16 @@ object LibrarySpecific {
       x match {
         /* resolve double Omit */
         case ta @ TsDeclTypeAlias(_, _, _ @TsIdent("WithOptionalTheme"), _, TsTypeIntersect(types), _) =>
-          types.toList match {
-            case (omit: TsTypeRef) :: rest if omit.name.parts.last.value === "Omit" =>
-              ta.copy(alias = TsTypeIntersect(omit.tparams.head :: rest))
+          types match {
+            case IArray.headTail(omit: TsTypeRef, rest) if omit.name.parts.last.value === "Omit" =>
+              ta.copy(alias = TsTypeIntersect(omit.tparams.head +: rest))
             case _ => ta
           }
 
         /* resolve circular set of type aliases */
         case TsDeclTypeAlias(cs, d, name @ TsIdent("InterpolationFunction"), tps, TsTypeFunction(sig), cp) =>
-          val call = List(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
-          TsDeclInterface(cs, d, name, tps, Nil, call, cp)
+          val call = IArray(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
+          TsDeclInterface(cs, d, name, tps, Empty, call, cp)
         case other => other
       }
   }
@@ -35,8 +35,8 @@ object LibrarySpecific {
       x match {
         /* resolve circular set of type aliases */
         case TsDeclTypeAlias(cs, d, name @ TsIdent("FunctionInterpolation"), tps, TsTypeFunction(sig), cp) =>
-          val call = List(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
-          TsDeclInterface(cs, d, name, tps, Nil, call, cp)
+          val call = IArray(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
+          TsDeclInterface(cs, d, name, tps, Empty, call, cp)
         case other => other
       }
   }
@@ -59,8 +59,8 @@ object LibrarySpecific {
     override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl = x match {
       /* break circular dependency */
       case TsDeclTypeAlias(cs, d, name @ TsIdent("ITokenFunction"), tps, TsTypeFunction(sig), cp) =>
-        val call = List(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
-        TsDeclInterface(cs, d, name, tps, Nil, call, cp)
+        val call = IArray(TsMemberCall(NoComments, ProtectionLevel.Default, sig))
+        TsDeclInterface(cs, d, name, tps, Empty, call, cp)
       case other => other
     }
   }
@@ -93,7 +93,7 @@ object LibrarySpecific {
     val HTMLTableCellElement   = stdLib + TsIdent("HTMLTableCellElement")
 
     def event(name: TsQIdent, of: TsQIdent) =
-      TsTypeRef(NoComments, name, List(TsTypeRef(NoComments, of, Nil)))
+      TsTypeRef(NoComments, name, IArray(TsTypeRef(NoComments, of, Empty)))
 
     val addDomProps = Map[TsIdent, TsTypeRef](
       TsIdentSimple("StrictInputProps") -> event(InputHTMLAttributes, HTMLInputElement),
@@ -149,7 +149,7 @@ object LibrarySpecific {
       x.name match {
         /* drop useless type parameters */
         case ReactElement =>
-          val newX = x.copy(tparams = Nil)
+          val newX = x.copy(tparams = Empty)
           new TypeRewriter(newX)
             .visitTsDeclInterface(TsTypeParam.asTypeArgs(x.tparams).map(_ -> TsTypeRef.any).toMap)(newX)
 
@@ -197,7 +197,7 @@ object LibrarySpecific {
   }
 
   val patches: Map[TsIdentLibrary, Named] =
-    Seq(atUifabricFoundation, aMap, emberPolyfills, emotion, react, semanticUiReact, styledComponents)
+    IArray(atUifabricFoundation, aMap, emberPolyfills, emotion, react, semanticUiReact, styledComponents)
       .map(x => x.libName -> x)
       .toMap
 

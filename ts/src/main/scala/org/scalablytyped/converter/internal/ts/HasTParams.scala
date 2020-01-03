@@ -2,9 +2,9 @@ package org.scalablytyped.converter.internal
 package ts
 
 object HasTParams {
-  def apply(t: TsTree): Seq[TsTypeParam] = unapply(t) getOrElse Nil
+  def apply(t: TsTree): IArray[TsTypeParam] = unapply(t) getOrElse Empty
 
-  def unapply(t: TsTree): Option[Seq[TsTypeParam]] =
+  def unapply(t: TsTree): Option[IArray[TsTypeParam]] =
     t match {
       case x: TsDeclClass => Some(x.tparams)
       case x: TsDeclInterface => Some(x.tparams)

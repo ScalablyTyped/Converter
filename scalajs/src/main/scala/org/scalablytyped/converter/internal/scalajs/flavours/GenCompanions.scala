@@ -3,7 +3,6 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.Params.Res
-import org.scalablytyped.converter.internal.seqs._
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
@@ -15,7 +14,7 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
       container
     else {
       def nameConflict(name: Name): Boolean =
-        container.index.getOrElse(name, Nil) exists {
+        container.index.getOrElse(name, Empty) exists {
           case _: ContainerTree => true
           case _ => false
         }
@@ -30,32 +29,32 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
             acceptNativeTraits = false,
           ) match {
             case Res.Error(_) =>
-              List(cls)
+              IArray(cls)
 
             case Res.One(_, params) =>
               val modOpt: Option[ModuleTree] =
                 generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
                   .map(method =>
-                    ModuleTree(Nil, cls.name, Nil, Seq(method), NoComments, cls.codePath, isOverride = false),
+                    ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false),
                   )
                   .filter(ensureNotTooManyStrings)
 
-              List(cls) ++ modOpt
+              IArray.fromOptions(Some(cls), modOpt)
 
             case Res.Many(paramsMap) =>
-              val methods: Seq[MethodTree] =
-                paramsMap.flatMap {
+              val methods: IArray[MethodTree] =
+                IArray.fromTraversable(paramsMap.flatMap {
                   case (name, params) => generateCreator(name, params, cls.codePath, cls.tparams)
-                }(collection.breakOut)
+                })
 
               val modOpt: Option[ModuleTree] =
-                Some(ModuleTree(Nil, cls.name, Nil, methods, NoComments, cls.codePath, isOverride = false))
+                Some(ModuleTree(Empty, cls.name, Empty, methods, NoComments, cls.codePath, isOverride = false))
                   .filter(ensureNotTooManyStrings)
 
-              List(cls) ++ modOpt
+              IArray.fromOptions(Some(cls), modOpt)
           }
 
-        case other => List(other)
+        case other => IArray(other)
       })
     }
 
@@ -78,14 +77,14 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
 
   def generateCreator(
       name:        Name,
-      params:      Seq[Param],
+      params:      IArray[Param],
       typeCp:      QualifiedName,
-      typeTparams: Seq[TypeParamTree],
+      typeTparams: IArray[TypeParamTree],
   ): Option[MethodTree] =
     params match {
-      case Nil => None
+      case Empty => None
       case params =>
-        val (optionals, inLiterals, Nil) = params.partitionCollect2(
+        val (optionals, inLiterals, Empty) = params.partitionCollect2(
           { case Param(_, Right(f))  => f },
           { case Param(_, Left(str)) => str },
         )
@@ -95,11 +94,11 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
 
         Some(
           MethodTree(
-            Annotation.Inline :: Nil,
+            IArray(Annotation.Inline),
             ProtectionLevel.Default,
             name,
             typeTparams,
-            params.map(_.parameter) :: Nil,
+            IArray(params.map(_.parameter)),
             MemberImpl.Custom(s"""{
                   |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
                   |${optionals.map(f => "  " + f("__obj")).mkString("\n")}

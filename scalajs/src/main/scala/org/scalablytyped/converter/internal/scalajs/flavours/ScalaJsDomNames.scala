@@ -7,7 +7,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TPar
 class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
 
   // format: off
-  val All: Seq[CastConversion] = Seq(
+  val All: IArray[CastConversion] = IArray(
     CastConversion(stdNames.lib + Name("AbortController"), QualifiedName("org.scalajs.dom.experimental.AbortController")),
     CastConversion(stdNames.lib + Name("AbortSignal"), QualifiedName("org.scalajs.dom.experimental.AbortSignal")),
     CastConversion(stdNames.lib + Name("AbstractWorker"), QualifiedName("org.scalajs.dom.raw.AbstractWorker")),
@@ -558,6 +558,5 @@ class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
   // format: on
 
   val AllElements: Set[QualifiedName] =
-    All.collect { case c if c.to.parts.last.unescaped.endsWith("Element") => c.to }.to[Set]
-
+    All.collect { case c if c.to.parts.last.unescaped.endsWith("Element") => c.to }.toSet
 }

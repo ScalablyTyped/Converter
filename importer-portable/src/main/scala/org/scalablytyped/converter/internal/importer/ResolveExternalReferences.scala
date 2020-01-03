@@ -1,7 +1,7 @@
-package org.scalablytyped.converter.internal.importer
+package org.scalablytyped.converter.internal
+package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.Set
 import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.ts._
 
@@ -16,13 +16,16 @@ object ResolveExternalReferences {
   )
 
   def apply(resolve: LibraryResolver, source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {
-    val imported: Set[TsIdentModule] =
-      tsParsedFile.imports.collect {
+    val imported: Set[TsIdentModule] = {
+      val fromImports = tsParsedFile.imports.collect {
         case TsImport(_, TsImporteeFrom(from))     => from
         case TsImport(_, TsImporteeRequired(from)) => from
-      }.toSet ++ tsParsedFile.exports.collect {
+      }
+      val fromExports = tsParsedFile.exports.collect {
         case TsExport(_, _, TsExporteeNames(_, Some(from))) => from
       }
+      fromImports.toSet ++ fromExports.toSet
+    }
 
     /**
       * Todo: `InferredDependency` takes care of undeclared node dependency.
@@ -41,10 +44,10 @@ object ResolveExternalReferences {
     val root  = TsTreeScope(source.libName, pedantic = true, Map.empty, logger)
     val after = v.visitTsParsedFile(root)(tsParsedFile)
 
-    val newImports: Iterable[TsImport] =
-      v.importTypes map {
-        case (TsIdentImport(from), name) => TsImport(TsImportedStar(Some(name)) :: Nil, TsImporteeFrom(from))
-      }
+    val newImports: IArray[TsImport] =
+      IArray.fromTraversable(v.importTypes map {
+        case (TsIdentImport(from), name) => TsImport(IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
+      })
 
     Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])
   }

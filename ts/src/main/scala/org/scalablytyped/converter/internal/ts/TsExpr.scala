@@ -4,7 +4,7 @@ package ts
 sealed trait TsExpr
 
 object TsExpr {
-  val Default = TsTypeUnion.simplified(List(TsTypeRef.string, TsTypeRef.number))
+  val Default = TsTypeUnion.simplified(IArray(TsTypeRef.string, TsTypeRef.number))
 
   case class Ref(value:     TsTypeRef) extends TsExpr
   case class Literal(value: TsLiteral) extends TsExpr

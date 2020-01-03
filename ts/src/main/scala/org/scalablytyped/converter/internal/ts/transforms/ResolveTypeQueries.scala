@@ -4,10 +4,9 @@ package transforms
 
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts.modules.{DeriveCopy, ReplaceExports}
-import org.scalablytyped.converter.internal.seqs._
 
 object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClassMembers {
-  def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): Seq[TsMember] =
+  def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): IArray[TsMember] =
     tree.members.flatMap {
       case target @ TsMemberProperty(
             cs,
@@ -31,18 +30,18 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           }
 
         founds match {
-          case Nil =>
+          case Empty =>
             val msg = s"Couldn't resolve ${TsTypeFormatter(tpe)}"
             scope.logger.warn(msg)
-            List(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
+            IArray(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
           case more =>
             scope.logger.info(s"Resolved $target")
             more
         }
-      case other => List(other)
+      case other => IArray(other)
     }
 
-  def newMembers(scope: TsTreeScope, tree: TsContainer): Seq[TsContainerOrDecl] =
+  def newMembers(scope: TsTreeScope, tree: TsContainer): IArray[TsContainerOrDecl] =
     tree.members.flatMap {
       case target @ TsDeclVar(_, _, _, name, Some(tpe @ TsTypeQuery(expr)), None, _, _, false)
           if !TsQIdent.Primitive(expr) =>
@@ -59,16 +58,16 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           }
 
         founds match {
-          case Nil =>
+          case Empty =>
             val msg = s"Couldn't resolve ${TsTypeFormatter(tpe)}"
             scope.logger.warn(msg)
-            List(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
+            IArray(target.copy(tpe = Some(TsTypeRef.any.copy(comments = Comments(Comment.warning(msg))))))
           case more =>
             scope.logger.info(s"Resolved $target")
             more
         }
 
-      case other => List(other)
+      case other => IArray(other)
     }
 
   override def leaveTsType(t: TsTreeScope)(x: TsType): TsType =
@@ -87,7 +86,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
   }
 
   object RewrittenClass {
-    def asTypeCtor(cls: TsDeclClass, cs: Comments, params: Seq[TsFunParam]) =
+    def asTypeCtor(cls: TsDeclClass, cs: Comments, params: IArray[TsFunParam]) =
       TsTypeConstructor(
         TsTypeFunction(
           TsFunSig(
@@ -128,7 +127,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             }
 
           val ctor: TsTypeConstructor =
-            existingCtorOpt getOrElse asTypeCtor(cls, NoComments, Nil)
+            existingCtorOpt getOrElse asTypeCtor(cls, NoComments, Empty)
 
           val statics = cls.members collect {
             case x: TsMemberProperty if x.isStatic => x.copy(isStatic = false)
@@ -136,7 +135,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           }
 
           statics match {
-            case Nil => Some((cls, ctor))
+            case Empty => Some((cls, ctor))
             case some =>
               val nameHint = Comments(CommentData(Markers.NameHint(s"TypeofClass${cls.name.value}")))
               Some(
@@ -184,23 +183,23 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
 
       case Right(loopDetector) =>
         target.expr match {
-          case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(NoComments, wanted, Nil)
+          case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(NoComments, wanted, Empty)
           case wanted =>
             val found = scope
               .lookupBase(P(target), wanted)
-              .flatMap { case (x, newScope) => typeOf(x, newScope, loopDetector) }
+              .mapNotNone { case (x, newScope) => typeOf(x, newScope, loopDetector) }
 
             found match {
-              case Nil =>
+              case Empty =>
                 scope.lookupBase(Picker.All, wanted)
                 val msg = s"Couldn't resolve ${TsTypeFormatter(target)}"
                 scope.logger.warn(msg)
                 TsTypeRef.any.copy(comments = Comments(Comment.warning(msg)))
               case more =>
-                val rewritten = more.partitionCollect { case x: TsTypeFunction => x } match {
-                  case (Nil, all) =>
+                val rewritten = more.partitionCollect[TsTypeFunction] { case x: TsTypeFunction => x } match {
+                  case (Empty, all) =>
                     all
-                  case (Seq(one), rest) if one.signature.tparams.isEmpty && rest.size <= 1 =>
+                  case (IArray.exactlyOne(one), rest) if one.signature.tparams.isEmpty && rest.length <= 1 =>
                     one +: rest
                   case (fns, rest) =>
                     val overloads =

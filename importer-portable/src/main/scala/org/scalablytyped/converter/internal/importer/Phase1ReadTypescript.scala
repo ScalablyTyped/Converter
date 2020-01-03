@@ -32,7 +32,7 @@ class Phase1ReadTypescript(
         inFile.path.segments.toList.takeRight(3).mkString("../", "/", "")
       else inFile.path.segments.mkString("/")
 
-  def ignoreModule(moduleNames: List[TsIdentModule]): Boolean =
+  def ignoreModule(moduleNames: IArray[TsIdentModule]): Boolean =
     moduleNames exists ignoreModule
 
   def ignoreModule(modName: TsIdentModule): Boolean =
@@ -74,8 +74,7 @@ class Phase1ReadTypescript(
             libRefsR:  Set[PhaseRes[Source, Source]],
             remaining: Set[Directive],
           ) =
-            parsed.directives
-              .to[Set]
+            parsed.directives.toSet
               .partitionCollect3(
                 {
                   case r @ DirectivePathRef(value) =>
@@ -97,7 +96,7 @@ class Phase1ReadTypescript(
             /* Assert all path directive referenced modules are files (not libraries) */
             toInline <- getDeps(pathRefs.sorted) map assertPartsOnly
 
-            withoutDirectives = parsed.copy(directives = remaining.to[Seq])
+            withoutDirectives = parsed.copy(directives = IArray.fromTraversable(remaining))
 
             /* Ensure we resolved all modules referenced by a type reference directive */
             typeReferencedDeps <- PhaseRes sequenceSet typeRefsR
@@ -132,9 +131,8 @@ class Phase1ReadTypescript(
           val declaredDependencies: Set[Source] =
             if (stdlibSourceOpt.isEmpty) Set.empty
             else
-              source.packageJsonOpt
-                .to[Set]
-                .flatMap(x =>
+              source.packageJsonOpt.toSet
+                .flatMap((x: PackageJsonDeps) =>
                   x.dependencies.map(_.keys).getOrElse(Nil) ++ x.peerDependencies.map(_.keys).getOrElse(Nil),
                 )
                 .flatMap(depName =>
@@ -153,15 +151,16 @@ class Phase1ReadTypescript(
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
 
-              val preprocessed: Seq[TsParsedFile] =
-                libParts.to[Seq] map {
+              val preprocessed: IArray[TsParsedFile] =
+                IArray.fromTraversable(libParts) map {
                   case (helperSource, file) =>
                     logger.info(s"Preprocessing $helperSource")
                     val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
-                    val _2 = FlattenTrees(_1 +: file.toInline.filterNot(_._2.isModule).to[Seq].map(_._2))
+                    val _2 =
+                      FlattenTrees(_1 +: IArray.fromTraversable(file.toInline.filterNot(_._2.isModule)).map(_._2))
 
                     val _3 = helperSource.moduleNames match {
-                      case _ :: Nil => _2
+                      case IArray.exactlyOne(_) => _2
                       case more =>
                         _2.copy(members = _2.members.map {
                           case m: TsDeclModule if more.contains(m.name) =>

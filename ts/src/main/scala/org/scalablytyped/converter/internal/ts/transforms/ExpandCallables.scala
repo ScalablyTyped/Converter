@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 
 /**
@@ -28,7 +27,7 @@ import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
   * If not it wouldn't be safe to call from scala since it discards `this`.
   */
 object ExpandCallables extends TransformClassMembers {
-  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.flatMap {
       case m @ TsMemberProperty(cs, level, name, Some(tpe), None, isStatic, isReadonly, false) =>
         callableTypes(scope)(tpe) match {
@@ -38,25 +37,25 @@ object ExpandCallables extends TransformClassMembers {
                 Some(m.copy(comments = m.comments + CommentData(Markers.ExpandedCallables)))
               else None
 
-            val fs: Seq[TsMemberFunction] =
+            val fs: IArray[TsMemberFunction] =
               callables.map {
                 case (comments, sig) =>
                   val newCs = comments ++ cs
                   TsMemberFunction(newCs, level, name, sig, isStatic, isReadOnly = true, isOptional = false)
               }
 
-            scope.logger.info(s"Expanded ${name.value} into ${fs.size} methods")
+            scope.logger.info(s"Expanded ${name.value} into ${fs.length} methods")
 
-            fs ++ keptOpt
-          case _ => m :: Nil
+            fs ++ IArray.fromOption(keptOpt)
+          case _ => IArray(m)
         }
 
-      case other => other :: Nil
+      case other => IArray(other)
     }
 
   sealed trait Result
   object Result {
-    def combine(rs: Seq[Result]): Result = {
+    def combine(rs: IArray[Result]): Result = {
       val (expands, _) = rs.partitionCollect {
         case i: Expand => i
       }
@@ -64,12 +63,12 @@ object ExpandCallables extends TransformClassMembers {
       else Noop
     }
   }
-  case class Expand(callables: Seq[(Comments, TsFunSig)], keepOriginalMember: Boolean) extends Result
+  case class Expand(callables: IArray[(Comments, TsFunSig)], keepOriginalMember: Boolean) extends Result
   case object Noop extends Result
 
   def callableTypes(scope: TsTreeScope)(tpe: TsType): Result =
     tpe match {
-      case x: TsTypeFunction  => Expand((NoComments, x.signature) :: Nil, keepOriginalMember = false)
+      case x: TsTypeFunction  => Expand(IArray((NoComments, x.signature)), keepOriginalMember = false)
       case x: TsTypeIntersect => Result.combine(x.types map callableTypes(scope))
 
       case x: TsTypeObject =>

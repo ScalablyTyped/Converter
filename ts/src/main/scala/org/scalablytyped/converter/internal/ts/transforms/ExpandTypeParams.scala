@@ -3,7 +3,6 @@ package ts
 package transforms
 
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
-import seqs._
 
 /*
  * This implements the `keyof` and type lookup mechanisms from typescript in a limited context, and brings us a bit closer
@@ -44,44 +43,44 @@ trait Example extends js.Object {
  */
 object ExpandTypeParams extends TransformMembers with TransformClassMembers {
 
-  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): Seq[TsMember] =
+  override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.flatMap {
       case m @ TsMemberCall(_, _, sig) =>
         expandTParams(scope / m, sig) match {
-          case None => Seq(m)
+          case None => IArray(m)
           case Some(nonEmpty) =>
-            scope.logger.info(s"Expanding ${nonEmpty.size} call members")
+            scope.logger.info(s"Expanding ${nonEmpty.length} call members")
             RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
       case m @ TsMemberFunction(_, _, name, sig, _, _, _) =>
         expandTParams(scope / m, sig) match {
-          case None => Seq(m)
+          case None => IArray(m)
           case Some(nonEmpty) =>
-            scope.logger.info(s"Expanding ${nonEmpty.size} members for $name")
+            scope.logger.info(s"Expanding ${nonEmpty.length} members for $name")
             RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
-      case other => Seq(other)
+      case other => IArray(other)
     }
 
-  override def newMembers(scope: TsTreeScope, x: TsContainer): Seq[TsContainerOrDecl] =
+  override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] =
     x.members flatMap {
       case m @ TsDeclFunction(_, _, name, sig, _, _) =>
         expandTParams(scope / m, sig) match {
-          case None => Seq(m)
+          case None => IArray(m)
           case Some(nonEmpty) =>
-            scope.logger.info(s"Expanding ${nonEmpty.size} members for $name")
+            scope.logger.info(s"Expanding ${nonEmpty.length} members for $name")
             RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
-      case other => Seq(other)
+      case other => IArray(other)
     }
 
-  def expandTParams(scope: TsTreeScope, sig: TsFunSig): Option[Seq[TsFunSig]] = {
-    val expandables = sig.tparams.flatMap(expandable(scope, sig))
+  def expandTParams(scope: TsTreeScope, sig: TsFunSig): Option[IArray[TsFunSig]] = {
+    val expandables = sig.tparams.mapNotNone(expandable(scope, sig))
     val expanded = expandables
-      .foldLeft(List(sig)) {
+      .foldLeft(IArray(sig)) {
         case (currentSigs, exp) => currentSigs.flatMap(expandSignature(scope, exp))
       }
 
@@ -92,23 +91,23 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
   }
 
   def expandable(scope: TsTreeScope, sig: TsFunSig)(tp: TsTypeParam): Option[ExpandableTypeParam] = {
-    def flatPick(tpe: TsType): Seq[TsType] =
+    def flatPick(tpe: TsType): IArray[TsType] =
       FollowAliases(scope)(tpe) match {
         case TsTypeUnion(types) => types.flatMap(flatPick)
-        case other              => List(other)
+        case other              => IArray(other)
       }
 
     lazy val isParam = sig.params.exists(p =>
       p.tpe.exists {
-        case TsTypeRef(_, TsQIdent(Seq(tp.name)), _) => true
-        case _                                       => false
+        case TsTypeRef(_, TsQIdent(List(tp.name)), _) => true
+        case _                                        => false
       },
     )
 
     tp.upperBound flatMap { bound =>
       flatPick(bound).partitionCollect2(KeyOf, TypeRef(scope)) match {
         case (Distinct(keyOfs), Distinct(typeRefs), Distinct(keepInBounds))
-            if keyOfs.nonEmpty || (typeRefs.size > 1 && isParam) =>
+            if keyOfs.nonEmpty || (typeRefs.length > 1 && isParam) =>
           Some(ExpandableTypeParam(tp.name, keepInBounds.nonEmptyOpt, keyOfs ++ typeRefs))
         case _ => None
       }
@@ -116,13 +115,13 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
   }
 
   object Distinct {
-    def unapply[T](ts: Seq[T]): Some[Seq[T]] = Some(ts.distinct)
+    def unapply[T <: AnyRef](ts: IArray[T]): Some[IArray[T]] = Some(ts.distinct)
   }
 
   final case class ExpandableTypeParam(
       typeParam:      TsIdent,
-      toKeepInBounds: Option[Seq[TsType]],
-      toExpand:       Seq[Either[TsTypeRef, TsTypeKeyOf]],
+      toKeepInBounds: Option[IArray[TsType]],
+      toExpand:       IArray[Either[TsTypeRef, TsTypeKeyOf]],
   )
 
   val KeyOf: PartialFunction[TsType, Right[TsTypeRef, TsTypeKeyOf]] = {
@@ -135,7 +134,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     case tr: TsTypeRef if tr.tparams.forall(x => !isAny(x)) && !isAny(tr) && !scope.isAbstract(tr.name) => Left(tr)
   }
 
-  def expandSignature(scope: TsTreeScope, exp: ExpandableTypeParam)(sig: TsFunSig): Seq[TsFunSig] = {
+  def expandSignature(scope: TsTreeScope, exp: ExpandableTypeParam)(sig: TsFunSig): IArray[TsFunSig] = {
 
     val keptInBounds: Option[TsFunSig] =
       exp.toKeepInBounds.map { types =>
@@ -156,7 +155,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
           TsTypeRef.of(exp.typeParam) -> clearCircularRef(exp.typeParam, tr),
         )
 
-        List(new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned))
+        IArray(new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned))
 
       case Right(TsTypeKeyOf(ref: TsTypeRef)) =>
         val members = AllMembersFor(scope, LoopDetector.initial)(ref)
@@ -177,7 +176,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
 
     }
 
-    expanded ++ keptInBounds
+    expanded ++ IArray.fromOption(keptInBounds)
   }
 
   /**

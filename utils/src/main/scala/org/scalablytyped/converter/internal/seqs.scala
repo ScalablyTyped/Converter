@@ -1,25 +1,11 @@
 package org.scalablytyped.converter.internal
 
-import scala.collection.generic.{CanBuildFrom, Growable}
-import scala.collection.{mutable, GenIterableLike}
+import scala.collection.GenIterableLike
+import scala.collection.generic.CanBuildFrom
 
 object seqs {
-
-  @inline final implicit class UnzipOps[L, R](private val es: Seq[Either[L, R]]) extends AnyVal {
-
-    @inline def unzipEither: (Seq[L], Seq[R]) =
-      (
-        es.collect({ case Left(v1)  => v1 }),
-        es.collect({ case Right(v2) => v2 }),
-      )
-
-  }
-
   @inline final implicit class TraversableOps[C[t] <: GenIterableLike[t, C[t]], T](private val ts: C[T])
       extends AnyVal {
-
-    def nonEmptyOpt: Option[C[T]] =
-      if (ts.isEmpty) None else Some(ts)
 
     def firstDefined[U](f: T => Option[U]): Option[U] = {
       val it = ts.toIterator
@@ -29,30 +15,6 @@ object seqs {
         if (res.isDefined) return res
       }
       None
-    }
-
-    def partitionCollectWhile[T1](t1: PartialFunction[T, T1])(
-        implicit cbfT:                CanBuildFrom[C[T], T, C[T]],
-        cbfT1:                        CanBuildFrom[C[T], T1, C[T1]],
-    ): (C[T1], C[T]) = {
-
-      val t1s  = cbfT1()
-      val rest = cbfT()
-
-      val iter     = ts.iterator
-      var continue = true
-
-      while (iter.hasNext) {
-        val t = iter.next()
-        if (t1.isDefinedAt(t) && continue) {
-          t1s += t1(t)
-        } else {
-          continue = false
-          rest += t
-        }
-      }
-
-      (t1s.result(), rest.result())
     }
 
     def partitionCollect[T1](t1: PartialFunction[T, T1])(
@@ -178,26 +140,5 @@ object seqs {
 
       (t1s.result(), t2s.result(), t3s.result(), t4s.result(), t5s.result(), rest.result())
     }
-  }
-
-  @inline final implicit class BufferOps[T, C[t] <: Growable[t]](private val ts: mutable.Buffer[T]) extends AnyVal {
-    def addOrUpdateMatching[U <: T](orElse: U)(ifNotMatch: U => U)(pf: PartialFunction[T, U]): Unit = {
-      var i       = 0
-      var updated = false
-      while (i < ts.length && !updated) {
-        val t = ts(i)
-        if (pf isDefinedAt t) {
-          ts(i)   = pf(t)
-          updated = true
-        }
-        i += 1
-      }
-      if (!updated)
-        ts += ifNotMatch(orElse)
-    }
-  }
-
-  object Head {
-    def unapply[T](ts: Seq[T]): Option[T] = ts.headOption
   }
 }

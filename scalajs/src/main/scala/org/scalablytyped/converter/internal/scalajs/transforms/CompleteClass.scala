@@ -25,13 +25,13 @@ object CompleteClass extends TreeTransformation {
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val parents = ParentsResolver(scope, cls)
 
-    val newImplementations: Iterable[MemberTree] =
-      if (cls.classType === ClassType.Trait) Nil else implementations(scope, cls, parents)
+    val newImplementations: IArray[MemberTree] =
+      if (cls.classType === ClassType.Trait) Empty else implementations(scope, cls, parents)
 
     cls.copy(members = cls.members ++ newImplementations)
   }
 
-  def isAlreadyImplemented(scope: TreeScope, potential: MethodTree, existing: Option[Seq[Tree]]): Boolean = {
+  def isAlreadyImplemented(scope: TreeScope, potential: MethodTree, existing: Option[IArray[Tree]]): Boolean = {
     lazy val currentErasure = Erasure.base(scope)(potential)
     existing match {
       case None => false
@@ -47,9 +47,10 @@ object CompleteClass extends TreeTransformation {
       scope:   TreeScope,
       c:       InheritanceTree,
       parents: ParentsResolver.Parents,
-  ): Seq[MemberTree] = {
+  ): IArray[MemberTree] = {
 
-    val ret = parents.pruneClasses.transitiveParents
+    val ret = IArray
+      .fromTraversable(parents.pruneClasses.transitiveParents)
       .flatMap(_._2.members)
       .collect {
         case x: FieldTree if x.impl === MemberImpl.NotImplemented && !c.index.contains(x.name) =>
@@ -58,7 +59,6 @@ object CompleteClass extends TreeTransformation {
             if x.impl === MemberImpl.NotImplemented && !isAlreadyImplemented(scope, x, c.index.get(x.name)) =>
           x.copy(isOverride = true, impl = MemberImpl.Native, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
-      .to[Seq]
       .distinct
 
     if (ret.nonEmpty)

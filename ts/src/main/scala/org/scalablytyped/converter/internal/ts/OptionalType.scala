@@ -8,7 +8,7 @@ object OptionalType {
     tpe match {
       case TsTypeUnion(types) =>
         types partition undefineds match {
-          case (Nil, _)       => None
+          case (Empty, _)     => None
           case (_, remaining) => Some(TsTypeUnion.simplified(remaining))
         }
       case _ => None

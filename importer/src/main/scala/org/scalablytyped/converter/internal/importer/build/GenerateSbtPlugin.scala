@@ -57,13 +57,13 @@ object GenerateSbtPlugin {
       projects
         .map(_.project)
         .groupBy(_.name.head)
-        .to[Seq]
+        .to[Array]
         .sortBy(_._1)
         .map {
           case (letter, ps) =>
             s"""|      object ${ScalaNameEscape(letter.toUpper.toString)} {
                 |${ps
-                 .to[Seq]
+                 .to[Vector]
                  .distinct
                  .sortBy(_.name)
                  .map(p =>

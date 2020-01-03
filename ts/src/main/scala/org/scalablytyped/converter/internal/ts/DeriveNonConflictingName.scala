@@ -41,19 +41,19 @@ object DeriveNonConflictingName {
     case x: TsFunParam       => if (x.isOptional) "Optional" else ""
   }
 
-  def apply[T](prefix: String, minNumParts: Int, members: Seq[TsTree])(tryCreate: TsIdentSimple => Option[T]): T = {
+  def apply[T](prefix: String, minNumParts: Int, members: IArray[TsTree])(tryCreate: TsIdentSimple => Option[T]): T = {
     /* note, we sort below. This is beneficial from a consistency perspective, and
      *   negative for the number of names we can generate. Prefer the former for now */
-    val names     = TsTreeTraverse.collectSeq(members)(ExtractNameParts).sorted
-    val secondary = TsTreeTraverse.collectSeq(members)(ExtractNamePartsSecondary).sorted
-    val tertiary  = TsTreeTraverse.collectSeq(members)(ExtractNamePartsTertiary).sorted
+    val names     = TsTreeTraverse.collectIArray(members)(ExtractNameParts).sorted
+    val secondary = TsTreeTraverse.collectIArray(members)(ExtractNamePartsSecondary).sorted
+    val tertiary  = TsTreeTraverse.collectIArray(members)(ExtractNamePartsTertiary).sorted
     val base      = (prefix +: (names ++ secondary ++ tertiary)).distinct
 
     @tailrec
     def go(num: Int): T =
       (num > base.length, base take num mkString "") match {
         case (true, baseName) =>
-          tryCreate(TsIdent(baseName + "_" + math.abs(members.hashCode()).toString)) getOrElse
+          tryCreate(TsIdent(baseName + "_" + math.abs(members.hashCode).toString)) getOrElse
             sys.error("Could not derive unique name")
 
         case (false, name) =>

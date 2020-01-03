@@ -2,8 +2,6 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
-import org.scalablytyped.converter.internal.seqs._
-
 /**
   * Inheritance works better than the userland union types, so we rewrite the latter to the former:
   *
@@ -69,12 +67,12 @@ import org.scalablytyped.converter.internal.seqs._
   * ```
   */
 object UnionToInheritance {
-  final case class WasUnion(related: Seq[TypeRef]) extends Comment.Data
+  final case class WasUnion(related: IArray[TypeRef]) extends Comment.Data
 
   def apply(scope: TreeScope, tree: ContainerTree, inLib: Name): ContainerTree = {
     val rewrites = Rewrite.identify(inLib, tree, scope / tree)
 
-    val newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]] =
+    val newParentsByCodePath: Map[QualifiedName, IArray[InvertingTypeParamRef]] =
       rewrites
         .flatMap(InvertingTypeParamRef.apply)
         .groupBy(_._1)
@@ -92,11 +90,11 @@ object UnionToInheritance {
   def typesToInterfaces(
       c:                    ContainerTree,
       indexedRewrites:      Map[QualifiedName, Rewrite],
-      newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]],
+      newParentsByCodePath: Map[QualifiedName, IArray[InvertingTypeParamRef]],
   ): ContainerTree = {
     val newMembers = c.members.flatMap {
       case p: ContainerTree =>
-        typesToInterfaces(p, indexedRewrites, newParentsByCodePath) :: Nil
+        IArray(typesToInterfaces(p, indexedRewrites, newParentsByCodePath))
 
       case ta: TypeAliasTree if indexedRewrites.contains(ta.codePath) =>
         val comment = ta.alias match {
@@ -107,14 +105,14 @@ object UnionToInheritance {
         }
 
         indexedRewrites(ta.codePath) match {
-          case Rewrite(_, asInheritance, Nil) =>
+          case Rewrite(_, asInheritance, Empty) =>
             val cls = ClassTree(
-              List(Annotation.ScalaJSDefined),
+              IArray(Annotation.ScalaJSDefined),
               ta.name,
               ta.tparams,
-              Nil,
-              Nil,
-              Nil,
+              Empty,
+              Empty,
+              Empty,
               ClassType.Trait,
               isSealed = false,
               ta.comments +? comment + CommentData(KeepOnlyReferenced.Related(asInheritance)) +
@@ -122,16 +120,16 @@ object UnionToInheritance {
               ta.codePath,
             )
 
-            cls :: Nil
+            IArray(cls)
           case Rewrite(_, asInheritance, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
-              List(Annotation.ScalaJSDefined),
+              IArray(Annotation.ScalaJSDefined),
               patchedTa.name,
               ta.tparams,
-              newParentsByCodePath.getOrElse(ta.codePath, Nil).map(_.instantiate(ta.tparams)),
-              Nil,
-              Nil,
+              newParentsByCodePath.getOrElse(ta.codePath, Empty).map(_.instantiate(ta.tparams)),
+              Empty,
+              Empty,
               ClassType.Trait,
               isSealed = false,
               Comments(
@@ -146,9 +144,9 @@ object UnionToInheritance {
               ),
               comments = ta.comments +? comment,
             )
-            cls :: newTa :: Nil
+            IArray(cls, newTa)
         }
-      case other => other :: Nil
+      case other => IArray(other)
     }
 
     c.withMembers(newMembers)
@@ -161,7 +159,7 @@ object UnionToInheritance {
 
   def addedInheritance(
       c:                    ContainerTree,
-      newParentsByCodePath: Map[QualifiedName, Seq[InvertingTypeParamRef]],
+      newParentsByCodePath: Map[QualifiedName, IArray[InvertingTypeParamRef]],
   ): ContainerTree =
     c.withMembers(c.members.map {
       case p: PackageTree =>
@@ -177,11 +175,11 @@ object UnionToInheritance {
       case other => other
     })
 
-  final case class Rewrite(original: TypeAliasTree, asInheritance: Seq[TypeRef], unchanged: Seq[TypeRef])
+  final case class Rewrite(original: TypeAliasTree, asInheritance: IArray[TypeRef], unchanged: IArray[TypeRef])
 
   object Rewrite {
-    def identify(inLib: Name, p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
-      def go(p: ContainerTree, scope: TreeScope): Seq[Rewrite] = {
+    def identify(inLib: Name, p: ContainerTree, scope: TreeScope): IArray[Rewrite] = {
+      def go(p: ContainerTree, scope: TreeScope): IArray[Rewrite] = {
         def legalClassName(name: Name): Boolean =
           p index name forall {
             case _: PackageTree => false
@@ -189,8 +187,8 @@ object UnionToInheritance {
           }
         p.members.flatMap {
           case p:  ContainerTree                            => identify(inLib, p, scope / p)
-          case ta: TypeAliasTree if legalClassName(ta.name) => canRewrite(inLib, ta, scope / ta).toList
-          case _ => Nil
+          case ta: TypeAliasTree if legalClassName(ta.name) => IArray.fromOption(canRewrite(inLib, ta, scope / ta))
+          case _ => Empty
         }
       }
 
@@ -199,12 +197,12 @@ object UnionToInheritance {
       includeUnchangeds(all)
     }
 
-    private def includeUnchangeds(all: Seq[Rewrite]): Seq[Rewrite] = {
+    private def includeUnchangeds(all: IArray[Rewrite]): IArray[Rewrite] = {
       val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head)
 
-      def go(name: QualifiedName): Seq[TypeRef] =
+      def go(name: QualifiedName): IArray[TypeRef] =
         allIndexed.get(name) match {
-          case None => Nil
+          case None => Empty
           case Some(Rewrite(_, asInheritance, unchanged)) =>
             unchanged ++ asInheritance.flatMap(u => go(u.typeName))
         }
@@ -228,12 +226,12 @@ object UnionToInheritance {
 
           val HasIllegalTypeParams: PartialFunction[TypeRef, TypeRef] = {
             case tr @ TypeRef(_, targs, _)
-                if targs.exists(x => !scope.isAbstract(x)) || targs.toSet.size =/= targs.size =>
+                if targs.exists(x => !scope.isAbstract(x)) || targs.toSet.size =/= targs.length =>
               tr
           }
 
           types.partitionCollect2(HasIllegalTypeParams, InLibrary) match {
-            case (_, inLibrary, _) if inLibrary.size <= 1 => None
+            case (_, inLibrary, _) if inLibrary.length <= 1 => None
             case (illegalTParams, inLibrary, outsideLib) =>
               Some(Rewrite(ta, inLibrary, illegalTParams ++ outsideLib))
           }
@@ -242,32 +240,32 @@ object UnionToInheritance {
       }
   }
 
-  case class InvertingTypeParamRef(codePath: QualifiedName, tParamRefs: Seq[(TypeParamTree, Option[Int])]) {
-    def instantiate(tparams: Seq[TypeParamTree]): TypeRef =
+  case class InvertingTypeParamRef(codePath: QualifiedName, tParamRefs: IArray[(TypeParamTree, Option[Int])]) {
+    def instantiate(tparams: IArray[TypeParamTree]): TypeRef =
       TypeRef(
         codePath,
         tParamRefs.map {
           case (_, Some(idx)) => TypeRef(tparams(idx).name)
           case (_, None)      => TypeRef.Any
-        }.toList,
+        },
         NoComments,
       )
   }
 
   object InvertingTypeParamRef {
-    def apply(r: Rewrite): Seq[(QualifiedName, InvertingTypeParamRef)] = {
+    def apply(r: Rewrite): IArray[(QualifiedName, InvertingTypeParamRef)] = {
       val parentType: TypeAliasTree =
         if (r.unchanged.isEmpty) r.original else patchCodePath(r.original)
 
       r.asInheritance.map { (newParent: TypeRef) =>
-        val tParamReferencedAt: Seq[(TypeParamTree, Option[Int])] =
+        val tParamReferencedAt: IArray[(TypeParamTree, Option[Int])] =
           parentType.tparams.map(tparam =>
             tparam -> newParent.targs.zipWithIndex.collectFirst {
               case (x, idx) if x.name === tparam.name => idx
             },
           )
         newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
-      },
+      }
     }
   }
 }

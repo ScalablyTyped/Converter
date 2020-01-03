@@ -1,5 +1,6 @@
 package org.scalablytyped.converter.internal.importer
 
+import org.scalablytyped.converter.internal.IArray
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import io.circe.parser._
@@ -37,19 +38,19 @@ class JsonTests extends FunSuite {
       Some(
         CompilerOptions(
           module                           = Option("commonjs"),
-          lib                              = Option(Vector("es6")),
+          lib                              = Option(IArray("es6")),
           noImplicitAny                    = Option(true),
           noImplicitThis                   = Option(true),
           strictNullChecks                 = Option(true),
           baseUrl                          = Some(os.RelPath("../")),
-          typeRoots                        = Some(Vector(os.RelPath("../"))),
-          types                            = Some(Vector()),
+          typeRoots                        = Some(IArray(os.RelPath("../"))),
+          types                            = Some(IArray.Empty),
           noEmit                           = Some(true),
           forceConsistentCasingInFileNames = Some(true),
         ),
       ),
       Some(
-        Vector(
+        IArray(
           "index.d.ts",
           "range-parser-tests.ts",
         ),
@@ -76,7 +77,7 @@ class JsonTests extends FunSuite {
 """
     val expected =
       NotNeededPackages(
-        Vector(
+        IArray(
           NotNeededPackage("ajv", TsIdentLibrary("ajv"), "https://github.com/epoberezkin/ajv", "1.0.0"),
           NotNeededPackage("antd", TsIdentLibrary("antd"), "git@github.com:KyleAMathews/deepmerge.git", "1.0.0"),
         ),
@@ -97,7 +98,7 @@ class JsonTests extends FunSuite {
       TypingsJson(
         "phaser",
         "phaser.comments.d.ts",
-        List("pixi.comments.d.ts", "p2.d.ts"),
+        IArray("pixi.comments.d.ts", "p2.d.ts"),
         true,
       )
 

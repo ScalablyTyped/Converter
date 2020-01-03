@@ -5,7 +5,6 @@ package flavours
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.flavours.Params.Res
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, UnionToInheritance}
-import org.scalablytyped.converter.internal.seqs._
 
 import scala.collection.immutable.SortedMap
 
@@ -45,15 +44,15 @@ object Params {
     case class One[T](name:    Name, value: T) extends Success[T]
     case class Many[T](values: Map[Name, T]) extends Success[T]
 
-    def combine[T](ress: Seq[Res[T]]): Res[T] =
+    def combine[T](ress: IArray[Res[T]]): Res[T] =
       ress.partitionCollect3(
         { case Error(msg)       => msg },
         { case One(name, value) => name -> value },
         { case Many(values)     => values },
       ) match {
-        case (Nil, Seq((name, one)), Nil, _) => One(name, one)
-        case (Nil, ones, manies, _)          => Many(ones.toMap ++ manies.flatten)
-        case (errors, _, _, _)               => Error(errors.mkString(", "))
+        case (IArray.Empty, IArray.exactlyOne((name, one)), IArray.Empty, _) => One(name, one)
+        case (IArray.Empty, ones, manies, _)                                 => Many(ones.toMap ++ maps.smash(manies))
+        case (errors, _, _, _)                                               => Error(errors.mkString(", "))
       }
   }
 
@@ -77,9 +76,9 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
       memberToParam:      MemberToParam,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-  ): Res[Seq[Param]] =
+  ): Res[IArray[Param]] =
     forClassTree(cls, scope, maxNum, acceptNativeTraits).map { eithers =>
-      eithers.flatMap {
+      eithers.mapNotNone {
         case Left(param)   => Some(param)
         case Right(member) => memberToParam(scope, member)
       }.sorted
@@ -93,7 +92,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
       scope:              TreeScope,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-  ): Res[Seq[Either[Param, MemberTree]]] =
+  ): Res[IArray[Either[Param, MemberTree]]] =
     cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
@@ -120,7 +119,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
           /* treat dictionaries specially, as they have no declared members */
           val (treatAsUnresolved, keptDirectParents) =
             parents.directParents.partitionCollect {
-              case ParentsResolver.Parent(ref +: _)
+              case ParentsResolver.Parent(IArray.first(ref))
                   if ref.typeName === QualifiedName.StringDictionary || ref.typeName === QualifiedName.NumberDictionary =>
                 ref
             }
@@ -143,7 +142,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
               }
 
           def go(p: ParentsResolver.Parent): Map[Name, Either[Param, MemberTree]] =
-            p.parents.flatMap(go).toMap ++ membersFrom(p.classTree)
+            maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
 
           val builder =
             Builder(
@@ -154,49 +153,50 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
 
           Res.One(
             cls.name,
-            builder
-              .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
-                val isRequired = parent.classTree.members.exists {
-                  case _: MethodTree => true
-                  case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
-                  case _: FieldTree => true
-                  case _ => false
+            IArray.fromTraversable(
+              builder
+                .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
+                  val isRequired = parent.classTree.members.exists {
+                    case _: MethodTree => true
+                    case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
+                    case _: FieldTree => true
+                    case _ => false
+                  }
+                  Params.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
                 }
-                Params.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
-              }
-              .allParamsUnique
-              .values
-              .to[Seq],
+                .allParamsUnique
+                .values,
+            ),
           )
         }
     }
 
-  def combine(ms: Seq[MemberTree]): MemberTree =
+  def combine(ms: IArray[MemberTree]): MemberTree =
     ms.partitionCollect2({ case x: FieldTree => x }, { case x: MethodTree => x }) match {
-      case (_, Seq(method), Nil) => method
-      case (_, methods, Nil) if methods.nonEmpty =>
+      case (_, IArray.exactlyOne(method), IArray.Empty) => method
+      case (_, methods, IArray.Empty) if methods.nonEmpty =>
         val tparams          = methods.maxBy(_.tparams.length).tparams
         val paramsForMethods = methods.map(_.params.flatten)
         val longestParams    = paramsForMethods.maxBy(_.length)
         val params = longestParams.zipWithIndex.map {
           case (param, idx) =>
-            val forIdx: Seq[TypeRef] =
+            val forIdx: IArray[TypeRef] =
               paramsForMethods.map(paramsForMethod =>
                 if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
               )
             param.copy(tpe = TypeRef.Union(forIdx, sort = true))
         }
         val resultType = TypeRef.Union(methods.map(_.resultType), sort = true)
-        methods.head.copy(tparams = tparams, params = List(params), resultType = resultType)
-      case (Seq(field), _, Nil) => field
-      case (fields, _, Nil) if fields.nonEmpty =>
+        methods.head.copy(tparams = tparams, params = IArray(params), resultType = resultType)
+      case (IArray.exactlyOne(field), _, IArray.Empty) => field
+      case (fields, _, IArray.Empty) if fields.nonEmpty =>
         fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), sort = true))
 
       case other => sys.error(s"Unexpected: ${other}")
     }
   private case class Builder(
       directParents: Map[ParentsResolver.Parent, Map[Name, Either[Param, MemberTree]]],
-      unresolved:    Seq[TypeRef],
+      unresolved:    IArray[TypeRef],
       own:           SortedMap[Name, Either[Param, MemberTree]],
   ) {
 
@@ -216,13 +216,14 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
       *  but has the nice property that it keeps the closest/most specific definition of a member
       * */
     def allParamsUnique: Map[Name, Either[Param, MemberTree]] = {
-      val fromParents    = directParents.foldLeft(Map.empty[Name, Either[Param, MemberTree]])(_ ++ _._2)
-      val fromUnresolved = unresolved.map(typeRef => Params.parentParameter(typeRef.name, typeRef, isRequired = false))
+      val fromParents = directParents.foldLeft(Map.empty[Name, Either[Param, MemberTree]])(_ ++ _._2)
+      val fromUnresolved =
+        unresolved.map(typeRef => Params.parentParameter(typeRef.name, typeRef, isRequired = false)).toMap
       fromParents ++ fromUnresolved ++ own
     }
   }
 
-  def realNameFrom(anns: Seq[Annotation], fallback: Name): Name =
+  def realNameFrom(anns: IArray[Annotation], fallback: Name): Name =
     anns
       .collectFirst {
         case Annotation.JsName(name)                       => name

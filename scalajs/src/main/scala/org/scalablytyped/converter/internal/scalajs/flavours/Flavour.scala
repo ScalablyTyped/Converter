@@ -30,7 +30,7 @@ object Flavour {
 
       val withComponents =
         if (involvesReact(scope)) {
-          val components: Seq[Component] =
+          val components: IArray[Component] =
             identifyComponents(prettyString).oneOfEach(scope / withCompanions, withCompanions)
           Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(withCompanions)
         } else withCompanions
@@ -41,7 +41,7 @@ object Flavour {
       }
     }
 
-    def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree
+    def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: IArray[Component]): ContainerTree
   }
 
   case object Plain extends Flavour {
@@ -50,7 +50,7 @@ object Flavour {
     val organization = "org.scalablytyped.plain"
     val outputPkg    = Name("typingsPlain")
 
-    override val conversions: Option[Seq[CastConversion]] =
+    override val conversions: Option[IArray[CastConversion]] =
       None
     override val dependencies: Set[Dep] =
       Set.empty
@@ -67,14 +67,18 @@ object Flavour {
     val outputPkg    = Name("typings")
     val gen          = new GenReactFacadeComponents(reactNames)
 
-    override val conversions: Option[Seq[CastConversion]] =
+    override val conversions: Option[IArray[CastConversion]] =
       None
     override val dependencies: Set[Dep] =
       Set.empty
     override val genCompanions: Option[GenCompanions] =
       if (shouldGenerateCompanions) Some(new GenCompanions(MemberToParam.Default, params)) else None
 
-    override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
+    override def rewrittenReactTree(
+        scope:      TreeScope,
+        tree:       ContainerTree,
+        components: IArray[Component],
+    ): ContainerTree =
       gen(scope, tree, components)
   }
 
@@ -85,13 +89,17 @@ object Flavour {
     val outputPkg    = Name("typingsSlinky")
     val gen          = new GenSlinkyComponents(scalaJsDomNames, stdNames, reactNames, params)
 
-    override val conversions: Option[Seq[CastConversion]] =
+    override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
     override val dependencies: Set[Dep] =
       Set(Dep("me.shadaj", "slinky-web", "0.6.2"))
     override val genCompanions: Option[GenCompanions] =
       if (shouldGenerateCompanions) Some(new GenCompanions(gen.memberToParameter, params)) else None
-    override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
+    override def rewrittenReactTree(
+        scope:      TreeScope,
+        tree:       ContainerTree,
+        components: IArray[Component],
+    ): ContainerTree =
       gen(scope, tree, components)
   }
 
@@ -102,19 +110,23 @@ object Flavour {
     val outputPkg    = Name("typingsJapgolly")
     val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, params)
 
-    override val conversions: Option[Seq[CastConversion]] =
+    override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
     override val dependencies: Set[Dep] =
       Set(Dep("com.github.japgolly.scalajs-react", "core", "1.4.2"))
     override val genCompanions: Option[GenCompanions] =
       if (shouldGenerateCompanions) Some(new GenCompanions(gen.memberToParam, params)) else None
-    override def rewrittenReactTree(scope: TreeScope, tree: ContainerTree, components: Seq[Component]): ContainerTree =
+    override def rewrittenReactTree(
+        scope:      TreeScope,
+        tree:       ContainerTree,
+        components: IArray[Component],
+    ): ContainerTree =
       gen(scope, tree, components)
   }
 }
 
 trait Flavour {
-  def conversions: Option[Seq[CastConversion]]
+  def conversions: Option[IArray[CastConversion]]
   def rewrittenTree(s: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree
   val genCompanions: Option[GenCompanions]
   def dependencies: Set[Dep]

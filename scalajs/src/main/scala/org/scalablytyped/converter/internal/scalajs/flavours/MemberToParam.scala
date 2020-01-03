@@ -20,7 +20,7 @@ object MemberToParam {
         case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
           FollowAliases(scope)(origTpe) match {
             case Optional(TypeRef.Double) =>
-              val tpe = TypeRef.Union(List(TypeRef.Int, TypeRef.Double), sort = false)
+              val tpe = TypeRef.Union(IArray(TypeRef.Int, TypeRef.Double), sort = false)
               Some(
                 Param(
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
@@ -104,7 +104,7 @@ object MemberToParam {
           }
 
         case _m: MethodTree =>
-          val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any), Nil)
+          val m               = FillInTParams(_m, scope, _m.tparams.map(_ => TypeRef.Any), Empty)
           val flattenedParams = m.params.flatten
           val convertedTarget = s"js.Any.fromFunction${flattenedParams.length}(${m.name.value})"
 

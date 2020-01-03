@@ -1,4 +1,5 @@
-package org.scalablytyped.converter.internal
+package org.scalablytyped.converter
+package internal
 
 case class Suffix(unescaped: String) extends AnyVal {
   def +(other: Suffix): Suffix =
@@ -9,7 +10,7 @@ case class Suffix(unescaped: String) extends AnyVal {
       case (Suffix(one), Suffix(two))   => Suffix(one + "_" + two)
     }
 
-  def ++[T: ToSuffix](suffixes: Traversable[T]): Suffix =
+  def ++[T <: AnyRef: ToSuffix](suffixes: IArray[T]): Suffix =
     Suffix(suffixes.foldLeft(unescaped)(_ + ToSuffix(_).unescaped))
 
   def +?[T: ToSuffix](other: Option[T]): Suffix =
@@ -28,7 +29,7 @@ object ToSuffix {
   def apply[T: ToSuffix](t: T): Suffix =
     implicitly[ToSuffix[T]].to(t)
 
-  implicit def Seq[C[t] <: Traversable[t], T: ToSuffix]: ToSuffix[C[T]] =
+  implicit def IArray[T <: AnyRef: ToSuffix]: ToSuffix[IArray[T]] =
     ts => Suffix.Empty ++ ts
 
   implicit object IsSuffix extends ToSuffix[Suffix] {

@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts.ParentsResolver.InterfaceOrClass
 
 object InferReturnTypes extends TreeTransformationScopedChanges {

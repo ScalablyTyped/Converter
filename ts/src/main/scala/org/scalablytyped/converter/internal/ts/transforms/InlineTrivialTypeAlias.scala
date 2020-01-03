@@ -2,8 +2,6 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.seqs._
-
 /**
   * This is the first part of a two step process to rid ourselves of the myriad of
   *  type aliases resulting from the resolution of modules.
@@ -36,8 +34,8 @@ object InlineTrivialTypeAlias extends TreeTransformationScopedChanges {
         case tr: TsTypeRef => Some(tr)
         case TsTypeIntersect(types) =>
           types.partitionCollect { case x: TsTypeRef => x } match {
-            case (all, Nil) if all.map(_.name.parts.last).distinct.size === 1 => Some(all.head)
-            case _                                                            => None
+            case (all, Empty) if all.map(_.name.parts.last).distinct.length === 1 => Some(all.head)
+            case _                                                                => None
           }
         case _ => None
       }

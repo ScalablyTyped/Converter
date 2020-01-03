@@ -2,12 +2,10 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import org.scalablytyped.converter.internal.seqs._
-
 object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
   override def enterTsDecl(scope: TsTreeScope)(x: TsDecl): TsDecl =
     x match {
-      case TsDeclTypeAlias(comments, declared, name, Nil, _, codePath)
+      case TsDeclTypeAlias(comments, declared, name, Empty, _, codePath)
           if scope.surroundingTsContainer.fold(false)(_.membersByName(name).length === 1) =>
         extractOnlyLiterals(scope, x) match {
           case Some(allLits) =>
@@ -34,20 +32,20 @@ object TypeAliasToConstEnum extends TreeTransformationScopedChanges {
       case _ => x
     }
 
-  def extractOnlyLiterals(scope: TsTreeScope, x: TsDecl): Option[Seq[TsLiteral]] =
+  def extractOnlyLiterals(scope: TsTreeScope, x: TsDecl): Option[IArray[TsLiteral]] =
     x match {
-      case TsDeclTypeAlias(_, _, _, Nil, TsTypeUnion(types), _) =>
-        types.partitionCollect2({ case lit: TsTypeLiteral => lit.literal }, { case TsTypeRef(_, name, Nil) => name }) match {
-          case (lits, refs, Nil) =>
+      case TsDeclTypeAlias(_, _, _, Empty, TsTypeUnion(types), _) =>
+        types.partitionCollect2({ case lit: TsTypeLiteral => lit.literal }, { case TsTypeRef(_, name, Empty) => name }) match {
+          case (lits, refs, Empty) =>
             /* All type refs must also be to type unions with type literals */
-            val nested: Seq[Option[Seq[TsLiteral]]] =
+            val nested: IArray[Option[IArray[TsLiteral]]] =
               refs.map(ref =>
                 scope.lookupTypeIncludeScope(ref).firstDefined { case (xx, s) => extractOnlyLiterals(s, xx) },
               )
 
-            nested.partitionCollect2({ case Some(valid) => valid }, { case None => () }) match {
-              case (fromRefs, Nil, Nil) => Some((lits ++ fromRefs.flatten).sortBy(_.asString))
-              case _                    => None
+            nested.partitionCollect2({ case Some(valid) => valid }, { case None => null }) match {
+              case (fromRefs, Empty, Empty) => Some((lits ++ fromRefs.flatten).sortBy(_.asString))
+              case _                        => None
             }
 
           case _ => None

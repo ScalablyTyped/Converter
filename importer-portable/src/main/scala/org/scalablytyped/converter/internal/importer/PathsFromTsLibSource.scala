@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsIdentLibrarySi
 object PathsFromTsLibSource {
   def apply(source: Source.TsLibSource): Set[Source.TsHelperFile] = {
 
-    val files: Seq[InFile] =
+    val files: IArray[InFile] =
       source match {
         case Source.StdLibSource(_, files, _) =>
           files
@@ -25,13 +25,14 @@ object PathsFromTsLibSource {
   val V  = "v[\\d\\.]+".r
   val TS = "ts[\\d\\.]+".r
 
-  def allTopLevel(folder: InFolder): Seq[InFile] =
-    os.list(folder.path)
-      .filter(_.last.endsWith("d.ts"))
-      .to[Seq]
-      .map(InFile.apply)
+  def allTopLevel(folder: InFolder): IArray[InFile] =
+    IArray.fromTraversable(
+      os.list(folder.path)
+        .filter(_.last.endsWith("d.ts"))
+        .map(InFile.apply),
+    )
 
-  def filesFrom(bound: InFolder, libName: TsIdentLibrary): Seq[InFile] = {
+  def filesFrom(bound: InFolder, libName: TsIdentLibrary): IArray[InFile] = {
     def skip(dir: os.Path) =
       dir.last match {
         case "node_modules" => true
@@ -50,10 +51,11 @@ object PathsFromTsLibSource {
         case _   => false
       }
 
-    os.walk(bound.path, skip)
-      .filter(_.last.endsWith(".d.ts"))
-      .filterNot(_.last.contains(".src.")) // filter out files like highlight.src.d.ts,
-      .to[Seq]
-      .map(InFile.apply)
+    IArray.fromTraversable(
+      os.walk(bound.path, skip)
+        .filter(_.last.endsWith(".d.ts"))
+        .filterNot(_.last.contains(".src.")) // filter out files like highlight.src.d.ts,
+        .map(InFile.apply),
+    )
   }
 }

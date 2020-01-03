@@ -2,22 +2,23 @@ package org.scalablytyped.converter.internal
 package ts
 
 object TypeParamsReferencedInTree {
-  def apply(inScope: Map[TsIdent, TsTypeParam], tree: TsTree): Seq[TsTypeParam] = {
+  def apply(inScope: Map[TsIdent, TsTypeParam], tree: TsTree): IArray[TsTypeParam] = {
 
-    val locallyDefined: Seq[TsIdent] =
+    val locallyDefined: Set[TsIdent] =
       TsTreeTraverse
         .collect(tree) {
           case HasTParams(tparams) => tparams.map(_.name)
         }
         .flatten
+        .toSet
 
-    val referencedInTree: Set[TsIdent] =
+    val referencedInTree: IArray[TsIdent] =
       TsTreeTraverse
         .collect(tree) {
           case TsTypeRef(_, TsQIdent(List(unprefixedName)), _) if inScope.contains(unprefixedName) => unprefixedName
         }
-        .to[Set]
+        .distinct
 
-    (referencedInTree -- locallyDefined).map(inScope).to[Seq]
+    referencedInTree.filterNot(locallyDefined).map(inScope)
   }
 }

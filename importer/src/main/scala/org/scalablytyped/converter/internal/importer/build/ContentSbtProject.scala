@@ -4,7 +4,6 @@ package build
 
 import org.scalablytyped.converter.internal.importer.documentation.{Npmjs, ProjectReadme}
 import org.scalablytyped.converter.internal.scalajs.Dep
-import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 object ContentSbtProject {
@@ -15,7 +14,7 @@ object ContentSbtProject {
       name:            String,
       version:         String,
       publishUser:     String,
-      localDeps:       Seq[PublishedSbtProject],
+      localDeps:       IArray[PublishedSbtProject],
       deps:            Set[Dep],
       scalaFiles:      Map[os.RelPath, Array[Byte]],
       resources:       Map[os.RelPath, Array[Byte]],
@@ -25,9 +24,9 @@ object ContentSbtProject {
   ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
 
     val buildSbt = {
-      val fixed    = List(v.%%%(constants.RuntimeOrg, constants.RuntimeName, constants.RuntimeVersion))
-      val external = deps.map(d => v.%%%(d.org, d.artifact, d.version))
-      val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version))
+      val fixed    = Set(v.%%%(constants.RuntimeOrg, constants.RuntimeName, constants.RuntimeVersion))
+      val external = deps.map(d => v.%%%(d.org, d.artifact, d.version)).to[Array]
+      val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version)).toList
 
       val ds = (external ++ fixed ++ local).sorted.mkString("Seq(\n  ", ",\n  ", ")")
 

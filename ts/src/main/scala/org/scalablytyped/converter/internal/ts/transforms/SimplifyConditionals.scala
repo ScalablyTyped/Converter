@@ -17,12 +17,12 @@ object SimplifyConditionals extends TreeTransformationScopedChanges {
     def go(x: TsType): TsType =
       x match {
         case xx: TsTypeConditional =>
-          lazy val inferredNames: Seq[TsIdent] =
+          lazy val inferredNames: IArray[TsIdent] =
             TsTreeTraverse.collect(xx.pred) { case TsTypeInfer(tp) => tp.name }
 
           lazy val inferAny: TsType => TsType = {
             val rewrites: Map[TsType, TsType] =
-              Map(inferredNames.map(ident => TsTypeRef.of(ident) -> TsTypeRef.any): _*)
+              inferredNames.map(ident => TsTypeRef.of(ident) -> TsTypeRef.any).toMap
 
             new ts.transforms.TypeRewriter(x).visitTsType(rewrites)
           }

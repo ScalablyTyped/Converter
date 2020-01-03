@@ -2,8 +2,6 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
-import org.scalablytyped.converter.internal.seqs.TraversableOps
-
 /**
   * We filter away unneeded overrides, since they add nothing, and
   * wreck havoc with IDE performance.
@@ -22,18 +20,23 @@ object FilterMemberOverrides extends TreeTransformation {
     s.copy(members = newMembers(scope, s, s.members, s.parents))
 
   override def leavePackageTree(scope: TreeScope)(s: PackageTree): PackageTree =
-    s.copy(members = newMembers(scope, s, s.members, Nil))
+    s.copy(members = newMembers(scope, s, s.members, Empty))
 
-  private def newMembers(scope: TreeScope, owner: Tree, members: Seq[Tree], inheritance: Seq[TypeRef]): Seq[Tree] = {
+  private def newMembers(
+      scope:       TreeScope,
+      owner:       Tree,
+      members:     IArray[Tree],
+      inheritance: IArray[TypeRef],
+  ): IArray[Tree] = {
     val (methods, fields, modules, other) = members.partitionCollect3(
       { case x: MethodTree => x },
       { case x: FieldTree  => x },
       { case x: ModuleTree => x },
     )
-    val methodsByName: Map[Name, Seq[MethodTree]] =
+    val methodsByName: Map[Name, IArray[MethodTree]] =
       methods groupBy (_.name)
 
-    val fieldsByName: Map[Name, Seq[FieldTree]] =
+    val fieldsByName: Map[Name, IArray[FieldTree]] =
       fields.groupBy(_.name)
 
     val parents: Map[TypeRef, ClassTree] =
@@ -43,18 +46,18 @@ object FilterMemberOverrides extends TreeTransformation {
       }
 
     val (inheritedMethods, inheritedFields, _) =
-      (ObjectMembers.members ++ parents.flatMap(_._2.members)).partitionCollect2(
+      (ObjectMembers.members ++ IArray.fromTraversable(parents).flatMap(_._2.members)).partitionCollect2(
         { case x: MethodTree => x },
         { case x: FieldTree  => x },
       )
 
-    val inheritedFieldsByName: Map[Name, Seq[FieldTree]] =
+    val inheritedFieldsByName: Map[Name, IArray[FieldTree]] =
       inheritedFields groupBy (_.name)
 
-    val inheritedMethodsByBase: Map[MethodBase, Seq[MethodTree]] =
+    val inheritedMethodsByBase: Map[MethodBase, IArray[MethodTree]] =
       inheritedMethods groupBy Erasure.base(scope)
 
-    val inheritedMethodsByName: Map[Name, Seq[MethodTree]] =
+    val inheritedMethodsByName: Map[Name, IArray[MethodTree]] =
       inheritedMethods groupBy (_.name)
 
     val allMethods = inheritedMethodsByName ++ methodsByName
@@ -68,42 +71,42 @@ object FilterMemberOverrides extends TreeTransformation {
      */
     lazy val alreadySuffixed = inheritance.exists(_.name === owner.name)
 
-    val newFields: Seq[FieldTree] = fields.flatMap { f =>
+    val newFields: IArray[FieldTree] = fields.flatMap { f =>
       allMethods.get(f.name) match {
         case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === f.name) =>
-          if (alreadySuffixed) Nil else Seq(f withSuffix "F" + owner.name.value)
+          if (alreadySuffixed) Empty else IArray(f withSuffix "F" + owner.name.value)
         case _ =>
           inheritedFieldsByName.get(f.name) match {
-            case Some(conflicting: Seq[FieldTree]) =>
+            case Some(conflicting: IArray[FieldTree]) =>
               /* but to retain a field with a different type, we rename it */
               val withSuffix = f withSuffix owner.name
 
               if (f.tpe === TypeRef.Any || f.tpe === TypeRef.Nothing || (conflicting exists (_.tpe === f.tpe)))
                 /* there is no point in emitting duplicate fields */
-                Nil
-              else if (allFields.contains(withSuffix.name)) Nil
-              else if (alreadySuffixed) Nil
-              else Seq(withSuffix)
+                Empty
+              else if (allFields.contains(withSuffix.name)) Empty
+              else if (alreadySuffixed) Empty
+              else IArray(withSuffix)
 
             case None =>
-              Seq(f)
+              IArray(f)
           }
       }
     }
 
-    val newModules: Seq[ModuleTree] = modules.flatMap { m =>
+    val newModules: IArray[ModuleTree] = modules.flatMap { m =>
       allMethods.get(m.name) match {
         case Some(ms) if ms.exists(_.params.flatten.length === 0) || ObjectMembers.members.exists(_.name === m.name) =>
-          Nil
-        case _ => Seq(m)
+          Empty
+        case _ => IArray(m)
       }
     }
 
-    val newMethods: Seq[MethodTree] = methods.flatMap { m =>
+    val newMethods: IArray[MethodTree] = methods.flatMap { m =>
 //        val mErasure = Erasure.erasure(scope)(m)
 
       if (inheritedFieldsByName.contains(m.name)) {
-        if (alreadySuffixed) Nil else Seq(m withSuffix "M" + owner.name.value)
+        if (alreadySuffixed) Empty else IArray(m withSuffix "M" + owner.name.value)
       } else {
         val mBase = Erasure.base(scope)(m)
 
@@ -111,16 +114,16 @@ object FilterMemberOverrides extends TreeTransformation {
           case Some(conflicting @ _) =>
             //                /* there is no point in emitting duplicate methods */
             //                if (conflicting exists (c => Erasure.erasure(scope)(c) === mErasure))
-            //                  Nil
+            //                  Empty
             //                /* but to retain a subtly different method, we rename it, and drop completely if it exists in super class  */
             //                else {
             //                  val newM = m withSuffix owner.name
-            //                  if (inheritedMethodsByName.contains(newM.name)) Nil
-            //                  else Seq(newM)
+            //                  if (inheritedMethodsByName.contains(newM.name)) Empty
+            //                  else IArray(newM)
             //
             //                }
-            Nil
-          case _ => Seq(m)
+            Empty
+          case _ => IArray(m)
         }
       }
     }

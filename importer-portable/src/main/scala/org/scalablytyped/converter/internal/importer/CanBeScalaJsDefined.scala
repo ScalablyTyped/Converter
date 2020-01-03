@@ -24,7 +24,7 @@ object CanBeScalaJsDefined {
 
         val fromNamed = int.membersByName.forall {
           case (TsIdent.Apply, _) => false
-          case (_, Seq(one)) =>
+          case (_, IArray.exactlyOne(one)) =>
             one match {
               case _: TsMemberCtor | _: TsMemberCall => false
               case x: TsMemberProperty => !x.isStatic && legalName(x.name)

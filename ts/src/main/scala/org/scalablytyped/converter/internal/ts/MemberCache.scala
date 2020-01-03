@@ -1,15 +1,18 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import org.scalablytyped.converter.internal.seqs.TraversableOps
-
 import scala.collection.mutable
 
 trait MemberCache {
 
-  def members: Seq[TsContainerOrDecl]
+  def members: IArray[TsContainerOrDecl]
 
-  lazy val (nameds: Seq[TsNamedDecl], exports: Seq[TsExport], imports: Seq[TsImport], unnamed: Seq[TsContainerOrDecl]) =
+  lazy val (
+    nameds:  IArray[TsNamedDecl],
+    exports: IArray[TsExport],
+    imports: IArray[TsImport],
+    unnamed: IArray[TsContainerOrDecl],
+  ) =
     members.partitionCollect3(
       { case m: TsNamedDecl => m },
       { case x: TsExport    => x },
@@ -23,7 +26,7 @@ trait MemberCache {
     }
 
   @deprecated("kill with fire", "")
-  lazy val membersByNameMeh: Map[TsIdent, Seq[TsNamedDecl]] = {
+  lazy val membersByNameMeh: Map[TsIdent, IArray[TsNamedDecl]] = {
     val ret = mutable.Map.empty[TsIdent, List[TsNamedDecl]]
 
     members.foreach {
@@ -47,27 +50,30 @@ trait MemberCache {
       case _ => ()
     }
 
-    ret.toMap
+    ret.toMap.mapValues(IArray.fromTraversable)
   }
 
-  lazy val membersByName: Map[TsIdent, Seq[TsNamedDecl]] =
+  lazy val membersByName: Map[TsIdent, IArray[TsNamedDecl]] =
     nameds.groupBy(_.name)
 
+  private lazy val modulesBase =
+    nameds.collect { case m: TsDeclModule => (m.name, m) }
+
   lazy val modules: Map[TsIdentModule, TsDeclModule] =
-    nameds.collect { case m: TsDeclModule => (m.name, m) }.toMap
+    modulesBase.toMap
 
-  lazy val augmentedModules: Seq[TsAugmentedModule] =
-    nameds.collect { case m: TsAugmentedModule => m } ++ modules.flatMap(_._2.augmentedModules)
+  lazy val augmentedModules: IArray[TsAugmentedModule] =
+    nameds.collect { case m: TsAugmentedModule => m } ++ modulesBase.flatMap(_._2.augmentedModules)
 
-  lazy val augmentedModulesMap: Map[TsIdentModule, Seq[TsAugmentedModule]] =
+  lazy val augmentedModulesMap: Map[TsIdentModule, IArray[TsAugmentedModule]] =
     nameds.collect { case m: TsAugmentedModule => m }.groupBy(_.name)
 }
 
 trait HasClassMembers {
-  def members: Seq[TsMember]
+  def members: IArray[TsMember]
 
-  lazy val (membersByName: Map[TsIdentSimple, Seq[TsMember]], unnamed: Seq[TsMember]) = {
-    val (named, unnamed: Seq[TsMember]) =
+  lazy val (membersByName: Map[TsIdentSimple, IArray[TsMember]], unnamed: IArray[TsMember]) = {
+    val (named, unnamed: IArray[TsMember]) =
       members.partitionCollect {
         case x: TsMemberCall     => x
         case x: TsMemberFunction => x

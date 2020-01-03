@@ -8,20 +8,20 @@ import org.scalablytyped.converter.internal.ts.transforms.TypeRewriter
   * Includes all members
   */
 object FillInTParams {
-  def apply(x: TsDeclInterface, providedTParams: Seq[TsType]): TsDeclInterface =
+  def apply(x: TsDeclInterface, providedTParams: IArray[TsType]): TsDeclInterface =
     rewriter(x.tparams, providedTParams)
-      .fold(x)(rws => new TypeRewriter(x).visitTsDeclInterface(rws)(x).copy(tparams = Nil))
+      .fold(x)(rws => new TypeRewriter(x).visitTsDeclInterface(rws)(x).copy(tparams = Empty))
 
-  def apply(x: TsDeclClass, providedTParams: Seq[TsType]): TsDeclClass =
+  def apply(x: TsDeclClass, providedTParams: IArray[TsType]): TsDeclClass =
     rewriter(x.tparams, providedTParams)
-      .fold(x)(rws => new TypeRewriter(x).visitTsDeclClass(rws)(x).copy(tparams = Nil))
+      .fold(x)(rws => new TypeRewriter(x).visitTsDeclClass(rws)(x).copy(tparams = Empty))
 
-  def apply(x: TsDeclTypeAlias, providedTParams: Seq[TsType]): TsDeclTypeAlias =
+  def apply(x: TsDeclTypeAlias, providedTParams: IArray[TsType]): TsDeclTypeAlias =
     rewriter(x.tparams, providedTParams)
-      .fold(x)(rws => new TypeRewriter(x).visitTsDeclTypeAlias(rws)(x).copy(tparams = Nil))
+      .fold(x)(rws => new TypeRewriter(x).visitTsDeclTypeAlias(rws)(x).copy(tparams = Empty))
 
-  def apply(x: TsFunSig, providedTParams: Seq[TsType]): TsFunSig =
-    rewriter(x.tparams, providedTParams).fold(x)(rws => new TypeRewriter(x).visitTsFunSig(rws)(x).copy(tparams = Nil))
+  def apply(x: TsFunSig, providedTParams: IArray[TsType]): TsFunSig =
+    rewriter(x.tparams, providedTParams).fold(x)(rws => new TypeRewriter(x).visitTsFunSig(rws)(x).copy(tparams = Empty))
 
   /* A function in scala cannot have type parameters, so we inline them with their defaults or upper bounds */
   def inlineTParams(sig: TsFunSig): TsFunSig = {
@@ -49,7 +49,10 @@ object FillInTParams {
     FillInTParams(sig, rewritten)
   }
 
-  private def rewriter(expectedTParams: Seq[TsTypeParam], providedTParams: Seq[TsType]): Option[Map[TsType, TsType]] =
+  private def rewriter(
+      expectedTParams: IArray[TsTypeParam],
+      providedTParams: IArray[TsType],
+  ): Option[Map[TsType, TsType]] =
     if (expectedTParams.isEmpty) None
     else {
       val rewrites: Map[TsType, TsType] =

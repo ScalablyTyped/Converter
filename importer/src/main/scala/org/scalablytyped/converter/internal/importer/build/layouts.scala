@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.importer.build
 
-import org.scalablytyped.converter.internal.Seq
+import org.scalablytyped.converter.internal.IArray
 
 trait Layout[F, V] {
   type Self[f, v] <: Layout[f, v]
@@ -26,7 +26,7 @@ final case class SbtProjectLayout[F, V](
 ) extends Layout[F, V] {
   override type Self[f, v] = SbtProjectLayout[f, v]
   override def all: Map[F, V] =
-    (Seq(buildSbt, buildProperties, pluginsSbt, readmeMd)).toMap ++ sourcesDir ++ resourcesDir
+    (IArray(buildSbt, buildProperties, pluginsSbt, readmeMd)).toMap ++ sourcesDir ++ resourcesDir
 
   override def map[FF, VV](f: (F, V) => (FF, VV)): SbtProjectLayout[FF, VV] =
     this match {
@@ -45,7 +45,7 @@ final case class SbtProjectLayout[F, V](
 final case class IvyLayout[F, V](jarFile: (F, V), sourceFile: (F, V), ivyFile: (F, V), pomFile: (F, V))
     extends Layout[F, V] {
   override type Self[f, v] = IvyLayout[f, v]
-  override def all: Map[F, V] = Seq(jarFile, sourceFile, ivyFile, pomFile).toMap
+  override def all: Map[F, V] = IArray(jarFile, sourceFile, ivyFile, pomFile).toMap
   override def map[FF, VV](f: (F, V) => (FF, VV)): IvyLayout[FF, VV] =
     this match {
       case IvyLayout((_1k, _1v), (_2k, _2v), (_3k, _3v), (_4k, _4v)) =>
@@ -66,7 +66,7 @@ object IvyLayout {
 }
 
 final case class MavenLayout[F, V](jarFile: (F, V), sourceFile: (F, V), pomFile: (F, V)) extends Layout[F, V] {
-  override def all: Map[F, V] = Seq(jarFile, sourceFile, pomFile).toMap
+  override def all: Map[F, V] = IArray(jarFile, sourceFile, pomFile).toMap
   override type Self[f, v] = MavenLayout[f, v]
   override def map[FF, VV](f: (F, V) => (FF, VV)): MavenLayout[FF, VV] =
     this match {

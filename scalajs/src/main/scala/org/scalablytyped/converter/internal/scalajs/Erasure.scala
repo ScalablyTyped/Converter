@@ -55,12 +55,12 @@ object Erasure {
           .collectFirst {
             case (x: TypeAliasTree, s) =>
               if (x.alias.typeName === other) QualifiedName.ScalaAny
-              else simplify(s, FillInTParams(x, s, tpe.targs, Nil).alias)
+              else simplify(s, FillInTParams(x, s, tpe.targs, Empty).alias)
             case (x: ClassTree, _) => x.codePath
           }
           .getOrElse(other)
     }
 }
 
-final case class MethodErasure(name: Name, params: Seq[QualifiedName], ret: QualifiedName)
-final case class MethodBase(name:    Name, params: Seq[QualifiedName])
+final case class MethodErasure(name: Name, params: IArray[QualifiedName], ret: QualifiedName)
+final case class MethodBase(name:    Name, params: IArray[QualifiedName])

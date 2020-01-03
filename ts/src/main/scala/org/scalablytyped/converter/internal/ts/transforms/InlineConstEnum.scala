@@ -2,13 +2,11 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
-import seqs._
-
 object InlineConstEnum extends TreeTransformationScopedChanges {
 
   override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
     x match {
-      case TsTypeRef(_, TsQIdent(parts), Nil) =>
+      case TsTypeRef(_, TsQIdent(parts), Empty) =>
         val inlinedEnumMember: Option[TsType] =
           if (parts.length < 3) None /* libName + enumName + enumMember */
           else

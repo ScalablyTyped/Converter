@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.ts.CodePath.{HasPath, NoPath}
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 object DeriveCopy {
-  def apply(x: TsNamedDecl, ownerCp: CodePath, _rename: Option[TsIdentSimple]): Seq[TsNamedDecl] = {
+  def apply(x: TsNamedDecl, ownerCp: CodePath, _rename: Option[TsIdentSimple]): IArray[TsNamedDecl] = {
     val rename = _rename.filter(r => x.name =/= r) // I think this only happens with `default`, but as might as well make sure
 
     //keep as def, we need to let `TsDeclNamespace` through without a codePath as it might be synthetic
@@ -19,33 +19,33 @@ object DeriveCopy {
 
     (x, x.name, x.codePath, ownerCp) match {
       case (x: TsDeclFunction, _, _, ownerCodePath: CodePath.HasPath) =>
-        List(SetCodePath.visitTsDeclFunction(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
+        IArray(SetCodePath.visitTsDeclFunction(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
 
       case (x: TsDeclVar, _, _, ownerCodePath: CodePath.HasPath) =>
-        List(SetCodePath.visitTsDeclVar(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
+        IArray(SetCodePath.visitTsDeclVar(ownerCodePath)(rename.foldLeft(x)(_ withName _)))
 
       case (x, _, xCp: HasPath, ownerCp: HasPath)
           if xCp.codePath.parts.length === ownerCp.codePath.parts.length + 1 &&
             xCp.codePath.parts.startsWith(ownerCp.codePath.parts) &&
             rename.isEmpty =>
-        List(x)
+        IArray(x)
 
       case (x: TsDeclModule, _, _, ownerCp) if rename.isDefined =>
-        List(updatedContainer(ownerCp, x.withName(rename.get)))
+        IArray(updatedContainer(ownerCp, x.withName(rename.get)))
       case (x: TsDeclModule, _, _, ownerCp) =>
-        List(updatedContainer(ownerCp, x))
+        IArray(updatedContainer(ownerCp, x))
 
       case (x: TsAugmentedModule, name, _, ownerCp) if rename.isEmpty =>
-        List(updatedContainer(ownerCp, x.copy(codePath = codePathFor(name))))
+        IArray(updatedContainer(ownerCp, x.copy(codePath = codePathFor(name))))
       case (_: TsAugmentedModule, _, _, _) if rename.isEmpty =>
-        Nil
+        Empty
 
       case (x, origName: TsIdentSimple, _, ownerCp) =>
         val name = rename getOrElse origName
 
         val derived = x match {
           case x: TsDeclClass =>
-            List(
+            IArray(
               x.copy(
                 name = name,
                 members = x.members.collect {
@@ -55,14 +55,14 @@ object DeriveCopy {
                   case x: TsMemberFunction if x.isStatic => x
                 },
                 declared   = true,
-                implements = Nil,
+                implements = Empty,
                 parent     = Some(TsTypeRef(NoComments, origin, TsTypeParam.asTypeArgs(x.tparams))),
                 codePath   = codePathFor(name),
               ),
             )
 
           case x: TsDeclInterface =>
-            List(
+            IArray(
               TsDeclTypeAlias(
                 comments = Comments(CommentData(Markers.IsTrivial)),
                 declared = true,
@@ -74,26 +74,26 @@ object DeriveCopy {
             )
 
           case x: TsDeclEnum =>
-            List(
+            IArray(
               x.copy(
                 name         = name,
                 isValue      = true,
-                exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Nil)),
+                exportedFrom = x.exportedFrom orElse Some(TsTypeRef(NoComments, origin, Empty)),
                 codePath     = codePathFor(name),
               ),
             )
 
           case x: TsDeclVar =>
-            List(x.copy(name = name, codePath = codePathFor(name)))
+            IArray(x.copy(name = name, codePath = codePathFor(name)))
 
           case x: TsDeclFunction =>
-            List(x.copy(name = name, codePath = codePathFor(name)))
+            IArray(x.copy(name = name, codePath = codePathFor(name)))
 
           case x: TsDeclNamespace =>
-            List(updatedContainer(ownerCp, x.copy(name = name, codePath = codePathFor(name))))
+            IArray(updatedContainer(ownerCp, x.copy(name = name, codePath = codePathFor(name))))
 
           case x: TsDeclTypeAlias =>
-            List(
+            IArray(
               TsDeclTypeAlias(
                 Comments(CommentData(Markers.IsTrivial)),
                 declared = false,
@@ -113,11 +113,11 @@ object DeriveCopy {
 
   def updatedContainer(ownerCp: CodePath, x: TsContainer with TsNamedDecl): TsNamedDecl = {
     /* For this to be correct we convert nested members with old codePath, then recursively update it afterwards */
-    val newMembers: Seq[TsContainerOrDecl] =
+    val newMembers: IArray[TsContainerOrDecl] =
       x.members.flatMap {
         case m: TsNamedDecl =>
           apply(m, x.codePath, None)
-        case other => List(other)
+        case other => IArray(other)
       }
 
     (ownerCp, x.withMembers(newMembers)) match {

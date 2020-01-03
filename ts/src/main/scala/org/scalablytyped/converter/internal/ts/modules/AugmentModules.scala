@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal.ts.modules
 
-import org.scalablytyped.converter.internal.Seq
-import org.scalablytyped.converter.internal.seqs.TraversableOps
+import org.scalablytyped.converter.internal.IArray
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
@@ -20,7 +19,8 @@ object AugmentModules {
   def target(mod: TsDeclModule, scope: TsTreeScope): CodePath.HasPath = {
     val exportedNamespaceOpt: Option[CodePath] =
       mod.exports.firstDefined {
-        case TsExport(_, exportType, TsExporteeNames(Seq((qIdent, None)), None)) if ExportType.NotNamed(exportType) =>
+        case TsExport(_, exportType, TsExporteeNames(IArray.exactlyOne((qIdent, None)), None))
+            if ExportType.NotNamed(exportType) =>
           (scope / mod)
             .lookupBase(Picker.Namespaces, qIdent, skipValidation = true)
             .headOption
@@ -35,7 +35,7 @@ object AugmentModules {
 
   def apply(rootScope: TsTreeScope)(file: TsParsedFile): TsParsedFile = {
 
-    val targetToAux: Map[Option[CodePath.HasPath], Seq[TsAugmentedModule]] =
+    val targetToAux: Map[Option[CodePath.HasPath], IArray[TsAugmentedModule]] =
       file.augmentedModules.groupBy(aux => file.modules.get(aux.name).map(m => target(m, rootScope)))
 
     val toRemove = mutable.Set.empty[CodePath]
@@ -44,9 +44,9 @@ object AugmentModules {
       override def enterTsDeclNamespace(t: Unit)(x: TsDeclNamespace): TsDeclNamespace =
         targetToAux.get(Option(x.codePath.forceHasPath)) match {
           case Some(auxes) =>
-            val auxMembers: Seq[TsContainerOrDecl] =
+            val auxMembers: IArray[TsContainerOrDecl] =
               auxes.flatMap(_.members).map(am => SetCodePath.visitTsContainerOrDecl(x.codePath.forceHasPath)(am))
-            toRemove ++= auxes.map(_.codePath)
+            toRemove ++= auxes.map(_.codePath).toList
             x.copy(members = FlattenTrees.newMembers(x.members, auxMembers))
           case None => x
         }
@@ -54,9 +54,9 @@ object AugmentModules {
       override def enterTsDeclModule(t: Unit)(x: TsDeclModule): TsDeclModule =
         targetToAux.get(Option(x.codePath.forceHasPath)) match {
           case Some(auxes) =>
-            val auxMembers: Seq[TsContainerOrDecl] =
+            val auxMembers: IArray[TsContainerOrDecl] =
               auxes.flatMap(_.members).map(am => SetCodePath.visitTsContainerOrDecl(x.codePath.forceHasPath)(am))
-            toRemove ++= auxes.map(_.codePath)
+            toRemove ++= auxes.map(_.codePath).toList
             x.copy(members = FlattenTrees.newMembers(x.members, auxMembers))
           case None => x
         }
@@ -71,7 +71,7 @@ object AugmentModules {
         x.copy(members = newMembers)
       }
       override def leaveTsDeclModule(t: Unit)(x: TsDeclModule): TsDeclModule = {
-        val newMembers = x.members.flatMap {
+        val newMembers = x.members.mapNotNone {
           case aux: TsAugmentedModule if toRemove(aux.codePath) => KeepTypesOnly(aux)
           case other => Some(other)
         }

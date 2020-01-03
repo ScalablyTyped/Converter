@@ -2,7 +2,6 @@ package org.scalablytyped.converter.internal
 package scalajs
 
 import scala.util.hashing.MurmurHash3.productHash
-import seqs._
 
 sealed trait Tree extends Product with Serializable {
   val name:     Name
@@ -16,25 +15,25 @@ sealed trait HasCodePath {
 }
 
 sealed trait ContainerTree extends Tree with HasCodePath {
-  val annotations: Seq[ClassAnnotation]
-  val members:     Seq[Tree]
+  val annotations: IArray[ClassAnnotation]
+  val members:     IArray[Tree]
 
-  def withMembers(members: Seq[Tree]): ContainerTree =
+  def withMembers(members: IArray[Tree]): ContainerTree =
     this match {
       case x: PackageTree => x.copy(members = members)
       case x: ModuleTree  => x.copy(members = members)
     }
 
-  lazy val index: Map[Name, Seq[Tree]] =
+  lazy val index: Map[Name, IArray[Tree]] =
     members.groupBy(_.name)
 }
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
-  def annotations: Seq[ClassAnnotation]
+  def annotations: IArray[ClassAnnotation]
   def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
   def receivesCompanion: Boolean =
     isScalaJsDefined || comments.extract { case Markers.CouldBeScalaJsDefined => () }.nonEmpty
-  val index: Map[Name, Seq[Tree]]
+  val index: Map[Name, IArray[Tree]]
 
   def isNative: Boolean =
     annotations.exists {
@@ -45,9 +44,9 @@ sealed trait InheritanceTree extends Tree with HasCodePath {
 }
 
 final case class PackageTree(
-    annotations: Seq[ClassAnnotation],
+    annotations: IArray[ClassAnnotation],
     name:        Name,
-    members:     Seq[Tree],
+    members:     IArray[Tree],
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends ContainerTree
@@ -60,18 +59,18 @@ object PackageTree {
 }
 
 final case class ClassTree(
-    annotations: Seq[ClassAnnotation],
+    annotations: IArray[ClassAnnotation],
     name:        Name,
-    tparams:     Seq[TypeParamTree],
-    parents:     Seq[TypeRef],
-    ctors:       Seq[CtorTree],
-    members:     Seq[Tree],
+    tparams:     IArray[TypeParamTree],
+    parents:     IArray[TypeRef],
+    ctors:       IArray[CtorTree],
+    members:     IArray[Tree],
     classType:   ClassType,
     isSealed:    Boolean,
     comments:    Comments,
     codePath:    QualifiedName,
 ) extends InheritanceTree {
-  lazy val index: Map[Name, Seq[Tree]] =
+  lazy val index: Map[Name, IArray[Tree]] =
     members.groupBy(_.name)
 
   def renamed(newName: Name): ClassTree =
@@ -86,10 +85,10 @@ final case class ClassTree(
 }
 
 final case class ModuleTree(
-    annotations: Seq[ClassAnnotation],
+    annotations: IArray[ClassAnnotation],
     name:        Name,
-    parents:     Seq[TypeRef],
-    members:     Seq[Tree],
+    parents:     IArray[TypeRef],
+    members:     IArray[Tree],
     comments:    Comments,
     codePath:    QualifiedName,
     isOverride:  Boolean,
@@ -98,7 +97,7 @@ final case class ModuleTree(
 
 final case class TypeAliasTree(
     name:     Name,
-    tparams:  Seq[TypeParamTree],
+    tparams:  IArray[TypeParamTree],
     alias:    TypeRef,
     comments: Comments,
     codePath: QualifiedName,
@@ -107,7 +106,7 @@ final case class TypeAliasTree(
 
 sealed trait MemberTree extends Tree with HasCodePath {
   val isOverride:  Boolean
-  val annotations: Seq[MemberAnnotation]
+  val annotations: IArray[MemberAnnotation]
   def withCodePath(newCodePath: QualifiedName): MemberTree
   def renamed(newName:          Name):          MemberTree
 }
@@ -121,7 +120,7 @@ object MemberImpl {
 }
 
 final case class FieldTree(
-    annotations: Seq[MemberAnnotation],
+    annotations: IArray[MemberAnnotation],
     name:        Name,
     tpe:         TypeRef,
     impl:        MemberImpl,
@@ -149,11 +148,11 @@ final case class FieldTree(
 }
 
 final case class MethodTree(
-    annotations: Seq[MemberAnnotation],
+    annotations: IArray[MemberAnnotation],
     level:       ProtectionLevel,
     name:        Name,
-    tparams:     Seq[TypeParamTree],
-    params:      Seq[Seq[ParamTree]],
+    tparams:     IArray[TypeParamTree],
+    params:      IArray[IArray[ParamTree]],
     impl:        MemberImpl,
     resultType:  TypeRef,
     isOverride:  Boolean,
@@ -177,19 +176,19 @@ final case class MethodTree(
   def withCodePath(newCodePath: QualifiedName): MethodTree = copy(codePath = newCodePath)
 }
 
-final case class CtorTree(level: ProtectionLevel, params: Seq[ParamTree], comments: Comments) extends Tree {
+final case class CtorTree(level: ProtectionLevel, params: IArray[ParamTree], comments: Comments) extends Tree {
   override val name = Name.CONSTRUCTOR
 }
 
 object CtorTree {
-  val defaultPublic    = CtorTree(ProtectionLevel.Default, Seq(), NoComments)
-  val defaultProtected = CtorTree(ProtectionLevel.Protected, Seq(), NoComments)
+  val defaultPublic    = CtorTree(ProtectionLevel.Default, IArray(), NoComments)
+  val defaultProtected = CtorTree(ProtectionLevel.Protected, IArray(), NoComments)
 }
 
 final case class TypeParamTree(name: Name, upperBound: Option[TypeRef], comments: Comments) extends Tree
 
 object TypeParamTree {
-  def asTypeArgs(tps: Seq[TypeParamTree]): Seq[TypeRef] =
+  def asTypeArgs(tps: IArray[TypeParamTree]): IArray[TypeRef] =
     tps.map(x => TypeRef(x.name))
 
   implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
@@ -198,7 +197,7 @@ object TypeParamTree {
 final case class ParamTree(name: Name, isImplicit: Boolean, tpe: TypeRef, default: Option[TypeRef], comments: Comments)
     extends Tree
 
-final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments: Comments) extends Tree {
+final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
 
   def withOptional(optional: Boolean): TypeRef =
@@ -210,45 +209,45 @@ final case class TypeRef(typeName: QualifiedName, targs: Seq[TypeRef], comments:
 
 object TypeRef {
   def apply(n: Name): TypeRef =
-    TypeRef(QualifiedName(List(n)), Nil, NoComments)
+    TypeRef(QualifiedName(List(n)), Empty, NoComments)
   def apply(qn: QualifiedName): TypeRef =
-    TypeRef(qn, Nil, NoComments)
+    TypeRef(qn, Empty, NoComments)
 
   def stripTargs(tr: TypeRef): TypeRef = tr.copy(targs = tr.targs.map(_ => TypeRef.Any))
 
-  val Wildcard     = TypeRef(QualifiedName.WILDCARD, Nil, NoComments)
-  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Nil, NoComments)
-  val Any          = TypeRef(QualifiedName.Any, Nil, NoComments)
-  val Boolean      = TypeRef(QualifiedName.Boolean, Nil, NoComments)
-  val Double       = TypeRef(QualifiedName.Double, Nil, NoComments)
-  val Dynamic      = TypeRef(QualifiedName.Dynamic, Nil, NoComments)
-  val Int          = TypeRef(QualifiedName.Int, Nil, NoComments)
-  val Long         = TypeRef(QualifiedName.Long, Nil, NoComments)
-  val Nothing      = TypeRef(QualifiedName.Nothing, Nil, NoComments)
-  val Null         = TypeRef(QualifiedName.Null, Nil, NoComments)
-  val Object       = TypeRef(QualifiedName.Object, Nil, NoComments)
-  val String       = TypeRef(QualifiedName.String, Nil, NoComments)
-  val Symbol       = TypeRef(QualifiedName.Symbol, Nil, NoComments)
-  val Unit         = TypeRef(QualifiedName.Unit, Nil, NoComments)
-  val FunctionBase = TypeRef(QualifiedName.Function, Nil, NoComments)
+  val Wildcard     = TypeRef(QualifiedName.WILDCARD, Empty, NoComments)
+  val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Empty, NoComments)
+  val Any          = TypeRef(QualifiedName.Any, Empty, NoComments)
+  val Boolean      = TypeRef(QualifiedName.Boolean, Empty, NoComments)
+  val Double       = TypeRef(QualifiedName.Double, Empty, NoComments)
+  val Dynamic      = TypeRef(QualifiedName.Dynamic, Empty, NoComments)
+  val Int          = TypeRef(QualifiedName.Int, Empty, NoComments)
+  val Long         = TypeRef(QualifiedName.Long, Empty, NoComments)
+  val Nothing      = TypeRef(QualifiedName.Nothing, Empty, NoComments)
+  val Null         = TypeRef(QualifiedName.Null, Empty, NoComments)
+  val Object       = TypeRef(QualifiedName.Object, Empty, NoComments)
+  val String       = TypeRef(QualifiedName.String, Empty, NoComments)
+  val Symbol       = TypeRef(QualifiedName.Symbol, Empty, NoComments)
+  val Unit         = TypeRef(QualifiedName.Unit, Empty, NoComments)
+  val FunctionBase = TypeRef(QualifiedName.Function, Empty, NoComments)
 
-  val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Nil, NoComments)
-  val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Nil, NoComments)
+  val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Empty, NoComments)
+  val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Empty, NoComments)
 
   val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
   def StringDictionary(typeParam: TypeRef, comments: Comments): TypeRef =
-    TypeRef(QualifiedName.StringDictionary, Seq(typeParam), comments)
+    TypeRef(QualifiedName.StringDictionary, IArray(typeParam), comments)
 
   def NumberDictionary(typeParam: TypeRef, comments: Comments): TypeRef =
-    TypeRef(QualifiedName.NumberDictionary, Seq(typeParam), comments)
+    TypeRef(QualifiedName.NumberDictionary, IArray(typeParam), comments)
 
   def TopLevel(typeParam: TypeRef): TypeRef =
-    TypeRef(QualifiedName.TopLevel, Seq(typeParam), NoComments)
+    TypeRef(QualifiedName.TopLevel, IArray(typeParam), NoComments)
 
   object Function {
-    def apply(thisType: Option[TypeRef], typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
-      val rewriteRepeated: Seq[TypeRef] =
+    def apply(thisType: Option[TypeRef], typeParams: IArray[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
+      val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
           case Some(Repeated(underlying, _)) =>
             val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
@@ -257,14 +256,14 @@ object TypeRef {
             typeParams
         }
 
-      val finalTparams = thisType.to[Seq] ++ (rewriteRepeated :+ resType)
+      val finalTparams = IArray.fromOption(thisType) ++ (rewriteRepeated :+ resType)
 
-      TypeRef(QualifiedName.FunctionArity(thisType.isDefined, typeParams.size), finalTparams, comments)
+      TypeRef(QualifiedName.FunctionArity(thisType.isDefined, typeParams.length), finalTparams, comments)
     }
 
     private val F = "Function(\\d+)".r
 
-    def unapply(tr: TypeRef): Option[(Seq[TypeRef], TypeRef)] =
+    def unapply(tr: TypeRef): Option[(IArray[TypeRef], TypeRef)] =
       if (tr.typeName.startsWith(QualifiedName.scala_js) && tr.typeName.parts.length === QualifiedName.scala_js.parts.length + 1) {
         tr.typeName.parts.last.unescaped match {
           case F(_) => Some((tr.targs.init, tr.targs.last))
@@ -274,8 +273,8 @@ object TypeRef {
   }
 
   object ScalaFunction {
-    def apply(typeParams: Seq[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
-      val rewriteRepeated: Seq[TypeRef] =
+    def apply(typeParams: IArray[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {
+      val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
           case Some(Repeated(underlying, _)) =>
             val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
@@ -286,12 +285,12 @@ object TypeRef {
 
       val finalTparams = rewriteRepeated :+ resType
 
-      TypeRef(QualifiedName.ScalaFunctionArity(typeParams.size), finalTparams, comments)
+      TypeRef(QualifiedName.ScalaFunctionArity(typeParams.length), finalTparams, comments)
     }
 
     private val F = "Function(\\d+)".r
 
-    def unapply(tr: TypeRef): Option[(Seq[TypeRef], TypeRef)] =
+    def unapply(tr: TypeRef): Option[(IArray[TypeRef], TypeRef)] =
       tr.typeName.parts match {
         case Name.scala :: f :: Nil =>
           f.unescaped match {
@@ -302,37 +301,37 @@ object TypeRef {
       }
   }
 
-  def Tuple(typeParams: Seq[TypeRef]): TypeRef =
+  def Tuple(typeParams: IArray[TypeRef]): TypeRef =
     typeParams match {
-      case Nil                            => TypeRef(QualifiedName.Array, Seq(TypeRef.Any), NoComments)
-      case Seq(one)                       => TypeRef(QualifiedName.Array, Seq(one), NoComments)
-      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.Array, Seq(TypeRef.Any), NoComments)
+      case IArray.Empty                   => TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments)
+      case IArray.exactlyOne(one)         => TypeRef(QualifiedName.Array, IArray(one), NoComments)
+      case catch22 if catch22.length > 22 => TypeRef(QualifiedName.Array, IArray(TypeRef.Any), NoComments)
       case _                              => TypeRef(QualifiedName.Tuple(typeParams.length), typeParams, NoComments)
     }
 
   object Intersection {
-    private def flattened(types: List[TypeRef]): List[TypeRef] =
+    private def flattened(types: IArray[TypeRef]): IArray[TypeRef] =
       types flatMap {
         case Intersection(inner) => inner
-        case other               => List(other)
+        case other               => IArray(other)
       }
 
-    def apply(types: Iterable[TypeRef]): TypeRef = {
-      val base: List[TypeRef] =
-        flattened(types.to[List]).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
+    def apply(types: IArray[TypeRef]): TypeRef = {
+      val base: IArray[TypeRef] =
+        flattened(types).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
           // keep wildcard only if there is nothing else
-          case (wildcards, Nil) => wildcards
-          case (_, rest)        => rest
+          case (wildcards, Empty) => wildcards
+          case (_, rest)          => rest
         }
 
       base match {
-        case Nil        => TypeRef.Nothing
-        case one :: Nil => one
-        case more       => TypeRef(QualifiedName.INTERSECTION, more, NoComments)
+        case IArray.Empty           => TypeRef.Nothing
+        case IArray.exactlyOne(one) => one
+        case more                   => TypeRef(QualifiedName.INTERSECTION, more, NoComments)
       }
     }
 
-    def unapply(typeRef: TypeRef): Option[Seq[TypeRef]] =
+    def unapply(typeRef: TypeRef): Option[IArray[TypeRef]] =
       typeRef match {
         case TypeRef(QualifiedName.INTERSECTION, types, _) =>
           Some(types)
@@ -343,15 +342,15 @@ object TypeRef {
 
   object UndefOr {
     def apply(tpe: TypeRef): TypeRef =
-      Union(List(undefined, tpe), sort = false)
+      Union(IArray(undefined, tpe), sort = false)
 
     def unapply(typeRef: TypeRef): Option[TypeRef] =
       typeRef match {
         case Union(types) if types.contains(undefined) =>
           val rest = types.filterNot(x => x === undefined || x === TypeRef.Nothing) match {
-            case Nil      => TypeRef.Nothing
-            case Seq(one) => one
-            case more     => Union(more, sort = false)
+            case IArray.Empty           => TypeRef.Nothing
+            case IArray.exactlyOne(one) => one
+            case more                   => Union(more, sort = false)
           }
           Some(rest)
         case _ => None
@@ -359,10 +358,10 @@ object TypeRef {
   }
 
   object Union {
-    private def flatten(types: List[TypeRef]): List[TypeRef] =
+    private def flatten(types: IArray[TypeRef]): IArray[TypeRef] =
       types flatMap {
-        case TypeRef(QualifiedName.UNION, inner, _) => flatten(inner.toList)
-        case other                                  => List(other)
+        case TypeRef(QualifiedName.UNION, inner, _) => flatten(inner)
+        case other                                  => IArray(other)
       }
 
     /**
@@ -371,14 +370,14 @@ object TypeRef {
       * What we do for now is that when we construct a union type it's sorted (for consistent builds),
       *  and when we encounter an existing we don't change it
       */
-    def apply(types: Seq[TypeRef], sort: Boolean): TypeRef = {
-      val flattened = flatten(types.to[List]) match {
+    def apply(types: IArray[TypeRef], sort: Boolean): TypeRef = {
+      val flattened = flatten(types) match {
         case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
         case otherwise      => otherwise
       }
 
       /* "a" | "a" | Foo[A] | Foo[B] => "a" | Foo[A | B] */
-      val compressed: List[TypeRef] = {
+      val compressed: IArray[TypeRef] = {
         val byName = flattened.filterNot(tr => Name.Internal(tr.name)).groupBy(_.typeName)
 
         flattened.zipWithIndex.flatMap {
@@ -386,21 +385,21 @@ object TypeRef {
             byName.get(tr.typeName) match {
               case Some(more) if more.length > 1 =>
                 val isFirst = flattened.indexWhere(_.typeName === tr.typeName) === idx
-                if (isFirst) List(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, sort = true))))
-                else Nil
-              case _ => List(tr)
+                if (isFirst) IArray(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, sort = true))))
+                else Empty
+              case _ => IArray(tr)
             }
         }.distinct
       }
 
       compressed match {
-        case Nil        => TypeRef.Nothing
-        case one :: Nil => one
-        case more       => TypeRef(QualifiedName.UNION, more, NoComments)
+        case Empty                  => TypeRef.Nothing
+        case IArray.exactlyOne(one) => one
+        case more                   => TypeRef(QualifiedName.UNION, more, NoComments)
       }
     }
 
-    def unapply(typeRef: TypeRef): Option[Seq[TypeRef]] =
+    def unapply(typeRef: TypeRef): Option[IArray[TypeRef]] =
       typeRef match {
         case TypeRef(QualifiedName.UNION, types, _) =>
           Some(types)
@@ -410,11 +409,11 @@ object TypeRef {
   }
   abstract class LiteralCompanion(qname: QualifiedName) {
     def apply(underlying: String): TypeRef =
-      TypeRef(qname, Seq(TypeRef(QualifiedName(List(Name(underlying))), Nil, NoComments)), NoComments)
+      TypeRef(qname, IArray(TypeRef(QualifiedName(List(Name(underlying))), Empty, NoComments)), NoComments)
 
     def unapply(typeRef: TypeRef): Option[String] =
       typeRef match {
-        case TypeRef(`qname`, Seq(TypeRef(QualifiedName(name :: Nil), Nil, _)), _) =>
+        case TypeRef(`qname`, IArray.exactlyOne(TypeRef(QualifiedName(name :: Nil), Empty, _)), _) =>
           Some(name.unescaped)
 
         case _ => None
@@ -426,11 +425,11 @@ object TypeRef {
 
   object Repeated {
     def apply(underlying: TypeRef, comments: Comments): TypeRef =
-      TypeRef(QualifiedName.REPEATED, Seq(underlying), comments)
+      TypeRef(QualifiedName.REPEATED, IArray(underlying), comments)
 
     def unapply(typeRef: TypeRef): Option[(TypeRef, Comments)] =
       typeRef match {
-        case TypeRef(QualifiedName.REPEATED, Seq(underlying), comments) =>
+        case TypeRef(QualifiedName.REPEATED, IArray.exactlyOne(underlying), comments) =>
           Some((underlying, comments))
 
         case _ => None
@@ -439,11 +438,11 @@ object TypeRef {
 
   object Singleton {
     def apply(underlying: TypeRef): TypeRef =
-      TypeRef(QualifiedName.SINGLETON, Seq(underlying), NoComments)
+      TypeRef(QualifiedName.SINGLETON, IArray(underlying), NoComments)
 
     def unapply(typeRef: TypeRef): Option[TypeRef] =
       typeRef match {
-        case TypeRef(QualifiedName.SINGLETON, Seq(underlying), _) =>
+        case TypeRef(QualifiedName.SINGLETON, IArray.exactlyOne(underlying), _) =>
           Some(underlying)
 
         case _ => None
@@ -452,7 +451,7 @@ object TypeRef {
 
   object ThisType {
     def apply(comments: Comments): TypeRef =
-      TypeRef(QualifiedName.THIS_TYPE, Nil, comments)
+      TypeRef(QualifiedName.THIS_TYPE, Empty, comments)
 
     def unapply(typeRef: TypeRef): Option[Comments] =
       typeRef match {
@@ -463,5 +462,5 @@ object TypeRef {
   }
 
   implicit val TypeRefSuffix: ToSuffix[TypeRef] =
-    t => ToSuffix(t.typeName) ++ t.targs.map(x => ToSuffix(x))
+    t => ToSuffix(t.typeName) ++ t.targs
 }

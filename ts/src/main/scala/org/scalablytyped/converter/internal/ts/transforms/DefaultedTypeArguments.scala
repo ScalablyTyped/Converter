@@ -22,10 +22,10 @@ object DefaultedTypeArguments extends TreeTransformationScopedChanges {
     val providedTypeArgs = typeRef.tparams
 
     scope lookupType typeRef.name collectFirst {
-      case HasTParams(expectedTparams) if expectedTparams.size =/= providedTypeArgs.size =>
+      case HasTParams(expectedTparams) if expectedTparams.length =/= providedTypeArgs.length =>
         val instantiated = mutable.Map.empty[TsType, TsType]
 
-        val newTParams: Seq[TsType] =
+        val newTParams: IArray[TsType] =
           expectedTparams.zipWithIndex map {
             case (current, idx) if idx < providedTypeArgs.length =>
               val provided = providedTypeArgs(idx)

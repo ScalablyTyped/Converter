@@ -86,7 +86,7 @@ class BloopCompiler private (
       name:          String,
       digest:        Digest,
       compilerPaths: CompilerPaths,
-      deps:          Seq[BloopCompiler.InternalDep],
+      deps:          Set[BloopCompiler.InternalDep],
       externalDeps:  Set[Dep],
   ): Either[String, Unit] = {
     val bloopFolder = compilerPaths.baseDir / ".bloop"
@@ -96,12 +96,12 @@ class BloopCompiler private (
           DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)(ec),
         )
 
-      val fromDependencyJars: Seq[AbsolutePath] =
+      val fromDependencyJars: Set[AbsolutePath] =
         deps.collect {
           case BloopCompiler.InternalDepJar(jar) => jar
         }
 
-      val fromDependencyClassDirs: Seq[AbsolutePath] =
+      val fromDependencyClassDirs: Set[AbsolutePath] =
         deps.collect {
           case BloopCompiler.InternalDepClassFiles(_, path) => path
         }

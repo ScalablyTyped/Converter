@@ -39,14 +39,14 @@ object Source {
     lazy val tsConfig: Option[TsConfig] =
       Json.opt[TsConfig](folder.path / "tsconfig.json")
 
-    lazy val shortenedFiles: Seq[InFile] = findShortenedFiles(this)
+    lazy val shortenedFiles: IArray[InFile] = findShortenedFiles(this)
   }
 
-  final case class StdLibSource(folder: InFolder, files: Seq[InFile], libName: TsIdentLibrary) extends TsLibSource
+  final case class StdLibSource(folder: InFolder, files: IArray[InFile], libName: TsIdentLibrary) extends TsLibSource
 
   final case class FromFolder(folder: InFolder, libName: TsIdentLibrary) extends TsLibSource
 
-  final case class TsHelperFile(file: InFile, inLib: TsLibSource, moduleNames: List[TsIdentModule]) extends TsSource {
+  final case class TsHelperFile(file: InFile, inLib: TsLibSource, moduleNames: IArray[TsIdentModule]) extends TsSource {
     override def libName: TsIdentLibrary = inLib.libName
     override def folder:  InFolder       = file.folder
   }
@@ -63,25 +63,25 @@ object Source {
   implicit val SourceFormatter:             Formatter[Source] = _.libName.value
 
   /* for files referenced through here we must shorten the paths (done right below) */
-  def findShortenedFiles(src: Source.TsLibSource): Seq[InFile] = {
-    def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): Seq[InFile] =
+  def findShortenedFiles(src: Source.TsLibSource): IArray[InFile] = {
+    def fromTypingsJson(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
       fileOpt match {
         case Some(path) if path.endsWith("typings.json") =>
           import jsonCodecs._
 
           val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
           val typingsJson     = Json[TypingsJson](typingsJsonPath)
-          Seq(InFile(typingsJsonPath / os.up / typingsJson.main))
-        case _ => Nil
+          IArray(InFile(typingsJsonPath / os.up / typingsJson.main))
+        case _ => Empty
       }
 
-    def fromFileEntry(fromFolder: Source.FromFolder, fileOpt: Option[String]): Seq[InFile] =
-      fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)).to[Seq]
+    def fromFileEntry(fromFolder: Source.FromFolder, fileOpt: Option[String]): IArray[InFile] =
+      IArray.fromOption(fileOpt.flatMap(file => LibraryResolver.file(fromFolder.folder, file)))
 
     src match {
-      case _: StdLibSource => Nil
+      case _: StdLibSource => Empty
       case f: FromFolder =>
-        Seq(
+        IArray(
           fromFileEntry(f, f.packageJsonOpt.flatMap(_.types)),
           fromFileEntry(f, f.packageJsonOpt.flatMap(_.typings)),
           fromTypingsJson(f, f.packageJsonOpt.flatMap(_.typings)),

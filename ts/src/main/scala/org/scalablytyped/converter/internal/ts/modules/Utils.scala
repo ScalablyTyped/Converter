@@ -24,10 +24,10 @@ object Utils {
       scope:        TsTreeScope.Scoped,
       Pick:         Picker[T],
       wanted:       List[TsIdent],
-      expandeds:    Seq[TsNamedDecl],
+      expandeds:    IArray[TsNamedDecl],
       loopDetector: LoopDetector,
-  ): Seq[(T, TsTreeScope)] =
-    if (expandeds.isEmpty) Nil // optimization
+  ): IArray[(T, TsTreeScope)] =
+    if (expandeds.isEmpty) Empty // optimization
     else {
       val ns       = TsDeclNamespace(NoComments, declared = false, TsIdent.dummy, expandeds, CodePath.NoPath, JsLocation.Zero)
       val newScope = scope / ns
@@ -37,8 +37,8 @@ object Utils {
           ms.collect {
             case Pick(t) => t -> newNewScope
           }
-        case (Pick(other), newNewScope) => Seq(other -> newNewScope)
-        case _                          => Nil
+        case (Pick(other), newNewScope) => IArray(other -> newNewScope)
+        case _                          => Empty
       }
     }
 }

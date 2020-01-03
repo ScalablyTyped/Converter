@@ -5,13 +5,12 @@ package transforms
 import cats.data.Ior
 import cats.instances.list._
 import cats.syntax.alternative._
-import org.scalablytyped.converter.internal.seqs._
 
 import scala.collection.mutable
 
 object ContainerPolicy extends TreeTransformation {
   /* sneak import annotations through fields/methods which otherwise don't have them */
-  case class ClassAnnotations(value: Seq[ClassAnnotation]) extends Comment.Data
+  case class ClassAnnotations(value: IArray[ClassAnnotation]) extends Comment.Data
 
   override def leaveContainerTree(scope: TreeScope)(_s: ContainerTree): ContainerTree = {
     val s = combineModules(_s)
@@ -19,7 +18,7 @@ object ContainerPolicy extends TreeTransformation {
     val classesToRename = mutable.ArrayBuffer.empty[QualifiedName]
 
     val rewrittenContainers = s.members.map {
-      case pkg: PackageTree => moveMemberTreesIntoHatObject(pkg, Nil)
+      case pkg: PackageTree => moveMemberTreesIntoHatObject(pkg, Empty)
       case mod: ModuleTree =>
         Action(scope, mod) match {
           case Action.RemainModule =>
@@ -37,7 +36,7 @@ object ContainerPolicy extends TreeTransformation {
     val rewritten = rewrittenContainers.flatMap {
       case cls: ClassTree if classesToRename.contains(cls.codePath) =>
         val renamedClass = cls.withSuffix("")
-        List(
+        IArray(
           renamedClass,
           TypeAliasTree(
             cls.name,
@@ -47,12 +46,12 @@ object ContainerPolicy extends TreeTransformation {
             cls.codePath,
           ),
         )
-      case other => List(other)
+      case other => IArray(other)
     }
 
     val isTopLevel = scope.stack.length < 3 // typings, libName
     if (isTopLevel)
-      moveMemberTreesIntoHatObject(PackageTree(s.annotations, s.name, rewritten, s.comments, s.codePath), Nil)
+      moveMemberTreesIntoHatObject(PackageTree(s.annotations, s.name, rewritten, s.comments, s.codePath), Empty)
     else
       s.withMembers(rewritten)
   }
@@ -96,7 +95,7 @@ object ContainerPolicy extends TreeTransformation {
       }
 
       def requiresCustomImport = {
-        def check(anns: Seq[Annotation], name: Name) =
+        def check(anns: IArray[Annotation], name: Name) =
           anns exists {
             case Annotation.JsGlobalScope => true
             case Annotation.JsImport(_, i) =>
@@ -140,7 +139,7 @@ object ContainerPolicy extends TreeTransformation {
   }
 
   def stripLocationAnns(tree: Tree): Tree = {
-    def filterAnns(anns: Seq[ClassAnnotation]): Seq[ClassAnnotation] =
+    def filterAnns(anns: IArray[ClassAnnotation]): IArray[ClassAnnotation] =
       anns.filter {
         case Annotation.JsNative       => true
         case Annotation.ScalaJSDefined => true
@@ -158,18 +157,18 @@ object ContainerPolicy extends TreeTransformation {
     }
   }
 
-  def moveMemberTreesIntoHatObject(s: ContainerTree, inheritance: Seq[TypeRef]): ContainerTree = {
+  def moveMemberTreesIntoHatObject(s: ContainerTree, inheritance: IArray[TypeRef]): ContainerTree = {
     val hatCp = s.codePath + Name.namespaced
 
     s.members.partitionCollect { case x: MemberTree => x } match {
-      case (Nil, _) if inheritance.isEmpty => s
+      case (Empty, _) if inheritance.isEmpty => s
       case (members, rest) =>
-        val rewritten: List[Ior[MemberTree, ModuleTree]] =
-          members.toList zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
+        val rewritten: IArray[Ior[MemberTree, ModuleTree]] =
+          members zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
             case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted) =>
               extracted match {
                 case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS_TYPE =>
-                  val mod = ModuleTree(anns, name, List(TypeRef.TopLevel(tpe)), Nil, restCs, codePath, isOverride)
+                  val mod = ModuleTree(anns, name, IArray(TypeRef.TopLevel(tpe)), Empty, restCs, codePath, isOverride)
                   if (isReadonly) Ior.Right(mod)
                   else Ior.Both(f, mod)
                 case _ =>
@@ -180,28 +179,43 @@ object ContainerPolicy extends TreeTransformation {
               extracted match {
                 case Some((anns, restCs)) if m.name =/= Name.APPLY =>
                   val asApply =
-                    m.copy(annotations = Nil, name = Name.APPLY, codePath = m.codePath + Name.APPLY, comments = restCs)
-                  Ior.Right(ModuleTree(anns, m.name, Nil, List(asApply), NoComments, m.codePath, m.isOverride))
+                    m.copy(
+                      annotations = Empty,
+                      name        = Name.APPLY,
+                      codePath    = m.codePath + Name.APPLY,
+                      comments    = restCs,
+                    )
+                  Ior.Right(ModuleTree(anns, m.name, Empty, IArray(asApply), NoComments, m.codePath, m.isOverride))
                 case _ =>
                   Ior.Left(m)
               }
             case (other, _) => Ior.Left(other)
           }
 
-        val (mutables, hoisted) = rewritten.separate
+        //todo just inline this method
+        val (mutables, hoisted) = rewritten.toList.separate
 
         val hatModule =
           setCodePath(
             hatCp,
-            ModuleTree(s.annotations, Name.namespaced, inheritance, mutables, NoComments, hatCp, isOverride = false),
+            ModuleTree(
+              s.annotations,
+              Name.namespaced,
+              inheritance,
+              IArray.fromTraversable(mutables),
+              NoComments,
+              hatCp,
+              isOverride = false,
+            ),
           )
-        combineModules(s.withMembers(rest ++ hoisted :+ hatModule))
+        combineModules(s.withMembers(rest ++ IArray.fromTraversable(hoisted) :+ hatModule))
     }
   }
 
   def combineModules(s: ContainerTree): ContainerTree = {
-    val withCombinedModules: Seq[Tree] =
-      s.index
+    val withCombinedModules: IArray[Tree] =
+      IArray
+        .fromTraversable(s.index)
         .flatMap {
           case (_, ts) =>
             val (mods, rest) = ts partitionCollect { case x: ModuleTree => x }
@@ -218,9 +232,8 @@ object ContainerPolicy extends TreeTransformation {
                 )
               }
 
-            rest ++ combinedModules
+            rest ++ IArray.fromOption(combinedModules)
         }
-        .to[Seq]
 
     s.withMembers(withCombinedModules)
   }

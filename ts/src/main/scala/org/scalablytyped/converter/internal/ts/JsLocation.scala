@@ -34,12 +34,12 @@ object ModuleSpec {
   def apply(ident: TsIdent): ModuleSpec =
     ident match {
       case TsIdent.namespaced => Namespaced
-      case other              => Specified(List(other))
+      case other              => Specified(IArray(other))
     }
 
   case object Defaulted extends ModuleSpec
   case object Namespaced extends ModuleSpec
-  final case class Specified(tsIdents: Seq[TsIdent]) extends ModuleSpec
+  final case class Specified(tsIdents: IArray[TsIdent]) extends ModuleSpec
 }
 
 object JsLocation {

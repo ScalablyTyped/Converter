@@ -14,12 +14,12 @@ final case class Component(
     location:         LocationAnnotation,
     scalaRef:         TypeRef,
     fullName:         Name,
-    tparams:          Seq[TypeParamTree],
+    tparams:          IArray[TypeParamTree],
     props:            Option[TypeRef],
     isGlobal:         Boolean,
     componentType:    ComponentType,
     isAbstractProps:  Boolean,
-    componentMembers: Seq[MemberTree],
+    componentMembers: IArray[MemberTree],
 ) {
   val shortenedPropsName = Name(fullName.unescaped + "Props")
 

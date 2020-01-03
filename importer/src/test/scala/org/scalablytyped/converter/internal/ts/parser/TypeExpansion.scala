@@ -1,4 +1,5 @@
-package org.scalablytyped.converter.internal.ts
+package org.scalablytyped.converter.internal
+package ts
 package parser
 
 import org.scalatest.{FunSuite, Matchers}
@@ -22,9 +23,9 @@ interface A {
 type AA = Partial<A>
 """).extract[TsDeclInterface]("AA")
 
-    val isOptionals = out.members.collect { case TsMemberProperty(_, _, _, _, _, _, _, isOptional) => isOptional }
+    val isOptionals = out.members.collect[java.lang.Boolean] { case TsMemberProperty(_, _, _, _, _, _, _, isOptional) => isOptional }
 
-    isOptionals.shouldBe(List(true, true, true, true, true, true))
+    isOptionals.shouldBe(IArray[java.lang.Boolean](true, true, true, true, true, true))
   }
 
   test("OptionalKey") {
@@ -42,6 +43,6 @@ type AA = Partial<A>
     type Ta = OptionalKey<A>
 """).extract[TsDeclTypeAlias]("Ta")
 
-    out.alias.shouldBe(TsTypeUnion(List("c", "d", "e", "f").map(str => TsTypeLiteral(TsLiteralString(str)))))
+    out.alias.shouldBe(TsTypeUnion(IArray("c", "d", "e", "f").map(str => TsTypeLiteral(TsLiteralString(str)))))
   }
 }

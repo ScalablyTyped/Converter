@@ -17,50 +17,50 @@ package transforms
   */
 object SimplifyParents extends TreeTransformationScopedChanges {
   override def enterTsDeclClass(t: TsTreeScope)(x: TsDeclClass): TsDeclClass = {
-    val np = newParents(x.parent.to[Seq] ++ x.implements, t)
+    val np = newParents(IArray.fromOption(x.parent) ++ x.implements, t)
     x.copy(parent = np.headOption, implements = np.drop(1))
   }
 
   override def enterTsDeclInterface(t: TsTreeScope)(x: TsDeclInterface): TsDeclInterface =
     x.copy(inheritance = newParents(x.inheritance, t))
 
-  private def newParents(parents: Seq[TsTypeRef], scope: TsTreeScope): Seq[TsTypeRef] =
+  private def newParents(parents: IArray[TsTypeRef], scope: TsTreeScope): IArray[TsTypeRef] =
     parents.flatMap { parentRef =>
       scope.lookupType(parentRef.name, skipValidation = true) match {
-        case Nil =>
+        case Empty =>
           scope.lookupBase(Picker.Vars, parentRef.name, skipValidation = true).headOption match {
             case Some((TsDeclVar(_, _, _, _, Some(tpe), _, _, _, _), newScope)) => lift(newScope, parentRef, tpe)
-            case _                                                              => Seq(parentRef)
+            case _                                                              => IArray(parentRef)
           }
-        case _ => Seq(parentRef)
+        case _ => IArray(parentRef)
       }
     }
 
-  private def lift(scope: TsTreeScope, ref: TsTypeRef, tpe: TsType): Seq[TsTypeRef] =
+  private def lift(scope: TsTreeScope, ref: TsTypeRef, tpe: TsType): IArray[TsTypeRef] =
     tpe match {
       case ref: TsTypeRef =>
         scope.lookup(ref.name).headOption match {
           case Some(Picker.Types(x)) =>
             scope.logger.info(s"Simplified class which extends var $ref to typeof var")
-            Seq(ref.copy(name = x.codePath.forceHasPath.codePathPart))
-          case _ => Seq(ref)
+            IArray(ref.copy(name = x.codePath.forceHasPath.codePathPart))
+          case _ => IArray(ref)
         }
       case TsTypeIntersect(types) =>
         types.flatMap(tpe => lift(scope, ref, tpe))
       case TsTypeQuery(expr) =>
         val wasClass: Option[TsTypeRef] =
           scope.lookupBase(Picker.NamedValues, expr, true).collectFirst {
-            case (x: TsDeclClass, _) => TsTypeRef(NoComments, x.codePath.get.fold(expr)(_.codePath), Nil)
+            case (x: TsDeclClass, _) => TsTypeRef(NoComments, x.codePath.get.fold(expr)(_.codePath), Empty)
           }
 
         wasClass match {
-          case Some(tr) => List(tr)
+          case Some(tr) => IArray(tr)
           case None =>
             scope.logger.info(s"Dropping complicated parent ${expr.asString}")
-            Nil
+            Empty
         }
       case other =>
         scope.logger.info(s"Dropping complicated parent ${other.asString}")
-        Nil
+        Empty
     }
 }

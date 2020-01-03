@@ -11,7 +11,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-abstract class SharedApply_Anon_Children_1172913491 () {
+abstract class SharedApply_Anon_Children1608592979 () {
   val componentImport: js.Any
   def apply(
     key: js.UndefOr[Key] = js.undefined,

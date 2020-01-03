@@ -1,4 +1,6 @@
-package org.scalablytyped.converter.internal.scalajs
+package org.scalablytyped.converter
+package internal
+package scalajs
 
 object Optional {
   val nulls: Set[TypeRef] = Set(TypeRef.Null, TypeRef.undefined)
@@ -7,8 +9,8 @@ object Optional {
     tpe match {
       case TypeRef.Union(types) =>
         types partition nulls match {
-          case (Nil, _)       => None
-          case (_, remaining) => Some(TypeRef.Union(remaining, sort = false))
+          case (IArray.Empty, _) => None
+          case (_, remaining)    => Some(TypeRef.Union(remaining, sort = false))
         }
       case _ => None
     }

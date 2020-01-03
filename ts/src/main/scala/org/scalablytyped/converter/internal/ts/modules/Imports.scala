@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal
 package ts.modules
 
-import org.scalablytyped.converter.internal.seqs.TraversableOps
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts._
 
@@ -11,21 +10,21 @@ object Imports {
       Pick:         Picker[T],
       wanted:       List[TsIdent],
       loopDetector: LoopDetector,
-      imports:      Seq[TsImport],
-  ): Seq[(T, TsTreeScope)] = {
+      imports:      IArray[TsImport],
+  ): IArray[(T, TsTreeScope)] = {
     lazy val key: (TsTreeScope, Picker[T], List[TsIdent]) = (scope, Pick, wanted)
 
     if (scope.root.cache.isDefined && scope.root.cache.get.lookupFromImports.contains(key)) {
-      return scope.root.cache.get.lookupFromImports(key).asInstanceOf[Seq[(T, TsTreeScope)]]
+      return scope.root.cache.get.lookupFromImports(key).asInstanceOf[IArray[(T, TsTreeScope)]]
     }
 
-    val ret: Seq[(T, TsTreeScope)] =
+    val ret: IArray[(T, TsTreeScope)] =
       pickImport(imports, wanted) flatMap { chosenImport =>
         val expanded: ExpandedMod = expandImportee(chosenImport.from, scope, loopDetector)
 
         chosenImport.imported.flatMap {
           case TsImportedStar(Some(renamed)) =>
-            val all: Seq[TsNamedDecl] =
+            val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
                   things.map(_._1)
@@ -45,7 +44,7 @@ object Imports {
             Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
 
           case TsImportedStar(None) =>
-            val all: Seq[TsNamedDecl] =
+            val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
                   things.map(_._1)
@@ -56,7 +55,7 @@ object Imports {
             Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
 
           case TsImportedIdent(ident) =>
-            val all: Seq[TsNamedDecl] =
+            val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
                   things.map(_._1)
@@ -76,8 +75,8 @@ object Imports {
 
             Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
 
-          case TsImportedDestructured(idents: List[(TsIdent, Option[TsIdent])]) =>
-            val all: Seq[TsNamedDecl] =
+          case TsImportedDestructured(idents: IArray[(TsIdent, Option[TsIdentSimple])]) =>
+            val all: IArray[TsNamedDecl] =
               expanded match {
                 case ExpandedMod.Picked(things) =>
                   things.map(_._1)
@@ -139,10 +138,10 @@ object Imports {
               { case x: TsNamedDecl                                  => DeriveCopy(x, CodePath.NoPath, None) },
             )
 
-            ExpandedMod.Whole(Nil, namespaceds, rest.flatten, modScope)
+            ExpandedMod.Whole(Empty, namespaceds, rest.flatten, modScope)
           case _ =>
             scope.fatalMaybe(s"Couldn't find expected module $fromModule")
-            ExpandedMod.Picked(Nil)
+            ExpandedMod.Picked(Empty)
         }
 
       case TsImporteeFrom(fromModule) =>
@@ -170,7 +169,7 @@ object Imports {
             ExpandedMod.Whole(defaults, namespaceds, rest, modScope)
           case _ =>
             //scope.logger.fatalMaybe(s"Couldn't find expected module $fromModule", constants.Pedantic)
-            ExpandedMod.Picked(Nil)
+            ExpandedMod.Picked(Empty)
         }
 
       case TsImporteeLocal(qident) =>
@@ -185,14 +184,14 @@ object Imports {
 
   }
 
-  def pickImport(imports: Seq[TsImport], wanted: List[TsIdent]): Seq[TsImport] =
-    imports flatMap validImport(wanted)
+  def pickImport(imports: IArray[TsImport], wanted: List[TsIdent]): IArray[TsImport] =
+    imports mapNotNone validImport(wanted)
 
   def validImport(wanted: List[TsIdent])(i: TsImport): Option[TsImport] =
     wanted match {
       case Nil => None
       case first :: _ =>
-        val newImported: Seq[TsImported] = i.imported flatMap {
+        val newImported: IArray[TsImported] = i.imported mapNotNone {
           case im @ TsImportedIdent(`first`) =>
             Some(im)
 
@@ -200,8 +199,8 @@ object Imports {
 
           case TsImportedDestructured(idents) =>
             idents collectFirst {
-              case t @ (`first`, None)    => TsImportedDestructured(t :: Nil)
-              case t @ (_, Some(`first`)) => TsImportedDestructured(t :: Nil)
+              case t @ (`first`, None)    => TsImportedDestructured(IArray(t))
+              case t @ (_, Some(`first`)) => TsImportedDestructured(IArray(t))
             }
 
           case im @ TsImportedStar(Some(`first`)) =>
