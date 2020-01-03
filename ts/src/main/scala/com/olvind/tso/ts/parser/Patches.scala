@@ -29,7 +29,7 @@ object Patches {
 
   def apply(inFile: InFile, content: String): String = {
     val rewritten = Patches.collectFirst {
-      case (path, patches) if inFile.path.endsWith(path.segments) =>
+      case (relPath, patches) if inFile.path.endsWith(relPath) =>
         patches.foldLeft(content) {
           case (c, p) => c.replace(p.from, p.to)
         }
