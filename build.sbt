@@ -63,35 +63,25 @@ lazy val importer = project
     testOptions in Test += Tests.Argument("-P4"),
   )
 
-lazy val `sbt-scalablytypedconverter06` = project
+lazy val `sbt-converter06` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
-    name := "sbt-scalablytypedconverter06",
+    name := "sbt-converter06",
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.15.0-0.6"),
   )
 
-lazy val `sbt-scalablytypedconverter` = project
+lazy val `sbt-converter` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
-    name := "sbt-scalablytypedconverter",
-    Compile / unmanagedSourceDirectories += (`sbt-scalablytypedconverter06` / Compile / sourceDirectory).value,
+    name := "sbt-converter",
+    Compile / unmanagedSourceDirectories += (`sbt-converter06` / Compile / sourceDirectory).value,
     addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.16.0"),
   )
 
 lazy val root = project
   .in(file("."))
   .configure(baseSettings, preventPublication)
-  .aggregate(
-    logging,
-    utils,
-    phases,
-    ts,
-    scalajs,
-    `importer-portable`,
-    `sbt-scalablytypedconverter06`,
-    `sbt-scalablytypedconverter`,
-    importer
-  )
+  .aggregate(logging, utils, phases, ts, scalajs, `importer-portable`, `sbt-converter06`, `sbt-converter`, importer)
 
 lazy val pluginSettings: Project => Project =
   _.dependsOn(`importer-portable`)
@@ -108,7 +98,7 @@ lazy val baseSettings: Project => Project =
   _.settings(
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
     scalaVersion := "2.12.10",
-    organization := "com.olvind",
+    organization := "org.scalablytyped.converter",
     scalacOptions ~= (_.filterNot(
       Set(
         "-Ywarn-unused:imports",

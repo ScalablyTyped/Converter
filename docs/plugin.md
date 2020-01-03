@@ -4,7 +4,7 @@ title: Getting started - SBT plugin
 ---
 
 The plugin uses [scalajs-bundler](https://scalacenter.github.io/scalajs-bundler/)
-to download NPM packages, and runs as an SBT source generator before compilation.
+to download NPM packages, and translates typescript type definitions into Scala.js before your project compiles, as an SBT source generator.
 
 If you for some reason cannot use scalajs-bundler, there is a more general version [here](plugin-no-bundler.md).
 
@@ -16,20 +16,29 @@ Then check out the demo projects:
 
 # Setup
 
+## Requirements
+
+Due to conflicting scala library dependencies **this plugin needs sbt 1.3.0 or newer**.
+
+Since we generate source code, it should work with any combination of 
+Scala 2.12/2.13 and Scala.js 0.6.x/1.0.0-milestones. 
+Certain [flavour](flavour.md)s might not yet work on Scala.js 1.0.0 milestones 
+ if the libraries have not been published.
+ 
 ## Add to your `project/plugins.sbt`
 
 ```scala
-  // for Scala.js 1.0.0 milestones
-  addSbtPlugin("com.olvind" % "sbt-scalablytypedconverter" % "@VERSION@")
+// for Scala.js 1.0.0 milestones
+addSbtPlugin("org.scalablytyped.converter" % """sbt-converter""" % "@VERSION@")
 
-  // for Scala.js 0.6.x
-  addSbtPlugin("com.olvind" % "sbt-scalablytypedconverter06" % "@VERSION@")
+// for Scala.js 0.6.x
+addSbtPlugin("org.scalablytyped.converter" % """sbt-converter06""" % "@VERSION@")
 ```
 
 ## Activate the plugin for a project in your `build.sbt`:
 
 ```scala
-  project.enablePlugins(ScalablyTypedConverterPlugin)
+project.enablePlugins(ScalablyTypedConverterPlugin)
 ```
 
 ## Setup your npm packages
