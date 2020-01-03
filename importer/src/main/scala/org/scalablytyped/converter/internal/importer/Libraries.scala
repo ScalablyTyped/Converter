@@ -282,7 +282,7 @@ object Libraries {
     base ++ circular map TsIdentLibrary.apply
   }
 
-  val Slow = Set("@pulumi/aws", "aws-sdk", "googleapis") map TsIdentLibrary.apply
+  val Slow = Set("@pulumi/aws", "aws-sdk", "googleapis", "@material-ui/core") map TsIdentLibrary.apply
 
   /* These are all the libraries used in demos. The set doubles as the extended test set */
   val DemoSet: Set[TsIdentLibrary] = expo ++ Set(
