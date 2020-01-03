@@ -60,8 +60,6 @@ lazy val importer = project
       case foo if foo.endsWith("module-info.class")          => MergeStrategy.discard
       case other                                             => (assembly / assemblyMergeStrategy).value(other)
     },
-    // fork to keep CI happy with memory usage
-    fork in Test := true,
     testOptions in Test += Tests.Argument("-P4"),
   )
 
@@ -92,6 +90,7 @@ lazy val root = project
     `importer-portable`,
     `sbt-scalablytypedconverter06`,
     `sbt-scalablytypedconverter`,
+    importer
   )
 
 lazy val pluginSettings: Project => Project =
