@@ -1,6 +1,6 @@
 import scala.sys.process.stringToProcess
 
-version in ThisBuild := "1.0.0-M3-SNAPSHOT"
+version in ThisBuild := "1.0.0-M3"
 
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
