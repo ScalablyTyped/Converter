@@ -32,10 +32,26 @@ sealed abstract class TreeScope { outer =>
         case fs if fs.startsWith(QualifiedName.ScalaJsDom.parts) => Empty
         case name :: _ if Name.Internal(name)                    => Empty
         case parts =>
-          val res = _lookup(parts)
+          var searchFrom: TreeScope = this
+          var continue = true
+          while (continue) {
+            searchFrom match {
+              case _: TreeScope.Root[_] =>
+                continue = false
+              case x: TreeScope.Scoped =>
+                x.outer match {
+                  case _: TreeScope.Root[_] =>
+                    continue = false
+                  case outer: TreeScope.Scoped =>
+                    searchFrom = outer
+                }
+            }
+          }
+
+          val res = searchFrom._lookup(parts)
 
           if (res.isEmpty && pedantic) {
-            _lookup(parts)
+            searchFrom._lookup(parts)
             logger fatal s"Couldn't resolve $parts"
           }
 
@@ -134,10 +150,6 @@ object TreeScope {
       names match {
         case current.name :: Nil =>
           IArray((current, this))
-
-        // 99% a shortcut, plus handle fully qualified types more places in the pipeline
-        case `outputPkg` :: rest if rest.startsWith(nameStack) =>
-          lookupNoBacktrack(names.drop(nameStack.length))
 
         case current.name :: head :: tail =>
           current match {

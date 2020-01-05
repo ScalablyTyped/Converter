@@ -95,8 +95,19 @@ sealed trait TsTreeScope {
         Empty
       case Right(newLoopDetector) =>
         wanted match {
-          case root.libName :: rest => lookupImpl(picker, rest, newLoopDetector)
-          case other                => lookupImpl(picker, other, newLoopDetector)
+          case root.libName :: rest =>
+            var skipScopes = this
+            def shouldSkip(scope: TsTreeScope): Boolean =
+              scope match {
+                case _: TsTreeScope.Root => false
+                case TsTreeScope.Scoped(_, _: TsParsedFile) => false
+                case _ => true
+              }
+
+            while (shouldSkip(skipScopes)) skipScopes = skipScopes.`..`
+
+            skipScopes.lookupImpl(picker, rest, newLoopDetector)
+          case other => lookupImpl(picker, other, newLoopDetector)
         }
     }
 

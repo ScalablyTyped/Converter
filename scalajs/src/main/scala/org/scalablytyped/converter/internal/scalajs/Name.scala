@@ -124,6 +124,8 @@ object Name {
         case '-' => "-"
         case '@' => "@"
         case '^' => "^"
+        case '[' => "["
+        case ']' => "]"
         /* Zinc fails with two dollar signs in a name, while we want to keep for instance the JQuery `$` */
         case '$' => if (ident.count(_ === '$') > 1) "Dollar" else "$"
         /* override names from unicode */

@@ -37,6 +37,7 @@ object TreeTraverse {
       a match {
         case x:  AnyRef if x ne tree => foreach(x)(run)
         case xs: TraversableOnce[_]  => xs foreach rec
+        case xs: IArray[_]           => xs foreach rec
         case p:  Product             => p.productIterator foreach rec
         case _ => ()
       }
