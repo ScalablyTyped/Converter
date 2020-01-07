@@ -169,7 +169,7 @@ class BloopCompiler private (
           /* save failure, but guard against flaky errors */
           other match {
             case ExitStatus.CompilationError if !msg.contains("Unexpected error when compiling") =>
-              files.writeBytes(cacheFile, msg.getBytes(constants.Utf8.name))
+              files.writeBytes(cacheFile.toNIO, msg.getBytes(constants.Utf8.name))
             case _ => ()
           }
 

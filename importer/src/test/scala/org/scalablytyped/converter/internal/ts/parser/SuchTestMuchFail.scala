@@ -10,12 +10,12 @@ object SuchTestMuchFail extends App {
   val logger = logging.stdout
 
   val Config(config)  = args
-  val parseTempFolder = config.cacheFolder / 'parseTemp
+  val parseTempFolder = Config.cacheFolder / 'parseTemp
   os.makeDir.all(parseTempFolder)
-  os.makeDir.all(config.cacheFolder)
+  os.makeDir.all(Config.cacheFolder)
 
   val dtFolder: InFolder =
-    DTUpToDate(new Cmd(logger, None), config.offline, config.cacheFolder, constants.DefinitelyTypedRepo)
+    DTUpToDate(new Cmd(logger, None), config.offline, Config.cacheFolder, constants.DefinitelyTypedRepo)
 
   val criterion: Double =
     99.5
@@ -35,7 +35,7 @@ object SuchTestMuchFail extends App {
       .filter(_.toString.endsWith(".d.ts"))
       .toSeq
 
-  val parser = PersistingFunction(nameAndMtimeUnder(parseTempFolder), logger.void)(parseFile)
+  val parser = PersistingFunction(nameAndMtimeUnder(parseTempFolder.toNIO), logger.void)(parseFile)
 
   val parsed: Seq[(os.Path, Either[String, TsParsedFile])] =
     allFiles.par.map { path: os.Path =>

@@ -1,14 +1,16 @@
 package org.scalablytyped.converter.internal
 package importer.documentation
 
+import java.nio.file.Path
+
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.importer.{Json, Source}
-import org.scalablytyped.converter.internal.stringUtils.encodeURIComponent
-import org.scalablytyped.converter.internal.ts.TsIdentLibrarySimple
 import dispatch._
 import gigahorse.HttpClient
 import gigahorse.support.okhttp.Gigahorse
 import io.circe.{Decoder, Encoder}
+import org.scalablytyped.converter.internal.importer.{Json, Source}
+import org.scalablytyped.converter.internal.stringUtils.encodeURIComponent
+import org.scalablytyped.converter.internal.ts.TsIdentLibrarySimple
 
 import scala.concurrent.ExecutionContext
 import scala.util.{Failure, Success}
@@ -74,7 +76,7 @@ object Npmjs {
       Future.successful(None)
   }
 
-  case class GigahorseFetcher(cacheDir: os.Path)(implicit ec: ExecutionContext) extends Fetcher {
+  case class GigahorseFetcher(cacheDir: Path)(implicit ec: ExecutionContext) extends Fetcher {
     val client: HttpClient = Gigahorse.http(
       Gigahorse.config
         .withMaxConnections(10)
@@ -91,7 +93,7 @@ object Npmjs {
       libOpt match {
         case None => Future.successful(None)
         case Some(lib) =>
-          val cacheFile = cacheDir / lib.`__value`
+          val cacheFile = cacheDir.resolve("/" + lib.`__value`)
 
           Json.opt[Data](cacheFile) match {
             case Some(x) => Future.successful(Some(x))

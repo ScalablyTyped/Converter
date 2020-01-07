@@ -30,13 +30,13 @@ case class Config(
     flavours:       List[Flavour],
 ) {
   // change in source code for now, lazy...
-  val cacheFolder       = os.home / 'tmp / "tso-cache"
-  val publishFolder     = os.home / ".ivy2" / "local"
   val parallelLibraries = 100
   val parallelScalas    = 4
 }
 
 object Config {
+  val cacheFolder: os.Path = os.home / 'tmp / "tso-cache"
+
   def unapply(args: Array[String]): Some[Config] =
     args partition (_ startsWith "-") match {
       case (flags, rest) =>

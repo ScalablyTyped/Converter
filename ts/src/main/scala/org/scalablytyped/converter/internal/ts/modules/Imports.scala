@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package ts.modules
 
-import org.scalablytyped.converter.internal.ts.TsTreeScope.{LoopDetector, ImportCacheKey}
+import org.scalablytyped.converter.internal.ts.TsTreeScope.{ImportCacheKey, LoopDetector}
 import org.scalablytyped.converter.internal.ts._
 
 object Imports {

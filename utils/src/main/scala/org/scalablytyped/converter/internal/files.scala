@@ -1,8 +1,8 @@
 package org.scalablytyped.converter.internal
 
 import java.io._
-import java.nio.file.Files
 import java.nio.file.StandardOpenOption.{CREATE, TRUNCATE_EXISTING}
+import java.nio.file.{Files, Path}
 import java.util
 
 import scala.util.Try
@@ -61,16 +61,17 @@ object files {
 
     absolutePathFiles.foreach {
       case (file, content) =>
-        if (soft) softWriteBytes(file, content) else writeBytes(file, content)
+        if (soft) softWriteBytes(file.toNIO, content) else writeBytes(file.toNIO, content)
     }
   }
 
   def sync(fs: Map[os.RelPath, Array[Byte]], folder: os.Path, deleteUnknowns: Boolean, soft: Boolean): Unit =
-    syncAbs(fs.map {
-      case (relPath, content) => folder / relPath -> content
-    }, folder, deleteUnknowns, soft)
+    syncAbs(fs.map { case (relPath, content) => folder / relPath -> content }, folder, deleteUnknowns, soft)
 
-  def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced = {
+  def softWrite[T](path: os.Path)(f: PrintWriter => T): Synced =
+    softWrite(path.toNIO)(f)
+
+  def softWrite[T](path: Path)(f: PrintWriter => T): Synced = {
     val baos: ByteArrayOutputStream =
       new ByteArrayOutputStream(1024 * 1024)
 
@@ -81,20 +82,21 @@ object files {
 
     softWriteBytes(path, baos.toByteArray)
   }
+  def softWriteBytes(path: os.Path, newContent: Array[Byte]): Synced = softWriteBytes(path.toNIO, newContent)
 
-  def softWriteBytes[T](path: os.Path, newContent: Array[Byte]): Synced =
-    (if (os.exists(path)) Some(os.read.bytes(path)) else None) match {
+  def softWriteBytes(path: Path, newContent: Array[Byte]): Synced =
+    (if (Files.exists(path)) Some(Files.readAllBytes(path)) else None) match {
       case None => writeBytes(path, newContent)
       case Some(existingContent) if !util.Arrays.equals(existingContent, newContent) =>
-        Files.write(path.toNIO, newContent, TRUNCATE_EXISTING)
+        Files.write(path, newContent, TRUNCATE_EXISTING)
         Synced.Changed
       case _ =>
         Synced.Unchanged
     }
 
-  def writeBytes[T](path: os.Path, newContent: Array[Byte]): Synced = {
-    os.makeDir.all(path / os.up)
-    Files.write(path.toNIO, newContent, CREATE, TRUNCATE_EXISTING)
+  def writeBytes[T](path: Path, newContent: Array[Byte]): Synced = {
+    Files.createDirectories(path.getParent)
+    Files.write(path, newContent, CREATE, TRUNCATE_EXISTING)
     Synced.New
   }
 
@@ -102,6 +104,12 @@ object files {
     os.makeDir.all(p)
     p
   }
+
+  def existing(p: Path): Path = {
+    Files.createDirectories(p)
+    p
+  }
+
   def existingEmpty(p: os.Path): os.Path = {
     Try(os.remove.all(p))
     existing(p)

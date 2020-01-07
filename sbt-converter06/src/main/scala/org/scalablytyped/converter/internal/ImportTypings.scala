@@ -72,7 +72,7 @@ object ImportTypings {
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
-        case (file, bs) => parseCachePath / file.path.last / bs.hashCode.toString
+        case (file, bs) => (parseCachePath / file.path.last / bs.hashCode.toString).toNIO
       }, logger) {
         case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
       }
