@@ -371,8 +371,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
     def apply(scope: TsTreeScope)(typeRef: TsTypeRef): Res[IArray[TsMember]] = {
       val enableCache = scope.root.cache.isDefined && typeRef.tparams.forall(_.isInstanceOf[TsTypeRef])
       if (enableCache) {
-        if (scope.root.cache.get.applyTypeMapping.contains(typeRef)) {
-          return scope.root.cache.get.applyTypeMapping(typeRef)
+        if (scope.root.cache.get.typeMappings.contains(typeRef)) {
+          return scope.root.cache.get.typeMappings(typeRef)
         }
       }
 
@@ -397,7 +397,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       val ret = res.getOrElse(Problems(IArray(TypeNotFound(scope, typeRef))))
 
       if (enableCache) {
-        scope.root.cache.get.applyTypeMapping.put(typeRef, ret)
+        scope.root.cache.get.typeMappings.put(typeRef, ret)
       }
       ret
     }

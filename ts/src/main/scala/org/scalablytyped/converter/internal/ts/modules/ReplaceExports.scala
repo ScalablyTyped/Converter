@@ -10,8 +10,8 @@ import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 object CachedReplaceExports {
   val Unique = TsIdent("__CachedReplaceExports__")
   def apply(scope: TsTreeScope, loopDetector: LoopDetector, x: TsDeclModule): TsDeclModule =
-    if (scope.root.cache.isDefined && scope.root.cache.get.replaceExports.contains(x.name))
-      scope.root.cache.get.replaceExports(x.name)
+    if (scope.root.cache.isDefined && scope.root.cache.get.exports.contains(x.name))
+      scope.root.cache.get.exports(x.name)
     else if (x.exports.isEmpty) x
     else
       /* bugfix for wrongly combined modules in @angular/core/testing */
@@ -61,15 +61,15 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     }
 
   override def enterTsDeclModule(scope: TsTreeScope)(x: TsDeclModule): TsDeclModule = {
-    if (scope.root.cache.isDefined && scope.root.cache.get.replaceExports.contains(x.name)) {
-      return scope.root.cache.get.replaceExports(x.name)
+    if (scope.root.cache.isDefined && scope.root.cache.get.exports.contains(x.name)) {
+      return scope.root.cache.get.exports(x.name)
     }
     val _1 = x.copy(members = x.members flatMap newMember(scope, x, spec => JsLocation.Module(x.name, spec)))
     val _2 = ensureTypesPresent(x, _1)
     val _3 = FlattenTrees.mergeModule(_2, _2.copy(members = Empty))
 
     if (scope.root.cache.isDefined) {
-      scope.root.cache.get.replaceExports.put(x.name, _3)
+      scope.root.cache.get.exports.put(x.name, _3)
     }
 
     _3

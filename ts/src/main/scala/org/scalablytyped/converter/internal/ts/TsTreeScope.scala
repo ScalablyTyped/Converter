@@ -142,14 +142,16 @@ object TsTreeScope {
     def packageJsonOpt: Option[PackageJsonDeps]
   }
 
-  type C = mutable.Map[(TsTreeScope, Picker[_], List[TsIdent]), IArray[(TsNamedDecl, TsTreeScope)]]
+  final case class ImportCacheKey(scope: TsTreeScope, picker: Picker[_], idents: List[TsIdent]) {
+    override val hashCode: Int = productHash(this)
+  }
+
   case class Cache(
-      applyTypeMapping:  mutable.Map[TsTypeRef, ExpandTypeMappings.Res[IArray[TsMember]]] = mutable.Map.empty,
-      lookupExportFrom:  C                                                                = mutable.Map.empty,
-      lookupFromImports: C                                                                = mutable.Map.empty,
-      replaceExports:    mutable.Map[TsIdentModule, TsDeclModule]                         = mutable.Map.empty,
-      expandExport:      mutable.Map[(TsTreeScope, TsExport), IArray[TsNamedDecl]]        = mutable.Map.empty,
-      expandImportee:    mutable.Map[(TsTreeScope, TsImportee), ExpandedMod]              = mutable.Map.empty,
+      typeMappings:   mutable.Map[TsTypeRef, ExpandTypeMappings.Res[IArray[TsMember]]] = mutable.Map.empty,
+      imports:        mutable.Map[ImportCacheKey, IArray[(TsNamedDecl, TsTreeScope)]]  = mutable.Map.empty,
+      exports:        mutable.Map[TsIdentModule, TsDeclModule]                         = mutable.Map.empty,
+      expandExport:   mutable.Map[(TsTreeScope, TsExport), IArray[TsNamedDecl]]        = mutable.Map.empty,
+      expandImportee: mutable.Map[(TsTreeScope, TsImportee), ExpandedMod]              = mutable.Map.empty,
   )
   implicit val ScopedFormatter: Formatter[Scoped] = _.toString
 

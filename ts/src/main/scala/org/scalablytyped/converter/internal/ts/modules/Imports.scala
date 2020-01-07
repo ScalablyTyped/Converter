@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package ts.modules
 
-import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
+import org.scalablytyped.converter.internal.ts.TsTreeScope.{LoopDetector, ImportCacheKey}
 import org.scalablytyped.converter.internal.ts._
 
 object Imports {
@@ -12,10 +12,10 @@ object Imports {
       loopDetector: LoopDetector,
       imports:      IArray[TsImport],
   ): IArray[(T, TsTreeScope)] = {
-    lazy val key: (TsTreeScope, Picker[T], List[TsIdent]) = (scope, Pick, wanted)
+    lazy val key = ImportCacheKey(scope, Pick, wanted)
 
-    if (scope.root.cache.isDefined && scope.root.cache.get.lookupFromImports.contains(key)) {
-      return scope.root.cache.get.lookupFromImports(key).asInstanceOf[IArray[(T, TsTreeScope)]]
+    if (scope.root.cache.isDefined && scope.root.cache.get.imports.contains(key)) {
+      return scope.root.cache.get.imports(key).asInstanceOf[IArray[(T, TsTreeScope)]]
     }
 
     val ret: IArray[(T, TsTreeScope)] =
@@ -103,7 +103,7 @@ object Imports {
       }
 
     if (scope.root.cache.isDefined && ret.nonEmpty) {
-      scope.root.cache.get.lookupFromImports.put(key, ret)
+      scope.root.cache.get.imports.put(key, ret)
     }
 
     ret

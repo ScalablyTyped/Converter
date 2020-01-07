@@ -8,5 +8,7 @@ object Main {
     /* I havent found a way to configure bloop to customize the global ExecutionContext, so this is it */
     System.setProperty("scala.concurrent.context.numThreads", config.parallelScalas.toString)
     new Main(config).run()
+
+    System.exit(0)
   }
 }

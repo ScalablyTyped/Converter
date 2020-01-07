@@ -26,6 +26,7 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.Try
 
 class Main(config: Config) {
+  val t0 = System.currentTimeMillis
   private val pool               = new ForkJoinPool(config.parallelLibraries)
   private val ec                 = ExecutionContext.fromExecutorService(pool)
   private val storingErrorLogger = logging.storing()
@@ -292,6 +293,9 @@ target/
         Summary.formatDiff(diff)
       }
       interfaceLogger.warn(formattedDiff)
+      val td = System.currentTimeMillis - t0
+      interfaceLogger warn td
+      return
 
       if (config.debugMode && !config.forceCommit) {
         interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
@@ -358,8 +362,6 @@ target/
             }
         }
     }
-
-    System.exit(0)
   }
 }
 
