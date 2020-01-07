@@ -67,7 +67,10 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
 
 ```scala
 project.settings(
-  Compile / stFlavour := Flavour.Slinky
+ // for Slinky web projects
+  Compile / stFlavour := Flavour.Slinky,
+  // for Slinky native projects
+  Compile / stFlavour := Flavour.SlinkyNative,
 )
 ```
 
@@ -197,3 +200,15 @@ Note that if you use `scala-js-dom` APIs they are naturally not affected.
 Also note that if you use a [flavour](flavour.md) which translates types to `scala-js-dom` types, 
  only types found in the chosen stdlib will be translated.
  
+### `stOutputPackage`
+For aesthetic reasons, or because you want to shade the typings in a new package 
+if you're building a library, you can adjust the top-level package into which
+ we put the generated code.
+       
+```scala
+project.settings(
+  Compile / stOutputPackage := "mypackage",
+)
+```
+
+Note that this is a singular package name. Nested packages are not supported for now.

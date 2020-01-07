@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 package build
 
+import java.nio.file.{Files, Path}
 import java.util.concurrent.TimeUnit
 
 import bintry.Client
@@ -14,15 +15,15 @@ import io.circe.{Decoder, Encoder}
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.control.NonFatal
 
-case class BinTrayPublisher(cacheDir: os.Path, repoPublic: String, user: String, password: String, repoName: String)(
-    implicit ec:                      ExecutionContext,
+case class BinTrayPublisher(cachePath: Path, repoPublic: String, user: String, password: String, repoName: String)(
+    implicit ec:                       ExecutionContext,
 ) {
 
   private def builder =
     new AsyncHttpClientConfig.Builder()
       .setRequestTimeout(-1)
 
-  private lazy val http   = new Http(Caching.Client(cacheDir, builder.build()))
+  private lazy val http   = new Http(Caching.Client(cachePath, builder.build()))
   private lazy val client = Client(user, password, http)
   private lazy val repo   = client.repo(user, repoName)
 
@@ -97,23 +98,23 @@ case class BinTrayPublisher(cacheDir: os.Path, repoPublic: String, user: String,
   * This, however, was very easy
   */
 private object Caching {
-  def fileFor(cacheDir: os.Path, request: Request): os.Path =
-    cacheDir / os.RelPath(request.getUrl) / (request.getMethod + ".json")
+  def pathFor(cachePath: Path, request: Request): Path =
+    cachePath.resolve(s"/${request.getUrl}/${request.getMethod}.json")
 
   final case class Handler[T](underlying: AsyncHandler[T])(implicit val encoder: Encoder[T], val decoder: Decoder[T])
       extends WrappedHandler[T](underlying)
 
-  final case class Client(cacheDir: os.Path, config: AsyncHttpClientConfig) extends AsyncHttpClient(config) {
+  final case class Client(cachePath: Path, config: AsyncHttpClientConfig) extends AsyncHttpClient(config) {
     override def executeRequest[T](request: Request, handler: AsyncHandler[T]): ListenableFuture[T] =
       handler match {
         case x: Handler[T] =>
-          val file = fileFor(cacheDir, request)
+          val file = pathFor(cachePath, request)
           Json.opt[T](file)(x.decoder) match {
             case None =>
               object StoringHandler extends WrappedHandler[T](handler) {
                 override def onCompleted(): T = {
                   val ret = super.onCompleted()
-                  os.makeDir.all(file / os.up)
+                  Files.createDirectories(file.getParent)
                   Json.persist(file)(ret)(x.encoder)
                   ret
                 }

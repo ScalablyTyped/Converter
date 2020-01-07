@@ -5,13 +5,12 @@ import java.io.File
 
 import com.olvind.logging.{stdout, LogLevel, Logger}
 import io.circe.{Decoder, Encoder}
-import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource}
 import org.scalablytyped.converter.internal.importer._
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Printer}
 import org.scalablytyped.converter.internal.ts._
-import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.plugin.{Flavour, PrettyStringType}
 
 import scala.collection.immutable.SortedMap
@@ -26,6 +25,7 @@ object ImportTypings {
       fromFolder:               InFolder,
       targetFolder:             os.Path,
       chosenFlavour:            Flavour,
+      outputPackage:            String,
       shouldGenerateCompanions: Boolean,
       enableScalaJsDefined:     Selection[TsIdentLibrary],
       prettyStringType:         PrettyStringType,
@@ -53,11 +53,15 @@ object ImportTypings {
         TsIdent.std,
       )
     }
+
+    val pkg = scalajs.Name(config.outputPackage)
+
     val flavour = chosenFlavour match {
-      case Flavour.Plain    => scalajs.flavours.Flavour.Plain
-      case Flavour.Normal   => scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions)
-      case Flavour.Slinky   => scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions)
-      case Flavour.Japgolly => scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions)
+      case Flavour.Plain        => new scalajs.flavours.Flavour.Plain(pkg)
+      case Flavour.Normal       => new scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions, pkg)
+      case Flavour.Slinky       => new scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions, pkg)
+      case Flavour.SlinkyNative => new scalajs.flavours.Flavour.SlinkyNative(config.shouldGenerateCompanions, pkg)
+      case Flavour.Japgolly     => new scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions, pkg)
     }
 
     val prettyString = prettyStringType match {
@@ -72,7 +76,7 @@ object ImportTypings {
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
-        case (file, bs) => parseCachePath / file.path.last / bs.hashCode.toString
+        case (file, bs) => (parseCachePath / file.path.last / bs.hashCode.toString).toNIO
       }, logger) {
         case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
       }
@@ -167,6 +171,7 @@ object ImportTypings {
           InFolder(cacheDir / "npm" / "node_modules"),
           files.existing(cacheDir / 'work),
           Flavour.Slinky,
+          outputPackage            = "typings",
           shouldGenerateCompanions = true,
           enableScalaJsDefined     = Selection.None,
           PrettyStringType.Regular,

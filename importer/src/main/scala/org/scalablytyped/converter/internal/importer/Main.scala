@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import java.io.FileWriter
+import java.nio.file.Path
 import java.util.concurrent._
 
 import com.olvind.logging
@@ -25,11 +26,20 @@ import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.Try
 
-class Main(config: Config) {
+case class MainPaths(
+    bintray:       Path,
+    npmjs:         Path,
+    parseCache:    Path,
+    cacheFolder:   os.Path,
+    publishFolder: os.Path,
+)
+
+class Main(config: Config, paths: MainPaths) {
+  val t0                         = System.currentTimeMillis
   private val pool               = new ForkJoinPool(config.parallelLibraries)
   private val ec                 = ExecutionContext.fromExecutorService(pool)
   private val storingErrorLogger = logging.storing()
-  private val logsFolder         = files.existing(config.cacheFolder / 'logs)
+  private val logsFolder         = files.existing(paths.cacheFolder / 'logs)
 
   private val logger = {
     val logFile = new FileWriter((logsFolder / s"${config.runId}.log").toIO)
@@ -49,7 +59,7 @@ class Main(config: Config) {
 
   def updatedTargetDir(flavour: Flavour): Future[TargetDirs] =
     Future {
-      val projectFolder = config.cacheFolder / flavour.projectName
+      val projectFolder = paths.cacheFolder / flavour.projectName
       if (os.exists(projectFolder)) {
         implicit val wd = projectFolder
         if (!config.offline) {
@@ -64,7 +74,7 @@ class Main(config: Config) {
         }
       } else
         Try {
-          implicit val wd = config.cacheFolder
+          implicit val wd = paths.cacheFolder
           interfaceCmd.runVerbose git ('clone, flavour.repo)
         } recover {
           case _ =>
@@ -81,16 +91,16 @@ class Main(config: Config) {
   def localCleaning(flavour: Flavour): Future[Unit] =
     Future {
       if (config.conserveSpace) {
-        interfaceLogger.warn(s"Cleaning old artifacts in ${config.publishFolder}")
-        LocalCleanup(config.publishFolder, flavour.organization, keepNum = 1)
+        interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishFolder}")
+        LocalCleanup(paths.publishFolder, flavour.organization, keepNum = 1)
       }
     }(ec)
 
-  def bintrayFor(flavour: Flavour): Option[BinTrayPublisher] =
+  def bintrayFor(flavour: Flavour, cachePath: Path): Option[BinTrayPublisher] =
     config.publish.map {
       case PublishConfig(user, password) =>
         BinTrayPublisher(
-          files.existing(config.cacheFolder / 'bintray),
+          cachePath,
           flavour.repo,
           user,
           password,
@@ -132,13 +142,13 @@ class Main(config: Config) {
           logger.filter(LogLevel.debug).void,
           config.versions,
           ec,
-          config.cacheFolder / 'compileFailures,
+          paths.cacheFolder / 'compileFailures,
         ),
       )(ec)
 
     val dtFolderF: Future[InFolder] =
       Future(
-        DTUpToDate(interfaceCmd, config.offline, config.cacheFolder, constants.DefinitelyTypedRepo),
+        DTUpToDate(interfaceCmd, config.offline, paths.cacheFolder, constants.DefinitelyTypedRepo),
       )(ec)
 
     val externalsFolderF: Future[InFolder] =
@@ -149,7 +159,7 @@ class Main(config: Config) {
         UpToDateExternals(
           interfaceLogger,
           interfaceCmd,
-          files.existing(config.cacheFolder / 'npm),
+          files.existing(paths.cacheFolder / 'npm),
           external.packages
             .map(_.typingsPackageName)
             .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
@@ -187,7 +197,7 @@ class Main(config: Config) {
           pedantic                = config.pedantic,
           parser =
             if (config.enableParseCache)
-              PersistingFunction(nameAndMtimeUnder(files.existing(config.cacheFolder / 'parse)), logger.void)(
+              PersistingFunction(nameAndMtimeUnder(files.existing(paths.parseCache)), logger.void)(
                 parseFile,
               )
             else parseFile,
@@ -199,14 +209,14 @@ class Main(config: Config) {
           config.pedantic,
           PrettyString.Regular,
           enableScalaJsDefined =
-            if (config.enableScalaJsDefined) Selection.AllExcept(Libraries.Slow.to[Seq] :_*)
+            if (config.enableScalaJsDefined) Selection.AllExcept(Libraries.Slow.to[Seq]: _*)
             else Selection.None,
         ),
         "scala.js",
       )
 
     config.flavours.foreach { flavour =>
-      val bintray                                = bintrayFor(flavour)
+      val bintray                                = bintrayFor(flavour, paths.bintray)
       val publishUser                            = bintray.fold("oyvindberg")(_.user)
       val localCleaningF                         = localCleaning(flavour)
       val updatedTargetDirF                      = updatedTargetDir(flavour)
@@ -228,8 +238,8 @@ class Main(config: Config) {
               projectName     = flavour.projectName,
               organization    = flavour.organization,
               publishUser     = publishUser,
-              publishFolder   = config.publishFolder,
-              metadataFetcher = Npmjs.GigahorseFetcher(files.existing(config.cacheFolder / 'npmjs))(ec),
+              publishFolder   = paths.publishFolder,
+              metadataFetcher = Npmjs.GigahorseFetcher(paths.npmjs)(ec),
               softWrites      = config.softWrites,
               flavour         = flavour,
             ),
@@ -292,6 +302,8 @@ target/
         Summary.formatDiff(diff)
       }
       interfaceLogger.warn(formattedDiff)
+      val td = System.currentTimeMillis - t0
+      interfaceLogger warn td
 
       if (config.debugMode && !config.forceCommit) {
         interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibNames.mkString(", ")}"
@@ -334,7 +346,7 @@ target/
 
     logRegistry.logs.foreach {
       case (libName, storeds) =>
-        val failLog = files.existingEmpty(config.cacheFolder / 'failures) / os.RelPath(libName.`__value` + ".log")
+        val failLog = files.existingEmpty(paths.cacheFolder / 'failures) / os.RelPath(libName.`__value` + ".log")
 
         storeds.underlying.filter(_.metadata.logLevel === LogLevel.error) match {
           case empty if empty.isEmpty =>
@@ -358,8 +370,6 @@ target/
             }
         }
     }
-
-    System.exit(0)
   }
 }
 

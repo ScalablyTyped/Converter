@@ -94,6 +94,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stTypescriptVersion = settingKey[String](
       "The version of the typescript library that it should use",
     )
+    val stOutputPackage = settingKey[String](
+      "The top-level package to put generated code in",
+    )
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -123,6 +126,15 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stGenerateCompanions := true,
       stStdlib := List("es6"),
       stIgnore := List("typescript"),
+      stOutputPackage := {
+        stFlavour.value match {
+          case Flavour.Plain        => "typingsPlain"
+          case Flavour.Normal       => "typingsNormal"
+          case Flavour.Slinky       => "typingsSlinky"
+          case Flavour.SlinkyNative => "typingsSlinky"
+          case Flavour.Japgolly     => "typingsJapgolly"
+        }
+      },
       stMinimize := converter.Selection.None,
       sourceGenerators in Compile += stImport.taskValue,
     )

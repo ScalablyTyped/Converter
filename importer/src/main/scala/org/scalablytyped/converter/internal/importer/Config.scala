@@ -30,13 +30,13 @@ case class Config(
     flavours:       List[Flavour],
 ) {
   // change in source code for now, lazy...
-  val cacheFolder       = os.home / 'tmp / "tso-cache"
-  val publishFolder     = os.home / ".ivy2" / "local"
   val parallelLibraries = 100
   val parallelScalas    = 4
 }
 
 object Config {
+  val cacheFolder: os.Path = os.home / 'tmp / "tso-cache"
+
   def unapply(args: Array[String]): Some[Config] =
     args partition (_ startsWith "-") match {
       case (flags, rest) =>
@@ -57,15 +57,16 @@ object Config {
 
         val companions = !(flags contains "-skipCompanions")
         val flavours = List(
-          if (flags.contains("-flavourPlain")) Some(Flavour.Plain) else None,
-          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(Flavour.Slinky(companions))
+          if (flags.contains("-flavourPlain")) Some(new Flavour.Plain) else None,
+          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(new Flavour.Slinky(companions))
           else None,
-          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly")) Some(Flavour.Japgolly(companions))
+          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly"))
+            Some(new Flavour.Japgolly(companions))
           else None,
-          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(Flavour.Normal(companions))
+          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(new Flavour.Normal(companions))
           else None,
         ).flatten match {
-          case Nil   => List(Flavour.Normal(companions))
+          case Nil   => List(new Flavour.Normal(companions))
           case other => other
         }
 

@@ -24,7 +24,7 @@ object Name {
     }
   }
 
-  /* Using `Name.typings` for the top-level package allows us to reuse the results of phase two accross flavours */
+  /* Using `Name.typings` for the top-level package allows us to reuse the results of phase two across flavours */
   val typings:    Name = Name("typings")
   val dummy:      Name = Name("dummy")
   val Any:        Name = Name("Any")

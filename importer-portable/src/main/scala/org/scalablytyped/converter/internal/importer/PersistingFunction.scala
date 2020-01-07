@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import java.io._
+import java.nio.file.{Files, Path}
 
 import com.olvind.logging.Logger
 
@@ -28,10 +29,10 @@ object PersistingFunction {
     }
   }
 
-  def apply[K, V <: Serializable](cachedFileFor: K => os.Path, logger: Logger[Unit])(f: K => V): K => V = { key: K =>
+  def apply[K, V <: Serializable](cachedFileFor: K => Path, logger: Logger[Unit])(f: K => V): K => V = { key: K =>
     cachedFileFor(key) match {
-      case cachedFile if os.exists(cachedFile) =>
-        Serializer.deserialize[V](os.read.bytes(cachedFile)) match {
+      case cachedFile if Files.exists(cachedFile) =>
+        Serializer.deserialize[V](Files.readAllBytes(cachedFile)) match {
           case Failure(error) =>
             logger.warn(s"Couldn't decode cached file $cachedFile for $key: $error")
             val ret = f(key)
@@ -47,10 +48,9 @@ object PersistingFunction {
     }
   }
 
-  def nameAndMtimeUnder(path: os.Path): InFile => os.Path =
+  def nameAndMtimeUnder(path: Path): InFile => Path =
     (file: InFile) =>
-      path /
-        file.path.toString().replaceAll("/", "_") /
-        os.mtime(file.path).toString
-
+      path
+        .resolve(file.path.toString().replaceAll("/", "_"))
+        .resolve(os.mtime(file.path).toString)
 }

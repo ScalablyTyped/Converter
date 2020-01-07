@@ -3,8 +3,7 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
-import org.scalablytyped.converter.internal.scalajs.flavours.Params.Res
-import org.scalablytyped.converter.internal.seqs._
+import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
 /**
   * Generate a package with japgolly's scalajs-react compatible react components
@@ -79,7 +78,7 @@ object GenJapgollyComponents {
     }
 }
 
-class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames, params: Params) {
+final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames, findProps: FindProps) {
   import GenJapgollyComponents._
 
   val conversions: IArray[CastConversion] = {
@@ -124,7 +123,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
   val ToJapgollyTypes = TypeRewriterCast(conversions)
 
-  val additionalOptionalParams: IArray[(ParamTree, String => String)] = {
+  val additionalOptionalProps: IArray[(ParamTree, String => String)] = {
     val keyUpdate: String => String = obj => s"""key.foreach(k => $obj.updateDynamic("key")(k.asInstanceOf[js.Any]))"""
     val keyParam = ParamTree(
       name       = Name("key"),
@@ -146,7 +145,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     IArray(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
   }
 
-  val memberToParam: MemberToParam = (scope, x) => {
+  val memberToProp: MemberToProp = (scope, x) => {
 
     object StripWildcards {
       def unapply(tr: TypeRef): Some[TypeRef] =
@@ -156,26 +155,26 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
         Some(trs.map(Wildcards.Remove.visitTypeRef(scope)))
     }
 
-    MemberToParam
+    MemberToProp
       .Default(scope, x)
       .map(p => p.copy(parameter = ToJapgollyTypes.visitParamTree(scope)(p.parameter)))
       .map {
         /* rewrite functions returning a Callback so that javascript land can call them */
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), Some(_), _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), Some(_), _), _) =>
           /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
           p.copy(
             parameter = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = Some(TypeRef.undefined)),
-            asString =
-              Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))"""),
+            asString = Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))""",
+            ),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), None, _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), None, _), _) =>
           p.copy(
             parameter = pt.copy(tpe = CallbackTo(retType)),
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
           )
 
-        case p @ Param(
+        case p @ Prop(
               pt @ ParamTree(
                 name,
                 _,
@@ -207,7 +206,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
             asString  = Right(fn),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _) =>
           def fn(obj: String) =
             s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
           p.copy(
@@ -215,7 +214,7 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
             asString  = Right(fn),
           )
 
-        case p @ Param(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _) =>
           def fn(obj: String) =
             s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
           p.copy(
@@ -238,50 +237,50 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
             .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams)),
         )
         .flatMap {
-          case ((propsOpt, hasKnownRef, tparams), components) =>
-            val (props, resParams): (TypeRef, Res[IArray[Param]]) =
-              propsOpt match {
+          case ((propsRefOpt, hasKnownRef, tparams), components) =>
+            val (propsRef, resProps): (TypeRef, Res[IArray[Prop]]) =
+              propsRefOpt match {
                 case Some(props) =>
                   val dealiased = FollowAliases(scope)(props)
 
-                  val paramsOpt: Option[Res[IArray[Param]]] =
+                  val propsOpt: Option[Res[IArray[Prop]]] =
                     scope lookup dealiased.typeName collectFirst {
                       case (_cls: ClassTree, newScope) =>
                         val cls = FillInTParams(_cls, newScope, dealiased.targs, tparams)
-                        params.forClassTree(
+                        findProps.forClassTree(
                           cls,
                           scope / cls,
-                          memberToParam,
-                          maxNum             = Params.MaxParamsForMethod - additionalOptionalParams.length - /* children*/ 1,
+                          memberToProp,
+                          maxNum             = FindProps.MaxParamsForMethod - additionalOptionalProps.length - /* children*/ 1,
                           acceptNativeTraits = true,
                         )
                     }
 
-                  props -> paramsOpt.getOrElse(Res.Error(s"Could't extract params from ${props.typeName}."))
+                  props -> propsOpt.getOrElse(Res.Error(s"Could't extract props from ${props.typeName}."))
 
                 case None =>
                   TypeRef.Object -> Res.One(TypeRef.Object.name, Empty)
               }
 
-            resParams match {
-              case Res.Success(params) =>
+            resProps match {
+              case Res.Success(props) =>
                 components match {
                   case IArray.exactlyOne(one) =>
-                    IArray(genComponent(pkgCp, props, params, one.knownRef, tparams, one))
+                    IArray(genComponent(pkgCp, propsRef, props, one.knownRef, tparams, one))
                   case many =>
                     /** We share `apply` methods for each props type in abstract classes to limit compilation time.
                       *  References causes some trouble, so if the component knows it we thread it through a type param.
                       */
                     val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
-                    val propsCls          = genSharedPropsClass(pkgCp, props, params, knownRefRewritten, tparams)
+                    val propsCls          = genSharedPropsClass(pkgCp, propsRef, props, knownRefRewritten, tparams)
                     IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
                 }
               case Res.Error(_) =>
                 components.map { c =>
-                  val propsWithObject  = TypeRef.Intersection(IArray(props, TypeRef.Object))
-                  val (_, Left(param)) = Params.parentParameter(Name("props"), propsWithObject, isRequired = true)
+                  val propsWithObject  = TypeRef.Intersection(IArray(propsRef, TypeRef.Object))
+                  val (_, Left(param)) = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
                   val mod =
-                    genComponent(pkgCp, propsWithObject, Res.One(props.name, IArray(param)), c.knownRef, tparams, c)
+                    genComponent(pkgCp, propsWithObject, Res.One(propsRef.name, IArray(param)), c.knownRef, tparams, c)
                   val comment = Comment(
                     s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. */\n",
                   )
@@ -300,8 +299,8 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
   def genComponent(
       pkgCodePath:       QualifiedName,
-      props:             TypeRef,
-      resParams:         Res.Success[IArray[Param]],
+      propsRef:          TypeRef,
+      resProps:          Res.Success[IArray[Prop]],
       knownRefRewritten: Option[TypeRef],
       tparams:           IArray[TypeParamTree],
       c:                 Component,
@@ -309,12 +308,12 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     val componentCp = pkgCodePath + c.fullName
 
     val methods: IArray[MemberTree] =
-      resParams match {
-        case Res.One(_, params) =>
-          IArray(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, componentCp))
-        case Res.Many(values) =>
-          IArray.fromTraversable(values.map {
-            case (name, params) => genCreator(name, props, params, knownRefRewritten, tparams, componentCp)
+      resProps match {
+        case Res.One(_, props) =>
+          IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, componentCp))
+        case Res.Many(propss) =>
+          IArray.fromTraversable(propss.map {
+            case (name, props) => genCreator(name, propsRef, props, knownRefRewritten, tparams, componentCp)
           })
       }
 
@@ -341,14 +340,14 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
   def genSharedPropsClass(
       pkgCodePath:       QualifiedName,
-      props:             TypeRef,
-      resParams:         Res.Success[IArray[Param]],
+      propsRef:          TypeRef,
+      resProps:          Res.Success[IArray[Prop]],
       knownRefRewritten: Option[TypeRef],
       tparams:           IArray[TypeParamTree],
   ): ClassTree = {
     // todo: improve on this, but ensure unique
     val name = Name(
-      s"SharedApply_${props.name.unescaped}${(props, knownRefRewritten, tparams).hashCode}"
+      s"SharedApply_${propsRef.name.unescaped}${(propsRef, knownRefRewritten, tparams).hashCode}"
         .replaceAllLiterally("-", "_"),
     )
     val classCp = pkgCodePath + name
@@ -365,12 +364,12 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     )
 
     val methods: IArray[MemberTree] =
-      resParams match {
-        case Res.One(_, params) =>
-          IArray(genCreator(Name.APPLY, props, params, knownRefRewritten, tparams, classCp))
-        case Res.Many(values) =>
-          IArray.fromTraversable(values.map {
-            case (name, params) => genCreator(name, props, params, knownRefRewritten, tparams, classCp)
+      resProps match {
+        case Res.One(_, props) =>
+          IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, classCp))
+        case Res.Many(propss) =>
+          IArray.fromTraversable(propss.map {
+            case (name, props) => genCreator(name, propsRef, props, knownRefRewritten, tparams, classCp)
           })
       }
 
@@ -421,25 +420,25 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
   def genCreator(
       name:              Name,
-      props:             TypeRef,
-      params:            IArray[Param],
+      propsRef:          TypeRef,
+      props:             IArray[Prop],
       knownRefRewritten: Option[TypeRef],
       tparams:           IArray[TypeParamTree],
       ownerCp:           QualifiedName,
   ): MethodTree = {
 
     val (refTypes, declaredChildren, _, _optionals, requireds, Empty) = {
-      params.partitionCollect5(
-        { case Param(ParamTree(names.ref, _, tpe, _, _), _) => tpe }, //refTypes
+      props.partitionCollect5(
+        { case Prop(ParamTree(names.ref, _, tpe, _, _), _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
-        { case p @ Param(ParamTree(names.children, _, tpe, _, _), _) if !isVdomNode(tpe) => p }, //declaredChildren
-        { case Param(paramTree, _) if shouldIgnore(paramTree)                            => null },
-        { case Param(p, Right(f))                                                        => p -> f }, //optionals
-        { case Param(p, Left(str))                                                       => p -> str }, //requireds
+        { case p @ Prop(ParamTree(names.children, _, tpe, _, _), _) if !isVdomNode(tpe) => p }, //declaredChildren
+        { case Prop(paramTree, _) if shouldIgnore(paramTree)                            => null },
+        { case Prop(p, Right(f))                                                        => p -> f }, //optionals
+        { case Prop(p, Left(str))                                                       => p -> str }, //requireds
       )
     }
 
-    val optionals = _optionals ++ additionalOptionalParams
+    val optionals = _optionals ++ additionalOptionalProps
 
     /** Specified children different from react node? - Use `Children.None` and thread the value through the normal props.
       * The reason is that not all values are react nodes, and the API is limiting
@@ -450,21 +449,22 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
 
     val (createWrapper, resultType) = knownRefRewritten orElse refTypes.headOption match {
       case Some(refType) =>
-        val c = TypeRef(japgolly.reactJsForwardRefComponentForce, IArray(props, reactChildren, refType), NoComments)
-        val r = TypeRef(japgolly.componentUnmountedWithRoot, IArray(props, refType, TypeRef.Unit, props), NoComments)
+        val c = TypeRef(japgolly.reactJsForwardRefComponentForce, IArray(propsRef, reactChildren, refType), NoComments)
+        val r =
+          TypeRef(japgolly.componentUnmountedWithRoot, IArray(propsRef, refType, TypeRef.Unit, propsRef), NoComments)
         (c, r)
       case None =>
-        val c = TypeRef(japgolly.reactJsComponent, IArray(props, reactChildren, TypeRef.Object), NoComments)
+        val c = TypeRef(japgolly.reactJsComponent, IArray(propsRef, reactChildren, TypeRef.Object), NoComments)
         val r = TypeRef(
           japgolly.componentJsUnmountedSimple,
           IArray(
-            props,
+            propsRef,
             TypeRef(
               japgolly.componentJsMountedWithRawType,
               IArray(
-                props,
+                propsRef,
                 TypeRef.Object,
-                TypeRef(japgolly.componentJsRawMounted, IArray(props, TypeRef.Object), NoComments),
+                TypeRef(japgolly.componentJsRawMounted, IArray(propsRef, TypeRef.Object), NoComments),
               ),
               NoComments,
             ),
@@ -494,15 +494,15 @@ class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomN
     }
 
     val impl = {
-      val formattedProps         = Printer.formatTypeRef(0)(props)
+      val formattedProps         = Printer.formatTypeRef(0)(propsRef)
       val formattedCreateWrapper = Printer.formatTypeRef(0)(createWrapper)
 
       /* The children value can go in one of three places, depending... */
       val (requireds2, optionals2, formattedVarargsChildren) =
         declaredChildren.headOption match {
-          case Some(Param(p, Left(str))) => ((p -> str) +: requireds, optionals, "")
-          case Some(Param(p, Right(f)))  => (requireds, (p -> f) +: optionals, "")
-          case None                      => (requireds, optionals, "(children: _*)")
+          case Some(Prop(p, Left(str))) => ((p -> str) +: requireds, optionals, "")
+          case Some(Prop(p, Right(f)))  => (requireds, (p -> f) +: optionals, "")
+          case None                     => (requireds, optionals, "(children: _*)")
         }
 
       MemberImpl.Custom(
