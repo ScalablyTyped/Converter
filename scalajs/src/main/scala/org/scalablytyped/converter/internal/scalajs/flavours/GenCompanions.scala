@@ -2,12 +2,12 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.Params.Res
+import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends TreeTransformation {
+final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -21,11 +21,11 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
 
       container.withMembers(container.members.flatMap {
         case cls: ClassTree if !nameConflict(cls.name) =>
-          findParams.forClassTree(
+          findProps.forClassTree(
             cls,
             scope / cls,
-            memberToParam,
-            Params.MaxParamsForMethod,
+            memberToProp,
+            FindProps.MaxParamsForMethod,
             acceptNativeTraits = false,
           ) match {
             case Res.Error(_) =>
@@ -77,16 +77,16 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
 
   def generateCreator(
       name:        Name,
-      params:      IArray[Param],
+      params:      IArray[Prop],
       typeCp:      QualifiedName,
       typeTparams: IArray[TypeParamTree],
   ): Option[MethodTree] =
     params match {
       case Empty => None
-      case params =>
-        val (optionals, inLiterals, Empty) = params.partitionCollect2(
-          { case Param(_, Right(f))  => f },
-          { case Param(_, Left(str)) => str },
+      case props =>
+        val (optionals, inLiterals, Empty) = props.partitionCollect2(
+          { case Prop(_, Right(f))  => f },
+          { case Prop(_, Left(str)) => str },
         )
         val typeName = typeCp.parts.last
 
@@ -98,7 +98,7 @@ class GenCompanions(memberToParam: MemberToParam, findParams: Params) extends Tr
             ProtectionLevel.Default,
             name,
             typeTparams,
-            IArray(params.map(_.parameter)),
+            IArray(props.map(_.parameter)),
             MemberImpl.Custom(s"""{
                   |  val __obj = js.Dynamic.literal(${inLiterals.mkString(", ")})
                   |${optionals.map(f => "  " + f("__obj")).mkString("\n")}

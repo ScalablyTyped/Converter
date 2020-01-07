@@ -3,9 +3,41 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
-import org.scalablytyped.converter.internal.scalajs.flavours.Params.Res
+import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.Mode
+import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
 object GenSlinkyComponents {
+  sealed trait Mode[N, W] {
+    def forNative[NN](f: N => NN): Mode[NN, W] =
+      this match {
+        case Native(native) => Native(f(native))
+        case Web(web)       => Web(web)
+      }
+
+    def forWeb[WW](f: W => WW): Mode[N, WW] =
+      this match {
+        case Native(native) => Native(native)
+        case Web(web)       => Web(f(web))
+      }
+  }
+
+  case class Native[N, W](native: N) extends Mode[N, W]
+  case class Web[N, W](web:       W) extends Mode[N, W]
+
+  case class SplitProps(props: IArray[Prop]) {
+    val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
+      { case Prop(ParamTree(Name("ref"), _, tpe, _, _), _)       => tpe },
+      { case Prop(pt, _) if GenSlinkyComponents.shouldIgnore(pt) => null },
+      { case Prop(p, Right(f))                                   => p -> f },
+      { case Prop(p, Left(str))                                  => p -> str },
+    )
+    val optionals = _optionals ++ AdditionalOptionalParams
+
+    val noNormalProps: Boolean = _optionals.isEmpty && requireds.isEmpty
+  }
+
+  final case class DomInfo(domProps: IArray[FieldTree], domType: TypeRef)
+
   /* Disable the minimizer for component objects */
   val Keep = Comments(CommentData(KeepOnlyReferenced.Keep(Empty)))
 
@@ -34,64 +66,111 @@ object GenSlinkyComponents {
     val SyntheticEvent              = slinkyCore + Name("SyntheticEvent")
     val ReactElement                = SlinkyCoreFacade + Name("ReactElement")
     val ReactRef                    = SlinkyCoreFacade + Name("ReactRef")
-    val slinkyWeb                   = slinky + Name("web")
-    val slinkyWebSvg                = slinkyWeb + Name("svg")
-    val slinkyWebHtml               = slinkyWeb + Name("html")
 
     val ignoredNames = Set(Name("key"), Name("children"))
   }
+
+  def orNothing(modeDomInfo: Mode[Unit, DomInfo]): TypeRef =
+    modeDomInfo match {
+      case Native(())   => TypeRef.Nothing
+      case Web(domInfo) => domInfo.domType
+    }
+
+  def ExternalComponentProps(modeDomInfo: Mode[Unit, DomInfo], refType: TypeRef) =
+    TypeRef(names.ExternalComponentProps, IArray(orNothing(modeDomInfo), refType), NoComments)
+
+  def ExternalComponentNoProps(modeDomInfo: Mode[Unit, DomInfo], refType: TypeRef) =
+    TypeRef(names.ExternalComponentNoProps, IArray(orNothing(modeDomInfo), refType), NoComments)
+
+  def BuildingComponent(modeDomInfo: Mode[Unit, DomInfo], refType: TypeRef) =
+    TypeRef(names.BuildingComponent, IArray(orNothing(modeDomInfo), refType), NoComments)
+
+  def TagMod(modeDomInfo: Mode[Unit, DomInfo]) = {
+    val domInfo = modeDomInfo match {
+      case Native(())   => TypeRef.Any
+      case Web(domInfo) => domInfo.domType
+    }
+    TypeRef(names.TagMod, IArray(domInfo), NoComments)
+  }
+
   def shouldIgnore(paramTree: ParamTree) = names.ignoredNames(paramTree.name)
 
-  def SlinkyElement(isSvg: Boolean, name: String): TypeRef =
-    TypeRef.Singleton(
-      TypeRef(
-        (if (isSvg) names.slinkyWebSvg else names.slinkyWebHtml) + Name(name) + Name("tag"),
-        Empty,
-        NoComments,
-      ),
+  val AdditionalOptionalParams: IArray[(ParamTree, String => String)] = {
+    val overridesUpdate: String => String = obj =>
+      s"if (_overrides != null) js.Dynamic.global.Object.assign($obj, _overrides)"
+    val overridesParam = ParamTree(
+      name       = Name("_overrides"),
+      isImplicit = false,
+      tpe        = TypeRef.StringDictionary(TypeRef.Any, NoComments),
+      default    = Some(TypeRef.`null`),
+      comments   = NoComments,
     )
+    IArray(overridesParam -> overridesUpdate)
+  }
 
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
   object classDefs {
-    import names._
-
     val ExternalComponentPropsCls = ClassTree(
       Empty,
-      ExternalComponentProps.parts.last,
+      names.ExternalComponentProps.parts.last,
       IArray(
-        TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
+        TypeParamTree(Name("E"), Some(TypeRef(names.TagElement)), NoComments),
         TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
       ),
       Empty,
       Empty,
       IArray(
-        TypeAliasTree(names.Props, Empty, TypeRef.Any, NoComments, ExternalComponentProps + names.Props),
-        TypeAliasTree(Element, Empty, TypeRef(Name("E")), NoComments, ExternalComponentProps + Element),
-        TypeAliasTree(RefType, Empty, TypeRef(Name("R")), NoComments, ExternalComponentProps + RefType),
+        TypeAliasTree(names.Props, Empty, TypeRef.Any, NoComments, names.ExternalComponentProps + names.Props),
+        TypeAliasTree(
+          names.Element,
+          Empty,
+          TypeRef(Name("E")),
+          NoComments,
+          names.ExternalComponentProps + names.Element,
+        ),
+        TypeAliasTree(
+          names.RefType,
+          Empty,
+          TypeRef(Name("R")),
+          NoComments,
+          names.ExternalComponentProps + names.RefType,
+        ),
       ),
       ClassType.Class,
       isSealed = false,
       NoComments,
-      ExternalComponentProps,
+      names.ExternalComponentProps,
     )
 
     val ExternalComponentNoPropsCls = ClassTree(
       Empty,
-      ExternalComponentNoProps.parts.last,
+      names.ExternalComponentNoProps.parts.last,
       IArray(
-        TypeParamTree(Name("E"), Some(TypeRef(TagElement)), NoComments),
+        TypeParamTree(Name("E"), Some(TypeRef(names.TagElement)), NoComments),
         TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
       ),
       Empty,
       Empty,
       IArray(
-        TypeAliasTree(Element, Empty, TypeRef(Name("E")), NoComments, ExternalComponentNoProps + Element),
-        TypeAliasTree(RefType, Empty, TypeRef(Name("R")), NoComments, ExternalComponentNoProps + RefType),
+        TypeAliasTree(
+          names.Element,
+          Empty,
+          TypeRef(Name("E")),
+          NoComments,
+          names.ExternalComponentNoProps + names.Element,
+        ),
+        TypeAliasTree(
+          names.RefType,
+          Empty,
+          TypeRef(Name("R")),
+          NoComments,
+          names.ExternalComponentNoProps + names.RefType,
+        ),
       ),
       ClassType.Class,
       isSealed = false,
       NoComments,
-      ExternalComponentNoProps,
+      names.ExternalComponentNoProps,
     )
   }
 }
@@ -101,23 +180,18 @@ object GenSlinkyComponents {
   */
 class GenSlinkyComponents(
     scalaJsDomNames: ScalaJsDomNames,
+    mode:            Mode[Unit, SlinkyWeb],
     stdNames:        QualifiedName.StdNames,
     reactNames:      ReactNames,
-    findParams:      Params,
+    findProps:       FindProps,
 ) {
   import GenSlinkyComponents._
-
-  def SlinkyHtmlElement(name: String): TypeRef = SlinkyElement(false, name)
-  def SlinkySvgElement(name:  String): TypeRef = SlinkyElement(true, name)
-
-  val AnyHtmlElement: TypeRef = SlinkyHtmlElement("*")
-  val AnySvgElement:  TypeRef = SlinkySvgElement("*")
 
   val conversions: IArray[CastConversion] = {
     import CastConversion.TParam._
     import names._
 
-    scalaJsDomNames.All ++ IArray(
+    val base = IArray(
       CastConversion(reactNames.ReactType, ReactComponentClass, _1),
       CastConversion(reactNames.ComponentState, QualifiedName.Object),
       CastConversion(reactNames.ReactDOM, QualifiedName.Any),
@@ -133,171 +207,109 @@ class GenSlinkyComponents(
       //        CastConversion(reactNames.FormEvent, SyntheticEvent, _2, _1),
       //        CastConversion(reactNames.InvalidEvent, SyntheticEvent, _2, _1),
       CastConversion(reactNames.SyntheticEvent, SyntheticEvent, _2, _1),
-      CastConversion(reactNames.AnimationEvent, slinkyWeb + Name("SyntheticAnimationEvent"), _1),
-      CastConversion(reactNames.ClipboardEvent, slinkyWeb + Name("SyntheticClipboardEvent"), _1),
-      CastConversion(reactNames.CompositionEvent, slinkyWeb + Name("SyntheticCompositionEvent"), _1),
-      //        CastConversion(reactNames.DragEvent, slinkyWeb + Name("ReactDragEventFrom"), _1Element),
-      CastConversion(reactNames.FocusEvent, slinkyWeb + Name("SyntheticFocusEvent"), _1),
-      CastConversion(reactNames.KeyboardEvent, slinkyWeb + Name("SyntheticKeyboardEvent"), _1),
-      CastConversion(reactNames.MouseEvent, slinkyWeb + Name("SyntheticMouseEvent"), _1),
-      CastConversion(reactNames.PointerEvent, slinkyWeb + Name("SyntheticPointerEvent"), _1),
-      CastConversion(reactNames.TouchEvent, slinkyWeb + Name("SyntheticTouchEvent"), _1),
-      CastConversion(reactNames.TransitionEvent, slinkyWeb + Name("SyntheticTransitionEvent"), _1),
-      CastConversion(reactNames.UIEvent, slinkyWeb + Name("SyntheticUIEvent"), _1),
-      CastConversion(reactNames.WheelEvent, slinkyWeb + Name("SyntheticWheelEvent"), _1),
-    ) ++ IArray.fromTraversable(reactNames.isComponent.map(from => CastConversion(from, ReactComponentClass, _1)))
+    )
+
+    val components: IArray[CastConversion] =
+      IArray.fromTraversable(reactNames.isComponent.map(from => CastConversion(from, ReactComponentClass, _1)))
+
+    val shared = scalaJsDomNames.All ++ base ++ components
+    mode match {
+      case Native(())    => shared
+      case Web(webNames) => shared ++ webNames.conversions
+    }
   }
 
   val ToSlinkyTypes = TypeRewriterCast(conversions)
 
-  val memberToParameter: MemberToParam =
-    (scope, tree) => MemberToParam.Default(scope, ToSlinkyTypes.visitMemberTree(scope)(tree))
-
-  val additionalOptionalParams: IArray[(ParamTree, String => String)] = {
-    val overridesUpdate: String => String = obj =>
-      s"if (_overrides != null) js.Dynamic.global.Object.assign($obj, _overrides)"
-    val overridesParam = ParamTree(
-      name       = Name("_overrides"),
-      isImplicit = false,
-      tpe        = TypeRef.StringDictionary(TypeRef.Any, NoComments),
-      default    = Some(TypeRef.`null`),
-      comments   = NoComments,
-    )
-    IArray(overridesParam -> overridesUpdate)
-  }
-
-  case class SplitProps(params: IArray[Param], domParams: IArray[FieldTree]) {
-    val (refTypes, _, _optionals, requireds, Empty) = params.partitionCollect4(
-      { case Param(ParamTree(Name("ref"), _, tpe, _, _), _)       => tpe },
-      { case Param(pt, _) if GenSlinkyComponents.shouldIgnore(pt) => null },
-      { case Param(p, Right(f))                                   => p -> f },
-      { case Param(p, Left(str))                                  => p -> str },
-    )
-    val optionals = _optionals ++ additionalOptionalParams
-
-    val noNormalProps: Boolean = _optionals.isEmpty && requireds.isEmpty
-  }
+  val memberToProp: MemberToProp =
+    (scope, tree) => MemberToProp.Default(scope, ToSlinkyTypes.visitMemberTree(scope)(tree))
 
   def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree = {
-    /* for slinky we strip all dom props, because the user can specify them using normal slinky syntax */
-    val domFields: Map[Name, TypeRef] = {
-      def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
-        scope
-          .lookup(attributes)
-          .collectFirst {
-            case (x: ClassTree, newScope) =>
-              ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-                case FieldTree(_, name, Optional(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-                case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
-              }
-          }
-          .fold(Map.empty[Name, TypeRef])(_.toMap)
-          .filterKeys(SlinkyAttributes)
+    /* for slinky/web we strip all dom props, because the user can specify them using normal slinky syntax */
+    val withDomProps: Mode[Unit, (SlinkyWeb, Map[Name, TypeRef])] =
+      mode.forWeb { slinkyWeb =>
+        def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
+          scope
+            .lookup(attributes)
+            .collectFirst {
+              case (x: ClassTree, newScope) =>
+                ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
+                  case FieldTree(_, name, Optional(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
+                  case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
+                }
+            }
+            .fold(Map.empty[Name, TypeRef])(_.toMap)
+            .filterKeys(slinkyWeb.attributes)
 
-      fieldsFor(scope, reactNames.AllHTMLAttributes) ++
-        fieldsFor(scope, reactNames.SVGAttributes)
-    }
+        val all = fieldsFor(scope, reactNames.AllHTMLAttributes) ++
+          fieldsFor(scope, reactNames.SVGAttributes)
+        (slinkyWeb -> all)
+      }
 
     /* Every tree knows it's own location (called `CodePath`).
        It's used for a lot of things, so it's important to get right */
     val pkgCp = tree.codePath + GenSlinkyComponents.names.components
 
+    /** We group components on what essentially means they have the same interface.
+      * When there is more than one they'll share some of the generated code
+      */
+    val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
+      allComponents.map(_.rewritten(scope, ToSlinkyTypes)).groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
+
     val generatedCode: IArray[Tree] =
-      IArray
-        .fromTraversable(
-          allComponents
-            .map(_.rewritten(scope, ToSlinkyTypes))
-            .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams)),
-        )
-        .flatMap {
-          case ((propsRefOpt, hasKnownRef, tparams), components) =>
-            val (propsRef, resProps): (TypeRef, Res[SplitProps]) =
-              propsRefOpt match {
-                case Some(propsRef) =>
-                  val referredTrait: Option[ClassTree] = {
-                    val dealiased = FollowAliases(scope)(propsRef)
-                    scope lookup dealiased.typeName collectFirst {
-                      case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                        FillInTParams(cls, newScope, dealiased.targs, tparams)
-                    }
+      IArray.fromTraversable(grouped).flatMap {
+        case ((propsRefOpt, hasKnownRef, tparams), components) =>
+          val (propsRef, resProps, domInfo): (TypeRef, Res[SplitProps], Mode[Unit, DomInfo]) =
+            propsRefOpt match {
+              case Some(propsRef) =>
+                val propsTraitOpt: Option[ClassTree] = {
+                  val dealiased = FollowAliases(scope)(propsRef)
+
+                  scope lookup dealiased.typeName collectFirst {
+                    case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
+                      FillInTParams(cls, newScope, dealiased.targs, tparams)
                   }
+                }
 
-                  val resProps: Res[SplitProps] =
-                    referredTrait match {
-                      case Some(cls) =>
-                        val domParams = IArray.Builder.empty[FieldTree]
+                (propsTraitOpt, withDomProps) match {
+                  case (None, _) =>
+                    (
+                      propsRef,
+                      Res.Error(s"${propsRef.typeName} was not a @ScalaJSDefined trait"),
+                      mode.forWeb(slinkyWeb => DomInfo(IArray.Empty, slinkyWeb.AnyHtmlElement)),
+                    )
 
-                        val resParams: Res[IArray[Param]] =
-                          findParams
-                            .forClassTree(cls, scope / cls, Int.MaxValue, acceptNativeTraits = true)
-                            .map(_.flatMap {
-                              case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary =>
-                                Empty
-                              case Left(param) => IArray(param)
-                              case Right(fieldTree: FieldTree) =>
-                                val param = memberToParameter(scope, fieldTree)
+                  case (Some(propsTrait), Native(())) =>
+                    (propsRef, nativeProps(scope, propsTrait), Native(()))
 
-                                val isOptionalDom: Boolean =
-                                  if (param.exists(!_.isOptional)) false
-                                  else
-                                    domFields.get(fieldTree.name) match {
-                                      case Some(tpe) =>
-                                        /* todo: refactor out a name/type check which ignores optionality */
-                                        FollowAliases(scope)(fieldTree.tpe) match {
-                                          case Optional(ftpe) => ftpe.typeName === tpe.typeName
-                                          case ftpe           => ftpe.typeName === tpe.typeName
-                                        }
-                                      case None => false
-                                    }
+                  case (Some(propsTrait), Web((slinkyWeb, domFields))) =>
+                    val (props, domInfo) = webProps(scope, propsTrait, slinkyWeb, domFields)
+                    (propsRef, props, Web(domInfo))
+                }
 
-                                if (isOptionalDom) {
-                                  domParams += fieldTree
-                                  Empty
-                                } else IArray.fromOption(param)
-
-                              case Right(methodTree: MethodTree) =>
-                                IArray.fromOption(memberToParameter(scope, methodTree))
-                            }.sorted.take(Params.MaxParamsForMethod))
-
-                        resParams.map(params => SplitProps(params, domParams.result().distinct))
-                      case None => Res.Error(s"${propsRef.typeName} was not a @ScalaJSDefined trait")
-                    }
-
-                  (propsRef, resProps)
-                case None =>
-                  (TypeRef.Object, Res.One(TypeRef.Object.name, SplitProps(Empty, Empty)))
-              }
-
-            val domType: TypeRef =
-              resProps.headOption
-                .flatMap(
-                  _.domParams
-                    .firstDefined { f =>
-                      val referencedElements = TreeTraverse.collect(f) {
-                        case TypeRef(QualifiedName(List(reactNames.outputPkg, stdNames.stdName, name)), Empty, _)
-                            if name.value.endsWith("Element") =>
-                          name.value
-                      }
-                      referencedElements.firstDefined(ElementMapping.get)
-                    },
+              case None =>
+                (
+                  TypeRef.Object,
+                  Res.One(TypeRef.Object.name, SplitProps(Empty)),
+                  mode.forWeb(slinkyWeb => DomInfo(IArray.Empty, slinkyWeb.AnyHtmlElement)),
                 )
-                .getOrElse(AnyHtmlElement)
-
-            (resProps, components) match {
-              case (successProps: Res.Success[SplitProps], many)
-                  if many.length > 1 &&
-                    !resProps.asMap.forall { case (_, props) => props.noNormalProps } =>
-                /** We share `apply` methods for each props type in abstract classes to limit compilation time.
-                  *  References causes some trouble, so if the component knows it we thread it through a type param.
-                  */
-                val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
-                val propsCls =
-                  genSharedPropsClass(propsRef, scope, pkgCp, successProps, knownRefRewritten, tparams, domType)
-                IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
-              case (_, components) =>
-                components.map(genComponent(scope, pkgCp, propsRef, resProps, domType))
             }
-        }
+
+          (resProps, components) match {
+            case (successProps: Res.Success[SplitProps], many)
+                if many.length > 1 &&
+                  !resProps.asMap.forall { case (_, props) => props.noNormalProps } =>
+              /** We share `apply` methods for each props type in abstract classes to limit compilation time.
+                *  References causes some trouble, so if the component knows it we thread it through a type param.
+                */
+              val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
+              val propsCls =
+                genSharedPropsClass(propsRef, scope, pkgCp, successProps, knownRefRewritten, tparams, domInfo)
+              IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
+            case (_, components) =>
+              components.map(genComponent(scope, pkgCp, propsRef, resProps, domInfo))
+          }
+      }
 
     /* Only generate the package if we have mapped any components */
     generatedCode match {
@@ -308,6 +320,75 @@ class GenSlinkyComponents(
     }
   }
 
+  def nativeProps(scope: TreeScope, propsTrait: ClassTree): Res[SplitProps] =
+    findProps
+      .forClassTree(
+        propsTrait,
+        scope / propsTrait,
+        memberToProp,
+        maxNum             = FindProps.MaxParamsForMethod - AdditionalOptionalParams.length,
+        acceptNativeTraits = true,
+      )
+      .map(SplitProps)
+
+  def webProps(
+      scope:      TreeScope,
+      propsTrait: ClassTree,
+      slinkyWeb:  SlinkyWeb,
+      domFields:  Map[Name, TypeRef],
+  ): (Res[SplitProps], DomInfo) = {
+    val domPropsBuilder = IArray.Builder.empty[FieldTree]
+
+    val resProps: Res[SplitProps] =
+      findProps
+        .forClassTree(propsTrait, scope / propsTrait, Int.MaxValue, acceptNativeTraits = true)
+        .map(
+          _.flatMap {
+            case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary => Empty
+            case Left(param)                                                                    => IArray(param)
+            case Right(fieldTree: FieldTree) =>
+              val param = memberToProp(scope, fieldTree)
+
+              val isOptionalDom: Boolean =
+                if (param.exists(!_.isOptional)) false
+                else
+                  domFields.get(fieldTree.name) match {
+                    case Some(tpe) =>
+                      /* todo: refactor out a name/type check which ignores optionality */
+                      FollowAliases(scope)(fieldTree.tpe) match {
+                        case Optional(ftpe) => ftpe.typeName === tpe.typeName
+                        case ftpe           => ftpe.typeName === tpe.typeName
+                      }
+                    case None => false
+                  }
+
+              if (isOptionalDom) {
+                domPropsBuilder += fieldTree
+                Empty
+              } else IArray.fromOption(param)
+
+            case Right(methodTree: MethodTree) => IArray.fromOption(memberToProp(scope, methodTree))
+          }.sorted
+            .take(FindProps.MaxParamsForMethod),
+        )
+        .map(params => SplitProps(params))
+
+    val domProps = domPropsBuilder.result().distinct
+
+    val inferredDomType: Option[TypeRef] =
+      domProps
+        .firstDefined { f =>
+          val referencedElements = TreeTraverse.collect(f) {
+            case TypeRef(QualifiedName(List(reactNames.outputPkg, stdNames.stdName, name)), Empty, _)
+                if name.value.endsWith("Element") =>
+              name.value
+          }
+          referencedElements.firstDefined(slinkyWeb.ElementMapping.get)
+        }
+
+    (resProps, DomInfo(domProps, inferredDomType getOrElse slinkyWeb.AnyHtmlElement))
+  }
+
   def genSharedPropsClass(
       propsRef:          TypeRef,
       scope:             TreeScope,
@@ -315,7 +396,7 @@ class GenSlinkyComponents(
       resProps:          Res.Success[SplitProps],
       knownRefRewritten: Option[TypeRef],
       tparams:           IArray[TypeParamTree],
-      domType:           TypeRef,
+      domType:           Mode[Unit, DomInfo],
   ): ClassTree = {
     // todo: improve on this, but ensure unique
     val name = Name(
@@ -371,11 +452,11 @@ class GenSlinkyComponents(
       pkgCp:    QualifiedName,
       propsRef: TypeRef,
       resProps: Res[SplitProps],
-      domType:  TypeRef,
+      domInfo:  Mode[Unit, DomInfo],
   )(c:          Component): ModuleTree = {
     val componentCp = pkgCp + c.fullName
     val (parent, methods, typeAliasOpt) =
-      genContent(scope, propsRef, resProps, c.tparams, c.knownRef, domType, componentCp)
+      genContent(scope, propsRef, resProps, c.tparams, c.knownRef, domInfo, componentCp)
 
     val errorCommentOpt =
       resProps match {
@@ -402,7 +483,7 @@ class GenSlinkyComponents(
       resProps: Res[SplitProps],
       tparams:  IArray[TypeParamTree],
       knownRef: Option[TypeRef],
-      domType:  TypeRef,
+      domInfo:  Mode[Unit, DomInfo],
       ownerCp:  QualifiedName,
   ): (TypeRef, IArray[MethodTree], Option[TypeAliasTree]) = {
     /* Observe type bound of :< js.Object */
@@ -428,13 +509,13 @@ class GenSlinkyComponents(
       }
 
     if (!exposeProps) {
-      (TypeRef(names.ExternalComponentNoProps, IArray(domType, refType), NoComments), Empty, None)
+      (ExternalComponentNoProps(domInfo, refType), Empty, None)
     } else {
       val EraseTParams = TypeRewriter(tparams.map(x => TypeRef(x.name) -> TypeRef.Any).toMap)
       val propsAlias =
         TypeAliasTree(names.Props, Empty, EraseTParams.visitTypeRef(scope)(propsRef), NoComments, ownerCp + names.Props)
 
-      val BuildingComponent = TypeRef(names.BuildingComponent, IArray(domType, refType), NoComments)
+      val buildingComponent = BuildingComponent(domInfo, refType)
 
       /**
         *  The `apply` method that the slinky method would normally construct.
@@ -442,7 +523,7 @@ class GenSlinkyComponents(
         *  a case class and suffer macro execution time.
         */
       def applyMethod(name: Name, props: SplitProps): MethodTree = {
-        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(BuildingComponent)}]" else ""
+        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(buildingComponent)}]" else ""
 
         MethodTree(
           annotations = Empty,
@@ -457,9 +538,9 @@ class GenSlinkyComponents(
                |  super.apply(__obj.asInstanceOf[Props])$cast
                |}""".stripMargin,
           ),
-          resultType = BuildingComponent,
+          resultType = buildingComponent,
           isOverride = false,
-          comments   = genDomWarning(props),
+          comments   = genDomWarning(domInfo),
           codePath   = ownerCp + name,
         )
       }
@@ -478,16 +559,16 @@ class GenSlinkyComponents(
                   ParamTree(
                     Name("mods"),
                     isImplicit = false,
-                    TypeRef.Repeated(TypeRef(names.TagMod, IArray(domType), NoComments), NoComments),
+                    TypeRef.Repeated(TagMod(domInfo), NoComments),
                     None,
                     NoComments,
                   ),
                 ),
               ),
               MemberImpl.Custom(
-                s"new ${Printer.formatTypeRef(0)(BuildingComponent)}(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)",
+                s"new ${Printer.formatTypeRef(0)(buildingComponent)}(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)",
               ),
-              BuildingComponent,
+              buildingComponent,
               isOverride = false,
               NoComments,
               ownerCp + Name.APPLY,
@@ -503,18 +584,20 @@ class GenSlinkyComponents(
         }
 
       (
-        TypeRef(names.ExternalComponentProps, IArray(domType, refType), NoComments),
+        ExternalComponentProps(domInfo, refType),
         methods ++ IArray.fromOption(noPropsApplyOpt),
         Some(propsAlias),
       )
     }
   }
 
-  def genDomWarning(props: SplitProps): Comments =
-    if (props.domParams.isEmpty) NoComments
-    else {
-      val details = props.domParams.map(_.name.unescaped).sorted.mkString(", ")
-      Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
+  def genDomWarning(domInfo: Mode[Unit, DomInfo]): Comments =
+    domInfo match {
+      case Native(())                    => NoComments
+      case Web(DomInfo(IArray.Empty, _)) => NoComments
+      case Web(DomInfo(domProps, _)) =>
+        val details = domProps.map(_.name.unescaped).sorted.mkString(", ")
+        Comments(Comment(s"/* The following DOM/SVG props were specified: $details */\n"))
     }
 
   def genComponentField(c: Component, componentCp: QualifiedName): IArray[Tree with HasCodePath] =
@@ -539,321 +622,4 @@ class GenSlinkyComponents(
         componentCp + names.component,
       ),
     )
-
-  // todo: this was all the mapping i had the energy to do.
-  val ElementMapping = Map(
-    "HTMLAnchorElement" -> SlinkyHtmlElement("a"),
-    "HTMLAppletElement" -> AnyHtmlElement,
-    "HTMLAreaElement" -> SlinkyHtmlElement("area"),
-    "HTMLAudioElement" -> SlinkyHtmlElement("audio"),
-    "HTMLBaseElement" -> SlinkyHtmlElement("base"),
-    "HTMLBaseFontElement" -> AnyHtmlElement,
-    "HTMLBodyElement" -> SlinkyHtmlElement("body"),
-    "HTMLBRElement" -> SlinkyHtmlElement("br"),
-    "HTMLButtonElement" -> SlinkyHtmlElement("button"),
-    "HTMLCanvasElement" -> SlinkyHtmlElement("canvas"),
-    "HTMLDataElement" -> SlinkyHtmlElement("data"),
-    "HTMLDataListElement" -> SlinkyHtmlElement("datalist"),
-    "HTMLDetailsElement" -> SlinkyHtmlElement("details"),
-    "HTMLDialogElement" -> SlinkyHtmlElement("dialog"),
-    "HTMLDirectoryElement" -> AnyHtmlElement,
-    "HTMLDivElement" -> SlinkyHtmlElement("div"),
-    "HTMLDListElement" -> SlinkyHtmlElement("dl"),
-    "HTMLElement" -> AnyHtmlElement,
-    "HTMLEmbedElement" -> SlinkyHtmlElement("embed"),
-    "HTMLFieldSetElement" -> SlinkyHtmlElement("fieldset"),
-    "HTMLFontElement" -> AnyHtmlElement,
-    "HTMLFormElement" -> SlinkyHtmlElement("form"),
-    "HTMLFrameElement" -> AnyHtmlElement,
-    "HTMLFrameSetElement" -> AnyHtmlElement,
-    "HTMLHeadElement" -> SlinkyHtmlElement("head"),
-    "HTMLHeadingElement" -> AnyHtmlElement,
-    "HTMLHRElement" -> SlinkyHtmlElement("hr"),
-    "HTMLHtmlElement" -> SlinkyHtmlElement("html"),
-    "HTMLIFrameElement" -> SlinkyHtmlElement("iframe"),
-    "HTMLImageElement" -> SlinkyHtmlElement("img"),
-    "HTMLInputElement" -> SlinkyHtmlElement("input"),
-    "HTMLLabelElement" -> SlinkyHtmlElement("label"),
-    "HTMLLegendElement" -> SlinkyHtmlElement("legend"),
-    "HTMLLIElement" -> SlinkyHtmlElement("li"),
-    "HTMLLinkElement" -> SlinkyHtmlElement("link"),
-    "HTMLMapElement" -> SlinkyHtmlElement("map"),
-    "HTMLMarqueeElement" -> AnyHtmlElement,
-    "HTMLMediaElement" -> AnyHtmlElement,
-    "HTMLMenuElement" -> SlinkyHtmlElement("menu"),
-    "HTMLMetaElement" -> SlinkyHtmlElement("meta"),
-    "HTMLMeterElement" -> SlinkyHtmlElement("meter"),
-    "HTMLModElement" -> AnyHtmlElement,
-    "HTMLObjectElement" -> SlinkyHtmlElement("object"),
-    "HTMLOListElement" -> SlinkyHtmlElement("ol"),
-    "HTMLOptGroupElement" -> SlinkyHtmlElement("optgroup"),
-    "HTMLOptionElement" -> SlinkyHtmlElement("option"),
-    "HTMLOutputElement" -> SlinkyHtmlElement("output"),
-    "HTMLParagraphElement" -> SlinkyHtmlElement("p"),
-    "HTMLParamElement" -> SlinkyHtmlElement("param"),
-    "HTMLPictureElement" -> SlinkyHtmlElement("picture"),
-    "HTMLPreElement" -> SlinkyHtmlElement("pre"),
-    "HTMLProgressElement" -> SlinkyHtmlElement("progress"),
-    "HTMLQuoteElement" -> SlinkyHtmlElement("q"),
-    "HTMLScriptElement" -> SlinkyHtmlElement("script"),
-    "HTMLSelectElement" -> SlinkyHtmlElement("select"),
-    "HTMLSlotElement" -> AnyHtmlElement,
-    "HTMLSourceElement" -> SlinkyHtmlElement("source"),
-    "HTMLSpanElement" -> SlinkyHtmlElement("span"),
-    "HTMLStyleElement" -> SlinkyHtmlElement("style"),
-    "HTMLTableCaptionElement" -> AnyHtmlElement,
-    "HTMLTableCellElement" -> AnyHtmlElement,
-    "HTMLTableColElement" -> AnyHtmlElement,
-    "HTMLTableDataCellElement" -> AnyHtmlElement,
-    "HTMLTableElement" -> SlinkyHtmlElement("table"),
-    "HTMLTableHeaderCellElement" -> AnyHtmlElement,
-    "HTMLTableRowElement" -> AnyHtmlElement,
-    "HTMLTableSectionElement" -> AnyHtmlElement,
-    "HTMLTemplateElement" -> AnyHtmlElement,
-    "HTMLTextAreaElement" -> AnyHtmlElement,
-    "HTMLTimeElement" -> AnyHtmlElement,
-    "HTMLTitleElement" -> AnyHtmlElement,
-    "HTMLTrackElement" -> AnyHtmlElement,
-    "HTMLUListElement" -> SlinkyHtmlElement("ul"),
-    "HTMLVideoElement" -> AnyHtmlElement,
-    "SVGAElement" -> SlinkySvgElement("a"),
-    "SVGAnimateElement" -> SlinkySvgElement("animate"),
-    "SVGAnimateMotionElement" -> SlinkySvgElement("animateMotion"),
-    "SVGAnimateTransformElement" -> SlinkySvgElement("animateTransform"),
-    "SVGAnimationElement" -> AnySvgElement,
-    "SVGCircleElement" -> SlinkySvgElement("circle"),
-    "SVGClipPathElement" -> SlinkySvgElement("clipPath"),
-    "SVGComponentTransferFunctionElement" -> AnySvgElement,
-    "SVGCursorElement" -> SlinkySvgElement("cursor"),
-    "SVGDefsElement" -> SlinkySvgElement("defs"),
-    "SVGDescElement" -> SlinkySvgElement("desc"),
-    "SVGElement" -> AnySvgElement,
-    "SVGEllipseElement" -> SlinkySvgElement("ellipse"),
-    "SVGFEBlendElement" -> SlinkySvgElement("feBlend"),
-    "SVGFEColorMatrixElement" -> SlinkySvgElement("feColorMatrix"),
-    "SVGFEComponentTransferElement" -> AnySvgElement,
-    "SVGFECompositeElement" -> AnySvgElement,
-    "SVGFEConvolveMatrixElement" -> AnySvgElement,
-    "SVGFEDiffuseLightingElement" -> AnySvgElement,
-    "SVGFEDisplacementMapElement" -> AnySvgElement,
-    "SVGFEDistantLightElement" -> AnySvgElement,
-    "SVGFEDropShadowElement" -> AnySvgElement,
-    "SVGFEFloodElement" -> AnySvgElement,
-    "SVGFEFuncAElement" -> AnySvgElement,
-    "SVGFEFuncBElement" -> AnySvgElement,
-    "SVGFEFuncGElement" -> AnySvgElement,
-    "SVGFEFuncRElement" -> AnySvgElement,
-    "SVGFEGaussianBlurElement" -> AnySvgElement,
-    "SVGFEImageElement" -> AnySvgElement,
-    "SVGFEMergeElement" -> AnySvgElement,
-    "SVGFEMergeNodeElement" -> AnySvgElement,
-    "SVGFEMorphologyElement" -> AnySvgElement,
-    "SVGFEOffsetElement" -> AnySvgElement,
-    "SVGFEPointLightElement" -> AnySvgElement,
-    "SVGFESpecularLightingElement" -> AnySvgElement,
-    "SVGFESpotLightElement" -> AnySvgElement,
-    "SVGFETileElement" -> AnySvgElement,
-    "SVGFETurbulenceElement" -> AnySvgElement,
-    "SVGFilterElement" -> AnySvgElement,
-    "SVGForeignObjectElement" -> AnySvgElement,
-    "SVGGElement" -> AnySvgElement,
-    "SVGGeometryElement" -> AnySvgElement,
-    "SVGGradientElement" -> AnySvgElement,
-    "SVGGraphicsElement" -> AnySvgElement,
-    "SVGImageElement" -> AnySvgElement,
-    "SVGLinearGradientElement" -> AnySvgElement,
-    "SVGLineElement" -> AnySvgElement,
-    "SVGMarkerElement" -> AnySvgElement,
-    "SVGMaskElement" -> AnySvgElement,
-    "SVGMetadataElement" -> AnySvgElement,
-    "SVGPathElement" -> AnySvgElement,
-    "SVGPatternElement" -> AnySvgElement,
-    "SVGPolygonElement" -> AnySvgElement,
-    "SVGPolylineElement" -> AnySvgElement,
-    "SVGRadialGradientElement" -> AnySvgElement,
-    "SVGRectElement" -> AnySvgElement,
-    "SVGScriptElement" -> AnySvgElement,
-    "SVGStopElement" -> AnySvgElement,
-    "SVGStyleElement" -> AnySvgElement,
-    "SVGSVGElement" -> AnySvgElement,
-    "SVGSwitchElement" -> AnySvgElement,
-    "SVGSymbolElement" -> AnySvgElement,
-    "SVGTextContentElement" -> AnySvgElement,
-    "SVGTextElement" -> AnySvgElement,
-    "SVGTextPathElement" -> AnySvgElement,
-    "SVGTextPositioningElement" -> AnySvgElement,
-    "SVGTitleElement" -> AnySvgElement,
-    "SVGTSpanElement" -> AnySvgElement,
-    "SVGUseElement" -> AnySvgElement,
-    "SVGViewElement" -> AnySvgElement,
-  )
-
-  /* typescript declares more attributes than slinky */
-  val SlinkyAttributes: Set[Name] = Set(
-    "type",
-    "accept",
-    "action",
-    "alt",
-    "aria",
-    "async",
-    "autoComplete",
-    "autoFocus",
-    "capture",
-    "challenge",
-    "checked",
-    "className",
-    "cols",
-    "colSpan",
-    "content",
-    "contentEditable",
-    "controls",
-    "coords",
-    "dangerouslySetInnerHTML",
-    "default",
-    "defaultChecked",
-    "defaultValue",
-    "defer",
-    "dir",
-    "disabled",
-    "download",
-    "draggable",
-    "headers",
-    "height",
-    "hidden",
-    "high",
-    "href",
-    "htmlFor",
-    "icon",
-    "id",
-    "integrity",
-    "key",
-    "kind",
-    "lang",
-    "list",
-    "loop",
-    "low",
-    "manifest",
-    "max",
-    "media",
-    "method",
-    "min",
-    "multiple",
-    "muted",
-    "name",
-    "nonce",
-    "on",
-    "onAbort",
-    "onAnimationEnd",
-    "onAnimationIteration",
-    "onAnimationStart",
-    "onBlur",
-    "onCancel",
-    "onCanPlay",
-    "onCanPlayThrough",
-    "onChange",
-    "onClick",
-    "onClose",
-    "onCompositionEnd",
-    "onCompositionStart",
-    "onCompositionUpdate",
-    "onContextMenu",
-    "onCopy",
-    "onCut",
-    "onDoubleClick",
-    "onDrag",
-    "onDragEnd",
-    "onDragEnter",
-    "onDragExit",
-    "onDragLeave",
-    "onDragOver",
-    "onDragStart",
-    "onDrop",
-    "onDurationChange",
-    "onEmptied",
-    "onEncrypted",
-    "onEnded",
-    "onError",
-    "onFocus",
-    "onGotPointerCapture",
-    "onInput",
-    "onInvalid",
-    "onKeyDown",
-    "onKeyPress",
-    "onKeyUp",
-    "onLoad",
-    "onLoadedData",
-    "onLoadedMetadata",
-    "onLoadStart",
-    "onLostPointerCapture",
-    "onMouseDown",
-    "onMouseEnter",
-    "onMouseLeave",
-    "onMouseMove",
-    "onMouseOut",
-    "onMouseOver",
-    "onMouseUp",
-    "onPaste",
-    "onPause",
-    "onPlay",
-    "onPlaying",
-    "onPointerCancel",
-    "onPointerDown",
-    "onPointerEnter",
-    "onPointerLeave",
-    "onPointerMove",
-    "onPointerOut",
-    "onPointerOver",
-    "onPointerUp",
-    "onProgress",
-    "onRateChange",
-    "onScroll",
-    "onSeeked",
-    "onSeeking",
-    "onSelect",
-    "onStalled",
-    "onSubmit",
-    "onSuspend",
-    "onTimeUpdate",
-    "onToggle",
-    "onTouchCancel",
-    "onTouchEnd",
-    "onTouchMove",
-    "onTouchStart",
-    "onTransitionEnd",
-    "onVolumeChange",
-    "onWaiting",
-    "onWheel",
-    "open",
-    "optimum",
-    "pattern",
-    "placeholder",
-    "poster",
-    "preload",
-    "profile",
-    "readOnly",
-    "ref",
-    "rel",
-    "required",
-    "reversed",
-    "rows",
-    "rowSpan",
-    "sandbox",
-    "scope",
-    "scoped",
-    "scrolling",
-    "selected",
-    "shape",
-    "size",
-    "sizes",
-    "spellCheck",
-    "src",
-    "start",
-    "step",
-    "suppressContentEditableWarning",
-    "tabIndex",
-    "target",
-    "value",
-    "width",
-    "wrap",
-  ) map Name.apply
 }

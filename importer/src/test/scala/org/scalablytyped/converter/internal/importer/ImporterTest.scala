@@ -46,29 +46,29 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
     assertImportsOk("material-ui", pedantic = true, update = update),
   )
   test("material-ui-slinky")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Slinky(true)),
+    assertImportsOk("material-ui", pedantic = true, update = update, flavour = new Flavour.Slinky(true)),
   )
   test("material-ui-japgolly")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Flavour.Japgolly(true)),
+    assertImportsOk("material-ui", pedantic = true, update = update, flavour = new Flavour.Japgolly(true)),
   )
 
   test("react-transition-group")(
     assertImportsOk("react-transition-group", pedantic = true, update = update),
   )
   test("react-transition-group-slinky")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Slinky(true)),
+    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = new Flavour.Slinky(true)),
   )
   test("react-transition-group-japgolly")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Flavour.Japgolly(true)),
+    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = new Flavour.Japgolly(true)),
   )
 
   test("react-integration-test")(
     assertImportsOk("react-integration-test", pedantic = false, update = update),
   )
   test("react-integration-test-slinky")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Slinky(true)),
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = new Flavour.Slinky(true)),
   )
   test("react-integration-test-japgolly")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Flavour.Japgolly(true)),
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = new Flavour.Japgolly(true)),
   )
 }

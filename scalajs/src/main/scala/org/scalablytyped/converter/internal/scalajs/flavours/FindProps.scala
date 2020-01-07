@@ -3,12 +3,12 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.maps._
-import org.scalablytyped.converter.internal.scalajs.flavours.Params.Res
+import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, UnionToInheritance}
 
 import scala.collection.immutable.SortedMap
 
-object Params {
+object FindProps {
   /* javascript limitation */
   val MaxParamsForMethod = 254
 
@@ -56,9 +56,9 @@ object Params {
       }
   }
 
-  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Left[Param, Nothing]) =
+  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Left[Prop, Nothing]) =
     name -> Left(
-      Param(
+      Prop(
         ParamTree(name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
         Right(obj =>
           if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
@@ -68,19 +68,19 @@ object Params {
     )
 }
 
-class Params(cleanIllegalNames: CleanIllegalNames) {
+final class FindProps(cleanIllegalNames: CleanIllegalNames) {
 
   def forClassTree(
       cls:                ClassTree,
       scope:              TreeScope,
-      memberToParam:      MemberToParam,
+      memberToProp:       MemberToProp,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-  ): Res[IArray[Param]] =
+  ): Res[IArray[Prop]] =
     forClassTree(cls, scope, maxNum, acceptNativeTraits).map { eithers =>
       eithers.mapNotNone {
-        case Left(param)   => Some(param)
-        case Right(member) => memberToParam(scope, member)
+        case Left(prop)    => Some(prop)
+        case Right(member) => memberToProp(scope, member)
       }.sorted
     }
 
@@ -92,7 +92,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
       scope:              TreeScope,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-  ): Res[IArray[Either[Param, MemberTree]]] =
+  ): Res[IArray[Either[Prop, MemberTree]]] =
     cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
@@ -131,7 +131,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
           )
 
           /* extract one per name, while undoing some renaming damage that we have done */
-          def membersFrom(cls: ClassTree): Map[Name, Either[Param, MemberTree]] =
+          def membersFrom(cls: ClassTree): Map[Name, Either[Prop, MemberTree]] =
             RemoveThis
               .visitClassTree(scope)(cls)
               .members
@@ -141,7 +141,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
                 case (name, ms) => name -> Right(combine(ms).renamed(name))
               }
 
-          def go(p: ParentsResolver.Parent): Map[Name, Either[Param, MemberTree]] =
+          def go(p: ParentsResolver.Parent): Map[Name, Either[Prop, MemberTree]] =
             maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
 
           val builder =
@@ -162,7 +162,7 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
                     case _: FieldTree => true
                     case _ => false
                   }
-                  Params.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
+                  FindProps.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
                 }
                 .allParamsUnique
                 .values,
@@ -195,14 +195,14 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
       case other => sys.error(s"Unexpected: ${other}")
     }
   private case class Builder(
-      directParents: Map[ParentsResolver.Parent, Map[Name, Either[Param, MemberTree]]],
+      directParents: Map[ParentsResolver.Parent, Map[Name, Either[Prop, MemberTree]]],
       unresolved:    IArray[TypeRef],
-      own:           SortedMap[Name, Either[Param, MemberTree]],
+      own:           SortedMap[Name, Either[Prop, MemberTree]],
   ) {
 
     def skipParentInlineIfMoreMembersThan(
         maxNum: Int,
-    )(f:        ParentsResolver.Parent => (Name, Either[Param, MemberTree])): Builder = {
+    )(f:        ParentsResolver.Parent => (Name, Either[Prop, MemberTree])): Builder = {
       val numParentMembers = directParents.foldLeft(0)((acc, p) => acc + p._2.size)
       if (own.size + numParentMembers + unresolved.length > maxNum) {
 
@@ -215,10 +215,10 @@ class Params(cleanIllegalNames: CleanIllegalNames) {
     /** It's not *the* most precise way of going about this (will lose useful overloads),
       *  but has the nice property that it keeps the closest/most specific definition of a member
       * */
-    def allParamsUnique: Map[Name, Either[Param, MemberTree]] = {
-      val fromParents = directParents.foldLeft(Map.empty[Name, Either[Param, MemberTree]])(_ ++ _._2)
+    def allParamsUnique: Map[Name, Either[Prop, MemberTree]] = {
+      val fromParents = directParents.foldLeft(Map.empty[Name, Either[Prop, MemberTree]])(_ ++ _._2)
       val fromUnresolved =
-        unresolved.map(typeRef => Params.parentParameter(typeRef.name, typeRef, isRequired = false)).toMap
+        unresolved.map(typeRef => FindProps.parentParameter(typeRef.name, typeRef, isRequired = false)).toMap
       fromParents ++ fromUnresolved ++ own
     }
   }

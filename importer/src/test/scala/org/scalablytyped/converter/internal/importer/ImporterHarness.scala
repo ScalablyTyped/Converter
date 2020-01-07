@@ -106,10 +106,11 @@ trait ImporterHarness extends FunSuiteLike {
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {
-      case Flavour.Plain       => "check-plain"
-      case Flavour.Normal(_)   => "check"
-      case Flavour.Slinky(_)   => "check-slinky"
-      case Flavour.Japgolly(_) => "check-japgolly"
+      case Flavour.Plain           => "check-plain"
+      case Flavour.Normal(_)       => "check"
+      case Flavour.Slinky(_)       => "check-slinky"
+      case Flavour.SlinkyNative(_) => "check-slinky-native"
+      case Flavour.Japgolly(_)     => "check-japgolly"
     })
 
     val logRegistry =

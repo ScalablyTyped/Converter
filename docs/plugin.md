@@ -67,7 +67,10 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
 
 ```scala
 project.settings(
-  Compile / stFlavour := Flavour.Slinky
+ // for Slinky web projects
+  Compile / stFlavour := Flavour.Slinky,
+  // for Slinky native projects
+  Compile / stFlavour := Flavour.SlinkyNative,
 )
 ```
 

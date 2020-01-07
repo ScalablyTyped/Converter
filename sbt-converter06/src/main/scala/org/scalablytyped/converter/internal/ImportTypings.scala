@@ -54,10 +54,11 @@ object ImportTypings {
       )
     }
     val flavour = chosenFlavour match {
-      case Flavour.Plain    => scalajs.flavours.Flavour.Plain
-      case Flavour.Normal   => scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions)
-      case Flavour.Slinky   => scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions)
-      case Flavour.Japgolly => scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions)
+      case Flavour.Plain        => scalajs.flavours.Flavour.Plain
+      case Flavour.Normal       => scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions)
+      case Flavour.Slinky       => scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions)
+      case Flavour.SlinkyNative => scalajs.flavours.Flavour.SlinkyNative(config.shouldGenerateCompanions)
+      case Flavour.Japgolly     => scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions)
     }
 
     val prettyString = prettyStringType match {

@@ -2,19 +2,19 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-trait MemberToParam {
-  def apply(scope: TreeScope, x: MemberTree): Option[Param]
+trait MemberToProp {
+  def apply(scope: TreeScope, x: MemberTree): Option[Prop]
 }
 
-object MemberToParam {
+object MemberToProp {
   def escapeIntoString(name: Name) =
     stringUtils.quote(name.unescaped)
 
-  object Default extends MemberToParam {
+  object Default extends MemberToProp {
     private val Cast = ".asInstanceOf[js.Any]"
 
     /* yeah, i know. We'll refactor if we'll do many more rewrites */
-    override def apply(scope: TreeScope, x: MemberTree): Option[Param] =
+    override def apply(scope: TreeScope, x: MemberTree): Option[Prop] =
       x match {
         /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
         case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
@@ -22,7 +22,7 @@ object MemberToParam {
             case Optional(TypeRef.Double) =>
               val tpe = TypeRef.Union(IArray(TypeRef.Int, TypeRef.Double), sort = false)
               Some(
-                Param(
+                Prop(
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(obj =>
                     s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
@@ -31,7 +31,7 @@ object MemberToParam {
               )
             case Optional(tpe) if TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, tpe))) =>
               Some(
-                Param(
+                Prop(
                   ParamTree(name, isImplicit = false, TypeRef.UndefOr(tpe), Some(TypeRef.undefined), NoComments),
                   Right(obj =>
                     s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
@@ -43,7 +43,7 @@ object MemberToParam {
               if (paramTypes.contains(TypeRef.Nothing)) None // edge case which doesnt work
               else
                 Some(
-                  Param(
+                  Prop(
                     ParamTree(
                       name,
                       isImplicit = false,
@@ -64,7 +64,7 @@ object MemberToParam {
               }
 
               Some(
-                Param(
+                Prop(
                   ParamTree(name, isImplicit = false, tpe, Some(TypeRef.`null`), NoComments),
                   Right(obj =>
                     s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
@@ -77,7 +77,7 @@ object MemberToParam {
               if (paramTypes.contains(TypeRef.Nothing)) None
               else
                 Some(
-                  Param(
+                  Prop(
                     ParamTree(
                       name,
                       isImplicit = false,
@@ -93,7 +93,7 @@ object MemberToParam {
                 )
             case _ =>
               Some(
-                Param(
+                Prop(
                   ParamTree(name, isImplicit = false, origTpe, None, NoComments),
                   if (!name.isEscaped && f.originalName === name)
                     Left(s"""${name.value} = ${name.value}$Cast""")
@@ -111,7 +111,7 @@ object MemberToParam {
           if (flattenedParams.exists(_.tpe === TypeRef.Nothing)) None // edge case which doesnt work
           else
             Some(
-              Param(
+              Prop(
                 ParamTree(
                   m.name,
                   isImplicit = false,
