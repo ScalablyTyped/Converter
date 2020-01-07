@@ -95,7 +95,7 @@ trait ImporterHarness extends FunSuiteLike {
       testName: String,
       pedantic: Boolean,
       update:   Boolean,
-      flavour:  Flavour = Flavour.Normal(true),
+      flavour:  Flavour = new Flavour.Normal(true),
   ): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
@@ -106,11 +106,11 @@ trait ImporterHarness extends FunSuiteLike {
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {
-      case Flavour.Plain           => "check-plain"
-      case Flavour.Normal(_)       => "check"
-      case Flavour.Slinky(_)       => "check-slinky"
-      case Flavour.SlinkyNative(_) => "check-slinky-native"
-      case Flavour.Japgolly(_)     => "check-japgolly"
+      case _: Flavour.Plain        => "check-plain"
+      case _: Flavour.Normal       => "check"
+      case _: Flavour.Slinky       => "check-slinky"
+      case _: Flavour.SlinkyNative => "check-slinky-native"
+      case _: Flavour.Japgolly     => "check-japgolly"
     })
 
     val logRegistry =

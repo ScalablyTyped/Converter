@@ -32,6 +32,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val packageJson          = folder / "package.json"
         val nodeModules          = InFolder(folder / "node_modules")
         val stdLib               = stStdlib.value
+        val outputPackage        = stOutputPackage.value
         val targetFolder         = os.Path((sourceManaged in Compile).value / "scalablytyped")
         val npmDeps              = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
         val ignored              = stIgnore.value.to[Set]
@@ -46,6 +47,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
           nodeModules,
           targetFolder,
           flavour,
+          outputPackage,
           generateCompanions,
           enableScalaJsDefined,
           prettyStringType,
