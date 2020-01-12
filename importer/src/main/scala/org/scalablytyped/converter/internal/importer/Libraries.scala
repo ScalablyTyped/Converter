@@ -11,6 +11,7 @@ object Libraries {
   val extraExternals: Set[TsIdentLibrary] = awsSdk ++ expo ++ Set(
     "react-phone-number-input",
     "libphonenumber-js",
+    "promise-worker",
     "ant-design-pro",
     "activex-helpers",
     "ajv-keywords",
