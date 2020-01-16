@@ -24,7 +24,13 @@ object GenerateSbtPlugin {
       soft           = true,
     )
     implicit val wd = projectDir
-    %.extend(Nil, Map("JVM_OPTS" -> "-Xmx1G"))('sbt, action)
+    %.extend(
+      Nil,
+      Map(
+        "JVM_OPTS" -> "-Xmx1G",
+        "JAVA_TOOL_OPTIONS" -> "-XX:MaxInlineLevel=24 -Xmx1G -Xss2M",
+      ),
+    )('sbt, action)
   }
 
   def contents(
