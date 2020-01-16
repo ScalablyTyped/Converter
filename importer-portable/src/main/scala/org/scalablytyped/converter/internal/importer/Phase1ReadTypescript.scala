@@ -172,6 +172,7 @@ class Phase1ReadTypescript(
                 }
 
               val enableExpandTypeMappings = source.libName match {
+                case TsIdentLibrarySimple("react-native")                            => true
                 case TsIdentLibrarySimple("react-dropzone")                          => true
                 case TsIdentLibraryScoped("material-ui", _)                          => true
                 case TsIdentLibrarySimple("styled-components")                       => true

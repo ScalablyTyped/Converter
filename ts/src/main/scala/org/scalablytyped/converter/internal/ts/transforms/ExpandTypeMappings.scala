@@ -277,8 +277,6 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
           Res.sequence(x.types.map(forType(scope))).map(_.flatten).withIsRewritten
         case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, from: TsTypeRef, _, _)) if scope.isAbstract(from.name) =>
           Problems(IArray(NotStatic(scope, from)))
-        case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, _, _, to: TsTypeRef)) if scope.isAbstract(to.name) =>
-          Problems(IArray(NotStatic(scope, to)))
 
         case IsTypeMapping(TsMemberTypeMapped(_, level, isReadOnly, keyRef, from, optionalize, to)) =>
           evaluateKeys(scope)(from).map { keys =>

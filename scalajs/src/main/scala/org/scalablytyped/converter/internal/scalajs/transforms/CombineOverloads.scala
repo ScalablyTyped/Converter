@@ -104,6 +104,8 @@ object CombineOverloads extends TreeTransformation {
 
         if (typeName === QualifiedName.UNION)
           TypeRef.Union(sameTypeName.flatMap(_.targs), sort = true)
+        else if (typeName === QualifiedName.INTERSECTION)
+          TypeRef.Intersection(sameTypeName.flatMap(_.targs))
         else {
           val combinedTArgs: IArray[TypeRef] = sameTypeName.map(_.targs).transpose.map(asUnionType)
           TypeRef(typeName, combinedTArgs, Comments.flatten(sameTypeName)(_.comments))
