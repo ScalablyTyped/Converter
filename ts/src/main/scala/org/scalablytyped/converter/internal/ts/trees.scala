@@ -408,6 +408,7 @@ object TsIdent {
 
   val dummyLibrary: TsIdentLibrary = TsIdentLibrarySimple("dummyLibrary")
   val std:          TsIdentLibrary = TsIdentLibrarySimple("std")
+  val node:         TsIdentLibrary = TsIdentLibrarySimple("node")
 
   implicit object TsIdentKey extends IsKey[TsIdent]
 }

@@ -13,12 +13,17 @@ package transforms
   * 2) is mostly a stupid idea anyway.
   */
 object RemoveStubs extends TreeTransformationScopedChanges {
-  override def enterTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile = {
-    val newMembers = x.members.filter {
+  override def enterTsParsedFile(scope: TsTreeScope)(x: TsParsedFile): TsParsedFile =
+    x.copy(members = clean(scope, x.members))
+
+  override def enterTsGlobal(scope: TsTreeScope)(x: TsGlobal): TsGlobal =
+    x.copy(members = clean(scope, x.members))
+
+  def clean(scope: TsTreeScope, members: IArray[TsContainerOrDecl]): IArray[TsContainerOrDecl] =
+    members.filter {
       case i: TsDeclInterface if i.members.isEmpty =>
-        t.root.lookupType(TsQIdent(List(TsIdent.std, i.name)), skipValidation = true).isEmpty
+        scope.root.lookupType(TsQIdent(List(TsIdent.std, i.name)), skipValidation    = true).isEmpty &&
+          scope.root.lookupType(TsQIdent(List(TsIdent.node, i.name)), skipValidation = true).isEmpty
       case _ => true
     }
-    x.copy(members = newMembers)
-  }
 }
