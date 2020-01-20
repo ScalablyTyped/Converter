@@ -52,10 +52,11 @@ object AdaptiveNamingImport {
           case x: HasCodePath => x.codePath.forceHasPath.codePath.parts
         }
         .distinct
-        .sorted(ShortestFirst)
+        .sorted(ShortestAndLowercaseFirst)
 
     val registeredReferences =
       mutable.Map[IArray[TsIdent], QualifiedName](IArray.Empty -> QualifiedName(IArray(outputPkg)))
+
     val lowercaseIndex = mutable.Map.empty[String, IArray[TsIdent]]
 
     allReferences.foreach {
@@ -135,12 +136,17 @@ object AdaptiveNamingImport {
     case nonEmpty => nonEmpty + "Mod"
   }
 
-  private val ShortestFirst: Ordering[IArray[TsIdent]] =
+  /**
+    * The point of preferring lowercase is to choose values before types.
+    * `interface Console{}; declare console: Console` should become
+    * `interface Console_{}; declare console: Console_`
+    */
+  private val ShortestAndLowercaseFirst: Ordering[IArray[TsIdent]] =
     new Ordering[IArray[TsIdent]] {
       override def compare(one: IArray[TsIdent], two: IArray[TsIdent]): Int = {
         var idx = 0
         while (idx < one.length && idx < two.length) {
-          one(idx).value.compareTo(two(idx).value) match {
+          compareStringPreferLower(one(idx).value, two(idx).value) match {
             case 0 => // continue
             case n => return n
           }
@@ -150,6 +156,27 @@ object AdaptiveNamingImport {
         if (one.length < two.length) -1
         else if (two.length < one.length) 1
         else 0
+      }
+
+      /* copied String.compareTo */
+      def compareStringPreferLower(v1: String, v2: String): Int = {
+        val len1 = v1.length
+        val len2 = v2.length
+        val lim  = Math.min(len1, len2)
+        var k    = 0
+        while (k < lim) {
+          val c1 = v1(k)
+          val c2 = v2(k)
+
+          /* added check to sort lowercase first */
+          if (c1.isLower && !c2.isLower) return -1
+          else if (c2.isLower && !c1.isLower) return 1
+
+          if (c1 != c2) return c1 - c2
+
+          k += 1
+        }
+        len1 - len2
       }
     }
 }

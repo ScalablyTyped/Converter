@@ -6,7 +6,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSImport("cldr/supplemental", JSImport.Namespace)
+@JSImport("cldr/event", JSImport.Namespace)
 @js.native
-object supplementalMod extends TopLevel[CldrFactory]
+object eventMod extends TopLevel[CldrFactory]
 

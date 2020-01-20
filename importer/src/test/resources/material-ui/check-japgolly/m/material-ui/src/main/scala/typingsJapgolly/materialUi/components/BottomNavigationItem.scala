@@ -4,7 +4,7 @@ import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import typingsJapgolly.materialUi.mod.default
+import typingsJapgolly.materialUi.bottomNavigationItemMod.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -26,7 +26,7 @@ object BottomNavigationItem {
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
   typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps, 
   japgolly.scalajs.react.Children.None, 
-  typingsJapgolly.materialUi.mod.default](this.componentImport)
+  typingsJapgolly.materialUi.bottomNavigationItemMod.default](this.componentImport)
     f(__obj.asInstanceOf[typingsJapgolly.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps])
   }
   @JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Default)

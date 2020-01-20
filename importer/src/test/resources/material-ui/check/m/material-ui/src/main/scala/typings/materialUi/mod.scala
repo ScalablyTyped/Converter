@@ -1,21 +1,17 @@
 package typings.materialUi
 
-import typings.materialUi.MaterialUI.BottomNavigation.BottomNavigationItemProps
-import typings.react.mod.Component
+import typings.materialUi.MaterialUI.Styles.MuiTheme
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSImport("material-ui/BottomNavigation/BottomNavigationItem", JSImport.Namespace)
+@JSImport("material-ui/styles", JSImport.Namespace)
 @js.native
 object mod extends js.Object {
-  @js.native
-  class BottomNavigationItem ()
-    extends Component[BottomNavigationItemProps, js.Object]
-  
-  @js.native
-  class default ()
-    extends Component[BottomNavigationItemProps, js.Object]
-  
+  var spacing: js.Any = js.native
+  var transitions: js.Any = js.native
+  var typography: js.Any = js.native
+  var zIndex: js.Any = js.native
+  def getMuiTheme(muiTheme: MuiTheme*): MuiTheme = js.native
 }
 

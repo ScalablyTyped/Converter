@@ -1,6 +1,6 @@
 package typings.electron
 
-import typings.electron.Electron.App
+import typings.electron.Electron.App_
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -12,6 +12,6 @@ object mod extends js.Object {
   class EventEmitter ()
     extends typings.electron.Electron.EventEmitter
   
-  val app: App = js.native
+  val app: App_ = js.native
 }
 
