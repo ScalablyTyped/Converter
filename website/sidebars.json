@@ -1,6 +1,6 @@
 {
   "docs": {
-    "ScalablyTyped": ["readme","plugin", "plugin-no-bundler", "encoding"],
+    "ScalablyTyped": ["readme", "release-announcement", "plugin", "plugin-no-bundler", "encoding"],
     "Development": ["devel/about", "devel/running"]
   }
 }
