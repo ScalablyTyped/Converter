@@ -15,7 +15,7 @@ sealed trait JsLocation {
       this match {
         case JsLocation.Zero              => JsLocation.Zero
         case JsLocation.Module(mod, spec) => JsLocation.Module(mod, spec + tsIdent)
-        case JsLocation.Global(jsPath)    => JsLocation.Global(jsPath ++ List(tsIdent))
+        case JsLocation.Global(jsPath)    => JsLocation.Global(jsPath + tsIdent)
       }
 }
 
@@ -48,7 +48,7 @@ object JsLocation {
       tree match {
         case x: TsDeclModule                                 => Module(x.name, ModuleSpec.Namespaced)
         case x: TsAugmentedModule                            => Module(x.name, ModuleSpec.Namespaced)
-        case x: TsNamedDecl if x.name =/= TsIdent.namespaced => Global(TsQIdent(List(x.name)))
+        case x: TsNamedDecl if x.name =/= TsIdent.namespaced => Global(TsQIdent.of(x.name))
         case _: TsGlobal                                     => Zero
         case _ => this
       }

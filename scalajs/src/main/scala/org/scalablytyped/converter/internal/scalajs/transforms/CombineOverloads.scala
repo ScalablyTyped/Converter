@@ -161,7 +161,7 @@ object CombineOverloads extends TreeTransformation {
           TypeRef.Nothing,
           false,
           ctor.comments,
-          QualifiedName(Nil),
+          QualifiedName(IArray.Empty),
         ),
       )
     val ret = combineOverloads(scope, asMethods)

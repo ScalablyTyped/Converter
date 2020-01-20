@@ -99,8 +99,8 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
 
     lazy val isParam = sig.params.exists(p =>
       p.tpe.exists {
-        case TsTypeRef(_, TsQIdent(List(tp.name)), _) => true
-        case _                                        => false
+        case TsTypeRef(_, TsQIdent(IArray.exactlyOne(tp.name)), _) => true
+        case _                                                     => false
       },
     )
 

@@ -46,7 +46,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
     * If this is a commonjs module we extract the name of the exported thing
     */
   object EqualsExport {
-    def unapply(x: TsDeclModule): Option[((TsExport, List[TsIdent]), IArray[TsContainerOrDecl])] = {
+    def unapply(x: TsDeclModule): Option[((TsExport, IArray[TsIdent]), IArray[TsContainerOrDecl])] = {
       val (es, rest) = x.members.partitionCollect {
         case e @ TsExport(_, ExportType.Namespaced, TsExporteeNames(IArray.exactlyOne((TsQIdent(qident), None)), _)) =>
           e -> qident
@@ -57,7 +57,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
 
   override def enterTsDeclModule(t: TsTreeScope)(mod: TsDeclModule): TsDeclModule =
     mod match {
-      case EqualsExport(((export, target :: Nil), notExports)) =>
+      case EqualsExport(((export, IArray.exactlyOne(target)), notExports)) =>
         val (namespaces, toplevel, _rest) = notExports.partitionCollect2(
           { case x: TsDeclNamespace if x.name.value === target.value => x },
           { case x: TsNamedDecl if x.name === target                 => x },
@@ -107,7 +107,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                 _,
                 typeName,
                 Empty,
-                TsTypeRef(_, TsQIdent(`target` :: referredName :: Nil), Empty),
+                TsTypeRef(_, TsQIdent(IArray.exactlyTwo(`target`, referredName)), Empty),
                 _,
                 ) =>
               referredName =/= typeName
@@ -122,7 +122,10 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   _,
                   ExportType.Named,
                   TsExporteeTree(
-                    TsImport(IArray.exactlyOne(TsImportedIdent(newName)), TsImporteeLocal(TsQIdent(List(name)))),
+                    TsImport(
+                      IArray.exactlyOne(TsImportedIdent(newName)),
+                      TsImporteeLocal(TsQIdent(IArray.exactlyOne(name))),
+                    ),
                   ),
                   ) if name.value === target.value =>
                 TsExport(
@@ -151,8 +154,8 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
               x match {
                 case TsTypeRef(_, TsQIdent(from), _) if from.head === target =>
                   from.drop(1) match {
-                    case Nil => x
-                    case to  => x.copy(name = TsQIdent(to))
+                    case IArray.Empty => x
+                    case to           => x.copy(name = TsQIdent(to))
                   }
                 case other => other
               }

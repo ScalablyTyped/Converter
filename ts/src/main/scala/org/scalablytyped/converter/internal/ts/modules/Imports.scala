@@ -8,7 +8,7 @@ object Imports {
   def lookupFromImports[T <: TsNamedDecl](
       scope:        TsTreeScope.Scoped,
       Pick:         Picker[T],
-      wanted:       List[TsIdent],
+      wanted:       IArray[TsIdent],
       loopDetector: LoopDetector,
       imports:      IArray[TsImport],
   ): IArray[(T, TsTreeScope)] = {
@@ -90,8 +90,8 @@ object Imports {
                 Utils.searchAmong(scope, Pick, wanted, all, loopDetector)
               case (ident, Some(renamed)) =>
                 val newWanted = wanted match {
-                  case `renamed` :: rest => ident :: rest
-                  case other             =>
+                  case IArray.headTail(`renamed`, rest) => ident +: rest
+                  case other                            =>
                     /* complain i guess? */
                     other
                 }
@@ -184,13 +184,13 @@ object Imports {
 
   }
 
-  def pickImport(imports: IArray[TsImport], wanted: List[TsIdent]): IArray[TsImport] =
+  def pickImport(imports: IArray[TsImport], wanted: IArray[TsIdent]): IArray[TsImport] =
     imports mapNotNone validImport(wanted)
 
-  def validImport(wanted: List[TsIdent])(i: TsImport): Option[TsImport] =
+  def validImport(wanted: IArray[TsIdent])(i: TsImport): Option[TsImport] =
     wanted match {
-      case Nil => None
-      case first :: _ =>
+      case IArray.Empty => None
+      case IArray.first(first) =>
         val newImported: IArray[TsImported] = i.imported mapNotNone {
           case im @ TsImportedIdent(`first`) =>
             Some(im)

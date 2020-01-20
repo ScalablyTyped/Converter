@@ -22,8 +22,8 @@ object RemoveStubs extends TreeTransformationScopedChanges {
   def clean(scope: TsTreeScope, members: IArray[TsContainerOrDecl]): IArray[TsContainerOrDecl] =
     members.filter {
       case i: TsDeclInterface if i.members.isEmpty =>
-        scope.root.lookupType(TsQIdent(List(TsIdent.std, i.name)), skipValidation    = true).isEmpty &&
-          scope.root.lookupType(TsQIdent(List(TsIdent.node, i.name)), skipValidation = true).isEmpty
+        scope.root.lookupType(TsQIdent(IArray(TsIdent.std, i.name)), skipValidation    = true).isEmpty &&
+          scope.root.lookupType(TsQIdent(IArray(TsIdent.node, i.name)), skipValidation = true).isEmpty
       case _ => true
     }
 }

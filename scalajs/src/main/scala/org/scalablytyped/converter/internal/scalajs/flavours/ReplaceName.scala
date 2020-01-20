@@ -8,8 +8,8 @@ class ReplaceName(from: Name, to: Name) extends TreeTransformation {
 
   def replace(qualifiedName: QualifiedName): QualifiedName =
     qualifiedName.parts match {
-      case `from` :: rest => QualifiedName(to :: rest)
-      case _              => qualifiedName
+      case IArray.headTail(`from`, rest) => QualifiedName(to +: rest)
+      case _                             => qualifiedName
     }
 
   def replace(comments: Comments): Comments =

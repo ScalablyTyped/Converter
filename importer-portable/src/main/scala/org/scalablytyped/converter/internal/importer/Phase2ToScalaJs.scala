@@ -16,7 +16,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScalaJsDefined: Selection[TsIdentLibrary])
+class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdentLibrary])
     extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
@@ -33,12 +33,11 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScala
         PhaseRes.Ignore()
 
       case lib: LibTs =>
-        val knownLibs  = garbageCollectLibs(lib)
-        val importName = new ImportName(Name.typings, knownLibs.map(_.libName) + lib.name, prettyString)
+        val knownLibs = garbageCollectLibs(lib)
 
         getDeps(knownLibs) map {
           case Phase2Res.Unpack(scalaDeps, facades) =>
-            val scalaName = importName(lib.name)
+            val scalaName = ImportName(lib.name)
 
             val scope = new TreeScope.Root(
               libName       = scalaName,
@@ -69,6 +68,13 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScala
               S.CompleteClass >> //after FilterMemberOverrides
                 S.Sorter visitPackageTree scope,
             )
+
+            val importName = AdaptiveNamingImport(
+              Name.typings,
+              lib.parsed,
+              IArray.fromTraversable(scalaDeps.map { case (_, lib) => lib.names }),
+            )
+
             val importTree = new ImportTree(
               importName,
               new ImportType(new QualifiedName.StdNames(Name.typings)),
@@ -85,6 +91,7 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScala
               dependencies = scalaDeps,
               isStdLib     = lib.parsed.isStdLib,
               facades      = lib.facades ++ facades,
+              names        = importName,
             )
         }
     }
@@ -93,11 +100,8 @@ class Phase2ToScalaJs(pedantic: Boolean, prettyString: PrettyString, enableScala
     val all: SortedSet[Source] =
       lib.dependencies.keys.map(x => x: Source).to[SortedSet]
 
-    val referenced: Set[TsIdentLibrary] = TsTreeTraverse
-      .collect(lib.parsed) {
-        case x: ts.TsIdentLibrary => x
-      }
-      .toSet
+    val referenced: Set[TsIdentLibrary] =
+      TsTreeTraverse.collect(lib.parsed) { case x: ts.TsIdentLibrary => x }.toSet
 
     all.filter(x => referenced(x.libName))
   }

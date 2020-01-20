@@ -29,4 +29,19 @@ object TsTreeTraverse {
 
     rec(tree)
   }
+
+  def foreach(tree: AnyRef)(run: Function[AnyRef, Unit]): Unit = {
+    run(tree)
+
+    def rec(a: Any): Unit =
+      a match {
+        case x:  AnyRef if x ne tree => foreach(x)(run)
+        case xs: TraversableOnce[_]  => xs foreach rec
+        case xs: IArray[_]           => xs foreach rec
+        case p:  Product             => p.productIterator foreach rec
+        case _ => ()
+      }
+
+    rec(tree)
+  }
 }

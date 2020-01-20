@@ -105,11 +105,11 @@ object ResolveExternalReferences {
 
     override def enterTsQIdent(t: TsTreeScope)(x: TsQIdent): TsQIdent =
       x match {
-        case TsQIdent((TsIdentImport(from)) :: rest) =>
+        case TsQIdent(IArray.headTail(TsIdentImport(from), rest)) =>
           val newFrom = resolveAndStore(from)
           val name    = TsIdentSimple("imported_" + newFrom.fragments.last)
           importTypes.put(TsIdentImport(newFrom), name)
-          TsQIdent(name :: rest)
+          TsQIdent(name +: rest)
         case other => other
       }
   }

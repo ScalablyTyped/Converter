@@ -3,7 +3,7 @@ package scalajs
 package flavours
 
 class ReactNames(val outputPkg: Name) {
-  val mod               = QualifiedName(List(outputPkg, Name("react"))) + Name("reactMod")
+  val mod               = QualifiedName(IArray(outputPkg, Name("react"), Name("mod")))
   val Ref               = mod + Name("Ref")
   val RefObject         = mod + Name("RefObject")
   val ReactNode         = mod + Name("ReactNode")

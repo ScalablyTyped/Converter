@@ -76,7 +76,7 @@ object FakeLiterals {
                   Empty,
                   Empty,
                   MemberImpl.Custom(s"$underlying.asInstanceOf[${name.value}]"),
-                  TypeRef(QualifiedName(name :: Nil), Empty, NoComments),
+                  TypeRef(QualifiedName(IArray(name)), Empty, NoComments),
                   isOverride = false,
                   comments   = NoComments,
                   codePath,
@@ -102,12 +102,12 @@ object FakeLiterals {
         case TypeRef.StringLiteral(underlying) =>
           val name = calculateName(underlying)
           collectedStrings(stringUtils.quote(underlying)) = name
-          TypeRef(QualifiedName(List(outputPkg, tree.name, StringModuleName, name)), Empty, LiteralTokenComment)
+          TypeRef(QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)), Empty, LiteralTokenComment)
 
         case TypeRef.BooleanLiteral(underlying) =>
           val name = Name(underlying)
           collectedBooleans(underlying) = name
-          TypeRef(QualifiedName(List(outputPkg, tree.name, BooleansModuleName, name)), Empty, LiteralTokenComment)
+          TypeRef(QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)), Empty, LiteralTokenComment)
 
         case TypeRef.NumberLiteral(underlying) =>
           val (newUnderlying, name) =
@@ -118,7 +118,7 @@ object FakeLiterals {
             }
 
           collectedNumbers(newUnderlying) = name
-          TypeRef(QualifiedName(List(outputPkg, tree.name, NumbersModuleName, name)), Empty, LiteralTokenComment)
+          TypeRef(QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)), Empty, LiteralTokenComment)
 
         case other =>
           other

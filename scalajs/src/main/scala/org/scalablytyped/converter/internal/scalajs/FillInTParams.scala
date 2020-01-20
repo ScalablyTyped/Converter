@@ -54,8 +54,8 @@ object FillInTParams {
   ): Map[TypeRef, TypeRef] =
     (expectedTParams zip providedTParams).map {
       case (TypeParamTree(expected, _, _), provided) if provided.targs.nonEmpty =>
-        TypeRef(QualifiedName(expected :: Nil), Empty, NoComments) -> provided
+        TypeRef(QualifiedName(IArray(expected)), Empty, NoComments) -> provided
       case (TypeParamTree(expected, _, _), provided) =>
-        TypeRef(QualifiedName(expected :: Nil), Empty, NoComments) -> provided
+        TypeRef(QualifiedName(IArray(expected)), Empty, NoComments) -> provided
     }.toMap
 }

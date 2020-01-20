@@ -90,7 +90,7 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
         )
         val typeName = typeCp.parts.last
 
-        val ret = TypeRef(QualifiedName(typeName :: Nil), TypeParamTree.asTypeArgs(typeTparams), NoComments)
+        val ret = TypeRef(QualifiedName(IArray(typeName)), TypeParamTree.asTypeArgs(typeTparams), NoComments)
 
         Some(
           MethodTree(

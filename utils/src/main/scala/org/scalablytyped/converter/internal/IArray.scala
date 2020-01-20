@@ -4,6 +4,7 @@ import java.util
 
 import org.scalablytyped.converter.internal.IArray.fromArrayAndSize
 
+import scala.collection.immutable.Range
 import scala.collection.mutable.WrappedArray.ofRef
 import scala.collection.{immutable, mutable, GenTraversableOnce, Iterator}
 
@@ -36,8 +37,10 @@ object IArray {
   val Empty = new IArray(Array.ofDim(0), 0)
 
   object first {
-    def unapply[A <: AnyRef](as: IArray[A]): Option[A] =
-      if (as.length == 0) None else Some(as(0))
+    def unapply[A <: AnyRef](as: IArray[A]): Option[A] = as.headOption
+  }
+  object last {
+    def unapply[A <: AnyRef](as: IArray[A]): Option[A] = as.lastOption
   }
   object exactlyOne {
     def unapply[A <: AnyRef](as: IArray[A]): Option[A] =
@@ -47,9 +50,25 @@ object IArray {
     def unapply[A <: AnyRef](as: IArray[A]): Option[(A, A)] =
       if (as.length == 2) Some((as(0), as(1))) else None
   }
+  object exactlyThree {
+    def unapply[A <: AnyRef](as: IArray[A]): Option[(A, A, A)] =
+      if (as.length == 3) Some((as(0), as(1), as(2))) else None
+  }
+  object exactlyFour {
+    def unapply[A <: AnyRef](as: IArray[A]): Option[(A, A, A, A)] =
+      if (as.length == 4) Some((as(0), as(1), as(2), as(3))) else None
+  }
   object headTail {
     def unapply[A <: AnyRef](as: IArray[A]): Option[(A, IArray[A])] =
       if (as.length == 0) None else Some((as.head, as.tail))
+  }
+  object headHeadTail {
+    def unapply[A <: AnyRef](as: IArray[A]): Option[(A, A, IArray[A])] =
+      if (as.length < 2) None else Some((as(0), as(1), as.drop(2)))
+  }
+  object initLast {
+    def unapply[A <: AnyRef](as: IArray[A]): Option[(IArray[A], A)] =
+      if (as.length == 0) None else Some((as.init, as.last))
   }
 
   object Builder {
@@ -515,6 +534,8 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
       ret
     }
   }
+
+  def indices: Range = 0 until length
 
   def sortBy[B](f: A => B)(implicit ord: Ordering[B]): IArray[A] =
     sorted(ord on f)

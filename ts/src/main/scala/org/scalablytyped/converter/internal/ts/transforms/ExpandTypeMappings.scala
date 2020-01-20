@@ -21,7 +21,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
       object Unqualify extends TreeTransformationUnit {
         override def enterTsQIdent(t: Unit)(x: TsQIdent): TsQIdent =
-          x.copy(parts = List(x.parts.last))
+          x.copy(parts = IArray(x.parts.last))
       }
 
       override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =

@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "angular-agility"
-version := "0.0-unknown-fdfa29"
+version := "0.0-unknown-0977b9"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "angular" % "1.6-6a6a62",
+  "org.scalablytyped" %%% "angular" % "1.6-a7392b",
   "org.scalablytyped" %%% "std" % "0.0-unknown-664dd9")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")

@@ -36,7 +36,7 @@ object Printer {
     apply(
       _scope       = scope,
       reg          = reg,
-      packages     = List(tree.name),
+      packages     = IArray(tree.name),
       targetFolder = os.RelPath(tree.name.value),
       tree         = tree,
     )
@@ -52,7 +52,7 @@ object Printer {
   def apply(
       _scope:       TreeScope,
       reg:          Registry,
-      packages:     List[Name],
+      packages:     IArray[Name],
       targetFolder: os.RelPath,
       tree:         ContainerTree,
   ): Unit = {
@@ -86,7 +86,7 @@ object Printer {
           val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
 
           packages.dropRight(1) match {
-            case Nil => ()
+            case IArray.Empty => ()
             case remaining =>
               writer println s"package ${formatQN(QualifiedName(remaining))}"
           }
@@ -121,7 +121,7 @@ object Printer {
 
         a.append(original(idx))
 
-        if (original(idx) === '\n') {
+        if (original(idx) == '\n') {
           hasIndented = false
         }
 
@@ -134,7 +134,7 @@ object Printer {
       _scope:       TreeScope,
       reg:          Registry,
       w:            Indenter,
-      packageNames: List[Name],
+      packageNames: IArray[Name],
       folder:       os.RelPath,
       indent:       Int,
   )(
@@ -336,8 +336,8 @@ object Printer {
 
   def formatQN(q: QualifiedName): String =
     q.parts match {
-      case Name.scala :: Name.scalajs :: Name.js :: name :: Nil => "js." + formatName(name)
-      case other                                                => other.map(formatName).mkString(".")
+      case IArray.exactlyFour(Name.scala, Name.scalajs, Name.js, name) => "js." + formatName(name)
+      case other                                                       => other.map(formatName).mkString(".")
     }
 
   def formatName(name: Name): String = name match {

@@ -209,7 +209,7 @@ final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], commen
 
 object TypeRef {
   def apply(n: Name): TypeRef =
-    TypeRef(QualifiedName(List(n)), Empty, NoComments)
+    TypeRef(QualifiedName(IArray(n)), Empty, NoComments)
   def apply(qn: QualifiedName): TypeRef =
     TypeRef(qn, Empty, NoComments)
 
@@ -231,8 +231,8 @@ object TypeRef {
   val Unit         = TypeRef(QualifiedName.Unit, Empty, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Empty, NoComments)
 
-  val `null`    = TypeRef(QualifiedName(Name("null") :: Nil), Empty, NoComments)
-  val undefined = TypeRef(QualifiedName(Name("js.undefined") :: Nil), Empty, NoComments)
+  val `null`    = TypeRef(QualifiedName(IArray(Name("null"))), Empty, NoComments)
+  val undefined = TypeRef(QualifiedName(IArray(Name("js.undefined"))), Empty, NoComments)
 
   val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
@@ -292,7 +292,7 @@ object TypeRef {
 
     def unapply(tr: TypeRef): Option[(IArray[TypeRef], TypeRef)] =
       tr.typeName.parts match {
-        case Name.scala :: f :: Nil =>
+        case IArray.exactlyTwo(Name.scala, f) =>
           f.unescaped match {
             case F(_) => Some((tr.targs.init, tr.targs.last))
             case _    => None
@@ -409,11 +409,11 @@ object TypeRef {
   }
   abstract class LiteralCompanion(qname: QualifiedName) {
     def apply(underlying: String): TypeRef =
-      TypeRef(qname, IArray(TypeRef(QualifiedName(List(Name(underlying))), Empty, NoComments)), NoComments)
+      TypeRef(qname, IArray(TypeRef(QualifiedName(IArray(Name(underlying))), Empty, NoComments)), NoComments)
 
     def unapply(typeRef: TypeRef): Option[String] =
       typeRef match {
-        case TypeRef(`qname`, IArray.exactlyOne(TypeRef(QualifiedName(name :: Nil), Empty, _)), _) =>
+        case TypeRef(`qname`, IArray.exactlyOne(TypeRef(QualifiedName(IArray.exactlyOne(name)), Empty, _)), _) =>
           Some(name.unescaped)
 
         case _ => None

@@ -22,21 +22,22 @@ object ImportEnum {
       e:            TsDeclEnum,
       anns:         IArray[ClassAnnotation],
       scope:        TsTreeScope,
-      importName:   ImportName,
+      importName:   AdaptiveNamingImport,
       importType:   ImportType,
       illegalNames: CleanIllegalNames,
   ): IArray[Tree] =
     e match {
       /* exported const enum? type alias */
-      case TsDeclEnum(cs, _, true, importName(name), _, _, Some(exportedFrom), _, codePath) =>
-        val tpe = importType(Wildcards.No, scope, importName)(exportedFrom)
-        IArray(TypeAliasTree(name, Empty, tpe, cs + CommentData(Markers.IsTrivial), importName(codePath)))
+      case TsDeclEnum(cs, _, true, _, _, _, Some(exportedFrom), _, codePath) =>
+        val tpe        = importType(Wildcards.No, scope, importName)(exportedFrom)
+        val importedCp = importName(codePath)
+        IArray(TypeAliasTree(importedCp.parts.last, Empty, tpe, cs + CommentData(Markers.IsTrivial), importedCp))
 
       /* normal const enum? type alias. And output a scala object with values if possible, otherwise a comment */
-      case TsDeclEnum(cs, _, true, importName(name), members, _, None, _, codePath) =>
+      case TsDeclEnum(cs, _, true, _, members, _, None, _, codePath) =>
         val importedCodePath = importName(codePath)
         val ta = TypeAliasTree(
-          name     = name,
+          name     = importedCodePath.parts.last,
           tparams  = Empty,
           alias    = importType(Wildcards.No, scope, importName)(TsTypeUnion(e.members.map(m => TsExpr.typeOfOpt(m.expr)))),
           comments = cs,
@@ -61,7 +62,7 @@ object ImportEnum {
             )
           }
           val newMembers = members.map {
-            case TsEnumMember(memberCs, importName(memberName), exprOpt) =>
+            case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
               val expr = exprOpt.getOrElse(sys.error("Expression cannot be empty here"))
               val tpe  = importType(Wildcards.No, scope, importName)(TsExpr.typeOf(expr))
               MethodTree(
@@ -82,14 +83,23 @@ object ImportEnum {
           val related = Comments(
             CommentData(KeepOnlyReferenced.Related(TypeRef(cast.codePath) +: newMembers.map(m => TypeRef(m.codePath)))),
           )
-          ModuleTree(Empty, name, Empty, cast +: newMembers, related, importedCodePath, isOverride = false)
+          ModuleTree(
+            Empty,
+            importedCodePath.parts.last,
+            Empty,
+            cast +: newMembers,
+            related,
+            importedCodePath,
+            isOverride = false,
+          )
         }
 
         IArray(ta, module)
 
       /* Any other enum? a type and an object */
-      case TsDeclEnum(cs, _, _, importName(name), members, isValue, exportedFrom, _, codePath) =>
+      case TsDeclEnum(cs, _, _, _, members, isValue, exportedFrom, _, codePath) =>
         val importedCodePath = importName(codePath)
+        val enumName         = importedCodePath.parts.last
 
         val baseInterface: TypeRef =
           importType(Wildcards.No, scope, importName)(
@@ -102,7 +112,7 @@ object ImportEnum {
           exportedFrom match {
             case Some(ef) =>
               scalajs.TypeAliasTree(
-                name     = name,
+                name     = enumName,
                 tparams  = Empty,
                 alias    = importType(Wildcards.No, scope, importName)(TsTypeRef(NoComments, ef.name, Empty)),
                 comments = Comments(CommentData(Markers.IsTrivial)),
@@ -111,7 +121,7 @@ object ImportEnum {
             case None =>
               ClassTree(
                 annotations = IArray(Annotation.JsNative),
-                name        = name,
+                name        = enumName,
                 tparams     = Empty,
                 parents     = Empty,
                 ctors       = Empty,
@@ -145,7 +155,7 @@ object ImportEnum {
 
           val membersSyms: IArray[Tree] =
             members flatMap {
-              case TsEnumMember(memberCs, importName(memberName), exprOpt) =>
+              case TsEnumMember(memberCs, ImportName(memberName), exprOpt) =>
                 val memberType: Option[ClassTree] =
                   if (exportedFrom.nonEmpty) None
                   else
@@ -195,7 +205,7 @@ object ImportEnum {
 
           ModuleTree(
             anns,
-            name,
+            enumName,
             parents    = Empty,
             members    = membersSyms ++ IArray.fromOption(applyMethod),
             comments   = cs + CommentData(Markers.EnumObject),

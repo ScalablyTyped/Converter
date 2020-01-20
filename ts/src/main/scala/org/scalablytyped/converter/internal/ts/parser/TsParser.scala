@@ -590,9 +590,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     identifierName.? ^^ (oi => TsIdent(oi.getOrElse("default")))
 
   lazy val qualifiedIdent: Parser[TsQIdent] = {
-    val normal = rep1sep(tsIdent, ".") ^^ TsQIdent.apply
-    val withImport = tsIdentImport ~ rep("." ~> tsIdent) ^^ {
-      case i ~ rest => TsQIdent(i :: rest)
+    val normal = rep1sep_(tsIdent, ".") ^^ TsQIdent.apply
+    val withImport = tsIdentImport ~ rep_("." ~> tsIdent) ^^ {
+      case i ~ rest => TsQIdent(i +: rest)
     }
     withImport | normal
   }

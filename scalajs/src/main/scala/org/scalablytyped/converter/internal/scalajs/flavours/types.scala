@@ -47,7 +47,7 @@ object Component {
       case ComponentType.Field => loc
       case ComponentType.Function =>
         ref.typeName.parts match {
-          case ownerQName :+ name =>
+          case IArray.initLast(ownerQName, name) =>
             val owner = Printer.formatQN(QualifiedName(ownerQName))
             s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${name.unescaped}")"""
         }

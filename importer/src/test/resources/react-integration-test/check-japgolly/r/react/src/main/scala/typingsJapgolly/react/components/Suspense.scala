@@ -6,7 +6,7 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.react.reactMod.SuspenseProps
+import typingsJapgolly.react.mod.SuspenseProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -29,10 +29,10 @@ object Suspense {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.react.reactMod.SuspenseProps, 
+  typingsJapgolly.react.mod.SuspenseProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.react.reactMod.SuspenseProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.react.mod.SuspenseProps])(children: _*)
   }
   @JSImport("react", "Suspense")
   @js.native

@@ -44,10 +44,10 @@ object Erasure {
         )
 
       // if this is a type parameter
-      case QualifiedName(head :: _) if scope.tparams.contains(head) => QualifiedName.ScalaAny
+      case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.ScalaAny
 
       // if run after FakeSingletons
-      case name @ QualifiedName(_ :: _ :: _) if tpe.comments eq FakeLiterals.LiteralTokenComment => name
+      case name @ QualifiedName(parts) if parts.length > 2 && (tpe.comments eq FakeLiterals.LiteralTokenComment) => name
 
       case other =>
         scope

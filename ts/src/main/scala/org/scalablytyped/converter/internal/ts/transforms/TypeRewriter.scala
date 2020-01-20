@@ -1,6 +1,7 @@
-package org.scalablytyped.converter.internal.ts.transforms
+package org.scalablytyped.converter.internal
+package ts
+package transforms
 
-import org.scalablytyped.converter.internal.ts._
 import scala.collection.Map
 
 class TypeRewriter(base: TsTree) extends TreeTransformation[Map[TsType, TsType]] {
@@ -14,7 +15,8 @@ class TypeRewriter(base: TsTree) extends TreeTransformation[Map[TsType, TsType]]
         /* Handle if the current tree introduces a new type parameter which shadows what we are trying to inline */
         case HasTParams(tparams) =>
           t.filterKeys {
-            case TsTypeRef(_, TsQIdent(Seq(one: TsIdentSimple)), _) if tparams.exists(_.name === one) => false
+            case TsTypeRef(_, TsQIdent(IArray.exactlyOne(one: TsIdentSimple)), _) if tparams.exists(_.name === one) =>
+              false
             case _ => true
           }
         case _ => t

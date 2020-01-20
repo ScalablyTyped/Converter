@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal.importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.PrettyString
 import org.scalablytyped.converter.internal.importer.Phase2Res.LibScalaJs
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs.{Name, TreeScope}
@@ -9,7 +8,7 @@ import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour, ReplaceNa
 
 import scala.collection.immutable.SortedSet
 
-class PhaseFlavour(flavour: Flavour, prettyString: PrettyString) extends Phase[Source, Phase2Res, Phase2Res] {
+class PhaseFlavour(flavour: Flavour) extends Phase[Source, Phase2Res, Phase2Res] {
 
   override def apply(
       source:     Source,
@@ -36,7 +35,7 @@ class PhaseFlavour(flavour: Flavour, prettyString: PrettyString) extends Phase[S
 
             val correctedPackage =
               new ReplaceName(Name.typings, flavour.outputPkg).visitPackageTree(scope)(lib.packageTree)
-            val tree = flavour.rewrittenTree(scope, correctedPackage, prettyString)
+            val tree = flavour.rewrittenTree(scope, correctedPackage)
 
             LibScalaJs(lib.source)(
               lib.libName,
@@ -46,6 +45,7 @@ class PhaseFlavour(flavour: Flavour, prettyString: PrettyString) extends Phase[S
               deps,
               lib.isStdLib,
               lib.facades,
+              lib.names,
             )
         }
     }

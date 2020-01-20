@@ -157,13 +157,13 @@ object Exports {
     }
   }
 
-  case class PickedExport(export: TsExport, newWanted: List[TsIdent])
+  case class PickedExport(export: TsExport, newWanted: IArray[TsIdent])
 
   /**
     * This is used when resolving. If we have an import in current scope which points
     * to a module, this finds the matching export in the pointee.
     */
-  def pickExports(exports: IArray[TsExport], wanted: List[TsIdent]): IArray[PickedExport] =
+  def pickExports(exports: IArray[TsExport], wanted: IArray[TsIdent]): IArray[PickedExport] =
     exports.mapNotNone {
       case e @ TsExport(_, ExportType.Namespaced, _) =>
         Some(PickedExport(e, wanted))
@@ -201,7 +201,7 @@ object Exports {
   def rewriteLocationToOwner(jsLocation: JsLocation, ms: ModuleSpec): JsLocation =
     (jsLocation, ms) match {
       case (m: JsLocation.Module, spec) => m.copy(spec = spec)
-      case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents.toList)
+      case (JsLocation.Global(jsPath), ModuleSpec.Specified(idents)) => JsLocation.Global(jsPath ++ idents)
       case (JsLocation.Global(jsPath), other)                        => sys.error(s"Unexpected $jsPath and $other")
       case (JsLocation.Zero, _)                                      => JsLocation.Zero
     }
@@ -209,7 +209,7 @@ object Exports {
   def lookupExportFrom[T <: TsNamedDecl](
       scope:        TsTreeScope.Scoped,
       Pick:         Picker[T],
-      wanted:       List[TsIdent],
+      wanted:       IArray[TsIdent],
       loopDetector: LoopDetector,
       owner:        TsDeclNamespaceOrModule,
   ): IArray[(T, TsTreeScope)] =

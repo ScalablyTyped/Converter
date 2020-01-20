@@ -13,16 +13,6 @@ final case class Name(unescaped: String) {
 }
 
 object Name {
-  def clean(original: String): (Name, Option[Annotation.JsName]) = {
-    val originalName = Name(original)
-
-    necessaryRewrite(original) match {
-      case Some(rewritten)                => (Name(rewritten), Some(Annotation.JsName(originalName)))
-      case None if original.contains("$") => (originalName, Some(Annotation.JsName(originalName)))
-      case None if original === "apply"   => (originalName, Some(Annotation.JsName(originalName)))
-      case None                           => (originalName, None)
-    }
-  }
 
   /* Using `Name.typings` for the top-level package allows us to reuse the results of phase two across flavours */
   val typings:    Name = Name("typings")
@@ -108,7 +98,11 @@ object Name {
       case None            => name
     }
 
-  /* All names pass through here, including the ones from arbitrary javascript strings. */
+  /**
+    * All names must pass through here, especially including the ones from arbitrary javascript strings.
+    *
+    * For performance reasons it's not done in the constructor or anything like that
+    */
   def necessaryRewrite(ident: String): Option[String] = {
     def unicodeName(c: Char): String =
       Character

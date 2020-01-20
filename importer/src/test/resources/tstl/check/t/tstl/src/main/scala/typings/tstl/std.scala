@@ -16,6 +16,6 @@ object std extends js.Object {
   }
   
   var queue: Instantiable0[Queue[js.Object]] = js.native
-  type queue[T] = Queue[T]
+  type queue_[T] = Queue[T]
 }
 

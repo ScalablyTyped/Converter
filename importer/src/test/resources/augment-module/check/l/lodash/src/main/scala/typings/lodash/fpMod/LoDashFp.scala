@@ -1,8 +1,8 @@
 package typings.lodash.fpMod
 
-import typings.lodash.fpCurryMod.Curry
-import typings.lodash.lodashMod.CurriedFunction1
-import typings.lodash.lodashMod.CurriedFunction2
+import typings.lodash.curryMod.Curry
+import typings.lodash.mod.CurriedFunction1
+import typings.lodash.mod.CurriedFunction2
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

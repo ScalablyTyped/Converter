@@ -105,8 +105,8 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
     )
 
   def genComponentRef(scope: TreeScope, comp: Component, moduleCodePath: QualifiedName): MethodTree = {
-    val shortenedProps = genPropsAlias(scope, comp, QualifiedName(Nil)) match {
-      case Some(ta) => TypeRef(QualifiedName(List(ta.name)), comp.props.get.targs, ta.comments)
+    val shortenedProps = genPropsAlias(scope, comp, QualifiedName(IArray.Empty)) match {
+      case Some(ta) => TypeRef(QualifiedName(IArray(ta.name)), comp.props.get.targs, ta.comments)
       case None     => comp.props getOrElse TypeRef.Object
     }
 

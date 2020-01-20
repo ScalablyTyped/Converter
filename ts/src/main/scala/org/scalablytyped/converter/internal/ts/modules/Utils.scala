@@ -23,7 +23,7 @@ object Utils {
   def searchAmong[T <: TsNamedDecl](
       scope:        TsTreeScope.Scoped,
       Pick:         Picker[T],
-      wanted:       List[TsIdent],
+      wanted:       IArray[TsIdent],
       expandeds:    IArray[TsNamedDecl],
       loopDetector: LoopDetector,
   ): IArray[(T, TsTreeScope)] =

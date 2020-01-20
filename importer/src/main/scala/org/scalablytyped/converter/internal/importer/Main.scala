@@ -207,7 +207,6 @@ class Main(config: Config, paths: MainPaths) {
       .next(
         new Phase2ToScalaJs(
           config.pedantic,
-          PrettyString.Regular,
           enableScalaJsDefined =
             if (config.enableScalaJsDefined) Selection.AllExcept(Libraries.Slow.to[Seq]: _*)
             else Selection.None,
@@ -227,7 +226,7 @@ class Main(config: Config, paths: MainPaths) {
 
       val Pipeline: RecPhase[Source, PublishedSbtProject] =
         CommonPhases
-          .next(new PhaseFlavour(flavour, PrettyString.Regular), flavour.toString)
+          .next(new PhaseFlavour(flavour), flavour.toString)
           .next(
             new Phase3Compile(
               resolve =

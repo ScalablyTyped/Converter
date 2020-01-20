@@ -77,6 +77,20 @@ object stringUtils {
       new String(chars)
     }
 
+  def joinCamelCase(strings: List[String]): String =
+    strings
+      .filterNot(_.isEmpty)
+      .zipWithIndex
+      .map {
+        case (x, 0) if x.length > 2 && x(0).isUpper && x(1).isUpper => x.toLowerCase //avoid things like dOM...
+        case (x, 0)                                                 => stringUtils.unCapitalize(x)
+        case (x, _)                                                 => x.capitalize
+      }
+      .mkString
+
+  def toCamelCase(str: String): String =
+    joinCamelCase(str.split("[_-]").toList)
+
   // https://stackoverflow.com/a/611117
   def encodeURIComponent(s: String): String =
     URLEncoder

@@ -28,7 +28,6 @@ object ImportTypings {
       outputPackage:            String,
       shouldGenerateCompanions: Boolean,
       enableScalaJsDefined:     Selection[TsIdentLibrary],
-      prettyStringType:         PrettyStringType,
       libs:                     IArray[String],
       ignore:                   Set[String],
       minimize:                 Selection[TsIdentLibrary],
@@ -64,11 +63,6 @@ object ImportTypings {
       case Flavour.Japgolly     => new scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions, pkg)
     }
 
-    val prettyString = prettyStringType match {
-      case PrettyStringType.Regular     => PrettyString.Regular
-      case PrettyStringType.Simplifying => PrettyString.Simplifying
-    }
-
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
@@ -95,8 +89,8 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, prettyString, enableScalaJsDefined), "scala.js")
-      .next(new PhaseFlavour(flavour, prettyString), flavour.toString)
+      .next(new Phase2ToScalaJs(pedantic = false, enableScalaJsDefined), "scala.js")
+      .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -174,7 +168,6 @@ object ImportTypings {
           outputPackage            = "typings",
           shouldGenerateCompanions = true,
           enableScalaJsDefined     = Selection.None,
-          PrettyStringType.Regular,
           IArray("es5", "dom"),
           Set("typescript", "csstype"),
           minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),

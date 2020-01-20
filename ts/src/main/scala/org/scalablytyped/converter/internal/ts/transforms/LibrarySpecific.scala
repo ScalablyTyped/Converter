@@ -78,8 +78,8 @@ object LibrarySpecific {
 
   object semanticUiReact extends Named {
     override val libName: TsIdentLibrary = TsIdentLibrarySimple("semantic-ui-react")
-    val stdLib                 = TsQIdent(List(TsIdent.std))
-    val reactMod               = TsQIdent(react.libName :: TsIdentModule(None, List("react")) :: Nil)
+    val stdLib                 = TsQIdent(IArray(TsIdent.std))
+    val reactMod               = TsQIdent(IArray(react.libName, TsIdentModule(None, List("react"))))
     val AllHTMLAttributes      = reactMod + TsIdent("AllHTMLAttributes")
     val InputHTMLAttributes    = reactMod + TsIdent("InputHTMLAttributes")
     val HTMLInputElement       = stdLib + TsIdent("HTMLInputElement")
@@ -140,7 +140,7 @@ object LibrarySpecific {
     val ReactElement  = TsIdent("ReactElement")
     val ReactFragment = TsIdent("ReactFragment")
     val ReactNode     = TsIdent("ReactNode")
-    val Readonly      = TsQIdent(List(TsIdent("Readonly")))
+    val Readonly      = TsQIdent(IArray(TsIdent("Readonly")))
 
     //Somewhere in here we need to take a look at the component, and if it has an "as" member with a known mapping and we don't have
     //an inheritance tree already, we should add that.

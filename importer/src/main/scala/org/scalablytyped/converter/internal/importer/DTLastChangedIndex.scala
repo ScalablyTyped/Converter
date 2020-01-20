@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal.importer
 
 import scala.collection.mutable
 
-final case class DTLastChangedIndex private (values: Map[os.Path, Long])
+final case class DTLastChangedIndex(values: Map[os.Path, Long])
 
 /**
   * It's pretty ridiculous that this is needed, but here we are...
