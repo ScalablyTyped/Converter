@@ -73,12 +73,19 @@ final case class ClassTree(
   lazy val index: Map[Name, IArray[Tree]] =
     members.groupBy(_.name)
 
-  def renamed(newName: Name): ClassTree =
+  def renamed(newName: Name): ClassTree = {
+    val anns =
+      (Annotation.classRenamedFrom(name)(annotations), classType) match {
+        case (as, ClassType.Trait) => as.filterNot(_.isInstanceOf[Annotation.JsName])
+        case (anns, _)             => anns
+      }
+
     copy(
       name        = newName,
-      annotations = Annotation.classRenamedFrom(name)(annotations),
+      annotations = anns,
       codePath    = QualifiedName(codePath.parts.init :+ newName),
     )
+  }
 
   def withSuffix[T: ToSuffix](t: T): ClassTree =
     renamed(name withSuffix t)
