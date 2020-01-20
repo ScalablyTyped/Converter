@@ -18,7 +18,11 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     /* because for instance mui declares both a default and a names export, where only the former exists */
     val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
-    val preferShortModuleName = -length(c.scalaRef.typeName)
+    val preferShortModuleName = c.location match {
+      case Annotation.JsGlobalScope       => 0
+      case Annotation.JsImport(module, _) => -module.length
+      case Annotation.JsGlobal(name)      => -length(name)
+    }
 
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
