@@ -46,7 +46,11 @@ object AdaptiveNamingImport {
   def apply(outputPkg: Name, tree: TsTree, depsRewrites: IArray[AdaptiveNamingImport]): AdaptiveNamingImport = {
     val allReferences: IArray[IArray[TsIdent]] =
       TsTreeTraverse
-        .collect(tree) { case x: HasCodePath => x.codePath.forceHasPath.codePath.parts }
+        .collect(tree) {
+          /* we won't output these, so ignore the name collision */
+          case x: TsDeclTypeAlias if x.comments.extract { case Markers.IsTrivial => () }.nonEmpty => IArray.Empty
+          case x: HasCodePath => x.codePath.forceHasPath.codePath.parts
+        }
         .distinct
         .sorted(ShortestFirst)
 
