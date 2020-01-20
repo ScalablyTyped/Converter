@@ -19,7 +19,7 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      gitSha:                   String,
+      version:                  String,
       packageJsonHash:          Int,
       npmDependencies:          IArray[(String, String)],
       fromFolder:               InFolder,
@@ -72,7 +72,7 @@ object ImportTypings {
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    val parseCachePath = os.root / "tmp" / "scalablytyped-sbt-cache" / "parse" / BuildInfo.gitSha.take(6)
+    val parseCachePath = os.root / "tmp" / "scalablytyped-sbt-cache" / "parse" / BuildInfo.version
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({

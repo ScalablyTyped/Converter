@@ -44,7 +44,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val generateCompanions   = stGenerateCompanions.value
 
         val config = ImportTypings.Input(
-          BuildInfo.gitSha,
+          BuildInfo.version,
           os.read(os.Path(packageJson)).hashCode,
           IArray.fromTraversable(npmDeps),
           nodeModules,

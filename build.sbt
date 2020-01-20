@@ -1,7 +1,5 @@
 import scala.sys.process.stringToProcess
 
-version in ThisBuild := "1.0.0-M5-SNAPSHOT"
-
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -40,6 +38,7 @@ lazy val `importer-portable` = project
     buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
+      "version" -> version.value
     ),
   )
 
