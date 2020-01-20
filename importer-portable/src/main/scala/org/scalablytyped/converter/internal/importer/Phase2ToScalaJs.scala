@@ -16,7 +16,7 @@ import scala.collection.immutable.SortedSet
   * This phase starts by going from the typescript AST to the scala AST.
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
-class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdentLibrary])
+class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdentLibrary], outputPkg: Name)
     extends Phase[Source, Phase1Res, Phase2Res] {
 
   override def apply(
@@ -44,12 +44,12 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               _dependencies = scalaDeps.map { case (_, l) => l.scalaName -> l.packageTree },
               logger        = logger,
               pedantic      = pedantic,
-              outputPkg     = Name.typings,
+              outputPkg     = outputPkg,
             )
 
             logger.warn(s"Processing ${lib.name.value}")
 
-            val cleanIllegalNames = new CleanIllegalNames(Name.typings)
+            val cleanIllegalNames = new CleanIllegalNames(outputPkg)
 
             val ScalaTransforms = List[PackageTree => PackageTree](
               S.ContainerPolicy visitPackageTree scope,
@@ -58,7 +58,7 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
                 cleanIllegalNames >>
                 S.InlineNestedIdentityAlias >>
                 S.Deduplicator visitPackageTree scope,
-              Adapter(scope)((tree, s) => S.FakeLiterals(Name.typings, s, cleanIllegalNames)(tree)),
+              Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals
               S.LimitUnionLength visitPackageTree scope, // after UnionToInheritance
               (S.AvoidMacroParadiseBug >> S.RemoveMultipleInheritance) visitPackageTree scope,
@@ -70,14 +70,15 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
             )
 
             val importName = AdaptiveNamingImport(
-              Name.typings,
+              outputPkg,
               lib.parsed,
               IArray.fromTraversable(scalaDeps.map { case (_, lib) => lib.names }),
             )
 
             val importTree = new ImportTree(
+              outputPkg,
               importName,
-              new ImportType(new QualifiedName.StdNames(Name.typings)),
+              new ImportType(new QualifiedName.StdNames(outputPkg)),
               cleanIllegalNames,
               enableScalaJsDefined(lib.name),
             )

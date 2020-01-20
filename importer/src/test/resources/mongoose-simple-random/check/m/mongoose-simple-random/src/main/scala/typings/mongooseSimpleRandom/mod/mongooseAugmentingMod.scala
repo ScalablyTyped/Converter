@@ -10,7 +10,7 @@ import scala.scalajs.js.annotation._
 /* augmented module */
 @JSImport("mongoose", JSImport.Namespace)
 @js.native
-object mod extends js.Object {
+object mongooseAugmentingMod extends js.Object {
   @js.native
   trait Model[T /* <: Document */]
     extends EventEmitter

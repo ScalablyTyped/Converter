@@ -15,7 +15,7 @@ object ImportName {
     Name.necessaryRewrite(Name(i.value))
 
   def apply(i: TsIdentLibrary): Name =
-    Name.necessaryRewrite(Name(AdaptiveNamingImport.variantsFor(i).head))
+    Name.necessaryRewrite(Name(AdaptiveNamingImport.variantsFor(i, hasModuleParent = false).head))
 
   @deprecated
   object valueDefinition {

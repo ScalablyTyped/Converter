@@ -7,7 +7,7 @@ import org.scalablytyped.converter.internal.ts._
 
 import scala.collection.mutable
 
-final class AdaptiveNamingImport(val outputPkg: Name, private val rewrites: Map[IArray[TsIdent], QualifiedName]) {
+final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], QualifiedName]) {
   def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
@@ -40,7 +40,7 @@ object AdaptiveNamingImport {
       case IArray.Empty => ()
       case whole @ IArray.initLast(parent, current) =>
         val parentTranslated = registeredReferences(parent)
-        val variants         = variantsFor(current)
+        val variants         = variantsFor(current, parent.exists(_.isInstanceOf[TsIdentModule]))
         var continue         = true
         val iter             = variants.iterator
         while (continue && iter.hasNext) {
@@ -63,15 +63,19 @@ object AdaptiveNamingImport {
       registeredReferences ++= x.rewrites
     }
 
-    new AdaptiveNamingImport(outputPkg, registeredReferences.toMap)
+    new AdaptiveNamingImport(registeredReferences.toMap)
   }
 
-  def variantsFor(tsIdent: TsIdent): Stream[String] = {
+  def variantsFor(tsIdent: TsIdent, hasModuleParent: Boolean): Stream[String] = {
     val base = tsIdent match {
       case TsIdent.namespaced   => Stream(Name.namespaced.unescaped)
       case TsIdent.Apply        => Stream(Name.APPLY.unescaped)
       case TsIdent.Global       => Stream(TsIdent.Global.value)
       case TsIdentSimple(value) => nameVariants(value)
+
+      case m: TsIdentModule if hasModuleParent => // if this is an augmented module
+        /* todo: We should look up what the augmented module is called and reuse it. I don't care enough to do it now */
+        nameVariants(joinCamelCase(m.scopeOpt.toList ++ m.fragments)).map(_ + "AugmentingMod")
 
       case m: TsIdentModule =>
         val increasingLength: Stream[List[String]] = {

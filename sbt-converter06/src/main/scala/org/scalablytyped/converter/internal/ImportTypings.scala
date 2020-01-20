@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLib
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Printer}
+import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Name, Printer}
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.plugin.{Flavour, PrettyStringType}
 
@@ -89,7 +89,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, enableScalaJsDefined), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, enableScalaJsDefined, outputPkg = Name.typings), "scala.js")
       .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =

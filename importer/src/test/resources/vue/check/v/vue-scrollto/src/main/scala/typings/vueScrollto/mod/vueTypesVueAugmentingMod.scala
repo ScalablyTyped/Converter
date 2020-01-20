@@ -7,7 +7,7 @@ import scala.scalajs.js.annotation._
 
 @JSImport("vue/types/vue", JSImport.Namespace)
 @js.native
-object mod extends js.Object {
+object vueTypesVueAugmentingMod extends js.Object {
   @js.native
   trait Vue extends js.Object {
     @JSName("$scrollTo")

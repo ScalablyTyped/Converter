@@ -8,6 +8,7 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalName
 import org.scalablytyped.converter.internal.ts.{ParentsResolver, _}
 
 class ImportTree(
+    outputPkg:            Name,
     importName:           AdaptiveNamingImport,
     importType:           ImportType,
     illegalNames:         CleanIllegalNames,
@@ -40,7 +41,7 @@ class ImportTree(
         Comments("""/* This can be used to `require` the library as a side effect.
   If it is a global library this will make scalajs-bundler include it */
 """),
-        codePath   = QualifiedName(IArray(importName.outputPkg, libName, name)),
+        codePath   = QualifiedName(IArray(outputPkg, libName, name)),
         isOverride = false,
       )
     }
@@ -49,10 +50,10 @@ class ImportTree(
 
     PackageTree(
       Empty,
-      importName.outputPkg,
+      outputPkg,
       IArray(withRequire),
       NoComments,
-      QualifiedName(IArray(importName.outputPkg)),
+      QualifiedName(IArray(outputPkg)),
     )
   }
 

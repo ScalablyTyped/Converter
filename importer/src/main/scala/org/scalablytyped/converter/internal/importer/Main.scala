@@ -15,6 +15,7 @@ import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.{Npmjs, Readme, TopLists}
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
+import org.scalablytyped.converter.internal.scalajs.Name
 import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts._
@@ -210,6 +211,7 @@ class Main(config: Config, paths: MainPaths) {
           enableScalaJsDefined =
             if (config.enableScalaJsDefined) Selection.AllExcept(Libraries.Slow.to[Seq]: _*)
             else Selection.None,
+          outputPkg = Name.typings,
         ),
         "scala.js",
       )

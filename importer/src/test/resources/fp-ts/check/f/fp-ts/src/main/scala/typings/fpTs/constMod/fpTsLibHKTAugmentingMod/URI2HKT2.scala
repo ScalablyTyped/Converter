@@ -1,4 +1,4 @@
-package typings.fpTs.constMod.mod
+package typings.fpTs.constMod.fpTsLibHKTAugmentingMod
 
 import typings.fpTs.constMod.Const
 import scala.scalajs.js
