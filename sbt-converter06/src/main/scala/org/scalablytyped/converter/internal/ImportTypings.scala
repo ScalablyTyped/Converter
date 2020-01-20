@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLib
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Printer}
+import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Name, Printer}
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.plugin.{Flavour, PrettyStringType}
 
@@ -19,7 +19,7 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      gitSha:                   String,
+      version:                  String,
       packageJsonHash:          Int,
       npmDependencies:          IArray[(String, String)],
       fromFolder:               InFolder,
@@ -28,7 +28,6 @@ object ImportTypings {
       outputPackage:            String,
       shouldGenerateCompanions: Boolean,
       enableScalaJsDefined:     Selection[TsIdentLibrary],
-      prettyStringType:         PrettyStringType,
       libs:                     IArray[String],
       ignore:                   Set[String],
       minimize:                 Selection[TsIdentLibrary],
@@ -64,15 +63,10 @@ object ImportTypings {
       case Flavour.Japgolly     => new scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions, pkg)
     }
 
-    val prettyString = prettyStringType match {
-      case PrettyStringType.Regular     => PrettyString.Regular
-      case PrettyStringType.Simplifying => PrettyString.Simplifying
-    }
-
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    val parseCachePath = os.root / "tmp" / "scalablytyped-sbt-cache" / "parse" / BuildInfo.gitSha.take(6)
+    val parseCachePath = os.root / "tmp" / "scalablytyped-sbt-cache" / "parse" / BuildInfo.version
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
@@ -95,8 +89,8 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, prettyString, enableScalaJsDefined), "scala.js")
-      .next(new PhaseFlavour(flavour, prettyString), flavour.toString)
+      .next(new Phase2ToScalaJs(pedantic = false, enableScalaJsDefined, outputPkg = Name.typings), "scala.js")
+      .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources.par
@@ -174,7 +168,6 @@ object ImportTypings {
           outputPackage            = "typings",
           shouldGenerateCompanions = true,
           enableScalaJsDefined     = Selection.None,
-          PrettyStringType.Regular,
           IArray("es5", "dom"),
           Set("typescript", "csstype"),
           minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),

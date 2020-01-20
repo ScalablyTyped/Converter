@@ -413,20 +413,20 @@ object TsIdent {
   implicit object TsIdentKey extends IsKey[TsIdent]
 }
 
-final case class TsQIdent(parts: List[TsIdent]) extends TsTree {
+final case class TsQIdent(parts: IArray[TsIdent]) extends TsTree {
   def +(tsIdent: TsIdent): TsQIdent =
     TsQIdent(parts :+ tsIdent)
 
-  def ++(tsIdents: List[TsIdent]): TsQIdent =
+  def ++(tsIdents: IArray[TsIdent]): TsQIdent =
     TsQIdent(parts ++ tsIdents)
 }
 
 object TsQIdent {
 
-  def of(ss:      String*) = TsQIdent(ss.toList.map(TsIdent.apply))
-  def of(tsIdent: TsIdent) = TsQIdent(tsIdent :: Nil)
+  def of(ss:      String*) = TsQIdent(IArray.fromTraversable(ss.map(TsIdent.apply)))
+  def of(tsIdent: TsIdent) = TsQIdent(IArray(tsIdent))
 
-  val empty: TsQIdent = TsQIdent(Nil)
+  val empty: TsQIdent = TsQIdent(IArray.Empty)
 
   val any:       TsQIdent = TsQIdent.of("any")
   val bigint:    TsQIdent = TsQIdent.of("bigint")
@@ -450,16 +450,16 @@ object TsQIdent {
   val String:   TsQIdent = TsQIdent.of("String")
 
   object Std {
-    val Array         = TsQIdent(List(TsIdent.std, TsIdent("Array")))
-    val Boolean       = TsQIdent(List(TsIdent.std, TsIdent("Boolean")))
-    val ConcatArray   = TsQIdent(List(TsIdent.std, TsIdent("ConcatArray")))
-    val Function      = TsQIdent(List(TsIdent.std, TsIdent("Function")))
-    val Object        = TsQIdent(List(TsIdent.std, TsIdent("Object")))
-    val Promise       = TsQIdent(List(TsIdent.std, TsIdent("Promise")))
-    val PromiseLike   = TsQIdent(List(TsIdent.std, TsIdent("PromiseLike")))
-    val Readonly      = TsQIdent(List(TsIdent.std, TsIdent("Readonly")))
-    val ReadonlyArray = TsQIdent(List(TsIdent.std, TsIdent("ReadonlyArray")))
-    val String        = TsQIdent(List(TsIdent.std, TsIdent("String")))
+    val Array         = TsQIdent(IArray(TsIdent.std, TsIdent("Array")))
+    val Boolean       = TsQIdent(IArray(TsIdent.std, TsIdent("Boolean")))
+    val ConcatArray   = TsQIdent(IArray(TsIdent.std, TsIdent("ConcatArray")))
+    val Function      = TsQIdent(IArray(TsIdent.std, TsIdent("Function")))
+    val Object        = TsQIdent(IArray(TsIdent.std, TsIdent("Object")))
+    val Promise       = TsQIdent(IArray(TsIdent.std, TsIdent("Promise")))
+    val PromiseLike   = TsQIdent(IArray(TsIdent.std, TsIdent("PromiseLike")))
+    val Readonly      = TsQIdent(IArray(TsIdent.std, TsIdent("Readonly")))
+    val ReadonlyArray = TsQIdent(IArray(TsIdent.std, TsIdent("ReadonlyArray")))
+    val String        = TsQIdent(IArray(TsIdent.std, TsIdent("String")))
   }
 }
 

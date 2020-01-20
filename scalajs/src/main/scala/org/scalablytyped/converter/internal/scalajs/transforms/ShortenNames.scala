@@ -36,13 +36,13 @@ object ShortenNames {
 
             collectedImports.get(shortName) match {
               case Some(alreadyImported) =>
-                if (alreadyImported === tr.typeName) Some(tr.copy(typeName = QualifiedName(List(shortName))))
+                if (alreadyImported === tr.typeName) Some(tr.copy(typeName = QualifiedName(IArray(shortName))))
                 else None
               case None =>
                 val importNecessary = !inScope(scope, longName)
                 if (importNecessary)
                   collectedImports += ((shortName, tr.typeName))
-                Some(tr.copy(typeName = QualifiedName(List(shortName))))
+                Some(tr.copy(typeName = QualifiedName(IArray(shortName))))
             }
           } else None
         }

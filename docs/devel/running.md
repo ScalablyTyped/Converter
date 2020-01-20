@@ -24,7 +24,7 @@ For development you'll always use "debug mode".
 | `-dontCleanProject` | Normally the CI build aggressively resets the ScalablyTyped git repo. Enabling this will skip that
 | `-enableParseCache` | The Typescript parser is somewhat slow. Enabling this uses java serialization to cache when possible 
 | `-forceCommit`      | Commit and build sbt plugin in debug mode 
-| `-nextVersions`     | Build libraries with Scala 2.13 and Scala.js 1.0.0-M8 instead
+| `-nextVersions`     | Build libraries with Scala.js 1.0.0-RC2 instead
 | `-offline`          | Skip pulling newest DefinitelyTyped and running `npm update`
 | `-pedantic`         | Make the converter more strict. Most things don't work yet in this mode
 | `-publish`          | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`

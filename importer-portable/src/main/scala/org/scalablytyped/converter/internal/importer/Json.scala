@@ -20,6 +20,19 @@ object Json {
     import com.fasterxml.jackson.databind.ObjectMapper
     import io.circe.jackson.CirceJsonModule
 
+//    val Features = Set[JsonReadFeature](
+//      JsonReadFeature.ALLOW_JAVA_COMMENTS,
+//      JsonReadFeature.ALLOW_YAML_COMMENTS,
+//      JsonReadFeature.ALLOW_SINGLE_QUOTES,
+//      JsonReadFeature.ALLOW_UNQUOTED_FIELD_NAMES,
+//      JsonReadFeature.ALLOW_UNESCAPED_CONTROL_CHARS,
+//      JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER,
+//      JsonReadFeature.ALLOW_LEADING_ZEROS_FOR_NUMBERS,
+//      JsonReadFeature.ALLOW_NON_NUMERIC_NUMBERS,
+//      JsonReadFeature.ALLOW_MISSING_VALUES,
+//      JsonReadFeature.ALLOW_TRAILING_COMMA,
+//    )
+
     val Features = Set(
       JsonParser.Feature.ALLOW_COMMENTS,
       JsonParser.Feature.ALLOW_YAML_COMMENTS,

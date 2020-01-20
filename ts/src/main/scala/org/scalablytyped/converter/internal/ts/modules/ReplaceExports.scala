@@ -15,7 +15,7 @@ object CachedReplaceExports {
     else if (x.exports.isEmpty) x
     else
       /* bugfix for wrongly combined modules in @angular/core/testing */
-      loopDetector.including(List(Unique, x.name), scope) match {
+      loopDetector.including(IArray(Unique, x.name), scope) match {
         case Right(newLoopDetector) =>
           new ReplaceExports(newLoopDetector).visitTsDeclModule(scope)(x)
         case Left(()) => x.copy(members = Empty)

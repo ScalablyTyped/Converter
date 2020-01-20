@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 object p2 extends js.Object {
   @js.native
   class AABB () extends js.Object {
-    def this(options: Anon_LowerBound) = this()
+    def this(options: AnonLowerBound) = this()
     def copy(aabb: AABB): Unit = js.native
   }
   

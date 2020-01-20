@@ -86,8 +86,8 @@ object Config {
             debugMode            = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
             wantedLibNames       = wantedLibNames,
             versions =
-              if (flags contains "-nextVersions") Versions.`scala 2.13 with scala.js 1`
-              else Versions.`scala 2.12 with scala.js 0.6`,
+              if (flags contains "-nextVersions") Versions.next
+              else Versions.current,
             flavours = flavours,
           ),
         )

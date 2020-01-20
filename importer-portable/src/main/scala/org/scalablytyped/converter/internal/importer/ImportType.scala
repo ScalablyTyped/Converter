@@ -7,10 +7,12 @@ import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 
 class ImportType(stdNames: QualifiedName.StdNames) {
 
-  def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType]): TypeRef =
+  def orAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(ott: Option[TsType]): TypeRef =
     ott map apply(wildcards, scope, importName) getOrElse TypeRef.Any
 
-  def orExprOrAny(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(ott: Option[TsType]): TypeRef =
+  def orExprOrAny(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
+      ott:                   Option[TsType],
+  ): TypeRef =
     ott match {
       case None    => TypeRef.Any
       case Some(x) => apply(wildcards, scope, importName)(x)
@@ -68,7 +70,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case _ => false
     }
 
-  def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: ImportName)(t1: TsType): TypeRef = {
+  def apply(wildcards: Wildcards, _scope: TsTreeScope, importName: AdaptiveNamingImport)(t1: TsType): TypeRef = {
     val scope = _scope / t1
     t1 match {
       case TsTypeRef(cs, TsQIdent.Std.Readonly, IArray.exactlyOne(one)) =>
@@ -119,7 +121,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
         scope.stack collectFirst {
           case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
-            TypeRef.StringDictionary(TypeRef(importName(x.tparams.head.name)), NoComments)
+            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams.head.name)), NoComments)
           case x: TsNamedDecl =>
             TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
         } getOrElse base.withComments(c)
@@ -261,7 +263,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
 
   def newableFunction(
       scope:      TsTreeScope.Scoped,
-      importName: ImportName,
+      importName: AdaptiveNamingImport,
       _sig:       TsFunSig,
       comments:   Comments,
   ): TypeRef = {
@@ -293,7 +295,9 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     )
   }
 
-  private def funParam(wildcards: Wildcards, scope: TsTreeScope, importName: ImportName)(param: TsFunParam): TypeRef =
+  private def funParam(wildcards: Wildcards, scope: TsTreeScope, importName: AdaptiveNamingImport)(
+      param:                      TsFunParam,
+  ): TypeRef =
     orAny(wildcards, scope / param, importName)(param.tpe) withOptional param.isOptional withComments Comments(
       s"/* ${param.name.value} */",
     )

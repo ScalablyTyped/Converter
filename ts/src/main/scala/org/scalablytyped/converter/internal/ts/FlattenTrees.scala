@@ -280,10 +280,14 @@ object FlattenTrees {
     )
 
   def mergeNamespaceAndFunction(ns: TsDeclNamespace, x: TsDeclFunction): TsDeclNamespace =
-    ns.copy(members = ns.members :+ x.copy(name = TsIdent.namespaced))
+    ns.copy(members = ns.members :+ x
+      .copy(name = TsIdent.namespaced, codePath = x.codePath.replaceLast(TsIdent.namespaced)),
+    )
 
   def mergeNamespaceAndVar(ns: TsDeclNamespace, x: TsDeclVar): TsDeclNamespace =
-    ns.copy(members = ns.members :+ x.copy(name = TsIdent.namespaced))
+    ns.copy(members = ns.members :+ x
+      .copy(name = TsIdent.namespaced, codePath = x.codePath.replaceLast(TsIdent.namespaced)),
+    )
 
   def mergedClassAndInterface(c: TsDeclClass, i: TsDeclInterface): TsDeclClass =
     TsDeclClass(

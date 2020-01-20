@@ -7,6 +7,7 @@ import com.olvind.logging.Logger
 import dispatch._
 import gigahorse.HttpClient
 import gigahorse.support.okhttp.Gigahorse
+import io.circe.generic.semiauto.{deriveDecoder, deriveEncoder}
 import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer.{Json, Source}
 import org.scalablytyped.converter.internal.stringUtils.encodeURIComponent
@@ -47,24 +48,24 @@ object Npmjs {
   case class Data(analyzedAt: DateString, collected: Collected, score: Score)
 
   object Data {
-    implicit val DecoderDatedNumbers: Decoder[DatedNumbers] = io.circe.derivation.deriveDecoder[DatedNumbers]
-    implicit val EncoderDatedNumbers: Encoder[DatedNumbers] = io.circe.derivation.deriveEncoder[DatedNumbers]
-    implicit val DecoderLinks:        Decoder[Links]        = io.circe.derivation.deriveDecoder[Links]
-    implicit val EncoderLinks:        Encoder[Links]        = io.circe.derivation.deriveEncoder[Links]
-    implicit val DecoderRepository:   Decoder[Repository]   = io.circe.derivation.deriveDecoder[Repository]
-    implicit val EncoderRepository:   Encoder[Repository]   = io.circe.derivation.deriveEncoder[Repository]
-    implicit val DecoderMetadata:     Decoder[Metadata]     = io.circe.derivation.deriveDecoder[Metadata]
-    implicit val EncoderMetadata:     Encoder[Metadata]     = io.circe.derivation.deriveEncoder[Metadata]
-    implicit val DecoderNpm:          Decoder[Npm]          = io.circe.derivation.deriveDecoder[Npm]
-    implicit val EncoderNpm:          Encoder[Npm]          = io.circe.derivation.deriveEncoder[Npm]
-    implicit val DecoderCollected:    Decoder[Collected]    = io.circe.derivation.deriveDecoder[Collected]
-    implicit val EncoderCollected:    Encoder[Collected]    = io.circe.derivation.deriveEncoder[Collected]
-    implicit val DecoderScoreDetail:  Decoder[ScoreDetail]  = io.circe.derivation.deriveDecoder[ScoreDetail]
-    implicit val EncoderScoreDetail:  Encoder[ScoreDetail]  = io.circe.derivation.deriveEncoder[ScoreDetail]
-    implicit val DecoderScore:        Decoder[Score]        = io.circe.derivation.deriveDecoder[Score]
-    implicit val EncoderScore:        Encoder[Score]        = io.circe.derivation.deriveEncoder[Score]
-    implicit val DecoderData:         Decoder[Data]         = io.circe.derivation.deriveDecoder[Data]
-    implicit val EncoderData:         Encoder[Data]         = io.circe.derivation.deriveEncoder[Data]
+    implicit val DecoderDatedNumbers: Decoder[DatedNumbers] = deriveDecoder[DatedNumbers]
+    implicit val EncoderDatedNumbers: Encoder[DatedNumbers] = deriveEncoder[DatedNumbers]
+    implicit val DecoderLinks:        Decoder[Links]        = deriveDecoder[Links]
+    implicit val EncoderLinks:        Encoder[Links]        = deriveEncoder[Links]
+    implicit val DecoderRepository:   Decoder[Repository]   = deriveDecoder[Repository]
+    implicit val EncoderRepository:   Encoder[Repository]   = deriveEncoder[Repository]
+    implicit val DecoderMetadata:     Decoder[Metadata]     = deriveDecoder[Metadata]
+    implicit val EncoderMetadata:     Encoder[Metadata]     = deriveEncoder[Metadata]
+    implicit val DecoderNpm:          Decoder[Npm]          = deriveDecoder[Npm]
+    implicit val EncoderNpm:          Encoder[Npm]          = deriveEncoder[Npm]
+    implicit val DecoderCollected:    Decoder[Collected]    = deriveDecoder[Collected]
+    implicit val EncoderCollected:    Encoder[Collected]    = deriveEncoder[Collected]
+    implicit val DecoderScoreDetail:  Decoder[ScoreDetail]  = deriveDecoder[ScoreDetail]
+    implicit val EncoderScoreDetail:  Encoder[ScoreDetail]  = deriveEncoder[ScoreDetail]
+    implicit val DecoderScore:        Decoder[Score]        = deriveDecoder[Score]
+    implicit val EncoderScore:        Encoder[Score]        = deriveEncoder[Score]
+    implicit val DecoderData:         Decoder[Data]         = deriveDecoder[Data]
+    implicit val EncoderData:         Encoder[Data]         = deriveEncoder[Data]
   }
 
   trait Fetcher {

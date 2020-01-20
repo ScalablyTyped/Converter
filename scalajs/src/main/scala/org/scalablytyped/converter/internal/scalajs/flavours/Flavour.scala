@@ -9,8 +9,8 @@ object Flavour {
   abstract class ReactFlavour(val outputPkg: Name) extends Flavour {
     lazy val reactNames =
       new ReactNames(outputPkg)
-    def identifyComponents(prettyString: PrettyString) =
-      new IdentifyReactComponents(reactNames, prettyString)
+    lazy val identifyComponents =
+      new IdentifyReactComponents(reactNames)
     lazy val stdNames =
       new QualifiedName.StdNames(outputPkg)
     lazy val scalaJsDomNames =
@@ -23,7 +23,7 @@ object Flavour {
       scope.libName === react || scope.root.dependencies.contains(react)
     }
 
-    final override def rewrittenTree(scope: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree = {
+    final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
       val withCompanions = genCompanions.foldLeft(tree) {
         case (t, gen) => gen.visitPackageTree(scope)(t)
       }
@@ -31,7 +31,7 @@ object Flavour {
       val withComponents =
         if (involvesReact(scope)) {
           val components: IArray[Component] =
-            identifyComponents(prettyString).oneOfEach(scope / withCompanions, withCompanions)
+            identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
           Adapter(scope)((t, s) => rewrittenReactTree(s, t, components))(withCompanions)
         } else withCompanions
 
@@ -55,7 +55,7 @@ object Flavour {
       Set.empty
     override val genCompanions: Option[GenCompanions] =
       None
-    override def rewrittenTree(s: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree =
+    override def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree =
       tree
   }
 
@@ -157,7 +157,7 @@ object Flavour {
 
 trait Flavour {
   def conversions: Option[IArray[CastConversion]]
-  def rewrittenTree(s: TreeScope, tree: PackageTree, prettyString: PrettyString): PackageTree
+  def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   val genCompanions: Option[GenCompanions]
   def dependencies: Set[Dep]
   val projectName:  String

@@ -11,7 +11,7 @@ object ObjectMembers {
       Empty,
       Empty,
       IArray(
-        MethodTree(Empty, ProtectionLevel.Default, Name("getClass"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef(QualifiedName(Name.java :: Name.lang :: Name("Class") :: Nil), Empty, NoComments), isOverride = false, NoComments, QualifiedName.ScalaAny + Name("getClass")),
+        MethodTree(Empty, ProtectionLevel.Default, Name("getClass"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef(QualifiedName(IArray(Name.java, Name.lang, Name("Class"))), Empty, NoComments), isOverride = false, NoComments, QualifiedName.ScalaAny + Name("getClass")),
         MethodTree(Empty, ProtectionLevel.Default, Name("hashCode"), Empty, IArray(IArray()), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("hashCode")),
         MethodTree(Empty, ProtectionLevel.Default, Name("eq"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("eq")),
         MethodTree(Empty, ProtectionLevel.Default, Name("equals"), Empty, IArray(IArray(ParamTree(Name("obj"), isImplicit = false, TypeRef.ScalaAny, None, NoComments))), MemberImpl.Native, TypeRef.Int, isOverride = false, NoComments, QualifiedName.ScalaAny + Name("equals")),

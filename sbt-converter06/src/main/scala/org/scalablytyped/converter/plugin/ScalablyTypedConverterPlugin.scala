@@ -40,11 +40,10 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val npmDeps              = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
         val ignored              = stIgnore.value.to[Set]
         val minimize             = stMinimize.value.map(TsIdentLibrary.apply)
-        val prettyStringType     = stPrettyStringType.value
         val generateCompanions   = stGenerateCompanions.value
 
         val config = ImportTypings.Input(
-          BuildInfo.gitSha,
+          BuildInfo.version,
           os.read(os.Path(packageJson)).hashCode,
           IArray.fromTraversable(npmDeps),
           nodeModules,
@@ -53,7 +52,6 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           outputPackage,
           generateCompanions,
           enableScalaJsDefined,
-          prettyStringType,
           IArray.fromTraversable(stdLib),
           ignored,
           minimize,

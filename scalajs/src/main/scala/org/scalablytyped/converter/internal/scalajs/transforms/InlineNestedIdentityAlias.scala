@@ -15,16 +15,17 @@ package transforms
 object InlineNestedIdentityAlias extends TreeTransformation {
   override def leaveTypeRef(scope: TreeScope)(ref: TypeRef): TypeRef =
     ref match {
-      case TypeRef(_, IArray.exactlyOne(TypeRef(QualifiedName(List(tp)), Empty, _)), _) if scope.tparams.contains(tp) =>
+      case TypeRef(_, IArray.exactlyOne(TypeRef(QualifiedName(IArray.exactlyOne(tp)), Empty, _)), _)
+          if scope.tparams.contains(tp) =>
         ref
       case _ => simplify(scope, ref) getOrElse ref
     }
 
   def isIdentityFor(body: Name)(tr: TypeRef): Boolean =
     tr match {
-      case TypeRef(QualifiedName(`body` :: Nil), Empty, _) => true
-      case TypeRef.Intersection(types)                     => types exists isIdentityFor(body)
-      case _                                               => false
+      case TypeRef(QualifiedName(IArray.exactlyOne(`body`)), Empty, _) => true
+      case TypeRef.Intersection(types)                                 => types exists isIdentityFor(body)
+      case _                                                           => false
     }
 
   private def simplify(scope: TreeScope, ref: TypeRef): Option[TypeRef] = ref match {

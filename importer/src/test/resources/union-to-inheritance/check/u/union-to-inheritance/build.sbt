@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "union-to-inheritance"
-version := "0.0-unknown-806e1f"
+version := "0.0-unknown-60a731"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(

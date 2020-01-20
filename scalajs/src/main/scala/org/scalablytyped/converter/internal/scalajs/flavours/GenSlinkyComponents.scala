@@ -53,7 +53,7 @@ object GenSlinkyComponents {
     val ComponentRef    = Name("ComponentRef")
 
     /* Fully qualified references to slinky types */
-    val slinky                      = QualifiedName(List(GenSlinkyComponents.slinkyName))
+    val slinky                      = QualifiedName(IArray(GenSlinkyComponents.slinkyName))
     val slinkyCore                  = slinky + Name("core")
     val ReactComponentClass         = slinkyCore + Name("ReactComponentClass")
     val TagMod                      = slinkyCore + Name("TagMod")
@@ -379,7 +379,7 @@ class GenSlinkyComponents(
       domProps
         .firstDefined { f =>
           val referencedElements = TreeTraverse.collect(f) {
-            case TypeRef(QualifiedName(List(reactNames.outputPkg, stdNames.stdName, name)), Empty, _)
+            case TypeRef(QualifiedName(IArray.exactlyThree(reactNames.outputPkg, stdNames.stdName, name)), Empty, _)
                 if name.value.endsWith("Element") =>
               name.value
           }
@@ -491,7 +491,7 @@ class GenSlinkyComponents(
       def refFromProps = IArray.fromTraversable(resProps.asMap.values).flatMap(_.refTypes).headOption
 
       knownRef orElse refFromProps map TypeRef.stripTargs match {
-        case Some(x @ TypeRef(QualifiedName(List(names.ComponentRef)), _, _)) => x
+        case Some(x @ TypeRef(QualifiedName(IArray.exactlyOne(names.ComponentRef)), _, _)) => x
         case Some(value) =>
           scope
             .lookup(value.typeName)

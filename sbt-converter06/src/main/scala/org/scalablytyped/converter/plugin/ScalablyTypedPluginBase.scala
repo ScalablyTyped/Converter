@@ -22,9 +22,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       "Whether to generate companion objects with apply methods for most traits",
     )
     val stFlavour = settingKey[Flavour]("The type of react binding to use")
-    val stPrettyStringType = settingKey[PrettyStringType](
-      "Temporary, don't use unless you know what you're doing. Used to choose which name prettyfier will be used",
-    )
     val stEnableScalaJsDefined = settingKey[Selection[String]](
       "Generate @ScalaJSDefined traits when necessary. This enables you to `new` them, but it may require tons of compilation time",
     )
@@ -121,7 +118,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     Seq(
       stFlavour := converter.plugin.Flavour.Plain,
       stEnableScalaJsDefined := converter.Selection.All,
-      stPrettyStringType := converter.plugin.PrettyStringType.Regular,
       stTypescriptVersion := "3.7.2",
       stGenerateCompanions := true,
       stStdlib := List("es6"),

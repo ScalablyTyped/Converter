@@ -5,7 +5,7 @@ import japgolly.scalajs.react.CtorType.ChildArg
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.componentstest.componentstestMod.Props
+import typingsJapgolly.componentstest.mod.Props
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -18,7 +18,7 @@ object Component {
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
-  ): UnmountedWithRoot[Props, typingsJapgolly.componentstest.componentstestMod.Component, Unit, Props] = {
+  ): UnmountedWithRoot[Props, typingsJapgolly.componentstest.mod.Component, Unit, Props] = {
     val __obj = js.Dynamic.literal(aMember = aMember.asInstanceOf[js.Any])
   
       __obj.updateDynamic("aCallback")(aCallback.toJsFn)
@@ -26,10 +26,10 @@ object Component {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.componentstest.componentstestMod.Props, 
+  typingsJapgolly.componentstest.mod.Props, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.componentstest.componentstestMod.Component](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.componentstest.componentstestMod.Props])(children: _*)
+  typingsJapgolly.componentstest.mod.Component](this.componentImport)
+    f(__obj.asInstanceOf[typingsJapgolly.componentstest.mod.Props])(children: _*)
   }
   def B(
     bMember: String,
@@ -38,7 +38,7 @@ object Component {
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
-  ): UnmountedWithRoot[Props, typingsJapgolly.componentstest.componentstestMod.Component, Unit, Props] = {
+  ): UnmountedWithRoot[Props, typingsJapgolly.componentstest.mod.Component, Unit, Props] = {
     val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
   
       bCallback.foreach(p => __obj.updateDynamic("bCallback")(p.toJsFn))
@@ -46,10 +46,10 @@ object Component {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.componentstest.componentstestMod.Props, 
+  typingsJapgolly.componentstest.mod.Props, 
   japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.componentstest.componentstestMod.Component](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.componentstest.componentstestMod.Props])(children: _*)
+  typingsJapgolly.componentstest.mod.Component](this.componentImport)
+    f(__obj.asInstanceOf[typingsJapgolly.componentstest.mod.Props])(children: _*)
   }
   @JSImport("componentstest", "Component")
   @js.native

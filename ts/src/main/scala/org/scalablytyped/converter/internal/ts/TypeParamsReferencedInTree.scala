@@ -15,7 +15,8 @@ object TypeParamsReferencedInTree {
     val referencedInTree: IArray[TsIdent] =
       TsTreeTraverse
         .collect(tree) {
-          case TsTypeRef(_, TsQIdent(List(unprefixedName)), _) if inScope.contains(unprefixedName) => unprefixedName
+          case TsTypeRef(_, TsQIdent(IArray.exactlyOne(unprefixedName)), _) if inScope.contains(unprefixedName) =>
+            unprefixedName
         }
         .distinct
 

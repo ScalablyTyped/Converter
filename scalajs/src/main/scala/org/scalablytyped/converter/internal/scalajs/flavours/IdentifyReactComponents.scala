@@ -2,9 +2,9 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString) {
+class IdentifyReactComponents(reactNames: ReactNames) {
   def length(qualifiedName: QualifiedName): Int =
-    qualifiedName.parts.foldRight(0)(_.unescaped.length + _)
+    qualifiedName.parts.foldLeft(0)(_ + _.unescaped.length)
 
   /* this is effectively a heuristic which component to use */
   implicit val ComponentOrdering: Ordering[Component] = Ordering.by { c =>
@@ -18,7 +18,11 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
     /* because for instance mui declares both a default and a names export, where only the former exists */
     val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
-    val preferShortModuleName = -length(c.scalaRef.typeName)
+    val preferShortModuleName = c.location match {
+      case Annotation.JsGlobalScope       => 0
+      case Annotation.JsImport(module, _) => -module.length
+      case Annotation.JsGlobal(name)      => -length(name)
+    }
 
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
   }
@@ -119,7 +123,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
               Component(
                 location         = locationFrom(scope),
                 scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
-                fullName         = componentName(scope, owner.annotations, QualifiedName(method.name :: Nil), method.comments),
+                fullName         = componentName(scope, owner.annotations, QualifiedName(IArray(method.name)), method.comments),
                 tparams          = method.tparams,
                 props            = propsTypeOpt,
                 isGlobal         = isGlobal(method.annotations),
@@ -159,7 +163,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
     } yield Component(
       location         = locationFrom(scope),
       scalaRef         = TypeRef(field.codePath),
-      fullName         = componentName(scope, owner.annotations, QualifiedName(field.name :: Nil), field.comments),
+      fullName         = componentName(scope, owner.annotations, QualifiedName(IArray(field.name)), field.comments),
       tparams          = Empty,
       props            = Some(props).filterNot(_ === TypeRef.Object),
       isGlobal         = isGlobal(field.annotations),
@@ -233,7 +237,11 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
       val name   = fromCodePath orElse fromAnnotations(anns) orElse fromNameHint
       val prefix = if (isGlobal(anns)) Empty else extractPrefix(scope)
 
-      (prefix ++ IArray.fromOption(name)).map(_.unescaped.capitalize).distinct.mkString("") match {
+      (prefix ++ IArray.fromOption(name))
+        .map(x => nameVariants(x.unescaped).head)
+        .distinct
+        .map(_.capitalize)
+        .mkString("") match {
         case ""                             => Name("component")
         case other if other.endsWith("Cls") => Name(other.dropRight(3))
         case other                          => Name(other)
@@ -257,7 +265,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
         containers(idx) match {
           case c if Unnamed(c.name) =>
             seenUnnamed = true
-          case mod if mod.name.unescaped.endsWith("Mod") =>
+          case mod if mod.name.unescaped.toLowerCase.endsWith("mod") =>
             /* we mostly don't include the module name, unless we have no other options */
             if (kept.isEmpty &&
                 seenUnnamed &&
@@ -284,12 +292,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
         case Annotation.JsName(name)                                               => name
         case Annotation.JsImport(_, Imported.Named(names)) if !Unnamed(names.last) => names.last
         case Annotation.JsImport(mod, _) =>
-          val fragment =
-            mod
-              .split("/")
-              .filterNot(x => Unnamed(Name(x)))
-              .last
-          Name(prettyString(fragment, "", forceCamelCase = true))
+          Name.necessaryRewrite(Name(mod.split("/").filterNot(x => Unnamed(Name(x))).last))
         case Annotation.JsGlobal(qname) => qname.parts.last
       }
   }
@@ -352,7 +355,7 @@ class IdentifyReactComponents(reactNames: ReactNames, prettyString: PrettyString
               }
             Annotation.JsImport(mod, newImported)
           case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
-          case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(List(tree.name)))
+          case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(tree.name)))
 
         }
       case None => sys.error("Couldnt find base location for component")

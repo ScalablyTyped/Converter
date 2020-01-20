@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package scalajs
 
-final case class QualifiedName(parts: List[Name]) {
+final case class QualifiedName(parts: IArray[Name]) {
   def +(name: Name) =
     QualifiedName(parts :+ name)
 
@@ -15,7 +15,7 @@ final case class QualifiedName(parts: List[Name]) {
 
   override def equals(obj: Any): Boolean =
     obj match {
-      case other: QualifiedName if other.hashCode === hashCode =>
+      case other: QualifiedName if other.hashCode == hashCode =>
         parts === other.parts
       case _ => false
     }
@@ -23,15 +23,15 @@ final case class QualifiedName(parts: List[Name]) {
 
 object QualifiedName {
 
-  def apply(str: String): QualifiedName = QualifiedName(str.split("\\.").map(Name(_)).toList)
+  def apply(str: String): QualifiedName = QualifiedName(IArray.fromArray(str.split("\\.")).map(Name(_)))
 
-  val java_lang:     QualifiedName = QualifiedName(Name.java :: Name.lang :: Nil)
-  val scala:         QualifiedName = QualifiedName(Name.scala :: Nil)
+  val java_lang:     QualifiedName = QualifiedName(IArray(Name.java, Name.lang))
+  val scala:         QualifiedName = QualifiedName(IArray(Name.scala))
   val scala_scalajs: QualifiedName = scala + Name.scalajs
   val scala_js:      QualifiedName = scala_scalajs + Name.js
   val scala_js_ann:  QualifiedName = scala_js + Name("annotation")
-  val Runtime:       QualifiedName = QualifiedName(List(Name("org"), Name("scalablytyped"), Name("runtime")))
-  val ScalaJsDom:    QualifiedName = QualifiedName(List(Name("org"), Name("scalajs"), Name("dom")))
+  val Runtime:       QualifiedName = QualifiedName(IArray(Name("org"), Name("scalablytyped"), Name("runtime")))
+  val ScalaJsDom:    QualifiedName = QualifiedName(IArray(Name("org"), Name("scalajs"), Name("dom")))
 
   val String:           QualifiedName = java_lang + Name.String
   val JArray:           QualifiedName = java_lang + Name.Array
@@ -56,19 +56,19 @@ object QualifiedName {
   val NumberDictionary: QualifiedName = Runtime + Name("NumberDictionary")
   val StringDictionary: QualifiedName = Runtime + Name("StringDictionary")
   val TopLevel:         QualifiedName = Runtime + Name("TopLevel")
-  val UNION:            QualifiedName = QualifiedName(Name.UNION :: Nil)
-  val INTERSECTION:     QualifiedName = QualifiedName(Name.INTERSECTION :: Nil)
-  val STRING_LITERAL:   QualifiedName = QualifiedName(Name.STRING_LITERAL :: Nil)
-  val NUMBER_LITERAL:   QualifiedName = QualifiedName(Name.NUMBER_LITERAL :: Nil)
-  val BOOLEAN_LITERAL:  QualifiedName = QualifiedName(Name.BOOLEAN_LITERAL :: Nil)
-  val THIS_TYPE:        QualifiedName = QualifiedName(Name.THIS_TYPE :: Nil)
-  val WILDCARD:         QualifiedName = QualifiedName(Name.WILDCARD :: Nil)
-  val REPEATED:         QualifiedName = QualifiedName(Name.REPEATED :: Nil)
-  val SINGLETON:        QualifiedName = QualifiedName(Name.SINGLETON :: Nil)
+  val UNION:            QualifiedName = QualifiedName(IArray(Name.UNION))
+  val INTERSECTION:     QualifiedName = QualifiedName(IArray(Name.INTERSECTION))
+  val STRING_LITERAL:   QualifiedName = QualifiedName(IArray(Name.STRING_LITERAL))
+  val NUMBER_LITERAL:   QualifiedName = QualifiedName(IArray(Name.NUMBER_LITERAL))
+  val BOOLEAN_LITERAL:  QualifiedName = QualifiedName(IArray(Name.BOOLEAN_LITERAL))
+  val THIS_TYPE:        QualifiedName = QualifiedName(IArray(Name.THIS_TYPE))
+  val WILDCARD:         QualifiedName = QualifiedName(IArray(Name.WILDCARD))
+  val REPEATED:         QualifiedName = QualifiedName(IArray(Name.REPEATED))
+  val SINGLETON:        QualifiedName = QualifiedName(IArray(Name.SINGLETON))
 
   class StdNames(outputPkg: Name) {
     val stdName:       Name          = Name("std")
-    val lib:           QualifiedName = QualifiedName(outputPkg :: stdName :: Nil)
+    val lib:           QualifiedName = QualifiedName(IArray(outputPkg, stdName))
     val Array:         QualifiedName = lib + Name.Array
     val Boolean:       QualifiedName = lib + Name.Boolean
     val BigInt:        QualifiedName = lib + Name("BigInt")

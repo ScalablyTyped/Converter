@@ -36,8 +36,8 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         ExportType.Namespaced,
         TsExporteeNames(
           IArray(
-            (TsQIdent(List(TsIdent("AuthenticationContext"))), None),
-            (TsQIdent(List(TsIdent("Logging"))), None),
+            (TsQIdent(IArray(TsIdent("AuthenticationContext"))), None),
+            (TsQIdent(IArray(TsIdent("Logging"))), None),
           ),
           None,
         ),
@@ -47,7 +47,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
 
   test("export default") {
     shouldParseAs("export default Abs", TsParser.tsExport)(
-      TsExport(NoComments, ExportType.Defaulted, TsExporteeNames(IArray((TsQIdent(List(TsIdent("Abs"))), None)), None)),
+      TsExport(NoComments, ExportType.Defaulted, TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("Abs"))), None)), None)),
     )
   }
 
@@ -58,8 +58,8 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         ExportType.Named,
         TsExporteeNames(
           IArray(
-            (TsQIdent(List(TsIdent("Pool"))), None),
-            (TsQIdent(List(TsIdent("PoolConfig"))), None),
+            (TsQIdent(IArray(TsIdent("Pool"))), None),
+            (TsQIdent(IArray(TsIdent("PoolConfig"))), None),
           ),
           Some(TsIdentModule.simple("pg")),
         ),
@@ -120,7 +120,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import ng = angular.dynamicLocale""", TsParser.tsImport)(
       TsImport(
         IArray(TsImportedIdent(TsIdent("ng"))),
-        TsImporteeLocal(TsQIdent(List(TsIdent("angular"), TsIdent("dynamicLocale")))),
+        TsImporteeLocal(TsQIdent(IArray(TsIdent("angular"), TsIdent("dynamicLocale")))),
       ),
     )
   }
@@ -129,7 +129,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
     shouldParseAs("""import ng = angular""", TsParser.tsImport)(
       TsImport(
         IArray(TsImportedIdent(TsIdent("ng"))),
-        TsImporteeLocal(TsQIdent(List(TsIdent("angular")))),
+        TsImporteeLocal(TsQIdent(IArray(TsIdent("angular")))),
       ),
     )
   }
@@ -151,7 +151,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
         TsExporteeTree(
           TsImport(
             IArray(TsImportedIdent(TsIdent("AppBar"))),
-            TsImporteeLocal(TsQIdent(List(TsIdent("__MaterialUI"), TsIdent("AppBar")))),
+            TsImporteeLocal(TsQIdent(IArray(TsIdent("__MaterialUI"), TsIdent("AppBar")))),
           ),
         ),
       ),
@@ -215,23 +215,23 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                 TsFunParam(
                   NoComments,
                   TsIdent("engine"),
-                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), IArray())),
+                  Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("StorageEngine"))), IArray())),
                   isOptional = false,
                 ),
                 TsFunParam(
                   NoComments,
                   TsIdent("whitelist"),
-                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), IArray())),
+                  Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("FilterList"))), IArray())),
                   isOptional = true,
                 ),
                 TsFunParam(
                   NoComments,
                   TsIdent("blacklist"),
-                  Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("FilterList"))), IArray())),
+                  Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("FilterList"))), IArray())),
                   isOptional = true,
                 ),
               ),
-              Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("StorageEngine"))), IArray())),
+              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("StorageEngine"))), IArray())),
             ),
             Zero,
             CodePath.NoPath,
@@ -271,7 +271,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
             Some(
               TsTypeRef(
                 NoComments,
-                TsQIdent(List(TsIdent("React"), TsIdent("Component"))),
+                TsQIdent(IArray(TsIdent("React"), TsIdent("Component"))),
                 IArray(
                   TsTypeObject(
                     NoComments,
@@ -280,7 +280,7 @@ final class ImportExportParseTests extends FunSuite with Matchers {
                         NoComments,
                         ProtectionLevel.Default,
                         TsIdent("statusCode"),
-                        Some(TsTypeRef(NoComments, TsQIdent(List(TsIdent("number"))), IArray())),
+                        Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("number"))), IArray())),
                         None,
                         isStatic   = false,
                         isReadOnly = false,

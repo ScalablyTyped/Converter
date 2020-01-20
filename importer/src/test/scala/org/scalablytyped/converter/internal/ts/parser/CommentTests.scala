@@ -260,8 +260,8 @@ final class CommentTests extends FunSuite with Matchers {
                   Some(
                     TsTypeRef(
                       NoComments,
-                      TsQIdent(List(TsIdent("Iterable"))),
-                      IArray(TsTypeRef.any, TsTypeRef(NoComments, TsQIdent(List(TsIdent("Array"))), IArray(TsTypeRef.any))),
+                      TsQIdent(IArray(TsIdent("Iterable"))),
+                      IArray(TsTypeRef.any, TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("Array"))), IArray(TsTypeRef.any))),
                     ),
                   ),
                   isOptional = false,
@@ -270,10 +270,10 @@ final class CommentTests extends FunSuite with Matchers {
               Some(
                 TsTypeRef(
                   NoComments,
-                  TsQIdent(List(TsIdent("Map"))),
+                  TsQIdent(IArray(TsIdent("Map"))),
                   IArray(
-                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("K"))), Empty),
-                    TsTypeRef(NoComments, TsQIdent(List(TsIdent("V"))), Empty),
+                    TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("K"))), Empty),
+                    TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("V"))), Empty),
                   ),
                 ),
               ),
@@ -382,10 +382,10 @@ final class CommentTests extends FunSuite with Matchers {
     )(
       TsTypeRef(
         NoComments,
-        TsQIdent(List(TsIdentSimple("F"))),
+        TsQIdent(IArray(TsIdentSimple("F"))),
         IArray(
-          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("A"))), IArray()),
-          TsTypeRef(NoComments, TsQIdent(List(TsIdentSimple("B"))), IArray()),
+          TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("A"))), IArray()),
+          TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("B"))), IArray()),
         ),
       ),
     )

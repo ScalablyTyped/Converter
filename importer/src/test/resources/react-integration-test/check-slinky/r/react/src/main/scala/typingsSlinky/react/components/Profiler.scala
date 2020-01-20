@@ -4,7 +4,7 @@ import org.scalablytyped.runtime.StringDictionary
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
-import typingsSlinky.react.reactMod.ProfilerProps
+import typingsSlinky.react.mod.ProfilerProps
 import typingsSlinky.react.reactStrings.mount
 import typingsSlinky.react.reactStrings.update
 import scala.scalajs.js

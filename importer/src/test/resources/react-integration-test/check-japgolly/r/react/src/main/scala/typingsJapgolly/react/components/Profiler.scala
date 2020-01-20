@@ -7,7 +7,7 @@ import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
 import japgolly.scalajs.react.component.Js.UnmountedSimple
 import org.scalablytyped.runtime.StringDictionary
-import typingsJapgolly.react.reactMod.ProfilerProps
+import typingsJapgolly.react.mod.ProfilerProps
 import typingsJapgolly.react.reactStrings.mount
 import typingsJapgolly.react.reactStrings.update
 import scala.scalajs.js
@@ -33,10 +33,10 @@ object Profiler {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.react.reactMod.ProfilerProps, 
+  typingsJapgolly.react.mod.ProfilerProps, 
   japgolly.scalajs.react.Children.Varargs, 
   js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.react.reactMod.ProfilerProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.react.mod.ProfilerProps])(children: _*)
   }
   @JSImport("react", "Profiler")
   @js.native

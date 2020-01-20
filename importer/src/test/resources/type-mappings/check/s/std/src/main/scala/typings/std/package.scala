@@ -5,9 +5,6 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object std {
-  import org.scalablytyped.runtime.Instantiable1
-  import org.scalablytyped.runtime.StringDictionary
-
   /**
     * Exclude from T those types that are assignable to U
     */
@@ -19,7 +16,7 @@ package object std {
   /**
     * Obtain the return type of a constructor function type
     */
-  type InstanceType[T /* <: Instantiable1[/* args (repeated) */ js.Any, js.Any] */] = js.Any
+  type InstanceType[T /* <: org.scalablytyped.runtime.Instantiable1[/* args (repeated) */ js.Any, js.Any] */] = js.Any
   /**
     * Exclude null and undefined from T
     */
@@ -33,7 +30,7 @@ package object std {
   /**
     * From T pick a set of properties K
     */
-  type Pick[T, K /* <: String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
+  type Pick[T, K /* <: java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ P in K ]: T[P]}
     */ typings.std.stdStrings.Pick with T
   type Proxify[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
@@ -48,7 +45,7 @@ package object std {
   /**
     * Construct a type with a set of properties K of type T
     */
-  type Record[K /* <: String */, T] = StringDictionary[K]
+  type Record[K /* <: java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[K]
   /**
     * Make all properties in T required
     */

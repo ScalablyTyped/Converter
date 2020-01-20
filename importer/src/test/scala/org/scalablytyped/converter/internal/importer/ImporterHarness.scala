@@ -28,12 +28,16 @@ trait ImporterHarness extends FunSuiteLike {
   os.makeDir.all(failureCacheDir)
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
-  private val testCmd    = new Cmd(testLogger, None)
-  private val version    = Versions.`scala 2.12 with scala.js 0.6`
+  private val version    = Versions.current
   private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, failureCacheDir)
 
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
+
+  object FakeIndex {
+    def apply(under: os.Path): DTLastChangedIndex =
+      new DTLastChangedIndex(os.walk(under).map(p => p -> 0L).toMap)
+  }
 
   private def runImport(
       source:        InFolder,
@@ -47,7 +51,7 @@ trait ImporterHarness extends FunSuiteLike {
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
     val resolve          = new LibraryResolver(stdLibSource, IArray(source), None)
-    val lastChangedIndex = DTLastChangedIndex(testCmd, source.path)
+    val lastChangedIndex = FakeIndex(source.path)
 
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
@@ -63,8 +67,11 @@ trait ImporterHarness extends FunSuiteLike {
           ),
           "typescript",
         )
-        .next(new Phase2ToScalaJs(pedantic, PrettyString.Regular, enableScalaJsDefined = Selection.None), "scala.js")
-        .next(new PhaseFlavour(flavour, PrettyString.Regular), flavour.toString)
+        .next(
+          new Phase2ToScalaJs(pedantic, enableScalaJsDefined = Selection.None, outputPkg = Name.typings),
+          "scala.js",
+        )
+        .next(new PhaseFlavour(flavour), flavour.toString)
         .next(
           new Phase3Compile(
             resolve         = resolve,
