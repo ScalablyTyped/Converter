@@ -107,7 +107,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     tp.upperBound flatMap { bound =>
       flatPick(bound).partitionCollect2(KeyOf, TypeRef(scope)) match {
         case (Distinct(keyOfs), Distinct(typeRefs), Distinct(keepInBounds))
-            if keyOfs.nonEmpty || (typeRefs.length > 1 && isParam) =>
+            if keyOfs.nonEmpty || (typeRefs.filterNot(x => OptionalType.undefineds(x.value)).length > 1 && isParam) =>
           Some(ExpandableTypeParam(tp.name, keepInBounds.nonEmptyOpt, keyOfs ++ typeRefs))
         case _ => None
       }
