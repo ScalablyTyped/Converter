@@ -117,6 +117,7 @@ object IArray {
       }
       if (!updated) {
         buf.add(ifNotMatch(orElse))
+        ()
       }
     }
   }
