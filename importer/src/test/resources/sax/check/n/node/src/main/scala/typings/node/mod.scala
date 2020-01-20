@@ -69,8 +69,7 @@ object mod extends js.Object {
     def this(str: String, encoding: String) = this()
   }
   
-  @JSName("INSPECT_MAX_BYTES")
-  var INSPECTMAXBYTES: Double = js.native
+  var INSPECT_MAX_BYTES: Double = js.native
   @js.native
   object Buffer
     extends /**

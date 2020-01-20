@@ -14,11 +14,9 @@ object PIXI extends js.Object {
   @js.native
   sealed trait scaleModes extends js.Object
   
-  @JSName("CANVAS_RENDERER")
-  var CANVASRENDERER: Double = js.native
+  var CANVAS_RENDERER: Double = js.native
   var VERSION: String = js.native
-  @JSName("WEBGL_RENDERER")
-  var WEBGLRENDERER: Double = js.native
+  var WEBGL_RENDERER: Double = js.native
   @js.native
   object blendModes extends js.Object {
     @js.native

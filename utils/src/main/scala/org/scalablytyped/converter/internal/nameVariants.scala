@@ -9,15 +9,17 @@ object nameVariants {
   /* you would be surprised what shows up */
   private val WordBoundary = Set[Char]('.', ',', ':', ';', '?', '!', ' ', '\t', '\n', '-', '_', '/')
 
-  def apply(value: String): Stream[String] = {
-    val variants: Stream[NameVariant] =
-      value.count(c => !c.isLetterOrDigit) match {
-        case 0 => Stream(Unchanged)
-        case 1 => Stream(Clean, Unchanged)
-        case n => Stream(Clean) #::: Stream.range[Int](0, n + 1).map(KeepSymbolNum) #::: Stream(Unchanged)
-      }
-    variants map rewrite(value)
-  }
+  def apply(value: String): Stream[String] =
+    if (value.forall(c => c.isUpper || c === '_' || c.isDigit)) Stream(value)
+    else {
+      val variants: Stream[NameVariant] =
+        value.count(c => !c.isLetterOrDigit) match {
+          case 0 => Stream(Unchanged)
+          case 1 => Stream(Clean, Unchanged)
+          case n => Stream(Clean) #::: Stream.range[Int](0, n + 1).map(KeepSymbolNum) #::: Stream(Unchanged)
+        }
+      variants map rewrite(value)
+    }
 
   def rewrite(value: String)(variant: NameVariant): String = {
     def keepSymbolNum(n: Int): String = {
