@@ -25,9 +25,3 @@ object Foo2 {
   /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
 }
 
-@JSImport("const-enum", "foo2")
-@js.native
-object foo2 extends js.Object {
-  def apply(x: Foo2): Double = js.native
-}
-

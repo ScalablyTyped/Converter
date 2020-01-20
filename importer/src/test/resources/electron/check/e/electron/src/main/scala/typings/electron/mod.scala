@@ -12,6 +12,7 @@ object mod extends js.Object {
   class EventEmitter ()
     extends typings.electron.Electron.EventEmitter
   
-  val app: App = js.native
+  @JSName("app")
+  val app_ : App = js.native
 }
 

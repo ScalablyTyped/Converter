@@ -6,12 +6,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /**
-  * Access to the hash of the compilation.
-  *
-  * Only available with the HotModuleReplacementPlugin or the ExtendedAPIPlugin
+  * Generates a require function that is not parsed by webpack. Can be used to do cool stuff with a global require function if available.
   */
-@JSGlobal("__webpack_hash__")
+@JSGlobal("__non_webpack_require__")
 @js.native
-object __webpack_hash__
+object nonWebpackRequire
   extends TopLevel[js.Any]
 

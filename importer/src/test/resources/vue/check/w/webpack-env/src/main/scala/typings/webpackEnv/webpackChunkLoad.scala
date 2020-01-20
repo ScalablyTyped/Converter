@@ -14,7 +14,7 @@ import scala.scalajs.js.annotation._
   */
 @JSGlobal("__webpack_chunk_load__")
 @js.native
-object __webpack_chunk_load__
+object webpackChunkLoad
   extends TopLevel[
       js.Function2[
         /* chunkId */ js.Any, 

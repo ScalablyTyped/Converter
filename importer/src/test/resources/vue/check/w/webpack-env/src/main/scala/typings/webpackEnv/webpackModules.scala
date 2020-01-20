@@ -10,6 +10,6 @@ import scala.scalajs.js.annotation._
   */
 @JSGlobal("__webpack_modules__")
 @js.native
-object __webpack_modules__
+object webpackModules
   extends TopLevel[js.Array[js.Any]]
 

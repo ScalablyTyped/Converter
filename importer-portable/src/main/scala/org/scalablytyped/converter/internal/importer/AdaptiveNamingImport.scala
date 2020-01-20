@@ -1,13 +1,13 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.scalajs.{Name, QualifiedName}
+import org.scalablytyped.converter.internal.scalajs.{Annotation, Name, QualifiedName}
 import org.scalablytyped.converter.internal.stringUtils.{joinCamelCase, toCamelCase}
 import org.scalablytyped.converter.internal.ts._
 
 import scala.collection.mutable
 
-final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], QualifiedName]) {
+final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], QualifiedName]) { self =>
   def unapply(qident: TsQIdent): Some[QualifiedName] =
     Some(apply(qident))
 
@@ -22,6 +22,24 @@ final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], Qual
 
   def apply(cp: CodePath): QualifiedName =
     apply(cp.forceHasPath.codePath)
+
+  object withJsNameAnnotation {
+    def apply(originalQ: TsQIdent): (QualifiedName, Option[Annotation.JsName]) = {
+      val originalName     = originalQ.parts.last.value
+      val importedCodePath = self(originalQ)
+      val name             = importedCodePath.parts.last
+
+      val annotationOpt: Option[Annotation.JsName] =
+        if (name.unescaped =/= originalName || name.unescaped === "apply" || name.unescaped.contains("$"))
+          Some(Annotation.JsName(Name(originalName)))
+        else None
+
+      (importedCodePath, annotationOpt)
+    }
+
+    def unapply(cp: CodePath): Some[(QualifiedName, Option[Annotation.JsName])] =
+      Some(apply(cp.forceHasPath.codePath))
+  }
 }
 
 object AdaptiveNamingImport {

@@ -15,7 +15,8 @@ object std extends js.Object {
     def empty(): Boolean = js.native
   }
   
-  var queue: Instantiable0[Queue[js.Object]] = js.native
+  @JSName("queue")
+  var queue_ : Instantiable0[Queue[js.Object]] = js.native
   type queue_[T] = Queue[T]
 }
 

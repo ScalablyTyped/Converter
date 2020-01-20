@@ -6,10 +6,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /**
-  * Generates a require function that is not parsed by webpack. Can be used to do cool stuff with a global require function if available.
+  * The raw require function. This expression isn’t parsed by the Parser for dependencies.
   */
-@JSGlobal("__non_webpack_require__")
+@JSGlobal("__webpack_require__")
 @js.native
-object __non_webpack_require__
+object webpackRequire
   extends TopLevel[js.Any]
 

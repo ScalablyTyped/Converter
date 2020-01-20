@@ -12,5 +12,5 @@ import scala.scalajs.js.annotation._
   */
 @JSGlobal("__resourceQuery")
 @js.native
-object __resourceQuery extends TopLevel[String]
+object resourceQuery extends TopLevel[String]
 

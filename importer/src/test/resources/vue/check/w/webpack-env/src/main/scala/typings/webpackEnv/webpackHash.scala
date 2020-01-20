@@ -6,10 +6,12 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /**
-  * The raw require function. This expression isn’t parsed by the Parser for dependencies.
+  * Access to the hash of the compilation.
+  *
+  * Only available with the HotModuleReplacementPlugin or the ExtendedAPIPlugin
   */
-@JSGlobal("__webpack_require__")
+@JSGlobal("__webpack_hash__")
 @js.native
-object __webpack_require__
+object webpackHash
   extends TopLevel[js.Any]
 

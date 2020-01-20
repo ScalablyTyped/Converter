@@ -1,6 +1,5 @@
 package typings.electron.Electron
 
-import org.scalablytyped.runtime.TopLevel
 import typings.electron.electronStrings.`accessibility-support-changed`
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -18,8 +17,4 @@ trait App extends EventEmitter {
   @JSName("on")
   def on_accessibilitysupportchanged(event: `accessibility-support-changed`, listener: js.Any): String = js.native
 }
-
-@JSGlobal("Electron.app")
-@js.native
-object app extends TopLevel[App]
 

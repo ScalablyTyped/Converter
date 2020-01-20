@@ -10,5 +10,5 @@ import scala.scalajs.js.annotation._
   */
 @JSGlobal("__webpack_public_path__")
 @js.native
-object __webpack_public_path__ extends TopLevel[String]
+object webpackPublicPath extends TopLevel[String]
 

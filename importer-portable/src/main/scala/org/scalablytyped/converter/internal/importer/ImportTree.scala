@@ -134,14 +134,15 @@ class ImportTree(
           cs,
           _,
           readOnly,
-          ImportName.valueDefinition(name, annOpt),
+          _,
           tpeOpt,
           _,
           jsLocation,
-          codePath,
+          importName.withJsNameAnnotation((codePath, annOpt)),
           isOptional,
           ) =>
-        val tpe = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
+        val tpe  = importType.orAny(Wildcards.Prohibit, scope, importName)(tpeOpt).withOptional(isOptional)
+        val name = codePath.parts.last
 
         if (name === Name.Symbol) {
           IArray(
@@ -151,7 +152,7 @@ class ImportTree(
               parents     = IArray(tpe),
               members     = Empty,
               comments    = cs,
-              codePath    = importName(codePath),
+              codePath    = codePath,
               isOverride  = false,
             ),
           )
@@ -165,7 +166,7 @@ class ImportTree(
               isReadOnly  = readOnly,
               isOverride  = false,
               comments    = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
-              codePath    = importName(codePath),
+              codePath    = codePath,
             ),
           )
 
@@ -252,7 +253,8 @@ class ImportTree(
           ),
         )
 
-      case TsDeclFunction(cs, _, ImportName.valueDefinition(name, annOpt), sig, jsLocation, codePath) =>
+      case TsDeclFunction(cs, _, _, sig, jsLocation, importName.withJsNameAnnotation(codePath, annOpt)) =>
+        val name = codePath.parts.last
         IArray(
           tsMethod(
             scope          = scope,
@@ -263,7 +265,7 @@ class ImportTree(
             cs             = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
             sig            = sig,
             scalaJsDefined = false,
-            ownerCP        = importName(codePath),
+            ownerCP        = codePath,
           ),
         )
       case _: TsExportAsNamespace => Empty
@@ -358,7 +360,7 @@ class ImportTree(
 
           tsMemberProperty(scope.`..`, scalaJsDefined, importName, ownerCP)(asFunction)
         } else {
-          val (newName, annOpt) = ImportName.valueDefinition(name)
+          val (newName, annOpt) = ImportName.withJsNameAnnotation(name)
           IArray(
             MemberRet(
               tsMethod(scope, importName, level, newName, annOpt, cs, signature, scalaJsDefined, ownerCP),
@@ -439,14 +441,12 @@ class ImportTree(
       scalaJsDefined: Boolean,
       importName:     AdaptiveNamingImport,
       ownerCP:        QualifiedName,
-  )(
-      m: TsMemberProperty,
-  ): IArray[MemberRet] =
+  )(m:                TsMemberProperty): IArray[MemberRet] =
     (m.name, m.tpe) match {
       case (_, Some(TsTypeQuery(_))) =>
         scope.logger.info(s"Dropping $m")
         Empty
-      case (ImportName.valueDefinition((name, annOpt)), Some(TsTypeObject(_, members)))
+      case (ImportName.withJsNameAnnotation((name, annOpt)), Some(TsTypeObject(_, members)))
           if !m.isOptional && members.forall(_.isInstanceOf[TsMemberCall]) =>
         // alternative notation for overload methods
         members.collect { case x: TsMemberCall => x } map (
@@ -467,7 +467,7 @@ class ImportTree(
               ),
           )
 
-      case (ImportName.valueDefinition(name, annOpt), tpeOpt: Option[TsType]) =>
+      case (ImportName.withJsNameAnnotation(name, annOpt), tpeOpt: Option[TsType]) =>
         val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: MemberImpl =
           (scalaJsDefined, importedType) match {

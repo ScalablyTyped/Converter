@@ -17,8 +17,7 @@ object ImportName {
   def apply(i: TsIdentLibrary): Name =
     Name.necessaryRewrite(Name(AdaptiveNamingImport.variantsFor(i, hasModuleParent = false).head))
 
-  @deprecated
-  object valueDefinition {
+  object withJsNameAnnotation {
     def apply(original: TsIdentSimple): (Name, Option[Annotation.JsName]) = {
       val originalName = Name(original.value)
 
