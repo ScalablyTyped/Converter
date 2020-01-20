@@ -5,18 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object genericMod {
-  import japgolly.scalajs.react.raw.React.Element
-  import japgolly.scalajs.react.raw.React.Node
-  import typingsJapgolly.react.mod.ReactNodeArray
-  import typingsJapgolly.react.mod.ReactType
-
-  type SemanticShorthandCollection[TProps] = js.Array[SemanticShorthandItem[TProps]]
-  type SemanticShorthandContent = Node
-  type SemanticShorthandItem[TProps] = Node | TProps | SemanticShorthandItemFunc[TProps]
+  type SemanticShorthandCollection[TProps] = js.Array[typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem[TProps]]
+  type SemanticShorthandContent = japgolly.scalajs.react.raw.React.Node
+  type SemanticShorthandItem[TProps] = japgolly.scalajs.react.raw.React.Node | TProps | typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItemFunc[TProps]
   type SemanticShorthandItemFunc[TProps] = js.Function3[
-    /* component */ ReactType[TProps], 
+    /* component */ typingsJapgolly.react.mod.ReactType[TProps], 
     /* props */ TProps, 
-    /* children */ js.UndefOr[Node | ReactNodeArray], 
-    Element | Null
+    /* children */ js.UndefOr[japgolly.scalajs.react.raw.React.Node | typingsJapgolly.react.mod.ReactNodeArray], 
+    japgolly.scalajs.react.raw.React.Element | scala.Null
   ]
 }

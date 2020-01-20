@@ -5,22 +5,19 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object unionToInheritance {
-  import typings.std.HTMLInputElement
-  import typings.std.TwoFoo
-
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.a1
     - typings.unionToInheritance.unionToInheritanceStrings.a2
     - java.lang.String
   */
-  type A = _A | String
+  type A = typings.unionToInheritance._A | java.lang.String
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.b1
     - typings.unionToInheritance.unionToInheritanceStrings.b2
     - scala.Double
     - typings.unionToInheritance.A
   */
-  type B = _B | Double | String
+  type B = typings.unionToInheritance._B | scala.Double | java.lang.String
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceNumbers.`1`
     - typings.unionToInheritance.unionToInheritanceNumbers.`2`
@@ -28,25 +25,25 @@ package object unionToInheritance {
     - js.Array[typings.unionToInheritance.B]
     - typings.unionToInheritance.B
   */
-  type C = _C | js.Array[B] | HTMLInputElement | Double | String
+  type C = typings.unionToInheritance._C | js.Array[typings.unionToInheritance.B] | typings.std.HTMLInputElement | scala.Double | java.lang.String
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.foo
     - typings.unionToInheritance.unionToInheritanceStrings.bar
     - typings.unionToInheritance.Foo[java.lang.String]
   */
-  type Illegal1 = _Illegal1 | Foo[String]
+  type Illegal1 = typings.unionToInheritance._Illegal1 | typings.unionToInheritance.Foo[java.lang.String]
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.foo
     - typings.unionToInheritance.unionToInheritanceStrings.bar
     - typings.unionToInheritance.Foo[typings.unionToInheritance.A]
   */
-  type Illegal2 = _Illegal2 | Foo[A]
+  type Illegal2 = typings.unionToInheritance._Illegal2 | typings.unionToInheritance.Foo[typings.unionToInheritance.A]
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.foo
     - typings.unionToInheritance.unionToInheritanceStrings.bar
     - typings.unionToInheritance.Foo2[T, T]
   */
-  type Illegal3[T] = _Illegal3[T] | (Foo2[T, T])
+  type Illegal3[T] = typings.unionToInheritance._Illegal3[T] | (typings.unionToInheritance.Foo2[T, T])
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.unionToInheritanceStrings.foo
     - typings.unionToInheritance.unionToInheritanceStrings.bar
@@ -54,11 +51,11 @@ package object unionToInheritance {
     - typings.unionToInheritance.Either[T2, T3]
     - typings.unionToInheritance.Foo2[T1, T3]
   */
-  type Test[T1, T2, T3] = (_Test[T1, T2, T3]) | (TwoFoo[T3, T1])
+  type Test[T1, T2, T3] = (typings.unionToInheritance._Test[T1, T2, T3]) | (typings.std.TwoFoo[T3, T1])
   /* Rewritten from type alias, can be one of: 
     - typings.unionToInheritance.Test[O1, O1, O2]
     - typings.unionToInheritance.Either[O2, O1]
     - typings.unionToInheritance.Legal1[O2]
   */
-  type Test2[O1, O2] = (_Test2[O1, O2]) | (Test[O1, O1, O2])
+  type Test2[O1, O2] = (typings.unionToInheritance._Test2[O1, O2]) | (typings.unionToInheritance.Test[O1, O1, O2])
 }

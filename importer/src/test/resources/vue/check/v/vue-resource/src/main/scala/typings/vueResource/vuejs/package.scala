@@ -6,10 +6,10 @@ import scala.scalajs.js.annotation._
 
 package object vuejs {
   type resource = js.Function4[
-    /* url */ String, 
+    /* url */ java.lang.String, 
     /* params */ js.UndefOr[js.Object], 
     /* actions */ js.UndefOr[js.Any], 
-    /* options */ js.UndefOr[HttpOptions], 
-    ResourceMethods
+    /* options */ js.UndefOr[typings.vueResource.vuejs.HttpOptions], 
+    typings.vueResource.vuejs.ResourceMethods
   ]
 }

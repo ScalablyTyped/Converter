@@ -5,91 +5,66 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import japgolly.scalajs.react.ReactAnimationEventFrom
-  import japgolly.scalajs.react.ReactClipboardEventFrom
-  import japgolly.scalajs.react.ReactCompositionEventFrom
-  import japgolly.scalajs.react.ReactDragEventFrom
-  import japgolly.scalajs.react.ReactEventFrom
-  import japgolly.scalajs.react.ReactFocusEventFrom
-  import japgolly.scalajs.react.ReactKeyboardEventFrom
-  import japgolly.scalajs.react.ReactMouseEventFrom
-  import japgolly.scalajs.react.ReactPointerEventFrom
-  import japgolly.scalajs.react.ReactTouchEventFrom
-  import japgolly.scalajs.react.ReactTransitionEventFrom
-  import japgolly.scalajs.react.ReactUIEventFrom
-  import japgolly.scalajs.react.ReactWheelEventFrom
-  import japgolly.scalajs.react.raw.React.ComponentClassP
-  import japgolly.scalajs.react.raw.React.DomElement
-  import japgolly.scalajs.react.raw.React.Node
-  import japgolly.scalajs.react.raw.React.RefHandle
-  import org.scalablytyped.runtime.Instantiable1
-  import org.scalablytyped.runtime.Instantiable2
-  import org.scalajs.dom.raw.Element
-  import org.scalajs.dom.raw.EventTarget
-  import org.scalajs.dom.raw.HTMLElement
-  import typingsJapgolly.react.AnonChildren
-  import typingsJapgolly.react.AnonRefAny
-  import typingsJapgolly.react.AnonResult
-  import typingsJapgolly.react.AnonType
-  import typingsJapgolly.react.reactStrings.mount
-  import typingsJapgolly.react.reactStrings.update
-  import typingsJapgolly.std.Partial
-  import typingsJapgolly.std.Pick
-
-  type AnimationEventHandler[T] = EventHandler[ReactAnimationEventFrom[T with Element]]
+  type AnimationEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
+    japgolly.scalajs.react.ReactAnimationEventFrom[T with org.scalajs.dom.raw.Element]
+  ]
   // tslint:disable-next-line:no-empty-interface
-  type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
-  type CElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = ComponentElement[P, T]
-  type CFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = ComponentFactory[P, T]
+  type AudioHTMLAttributes[T] = typingsJapgolly.react.mod.MediaHTMLAttributes[T]
+  type CElement[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = typingsJapgolly.react.mod.ComponentElement[P, T]
+  type CFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = typingsJapgolly.react.mod.ComponentFactory[P, T]
   type CSSProperties = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
-  type ChangeEventHandler[T] = EventHandler[ReactEventFrom[T with Element]]
+  type ChangeEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]]
   /**
     * We use an intersection type to infer multiple type parameters from
     * a single argument, which is useful for many top-level API defs.
     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
     */
-  type ClassType[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */, C /* <: ComponentClassP[P with js.Object] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
-  type ClassicElement[P] = CElement[P, ClassicComponent[P, js.Object]]
-  type ClassicFactory[P] = CFactory[P, ClassicComponent[P, js.Object]]
-  type ClipboardEventHandler[T] = EventHandler[ReactClipboardEventFrom[T with Element]]
+  type ClassType[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */, C /* <: japgolly.scalajs.react.raw.React.ComponentClassP[P with js.Object] */] = C with (org.scalablytyped.runtime.Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
+  type ClassicElement[P] = typingsJapgolly.react.mod.CElement[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]
+  type ClassicFactory[P] = typingsJapgolly.react.mod.CFactory[P, typingsJapgolly.react.mod.ClassicComponent[P, js.Object]]
+  type ClipboardEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
+    japgolly.scalajs.react.ReactClipboardEventFrom[T with org.scalajs.dom.raw.Element]
+  ]
   type ComponentFactory[P, T /* <: japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object] */] = js.Function2[
-    /* props */ js.UndefOr[ClassAttributes[T] with P], 
-    /* repeated */ Node, 
-    CElement[P, T]
+    /* props */ js.UndefOr[typingsJapgolly.react.mod.ClassAttributes[T] with P], 
+    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
+    typingsJapgolly.react.mod.CElement[P, T]
   ]
   /**
     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
     * or ComponentPropsWithoutRef when refs are not supported.
     */
   type ComponentProps[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */] = js.Object | (/* import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)
-  type ComponentPropsWithRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
+  type ComponentPropsWithRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = typingsJapgolly.react.mod.PropsWithRef[typingsJapgolly.react.mod.ComponentProps[T]] | (typingsJapgolly.react.mod.PropsWithoutRef[_] with (typingsJapgolly.react.mod.RefAttributes[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify InstanceType<T> */ _
   ]))
-  type ComponentPropsWithoutRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = PropsWithoutRef[ComponentProps[T]]
+  type ComponentPropsWithoutRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = typingsJapgolly.react.mod.PropsWithoutRef[typingsJapgolly.react.mod.ComponentProps[T]]
   type ComponentState = js.Any
-  type ComponentType[P] = (ComponentClassP[P with js.Object]) | FunctionComponent[P]
-  type CompositionEventHandler[T] = EventHandler[ReactCompositionEventFrom[T with Element]]
-  type Consumer[T] = ExoticComponent[ConsumerProps[T]]
-  type ContextType[C /* <: Context[_] */] = js.Any
-  type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
-    /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
-    /* repeated */ Node, 
-    DomElement
+  type ComponentType[P] = (japgolly.scalajs.react.raw.React.ComponentClassP[P with js.Object]) | typingsJapgolly.react.mod.FunctionComponent[P]
+  type CompositionEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
+    japgolly.scalajs.react.ReactCompositionEventFrom[T with org.scalajs.dom.raw.Element]
+  ]
+  type Consumer[T] = typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ConsumerProps[T]]
+  type ContextType[C /* <: typingsJapgolly.react.mod.Context[_] */] = js.Any
+  type DOMFactory[P /* <: typingsJapgolly.react.mod.DOMAttributes[T] */, T /* <: org.scalajs.dom.raw.Element */] = js.Function2[
+    /* props */ js.UndefOr[(typingsJapgolly.react.mod.ClassAttributes[T] with P) | scala.Null], 
+    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
+    japgolly.scalajs.react.raw.React.DomElement
   ]
   // Any prop that has a default prop becomes optional, but its type is unchanged
   // Undeclared default props are augmented into the resulting allowable attributes
   // If declared props have indexed properties, ignore default props entirely as keyof gets widened
   // Wrap in an outer-level conditional type to allow distribution over props that are unions
-  type Defaultize[P, D] = ((Pick[
+  type Defaultize[P, D] = ((typingsJapgolly.std.Pick[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
-  ]) with (Partial[
-    Pick[
+  ]) with (typingsJapgolly.std.Partial[
+    typingsJapgolly.std.Pick[
       P, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
     ]
-  ]) with (Partial[
-    Pick[
+  ]) with (typingsJapgolly.std.Partial[
+    typingsJapgolly.std.Pick[
       D, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
     ]
@@ -97,40 +72,40 @@ package object mod {
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
   type DependencyList = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify ReadonlyArray<any> */ js.Any
-  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
+  type DetailedHTMLProps[E /* <: typingsJapgolly.react.mod.HTMLAttributes[T] */, T] = typingsJapgolly.react.mod.ClassAttributes[T] with E
   // this technically does accept a second argument, but it's already under a deprecation warning
   // and it's not even released so probably better to not define it.
-  type Dispatch[A] = js.Function1[/* value */ A, Unit]
-  type DragEventHandler[T] = EventHandler[ReactDragEventFrom[T with Element]]
+  type Dispatch[A] = js.Function1[/* value */ A, scala.Unit]
+  type DragEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactDragEventFrom[T with org.scalajs.dom.raw.Element]]
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
-  type EffectCallback = js.Function0[Unit | js.Function0[js.UndefOr[Unit]]]
+  type EffectCallback = js.Function0[scala.Unit | js.Function0[js.UndefOr[scala.Unit]]]
   //
   // React Elements
   // ----------------------------------------------------------------------
-  type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type conversion: {[ K in 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view' ]: P extends react.react._Global_.JSX.IntrinsicElements[K]? K : never}['a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view'] */ js.Any) | ComponentType[P]
+  type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type conversion: {[ K in 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view' ]: P extends react.react._Global_.JSX.IntrinsicElements[K]? K : never}['a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view'] */ js.Any) | typingsJapgolly.react.mod.ComponentType[P]
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
-  type EventHandler[E /* <: ReactEventFrom[Element] */] = js.Function1[/* event */ E, Unit]
+  type EventHandler[E /* <: japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.Element] */] = js.Function1[/* event */ E, scala.Unit]
   type ExactlyAnyPropertyKeys[T] = /* import warning: importer.ImportType#apply Failed type conversion: {[ K in keyof T ]: react.react.IsExactlyAny<T[K]> extends true? K : never}[keyof T] */ js.Any
-  type FC[P] = FunctionComponent[P]
+  type FC[P] = typingsJapgolly.react.mod.FunctionComponent[P]
   //
   // Factories
   // ----------------------------------------------------------------------
   type Factory[P] = js.Function2[
-    /* props */ js.UndefOr[Attributes with P], 
-    /* repeated */ Node, 
+    /* props */ js.UndefOr[typingsJapgolly.react.mod.Attributes with P], 
+    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
     japgolly.scalajs.react.raw.React.Element
   ]
-  type FocusEventHandler[T] = EventHandler[ReactFocusEventFrom[T with Element]]
+  type FocusEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactFocusEventFrom[T with org.scalajs.dom.raw.Element]]
   // tslint:disable-next-line:no-empty-interface
-  type FormEvent[T] = ReactEventFrom[T with Element]
-  type FormEventHandler[T] = EventHandler[ReactEventFrom[T with Element]]
+  type FormEvent[T] = japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]
+  type FormEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]]
   type FunctionComponentFactory[P] = js.Function2[
-    /* props */ js.UndefOr[Attributes with P], 
-    /* repeated */ Node, 
-    FunctionComponentElement[P]
+    /* props */ js.UndefOr[typingsJapgolly.react.mod.Attributes with P], 
+    /* repeated */ japgolly.scalajs.react.raw.React.Node, 
+    typingsJapgolly.react.mod.FunctionComponentElement[P]
   ]
   type GetDerivedStateFromError[P, S] = /**
     * This lifecycle is invoked after an error has been thrown by a descendant component.
@@ -138,35 +113,37 @@ package object mod {
     *
     * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
     */
-  js.Function1[/* error */ js.Any, Partial[S] | Null]
+  js.Function1[/* error */ js.Any, typingsJapgolly.std.Partial[S] | scala.Null]
   type GetDerivedStateFromProps[P, S] = /**
     * Returns an update to a component's state based on its new props and old state.
     *
     * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
     */
-  js.Function2[/* nextProps */ P, /* prevState */ S, Partial[S] | Null]
+  js.Function2[/* nextProps */ P, /* prevState */ S, typingsJapgolly.std.Partial[S] | scala.Null]
   // tslint:disable-next-line:no-empty-interface
-  type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
-  type JSXElementConstructor[P] = (js.Function1[/* props */ P, japgolly.scalajs.react.raw.React.Element | Null]) | (Instantiable1[
+  type HTMLFactory[T /* <: org.scalajs.dom.raw.HTMLElement */] = typingsJapgolly.react.mod.DetailedHTMLFactory[typingsJapgolly.react.mod.AllHTMLAttributes[T], T]
+  type JSXElementConstructor[P] = (js.Function1[/* props */ P, japgolly.scalajs.react.raw.React.Element | scala.Null]) | (org.scalablytyped.runtime.Instantiable1[
     /* props */ P, 
     japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
   ])
-  type Key = String | Double
-  type KeyboardEventHandler[T] = EventHandler[ReactKeyboardEventFrom[T with Element]]
-  type LazyExoticComponent[T /* <: ComponentType[_] */] = ExoticComponent[ComponentPropsWithRef[T]] with AnonResult[T]
-  type LegacyRef[T] = String | japgolly.scalajs.react.raw.React.Ref
+  type Key = java.lang.String | scala.Double
+  type KeyboardEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
+    japgolly.scalajs.react.ReactKeyboardEventFrom[T with org.scalajs.dom.raw.Element]
+  ]
+  type LazyExoticComponent[T /* <: typingsJapgolly.react.mod.ComponentType[_] */] = typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ComponentPropsWithRef[T]] with typingsJapgolly.react.AnonResult[T]
+  type LegacyRef[T] = java.lang.String | japgolly.scalajs.react.raw.React.Ref
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name
-  type MemoExoticComponent[T /* <: ComponentType[_] */] = NamedExoticComponent[ComponentPropsWithRef[T]] with AnonType[T]
+  type MemoExoticComponent[T /* <: typingsJapgolly.react.mod.ComponentType[_] */] = typingsJapgolly.react.mod.NamedExoticComponent[typingsJapgolly.react.mod.ComponentPropsWithRef[T]] with typingsJapgolly.react.AnonType[T]
   // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-  type MergePropTypes[P, T] = ((Pick[P, NotExactlyAnyPropertyKeys[P]]) with (Pick[
+  type MergePropTypes[P, T] = ((typingsJapgolly.std.Pick[P, typingsJapgolly.react.mod.NotExactlyAnyPropertyKeys[P]]) with (typingsJapgolly.std.Pick[
     T, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
-  ]) with (Pick[
+  ]) with (typingsJapgolly.std.Pick[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
   ])) | P | T
-  type MouseEventHandler[T] = EventHandler[ReactMouseEventFrom[T with Element]]
+  type MouseEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactMouseEventFrom[T with org.scalajs.dom.raw.Element]]
   type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent
   type NativeClipboardEvent = org.scalajs.dom.raw.ClipboardEvent
   type NativeCompositionEvent = org.scalajs.dom.raw.CompositionEvent
@@ -180,69 +157,71 @@ package object mod {
   type NativeUIEvent = org.scalajs.dom.raw.UIEvent
   type NativeWheelEvent = org.scalajs.dom.raw.WheelEvent
   type NotExactlyAnyPropertyKeys[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
-  type PointerEventHandler[T] = EventHandler[ReactPointerEventFrom[T with Element]]
+  type PointerEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactPointerEventFrom[T with org.scalajs.dom.raw.Element]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
     */
   type ProfilerOnRenderCallback = js.Function7[
-    /* id */ String, 
-    /* phase */ mount | update, 
-    /* actualDuration */ Double, 
-    /* baseDuration */ Double, 
-    /* startTime */ Double, 
-    /* commitTime */ Double, 
+    /* id */ java.lang.String, 
+    /* phase */ typingsJapgolly.react.reactStrings.mount | typingsJapgolly.react.reactStrings.update, 
+    /* actualDuration */ scala.Double, 
+    /* baseDuration */ scala.Double, 
+    /* startTime */ scala.Double, 
+    /* commitTime */ scala.Double, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any, 
-    Unit
+    scala.Unit
   ]
-  type PropsWithChildren[P] = P with AnonChildren
+  type PropsWithChildren[P] = P with typingsJapgolly.react.AnonChildren
   /** Ensures that the props do not include string ref, which cannot be forwarded */
-  type PropsWithRef[P] = P | (PropsWithoutRef[P] with AnonRefAny)
+  type PropsWithRef[P] = P | (typingsJapgolly.react.mod.PropsWithoutRef[P] with typingsJapgolly.react.AnonRefAny)
   /** Ensures that the props do not include ref at all */
-  type PropsWithoutRef[P] = P | (Pick[
+  type PropsWithoutRef[P] = P | (typingsJapgolly.std.Pick[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
   ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
-  type Provider[T] = ProviderExoticComponent[ProviderProps[T]]
-  type ReactChild = japgolly.scalajs.react.raw.React.Element | ReactText
+  type Provider[T] = typingsJapgolly.react.mod.ProviderExoticComponent[typingsJapgolly.react.mod.ProviderProps[T]]
+  type ReactChild = japgolly.scalajs.react.raw.React.Element | typingsJapgolly.react.mod.ReactText
   type ReactComponentElement[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */, P] = japgolly.scalajs.react.raw.React.Element
-  type ReactEventHandler[T] = EventHandler[ReactEventFrom[T with Element]]
-  type ReactFragment = js.Object | ReactNodeArray
+  type ReactEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]]
+  type ReactFragment = js.Object | typingsJapgolly.react.mod.ReactNodeArray
   // ReactHTML for ReactHTMLElement
   // tslint:disable-next-line:no-empty-interface
-  type ReactHTMLElement[T /* <: HTMLElement */] = DetailedReactHTMLElement[AllHTMLAttributes[T], T]
+  type ReactHTMLElement[T /* <: org.scalajs.dom.raw.HTMLElement */] = typingsJapgolly.react.mod.DetailedReactHTMLElement[typingsJapgolly.react.mod.AllHTMLAttributes[T], T]
   //
   // Component API
   // ----------------------------------------------------------------------
-  type ReactInstance = (japgolly.scalajs.react.raw.React.Component[js.Any with js.Object, js.Object]) | Element
-  type ReactManagedAttributes[C, P] = P | (Defaultize[
-    (MergePropTypes[
+  type ReactInstance = (japgolly.scalajs.react.raw.React.Component[js.Any with js.Object, js.Object]) | org.scalajs.dom.raw.Element
+  type ReactManagedAttributes[C, P] = P | (typingsJapgolly.react.mod.Defaultize[
+    (typingsJapgolly.react.mod.MergePropTypes[
       P, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
     ]) | P, 
     js.Any
-  ]) | (MergePropTypes[
+  ]) | (typingsJapgolly.react.mod.MergePropTypes[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
   ])
-  type ReactNode = js.UndefOr[ReactChild | ReactFragment | ReactPortal | Boolean]
+  type ReactNode = js.UndefOr[
+    typingsJapgolly.react.mod.ReactChild | typingsJapgolly.react.mod.ReactFragment | typingsJapgolly.react.mod.ReactPortal | scala.Boolean
+  ]
   //
   // React Nodes
   // http://facebook.github.io/react/docs/glossary.html
   // ----------------------------------------------------------------------
-  type ReactText = String | Double
+  type ReactText = java.lang.String | scala.Double
   /**
     * @deprecated Please use `ElementType`
     */
   type ReactType[P] = japgolly.scalajs.react.raw.React.ElementType
   // Unlike redux, the actions _can_ be anything
   type Reducer[S, A] = js.Function2[/* prevState */ S, /* action */ A, S]
-  type ReducerAction[R /* <: Reducer[_, _] */] = js.Any
+  type ReducerAction[R /* <: typingsJapgolly.react.mod.Reducer[_, _] */] = js.Any
   // types used to try and prevent the compiler from reducing S
   // to a supertype common with the second argument to useReducer()
-  type ReducerState[R /* <: Reducer[_, _] */] = js.Any
-  type Ref[T] = (js.Function1[/* instance */ T | Null, Unit]) | RefHandle[T] | Null
+  type ReducerState[R /* <: typingsJapgolly.react.mod.Reducer[_, _] */] = js.Any
+  type Ref[T] = (js.Function1[/* instance */ T | scala.Null, scala.Unit]) | japgolly.scalajs.react.raw.React.RefHandle[T] | scala.Null
   type Requireable[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
   //
   // Class Interfaces
@@ -253,15 +232,15 @@ package object mod {
     *
     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
     */
-  type SFC[P] = FunctionComponent[P]
+  type SFC[P] = typingsJapgolly.react.mod.FunctionComponent[P]
   /**
     * @deprecated Please use `FunctionComponentElement`
     */
-  type SFCElement[P] = FunctionComponentElement[P]
+  type SFCElement[P] = typingsJapgolly.react.mod.FunctionComponentElement[P]
   /**
     * @deprecated Please use `FunctionComponentFactory`
     */
-  type SFCFactory[P] = FunctionComponentFactory[P]
+  type SFCFactory[P] = typingsJapgolly.react.mod.FunctionComponentFactory[P]
   //
   // React Hooks
   // ----------------------------------------------------------------------
@@ -274,7 +253,7 @@ package object mod {
     *
     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
     */
-  type StatelessComponent[P] = FunctionComponent[P]
+  type StatelessComponent[P] = typingsJapgolly.react.mod.FunctionComponent[P]
   /**
     * currentTarget - a reference to the element on which the event listener is registered.
     *
@@ -282,10 +261,12 @@ package object mod {
     * This might be a child element to the element on which the event listener is registered.
     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     */
-  type SyntheticEvent[T, E] = ReactEventFrom[EventTarget with T with Element]
-  type TouchEventHandler[T] = EventHandler[ReactTouchEventFrom[T with Element]]
-  type TransitionEventHandler[T] = EventHandler[ReactTransitionEventFrom[T with Element]]
-  type UIEventHandler[T] = EventHandler[ReactUIEventFrom[T with Element]]
+  type SyntheticEvent[T, E] = japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.EventTarget with T with org.scalajs.dom.raw.Element]
+  type TouchEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactTouchEventFrom[T with org.scalajs.dom.raw.Element]]
+  type TransitionEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
+    japgolly.scalajs.react.ReactTransitionEventFrom[T with org.scalajs.dom.raw.Element]
+  ]
+  type UIEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactUIEventFrom[T with org.scalajs.dom.raw.Element]]
   type ValidationMap[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.ValidationMap<T> */ js.Any
   //
   // React.PropTypes
@@ -294,5 +275,5 @@ package object mod {
   type WeakValidationMap[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
     */ typingsJapgolly.react.reactStrings.WeakValidationMap with js.Any
-  type WheelEventHandler[T] = EventHandler[ReactWheelEventFrom[T with Element]]
+  type WheelEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactWheelEventFrom[T with org.scalajs.dom.raw.Element]]
 }

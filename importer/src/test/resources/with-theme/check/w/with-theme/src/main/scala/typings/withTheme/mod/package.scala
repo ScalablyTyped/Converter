@@ -5,7 +5,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import typings.std.Pick
-
-  type ConsistentWith[T, U] = Pick[U, String]
+  type ConsistentWith[T, U] = typings.std.Pick[U, java.lang.String]
 }

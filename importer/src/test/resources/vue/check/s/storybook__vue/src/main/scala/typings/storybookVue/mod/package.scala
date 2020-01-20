@@ -5,43 +5,39 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import org.scalablytyped.runtime.StringDictionary
-  import typings.storybookVue.AnonKind
-  import typings.vue.optionsMod.ComponentOptions
-  import typings.vue.optionsMod.DefaultComputed
-  import typings.vue.optionsMod.DefaultData
-  import typings.vue.optionsMod.DefaultMethods
-  import typings.vue.optionsMod.DefaultProps
-  import typings.vue.optionsMod.PropsDefinition
-  import typings.vue.vueMod.Vue
-
-  type Addon = StringDictionary[js.Function2[/* storyName */ String, /* storyFn */ StoryFunction, Unit]]
+  type Addon = org.scalablytyped.runtime.StringDictionary[
+    js.Function2[
+      /* storyName */ java.lang.String, 
+      /* storyFn */ typings.storybookVue.mod.StoryFunction, 
+      scala.Unit
+    ]
+  ]
   type StoryDecorator = js.Function2[
     /* story */ js.Function0[
-      ComponentOptions[
-        Vue, 
-        DefaultData[Vue], 
-        DefaultMethods[Vue], 
-        DefaultComputed, 
-        PropsDefinition[DefaultProps]
+      typings.vue.optionsMod.ComponentOptions[
+        typings.vue.vueMod.Vue, 
+        typings.vue.optionsMod.DefaultData[typings.vue.vueMod.Vue], 
+        typings.vue.optionsMod.DefaultMethods[typings.vue.vueMod.Vue], 
+        typings.vue.optionsMod.DefaultComputed, 
+        typings.vue.optionsMod.PropsDefinition[typings.vue.optionsMod.DefaultProps]
       ]
     ], 
-    /* context */ AnonKind, 
-    (ComponentOptions[
-      Vue, 
-      DefaultData[Vue], 
-      DefaultMethods[Vue], 
-      DefaultComputed, 
-      PropsDefinition[DefaultProps]
-    ]) | Null
+    /* context */ typings.storybookVue.AnonKind, 
+    (typings.vue.optionsMod.ComponentOptions[
+      typings.vue.vueMod.Vue, 
+      typings.vue.optionsMod.DefaultData[typings.vue.vueMod.Vue], 
+      typings.vue.optionsMod.DefaultMethods[typings.vue.vueMod.Vue], 
+      typings.vue.optionsMod.DefaultComputed, 
+      typings.vue.optionsMod.PropsDefinition[typings.vue.optionsMod.DefaultProps]
+    ]) | scala.Null
   ]
   type StoryFunction = js.Function0[
-    (ComponentOptions[
-      Vue, 
-      DefaultData[Vue], 
-      DefaultMethods[Vue], 
-      DefaultComputed, 
-      PropsDefinition[DefaultProps]
-    ]) | String
+    (typings.vue.optionsMod.ComponentOptions[
+      typings.vue.vueMod.Vue, 
+      typings.vue.optionsMod.DefaultData[typings.vue.vueMod.Vue], 
+      typings.vue.optionsMod.DefaultMethods[typings.vue.vueMod.Vue], 
+      typings.vue.optionsMod.DefaultComputed, 
+      typings.vue.optionsMod.PropsDefinition[typings.vue.optionsMod.DefaultProps]
+    ]) | java.lang.String
   ]
 }

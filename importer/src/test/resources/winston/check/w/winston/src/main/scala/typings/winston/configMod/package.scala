@@ -5,7 +5,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object configMod {
-  import org.scalablytyped.runtime.StringDictionary
-
-  type AbstractConfigSetLevels = StringDictionary[Double]
+  type AbstractConfigSetLevels = org.scalablytyped.runtime.StringDictionary[scala.Double]
 }

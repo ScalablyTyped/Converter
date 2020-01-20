@@ -5,7 +5,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import typings.react.mod.Component
-
-  type IconBaseClass = Component[IconBaseProps, js.Object]
+  type IconBaseClass = typings.react.mod.Component[typings.reactIconBase.mod.IconBaseProps, js.Object]
 }

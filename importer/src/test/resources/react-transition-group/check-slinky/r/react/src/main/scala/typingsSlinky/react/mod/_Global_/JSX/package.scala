@@ -5,14 +5,10 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object JSX {
-  import slinky.core.facade.ReactElement
-  import typingsSlinky.react.mod.Attributes
-  import typingsSlinky.react.mod.ClassAttributes
-
   // tslint:disable-next-line:no-empty-interface
-  type Element = ReactElement
+  type Element = slinky.core.facade.ReactElement
   // tslint:disable-next-line:no-empty-interface
-  type IntrinsicAttributes = Attributes
+  type IntrinsicAttributes = typingsSlinky.react.mod.Attributes
   // tslint:disable-next-line:no-empty-interface
-  type IntrinsicClassAttributes[T] = ClassAttributes[T]
+  type IntrinsicClassAttributes[T] = typingsSlinky.react.mod.ClassAttributes[T]
 }

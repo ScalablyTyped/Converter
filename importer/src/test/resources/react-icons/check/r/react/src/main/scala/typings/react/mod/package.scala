@@ -5,17 +5,15 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import typings.std.Element
-
   type ComponentState = js.Object
-  type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
-    /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
-    /* repeated */ ReactNode, 
-    DOMElement[P, T]
+  type DOMFactory[P /* <: typings.react.mod.DOMAttributes[T] */, T /* <: typings.std.Element */] = js.Function2[
+    /* props */ js.UndefOr[(typings.react.mod.ClassAttributes[T] with P) | scala.Null], 
+    /* repeated */ typings.react.mod.ReactNode, 
+    typings.react.mod.DOMElement[P, T]
   ]
-  type Key = String | Double
-  type ReactNode = js.UndefOr[String | Double | Boolean]
-  type Ref[T] = String | (js.Function1[/* instance */ T | Null, js.Any])
-  type SFC[P] = StatelessComponent[P]
-  type SVGProps[T] = ClassAttributes[T]
+  type Key = java.lang.String | scala.Double
+  type ReactNode = js.UndefOr[java.lang.String | scala.Double | scala.Boolean]
+  type Ref[T] = java.lang.String | (js.Function1[/* instance */ T | scala.Null, js.Any])
+  type SFC[P] = typings.react.mod.StatelessComponent[P]
+  type SVGProps[T] = typings.react.mod.ClassAttributes[T]
 }

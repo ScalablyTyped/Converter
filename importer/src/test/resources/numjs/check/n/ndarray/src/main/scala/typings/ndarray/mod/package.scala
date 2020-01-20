@@ -6,5 +6,5 @@ import scala.scalajs.js.annotation._
 
 package object mod {
   type Data[T] = js.Array[T]
-  type DataType = String
+  type DataType = java.lang.String
 }

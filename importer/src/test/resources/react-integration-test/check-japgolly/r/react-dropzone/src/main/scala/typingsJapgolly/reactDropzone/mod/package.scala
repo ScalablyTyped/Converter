@@ -5,12 +5,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import japgolly.scalajs.react.ReactDragEventFrom
-  import japgolly.scalajs.react.ReactEventFrom
-  import org.scalajs.dom.raw.DragEvent
-  import org.scalajs.dom.raw.Event
-  import org.scalajs.dom.raw.HTMLElement
-  import org.scalajs.dom.raw.HTMLInputElement
-
-  type DropEvent = ReactDragEventFrom[HTMLElement] | ReactEventFrom[HTMLInputElement] | DragEvent | Event
+  type DropEvent = japgolly.scalajs.react.ReactDragEventFrom[org.scalajs.dom.raw.HTMLElement] | japgolly.scalajs.react.ReactEventFrom[org.scalajs.dom.raw.HTMLInputElement] | org.scalajs.dom.raw.DragEvent | org.scalajs.dom.raw.Event
 }

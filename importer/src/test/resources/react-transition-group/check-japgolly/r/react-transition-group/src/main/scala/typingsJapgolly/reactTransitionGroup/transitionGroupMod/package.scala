@@ -5,12 +5,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object transitionGroupMod {
-  import japgolly.scalajs.react.raw.React.Component
-  import typingsJapgolly.react.mod.ReactType
-  import typingsJapgolly.reactTransitionGroup.AnonChild
-  import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr
-  import typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.animate
-
-  type TransitionGroup = Component[(TransitionGroupProps[abbr, js.Any]) with js.Object, js.Object]
-  type TransitionGroupProps[T /* <: abbr | animate */, V /* <: ReactType[_] */] = (IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)) | (ComponentTransitionGroupProps[V] with AnonChild)
+  type TransitionGroup = japgolly.scalajs.react.raw.React.Component[
+    (typingsJapgolly.reactTransitionGroup.transitionGroupMod.TransitionGroupProps[typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr, js.Any]) with js.Object, 
+    js.Object
+  ]
+  type TransitionGroupProps[T /* <: typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr | typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.animate */, V /* <: typingsJapgolly.react.mod.ReactType[_] */] = (typingsJapgolly.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps[T] with (/* import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)) | (typingsJapgolly.reactTransitionGroup.transitionGroupMod.ComponentTransitionGroupProps[V] with typingsJapgolly.reactTransitionGroup.AnonChild)
 }

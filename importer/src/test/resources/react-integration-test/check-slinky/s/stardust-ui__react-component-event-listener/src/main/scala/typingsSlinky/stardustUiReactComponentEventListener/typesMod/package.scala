@@ -5,14 +5,12 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object typesMod {
-  import slinky.core.facade.ReactRef
-
-  type EventHandler[T /* <: EventTypes */] = js.Function1[
+  type EventHandler[T /* <: typingsSlinky.stardustUiReactComponentEventListener.typesMod.EventTypes */] = js.Function1[
     /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any, 
-    Unit
+    scala.Unit
   ]
-  type EventTypes = String
-  type TargetRef = ReactRef[
+  type EventTypes = java.lang.String
+  type TargetRef = slinky.core.facade.ReactRef[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
   ]
 }

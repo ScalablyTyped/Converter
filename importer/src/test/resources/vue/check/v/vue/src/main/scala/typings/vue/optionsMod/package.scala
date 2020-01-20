@@ -5,62 +5,60 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object optionsMod {
-  import org.scalablytyped.runtime.StringDictionary
-  import typings.std.HTMLElement
-  import typings.std.Record
-  import typings.std.ThisType
-  import typings.vue.AnonArgs
-  import typings.vue.AnonDefault
-  import typings.vue.vnodeMod.VNode
-  import typings.vue.vnodeMod.VNodeDirective
-  import typings.vue.vueMod.CombinedVueInstance
-  import typings.vue.vueMod.Vue
-  import typings.vue.vueMod.VueConstructor
-
   type Accessors[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
     */ typings.vue.vueStrings.Accessors with js.Any
-  type ArrayPropsDefinition[T] = js.Array[String]
+  type ArrayPropsDefinition[T] = js.Array[java.lang.String]
   type AsyncComponent[Data, Methods, Computed, Props] = js.Function2[
-    /* resolve */ js.Function1[/* component */ Component[Data, Methods, Computed, Props], Unit], 
-    /* reject */ js.Function1[/* reason */ js.UndefOr[js.Any], Unit], 
+    /* resolve */ js.Function1[
+      /* component */ typings.vue.optionsMod.Component[Data, Methods, Computed, Props], 
+      scala.Unit
+    ], 
+    /* reject */ js.Function1[/* reason */ js.UndefOr[js.Any], scala.Unit], 
     (js.Promise[
-      (Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]) | EsModuleComponent
-    ]) | Unit
+      (typings.vue.optionsMod.Component[
+        typings.vue.optionsMod.DefaultData[typings.vue.vueMod.Vue], 
+        typings.vue.optionsMod.DefaultMethods[typings.vue.vueMod.Vue], 
+        typings.vue.optionsMod.DefaultComputed, 
+        typings.vue.optionsMod.DefaultProps
+      ]) | typings.vue.optionsMod.EsModuleComponent
+    ]) | scala.Unit
   ]
-  type Component[Data, Methods, Computed, Props] = VueConstructor[Vue] | (FunctionalComponentOptions[Props, PropsDefinition[Props]]) | (ComponentOptions[Vue, Data, Methods, Computed, Props])
-  type DefaultComputed = StringDictionary[js.Any]
+  type Component[Data, Methods, Computed, Props] = typings.vue.vueMod.VueConstructor[typings.vue.vueMod.Vue] | (typings.vue.optionsMod.FunctionalComponentOptions[Props, typings.vue.optionsMod.PropsDefinition[Props]]) | (typings.vue.optionsMod.ComponentOptions[typings.vue.vueMod.Vue, Data, Methods, Computed, Props])
+  type DefaultComputed = org.scalablytyped.runtime.StringDictionary[js.Any]
   type DefaultData[V] = js.Object | (js.ThisFunction0[/* this */ V, js.Object])
-  type DefaultMethods[V] = StringDictionary[js.ThisFunction1[/* this */ V, /* repeated */ js.Any, js.Any]]
-  type DefaultProps = Record[String, js.Any]
+  type DefaultMethods[V] = org.scalablytyped.runtime.StringDictionary[js.ThisFunction1[/* this */ V, /* repeated */ js.Any, js.Any]]
+  type DefaultProps = typings.std.Record[java.lang.String, js.Any]
   type DirectiveFunction = js.Function4[
-    /* el */ HTMLElement, 
-    /* binding */ VNodeDirective, 
-    /* vnode */ VNode, 
-    /* oldVnode */ VNode, 
-    Unit
+    /* el */ typings.std.HTMLElement, 
+    /* binding */ typings.vue.vnodeMod.VNodeDirective, 
+    /* vnode */ typings.vue.vnodeMod.VNode, 
+    /* oldVnode */ typings.vue.vnodeMod.VNode, 
+    scala.Unit
   ]
-  type InjectKey = String | js.Symbol
-  type InjectOptions = (StringDictionary[InjectKey | AnonDefault]) | js.Array[String]
-  type Prop[T] = js.Function0[T] | AnonArgs[T]
-  type PropValidator[T] = PropOptions[T] | Prop[T] | js.Array[Prop[T]]
-  type PropsDefinition[T] = ArrayPropsDefinition[T] | RecordPropsDefinition[T]
+  type InjectKey = java.lang.String | js.Symbol
+  type InjectOptions = (org.scalablytyped.runtime.StringDictionary[typings.vue.optionsMod.InjectKey | typings.vue.AnonDefault]) | js.Array[java.lang.String]
+  type Prop[T] = js.Function0[T] | typings.vue.AnonArgs[T]
+  type PropValidator[T] = typings.vue.optionsMod.PropOptions[T] | typings.vue.optionsMod.Prop[T] | js.Array[typings.vue.optionsMod.Prop[T]]
+  type PropsDefinition[T] = typings.vue.optionsMod.ArrayPropsDefinition[T] | typings.vue.optionsMod.RecordPropsDefinition[T]
   type RecordPropsDefinition[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: vue.vue/types/options.PropValidator<T[K]>}
     */ typings.vue.vueStrings.RecordPropsDefinition with T
-  type ThisTypedComponentOptionsWithArrayProps[V /* <: Vue */, Data, Methods, Computed, PropNames /* <: String */] = js.Object with (ComponentOptions[
+  type ThisTypedComponentOptionsWithArrayProps[V /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, PropNames /* <: java.lang.String */] = js.Object with (typings.vue.optionsMod.ComponentOptions[
     V, 
-    Data | (js.ThisFunction0[/* this */ (Record[PropNames, _]) with V, Data]), 
+    Data | (js.ThisFunction0[/* this */ (typings.std.Record[PropNames, _]) with V, Data]), 
     Methods, 
     Computed, 
     js.Array[PropNames]
-  ]) with (ThisType[CombinedVueInstance[V, Data, Methods, Computed, Record[PropNames, _]]])
-  type ThisTypedComponentOptionsWithRecordProps[V /* <: Vue */, Data, Methods, Computed, Props] = js.Object with (ComponentOptions[
+  ]) with (typings.std.ThisType[
+    typings.vue.vueMod.CombinedVueInstance[V, Data, Methods, Computed, typings.std.Record[PropNames, _]]
+  ])
+  type ThisTypedComponentOptionsWithRecordProps[V /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = js.Object with (typings.vue.optionsMod.ComponentOptions[
     V, 
     Data | (js.ThisFunction0[/* this */ Props with V, Data]), 
     Methods, 
     Computed, 
-    RecordPropsDefinition[Props]
-  ]) with (ThisType[CombinedVueInstance[V, Data, Methods, Computed, Props]])
-  type WatchHandler[T] = js.Function2[/* val */ T, /* oldVal */ T, Unit]
+    typings.vue.optionsMod.RecordPropsDefinition[Props]
+  ]) with (typings.std.ThisType[typings.vue.vueMod.CombinedVueInstance[V, Data, Methods, Computed, Props]])
+  type WatchHandler[T] = js.Function2[/* val */ T, /* oldVal */ T, scala.Unit]
 }

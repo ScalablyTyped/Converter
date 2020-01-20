@@ -5,75 +5,60 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import org.scalablytyped.runtime.Instantiable1
-  import org.scalablytyped.runtime.Instantiable2
-  import typings.react.AnonChildren
-  import typings.react.AnonRefAny
-  import typings.react.AnonResult
-  import typings.react.AnonType
-  import typings.react.reactStrings.mount
-  import typings.react.reactStrings.update
-  import typings.std.Element
-  import typings.std.Event
-  import typings.std.EventTarget
-  import typings.std.HTMLElement
-  import typings.std.Partial
-  import typings.std.Pick
-
-  type AnimationEventHandler[T] = EventHandler[AnimationEvent[T]]
+  type AnimationEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.AnimationEvent[T]]
   // tslint:disable-next-line:no-empty-interface
-  type AudioHTMLAttributes[T] = MediaHTMLAttributes[T]
-  type CElement[P, T /* <: Component[P, ComponentState, _] */] = ComponentElement[P, T]
-  type CFactory[P, T /* <: Component[P, ComponentState, _] */] = ComponentFactory[P, T]
+  type AudioHTMLAttributes[T] = typings.react.mod.MediaHTMLAttributes[T]
+  type CElement[P, T /* <: typings.react.mod.Component[P, typings.react.mod.ComponentState, _] */] = typings.react.mod.ComponentElement[P, T]
+  type CFactory[P, T /* <: typings.react.mod.Component[P, typings.react.mod.ComponentState, _] */] = typings.react.mod.ComponentFactory[P, T]
   type CSSProperties = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify CSS.Properties<string | number> */ js.Any
-  type ChangeEventHandler[T] = EventHandler[ChangeEvent[T]]
+  type ChangeEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.ChangeEvent[T]]
   /**
     * We use an intersection type to infer multiple type parameters from
     * a single argument, which is useful for many top-level API defs.
     * See https://github.com/Microsoft/TypeScript/issues/7234 for more info.
     */
-  type ClassType[P, T /* <: Component[P, ComponentState, _] */, C /* <: ComponentClass[P, ComponentState] */] = C with (Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
-  type ClassicElement[P] = CElement[P, ClassicComponent[P, ComponentState]]
-  type ClassicFactory[P] = CFactory[P, ClassicComponent[P, ComponentState]]
-  type ClipboardEventHandler[T] = EventHandler[ClipboardEvent[T]]
-  type ComponentFactory[P, T /* <: Component[P, ComponentState, _] */] = js.Function2[
-    /* props */ js.UndefOr[ClassAttributes[T] with P], 
-    /* repeated */ ReactNode, 
-    CElement[P, T]
+  type ClassType[P, T /* <: typings.react.mod.Component[P, typings.react.mod.ComponentState, _] */, C /* <: typings.react.mod.ComponentClass[P, typings.react.mod.ComponentState] */] = C with (org.scalablytyped.runtime.Instantiable2[/* props */ P, js.UndefOr[/* context */ js.Any], T])
+  type ClassicElement[P] = typings.react.mod.CElement[P, typings.react.mod.ClassicComponent[P, typings.react.mod.ComponentState]]
+  type ClassicFactory[P] = typings.react.mod.CFactory[P, typings.react.mod.ClassicComponent[P, typings.react.mod.ComponentState]]
+  type ClipboardEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.ClipboardEvent[T]]
+  type ComponentFactory[P, T /* <: typings.react.mod.Component[P, typings.react.mod.ComponentState, _] */] = js.Function2[
+    /* props */ js.UndefOr[typings.react.mod.ClassAttributes[T] with P], 
+    /* repeated */ typings.react.mod.ReactNode, 
+    typings.react.mod.CElement[P, T]
   ]
   /**
     * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
     * or ComponentPropsWithoutRef when refs are not supported.
     */
   type ComponentProps[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */] = js.Object | (/* import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] */ js.Any)
-  type ComponentPropsWithRef[T /* <: ElementType[_] */] = PropsWithRef[ComponentProps[T]] | (PropsWithoutRef[_] with (RefAttributes[
+  type ComponentPropsWithRef[T /* <: typings.react.mod.ElementType[_] */] = typings.react.mod.PropsWithRef[typings.react.mod.ComponentProps[T]] | (typings.react.mod.PropsWithoutRef[_] with (typings.react.mod.RefAttributes[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify InstanceType<T> */ _
   ]))
-  type ComponentPropsWithoutRef[T /* <: ElementType[_] */] = PropsWithoutRef[ComponentProps[T]]
+  type ComponentPropsWithoutRef[T /* <: typings.react.mod.ElementType[_] */] = typings.react.mod.PropsWithoutRef[typings.react.mod.ComponentProps[T]]
   type ComponentState = js.Any
-  type ComponentType[P] = (ComponentClass[P, ComponentState]) | FunctionComponent[P]
-  type CompositionEventHandler[T] = EventHandler[CompositionEvent[T]]
-  type Consumer[T] = ExoticComponent[ConsumerProps[T]]
-  type ContextType[C /* <: Context[_] */] = js.Any
-  type DOMFactory[P /* <: DOMAttributes[T] */, T /* <: Element */] = js.Function2[
-    /* props */ js.UndefOr[(ClassAttributes[T] with P) | Null], 
-    /* repeated */ ReactNode, 
-    DOMElement[P, T]
+  type ComponentType[P] = (typings.react.mod.ComponentClass[P, typings.react.mod.ComponentState]) | typings.react.mod.FunctionComponent[P]
+  type CompositionEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.CompositionEvent[T]]
+  type Consumer[T] = typings.react.mod.ExoticComponent[typings.react.mod.ConsumerProps[T]]
+  type ContextType[C /* <: typings.react.mod.Context[_] */] = js.Any
+  type DOMFactory[P /* <: typings.react.mod.DOMAttributes[T] */, T /* <: typings.std.Element */] = js.Function2[
+    /* props */ js.UndefOr[(typings.react.mod.ClassAttributes[T] with P) | scala.Null], 
+    /* repeated */ typings.react.mod.ReactNode, 
+    typings.react.mod.DOMElement[P, T]
   ]
   // Any prop that has a default prop becomes optional, but its type is unchanged
   // Undeclared default props are augmented into the resulting allowable attributes
   // If declared props have indexed properties, ignore default props entirely as keyof gets widened
   // Wrap in an outer-level conditional type to allow distribution over props that are unions
-  type Defaultize[P, D] = ((Pick[
+  type Defaultize[P, D] = ((typings.std.Pick[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
-  ]) with (Partial[
-    Pick[
+  ]) with (typings.std.Partial[
+    typings.std.Pick[
       P, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
     ]
-  ]) with (Partial[
-    Pick[
+  ]) with (typings.std.Partial[
+    typings.std.Pick[
       D, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
     ]
@@ -81,36 +66,40 @@ package object mod {
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
   type DependencyList = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify ReadonlyArray<any> */ js.Any
-  type DetailedHTMLProps[E /* <: HTMLAttributes[T] */, T] = ClassAttributes[T] with E
+  type DetailedHTMLProps[E /* <: typings.react.mod.HTMLAttributes[T] */, T] = typings.react.mod.ClassAttributes[T] with E
   // this technically does accept a second argument, but it's already under a deprecation warning
   // and it's not even released so probably better to not define it.
-  type Dispatch[A] = js.Function1[/* value */ A, Unit]
-  type DragEventHandler[T] = EventHandler[DragEvent[T]]
+  type Dispatch[A] = js.Function1[/* value */ A, scala.Unit]
+  type DragEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.DragEvent[T]]
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
-  type EffectCallback = js.Function0[Unit | js.Function0[js.UndefOr[Unit]]]
+  type EffectCallback = js.Function0[scala.Unit | js.Function0[js.UndefOr[scala.Unit]]]
   //
   // React Elements
   // ----------------------------------------------------------------------
-  type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type conversion: {[ K in 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view' ]: P extends react.react._Global_.JSX.IntrinsicElements[K]? K : never}['a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view'] */ js.Any) | ComponentType[P]
+  type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type conversion: {[ K in 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view' ]: P extends react.react._Global_.JSX.IntrinsicElements[K]? K : never}['a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'blockquote' | 'body' | 'br' | 'button' | 'canvas' | 'caption' | 'cite' | 'code' | 'col' | 'colgroup' | 'data' | 'datalist' | 'dd' | 'del' | 'details' | 'dfn' | 'dialog' | 'div' | 'dl' | 'dt' | 'em' | 'embed' | 'fieldset' | 'figcaption' | 'figure' | 'footer' | 'form' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'head' | 'header' | 'hgroup' | 'hr' | 'html' | 'i' | 'iframe' | 'img' | 'input' | 'ins' | 'kbd' | 'keygen' | 'label' | 'legend' | 'li' | 'link' | 'main' | 'map' | 'mark' | 'menu' | 'menuitem' | 'meta' | 'meter' | 'nav' | 'noindex' | 'noscript' | 'object' | 'ol' | 'optgroup' | 'option' | 'output' | 'p' | 'param' | 'picture' | 'pre' | 'progress' | 'q' | 'rp' | 'rt' | 'ruby' | 's' | 'samp' | 'script' | 'section' | 'select' | 'small' | 'source' | 'span' | 'strong' | 'style' | 'sub' | 'summary' | 'sup' | 'table' | 'template' | 'tbody' | 'td' | 'textarea' | 'tfoot' | 'th' | 'thead' | 'time' | 'title' | 'tr' | 'track' | 'u' | 'ul' | 'var' | 'video' | 'wbr' | 'webview' | 'svg' | 'animate' | 'animateMotion' | 'animateTransform' | 'circle' | 'clipPath' | 'defs' | 'desc' | 'ellipse' | 'feBlend' | 'feColorMatrix' | 'feComponentTransfer' | 'feComposite' | 'feConvolveMatrix' | 'feDiffuseLighting' | 'feDisplacementMap' | 'feDistantLight' | 'feDropShadow' | 'feFlood' | 'feFuncA' | 'feFuncB' | 'feFuncG' | 'feFuncR' | 'feGaussianBlur' | 'feImage' | 'feMerge' | 'feMergeNode' | 'feMorphology' | 'feOffset' | 'fePointLight' | 'feSpecularLighting' | 'feSpotLight' | 'feTile' | 'feTurbulence' | 'filter' | 'foreignObject' | 'g' | 'image' | 'line' | 'linearGradient' | 'marker' | 'mask' | 'metadata' | 'mpath' | 'path' | 'pattern' | 'polygon' | 'polyline' | 'radialGradient' | 'rect' | 'stop' | 'switch' | 'symbol' | 'text' | 'textPath' | 'tspan' | 'use' | 'view'] */ js.Any) | typings.react.mod.ComponentType[P]
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
-  type EventHandler[E /* <: SyntheticEvent[_, Event] */] = js.Function1[/* event */ E, Unit]
+  type EventHandler[E /* <: typings.react.mod.SyntheticEvent[_, typings.std.Event] */] = js.Function1[/* event */ E, scala.Unit]
   type ExactlyAnyPropertyKeys[T] = /* import warning: importer.ImportType#apply Failed type conversion: {[ K in keyof T ]: react.react.IsExactlyAny<T[K]> extends true? K : never}[keyof T] */ js.Any
-  type FC[P] = FunctionComponent[P]
+  type FC[P] = typings.react.mod.FunctionComponent[P]
   //
   // Factories
   // ----------------------------------------------------------------------
-  type Factory[P] = js.Function2[/* props */ js.UndefOr[Attributes with P], /* repeated */ ReactNode, ReactElement]
-  type FocusEventHandler[T] = EventHandler[FocusEvent[T]]
+  type Factory[P] = js.Function2[
+    /* props */ js.UndefOr[typings.react.mod.Attributes with P], 
+    /* repeated */ typings.react.mod.ReactNode, 
+    typings.react.mod.ReactElement
+  ]
+  type FocusEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.FocusEvent[T]]
   // tslint:disable-next-line:no-empty-interface
-  type FormEvent[T] = SyntheticEvent[T, Event]
-  type FormEventHandler[T] = EventHandler[FormEvent[T]]
+  type FormEvent[T] = typings.react.mod.SyntheticEvent[T, typings.std.Event]
+  type FormEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.FormEvent[T]]
   type FunctionComponentFactory[P] = js.Function2[
-    /* props */ js.UndefOr[Attributes with P], 
-    /* repeated */ ReactNode, 
-    FunctionComponentElement[P]
+    /* props */ js.UndefOr[typings.react.mod.Attributes with P], 
+    /* repeated */ typings.react.mod.ReactNode, 
+    typings.react.mod.FunctionComponentElement[P]
   ]
   type GetDerivedStateFromError[P, S] = /**
     * This lifecycle is invoked after an error has been thrown by a descendant component.
@@ -118,32 +107,32 @@ package object mod {
     *
     * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
     */
-  js.Function1[/* error */ js.Any, Partial[S] | Null]
+  js.Function1[/* error */ js.Any, typings.std.Partial[S] | scala.Null]
   type GetDerivedStateFromProps[P, S] = /**
     * Returns an update to a component's state based on its new props and old state.
     *
     * Note: its presence prevents any of the deprecated lifecycle methods from being invoked
     */
-  js.Function2[/* nextProps */ P, /* prevState */ S, Partial[S] | Null]
+  js.Function2[/* nextProps */ P, /* prevState */ S, typings.std.Partial[S] | scala.Null]
   // tslint:disable-next-line:no-empty-interface
-  type HTMLFactory[T /* <: HTMLElement */] = DetailedHTMLFactory[AllHTMLAttributes[T], T]
-  type JSXElementConstructor[P] = (js.Function1[/* props */ P, ReactElement | Null]) | (Instantiable1[/* props */ P, Component[P, js.Any, js.Any]])
-  type Key = String | Double
-  type KeyboardEventHandler[T] = EventHandler[KeyboardEvent[T]]
-  type LazyExoticComponent[T /* <: ComponentType[_] */] = ExoticComponent[ComponentPropsWithRef[T]] with AnonResult[T]
-  type LegacyRef[T] = String | Ref[T]
+  type HTMLFactory[T /* <: typings.std.HTMLElement */] = typings.react.mod.DetailedHTMLFactory[typings.react.mod.AllHTMLAttributes[T], T]
+  type JSXElementConstructor[P] = (js.Function1[/* props */ P, typings.react.mod.ReactElement | scala.Null]) | (org.scalablytyped.runtime.Instantiable1[/* props */ P, typings.react.mod.Component[P, js.Any, js.Any]])
+  type Key = java.lang.String | scala.Double
+  type KeyboardEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.KeyboardEvent[T]]
+  type LazyExoticComponent[T /* <: typings.react.mod.ComponentType[_] */] = typings.react.mod.ExoticComponent[typings.react.mod.ComponentPropsWithRef[T]] with typings.react.AnonResult[T]
+  type LegacyRef[T] = java.lang.String | typings.react.mod.Ref[T]
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name
-  type MemoExoticComponent[T /* <: ComponentType[_] */] = NamedExoticComponent[ComponentPropsWithRef[T]] with AnonType[T]
+  type MemoExoticComponent[T /* <: typings.react.mod.ComponentType[_] */] = typings.react.mod.NamedExoticComponent[typings.react.mod.ComponentPropsWithRef[T]] with typings.react.AnonType[T]
   // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-  type MergePropTypes[P, T] = ((Pick[P, NotExactlyAnyPropertyKeys[P]]) with (Pick[
+  type MergePropTypes[P, T] = ((typings.std.Pick[P, typings.react.mod.NotExactlyAnyPropertyKeys[P]]) with (typings.std.Pick[
     T, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
-  ]) with (Pick[
+  ]) with (typings.std.Pick[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
   ])) | P | T
-  type MouseEventHandler[T] = EventHandler[MouseEvent[T, NativeMouseEvent]]
+  type MouseEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.MouseEvent[T, typings.react.mod.NativeMouseEvent]]
   type NativeAnimationEvent = typings.std.AnimationEvent
   type NativeClipboardEvent = typings.std.ClipboardEvent
   type NativeCompositionEvent = typings.std.CompositionEvent
@@ -157,69 +146,71 @@ package object mod {
   type NativeUIEvent = typings.std.UIEvent
   type NativeWheelEvent = typings.std.WheelEvent
   type NotExactlyAnyPropertyKeys[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, ExactlyAnyPropertyKeys<T>> */ js.Any
-  type PointerEventHandler[T] = EventHandler[PointerEvent[T]]
+  type PointerEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.PointerEvent[T]]
   /**
     * {@link https://github.com/bvaughn/rfcs/blob/profiler/text/0000-profiler.md#detailed-design | API}
     */
   type ProfilerOnRenderCallback = js.Function7[
-    /* id */ String, 
-    /* phase */ mount | update, 
-    /* actualDuration */ Double, 
-    /* baseDuration */ Double, 
-    /* startTime */ Double, 
-    /* commitTime */ Double, 
+    /* id */ java.lang.String, 
+    /* phase */ typings.react.reactStrings.mount | typings.react.reactStrings.update, 
+    /* actualDuration */ scala.Double, 
+    /* baseDuration */ scala.Double, 
+    /* startTime */ scala.Double, 
+    /* commitTime */ scala.Double, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any, 
-    Unit
+    scala.Unit
   ]
-  type PropsWithChildren[P] = P with AnonChildren
+  type PropsWithChildren[P] = P with typings.react.AnonChildren
   /** Ensures that the props do not include string ref, which cannot be forwarded */
-  type PropsWithRef[P] = P | (PropsWithoutRef[P] with AnonRefAny)
+  type PropsWithRef[P] = P | (typings.react.mod.PropsWithoutRef[P] with typings.react.AnonRefAny)
   /** Ensures that the props do not include ref at all */
-  type PropsWithoutRef[P] = P | (Pick[
+  type PropsWithoutRef[P] = P | (typings.std.Pick[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
   ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
-  type Provider[T] = ProviderExoticComponent[ProviderProps[T]]
-  type ReactChild = ReactElement | ReactText
-  type ReactComponentElement[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */, P] = ReactElement
-  type ReactEventHandler[T] = EventHandler[SyntheticEvent[T, Event]]
-  type ReactFragment = js.Object | ReactNodeArray
+  type Provider[T] = typings.react.mod.ProviderExoticComponent[typings.react.mod.ProviderProps[T]]
+  type ReactChild = typings.react.mod.ReactElement | typings.react.mod.ReactText
+  type ReactComponentElement[T /* <: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 175 */ js.Any */, P] = typings.react.mod.ReactElement
+  type ReactEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.SyntheticEvent[T, typings.std.Event]]
+  type ReactFragment = js.Object | typings.react.mod.ReactNodeArray
   // ReactHTML for ReactHTMLElement
   // tslint:disable-next-line:no-empty-interface
-  type ReactHTMLElement[T /* <: HTMLElement */] = DetailedReactHTMLElement[AllHTMLAttributes[T], T]
+  type ReactHTMLElement[T /* <: typings.std.HTMLElement */] = typings.react.mod.DetailedReactHTMLElement[typings.react.mod.AllHTMLAttributes[T], T]
   //
   // Component API
   // ----------------------------------------------------------------------
-  type ReactInstance = (Component[js.Any, js.Object, js.Any]) | Element
-  type ReactManagedAttributes[C, P] = P | (Defaultize[
-    (MergePropTypes[
+  type ReactInstance = (typings.react.mod.Component[js.Any, js.Object, js.Any]) | typings.std.Element
+  type ReactManagedAttributes[C, P] = P | (typings.react.mod.Defaultize[
+    (typings.react.mod.MergePropTypes[
       P, 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
     ]) | P, 
     js.Any
-  ]) | (MergePropTypes[
+  ]) | (typings.react.mod.MergePropTypes[
     P, 
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
   ])
-  type ReactNode = js.UndefOr[ReactChild | ReactFragment | ReactPortal | Boolean]
+  type ReactNode = js.UndefOr[
+    typings.react.mod.ReactChild | typings.react.mod.ReactFragment | typings.react.mod.ReactPortal | scala.Boolean
+  ]
   //
   // React Nodes
   // http://facebook.github.io/react/docs/glossary.html
   // ----------------------------------------------------------------------
-  type ReactText = String | Double
+  type ReactText = java.lang.String | scala.Double
   /**
     * @deprecated Please use `ElementType`
     */
-  type ReactType[P] = ElementType[P]
+  type ReactType[P] = typings.react.mod.ElementType[P]
   // Unlike redux, the actions _can_ be anything
   type Reducer[S, A] = js.Function2[/* prevState */ S, /* action */ A, S]
-  type ReducerAction[R /* <: Reducer[_, _] */] = js.Any
+  type ReducerAction[R /* <: typings.react.mod.Reducer[_, _] */] = js.Any
   // types used to try and prevent the compiler from reducing S
   // to a supertype common with the second argument to useReducer()
-  type ReducerState[R /* <: Reducer[_, _] */] = js.Any
-  type Ref[T] = (js.Function1[/* instance */ T | Null, Unit]) | RefObject[T] | Null
+  type ReducerState[R /* <: typings.react.mod.Reducer[_, _] */] = js.Any
+  type Ref[T] = (js.Function1[/* instance */ T | scala.Null, scala.Unit]) | typings.react.mod.RefObject[T] | scala.Null
   type Requireable[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
   //
   // Class Interfaces
@@ -230,15 +221,15 @@ package object mod {
     *
     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
     */
-  type SFC[P] = FunctionComponent[P]
+  type SFC[P] = typings.react.mod.FunctionComponent[P]
   /**
     * @deprecated Please use `FunctionComponentElement`
     */
-  type SFCElement[P] = FunctionComponentElement[P]
+  type SFCElement[P] = typings.react.mod.FunctionComponentElement[P]
   /**
     * @deprecated Please use `FunctionComponentFactory`
     */
-  type SFCFactory[P] = FunctionComponentFactory[P]
+  type SFCFactory[P] = typings.react.mod.FunctionComponentFactory[P]
   //
   // React Hooks
   // ----------------------------------------------------------------------
@@ -251,7 +242,7 @@ package object mod {
     *
     * @see [React Hooks](https://reactjs.org/docs/hooks-intro.html)
     */
-  type StatelessComponent[P] = FunctionComponent[P]
+  type StatelessComponent[P] = typings.react.mod.FunctionComponent[P]
   /**
     * currentTarget - a reference to the element on which the event listener is registered.
     *
@@ -259,10 +250,10 @@ package object mod {
     * This might be a child element to the element on which the event listener is registered.
     * If you thought this should be `EventTarget & T`, see https://github.com/DefinitelyTyped/DefinitelyTyped/pull/12239
     */
-  type SyntheticEvent[T, E] = BaseSyntheticEvent[E, EventTarget with T, EventTarget]
-  type TouchEventHandler[T] = EventHandler[TouchEvent[T]]
-  type TransitionEventHandler[T] = EventHandler[TransitionEvent[T]]
-  type UIEventHandler[T] = EventHandler[UIEvent[T]]
+  type SyntheticEvent[T, E] = typings.react.mod.BaseSyntheticEvent[E, typings.std.EventTarget with T, typings.std.EventTarget]
+  type TouchEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.TouchEvent[T]]
+  type TransitionEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.TransitionEvent[T]]
+  type UIEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.UIEvent[T]]
   type ValidationMap[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.ValidationMap<T> */ js.Any
   //
   // React.PropTypes
@@ -271,5 +262,5 @@ package object mod {
   type WeakValidationMap[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]:? null extends T[K]? react.react.Validator<T[K] | null | undefined> : undefined extends T[K]? react.react.Validator<T[K] | null | undefined> : react.react.Validator<T[K]>}
     */ typings.react.reactStrings.WeakValidationMap with js.Any
-  type WheelEventHandler[T] = EventHandler[WheelEvent[T]]
+  type WheelEventHandler[T] = typings.react.mod.EventHandler[typings.react.mod.WheelEvent[T]]
 }

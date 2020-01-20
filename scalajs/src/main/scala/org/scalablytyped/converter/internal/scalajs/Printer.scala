@@ -83,8 +83,6 @@ object Printer {
 
       case (ScalaOutput.PackageObject, members) =>
         reg.write(targetFolder / "package.scala") { writer =>
-          val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
-
           packages.dropRight(1) match {
             case IArray.Empty => ()
             case remaining =>
@@ -95,10 +93,7 @@ object Printer {
           writer.println(Imports)
           writer.println("")
           writer.println("package object " + formatName(tree.name) + " {")
-          imports.foreach(i => writer.println(s"  import ${formatQN(i.imported)}"))
-          if (imports.nonEmpty)
-            writer.println("")
-          shortenedMembers foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 2)
+          members foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 2)
           writer.println("}")
         }
     }

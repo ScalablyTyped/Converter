@@ -5,18 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object JSX {
-  import slinky.core.facade.ReactElement
-  import typingsSlinky.react.mod.Attributes
-  import typingsSlinky.react.mod.ClassAttributes
-  import typingsSlinky.react.mod.ReactManagedAttributes
-
   // tslint:disable-next-line:no-empty-interface
-  type Element = ReactElement
+  type Element = slinky.core.facade.ReactElement
   // tslint:disable-next-line:no-empty-interface
-  type IntrinsicAttributes = Attributes
+  type IntrinsicAttributes = typingsSlinky.react.mod.Attributes
   // tslint:disable-next-line:no-empty-interface
-  type IntrinsicClassAttributes[T] = ClassAttributes[T]
+  type IntrinsicClassAttributes[T] = typingsSlinky.react.mod.ClassAttributes[T]
   // We can't recurse forever because `type` can't be self-referential;
   // let's assume it's reasonable to do a single React.lazy() around a single React.memo() / vice-versa
-  type LibraryManagedAttributes[C, P] = ReactManagedAttributes[js.Any | C, P]
+  type LibraryManagedAttributes[C, P] = typingsSlinky.react.mod.ReactManagedAttributes[js.Any | C, P]
 }

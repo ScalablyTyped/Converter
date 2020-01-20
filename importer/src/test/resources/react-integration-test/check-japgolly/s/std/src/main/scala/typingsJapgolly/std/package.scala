@@ -5,8 +5,6 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object std {
-  import org.scalablytyped.runtime.StringDictionary
-
   type AnimationEvent = org.scalajs.dom.raw.Event
   type ClipboardEvent = org.scalajs.dom.raw.Event
   type CompositionEvent = org.scalajs.dom.raw.Event
@@ -81,7 +79,7 @@ package object std {
   /**
     * From T pick a set of properties K
     */
-  type Pick[T, K /* <: String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
+  type Pick[T, K /* <: java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ P in K ]: T[P]}
     */ typingsJapgolly.std.stdStrings.Pick with T
   type PointerEvent = org.scalajs.dom.raw.Event
@@ -94,7 +92,7 @@ package object std {
   /**
     * Construct a type with a set of properties K of type T
     */
-  type Record[K /* <: String */, T] = StringDictionary[K]
+  type Record[K /* <: java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[K]
   type SVGCircleElement = org.scalajs.dom.raw.SVGElement
   type SVGClipPathElement = org.scalajs.dom.raw.SVGElement
   type SVGDefsElement = org.scalajs.dom.raw.SVGElement

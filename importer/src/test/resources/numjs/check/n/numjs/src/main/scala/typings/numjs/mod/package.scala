@@ -5,8 +5,5 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object mod {
-  import typings.ndarray.mod.Data
-  import typings.ndarray.mod.DataType
-
-  type NdType[T] = DataType | Data[T]
+  type NdType[T] = typings.ndarray.mod.DataType | typings.ndarray.mod.Data[T]
 }

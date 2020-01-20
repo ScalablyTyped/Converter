@@ -5,18 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object genericMod {
-  import typings.react.mod.ReactElement
-  import typings.react.mod.ReactNode
-  import typings.react.mod.ReactNodeArray
-  import typings.react.mod.ReactType
-
-  type SemanticShorthandCollection[TProps] = js.Array[SemanticShorthandItem[TProps]]
-  type SemanticShorthandContent = ReactNode
-  type SemanticShorthandItem[TProps] = ReactNode | TProps | SemanticShorthandItemFunc[TProps]
+  type SemanticShorthandCollection[TProps] = js.Array[typings.semanticUiReact.genericMod.SemanticShorthandItem[TProps]]
+  type SemanticShorthandContent = typings.react.mod.ReactNode
+  type SemanticShorthandItem[TProps] = typings.react.mod.ReactNode | TProps | typings.semanticUiReact.genericMod.SemanticShorthandItemFunc[TProps]
   type SemanticShorthandItemFunc[TProps] = js.Function3[
-    /* component */ ReactType[TProps], 
+    /* component */ typings.react.mod.ReactType[TProps], 
     /* props */ TProps, 
-    /* children */ js.UndefOr[ReactNode | ReactNodeArray], 
-    ReactElement | Null
+    /* children */ js.UndefOr[typings.react.mod.ReactNode | typings.react.mod.ReactNodeArray], 
+    typings.react.mod.ReactElement | scala.Null
   ]
 }

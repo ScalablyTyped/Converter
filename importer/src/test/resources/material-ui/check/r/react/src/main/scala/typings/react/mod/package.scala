@@ -6,8 +6,8 @@ import scala.scalajs.js.annotation._
 
 package object mod {
   type ComponentState = js.Object
-  type Key = String | Double
-  type ReactNode = js.UndefOr[String | Double | Boolean]
-  type SFC[P] = StatelessComponent[P]
-  type SVGAttributes[T] = DOMAttributes[T]
+  type Key = java.lang.String | scala.Double
+  type ReactNode = js.UndefOr[java.lang.String | scala.Double | scala.Boolean]
+  type SFC[P] = typings.react.mod.StatelessComponent[P]
+  type SVGAttributes[T] = typings.react.mod.DOMAttributes[T]
 }

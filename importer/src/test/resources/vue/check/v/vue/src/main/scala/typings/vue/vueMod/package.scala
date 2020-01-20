@@ -5,6 +5,8 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object vueMod {
-  type CombinedVueInstance[Instance /* <: Vue */, Data, Methods, Computed, Props] = Data with Methods with Computed with Props with Instance
-  type ExtendedVue[Instance /* <: Vue */, Data, Methods, Computed, Props] = VueConstructor[(CombinedVueInstance[Instance, Data, Methods, Computed, Props]) with Vue]
+  type CombinedVueInstance[Instance /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = Data with Methods with Computed with Props with Instance
+  type ExtendedVue[Instance /* <: typings.vue.vueMod.Vue */, Data, Methods, Computed, Props] = typings.vue.vueMod.VueConstructor[
+    (typings.vue.vueMod.CombinedVueInstance[Instance, Data, Methods, Computed, Props]) with typings.vue.vueMod.Vue
+  ]
 }

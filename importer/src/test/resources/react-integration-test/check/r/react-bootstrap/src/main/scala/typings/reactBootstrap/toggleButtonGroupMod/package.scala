@@ -5,13 +5,11 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 package object toggleButtonGroupMod {
-  import typings.react.mod.HTMLProps
-  import typings.reactBootstrap.buttonGroupMod.ButtonGroupProps
-  import typings.reactBootstrap.mod.Omit
-  import typings.reactBootstrap.reactBootstrapStrings.`type`
-  import typings.reactBootstrap.reactBootstrapStrings.defaultValue
-  import typings.reactBootstrap.reactBootstrapStrings.onChange
-  import typings.reactBootstrap.reactBootstrapStrings.value
-
-  type ToggleButtonGroupProps = BaseProps with (RadioProps | CheckboxProps) with (Omit[ButtonGroupProps, onChange]) with (Omit[HTMLProps[ToggleButtonGroup], defaultValue | `type` | value | onChange])
+  type ToggleButtonGroupProps = typings.reactBootstrap.toggleButtonGroupMod.BaseProps with (typings.reactBootstrap.toggleButtonGroupMod.RadioProps | typings.reactBootstrap.toggleButtonGroupMod.CheckboxProps) with (typings.reactBootstrap.mod.Omit[
+    typings.reactBootstrap.buttonGroupMod.ButtonGroupProps, 
+    typings.reactBootstrap.reactBootstrapStrings.onChange
+  ]) with (typings.reactBootstrap.mod.Omit[
+    typings.react.mod.HTMLProps[typings.reactBootstrap.toggleButtonGroupMod.ToggleButtonGroup], 
+    typings.reactBootstrap.reactBootstrapStrings.defaultValue | typings.reactBootstrap.reactBootstrapStrings.`type` | typings.reactBootstrap.reactBootstrapStrings.value | typings.reactBootstrap.reactBootstrapStrings.onChange
+  ])
 }

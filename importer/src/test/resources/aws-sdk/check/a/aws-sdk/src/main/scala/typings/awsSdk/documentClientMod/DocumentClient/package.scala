@@ -11,5 +11,5 @@ package object DocumentClient {
     - typings.awsSdk.awsSdkStrings.DELETE
     - java.lang.String
   */
-  type AttributeAction = _AttributeAction | String
+  type AttributeAction = typings.awsSdk.documentClientMod.DocumentClient._AttributeAction | java.lang.String
 }
