@@ -34,7 +34,7 @@ object BintrayCleanup extends App {
             if (!name.startsWith("sbt-")) { // leave old versions of plugin
               val Pkg = repo.get(name)
               Pkg().foreach { pkg =>
-                pkg.versions.drop(5).foreach { d =>
+                pkg.versions.drop(4).foreach { d =>
                   Pkg.version(d).delete().foreach {
                     case Message(msg) =>
                       deleted.increment()
