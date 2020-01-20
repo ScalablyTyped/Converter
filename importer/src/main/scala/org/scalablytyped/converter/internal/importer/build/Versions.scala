@@ -4,9 +4,9 @@ package importer.build
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 object Versions {
-  val sbtVersion = "1.3.3"
+  val sbtVersion = "1.3.7"
 
-  object `scala 2.12 with scala.js 0.6` extends Versions {
+  object current extends Versions {
     val scalaOrganization   = "org.scala-lang"
     val scalaVersion        = "2.12.10"
     val binVersion          = "2.12"
@@ -16,13 +16,13 @@ object Versions {
     val scalacOptions       = List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
   }
 
-  object `scala 2.13 with scala.js 1` extends Versions {
+  object next extends Versions {
     val scalaOrganization   = "org.scala-lang"
-    val scalaVersion        = "2.13.0"
+    val scalaVersion        = "2.13.1"
     val binVersion          = "2.13"
     val scalaJsOrganization = "org.scala-js"
-    val scalaJsVersion      = "1.0.0-RC1"
-    val scalaJsBinVersion   = "1.0.0-RC1"
+    val scalaJsVersion      = "1.0.0-RC2"
+    val scalaJsBinVersion   = "1.0.0-RC2"
     val scalacOptions       = List("-g:notailcalls")
   }
 }
