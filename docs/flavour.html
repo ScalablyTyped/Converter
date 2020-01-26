@@ -1,1 +1,468 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Flavour · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="The official website of the ScalablyTyped project"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Flavour · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="The official website of the ScalablyTyped project"/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Flavour</h1></header><article><div><span></span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Docs</h5><a href="/docs/en/doc1.html">Getting Started (or other categories)</a><a href="/docs/en/doc2.html">Guides (or other categories)</a><a href="/docs/en/doc3.html">API Reference (or other categories)</a></div><div><h5>Community</h5><a href="/en/users.html">User Showcase</a><a href="https://stackoverflow.com/questions/tagged/" target="_blank" rel="noreferrer noopener">Stack Overflow</a><a href="https://discordapp.com/">Project Chat</a><a href="https://twitter.com/" target="_blank" rel="noreferrer noopener">Twitter</a></div><div><h5>More</h5><a href="/blog">Blog</a><a href="https://github.com/">GitHub</a><a class="github-button" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><a href="https://opensource.facebook.com/" target="_blank" rel="noreferrer noopener" class="fbOpenSource"><img src="/img/oss_logo.png" alt="Facebook Open Source" width="170" height="45"/></a><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Flavour · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="ScalablyTyped flavours are so far used for interop with react."/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Flavour · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="ScalablyTyped flavours are so far used for interop with react."/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>ScalablyTyped</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">ScalablyTyped<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/readme">The Javascript ecosystem for Scala.js!</a></li><li class="navListItem"><a class="navItem" href="/docs/release-announcement">Beta release announcement!</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin">Getting started - SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/flavour">Flavour</a></li><li class="navListItem"><a class="navItem" href="/docs/encoding">Anticipated questions about encoding</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Flavour</h1></header><article><div><span><p>ScalablyTyped flavours are so far used for interop with react.</p>
+<p>You specify which one you want like this:</p>
+<pre><code class="hljs css language-scala">project.settings(
+ <span class="hljs-comment">// for Slinky web projects</span>
+  <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Slinky</span>,
+  <span class="hljs-comment">// for Slinky native projects</span>
+  <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">SlinkyNative</span>,
+  <span class="hljs-comment">// for scalajs-react projects</span>
+  <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Japgolly</span>
+)
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="how"></a><a href="#how" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How?</h2>
+<p>They all work quite similarly:</p>
+<ul>
+<li>Replace all possible type references from generated types to types from scala-js-dom and the relevant React wrapper</li>
+<li>Identify all react components</li>
+<li>Generate a scala package with all the necessary boilerplate to make usage smooth.</li>
+</ul>
+<h2><a class="anchor" aria-hidden="true" id="example"></a><a href="#example" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Example</h2>
+<p>Let's have a look at an example, react-slick. This is a carousel library with one component and a pretty complicated interface.</p>
+<p>The entire typescript definition looks like this:</p>
+<pre><code class="hljs css language-typescript"><span class="hljs-comment">// Type definitions for react-slick 0.23</span>
+<span class="hljs-comment">// Project: https://github.com/akiran/react-slick</span>
+<span class="hljs-comment">// Definitions by: Andrey Balokha &lt;https://github.com/andrewBalekha&gt;</span>
+<span class="hljs-comment">//                 Giedrius Grabauskas &lt;https://github.com/GiedriusGrabauskas&gt;</span>
+<span class="hljs-comment">//                 Andrew Makarov &lt;https://github.com/r3nya&gt;</span>
+<span class="hljs-comment">//                 Shannor Trotty &lt;https://github.com/Shannor&gt;</span>
+<span class="hljs-comment">// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped</span>
+<span class="hljs-comment">// TypeScript Version: 2.8</span>
+
+<span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">type</span> ComponentConstructor&lt;TProps&gt; =
+    | React.ComponentClass&lt;TProps&gt;
+    | React.StatelessComponent&lt;TProps&gt;;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> CustomArrowProps {
+    className?: <span class="hljs-built_in">string</span>;
+    style?: React.CSSProperties;
+    onClick?: React.MouseEventHandler&lt;<span class="hljs-built_in">any</span>&gt;;
+    currentSlide?: <span class="hljs-built_in">number</span>;
+    slideCount?: <span class="hljs-built_in">number</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> ResponsiveObject {
+    breakpoint: <span class="hljs-built_in">number</span>;
+    settings: <span class="hljs-string">"unslick"</span> | Settings;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> SwipeDirection = <span class="hljs-string">"left"</span> | <span class="hljs-string">"down"</span> | <span class="hljs-string">"right"</span> | <span class="hljs-string">"up"</span> | <span class="hljs-built_in">string</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> LazyLoadTypes = <span class="hljs-string">"ondemand"</span> | <span class="hljs-string">"progressive"</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> Settings {
+    accessibility?: <span class="hljs-built_in">boolean</span>;
+    adaptiveHeight?: <span class="hljs-built_in">boolean</span>;
+    afterChange?(currentSlide: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;
+    appendDots?(dots: React.ReactNode): JSX.Element;
+    arrows?: <span class="hljs-built_in">boolean</span>;
+    asNavFor?: Slider;
+    autoplaySpeed?: <span class="hljs-built_in">number</span>;
+    autoplay?: <span class="hljs-built_in">boolean</span>;
+    beforeChange?(currentSlide: <span class="hljs-built_in">number</span>, nextSlide: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span>;
+    centerMode?: <span class="hljs-built_in">boolean</span>;
+    centerPadding?: <span class="hljs-built_in">string</span>;
+    className?: <span class="hljs-built_in">string</span>;
+    cssEase?: <span class="hljs-built_in">string</span>;
+    customPaging?(index: <span class="hljs-built_in">number</span>): JSX.Element;
+    dotsClass?: <span class="hljs-built_in">string</span>;
+    dots?: <span class="hljs-built_in">boolean</span>;
+    draggable?: <span class="hljs-built_in">boolean</span>;
+    easing?: <span class="hljs-built_in">string</span>;
+    edgeFriction?: <span class="hljs-built_in">number</span>;
+    fade?: <span class="hljs-built_in">boolean</span>;
+    focusOnSelect?: <span class="hljs-built_in">boolean</span>;
+    infinite?: <span class="hljs-built_in">boolean</span>;
+    initialSlide?: <span class="hljs-built_in">number</span>;
+    lazyLoad?: LazyLoadTypes;
+    nextArrow?: JSX.Element;
+    onEdge?(swipeDirection: SwipeDirection): <span class="hljs-built_in">void</span>;
+    onInit?(): <span class="hljs-built_in">void</span>;
+    onLazyLoad?(slidesToLoad: <span class="hljs-built_in">number</span>[]): <span class="hljs-built_in">void</span>;
+    onReInit?(): <span class="hljs-built_in">void</span>;
+    onSwipe?(swipeDirection: SwipeDirection): <span class="hljs-built_in">void</span>;
+    pauseOnDotsHover?: <span class="hljs-built_in">boolean</span>;
+    pauseOnFocus?: <span class="hljs-built_in">boolean</span>;
+    pauseOnHover?: <span class="hljs-built_in">boolean</span>;
+    prevArrow?: JSX.Element;
+    responsive?: ResponsiveObject[];
+    rows?: <span class="hljs-built_in">number</span>;
+    rtl?: <span class="hljs-built_in">boolean</span>;
+    slide?: <span class="hljs-built_in">string</span>;
+    slidesPerRow?: <span class="hljs-built_in">number</span>;
+    slidesToScroll?: <span class="hljs-built_in">number</span>;
+    slidesToShow?: <span class="hljs-built_in">number</span>;
+    speed?: <span class="hljs-built_in">number</span>;
+    swipeToSlide?: <span class="hljs-built_in">boolean</span>;
+    swipe?: <span class="hljs-built_in">boolean</span>;
+    swipeEvent?(swipeDirection: SwipeDirection): <span class="hljs-built_in">void</span>;
+    touchMove?: <span class="hljs-built_in">boolean</span>;
+    touchThreshold?: <span class="hljs-built_in">number</span>;
+    useCSS?: <span class="hljs-built_in">boolean</span>;
+    useTransform?: <span class="hljs-built_in">boolean</span>;
+    variableWidth?: <span class="hljs-built_in">boolean</span>;
+    vertical?: <span class="hljs-built_in">boolean</span>;
+    verticalSwiping?: <span class="hljs-built_in">boolean</span>;
+    waitForAnimate?: <span class="hljs-built_in">boolean</span>;
+}
+
+<span class="hljs-keyword">declare</span> <span class="hljs-keyword">class</span> Slider <span class="hljs-keyword">extends</span> React.Component&lt;Settings, never&gt; {
+    slickNext(): <span class="hljs-built_in">void</span>;
+    slickPause(): <span class="hljs-built_in">void</span>;
+    slickPlay(): <span class="hljs-built_in">void</span>;
+    slickPrev(): <span class="hljs-built_in">void</span>;
+    slickGoTo(slideNumber: <span class="hljs-built_in">number</span>, dontAnimate?: <span class="hljs-built_in">boolean</span>): <span class="hljs-built_in">void</span>;
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Slider;
+
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="slinky"></a><a href="#slinky" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Slinky</h2>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">package</span> typings.reactSlick.components
+
+<span class="hljs-keyword">import</span> org.scalablytyped.runtime.<span class="hljs-type">StringDictionary</span>
+<span class="hljs-keyword">import</span> slinky.core.<span class="hljs-type">BuildingComponent</span>
+<span class="hljs-keyword">import</span> slinky.core.<span class="hljs-type">ExternalComponentWithAttributesWithRefType</span>
+<span class="hljs-keyword">import</span> slinky.core.<span class="hljs-type">TagMod</span>
+<span class="hljs-keyword">import</span> slinky.web.html.`*`.tag
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">LazyLoadTypes</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">ResponsiveObject</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">Settings</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">Slider</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">SwipeDirection</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-keyword">default</span>
+<span class="hljs-keyword">import</span> scala.scalajs.js
+<span class="hljs-keyword">import</span> scala.scalajs.js.`|`
+<span class="hljs-keyword">import</span> scala.scalajs.js.annotation._
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">ReactSlick</span></span>
+  <span class="hljs-keyword">extends</span> <span class="hljs-type">ExternalComponentWithAttributesWithRefType</span>[tag<span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">default</span>] </span>{
+  <span class="hljs-meta">@JSImport</span>(<span class="hljs-string">"react-slick"</span>, <span class="hljs-type">JSImport</span>.<span class="hljs-type">Default</span>)
+  <span class="hljs-meta">@js</span>.native
+  <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">componentImport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span></span>
+  
+  <span class="hljs-keyword">override</span> <span class="hljs-keyword">val</span> component: <span class="hljs-type">String</span> | js.<span class="hljs-type">Object</span> = <span class="hljs-keyword">this</span>.componentImport
+  <span class="hljs-comment">/* The following DOM/SVG props were specified: className, draggable, rows */</span>
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(
+    accessibility: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    adaptiveHeight: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    afterChange: <span class="hljs-comment">/* currentSlide */</span> <span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    appendDots: <span class="hljs-comment">/* dots */</span> <span class="hljs-type">TagMod</span>[<span class="hljs-type">Any</span>] =&gt; typings.react.mod._Global_.<span class="hljs-type">JSX</span>.<span class="hljs-type">Element</span> = <span class="hljs-literal">null</span>,
+    arrows: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    asNavFor: <span class="hljs-type">Slider</span> = <span class="hljs-literal">null</span>,
+    autoplay: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    autoplaySpeed: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    beforeChange: (<span class="hljs-comment">/* currentSlide */</span> <span class="hljs-type">Double</span>, <span class="hljs-comment">/* nextSlide */</span> <span class="hljs-type">Double</span>) =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    centerMode: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    centerPadding: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    cssEase: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    customPaging: <span class="hljs-comment">/* index */</span> <span class="hljs-type">Double</span> =&gt; typings.react.mod._Global_.<span class="hljs-type">JSX</span>.<span class="hljs-type">Element</span> = <span class="hljs-literal">null</span>,
+    dots: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    dotsClass: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    easing: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    edgeFriction: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    fade: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    focusOnSelect: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    infinite: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    initialSlide: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    lazyLoad: <span class="hljs-type">LazyLoadTypes</span> = <span class="hljs-literal">null</span>,
+    nextArrow: typings.react.mod._Global_.<span class="hljs-type">JSX</span>.<span class="hljs-type">Element</span> = <span class="hljs-literal">null</span>,
+    onEdge: <span class="hljs-comment">/* swipeDirection */</span> <span class="hljs-type">SwipeDirection</span> =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    onInit: () =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    onLazyLoad: <span class="hljs-comment">/* slidesToLoad */</span> js.<span class="hljs-type">Array</span>[<span class="hljs-type">Double</span>] =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    onReInit: () =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    onSwipe: <span class="hljs-comment">/* swipeDirection */</span> <span class="hljs-type">SwipeDirection</span> =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    pauseOnDotsHover: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    pauseOnFocus: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    pauseOnHover: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    prevArrow: typings.react.mod._Global_.<span class="hljs-type">JSX</span>.<span class="hljs-type">Element</span> = <span class="hljs-literal">null</span>,
+    responsive: js.<span class="hljs-type">Array</span>[<span class="hljs-type">ResponsiveObject</span>] = <span class="hljs-literal">null</span>,
+    rtl: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    slide: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    slidesPerRow: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    slidesToScroll: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    slidesToShow: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    speed: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    swipe: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    swipeEvent: <span class="hljs-comment">/* swipeDirection */</span> <span class="hljs-type">SwipeDirection</span> =&gt; <span class="hljs-type">Unit</span> = <span class="hljs-literal">null</span>,
+    swipeToSlide: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    touchMove: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    touchThreshold: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    useCSS: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    useTransform: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    variableWidth: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    vertical: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    verticalSwiping: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    waitForAnimate: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    _overrides: <span class="hljs-type">StringDictionary</span>[js.<span class="hljs-type">Any</span>] = <span class="hljs-literal">null</span>
+  ): <span class="hljs-type">BuildingComponent</span>[tag<span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">default</span>] </span>= {
+    <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal()
+    <span class="hljs-keyword">if</span> (!js.isUndefined(accessibility)) __obj.updateDynamic(<span class="hljs-string">"accessibility"</span>)(accessibility.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(adaptiveHeight)) __obj.updateDynamic(<span class="hljs-string">"adaptiveHeight"</span>)(adaptiveHeight.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (afterChange != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"afterChange"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(afterChange))
+    <span class="hljs-keyword">if</span> (appendDots != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"appendDots"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(appendDots))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(arrows)) __obj.updateDynamic(<span class="hljs-string">"arrows"</span>)(arrows.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (asNavFor != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"asNavFor"</span>)(asNavFor.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(autoplay)) __obj.updateDynamic(<span class="hljs-string">"autoplay"</span>)(autoplay.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (autoplaySpeed != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"autoplaySpeed"</span>)(autoplaySpeed.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (beforeChange != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"beforeChange"</span>)(js.<span class="hljs-type">Any</span>.fromFunction2(beforeChange))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(centerMode)) __obj.updateDynamic(<span class="hljs-string">"centerMode"</span>)(centerMode.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (centerPadding != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"centerPadding"</span>)(centerPadding.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (cssEase != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"cssEase"</span>)(cssEase.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (customPaging != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"customPaging"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(customPaging))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(dots)) __obj.updateDynamic(<span class="hljs-string">"dots"</span>)(dots.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (dotsClass != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"dotsClass"</span>)(dotsClass.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (easing != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"easing"</span>)(easing.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (edgeFriction != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"edgeFriction"</span>)(edgeFriction.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(fade)) __obj.updateDynamic(<span class="hljs-string">"fade"</span>)(fade.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(focusOnSelect)) __obj.updateDynamic(<span class="hljs-string">"focusOnSelect"</span>)(focusOnSelect.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(infinite)) __obj.updateDynamic(<span class="hljs-string">"infinite"</span>)(infinite.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (initialSlide != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"initialSlide"</span>)(initialSlide.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (lazyLoad != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"lazyLoad"</span>)(lazyLoad.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (nextArrow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"nextArrow"</span>)(nextArrow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (onEdge != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onEdge"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(onEdge))
+    <span class="hljs-keyword">if</span> (onInit != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onInit"</span>)(js.<span class="hljs-type">Any</span>.fromFunction0(onInit))
+    <span class="hljs-keyword">if</span> (onLazyLoad != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onLazyLoad"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(onLazyLoad))
+    <span class="hljs-keyword">if</span> (onReInit != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onReInit"</span>)(js.<span class="hljs-type">Any</span>.fromFunction0(onReInit))
+    <span class="hljs-keyword">if</span> (onSwipe != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onSwipe"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(onSwipe))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(pauseOnDotsHover)) __obj.updateDynamic(<span class="hljs-string">"pauseOnDotsHover"</span>)(pauseOnDotsHover.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(pauseOnFocus)) __obj.updateDynamic(<span class="hljs-string">"pauseOnFocus"</span>)(pauseOnFocus.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(pauseOnHover)) __obj.updateDynamic(<span class="hljs-string">"pauseOnHover"</span>)(pauseOnHover.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (prevArrow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"prevArrow"</span>)(prevArrow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (responsive != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"responsive"</span>)(responsive.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(rtl)) __obj.updateDynamic(<span class="hljs-string">"rtl"</span>)(rtl.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slide != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slide"</span>)(slide.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slidesPerRow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slidesPerRow"</span>)(slidesPerRow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slidesToScroll != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slidesToScroll"</span>)(slidesToScroll.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slidesToShow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slidesToShow"</span>)(slidesToShow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (speed != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"speed"</span>)(speed.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(swipe)) __obj.updateDynamic(<span class="hljs-string">"swipe"</span>)(swipe.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (swipeEvent != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"swipeEvent"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1(swipeEvent))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(swipeToSlide)) __obj.updateDynamic(<span class="hljs-string">"swipeToSlide"</span>)(swipeToSlide.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(touchMove)) __obj.updateDynamic(<span class="hljs-string">"touchMove"</span>)(touchMove.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (touchThreshold != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"touchThreshold"</span>)(touchThreshold.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(useCSS)) __obj.updateDynamic(<span class="hljs-string">"useCSS"</span>)(useCSS.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(useTransform)) __obj.updateDynamic(<span class="hljs-string">"useTransform"</span>)(useTransform.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(variableWidth)) __obj.updateDynamic(<span class="hljs-string">"variableWidth"</span>)(variableWidth.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(vertical)) __obj.updateDynamic(<span class="hljs-string">"vertical"</span>)(vertical.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(verticalSwiping)) __obj.updateDynamic(<span class="hljs-string">"verticalSwiping"</span>)(verticalSwiping.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(waitForAnimate)) __obj.updateDynamic(<span class="hljs-string">"waitForAnimate"</span>)(waitForAnimate.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (_overrides != <span class="hljs-literal">null</span>) js.<span class="hljs-type">Dynamic</span>.global.<span class="hljs-type">Object</span>.assign(__obj, _overrides)
+    <span class="hljs-keyword">super</span>.apply(__obj.asInstanceOf[<span class="hljs-type">Props</span>])
+  }
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(mods: <span class="hljs-type">TagMod</span>[tag<span class="hljs-class">.<span class="hljs-keyword">type</span>]<span class="hljs-title">*</span>)</span>: <span class="hljs-type">BuildingComponent</span>[tag<span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">default</span>] </span>= <span class="hljs-keyword">new</span> slinky.core.<span class="hljs-type">BuildingComponent</span>[slinky.web.html.`*`.tag<span class="hljs-class">.<span class="hljs-keyword">type</span>, <span class="hljs-title">typings</span>.<span class="hljs-title">reactSlick</span>.<span class="hljs-title">mod</span>.<span class="hljs-title">default</span>](<span class="hljs-params">js.<span class="hljs-type">Array</span>(component.asInstanceOf[js.<span class="hljs-type">Any</span>], js.<span class="hljs-type">Dictionary</span>.empty</span>)).<span class="hljs-title">apply</span>(<span class="hljs-params">mods: _*</span>)</span>
+  <span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Props</span> </span>= <span class="hljs-type">Settings</span>
+}
+
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="scalajs-react"></a><a href="#scalajs-react" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scalajs-react</h2>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">package</span> typings.reactSlick.components
+
+<span class="hljs-keyword">import</span> japgolly.scalajs.react.<span class="hljs-type">Callback</span>
+<span class="hljs-keyword">import</span> japgolly.scalajs.react.<span class="hljs-type">CallbackTo</span>
+<span class="hljs-keyword">import</span> japgolly.scalajs.react.<span class="hljs-type">CtorType</span>.<span class="hljs-type">ChildArg</span>
+<span class="hljs-keyword">import</span> japgolly.scalajs.react.<span class="hljs-type">Key</span>
+<span class="hljs-keyword">import</span> japgolly.scalajs.react.component.<span class="hljs-type">JsForwardRef</span>.<span class="hljs-type">UnmountedWithRoot</span>
+<span class="hljs-keyword">import</span> japgolly.scalajs.react.raw.<span class="hljs-type">React</span>.<span class="hljs-type">Node</span>
+<span class="hljs-keyword">import</span> org.scalablytyped.runtime.<span class="hljs-type">StringDictionary</span>
+<span class="hljs-keyword">import</span> typings.react.mod._Global_.<span class="hljs-type">JSX</span>.<span class="hljs-type">Element</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">LazyLoadTypes</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">ResponsiveObject</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">Settings</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">Slider</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-type">SwipeDirection</span>
+<span class="hljs-keyword">import</span> typings.reactSlick.mod.<span class="hljs-keyword">default</span>
+<span class="hljs-keyword">import</span> scala.scalajs.js
+<span class="hljs-keyword">import</span> scala.scalajs.js.`|`
+<span class="hljs-keyword">import</span> scala.scalajs.js.annotation._
+
+<span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">ReactSlick</span> </span>{
+  <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">apply</span></span>(
+    accessibility: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    adaptiveHeight: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    afterChange: <span class="hljs-comment">/* currentSlide */</span> <span class="hljs-type">Double</span> =&gt; <span class="hljs-type">Callback</span> = <span class="hljs-literal">null</span>,
+    appendDots: <span class="hljs-comment">/* dots */</span> <span class="hljs-type">Node</span> =&gt; <span class="hljs-type">CallbackTo</span>[<span class="hljs-type">Element</span>] = <span class="hljs-literal">null</span>,
+    arrows: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    asNavFor: <span class="hljs-type">Slider</span> = <span class="hljs-literal">null</span>,
+    autoplay: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    autoplaySpeed: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    beforeChange: (<span class="hljs-comment">/* currentSlide */</span> <span class="hljs-type">Double</span>, <span class="hljs-comment">/* nextSlide */</span> <span class="hljs-type">Double</span>) =&gt; <span class="hljs-type">Callback</span> = <span class="hljs-literal">null</span>,
+    centerMode: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    centerPadding: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    className: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    cssEase: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    customPaging: <span class="hljs-comment">/* index */</span> <span class="hljs-type">Double</span> =&gt; <span class="hljs-type">CallbackTo</span>[<span class="hljs-type">Element</span>] = <span class="hljs-literal">null</span>,
+    dots: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    dotsClass: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    draggable: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    easing: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    edgeFriction: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    fade: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    focusOnSelect: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    infinite: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    initialSlide: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    lazyLoad: <span class="hljs-type">LazyLoadTypes</span> = <span class="hljs-literal">null</span>,
+    nextArrow: <span class="hljs-type">Element</span> = <span class="hljs-literal">null</span>,
+    onEdge: <span class="hljs-comment">/* swipeDirection */</span> <span class="hljs-type">SwipeDirection</span> =&gt; <span class="hljs-type">Callback</span> = <span class="hljs-literal">null</span>,
+    onInit: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Callback</span>] = js.undefined,
+    onLazyLoad: <span class="hljs-comment">/* slidesToLoad */</span> js.<span class="hljs-type">Array</span>[<span class="hljs-type">Double</span>] =&gt; <span class="hljs-type">Callback</span> = <span class="hljs-literal">null</span>,
+    onReInit: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Callback</span>] = js.undefined,
+    onSwipe: <span class="hljs-comment">/* swipeDirection */</span> <span class="hljs-type">SwipeDirection</span> =&gt; <span class="hljs-type">Callback</span> = <span class="hljs-literal">null</span>,
+    pauseOnDotsHover: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    pauseOnFocus: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    pauseOnHover: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    prevArrow: <span class="hljs-type">Element</span> = <span class="hljs-literal">null</span>,
+    responsive: js.<span class="hljs-type">Array</span>[<span class="hljs-type">ResponsiveObject</span>] = <span class="hljs-literal">null</span>,
+    rows: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    rtl: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    slide: <span class="hljs-type">String</span> = <span class="hljs-literal">null</span>,
+    slidesPerRow: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    slidesToScroll: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    slidesToShow: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    speed: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    swipe: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    swipeEvent: <span class="hljs-comment">/* swipeDirection */</span> <span class="hljs-type">SwipeDirection</span> =&gt; <span class="hljs-type">Callback</span> = <span class="hljs-literal">null</span>,
+    swipeToSlide: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    touchMove: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    touchThreshold: <span class="hljs-type">Int</span> | <span class="hljs-type">Double</span> = <span class="hljs-literal">null</span>,
+    useCSS: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    useTransform: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    variableWidth: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    vertical: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    verticalSwiping: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    waitForAnimate: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Boolean</span>] = js.undefined,
+    key: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Key</span>] = js.undefined,
+    _overrides: <span class="hljs-type">StringDictionary</span>[js.<span class="hljs-type">Any</span>] = <span class="hljs-literal">null</span>
+  )(
+    children: <span class="hljs-type">ChildArg</span>*
+  ): <span class="hljs-type">UnmountedWithRoot</span>[<span class="hljs-type">Settings</span>, <span class="hljs-keyword">default</span>, <span class="hljs-type">Unit</span>, <span class="hljs-type">Settings</span>] = {
+    <span class="hljs-keyword">val</span> __obj = js.<span class="hljs-type">Dynamic</span>.literal()
+  
+      <span class="hljs-keyword">if</span> (!js.isUndefined(accessibility)) __obj.updateDynamic(<span class="hljs-string">"accessibility"</span>)(accessibility.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(adaptiveHeight)) __obj.updateDynamic(<span class="hljs-string">"adaptiveHeight"</span>)(adaptiveHeight.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (afterChange != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"afterChange"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* currentSlide */</span> scala.<span class="hljs-type">Double</span>) =&gt; afterChange(t0).runNow()))
+    <span class="hljs-keyword">if</span> (appendDots != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"appendDots"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* dots */</span> japgolly.scalajs.react.raw.<span class="hljs-type">React</span>.<span class="hljs-type">Node</span>) =&gt; appendDots(t0).runNow()))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(arrows)) __obj.updateDynamic(<span class="hljs-string">"arrows"</span>)(arrows.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (asNavFor != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"asNavFor"</span>)(asNavFor.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(autoplay)) __obj.updateDynamic(<span class="hljs-string">"autoplay"</span>)(autoplay.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (autoplaySpeed != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"autoplaySpeed"</span>)(autoplaySpeed.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (beforeChange != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"beforeChange"</span>)(js.<span class="hljs-type">Any</span>.fromFunction2((t0: <span class="hljs-comment">/* currentSlide */</span> scala.<span class="hljs-type">Double</span>, t1: <span class="hljs-comment">/* nextSlide */</span> scala.<span class="hljs-type">Double</span>) =&gt; beforeChange(t0, t1).runNow()))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(centerMode)) __obj.updateDynamic(<span class="hljs-string">"centerMode"</span>)(centerMode.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (centerPadding != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"centerPadding"</span>)(centerPadding.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (className != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"className"</span>)(className.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (cssEase != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"cssEase"</span>)(cssEase.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (customPaging != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"customPaging"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* index */</span> scala.<span class="hljs-type">Double</span>) =&gt; customPaging(t0).runNow()))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(dots)) __obj.updateDynamic(<span class="hljs-string">"dots"</span>)(dots.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (dotsClass != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"dotsClass"</span>)(dotsClass.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(draggable)) __obj.updateDynamic(<span class="hljs-string">"draggable"</span>)(draggable.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (easing != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"easing"</span>)(easing.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (edgeFriction != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"edgeFriction"</span>)(edgeFriction.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(fade)) __obj.updateDynamic(<span class="hljs-string">"fade"</span>)(fade.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(focusOnSelect)) __obj.updateDynamic(<span class="hljs-string">"focusOnSelect"</span>)(focusOnSelect.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(infinite)) __obj.updateDynamic(<span class="hljs-string">"infinite"</span>)(infinite.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (initialSlide != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"initialSlide"</span>)(initialSlide.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (lazyLoad != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"lazyLoad"</span>)(lazyLoad.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (nextArrow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"nextArrow"</span>)(nextArrow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (onEdge != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onEdge"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* swipeDirection */</span> typings.reactSlick.mod.<span class="hljs-type">SwipeDirection</span>) =&gt; onEdge(t0).runNow()))
+    onInit.foreach(p =&gt; __obj.updateDynamic(<span class="hljs-string">"onInit"</span>)(p.toJsFn))
+    <span class="hljs-keyword">if</span> (onLazyLoad != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onLazyLoad"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* slidesToLoad */</span> js.<span class="hljs-type">Array</span>[scala.<span class="hljs-type">Double</span>]) =&gt; onLazyLoad(t0).runNow()))
+    onReInit.foreach(p =&gt; __obj.updateDynamic(<span class="hljs-string">"onReInit"</span>)(p.toJsFn))
+    <span class="hljs-keyword">if</span> (onSwipe != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"onSwipe"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* swipeDirection */</span> typings.reactSlick.mod.<span class="hljs-type">SwipeDirection</span>) =&gt; onSwipe(t0).runNow()))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(pauseOnDotsHover)) __obj.updateDynamic(<span class="hljs-string">"pauseOnDotsHover"</span>)(pauseOnDotsHover.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(pauseOnFocus)) __obj.updateDynamic(<span class="hljs-string">"pauseOnFocus"</span>)(pauseOnFocus.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(pauseOnHover)) __obj.updateDynamic(<span class="hljs-string">"pauseOnHover"</span>)(pauseOnHover.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (prevArrow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"prevArrow"</span>)(prevArrow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (responsive != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"responsive"</span>)(responsive.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (rows != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"rows"</span>)(rows.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(rtl)) __obj.updateDynamic(<span class="hljs-string">"rtl"</span>)(rtl.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slide != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slide"</span>)(slide.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slidesPerRow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slidesPerRow"</span>)(slidesPerRow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slidesToScroll != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slidesToScroll"</span>)(slidesToScroll.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (slidesToShow != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"slidesToShow"</span>)(slidesToShow.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (speed != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"speed"</span>)(speed.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(swipe)) __obj.updateDynamic(<span class="hljs-string">"swipe"</span>)(swipe.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (swipeEvent != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"swipeEvent"</span>)(js.<span class="hljs-type">Any</span>.fromFunction1((t0: <span class="hljs-comment">/* swipeDirection */</span> typings.reactSlick.mod.<span class="hljs-type">SwipeDirection</span>) =&gt; swipeEvent(t0).runNow()))
+    <span class="hljs-keyword">if</span> (!js.isUndefined(swipeToSlide)) __obj.updateDynamic(<span class="hljs-string">"swipeToSlide"</span>)(swipeToSlide.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(touchMove)) __obj.updateDynamic(<span class="hljs-string">"touchMove"</span>)(touchMove.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (touchThreshold != <span class="hljs-literal">null</span>) __obj.updateDynamic(<span class="hljs-string">"touchThreshold"</span>)(touchThreshold.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(useCSS)) __obj.updateDynamic(<span class="hljs-string">"useCSS"</span>)(useCSS.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(useTransform)) __obj.updateDynamic(<span class="hljs-string">"useTransform"</span>)(useTransform.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(variableWidth)) __obj.updateDynamic(<span class="hljs-string">"variableWidth"</span>)(variableWidth.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(vertical)) __obj.updateDynamic(<span class="hljs-string">"vertical"</span>)(vertical.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(verticalSwiping)) __obj.updateDynamic(<span class="hljs-string">"verticalSwiping"</span>)(verticalSwiping.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    <span class="hljs-keyword">if</span> (!js.isUndefined(waitForAnimate)) __obj.updateDynamic(<span class="hljs-string">"waitForAnimate"</span>)(waitForAnimate.asInstanceOf[js.<span class="hljs-type">Any</span>])
+    key.foreach(k =&gt; __obj.updateDynamic(<span class="hljs-string">"key"</span>)(k.asInstanceOf[js.<span class="hljs-type">Any</span>]))
+    <span class="hljs-keyword">if</span> (_overrides != <span class="hljs-literal">null</span>) js.<span class="hljs-type">Dynamic</span>.global.<span class="hljs-type">Object</span>.assign(__obj, _overrides)
+  
+    <span class="hljs-keyword">val</span> f = japgolly.scalajs.react.<span class="hljs-type">JsForwardRefComponent</span>.force[
+  typings.reactSlick.mod.<span class="hljs-type">Settings</span>, 
+  japgolly.scalajs.react.<span class="hljs-type">Children</span>.<span class="hljs-type">Varargs</span>, 
+  typings.reactSlick.mod.<span class="hljs-keyword">default</span>](<span class="hljs-keyword">this</span>.componentImport)
+    f(__obj.asInstanceOf[typings.reactSlick.mod.<span class="hljs-type">Settings</span>])(children: _*)
+  }
+  <span class="hljs-meta">@JSImport</span>(<span class="hljs-string">"react-slick"</span>, <span class="hljs-type">JSImport</span>.<span class="hljs-type">Default</span>)
+  <span class="hljs-meta">@js</span>.native
+  <span class="hljs-class"><span class="hljs-keyword">object</span> <span class="hljs-title">componentImport</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span></span>
+  
+}
+
+
+</code></pre>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/plugin-no-bundler"><span class="arrow-prev">← </span><span>SBT plugin without scalajs-bundler</span></a><a class="docs-next button" href="/docs/encoding"><span>Anticipated questions about encoding</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#how">How?</a></li><li><a href="#example">Example</a></li><li><a href="#slinky">Slinky</a></li><li><a href="#scalajs-react">Scalajs-react</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/oyvindberg/ScalablyTypedConverter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
