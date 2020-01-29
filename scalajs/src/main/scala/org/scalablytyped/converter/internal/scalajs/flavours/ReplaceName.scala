@@ -16,8 +16,8 @@ class ReplaceName(from: Name, to: Name) extends TreeTransformation {
     Comments(comments.cs map {
       case CommentData(data) =>
         CommentData(data match {
-          case KeepOnlyReferenced.Keep(related)     => KeepOnlyReferenced.Keep(related map replaceTypeRef)
-          case KeepOnlyReferenced.Related(related)  => KeepOnlyReferenced.Related(related map replaceTypeRef)
+          case Minimization.Keep(related)           => Minimization.Keep(related map replaceTypeRef)
+          case Minimization.Related(related)        => Minimization.Related(related map replaceTypeRef)
           case UnionToInheritance.WasUnion(related) => UnionToInheritance.WasUnion(related map replaceTypeRef)
           case other                                => other
         })

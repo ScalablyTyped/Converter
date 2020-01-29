@@ -5,13 +5,18 @@ import com.olvind.logging.Logger
 
 import scala.collection.mutable
 
-object KeepOnlyReferenced {
+object Minimization {
+
   final case class Keep(related:    IArray[TypeRef]) extends Comment.Data
   final case class Related(related: IArray[TypeRef]) extends Comment.Data
 
-  def findReferences(globalScope: TreeScope, trees: IArray[(Boolean, PackageTree)]): Index = {
-    val allKeptReferences: IArray[QualifiedName] =
-      trees.flatMap {
+  def findReferences(
+      globalScope:  TreeScope,
+      minimizeKeep: IArray[QualifiedName],
+      trees:        IArray[(Boolean, PackageTree)],
+  ): KeepIndex = {
+    val allKeptReferences: IArray[QualifiedName] = {
+      val found = trees.flatMap {
         case (true, tree) =>
           TreeTraverse.collect(tree) { case KeptRefs(refs) => refs }.flatten.distinct
         case (false, tree) =>
@@ -22,7 +27,10 @@ object KeepOnlyReferenced {
             }
             .flatten
             .distinct
-      }.distinct
+      }
+
+      (found ++ minimizeKeep).distinct
+    }
 
 //    val inheritanceTree: Map[QualifiedName, Traversable[QualifiedName]] = {
 //      val superSub = trees.flatMap {
@@ -77,10 +85,10 @@ object KeepOnlyReferenced {
   /* some refs we only keep when they refer to objects/packages */
   type OnlyStatic = Boolean
 
-  type Index = Map[QualifiedName, OnlyStatic]
+  type KeepIndex = Map[QualifiedName, OnlyStatic]
 
   object Index {
-    def apply(keep: IArray[QualifiedName]): Index = {
+    def apply(keep: IArray[QualifiedName]): KeepIndex = {
       val ret = mutable.Map.empty[QualifiedName, OnlyStatic]
       keep.foreach(k => ret(k) = false)
 
@@ -115,10 +123,10 @@ object KeepOnlyReferenced {
       }
   }
 
-  def apply(globalScope: TreeScope, keep: Index, logger: Logger[Unit], lib: PackageTree): PackageTree =
+  def apply(globalScope: TreeScope, keep: KeepIndex, logger: Logger[Unit], lib: PackageTree): PackageTree =
     new FilteringTransformation(keep).visitPackageTree(globalScope)(lib)
 
-  private final class FilteringTransformation(keep: Index) extends TreeTransformation {
+  private final class FilteringTransformation(keep: KeepIndex) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
       if (s.comments.extract { case Keep(_) => () }.nonEmpty) s
       else

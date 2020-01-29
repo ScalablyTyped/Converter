@@ -2,7 +2,7 @@ import scala.sys.process.stringToProcess
 
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
-  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
+  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode, Deps.fst) ++ Deps.circe)
 
 lazy val logging = project
   .configure(baseSettings, publicationSettings)
@@ -38,7 +38,7 @@ lazy val `importer-portable` = project
     buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
-      "version" -> version.value
+      "version" -> version.value,
     ),
   )
 
@@ -127,7 +127,7 @@ lazy val publicationSettings: Project => Project = _.settings(
         </developer>
       </developers>
   ),
-  bintrayRepository := "not-quite-public",
+  bintrayRepository := "converter",
   resolvers += Resolver.bintrayRepo("oyvindberg", "not-quite-public"),
 )
 

@@ -1,11 +1,11 @@
 package org.scalablytyped.converter.internal.importer
 
-import org.scalablytyped.converter.internal.importer.ScalaJsBundlerDepFile.NpmDependencies
 import io.circe.parser._
 import io.circe.syntax._
-import org.scalatest.FunSuite
+import org.scalablytyped.converter.internal.importer.ScalaJsBundlerDepFile.NpmDependencies
+import org.scalatest.funsuite.AnyFunSuite
 
-class ScalaJsBundlerDepTest extends FunSuite {
+class ScalaJsBundlerDepTest extends AnyFunSuite {
   val content =
     """{"compile-dependencies":[{"@material-ui/core":"3.9.3"},{"@material-ui/icons":"3.0.2"},{"react":"16.9"},{"react-dom":"16.9"}],"test-dependencies":[{"@material-ui/core":"3.9.3"},{"@material-ui/icons":"3.0.2"},{"react":"16.9"},{"react-dom":"16.9"}],"compile-devDependencies":[],"test-devDependencies":[]}"""
 

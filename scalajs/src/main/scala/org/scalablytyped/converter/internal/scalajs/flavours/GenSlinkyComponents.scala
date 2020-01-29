@@ -39,7 +39,7 @@ object GenSlinkyComponents {
   final case class DomInfo(domProps: IArray[FieldTree], domType: TypeRef)
 
   /* Disable the minimizer for component objects */
-  val Keep = Comments(CommentData(KeepOnlyReferenced.Keep(Empty)))
+  val Keep = Comments(CommentData(Minimization.Keep(Empty)))
 
   val slinkyName = Name("slinky")
 
@@ -212,7 +212,7 @@ class GenSlinkyComponents(
     val components: IArray[CastConversion] =
       IArray.fromTraversable(reactNames.isComponent.map(from => CastConversion(from, ReactComponentClass, _1)))
 
-    val shared = scalaJsDomNames.All ++ base ++ components
+    val shared = scalaJsDomNames.AllExceptDeprecated ++ base ++ components
     mode match {
       case Native(())    => shared
       case Web(webNames) => shared ++ webNames.conversions
@@ -441,7 +441,7 @@ class GenSlinkyComponents(
       name        = c.fullName,
       parents     = IArray(TypeRef(propsClass.codePath, IArray.fromOption(c.knownRef).map(TypeRef.stripTargs), NoComments)),
       members     = genComponentField(c, componentCp),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Empty))),
+      comments    = Comments(CommentData(Minimization.Keep(Empty))),
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -471,7 +471,7 @@ class GenSlinkyComponents(
       name        = c.fullName,
       parents     = IArray(parent),
       members     = genComponentField(c, componentCp) ++ methods ++ IArray.fromOption(typeAliasOpt),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Empty))) +? errorCommentOpt,
+      comments    = Comments(CommentData(Minimization.Keep(Empty))) +? errorCommentOpt,
       codePath    = componentCp,
       isOverride  = false,
     )

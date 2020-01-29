@@ -9,9 +9,10 @@ import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLib
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Name, Printer}
+import org.scalablytyped.converter.internal.scalajs.{Minimization, Name, Printer, QualifiedName}
+import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.ts._
-import org.scalablytyped.converter.plugin.{Flavour, PrettyStringType}
+import org.scalajs.sbtplugin.ScalaJSCrossVersion
 
 import scala.collection.immutable.SortedMap
 
@@ -19,18 +20,17 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      version:                  String,
-      packageJsonHash:          Int,
-      npmDependencies:          IArray[(String, String)],
-      fromFolder:               InFolder,
-      targetFolder:             os.Path,
-      chosenFlavour:            Flavour,
-      outputPackage:            String,
-      shouldGenerateCompanions: Boolean,
-      enableScalaJsDefined:     Selection[TsIdentLibrary],
-      libs:                     IArray[String],
-      ignore:                   Set[String],
-      minimize:                 Selection[TsIdentLibrary],
+      version:              String,
+      packageJsonHash:      String,
+      npmDependencies:      IArray[(String, String)],
+      fromFolder:           InFolder,
+      targetFolder:         os.Path,
+      flavour:              InternalFlavour,
+      enableScalaJsDefined: Selection[TsIdentLibrary],
+      libs:                 IArray[String],
+      ignore:               Set[String],
+      minimize:             Selection[TsIdentLibrary],
+      minimizeKeep:         IArray[QualifiedName],
   )
 
   object Input {
@@ -41,7 +41,11 @@ object ImportTypings {
     implicit val ConfigDecoder: Decoder[Input] = exportDecoder[Input].instance
   }
 
-  def apply(config: Input, logger: Logger[Unit]): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+  def apply(
+      config:      Input,
+      logger:      Logger[Unit],
+      cacheDirOpt: Option[os.Path],
+  ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
     import config._
 
     val stdLibSource: StdLibSource = {
@@ -53,30 +57,28 @@ object ImportTypings {
       )
     }
 
-    val pkg = scalajs.Name(config.outputPackage)
-
-    val flavour = chosenFlavour match {
-      case Flavour.Plain        => new scalajs.flavours.Flavour.Plain(pkg)
-      case Flavour.Normal       => new scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions, pkg)
-      case Flavour.Slinky       => new scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions, pkg)
-      case Flavour.SlinkyNative => new scalajs.flavours.Flavour.SlinkyNative(config.shouldGenerateCompanions, pkg)
-      case Flavour.Japgolly     => new scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions, pkg)
-    }
-
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    val parseCachePath = os.root / "tmp" / "scalablytyped-sbt-cache" / "parse" / BuildInfo.version
+    def cachePath(base: os.Path, function: String) =
+      base / function / s"${BuildInfo.version}_${ScalaJSCrossVersion.currentBinaryVersion}"
 
-    val persistingParser: InFile => Either[String, TsParsedFile] = {
-      val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
-        case (file, bs) => (parseCachePath / file.path.last / bs.hashCode.toString).toNIO
-      }, logger) {
-        case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+    val cachedParser: InFile => Either[String, TsParsedFile] =
+      cacheDirOpt match {
+        case Some(cacheDir) =>
+          val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
+            case (file, bs) =>
+              val base = cachePath(cacheDir, "parse") / file.path.relativeTo(config.fromFolder.path)
+              (base / Digest.of(List(bs)).hexString).toNIO
+          }, logger) {
+            case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+          }
+          inFile => pf((inFile, os.read.bytes(inFile.path)))
+        case None =>
+          inFile => parser.parseFileContent(inFile, os.read.bytes(inFile.path))
       }
-      (inFile: InFile) => pf((inFile, os.read.bytes(inFile.path)))
-    }
-    val Pipeline: RecPhase[Source, Phase2Res] = RecPhase[Source]
+
+    val Phases: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
           new LibraryResolver(stdLibSource, IArray(InFolder(fromFolder.path / "@types"), fromFolder), None),
@@ -85,7 +87,7 @@ object ImportTypings {
           ignore.map(_.split("/").toList),
           stdLibSource,
           pedantic = false,
-          persistingParser,
+          cachedParser,
         ),
         "typescript",
       )
@@ -93,9 +95,8 @@ object ImportTypings {
       .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
-      sources.par
-        .map(s => s -> PhaseRunner(Pipeline, (_: Source) => logger, NoListener)(s))
-        .seq
+      sources
+        .map(s => s -> PhaseRunner(Phases, (_: Source) => logger, NoListener)(s))
         .toMap
         .toSorted
 
@@ -110,8 +111,8 @@ object ImportTypings {
           false,
         )
 
-        lazy val referencesToKeep: KeepOnlyReferenced.Index =
-          KeepOnlyReferenced.findReferences(globalScope, IArray.fromTraversable(libs).map {
+        lazy val referencesToKeep: Minimization.KeepIndex =
+          Minimization.findReferences(globalScope, config.minimizeKeep, IArray.fromTraversable(libs).map {
             case (s, l) => (minimize(s.libName), l.packageTree)
           })
 
@@ -121,7 +122,7 @@ object ImportTypings {
               val willMinimize = minimize(source.libName)
               val minimized =
                 if (willMinimize) {
-                  KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
+                  Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
               val outFiles = Printer(globalScope, minimized) map {
@@ -155,24 +156,26 @@ object ImportTypings {
       .to[Set]
 
   def main(args: Array[String]): Unit = {
-    val cacheDir = os.home / "tmp" / "tso-cache"
+    val cacheDir   = os.home / "tmp" / "tso-cache"
+    val outputName = Name("typings")
+
     println(
       ImportTypings(
         Input(
           "0",
-          0,
+          "0xA",
           IArray(("@storybook/react" -> "1")),
           InFolder(cacheDir / "npm" / "node_modules"),
           files.existing(cacheDir / 'work),
-          Flavour.Slinky,
-          outputPackage            = "typings",
-          shouldGenerateCompanions = true,
-          enableScalaJsDefined     = Selection.None,
+          InternalFlavour.Slinky(shouldGenerateCompanions = true, outputName),
+          enableScalaJsDefined = Selection.None,
           IArray("es5", "dom"),
           Set("typescript", "csstype"),
-          minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
+          minimize     = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
+          minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
         ),
         stdout.filter(LogLevel.warn),
+        Some(cacheDir / 'work / 'cache),
       ).map(_.size),
     )
   }

@@ -559,4 +559,24 @@ class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
 
   val AllElements: Set[QualifiedName] =
     All.collect { case c if c.to.parts.last.unescaped.endsWith("Element") => c.to }.toSet
+
+  val AllExceptDeprecated: IArray[CastConversion] = {
+    val isDeprecated = Set[Name](
+      Name("HTMLAppletElement"),
+      Name("HTMLBaseFontElement"),
+      Name("HTMLDirectoryElement"),
+      Name("HTMLFontElement"),
+      Name("HTMLFrameElement"),
+      Name("HTMLFrameSetElement"),
+      Name("HTMLMarqueeElement"),
+      Name("HTMLTableDataCellElement"),
+      Name("HTMLTableHeaderCellElement"),
+      Name("MediaStreamEvent"),
+      Name("MutationEvent"),
+      Name("ServiceWorkerMessageEvent"),
+      Name("SVGZoomEvent"),
+    )
+
+    All.filterNot(c => isDeprecated(c.to.parts.last))
+  }
 }

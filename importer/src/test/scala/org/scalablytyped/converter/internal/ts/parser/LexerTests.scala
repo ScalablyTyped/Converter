@@ -1,9 +1,10 @@
 package org.scalablytyped.converter.internal
 package ts.parser
 
-import org.scalatest._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-final class LexerTests extends FunSuite with Matchers {
+final class LexerTests extends AnyFunSuite with Matchers {
   import ParserHarness._
 
   test("numbers") {

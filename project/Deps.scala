@@ -1,4 +1,4 @@
-import sbt.{ModuleID, stringToOrganization}
+import sbt.{stringToOrganization, ModuleID}
 
 object Deps {
   val parserCombinators = "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
@@ -10,6 +10,7 @@ object Deps {
   val bloop             = "ch.epfl.scala" %% "bloop-frontend" % "1.3.5"
   val bintry            = "org.foundweekends" %% "bintry" % "0.5.2"
   val asyncHttpClient   = "com.ning" % "async-http-client" % "1.9.40"
+  val fst               = "de.ruedigermoeller" % "fst" % "2.56"
 
   val circe: Seq[ModuleID] =
     Seq("core", "generic", "parser", "jackson29").map(s => "io.circe" %% s"circe-$s" % "0.11.1")

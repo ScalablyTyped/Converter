@@ -89,7 +89,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
     val _2Element = _2.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
     val _1Object  = _1.among(Set.empty, QualifiedName.Object)
 
-    scalaJsDomNames.All ++ IArray(
+    scalaJsDomNames.AllExceptDeprecated ++ IArray(
       CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
       CastConversion(reactNames.ComponentState, QualifiedName.Object),
       CastConversion(reactNames.ReactDOM, QualifiedName.Any),
@@ -164,8 +164,8 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
           /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
           p.copy(
             parameter = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = Some(TypeRef.undefined)),
-            asString = Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))""",
-            ),
+            asString =
+              Right(obj => s"""${name.value}.foreach(p => $obj.updateDynamic("${name.unescaped}")(p.toJsFn))"""),
           )
 
         case p @ Prop(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), None, _), _) =>
@@ -332,7 +332,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
       name        = c.fullName,
       parents     = Empty,
       members     = methods :+ componentRef,
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Empty))),
+      comments    = Comments(CommentData(Minimization.Keep(Empty))),
       codePath    = componentCp,
       isOverride  = false,
     )
@@ -408,7 +408,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
       name        = c.fullName,
       parents     = IArray(TypeRef(propsClass.codePath, IArray.fromOption(c.knownRef.map(TypeRef.stripTargs)), NoComments)),
       members     = IArray(componentRef),
-      comments    = Comments(CommentData(KeepOnlyReferenced.Keep(Empty))),
+      comments    = Comments(CommentData(Minimization.Keep(Empty))),
       codePath    = componentCp,
       isOverride  = false,
     )

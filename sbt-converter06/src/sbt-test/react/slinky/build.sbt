@@ -15,7 +15,6 @@ lazy val testProject =
       Compile / stFlavour := Flavour.Slinky,
       Compile / stIgnore += "csstype",
       Compile / stMinimize := Selection.AllExcept("react-dom"),
-      libraryDependencies += "me.shadaj" %%% "slinky-web" % "0.6.2",
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.1",
       organization := "net.leibman",

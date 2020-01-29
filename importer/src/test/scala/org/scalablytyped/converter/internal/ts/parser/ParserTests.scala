@@ -4,10 +4,10 @@ package parser
 
 import org.scalablytyped.converter.internal.ts.JsLocation.Zero
 import org.scalablytyped.converter.internal.ts.OptionalModifier.Noop
-import org.scalatest.Matchers._
-import org.scalatest._
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers._
 
-final class ParserTests extends FunSuite {
+final class ParserTests extends AnyFunSuite {
   private val T = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty)
 
   import ParserHarness._

@@ -72,7 +72,7 @@ class Phase1ReadTypescript(
             pathRefsR: Set[PhaseRes[Source, Source]],
             typeRefsR: Set[PhaseRes[Source, Source]],
             libRefsR:  Set[PhaseRes[Source, Source]],
-            remaining: Set[Directive],
+            _:         Set[Directive],
           ) =
             parsed.directives.toSet
               .partitionCollect3(
@@ -96,7 +96,7 @@ class Phase1ReadTypescript(
             /* Assert all path directive referenced modules are files (not libraries) */
             toInline <- getDeps(pathRefs.sorted) map assertPartsOnly
 
-            withoutDirectives = parsed.copy(directives = IArray.fromTraversable(remaining))
+            withoutDirectives = parsed.copy(directives = IArray.Empty)
 
             /* Ensure we resolved all modules referenced by a type reference directive */
             typeReferencedDeps <- PhaseRes sequenceSet typeRefsR
@@ -157,7 +157,7 @@ class Phase1ReadTypescript(
                     logger.info(s"Preprocessing $helperSource")
                     val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
                     val _2 =
-                      FlattenTrees(_1 +: IArray.fromTraversable(file.toInline.filterNot(_._2.isModule)).map(_._2))
+                      FlattenTrees(_1 +: IArray.fromTraversable(file.toInline).filterNot(_._2.isModule).map(_._2))
 
                     val _3 = helperSource.moduleNames match {
                       case IArray.exactlyOne(_) => _2

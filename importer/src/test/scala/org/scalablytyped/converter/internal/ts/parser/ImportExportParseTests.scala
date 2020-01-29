@@ -3,9 +3,10 @@ package ts
 package parser
 
 import org.scalablytyped.converter.internal.ts.JsLocation.Zero
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-final class ImportExportParseTests extends FunSuite with Matchers {
+final class ImportExportParseTests extends AnyFunSuite with Matchers {
   import ParserHarness._
 
   test("accept export without ';'") {
