@@ -3,9 +3,10 @@ package ts
 package parser
 
 import org.scalablytyped.converter.internal.ts.parser.TsLexer.{CommentLineToken, CommentLineTokenAfterDelim, DirectiveToken}
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-final class CommentTests extends FunSuite with Matchers {
+final class CommentTests extends AnyFunSuite with Matchers {
   import ParserHarness._
 
   test("block comment") {

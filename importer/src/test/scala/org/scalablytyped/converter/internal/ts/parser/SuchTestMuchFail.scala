@@ -3,7 +3,7 @@ package parser
 
 import com.olvind.logging
 import org.scalablytyped.converter.internal.importer.PersistingFunction.nameAndMtimeUnder
-import org.scalablytyped.converter.internal.importer.{Cmd, Config, PersistingFunction, DTUpToDate}
+import org.scalablytyped.converter.internal.importer.{Cmd, Config, DTUpToDate, PersistingFunction}
 import org.scalablytyped.converter.internal.{InFile, InFolder, constants}
 
 object SuchTestMuchFail extends App {

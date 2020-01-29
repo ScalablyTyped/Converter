@@ -2,9 +2,10 @@ package org.scalablytyped.converter.internal
 package ts
 package parser
 
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.matchers.should.Matchers
 
-class TypeExpansion extends FunSuite with Matchers with TypeExpansionHarness {
+class TypeExpansion extends AnyFunSuite with Matchers with TypeExpansionHarness {
 
   test("Partial") {
 

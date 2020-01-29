@@ -1,8 +1,8 @@
 package org.scalablytyped.converter.internal.ts.parser
 
-import org.scalablytyped.converter.internal.{files, InFile}
+import org.scalablytyped.converter.internal.{InFile, files}
 import org.scalatest.Assertion
-import org.scalatest.Matchers._
+import org.scalatest.matchers.should.Matchers._
 
 import scala.util.parsing.combinator.Parsers
 
