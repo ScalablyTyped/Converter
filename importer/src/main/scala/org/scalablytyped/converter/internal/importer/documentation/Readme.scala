@@ -9,7 +9,7 @@ object Readme {
 # ScalablyTyped - The Javascript ecosystem for Scala.js!
 
 [![Join the chat at https://gitter.im/ScalablyTyped/community](https://badges.gitter.im/ScalablyTyped/community.svg)](https://gitter.im/ScalablyTyped/community)
-[![Checkout the demos at https://github.com/oyvindberg/ScalablyTypedDemos/](https://img.shields.io/badge/Checkout-Demo-success.svg)](https://github.com/oyvindberg/ScalablyTypedDemos/)
+[![Checkout the demos at https://github.com/ScalablyTyped/ScalablyTypedDemos/](https://img.shields.io/badge/Checkout-Demo-success.svg)](https://github.com/oyvindberg/ScalablyTypedDemos/)
 [![All libraries by name](https://img.shields.io/badge/List%20of%20libraries-by%20name-green.svg)](./libraries_by_name.md)
 [![All libraries by dependents](https://img.shields.io/badge/List%20of%20libraries-by%20dependents-green.svg)](./libraries_by_dependents.md)
 [![All libraries by score](https://img.shields.io/badge/List%20of%20libraries-by%20score-green.svg)](./libraries_by_score.md)
@@ -78,7 +78,7 @@ We recommend using sbt with [scalajs-bundler](https://scalacenter.github.io/scal
 and the ScalablyTyped plugin to easily keep versions in sync (more on versions below).
 
 To see full examples head over and check out the
-[demos](https://github.com/oyvindberg/ScalablyTypedDemos)!
+[demos](https://github.com/ScalablyTyped/ScalablyTypedDemos)!
 
 There are demos both for frontend and backend javascript libraries,
  so feel free to check it out to see how it all fits together!
@@ -763,7 +763,7 @@ The converter has some internal support for detecting this,
 but we haven't experimented with outputting anything yet.
 That means that you have to detect this yourself and cast.
 Have a look at the `jquery`/`jquery-ui`
-[demo](https://github.com/oyvindberg/ScalablyTypedDemos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala)
+[demo](https://github.com/ScalablyTyped/ScalablyTypedDemos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala)
 to see how it's done.
 
 """

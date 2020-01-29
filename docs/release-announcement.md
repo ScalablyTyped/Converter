@@ -1,13 +1,13 @@
 ---
 id: release-announcement
-title: ScalablyTyped beta announcement!
+title: Beta release announcement!
 ---
 
 
 It's a great pleasure to finally open source the ScalablyTyped converter 
  and release the project as an sbt plugin. 
 
-You now decide your own Scala version, your own Scala.js version, your own versions of libraries.
+You now decide your own Scala version, your own Scala.js version and your own versions of libraries.
 
 All projects built with the plugin will now continue to build forever, as opposed to the old distribution method
  where libraries had to be culled every now and then.
@@ -17,7 +17,7 @@ All projects built with the plugin will now continue to build forever, as oppose
 
 ### The [published ScalablyTyped distribution](https://github.com/oyvindberg/ScalablyTyped) is deprecated.
 
-Once you factor in cross builds it's impossible to keep a useful set of precompiled binaries.
+Once you factor in cross builds and flavours it's impossible to keep a useful set of precompiled binaries.
 
 Going forward it'll continue to serve as QA to ensure that we're able to 
  convert the newest versions of important libraries.

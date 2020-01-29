@@ -11,7 +11,7 @@ If you for some reason cannot use scalajs-bundler, there is a more general versi
 # I just want to see how it works
 
 Then check out the demo projects:
-- [SlinkyTypedDemos](https://github.com/oyvindberg/SlinkyTypedDemos)
+- [SlinkyTypedDemos](https://github.com/ScalablyTyped/SlinkyTypedDemos)
 - `ScalaJsReactDemos` (we need help porting the slinky demos!)
 
 # Setup
@@ -29,10 +29,10 @@ Certain [flavour](flavour.md)s might not yet work on Scala.js 1.0.0 milestones
 
 ```scala
 // for Scala.js 1.0.0 milestones
-addSbtPlugin("org.scalablytyped.converter" % """sbt-converter""" % "@VERSION@")
+addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "@VERSION@")
 
 // for Scala.js 0.6.x
-addSbtPlugin("org.scalablytyped.converter" % """sbt-converter06""" % "@VERSION@")
+addSbtPlugin("org.scalablytyped.converter" % "sbt-converter06" % "@VERSION@")
 ```
 
 ## Activate the plugin for a project in your `build.sbt`:
@@ -61,7 +61,7 @@ Version numbers and `@types` packages are probably most conveniently found at [n
 ## Choose your flavour (optional)
 
 We have put a lot of effort into top-notch interop with two well-known 
-Scala.js react wrapper libraries. If you want to use either make sure to choose the corresponding flavour. 
+Scala.js react wrapper libraries. If you want to use either make sure to choose the corresponding [flavour](flavour.md). 
 
 ### Slinky
 
@@ -163,7 +163,30 @@ project.settings(
 Note that if you use a [react flavour](flavour.md) which generates a `components` package, all those
 components are considered "entry points", and are not eligible for removal. 
 In other words, if you use **only** react components from a library, it's fine to minimize that, too. 
- 
+
+### `stMinimizeKeep` 
+If you want to just keep a few things from a library and minimize away the rest, there is also a mechanism for that.
+The names you supply should be exactly as they appear in the generated scala code without the initial package prefix (typically `typings`).
+
+```scala
+project.settings(
+  /* setup libraries */
+  Compile / npmDependencies ++= Seq(
+    "moment" -> "2.24.0",
+    "react-big-calendar" -> "0.22",
+    "@types/react-big-calendar" -> "0.22.3"
+  ),
+  /* say we want to minimize all */
+  Compile / stMinimize := Selection.All,
+  /* but keep these very specific things*/
+  Compile / stMinimizeKeep ++= List(
+    "moment.mod.^",
+    "reactBigCalendar.mod.momentLocalizer",
+    "reactBigCalendar.mod.View",
+  ),
+)
+
+``` 
 ## Customize the generated code
 ### `stEnableScalaJsDefined` 
 
@@ -180,6 +203,8 @@ project.settings(
   Compile / stEnableScalaJsDefined := Selection.All()
 )
 ```
+
+By default this is off, that is `Selection.None()`
 
 ### `stStdLib`
 This mirrors the `--lib` option to typescript, see 
@@ -222,6 +247,6 @@ Benefit from setting to `false`:
 We keep all the generated types which dont exist in scala-js-dom, but the ones which are there will have fewer things defined on them.
 - more coherent DOM API, since it will all be equal instead of belonging to two different worlds.
 
-Benefit from setting to `true`:
+Benefit from keeping as `true`:
 - less code to compile when `stMinimize` is enabled for `std`.
 - easier interop with other Scala.js libraries

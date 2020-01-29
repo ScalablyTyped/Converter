@@ -12,9 +12,13 @@ The following points try to explain the big picture:
 
 ### Whatsup with naming?
 
-Modules receive pretty long names, because we flatten the namespace.
-The names should be predicable once you get the hang of it.
-
+All the converted structures are put into a hierarchy:
+- output package (typically `typings`, but it can be overriden with `stOutputPackage`)
+- library name, for instance `react`
+- if defined within a module, an abbreviated version of the module name with a `Mod` suffix. If the module is the top-level module in a library it is just called `mod`.
+- if defined within (possibly several) typescript namespaces, all those names are kept
+- finally the name of the thing itself.
+ 
 for instance a typescript import such as this:
 ```typescript
 import AnchorLong from "antd/es/anchor/AnchorLink";
@@ -22,16 +26,6 @@ import AnchorLong from "antd/es/anchor/AnchorLink";
 will be in ScalablyTyped:
 ```
 import typings.antd.esAnchorAnchorLinkMod.{default => AnchorLong}
-```
-
-A somewhat smart way of handling this is to bundle your commonly used imports somewhere, for instance:
-```scala
-
-package object myapp {
-  type AnchorLong = typings.antd.esAnchorAnchorLinkMod.default
-  val AnchorLong = typings.antd.esAnchorAnchorLinkMod.default
-}
-
 ```
 
 Note: Earlier we used `Lib` and `NS` as a suffixes for all library and namespace names, we now managed to drop them.
