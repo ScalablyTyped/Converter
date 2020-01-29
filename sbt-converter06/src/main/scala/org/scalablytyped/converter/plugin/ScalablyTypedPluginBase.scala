@@ -2,8 +2,8 @@ package org.scalablytyped.converter.plugin
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
-import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.constants
+import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
 import sbt.Keys.{libraryDependencies, scalacOptions, sourceGenerators}
 import sbt.plugins.JvmPlugin
@@ -107,6 +107,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       "The top-level package to put generated code in",
     )
 
+    val stQuiet    = settingKey[Boolean]("remove all output")
+    val stCacheDir = settingKey[Option[File]]("cache directory to workaround slow parser")
+
     private[plugin] val stInternalFlavour = settingKey[InternalFlavour]("don't use this")
   }
 
@@ -114,8 +117,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   lazy val stOutsideConfig: Seq[Def.Setting[_]] = {
     import PlatformDepsPlugin.autoImport._
-    import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
     import autoImport.stInternalFlavour
+    import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 
     Seq(
       libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
@@ -185,4 +188,12 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   override lazy val projectSettings: scala.Seq[Def.Setting[_]] =
     inConfig(Compile)(stDefaults) ++ stOutsideConfig
+
+  override lazy val globalSettings: scala.Seq[Def.Setting[_]] = {
+    import autoImport.{stCacheDir, stQuiet}
+    Seq(
+      stQuiet := false,
+      stCacheDir := Some((os.home / ".cache" / "scalablytyped-sbt").toIO),
+    )
+  }
 }

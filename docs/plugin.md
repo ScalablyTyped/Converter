@@ -250,3 +250,22 @@ We keep all the generated types which dont exist in scala-js-dom, but the ones w
 Benefit from keeping as `true`:
 - less code to compile when `stMinimize` is enabled for `std`.
 - easier interop with other Scala.js libraries
+
+## Customize the build
+
+Do you find the debug output tiring?
+
+```scala
+Global / stQuiet := true
+```
+
+By default we cache the results of the parser, since it needs to be rewritten to be fast.
+The results is shared by default in `~/.cache/scalablytyped-sbt`.
+
+If you want to disable caching for some reason or change location you can set 
+
+```scala
+Global / stCacheDir := Some(file("/some/other/dir"))
+
+Global / stCacheDir := None // disables cache
+```

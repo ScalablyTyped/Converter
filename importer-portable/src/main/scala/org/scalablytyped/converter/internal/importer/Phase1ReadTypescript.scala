@@ -72,7 +72,7 @@ class Phase1ReadTypescript(
             pathRefsR: Set[PhaseRes[Source, Source]],
             typeRefsR: Set[PhaseRes[Source, Source]],
             libRefsR:  Set[PhaseRes[Source, Source]],
-            _: Set[Directive],
+            _:         Set[Directive],
           ) =
             parsed.directives.toSet
               .partitionCollect3(

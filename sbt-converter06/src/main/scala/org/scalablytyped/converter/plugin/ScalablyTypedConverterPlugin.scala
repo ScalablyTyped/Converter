@@ -3,6 +3,7 @@ package plugin
 
 import java.time.Instant
 
+import com.olvind.logging
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.importer.Json
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
@@ -35,15 +36,20 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val cacheDirectory       = streams.value.cacheDirectory
         val flavour              = stInternalFlavour.value
         val enableScalaJsDefined = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
-        val stLogger =
-          WrapSbtLogger(streams.value.log, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
-        val packageJson  = (crossTarget in npmUpdate).value / "package.json"
-        val nodeModules  = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
-        val stdLib       = stStdlib.value
-        val targetFolder = os.Path((sourceManaged in Compile).value / "scalablytyped")
-        val npmDeps      = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
-        val ignored      = stIgnore.value.to[Set]
-        val minimize     = stMinimize.value.map(TsIdentLibrary.apply)
+        val packageJson          = (crossTarget in npmUpdate).value / "package.json"
+        val nodeModules          = InFolder(os.Path((npmInstallDependencies in Compile).value / "node_modules"))
+        val stdLib               = stStdlib.value
+        val targetFolder         = os.Path((sourceManaged in Compile).value / "scalablytyped")
+        val npmDeps              = (npmDependencies in Compile).value ++ (npmDependencies in Test).value
+        val ignored              = stIgnore.value.to[Set]
+        val minimize             = stMinimize.value.map(TsIdentLibrary.apply)
+        val quiet                = (Global / stQuiet).value
+        val sbtLog               = streams.value.log
+        val cacheDir             = (Global / stCacheDir).value.map(os.Path(_))
+
+        val stLogger: logging.Logger[Unit] =
+          if (quiet) logging.Logger.DevNull
+          else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
 
         val minimizeKeep = IArray
           .fromTraversable(stMinimizeKeep.value)
@@ -71,7 +77,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
             stLogger.warn("Nothing to do")
             output
           case _ =>
-            ImportTypings(config, stLogger) match {
+            ImportTypings(config, stLogger, cacheDir) match {
               case Right(files) =>
                 val seqFiles = files.to[Seq]
                 Json.persist(inputPath)(config)

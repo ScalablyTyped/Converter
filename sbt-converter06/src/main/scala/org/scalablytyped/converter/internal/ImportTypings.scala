@@ -41,7 +41,11 @@ object ImportTypings {
     implicit val ConfigDecoder: Decoder[Input] = exportDecoder[Input].instance
   }
 
-  def apply(config: Input, logger: Logger[Unit]): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
+  def apply(
+      config:      Input,
+      logger:      Logger[Unit],
+      cacheDirOpt: Option[os.Path],
+  ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
     import config._
 
     val stdLibSource: StdLibSource = {
@@ -56,19 +60,24 @@ object ImportTypings {
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    def cachePath(function: String) =
-      os.pwd / ".scalablytyped-cache" / function / s"${BuildInfo.version}_${ScalaJSCrossVersion.currentBinaryVersion}"
+    def cachePath(base: os.Path, function: String) =
+      base / function / s"${BuildInfo.version}_${ScalaJSCrossVersion.currentBinaryVersion}"
 
-    val persistingParser: InFile => Either[String, TsParsedFile] = {
-      val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
-        case (file, bs) =>
-          val base = cachePath("parse") / file.path.relativeTo(config.fromFolder.path)
-          (base / Digest.of(List(bs)).hexString).toNIO
-      }, logger) {
-        case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+    val cachedParser: InFile => Either[String, TsParsedFile] =
+      cacheDirOpt match {
+        case Some(cacheDir) =>
+          val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
+            case (file, bs) =>
+              val base = cachePath(cacheDir, "parse") / file.path.relativeTo(config.fromFolder.path)
+              (base / Digest.of(List(bs)).hexString).toNIO
+          }, logger) {
+            case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
+          }
+          inFile => pf((inFile, os.read.bytes(inFile.path)))
+        case None =>
+          inFile => parser.parseFileContent(inFile, os.read.bytes(inFile.path))
       }
-      (inFile: InFile) => pf((inFile, os.read.bytes(inFile.path)))
-    }
+
     val Phases: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
@@ -78,7 +87,7 @@ object ImportTypings {
           ignore.map(_.split("/").toList),
           stdLibSource,
           pedantic = false,
-          persistingParser,
+          cachedParser,
         ),
         "typescript",
       )
@@ -166,6 +175,7 @@ object ImportTypings {
           minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
         ),
         stdout.filter(LogLevel.warn),
+        Some(cacheDir / 'work / 'cache),
       ).map(_.size),
     )
   }

@@ -112,6 +112,12 @@ object Logger {
       new Synchronized(wrapped.withContext(key, value))
   }
 
+  object DevNull extends Logger[Unit] {
+    override def underlying: Unit = ()
+    override def withContext[T: Formatter](key:  String, value: T): Logger[Unit] = this
+    override def log[T:         Formatter](text: => Text[T], throwable: Option[Throwable], metadata: Metadata): Unit = ()
+  }
+
   implicit final class LoggerOps[U](private val self: Logger[U]) extends AnyVal {
     def zipWith[UU](other: Logger[UU]): Logger[(U, UU)] =
       new Zipped(self, other)

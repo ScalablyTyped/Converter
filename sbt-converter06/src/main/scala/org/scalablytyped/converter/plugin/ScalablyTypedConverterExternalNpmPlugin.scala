@@ -2,6 +2,7 @@ package org.scalablytyped.converter.plugin
 
 import java.time.Instant
 
+import com.olvind.logging
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.importer.Json
@@ -31,7 +32,6 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val cacheDirectory       = streams.value.cacheDirectory
         val flavour              = stInternalFlavour.value
         val enableScalaJsDefined = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
-        val stLogger             = WrapSbtLogger(streams.value.log, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
         val folder               = os.Path(externalNpm.value)
         val packageJson          = folder / "package.json"
         val nodeModules          = InFolder(folder / "node_modules")
@@ -40,6 +40,12 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val npmDeps              = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
         val ignored              = stIgnore.value.to[Set]
         val minimize             = stMinimize.value.map(TsIdentLibrary.apply)
+        val quiet                = (Global / stQuiet).value
+        val sbtLog               = streams.value.log
+        val cacheDir             = (Global / stCacheDir).value.map(os.Path(_))
+        val stLogger: logging.Logger[Unit] =
+          if (quiet) logging.Logger.DevNull
+          else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
 
         val minimizeKeep = IArray
           .fromTraversable(stMinimizeKeep.value)
@@ -67,7 +73,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
             stLogger.warn("Nothing to do")
             output
           case _ =>
-            converter.internal.ImportTypings(config, stLogger) match {
+            converter.internal.ImportTypings(config, stLogger, cacheDir) match {
               case Right(files) =>
                 val seqFiles = files.to[Seq]
                 Json.persist(inputPath)(config)
