@@ -1,5 +1,7 @@
 package org.scalablytyped.converter.plugin
 
+import java.time.Instant
+
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.importer.Json
@@ -29,7 +31,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         val cacheDirectory       = streams.value.cacheDirectory
         val flavour              = stInternalFlavour.value
         val enableScalaJsDefined = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
-        val stLogger             = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void.withContext("project", projectName)
+        val stLogger             = WrapSbtLogger(streams.value.log, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
         val folder               = os.Path(externalNpm.value)
         val packageJson          = folder / "package.json"
         val nodeModules          = InFolder(folder / "node_modules")
