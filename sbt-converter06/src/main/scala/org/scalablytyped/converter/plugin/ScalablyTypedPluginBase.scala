@@ -2,19 +2,20 @@ package org.scalablytyped.converter.plugin
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
+import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.constants
+import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
 import sbt.Keys.{libraryDependencies, scalacOptions, sourceGenerators}
 import sbt.plugins.JvmPlugin
 import sbt.{inConfig, settingKey, taskKey, AutoPlugin, Compile, Def, File}
 
 object ScalablyTypedPluginBase extends AutoPlugin {
+
   object autoImport {
     type Selection[T] = converter.Selection[T]
     val Selection = converter.Selection
     type Flavour = converter.plugin.Flavour
     val Flavour = converter.plugin.Flavour
-    type PrettyStringType = converter.plugin.PrettyStringType
-    val PrettyStringType = converter.plugin.PrettyStringType
 
     val stImport = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
     val stIgnore = settingKey[List[String]]("completely ignore libraries or modules")
@@ -25,6 +26,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stEnableScalaJsDefined = settingKey[Selection[String]](
       "Generate @ScalaJSDefined traits when necessary. This enables you to `new` them, but it may require tons of compilation time",
     )
+
+    val stUseScalaJsDom = settingKey[Boolean]("Use types from scala-js-dom instead of from std when possible")
 
     /**
       * A list of library names you don't care too much about.
@@ -94,6 +97,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val stOutputPackage = settingKey[String](
       "The top-level package to put generated code in",
     )
+
+    private[plugin] val stInternalFlavour = settingKey[InternalFlavour]("don't use this")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
@@ -101,8 +106,18 @@ object ScalablyTypedPluginBase extends AutoPlugin {
   lazy val stOutsideConfig: Seq[Def.Setting[_]] = {
     import PlatformDepsPlugin.autoImport._
     import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
+    import autoImport.stInternalFlavour
+
     Seq(
       libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
+      libraryDependencies ++= {
+        val internalFlavour = (Compile / stInternalFlavour).value
+        internalFlavour.dependencies
+          .map {
+            case Dep(org, artifact, version) => org %%% artifact % version
+          }
+          .to[Seq]
+      },
       scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
 
@@ -115,23 +130,46 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
   lazy val stDefaults: Seq[Def.Setting[_]] = {
     import autoImport._
+
     Seq(
-      stFlavour := converter.plugin.Flavour.Plain,
-      stEnableScalaJsDefined := converter.Selection.All,
-      stTypescriptVersion := "3.7.2",
-      stGenerateCompanions := true,
-      stStdlib := List("es6"),
-      stIgnore := List("typescript"),
-      stOutputPackage := {
-        stFlavour.value match {
-          case Flavour.Plain        => "typingsPlain"
-          case Flavour.Normal       => "typingsNormal"
-          case Flavour.Slinky       => "typingsSlinky"
-          case Flavour.SlinkyNative => "typingsSlinky"
-          case Flavour.Japgolly     => "typingsJapgolly"
+      stInternalFlavour := {
+        val generateCompanions = (Compile / stGenerateCompanions).value
+        val outputPackage      = Name((Compile / stOutputPackage).value)
+        val useScalaJsDom      = (Compile / stUseScalaJsDom).value
+        val wantedFlavor       = (Compile / stFlavour).value
+
+        def requireDomTypes() =
+          if (!useScalaJsDom) sys.error(s"$wantedFlavor implies ${stUseScalaJsDom.key} := true")
+
+        wantedFlavor match {
+          case Flavour.Normal =>
+            InternalFlavour.Normal(
+              shouldGenerateCompanions = generateCompanions,
+              shouldGenerateComponents = true,
+              shouldUseScalaJsDomTypes = useScalaJsDom,
+              outputPackage,
+            )
+          case Flavour.Slinky =>
+            requireDomTypes()
+            InternalFlavour.Slinky(shouldGenerateCompanions = generateCompanions, outputPkg = outputPackage)
+          case Flavour.SlinkyNative =>
+            requireDomTypes()
+            InternalFlavour.SlinkyNative(shouldGenerateCompanions = generateCompanions, outputPkg = outputPackage)
+          case Flavour.Japgolly =>
+            requireDomTypes()
+            InternalFlavour.Japgolly(shouldGenerateCompanions = generateCompanions, outputPkg = outputPackage)
         }
       },
+      stEnableScalaJsDefined := converter.Selection.None,
+      stFlavour := converter.plugin.Flavour.Normal,
+      stGenerateCompanions := true,
+      stIgnore := List("typescript"),
       stMinimize := converter.Selection.None,
+      stOutputPackage := "typings",
+      stStdlib := List("es6"),
+      stTypescriptVersion := "3.7.2",
+      stUseScalaJsDom := true,
+
       sourceGenerators in Compile += stImport.taskValue,
     )
   }

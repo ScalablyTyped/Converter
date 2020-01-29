@@ -10,8 +10,8 @@ import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Name, Printer}
+import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.ts._
-import org.scalablytyped.converter.plugin.{Flavour, PrettyStringType}
 
 import scala.collection.immutable.SortedMap
 
@@ -19,18 +19,16 @@ object ImportTypings {
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
   case class Input(
-      version:                  String,
-      packageJsonHash:          Int,
-      npmDependencies:          IArray[(String, String)],
-      fromFolder:               InFolder,
-      targetFolder:             os.Path,
-      chosenFlavour:            Flavour,
-      outputPackage:            String,
-      shouldGenerateCompanions: Boolean,
-      enableScalaJsDefined:     Selection[TsIdentLibrary],
-      libs:                     IArray[String],
-      ignore:                   Set[String],
-      minimize:                 Selection[TsIdentLibrary],
+      version:              String,
+      packageJsonHash:      Int,
+      npmDependencies:      IArray[(String, String)],
+      fromFolder:           InFolder,
+      targetFolder:         os.Path,
+      flavour:              InternalFlavour,
+      enableScalaJsDefined: Selection[TsIdentLibrary],
+      libs:                 IArray[String],
+      ignore:               Set[String],
+      minimize:             Selection[TsIdentLibrary],
   )
 
   object Input {
@@ -51,16 +49,6 @@ object ImportTypings {
         libs.map(s => InFile(folder / s"lib.$s.d.ts")),
         TsIdent.std,
       )
-    }
-
-    val pkg = scalajs.Name(config.outputPackage)
-
-    val flavour = chosenFlavour match {
-      case Flavour.Plain        => new scalajs.flavours.Flavour.Plain(pkg)
-      case Flavour.Normal       => new scalajs.flavours.Flavour.Normal(config.shouldGenerateCompanions, pkg)
-      case Flavour.Slinky       => new scalajs.flavours.Flavour.Slinky(config.shouldGenerateCompanions, pkg)
-      case Flavour.SlinkyNative => new scalajs.flavours.Flavour.SlinkyNative(config.shouldGenerateCompanions, pkg)
-      case Flavour.Japgolly     => new scalajs.flavours.Flavour.Japgolly(config.shouldGenerateCompanions, pkg)
     }
 
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
@@ -164,10 +152,8 @@ object ImportTypings {
           IArray(("@storybook/react" -> "1")),
           InFolder(cacheDir / "npm" / "node_modules"),
           files.existing(cacheDir / 'work),
-          Flavour.Slinky,
-          outputPackage            = "typings",
-          shouldGenerateCompanions = true,
-          enableScalaJsDefined     = Selection.None,
+          new InternalFlavour.Slinky(true, Name("typings")),
+          enableScalaJsDefined = Selection.None,
           IArray("es5", "dom"),
           Set("typescript", "csstype"),
           minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),

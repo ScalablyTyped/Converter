@@ -212,3 +212,16 @@ project.settings(
 ```
 
 Note that this is a singular package name. Nested packages are not supported for now.
+
+### `stUseScalaJsDom`
+When `true` (which is the default) uses scala-js-dom types when possible instead of types we translate from typescript in `std`.
+`true` is also implied by the react flavours.
+
+Benefit from setting to `false`:
+- more comprehensive DOM API. scala-js-dom is nowhere close to the coverage typescript has. 
+We keep all the generated types which dont exist in scala-js-dom, but the ones which are there will have fewer things defined on them.
+- more coherent DOM API, since it will all be equal instead of belonging to two different worlds.
+
+Benefit from setting to `true`:
+- less code to compile when `stMinimize` is enabled for `std`.
+- easier interop with other Scala.js libraries

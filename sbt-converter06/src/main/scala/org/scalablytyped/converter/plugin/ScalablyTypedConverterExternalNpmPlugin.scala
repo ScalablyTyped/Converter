@@ -25,19 +25,17 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     Seq(
       stImport := {
         val cacheDirectory       = streams.value.cacheDirectory
-        val flavour              = stFlavour.value
+        val flavour              = stInternalFlavour.value
         val enableScalaJsDefined = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
         val stLogger             = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
         val folder               = os.Path(externalNpm.value)
         val packageJson          = folder / "package.json"
         val nodeModules          = InFolder(folder / "node_modules")
         val stdLib               = stStdlib.value
-        val outputPackage        = stOutputPackage.value
         val targetFolder         = os.Path((sourceManaged in Compile).value / "scalablytyped")
         val npmDeps              = Json[PackageJsonDeps](packageJson).dependencies.getOrElse(Map())
         val ignored              = stIgnore.value.to[Set]
         val minimize             = stMinimize.value.map(TsIdentLibrary.apply)
-        val generateCompanions   = stGenerateCompanions.value
 
         val config = ImportTypings.Input(
           BuildInfo.version,
@@ -46,8 +44,6 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
           nodeModules,
           targetFolder,
           flavour,
-          outputPackage,
-          generateCompanions,
           enableScalaJsDefined,
           IArray.fromTraversable(stdLib),
           ignored,

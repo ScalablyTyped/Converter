@@ -89,7 +89,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
     val _2Element = _2.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
     val _1Object  = _1.among(Set.empty, QualifiedName.Object)
 
-    scalaJsDomNames.All ++ IArray(
+    scalaJsDomNames.AllExceptDeprecated ++ IArray(
       CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
       CastConversion(reactNames.ComponentState, QualifiedName.Object),
       CastConversion(reactNames.ReactDOM, QualifiedName.Any),

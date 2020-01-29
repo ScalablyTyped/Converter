@@ -4,6 +4,7 @@ package importer
 import java.time.LocalDateTime
 
 import org.scalablytyped.converter.internal.importer.build.Versions
+import org.scalablytyped.converter.internal.scalajs.Name
 import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
@@ -56,17 +57,20 @@ object Config {
           .map(TsIdentLibrary.apply)
 
         val companions = !(flags contains "-skipCompanions")
+
+        val normal = Flavour.Normal(
+          shouldGenerateCompanions = companions,
+          shouldGenerateComponents = true,
+          shouldUseScalaJsDomTypes = flags contains "-useScalaJsDomTypes",
+          outputPkg                = Name.typings,
+        )
+
         val flavours = List(
-          if (flags.contains("-flavourPlain")) Some(new Flavour.Plain) else None,
-          if (flags.contains("-flavourSlinky") || flags.contains("-reactSlinky")) Some(new Flavour.Slinky(companions))
-          else None,
-          if (flags.contains("-flavourJapgolly") || flags.contains("-reactJapgolly"))
-            Some(new Flavour.Japgolly(companions))
-          else None,
-          if (flags.contains("-flavourNormal") || flags.contains("-reactFacade")) Some(new Flavour.Normal(companions))
-          else None,
+          if (flags.contains("-flavourSlinky")) Some(Flavour.Slinky(companions, Name("typingsSlinky"))) else None,
+          if (flags.contains("-flavourJapgolly")) Some(Flavour.Japgolly(companions, Name("typingsJapgolly"))) else None,
+          if (flags.contains("-flavourNormal")) Some(normal) else None,
         ).flatten match {
-          case Nil   => List(new Flavour.Normal(companions))
+          case Nil   => List(normal)
           case other => other
         }
 

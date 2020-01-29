@@ -212,7 +212,7 @@ class GenSlinkyComponents(
     val components: IArray[CastConversion] =
       IArray.fromTraversable(reactNames.isComponent.map(from => CastConversion(from, ReactComponentClass, _1)))
 
-    val shared = scalaJsDomNames.All ++ base ++ components
+    val shared = scalaJsDomNames.AllExceptDeprecated ++ base ++ components
     mode match {
       case Native(())    => shared
       case Web(webNames) => shared ++ webNames.conversions

@@ -15,7 +15,8 @@ import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, Pha
 import org.scalablytyped.converter.internal.scalajs.Name
 import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
 import org.scalablytyped.converter.internal.ts._
-import org.scalatest.{Assertion, FunSuiteLike}
+import org.scalatest.Assertion
+import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.immutable.{SortedMap, TreeMap}
 import scala.concurrent.ExecutionContext
@@ -23,7 +24,7 @@ import scala.util.{Failure, Success, Try}
 
 private object GitLock
 
-trait ImporterHarness extends FunSuiteLike {
+trait ImporterHarness extends AnyFunSuite {
   val failureCacheDir = os.root / 'tmp / 'scalablytyped / 'compileFailures
   os.makeDir.all(failureCacheDir)
 
@@ -102,7 +103,12 @@ trait ImporterHarness extends FunSuiteLike {
       testName: String,
       pedantic: Boolean,
       update:   Boolean,
-      flavour:  Flavour = new Flavour.Normal(true),
+      flavour: Flavour = Flavour.Normal(
+        shouldGenerateCompanions = true,
+        shouldGenerateComponents = true,
+        shouldUseScalaJsDomTypes = false,
+        Name.typings,
+      ),
   ): Assertion = {
     val testFolder = getClass.getClassLoader.getResource(testName) match {
       case null  => sys.error(s"Could not find test resource folder $testName")
@@ -113,7 +119,6 @@ trait ImporterHarness extends FunSuiteLike {
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {
-      case _: Flavour.Plain        => "check-plain"
       case _: Flavour.Normal       => "check"
       case _: Flavour.Slinky       => "check-slinky"
       case _: Flavour.SlinkyNative => "check-slinky-native"

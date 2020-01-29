@@ -44,9 +44,7 @@ import org.scalajs.dom.raw.HTMLSourceElement
 import org.scalajs.dom.raw.HTMLSpanElement
 import org.scalajs.dom.raw.HTMLStyleElement
 import org.scalajs.dom.raw.HTMLTableColElement
-import org.scalajs.dom.raw.HTMLTableDataCellElement
 import org.scalajs.dom.raw.HTMLTableElement
-import org.scalajs.dom.raw.HTMLTableHeaderCellElement
 import org.scalajs.dom.raw.HTMLTableRowElement
 import org.scalajs.dom.raw.HTMLTableSectionElement
 import org.scalajs.dom.raw.HTMLTextAreaElement
@@ -161,6 +159,8 @@ import typingsJapgolly.react.mod.VideoHTMLAttributes
 import typingsJapgolly.react.mod.WebViewHTMLAttributes
 import typingsJapgolly.std.HTMLDataElement
 import typingsJapgolly.std.HTMLDialogElement
+import typingsJapgolly.std.HTMLTableDataCellElement
+import typingsJapgolly.std.HTMLTableHeaderCellElement
 import typingsJapgolly.std.HTMLTemplateElement
 import typingsJapgolly.std.HTMLWebViewElement
 import typingsJapgolly.std.SVGFEDropShadowElement

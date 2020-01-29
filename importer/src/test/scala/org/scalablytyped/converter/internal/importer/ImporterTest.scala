@@ -1,11 +1,14 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
-import org.scalatest.{FunSuite, ParallelTestExecution}
+import org.scalablytyped.converter.internal.scalajs.{Name, flavours}
+import org.scalatest.ParallelTestExecution
+import org.scalatest.funsuite.AnyFunSuite
 
-class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecution {
+class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
   val update = !constants.isCi
+  val Slinky = flavours.Flavour.Slinky(shouldGenerateCompanions = true, Name("typingsSlinky"))
+  val Japgolly = flavours.Flavour.Japgolly(shouldGenerateCompanions = true, Name("typingsJapgolly"))
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))
@@ -45,30 +48,32 @@ class ImporterTest extends FunSuite with ImporterHarness with ParallelTestExecut
   test("material-ui")(
     assertImportsOk("material-ui", pedantic = true, update = update),
   )
+
   test("material-ui-slinky")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = new Flavour.Slinky(true)),
+    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),
   )
+
   test("material-ui-japgolly")(
-    assertImportsOk("material-ui", pedantic = true, update = update, flavour = new Flavour.Japgolly(true)),
+    assertImportsOk("material-ui", pedantic = true, update = update, flavour = Japgolly),
   )
 
   test("react-transition-group")(
     assertImportsOk("react-transition-group", pedantic = true, update = update),
   )
   test("react-transition-group-slinky")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = new Flavour.Slinky(true)),
+    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Slinky),
   )
   test("react-transition-group-japgolly")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = new Flavour.Japgolly(true)),
+    assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Japgolly),
   )
 
   test("react-integration-test")(
     assertImportsOk("react-integration-test", pedantic = false, update = update),
   )
   test("react-integration-test-slinky")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = new Flavour.Slinky(true)),
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Slinky),
   )
   test("react-integration-test-japgolly")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = new Flavour.Japgolly(true)),
+    assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Japgolly),
   )
 }

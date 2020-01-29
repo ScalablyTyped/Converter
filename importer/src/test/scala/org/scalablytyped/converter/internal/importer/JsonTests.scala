@@ -1,12 +1,12 @@
 package org.scalablytyped.converter.internal.importer
 
-import org.scalablytyped.converter.internal.IArray
-import org.scalablytyped.converter.internal.ts._
-import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import io.circe.parser._
-import org.scalatest.FunSuite
+import org.scalablytyped.converter.internal.IArray
+import org.scalablytyped.converter.internal.importer.jsonCodecs._
+import org.scalablytyped.converter.internal.ts._
+import org.scalatest.funsuite.AnyFunSuite
 
-class JsonTests extends FunSuite {
+class JsonTests extends AnyFunSuite {
 
   test("tsconfig") {
 
