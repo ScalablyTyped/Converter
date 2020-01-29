@@ -12,6 +12,7 @@ import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, Pha
 import org.scalablytyped.converter.internal.scalajs.{Minimization, Name, Printer, QualifiedName}
 import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.ts._
+import org.scalajs.sbtplugin.ScalaJSCrossVersion
 
 import scala.collection.immutable.SortedMap
 
@@ -55,17 +56,20 @@ object ImportTypings {
     val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
-    val parseCachePath = os.root / "tmp" / "scalablytyped-sbt-cache" / "parse" / BuildInfo.version
+    def cachePath(function: String) =
+      os.pwd / ".scalablytyped-cache" / function / s"${BuildInfo.version}_${ScalaJSCrossVersion.currentBinaryVersion}"
 
     val persistingParser: InFile => Either[String, TsParsedFile] = {
       val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
-        case (file, bs) => (parseCachePath / file.path.last / bs.hashCode.toString).toNIO
+        case (file, bs) =>
+          val base = cachePath("parse") / file.path.relativeTo(config.fromFolder.path)
+          (base / Digest.of(List(bs)).hexString).toNIO
       }, logger) {
         case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
       }
       (inFile: InFile) => pf((inFile, os.read.bytes(inFile.path)))
     }
-    val Pipeline: RecPhase[Source, Phase2Res] = RecPhase[Source]
+    val Phases: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
           new LibraryResolver(stdLibSource, IArray(InFolder(fromFolder.path / "@types"), fromFolder), None),
@@ -82,9 +86,8 @@ object ImportTypings {
       .next(new PhaseFlavour(flavour), flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
-      sources.par
-        .map(s => s -> PhaseRunner(Pipeline, (_: Source) => logger, NoListener)(s))
-        .seq
+      sources
+        .map(s => s -> PhaseRunner(Phases, (_: Source) => logger, NoListener)(s))
         .toMap
         .toSorted
 
