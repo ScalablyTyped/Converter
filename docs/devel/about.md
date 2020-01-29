@@ -11,8 +11,8 @@ For that reason we have a few levels of testing:
 ### Unit tests
 Only really used for the parser, but utterly necessary to write one. All changes to the parser should come with a corresponding unit test.
 
-### [ImporterTest](importer/src/test/scala/com/olvind/tso/importer/ImporterTest.scala)
-Built in the same spirit as the scala compiler's `partest`, this takes smallish [pieces of typescript](importer/src/test/resources) 
+### [ImporterTest](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/test/scala/org/scalablytyped/converter/internal/importer/ImporterTest.scala)
+Built in the same spirit as the scala compiler's `partest`, this takes smallish [pieces of typescript](https://github.com/ScalablyTyped/Converter/tree/master/importer/src/test/resources) 
  code and run it through the entire pipeline, including `scalac`. These are relatively cheap (~30 seconds for all tests 
  if they all recompile), and covers a *lot* of ground. If you're making changes, you'll get quite a few answers here. 
  
@@ -23,7 +23,7 @@ In CI it's enforced that the checked in results are current, so we know which co
 ### Demo set
 Do your changes look good when running `ImporterTest`? The next step is to run the demo set. 
 
-See [Running](devel/running) for more information about the parameters.
+See [Running](running.md) for more information about the parameters.
 
 A good command to run might be:
 ```

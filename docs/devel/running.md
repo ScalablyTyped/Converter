@@ -5,7 +5,7 @@ title: Running
 
 In batch mode ScalablyTypedConverter will process all files from the [DefinitelyTyped](http://definitelytyped.org/) project, as well as a selection of libraries from npm.
 
-You can run the [main](importer/src/main/scala/com/olvind/tso/importer/Main.scala) 
+You can run the [main](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/main/scala/org/scalablytyped/converter/Main.scala) 
  directly from from sbt (`importer/run`) or intellij. Since it's used both for development and for CI,
  it supports a bunch of command line options.
 

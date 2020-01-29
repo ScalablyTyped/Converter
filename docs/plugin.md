@@ -11,8 +11,9 @@ If you for some reason cannot use scalajs-bundler, there is a more general versi
 # I just want to see how it works
 
 Then check out the demo projects:
-- [SlinkyTypedDemos](https://github.com/ScalablyTyped/SlinkyTypedDemos)
-- `ScalaJsReactDemos` (we need help porting the slinky demos!)
+- [Demos](https://github.com/ScalablyTyped/Demos)
+- [React/Slinky demos](https://github.com/ScalablyTyped/SlinkyDemos)
+- `Scalajs-React demos` (we need help porting slinky demos!)
 
 # Setup
 
@@ -28,6 +29,8 @@ Certain [flavour](flavour.md)s might not yet work on Scala.js 1.0.0 milestones
 ## Add to your `project/plugins.sbt`
 
 ```scala
+resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
+
 // for Scala.js 1.0.0 milestones
 addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "@VERSION@")
 
@@ -104,7 +107,7 @@ Yarn will need to be present on your system for this to work. You should also ch
 The main reason we do that is that `npm` uses seconds to verify that everything is current, and that will
  be done for **every** compile.
 
-### `stImport`
+### `stIgnore`
 ScalablyTypedConverter is not that fast yet. Surely there are low hanging fruits for speeding it up, 
  but we're following an old development [mantra](https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast). 
   
