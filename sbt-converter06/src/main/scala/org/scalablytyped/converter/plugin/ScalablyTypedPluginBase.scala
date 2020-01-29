@@ -35,6 +35,15 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       */
     val stMinimize = settingKey[Selection[String]]("")
 
+    /**
+      * If you care about a small set of specific things from a library you can explicitly say you want that.
+      * Examples:
+      * - `angularCommon.mod.AsyncPipe`
+      * - `std.console`
+      *
+      */
+    val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
+
     /** Options are
       * dom
       * dom.iterable
@@ -165,11 +174,11 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stGenerateCompanions := true,
       stIgnore := List("typescript"),
       stMinimize := converter.Selection.None,
+      stMinimizeKeep := Nil,
       stOutputPackage := "typings",
       stStdlib := List("es6"),
       stTypescriptVersion := "3.7.2",
       stUseScalaJsDom := true,
-
       sourceGenerators in Compile += stImport.taskValue,
     )
   }

@@ -4,6 +4,7 @@ package plugin
 import com.olvind.logging.LogLevel
 import org.scalablytyped.converter.internal.importer.Json
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder}
+import org.scalablytyped.converter.internal.scalajs.QualifiedName
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 import org.scalablytyped.converter.internal.{BuildInfo, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
@@ -40,6 +41,10 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val ignored              = stIgnore.value.to[Set]
         val minimize             = stMinimize.value.map(TsIdentLibrary.apply)
 
+        val minimizeKeep = IArray
+          .fromTraversable(stMinimizeKeep.value)
+          .map(str => QualifiedName(flavour.outputPkg +: QualifiedName(str).parts))
+
         val config = ImportTypings.Input(
           BuildInfo.version,
           os.read(os.Path(packageJson)).hashCode,
@@ -51,6 +56,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           IArray.fromTraversable(stdLib),
           ignored,
           minimize,
+          minimizeKeep,
         )
 
         val inputPath  = os.Path(cacheDirectory / "scalablytyped" / "input.json")

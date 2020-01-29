@@ -81,7 +81,7 @@ object ImportEnum {
 
           /* keep module members when minimizing */
           val related = Comments(
-            CommentData(KeepOnlyReferenced.Related(TypeRef(cast.codePath) +: newMembers.map(m => TypeRef(m.codePath)))),
+            CommentData(Minimization.Related(TypeRef(cast.codePath) +: newMembers.map(m => TypeRef(m.codePath)))),
           )
           ModuleTree(
             Empty,

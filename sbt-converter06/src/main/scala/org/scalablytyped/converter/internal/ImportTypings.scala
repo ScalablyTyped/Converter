@@ -9,7 +9,7 @@ import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLib
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.{KeepOnlyReferenced, Name, Printer}
+import org.scalablytyped.converter.internal.scalajs.{Minimization, Name, Printer, QualifiedName}
 import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.ts._
 
@@ -29,6 +29,7 @@ object ImportTypings {
       libs:                 IArray[String],
       ignore:               Set[String],
       minimize:             Selection[TsIdentLibrary],
+      minimizeKeep:         IArray[QualifiedName],
   )
 
   object Input {
@@ -98,8 +99,8 @@ object ImportTypings {
           false,
         )
 
-        lazy val referencesToKeep: KeepOnlyReferenced.Index =
-          KeepOnlyReferenced.findReferences(globalScope, IArray.fromTraversable(libs).map {
+        lazy val referencesToKeep: Minimization.KeepIndex =
+          Minimization.findReferences(globalScope, config.minimizeKeep, IArray.fromTraversable(libs).map {
             case (s, l) => (minimize(s.libName), l.packageTree)
           })
 
@@ -109,7 +110,7 @@ object ImportTypings {
               val willMinimize = minimize(source.libName)
               val minimized =
                 if (willMinimize) {
-                  KeepOnlyReferenced(globalScope, referencesToKeep, logger, lib.packageTree)
+                  Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
               val outFiles = Printer(globalScope, minimized) map {
@@ -143,7 +144,9 @@ object ImportTypings {
       .to[Set]
 
   def main(args: Array[String]): Unit = {
-    val cacheDir = os.home / "tmp" / "tso-cache"
+    val cacheDir   = os.home / "tmp" / "tso-cache"
+    val outputName = Name("typings")
+
     println(
       ImportTypings(
         Input(
@@ -152,11 +155,12 @@ object ImportTypings {
           IArray(("@storybook/react" -> "1")),
           InFolder(cacheDir / "npm" / "node_modules"),
           files.existing(cacheDir / 'work),
-          new InternalFlavour.Slinky(true, Name("typings")),
+          InternalFlavour.Slinky(shouldGenerateCompanions = true, outputName),
           enableScalaJsDefined = Selection.None,
           IArray("es5", "dom"),
           Set("typescript", "csstype"),
-          minimize = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
+          minimize     = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
+          minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
         ),
         stdout.filter(LogLevel.warn),
       ).map(_.size),

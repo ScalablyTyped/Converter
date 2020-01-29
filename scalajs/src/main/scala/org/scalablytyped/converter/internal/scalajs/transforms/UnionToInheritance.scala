@@ -115,7 +115,7 @@ object UnionToInheritance {
               Empty,
               ClassType.Trait,
               isSealed = false,
-              ta.comments +? comment + CommentData(KeepOnlyReferenced.Related(asInheritance)) +
+              ta.comments +? comment + CommentData(Minimization.Related(asInheritance)) +
                 CommentData(WasUnion(asInheritance)),
               ta.codePath,
             )
@@ -133,7 +133,7 @@ object UnionToInheritance {
               ClassType.Trait,
               isSealed = false,
               Comments(
-                List(CommentData(KeepOnlyReferenced.Related(asInheritance)), CommentData(WasUnion(asInheritance))),
+                List(CommentData(Minimization.Related(asInheritance)), CommentData(WasUnion(asInheritance))),
               ),
               patchedTa.codePath,
             )

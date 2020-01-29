@@ -15,9 +15,6 @@ sealed trait Selection[T] {
       case Selection.Or(_1, _2)              => Selection.Or(_1 map f, _2 map f)
     }
 
-  @deprecated("Remove extra set of parenthesis", "1.0.0-M2")
-  def apply(): Selection[T] = this
-
   def apply(value: T): Boolean =
     this match {
       case Selection.NoneExcept(values @ _*) => values.contains(value)
@@ -28,11 +25,6 @@ sealed trait Selection[T] {
 }
 
 object Selection {
-  @deprecated("Use Selection.All or Selection.None", "1.0.0-M2")
-  implicit def fromBoolean[T](b: Boolean): Selection[T] = if (b) All else None
-  @deprecated("Use Selection.NoneExcept", "1.0.0-M2")
-  def AllOf[T](values: T): Selection[T] = NoneExcept(values)
-
   def All[T]:  Selection[T] = AllExcept()
   def None[T]: Selection[T] = NoneExcept()
 
