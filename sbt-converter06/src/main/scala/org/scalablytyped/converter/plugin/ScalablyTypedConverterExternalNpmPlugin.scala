@@ -6,7 +6,7 @@ import org.scalablytyped.converter.internal.importer.Json
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder, PackageJsonDepsDecoder}
 import org.scalablytyped.converter.internal.scalajs.QualifiedName
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{BuildInfo, IArray, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{BuildInfo, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
 import sbt._
 
@@ -25,10 +25,11 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     Seq(
       stImport := {
+        val projectName          = name.value
         val cacheDirectory       = streams.value.cacheDirectory
         val flavour              = stInternalFlavour.value
         val enableScalaJsDefined = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply)
-        val stLogger             = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void
+        val stLogger             = WrapSbtLogger(streams.value.log).filter(LogLevel.warn).void.withContext("project", projectName)
         val folder               = os.Path(externalNpm.value)
         val packageJson          = folder / "package.json"
         val nodeModules          = InFolder(folder / "node_modules")
@@ -44,7 +45,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
         val config = ImportTypings.Input(
           BuildInfo.version,
-          os.read(packageJson).hashCode,
+          Digest.of(List(os.read.bytes(packageJson))).hexString,
           IArray.fromTraversable(npmDeps),
           nodeModules,
           targetFolder,

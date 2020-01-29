@@ -20,7 +20,7 @@ object ImportTypings {
 
   case class Input(
       version:              String,
-      packageJsonHash:      Int,
+      packageJsonHash:      String,
       npmDependencies:      IArray[(String, String)],
       fromFolder:           InFolder,
       targetFolder:         os.Path,
@@ -151,7 +151,7 @@ object ImportTypings {
       ImportTypings(
         Input(
           "0",
-          0,
+          "0xA",
           IArray(("@storybook/react" -> "1")),
           InFolder(cacheDir / "npm" / "node_modules"),
           files.existing(cacheDir / 'work),
