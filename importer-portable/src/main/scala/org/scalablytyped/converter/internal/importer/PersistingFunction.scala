@@ -7,20 +7,32 @@ import java.nio.channels.{FileChannel, OverlappingFileLockException}
 import java.nio.file.{Files, Path, StandardOpenOption}
 
 import com.olvind.logging.Logger
-import org.nustaq.serialization.FSTConfiguration
 
 import scala.util.{Failure, Success, Try}
 
 object PersistingFunction {
 
   object Serializer {
-    val conf = FSTConfiguration.createDefaultConfiguration()
-
-    def serialize[T <: Serializable](obj: T): Array[Byte] =
-      conf.asByteArray(obj)
+    def serialize[T <: Serializable](obj: T): Array[Byte] = {
+      val byteOut = new ByteArrayOutputStream()
+      val objOut  = new ObjectOutputStream(byteOut)
+      objOut.writeObject(obj)
+      objOut.close()
+      byteOut.close()
+      byteOut.toByteArray
+    }
 
     def deserialize[T <: Serializable](bytes: Array[Byte]): Try[T] = Try {
-      conf.asObject(bytes).asInstanceOf[T]
+      val byteIn = new ByteArrayInputStream(bytes)
+      val objIn = new ObjectInputStream(byteIn) { // https://github.com/scala/bug/issues/9777
+        override def resolveClass(desc: ObjectStreamClass): Class[_] =
+          Class.forName(desc.getName, false, PersistingFunction.getClass.getClassLoader)
+      }
+      val obj = objIn.readObject().asInstanceOf[T]
+
+      byteIn.close()
+      objIn.close()
+      obj
     }
   }
 

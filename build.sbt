@@ -2,7 +2,7 @@ import scala.sys.process.stringToProcess
 
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
-  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode, Deps.fst) ++ Deps.circe)
+  .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
 
 lazy val logging = project
   .configure(baseSettings, publicationSettings)
