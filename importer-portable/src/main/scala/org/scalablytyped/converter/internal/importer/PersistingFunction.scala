@@ -24,8 +24,12 @@ object PersistingFunction {
 
     def deserialize[T <: Serializable](bytes: Array[Byte]): Try[T] = Try {
       val byteIn = new ByteArrayInputStream(bytes)
-      val objIn  = new ObjectInputStream(byteIn)
-      val obj    = objIn.readObject().asInstanceOf[T]
+      val objIn = new ObjectInputStream(byteIn) { // https://github.com/scala/bug/issues/9777
+        override def resolveClass(desc: ObjectStreamClass): Class[_] =
+          Class.forName(desc.getName, false, PersistingFunction.getClass.getClassLoader)
+      }
+      val obj = objIn.readObject().asInstanceOf[T]
+
       byteIn.close()
       objIn.close()
       obj
