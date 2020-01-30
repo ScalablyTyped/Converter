@@ -44,12 +44,12 @@ The final feature which was merged before release was "adaptive naming", which m
 
 It typically looked like this:
 ```scala
-import typingsSlinky.reactDashRouter.reactDashRouterMod.RouteProps
+import typings.reactDashRouter.reactDashRouterMod.RouteProps
 ```
 
 After the change, the same import is now
 ```scala
-import typingsSlinky.reactRouter.mod.RouteProps
+import typings.reactRouter.mod.RouteProps
 ```
 
 Everyone migrating to the plugin from the ScalablyTyped distribution will have to rewrite most of their imports.
