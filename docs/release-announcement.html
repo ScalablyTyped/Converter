@@ -76,10 +76,10 @@ This is now solved by <a href="/docs/flavour">flavours</a> instead.</p>
 <p>One of the recognizable features of ScalablyTyped was the rather peculiar naming scheme which served to avoid name collisions.</p>
 <p>The final feature which was merged before release was &quot;adaptive naming&quot;, which manages the same while generating much nicer looking code.</p>
 <p>It typically looked like this:</p>
-<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> typingsSlinky.reactDashRouter.reactDashRouterMod.<span class="hljs-type">RouteProps</span>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> typings.reactDashRouter.reactDashRouterMod.<span class="hljs-type">RouteProps</span>
 </code></pre>
 <p>After the change, the same import is now</p>
-<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> typingsSlinky.reactRouter.mod.<span class="hljs-type">RouteProps</span>
+<pre><code class="hljs css language-scala"><span class="hljs-keyword">import</span> typings.reactRouter.mod.<span class="hljs-type">RouteProps</span>
 </code></pre>
 <p>Everyone migrating to the plugin from the ScalablyTyped distribution will have to rewrite most of their imports.
 It should be easy once you see the pattern. Most module names will have lost part of it's prefix, and the top-level
