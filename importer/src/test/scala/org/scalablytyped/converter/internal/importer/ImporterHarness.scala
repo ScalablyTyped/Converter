@@ -35,11 +35,6 @@ trait ImporterHarness extends AnyFunSuite {
   val OutputPkg:  Name                  = Name("typings")
   val NoListener: PhaseListener[Source] = (_, _, _) => ()
 
-  object FakeIndex {
-    def apply(under: os.Path): DTLastChangedIndex =
-      new DTLastChangedIndex(os.walk(under).map(p => p -> 0L).toMap)
-  }
-
   private def runImport(
       source:        InFolder,
       targetFolder:  os.Path,
@@ -52,7 +47,7 @@ trait ImporterHarness extends AnyFunSuite {
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
     val resolve          = new LibraryResolver(stdLibSource, IArray(source), None)
-    val lastChangedIndex = FakeIndex(source.path)
+    val lastChangedIndex = DTLastChangedIndex.No
 
     val phase: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]

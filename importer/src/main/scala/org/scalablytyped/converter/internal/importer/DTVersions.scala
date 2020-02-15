@@ -7,9 +7,17 @@ import java.time.{Instant, ZonedDateTime}
 import ammonite.ops.%%
 import org.scalablytyped.converter.internal.ts.{CalculateLibraryVersion, PackageJsonDeps}
 
+import scala.util.matching.Regex
 import scala.util.{Success, Try}
 
 class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryVersion {
+  val GitAtGithubDotCom: Regex = s"git@github.com:(.*)".r
+
+  def uri(uriString: String): URI =
+    uriString match {
+      case GitAtGithubDotCom(path) => new URI(s"https://github.com/$path")
+      case other                   => new URI(other)
+    }
 
   def apply(
       sourceFolder:   InFolder,
@@ -27,13 +35,14 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
       DefinitelyTypedVersion.from(comments)
 
     val inGit: Option[InGit] =
-      Try(new URI((%% git ('remote, "get-url", 'origin)).out.string.trim)) match {
+      Try(uri((%% git ('remote, "get-url", 'origin)).out.string.trim)) match {
+        case Success(constants.ConverterRepo) =>
+          None
         case Success(uri) =>
           val lastModified = ZonedDateTime.ofInstant(
-            Instant.ofEpochSecond(lastChangedIndex.values(sourceFolder.path)),
+            Instant.ofEpochSecond(lastChangedIndex(sourceFolder.path)),
             constants.TimeZone,
           )
-
           Some(InGit(uri, uri === constants.DefinitelyTypedRepo, lastModified))
         case _ => None
       }

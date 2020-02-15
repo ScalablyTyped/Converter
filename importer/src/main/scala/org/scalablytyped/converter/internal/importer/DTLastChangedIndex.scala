@@ -2,7 +2,9 @@ package org.scalablytyped.converter.internal.importer
 
 import scala.collection.mutable
 
-final case class DTLastChangedIndex(values: Map[os.Path, Long])
+sealed trait DTLastChangedIndex {
+  def apply(path: os.Path): Long
+}
 
 /**
   * It's pretty ridiculous that this is needed, but here we are...
@@ -27,6 +29,13 @@ object DTLastChangedIndex {
     0 to relPath.segments.length map { n =>
       os.RelPath(relPath.segments.take(n), 0)
     }
+  final case object No extends DTLastChangedIndex {
+    def apply(path: os.Path): Long = 0L
+  }
+
+  final case class Impl(values: Map[os.Path, Long]) extends DTLastChangedIndex {
+    def apply(path: os.Path): Long = values(path)
+  }
 
   def apply(cmd: Cmd, repo: os.Path): DTLastChangedIndex = {
     implicit val wd = repo
@@ -61,6 +70,6 @@ object DTLastChangedIndex {
       case _ =>
     }
 
-    new DTLastChangedIndex(lastChanged.map { case (relPath, long) => repo / relPath -> long }(collection.breakOut))
+    Impl(lastChanged.map { case (relPath, long) => repo / relPath -> long }(collection.breakOut))
   }
 }

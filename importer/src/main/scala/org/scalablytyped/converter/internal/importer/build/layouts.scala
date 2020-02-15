@@ -55,7 +55,7 @@ final case class IvyLayout[F, V](jarFile: (F, V), sourceFile: (F, V), ivyFile: (
 
 object IvyLayout {
   def apply[T](p: SbtProject, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
-    val libraryPath = os.RelPath(p.organization) / p.artifactId / p.version
+    val libraryPath = os.RelPath(p.organization) / p.artifactId / os.RelPath(p.version)
     IvyLayout(
       jarFile    = libraryPath / 'jars / s"${p.artifactId}.jar" -> jarFile,
       sourceFile = libraryPath / 'srcs / s"${p.artifactId}-sources.jar" -> sourceFile,

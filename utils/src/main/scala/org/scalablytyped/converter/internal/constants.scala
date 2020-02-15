@@ -7,11 +7,9 @@ import java.util.Locale
 
 import scala.io.Codec
 
-/**
-  * Todo: this is mostly config, and it's only laziness that it's all here static
-  */
 object constants {
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
+  val ConverterRepo       = new URI("https://github.com/ScalablyTyped/Converter.git")
   val isCi                = sys.env.get("CIRCLECI").isDefined
   val TimeZone            = ZoneId.of("UTC")
   val Utf8                = Codec.UTF8.charSet
