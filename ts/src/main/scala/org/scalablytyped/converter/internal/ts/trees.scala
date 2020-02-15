@@ -346,7 +346,7 @@ final case class TsIdentModule(scopeOpt: Option[String], fragments: List[String]
 
   override def equals(obj: Any): Boolean =
     obj match {
-      case other: TsIdentModule if other.hashCode === hashCode => other.value === value
+      case other: TsIdentModule if other.hashCode == hashCode => other.value == value
       case _ => false
     }
 }

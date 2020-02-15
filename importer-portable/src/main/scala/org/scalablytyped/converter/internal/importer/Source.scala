@@ -20,6 +20,54 @@ sealed trait Source {
 }
 
 object Source {
+  case class FromNodeModules(
+      sources:         Set[Source],
+      folders:         IArray[InFolder],
+      libraryResolver: LibraryResolver,
+      stdLibSource:    StdLibSource,
+  )
+
+  def fromNodeModules(fromFolder: InFolder, input: SharedInput): FromNodeModules = {
+    val stdLibSource = {
+      val folder = fromFolder.path / "typescript" / "lib"
+
+      require(os.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
+      require(!input.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
+
+      StdLibSource(
+        InFolder(folder),
+        input.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
+        TsIdent.std,
+      )
+    }
+
+    val inputFolders: IArray[InFolder] = IArray(InFolder(fromFolder.path / "@types"), fromFolder)
+    val sources:      Set[Source]      = findSources(inputFolders, IArray.fromTraversable(input.wantedLibs)) + stdLibSource
+
+    FromNodeModules(
+      sources         = sources,
+      folders         = inputFolders,
+      libraryResolver = new LibraryResolver(stdLibSource, inputFolders, None),
+      stdLibSource    = stdLibSource,
+    )
+  }
+
+  private def findSources(fromFolders: IArray[InFolder], wanted: IArray[TsIdentLibrary]): Set[Source] =
+    wanted
+      .flatMap(name =>
+        fromFolders.mapNotNone { fromFolder =>
+          val potential = fromFolder.path / os.RelPath(name.value)
+          if (os.exists(potential)) Some[Source](Source.FromFolder(InFolder(potential), name))
+          else None
+        },
+      )
+      .groupBy(_.libName)
+      .flatMap {
+        case (_, sameName) =>
+          sameName.find(s => os.walk.stream(s.folder.path, _.last == "node_modules").exists(_.last.endsWith(".d.ts")))
+      }
+      .toSet
+
   sealed trait TsSource extends Source {
     final def inLibrary: Source.TsLibSource =
       this match {

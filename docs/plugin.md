@@ -4,7 +4,7 @@ title: Getting started - SBT plugin
 ---
 
 The plugin uses [scalajs-bundler](https://scalacenter.github.io/scalajs-bundler/)
-to download NPM packages, and translates typescript type definitions into Scala.js before your project compiles, as an SBT source generator.
+to download NPM packages, and translates typescript type definitions into Scala.js jars before your project compiles.
 
 If you for some reason cannot use scalajs-bundler, there is a more general version [here](plugin-no-bundler.md).
 
@@ -13,7 +13,7 @@ If you for some reason cannot use scalajs-bundler, there is a more general versi
 Then check out the demo projects:
 - [Demos](https://github.com/ScalablyTyped/Demos)
 - [React/Slinky demos](https://github.com/ScalablyTyped/SlinkyDemos)
-- `Scalajs-React demos` (we need help porting slinky demos!)
+- `Scalajs-React demos` (help wanted!)
 
 # Setup
 
@@ -22,9 +22,8 @@ Then check out the demo projects:
 Due to conflicting scala library dependencies **this plugin needs sbt 1.3.0 or newer**.
 
 Since we generate source code, it should work with any combination of 
-Scala 2.12/2.13 and Scala.js 0.6.x/1.0.0-milestones. 
-Certain [flavour](flavour.md)s might not yet work on Scala.js 1.0.0 milestones 
- if the libraries have not been published.
+Scala 2.12 / 2.13 and Scala.js 1 / 0.6. 
+Certain [flavours](flavour.md) might not yet work on Scala.js 1 if the libraries have not been published.
  
 ## Add to your `project/plugins.sbt`
 
@@ -85,37 +84,51 @@ project.settings(
 )
 ```
 
-## Make it faster (Optional)
+## Use yarn instead of npm
 
-You'll notice that your build is now slow. 
-
-This part will walk you through how to speed it up within the build.
-Keep in mind that you can always pull the code generation and compilation up into a dependency 
- that you build independently if any of this becomes a showstopper. 
-
-Your build is now slow because of three things, which we'll handle in turn.
-
-### `npmInstall`
-
-The first thing you should do is to configure scalajs-bundler to use yarn:
+The plugin checks for updated npm dependencies on each compile, and yarn responds much faster than npm.
+ 
+Configure scalajs-bundler like this:
 ```scala
 project.settings(
   useYarn := true
 )
 ```
 Yarn will need to be present on your system for this to work. You should also check in `yarn.lock`.
-The main reason we do that is that `npm` uses seconds to verify that everything is current, and that will
- be done for **every** compile.
+
+## How it works
+
+Hopefully everything will work automatically. Change an npm dependency, reimport project, wait, voila. 
+
+
+The plugin taps into the `unmanagedJars` task in sbt, and this has some consequences for how it works.
+Whenever the task is evaluated, typically through a `compile` or an import into an IDE, the plugin
+
+- Runs a customized version of `installNpmDependencies` from scalajs-bundler, changed to avoid touching `unmanagedJars`.
+
+- Computes a digest from the resulting `package.json` file and of the configuration of the plugin
+
+- If we have a stored conversion with the given digest and if all the generated artifacts exist locally, we return those
+
+- Otherwise we run converter, compiling only the missing libraries if any. Libraries are also digested by their contents, 
+ to avoid unnecessary recompilations.
+
+Importing a build with a configuration the machine has seen and compiled before should be very fast. 
+
+## Customize the generated code
 
 ### `stIgnore`
-ScalablyTypedConverter is not that fast yet. Surely there are low hanging fruits for speeding it up, 
- but we're following an old development [mantra](https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast). 
-  
-The most important way to speed it up is to make it do less work. Enter `stIgnore`.
+There are a few reasons you might want to ignore things:
+- A dependency of a library you want to use might fail conversion/compilation and you can try to salvage the situation by ignoring it.
+- A dependency is slow to convert/build and you have no use for it
+- A library has a circular set of dependencies (it's javascript, of course it happens) you might break the circuit by ignoring a library.
 
-So what can we ignore?
+The consequence of ignoring a library is typically that whenever another library references something in it, 
+that reference will be translated as `js.Any` with a comment (and there will be warnings when importing).
 
-Let's take a few examples:
+You cannot ignore the `std` library.
+ 
+Some usage examples: 
 
 - `csstype` is a type-only library from DefinitelyTyped which describes all of react CSS with Typescript interfaces, enabling
  type-safe use. It is a dependency of `react`, and used throughout that ecosystem. 
@@ -136,61 +149,6 @@ project.settings(
 )
 ```
 
-### Compiling all that generated code
-
-There may be a **lot**. 
-
-Ignoring libraries or modules will help, but our main tool here is called `stMinimize`.
-
-By minimization we mean to remove everything from a library except what is referenced from somewhere else, so that
- things keep compiling.
-
-The point is that you typically want everything from your main libraries, 
- but you care less about their (transitive) dependencies. 
-
-Since you typically don't want to enumerate all transitive dependencies, the `Selection` helper type provided for this:
-
-- `Selection.None` disables for all libraries (default)
-- `Selection.NoneExcept(String*)` enables only given libraries 
-- `Selection.All` enables for all libraries
-- `Selection.AllExcept(String*)` enables only not given libraries (most useful) 
-
-Using that, typical usage of `stMinimize` looks like this:
-
-```scala
-project.settings(
-  Compile / stMinimize := Selection.AllExcept("axios", "material-ui", "mobx-react", "mobx")
-)
-``` 
-
-Note that if you use a [react flavour](flavour.md) which generates a `components` package, all those
-components are considered "entry points", and are not eligible for removal. 
-In other words, if you use **only** react components from a library, it's fine to minimize that, too. 
-
-### `stMinimizeKeep` 
-If you want to just keep a few things from a library and minimize away the rest, there is also a mechanism for that.
-The names you supply should be exactly as they appear in the generated scala code without the initial package prefix (typically `typings`).
-
-```scala
-project.settings(
-  /* setup libraries */
-  Compile / npmDependencies ++= Seq(
-    "moment" -> "2.24.0",
-    "react-big-calendar" -> "0.22",
-    "@types/react-big-calendar" -> "0.22.3"
-  ),
-  /* say we want to minimize all */
-  Compile / stMinimize := Selection.All,
-  /* but keep these very specific things*/
-  Compile / stMinimizeKeep ++= List(
-    "moment.mod.^",
-    "reactBigCalendar.mod.momentLocalizer",
-    "reactBigCalendar.mod.View",
-  ),
-)
-
-``` 
-## Customize the generated code
 ### `stEnableScalaJsDefined` 
 
 As explained in the corresponding [Scala.js documentation page](http://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html),
@@ -229,9 +187,7 @@ Also note that if you use a [flavour](flavour.md) which translates types to `sca
  only types found in the chosen stdlib will be translated.
  
 ### `stOutputPackage`
-For aesthetic reasons, or because you want to shade the typings in a new package 
-if you're building a library, you can adjust the top-level package into which
- we put the generated code.
+You can adjust the top-level package into which we put the generated code.
        
 ```scala
 project.settings(
@@ -262,13 +218,10 @@ Do you find the debug output tiring?
 Global / stQuiet := true
 ```
 
-By default we cache the results of the parser, since it needs to be rewritten to be fast.
-The results is shared by default in `~/.cache/scalablytyped-sbt`.
+By default we store caches and built artifacts in `~/.cache/scalablytyped`.
 
-If you want to disable caching for some reason or change location you can set 
+If that doesn't suit you, you can specify another directory 
 
 ```scala
-Global / stCacheDir := Some(file("/some/other/dir"))
-
-Global / stCacheDir := None // disables cache
+Global / stDir := file("/some/other/dir")
 ```

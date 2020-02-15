@@ -1,11 +1,13 @@
 package org.scalablytyped.converter.internal
 package phases
 
+import java.nio.channels.ClosedByInterruptException
+
 import com.olvind.logging.{Formatter, Logger}
 
 import scala.collection.immutable.{SortedMap, SortedSet}
-import scala.concurrent.Await
 import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionException}
 
 /**
   * Runs a computation given a sequence of input ids.
@@ -93,6 +95,14 @@ object PhaseRunner {
               p.success(res)
           }
         } catch {
+          case x: InterruptedException => throw x
+          case x: ClosedByInterruptException => throw x
+          case x: ExecutionException if x.getCause != null =>
+            val e = x.getCause
+            listener.on(next.name, id, PhaseListener.Failure(next.name))
+            logger.error(("Failure", e))
+            p.success(PhaseRes.Failure(Map(id -> Left(e))))
+
           case e: Throwable =>
             listener.on(next.name, id, PhaseListener.Failure(next.name))
             logger.error(("Failure", e))

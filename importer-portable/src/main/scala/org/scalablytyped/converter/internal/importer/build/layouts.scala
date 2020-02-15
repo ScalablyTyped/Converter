@@ -16,6 +16,13 @@ trait Layout[F, V] {
     map { case (k, v) => k -> f(k, v) }
 }
 
+final case class MapLayout[F, V](all: Map[F, V]) extends Layout[F, V] {
+  override type Self[f, v] = MapLayout[f, v]
+
+  override def map[FF, VV](f: (F, V) => (FF, VV)): MapLayout[FF, VV] =
+    MapLayout[FF, VV](all map { case (k, v) => (f(k, v)) })
+}
+
 final case class SbtProjectLayout[F, V](
     buildSbt:        (F, V),
     buildProperties: (F, V),

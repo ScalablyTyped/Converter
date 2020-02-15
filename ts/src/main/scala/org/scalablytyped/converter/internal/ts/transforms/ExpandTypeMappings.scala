@@ -191,12 +191,12 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                     )
                 }
               case Problems(ps) =>
-                ps.foreach(p => scope.logger.warn(s"Could not replace key $key = $name: $p"))
+                ps.foreach(p => scope.logger.info(s"Could not replace key $key = $name: $p"))
                 None
             }
 
           foundType getOrElse {
-            scope.logger.warn(s"Could not replace key $key = $name")
+            scope.logger.info(s"Could not replace key $key = $name")
             TsTypeRef.any
           }
         case other => other

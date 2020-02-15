@@ -41,7 +41,7 @@ object ContentForPublish {
   }
 
   // adapted from mill
-  private def createJar(fromFolder: os.Path, publication: ZonedDateTime): Array[Byte] = {
+  def createJar(fromFolder: os.Path, publication: ZonedDateTime): Array[Byte] = {
     val seen = mutable.Set[os.RelPath](os.RelPath("META-INF") / "MANIFEST.MF")
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
@@ -63,7 +63,7 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  private def createJar(sourceFiles: Layout[os.RelPath, Array[Byte]], publication: ZonedDateTime): Array[Byte] = {
+  def createJar(sourceFiles: Layout[os.RelPath, Array[Byte]], publication: ZonedDateTime): Array[Byte] = {
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 
@@ -111,11 +111,15 @@ object ContentForPublish {
         <artifact name={p.artifactId} type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        <dependency org={v.scalaOrganization} name="scala-compiler" rev={v.scalaVersion} conf="scala-tool->default,optional(default)"/>
-        <dependency org={v.scalaOrganization} name="scala-library" rev={v.scalaVersion} conf="scala-tool->default,optional(default);compile->default(compile)"/>
-        <dependency org={v.scalaJsOrganization} name={s"scalajs-compiler_${v.scalaVersion}"} rev={v.scalaJsVersion} conf="plugin->default(compile)"/>
-        <dependency org={v.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJsVersion} conf="compile->default(compile)"/>
-        <dependency org={v.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={v.scalaJsVersion} conf="test->default(compile)"/>
+        <dependency org={v.scala.scalaOrganization} name="scala-compiler" rev={v.scala.scalaVersion} conf="scala-tool->default,optional(default)"/>
+        <dependency org={v.scala.scalaOrganization} name="scala-library" rev={v.scala.scalaVersion} conf="scala-tool->default,optional(default);compile->default(compile)"/>
+        <dependency org={v.scalaJs.scalaJsOrganization} name={s"scalajs-compiler_${v.scala.scalaVersion}"} rev={
+      v.scalaJs.scalaJsVersion
+    } conf="plugin->default(compile)"/>
+        <dependency org={v.scalaJs.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJs.scalaJsVersion} conf="compile->default(compile)"/>
+        <dependency org={v.scalaJs.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={
+      v.scalaJs.scalaJsVersion
+    } conf="test->default(compile)"/>
         <dependency org={constants.RuntimeOrg} name={v.sjs(constants.RuntimeName)} rev={constants.RuntimeVersion} conf="compile->default(compile)"/>
         {
       p.deps.map {
@@ -144,19 +148,19 @@ object ContentForPublish {
       </organization>
       <dependencies>
         <dependency>
-          <groupId>{v.scalaOrganization}</groupId>
+          <groupId>{v.scala.scalaOrganization}</groupId>
           <artifactId>scala-library</artifactId>
-          <version>{v.scalaVersion}</version>
+          <version>{v.scala.scalaVersion}</version>
         </dependency>
         <dependency>
-          <groupId>{v.scalaJsOrganization}</groupId>
+          <groupId>{v.scalaJs.scalaJsOrganization}</groupId>
           <artifactId>{v.s("scalajs-library")}</artifactId>
-          <version>{v.scalaJsVersion}</version>
+          <version>{v.scalaJs.scalaJsVersion}</version>
         </dependency>
         <dependency>
-          <groupId>{v.scalaJsOrganization}</groupId>
+          <groupId>{v.scalaJs.scalaJsOrganization}</groupId>
           <artifactId>{v.s("scalajs-test-interface")}</artifactId>
-          <version>{v.scalaJsVersion}</version>
+          <version>{v.scalaJs.scalaJsVersion}</version>
           <scope>test</scope>
         </dependency>
         <dependency>

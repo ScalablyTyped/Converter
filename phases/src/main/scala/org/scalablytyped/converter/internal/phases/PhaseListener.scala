@@ -5,6 +5,8 @@ trait PhaseListener[Id] {
 }
 
 object PhaseListener {
+  def NoListener[Id]: PhaseListener[Id] = (_, _, _) => ()
+
   sealed trait Event[Id]
   case class Started[Id](phase: String) extends Event[Id]
   case class Blocked[Id](phase: String, on: Set[Id]) extends Event[Id]

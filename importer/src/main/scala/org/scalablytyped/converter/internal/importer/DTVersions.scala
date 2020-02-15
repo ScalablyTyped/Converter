@@ -19,7 +19,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
       case other                   => new URI(other)
     }
 
-  def apply(
+  override def apply(
       sourceFolder:   InFolder,
       isStdLib:       Boolean,
       packageJsonOpt: Option[PackageJsonDeps],
@@ -28,11 +28,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
 
     implicit val wd = sourceFolder.path
 
-    def ignoreStdLibMinorVersion(v: String): String =
-      if (isStdLib) v.substring(0, v.lastIndexOf(".")) else v
-
-    val libraryVersion = packageJsonOpt.flatMap(_.version) map ignoreStdLibMinorVersion orElse
-      DefinitelyTypedVersion.from(comments)
+    val libraryVersion = packageJsonOpt.flatMap(_.version) orElse DefinitelyTypedVersion.from(comments)
 
     val inGit: Option[InGit] =
       Try(uri((%% git ('remote, "get-url", 'origin)).out.string.trim)) match {
@@ -47,7 +43,7 @@ class DTVersions(lastChangedIndex: DTLastChangedIndex) extends CalculateLibraryV
         case _ => None
       }
 
-    LibraryVersion(libraryVersion, inGit)
+    LibraryVersion(isStdLib, libraryVersion, inGit)
   }
 
   /**

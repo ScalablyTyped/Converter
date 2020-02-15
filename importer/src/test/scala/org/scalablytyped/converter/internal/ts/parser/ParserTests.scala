@@ -401,7 +401,9 @@ final class ParserTests extends AnyFunSuite {
                   isOptional = false,
                 ),
               ),
-              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("AltJS"), TsIdentSimple("ActionsClass"))), Empty)),
+              Some(
+                TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("AltJS"), TsIdentSimple("ActionsClass"))), Empty),
+              ),
             ),
           ),
         ),
@@ -725,7 +727,11 @@ final class ParserTests extends AnyFunSuite {
           Some(
             TsTypeIs(
               TsIdent("object"),
-              TsTypeRef(NoComments, TsQIdent.of("ReactElement"), IArray(TsTypeRef(NoComments, TsQIdent.of("P"), Empty))),
+              TsTypeRef(
+                NoComments,
+                TsQIdent.of("ReactElement"),
+                IArray(TsTypeRef(NoComments, TsQIdent.of("P"), Empty)),
+              ),
             ),
           ),
         ),
@@ -768,7 +774,9 @@ final class ParserTests extends AnyFunSuite {
               isOptional = false,
             ),
           ),
-          Some(TsTypeRef(NoComments, TsQIdent.of("JQueryPromise"), IArray(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)))),
+          Some(
+            TsTypeRef(NoComments, TsQIdent.of("JQueryPromise"), IArray(TsTypeRef(NoComments, TsQIdent.of("T"), Empty))),
+          ),
         ),
         isStatic   = false,
         isReadOnly = false,
@@ -1218,7 +1226,12 @@ final class ParserTests extends AnyFunSuite {
         TsIdent("Pick"),
         IArray(
           TsTypeParam(NoComments, TsIdent("T"), None, None),
-          TsTypeParam(NoComments, TsIdent("K"), Some(TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Empty))), None),
+          TsTypeParam(
+            NoComments,
+            TsIdent("K"),
+            Some(TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Empty))),
+            None,
+          ),
         ),
         TsTypeObject(
           NoComments,
@@ -1287,7 +1300,9 @@ final class ParserTests extends AnyFunSuite {
                         TsFunParam(
                           NoComments,
                           TsIdent("v"),
-                          Some(TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef.of(TsIdent("P")))),
+                          Some(
+                            TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef.of(TsIdent("P"))),
+                          ),
                           isOptional = false,
                         ),
                       ),
@@ -1376,7 +1391,9 @@ type Readonly<T> = {
           Empty,
           Empty,
           Some(
-            TsTypeUnion(IArray(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("TResult"))), Empty), TsTypeRef.void)),
+            TsTypeUnion(
+              IArray(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("TResult"))), Empty), TsTypeRef.void),
+            ),
           ),
         ),
         isStatic   = false,
@@ -1402,7 +1419,12 @@ type Readonly<T> = {
         TsFunSig(
           NoComments,
           IArray(
-            TsTypeParam(NoComments, TsIdent("P"), Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("Q"))), Empty)), None),
+            TsTypeParam(
+              NoComments,
+              TsIdent("P"),
+              Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("Q"))), Empty)),
+              None,
+            ),
             TsTypeParam(NoComments, TsIdent("Q"), None, None),
           ),
           IArray(
@@ -2360,7 +2382,11 @@ type Readonly<T> = {
       TsParser.tsType,
     )(
       TsTypeLookup(
-        TsTypeRef(NoComments, TsQIdent.Array, IArray(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty))),
+        TsTypeRef(
+          NoComments,
+          TsQIdent.Array,
+          IArray(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty)),
+        ),
         TsTypeLiteral(TsLiteralString("forEach")),
       ),
     )
@@ -2501,7 +2527,7 @@ export {};
 
   test("asserts types") {
     shouldParseAs("""asserts assertion""", TsParser.tsType)(
-      TsTypeAsserts(TsIdent("assertion"))
+      TsTypeAsserts(TsIdent("assertion")),
     )
   }
 
@@ -2522,7 +2548,9 @@ export {};
             None,
             Some(
               TsExpr
-                .Ref(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ActionTypes"), TsIdentSimple("Start"))), Empty)),
+                .Ref(
+                  TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ActionTypes"), TsIdentSimple("Start"))), Empty),
+                ),
             ),
             Zero,
             CodePath.NoPath,

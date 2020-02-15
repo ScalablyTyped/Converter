@@ -48,7 +48,11 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("export default") {
     shouldParseAs("export default Abs", TsParser.tsExport)(
-      TsExport(NoComments, ExportType.Defaulted, TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("Abs"))), None)), None)),
+      TsExport(
+        NoComments,
+        ExportType.Defaulted,
+        TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("Abs"))), None)), None),
+      ),
     )
   }
 
@@ -83,7 +87,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
           TsDeclEnum(
             NoComments,
             declared = false,
-            isConst = true,
+            isConst  = true,
             TsIdent("RoundingMode"),
             Empty,
             isValue      = true,

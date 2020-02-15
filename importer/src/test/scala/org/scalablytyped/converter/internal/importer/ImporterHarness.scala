@@ -13,7 +13,7 @@ import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, Publi
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.Name
-import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
+import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.ts._
 import org.scalatest.Assertion
 import org.scalatest.funsuite.AnyFunSuite
@@ -25,15 +25,13 @@ import scala.util.{Failure, Success, Try}
 private object GitLock
 
 trait ImporterHarness extends AnyFunSuite {
-  val failureCacheDir = os.root / 'tmp / 'scalablytyped / 'compileFailures
+  val baseDir         = constants.defaultCacheFolder / 'tests
+  val failureCacheDir = baseDir / 'compileFailures
   os.makeDir.all(failureCacheDir)
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
   private val version    = Versions.current
-  private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, failureCacheDir)
-
-  val OutputPkg:  Name                  = Name("typings")
-  val NoListener: PhaseListener[Source] = (_, _, _) => ()
+  private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, Some(failureCacheDir.toNIO))
 
   private def runImport(
       source:        InFolder,
@@ -41,7 +39,7 @@ trait ImporterHarness extends AnyFunSuite {
       pedantic:      Boolean,
       logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
       publishFolder: os.Path,
-      flavour:       Flavour,
+      flavour:       FlavourImpl,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
@@ -65,7 +63,7 @@ trait ImporterHarness extends AnyFunSuite {
           "typescript",
         )
         .next(
-          new Phase2ToScalaJs(pedantic, enableScalaJsDefined = Selection.None, outputPkg = Name.typings),
+          new Phase2ToScalaJs(pedantic, enableScalaJsDefined = Selection.None, outputPkg = flavour.outputPkg),
           "scala.js",
         )
         .next(new PhaseFlavour(flavour), flavour.toString)
@@ -91,7 +89,10 @@ trait ImporterHarness extends AnyFunSuite {
 
     PhaseRes.sequenceMap(
       TreeMap.empty[TsLibSource, PhaseRes[Source, PublishedSbtProject]] ++ found
-        .map(s => s -> PhaseRunner(phase, logRegistry.get, NoListener)(s)),
+        .map { s =>
+          val res = PhaseRunner(phase, logRegistry.get, PhaseListener.NoListener)(s)
+          s -> res
+        },
     )
   }
 
@@ -99,8 +100,7 @@ trait ImporterHarness extends AnyFunSuite {
       testName: String,
       pedantic: Boolean,
       update:   Boolean,
-      flavour: Flavour = Flavour.Normal(
-        shouldGenerateCompanions = true,
+      flavour: FlavourImpl = FlavourImpl.Normal(
         shouldGenerateComponents = true,
         shouldUseScalaJsDomTypes = false,
         Name.typings,
@@ -115,10 +115,10 @@ trait ImporterHarness extends AnyFunSuite {
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {
-      case _: Flavour.Normal       => "check"
-      case _: Flavour.Slinky       => "check-slinky"
-      case _: Flavour.SlinkyNative => "check-slinky-native"
-      case _: Flavour.Japgolly     => "check-japgolly"
+      case _: FlavourImpl.Normal       => "check"
+      case _: FlavourImpl.Slinky       => "check-slinky"
+      case _: FlavourImpl.SlinkyNative => "check-slinky-native"
+      case _: FlavourImpl.Japgolly     => "check-japgolly"
     })
 
     val logRegistry =
@@ -128,7 +128,7 @@ trait ImporterHarness extends AnyFunSuite {
         _ => logging.appendable(new StringWriter()),
       )
 
-    val publishFolder = os.root / 'tmp / "scalablytyped-published-tests" / testName
+    val publishFolder = baseDir / "artifacts" / testName
 
     runImport(source, targetFolder, pedantic, logRegistry, publishFolder, flavour) match {
       case PhaseRes.Ok(_) =>

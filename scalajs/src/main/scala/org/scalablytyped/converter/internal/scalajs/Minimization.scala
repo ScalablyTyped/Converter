@@ -48,7 +48,7 @@ object Minimization {
 //    }
 
     var queue: List[QualifiedName]                               = allKeptReferences.toList
-    val keep:  IArray.Builder[QualifiedName]                     = IArray.Builder(allKeptReferences)
+    val keep:  IArray.Builder[QualifiedName]                     = IArray.Builder(allKeptReferences, allKeptReferences.length)
     val cache: mutable.Map[QualifiedName, IArray[QualifiedName]] = mutable.Map.empty
 
     while (queue.nonEmpty) {

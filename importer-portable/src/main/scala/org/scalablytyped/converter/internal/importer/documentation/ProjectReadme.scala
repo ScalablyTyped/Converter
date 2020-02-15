@@ -47,8 +47,8 @@ ${cs.mkString}
 
   def renderVersion(v: LibraryVersion): String =
     v match {
-      case LibraryVersion(Some(declared), _) => s"Typings are for version $declared\n"
-      case _                                 => ""
+      case LibraryVersion(_, Some(declared), _) => s"Typings are for version $declared\n"
+      case _                                    => ""
     }
 
   def renderData(data: Npmjs.Data): String = {

@@ -1,49 +1,45 @@
 package org.scalablytyped.converter.plugin
 
+import java.util.Optional
+
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
-import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
-import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
+import org.scalablytyped.converter.internal.importer.{flavourImpl, EnabledTypeMappingExpansion}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
-import sbt.Keys.{libraryDependencies, scalacOptions, sourceGenerators}
+import sbt.internal.util.Attributed
 import sbt.plugins.JvmPlugin
-import sbt.{inConfig, settingKey, taskKey, AutoPlugin, Compile, Def, File}
+import sbt.util.InterfaceUtil
+import sbt._
+import sbt.internal.server.LanguageServerReporter
+import xsbti.compile.{
+  CompileAnalysis,
+  CompileOptions,
+  DefinesClass,
+  IncOptions,
+  Inputs,
+  PerClasspathEntryLookup,
+  PreviousResult,
+  Setup,
+}
 
 object ScalablyTypedPluginBase extends AutoPlugin {
 
   object autoImport {
     type Selection[T] = converter.Selection[T]
     val Selection = converter.Selection
-    type Flavour = converter.plugin.Flavour
-    val Flavour = converter.plugin.Flavour
+    type Flavour = converter.Flavour
+    val Flavour = converter.Flavour
 
-    val stImport = taskKey[Seq[File]]("Imports all the bundled npm and generates bindings")
-    val stIgnore = settingKey[List[String]]("completely ignore libraries or modules")
-    val stGenerateCompanions = settingKey[Boolean](
-      "Whether to generate companion objects with apply methods for most traits",
-    )
+    val stImport  = taskKey[Seq[Attributed[File]]]("Imports all the bundled npm and generates bindings")
+    val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
+    val stIgnore  = settingKey[List[String]]("completely ignore libraries or modules")
     val stFlavour = settingKey[Flavour]("The type of react binding to use")
     val stEnableScalaJsDefined = settingKey[Selection[String]](
       "Generate @ScalaJSDefined traits when necessary. This enables you to `new` them, but it may require tons of compilation time",
     )
 
     val stUseScalaJsDom = settingKey[Boolean]("Use types from scala-js-dom instead of from std when possible")
-
-    /**
-      * A list of library names you don't care too much about.
-      * The idea is that we can limit compile time (by a lot!)
-      */
-    val stMinimize = settingKey[Selection[String]]("")
-
-    /**
-      * If you care about a small set of specific things from a library you can explicitly say you want that.
-      * Examples:
-      * - `angularCommon.mod.AsyncPipe`
-      * - `std.console`
-      *
-      */
-    val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
 
     /** Options are
       * dom
@@ -108,34 +104,48 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       "The top-level package to put generated code in",
     )
 
-    val stInternalExpandTypeMappings = settingKey[Selection[String]]("experimental: enable type mapping expansion")
-    val stQuiet                      = settingKey[Boolean]("remove all output")
-    val stCacheDir                   = settingKey[Option[File]]("cache directory to workaround slow parser")
+    val stQuiet = settingKey[Boolean]("remove all output")
 
-    private[plugin] val stInternalFlavour = settingKey[InternalFlavour]("don't use this")
+    @deprecated("No longer used. Use `stDir` instead to change directory", "1.0.0-beta4")
+    val stCacheDir = settingKey[Option[File]]("cache directory to workaround slow parser")
+    @deprecated("No longer used", "1.0.0-beta4")
+    val stMinimize = settingKey[Selection[String]]("")
+    @deprecated("No longer used", "1.0.0-beta4")
+    val stGenerateCompanions =
+      settingKey[Boolean]("Whether to generate companion objects with apply methods for most traits")
+    @deprecated("No longer used", "1.0.0-beta4")
+    val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
+
+    val stInternalExpandTypeMappings                     = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
+    private[plugin] val stInternalCompileInputs          = taskKey[Inputs]("Hijack compiler settings")
+    private[plugin] val stInternalNpmInstallDependencies = taskKey[File]("Install deps from npm")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
 
   lazy val stOutsideConfig: Seq[Def.Setting[_]] = {
     import PlatformDepsPlugin.autoImport._
-    import autoImport.stInternalFlavour
+    import autoImport._
     import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 
     Seq(
-      libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
-      libraryDependencies ++= {
-        val internalFlavour = (Compile / stInternalFlavour).value
-        internalFlavour.dependencies
+      Keys.libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
+      Keys.libraryDependencies ++= {
+        val impl = flavourImpl(
+          flavour                  = (Compile / stFlavour).value,
+          shouldUseScalaJsDomTypes = (Compile / stUseScalaJsDom).value,
+          outputPackage            = Name((Compile / stOutputPackage).value),
+        )
+        impl.dependencies
           .map {
             case Dep(org, artifact, version) => org %%% artifact % version
           }
           .to[Seq]
       },
-      scalacOptions ++= {
+      Keys.scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
 
-        val old = scalacOptions.value
+        val old = Keys.scalacOptions.value
         if (old.contains("-P:scalajs:sjsDefinedByDefault") || isScalaJs1) Nil
         else Seq("-P:scalajs:sjsDefinedByDefault")
       },
@@ -147,36 +157,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     Seq(
       stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
-      stInternalFlavour := {
-        val generateCompanions = (Compile / stGenerateCompanions).value
-        val outputPackage      = Name((Compile / stOutputPackage).value)
-        val useScalaJsDom      = (Compile / stUseScalaJsDom).value
-        val wantedFlavor       = (Compile / stFlavour).value
-
-        def requireDomTypes() =
-          if (!useScalaJsDom) sys.error(s"$wantedFlavor implies ${stUseScalaJsDom.key} := true")
-
-        wantedFlavor match {
-          case Flavour.Normal =>
-            InternalFlavour.Normal(
-              shouldGenerateCompanions = generateCompanions,
-              shouldGenerateComponents = true,
-              shouldUseScalaJsDomTypes = useScalaJsDom,
-              outputPackage,
-            )
-          case Flavour.Slinky =>
-            requireDomTypes()
-            InternalFlavour.Slinky(shouldGenerateCompanions = generateCompanions, outputPkg = outputPackage)
-          case Flavour.SlinkyNative =>
-            requireDomTypes()
-            InternalFlavour.SlinkyNative(shouldGenerateCompanions = generateCompanions, outputPkg = outputPackage)
-          case Flavour.Japgolly =>
-            requireDomTypes()
-            InternalFlavour.Japgolly(shouldGenerateCompanions = generateCompanions, outputPkg = outputPackage)
-        }
-      },
       stEnableScalaJsDefined := converter.Selection.None,
-      stFlavour := converter.plugin.Flavour.Normal,
+      stFlavour := converter.Flavour.Normal,
       stGenerateCompanions := true,
       stIgnore := List("typescript"),
       stMinimize := converter.Selection.None,
@@ -185,7 +167,66 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stStdlib := List("es6"),
       stTypescriptVersion := "3.7.2",
       stUseScalaJsDom := true,
-      sourceGenerators in Compile += stImport.taskValue,
+      /* This is where we add our generated artifacts to the project for compilation */
+      Keys.unmanagedJars := stImport.value,
+      /* This is duplicated/inlined from sbt. The point is that we cannot reference `unmanaged` here, because we use it above. */
+      stInternalCompileInputs := {
+        import Keys._
+
+        def foldMappers[A](mappers: Seq[A => Option[A]]) =
+          mappers.foldRight({ p: A =>
+            p
+          }) { (mapper, mappers) => p: A =>
+            mapper(p).getOrElse(mappers(p))
+          }
+
+        val dependencyClasspath: Seq[Attributed[File]] =
+          internalDependencyClasspath.value ++ managedClasspath.value
+
+        val options = CompileOptions.of(
+          (classDirectory.value +: dependencyClasspath.map(_.data)).toArray,
+          Array(),
+          classDirectory.value,
+          scalacOptions.value.toArray,
+          javacOptions.value.toArray,
+          maxErrors.value,
+          InterfaceUtil.toJavaFunction(foldMappers(sourcePositionMappers.value)),
+          compileOrder.value,
+        )
+
+        object lookup extends PerClasspathEntryLookup {
+          private val cachedAnalysisMap                = Defaults.analysisMap(dependencyClasspath)
+          private val cachedPerEntryDefinesClassLookup = Keys.classpathEntryDefinesClass.value
+
+          override def analysis(classpathEntry: File): Optional[CompileAnalysis] =
+            cachedAnalysisMap(classpathEntry) match {
+              case Some(value) => Optional.of(value)
+              case None        => Optional.empty()
+            }
+          override def definesClass(classpathEntry: File): DefinesClass =
+            cachedPerEntryDefinesClassLookup(classpathEntry)
+        }
+
+        Inputs.of(
+          compilers.value,
+          options,
+          Setup.of(
+            lookup,
+            (skip in compile).value,
+            streams.value.cacheDirectory / compileAnalysisFilename.value,
+            compilerCache.value,
+            IncOptions.of(),
+            new LanguageServerReporter(
+              maxErrors.value,
+              streams.value.log,
+              foldMappers(sourcePositionMappers.value),
+            ),
+            Optional.empty(),
+            Array.empty,
+          ),
+          PreviousResult.create(Optional.empty(), Optional.empty()),
+        )
+      },
     )
   }
 
@@ -193,10 +234,11 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     inConfig(Compile)(stDefaults) ++ stOutsideConfig
 
   override lazy val globalSettings: scala.Seq[Def.Setting[_]] = {
-    import autoImport.{stCacheDir, stQuiet}
+    import autoImport.{stCacheDir, stDir, stQuiet}
     Seq(
       stQuiet := false,
-      stCacheDir := Some((os.home / ".cache" / "scalablytyped-sbt").toIO),
+      stCacheDir := None,
+      stDir := constants.defaultCacheFolder.toIO,
     )
   }
 }

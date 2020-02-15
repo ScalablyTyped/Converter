@@ -75,8 +75,8 @@ object IArray {
     def empty[A <: AnyRef]: Builder[A] = new Builder[A](0)
     def empty[A <: AnyRef](initialCapacity: Int): Builder[A] = new Builder[A](initialCapacity)
 
-    def apply[A <: AnyRef](as: IArray[A]): Builder[A] = {
-      val ret = new Builder[A](as.length)
+    def apply[A <: AnyRef](as: IArray[A], initialCapacity: Int): Builder[A] = {
+      val ret = new Builder[A](initialCapacity)
       var idx = 0
       while (idx < as.length) {
         ret += as(idx)

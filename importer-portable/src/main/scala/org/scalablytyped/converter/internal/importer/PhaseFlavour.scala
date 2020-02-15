@@ -4,11 +4,11 @@ import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase2Res.LibScalaJs
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs.TreeScope
-import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
+import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 
 import scala.collection.immutable.SortedSet
 
-class PhaseFlavour(flavour: Flavour) extends Phase[Source, Phase2Res, Phase2Res] {
+class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, Phase2Res, Phase2Res] {
 
   override def apply(
       source:     Source,

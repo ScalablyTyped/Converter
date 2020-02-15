@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.ts.parser
 
-import org.scalablytyped.converter.internal.{InFile, files}
+import org.scalablytyped.converter.internal.{files, InFile}
 import org.scalatest.Assertion
 import org.scalatest.matchers.should.Matchers._
 

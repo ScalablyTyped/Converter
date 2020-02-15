@@ -40,7 +40,7 @@ object FlattenTrees {
     val (theseNamed, theseUnnamed) = these.partitionCollect { case x: TsNamedDecl => x }
     val (thatsNamed, thatsUnnamed) = thats.partitionCollect { case x: TsNamedDecl => x }
 
-    val rets = IArray.Builder[TsContainerOrDecl](theseUnnamed)
+    val rets = IArray.Builder[TsContainerOrDecl](theseUnnamed, these.length + thats.length)
 
     thatsUnnamed foreach {
       case that: TsGlobal =>
@@ -56,7 +56,7 @@ object FlattenTrees {
   }
 
   def newNamedMembers(these: IArray[TsNamedDecl], thats: IArray[TsNamedDecl]): IArray[TsNamedDecl] = {
-    val rets = IArray.Builder[TsNamedDecl](these)
+    val rets = IArray.Builder[TsNamedDecl](these, these.length + thats.length)
 
     thats foreach {
       case that: TsDeclNamespace =>
@@ -141,7 +141,7 @@ object FlattenTrees {
 
   def newClassMembers(these: IArray[TsMember], thats: IArray[TsMember]): IArray[TsMember] = {
 
-    val rets = IArray.Builder[TsMember](IArray.Empty)
+    val rets = IArray.Builder[TsMember](IArray.Empty, these.length + thats.length)
 
     (these ++ thats) foreach {
       case that: TsMemberProperty =>

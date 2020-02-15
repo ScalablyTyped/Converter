@@ -1,4 +1,4 @@
-package org.scalablytyped.converter.plugin
+package org.scalablytyped.converter
 
 sealed trait Flavour
 
