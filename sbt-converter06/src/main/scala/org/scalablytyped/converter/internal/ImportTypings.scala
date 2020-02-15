@@ -42,22 +42,25 @@ object ImportTypings {
   }
 
   def apply(
-      config:      Input,
+      input:       Input,
       logger:      Logger[Unit],
       cacheDirOpt: Option[os.Path],
   ): Either[Map[Source, Either[Throwable, String]], Set[File]] = {
-    import config._
 
     val stdLibSource: StdLibSource = {
-      val folder = fromFolder.path / "typescript" / "lib"
+      val folder = input.fromFolder.path / "typescript" / "lib"
+
+      require(os.exists(folder), "You must add typescript as a dependency.")
+      require(!input.ignore.contains("std"), "You cannot ignore std")
+
       StdLibSource(
         InFolder(folder),
-        libs.map(s => InFile(folder / s"lib.$s.d.ts")),
+        input.libs.map(s => InFile(folder / s"lib.$s.d.ts")),
         TsIdent.std,
       )
     }
 
-    val sources: Set[Source] = findSources(fromFolder.path, npmDependencies) + stdLibSource
+    val sources: Set[Source] = findSources(input.fromFolder.path, input.npmDependencies) + stdLibSource
     logger.warn(s"Importing ${sources.map(_.libName.value).mkString(", ")}")
 
     def cachePath(base: os.Path, function: String) =
@@ -68,7 +71,7 @@ object ImportTypings {
         case Some(cacheDir) =>
           val pf = PersistingFunction[(InFile, Array[Byte]), Either[String, TsParsedFile]]({
             case (file, bs) =>
-              val base = cachePath(cacheDir, "parse") / file.path.relativeTo(config.fromFolder.path)
+              val base = cachePath(cacheDir, "parse") / file.path.relativeTo(input.fromFolder.path)
               (base / Digest.of(List(bs)).hexString).toNIO
           }, logger) {
             case (inFile, bytes) => parser.parseFileContent(inFile, bytes)
@@ -81,18 +84,18 @@ object ImportTypings {
     val Phases: RecPhase[Source, Phase2Res] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
-          new LibraryResolver(stdLibSource, IArray(InFolder(fromFolder.path / "@types"), fromFolder), None),
+          new LibraryResolver(stdLibSource, IArray(InFolder(input.fromFolder.path / "@types"), input.fromFolder), None),
           CalculateLibraryVersion.PackageJsonOnly,
-          ignore.map(TsIdentLibrary.apply),
-          ignore.map(_.split("/").toList),
+          input.ignore.map(TsIdentLibrary.apply),
+          input.ignore.map(_.split("/").toList),
           stdLibSource,
           pedantic = false,
           cachedParser,
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, enableScalaJsDefined, outputPkg = Name.typings), "scala.js")
-      .next(new PhaseFlavour(flavour), flavour.toString)
+      .next(new Phase2ToScalaJs(pedantic = false, input.enableScalaJsDefined, outputPkg = Name.typings), "scala.js")
+      .next(new PhaseFlavour(input.flavour), input.flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =
       sources
@@ -104,7 +107,7 @@ object ImportTypings {
       case PhaseRes.Ok(Phase2Res.Unpack(libs: SortedMap[TsLibSource, Phase2Res.LibScalaJs], _)) =>
         /* global because it includes all translated libraries */
         val globalScope = new scalajs.TreeScope.Root(
-          flavour.outputPkg,
+          input.flavour.outputPkg,
           scalajs.Name.dummy,
           libs.map { case (_, l) => (l.scalaName, l.packageTree) },
           logger,
@@ -112,28 +115,28 @@ object ImportTypings {
         )
 
         lazy val referencesToKeep: Minimization.KeepIndex =
-          Minimization.findReferences(globalScope, config.minimizeKeep, IArray.fromTraversable(libs).map {
-            case (s, l) => (minimize(s.libName), l.packageTree)
+          Minimization.findReferences(globalScope, input.minimizeKeep, IArray.fromTraversable(libs).map {
+            case (s, l) => (input.minimize(s.libName), l.packageTree)
           })
 
         val outFiles: Map[os.Path, Array[Byte]] =
           libs.par.flatMap {
             case (source, lib) =>
-              val willMinimize = minimize(source.libName)
+              val willMinimize = input.minimize(source.libName)
               val minimized =
                 if (willMinimize) {
                   Minimization(globalScope, referencesToKeep, logger, lib.packageTree)
                 } else lib.packageTree
 
               val outFiles = Printer(globalScope, minimized) map {
-                case (relPath, content) => targetFolder / relPath -> content
+                case (relPath, content) => input.targetFolder / relPath -> content
               }
               val minimizedMessage = if (willMinimize) "minimized " else ""
-              logger warn s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to $targetFolder..."
+              logger warn s"Wrote $minimizedMessage${source.libName.value} (${outFiles.size} files) to ${input.targetFolder}..."
               outFiles
           }.seq
 
-        files.syncAbs(outFiles, folder = targetFolder, deleteUnknowns = true, soft = true)
+        files.syncAbs(outFiles, folder = input.targetFolder, deleteUnknowns = true, soft = true)
 
         Right(outFiles.keys.map(_.toIO)(collection.breakOut))
 
