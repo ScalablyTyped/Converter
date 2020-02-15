@@ -100,7 +100,7 @@ object ImportTypings {
         ),
         "typescript",
       )
-      .next(new Phase2ToScalaJs(pedantic = false, input.enableScalaJsDefined, outputPkg = Name.typings), "scala.js")
+      .next(new Phase2ToScalaJs(pedantic = false, input.enableScalaJsDefined, outputPkg = input.flavour.outputPkg), "scala.js")
       .next(new PhaseFlavour(input.flavour), input.flavour.toString)
 
     val importedLibs: SortedMap[Source, PhaseRes[Source, Phase2Res]] =

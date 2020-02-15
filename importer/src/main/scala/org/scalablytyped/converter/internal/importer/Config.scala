@@ -3,6 +3,7 @@ package importer
 
 import java.time.LocalDateTime
 
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.build.Versions
 import org.scalablytyped.converter.internal.scalajs.Name
 import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
@@ -22,13 +23,16 @@ case class Config(
     conserveSpace:        Boolean,
     enableParseCache:     Boolean,
     dontCleanProject:     Boolean,
-    enableScalaJsDefined: Boolean,
+    enableScalaJsDefined: Selection[TsIdentLibrary],
     /* only overwrite changed files to play better with tooling like intellij */
     softWrites:     Boolean,
     debugMode:      Boolean,
     wantedLibNames: Set[TsIdentLibrary],
     versions:       Versions,
-    flavours:       List[Flavour],
+    flavour:        Flavour,
+    projectName:    String,
+    repo:           String,
+    organization:   String,
 ) {
   // change in source code for now, lazy...
   val parallelLibraries = 100
@@ -58,21 +62,45 @@ object Config {
 
         val companions = !(flags contains "-skipCompanions")
 
-        val normal = Flavour.Normal(
-          shouldGenerateCompanions = companions,
-          shouldGenerateComponents = true,
-          shouldUseScalaJsDomTypes = flags contains "-useScalaJsDomTypes",
-          outputPkg                = Name.typings,
-        )
+        val (flavour: Flavour, projectName: String, repo: String, organization: String) =
+          if (flags.contains("-flavourSlinky"))
+            (
+              Flavour.Slinky(companions, Name("typingsSlinky")),
+              "SlinkyTyped",
+              "https://github.com/ScalablyTyped/SlinkyTypes.git",
+              "org.scalablytyped.slinky",
+            )
+          else if (flags.contains("-flavourSlinkyNative"))
+            (
+              Flavour.SlinkyNative(companions, Name("typingsSlinky")),
+              "SlinkyNativeTyped",
+              "https://github.com/ScalablyTyped/SlinkyNativeTypes.git",
+              "org.scalablytyped.slinkynative",
+            )
+          else if (flags.contains("-flavourJapgolly"))
+            (
+              Flavour.Japgolly(companions, Name("typingsJapgolly")),
+              "ScalajsReactTyped",
+              "https://github.com/ScalablyTyped/ScalajsReactTyped.git",
+              "org.scalablytyped.japgolly",
+            )
+          else
+            (
+              Flavour.Normal(
+                shouldGenerateCompanions = companions,
+                shouldGenerateComponents = true,
+                shouldUseScalaJsDomTypes = flags contains "-useScalaJsDomTypes",
+                outputPkg                = Name.typings,
+              ),
+              "ScalablyTyped",
+              "https://github.com/oyvindberg/ScalablyTyped.git",
+              "org.scalablytyped",
+            )
 
-        val flavours = List(
-          if (flags.contains("-flavourSlinky")) Some(Flavour.Slinky(companions, Name("typingsSlinky"))) else None,
-          if (flags.contains("-flavourJapgolly")) Some(Flavour.Japgolly(companions, Name("typingsJapgolly"))) else None,
-          if (flags.contains("-flavourNormal")) Some(normal) else None,
-        ).flatten match {
-          case Nil   => List(normal)
-          case other => other
-        }
+        val enableScalaJsDefined: Selection[TsIdentLibrary] =
+          if (flags contains "-enableScalaJsDefined")
+            Selection.AllExcept(Libraries.Slow.to[Seq]: _*)
+          else Selection.None
 
         Some(
           Config(
@@ -85,14 +113,15 @@ object Config {
             conserveSpace        = flags contains "-conserveSpace",
             enableParseCache     = flags contains "-enableParseCache",
             dontCleanProject     = flags contains "-dontCleanProject",
-            enableScalaJsDefined = flags contains "-enableScalaJsDefined",
+            enableScalaJsDefined = enableScalaJsDefined,
             softWrites           = flags contains "-softWrites",
             debugMode            = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
             wantedLibNames       = wantedLibNames,
-            versions =
-              if (flags contains "-nextVersions") Versions.next
-              else Versions.current,
-            flavours = flavours,
+            versions             = if (flags contains "-nextVersions") Versions.next else Versions.current,
+            flavour              = flavour,
+            projectName          = projectName,
+            repo                 = repo,
+            organization         = organization,
           ),
         )
     }

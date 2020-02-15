@@ -44,9 +44,6 @@ object Flavour {
       shouldUseScalaJsDomTypes: Boolean,
       outputPkg:                Name,
   ) extends ReactFlavour {
-    val projectName      = "ScalablyTyped"
-    val repo             = "https://github.com/oyvindberg/ScalablyTyped.git"
-    val organization     = "org.scalablytyped"
     val genComponentsOpt = if (shouldGenerateComponents) Some(new GenReactFacadeComponents(reactNames)) else None
 
     override val conversions: Option[IArray[CastConversion]] =
@@ -71,9 +68,6 @@ object Flavour {
   }
 
   case class Slinky(shouldGenerateCompanions: Boolean, outputPkg: Name) extends ReactFlavour {
-    val projectName  = "SlinkyTyped"
-    val repo         = "https://github.com/ScalablyTyped/SlinkyTypes.git"
-    val organization = "org.scalablytyped.slinky"
     val gen = new GenSlinkyComponents(
       scalaJsDomNames,
       GenSlinkyComponents.Web(new SlinkyWeb(reactNames)),
@@ -97,10 +91,7 @@ object Flavour {
   }
 
   case class SlinkyNative(shouldGenerateCompanions: Boolean, outputPkg: Name) extends ReactFlavour {
-    val projectName  = "SlinkyNativeTyped"
-    val repo         = "https://github.com/ScalablyTyped/SlinkyNativeTypes.git"
-    val organization = "org.scalablytyped.slinkynative"
-    val gen          = new GenSlinkyComponents(scalaJsDomNames, GenSlinkyComponents.Native(()), stdNames, reactNames, findProps)
+    val gen = new GenSlinkyComponents(scalaJsDomNames, GenSlinkyComponents.Native(()), stdNames, reactNames, findProps)
 
     override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
@@ -122,10 +113,7 @@ object Flavour {
   }
 
   case class Japgolly(shouldGenerateCompanions: Boolean, outputPkg: Name) extends ReactFlavour {
-    val projectName  = "ScalajsReactTyped"
-    val repo         = "https://github.com/ScalablyTyped/ScalajsReactTyped.git"
-    val organization = "org.scalablytyped.japgolly"
-    val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, findProps)
+    val gen = new GenJapgollyComponents(reactNames, scalaJsDomNames, findProps)
 
     override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
@@ -147,10 +135,8 @@ sealed trait Flavour {
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   val genCompanions: Option[GenCompanions]
   def dependencies: Set[Dep]
-  val projectName:  String
-  val repo:         String
-  val organization: String
-  val outputPkg:    Name
+  val outputPkg: Name
+
   lazy val stdNames =
     new QualifiedName.StdNames(outputPkg)
   lazy val scalaJsDomNames =
