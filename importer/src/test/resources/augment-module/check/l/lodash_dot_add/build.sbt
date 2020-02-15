@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "lodash_dot_add"
-version := "3.7-99db54"
+version := "3.7-b8ad5c"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
+scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

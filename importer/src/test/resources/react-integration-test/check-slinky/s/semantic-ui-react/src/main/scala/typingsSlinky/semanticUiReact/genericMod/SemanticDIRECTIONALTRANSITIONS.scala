@@ -8,30 +8,30 @@ import scala.scalajs.js.annotation._
 // Transitions
 // ======================================================
 /* Rewritten from type alias, can be one of: 
-  - typings.semanticUiReact.semanticUiReactStrings.browse
-  - typings.semanticUiReact.semanticUiReactStrings.`browse right`
-  - typings.semanticUiReact.semanticUiReactStrings.drop
-  - typings.semanticUiReact.semanticUiReactStrings.fade
-  - typings.semanticUiReact.semanticUiReactStrings.`fade up`
-  - typings.semanticUiReact.semanticUiReactStrings.`fade down`
-  - typings.semanticUiReact.semanticUiReactStrings.`fade left`
-  - typings.semanticUiReact.semanticUiReactStrings.`fade right`
-  - typings.semanticUiReact.semanticUiReactStrings.`fly up`
-  - typings.semanticUiReact.semanticUiReactStrings.`fly down`
-  - typings.semanticUiReact.semanticUiReactStrings.`fly left`
-  - typings.semanticUiReact.semanticUiReactStrings.`fly right`
-  - typings.semanticUiReact.semanticUiReactStrings.`horizontal flip`
-  - typings.semanticUiReact.semanticUiReactStrings.`vertical flip`
-  - typings.semanticUiReact.semanticUiReactStrings.scale
-  - typings.semanticUiReact.semanticUiReactStrings.`slide up`
-  - typings.semanticUiReact.semanticUiReactStrings.`slide down`
-  - typings.semanticUiReact.semanticUiReactStrings.`slide left`
-  - typings.semanticUiReact.semanticUiReactStrings.`slide right`
-  - typings.semanticUiReact.semanticUiReactStrings.`swing up`
-  - typings.semanticUiReact.semanticUiReactStrings.`swing down`
-  - typings.semanticUiReact.semanticUiReactStrings.`swing left`
-  - typings.semanticUiReact.semanticUiReactStrings.`swing right`
-  - typings.semanticUiReact.semanticUiReactStrings.zoom
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.browse
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`browse right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.drop
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.fade
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fade up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fade down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fade left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fade right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fly up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fly down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fly left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`fly right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`horizontal flip`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`vertical flip`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.scale
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`slide up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`slide down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`slide left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`slide right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`swing up`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`swing down`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`swing left`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.`swing right`
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.zoom
 */
 trait SemanticDIRECTIONALTRANSITIONS extends js.Object
 

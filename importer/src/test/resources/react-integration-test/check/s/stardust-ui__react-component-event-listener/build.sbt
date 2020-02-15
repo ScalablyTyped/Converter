@@ -1,14 +1,14 @@
 organization := "org.scalablytyped"
 name := "stardust-ui__react-component-event-listener"
-version := "0.38.0-2e15d1"
+version := "0.38.0-f4c88d"
 scalaVersion := "2.12.10"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "16.9.2-8a91ea",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-01a5eb")
+  "org.scalablytyped" %%% "react" % "16.9.2-a57410",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-337de2")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-P:scalajs:sjsDefinedByDefault", "-g:notailcalls")
+scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

@@ -27,9 +27,10 @@ object createElement extends js.Object {
   def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState]): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState], children: ReactNode*): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState], props: Attributes with P, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
-  def apply[P /* <: js.Object */](`type`: FunctionComponent[P]): slinky.core.facade.ReactElement = js.native
-  def apply[P /* <: js.Object */](`type`: FunctionComponent[P], children: ReactNode*): slinky.core.facade.ReactElement = js.native
-  def apply[P /* <: js.Object */](`type`: FunctionComponent[P], props: Attributes with P, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
+  // Custom components
+  def apply[P /* <: js.Object */](`type`: FunctionComponent[P]): FunctionComponentElement[P] = js.native
+  def apply[P /* <: js.Object */](`type`: FunctionComponent[P], children: ReactNode*): FunctionComponentElement[P] = js.native
+  def apply[P /* <: js.Object */](`type`: FunctionComponent[P], props: Attributes with P, children: TagMod[Any]*): FunctionComponentElement[P] = js.native
   def apply[P /* <: DOMAttributes[T] */, T /* <: Element */](`type`: String, props: ClassAttributes[T] with P, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](`type`: /* import warning: LimitUnionLength.leaveTypeRef Was union type with length 55 */ js.Any): ReactSVGElement = js.native
   def apply[P /* <: SVGAttributes[T] */, T /* <: SVGElement */](

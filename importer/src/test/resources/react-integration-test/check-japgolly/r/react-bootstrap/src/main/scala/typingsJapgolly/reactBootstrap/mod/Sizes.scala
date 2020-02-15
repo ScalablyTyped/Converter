@@ -5,13 +5,13 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typings.reactBootstrap.reactBootstrapStrings.xs
-  - typings.reactBootstrap.reactBootstrapStrings.xsmall
-  - typings.reactBootstrap.reactBootstrapStrings.sm
-  - typings.reactBootstrap.reactBootstrapStrings.small
-  - typings.reactBootstrap.reactBootstrapStrings.medium
-  - typings.reactBootstrap.reactBootstrapStrings.lg
-  - typings.reactBootstrap.reactBootstrapStrings.large
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.small
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg
+  - typingsJapgolly.reactBootstrap.reactBootstrapStrings.large
 */
 trait Sizes extends js.Object
 

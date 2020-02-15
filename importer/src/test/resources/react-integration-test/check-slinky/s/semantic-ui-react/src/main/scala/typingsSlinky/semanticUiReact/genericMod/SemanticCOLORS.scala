@@ -5,19 +5,19 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typings.semanticUiReact.semanticUiReactStrings.red
-  - typings.semanticUiReact.semanticUiReactStrings.orange
-  - typings.semanticUiReact.semanticUiReactStrings.yellow
-  - typings.semanticUiReact.semanticUiReactStrings.olive
-  - typings.semanticUiReact.semanticUiReactStrings.green
-  - typings.semanticUiReact.semanticUiReactStrings.teal
-  - typings.semanticUiReact.semanticUiReactStrings.blue
-  - typings.semanticUiReact.semanticUiReactStrings.violet
-  - typings.semanticUiReact.semanticUiReactStrings.purple
-  - typings.semanticUiReact.semanticUiReactStrings.pink
-  - typings.semanticUiReact.semanticUiReactStrings.brown
-  - typings.semanticUiReact.semanticUiReactStrings.grey
-  - typings.semanticUiReact.semanticUiReactStrings.black
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.red
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.orange
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.yellow
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.olive
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.green
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.teal
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.blue
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.violet
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.purple
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.pink
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.brown
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.grey
+  - typingsSlinky.semanticUiReact.semanticUiReactStrings.black
 */
 trait SemanticCOLORS extends js.Object
 

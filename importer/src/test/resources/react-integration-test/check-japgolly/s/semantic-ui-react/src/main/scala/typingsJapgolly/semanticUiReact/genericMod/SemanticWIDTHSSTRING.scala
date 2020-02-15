@@ -5,38 +5,38 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typings.semanticUiReact.semanticUiReactStrings.`1`
-  - typings.semanticUiReact.semanticUiReactStrings.`2`
-  - typings.semanticUiReact.semanticUiReactStrings.`3`
-  - typings.semanticUiReact.semanticUiReactStrings.`4`
-  - typings.semanticUiReact.semanticUiReactStrings.`5`
-  - typings.semanticUiReact.semanticUiReactStrings.`6`
-  - typings.semanticUiReact.semanticUiReactStrings.`7`
-  - typings.semanticUiReact.semanticUiReactStrings.`8`
-  - typings.semanticUiReact.semanticUiReactStrings.`9`
-  - typings.semanticUiReact.semanticUiReactStrings.`10`
-  - typings.semanticUiReact.semanticUiReactStrings.`11`
-  - typings.semanticUiReact.semanticUiReactStrings.`12`
-  - typings.semanticUiReact.semanticUiReactStrings.`13`
-  - typings.semanticUiReact.semanticUiReactStrings.`14`
-  - typings.semanticUiReact.semanticUiReactStrings.`15`
-  - typings.semanticUiReact.semanticUiReactStrings.`16`
-  - typings.semanticUiReact.semanticUiReactStrings.one
-  - typings.semanticUiReact.semanticUiReactStrings.two
-  - typings.semanticUiReact.semanticUiReactStrings.three
-  - typings.semanticUiReact.semanticUiReactStrings.four
-  - typings.semanticUiReact.semanticUiReactStrings.five
-  - typings.semanticUiReact.semanticUiReactStrings.six
-  - typings.semanticUiReact.semanticUiReactStrings.seven
-  - typings.semanticUiReact.semanticUiReactStrings.eight
-  - typings.semanticUiReact.semanticUiReactStrings.nine
-  - typings.semanticUiReact.semanticUiReactStrings.ten
-  - typings.semanticUiReact.semanticUiReactStrings.eleven
-  - typings.semanticUiReact.semanticUiReactStrings.twelve
-  - typings.semanticUiReact.semanticUiReactStrings.thirteen
-  - typings.semanticUiReact.semanticUiReactStrings.fourteen
-  - typings.semanticUiReact.semanticUiReactStrings.fifteen
-  - typings.semanticUiReact.semanticUiReactStrings.sixteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`2`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`3`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`4`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`5`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`6`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`7`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`8`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`9`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`10`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`11`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`12`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`13`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`14`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`15`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`16`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.one
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.two
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.three
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.four
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.five
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.six
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.seven
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eight
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.nine
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.ten
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eleven
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.twelve
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.thirteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fourteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fifteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.sixteen
 */
 trait SemanticWIDTHSSTRING extends js.Object
 
