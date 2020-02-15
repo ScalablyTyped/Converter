@@ -202,6 +202,7 @@ class Main(config: Config, paths: MainPaths) {
                 parseFile,
               )
             else parseFile,
+          expandTypeMappings = EnabledTypeMappingExpansion.DefaultSelection
         ),
         "typescript",
       )

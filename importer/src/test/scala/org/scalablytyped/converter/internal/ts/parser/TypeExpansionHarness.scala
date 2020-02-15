@@ -1,22 +1,23 @@
 package org.scalablytyped.converter.internal.ts.parser
 
 import com.olvind.logging
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Phase1ReadTypescript
-import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 import org.scalablytyped.converter.internal.ts._
+import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 import scala.reflect.ClassTag
 
-trait TypeExpansionHarness  {
+trait TypeExpansionHarness {
   val parser  = new TsParser(None)
   val libName = TsIdentLibrarySimple("testing")
 
   val Transformations: List[TsParsedFile => TsParsedFile] = {
     Phase1ReadTypescript.Pipeline(
-      scope                    = TsTreeScope(libName, pedantic = true, Map(), logging.stdout),
-      libName                  = libName,
-      enableExpandTypeMappings = true,
-      involvesReact    = true,
+      scope              = TsTreeScope(libName, pedantic = true, Map(), logging.stdout),
+      libName            = libName,
+      expandTypeMappings = Selection.All,
+      involvesReact      = true,
     )
   }
 

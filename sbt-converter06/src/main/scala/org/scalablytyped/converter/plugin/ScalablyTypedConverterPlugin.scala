@@ -46,6 +46,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         val quiet                = (Global / stQuiet).value
         val sbtLog               = streams.value.log
         val cacheDir             = (Global / stCacheDir).value.map(os.Path(_))
+        val expandTypeMappings   = stInternalExpandTypeMappings.value
 
         val stLogger: logging.Logger[Unit] =
           if (quiet) logging.Logger.DevNull
@@ -67,6 +68,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           ignored,
           minimize,
           minimizeKeep,
+          expandTypeMappings.map(TsIdentLibrary.apply),
         )
 
         val inputPath  = os.Path(cacheDirectory / "scalablytyped" / "input.json")

@@ -60,6 +60,7 @@ trait ImporterHarness extends AnyFunSuite {
             stdlibSource            = stdLibSource,
             pedantic                = pedantic,
             parser                  = parser.parseFile,
+            expandTypeMappings      = EnabledTypeMappingExpansion.DefaultSelection,
           ),
           "typescript",
         )

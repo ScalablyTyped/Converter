@@ -9,8 +9,8 @@ import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLib
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.{Minimization, Name, Printer, QualifiedName}
 import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
+import org.scalablytyped.converter.internal.scalajs.{Minimization, Name, Printer, QualifiedName}
 import org.scalablytyped.converter.internal.ts._
 import org.scalajs.sbtplugin.ScalaJSCrossVersion
 
@@ -31,6 +31,7 @@ object ImportTypings {
       ignore:               Set[String],
       minimize:             Selection[TsIdentLibrary],
       minimizeKeep:         IArray[QualifiedName],
+      expandTypeMappings:   Selection[TsIdentLibrary],
   )
 
   object Input {
@@ -58,6 +59,10 @@ object ImportTypings {
         input.libs.map(s => InFile(folder / s"lib.$s.d.ts")),
         TsIdent.std,
       )
+    }
+
+    if (input.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
+      logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
     }
 
     val sources: Set[Source] = findSources(input.fromFolder.path, input.npmDependencies) + stdLibSource
@@ -91,6 +96,7 @@ object ImportTypings {
           stdLibSource,
           pedantic = false,
           cachedParser,
+          input.expandTypeMappings,
         ),
         "typescript",
       )
@@ -174,8 +180,9 @@ object ImportTypings {
           enableScalaJsDefined = Selection.None,
           IArray("es5", "dom"),
           Set("typescript", "csstype"),
-          minimize     = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
-          minimizeKeep = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
+          minimize           = Selection.AllExcept(TsIdentLibrary("@storybook/react"), TsIdentLibrary("node")),
+          minimizeKeep       = IArray(QualifiedName(IArray(outputName, Name("std"), Name("console")))),
+          expandTypeMappings = EnabledTypeMappingExpansion.DefaultSelection,
         ),
         stdout.filter(LogLevel.warn),
         Some(cacheDir / 'work / 'cache),

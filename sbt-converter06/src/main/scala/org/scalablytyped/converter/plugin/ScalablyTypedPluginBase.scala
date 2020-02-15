@@ -3,6 +3,7 @@ package org.scalablytyped.converter.plugin
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
+import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
 import org.scalablytyped.converter.internal.scalajs.flavours.{Flavour => InternalFlavour}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
 import sbt.Keys.{libraryDependencies, scalacOptions, sourceGenerators}
@@ -107,8 +108,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       "The top-level package to put generated code in",
     )
 
-    val stQuiet    = settingKey[Boolean]("remove all output")
-    val stCacheDir = settingKey[Option[File]]("cache directory to workaround slow parser")
+    val stInternalExpandTypeMappings = settingKey[Selection[String]]("experimental: enable type mapping expansion")
+    val stQuiet                      = settingKey[Boolean]("remove all output")
+    val stCacheDir                   = settingKey[Option[File]]("cache directory to workaround slow parser")
 
     private[plugin] val stInternalFlavour = settingKey[InternalFlavour]("don't use this")
   }
@@ -144,6 +146,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     import autoImport._
 
     Seq(
+      stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
       stInternalFlavour := {
         val generateCompanions = (Compile / stGenerateCompanions).value
         val outputPackage      = Name((Compile / stOutputPackage).value)
