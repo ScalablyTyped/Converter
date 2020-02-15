@@ -1,5 +1,6 @@
 package org.scalablytyped.converter
 
+import org.scalablytyped.converter.internal.files
 import org.scalablytyped.converter.internal.importer.{withZipFs, Config, Main, MainPaths}
 
 object Main {
@@ -10,7 +11,7 @@ object Main {
 
     val publishFolder = os.home / ".ivy2" / "local"
 
-    withZipFs(Config.cacheFolder / "bintray.zip") { bintrayPath =>
+    withZipFs(files.existing(Config.cacheFolder) / "bintray.zip") { bintrayPath =>
       withZipFs(Config.cacheFolder / "npmjs.zip") { npmjsPath =>
         withZipFs(Config.cacheFolder / "parseCache.zip") { parseCachePath =>
           val paths = MainPaths(bintrayPath, npmjsPath, parseCachePath, Config.cacheFolder, publishFolder)
