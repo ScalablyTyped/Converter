@@ -135,7 +135,10 @@ object Ci {
                 ignoredModulePrefixes    = Set(),
                 stdLibs                  = IArray("esnext.full"),
                 expandTypeMappings       = EnabledTypeMappingExpansion.DefaultSelection,
-                versions                 = if (flags contains "-nextVersions") Versions.next else Versions.current,
+                versions = Versions(
+                  if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
+                  if (flags contains ("-scalajs1")) Versions.ScalaJs1 else Versions.ScalaJs06,
+                ),
               ),
               publish          = publish,
               offline          = flags contains "-offline",

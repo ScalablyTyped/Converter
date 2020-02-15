@@ -30,7 +30,7 @@ trait ImporterHarness extends AnyFunSuite {
   os.makeDir.all(failureCacheDir)
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
-  private val version    = Versions.current
+  private val version    = Versions(Versions.Scala213, Versions.ScalaJs06)
   private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, Some(failureCacheDir.toNIO))
 
   private def runImport(

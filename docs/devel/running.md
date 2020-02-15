@@ -24,7 +24,8 @@ For development you'll always use "debug mode".
 | `-dontCleanProject`   | Normally the CI build aggressively resets the ScalablyTyped git repo. Enabling this will skip that
 | `-enableParseCache`   | The Typescript parser is somewhat slow. Enabling this uses java serialization to cache when possible 
 | `-forceCommit`        | Commit and build sbt plugin in debug mode 
-| `-nextVersions`       | Build libraries with Scala.js 1.0.0-RC2 instead
+| `-scala212`           | Build libraries with Scala 2.12 instead of 2.13
+| `-scalajs1`           | Build libraries with Scala.js 1 instead of 0.6 
 | `-offline`            | Skip pulling newest DefinitelyTyped and running `npm update`
 | `-parallel`           | Faster, but with some [issues](https://github.com/oyvindberg/ScalablyTypedConverter/issues/74). May deadlock or produce unrepeatable builds for now
 | `-pedantic`           | Make the converter more strict. Most things don't work yet in this mode

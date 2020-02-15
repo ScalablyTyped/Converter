@@ -24,10 +24,7 @@ object Versions {
   }
 
   val ScalaJs1  = ScalaJs("1.0.0", "1")
-  val ScalaJs06 = ScalaJs("0.6.31", "0.6")
-
-  val current = Versions(Scala212, ScalaJs06)
-  val next    = Versions(Scala213, ScalaJs1)
+  val ScalaJs06 = ScalaJs("0.6.32", "0.6")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {

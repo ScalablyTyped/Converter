@@ -91,6 +91,8 @@ ScalablyTyped is hosted at bintray, so make sure to include the resolver
 ```scala
   resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")
   addSbtPlugin("org.scalablytyped" % "sbt-scalablytyped" % "$runId")
+  If you're still on 2.12, this is the last distribution release.
+  addSbtPlugin("org.scalablytyped" % "sbt-scalablytyped" % "202001240947")
 ```
 
 ### `build.sbt`
