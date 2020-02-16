@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.{Formatter, Logger}
+import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Phase1Res._
 import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
@@ -24,6 +25,7 @@ class Phase1ReadTypescript(
     stdlibSource:            Source,
     pedantic:                Boolean,
     parser:                  InFile => Either[String, TsParsedFile],
+    expandTypeMappings:      Selection[TsIdentLibrary],
 ) extends Phase[Source, Source, Phase1Res] {
 
   implicit val InFileFormatter: Formatter[InFile] =
@@ -171,27 +173,6 @@ class Phase1ReadTypescript(
                     T.SetCodePath.visitTsParsedFile(CodePath.HasPath(source.libName, TsQIdent.empty))(_3)
                 }
 
-              val enableExpandTypeMappings = source.libName match {
-                case TsIdentLibrarySimple("react-native")                            => true
-                case TsIdentLibrarySimple("react-dropzone")                          => true
-                case TsIdentLibraryScoped("material-ui", _)                          => true
-                case TsIdentLibrarySimple("styled-components")                       => true
-                case TsIdentLibrarySimple("antd")                                    => true
-                case TsIdentLibrarySimple("amap-js-api")                             => true
-                case TsIdentLibrarySimple("react-onsenui")                           => true
-                case TsIdentLibrarySimple(nav) if nav.startsWith("react-navigation") => true
-                case TsIdentLibraryScoped("uifabric", _)                             => true
-                case TsIdentLibraryScoped("tensorflow", _)                           => true
-                case TsIdentLibraryScoped("ant-design", _)                           => true
-                case TsIdentLibraryScoped("nivo", _)                                 => true
-                case TsIdentLibraryScoped("storybook", "api")                        => true
-                case TsIdentLibrarySimple("instagram-private-api")                   => true
-                case TsIdentLibrarySimple("react-select")                            => true
-                case TsIdentLibrarySimple("react-autosuggest")                       => true
-                case TsIdentLibrarySimple("jest-config")                             => true
-                case _                                                               => false
-              }
-
               val involvesReact = {
                 val react = TsIdentLibrarySimple("react")
                 source.libName === react || deps.exists { case (s, _) => s.libName === react }
@@ -211,7 +192,7 @@ class Phase1ReadTypescript(
                 else flattened
 
               val finished = Phase1ReadTypescript
-                .Pipeline(scope, source.libName, enableExpandTypeMappings, involvesReact)
+                .Pipeline(scope, source.libName, expandTypeMappings, involvesReact)
                 .foldLeft(filteredModules) { case (acc, f) => f(acc) }
 
               val version = calculateLibraryVersion(
@@ -230,10 +211,10 @@ class Phase1ReadTypescript(
 
 object Phase1ReadTypescript {
   def Pipeline(
-      scope:                    TsTreeScope.Root,
-      libName:                  TsIdentLibrary,
-      enableExpandTypeMappings: Boolean,
-      involvesReact:            Boolean,
+      scope:              TsTreeScope.Root,
+      libName:            TsIdentLibrary,
+      expandTypeMappings: Selection[TsIdentLibrary],
+      involvesReact:      Boolean,
   ): List[TsParsedFile => TsParsedFile] =
     List(
       T.LibrarySpecific(libName).fold[TsParsedFile => TsParsedFile](identity)(_.visitTsParsedFile(scope)),
@@ -252,8 +233,8 @@ object Phase1ReadTypescript {
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
       T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
-      if (enableExpandTypeMappings) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
-      if (enableExpandTypeMappings) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
+      if (expandTypeMappings(libName)) T.ExpandTypeMappings.visitTsParsedFile(scope.caching) else identity, // before ExtractInterfaces
+      if (expandTypeMappings(libName)) T.ExpandTypeMappings.After(libName, scope) else identity, // before ExtractInterfaces
       (
         T.SimplifyConditionals >> // after ExpandTypeMappings
           T.TypeAliasToConstEnum >>

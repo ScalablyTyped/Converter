@@ -2,7 +2,11 @@ package org.scalablytyped.converter.internal
 package ts
 package parser
 
-import org.scalablytyped.converter.internal.ts.parser.TsLexer.{CommentLineToken, CommentLineTokenAfterDelim, DirectiveToken}
+import org.scalablytyped.converter.internal.ts.parser.TsLexer.{
+  CommentLineToken,
+  CommentLineTokenAfterDelim,
+  DirectiveToken,
+}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
@@ -262,7 +266,10 @@ final class CommentTests extends AnyFunSuite with Matchers {
                     TsTypeRef(
                       NoComments,
                       TsQIdent(IArray(TsIdent("Iterable"))),
-                      IArray(TsTypeRef.any, TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("Array"))), IArray(TsTypeRef.any))),
+                      IArray(
+                        TsTypeRef.any,
+                        TsTypeRef(NoComments, TsQIdent(IArray(TsIdent("Array"))), IArray(TsTypeRef.any)),
+                      ),
                     ),
                   ),
                   isOptional = false,

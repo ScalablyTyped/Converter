@@ -24,7 +24,9 @@ interface A {
 type AA = Partial<A>
 """).extract[TsDeclInterface]("AA")
 
-    val isOptionals = out.members.collect[java.lang.Boolean] { case TsMemberProperty(_, _, _, _, _, _, _, isOptional) => isOptional }
+    val isOptionals = out.members.collect[java.lang.Boolean] {
+      case TsMemberProperty(_, _, _, _, _, _, _, isOptional) => isOptional
+    }
 
     isOptionals.shouldBe(IArray[java.lang.Boolean](true, true, true, true, true, true))
   }

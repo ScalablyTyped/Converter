@@ -17,6 +17,6 @@ object CalculateLibraryVersion {
         isStdLib:       Boolean,
         packageJsonOpt: Option[PackageJsonDeps],
         comments:       Comments,
-    ): LibraryVersion = LibraryVersion(packageJsonOpt.flatMap(_.version), None)
+    ): LibraryVersion = LibraryVersion(isStdLib, packageJsonOpt.flatMap(_.version), None)
   }
 }

@@ -33,7 +33,7 @@ object ContentSbtProject {
       s"""|organization := ${quote(organization)}
           |name := ${quote(name)}
           |version := ${quote(version)}
-          |scalaVersion := ${quote(v.scalaVersion)}
+          |scalaVersion := ${quote(v.scala.scalaVersion)}
           |enablePlugins(ScalaJSPlugin)
           |libraryDependencies ++= $ds
           |publishArtifact in packageDoc := false
@@ -41,11 +41,11 @@ object ContentSbtProject {
           |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
           |bintrayRepository := ${quote(projectName)}
           |resolvers += Resolver.bintrayRepo(${quote(publishUser)}, ${quote(projectName)})
-        """.stripMargin
+          |""".stripMargin
     }
 
     val pluginsSbt =
-      s"""|addSbtPlugin(${v.%%(v.scalaJsOrganization, "sbt-scalajs", v.scalaJsVersion)})
+      s"""|addSbtPlugin(${v.%%(v.scalaJs.scalaJsOrganization, "sbt-scalajs", v.scalaJs.scalaJsVersion)})
           |addSbtPlugin(${v.sbtBintray})
           |""".stripMargin
 

@@ -6,7 +6,11 @@ import java.nio.file.Path
 object withZipFs {
   import java.nio.file.FileSystems
 
-  def apply(path: os.Path)(f: Path => Unit): Unit = {
+  def maybe[T](path: os.Path, enable: Boolean)(f: Option[Path] => T): T =
+    if (enable) apply(path)(path => f(Some(path)))
+    else f(None)
+
+  def apply[T](path: os.Path)(f: Path => T): T = {
     val uri = URI.create(s"jar:file:${path}")
     val env = new java.util.HashMap[String, String]()
     env.put("create", "true")

@@ -1,8 +1,8 @@
 package typingsJapgolly.semanticUiReact.genericMod
 
-import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`10`
-import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`12`
-import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`16`
+import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`11`
+import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`14`
+import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`15`
 import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`2`
 import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`3`
 import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`4`
@@ -10,10 +10,10 @@ import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`5`
 import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`6`
 import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`8`
 import typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`9`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`11`
+import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`10`
+import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`12`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`13`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`14`
-import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`15`
+import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`16`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`7`
 import scala.scalajs.js
@@ -21,54 +21,54 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typings.semanticUiReact.semanticUiReactNumbers.`1`
-  - typings.semanticUiReact.semanticUiReactNumbers.`2`
-  - typings.semanticUiReact.semanticUiReactNumbers.`3`
-  - typings.semanticUiReact.semanticUiReactNumbers.`4`
-  - typings.semanticUiReact.semanticUiReactNumbers.`5`
-  - typings.semanticUiReact.semanticUiReactNumbers.`6`
-  - typings.semanticUiReact.semanticUiReactNumbers.`7`
-  - typings.semanticUiReact.semanticUiReactNumbers.`8`
-  - typings.semanticUiReact.semanticUiReactNumbers.`9`
-  - typings.semanticUiReact.semanticUiReactNumbers.`10`
-  - typings.semanticUiReact.semanticUiReactNumbers.`11`
-  - typings.semanticUiReact.semanticUiReactNumbers.`12`
-  - typings.semanticUiReact.semanticUiReactNumbers.`13`
-  - typings.semanticUiReact.semanticUiReactNumbers.`14`
-  - typings.semanticUiReact.semanticUiReactNumbers.`15`
-  - typings.semanticUiReact.semanticUiReactNumbers.`16`
-  - typings.semanticUiReact.semanticUiReactStrings.`1`
-  - typings.semanticUiReact.semanticUiReactStrings.`2`
-  - typings.semanticUiReact.semanticUiReactStrings.`3`
-  - typings.semanticUiReact.semanticUiReactStrings.`4`
-  - typings.semanticUiReact.semanticUiReactStrings.`5`
-  - typings.semanticUiReact.semanticUiReactStrings.`6`
-  - typings.semanticUiReact.semanticUiReactStrings.`7`
-  - typings.semanticUiReact.semanticUiReactStrings.`8`
-  - typings.semanticUiReact.semanticUiReactStrings.`9`
-  - typings.semanticUiReact.semanticUiReactStrings.`10`
-  - typings.semanticUiReact.semanticUiReactStrings.`11`
-  - typings.semanticUiReact.semanticUiReactStrings.`12`
-  - typings.semanticUiReact.semanticUiReactStrings.`13`
-  - typings.semanticUiReact.semanticUiReactStrings.`14`
-  - typings.semanticUiReact.semanticUiReactStrings.`15`
-  - typings.semanticUiReact.semanticUiReactStrings.`16`
-  - typings.semanticUiReact.semanticUiReactStrings.one
-  - typings.semanticUiReact.semanticUiReactStrings.two
-  - typings.semanticUiReact.semanticUiReactStrings.three
-  - typings.semanticUiReact.semanticUiReactStrings.four
-  - typings.semanticUiReact.semanticUiReactStrings.five
-  - typings.semanticUiReact.semanticUiReactStrings.six
-  - typings.semanticUiReact.semanticUiReactStrings.seven
-  - typings.semanticUiReact.semanticUiReactStrings.eight
-  - typings.semanticUiReact.semanticUiReactStrings.nine
-  - typings.semanticUiReact.semanticUiReactStrings.ten
-  - typings.semanticUiReact.semanticUiReactStrings.eleven
-  - typings.semanticUiReact.semanticUiReactStrings.twelve
-  - typings.semanticUiReact.semanticUiReactStrings.thirteen
-  - typings.semanticUiReact.semanticUiReactStrings.fourteen
-  - typings.semanticUiReact.semanticUiReactStrings.fifteen
-  - typings.semanticUiReact.semanticUiReactStrings.sixteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`1`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`2`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`3`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`4`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`5`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`6`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`7`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`8`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`9`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`10`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`11`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`12`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`13`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`14`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`15`
+  - typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`16`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`1`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`2`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`3`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`4`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`5`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`6`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`7`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`8`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`9`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`10`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`11`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`12`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`13`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`14`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`15`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.`16`
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.one
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.two
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.three
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.four
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.five
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.six
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.seven
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eight
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.nine
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.ten
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.eleven
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.twelve
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.thirteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fourteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.fifteen
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.sixteen
 */
 trait SemanticWIDTHS extends js.Object
 
@@ -76,40 +76,40 @@ object SemanticWIDTHS {
   @scala.inline
   def `1`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`1` = this.cast(1)
   @scala.inline
-  def `10`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`10` = this.cast("10")
+  def `10`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`10` = this.cast(10)
   @JSName("10")
   @scala.inline
-  def `10_10`: `10` = this.cast(10)
+  def `10_10`: `10` = this.cast("10")
   @scala.inline
-  def `11`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`11` = this.cast(11)
+  def `11`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`11` = this.cast("11")
   @JSName("11")
   @scala.inline
-  def `11_11`: `11` = this.cast("11")
+  def `11_11`: `11` = this.cast(11)
   @scala.inline
-  def `12`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`12` = this.cast("12")
+  def `12`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`12` = this.cast(12)
   @JSName("12")
   @scala.inline
-  def `12_12`: `12` = this.cast(12)
+  def `12_12`: `12` = this.cast("12")
   @scala.inline
   def `13`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`13` = this.cast(13)
   @JSName("13")
   @scala.inline
   def `13_13`: `13` = this.cast("13")
   @scala.inline
-  def `14`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`14` = this.cast(14)
+  def `14`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`14` = this.cast("14")
   @JSName("14")
   @scala.inline
-  def `14_14`: `14` = this.cast("14")
+  def `14_14`: `14` = this.cast(14)
   @scala.inline
-  def `15`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`15` = this.cast(15)
+  def `15`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`15` = this.cast("15")
   @JSName("15")
   @scala.inline
-  def `15_15`: `15` = this.cast("15")
+  def `15_15`: `15` = this.cast(15)
   @scala.inline
-  def `16`: typingsJapgolly.semanticUiReact.semanticUiReactStrings.`16` = this.cast("16")
+  def `16`: typingsJapgolly.semanticUiReact.semanticUiReactNumbers.`16` = this.cast(16)
   @JSName("16")
   @scala.inline
-  def `16_16`: `16` = this.cast(16)
+  def `16_16`: `16` = this.cast("16")
   @JSName("1")
   @scala.inline
   def `1_1`: `1` = this.cast("1")

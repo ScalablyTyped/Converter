@@ -14,7 +14,6 @@ lazy val testProject =
       ),
       Compile / stFlavour := Flavour.Japgolly,
       Compile / stIgnore += "csstype",
-      Compile / stMinimize := Selection.All,
       scalaJSUseMainModuleInitializer := true,
       scalaVersion := "2.13.1",
       organization := "net.leibman",

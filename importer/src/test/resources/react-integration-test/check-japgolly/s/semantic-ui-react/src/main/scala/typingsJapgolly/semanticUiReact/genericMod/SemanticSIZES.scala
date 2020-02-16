@@ -5,14 +5,14 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typings.semanticUiReact.semanticUiReactStrings.mini
-  - typings.semanticUiReact.semanticUiReactStrings.tiny
-  - typings.semanticUiReact.semanticUiReactStrings.small
-  - typings.semanticUiReact.semanticUiReactStrings.medium
-  - typings.semanticUiReact.semanticUiReactStrings.large
-  - typings.semanticUiReact.semanticUiReactStrings.big
-  - typings.semanticUiReact.semanticUiReactStrings.huge
-  - typings.semanticUiReact.semanticUiReactStrings.massive
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.small
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.large
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.big
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge
+  - typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive
 */
 trait SemanticSIZES extends js.Object
 

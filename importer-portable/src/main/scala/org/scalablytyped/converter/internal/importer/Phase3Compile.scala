@@ -4,14 +4,13 @@ package importer
 import java.time.{Instant, ZonedDateTime}
 
 import ammonite.ops.%
-import bloop.io.AbsolutePath
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.importer.Phase2Res.{Facade, LibScalaJs}
 import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs._
-import org.scalablytyped.converter.internal.scalajs.flavours.Flavour
+import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
 
@@ -26,15 +25,15 @@ import scala.util.Try
 class Phase3Compile(
     resolve:         LibraryResolver,
     versions:        Versions,
-    compiler:        BloopCompiler,
+    compiler:        Compiler,
     targetFolder:    os.Path,
     projectName:     String,
     organization:    String,
     publishUser:     String,
     publishFolder:   os.Path,
-    metadataFetcher: Npmjs.Fetcher,
+    metadataFetcher: Npmjs,
     softWrites:      Boolean,
-    flavour:         Flavour,
+    flavour:         FlavourImpl,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -202,8 +201,10 @@ class Phase3Compile(
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
         .mapFiles(publishFolder / _)
 
+    val jarFile = existing.jarFile._1
+
     if (existing.all.keys forall os.exists) {
-      logger warn s"Using cached build of ${sbtProject.name}"
+      logger warn s"Using cached build $jarFile"
       PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
     } else {
       {
@@ -212,20 +213,17 @@ class Phase3Compile(
       }
       os.makeDir.all(compilerPaths.classesDir)
 
-      val jarDeps: Set[BloopCompiler.InternalDep] =
-        deps.values.to[Set].map(x => BloopCompiler.InternalDepJar(AbsolutePath(x.localIvyFiles.jarFile._1.toIO)))
+      val jarDeps: Set[Compiler.InternalDep] =
+        deps.values.to[Set].map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._1))
 
       if (os.exists(compilerPaths.resourcesDir))
         os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
 
-      logger warn s"Building ${sbtProject.name}..."
+      logger warn s"Building ${jarFile}..."
       val t0 = System.currentTimeMillis()
       val ret: PhaseRes[Source, PublishedSbtProject] =
         compiler.compile(name, digest, compilerPaths, jarDeps, externalDeps) match {
           case Right(()) =>
-            val elapsed = System.currentTimeMillis - t0
-            logger warn s"Built ${sbtProject.name} in $elapsed ms"
-
             val writtenIvyFiles: IvyLayout[os.Path, Synced] =
               build
                 .ContentForPublish(
@@ -239,7 +237,8 @@ class Phase3Compile(
                 .mapFiles(p => publishFolder / p)
                 .mapValues(files.softWriteBytes)
 
-            logger.info(("published local", writtenIvyFiles.all.keys))
+            val elapsed = System.currentTimeMillis - t0
+            logger warn s"Built ${jarFile} in $elapsed ms"
 
             PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, writtenIvyFiles, None))
 

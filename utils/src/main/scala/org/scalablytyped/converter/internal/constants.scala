@@ -8,6 +8,8 @@ import java.util.Locale
 import scala.io.Codec
 
 object constants {
+  val defaultCacheFolder: os.Path = os.home / ".cache" / "scalablytyped"
+
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
   val ConverterRepo       = new URI("https://github.com/ScalablyTyped/Converter.git")
   val isCi                = sys.env.get("CIRCLECI").isDefined

@@ -7,7 +7,7 @@ import monix.execution.atomic.AtomicLong
 import scala.concurrent.ExecutionContext.Implicits.global
 
 object BintrayCleanup extends App {
-  val Config(config) = args
+  val Ci.Config(config) = args
 
   val values: Map[String, String] =
     files
@@ -21,35 +21,33 @@ object BintrayCleanup extends App {
   private val password = values("password")
 
   private lazy val client = Client(user, password)
+  private lazy val repo   = client.repo(user, config.projectName)
 
   val deleted = AtomicLong(0)
 
-  config.flavours.foreach { flavour =>
-    lazy val repo = client.repo(user, flavour.projectName)
-
-    def deleteFrom(pos: Int): Unit =
-      repo.packages(pos)().foreach { packages =>
-        packages.foreach {
-          case PackageSummary(name, _) =>
-            if (!name.startsWith("sbt-")) { // leave old versions of plugin
-              val Pkg = repo.get(name)
-              Pkg().foreach { pkg =>
-                pkg.versions.drop(4).foreach { d =>
-                  Pkg.version(d).delete().foreach {
-                    case Message(msg) =>
-                      deleted.increment()
-                      println(s"Deleted $name $d $msg (${deleted.get})")
-                  }
+  def deleteFrom(pos: Int): Unit =
+    repo.packages(pos)().foreach { packages =>
+      packages.foreach {
+        case PackageSummary(name, _) =>
+          if (!name.startsWith("sbt-")) { // leave old versions of plugin
+            val Pkg = repo.get(name)
+            Pkg().foreach { pkg =>
+              pkg.versions.drop(4).foreach { d =>
+                Pkg.version(d).delete().foreach {
+                  case Message(msg) =>
+                    deleted.increment()
+                    println(s"Deleted $name $d $msg (${deleted.get})")
                 }
               }
             }
-        }
-
-        if (packages.nonEmpty) {
-          deleteFrom(pos + packages.length)
-        }
+          }
       }
 
-    deleteFrom(0)
-  }
+      if (packages.nonEmpty) {
+        deleteFrom(pos + packages.length)
+      }
+    }
+
+  deleteFrom(0)
+
 }

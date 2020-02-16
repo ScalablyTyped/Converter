@@ -35,6 +35,7 @@ lazy val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
+    libraryDependencies ++= Seq(Deps.scalaXml),
     buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
@@ -105,6 +106,19 @@ lazy val baseSettings: Project => Project =
         "-Xfatal-warnings",
       ),
     )),
+//    scalacOptions ++= Seq(
+//      "-opt:l:inline",
+//      "-opt:l:method",
+//      "-opt:simplify-jumps",
+//      "-opt:compact-locals",
+//      "-opt:copy-propagation",
+//      "-opt:redundant-casts",
+//      "-opt:box-unbox",
+//      "-opt:nullness-tracking",
+//      "-opt:closure-invocations",
+//      "-opt-inline-from:**",
+//      "-opt-warnings",
+//    ),
     /* disable scaladoc */
     sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,

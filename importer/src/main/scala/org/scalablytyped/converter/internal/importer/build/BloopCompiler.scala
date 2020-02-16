@@ -2,7 +2,8 @@ package org.scalablytyped.converter.internal
 package importer
 package build
 
-import java.io.{ByteArrayOutputStream, OutputStream, PrintStream}
+import java.io.{ByteArrayOutputStream, PrintStream}
+import java.nio.file.{Files, Path}
 
 import bloop.DependencyResolution.resolve
 import bloop.cli.{CliOptions, Commands, CommonOptions, ExitStatus}
@@ -17,10 +18,6 @@ import org.scalablytyped.converter.internal.scalajs.Dep
 import scala.concurrent.ExecutionContext
 
 object BloopCompiler {
-  sealed trait InternalDep
-  case class InternalDepClassFiles(name: String, path: AbsolutePath) extends InternalDep
-  case class InternalDepJar(path:        AbsolutePath) extends InternalDep
-
   class LoggerAdapter(logger: Logger[Unit]) extends BloopLogger {
     override def name: String = "bloop-scala-logger"
     override def asVerbose  = this
@@ -40,53 +37,57 @@ object BloopCompiler {
 
   implicit val AbsolutePathFormatter: Formatter[AbsolutePath] = x => x.syntax
 
-  def apply(logger: Logger[Unit], v: Versions, ec: ExecutionContext, failureCacheFolder: os.Path): BloopCompiler = {
+  def apply(
+      logger:                Logger[Unit],
+      v:                     Versions,
+      ec:                    ExecutionContext,
+      failureCacheFolderOpt: Option[Path],
+  ): BloopCompiler = {
     val bloopLogger: BloopLogger = new LoggerAdapter(logger)
 
-    logger.warn(s"Initializing scala compiler ${v.scalaVersion} with scala.js ${v.scalaJsVersion}")
+    logger.warn(s"Initializing scala compiler ${v.scala.scalaVersion} with scala.js ${v.scalaJs.scalaJsVersion}")
 
     val scalaCompiler: Array[AbsolutePath] =
-      resolve(v.scalaOrganization, "scala-compiler", v.scalaVersion, bloopLogger)(ec)
+      resolve(v.scala.scalaOrganization, "scala-compiler", v.scala.scalaVersion, bloopLogger)(ec)
 
     val globalClasspath: Array[AbsolutePath] =
       Array(
         scalaCompiler.collect { case path if path.underlying.toString.contains("scala-library") => path },
-        resolve(v.scalaJsOrganization, v.s("scalajs-library"), v.scalaJsVersion, bloopLogger)(ec),
+        resolve(v.scalaJs.scalaJsOrganization, v.s("scalajs-library"), v.scalaJs.scalaJsVersion, bloopLogger)(ec),
         resolve(constants.RuntimeOrg, v.sjs(constants.RuntimeName), constants.RuntimeVersion, bloopLogger)(ec),
       ).flatten
 
     val scalaJsCompiler =
-      resolve(v.scalaJsOrganization, s"scalajs-compiler_${v.scalaVersion}", v.scalaJsVersion, bloopLogger)(ec).collectFirst {
+      resolve(
+        v.scalaJs.scalaJsOrganization,
+        s"scalajs-compiler_${v.scala.scalaVersion}",
+        v.scalaJs.scalaJsVersion,
+        bloopLogger,
+      )(ec).collectFirst {
         case f if f.syntax.contains("scalajs-compiler") => f
       }.head
 
     logger.warn(globalClasspath)
     logger.warn(scalaJsCompiler)
 
-    new BloopCompiler(ec, failureCacheFolder, v, globalClasspath, scalaCompiler, scalaJsCompiler, bloopLogger)
+    new BloopCompiler(ec, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler, bloopLogger)
   }
-
-  object NullOutputStream extends OutputStream {
-    override def write(b: Int): Unit = ()
-  }
-
-  object NullPrinter extends PrintStream(NullOutputStream)
 }
 
 class BloopCompiler private (
-    ec:                 ExecutionContext,
-    failureCacheFolder: os.Path,
-    versions:           Versions,
-    globalClassPath:    Array[AbsolutePath],
-    scalaJars:          Array[AbsolutePath],
-    scalaJsCompiler:    AbsolutePath,
-    bloopLogger:        BloopLogger,
-) {
-  def compile(
+    ec:                    ExecutionContext,
+    failureCacheFolderOpt: Option[Path],
+    versions:              Versions,
+    globalClassPath:       Array[AbsolutePath],
+    scalaJars:             Array[AbsolutePath],
+    scalaJsCompiler:       AbsolutePath,
+    bloopLogger:           BloopLogger,
+) extends Compiler {
+  override def compile(
       name:          String,
       digest:        Digest,
       compilerPaths: CompilerPaths,
-      deps:          Set[BloopCompiler.InternalDep],
+      deps:          Set[Compiler.InternalDep],
       externalDeps:  Set[Dep],
   ): Either[String, Unit] = {
     val bloopFolder = compilerPaths.baseDir / ".bloop"
@@ -97,33 +98,30 @@ class BloopCompiler private (
         )
 
       val fromDependencyJars: Set[AbsolutePath] =
-        deps.collect {
-          case BloopCompiler.InternalDepJar(jar) => jar
-        }
+        deps.collect { case Compiler.InternalDepJar(jar) => AbsolutePath(jar.toIO) }
 
       val fromDependencyClassDirs: Set[AbsolutePath] =
-        deps.collect {
-          case BloopCompiler.InternalDepClassFiles(_, path) => path
-        }
+        deps.collect { case Compiler.InternalDepClassFiles(_, path) => AbsolutePath(path.toIO) }
 
       (globalClassPath ++ fromExternalDeps ++ fromDependencyJars ++ fromDependencyClassDirs).map(_.underlying).toList
     }
+
     val projectFile = BloopConfig.File(
       "1.3.3",
       BloopConfig.Project(
         name         = name,
         directory    = compilerPaths.baseDir.toNIO,
         sources      = List(compilerPaths.sourcesDir.toNIO),
-        dependencies = deps.collect { case BloopCompiler.InternalDepClassFiles(name, _) => name }.toList,
+        dependencies = deps.collect { case Compiler.InternalDepClassFiles(name, _) => name }.toList,
         classpath    = classPath,
         out          = (compilerPaths.baseDir / "target").toNIO,
         classesDir   = compilerPaths.classesDir.toNIO,
         resources    = None,
         scala = Some(
           BloopConfig.Scala(
-            organization = versions.scalaOrganization,
+            organization = versions.scala.scalaOrganization,
             name         = "scala-compiler",
-            version      = versions.scalaVersion,
+            version      = versions.scala.scalaVersion,
             options      = List("-Xplugin:" + scalaJsCompiler.syntax) ++ versions.scalacOptions,
             jars         = scalaJars.toList.map(_.underlying),
             analysis     = None,
@@ -141,40 +139,42 @@ class BloopCompiler private (
     os.makeDir.all(bloopFolder)
     bloop.config.write(projectFile, (bloopFolder / (name + ".json")).toNIO)
 
-    val errorStream    = new ByteArrayOutputStream
-    val errPrintStream = new PrintStream(errorStream)
+    val outStream   = new ByteArrayOutputStream
+    val printStream = new PrintStream(outStream)
 
-    val cacheFile = failureCacheFolder / name / digest.hexString
+    val cacheFileOpt = failureCacheFolderOpt.map(_ resolve name resolve digest.hexString)
 
-    if (os.exists(cacheFile)) Left(files.content(InFile(cacheFile)))
-    else {
-      val status = Cli.run(
-        bloop.engine.Run(
-          Commands.Compile(
-            projects    = List(name),
-            incremental = true,
-            cliOptions = CliOptions(
-              configDir = Some(bloopFolder.toNIO),
-              common    = CommonOptions(err = errPrintStream, out = BloopCompiler.NullPrinter),
+    cacheFileOpt match {
+      case Some(cacheFile) if Files.exists(cacheFile) =>
+        Left(new String(Files.readAllBytes(cacheFile), constants.Utf8))
+      case _ =>
+        val status = Cli.run(
+          bloop.engine.Run(
+            Commands.Compile(
+              projects    = List(name),
+              incremental = true,
+              cliOptions = CliOptions(
+                configDir = Some(bloopFolder.toNIO),
+                common    = CommonOptions(err = printStream, out = printStream),
+              ),
             ),
           ),
-        ),
-        NoPool,
-      )
+          NoPool,
+        )
 
-      status match {
-        case ExitStatus.Ok => Right(())
-        case other =>
-          val msg = errorStream.toString(constants.Utf8.name)
-          /* save failure, but guard against flaky errors */
-          other match {
-            case ExitStatus.CompilationError if !msg.contains("Unexpected error when compiling") =>
-              files.writeBytes(cacheFile.toNIO, msg.getBytes(constants.Utf8.name))
-            case _ => ()
-          }
+        status match {
+          case ExitStatus.Ok => Right(())
+          case other =>
+            val msg = outStream.toString(constants.Utf8.name)
+            /* save failure, but guard against flaky errors */
+            (other, cacheFileOpt) match {
+              case (ExitStatus.CompilationError, Some(cacheFile)) if !msg.contains("Unexpected error when compiling") =>
+                files.writeBytes(cacheFile, msg.getBytes(constants.Utf8.name))
+              case _ => ()
+            }
 
-          Left(msg)
-      }
+            Left(msg)
+        }
     }
   }
 }

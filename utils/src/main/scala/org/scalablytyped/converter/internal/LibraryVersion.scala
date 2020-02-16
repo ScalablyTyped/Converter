@@ -10,9 +10,11 @@ import java.time.format.DateTimeFormatter
   * @param libraryVersion declared either in package.json or in comments for DefinitelyTyped
   * @param inGit we include git information if the definition files were defined in one. This to signal that they are not "official"
   */
-case class LibraryVersion(libraryVersion: Option[String], inGit: Option[InGit]) {
+case class LibraryVersion(isStdLib: Boolean, libraryVersion: Option[String], inGit: Option[InGit]) {
+  def ignoreStdLibMinorVersion(v: String): String =
+    if (isStdLib) v.substring(0, v.lastIndexOf(".")) else v
 
-  def libraryVersionOrDefault = libraryVersion getOrElse "0.0-unknown"
+  def libraryVersionOrDefault = libraryVersion map ignoreStdLibMinorVersion getOrElse "0.0-unknown"
 
   def version(digest: Digest): String =
     IArray

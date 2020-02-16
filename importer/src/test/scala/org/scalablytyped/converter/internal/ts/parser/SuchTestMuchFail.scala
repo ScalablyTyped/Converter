@@ -1,21 +1,19 @@
-package org.scalablytyped.converter.internal.ts
+package org.scalablytyped.converter.internal
+package ts
 package parser
 
 import com.olvind.logging
-import org.scalablytyped.converter.internal.importer.PersistingFunction.nameAndMtimeUnder
-import org.scalablytyped.converter.internal.importer.{Cmd, Config, DTUpToDate, PersistingFunction}
-import org.scalablytyped.converter.internal.{InFile, InFolder, constants}
+import org.scalablytyped.converter.internal.constants.defaultCacheFolder
+import org.scalablytyped.converter.internal.importer.{Ci, Cmd, DTUpToDate, PersistingParser}
 
 object SuchTestMuchFail extends App {
   val logger = logging.stdout
 
-  val Config(config)  = args
-  val parseTempFolder = Config.cacheFolder / 'parseTemp
+  val parseTempFolder = defaultCacheFolder / 'tests / getClass.getSimpleName.toLowerCase
   os.makeDir.all(parseTempFolder)
-  os.makeDir.all(Config.cacheFolder)
 
   val dtFolder: InFolder =
-    DTUpToDate(new Cmd(logger, None), config.offline, Config.cacheFolder, constants.DefinitelyTypedRepo)
+    DTUpToDate(new Cmd(logger, None), args.contains("-offline"), defaultCacheFolder, constants.DefinitelyTypedRepo)
 
   val criterion: Double =
     99.5
@@ -30,20 +28,22 @@ object SuchTestMuchFail extends App {
   }
 
   val allFiles: Seq[os.Path] =
-    os.walk.stream(dtFolder.path, _.last == ".git")
+    os.walk
+      .stream(dtFolder.path, _.last == ".git")
       .filter(os.isFile)
       .filter(_.toString.endsWith(".d.ts"))
       .toSeq
 
-  val parser = PersistingFunction(nameAndMtimeUnder(parseTempFolder.toNIO), logger.void)(parseFile)
+  val parser = PersistingParser(Some(parseTempFolder.toNIO), IArray(dtFolder), logger.void)
 
   val parsed: Seq[(os.Path, Either[String, TsParsedFile])] =
     allFiles.par.map { path: os.Path =>
       val t0 = System.currentTimeMillis
-      val res = try parser(InFile(path))
-      catch {
-        case x: StackOverflowError => Left(x.getMessage)
-      }
+      val res =
+        try parser(InFile(path))
+        catch {
+          case x: StackOverflowError => Left(x.getMessage)
+        }
       println(s"$path in ${System.currentTimeMillis() - t0} ms")
       (path, res)
     }.seq

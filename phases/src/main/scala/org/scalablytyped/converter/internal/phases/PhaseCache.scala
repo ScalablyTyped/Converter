@@ -1,10 +1,11 @@
 package org.scalablytyped.converter.internal.phases
 
+import java.nio.channels.ClosedByInterruptException
 import java.util
 
 import org.scalablytyped.converter.internal.phases.PhaseCache.Ref
 
-import scala.concurrent.{Future, Promise}
+import scala.concurrent.{ExecutionException, Future, Promise}
 
 class PhaseCache[Id, U](initialCapacity: Int = 1000) {
   private val m: util.Map[Ref[(Id, IsCircular)], Ref[Future[PhaseRes[Id, U]]]] =
@@ -39,8 +40,11 @@ class PhaseCache[Id, U](initialCapacity: Int = 1000) {
     op.foreach { p =>
       try compute(p)
       catch {
-        case th: Throwable => p.failure(th)
-      },
+        case x:  InterruptedException                     => throw x
+        case x:  ClosedByInterruptException               => throw x
+        case x:  ExecutionException if x.getCause != null => p.failure(x.getCause)
+        case th: Throwable                                => p.failure(th)
+      }
     }
 
     ret

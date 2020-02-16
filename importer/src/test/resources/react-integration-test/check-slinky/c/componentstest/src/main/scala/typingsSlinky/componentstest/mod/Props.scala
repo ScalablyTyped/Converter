@@ -5,8 +5,8 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 /* Rewritten from type alias, can be one of: 
-  - typings.componentstest.mod.A
-  - typings.componentstest.mod.B
+  - typingsSlinky.componentstest.mod.A
+  - typingsSlinky.componentstest.mod.B
 */
 trait Props extends js.Object
 

@@ -9,8 +9,9 @@ final class LexerTests extends AnyFunSuite with Matchers {
 
   test("numbers") {
     Set("-1", "0", "1", "10", "999", "9", "0x42", "042", "-1.1", "0.1", "999.999", "0.000000", "0xAC") foreach (
-        str => shouldParseAs(str, TsLexer.numericLiteral)(TsLexer.NumericLit(str)),
-    )
+        str =>
+          shouldParseAs(str, TsLexer.numericLiteral)(TsLexer.NumericLit(str)),
+      )
   }
 
   test("comment") {

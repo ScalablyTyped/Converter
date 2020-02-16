@@ -5,8 +5,9 @@ package flavours
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-object Flavour {
-  sealed trait ReactFlavour extends Flavour {
+object FlavourImpl {
+
+  sealed trait ReactFlavourImpl extends FlavourImpl {
     lazy val reactNames =
       new ReactNames(outputPkg)
     lazy val identifyComponents =
@@ -18,9 +19,7 @@ object Flavour {
     }
 
     final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
-      val withCompanions = genCompanions.foldLeft(tree) {
-        case (t, gen) => gen.visitPackageTree(scope)(t)
-      }
+      val withCompanions = genCompanions.visitPackageTree(scope)(tree)
 
       val withComponents =
         if (involvesReact(scope)) {
@@ -39,14 +38,10 @@ object Flavour {
   }
 
   case class Normal(
-      shouldGenerateCompanions: Boolean,
       shouldGenerateComponents: Boolean,
       shouldUseScalaJsDomTypes: Boolean,
       outputPkg:                Name,
-  ) extends ReactFlavour {
-    val projectName      = "ScalablyTyped"
-    val repo             = "https://github.com/oyvindberg/ScalablyTyped.git"
-    val organization     = "org.scalablytyped"
+  ) extends ReactFlavourImpl {
     val genComponentsOpt = if (shouldGenerateComponents) Some(new GenReactFacadeComponents(reactNames)) else None
 
     override val conversions: Option[IArray[CastConversion]] =
@@ -59,8 +54,8 @@ object Flavour {
         Set(Dep("org.scala-js", "scalajs-dom", "0.9.8"))
       else Set.empty
 
-    override val genCompanions: Option[GenCompanions] =
-      if (shouldGenerateCompanions) Some(new GenCompanions(MemberToProp.Default, findProps)) else None
+    override val genCompanions: GenCompanions =
+      new GenCompanions(MemberToProp.Default, findProps)
 
     override def rewrittenReactTree(
         scope:      TreeScope,
@@ -70,10 +65,7 @@ object Flavour {
       genComponentsOpt.foldLeft(tree) { case (t, gen) => gen(scope, t, components) }
   }
 
-  case class Slinky(shouldGenerateCompanions: Boolean, outputPkg: Name) extends ReactFlavour {
-    val projectName  = "SlinkyTyped"
-    val repo         = "https://github.com/ScalablyTyped/SlinkyTypes.git"
-    val organization = "org.scalablytyped.slinky"
+  case class Slinky(outputPkg: Name) extends ReactFlavourImpl {
     val gen = new GenSlinkyComponents(
       scalaJsDomNames,
       GenSlinkyComponents.Web(new SlinkyWeb(reactNames)),
@@ -86,8 +78,8 @@ object Flavour {
       Some(gen.conversions)
     override val dependencies: Set[Dep] =
       Set(Dep("me.shadaj", "slinky-web", "0.6.2"))
-    override val genCompanions: Option[GenCompanions] =
-      if (shouldGenerateCompanions) Some(new GenCompanions(gen.memberToProp, findProps)) else None
+    override val genCompanions: GenCompanions =
+      new GenCompanions(gen.memberToProp, findProps)
     override def rewrittenReactTree(
         scope:      TreeScope,
         tree:       ContainerTree,
@@ -96,11 +88,8 @@ object Flavour {
       gen(scope, tree, components)
   }
 
-  case class SlinkyNative(shouldGenerateCompanions: Boolean, outputPkg: Name) extends ReactFlavour {
-    val projectName  = "SlinkyNativeTyped"
-    val repo         = "https://github.com/ScalablyTyped/SlinkyNativeTypes.git"
-    val organization = "org.scalablytyped.slinkynative"
-    val gen          = new GenSlinkyComponents(scalaJsDomNames, GenSlinkyComponents.Native(()), stdNames, reactNames, findProps)
+  case class SlinkyNative(outputPkg: Name) extends ReactFlavourImpl {
+    val gen = new GenSlinkyComponents(scalaJsDomNames, GenSlinkyComponents.Native(()), stdNames, reactNames, findProps)
 
     override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
@@ -111,8 +100,9 @@ object Flavour {
         Dep("org.scala-js", "scalajs-dom", "0.9.8"),
       )
 
-    override val genCompanions: Option[GenCompanions] =
-      if (shouldGenerateCompanions) Some(new GenCompanions(gen.memberToProp, findProps)) else None
+    override val genCompanions: GenCompanions =
+      new GenCompanions(gen.memberToProp, findProps)
+
     override def rewrittenReactTree(
         scope:      TreeScope,
         tree:       ContainerTree,
@@ -121,18 +111,15 @@ object Flavour {
       gen(scope, tree, components)
   }
 
-  case class Japgolly(shouldGenerateCompanions: Boolean, outputPkg: Name) extends ReactFlavour {
-    val projectName  = "ScalajsReactTyped"
-    val repo         = "https://github.com/ScalablyTyped/ScalajsReactTyped.git"
-    val organization = "org.scalablytyped.japgolly"
-    val gen          = new GenJapgollyComponents(reactNames, scalaJsDomNames, findProps)
+  case class Japgolly(outputPkg: Name) extends ReactFlavourImpl {
+    val gen = new GenJapgollyComponents(reactNames, scalaJsDomNames, findProps)
 
     override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
     override val dependencies: Set[Dep] =
       Set(Dep("com.github.japgolly.scalajs-react", "core", "1.5.0"))
-    override val genCompanions: Option[GenCompanions] =
-      if (shouldGenerateCompanions) Some(new GenCompanions(gen.memberToProp, findProps)) else None
+    override val genCompanions: GenCompanions =
+      new GenCompanions(gen.memberToProp, findProps)
     override def rewrittenReactTree(
         scope:      TreeScope,
         tree:       ContainerTree,
@@ -142,15 +129,13 @@ object Flavour {
   }
 }
 
-sealed trait Flavour {
+sealed trait FlavourImpl {
   def conversions: Option[IArray[CastConversion]]
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
-  val genCompanions: Option[GenCompanions]
+  val genCompanions: GenCompanions
   def dependencies: Set[Dep]
-  val projectName:  String
-  val repo:         String
-  val organization: String
-  val outputPkg:    Name
+  val outputPkg: Name
+
   lazy val stdNames =
     new QualifiedName.StdNames(outputPkg)
   lazy val scalaJsDomNames =

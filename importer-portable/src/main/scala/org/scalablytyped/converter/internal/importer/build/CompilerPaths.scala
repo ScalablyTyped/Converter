@@ -19,7 +19,7 @@ object CompilerPaths {
       sourcesDir   = thisBaseDir / "src" / 'main / 'scala,
       resourcesDir = thisBaseDir / "src" / 'main / 'resources,
       targetDir    = targetDir,
-      classesDir   = targetDir / s"scala-${v.binVersion}" / 'classes,
+      classesDir   = targetDir / s"scala-${v.scala.binVersion}" / 'classes,
     )
   }
 

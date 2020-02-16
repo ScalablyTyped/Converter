@@ -8,22 +8,22 @@ import scala.scalajs.js.annotation._
 // Widths
 // ======================================================
 /* Rewritten from type alias, can be one of: 
-  - typings.semanticUiReact.semanticUiReactNumbers.`1`
-  - typings.semanticUiReact.semanticUiReactNumbers.`2`
-  - typings.semanticUiReact.semanticUiReactNumbers.`3`
-  - typings.semanticUiReact.semanticUiReactNumbers.`4`
-  - typings.semanticUiReact.semanticUiReactNumbers.`5`
-  - typings.semanticUiReact.semanticUiReactNumbers.`6`
-  - typings.semanticUiReact.semanticUiReactNumbers.`7`
-  - typings.semanticUiReact.semanticUiReactNumbers.`8`
-  - typings.semanticUiReact.semanticUiReactNumbers.`9`
-  - typings.semanticUiReact.semanticUiReactNumbers.`10`
-  - typings.semanticUiReact.semanticUiReactNumbers.`11`
-  - typings.semanticUiReact.semanticUiReactNumbers.`12`
-  - typings.semanticUiReact.semanticUiReactNumbers.`13`
-  - typings.semanticUiReact.semanticUiReactNumbers.`14`
-  - typings.semanticUiReact.semanticUiReactNumbers.`15`
-  - typings.semanticUiReact.semanticUiReactNumbers.`16`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`1`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`4`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`5`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`8`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`11`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`12`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`15`
+  - typingsSlinky.semanticUiReact.semanticUiReactNumbers.`16`
 */
 trait SemanticWIDTHSNUMBER extends js.Object
 
