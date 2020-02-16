@@ -55,30 +55,29 @@
               }
             });
         </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Getting started - SBT plugin</h1></header><article><div><span><p>The plugin uses <a href="https://scalacenter.github.io/scalajs-bundler/">scalajs-bundler</a>
-to download NPM packages, and translates typescript type definitions into Scala.js before your project compiles, as an SBT source generator.</p>
+to download NPM packages, and translates typescript type definitions into Scala.js jars before your project compiles.</p>
 <p>If you for some reason cannot use scalajs-bundler, there is a more general version <a href="/docs/plugin-no-bundler">here</a>.</p>
 <h1><a class="anchor" aria-hidden="true" id="i-just-want-to-see-how-it-works"></a><a href="#i-just-want-to-see-how-it-works" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>I just want to see how it works</h1>
 <p>Then check out the demo projects:</p>
 <ul>
 <li><a href="https://github.com/ScalablyTyped/Demos">Demos</a></li>
 <li><a href="https://github.com/ScalablyTyped/SlinkyDemos">React/Slinky demos</a></li>
-<li><code>Scalajs-React demos</code> (we need help porting slinky demos!)</li>
+<li><code>Scalajs-React demos</code> (help wanted!)</li>
 </ul>
 <h1><a class="anchor" aria-hidden="true" id="setup"></a><a href="#setup" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Setup</h1>
 <h2><a class="anchor" aria-hidden="true" id="requirements"></a><a href="#requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requirements</h2>
 <p>Due to conflicting scala library dependencies <strong>this plugin needs sbt 1.3.0 or newer</strong>.</p>
 <p>Since we generate source code, it should work with any combination of
-Scala 2.12/2.13 and Scala.js 0.6.x/1.0.0-milestones.
-Certain <a href="/docs/flavour">flavour</a>s might not yet work on Scala.js 1.0.0 milestones
-if the libraries have not been published.</p>
+Scala 2.12 / 2.13 and Scala.js 1 / 0.6.
+Certain <a href="/docs/flavour">flavours</a> might not yet work on Scala.js 1 if the libraries have not been published.</p>
 <h2><a class="anchor" aria-hidden="true" id="add-to-your-projectpluginssbt"></a><a href="#add-to-your-projectpluginssbt" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add to your <code>project/plugins.sbt</code></h2>
 <pre><code class="hljs css language-scala">resolvers += <span class="hljs-type">Resolver</span>.bintrayRepo(<span class="hljs-string">"oyvindberg"</span>, <span class="hljs-string">"converter"</span>)
 
 <span class="hljs-comment">// for Scala.js 1.0.0 milestones</span>
-addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter"</span> % <span class="hljs-string">"1.0.0-beta3"</span>)
+addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter"</span> % <span class="hljs-string">"1.0.0-beta4"</span>)
 
 <span class="hljs-comment">// for Scala.js 0.6.x</span>
-addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter06"</span> % <span class="hljs-string">"1.0.0-beta3"</span>)
+addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter06"</span> % <span class="hljs-string">"1.0.0-beta4"</span>)
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="activate-the-plugin-for-a-project-in-your-buildsbt"></a><a href="#activate-the-plugin-for-a-project-in-your-buildsbt" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Activate the plugin for a project in your <code>build.sbt</code>:</h2>
 <pre><code class="hljs css language-scala">project.enablePlugins(<span class="hljs-type">ScalablyTypedConverterPlugin</span>)
@@ -111,27 +110,38 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
   <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Japgolly</span>
 )
 </code></pre>
-<h2><a class="anchor" aria-hidden="true" id="make-it-faster-optional"></a><a href="#make-it-faster-optional" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Make it faster (Optional)</h2>
-<p>You'll notice that your build is now slow.</p>
-<p>This part will walk you through how to speed it up within the build.
-Keep in mind that you can always pull the code generation and compilation up into a dependency
-that you build independently if any of this becomes a showstopper.</p>
-<p>Your build is now slow because of three things, which we'll handle in turn.</p>
-<h3><a class="anchor" aria-hidden="true" id="npminstall"></a><a href="#npminstall" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>npmInstall</code></h3>
-<p>The first thing you should do is to configure scalajs-bundler to use yarn:</p>
+<h2><a class="anchor" aria-hidden="true" id="use-yarn-instead-of-npm"></a><a href="#use-yarn-instead-of-npm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Use yarn instead of npm</h2>
+<p>The plugin checks for updated npm dependencies on each compile, and yarn responds much faster than npm.</p>
+<p>Configure scalajs-bundler like this:</p>
 <pre><code class="hljs css language-scala">project.settings(
   useYarn := <span class="hljs-literal">true</span>
 )
 </code></pre>
-<p>Yarn will need to be present on your system for this to work. You should also check in <code>yarn.lock</code>.
-The main reason we do that is that <code>npm</code> uses seconds to verify that everything is current, and that will
-be done for <strong>every</strong> compile.</p>
+<p>Yarn will need to be present on your system for this to work. You should also check in <code>yarn.lock</code>.</p>
+<h2><a class="anchor" aria-hidden="true" id="how-it-works"></a><a href="#how-it-works" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How it works</h2>
+<p>Hopefully everything will work automatically. Change an npm dependency, reimport project, wait, voila.</p>
+<p>The plugin taps into the <code>unmanagedJars</code> task in sbt, and this has some consequences for how it works.
+Whenever the task is evaluated, typically through a <code>compile</code> or an import into an IDE, the plugin</p>
+<ul>
+<li><p>Runs a customized version of <code>installNpmDependencies</code> from scalajs-bundler, changed to avoid touching <code>unmanagedJars</code>.</p></li>
+<li><p>Computes a digest from the resulting <code>package.json</code> file and of the configuration of the plugin</p></li>
+<li><p>If we have a stored conversion with the given digest and if all the generated artifacts exist locally, we return those</p></li>
+<li><p>Otherwise we run converter, compiling only the missing libraries if any. Libraries are also digested by their contents,
+to avoid unnecessary recompilations.</p></li>
+</ul>
+<p>Importing a build with a configuration the machine has seen and compiled before should be very fast.</p>
+<h2><a class="anchor" aria-hidden="true" id="customize-the-generated-code"></a><a href="#customize-the-generated-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customize the generated code</h2>
 <h3><a class="anchor" aria-hidden="true" id="stignore"></a><a href="#stignore" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>stIgnore</code></h3>
-<p>ScalablyTypedConverter is not that fast yet. Surely there are low hanging fruits for speeding it up,
-but we're following an old development <a href="https://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">mantra</a>.</p>
-<p>The most important way to speed it up is to make it do less work. Enter <code>stIgnore</code>.</p>
-<p>So what can we ignore?</p>
-<p>Let's take a few examples:</p>
+<p>There are a few reasons you might want to ignore things:</p>
+<ul>
+<li>A dependency of a library you want to use might fail conversion/compilation and you can try to salvage the situation by ignoring it.</li>
+<li>A dependency is slow to convert/build and you have no use for it</li>
+<li>A library has a circular set of dependencies (it's javascript, of course it happens) you might break the circuit by ignoring a library.</li>
+</ul>
+<p>The consequence of ignoring a library is typically that whenever another library references something in it,
+that reference will be translated as <code>js.Any</code> with a comment (and there will be warnings when importing).</p>
+<p>You cannot ignore the <code>std</code> library.</p>
+<p>Some usage examples:</p>
 <ul>
 <li><code>csstype</code> is a type-only library from DefinitelyTyped which describes all of react CSS with Typescript interfaces, enabling
 type-safe use. It is a dependency of <code>react</code>, and used throughout that ecosystem.
@@ -149,50 +159,6 @@ You also don't need the icons. If that's the case, you can also exclude prefixes
   <span class="hljs-type">Compile</span> / stIgnore ++= <span class="hljs-type">List</span>(<span class="hljs-string">"material-ui/svg-icons"</span>)
 )
 </code></pre>
-<h3><a class="anchor" aria-hidden="true" id="compiling-all-that-generated-code"></a><a href="#compiling-all-that-generated-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Compiling all that generated code</h3>
-<p>There may be a <strong>lot</strong>.</p>
-<p>Ignoring libraries or modules will help, but our main tool here is called <code>stMinimize</code>.</p>
-<p>By minimization we mean to remove everything from a library except what is referenced from somewhere else, so that
-things keep compiling.</p>
-<p>The point is that you typically want everything from your main libraries,
-but you care less about their (transitive) dependencies.</p>
-<p>Since you typically don't want to enumerate all transitive dependencies, the <code>Selection</code> helper type provided for this:</p>
-<ul>
-<li><code>Selection.None</code> disables for all libraries (default)</li>
-<li><code>Selection.NoneExcept(String*)</code> enables only given libraries</li>
-<li><code>Selection.All</code> enables for all libraries</li>
-<li><code>Selection.AllExcept(String*)</code> enables only not given libraries (most useful)</li>
-</ul>
-<p>Using that, typical usage of <code>stMinimize</code> looks like this:</p>
-<pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stMinimize := <span class="hljs-type">Selection</span>.<span class="hljs-type">AllExcept</span>(<span class="hljs-string">"axios"</span>, <span class="hljs-string">"material-ui"</span>, <span class="hljs-string">"mobx-react"</span>, <span class="hljs-string">"mobx"</span>)
-)
-</code></pre>
-<p>Note that if you use a <a href="/docs/flavour">react flavour</a> which generates a <code>components</code> package, all those
-components are considered &quot;entry points&quot;, and are not eligible for removal.
-In other words, if you use <strong>only</strong> react components from a library, it's fine to minimize that, too.</p>
-<h3><a class="anchor" aria-hidden="true" id="stminimizekeep"></a><a href="#stminimizekeep" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>stMinimizeKeep</code></h3>
-<p>If you want to just keep a few things from a library and minimize away the rest, there is also a mechanism for that.
-The names you supply should be exactly as they appear in the generated scala code without the initial package prefix (typically <code>typings</code>).</p>
-<pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-comment">/* setup libraries */</span>
-  <span class="hljs-type">Compile</span> / npmDependencies ++= <span class="hljs-type">Seq</span>(
-    <span class="hljs-string">"moment"</span> -&gt; <span class="hljs-string">"2.24.0"</span>,
-    <span class="hljs-string">"react-big-calendar"</span> -&gt; <span class="hljs-string">"0.22"</span>,
-    <span class="hljs-string">"@types/react-big-calendar"</span> -&gt; <span class="hljs-string">"0.22.3"</span>
-  ),
-  <span class="hljs-comment">/* say we want to minimize all */</span>
-  <span class="hljs-type">Compile</span> / stMinimize := <span class="hljs-type">Selection</span>.<span class="hljs-type">All</span>,
-  <span class="hljs-comment">/* but keep these very specific things*/</span>
-  <span class="hljs-type">Compile</span> / stMinimizeKeep ++= <span class="hljs-type">List</span>(
-    <span class="hljs-string">"moment.mod.^"</span>,
-    <span class="hljs-string">"reactBigCalendar.mod.momentLocalizer"</span>,
-    <span class="hljs-string">"reactBigCalendar.mod.View"</span>,
-  ),
-)
-
-</code></pre>
-<h2><a class="anchor" aria-hidden="true" id="customize-the-generated-code"></a><a href="#customize-the-generated-code" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Customize the generated code</h2>
 <h3><a class="anchor" aria-hidden="true" id="stenablescalajsdefined"></a><a href="#stenablescalajsdefined" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>stEnableScalaJsDefined</code></h3>
 <p>As explained in the corresponding <a href="http://www.scala-js.org/doc/interoperability/sjs-defined-js-classes.html">Scala.js documentation page</a>,
 <code>@ScalaJSDefined</code> traits are more convenient because they can be <code>new</code>ed, extended and so on.</p>
@@ -219,9 +185,7 @@ and a browser application should only use things you have polyfilled.</p>
 <p>Also note that if you use a <a href="/docs/flavour">flavour</a> which translates types to <code>scala-js-dom</code> types,
 only types found in the chosen stdlib will be translated.</p>
 <h3><a class="anchor" aria-hidden="true" id="stoutputpackage"></a><a href="#stoutputpackage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>stOutputPackage</code></h3>
-<p>For aesthetic reasons, or because you want to shade the typings in a new package
-if you're building a library, you can adjust the top-level package into which
-we put the generated code.</p>
+<p>You can adjust the top-level package into which we put the generated code.</p>
 <pre><code class="hljs css language-scala">project.settings(
   <span class="hljs-type">Compile</span> / stOutputPackage := <span class="hljs-string">"mypackage"</span>,
 )
@@ -245,11 +209,8 @@ We keep all the generated types which dont exist in scala-js-dom, but the ones w
 <p>Do you find the debug output tiring?</p>
 <pre><code class="hljs css language-scala"><span class="hljs-type">Global</span> / stQuiet := <span class="hljs-literal">true</span>
 </code></pre>
-<p>By default we cache the results of the parser, since it needs to be rewritten to be fast.
-The results is shared by default in <code>~/.cache/scalablytyped-sbt</code>.</p>
-<p>If you want to disable caching for some reason or change location you can set</p>
-<pre><code class="hljs css language-scala"><span class="hljs-type">Global</span> / stCacheDir := <span class="hljs-type">Some</span>(file(<span class="hljs-string">"/some/other/dir"</span>))
-
-<span class="hljs-type">Global</span> / stCacheDir := <span class="hljs-type">None</span> <span class="hljs-comment">// disables cache</span>
+<p>By default we store caches and built artifacts in <code>~/.cache/scalablytyped</code>.</p>
+<p>If that doesn't suit you, you can specify another directory</p>
+<pre><code class="hljs css language-scala"><span class="hljs-type">Global</span> / stDir := file(<span class="hljs-string">"/some/other/dir"</span>)
 </code></pre>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/release-announcement"><span class="arrow-prev">← </span><span>Beta release announcement!</span></a><a class="docs-next button" href="/docs/plugin-no-bundler"><span>SBT plugin without scalajs-bundler</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#requirements">Requirements</a></li><li><a href="#add-to-your-projectpluginssbt">Add to your <code>project/plugins.sbt</code></a></li><li><a href="#activate-the-plugin-for-a-project-in-your-buildsbt">Activate the plugin for a project in your <code>build.sbt</code>:</a></li><li><a href="#setup-your-npm-packages">Setup your npm packages</a></li><li><a href="#choose-your-flavour-optional">Choose your flavour (optional)</a><ul class="toc-headings"><li><a href="#slinky">Slinky</a></li><li><a href="#scalajs-react">Scalajs-react</a></li></ul></li><li><a href="#make-it-faster-optional">Make it faster (Optional)</a><ul class="toc-headings"><li><a href="#npminstall"><code>npmInstall</code></a></li><li><a href="#stignore"><code>stIgnore</code></a></li><li><a href="#compiling-all-that-generated-code">Compiling all that generated code</a></li><li><a href="#stminimizekeep"><code>stMinimizeKeep</code></a></li></ul></li><li><a href="#customize-the-generated-code">Customize the generated code</a><ul class="toc-headings"><li><a href="#stenablescalajsdefined"><code>stEnableScalaJsDefined</code></a></li><li><a href="#ststdlib"><code>stStdLib</code></a></li><li><a href="#stoutputpackage"><code>stOutputPackage</code></a></li><li><a href="#stusescalajsdom"><code>stUseScalaJsDom</code></a></li></ul></li><li><a href="#customize-the-build">Customize the build</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/oyvindberg/ScalablyTypedConverter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/release-announcement"><span class="arrow-prev">← </span><span>Beta release announcement!</span></a><a class="docs-next button" href="/docs/plugin-no-bundler"><span>SBT plugin without scalajs-bundler</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#requirements">Requirements</a></li><li><a href="#add-to-your-projectpluginssbt">Add to your <code>project/plugins.sbt</code></a></li><li><a href="#activate-the-plugin-for-a-project-in-your-buildsbt">Activate the plugin for a project in your <code>build.sbt</code>:</a></li><li><a href="#setup-your-npm-packages">Setup your npm packages</a></li><li><a href="#choose-your-flavour-optional">Choose your flavour (optional)</a><ul class="toc-headings"><li><a href="#slinky">Slinky</a></li><li><a href="#scalajs-react">Scalajs-react</a></li></ul></li><li><a href="#use-yarn-instead-of-npm">Use yarn instead of npm</a></li><li><a href="#how-it-works">How it works</a></li><li><a href="#customize-the-generated-code">Customize the generated code</a><ul class="toc-headings"><li><a href="#stignore"><code>stIgnore</code></a></li><li><a href="#stenablescalajsdefined"><code>stEnableScalaJsDefined</code></a></li><li><a href="#ststdlib"><code>stStdLib</code></a></li><li><a href="#stoutputpackage"><code>stOutputPackage</code></a></li><li><a href="#stusescalajsdom"><code>stUseScalaJsDom</code></a></li></ul></li><li><a href="#customize-the-build">Customize the build</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/oyvindberg/ScalablyTypedConverter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
