@@ -62,7 +62,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         )
         val ScalaJsVersion = Versions.ScalaJs(
           scalaJsVersion    = org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion,
-          scalaJsBinVersion = ScalaJSCrossVersion.currentBinaryVersion,
+          scalaJsBinVersion = org.scalajs.ir.ScalaJSVersions.binaryCross,
         )
 
         val versions = Versions(ScalaVersion, ScalaJsVersion)
