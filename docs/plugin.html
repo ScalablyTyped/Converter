@@ -68,16 +68,16 @@ to download NPM packages, and translates typescript type definitions into Scala.
 <h2><a class="anchor" aria-hidden="true" id="requirements"></a><a href="#requirements" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Requirements</h2>
 <p>Due to conflicting scala library dependencies <strong>this plugin needs sbt 1.3.0 or newer</strong>.</p>
 <p>Since we generate source code, it should work with any combination of
-Scala 2.12 / 2.13 and Scala.js 1 / 0.6.
-Certain <a href="/docs/flavour">flavours</a> might not yet work on Scala.js 1 if the libraries have not been published.</p>
+Scala 2.12 / 2.13 and Scala.js 1.x / 0.6.x</p>
+<p>Note that the scalajs-react <a href="/docs/flavour">flavour</a> won't work with Scala.js 1.x until the library has been updated.</p>
 <h2><a class="anchor" aria-hidden="true" id="add-to-your-projectpluginssbt"></a><a href="#add-to-your-projectpluginssbt" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Add to your <code>project/plugins.sbt</code></h2>
 <pre><code class="hljs css language-scala">resolvers += <span class="hljs-type">Resolver</span>.bintrayRepo(<span class="hljs-string">"oyvindberg"</span>, <span class="hljs-string">"converter"</span>)
 
-<span class="hljs-comment">// for Scala.js 1.0.0 milestones</span>
-addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter"</span> % <span class="hljs-string">"1.0.0-beta4"</span>)
+<span class="hljs-comment">// for Scala.js 1.x.x</span>
+addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter"</span> % <span class="hljs-string">"1.0.0-beta5"</span>)
 
 <span class="hljs-comment">// for Scala.js 0.6.x</span>
-addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter06"</span> % <span class="hljs-string">"1.0.0-beta4"</span>)
+addSbtPlugin(<span class="hljs-string">"org.scalablytyped.converter"</span> % <span class="hljs-string">"sbt-converter06"</span> % <span class="hljs-string">"1.0.0-beta5"</span>)
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="activate-the-plugin-for-a-project-in-your-buildsbt"></a><a href="#activate-the-plugin-for-a-project-in-your-buildsbt" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Activate the plugin for a project in your <code>build.sbt</code>:</h2>
 <pre><code class="hljs css language-scala">project.enablePlugins(<span class="hljs-type">ScalablyTypedConverterPlugin</span>)
@@ -100,14 +100,14 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
 <h3><a class="anchor" aria-hidden="true" id="slinky"></a><a href="#slinky" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Slinky</h3>
 <pre><code class="hljs css language-scala">project.settings(
  <span class="hljs-comment">// for Slinky web projects</span>
-  <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Slinky</span>,
+  stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Slinky</span>,
   <span class="hljs-comment">// for Slinky native projects</span>
-  <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">SlinkyNative</span>,
+  stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">SlinkyNative</span>,
 )
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="scalajs-react"></a><a href="#scalajs-react" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Scalajs-react</h3>
 <pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Japgolly</span>
+  stFlavour := <span class="hljs-type">Flavour</span>.<span class="hljs-type">Japgolly</span>
 )
 </code></pre>
 <h2><a class="anchor" aria-hidden="true" id="use-yarn-instead-of-npm"></a><a href="#use-yarn-instead-of-npm" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Use yarn instead of npm</h2>
@@ -120,10 +120,10 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
 <p>Yarn will need to be present on your system for this to work. You should also check in <code>yarn.lock</code>.</p>
 <h2><a class="anchor" aria-hidden="true" id="how-it-works"></a><a href="#how-it-works" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>How it works</h2>
 <p>Hopefully everything will work automatically. Change an npm dependency, reimport project, wait, voila.</p>
-<p>The plugin taps into the <code>unmanagedJars</code> task in sbt, and this has some consequences for how it works.
-Whenever the task is evaluated, typically through a <code>compile</code> or an import into an IDE, the plugin</p>
+<p>The plugin taps into the <code>allDependencies</code> task in sbt, and this has some consequences for how it works.</p>
+<p>Whenever the task is evaluated, typically through a <code>compile</code> or an import into an IDE, the plugin</p>
 <ul>
-<li><p>Runs a customized version of <code>installNpmDependencies</code> from scalajs-bundler, changed to avoid touching <code>unmanagedJars</code>.</p></li>
+<li><p>Runs a customized version of <code>installNpmDependencies</code> from scalajs-bundler, changed to avoid touching the classpath.</p></li>
 <li><p>Computes a digest from the resulting <code>package.json</code> file and of the configuration of the plugin</p></li>
 <li><p>If we have a stored conversion with the given digest and if all the generated artifacts exist locally, we return those</p></li>
 <li><p>Otherwise we run converter, compiling only the missing libraries if any. Libraries are also digested by their contents,
@@ -148,7 +148,7 @@ type-safe use. It is a dependency of <code>react</code>, and used throughout tha
 This is something you either want, or don't care about. If you don't, you can exclude it like this:</li>
 </ul>
 <pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stIgnore += <span class="hljs-string">"csstype"</span>
+  stIgnore += <span class="hljs-string">"csstype"</span>
 )
 </code></pre>
 <ul>
@@ -156,7 +156,7 @@ This is something you either want, or don't care about. If you don't, you can ex
 You also don't need the icons. If that's the case, you can also exclude prefixes of module names with the same mechanism</li>
 </ul>
 <pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stIgnore ++= <span class="hljs-type">List</span>(<span class="hljs-string">"material-ui/svg-icons"</span>)
+  stIgnore ++= <span class="hljs-type">List</span>(<span class="hljs-string">"material-ui/svg-icons"</span>)
 )
 </code></pre>
 <h3><a class="anchor" aria-hidden="true" id="stenablescalajsdefined"></a><a href="#stenablescalajsdefined" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>stEnableScalaJsDefined</code></h3>
@@ -167,7 +167,7 @@ which makes compilation of some libraries <em>insanely</em> much slower.
 <code>@material-ui/core</code> takes ~600 seconds to compile with <code>@ScalaJSDefined</code> traits, and ~35 without.</p>
 <p>This setting also uses <code>Selection</code>, so an example usage is:</p>
 <pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stEnableScalaJsDefined := <span class="hljs-type">Selection</span>.<span class="hljs-type">All</span>()
+  stEnableScalaJsDefined := <span class="hljs-type">Selection</span>.<span class="hljs-type">All</span>()
 )
 </code></pre>
 <p>By default this is off, that is <code>Selection.None()</code></p>
@@ -178,7 +178,7 @@ which makes compilation of some libraries <em>insanely</em> much slower.
 For instance, a node application should not access the DOM at all,
 and a browser application should only use things you have polyfilled.</p>
 <pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stStdlib := <span class="hljs-type">List</span>(<span class="hljs-string">"es6"</span>, <span class="hljs-string">"es2018.asyncgenerator"</span>)
+  stStdlib := <span class="hljs-type">List</span>(<span class="hljs-string">"es6"</span>, <span class="hljs-string">"es2018.asyncgenerator"</span>)
 )
 </code></pre>
 <p>Note that if you use <code>scala-js-dom</code> APIs they are naturally not affected.</p>
@@ -187,7 +187,7 @@ only types found in the chosen stdlib will be translated.</p>
 <h3><a class="anchor" aria-hidden="true" id="stoutputpackage"></a><a href="#stoutputpackage" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><code>stOutputPackage</code></h3>
 <p>You can adjust the top-level package into which we put the generated code.</p>
 <pre><code class="hljs css language-scala">project.settings(
-  <span class="hljs-type">Compile</span> / stOutputPackage := <span class="hljs-string">"mypackage"</span>,
+  stOutputPackage := <span class="hljs-string">"mypackage"</span>,
 )
 </code></pre>
 <p>Note that this is a singular package name. Nested packages are not supported for now.</p>
