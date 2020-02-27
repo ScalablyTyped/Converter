@@ -9,17 +9,18 @@ import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource}
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject, Versions}
+import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.Name
+import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.ts._
 import org.scalatest.Assertion
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.immutable.{SortedMap, TreeMap}
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration.Duration
+import scala.concurrent.{Await, ExecutionContext}
 import scala.util.{Failure, Success, Try}
 
 private object GitLock
@@ -31,7 +32,11 @@ trait ImporterHarness extends AnyFunSuite {
 
   private val testLogger = logging.stdout.filter(LogLevel.error)
   private val version    = Versions(Versions.Scala213, Versions.ScalaJs06)
-  private val bloop      = BloopCompiler(testLogger, version, ExecutionContext.Implicits.global, Some(failureCacheDir.toNIO))
+
+  private val bloop = Await.result(
+    BloopCompiler(testLogger, version, Some(failureCacheDir.toNIO))(ExecutionContext.Implicits.global),
+    Duration.Inf,
+  )
 
   private def runImport(
       source:        InFolder,

@@ -86,7 +86,7 @@ case class BinTrayPublisher(cachePath: Path, repoPublic: String, user: String, p
 
     for {
       pkg <- retry(2)(ensurePackage(p.name, p.name, repoPublic, List("MIT"), Nil))
-      v <- retry(2)(ensureVersion(pkg, p.version))
+      v <- retry(2)(ensureVersion(pkg, p.reference.version))
       _ <- Future.sequence(uploadFiles(pkg))
       _ <- retry(2)(v.publish(Handle.createOrConflict))
     } yield ()

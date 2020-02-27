@@ -102,7 +102,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = IArray.fromTraversable(deps.values),
-              deps            = buildJson.dependencies,
+              deps            = buildJson.dependencies.map(identity),
               scalaFiles      = sourceFiles,
               resources       = Map(),
               projectName     = projectName,
@@ -194,8 +194,13 @@ class Phase3Compile(
     //Next line is that actually spits out files
     files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
 
-    val sbtProject =
-      SbtProject(name, organization, versions.sjs(name), finalVersion)(compilerPaths.baseDir, deps, metadataOpt)
+    val reference = Dep.ScalaJs(organization, name, finalVersion)
+
+    val sbtProject = SbtProject(
+      name,
+      reference.mangledArtifact(versions),
+      reference,
+    )(compilerPaths.baseDir, deps, metadataOpt)
 
     val existing: IvyLayout[os.Path, Synced] =
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)

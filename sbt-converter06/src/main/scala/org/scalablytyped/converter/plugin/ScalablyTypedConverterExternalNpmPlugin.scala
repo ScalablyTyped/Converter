@@ -5,10 +5,9 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.importer.build.Versions
 import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder, PackageJsonDepsDecoder}
 import org.scalablytyped.converter.internal.importer.{Json, SharedInput}
-import org.scalablytyped.converter.internal.scalajs.Name
+import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalablytyped.converter.internal.{
   BuildInfo,
@@ -19,7 +18,6 @@ import org.scalablytyped.converter.internal.{
   WrapSbtLogger,
   ZincCompiler,
 }
-import org.scalajs.sbtplugin.ScalaJSCrossVersion
 import sbt.Keys._
 import sbt._
 

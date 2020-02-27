@@ -6,7 +6,7 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.jar.{JarEntry, JarOutputStream, Manifest}
 
-import org.scalablytyped.converter.internal.scalajs.Dep
+import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 
 import scala.collection.mutable
 import scala.xml.Elem
@@ -81,11 +81,12 @@ object ContentForPublish {
     baos.toByteArray
   }
 
-  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[Dep]): Elem =
+  def ivy(v: Versions, p: SbtProject, publication: ZonedDateTime, externalDeps: Set[Dep]): Elem = {
+    val artifactName = p.reference.mangledArtifact(v)
     <ivy-module version="2.0" xmlns:e="http://ant.apache.org/ivy/extra">
-      <info organisation={p.organization}
-            module={p.artifactId}
-            revision={p.version}
+      <info organisation={p.reference.org}
+            module={artifactName}
+            revision={p.reference.version}
             status="release"
             publication={publication.format(DateTimeFormatter.ofPattern("ddMMyyyyhhmmss"))}>
         <description>
@@ -106,83 +107,42 @@ object ContentForPublish {
         <conf name="scala-tool" visibility="private" description=""/>
       </configurations>
       <publications>
-        <artifact name={p.artifactId} type="jar" ext="jar" conf="compile"/>
-        <artifact name={p.artifactId} type="pom" ext="pom" conf="pom"/>
-        <artifact name={p.artifactId} type="src" ext="jar" conf="compile" e:classifier="sources"/>
+        <artifact name={artifactName} type="jar" ext="jar" conf="compile"/>
+        <artifact name={artifactName} type="pom" ext="pom" conf="pom"/>
+        <artifact name={artifactName} type="src" ext="jar" conf="compile" e:classifier="sources"/>
       </publications>
       <dependencies>
-        <dependency org={v.scala.scalaOrganization} name="scala-compiler" rev={v.scala.scalaVersion} conf="scala-tool->default,optional(default)"/>
-        <dependency org={v.scala.scalaOrganization} name="scala-library" rev={v.scala.scalaVersion} conf="scala-tool->default,optional(default);compile->default(compile)"/>
-        <dependency org={v.scalaJs.scalaJsOrganization} name={s"scalajs-compiler_${v.scala.scalaVersion}"} rev={
-      v.scalaJs.scalaJsVersion
-    } conf="plugin->default(compile)"/>
-        <dependency org={v.scalaJs.scalaJsOrganization} name={v.s("scalajs-library")} rev={v.scalaJs.scalaJsVersion} conf="compile->default(compile)"/>
-        <dependency org={v.scalaJs.scalaJsOrganization} name={v.s("scalajs-test-interface")} rev={
-      v.scalaJs.scalaJsVersion
-    } conf="test->default(compile)"/>
-        <dependency org={constants.RuntimeOrg} name={v.sjs(constants.RuntimeName)} rev={constants.RuntimeVersion} conf="compile->default(compile)"/>
-        {
-      p.deps.map {
-        case (_, d) =>
-          <dependency org={d.project.organization} name={d.project.artifactId} rev={d.project.version} conf="compile->default(compile)"/>
-      }
-    }{
-      externalDeps.map { d =>
-        <dependency org={d.org} name={v.sjs(d.artifact)} rev={d.version} conf="compile->default(compile)"/>
-      }
-    }
+        {v.scala.compiler.asIvy(v, "scala-tool->default,optional(default)")}
+        {v.scala.library.asIvy(v, "scala-tool->default,optional(default);compile->default(compile)")}
+        {v.scalaJs.compiler.asIvy(v, "plugin->default(compile)")}
+        {v.scalaJs.library.asIvy(v)}
+        {v.scalaJs.testInterface.asIvy(v, "test->default(compile)")}
+        {Versions.runtime.asIvy(v)}
+        {p.deps.map { case (_, d) => d.project.reference.asIvy(v) }}
+        {externalDeps.map(d => d.asIvy(v))}
       </dependencies>
     </ivy-module>
+  }
 
   def pom(v: Versions, p: SbtProject, externalDeps: Set[Dep]): Elem =
     <project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0">
       <modelVersion>4.0.0</modelVersion>
-      <groupId>{p.organization}</groupId>
-      <artifactId>{p.artifactId}</artifactId>
+      <groupId>{p.reference.org}</groupId>
+      <artifactId>{p.reference.mangledArtifact(v)}</artifactId>
       <packaging>jar</packaging>
       <description>{p.name}</description>
-      <version>{p.version}</version>
+      <version>{p.reference.version}</version>
       <name>{p.name}</name>
       <organization>
-        <name>{p.organization}</name>
+        <name>{p.reference.org}</name>
       </organization>
       <dependencies>
-        <dependency>
-          <groupId>{v.scala.scalaOrganization}</groupId>
-          <artifactId>scala-library</artifactId>
-          <version>{v.scala.scalaVersion}</version>
-        </dependency>
-        <dependency>
-          <groupId>{v.scalaJs.scalaJsOrganization}</groupId>
-          <artifactId>{v.s("scalajs-library")}</artifactId>
-          <version>{v.scalaJs.scalaJsVersion}</version>
-        </dependency>
-        <dependency>
-          <groupId>{v.scalaJs.scalaJsOrganization}</groupId>
-          <artifactId>{v.s("scalajs-test-interface")}</artifactId>
-          <version>{v.scalaJs.scalaJsVersion}</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>{constants.RuntimeOrg}</groupId>
-          <artifactId>{v.sjs(constants.RuntimeName)}</artifactId>
-          <version>{constants.RuntimeVersion}</version>
-        </dependency>
-        {
-      p.deps.map {
-        case (_, d) =>
-          <dependency>
-          <groupId>{d.project.organization}</groupId>
-          <artifactId>{d.project.artifactId}</artifactId>
-          <version>{d.project.version}</version>
-        </dependency>
-      }
-    }
-        {
-      externalDeps.map(d =>
-        <dependency><groupId>{d.org}</groupId><artifactId>{v.sjs(d.artifact)}</artifactId><version>{d.version}</version></dependency>,
-      )
-    }
+        {v.scala.library.asMaven(v)}
+        {v.scalaJs.library.asMaven(v)}
+        {v.scalaJs.testInterface.asMavenTest(v)}
+        {Versions.runtime.asMaven(v)}
+        {p.deps.map { case (_, d) => d.project.reference.asMaven(v) }}
+        {externalDeps.map(d => d.asMaven(v))}
       </dependencies>
     </project>
 }

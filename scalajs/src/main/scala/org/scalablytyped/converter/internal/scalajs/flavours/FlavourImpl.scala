@@ -50,9 +50,7 @@ object FlavourImpl {
       else None
 
     override val dependencies: Set[Dep] =
-      if (shouldUseScalaJsDomTypes)
-        Set(Dep("org.scala-js", "scalajs-dom", "0.9.8"))
-      else Set.empty
+      if (shouldUseScalaJsDomTypes) Set(Versions.scalaJsDom) else Set.empty
 
     override val genCompanions: GenCompanions =
       new GenCompanions(MemberToProp.Default, findProps)
@@ -77,7 +75,7 @@ object FlavourImpl {
     override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
     override val dependencies: Set[Dep] =
-      Set(Dep("me.shadaj", "slinky-web", "0.6.2"))
+      Set(Versions.slinkyWeb)
     override val genCompanions: GenCompanions =
       new GenCompanions(gen.memberToProp, findProps)
     override def rewrittenReactTree(
@@ -95,10 +93,7 @@ object FlavourImpl {
       Some(gen.conversions)
 
     override val dependencies: Set[Dep] =
-      Set(
-        Dep("me.shadaj", "slinky-native", "0.6.2"),
-        Dep("org.scala-js", "scalajs-dom", "0.9.8"),
-      )
+      Set(Versions.slinkyNative, Versions.scalaJsDom)
 
     override val genCompanions: GenCompanions =
       new GenCompanions(gen.memberToProp, findProps)
@@ -117,7 +112,7 @@ object FlavourImpl {
     override val conversions: Option[IArray[CastConversion]] =
       Some(gen.conversions)
     override val dependencies: Set[Dep] =
-      Set(Dep("com.github.japgolly.scalajs-react", "core", "1.5.0"))
+      Set(Versions.scalajsReact)
     override val genCompanions: GenCompanions =
       new GenCompanions(gen.memberToProp, findProps)
     override def rewrittenReactTree(

@@ -24,7 +24,9 @@ lazy val docs = project
 
 lazy val scalajs = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings).settings(
+  libraryDependencies ++= Seq(Deps.scalaXml),
+)
 
 lazy val phases = project
   .dependsOn(utils, logging)
@@ -35,7 +37,6 @@ lazy val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
-    libraryDependencies ++= Seq(Deps.scalaXml),
     buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,

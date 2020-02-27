@@ -1,21 +1,20 @@
-package org.scalablytyped
-package converter
+package org.scalablytyped.converter
 package internal
 
 import java.util.Optional
+import java.util.function.Supplier
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.internal.importer.build.{Compiler, CompilerPaths, Versions}
-import org.scalablytyped.converter.internal.scalajs.Dep
-import sbt.CompileOrder
+import org.scalablytyped.converter.internal.importer.build.{Compiler, CompilerPaths}
+import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import sbt.internal.inc.ZincUtil
 import xsbti.CompileFailed
-import xsbti.compile.{DefaultExternalHooks, IncrementalCompiler, Inputs}
+import xsbti.compile.{CompileOrder, DefaultExternalHooks, IncrementalCompiler, Inputs}
 
 class ZincCompiler(inputs: Inputs, logger: Logger[Unit], versions: Versions) extends Compiler {
   private lazy val incCompiler: IncrementalCompiler = ZincUtil.defaultIncrementalCompiler
 
-  val sbtLogger = new AsSbtLogger(logger)
+  val sbtLogger = new ZincCompiler.WrapLogger(logger)
 
   def compile(
       name:          String,
@@ -58,5 +57,21 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], versions: Versions) ext
       case x: CompileFailed =>
         Left(s"$x: ${x.arguments.mkString(", ")} ${x.problems.mkString(", ")}")
     }
+  }
+}
+
+object ZincCompiler {
+  final class WrapLogger(val underlying: Logger[Unit]) extends xsbti.Logger {
+    override def error(msg: Supplier[String]): Unit = underlying.error(msg.get())
+
+    override def warn(msg: Supplier[String]): Unit = underlying.warn(msg.get())
+
+    override def info(msg: Supplier[String]): Unit = underlying.info(msg.get())
+
+    override def debug(msg: Supplier[String]): Unit = underlying.debug(msg.get())
+
+    // trace? throwable? whaat
+    override def trace(exception: Supplier[Throwable]): Unit =
+      underlying.warn("traced exception from sbt", exception.get())
   }
 }

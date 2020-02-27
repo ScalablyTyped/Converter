@@ -5,8 +5,8 @@ import java.util.Optional
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
-import org.scalablytyped.converter.internal.importer.{flavourImpl, EnabledTypeMappingExpansion}
-import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
+import org.scalablytyped.converter.internal.importer.{EnabledTypeMappingExpansion, flavourImpl}
+import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import sbt.Tags.Tag
 import sbt._
 import sbt.internal.server.LanguageServerReporter
@@ -113,18 +113,19 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 
     Seq(
-      Keys.libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
       Keys.libraryDependencies ++= {
         val impl = flavourImpl(
           flavour                  = (Compile / stFlavour).value,
           shouldUseScalaJsDomTypes = (Compile / stUseScalaJsDom).value,
           outputPackage            = Name((Compile / stOutputPackage).value),
         )
-        impl.dependencies
+        (List(Versions.runtime) ++ impl.dependencies)
           .map {
-            case Dep(org, artifact, version) => org %%% artifact % version
+            case Dep.Java(org, artifact, version)             => org % artifact % version
+            case Dep.Scala(org, artifact, version)            => org %% artifact % version
+            case Dep.ScalaJs(org, artifact, version)          => org %%% artifact % version
+            case Dep.ScalaFullVersion(org, artifact, version) => (org % artifact % version) cross CrossVersion.Full()
           }
-          .to[Seq]
       },
       Keys.scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")

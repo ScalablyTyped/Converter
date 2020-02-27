@@ -2,6 +2,8 @@ package org.scalablytyped.converter.internal
 package importer
 package build
 
+import org.scalablytyped.converter.internal.scalajs.Versions
+
 case class CompilerPaths private (
     baseDir:      os.Path,
     sourcesDir:   os.Path,
