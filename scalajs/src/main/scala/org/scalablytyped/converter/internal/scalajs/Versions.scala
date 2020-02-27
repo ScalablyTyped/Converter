@@ -6,8 +6,8 @@ object Versions {
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.1.0")
   val sbtBintray   = Dep.Java("org.foundweekends", "sbt-bintray", "0.5.4")
   val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "0.9.8")
-  val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.2")
-  val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.2")
+  val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.4")
+  val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.4")
   val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "1.5.0")
 
   case class Scala(scalaVersion: String, binVersion: String) {
