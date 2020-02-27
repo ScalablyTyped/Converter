@@ -68,13 +68,13 @@ object AllMembersFor {
     }
 }
 
-class LoopDetectorFull private (val stack: List[(TsTypeRef, String)]) {
-  def this() = this(Nil)
+class LoopDetectorFull private (val stack: IArray[(TsTypeRef, TsTreeScope)]) {
+  def this() = this(IArray.Empty)
 
   def including(wanted: TsTypeRef, scope: TsTreeScope): Either[Unit, LoopDetectorFull] = {
-    val tuple = (wanted, scope.toString)
+    val tuple = (wanted, scope)
     if (stack.contains(tuple)) Left(())
-    else Right(new LoopDetectorFull(tuple :: stack))
+    else Right(new LoopDetectorFull(tuple +: stack))
   }
 }
 
