@@ -22,7 +22,7 @@ object ContentForPublish {
   ): IvyLayout[os.RelPath, Array[Byte]] =
     IvyLayout(
       p          = p,
-      jarFile    = createJar(paths.classesDir, publication),
+      jarFile    = createJar(publication)(paths.classesDir),
       sourceFile = createJar(sourceFiles, publication),
       ivyFile    = fromXml(ivy(v, p, publication, externalDeps)),
       pomFile    = fromXml(pom(v, p, externalDeps)),
@@ -41,21 +41,23 @@ object ContentForPublish {
   }
 
   // adapted from mill
-  def createJar(fromFolder: os.Path, publication: ZonedDateTime): Array[Byte] = {
+  def createJar(publication: ZonedDateTime)(fromFolders: os.Path*): Array[Byte] = {
     val seen = mutable.Set[os.RelPath](os.RelPath("META-INF") / "MANIFEST.MF")
     val baos = new ByteArrayOutputStream(1024 * 1024)
     val jar  = new JarOutputStream(baos, createManifest())
 
     try {
-      os.walk(fromFolder).collect { case file if os.isFile(file) => file }.foreach { file =>
-        val mapping = file.relativeTo(fromFolder)
-        if (!seen(mapping)) {
-          seen.add(mapping)
-          val entry = new JarEntry(mapping.toString)
-          entry.setTime(publication.toEpochSecond)
-          jar.putNextEntry(entry)
-          jar.write(os.read.bytes(file))
-          jar.closeEntry()
+      fromFolders.foreach { fromFolder =>
+        os.walk(fromFolder).collect { case file if os.isFile(file) => file }.foreach { file =>
+          val mapping = file.relativeTo(fromFolder)
+          if (!seen(mapping)) {
+            seen.add(mapping)
+            val entry = new JarEntry(mapping.toString)
+            entry.setTime(publication.toEpochSecond)
+            jar.putNextEntry(entry)
+            jar.write(os.read.bytes(file))
+            jar.closeEntry()
+          }
         }
       }
     } finally jar.close()

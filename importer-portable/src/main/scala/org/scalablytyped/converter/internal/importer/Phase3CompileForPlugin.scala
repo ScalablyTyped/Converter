@@ -111,7 +111,7 @@ class Phase3CompileForPlugin(
                   case Right(()) =>
                     val publication = ZonedDateTime.now()
 
-                    channel.write(ByteBuffer.wrap(ContentForPublish.createJar(compilerPaths.classesDir, publication)))
+                    channel.write(ByteBuffer.wrap(ContentForPublish.createJar(publication)(compilerPaths.classesDir)))
 
                     files.softWriteBytes(
                       sourcesJar,
