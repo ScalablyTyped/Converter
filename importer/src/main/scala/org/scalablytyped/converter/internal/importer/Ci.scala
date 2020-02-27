@@ -14,7 +14,7 @@ import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.{NpmjsFetcher, Readme, TopLists}
 import org.scalablytyped.converter.internal.importer.jsonCodecs._
 import org.scalablytyped.converter.internal.phases.{PhaseRes, PhaseRunner, RecPhase}
-import org.scalablytyped.converter.internal.scalajs.Name
+import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.{Flavour, Selection}
@@ -245,13 +245,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
 
   def run(): Unit = {
     val compilerF: Future[BloopCompiler] =
-      Future(
-        BloopCompiler(
-          logger                = logger.filter(LogLevel.debug).void,
-          v                     = config.shared.versions,
-          ec                    = ec,
-          failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
-        ),
+      BloopCompiler(
+        logger                = logger.filter(LogLevel.debug).void,
+        v                     = config.shared.versions,
+        failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
       )(ec)
 
     val dtFolderF: Future[InFolder] =
@@ -344,17 +341,18 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
         .next(new PhaseFlavour(flavour), flavour.toString)
         .next(
           new Phase3Compile(
-            resolve         = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
-            versions        = config.shared.versions,
-            compiler        = compiler,
-            targetFolder    = targetFolder,
-            projectName     = config.projectName,
-            organization    = config.organization,
-            publishUser     = publishUser,
-            publishFolder   = paths.publishFolder,
-            metadataFetcher = NpmjsFetcher(paths.npmjs)(ec),
-            softWrites      = config.softWrites,
-            flavour         = flavour,
+            resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
+            versions                   = config.shared.versions,
+            compiler                   = compiler,
+            targetFolder               = targetFolder,
+            projectName                = config.projectName,
+            organization               = config.organization,
+            publishUser                = publishUser,
+            publishFolder              = paths.publishFolder,
+            metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
+            softWrites                 = config.softWrites,
+            flavour                    = flavour,
+            generateScalaJsBundlerFile = true,
           ),
           "build",
         )

@@ -58,8 +58,21 @@ object FileLocking {
       tryWrite[V](path, onExists = onExists, onNotExists = onNotExists)
   }
 
-  def tryWrite[T](path: Path, onExists: (FileChannel, () => ByteBuffer) => T, onNotExists: FileChannel => T): T = {
+  def tryWrite[T](path: Path, onExists: (FileChannel, () => ByteBuffer) => T, onNotExists: FileChannel => T): T =
+    withLock(path) { channel =>
+      val size = channel.size
+      if (size > 0) {
+        onExists(channel, () => {
+          val contents = ByteBuffer.allocate(size.toInt)
+          channel.read(contents)
+          contents
+        })
+      } else {
+        onNotExists(channel)
+      }
+    }
 
+  def withLock[T](path: Path)(f: FileChannel => T): T = {
     var continue = true
     var ret      = null.asInstanceOf[T]
     Files.createDirectories(path.getParent)
@@ -73,16 +86,7 @@ object FileLocking {
 
         val channel = FileChannel.open(path, flags: _*)
         val lock    = channel.lock()
-        val size    = channel.size
-        if (size > 0) {
-          ret = onExists(channel, () => {
-            val contents = ByteBuffer.allocate(size.toInt)
-            channel.read(contents)
-            contents
-          })
-        } else {
-          ret = onNotExists(channel)
-        }
+        ret = f(channel)
 
         lock.release()
         channel.close()

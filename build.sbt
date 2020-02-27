@@ -24,7 +24,9 @@ lazy val docs = project
 
 lazy val scalajs = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings).settings(
+  libraryDependencies ++= Seq(Deps.scalaXml),
+)
 
 lazy val phases = project
   .dependsOn(utils, logging)
@@ -35,7 +37,6 @@ lazy val `importer-portable` = project
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
-    libraryDependencies ++= Seq(Deps.scalaXml),
     buildInfoPackage := "org.scalablytyped.converter.internal",
     buildInfoKeys := Seq[BuildInfoKey](
       "gitSha" -> "git rev-parse -1 HEAD".!!.split("\n").last.trim,
@@ -67,7 +68,7 @@ lazy val `sbt-converter06` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
   .settings(
     name := "sbt-converter06",
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.16.0"),
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler-sjs06" % "0.17.0"),
   )
 
 lazy val `sbt-converter` = project
@@ -75,8 +76,7 @@ lazy val `sbt-converter` = project
   .settings(
     name := "sbt-converter",
     Compile / unmanagedSourceDirectories += (`sbt-converter06` / Compile / sourceDirectory).value,
-    //addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.16.0"),
-    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.16.0+4-65a0c190"), //FIXME wait for https://github.com/scalacenter/scalajs-bundler/pull/324#event-3044771159
+    addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.17.0"),
   )
 
 lazy val root = project

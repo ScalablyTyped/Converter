@@ -3,7 +3,7 @@ package importer
 package build
 
 import ammonite.ops.%
-import org.scalablytyped.converter.internal.scalajs.{Name, ObjectMembers, ScalaNameEscape}
+import org.scalablytyped.converter.internal.scalajs.{Name, ObjectMembers, ScalaNameEscape, Versions}
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 object GenerateSbtPlugin {
@@ -72,9 +72,7 @@ object GenerateSbtPlugin {
                  .to[Vector]
                  .distinct
                  .sortBy(_.name)
-                 .map(p =>
-                   s"|        val ${ScalaNameEscape(fix(p.name))} = ${v.%(p.organization, p.artifactId, p.version)}",
-                 )
+                 .map(p => s"|        val ${ScalaNameEscape(fix(p.name))} = ${p.reference.asMangledSbt(v)}")
                  .mkString("", "\n", "")}
         |      }""".stripMargin
         }
@@ -104,7 +102,8 @@ object GenerateSbtPlugin {
 
     Map(
       os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      os.RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${v.sbtBintray})""".getBytes(constants.Utf8),
+      os.RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${Versions.sbtBintray.asSbt(v)})"""
+        .getBytes(constants.Utf8),
       os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}".getBytes(constants.Utf8),
       pluginSourcePath -> pluginSource.getBytes(constants.Utf8),
     )

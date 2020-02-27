@@ -3,7 +3,7 @@ package internal
 package importer
 
 import io.circe.{Decoder, Encoder}
-import org.scalablytyped.converter.internal.importer.build.Versions
+import org.scalablytyped.converter.internal.scalajs.Versions
 
 case class SharedInput(
     shouldUseScalaJsDomTypes: Boolean,

@@ -13,6 +13,7 @@ import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
+import os.RelPath
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
@@ -23,17 +24,18 @@ import scala.util.Try
   * This phase goes from scala AST to compiled jar files on the local file system
   */
 class Phase3Compile(
-    resolve:         LibraryResolver,
-    versions:        Versions,
-    compiler:        Compiler,
-    targetFolder:    os.Path,
-    projectName:     String,
-    organization:    String,
-    publishUser:     String,
-    publishFolder:   os.Path,
-    metadataFetcher: Npmjs,
-    softWrites:      Boolean,
-    flavour:         FlavourImpl,
+    resolve:                    LibraryResolver,
+    versions:                   Versions,
+    compiler:                   Compiler,
+    targetFolder:               os.Path,
+    projectName:                String,
+    organization:               String,
+    publishUser:                String,
+    publishFolder:              os.Path,
+    metadataFetcher:            Npmjs,
+    softWrites:                 Boolean,
+    flavour:                    FlavourImpl,
+    generateScalaJsBundlerFile: Boolean,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -102,7 +104,7 @@ class Phase3Compile(
               version         = VersionHack.TemplateValue,
               publishUser     = publishUser,
               localDeps       = IArray.fromTraversable(deps.values),
-              deps            = buildJson.dependencies,
+              deps            = buildJson.dependencies.map(identity),
               scalaFiles      = sourceFiles,
               resources       = Map(),
               projectName     = projectName,
@@ -140,8 +142,12 @@ class Phase3Compile(
             val resourcesDir  = os.RelPath("src") / 'main / 'resources
             val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
             val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
-            val resources     = ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
             val externalDeps  = flavour.dependencies
+
+            val resources: Map[RelPath, Array[Byte]] =
+              if (generateScalaJsBundlerFile)
+                ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
+              else Map()
 
             val sbtLayout = ContentSbtProject(
               v               = versions,
@@ -194,65 +200,73 @@ class Phase3Compile(
     //Next line is that actually spits out files
     files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
 
-    val sbtProject =
-      SbtProject(name, organization, versions.sjs(name), finalVersion)(compilerPaths.baseDir, deps, metadataOpt)
+    val reference = Dep.ScalaJs(organization, name, finalVersion)
+
+    val sbtProject = SbtProject(
+      name,
+      reference.mangledArtifact(versions),
+      reference,
+    )(compilerPaths.baseDir, deps, metadataOpt)
 
     val existing: IvyLayout[os.Path, Synced] =
       IvyLayout[Synced](sbtProject, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged, Synced.Unchanged)
         .mapFiles(publishFolder / _)
 
     val jarFile = existing.jarFile._1
+    val lockFile = jarFile / os.up / ".lock"
 
-    if (existing.all.keys forall os.exists) {
-      logger warn s"Using cached build $jarFile"
-      PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
-    } else {
-      {
-        implicit val wd = os.home
-        % rm ("-Rf", compilerPaths.classesDir)
-      }
-      os.makeDir.all(compilerPaths.classesDir)
+    FileLocking.withLock(lockFile.toNIO) { _ =>
+      if (existing.all.keys forall os.exists) {
+        logger warn s"Using cached build $jarFile"
+        PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
+      } else {
+        {
+          implicit val wd = os.home
+          % rm ("-Rf", compilerPaths.classesDir)
+        }
+        os.makeDir.all(compilerPaths.classesDir)
 
-      val jarDeps: Set[Compiler.InternalDep] =
-        deps.values.to[Set].map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._1))
+        val jarDeps: Set[Compiler.InternalDep] =
+          deps.values.to[Set].map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._1))
 
-      if (os.exists(compilerPaths.resourcesDir))
-        os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
+        if (os.exists(compilerPaths.resourcesDir))
+          os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
 
-      logger warn s"Building ${jarFile}..."
-      val t0 = System.currentTimeMillis()
-      val ret: PhaseRes[Source, PublishedSbtProject] =
-        compiler.compile(name, digest, compilerPaths, jarDeps, externalDeps) match {
-          case Right(()) =>
-            val writtenIvyFiles: IvyLayout[os.Path, Synced] =
-              build
-                .ContentForPublish(
-                  versions,
-                  compilerPaths,
-                  sbtProject,
-                  ZonedDateTime.now(),
-                  allFilesProperVersion,
-                  externalDeps,
-                )
-                .mapFiles(p => publishFolder / p)
-                .mapValues(files.softWriteBytes)
+        logger warn s"Building $jarFile..."
+        val t0 = System.currentTimeMillis()
+        val ret: PhaseRes[Source, PublishedSbtProject] =
+          compiler.compile(name, digest, compilerPaths, jarDeps, externalDeps) match {
+            case Right(()) =>
+              val writtenIvyFiles: IvyLayout[os.Path, Synced] =
+                build
+                  .ContentForPublish(
+                    versions,
+                    compilerPaths,
+                    sbtProject,
+                    ZonedDateTime.now(),
+                    allFilesProperVersion,
+                    externalDeps,
+                  )
+                  .mapFiles(p => publishFolder / p)
+                  .mapValues(files.softWriteBytes)
 
-            val elapsed = System.currentTimeMillis - t0
-            logger warn s"Built ${jarFile} in $elapsed ms"
+              val elapsed = System.currentTimeMillis - t0
+              logger warn s"Built ${jarFile} in $elapsed ms"
 
-            PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, writtenIvyFiles, None))
+              PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, writtenIvyFiles, None))
 
-          case Left(err) =>
-            logger.error(err)
-            PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
+            case Left(err) =>
+              logger.error(err)
+              PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
+          }
+
+        {
+          implicit val wd = os.home
+          % rm ("-Rf", compilerPaths.targetDir)
         }
 
-      {
-        implicit val wd = os.home
-        % rm ("-Rf", compilerPaths.targetDir)
+        ret
       }
-
-      ret
     }
   }
 }

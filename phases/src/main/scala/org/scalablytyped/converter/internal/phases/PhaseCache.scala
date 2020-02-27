@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.phases
 
-import java.nio.channels.ClosedByInterruptException
+import java.nio.channels.{ClosedByInterruptException, FileLockInterruptionException}
 import java.util
 
 import org.scalablytyped.converter.internal.phases.PhaseCache.Ref
@@ -40,6 +40,7 @@ class PhaseCache[Id, U](initialCapacity: Int = 1000) {
     op.foreach { p =>
       try compute(p)
       catch {
+        case x:  FileLockInterruptionException            => throw x
         case x:  InterruptedException                     => throw x
         case x:  ClosedByInterruptException               => throw x
         case x:  ExecutionException if x.getCause != null => p.failure(x.getCause)

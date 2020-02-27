@@ -4,11 +4,12 @@ package build
 
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.maps.MapOps
+import org.scalablytyped.converter.internal.scalajs.Dep
 
 import scala.collection.immutable.SortedMap
 import scala.collection.mutable
 
-case class SbtProject(name: String, organization: String, artifactId: String, version: String)(
+case class SbtProject(name: String, artifactId: String, reference: Dep.ScalaJs)(
     val baseDir:            os.Path,
     val deps:               Map[Source, PublishedSbtProject],
     val metadata:           Option[Npmjs.Data],

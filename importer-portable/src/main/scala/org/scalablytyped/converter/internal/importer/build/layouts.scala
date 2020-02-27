@@ -62,7 +62,7 @@ final case class IvyLayout[F, V](jarFile: (F, V), sourceFile: (F, V), ivyFile: (
 
 object IvyLayout {
   def apply[T](p: SbtProject, jarFile: T, sourceFile: T, ivyFile: T, pomFile: T): IvyLayout[os.RelPath, T] = {
-    val libraryPath = os.RelPath(p.organization) / p.artifactId / os.RelPath(p.version)
+    val libraryPath = os.RelPath(p.reference.org) / p.artifactId / os.RelPath(p.reference.version)
     IvyLayout(
       jarFile    = libraryPath / 'jars / s"${p.artifactId}.jar" -> jarFile,
       sourceFile = libraryPath / 'srcs / s"${p.artifactId}-sources.jar" -> sourceFile,
@@ -84,10 +84,10 @@ final case class MavenLayout[F, V](jarFile: (F, V), sourceFile: (F, V), pomFile:
 object MavenLayout {
   def apply[T](p: SbtProject, jarFile: T, sourceFile: T, pomFile: T): MavenLayout[os.RelPath, T] = {
     val org: os.RelPath =
-      p.organization.split("\\.").foldLeft(os.RelPath(""))(_ / _)
+      p.reference.org.split("\\.").foldLeft(os.RelPath(""))(_ / _)
 
     def baseFile(ext: String): os.RelPath =
-      org / p.artifactId / p.version / s"${p.artifactId}-${p.version}$ext"
+      org / p.artifactId / p.reference.version / s"${p.artifactId}-${p.reference.version}$ext"
 
     MavenLayout(
       jarFile    = baseFile(".jar") -> jarFile,

@@ -3,7 +3,7 @@ package importer
 package build
 
 import org.scalablytyped.converter.internal.importer.documentation.{Npmjs, ProjectReadme}
-import org.scalablytyped.converter.internal.scalajs.Dep
+import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 object ContentSbtProject {
@@ -24,18 +24,15 @@ object ContentSbtProject {
   ): SbtProjectLayout[os.RelPath, Array[Byte]] = {
 
     val buildSbt = {
-      val fixed    = Set(v.%%%(constants.RuntimeOrg, constants.RuntimeName, constants.RuntimeVersion))
-      val external = deps.map(d => v.%%%(d.org, d.artifact, d.version)).to[Array]
-      val local    = localDeps.map(d => v.%%%(d.project.organization, d.project.name, d.project.version)).toList
-
-      val ds = (external ++ fixed ++ local).sorted.mkString("Seq(\n  ", ",\n  ", ")")
+      val allDeps    = IArray.fromTraversable(deps) ++ IArray(Versions.runtime) ++ localDeps.map(d => d.project.reference)
+      val depsString = allDeps.map(_.asSbt(v)).distinct.sorted.mkString("Seq(\n  ", ",\n  ", ")")
 
       s"""|organization := ${quote(organization)}
           |name := ${quote(name)}
           |version := ${quote(version)}
           |scalaVersion := ${quote(v.scala.scalaVersion)}
           |enablePlugins(ScalaJSPlugin)
-          |libraryDependencies ++= $ds
+          |libraryDependencies ++= $depsString
           |publishArtifact in packageDoc := false
           |scalacOptions ++= ${v.scalacOptions.map(quote).mkString("List(", ", ", ")")}
           |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
@@ -45,8 +42,8 @@ object ContentSbtProject {
     }
 
     val pluginsSbt =
-      s"""|addSbtPlugin(${v.%%(v.scalaJs.scalaJsOrganization, "sbt-scalajs", v.scalaJs.scalaJsVersion)})
-          |addSbtPlugin(${v.sbtBintray})
+      s"""|addSbtPlugin(${v.scalaJs.sbtPlugin.asSbt(v)})
+          |addSbtPlugin(${Versions.sbtBintray.asSbt(v)})
           |""".stripMargin
 
     val readme: (os.RelPath, Array[Byte]) =

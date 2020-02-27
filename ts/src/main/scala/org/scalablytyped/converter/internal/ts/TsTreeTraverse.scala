@@ -20,25 +20,25 @@ object TsTreeTraverse {
 
     def rec(a: Any): Unit =
       a match {
-        case x:  TsTree if x ne tree => go(extract, buf)(x)
-        case xs: TraversableOnce[_]  => xs foreach rec
-        case xs: IArray[_]           => xs foreach rec
-        case p:  Product             => p.productIterator foreach rec
-        case _ => ()
-      }
-
-    rec(tree)
-  }
-
-  def foreach(tree: AnyRef)(run: Function[AnyRef, Unit]): Unit = {
-    run(tree)
-
-    def rec(a: Any): Unit =
-      a match {
-        case x:  AnyRef if x ne tree => foreach(x)(run)
-        case xs: TraversableOnce[_]  => xs foreach rec
-        case xs: IArray[_]           => xs foreach rec
-        case p:  Product             => p.productIterator foreach rec
+        case x: TsTree if x ne tree =>
+          go(extract, buf)(x)
+        case xs: TraversableOnce[_] =>
+          val it = xs.toIterator
+          while (it.hasNext) {
+            rec(it.next())
+          }
+        case xs: IArray[_] =>
+          var i = 0
+          while (i < xs.length) {
+            rec(xs(i))
+            i += 1
+          }
+        case p: Product =>
+          var i = 0
+          while (i < p.productArity) {
+            rec(p.productElement(i))
+            i += 1
+          }
         case _ => ()
       }
 

@@ -5,17 +5,19 @@ package build
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.nio.file.{Files, Path}
 
-import bloop.DependencyResolution.resolve
+import bloop.Cli
 import bloop.cli.{CliOptions, Commands, CommonOptions, ExitStatus}
 import bloop.config.{Config => BloopConfig}
 import bloop.engine.NoPool
 import bloop.io.AbsolutePath
 import bloop.logging.{DebugFilter, Logger => BloopLogger}
-import bloop.{Cli, DependencyResolution}
 import com.olvind.logging.{Formatter, Logger}
-import org.scalablytyped.converter.internal.scalajs.Dep
+import coursier.util.Task
+import coursier.{Attributes, Dependency, Fetch, Module}
+import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 
-import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
+import scala.concurrent.{Await, ExecutionContext, Future}
 
 object BloopCompiler {
   class LoggerAdapter(logger: Logger[Unit]) extends BloopLogger {
@@ -37,40 +39,49 @@ object BloopCompiler {
 
   implicit val AbsolutePathFormatter: Formatter[AbsolutePath] = x => x.syntax
 
+  def toCoursier(versions: Versions)(dep: Dep): Dependency =
+    Dependency(
+      Module(coursier.Organization(dep.org), coursier.ModuleName(dep.mangledArtifact(versions))),
+      dep.version,
+      attributes = Attributes(),
+    )
+
+  def resolve(versions: Versions, deps: Dep*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] =
+    Fetch[Task]()
+      .withDependencies(deps map toCoursier(versions))
+      .io
+      .future()
+      .map(files => files.map(f => AbsolutePath(f)).toArray)
+
   def apply(
       logger:                Logger[Unit],
       v:                     Versions,
-      ec:                    ExecutionContext,
       failureCacheFolderOpt: Option[Path],
-  ): BloopCompiler = {
-    val bloopLogger: BloopLogger = new LoggerAdapter(logger)
+  )(implicit ec:             ExecutionContext): Future[BloopCompiler] = {
+    val scalaCompilerF       = resolve(v, v.scala.compiler)
+    val globalClasspathBaseF = resolve(v, v.scalaJs.library, Versions.runtime)
+    val scalaJsCompilerBaseF = resolve(v, v.scalaJs.compiler)
 
-    logger.warn(s"Initializing scala compiler ${v.scala.scalaVersion} with scala.js ${v.scalaJs.scalaJsVersion}")
+    for {
+      scalaCompiler <- scalaCompilerF
+      globalClasspathBase <- globalClasspathBaseF
+      scalaJsCompilerBase <- scalaJsCompilerBaseF
+    } yield {
+      val bloopLogger: BloopLogger = new LoggerAdapter(logger)
 
-    val scalaCompiler: Array[AbsolutePath] =
-      resolve(v.scala.scalaOrganization, "scala-compiler", v.scala.scalaVersion, bloopLogger)(ec)
+      logger.warn(s"Initializing scala compiler ${v.scala.scalaVersion} with scala.js ${v.scalaJs.scalaJsVersion}")
 
-    val globalClasspath: Array[AbsolutePath] =
-      Array(
-        scalaCompiler.collect { case path if path.underlying.toString.contains("scala-library") => path },
-        resolve(v.scalaJs.scalaJsOrganization, v.s("scalajs-library"), v.scalaJs.scalaJsVersion, bloopLogger)(ec),
-        resolve(constants.RuntimeOrg, v.sjs(constants.RuntimeName), constants.RuntimeVersion, bloopLogger)(ec),
-      ).flatten
+      val globalClasspath: Array[AbsolutePath] =
+        scalaCompiler.collect { case path if path.toString.contains("scala-library") => path } ++ globalClasspathBase
 
-    val scalaJsCompiler =
-      resolve(
-        v.scalaJs.scalaJsOrganization,
-        s"scalajs-compiler_${v.scala.scalaVersion}",
-        v.scalaJs.scalaJsVersion,
-        bloopLogger,
-      )(ec).collectFirst {
-        case f if f.syntax.contains("scalajs-compiler") => f
-      }.head
+      val scalaJsCompiler =
+        scalaJsCompilerBase.collectFirst { case f if f.syntax.contains("scalajs-compiler") => f }.head
 
-    logger.warn(globalClasspath)
-    logger.warn(scalaJsCompiler)
+      logger.warn(globalClasspath)
+      logger.warn(scalaJsCompiler)
 
-    new BloopCompiler(ec, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler, bloopLogger)
+      new BloopCompiler(ec, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler, bloopLogger)
+    }
   }
 }
 
@@ -91,11 +102,10 @@ class BloopCompiler private (
       externalDeps:  Set[Dep],
   ): Either[String, Unit] = {
     val bloopFolder = compilerPaths.baseDir / ".bloop"
+
     val classPath = {
-      val fromExternalDeps: Set[AbsolutePath] =
-        externalDeps.flatMap(dep =>
-          DependencyResolution.resolve(dep.org, versions.sjs(dep.artifact), dep.version, bloopLogger)(ec),
-        )
+      val fromExternalDeps: Array[AbsolutePath] =
+        Await.result(BloopCompiler.resolve(versions, externalDeps.toArray: _*)(ec), 10.seconds)
 
       val fromDependencyJars: Set[AbsolutePath] =
         deps.collect { case Compiler.InternalDepJar(jar) => AbsolutePath(jar.toIO) }

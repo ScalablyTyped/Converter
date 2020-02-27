@@ -1,29 +1,20 @@
 package org.scalablytyped.converter.plugin
 
-import java.util.Optional
+import java.io.File
 
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
-import org.scalablytyped.converter.internal.constants
-import org.scalablytyped.converter.internal.importer.{flavourImpl, EnabledTypeMappingExpansion}
-import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
-import sbt.internal.util.Attributed
-import sbt.plugins.JvmPlugin
-import sbt.util.InterfaceUtil
+import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
+import org.scalablytyped.converter.internal.{ZincCompiler, constants}
+import sbt.Tags.Tag
 import sbt._
-import sbt.internal.server.LanguageServerReporter
-import xsbti.compile.{
-  CompileAnalysis,
-  CompileOptions,
-  DefinesClass,
-  IncOptions,
-  Inputs,
-  PerClasspathEntryLookup,
-  PreviousResult,
-  Setup,
-}
+import sbt.librarymanagement.ModuleID
+import sbt.plugins.JvmPlugin
+import xsbti.compile.{CompileOrder => _, ScalaInstance => _}
 
 object ScalablyTypedPluginBase extends AutoPlugin {
+
+  private[plugin] val stInternalZincCompiler = taskKey[ZincCompiler]("Hijack compiler settings")
 
   object autoImport {
     type Selection[T] = converter.Selection[T]
@@ -31,7 +22,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     type Flavour = converter.Flavour
     val Flavour = converter.Flavour
 
-    val stImport  = taskKey[Seq[Attributed[File]]]("Imports all the bundled npm and generates bindings")
+    val ScalablyTypedTag: Tag = Tag("ScalablyTyped")
+
+    val stImport  = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
     val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
     val stIgnore  = settingKey[List[String]]("completely ignore libraries or modules")
     val stFlavour = settingKey[Flavour]("The type of react binding to use")
@@ -106,42 +99,18 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     val stQuiet = settingKey[Boolean]("remove all output")
 
-    @deprecated("No longer used. Use `stDir` instead to change directory", "1.0.0-beta4")
-    val stCacheDir = settingKey[Option[File]]("cache directory to workaround slow parser")
-    @deprecated("No longer used", "1.0.0-beta4")
-    val stMinimize = settingKey[Selection[String]]("")
-    @deprecated("No longer used", "1.0.0-beta4")
-    val stGenerateCompanions =
-      settingKey[Boolean]("Whether to generate companion objects with apply methods for most traits")
-    @deprecated("No longer used", "1.0.0-beta4")
-    val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
-
-    val stInternalExpandTypeMappings                     = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
-    private[plugin] val stInternalCompileInputs          = taskKey[Inputs]("Hijack compiler settings")
-    private[plugin] val stInternalNpmInstallDependencies = taskKey[File]("Install deps from npm")
+    val stInternalExpandTypeMappings = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
   }
 
   override def requires = JvmPlugin && PlatformDepsPlugin
 
-  lazy val stOutsideConfig: Seq[Def.Setting[_]] = {
-    import PlatformDepsPlugin.autoImport._
-    import autoImport._
-    import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
+  import autoImport._
+  import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 
+  override lazy val projectSettings =
     Seq(
-      Keys.libraryDependencies ++= Seq(constants.RuntimeOrg %%% constants.RuntimeName % constants.RuntimeVersion),
-      Keys.libraryDependencies ++= {
-        val impl = flavourImpl(
-          flavour                  = (Compile / stFlavour).value,
-          shouldUseScalaJsDomTypes = (Compile / stUseScalaJsDom).value,
-          outputPackage            = Name((Compile / stOutputPackage).value),
-        )
-        impl.dependencies
-          .map {
-            case Dep(org, artifact, version) => org %%% artifact % version
-          }
-          .to[Seq]
-      },
+      /* This is where we add our generated artifacts to the project for compilation */
+      Keys.allDependencies ++= stImport.value.toSeq,
       Keys.scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
 
@@ -149,96 +118,20 @@ object ScalablyTypedPluginBase extends AutoPlugin {
         if (old.contains("-P:scalajs:sjsDefinedByDefault") || isScalaJs1) Nil
         else Seq("-P:scalajs:sjsDefinedByDefault")
       },
-    )
-  }
-
-  lazy val stDefaults: Seq[Def.Setting[_]] = {
-    import autoImport._
-
-    Seq(
       stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
       stEnableScalaJsDefined := converter.Selection.None,
       stFlavour := converter.Flavour.Normal,
-      stGenerateCompanions := true,
       stIgnore := List("typescript"),
-      stMinimize := converter.Selection.None,
-      stMinimizeKeep := Nil,
       stOutputPackage := "typings",
       stStdlib := List("es6"),
-      stTypescriptVersion := "3.7.2",
+      stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
-      /* This is where we add our generated artifacts to the project for compilation */
-      Keys.unmanagedJars := stImport.value,
-      /* This is duplicated/inlined from sbt. The point is that we cannot reference `unmanaged` here, because we use it above. */
-      stInternalCompileInputs := {
-        import Keys._
-
-        def foldMappers[A](mappers: Seq[A => Option[A]]) =
-          mappers.foldRight({ p: A =>
-            p
-          }) { (mapper, mappers) => p: A =>
-            mapper(p).getOrElse(mappers(p))
-          }
-
-        val dependencyClasspath: Seq[Attributed[File]] =
-          internalDependencyClasspath.value ++ managedClasspath.value
-
-        val options = CompileOptions.of(
-          (classDirectory.value +: dependencyClasspath.map(_.data)).toArray,
-          Array(),
-          classDirectory.value,
-          scalacOptions.value.toArray,
-          javacOptions.value.toArray,
-          maxErrors.value,
-          InterfaceUtil.toJavaFunction(foldMappers(sourcePositionMappers.value)),
-          compileOrder.value,
-        )
-
-        object lookup extends PerClasspathEntryLookup {
-          private val cachedAnalysisMap                = Defaults.analysisMap(dependencyClasspath)
-          private val cachedPerEntryDefinesClassLookup = Keys.classpathEntryDefinesClass.value
-
-          override def analysis(classpathEntry: File): Optional[CompileAnalysis] =
-            cachedAnalysisMap(classpathEntry) match {
-              case Some(value) => Optional.of(value)
-              case None        => Optional.empty()
-            }
-          override def definesClass(classpathEntry: File): DefinesClass =
-            cachedPerEntryDefinesClassLookup(classpathEntry)
-        }
-
-        Inputs.of(
-          compilers.value,
-          options,
-          Setup.of(
-            lookup,
-            (skip in compile).value,
-            streams.value.cacheDirectory / compileAnalysisFilename.value,
-            compilerCache.value,
-            IncOptions.of(),
-            new LanguageServerReporter(
-              maxErrors.value,
-              streams.value.log,
-              foldMappers(sourcePositionMappers.value),
-            ),
-            Optional.empty(),
-            Array.empty,
-          ),
-          PreviousResult.create(Optional.empty(), Optional.empty()),
-        )
-      },
+      stInternalZincCompiler := ZincCompiler.task.value,
     )
-  }
 
-  override lazy val projectSettings: scala.Seq[Def.Setting[_]] =
-    inConfig(Compile)(stDefaults) ++ stOutsideConfig
-
-  override lazy val globalSettings: scala.Seq[Def.Setting[_]] = {
-    import autoImport.{stCacheDir, stDir, stQuiet}
+  override lazy val globalSettings =
     Seq(
       stQuiet := false,
-      stCacheDir := None,
       stDir := constants.defaultCacheFolder.toIO,
     )
-  }
 }

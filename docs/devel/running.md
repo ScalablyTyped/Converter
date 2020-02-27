@@ -32,8 +32,8 @@ For development you'll always use "debug mode".
 | `-publish`            | Publish to bintray. You'll need credentials in `~/.bintray/.credentials`
 | `-softWrites`         | Will only write changed/deleted files. This is essential if you want to keep ScalablyTyped products open in an IDE to avoid reindexing the world.
 | `-flavourNormal`      | default 
-| `-flavourSlinky`      | Use slinky flavour, integrate with scalajs-dom, and generate slinky components 
-| `-flavourJapgolly`    | Use scalajs-react flavour, integrate with scalajs-dom, and generate scalajs-react components 
+| `-flavourSlinky`      | Use slinky flavour, integrate with scala-js-dom, and generate slinky components 
+| `-flavourJapgolly`    | Use scalajs-react flavour, integrate with scala-js-dom, and generate scalajs-react components 
 | `-useScalaJsDomTypes` | Rewrite types to use scala-js-dom types when using `-flavourNormal`  
 
 ### Directories

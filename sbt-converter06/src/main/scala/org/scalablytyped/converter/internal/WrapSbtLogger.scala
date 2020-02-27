@@ -2,26 +2,11 @@ package org.scalablytyped.converter
 package internal
 
 import java.time.Instant
-import java.util.function.Supplier
 
 import com.olvind.logging._
 import fansi.{Color, EscapeAttr, Str}
 import sbt.internal.util.ManagedLogger
 import sourcecode.Text
-
-final class AsSbtLogger(val underlying: Logger[Unit]) extends xsbti.Logger {
-  override def error(msg: Supplier[String]): Unit = underlying.error(msg.get())
-
-  override def warn(msg: Supplier[String]): Unit = underlying.warn(msg.get())
-
-  override def info(msg: Supplier[String]): Unit = underlying.info(msg.get())
-
-  override def debug(msg: Supplier[String]): Unit = underlying.debug(msg.get())
-
-  // trace? throwable? whaat
-  override def trace(exception: Supplier[Throwable]): Unit =
-    underlying.warn("traced exception from sbt", exception.get())
-}
 
 final class WrapSbtLogger(val underlying: ManagedLogger, ctx: Ctx, pattern: Pattern) extends Logger[ManagedLogger] {
   override def withContext[T: Formatter](key: String, value: T): Logger[ManagedLogger] =

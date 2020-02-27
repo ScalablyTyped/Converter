@@ -1,6 +1,6 @@
 package org.scalablytyped.converter.internal.phases
 
-import java.nio.channels.ClosedByInterruptException
+import java.nio.channels.{ClosedByInterruptException, FileLockInterruptionException}
 
 import com.olvind.logging.Logger
 import com.olvind.logging.Logger.LoggedException
@@ -73,6 +73,7 @@ object PhaseRes {
     catch {
       case x: InterruptedException => throw x
       case x: ClosedByInterruptException => throw x
+      case x: FileLockInterruptionException => throw x
       case x: ExecutionException if x.getCause != null =>
         val th = x.getCause
         logger.error(s"Caught exception: ${th.getMessage}", th)
