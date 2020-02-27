@@ -7,21 +7,13 @@ import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
 import org.scalablytyped.converter.internal.importer.{flavourImpl, EnabledTypeMappingExpansion}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name}
+import sbt.Tags.Tag
+import sbt._
+import sbt.internal.server.LanguageServerReporter
 import sbt.internal.util.Attributed
 import sbt.plugins.JvmPlugin
 import sbt.util.InterfaceUtil
-import sbt._
-import sbt.internal.server.LanguageServerReporter
-import xsbti.compile.{
-  CompileAnalysis,
-  CompileOptions,
-  DefinesClass,
-  IncOptions,
-  Inputs,
-  PerClasspathEntryLookup,
-  PreviousResult,
-  Setup,
-}
+import xsbti.compile._
 
 object ScalablyTypedPluginBase extends AutoPlugin {
 
@@ -30,6 +22,8 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     val Selection = converter.Selection
     type Flavour = converter.Flavour
     val Flavour = converter.Flavour
+
+    val ScalablyTypedTag: Tag = Tag("ScalablyTyped")
 
     val stImport  = taskKey[Seq[Attributed[File]]]("Imports all the bundled npm and generates bindings")
     val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
