@@ -5,7 +5,7 @@ import java.util.Optional
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.constants
-import org.scalablytyped.converter.internal.importer.{EnabledTypeMappingExpansion, flavourImpl}
+import org.scalablytyped.converter.internal.importer.{flavourImpl, EnabledTypeMappingExpansion}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import sbt.Tags.Tag
 import sbt._

@@ -50,10 +50,29 @@ class Phase3CompileForPlugin(
               outputPkg     = flavour.outputPkg,
             )
 
+            val externalDeps = flavour.dependencies
+
+            /* all dependencies need to be part of the digest, so we output this file */
+            val depsFile = {
+              val localFileNames = IArray
+                .fromTraversable(deps.values)
+                .flatten
+                .map(_.last) // avoid absolute paths, and the file name contains enough info
+
+              val externalReferences = IArray.fromTraversable(externalDeps).map(_.asSbt(versions))
+
+              Map(
+                os.RelPath(".deps") ->
+                  (localFileNames ++ externalReferences).sorted.distinct
+                    .mkString("\n")
+                    .getBytes(constants.Utf8),
+              )
+            }
+
             val scalaFiles    = Printer(scope, lib.packageTree)
+            val allFiles      = scalaFiles ++ depsFile
             val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
-            val externalDeps  = flavour.dependencies
-            val digest        = Digest.of(scalaFiles.toSorted.values)
+            val digest        = Digest.of(allFiles.toSorted.values)
             val finalVersion  = lib.libVersion.version(digest)
 
             def jar(suffix: String) =
@@ -79,7 +98,7 @@ class Phase3CompileForPlugin(
                   % rm ("-Rf", compilerPaths.baseDir)
                 }
 
-                files.sync(scalaFiles, compilerPaths.sourcesDir, deleteUnknowns = false, soft = false)
+                files.sync(allFiles, compilerPaths.sourcesDir, deleteUnknowns = false, soft = false)
                 os.makeDir.all(compilerPaths.classesDir)
 
                 val jarDeps: Set[Compiler.InternalDep] =
@@ -96,11 +115,11 @@ class Phase3CompileForPlugin(
 
                     files.softWriteBytes(
                       sourcesJar,
-                      ContentForPublish.createJar(MapLayout(scalaFiles), publication),
+                      ContentForPublish.createJar(MapLayout(allFiles), publication),
                     )
 
                     val elapsed = System.currentTimeMillis - t0
-                    logger warn s"Built ${jarFile} in $elapsed ms"
+                    logger warn s"Built $jarFile in $elapsed ms"
 
                     PhaseRes.Ok(allJars)
                   case Left(err) =>
