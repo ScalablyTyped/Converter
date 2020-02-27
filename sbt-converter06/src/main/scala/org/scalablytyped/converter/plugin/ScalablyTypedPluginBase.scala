@@ -147,7 +147,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stIgnore := List("typescript"),
       stOutputPackage := "typings",
       stStdlib := List("es6"),
-      stTypescriptVersion := "3.7.2",
+      stTypescriptVersion := "3.8",
       stUseScalaJsDom := true,
       /* This is where we add our generated artifacts to the project for compilation */
       Keys.unmanagedJars := stImport.value,
