@@ -100,16 +100,6 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     val stQuiet = settingKey[Boolean]("remove all output")
 
-    @deprecated("No longer used. Use `stDir` instead to change directory", "1.0.0-beta4")
-    val stCacheDir = settingKey[Option[File]]("cache directory to workaround slow parser")
-    @deprecated("No longer used", "1.0.0-beta4")
-    val stMinimize = settingKey[Selection[String]]("")
-    @deprecated("No longer used", "1.0.0-beta4")
-    val stGenerateCompanions =
-      settingKey[Boolean]("Whether to generate companion objects with apply methods for most traits")
-    @deprecated("No longer used", "1.0.0-beta4")
-    val stMinimizeKeep = settingKey[List[String]]("a list of things you want to keep from minimized libraries")
-
     val stInternalExpandTypeMappings                     = settingKey[Selection[String]]("Experimental: enable type mapping expansion")
     private[plugin] val stInternalCompileInputs          = taskKey[Inputs]("Hijack compiler settings")
     private[plugin] val stInternalNpmInstallDependencies = taskKey[File]("Install deps from npm")
@@ -153,10 +143,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
       stInternalExpandTypeMappings := EnabledTypeMappingExpansion.DefaultSelection.map(_.value),
       stEnableScalaJsDefined := converter.Selection.None,
       stFlavour := converter.Flavour.Normal,
-      stGenerateCompanions := true,
       stIgnore := List("typescript"),
-      stMinimize := converter.Selection.None,
-      stMinimizeKeep := Nil,
       stOutputPackage := "typings",
       stStdlib := List("es6"),
       stTypescriptVersion := "3.7.2",
@@ -228,10 +215,9 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     inConfig(Compile)(stDefaults) ++ stOutsideConfig
 
   override lazy val globalSettings: scala.Seq[Def.Setting[_]] = {
-    import autoImport.{stCacheDir, stDir, stQuiet}
+    import autoImport.{stDir, stQuiet}
     Seq(
       stQuiet := false,
-      stCacheDir := None,
       stDir := constants.defaultCacheFolder.toIO,
     )
   }
