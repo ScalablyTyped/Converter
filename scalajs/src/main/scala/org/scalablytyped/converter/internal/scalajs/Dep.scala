@@ -1,5 +1,6 @@
 package org.scalablytyped.converter.internal.scalajs
 
+import io.circe.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.stringUtils.quote
 
 import scala.xml.Elem
@@ -59,4 +60,7 @@ object Dep {
   case class Scala(org:            String, artifact: String, version: String) extends Dep
   case class ScalaFullVersion(org: String, artifact: String, version: String) extends Dep
   case class ScalaJs(org:          String, artifact: String, version: String) extends Dep
+
+  implicit val DepDecoder: Decoder[Dep] = io.circe.generic.semiauto.deriveDecoder[Dep]
+  implicit val DepEncoder: Encoder[Dep] = io.circe.generic.semiauto.deriveEncoder[Dep]
 }

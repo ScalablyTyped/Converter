@@ -5,22 +5,15 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.importer.jsonCodecs.{FileDecoder, FileEncoder, PackageJsonDepsDecoder}
+import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
 import org.scalablytyped.converter.internal.importer.{Json, SharedInput}
-import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
+import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{
-  BuildInfo,
-  Digest,
-  IArray,
-  ImportTypings,
-  InFolder,
-  WrapSbtLogger,
-  ZincCompiler,
-}
+import org.scalablytyped.converter.internal.{BuildInfo, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
 import sbt._
 
+import scala.org.scalablytyped.converter.internal.Deps
 import scala.util.Try
 
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
@@ -43,7 +36,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     val sbtLog          = streams.value.log
     val outputDir       = os.Path(streams.value.cacheDirectory)
     val cacheDir        = (Global / stDir).value
-    val outputPackage   = Name((Compile / stOutputPackage).value)
+    val outputPackage   = Name(stOutputPackage.value)
 
     val stLogger: logging.Logger[Unit] =
       if ((Global / stQuiet).value) logging.Logger.DevNull
@@ -52,19 +45,19 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     val wantedLibs: Set[TsIdentLibrary] =
       Json[PackageJsonDeps](packageJsonFile).dependencies.getOrElse(Map()).keys.to[Set].map(TsIdentLibrary.apply)
 
-    val ScalaVersion = Versions.Scala(
-      scalaVersion = (Compile / Keys.scalaVersion).value,
-      binVersion   = (Compile / Keys.scalaBinaryVersion).value,
+    val versions = Versions(
+      Versions.Scala(
+        scalaVersion = (Compile / Keys.scalaVersion).value,
+        binVersion   = (Compile / Keys.scalaBinaryVersion).value,
+      ),
+      Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
-    val ScalaJsVersion = Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion)
-
-    val versions = Versions(ScalaVersion, ScalaJsVersion)
-    val compiler = new ZincCompiler((stInternalCompileInputs in compile).value, stLogger, versions)
+    val compiler = ScalablyTypedPluginBase.stInternalZincCompiler.value
 
     val shared = SharedInput(
-      shouldUseScalaJsDomTypes = (Compile / stUseScalaJsDom).value,
+      shouldUseScalaJsDomTypes = stUseScalaJsDom.value,
       wantedLibs               = wantedLibs,
-      flavour                  = (Compile / stFlavour).value,
+      flavour                  = stFlavour.value,
       outputPackage            = outputPackage,
       enableScalaJsDefined     = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
       stdLibs                  = IArray.fromTraversable(stStdlib.value),
@@ -86,42 +79,41 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     val runCache = (cacheDir / "runs" / s"${input.hashCode}.json").toPath
 
-    type InOut = (ImportTypings.Input, Seq[File])
+    type InOut = (ImportTypings.Input, Seq[Dep])
 
-    Try(Json[InOut](runCache)).toOption match {
-      case Some((`input`, output)) if output.forall(_.exists()) =>
-        stLogger.withContext(runCache).warn(s"Using cached result :)")
-        Attributed.blankSeq(output)
-      case _ =>
-        val ran = ImportTypings(
-          input            = input,
-          logger           = stLogger,
-          parseCacheDirOpt = Some(cacheDir.toPath resolve "parse"),
-          compiler         = compiler,
-          publishFolder    = os.Path(cacheDir) / 'artifacts,
-        )
-        ran match {
-          case Right(files) =>
-            val outSeq = files.to[Seq]
-            Json.persist[InOut](runCache)((input, outSeq))
-            Attributed.blankSeq(outSeq)
-          case Left(errors) =>
-            errors.foreach {
-              case (_, Left(th)) => throw th
-              case _             => ()
-            }
+    val result: Seq[Dep] =
+      Try(Json[InOut](runCache)).toOption match {
+        case Some((`input`, output)) /* if output.forall(_.exists()) */ =>
+          stLogger.withContext(runCache).info(s"Using cached result :)")
+          output
+        case _ =>
+          val ran = ImportTypings(
+            input            = input,
+            logger           = stLogger,
+            parseCacheDirOpt = Some(cacheDir.toPath resolve "parse"),
+            compiler         = compiler,
+            publishFolder    = os.home / ".ivy2" / "local",
+          )
+          ran match {
+            case Right(files) =>
+              val outSeq = files.to[Seq]
+              Json.persist[InOut](runCache)((input, outSeq))
+              outSeq
+            case Left(errors) =>
+              errors.foreach {
+                case (_, Left(th)) => throw th
+                case _             => ()
+              }
 
-            sys.error(errors.mkString("\n").take(2000))
-        }
-    }
+              sys.error(errors.mkString("\n").take(2000))
+          }
+      }
+
+    result.map(Deps.asModuleID(versions))
   }
 
-  lazy val stExternalNpmIntegration: Seq[Def.Setting[_]] = {
+  override lazy val projectSettings =
     Seq(
       stImport := stImportTask.tag(Tags.Compile, Tags.CPU, Tags.Disk, ScalablyTypedTag).value,
     )
-  }
-
-  override lazy val projectSettings: scala.Seq[Def.Setting[_]] =
-    inConfig(Compile)(stExternalNpmIntegration)
 }

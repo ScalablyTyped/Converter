@@ -13,6 +13,7 @@ import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
 import org.scalablytyped.converter.internal.sets.SetOps
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
+import os.RelPath
 
 import scala.collection.immutable.SortedSet
 import scala.concurrent.Await
@@ -23,17 +24,18 @@ import scala.util.Try
   * This phase goes from scala AST to compiled jar files on the local file system
   */
 class Phase3Compile(
-    resolve:         LibraryResolver,
-    versions:        Versions,
-    compiler:        Compiler,
-    targetFolder:    os.Path,
-    projectName:     String,
-    organization:    String,
-    publishUser:     String,
-    publishFolder:   os.Path,
-    metadataFetcher: Npmjs,
-    softWrites:      Boolean,
-    flavour:         FlavourImpl,
+    resolve:                    LibraryResolver,
+    versions:                   Versions,
+    compiler:                   Compiler,
+    targetFolder:               os.Path,
+    projectName:                String,
+    organization:               String,
+    publishUser:                String,
+    publishFolder:              os.Path,
+    metadataFetcher:            Npmjs,
+    softWrites:                 Boolean,
+    flavour:                    FlavourImpl,
+    generateScalaJsBundlerFile: Boolean,
 ) extends Phase[Source, Phase2Res, PublishedSbtProject] {
 
   val ScalaFiles: PartialFunction[(os.RelPath, Array[Byte]), Array[Byte]] = {
@@ -140,8 +142,12 @@ class Phase3Compile(
             val resourcesDir  = os.RelPath("src") / 'main / 'resources
             val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten
             val compilerPaths = CompilerPaths.of(versions, targetFolder, lib.libName)
-            val resources     = ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
             val externalDeps  = flavour.dependencies
+
+            val resources: Map[RelPath, Array[Byte]] =
+              if (generateScalaJsBundlerFile)
+                ScalaJsBundlerDepFile(compilerPaths.classesDir, lib.source.libName, lib.libVersion)
+              else Map()
 
             val sbtLayout = ContentSbtProject(
               v               = versions,

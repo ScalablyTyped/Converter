@@ -11,11 +11,11 @@ You specify which one you want like this:
 ```scala
 project.settings(
  // for Slinky web projects
-  Compile / stFlavour := Flavour.Slinky,
+  stFlavour := Flavour.Slinky,
   // for Slinky native projects
-  Compile / stFlavour := Flavour.SlinkyNative,
+  stFlavour := Flavour.SlinkyNative,
   // for scalajs-react projects
-  Compile / stFlavour := Flavour.Japgolly
+  stFlavour := Flavour.Japgolly
 )
 ``` 
 

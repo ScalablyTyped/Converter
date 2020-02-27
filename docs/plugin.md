@@ -71,9 +71,9 @@ Scala.js react wrapper libraries. If you want to use either make sure to choose 
 ```scala
 project.settings(
  // for Slinky web projects
-  Compile / stFlavour := Flavour.Slinky,
+  stFlavour := Flavour.Slinky,
   // for Slinky native projects
-  Compile / stFlavour := Flavour.SlinkyNative,
+  stFlavour := Flavour.SlinkyNative,
 )
 ```
 
@@ -81,7 +81,7 @@ project.settings(
 
 ```scala
 project.settings(
-  Compile / stFlavour := Flavour.Japgolly
+  stFlavour := Flavour.Japgolly
 )
 ```
 
@@ -102,10 +102,11 @@ Yarn will need to be present on your system for this to work. You should also ch
 Hopefully everything will work automatically. Change an npm dependency, reimport project, wait, voila. 
 
 
-The plugin taps into the `unmanagedJars` task in sbt, and this has some consequences for how it works.
+The plugin taps into the `allDependencies` task in sbt, and this has some consequences for how it works.
+
 Whenever the task is evaluated, typically through a `compile` or an import into an IDE, the plugin
 
-- Runs a customized version of `installNpmDependencies` from scalajs-bundler, changed to avoid touching `unmanagedJars`.
+- Runs a customized version of `installNpmDependencies` from scalajs-bundler, changed to avoid touching the classpath.
 
 - Computes a digest from the resulting `package.json` file and of the configuration of the plugin
 
@@ -137,7 +138,7 @@ Some usage examples:
 
 ```scala
 project.settings(
-  Compile / stIgnore += "csstype"
+  stIgnore += "csstype"
 )
 ```
 
@@ -146,7 +147,7 @@ You also don't need the icons. If that's the case, you can also exclude prefixes
 
 ```scala
 project.settings(
-  Compile / stIgnore ++= List("material-ui/svg-icons")
+  stIgnore ++= List("material-ui/svg-icons")
 )
 ```
 
@@ -162,7 +163,7 @@ However, there an imperfection somewhere in Scala.js and/or scalac with handling
 This setting also uses `Selection`, so an example usage is:
 ```scala
 project.settings(
-  Compile / stEnableScalaJsDefined := Selection.All()
+  stEnableScalaJsDefined := Selection.All()
 )
 ```
 
@@ -178,7 +179,7 @@ For instance, a node application should not access the DOM at all,
       
 ```scala
 project.settings(
-  Compile / stStdlib := List("es6", "es2018.asyncgenerator")
+  stStdlib := List("es6", "es2018.asyncgenerator")
 )
 ```
 
@@ -192,7 +193,7 @@ You can adjust the top-level package into which we put the generated code.
        
 ```scala
 project.settings(
-  Compile / stOutputPackage := "mypackage",
+  stOutputPackage := "mypackage",
 )
 ```
 
