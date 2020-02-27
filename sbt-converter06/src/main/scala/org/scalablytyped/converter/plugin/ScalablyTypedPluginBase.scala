@@ -24,7 +24,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
 
     val ScalablyTypedTag: Tag = Tag("ScalablyTyped")
 
-    val stImport  = taskKey[Seq[ModuleID]]("Imports all the bundled npm and generates bindings")
+    val stImport  = taskKey[Set[ModuleID]]("Imports all the bundled npm and generates bindings")
     val stDir     = settingKey[File]("Directory used for caches, built artifacts and so on")
     val stIgnore  = settingKey[List[String]]("completely ignore libraries or modules")
     val stFlavour = settingKey[Flavour]("The type of react binding to use")
@@ -110,7 +110,7 @@ object ScalablyTypedPluginBase extends AutoPlugin {
   override lazy val projectSettings =
     Seq(
       /* This is where we add our generated artifacts to the project for compilation */
-      Keys.allDependencies ++= stImport.value,
+      Keys.allDependencies ++= stImport.value.toSeq,
       Keys.scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
 

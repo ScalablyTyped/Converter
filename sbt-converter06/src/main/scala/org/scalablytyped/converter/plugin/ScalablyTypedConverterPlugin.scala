@@ -34,7 +34,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     */
   private val stInternalNpmInstallDependencies = taskKey[File]("Install deps from npm")
 
-  val stImportTask = Def.task[Seq[ModuleID]] {
+  val stImportTask = Def.task[Set[ModuleID]] {
 
     val projectName     = name.value
     val packageJsonFile = (npmUpdate / crossTarget).value / "package.json"
@@ -87,12 +87,12 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
     val runCache = (cacheDir / "runs" / s"${input.hashCode}.json").toPath
 
-    type InOut = (ImportTypings.Input, Seq[Dep])
+    type InOut = (ImportTypings.Input, ImportTypings.Output)
 
     val result = Try(Json[InOut](runCache)).toOption match {
-      case Some((`input`, output)) /* if output.forall(_.exists()) */ =>
+      case Some((`input`, output)) if output.allJars.forall(os.exists) =>
         stLogger.withContext(runCache).info(s"Using cached result :)")
-        output
+        output.deps
       case _ =>
         val ran = ImportTypings(
           input            = input,
@@ -102,10 +102,9 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
           publishFolder    = os.home / ".ivy2" / "local",
         )
         ran match {
-          case Right(files) =>
-            val outSeq = files.to[Seq]
-            Json.persist[InOut](runCache)((input, outSeq))
-            outSeq
+          case Right(output) =>
+            Json.persist[InOut](runCache)((input, output))
+            output.deps
           case Left(errors) =>
             errors.foreach {
               case (_, Left(th)) => throw th

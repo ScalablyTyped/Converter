@@ -79,13 +79,13 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     val runCache = (cacheDir / "runs" / s"${input.hashCode}.json").toPath
 
-    type InOut = (ImportTypings.Input, Seq[Dep])
+    type InOut = (ImportTypings.Input, ImportTypings.Output)
 
-    val result: Seq[Dep] =
+    val result: Set[Dep] =
       Try(Json[InOut](runCache)).toOption match {
-        case Some((`input`, output)) /* if output.forall(_.exists()) */ =>
+        case Some((`input`, output)) if output.allJars.forall(os.exists) =>
           stLogger.withContext(runCache).info(s"Using cached result :)")
-          output
+          output.deps
         case _ =>
           val ran = ImportTypings(
             input            = input,
@@ -95,10 +95,9 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
             publishFolder    = os.home / ".ivy2" / "local",
           )
           ran match {
-            case Right(files) =>
-              val outSeq = files.to[Seq]
-              Json.persist[InOut](runCache)((input, outSeq))
-              outSeq
+            case Right(output) =>
+              Json.persist[InOut](runCache)((input, output))
+              output.deps
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th

@@ -29,8 +29,17 @@ object ImportTypings {
     import io.circe.generic.auto._
     import jsonCodecs._
 
-    implicit val ConfigEncoder: Encoder[Input] = exportEncoder[Input].instance
-    implicit val ConfigDecoder: Decoder[Input] = exportDecoder[Input].instance
+    implicit val InputEncoder: Encoder[Input] = exportEncoder[Input].instance
+    implicit val InputDecoder: Decoder[Input] = exportDecoder[Input].instance
+  }
+
+  case class Output(deps: Set[Dep], allJars: Set[os.Path])
+
+  object Output {
+    import io.circe.generic.auto._
+    import jsonCodecs._
+    implicit val OutputEncoder: Encoder[Output] = exportEncoder[Output].instance
+    implicit val OutputDecoder: Decoder[Output] = exportDecoder[Output].instance
   }
 
   def apply(
@@ -39,7 +48,7 @@ object ImportTypings {
       parseCacheDirOpt: Option[Path],
       publishFolder:    os.Path,
       compiler:         Compiler,
-  ): Either[Map[Source, Either[Throwable, String]], Set[Dep]] = {
+  ): Either[Map[Source, Either[Throwable, String]], Output] = {
 
     if (input.shared.expandTypeMappings =/= EnabledTypeMappingExpansion.DefaultSelection) {
       logger.warn("Changing stInternalExpandTypeMappings not encouraged. It might blow up")
@@ -110,6 +119,12 @@ object ImportTypings {
       results.collect { case (_, PhaseRes.Failure(errors)) => errors }.reduceOption(_ ++ _).getOrElse(Map.empty)
 
     if (failures.nonEmpty) Left(failures)
-    else Right(flavour.dependencies ++ successes.map(_._2.project.reference))
+    else
+      Right(
+        Output(
+          flavour.dependencies ++ successes.map(_._2.project.reference),
+          successes.foldLeft(Set[os.Path]()) { case (acc, (_, p)) => acc ++ p.localIvyFiles.all.keys },
+        ),
+      )
   }
 }
