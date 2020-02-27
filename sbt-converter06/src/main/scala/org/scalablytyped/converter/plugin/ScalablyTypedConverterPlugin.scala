@@ -57,10 +57,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       scalaVersion = (Compile / Keys.scalaVersion).value,
       binVersion   = (Compile / Keys.scalaBinaryVersion).value,
     )
-    val ScalaJsVersion = Versions.ScalaJs(
-      scalaJsVersion    = org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion,
-      scalaJsBinVersion = org.scalajs.ir.ScalaJSVersions.binaryCross,
-    )
+    val ScalaJsVersion = Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion)
 
     val versions = Versions(ScalaVersion, ScalaJsVersion)
     val compiler = new ZincCompiler((stInternalCompileInputs in compile).value, stLogger, versions)

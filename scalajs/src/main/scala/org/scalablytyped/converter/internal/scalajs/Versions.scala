@@ -20,7 +20,16 @@ object Versions {
 
   val Scala213 = Scala("2.13.1", "2.13")
 
-  case class ScalaJs(scalaJsVersion: String, scalaJsBinVersion: String) {
+  case class ScalaJs(scalaJsVersion: String) {
+    private val StableVersion = "(\\d+).(\\d+).(\\d+)".r
+
+    val scalaJsBinVersion: String =
+      scalaJsVersion match {
+        case StableVersion("1", _, _)   => "1"
+        case StableVersion("0", "6", _) => "0.6"
+        case other                      => other
+      }
+
     val scalaJsOrganization = "org.scala-js"
     def scalacOptions: List[String] = {
       val base = List("-encoding", "utf-8", "-g:notailcalls")
@@ -33,8 +42,8 @@ object Versions {
     val sbtPlugin     = Dep.Scala(scalaJsOrganization, "sbt-scalajs", scalaJsVersion)
   }
 
-  val ScalaJs1  = ScalaJs("1.0.0", "1")
-  val ScalaJs06 = ScalaJs("0.6.32", "0.6")
+  val ScalaJs1  = ScalaJs("1.0.0")
+  val ScalaJs06 = ScalaJs("0.6.32")
 }
 
 case class Versions(scala: Versions.Scala, scalaJs: Versions.ScalaJs) {
