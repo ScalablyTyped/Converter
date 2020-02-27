@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package phases
 
-import java.nio.channels.ClosedByInterruptException
+import java.nio.channels.{ClosedByInterruptException, FileLockInterruptionException}
 
 import com.olvind.logging.{Formatter, Logger}
 
@@ -95,6 +95,7 @@ object PhaseRunner {
               p.success(res)
           }
         } catch {
+          case x: FileLockInterruptionException => throw x
           case x: InterruptedException => throw x
           case x: ClosedByInterruptException => throw x
           case x: ExecutionException if x.getCause != null =>
