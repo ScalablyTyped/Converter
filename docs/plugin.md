@@ -22,15 +22,16 @@ Then check out the demo projects:
 Due to conflicting scala library dependencies **this plugin needs sbt 1.3.0 or newer**.
 
 Since we generate source code, it should work with any combination of 
-Scala 2.12 / 2.13 and Scala.js 1 / 0.6. 
-Certain [flavours](flavour.md) might not yet work on Scala.js 1 if the libraries have not been published.
+Scala 2.12 / 2.13 and Scala.js 1.x / 0.6.x 
+
+Note that the scalajs-react [flavour](flavour.md) won't work with Scala.js 1.x until the library has been updated. 
  
 ## Add to your `project/plugins.sbt`
 
 ```scala
 resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
 
-// for Scala.js 1.0.0 milestones
+// for Scala.js 1.x.x
 addSbtPlugin("org.scalablytyped.converter" % "sbt-converter" % "@VERSION@")
 
 // for Scala.js 0.6.x
