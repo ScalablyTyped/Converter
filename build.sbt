@@ -46,7 +46,7 @@ lazy val `importer-portable` = project
 
 lazy val importer = project
   .dependsOn(`importer-portable`)
-  .configure(baseSettings, preventPublication)
+  .configure(baseSettings)
   .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,

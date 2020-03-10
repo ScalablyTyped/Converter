@@ -85,7 +85,7 @@ object Ci {
                 Flavour.Slinky,
                 Name("typingsSlinky"),
                 "SlinkyTyped",
-                "https://github.com/ScalablyTyped/SlinkyTypes.git",
+                "https://github.com/ScalablyTyped/SlinkyTyped.git",
                 "org.scalablytyped.slinky",
               )
             else if (flags.contains("-flavourSlinkyNative"))
