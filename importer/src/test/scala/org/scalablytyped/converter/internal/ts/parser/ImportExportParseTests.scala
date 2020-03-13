@@ -306,4 +306,27 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
       ),
     )
   }
+
+  test("export default class <T>") {
+    shouldParseAs("export default class <T> {}", TsParser.tsExport)(
+      TsExport(
+        NoComments,
+        ExportType.Defaulted,
+        TsExporteeTree(
+          TsDeclClass(
+            NoComments,
+            declared = false,
+            isAbstract = false,
+            TsIdent("default"),
+            IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
+            None,
+            IArray(),
+            IArray(),
+            Zero,
+            CodePath.NoPath,
+          )
+        )
+      )
+    )
+  }
 }
