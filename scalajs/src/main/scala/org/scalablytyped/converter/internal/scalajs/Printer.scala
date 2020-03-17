@@ -62,6 +62,22 @@ object Printer {
     }
     val scope = _scope / tree
 
+    val packageScalaFileName: String = {
+      val normal  = "package"
+      val escaped = "package_"
+      def toEscape(name: String) = name.toLowerCase() == normal
+      val shouldBeEscaped = files.exists {
+        case (scalaOutput, _) =>
+          scalaOutput match {
+            case ScalaOutput.Package(Name(p)) if toEscape(p) => true
+            case ScalaOutput.File(Name(p)) if toEscape(p)    => true
+            case _                                           => false
+          }
+      }
+      val name = if (shouldBeEscaped) escaped else normal
+      s"$name.scala"
+    }
+
     files foreach {
       case (ScalaOutput.File(name), members: IArray[Tree]) =>
         reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
@@ -82,7 +98,7 @@ object Printer {
         }
 
       case (ScalaOutput.PackageObject, members) =>
-        reg.write(targetFolder / "package.scala") { writer =>
+        reg.write(targetFolder / packageScalaFileName) { writer =>
           packages.dropRight(1) match {
             case IArray.Empty => ()
             case remaining =>
