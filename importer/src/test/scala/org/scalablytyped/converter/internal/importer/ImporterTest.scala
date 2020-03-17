@@ -36,6 +36,7 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("with-theme")(assertImportsOk("with-theme", pedantic                         = true, update  = update))
   test("create-error")(assertImportsOk("create-error", pedantic                     = true, update  = update))
   test("insight")(assertImportsOk("insight", pedantic                               = true, update  = update))
+  test("interface-package")(assertImportsOk("interface-package", pedantic           = true, update  = update))
   test("cldrjs")(assertImportsOk("cldrjs", pedantic                                 = true, update  = update))
   test("void-elements")(assertImportsOk("void-elements", pedantic                   = true, update  = update))
   test("type-mappings")(assertImportsOk("type-mappings", pedantic                   = true, update  = update))
