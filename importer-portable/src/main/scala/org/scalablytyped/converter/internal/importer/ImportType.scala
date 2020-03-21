@@ -120,8 +120,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))
 
         scope.stack collectFirst {
-          case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
-            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams.head.name)), NoComments)
+          case x: TsDeclTypeAlias if x.codePath.forceHasPath.codePath === TsQIdent.Std.Record =>
+            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams(1).name)), NoComments)
           case x: TsNamedDecl =>
             TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
         } getOrElse base.withComments(c)

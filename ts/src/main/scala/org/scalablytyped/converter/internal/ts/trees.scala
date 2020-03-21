@@ -403,7 +403,6 @@ object TsIdent {
   val namespacedCls: TsIdentSimple = TsIdent("Class")
   val Symbol:        TsIdentSimple = TsIdent("Symbol")
   val Global:        TsIdentSimple = TsIdent("_Global_")
-  val Record:        TsIdentSimple = TsIdent("Record")
   val dummy:         TsIdentSimple = TsIdent("dummy")
 
   val dummyLibrary: TsIdentLibrary = TsIdentLibrarySimple("dummyLibrary")
@@ -460,6 +459,7 @@ object TsQIdent {
     val PromiseLike   = TsQIdent(IArray(TsIdent.std, TsIdent("PromiseLike")))
     val Readonly      = TsQIdent(IArray(TsIdent.std, TsIdent("Readonly")))
     val ReadonlyArray = TsQIdent(IArray(TsIdent.std, TsIdent("ReadonlyArray")))
+    val Record        = TsQIdent(IArray(TsIdent.std, TsIdent("Record")))
     val String        = TsQIdent(IArray(TsIdent.std, TsIdent("String")))
   }
 }
