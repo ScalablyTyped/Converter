@@ -16,16 +16,17 @@ import seqs._
   * of the members.
   */
 object DeriveNonConflictingName {
+  val Anon          = "Anon"
+  val Fn            = "Fn"
+  val isMeaningless = Set(Anon, Fn)
 
-  def apply[T](prefix: String, minNumParts: Int, members: IArray[TsMember])(
-      tryCreate:       TsIdentSimple => Option[T],
-  ): T = {
+  def apply[T](prefix: String, members: IArray[TsMember])(tryCreate: TsIdentSimple => Option[T]): T = {
     val fromCalls: Option[Detail] = {
       members.collect { case TsMemberCall(_, _, sig) => sig } match {
         case Empty => None
         case calls =>
           val longest = calls.maxBy(_.params.length)
-          Some(Detail(s"Call${longest.params.length}"))
+          Some(Detail(s"Call", s"Call${longest.params.map(_.name.value.capitalize).mkString}"))
       }
     }
 
@@ -65,15 +66,15 @@ object DeriveNonConflictingName {
             Detail(short, long)
         }
 
-    val details = fromMembers.sorted.distinct
+    val details = IArray.fromOptions(fromCalls, fromInstantiable, fromDict) ++ fromMembers.sorted.distinct
 
     val nameVariants: Stream[String] =
       for {
         longVersion <- Stream(false, true)
-        amount <- Stream(1, details.length + 1)
+        amount <- Stream.range(if (isMeaningless(prefix)) 1 else 0, details.length + 1)
         idx <- Stream.range(0, details.length)
       } yield {
-        val pick = IArray.fromOptions(fromCalls, fromInstantiable, fromDict) ++ details.drop(idx).take(amount)
+        val pick = details.drop(idx).take(amount)
         prefix + pick.map(_.pick(longVersion)).mkString("")
       }
 

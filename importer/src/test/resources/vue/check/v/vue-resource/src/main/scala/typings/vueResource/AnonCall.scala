@@ -8,7 +8,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnonCall1Delete extends js.Object {
+trait AnonCall extends js.Object {
   @JSName("delete")
   var delete_Original: http = js.native
   @JSName("get")

@@ -16,6 +16,7 @@ object Comment {
     Comment(s"/* import warning: ${e.value.split("\\.").takeRight(2).mkString(".")} $s */")
 }
 
+@SerialVersionUID(8167323919307012581L) // something about this class seems brittle
 sealed class Comments(val cs: List[Comment]) extends Serializable {
   def rawCs = cs collect { case CommentRaw(raw) => raw }
 
@@ -108,4 +109,7 @@ object Comments {
         )
       }
       .mkString("")
+
+  def format(comments: Comments, keepComments: Boolean): String =
+    if (keepComments) format(comments) else ""
 }

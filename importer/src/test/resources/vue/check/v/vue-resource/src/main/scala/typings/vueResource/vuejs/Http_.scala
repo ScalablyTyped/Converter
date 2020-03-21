@@ -1,6 +1,6 @@
 package typings.vueResource.vuejs
 
-import typings.vueResource.HttpOptionsrootstringBefore
+import typings.vueResource.HttpOptionsrootstring
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -15,7 +15,7 @@ trait Http_ extends js.Object {
   var interceptors: js.Array[HttpInterceptor | js.Function0[HttpInterceptor]] = js.native
   @JSName("jsonp")
   var jsonp_Original: http = js.native
-  var options: HttpOptionsrootstringBefore = js.native
+  var options: HttpOptionsrootstring = js.native
   @JSName("patch")
   var patch_Original: http = js.native
   @JSName("post")

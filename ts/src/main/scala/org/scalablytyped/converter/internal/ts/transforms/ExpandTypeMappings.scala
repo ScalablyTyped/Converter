@@ -36,7 +36,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
           x
 
         case Ok(newMembers, true) =>
-          val nameHint = TsTypeFormatter(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit).take(50)
+          val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
 
           val notices = Comments(
             List(

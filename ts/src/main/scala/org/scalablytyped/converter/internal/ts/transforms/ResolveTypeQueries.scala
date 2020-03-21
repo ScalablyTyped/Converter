@@ -137,7 +137,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           statics match {
             case Empty => Some((cls, ctor))
             case some =>
-              val nameHint = Comments(CommentData(Markers.NameHint(s"TypeofClass${cls.name.value}")))
+              val nameHint = Comments(CommentData(Markers.NameHint(s"Typeof${cls.name.value}")))
               Some(
                 (
                   cls,

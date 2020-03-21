@@ -5,8 +5,8 @@ import org.scalablytyped.runtime.TopLevel
 import typings.std.Element
 import typings.std.HTMLElement
 import typings.std.Record
-import typings.vue.Fn0
-import typings.vue.Fn1
+import typings.vue.FnCall
+import typings.vue.FnCallObjectKey
 import typings.vue.optionsMod.AsyncComponent
 import typings.vue.optionsMod.Component
 import typings.vue.optionsMod.ComponentOptions
@@ -35,7 +35,7 @@ trait Vue extends js.Object {
   @JSName("$data")
   val $data: Record[String, _] = js.native
   @JSName("$delete")
-  var $delete_Original: Fn1 = js.native
+  var $delete_Original: FnCallObjectKey = js.native
   @JSName("$el")
   val $el: HTMLElement = js.native
   @JSName("$isServer")
@@ -61,7 +61,7 @@ trait Vue extends js.Object {
   @JSName("$scopedSlots")
   val $scopedSlots: StringDictionary[ScopedSlot] = js.native
   @JSName("$set")
-  var $set_Original: Fn0 = js.native
+  var $set_Original: FnCall = js.native
   @JSName("$slots")
   val $slots: StringDictionary[js.Array[VNode]] = js.native
   @JSName("$ssrContext")
