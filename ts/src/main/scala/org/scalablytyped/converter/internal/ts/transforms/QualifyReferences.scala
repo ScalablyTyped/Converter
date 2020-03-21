@@ -18,6 +18,21 @@ class QualifyReferences(skipValidation: Boolean) extends TreeTransformationScope
         multiple.find(_.name.parts.contains(TsIdent.std)).getOrElse(multiple.head)
     }
 
+  /** special case because apparently this makes sense:
+    * ```typescript
+    * import {Options} from '...'
+    * export type Options = Options
+    * ```
+    */
+  override def enterTsDeclTypeAlias(scope: TsTreeScope)(ta: TsDeclTypeAlias): TsDeclTypeAlias =
+    ta.alias match {
+      case x: TsTypeRef =>
+        val picker   = Picker.ButNot(Picker.Types, ta)
+        val newAlias = TsTypeIntersect.simplified(resolveTypeRef(scope, x, picker))
+        ta.copy(alias = newAlias)
+      case _ => ta
+    }
+
   /* Special case because sometimes classes inherit from an interface with the same name */
   override def enterTsDeclClass(scope: TsTreeScope)(x: TsDeclClass): TsDeclClass = {
     val picker = Picker.ButNot(Picker.Types, x)
