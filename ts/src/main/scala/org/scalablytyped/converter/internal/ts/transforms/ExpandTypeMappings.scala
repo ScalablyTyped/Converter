@@ -96,19 +96,30 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
   val EmptySet = Set.empty[String]
 
   sealed trait Res[+T] {
-    def withIsRewritten: Res[T] = this match {
-      case Ok(value, _) => Ok(value, wasRewritten = true)
-      case p: Problems => p
-    }
+    def isSuccess: Boolean =
+      this match {
+        case Ok(_, _)    => true
+        case Problems(_) => false
+      }
 
-    def validated[U](pred: T => Either[Problem, U]): Res[U] = this match {
-      case Ok(value, wasRewritten) =>
-        pred(value) match {
-          case Left(problem)   => Problems(IArray(problem))
-          case Right(newValue) => Ok(newValue, wasRewritten)
-        }
-      case p: Problems => p
-    }
+    def withIsRewritten(wasRewritten: Boolean): Res[T] =
+      this match {
+        case Ok(value, _) => Ok(value, wasRewritten)
+        case p: Problems => p
+      }
+
+    def withIsRewritten: Res[T] =
+      withIsRewritten(wasRewritten = true)
+
+    def validated[U](pred: T => Either[Problem, U]): Res[U] =
+      this match {
+        case Ok(value, wasRewritten) =>
+          pred(value) match {
+            case Left(problem)   => Problems(IArray(problem))
+            case Right(newValue) => Ok(newValue, wasRewritten)
+          }
+        case p: Problems => p
+      }
 
     def map[U](f: T => U): Res[U] =
       this match {
@@ -174,7 +185,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case `key` => TsTypeLiteral(name)
         case TsTypeLookup(from, `key`) =>
           val foundType: Option[TsType] =
-            AllMembersFor.forType(scope, ld)(from) match {
+            AllMembersFor.forType(scope / from, ld)(from) match {
               case Ok(members, _) =>
                 members collectFirst {
                   case TsMemberProperty(_, _, TsIdent(name.literal), tpeOpt, _, false, _, isOptional) =>
@@ -388,7 +399,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case Left(()) =>
           Problems(IArray(Loop(scope)))
         case Right(ld) =>
-          val enableCache = scope.root.cache.isDefined && typeRef.tparams.forall(_.isInstanceOf[TsTypeRef])
+          val enableCache = scope.root.cache.isDefined
           if (enableCache) {
             if (scope.root.cache.get.typeMappings.contains(typeRef)) {
               return scope.root.cache.get.typeMappings(typeRef)
