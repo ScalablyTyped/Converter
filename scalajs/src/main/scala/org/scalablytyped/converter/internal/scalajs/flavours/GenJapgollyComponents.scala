@@ -260,14 +260,14 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
                   propsRef -> resProps
 
                 case None =>
-                  TypeRef.Object -> Res.One(TypeRef.Object.name, Empty)
+                  TypeRef.Object -> Res.One(TypeRef.Object, Empty)
               }
 
             resProps match {
               case Res.Success(props) =>
                 components match {
                   case IArray.exactlyOne(one) =>
-                    IArray(genComponent(pkgCp, propsRef, props, one.knownRef, tparams, one))
+                    IArray(genComponent(pkgCp, props, one.knownRef, tparams, one))
                   case many =>
                     /** We share `apply` methods for each props type in abstract classes to limit compilation time.
                       *  References causes some trouble, so if the component knows it we thread it through a type param.
@@ -281,7 +281,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
                   val propsWithObject  = TypeRef.Intersection(IArray(propsRef, TypeRef.Object))
                   val (_, Left(param)) = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
                   val mod =
-                    genComponent(pkgCp, propsWithObject, Res.One(propsRef.name, IArray(param)), c.knownRef, tparams, c)
+                    genComponent(pkgCp, Res.One(propsWithObject, IArray(param)), c.knownRef, tparams, c)
                   val comment = Comment(
                     s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. */\n",
                   )
@@ -300,7 +300,6 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
 
   def genComponent(
       pkgCodePath:       QualifiedName,
-      propsRef:          TypeRef,
       resProps:          Res.Success[IArray[Prop]],
       knownRefRewritten: Option[TypeRef],
       tparams:           IArray[TypeParamTree],
@@ -310,11 +309,12 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
 
     val methods: IArray[MemberTree] =
       resProps match {
-        case Res.One(_, props) =>
+        case Res.One(propsRef, props) =>
           IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, componentCp))
         case Res.Many(propss) =>
           IArray.fromTraversable(propss.map {
-            case (name, props) => genCreator(name, propsRef, props, knownRefRewritten, tparams, componentCp)
+            case (propsRef, props) =>
+              genCreator(propsRef.name, propsRef, props, knownRefRewritten, tparams, componentCp)
           })
       }
 
@@ -366,11 +366,11 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
 
     val methods: IArray[MemberTree] =
       resProps match {
-        case Res.One(_, props) =>
+        case Res.One(propsRef, props) =>
           IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, classCp))
         case Res.Many(propss) =>
           IArray.fromTraversable(propss.map {
-            case (name, props) => genCreator(name, propsRef, props, knownRefRewritten, tparams, classCp)
+            case (propsRef, props) => genCreator(propsRef.name, propsRef, props, knownRefRewritten, tparams, classCp)
           })
       }
 

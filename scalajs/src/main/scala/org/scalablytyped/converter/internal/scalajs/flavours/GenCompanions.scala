@@ -44,7 +44,7 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
             case Res.Many(paramsMap) =>
               val methods: IArray[MethodTree] =
                 IArray.fromTraversable(paramsMap.flatMap {
-                  case (name, params) => generateCreator(name, params, cls.codePath, cls.tparams)
+                  case (propsRef, params) => generateCreator(propsRef.name, params, cls.codePath, cls.tparams)
                 })
 
               val modOpt: Option[ModuleTree] =

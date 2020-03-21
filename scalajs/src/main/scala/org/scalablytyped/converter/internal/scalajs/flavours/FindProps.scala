@@ -19,7 +19,7 @@ object FindProps {
       case Res.Error(_)      => None
     }
 
-    def asMap: Map[Name, T] = this match {
+    def asMap: Map[TypeRef, T] = this match {
       case Res.One(name, value) => Map(name -> value)
       case Res.Many(values)     => values
       case Res.Error(_)         => Map.empty
@@ -41,8 +41,8 @@ object FindProps {
       }
     }
     case class Error[T](msg:   String) extends Res[T]
-    case class One[T](name:    Name, value: T) extends Success[T]
-    case class Many[T](values: Map[Name, T]) extends Success[T]
+    case class One[T](name:    TypeRef, value: T) extends Success[T]
+    case class Many[T](values: Map[TypeRef, T]) extends Success[T]
 
     def combine[T](ress: IArray[Res[T]]): Res[T] =
       ress.partitionCollect3(
@@ -88,7 +88,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
           case x @ Res.One(_, _)                          => x
         }) match {
           case (Empty, Empty, ones, _) =>
-            Res.One(typeRef.name, ones.map(_.value).flatten.sorted.distinctBy(_.parameter.name))
+            Res.One(typeRef, ones.map(_.value).flatten.sorted.distinctBy(_.parameter.name))
           case (Empty, _, _, _) =>
             Res.Error("Support for combinations of intersection and union types not implemented")
           case (errors, _, _, _) =>
@@ -181,7 +181,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             )
 
           Res.One(
-            cls.name,
+            TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
             IArray
               .fromTraversable(
                 builder

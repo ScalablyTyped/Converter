@@ -60,6 +60,7 @@ import typingsJapgolly.react.reactStrings.text
 import typingsJapgolly.react.reactStrings.time
 import typingsJapgolly.react.reactStrings.tree
 import typingsJapgolly.semanticUiReact.buttonMod.ButtonProps
+import typingsJapgolly.semanticUiReact.buttonMod.StrictButtonProps
 import typingsJapgolly.semanticUiReact.genericMod.SemanticCOLORS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticFLOATS
 import typingsJapgolly.semanticUiReact.genericMod.SemanticSIZES
@@ -296,7 +297,7 @@ object Button {
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
-  ): UnmountedWithRoot[ButtonProps, default, Unit, ButtonProps] = {
+  ): UnmountedWithRoot[StrictButtonProps, default, Unit, StrictButtonProps] = {
     val __obj = js.Dynamic.literal()
   
       if (about != null) __obj.updateDynamic("about")(about.asInstanceOf[js.Any])
@@ -506,10 +507,10 @@ object Button {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.semanticUiReact.buttonMod.ButtonProps, 
+  typingsJapgolly.semanticUiReact.buttonMod.StrictButtonProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typingsJapgolly.semanticUiReact.mod.default](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.buttonMod.ButtonProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.buttonMod.StrictButtonProps])(children: _*)
   }
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button", JSImport.Default)
   @js.native

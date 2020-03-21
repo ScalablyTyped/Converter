@@ -282,7 +282,7 @@ class GenSlinkyComponents(
               case None =>
                 (
                   TypeRef.Object,
-                  Res.One(TypeRef.Object.name, SplitProps(Empty)),
+                  Res.One(TypeRef.Object, SplitProps(Empty)),
                   mode.forWeb(slinkyWeb => DomInfo(IArray.Empty, slinkyWeb.AnyHtmlElement)),
                 )
             }
@@ -558,7 +558,8 @@ class GenSlinkyComponents(
         resProps match {
           case Res.Error(_)      => Empty // we could generate something, but there is already an `apply` in the parent
           case Res.One(_, props) => IArray(applyMethod(Name.APPLY, props))
-          case Res.Many(values)  => IArray.fromTraversable(values.map { case (name, props) => applyMethod(name, props) })
+          case Res.Many(values) =>
+            IArray.fromTraversable(values.map { case (propsRef, props) => applyMethod(propsRef.name, props) })
         }
 
       (
