@@ -58,12 +58,6 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], versions: Versions, res
 }
 
 object ZincCompiler {
-  private val classLoaderCacheKey = AttributeKey[ClassLoaderCache](
-    "class-loader-cache",
-    "Caches class loaders based on the classpath entries and last modified times.",
-    10,
-  )
-
   val task = Def.task {
     import Keys._
     import org.scalablytyped.converter.plugin.ScalablyTypedPluginBase.autoImport._
@@ -125,7 +119,7 @@ object ZincCompiler {
         dependencyResolution = resolver,
         compilerBridgeSource = scalaCompilerBridgeSource.value,
         scalaJarsTarget      = zincDir,
-        classLoaderCache     = st.get(classLoaderCacheKey),
+        classLoaderCache     = None,
         log                  = sbtLogger,
       )
 
