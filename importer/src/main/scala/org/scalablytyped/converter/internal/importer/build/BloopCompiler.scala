@@ -105,7 +105,7 @@ class BloopCompiler private (
 
     val classPath = {
       val fromExternalDeps: Array[AbsolutePath] =
-        Await.result(BloopCompiler.resolve(versions, externalDeps.toArray: _*)(ec), 10.seconds)
+        Await.result(BloopCompiler.resolve(versions, externalDeps.toArray: _*)(ExecutionContext.global), Duration.Inf)
 
       val fromDependencyJars: Set[AbsolutePath] =
         deps.collect { case Compiler.InternalDepJar(jar) => AbsolutePath(jar.toIO) }
