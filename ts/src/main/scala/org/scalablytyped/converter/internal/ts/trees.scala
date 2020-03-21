@@ -443,11 +443,12 @@ object TsQIdent {
   val Primitive =
     Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
 
-  val Array:    TsQIdent = TsQIdent.of("Array")
-  val Boolean:  TsQIdent = TsQIdent.of("Boolean")
-  val Function: TsQIdent = TsQIdent.of("Function")
-  val Object:   TsQIdent = TsQIdent.of("Object")
-  val String:   TsQIdent = TsQIdent.of("String")
+  val Array:         TsQIdent = TsQIdent.of("Array")
+  val ReadonlyArray: TsQIdent = TsQIdent.of("ReadonlyArray")
+  val Boolean:       TsQIdent = TsQIdent.of("Boolean")
+  val Function:      TsQIdent = TsQIdent.of("Function")
+  val Object:        TsQIdent = TsQIdent.of("Object")
+  val String:        TsQIdent = TsQIdent.of("String")
 
   object Std {
     val Array         = TsQIdent(IArray(TsIdent.std, TsIdent("Array")))
@@ -498,7 +499,7 @@ final case class TsTypeConstructor(signature: TsTypeFunction) extends TsType
 
 final case class TsTypeIs(ident: TsIdent, tpe: TsType) extends TsType
 
-final case class TsTypeAsserts(ident: TsIdentSimple) extends TsType
+final case class TsTypeAsserts(ident: TsIdentSimple, isOpt: Option[TsTypeRef]) extends TsType
 
 final case class TsTypeTuple(tparams: IArray[TsType]) extends TsType
 
@@ -622,10 +623,25 @@ object OptionalModifier {
   case object Deoptionalize extends OptionalModifier
 }
 
+sealed trait ReadonlyModifier {
+  def apply(wasReadonly: Boolean): Boolean =
+    this match {
+      case ReadonlyModifier.Noop => wasReadonly
+      case ReadonlyModifier.Yes  => true
+      case ReadonlyModifier.No   => false
+    }
+}
+
+object ReadonlyModifier {
+  case object Noop extends ReadonlyModifier
+  case object Yes extends ReadonlyModifier
+  case object No extends ReadonlyModifier
+}
+
 final case class TsMemberTypeMapped(
     comments:    Comments,
     level:       ProtectionLevel,
-    isReadOnly:  Boolean,
+    readonly:    ReadonlyModifier,
     key:         TsIdent,
     from:        TsType,
     optionalize: OptionalModifier,

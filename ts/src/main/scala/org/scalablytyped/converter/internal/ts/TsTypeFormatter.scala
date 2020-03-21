@@ -81,10 +81,14 @@ object TsTypeFormatter {
         valueType.map(tpe => s": ${apply(tpe)}"),
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
 
-    case TsMemberTypeMapped(_, l, isReadOnly, key, from, optionalize, to) =>
+    case TsMemberTypeMapped(_, l, readonly, key, from, optionalize, to) =>
       List[Option[String]](
         level(l),
-        if (isReadOnly) Some("readonly") else None,
+        readonly match {
+          case ReadonlyModifier.Noop => None
+          case ReadonlyModifier.Yes  => Some("readonly")
+          case ReadonlyModifier.No   => Some("-readonly")
+        },
         Some("["),
         Some(key.value),
         Some("in"),
@@ -121,7 +125,7 @@ object TsTypeFormatter {
       case TsTypeKeyOf(key)                         => s"keyof ${apply(key)}"
       case TsTypeLookup(from, key)                  => s"${apply(from)}[${apply(key)}]"
       case TsTypeThis()                             => "this"
-      case TsTypeAsserts(ident)                     => "asserts " + ident.value
+      case TsTypeAsserts(ident, isOpt)              => "asserts " + ident.value + isOpt.fold("")("is " + _)
       case TsTypeUnion(types)                       => types map apply mkString " | "
       case TsTypeIntersect(types)                   => types map apply mkString " & "
       case TsTypeConditional(pred, ifTrue, ifFalse) => s"${apply(pred)} ? ${apply(ifTrue)} : ${apply(ifFalse)}"

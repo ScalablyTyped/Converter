@@ -48,4 +48,16 @@ type AA = Partial<A>
 
     out.alias.shouldBe(TsTypeUnion(IArray("c", "d", "e", "f").map(str => TsTypeLiteral(TsLiteralString(str)))))
   }
+
+  test("Except from union type") {
+    pending
+    val out = run(s"""
+type Exclude<T, U> = T extends U ? never : T;
+export declare type PanelMode = 'time' | 'date' | 'week' | 'month' | 'year' | 'decade';
+export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
+""").extract[TsDeclTypeAlias]("PickerMode")
+
+    val Out = IArray("time", "date", "week", "month", "year").map(x => TsTypeLiteral(TsLiteralString(x)))
+    out.alias.shouldBe(TsTypeUnion(Out))
+  }
 }

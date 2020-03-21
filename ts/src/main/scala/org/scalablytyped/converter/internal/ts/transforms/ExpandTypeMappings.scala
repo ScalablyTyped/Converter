@@ -278,7 +278,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, from: TsTypeRef, _, _)) if scope.isAbstract(from.name) =>
           Problems(IArray(NotStatic(scope, from)))
 
-        case IsTypeMapping(TsMemberTypeMapped(_, level, isReadOnly, keyRef, from, optionalize, to)) =>
+        case IsTypeMapping(TsMemberTypeMapped(_, level, readOnly, keyRef, from, optionalize, to)) =>
           evaluateKeys(scope)(from).map { keys =>
             val all = IArray.fromTraversable(keys).map { key =>
               val replaced   = Replace(TsTypeRef.of(keyRef), key).visitTsType(scope)(to)
@@ -295,7 +295,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                 tpe        = Some(base),
                 expr       = None,
                 isStatic   = false,
-                isReadOnly = isReadOnly,
+                isReadOnly = readOnly(false), //todo!
                 isOptional = optionalize(wasOptional),
               )
             }
