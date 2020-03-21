@@ -1,6 +1,6 @@
 package typings.angular.mod
 
-import typings.angular.AnonArgs
+import typings.angular.Anon0
 import typings.angular.mod._Global_.Function
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -22,8 +22,8 @@ object auto extends js.Object {
     def get[T](name: String): T = js.native
     def get[T](name: String, caller: String): T = js.native
     def has(name: String): Boolean = js.native
-    def instantiate[T](typeConstructor: AnonArgs[T]): T = js.native
-    def instantiate[T](typeConstructor: AnonArgs[T], locals: js.Any): T = js.native
+    def instantiate[T](typeConstructor: Anon0[T]): T = js.native
+    def instantiate[T](typeConstructor: Anon0[T], locals: js.Any): T = js.native
     def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])]): T = js.native
     def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])], context: js.Any): T = js.native
     def invoke[T](func: Injectable[Function | (js.Function1[/* repeated */ _, T])], context: js.Any, locals: js.Any): T = js.native

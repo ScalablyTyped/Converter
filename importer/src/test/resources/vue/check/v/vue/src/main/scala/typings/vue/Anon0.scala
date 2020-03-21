@@ -1,4 +1,4 @@
-package typings.angular
+package typings.vue
 
 import org.scalablytyped.runtime.Instantiable1
 import scala.scalajs.js
@@ -6,6 +6,6 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnonArgs[T]
-  extends Instantiable1[/* args (repeated) */ js.Any, T]
+trait Anon0[T]
+  extends Instantiable1[/* args (repeated) */ js.Any, T with js.Object]
 

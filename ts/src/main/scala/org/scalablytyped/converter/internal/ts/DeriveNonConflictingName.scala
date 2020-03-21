@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package ts
 
-import scala.annotation.tailrec
+import seqs._
 
 /**
   * Sometimes we need to name things in Scala where they were anonymous in Typescript.
@@ -16,54 +16,107 @@ import scala.annotation.tailrec
   * of the members.
   */
 object DeriveNonConflictingName {
-  def pretty(str: String): String =
-    str.filter(_.isLetterOrDigit).capitalize
 
-  val ExtractNameParts: PartialFunction[TsTree, String] = {
-    case x: TsNamedDecl      => pretty(x.name.value)
-    case x: TsMemberProperty => pretty(x.name.value)
-    case x: TsMemberFunction => pretty(x.name.value)
-    case x: TsFunParam       => pretty(x.name.value)
-    case x: TsLiteral        => pretty(x.literal)
-    case TsMemberIndex(_, _, _, IndexingDict(name, _), _, _) => pretty(name.value)
-    case TsMemberIndex(_, _, _, IndexingSingle(name), _, _)  => pretty(name.parts.head.value)
-  }
+  def apply[T](prefix: String, minNumParts: Int, members: IArray[TsMember])(
+      tryCreate:       TsIdentSimple => Option[T],
+  ): T = {
+    val fromCalls: Option[Detail] = {
+      members.collect { case TsMemberCall(_, _, sig) => sig } match {
+        case Empty => None
+        case calls =>
+          val longest = calls.maxBy(_.params.length)
+          Some(Detail(s"Call${longest.params.length}"))
+      }
+    }
 
-  val ExtractNamePartsSecondary: PartialFunction[TsTree, String] = {
-    case x: TsTypeParam => pretty(x.name.value)
-    case x: TsTypeRef   => pretty(x.name.parts.last.value)
-  }
-
-  val ExtractNamePartsTertiary: PartialFunction[TsTree, String] = {
-    case x: TsQIdent         => pretty(x.parts.last.value)
-    case x: TsMemberProperty => if (x.isOptional) "Optional" else if (x.isReadOnly) "ReadOnly" else ""
-    case x: TsMemberFunction => if (x.isOptional) "Optional" else if (x.isReadOnly) "ReadOnly" else ""
-    case x: TsFunParam       => if (x.isOptional) "Optional" else ""
-  }
-
-  def apply[T](prefix: String, minNumParts: Int, members: IArray[TsTree])(tryCreate: TsIdentSimple => Option[T]): T = {
-    /* note, we sort below. This is beneficial from a consistency perspective, and
-     *   negative for the number of names we can generate. Prefer the former for now */
-    val names     = TsTreeTraverse.collectIArray(members)(ExtractNameParts).sorted
-    val secondary = TsTreeTraverse.collectIArray(members)(ExtractNamePartsSecondary).sorted
-    val tertiary  = TsTreeTraverse.collectIArray(members)(ExtractNamePartsTertiary).sorted
-    val base      = (prefix +: (names ++ secondary ++ tertiary)).distinct
-
-    @tailrec
-    def go(num: Int): T =
-      (num > base.length, base take num mkString "") match {
-        case (true, baseName) =>
-          tryCreate(TsIdent(baseName + "_" + math.abs(members.hashCode).toString)) getOrElse
-            sys.error("Could not derive unique name")
-
-        case (false, name) =>
-          tryCreate(TsIdent(name)) match {
-            case Some(ret) => ret
-            case None      => go(num + 1)
-          }
-
+    /** note, we sort below. This is beneficial from a consistency perspective, and
+      *  negative for the number of names we can generate. Prefer the former for now
+      */
+    val fromMembers: IArray[Detail] =
+      members.collect {
+        case x: TsMemberProperty =>
+          val short = Detail.pretty(x.name.value)
+          Detail(short, IArray.fromOptions(Some(short), Detail.prettyType(x.tpe)).mkString)
+        case TsMemberIndex(_, _, _, IndexingSingle(qname), _, tpe) =>
+          val short = Detail.pretty(qname.parts.last.value)
+          Detail(short, IArray.fromOptions(Some(short), Detail.prettyType(tpe)).mkString)
+        case x: TsMemberFunction => Detail(Detail.pretty(x.name.value))
       }
 
-    go(minNumParts)
+    val fromInstantiable: Option[Detail] =
+      members.collectFirst {
+        case TsMemberCtor(_, _, signature) =>
+          val short = "Instantiable"
+          Detail(
+            short,
+            IArray.fromOptions(Some(short), Detail.prettyType(signature.resultType)).mkString,
+          )
+      }
+
+    val fromDict: Option[Detail] =
+      members
+        .collectFirst {
+          case TsMemberIndex(_, _, _, IndexingDict(name, inType), isOptional, outType) =>
+            val optStr = if (isOptional) Some("Opt") else None
+            val short  = Detail.pretty("Dict" + name.value)
+            val long = IArray
+              .fromOptions(Some(short), Some(Detail.prettyType(inType)), optStr, Detail.prettyType(outType))
+              .mkString
+            Detail(short, long)
+        }
+
+    val details = fromMembers.sorted.distinct
+
+    val nameVariants: Stream[String] =
+      for {
+        longVersion <- Stream(false, true)
+        amount <- Stream(1, details.length + 1)
+        idx <- Stream.range(0, details.length)
+      } yield {
+        val pick = IArray.fromOptions(fromCalls, fromInstantiable, fromDict) ++ details.drop(idx).take(amount)
+        prefix + pick.map(_.pick(longVersion)).mkString("")
+      }
+
+    nameVariants
+      .firstDefined(name => tryCreate(TsIdent(name)))
+      .getOrElse(fallback(prefix, tryCreate))
+  }
+
+  private def fallback[T](prefix: String, tryCreate: TsIdentSimple => Option[T]): T = {
+    var idx = 0
+    while (true) {
+      tryCreate(TsIdent(prefix + idx)) match {
+        case Some(t) => return t
+        case _       => ()
+      }
+      idx += 1
+    }
+    sys.error("unreachable")
+  }
+
+  final case class Detail(short: String, long: String) {
+    def pick(wantLong: Boolean): String =
+      if (wantLong) long else short
+  }
+
+  object Detail {
+    def apply(s: String) = new Detail(s, s)
+
+    implicit val ordering: Ordering[Detail] = Ordering[String].on[Detail](_.short)
+
+    def pretty(str: String): String =
+      str.filter(_.isLetterOrDigit).capitalize
+
+    def prettyType(tpeOpt: Option[TsType]): Option[String] =
+      tpeOpt match {
+        case Some(tpe) => Some(prettyType(tpe))
+        case None      => None
+      }
+
+    def prettyType(tpe: TsType): String =
+      tpe match {
+        case TsTypeRef(_, name, _) => pretty(name.parts.last.value)
+        case _                     => ""
+      }
   }
 }

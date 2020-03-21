@@ -3,7 +3,7 @@ package typings.vue.vueMod
 import org.scalablytyped.runtime.Instantiable0
 import org.scalablytyped.runtime.Instantiable1
 import typings.std.Record
-import typings.vue.AnonCreateElement
+import typings.vue.AnonStaticRenderFns
 import typings.vue.optionsMod.AsyncComponent
 import typings.vue.optionsMod.ComponentOptions
 import typings.vue.optionsMod.DefaultComputed
@@ -32,7 +32,7 @@ Instantiable0[CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[Str
       CombinedVueInstance[V, js.Object, js.Object, js.Object, Record[String, js.Any]]
     ] {
   var config: VueConfiguration = js.native
-  def compile(template: String): AnonCreateElement = js.native
+  def compile(template: String): AnonStaticRenderFns = js.native
   def component(id: String): ExtendedVue[V, js.Object, js.Object, js.Object, js.Object] = js.native
   def component(
     id: String,

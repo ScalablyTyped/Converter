@@ -1,6 +1,6 @@
 package typings.vueResource.vuejs
 
-import typings.vueResource.AnonDelete
+import typings.vueResource.AnonCall1Delete
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Vue extends js.Object {
   @JSName("$http")
-  var $http_Original: AnonDelete = js.native
+  var $http_Original: AnonCall1Delete = js.native
   @JSName("$resource")
   var $resource_Original: resource = js.native
   @JSName("$http")

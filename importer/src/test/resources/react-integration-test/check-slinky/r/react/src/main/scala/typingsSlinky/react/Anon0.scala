@@ -5,18 +5,18 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnonDefaultPropsD extends js.Object {
+trait Anon0 extends js.Object {
   var defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any = js.native
 }
 
-object AnonDefaultPropsD {
+object Anon0 {
   @scala.inline
   def apply(
     defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
-  ): AnonDefaultPropsD = {
+  ): Anon0 = {
     val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
   
-    __obj.asInstanceOf[AnonDefaultPropsD]
+    __obj.asInstanceOf[Anon0]
   }
 }
 

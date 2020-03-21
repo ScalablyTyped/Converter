@@ -20,7 +20,7 @@ object ExtractInterfaces {
     def addInterface(
         scope:       TsTreeScope,
         prefix:      String,
-        members:     IArray[TsTree],
+        members:     IArray[TsMember],
         minNumParts: Int,
         construct:   TsIdentSimple => TsDeclInterface,
     ): CodePath.HasPath = {

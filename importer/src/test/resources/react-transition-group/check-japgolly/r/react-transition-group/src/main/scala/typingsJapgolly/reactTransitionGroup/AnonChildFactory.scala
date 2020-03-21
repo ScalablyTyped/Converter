@@ -7,16 +7,16 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnonChild extends js.Object {
+trait AnonChildFactory extends js.Object {
   var childFactory: js.UndefOr[js.Function1[/* child */ Element, Element]] = js.native
 }
 
-object AnonChild {
+object AnonChildFactory {
   @scala.inline
-  def apply(childFactory: /* child */ Element => CallbackTo[Element] = null): AnonChild = {
+  def apply(childFactory: /* child */ Element => CallbackTo[Element] = null): AnonChildFactory = {
     val __obj = js.Dynamic.literal()
     if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ japgolly.scalajs.react.raw.React.Element) => childFactory(t0).runNow()))
-    __obj.asInstanceOf[AnonChild]
+    __obj.asInstanceOf[AnonChildFactory]
   }
 }
 

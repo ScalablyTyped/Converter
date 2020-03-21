@@ -38,7 +38,7 @@ package object optionsMod {
   ]
   type InjectKey = java.lang.String | js.Symbol
   type InjectOptions = (org.scalablytyped.runtime.StringDictionary[typings.vue.optionsMod.InjectKey | typings.vue.AnonDefault]) | js.Array[java.lang.String]
-  type Prop[T] = js.Function0[T] | typings.vue.AnonArgs[T]
+  type Prop[T] = js.Function0[T] | typings.vue.Anon0[T]
   type PropValidator[T] = typings.vue.optionsMod.PropOptions[T] | typings.vue.optionsMod.Prop[T] | js.Array[typings.vue.optionsMod.Prop[T]]
   type PropsDefinition[T] = typings.vue.optionsMod.ArrayPropsDefinition[T] | typings.vue.optionsMod.RecordPropsDefinition[T]
   type RecordPropsDefinition[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 

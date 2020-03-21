@@ -1,21 +1,21 @@
-package typingsSlinky.reactTransitionGroup
+package typings.reactTransitionGroup
 
-import slinky.core.facade.ReactElement
+import typings.react.mod.ReactElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnonChild extends js.Object {
+trait AnonChildFactory extends js.Object {
   var childFactory: js.UndefOr[js.Function1[/* child */ ReactElement, ReactElement]] = js.native
 }
 
-object AnonChild {
+object AnonChildFactory {
   @scala.inline
-  def apply(childFactory: /* child */ ReactElement => ReactElement = null): AnonChild = {
+  def apply(childFactory: /* child */ ReactElement => ReactElement = null): AnonChildFactory = {
     val __obj = js.Dynamic.literal()
     if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1(childFactory))
-    __obj.asInstanceOf[AnonChild]
+    __obj.asInstanceOf[AnonChildFactory]
   }
 }
 

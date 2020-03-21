@@ -8,20 +8,20 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnonGlobal
+trait AnonDictkeyGlobal
   extends /* key */ StringDictionary[js.Any] {
   var global: ChartOptions with ChartFontOptions = js.native
 }
 
-object AnonGlobal {
+object AnonDictkeyGlobal {
   @scala.inline
   def apply(
     global: ChartOptions with ChartFontOptions,
     StringDictionary: /* key */ StringDictionary[js.Any] = null
-  ): AnonGlobal = {
+  ): AnonDictkeyGlobal = {
     val __obj = js.Dynamic.literal(global = global.asInstanceOf[js.Any])
     if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    __obj.asInstanceOf[AnonGlobal]
+    __obj.asInstanceOf[AnonDictkeyGlobal]
   }
 }
 

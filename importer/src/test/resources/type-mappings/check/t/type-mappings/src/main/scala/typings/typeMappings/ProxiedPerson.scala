@@ -8,12 +8,12 @@ import scala.scalajs.js.annotation._
 @js.native
 trait ProxiedPerson extends js.Object {
   var age: AnonGet = js.native
-  var name: AnonGetSet = js.native
+  var name: AnonSet = js.native
 }
 
 object ProxiedPerson {
   @scala.inline
-  def apply(age: AnonGet, name: AnonGetSet): ProxiedPerson = {
+  def apply(age: AnonGet, name: AnonSet): ProxiedPerson = {
     val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any])
   
     __obj.asInstanceOf[ProxiedPerson]
