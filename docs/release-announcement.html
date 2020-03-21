@@ -1,60 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Beta release announcement! · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="It&#x27;s a great pleasure to finally open source the ScalablyTyped converter "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Beta release announcement! · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="It&#x27;s a great pleasure to finally open source the ScalablyTyped converter "/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>ScalablyTyped</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">ScalablyTyped<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/readme">The Javascript ecosystem for Scala.js!</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/release-announcement">Beta release announcement!</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin">Getting started - SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem"><a class="navItem" href="/docs/flavour">Flavour</a></li><li class="navListItem"><a class="navItem" href="/docs/encoding">Anticipated questions about encoding</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
-            var coll = document.getElementsByClassName('collapsible');
-            var checkActiveCategory = true;
-            for (var i = 0; i < coll.length; i++) {
-              var links = coll[i].nextElementSibling.getElementsByTagName('*');
-              if (checkActiveCategory){
-                for (var j = 0; j < links.length; j++) {
-                  if (links[j].classList.contains('navListItemActive')){
-                    coll[i].nextElementSibling.classList.toggle('hide');
-                    coll[i].childNodes[1].classList.toggle('rotate');
-                    checkActiveCategory = false;
-                    break;
-                  }
-                }
-              }
-
-              coll[i].addEventListener('click', function() {
-                var arrow = this.childNodes[1];
-                arrow.classList.toggle('rotate');
-                var content = this.nextElementSibling;
-                content.classList.toggle('hide');
-              });
-            }
-
-            document.addEventListener('DOMContentLoaded', function() {
-              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
-              createToggler('#tocToggler', 'body', 'tocActive');
-
-              var headings = document.querySelector('.toc-headings');
-              headings && headings.addEventListener('click', function(event) {
-                var el = event.target;
-                while(el !== headings){
-                  if (el.tagName === 'A') {
-                    document.body.classList.remove('tocActive');
-                    break;
-                  } else{
-                    el = el.parentNode;
-                  }
-                }
-              }, false);
-
-              function createToggler(togglerSelector, targetSelector, className) {
-                var toggler = document.querySelector(togglerSelector);
-                var target = document.querySelector(targetSelector);
-
-                if (!toggler) {
-                  return;
-                }
-
-                toggler.onclick = function(event) {
-                  event.preventDefault();
-
-                  target.classList.toggle(className);
-                };
-              }
-            });
-        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Beta release announcement!</h1></header><article><div><span><p>It's a great pleasure to finally open source the ScalablyTyped converter
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Beta release announcement! · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="It&#x27;s a great pleasure to finally open source the ScalablyTyped converter "/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Beta release announcement! · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="It&#x27;s a great pleasure to finally open source the ScalablyTyped converter "/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"></ul></nav></div></header></div></div><div class="navPusher singleRowMobileNav"><div class="docMainWrapper wrapper"><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Beta release announcement!</h1></header><article><div><span><p>It's a great pleasure to finally open source the ScalablyTyped converter
 and release the project as an sbt plugin.</p>
 <p>You now decide your own Scala version, your own Scala.js version and your own versions of libraries.</p>
 <p>All projects built with the plugin will now continue to build forever, as opposed to the old distribution method
@@ -86,4 +30,4 @@ It should be easy once you see the pattern. Most module names will have lost par
 module for each library is now simply called <code>mod</code>.</p>
 <p>Consult <a href="https://github.com/ScalablyTyped/SlinkyTypedDemos/commit/e135fc55aeaf53162d9cd472f5cc0bee76bdabe0">this commit</a>
 to see what was needed to port the Slinky demos.</p>
-</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/readme"><span class="arrow-prev">← </span><span>The Javascript ecosystem for Scala.js!</span></a><a class="docs-next button" href="/docs/plugin"><span>Getting started - SBT plugin</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#important-changes">Important changes:</a><ul class="toc-headings"><li><a href="#the-published-scalablytyped-distributionhttpsgithubcomoyvindbergscalablytyped-is-deprecated">The <a href="https://github.com/oyvindberg/ScalablyTyped">published ScalablyTyped distribution</a> is deprecated.</a></li><li><a href="#facades-are-deprecated">Facades are deprecated</a></li><li><a href="#new-naming-convention">New naming convention</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/oyvindberg/ScalablyTypedConverter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
+</span></div></article></div><div class="docs-prevnext"></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#important-changes">Important changes:</a><ul class="toc-headings"><li><a href="#the-published-scalablytyped-distributionhttpsgithubcomoyvindbergscalablytyped-is-deprecated">The <a href="https://github.com/oyvindberg/ScalablyTyped">published ScalablyTyped distribution</a> is deprecated.</a></li><li><a href="#facades-are-deprecated">Facades are deprecated</a></li><li><a href="#new-naming-convention">New naming convention</a></li></ul></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/oyvindberg/ScalablyTypedConverter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
