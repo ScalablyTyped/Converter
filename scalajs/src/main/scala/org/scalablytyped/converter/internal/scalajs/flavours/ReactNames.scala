@@ -41,7 +41,14 @@ class ReactNames(val outputPkg: Name) {
       "StatelessComponent",
     )
 
-  val isComponent: Set[QualifiedName] = ComponentNames.map(mod + Name(_))
+  val ComponentQNames: Set[QualifiedName] =
+    ComponentNames.map(mod + Name(_))
+
+  def isComponent(tr: TypeRef): Boolean =
+    tr match {
+      case TypeRef.Intersection(types) => types.exists(isComponent)
+      case other                       => ComponentQNames(other.typeName)
+    }
 
   // events
   val BaseSyntheticEvent = mod + Name("BaseSyntheticEvent")

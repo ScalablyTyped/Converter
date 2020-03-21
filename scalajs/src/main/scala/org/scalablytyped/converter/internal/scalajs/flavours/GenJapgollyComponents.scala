@@ -160,7 +160,11 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
       .map(p => p.copy(parameter = ToJapgollyTypes.visitParamTree(scope)(p.parameter)))
       .map {
         /* rewrite functions returning a Callback so that javascript land can call them */
-        case p @ Prop(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), Some(_), _), _) =>
+        case p @ Prop(
+              pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), Some(_), _),
+              _,
+              _,
+            ) =>
           /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
           p.copy(
             parameter = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = Some(TypeRef.undefined)),
@@ -169,7 +173,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
             },
           )
 
-        case p @ Prop(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), None, _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), None, _), _, _) =>
           p.copy(
             parameter = pt.copy(tpe = CallbackTo(retType)),
             asString  = Right(obj => s"""$obj.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)"""),
@@ -183,6 +187,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
                 defaultValue,
                 _,
               ),
+              _,
               _,
             ) =>
           def fn(obj: String) = {
@@ -207,7 +212,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
             asString  = Right(fn),
           )
 
-        case p @ Prop(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactElement, _, _), _, _), _, _) =>
           def fn(obj: String) =
             s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])"""
           p.copy(
@@ -215,7 +220,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
             asString  = Right(fn),
           )
 
-        case p @ Prop(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _) =>
+        case p @ Prop(pt @ ParamTree(name, _, TypeRef(japgolly.rawReactNode, _, _), _, _), _, _) =>
           def fn(obj: String) =
             s"""if (${name.value} != null) $obj.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])"""
           p.copy(
@@ -241,23 +246,18 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
           case ((propsRefOpt, hasKnownRef, tparams), components) =>
             val (propsRef, resProps): (TypeRef, Res[IArray[Prop]]) =
               propsRefOpt match {
-                case Some(props) =>
-                  val dealiased = FollowAliases(scope)(props)
+                case Some(propsRef) =>
+                  val resProps: Res[IArray[Prop]] =
+                    findProps.forType(
+                      propsRef,
+                      tparams,
+                      scope,
+                      memberToProp,
+                      maxNum             = FindProps.MaxParamsForMethod - additionalOptionalProps.length - /* children*/ 1,
+                      acceptNativeTraits = true,
+                    )
 
-                  val propsOpt: Option[Res[IArray[Prop]]] =
-                    scope lookup dealiased.typeName collectFirst {
-                      case (_cls: ClassTree, newScope) =>
-                        val cls = FillInTParams(_cls, newScope, dealiased.targs, tparams)
-                        findProps.forClassTree(
-                          cls,
-                          scope / cls,
-                          memberToProp,
-                          maxNum             = FindProps.MaxParamsForMethod - additionalOptionalProps.length - /* children*/ 1,
-                          acceptNativeTraits = true,
-                        )
-                    }
-
-                  props -> propsOpt.getOrElse(Res.Error(s"Could't extract props from ${props.typeName}."))
+                  propsRef -> resProps
 
                 case None =>
                   TypeRef.Object -> Res.One(TypeRef.Object.name, Empty)
@@ -430,12 +430,12 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
 
     val (refTypes, declaredChildren, _, _optionals, requireds, Empty) = {
       props.partitionCollect5(
-        { case Prop(ParamTree(names.ref, _, tpe, _, _), _) => tpe }, //refTypes
+        { case Prop(ParamTree(names.ref, _, tpe, _, _), _, _) => tpe }, //refTypes
         // take note of declared children, but saying `ReactNode` should be a noop
-        { case p @ Prop(ParamTree(names.children, _, tpe, _, _), _) if !isVdomNode(tpe) => p }, //declaredChildren
-        { case Prop(paramTree, _) if shouldIgnore(paramTree)                            => null },
-        { case Prop(p, Right(f))                                                        => p -> f }, //optionals
-        { case Prop(p, Left(str))                                                       => p -> str }, //requireds
+        { case p @ Prop(ParamTree(names.children, _, tpe, _, _), _, _) if !isVdomNode(tpe) => p }, //declaredChildren
+        { case Prop(paramTree, _, _) if shouldIgnore(paramTree)                            => null },
+        { case Prop(p, Right(f), _)                                                        => p -> f }, //optionals
+        { case Prop(p, Left(str), _)                                                       => p -> str }, //requireds
       )
     }
 
@@ -501,9 +501,9 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
       /* The children value can go in one of three places, depending... */
       val (requireds2, optionals2, formattedVarargsChildren) =
         declaredChildren.headOption match {
-          case Some(Prop(p, Left(str))) => ((p -> str) +: requireds, optionals, "")
-          case Some(Prop(p, Right(f)))  => (requireds, (p -> f) +: optionals, "")
-          case None                     => (requireds, optionals, "(children: _*)")
+          case Some(Prop(p, Left(str), _)) => ((p -> str) +: requireds, optionals, "")
+          case Some(Prop(p, Right(f), _))  => (requireds, (p -> f) +: optionals, "")
+          case None                        => (requireds, optionals, "(children: _*)")
         }
 
       MemberImpl.Custom(

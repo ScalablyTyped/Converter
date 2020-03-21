@@ -64,11 +64,54 @@ object FindProps {
           if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
           else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
         ),
+        Left(ref),
       ),
     )
 }
 
 final class FindProps(cleanIllegalNames: CleanIllegalNames) {
+
+  def forType(
+      typeRef:            TypeRef,
+      tparams:            IArray[TypeParamTree],
+      scope:              TreeScope,
+      memberToProp:       MemberToProp,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
+  ): Res[IArray[Prop]] =
+    FollowAliases(scope)(typeRef) match {
+      case TypeRef.Intersection(types) =>
+        val results: IArray[Res[IArray[Prop]]] =
+          types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits))
+
+        results.partitionCollect3({ case x @ Res.Error(_) => x }, { case x @ Res.Many(_) => x }, {
+          case x @ Res.One(_, _)                          => x
+        }) match {
+          case (Empty, Empty, ones, _) =>
+            Res.One(typeRef.name, ones.map(_.value).flatten.sorted.distinctBy(_.parameter.name))
+          case (Empty, _, _, _) =>
+            Res.Error("Support for combinations of intersection and union types not implemented")
+          case (errors, _, _, _) =>
+            Res.Error(s"Couldn't find props for $typeRef because: ${errors.map(_.msg).mkString(", ")}")
+        }
+      case TypeRef.Union(types) =>
+        Res.combine(types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits)))
+
+      case other =>
+        val retOpt = scope lookup other.typeName collectFirst {
+          case (_cls: ClassTree, newScope) =>
+            val cls = FillInTParams(_cls, newScope, other.targs, tparams)
+            forClassTree(
+              cls,
+              scope / cls,
+              memberToProp,
+              maxNum             = maxNum,
+              acceptNativeTraits = acceptNativeTraits,
+            )
+        }
+
+        retOpt.getOrElse(Res.Error(s"Could't extract props from $other because couldn't resolve ClassTree."))
+    }
 
   def forClassTree(
       cls:                ClassTree,
@@ -77,22 +120,6 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
       maxNum:             Int,
       acceptNativeTraits: Boolean,
   ): Res[IArray[Prop]] =
-    forClassTree(cls, scope, maxNum, acceptNativeTraits).map { eithers =>
-      eithers.mapNotNone {
-        case Left(prop)    => Some(prop)
-        case Right(member) => memberToProp(scope, member)
-      }.sorted
-    }
-
-  /**
-    * this is only exported separately from the other `forClassTree` overload because the slinky integration does weird things
-    */
-  def forClassTree(
-      cls:                ClassTree,
-      scope:              TreeScope,
-      maxNum:             Int,
-      acceptNativeTraits: Boolean,
-  ): Res[IArray[Either[Prop, MemberTree]]] =
     cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
@@ -103,6 +130,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
                 forClassTree(
                   FillInTParams(subCls, scope, subClsRef.targs, cls.tparams),
                   scope,
+                  memberToProp,
                   maxNum,
                   acceptNativeTraits,
                 )
@@ -137,8 +165,9 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
               .members
               .collect { case (x: MemberTree) => x }
               .groupBy(x => realNameFrom(x.annotations, x.name))
-              .map {
-                case (name, ms) => name -> Right(combine(ms).renamed(name))
+              .collect {
+                case (name, ms) if name =/= Name.APPLY && name =/= Name.namespaced =>
+                  name -> Right(combine(ms).renamed(name))
               }
 
           def go(p: ParentsResolver.Parent): Map[Name, Either[Prop, MemberTree]] =
@@ -153,20 +182,26 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
 
           Res.One(
             cls.name,
-            IArray.fromTraversable(
-              builder
-                .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
-                  val isRequired = parent.classTree.members.exists {
-                    case _: MethodTree => true
-                    case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
-                    case _: FieldTree => true
-                    case _ => false
+            IArray
+              .fromTraversable(
+                builder
+                  .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
+                    val isRequired = parent.classTree.members.exists {
+                      case _: MethodTree => true
+                      case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
+                      case _: FieldTree => true
+                      case _ => false
+                    }
+                    FindProps.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
                   }
-                  FindProps.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
-                }
-                .allParamsUnique
-                .values,
-            ),
+                  .allParamsUnique
+                  .values,
+              )
+              .mapNotNone {
+                case Left(prop)    => Some(prop)
+                case Right(member) => memberToProp(scope, member)
+              }
+              .sorted,
           )
         }
     }

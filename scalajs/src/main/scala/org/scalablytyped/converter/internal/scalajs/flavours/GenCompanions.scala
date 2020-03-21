@@ -91,8 +91,8 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
       case Empty => None
       case props =>
         val (optionals, inLiterals, Empty) = props.partitionCollect2(
-          { case Prop(_, Right(f))  => f },
-          { case Prop(_, Left(str)) => str },
+          { case Prop(_, Right(f), _)  => f },
+          { case Prop(_, Left(str), _) => str },
         )
         val typeName = typeCp.parts.last
 

@@ -26,10 +26,10 @@ object GenSlinkyComponents {
 
   case class SplitProps(props: IArray[Prop]) {
     val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
-      { case Prop(ParamTree(Name("ref"), _, tpe, _, _), _)       => tpe },
-      { case Prop(pt, _) if GenSlinkyComponents.shouldIgnore(pt) => null },
-      { case Prop(p, Right(f))                                   => p -> f },
-      { case Prop(p, Left(str))                                  => p -> str },
+      { case Prop(ParamTree(Name("ref"), _, tpe, _, _), _, _)       => tpe },
+      { case Prop(pt, _, _) if GenSlinkyComponents.shouldIgnore(pt) => null },
+      { case Prop(p, Right(f), _)                                   => p -> f },
+      { case Prop(p, Left(str), _)                                  => p -> str },
     )
     val optionals = _optionals ++ AdditionalOptionalParams
 
@@ -210,7 +210,7 @@ class GenSlinkyComponents(
     )
 
     val components: IArray[CastConversion] =
-      IArray.fromTraversable(reactNames.isComponent.map(from => CastConversion(from, ReactComponentClass, _1)))
+      IArray.fromTraversable(reactNames.ComponentQNames.map(from => CastConversion(from, ReactComponentClass, _1)))
 
     val shared = scalaJsDomNames.AllExceptDeprecated ++ base ++ components
     mode match {
@@ -262,28 +262,20 @@ class GenSlinkyComponents(
           val (propsRef, resProps, domInfo): (TypeRef, Res[SplitProps], Mode[Unit, DomInfo]) =
             propsRefOpt match {
               case Some(propsRef) =>
-                val propsTraitOpt: Option[ClassTree] = {
-                  val dealiased = FollowAliases(scope)(propsRef)
+                val resProps = findProps.forType(
+                  propsRef,
+                  tparams,
+                  scope,
+                  memberToProp,
+                  maxNum             = FindProps.MaxParamsForMethod - AdditionalOptionalParams.length,
+                  acceptNativeTraits = true,
+                )
 
-                  scope lookup dealiased.typeName collectFirst {
-                    case (cls: ClassTree, newScope) if cls.classType === ClassType.Trait =>
-                      FillInTParams(cls, newScope, dealiased.targs, tparams)
-                  }
-                }
-
-                (propsTraitOpt, withDomProps) match {
-                  case (None, _) =>
-                    (
-                      propsRef,
-                      Res.Error(s"${propsRef.typeName} was not a @ScalaJSDefined trait"),
-                      mode.forWeb(slinkyWeb => DomInfo(IArray.Empty, slinkyWeb.AnyHtmlElement)),
-                    )
-
-                  case (Some(propsTrait), Native(())) =>
-                    (propsRef, nativeProps(scope, propsTrait), Native(()))
-
-                  case (Some(propsTrait), Web((slinkyWeb, domFields))) =>
-                    val (props, domInfo) = webProps(scope, propsTrait, slinkyWeb, domFields)
+                withDomProps match {
+                  case Native(()) =>
+                    (propsRef, resProps.map(SplitProps), Native(()))
+                  case Web((slinkyWeb, domFields)) =>
+                    val (props, domInfo) = webProps(scope, resProps, slinkyWeb, domFields)
                     (propsRef, props, Web(domInfo))
                 }
 
@@ -320,37 +312,22 @@ class GenSlinkyComponents(
     }
   }
 
-  def nativeProps(scope: TreeScope, propsTrait: ClassTree): Res[SplitProps] =
-    findProps
-      .forClassTree(
-        propsTrait,
-        scope / propsTrait,
-        memberToProp,
-        maxNum             = FindProps.MaxParamsForMethod - AdditionalOptionalParams.length,
-        acceptNativeTraits = true,
-      )
-      .map(SplitProps)
-
   def webProps(
       scope:      TreeScope,
-      propsTrait: ClassTree,
+      resPropsIn: Res[IArray[Prop]],
       slinkyWeb:  SlinkyWeb,
       domFields:  Map[Name, TypeRef],
   ): (Res[SplitProps], DomInfo) = {
     val domPropsBuilder = IArray.Builder.empty[FieldTree]
 
-    val resProps: Res[SplitProps] =
-      findProps
-        .forClassTree(propsTrait, scope / propsTrait, Int.MaxValue, acceptNativeTraits = true)
-        .map(
-          _.flatMap {
-            case Left(param) if param.parameter.tpe.typeName === QualifiedName.StringDictionary => Empty
-            case Left(param)                                                                    => IArray(param)
-            case Right(fieldTree: FieldTree) =>
-              val param = memberToProp(scope, fieldTree)
-
+    val resPropsOut: Res[SplitProps] =
+      resPropsIn.map { props =>
+        val rewrittenProps = props
+          .filter {
+            case Prop(param, _, _) if param.tpe.typeName === QualifiedName.StringDictionary => false
+            case prop @ Prop(_, _, Right(fieldTree: FieldTree)) =>
               val isOptionalDom: Boolean =
-                if (param.exists(!_.isOptional)) false
+                if (!prop.isOptional) false
                 else
                   domFields.get(fieldTree.name) match {
                     case Some(tpe) =>
@@ -364,14 +341,15 @@ class GenSlinkyComponents(
 
               if (isOptionalDom) {
                 domPropsBuilder += fieldTree
-                Empty
-              } else IArray.fromOption(param)
+                false
+              } else true
 
-            case Right(methodTree: MethodTree) => IArray.fromOption(memberToProp(scope, methodTree))
-          }.sorted
-            .take(FindProps.MaxParamsForMethod),
-        )
-        .map(params => SplitProps(params))
+            case _ => true
+          }
+          .take(FindProps.MaxParamsForMethod)
+
+        SplitProps(rewrittenProps)
+      }
 
     val domProps = domPropsBuilder.result().distinct
 
@@ -386,7 +364,7 @@ class GenSlinkyComponents(
           referencedElements.firstDefined(slinkyWeb.ElementMapping.get)
         }
 
-    (resProps, DomInfo(domProps, inferredDomType getOrElse slinkyWeb.AnyHtmlElement))
+    (resPropsOut, DomInfo(domProps, inferredDomType getOrElse slinkyWeb.AnyHtmlElement))
   }
 
   def genSharedPropsClass(

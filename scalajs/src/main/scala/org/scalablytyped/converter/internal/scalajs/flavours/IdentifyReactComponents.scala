@@ -57,7 +57,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     }
 
     go(tree, scope)
-      .filterNot(c => reactNames.isComponent(c.scalaRef.typeName))
+      .filterNot(c => reactNames.isComponent(c.scalaRef))
       .map(_.rewritten(scope, Wildcards.Remove))
   }
 
@@ -139,7 +139,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
   def maybeFieldComponent(field: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (reactNames.isComponent(current.typeName)) {
+      if (reactNames.isComponent(current)) {
         Some(current)
       } else {
         scope
@@ -201,7 +201,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, IArray.first(props), _), _) if reactNames isComponent qname =>
+        case (tr @ TypeRef(_, IArray.first(props), _), _) if reactNames isComponent tr =>
           Component(
             location         = locationFrom(scope),
             scalaRef         = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),

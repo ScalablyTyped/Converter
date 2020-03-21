@@ -955,4 +955,27 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
 
   def nonEmptyOpt: Option[IArray[A]] =
     if (isEmpty) None else Some(this)
+
+  @inline def distinctBy[B](f: A => B): IArray[A] = {
+    if (isEmpty) {
+      return this
+    }
+
+    val set = mutable.Set.empty[B]
+    val ret = array.clone()
+    var i   = 0
+    var o   = 0
+    while (i < length) {
+      val a = apply(i)
+      val b = f(a)
+      if (!set(b)) {
+        set.add(b)
+        ret(o) = a
+        o += 1
+      }
+      i += 1
+    }
+
+    fromArrayAndSize[A](ret, o)
+  }
 }
