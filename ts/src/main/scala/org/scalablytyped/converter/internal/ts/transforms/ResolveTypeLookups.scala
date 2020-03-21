@@ -21,15 +21,15 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
     else tpe
 
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
-    ExpandTypeMappings.evaluateKeys(scope)(lookup.key) match {
-      case ExpandTypeMappings.Ok(strings, _) =>
+    ExpandTypeMappings.evaluateKeys(scope, LoopDetector.initial)(lookup.key) match {
+      case ExpandTypeMappings.Ok(keys, _) =>
         FollowAliases(scope)(lookup.from) match {
           case TsTypeRef(_, name, _) if scope isAbstract name => None
           case fromTypeRef: TsTypeRef =>
             val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
-            pick(members, strings)
+            pick(members, keys)
 
-          case TsTypeObject(_, members) => pick(members, strings)
+          case TsTypeObject(_, members) => pick(members, keys)
           case _                        => None
         }
       case _ => None
@@ -37,7 +37,7 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   val NonStatic = false
 
-  def pick(members: IArray[TsMember], strings: Set[String]): Option[TsType] =
+  def pick(members: IArray[TsMember], strings: Set[TsLiteral]): Option[TsType] =
     if (strings.isEmpty) {
       members.collectFirst {
         case TsMemberIndex(_, _, _, _, isOptional, valueType) =>
@@ -49,12 +49,12 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
         case other           => Some(other)
       }
 
-  def pick(members: IArray[TsMember], Wanted: String): TsType = {
+  def pick(members: IArray[TsMember], wanted: TsLiteral): TsType = {
     val (functions, fields, _) = members.partitionCollect2(
-      { case TsMemberFunction(_, _, TsIdent(Wanted), sig, NonStatic, _, false) => sig }, {
-        case TsMemberProperty(_, _, TsIdent(Wanted), tpeOpt, _, NonStatic, _, isOptional) =>
+      { case TsMemberFunction(_, _, TsIdent(wanted.literal), sig, NonStatic, _, false) => sig }, {
+        case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _, isOptional) =>
           optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
-        case TsMemberFunction(_, _, TsIdent(Wanted), sig, NonStatic, _, _) => TsTypeFunction(sig)
+        case TsMemberFunction(_, _, TsIdent(wanted.literal), sig, NonStatic, _, _) => TsTypeFunction(sig)
       },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {

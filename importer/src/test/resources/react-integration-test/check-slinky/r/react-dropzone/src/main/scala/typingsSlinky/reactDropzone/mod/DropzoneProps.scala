@@ -2,66 +2,14 @@ package typingsSlinky.reactDropzone.mod
 
 import org.scalajs.dom.raw.HTMLElement
 import typingsSlinky.react.mod.DragEvent
-import typingsSlinky.react.mod.DragEventHandler
 import typingsSlinky.react.mod._Global_.JSX.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* Inlined parent react-dropzone.react-dropzone.DropzoneOptions */
 @js.native
-trait DropzoneProps extends js.Object {
-  var accept: js.UndefOr[String | js.Array[String]] = js.native
+trait DropzoneProps extends DropzoneOptions {
   var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.native
-  var disabled: js.UndefOr[Boolean] = js.native
-  var getFilesFromEvent: js.UndefOr[
-    js.Function1[
-      /* event */ DropEvent, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _
-    ]
-  ] = js.native
-  var maxSize: js.UndefOr[Double] = js.native
-  var minSize: js.UndefOr[Double] = js.native
-  var multiple: js.UndefOr[Boolean] = js.native
-  var noClick: js.UndefOr[Boolean] = js.native
-  var noDrag: js.UndefOr[Boolean] = js.native
-  var noDragEventsBubbling: js.UndefOr[Boolean] = js.native
-  var noKeyboard: js.UndefOr[Boolean] = js.native
-  var onDragEnter: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
-  var onDragLeave: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
-  var onDragOver: js.UndefOr[DragEventHandler[HTMLElement]] = js.native
-  var onDrop: js.UndefOr[
-    js.Function3[
-      /* acceptedFiles */ js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-      ], 
-      /* rejectedFiles */ js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-      ], 
-      /* event */ DropEvent, 
-      Unit
-    ]
-  ] = js.native
-  var onDropAccepted: js.UndefOr[
-    js.Function2[
-      /* files */ js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-      ], 
-      /* event */ DropEvent, 
-      Unit
-    ]
-  ] = js.native
-  var onDropRejected: js.UndefOr[
-    js.Function2[
-      /* files */ js.Array[
-        /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
-      ], 
-      /* event */ DropEvent, 
-      Unit
-    ]
-  ] = js.native
-  var onFileDialogCancel: js.UndefOr[js.Function0[Unit]] = js.native
-  var preventDropOnDocument: js.UndefOr[Boolean] = js.native
 }
 
 object DropzoneProps {

@@ -5,7 +5,7 @@ package parser
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 
-class TypeExpansion extends AnyFunSuite with Matchers with TypeExpansionHarness {
+class TypeExpansionTest extends AnyFunSuite with Matchers with TypeExpansionHarness {
 
   test("Partial") {
 
@@ -50,14 +50,60 @@ type AA = Partial<A>
   }
 
   test("Except from union type") {
-    pending
     val out = run(s"""
 type Exclude<T, U> = T extends U ? never : T;
 export declare type PanelMode = 'time' | 'date' | 'week' | 'month' | 'year' | 'decade';
 export declare type PickerMode = Exclude<PanelMode, 'datetime' | 'decade'>;
-""").extract[TsDeclTypeAlias]("PickerMode")
+""").extract[TsDeclEnum]("PickerMode")
 
-    val Out = IArray("time", "date", "week", "month", "year").map(x => TsTypeLiteral(TsLiteralString(x)))
-    out.alias.shouldBe(TsTypeUnion(Out))
+    val expected = Set("time", "date", "week", "month", "year")
+
+    out.members.map(_.name.value).toSet.shouldBe(expected)
+  }
+
+  test("circular") {
+    val out = run(s"""
+
+        interface ToJsonOutput {
+            children?: Array<ToJsonOutput & { name?: string }>;
+        }
+
+        interface Array<T>{}
+""").extract[TsDeclInterface]("ToJsonOutput")
+
+    val expected =
+      TsMemberProperty(
+        NoComments,
+        ProtectionLevel.Default,
+        TsIdentSimple("children"),
+        Some(
+          TsTypeRef(
+            NoComments,
+            TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("Array"))),
+            IArray(
+              TsTypeIntersect(
+                IArray(
+                  TsTypeRef(
+                    NoComments,
+                    TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("ToJsonOutput"))),
+                    IArray(),
+                  ),
+                  TsTypeRef(
+                    NoComments,
+                    TsQIdent(IArray(TsIdentLibrarySimple("testing"), TsIdentSimple("Anon_Name"))),
+                    IArray(),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        None,
+        false,
+        false,
+        true,
+      )
+
+    out.membersByName(TsIdent("children")).shouldBe(IArray(expected))
   }
 }

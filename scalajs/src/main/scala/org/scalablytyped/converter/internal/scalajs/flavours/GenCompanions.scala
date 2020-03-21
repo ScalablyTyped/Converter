@@ -37,7 +37,7 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
                   .map(method =>
                     ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false),
                   )
-                  .filter(ensureNotTooManyStrings)
+                  .filter(ensureNotTooManyStrings(scope))
 
               IArray.fromOptions(Some(cls), modOpt)
 
@@ -49,7 +49,7 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
 
               val modOpt: Option[ModuleTree] =
                 Some(ModuleTree(Empty, cls.name, Empty, methods, NoComments, cls.codePath, isOverride = false))
-                  .filter(ensureNotTooManyStrings)
+                  .filter(ensureNotTooManyStrings(scope))
 
               IArray.fromOptions(Some(cls), modOpt)
           }
@@ -63,13 +63,19 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
     * [E] [E-1] Error while emitting typingsJapgolly/csstype/csstypeMod/StandardLonghandPropertiesHyphenFallback$
     * [E]       UTF8 string too large
     */
-  def ensureNotTooManyStrings(mod: ModuleTree): Boolean = {
+  def ensureNotTooManyStrings(scope: TreeScope)(mod: ModuleTree): Boolean = {
     val MaxWeight = 32768 // an estimate. If you see the error again, decrease this
 
+    object Dealias extends TreeTransformation {
+      override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef = FollowAliases(scope)(s)
+    }
+
     var stringLength = 0
-    TreeTraverse.foreach(mod) {
-      case QualifiedName(parts) => parts.foreach(p => stringLength += p.unescaped.length)
-      case _                    => ()
+
+    TreeTraverse.foreach(Dealias.visitModuleTree(scope)(mod)) {
+      case name: QualifiedName =>
+        name.parts.foreach(p => stringLength += p.unescaped.length)
+      case _ => ()
     }
 
     stringLength < MaxWeight

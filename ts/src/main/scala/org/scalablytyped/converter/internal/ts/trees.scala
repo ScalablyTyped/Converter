@@ -307,7 +307,7 @@ object TsTypeParam {
 sealed trait TsTerm extends TsTree
 
 sealed abstract class TsLiteral(repr: String) extends TsTerm {
-  def literal = repr
+  val literal = repr
 }
 
 final case class TsLiteralNumber(value: String) extends TsLiteral(value)

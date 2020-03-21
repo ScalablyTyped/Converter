@@ -1,15 +1,16 @@
-package typings.reactDropzone.mod
+package typings.reactDropzone
 
 import typings.react.mod.RefObject
+import typings.reactDropzone.mod.DropzoneInputProps
+import typings.reactDropzone.mod.DropzoneRootProps
 import typings.std.HTMLElement
 import typings.std.HTMLInputElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* Inlined react-dropzone.react-dropzone.DropzoneRef & {  isFocused  :boolean,   isDragActive  :boolean,   isDragAccept  :boolean,   isDragReject  :boolean,   isFileDialogActive  :boolean,   draggedFiles  :std.Array</ * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>,   acceptedFiles  :std.Array</ * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>,   rejectedFiles  :std.Array</ * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File * / any>,   rootRef  :react.react.RefObject<std.HTMLElement>,   inputRef  :react.react.RefObject<std.HTMLInputElement>, getRootProps (props ? : react-dropzone.react-dropzone.DropzoneRootProps): react-dropzone.react-dropzone.DropzoneRootProps, getInputProps (props ? : react-dropzone.react-dropzone.DropzoneInputProps): react-dropzone.react-dropzone.DropzoneInputProps} */
 @js.native
-trait DropzoneState extends js.Object {
+trait AnonAcceptedFiles extends js.Object {
   var acceptedFiles: js.Array[
     /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
   ] = js.native
@@ -30,6 +31,5 @@ trait DropzoneState extends js.Object {
   def getInputProps(props: DropzoneInputProps): DropzoneInputProps = js.native
   def getRootProps(): DropzoneRootProps = js.native
   def getRootProps(props: DropzoneRootProps): DropzoneRootProps = js.native
-  def open(): Unit = js.native
 }
 
