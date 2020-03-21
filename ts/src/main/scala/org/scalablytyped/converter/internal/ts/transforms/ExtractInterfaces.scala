@@ -17,14 +17,10 @@ object ExtractInterfaces {
   class ConflictHandlingStore(inLibrary: TsIdent) {
     val interfaces = mutable.Map.empty[TsIdent, TsDeclInterface]
 
-    def addInterface(
-        scope:       TsTreeScope,
-        prefix:      String,
-        members:     IArray[TsTree],
-        minNumParts: Int,
-        construct:   TsIdentSimple => TsDeclInterface,
+    def addInterface(scope: TsTreeScope, prefix: String, members: IArray[TsMember])(
+        construct:          TsIdentSimple => TsDeclInterface,
     ): CodePath.HasPath = {
-      val interface = DeriveNonConflictingName(prefix, minNumParts, members) { name =>
+      val interface = DeriveNonConflictingName(prefix, members) { name =>
         val interface = construct(name) withCodePath CodePath.HasPath(inLibrary, TsQIdent.of(name))
 
         interfaces get name match {
@@ -69,28 +65,31 @@ object ExtractInterfaces {
           val referencedTparams: IArray[TsTypeParam] =
             TypeParamsReferencedInTree(scope.tparams, obj)
 
-          val nameHint = obj.comments.extract {
-            case Markers.NameHint(hint) => hint
+          val prefix: String = {
+            def isFunction =
+              obj.members.forall {
+                case _: TsMemberCall => true
+                case _ => false
+              }
+
+            obj.comments.extract { case Markers.NameHint(hint) => hint } match {
+              case Some((nameHint, _)) => nameHint.take(25)
+              case None if isFunction  => DeriveNonConflictingName.Fn
+              case None                => DeriveNonConflictingName.Anon
+            }
           }
 
-          def isFunction = obj.members.forall { case _: TsMemberCall => true; case _ => false }
-
-          val codePath = store.addInterface(
-            scope,
-            nameHint.fold(if (isFunction) "Fn_" else "Anon_")(_._1),
-            obj.members,
-            minNumParts = nameHint.fold(2)(_ => 1),
-            name =>
-              TsDeclInterface(
-                nameHint.fold(obj.comments)(_._2),
-                declared = true,
-                name,
-                referencedTparams,
-                Empty,
-                obj.members,
-                CodePath.NoPath,
-              ),
-          )
+          val codePath = store.addInterface(scope, prefix, obj.members) { name =>
+            TsDeclInterface(
+              obj.comments.extract { case Markers.NameHint(hint) => hint }.fold(obj.comments)(_._2),
+              declared = true,
+              name,
+              referencedTparams,
+              Empty,
+              obj.members,
+              CodePath.NoPath,
+            )
+          }
 
           TsTypeRef(NoComments, codePath.codePath, TsTypeParam.asTypeArgs(referencedTparams))
 

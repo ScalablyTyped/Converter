@@ -19,9 +19,22 @@ final class LexerTests extends AnyFunSuite with Matchers {
       TsLexer.CommentLineToken("//A\n"),
     )
   }
+
   test("string literal") {
     shouldParseAs("`a`", TsLexer.stringLiteral)(
       TsLexer.StringLit("a"),
+    )
+  }
+
+  test("-readonly") {
+    shouldParseAs("-readonly", TsLexer.token)(
+      TsLexer.Keyword("-readonly"),
+    )
+  }
+
+  test("...") {
+    shouldParseAs("...", TsLexer.token)(
+      TsLexer.Keyword("..."),
     )
   }
 }

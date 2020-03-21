@@ -8,7 +8,7 @@ import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.facade.ReactElement
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent
-import slinky.web.html.`*`.tag
+import slinky.web.html.div.tag
 import typingsSlinky.react.mod.ReactText
 import typingsSlinky.reactContextmenu.mod.SubMenuProps
 import scala.scalajs.js
@@ -22,9 +22,10 @@ object SubMenu
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: className, disabled */
+  /* The following DOM/SVG props were specified: className */
   def apply(
     title: ReactElement | ReactText,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     hoverDelay: Int | Double = null,
     onClick: (js.Function3[
       /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
@@ -37,6 +38,7 @@ object SubMenu
     _overrides: StringDictionary[js.Any] = null
   ): BuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.SubMenu] = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
     if (hoverDelay != null) __obj.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick.asInstanceOf[js.Any])

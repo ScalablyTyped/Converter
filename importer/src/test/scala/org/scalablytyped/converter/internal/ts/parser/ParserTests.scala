@@ -1202,7 +1202,7 @@ final class ParserTests extends AnyFunSuite {
             TsMemberTypeMapped(
               NoComments,
               level       = ProtectionLevel.Default,
-              isReadOnly  = false,
+              readonly    = ReadonlyModifier.Noop,
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)),
               optionalize = OptionalModifier.Optionalize,
@@ -1239,7 +1239,7 @@ final class ParserTests extends AnyFunSuite {
             TsMemberTypeMapped(
               comments    = NoComments,
               level       = ProtectionLevel.Default,
-              isReadOnly  = false,
+              readonly    = ReadonlyModifier.Noop,
               key         = TsIdent("P"),
               from        = TsTypeRef(NoComments, TsQIdent.of("K"), Empty),
               optionalize = OptionalModifier.Noop,
@@ -1268,7 +1268,7 @@ final class ParserTests extends AnyFunSuite {
             TsMemberTypeMapped(
               NoComments,
               level       = ProtectionLevel.Default,
-              isReadOnly  = false,
+              readonly    = ReadonlyModifier.Noop,
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(T),
               optionalize = OptionalModifier.Noop,
@@ -1337,7 +1337,7 @@ type Readonly<T> = {
             TsMemberTypeMapped(
               comments    = NoComments,
               level       = ProtectionLevel.Default,
-              isReadOnly  = true,
+              readonly    = ReadonlyModifier.Yes,
               key         = TsIdentSimple("P"),
               from        = TsTypeKeyOf(T),
               optionalize = Noop,
@@ -2142,7 +2142,7 @@ type Readonly<T> = {
             TsMemberTypeMapped(
               NoComments,
               ProtectionLevel.Default,
-              isReadOnly = false,
+              ReadonlyModifier.Noop,
               TsIdentSimple("P"),
               TsTypeKeyOf(T),
               OptionalModifier.Deoptionalize,
@@ -2349,7 +2349,7 @@ type Readonly<T> = {
         IArray(
           TsTypeRef(NoComments, TsQIdent.number, Empty),
           TsTypeRef(NoComments, TsQIdent.number, Empty),
-          TsTypeRepeated(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)),
+          TsTypeRepeated(TsTypeRef(NoComments, TsQIdent.Array, IArray(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)))),
         ),
       ),
     )
@@ -2516,7 +2516,7 @@ export {};
       TsMemberTypeMapped(
         NoComments,
         ProtectionLevel.Default,
-        isReadOnly = false,
+        ReadonlyModifier.Noop,
         TsIdentSimple("key"),
         T,
         OptionalModifier.Optionalize,
@@ -2525,12 +2525,74 @@ export {};
     )
   }
 
-  test("asserts types") {
-    shouldParseAs("""asserts assertion""", TsParser.tsType)(
-      TsTypeAsserts(TsIdent("assertion")),
+  test("-readonly") {
+    shouldParseAs("""{-readonly [P in keyof T]: number}""", TsParser.tsMembers)(
+      IArray(
+        TsMemberTypeMapped(
+          NoComments,
+          ProtectionLevel.Default,
+          ReadonlyModifier.No,
+          TsIdentSimple("P"),
+          TsTypeKeyOf(T),
+          Noop,
+          TsTypeRef.number,
+        ),
+      ),
     )
   }
 
+  test("asserts types") {
+    shouldParseAs("""asserts assertion""", TsParser.tsType)(
+      TsTypeAsserts(TsIdent("assertion"), None),
+    )
+    shouldParseAs("""asserts actual is T""".stripMargin, TsParser.tsType)(TsTypeAsserts(TsIdent("actual"), Some(T)))
+  }
+
+  test("[string, ...PrimitiveArray]") {
+    shouldParseAs("""[string, ...PrimitiveArray]""", TsParser.tsTypeTuple)(
+      TsTypeTuple(IArray(TsTypeRef.string, TsTypeRepeated(TsTypeRef.of(TsIdentSimple("PrimitiveArray"))))),
+    )
+  }
+
+  test("expr with parents") {
+    shouldParseAs("""(1 << 2)""", TsParser.expr)(
+      TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("1")), "<<", TsExpr.Literal(TsLiteralNumber("2"))),
+    )
+  }
+
+  test("stray ;") {
+    shouldParseAs(
+      """|class A {
+         |  ;
+         |  public operator: string
+         |}""".stripMargin,
+      TsParser.tsDecl,
+    )(
+      TsDeclClass(
+        NoComments,
+        declared   = false,
+        isAbstract = false,
+        TsIdentSimple("A"),
+        IArray(),
+        None,
+        IArray(),
+        IArray(
+          TsMemberProperty(
+            NoComments,
+            ProtectionLevel.Default,
+            TsIdentSimple("operator"),
+            Some(TsTypeRef(NoComments, TsQIdent.string, IArray())),
+            None,
+            isStatic   = false,
+            isReadOnly = false,
+            isOptional = false,
+          ),
+        ),
+        Zero,
+        CodePath.NoPath,
+      ),
+    )
+  }
   test("expr") {
     shouldParseAs(
       """export declare const start = ActionTypes.Start""",
@@ -2574,7 +2636,7 @@ export {};
         TsExpr.Ref(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("WARNING"))), Empty)),
       ),
     )
-    shouldParseAs("""(LoggingLevel.ERROR)(6 + 7)""", TsParser.expr)(
+    shouldParseAs("""LoggingLevel.ERROR(6 + 7)""", TsParser.expr)(
       TsExpr.Call(
         TsExpr.Ref(
           TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR"))), Empty),
@@ -2603,10 +2665,27 @@ export {};
       ),
     )
 
-    shouldParseAs("""1e-7""", TsParser.expr)(TsExpr.Literal(TsLiteralNumber("1e-7")))
+    shouldParseAs("""1e-7""", TsParser.expr)(
+      TsExpr.Literal(TsLiteralNumber("1e-7")),
+    )
 
-//    shouldParseAs("""(0x000FFFFF + 1) >> 1""", TsParser.expr)(
-//      null
-//    )
+    shouldParseAs("""(0x000FFFF2 + 2)""", TsParser.expr)(
+      TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("0x000FFFF2")), "+", TsExpr.Literal(TsLiteralNumber("2"))),
+    )
+    shouldParseAs("""(4)""", TsParser.expr)(
+      TsExpr.Literal(TsLiteralNumber("4")),
+    )
+
+    shouldParseAs("""(4) >> 2""", TsParser.expr)(
+      TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("4")), ">>", TsExpr.Literal(TsLiteralNumber("2"))),
+    )
+
+    shouldParseAs("""(0x000FFFFF + 1) >> 2""", TsParser.expr)(
+      TsExpr.BinaryOp(
+        TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("0x000FFFFF")), "+", TsExpr.Literal(TsLiteralNumber("1"))),
+        ">>",
+        TsExpr.Literal(TsLiteralNumber("2")),
+      ),
+    )
   }
 }

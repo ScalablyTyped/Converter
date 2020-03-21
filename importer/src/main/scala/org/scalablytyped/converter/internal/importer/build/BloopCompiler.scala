@@ -12,6 +12,8 @@ import bloop.engine.NoPool
 import bloop.io.AbsolutePath
 import bloop.logging.{DebugFilter, Logger => BloopLogger}
 import com.olvind.logging.{Formatter, Logger}
+import coursier.cache.ArtifactError
+import coursier.error.FetchError
 import coursier.util.Task
 import coursier.{Attributes, Dependency, Fetch, Module}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
@@ -46,12 +48,22 @@ object BloopCompiler {
       attributes = Attributes(),
     )
 
-  def resolve(versions: Versions, deps: Dep*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] =
-    Fetch[Task]()
-      .withDependencies(deps map toCoursier(versions))
-      .io
-      .future()
-      .map(files => files.map(f => AbsolutePath(f)).toArray)
+  def resolve(versions: Versions, deps: Dep*)(implicit ec: ExecutionContext): Future[Array[AbsolutePath]] = {
+    def go(remainingAttempts: Int): Future[Array[AbsolutePath]] =
+      Fetch[Task]()
+        .withDependencies(deps map toCoursier(versions))
+        .io
+        .future()
+        .map(files => files.map(f => AbsolutePath(f)).toArray)
+        .recoverWith {
+          case x: FetchError.DownloadingArtifacts if remainingAttempts > 0 && x.errors.exists {
+                case (_, artifactError) => artifactError.isInstanceOf[ArtifactError.Recoverable]
+              } =>
+            go(remainingAttempts - 1)
+        }
+
+    go(remainingAttempts = 3)
+  }
 
   def apply(
       logger:                Logger[Unit],
@@ -105,7 +117,7 @@ class BloopCompiler private (
 
     val classPath = {
       val fromExternalDeps: Array[AbsolutePath] =
-        Await.result(BloopCompiler.resolve(versions, externalDeps.toArray: _*)(ec), 10.seconds)
+        Await.result(BloopCompiler.resolve(versions, externalDeps.toArray: _*)(ExecutionContext.global), Duration.Inf)
 
       val fromDependencyJars: Set[AbsolutePath] =
         deps.collect { case Compiler.InternalDepJar(jar) => AbsolutePath(jar.toIO) }

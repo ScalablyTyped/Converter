@@ -118,7 +118,7 @@ object Source {
           import jsonCodecs._
 
           val typingsJsonPath = fromFolder.folder.path / os.RelPath(path)
-          val typingsJson     = Json[TypingsJson](typingsJsonPath)
+          val typingsJson     = Json.force[TypingsJson](typingsJsonPath)
           IArray(InFile(typingsJsonPath / os.up / typingsJson.main))
         case _ => Empty
       }

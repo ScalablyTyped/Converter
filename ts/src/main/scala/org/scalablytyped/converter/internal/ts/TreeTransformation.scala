@@ -342,8 +342,9 @@ trait TreeTransformation[T] { self =>
 
   final def visitTsTypeAsserts(t: T)(x: TsTypeAsserts): TsTypeAsserts = {
     val xx = enterTsTypeAsserts(withTree(t, x))(x)
+    val tt = withTree(t, xx)
     xx match {
-      case TsTypeAsserts(_1) => TsTypeAsserts(_1)
+      case TsTypeAsserts(_1, _2) => TsTypeAsserts(_1, _2 map visitTsTypeRef(tt))
     }
   }
 

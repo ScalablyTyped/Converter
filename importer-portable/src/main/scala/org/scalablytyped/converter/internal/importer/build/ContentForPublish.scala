@@ -17,13 +17,12 @@ object ContentForPublish {
       paths:        CompilerPaths,
       p:            SbtProject,
       publication:  ZonedDateTime,
-      sourceFiles:  Layout[os.RelPath, Array[Byte]],
       externalDeps: Set[Dep],
   ): IvyLayout[os.RelPath, Array[Byte]] =
     IvyLayout(
       p          = p,
       jarFile    = createJar(publication)(paths.classesDir),
-      sourceFile = createJar(sourceFiles, publication),
+      sourceFile = createJar(publication)(paths.sourcesDir),
       ivyFile    = fromXml(ivy(v, p, publication, externalDeps)),
       pomFile    = fromXml(pom(v, p, externalDeps)),
     )
@@ -59,24 +58,6 @@ object ContentForPublish {
             jar.closeEntry()
           }
         }
-      }
-    } finally jar.close()
-
-    baos.toByteArray
-  }
-
-  def createJar(sourceFiles: Layout[os.RelPath, Array[Byte]], publication: ZonedDateTime): Array[Byte] = {
-    val baos = new ByteArrayOutputStream(1024 * 1024)
-    val jar  = new JarOutputStream(baos, createManifest())
-
-    try {
-      sourceFiles.all.foreach {
-        case (relFile, contents) =>
-          val entry = new JarEntry(relFile.toString)
-          entry.setTime(publication.toEpochSecond)
-          jar.putNextEntry(entry)
-          jar.write(contents)
-          jar.closeEntry()
       }
     } finally jar.close()
 

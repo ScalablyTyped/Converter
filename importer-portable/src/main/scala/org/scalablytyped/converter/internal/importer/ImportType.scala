@@ -120,8 +120,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         def c = Comments(Comment.warning(s"Unsupported type mapping: \n${TsTypeFormatter(tpe)}\n"))
 
         scope.stack collectFirst {
-          case x: TsDeclTypeAlias if x.name === TsIdent.Record =>
-            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams.head.name)), NoComments)
+          case x: TsDeclTypeAlias if x.codePath.forceHasPath.codePath === TsQIdent.Std.Record =>
+            TypeRef.StringDictionary(TypeRef(ImportName(x.tparams(1).name)), NoComments)
           case x: TsNamedDecl =>
             TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
         } getOrElse base.withComments(c)
@@ -205,15 +205,27 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeKeyOf(_) =>
         TypeRef.String
 
-      case TsTypeTuple(StrippedRepeat(targs)) =>
-        TypeRef(
-          QualifiedName.Array,
-          IArray(TypeRef.Union(targs map apply(wildcards.maybeAllow, scope, importName), false)),
-          NoComments,
-        )
-
       case TsTypeTuple(targs) =>
-        TypeRef.Tuple(targs map apply(wildcards.maybeAllow, scope, importName))
+        targs match {
+          case IArray.initLast(init, TsTypeRepeated(repeated)) =>
+            ts.FollowAliases(scope)(repeated) match {
+              case TsTypeRef(
+                  _,
+                  TsQIdent.Std.Array | TsQIdent.Std.ReadonlyArray | TsQIdent.Array | TsQIdent.ReadonlyArray,
+                  IArray.exactlyOne(elem),
+                  ) =>
+                TypeRef(
+                  importName(TsQIdent.Array),
+                  IArray(apply(wildcards, scope, importName)(TsTypeUnion(init :+ elem))).distinct,
+                  NoComments,
+                )
+              case other =>
+                val c = Comment.warning(s"repeated non-array type: ${TsTypeFormatter(other)}")
+                TypeRef(importName(TsQIdent.Array), Empty, Comments(c))
+            }
+          case nonRepeating =>
+            TypeRef.Tuple(nonRepeating map apply(wildcards.maybeAllow, scope, importName))
+        }
 
       case TsTypeRepeated(underlying) =>
         TypeRef.Repeated(apply(wildcards, scope, importName)(underlying), NoComments)
@@ -226,8 +238,8 @@ class ImportType(stdNames: QualifiedName.StdNames) {
             TypeRef.Boolean
         }
 
-      case TsTypeAsserts(ident) =>
-        TypeRef.Boolean.withComments(Comments(s"/* asserts ${ident.value} */"))
+      case TsTypeAsserts(ident, isOpt) =>
+        TypeRef.Boolean.withComments(Comments(s"/* asserts ${ident.value} ${isOpt.fold("")("is " + _)}*/"))
 
       case TsTypeLiteral(lit) =>
         lit match {
@@ -301,17 +313,4 @@ class ImportType(stdNames: QualifiedName.StdNames) {
     orAny(wildcards, scope / param, importName)(param.tpe) withOptional param.isOptional withComments Comments(
       s"/* ${param.name.value} */",
     )
-
-  private object StrippedRepeat {
-    def unapply(types: IArray[TsType]): Option[IArray[TsType]] = {
-      var found = false
-      val ret = types.map {
-        case TsTypeRepeated(x) =>
-          found = true
-          x
-        case other => other
-      }
-      if (found) Some(ret) else None
-    }
-  }
 }

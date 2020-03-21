@@ -16,7 +16,7 @@ object SuchTestMuchFail extends App {
     DTUpToDate(new Cmd(logger, None), args.contains("-offline"), defaultCacheFolder, constants.DefinitelyTypedRepo)
 
   val criterion: Double =
-    99.5
+    100.0
 
   def banner(): Unit =
     println(s"\n${"*" * 80}\n")
@@ -34,7 +34,7 @@ object SuchTestMuchFail extends App {
       .filter(_.toString.endsWith(".d.ts"))
       .toSeq
 
-  val parser = PersistingParser(Some(parseTempFolder.toNIO), IArray(dtFolder), logger.void)
+  val parser = PersistingParser(None, IArray(dtFolder), logger.void)
 
   val parsed: Seq[(os.Path, Either[String, TsParsedFile])] =
     allFiles.par.map { path: os.Path =>

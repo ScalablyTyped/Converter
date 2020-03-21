@@ -2,7 +2,12 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-final case class Prop(parameter: ParamTree, asString: Either[String, String => String]) {
+final case class Prop(
+    parameter: ParamTree,
+    asString:  Either[String, String => String],
+    /* should be unaffected by `CastConversion` rewrites */
+    original: Either[TypeRef, MemberTree],
+) {
   def isOptional = parameter.default.isDefined
 }
 

@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal.importer
 
 import org.scalablytyped.converter.Flavour
 import org.scalablytyped.converter.internal.scalajs.Name
-import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
+import org.scalablytyped.converter.internal.scalajs.flavours.{FlavourImpl, SlinkyFlavour}
 
 object flavourImpl {
   def apply(
@@ -18,7 +18,7 @@ object flavourImpl {
           outputPkg                = outputPackage,
         )
       case Flavour.Slinky =>
-        FlavourImpl.Slinky(outputPkg = outputPackage)
+        SlinkyFlavour(outputPkg = outputPackage)
       case Flavour.SlinkyNative =>
         FlavourImpl.SlinkyNative(outputPkg = outputPackage)
       case Flavour.Japgolly =>

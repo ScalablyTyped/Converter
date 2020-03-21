@@ -19,7 +19,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   override val lexical: TsLexer.type = TsLexer
 
   protected def perhapsParens[T](p: Parser[T]): Parser[T] =
-    p | Parser("(") ~> p <~ ")"
+    p | ("(" ~> p <~ ")")
 
   /** enable direct use of parsers with strings **/
   implicit def FromString[T](p: Parser[T]): String => ParseResult[T] =
@@ -70,12 +70,16 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       },
     )
 
-  val operator: Parser[String] =
-    accept(
-      "Operator", {
-        case lexical.Keyword(chars) if lexical.ops.contains(chars) => chars
-      },
-    )
+  val operator: Parser[String] = {
+    val ops = List("+", "-", "^", "|", "*", "/", "%", "as")
+
+    /* handle specially, since they will occur as two separate tokens */
+    val `<<`  = "<" ~> "<" ^^ (_ => "<<")
+    val `>>`  = ">" ~> ">" ^^ (_ => ">>")
+    val other = accept("Operator", { case lexical.Keyword(chars) if ops contains chars => chars })
+
+    `<<` | `>>` | other
+  }
 
   val comment: Parser[Comment] =
     accept(
@@ -338,7 +342,18 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     comments ~ isDeclared ~ (isAbstract <~ "class") ~ (hack.? ~ tsTypeParams).? ~ parent ~ implements ~ tsMembers ^^ {
       case cs ~ decl ~ abs ~ Some(ident ~ tparams) ~ par ~ impl ~ members =>
-        TsDeclClass(cs, decl, abs, ident.getOrElse(TsIdent.default), tparams, par, impl, members, JsLocation.Zero, CodePath.NoPath)
+        TsDeclClass(
+          cs,
+          decl,
+          abs,
+          ident.getOrElse(TsIdent.default),
+          tparams,
+          par,
+          impl,
+          members,
+          JsLocation.Zero,
+          CodePath.NoPath,
+        )
       case cs ~ decl ~ abs ~ None ~ par ~ impl ~ members =>
         TsDeclClass(cs, decl, abs, TsIdent.default, Empty, par, impl, members, JsLocation.Zero, CodePath.NoPath)
     }
@@ -413,16 +428,20 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     typeAnnotation.?
 
   lazy val expr: Parser[TsExpr] = {
-    lazy val lit:   Parser[TsExpr.Literal] = tsLiteral ^^ TsExpr.Literal
-    lazy val ref:   Parser[TsExpr.Ref]     = ("{}" ^^ (_ => TsTypeRef.Object) | tsTypeRef) ^^ TsExpr.Ref
-    lazy val call:  Parser[TsExpr.Call]    = ref ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ TsExpr.Call
-    lazy val unary: Parser[TsExpr.Unary]   = (operator ~ expr) ^^ TsExpr.Unary
 
-    lazy val base: Parser[TsExpr] = perhapsParens(lit | call | unary | ref)
+    val lit:   Parser[TsExpr.Literal] = tsLiteral ^^ TsExpr.Literal
+    val ref:   Parser[TsExpr.Ref]     = tsTypeRefNoParens ^^ TsExpr.Ref
+    val call:  Parser[TsExpr.Call]    = ref ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ TsExpr.Call
+    val unary: Parser[TsExpr.Unary]   = (operator ~ expr) ^^ TsExpr.Unary
 
-    lazy val binaryOp: Parser[TsExpr.BinaryOp] = (base ~ operator ~ expr) ^^ TsExpr.BinaryOp
+    val base: Parser[TsExpr] = perhapsParens(lit | call | unary | ref)
 
-    perhapsParens(binaryOp | base)
+    lazy val binaryOp: Parser[TsExpr.BinaryOp] = {
+      val first = ("(" ~> binaryOp <~ ")") | base /* avoid left recursion for ever */
+      (first ~ operator ~ expr) ^^ TsExpr.BinaryOp
+    }
+
+    perhapsParens(binaryOp) | base
   }
 
   lazy val baseTypeDesc: Parser[TsType] = {
@@ -441,7 +460,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       | "(" ~> tsType <~ ")"
       | tsLiteral ^^ TsTypeLiteral
       | "this" ~> success(TsTypeThis())
-      | "asserts" ~> tsIdent ^^ TsTypeAsserts
+      | "asserts" ~> tsIdent ~ ("is" ~> tsTypeRef).? ^^ TsTypeAsserts
       | tsTypeKeyOf
       | "infer" ~> typeParam ^^ TsTypeInfer
       | "readonly" ~> tsType
@@ -480,9 +499,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsTypeTuple: Parser[TsTypeTuple] = {
     val tsTypeRepeated: Parser[TsTypeRepeated] =
-      "..." ~>! tsType ^? {
-        case ArrayType(t) => TsTypeRepeated(t)
-      }
+      "..." ~>! tsType ^^ TsTypeRepeated
 
     val normal: Parser[TsType] =
       tsType ~ "?".isDefined ^^ {
@@ -493,7 +510,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     "[" ~>! ((tsTypeRepeated | normal) <~ delimMaybeComment(',').?).** <~ "]" ^^ TsTypeTuple
   }
 
-  lazy val tsTypeRef: Parser[TsTypeRef] = {
+  lazy val tsTypeRefNoParens: Parser[TsTypeRef] = {
     val typeArgs: Parser[IArray[TsType]] =
       ("<" ~> rep1_(tsType <~ delimMaybeComment(',').?) <~ ">") | success(IArray.Empty)
 
@@ -501,11 +518,13 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     val empty = "{" ~> "}" ^^ (_ => TsTypeRef.`object`)
 
-    perhapsParens(base | empty)
+    base | empty
   }
 
+  lazy val tsTypeRef: Parser[TsTypeRef] = perhapsParens(tsTypeRefNoParens)
+
   lazy val tsMembers: Parser[IArray[TsMember]] =
-    memo("{" ~>! (tsMember <~! (";" | ",").*).** <~ comments.? <~ "}")
+    memo("{" ~>! ";".? ~> (tsMember <~! (";" | ",").*).** <~ comments.? <~ "}")
 
   lazy val tsMemberNamed: Parser[TsMember] = {
 
@@ -545,7 +564,15 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       case _          => OptionalModifier.Noop
     }
 
-    comments ~ protectionLevel ~ "readonly".isDefined ~ ("[" ~> tsIdent <~ "in") ~! (tsType <~ "]") ~ opt ~ typeAnnotation ^^ TsMemberTypeMapped
+    val readonly: Parser[ReadonlyModifier] = {
+      ("readonly" | "-readonly").? ^^ {
+        case Some("readonly")  => ReadonlyModifier.Yes
+        case Some("-readonly") => ReadonlyModifier.No
+        case _                 => ReadonlyModifier.Noop
+      }
+    }
+
+    comments ~ protectionLevel ~ readonly ~ ("[" ~> tsIdent <~ "in") ~! (tsType <~ "]") ~ opt ~ typeAnnotation ^^ TsMemberTypeMapped
   }
 
   lazy val tsMember: Parser[TsMember] = {
@@ -621,8 +648,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     def unapply(typeRef: TsTypeRef): Option[TsType] =
       typeRef match {
-        case TsTypeRef(NoComments, TsQIdent.Array, IArray.exactlyOne(elem)) => Some(elem)
-        case _                                                              => None
+        case TsTypeRef(NoComments, TsQIdent.Array, IArray.exactlyOne(elem))         => Some(elem)
+        case TsTypeRef(NoComments, TsQIdent.ReadonlyArray, IArray.exactlyOne(elem)) => Some(elem)
+        case _                                                                      => None
       }
   }
 }

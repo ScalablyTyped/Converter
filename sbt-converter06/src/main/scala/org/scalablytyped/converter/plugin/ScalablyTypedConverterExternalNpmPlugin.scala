@@ -6,14 +6,22 @@ import java.time.Instant
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
 import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
-import org.scalablytyped.converter.internal.importer.{Json, SharedInput}
+import org.scalablytyped.converter.internal.importer.SharedInput
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{BuildInfo, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{
+  BuildInfo,
+  Deps,
+  Digest,
+  IArray,
+  ImportTypings,
+  InFolder,
+  Json,
+  WrapSbtLogger,
+}
 import sbt.Keys._
 import sbt._
 
-import scala.org.scalablytyped.converter.internal.Deps
 import scala.util.Try
 
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
@@ -43,7 +51,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
 
     val wantedLibs: Set[TsIdentLibrary] =
-      Json[PackageJsonDeps](packageJsonFile).dependencies.getOrElse(Map()).keys.to[Set].map(TsIdentLibrary.apply)
+      Json.force[PackageJsonDeps](packageJsonFile).dependencies.getOrElse(Map()).keys.to[Set].map(TsIdentLibrary.apply)
 
     val versions = Versions(
       Versions.Scala(
@@ -82,7 +90,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     type InOut = (ImportTypings.Input, ImportTypings.Output)
 
     val result: Set[Dep] =
-      Try(Json[InOut](runCache)).toOption match {
+      Try(Json.force[InOut](runCache)).toOption match {
         case Some((`input`, output)) if output.allJars.forall(os.exists) =>
           stLogger.withContext(runCache).info(s"Using cached result :)")
           output.deps

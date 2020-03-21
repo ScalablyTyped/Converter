@@ -6,8 +6,6 @@ import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.transforms.{CleanIllegalNames, UnionToInheritance}
 
-import scala.collection.immutable.SortedMap
-
 object FindProps {
   /* javascript limitation */
   val MaxParamsForMethod = 254
@@ -19,7 +17,7 @@ object FindProps {
       case Res.Error(_)      => None
     }
 
-    def asMap: Map[Name, T] = this match {
+    def asMap: Map[TypeRef, T] = this match {
       case Res.One(name, value) => Map(name -> value)
       case Res.Many(values)     => values
       case Res.Error(_)         => Map.empty
@@ -41,8 +39,8 @@ object FindProps {
       }
     }
     case class Error[T](msg:   String) extends Res[T]
-    case class One[T](name:    Name, value: T) extends Success[T]
-    case class Many[T](values: Map[Name, T]) extends Success[T]
+    case class One[T](name:    TypeRef, value: T) extends Success[T]
+    case class Many[T](values: Map[TypeRef, T]) extends Success[T]
 
     def combine[T](ress: IArray[Res[T]]): Res[T] =
       ress.partitionCollect3(
@@ -51,48 +49,88 @@ object FindProps {
         { case Many(values)     => values },
       ) match {
         case (IArray.Empty, IArray.exactlyOne((name, one)), IArray.Empty, _) => One(name, one)
-        case (IArray.Empty, ones, manies, _)                                 => Many(ones.toMap ++ maps.smash(manies))
-        case (errors, _, _, _)                                               => Error(errors.mkString(", "))
+        case (IArray.Empty, ones, manies, _) =>
+          val all            = ones.toMap ++ maps.smash(manies)
+          val distinctByName = all.map { case (tr, t) => tr.name -> ((tr, t)) }.map { case (_, (tr, t)) => tr -> t }
+          Many(distinctByName)
+        case (errors, _, _, _) => Error(errors.mkString(", "))
       }
   }
 
-  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Left[Prop, Nothing]) =
-    name -> Left(
+  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Prop) =
+    name ->
       Prop(
         ParamTree(name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
         Right(obj =>
           if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
           else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
         ),
-      ),
-    )
+        Left(ref),
+      )
+
+  case class Filtered[No](yes: IArray[Prop], no: No)
+
+  def keepAll(p: IArray[Prop]): (IArray[Prop], Unit) = (p, ())
 }
 
 final class FindProps(cleanIllegalNames: CleanIllegalNames) {
 
-  def forClassTree(
+  def forType[No](
+      typeRef:            TypeRef,
+      tparams:            IArray[TypeParamTree],
+      scope:              TreeScope,
+      memberToProp:       MemberToProp,
+      maxNum:             Int,
+      acceptNativeTraits: Boolean,
+      keep:               IArray[Prop] => (IArray[Prop], No),
+  ): Res[FindProps.Filtered[No]] =
+    FollowAliases(scope)(typeRef) match {
+      case TypeRef.Intersection(types) =>
+        val results: IArray[Res[FindProps.Filtered[No]]] =
+          types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits, keep))
+
+        results.partitionCollect3({ case x @ Res.Error(_) => x }, { case x @ Res.Many(_) => x }, {
+          case x @ Res.One(_, _)                          => x
+        }) match {
+          case (Empty, Empty, ones, _) =>
+            val yes = ones.flatMap(_.value.yes).sorted.distinctBy(_.parameter.name)
+            val no  = ones.head.value.no
+            Res.One(typeRef, FindProps.Filtered(yes, no))
+          case (Empty, _, _, _) =>
+            Res.Error("Support for combinations of intersection and union types not implemented")
+          case (errors, _, _, _) =>
+            Res.Error(s"Couldn't find props for $typeRef because: ${errors.map(_.msg).mkString(", ")}")
+        }
+      case TypeRef.Union(types) =>
+        Res.combine(types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits, keep)))
+
+      case other =>
+        val retOpt = scope lookup other.typeName collectFirst {
+          case (_cls: ClassTree, newScope) =>
+            val cls = FillInTParams(_cls, newScope, other.targs, tparams)
+            forClassTree(
+              cls,
+              scope / cls,
+              memberToProp,
+              maxNum             = maxNum,
+              acceptNativeTraits = acceptNativeTraits,
+              keep               = keep,
+              selfRef            = other,
+            )
+        }
+
+        retOpt.getOrElse(Res.Error(s"Could't extract props from $other because couldn't resolve ClassTree."))
+    }
+
+  def forClassTree[No](
       cls:                ClassTree,
       scope:              TreeScope,
       memberToProp:       MemberToProp,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
-  ): Res[IArray[Prop]] =
-    forClassTree(cls, scope, maxNum, acceptNativeTraits).map { eithers =>
-      eithers.mapNotNone {
-        case Left(prop)    => Some(prop)
-        case Right(member) => memberToProp(scope, member)
-      }.sorted
-    }
-
-  /**
-    * this is only exported separately from the other `forClassTree` overload because the slinky integration does weird things
-    */
-  def forClassTree(
-      cls:                ClassTree,
-      scope:              TreeScope,
-      maxNum:             Int,
-      acceptNativeTraits: Boolean,
-  ): Res[IArray[Either[Prop, MemberTree]]] =
+      keep:               IArray[Prop] => (IArray[Prop], No),
+      selfRef:            TypeRef,
+  ): Res[FindProps.Filtered[No]] =
     cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
@@ -100,12 +138,8 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             .lookup(subClsRef.typeName)
             .collectFirst {
               case (subCls: ClassTree, _) =>
-                forClassTree(
-                  FillInTParams(subCls, scope, subClsRef.targs, cls.tparams),
-                  scope,
-                  maxNum,
-                  acceptNativeTraits,
-                )
+                val subCls_ = FillInTParams(subCls, scope, subClsRef.targs, cls.tparams)
+                forClassTree(subCls_, scope, memberToProp, maxNum, acceptNativeTraits, keep, subClsRef)
             }
             .getOrElse(Res.Error(s"Could not find ${subClsRef.typeName}"))
         })
@@ -124,38 +158,46 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
                 ref
             }
 
-          val RemoveThis = TypeRewriter(
-            Map(
-              TypeRef.ThisType(NoComments) -> TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
-            ),
-          )
+          val RemoveThis = TypeRewriter(Map(TypeRef.ThisType(NoComments) -> selfRef))
+
+          val unresolvedProps: Map[Name, Prop] =
+            (parents.unresolved ++ treatAsUnresolved)
+              .map(typeRef => FindProps.parentParameter(typeRef.name, typeRef, isRequired = false))
+              .toMap
 
           /* extract one per name, while undoing some renaming damage that we have done */
-          def membersFrom(cls: ClassTree): Map[Name, Either[Prop, MemberTree]] =
+          def membersFrom(cls: ClassTree): Map[Name, MemberTree] =
             RemoveThis
               .visitClassTree(scope)(cls)
               .members
-              .collect { case (x: MemberTree) => x }
+              .collect { case x: MemberTree => x }
               .groupBy(x => realNameFrom(x.annotations, x.name))
-              .map {
-                case (name, ms) => name -> Right(combine(ms).renamed(name))
+              .collect {
+                case (name, ms) if name =/= Name.APPLY && name =/= Name.namespaced => name -> combine(ms).renamed(name)
               }
 
-          def go(p: ParentsResolver.Parent): Map[Name, Either[Prop, MemberTree]] =
-            maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
+          val ownProps: Map[Name, Prop] =
+            membersFrom(cls).mapNotNone(member => memberToProp(scope, member))
 
-          val builder =
-            Builder(
-              keptDirectParents.map(p => p -> go(p)).toMap,
-              parents.unresolved ++ treatAsUnresolved,
-              membersFrom(cls).toSorted,
-            )
+          /** The total number of props might be too large, so we gradually try to limit it by "compressing" props,
+            *   and taking the best option (or truncating variant with the fewest props)
+            *
+            * Compressing in this context means to take a whole object which corresponds to a parent type
+            */
+          val propsStream: Stream[FindProps.Filtered[No]] =
+            Stream.range(0, keptDirectParents.length + 1).reverse.map { n =>
+              val inlineParents     = keptDirectParents.take(n)
+              val compressedParents = keptDirectParents.drop(n)
 
-          Res.One(
-            cls.name,
-            IArray.fromTraversable(
-              builder
-                .skipParentInlineIfMoreMembersThan(maxNum) { parent =>
+              val inlinedPropsFromParent: Map[Name, Prop] = {
+                def go(p: ParentsResolver.Parent): Map[Name, MemberTree] =
+                  maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
+
+                maps.smash(inlineParents.map(go)).mapNotNone(member => memberToProp(scope, member))
+              }
+
+              val compressedProps: Map[Name, Prop] =
+                compressedParents.map { parent =>
                   val isRequired = parent.classTree.members.exists {
                     case _: MethodTree => true
                     case FieldTree(_, _, Optional(_), _, _, _, _, _) => false
@@ -163,15 +205,29 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
                     case _ => false
                   }
                   FindProps.parentParameter(parent.refs.head.name, parent.refs.head, isRequired)
-                }
-                .allParamsUnique
-                .values,
-            ),
-          )
+                }.toMap
+
+              /** It's not *the* most precise way of going about this (will lose useful overloads),
+                *  but has the nice property that it keeps the closest/most specific definition of a member
+                * */
+              val all       = inlinedPropsFromParent ++ unresolvedProps ++ compressedProps ++ ownProps
+              val (yes, no) = keep(IArray.fromTraversable(all).map(_._2))
+
+              FindProps.Filtered(yes.sorted, no)
+            }
+
+          val valid: Option[FindProps.Filtered[No]] =
+            propsStream.find(_.yes.length <= maxNum) orElse
+              propsStream.lastOption.map(filtered => filtered.copy(yes = filtered.yes.take(maxNum)))
+
+          valid match {
+            case Some(props) => Res.One(selfRef, props)
+            case None        => sys.error(s"Empty stream for class ${cls.codePath.parts.mkString(".")}")
+          }
         }
     }
 
-  def combine(ms: IArray[MemberTree]): MemberTree =
+  private def combine(ms: IArray[MemberTree]): MemberTree =
     ms.partitionCollect2({ case x: FieldTree => x }, { case x: MethodTree => x }) match {
       case (_, IArray.exactlyOne(method), IArray.Empty) => method
       case (_, methods, IArray.Empty) if methods.nonEmpty =>
@@ -194,36 +250,8 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
 
       case other => sys.error(s"Unexpected: ${other}")
     }
-  private case class Builder(
-      directParents: Map[ParentsResolver.Parent, Map[Name, Either[Prop, MemberTree]]],
-      unresolved:    IArray[TypeRef],
-      own:           SortedMap[Name, Either[Prop, MemberTree]],
-  ) {
 
-    def skipParentInlineIfMoreMembersThan(
-        maxNum: Int,
-    )(f:        ParentsResolver.Parent => (Name, Either[Prop, MemberTree])): Builder = {
-      val numParentMembers = directParents.foldLeft(0)((acc, p) => acc + p._2.size)
-      if (own.size + numParentMembers + unresolved.length > maxNum) {
-
-        val shortened  = own.take(maxNum - directParents.size - unresolved.length)
-        val compressed = directParents.map { case (k, _) => f(k) }
-        Builder(Map.empty, unresolved, shortened ++ compressed)
-      } else this
-    }
-
-    /** It's not *the* most precise way of going about this (will lose useful overloads),
-      *  but has the nice property that it keeps the closest/most specific definition of a member
-      * */
-    def allParamsUnique: Map[Name, Either[Prop, MemberTree]] = {
-      val fromParents = directParents.foldLeft(Map.empty[Name, Either[Prop, MemberTree]])(_ ++ _._2)
-      val fromUnresolved =
-        unresolved.map(typeRef => FindProps.parentParameter(typeRef.name, typeRef, isRequired = false)).toMap
-      fromParents ++ fromUnresolved ++ own
-    }
-  }
-
-  def realNameFrom(anns: IArray[Annotation], fallback: Name): Name =
+  private def realNameFrom(anns: IArray[Annotation], fallback: Name): Name =
     anns
       .collectFirst {
         case Annotation.JsName(name)                       => name

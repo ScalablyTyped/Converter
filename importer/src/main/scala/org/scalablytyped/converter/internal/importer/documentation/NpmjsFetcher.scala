@@ -1,12 +1,12 @@
-package org.scalablytyped.converter.internal.importer.documentation
+package org.scalablytyped.converter.internal
+package importer
+package documentation
 
 import java.nio.file.Path
 
 import com.olvind.logging.Logger
 import gigahorse.HttpClient
 import gigahorse.support.okhttp.Gigahorse
-import org.scalablytyped.converter.internal.files
-import org.scalablytyped.converter.internal.importer.{Json, Source}
 import org.scalablytyped.converter.internal.stringUtils.encodeURIComponent
 import org.scalablytyped.converter.internal.ts.TsIdentLibrarySimple
 

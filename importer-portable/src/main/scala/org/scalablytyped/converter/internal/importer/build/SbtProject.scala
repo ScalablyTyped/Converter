@@ -17,7 +17,7 @@ case class SbtProject(name: String, artifactId: String, reference: Dep.ScalaJs)(
 
 case class PublishedSbtProject(project: SbtProject)(
     val classfileDir:                   os.Path,
-    val localIvyFiles:                  IvyLayout[os.Path, Synced],
+    val localIvyFiles:                  IvyLayout[os.Path, _],
     val publishedOpt:                   Option[Unit],
 )
 

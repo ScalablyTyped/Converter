@@ -307,7 +307,7 @@ object TsTypeParam {
 sealed trait TsTerm extends TsTree
 
 sealed abstract class TsLiteral(repr: String) extends TsTerm {
-  def literal = repr
+  val literal = repr
 }
 
 final case class TsLiteralNumber(value: String) extends TsLiteral(value)
@@ -403,7 +403,6 @@ object TsIdent {
   val namespacedCls: TsIdentSimple = TsIdent("Class")
   val Symbol:        TsIdentSimple = TsIdent("Symbol")
   val Global:        TsIdentSimple = TsIdent("_Global_")
-  val Record:        TsIdentSimple = TsIdent("Record")
   val dummy:         TsIdentSimple = TsIdent("dummy")
 
   val dummyLibrary: TsIdentLibrary = TsIdentLibrarySimple("dummyLibrary")
@@ -443,11 +442,12 @@ object TsQIdent {
   val Primitive =
     Set(any, bigint, number, boolean, never, `null`, `object`, string, symbol, undefined, unknown, void)
 
-  val Array:    TsQIdent = TsQIdent.of("Array")
-  val Boolean:  TsQIdent = TsQIdent.of("Boolean")
-  val Function: TsQIdent = TsQIdent.of("Function")
-  val Object:   TsQIdent = TsQIdent.of("Object")
-  val String:   TsQIdent = TsQIdent.of("String")
+  val Array:         TsQIdent = TsQIdent.of("Array")
+  val ReadonlyArray: TsQIdent = TsQIdent.of("ReadonlyArray")
+  val Boolean:       TsQIdent = TsQIdent.of("Boolean")
+  val Function:      TsQIdent = TsQIdent.of("Function")
+  val Object:        TsQIdent = TsQIdent.of("Object")
+  val String:        TsQIdent = TsQIdent.of("String")
 
   object Std {
     val Array         = TsQIdent(IArray(TsIdent.std, TsIdent("Array")))
@@ -459,6 +459,7 @@ object TsQIdent {
     val PromiseLike   = TsQIdent(IArray(TsIdent.std, TsIdent("PromiseLike")))
     val Readonly      = TsQIdent(IArray(TsIdent.std, TsIdent("Readonly")))
     val ReadonlyArray = TsQIdent(IArray(TsIdent.std, TsIdent("ReadonlyArray")))
+    val Record        = TsQIdent(IArray(TsIdent.std, TsIdent("Record")))
     val String        = TsQIdent(IArray(TsIdent.std, TsIdent("String")))
   }
 }
@@ -498,7 +499,7 @@ final case class TsTypeConstructor(signature: TsTypeFunction) extends TsType
 
 final case class TsTypeIs(ident: TsIdent, tpe: TsType) extends TsType
 
-final case class TsTypeAsserts(ident: TsIdentSimple) extends TsType
+final case class TsTypeAsserts(ident: TsIdentSimple, isOpt: Option[TsTypeRef]) extends TsType
 
 final case class TsTypeTuple(tparams: IArray[TsType]) extends TsType
 
@@ -622,10 +623,25 @@ object OptionalModifier {
   case object Deoptionalize extends OptionalModifier
 }
 
+sealed trait ReadonlyModifier {
+  def apply(wasReadonly: Boolean): Boolean =
+    this match {
+      case ReadonlyModifier.Noop => wasReadonly
+      case ReadonlyModifier.Yes  => true
+      case ReadonlyModifier.No   => false
+    }
+}
+
+object ReadonlyModifier {
+  case object Noop extends ReadonlyModifier
+  case object Yes extends ReadonlyModifier
+  case object No extends ReadonlyModifier
+}
+
 final case class TsMemberTypeMapped(
     comments:    Comments,
     level:       ProtectionLevel,
-    isReadOnly:  Boolean,
+    readonly:    ReadonlyModifier,
     key:         TsIdent,
     from:        TsType,
     optionalize: OptionalModifier,

@@ -5,7 +5,7 @@ import java.io.File
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
-import org.scalablytyped.converter.internal.{ZincCompiler, constants}
+import org.scalablytyped.converter.internal.{constants, ZincCompiler}
 import sbt.Tags.Tag
 import sbt._
 import sbt.librarymanagement.ModuleID
@@ -107,10 +107,18 @@ object ScalablyTypedPluginBase extends AutoPlugin {
   import autoImport._
   import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion
 
+  /* work around private[sbt] */
+  def cleanIvyHack = {
+    import scala.language.reflectiveCalls
+    (Keys: { val cleanIvy: TaskKey[Unit] }).cleanIvy
+  }
+
   override lazy val projectSettings =
     Seq(
       /* This is where we add our generated artifacts to the project for compilation */
       Keys.allDependencies ++= stImport.value.toSeq,
+      /* This originally ended up calling `allDependencies`, which is inconvenient  */
+      cleanIvyHack := {},
       Keys.scalacOptions ++= {
         val isScalaJs1 = !scalaJSVersion.startsWith("0.6")
 

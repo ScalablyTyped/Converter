@@ -67,20 +67,23 @@ object QualifiedName {
   val SINGLETON:        QualifiedName = QualifiedName(IArray(Name.SINGLETON))
 
   class StdNames(outputPkg: Name) {
-    val stdName:       Name          = Name("std")
-    val lib:           QualifiedName = QualifiedName(IArray(outputPkg, stdName))
-    val Array:         QualifiedName = lib + Name.Array
-    val Boolean:       QualifiedName = lib + Name.Boolean
-    val BigInt:        QualifiedName = lib + Name("BigInt")
-    val ConcatArray:   QualifiedName = lib + Name("ConcatArray")
-    val Function:      QualifiedName = lib + Name.Function
-    val Number:        QualifiedName = lib + Name("Number")
-    val Object:        QualifiedName = lib + Name.Object
-    val Promise:       QualifiedName = lib + Name("Promise")
-    val PromiseLike:   QualifiedName = lib + Name("PromiseLike")
-    val ReadonlyArray: QualifiedName = lib + Name("ReadonlyArray")
-    val String:        QualifiedName = lib + Name.String
-    val Symbol:        QualifiedName = lib + Name.Symbol
+    val stdName:               Name          = Name("std")
+    val lib:                   QualifiedName = QualifiedName(IArray(outputPkg, stdName))
+    val Array:                 QualifiedName = lib + Name.Array
+    val Boolean:               QualifiedName = lib + Name.Boolean
+    val BigInt:                QualifiedName = lib + Name("BigInt")
+    val ConcatArray:           QualifiedName = lib + Name("ConcatArray")
+    val Element:               QualifiedName = lib + Name("Element")
+    val Function:              QualifiedName = lib + Name.Function
+    val HTMLElementTagNameMap: QualifiedName = lib + Name("HTMLElementTagNameMap")
+    val Number:                QualifiedName = lib + Name("Number")
+    val Object:                QualifiedName = lib + Name.Object
+    val Promise:               QualifiedName = lib + Name("Promise")
+    val PromiseLike:           QualifiedName = lib + Name("PromiseLike")
+    val ReadonlyArray:         QualifiedName = lib + Name("ReadonlyArray")
+    val SVGElementTagNameMap:  QualifiedName = lib + Name("SVGElementTagNameMap")
+    val String:                QualifiedName = lib + Name.String
+    val Symbol:                QualifiedName = lib + Name.Symbol
   }
 
   def Instantiable(arity:       Int): QualifiedName = Runtime + Name(s"Instantiable$arity")

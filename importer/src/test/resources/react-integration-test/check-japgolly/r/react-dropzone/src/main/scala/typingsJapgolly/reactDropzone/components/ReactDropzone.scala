@@ -5,12 +5,14 @@ import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactDragEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
+import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
-import typingsJapgolly.react.mod._Global_.JSX.Element
-import typingsJapgolly.reactDropzone.DropzonePropsRefAttributesDropzoneRef
+import typingsJapgolly.react.mod.RefAttributes
 import typingsJapgolly.reactDropzone.mod.DropEvent
+import typingsJapgolly.reactDropzone.mod.DropzoneProps
+import typingsJapgolly.reactDropzone.mod.DropzoneRef
 import typingsJapgolly.reactDropzone.mod.DropzoneState
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -41,10 +43,10 @@ object ReactDropzone {
   )(
     children: /* state */ DropzoneState => CallbackTo[Element] = null
   ): UnmountedWithRoot[
-    DropzonePropsRefAttributesDropzoneRef, 
+    DropzoneProps with RefAttributes[DropzoneRef], 
     Ref, 
     Unit, 
-    DropzonePropsRefAttributesDropzoneRef
+    DropzoneProps with RefAttributes[DropzoneRef]
   ] = {
     val __obj = js.Dynamic.literal()
   
@@ -71,10 +73,10 @@ object ReactDropzone {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.reactDropzone.DropzonePropsRefAttributesDropzoneRef, 
+  typingsJapgolly.reactDropzone.mod.DropzoneProps with typingsJapgolly.react.mod.RefAttributes[typingsJapgolly.reactDropzone.mod.DropzoneRef], 
   japgolly.scalajs.react.Children.None, 
   japgolly.scalajs.react.raw.React.Ref](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.reactDropzone.DropzonePropsRefAttributesDropzoneRef])
+    f(__obj.asInstanceOf[typingsJapgolly.reactDropzone.mod.DropzoneProps with typingsJapgolly.react.mod.RefAttributes[typingsJapgolly.reactDropzone.mod.DropzoneRef]])
   }
   @JSImport("react-dropzone", JSImport.Default)
   @js.native

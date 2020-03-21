@@ -11,15 +11,14 @@ object ComponentType {
 }
 
 final case class Component(
-    location:         LocationAnnotation,
-    scalaRef:         TypeRef,
-    fullName:         Name,
-    tparams:          IArray[TypeParamTree],
-    props:            Option[TypeRef],
-    isGlobal:         Boolean,
-    componentType:    ComponentType,
-    isAbstractProps:  Boolean,
-    componentMembers: IArray[MemberTree],
+    location:        LocationAnnotation,
+    scalaRef:        TypeRef,
+    fullName:        Name,
+    tparams:         IArray[TypeParamTree],
+    props:           Option[TypeRef],
+    isGlobal:        Boolean,
+    componentType:   ComponentType,
+    isAbstractProps: Boolean,
 ) {
   val shortenedPropsName = Name(fullName.unescaped + "Props")
 
@@ -32,9 +31,8 @@ final case class Component(
 
   def rewritten(scope: TreeScope, t: TreeTransformation): Component =
     copy( // don't rewrite scalaRef
-      tparams          = tparams.map(t.visitTypeParamTree(scope)),
-      props            = props.map(t.visitTypeRef(scope)),
-      componentMembers = componentMembers.map(t.visitMemberTree(scope)),
+      tparams = tparams.map(t.visitTypeParamTree(scope)),
+      props   = props.map(t.visitTypeRef(scope)),
     )
 }
 

@@ -61,6 +61,7 @@ import typingsJapgolly.semanticUiReact.genericMod.HtmlInputrops
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import typingsJapgolly.semanticUiReact.inputInputMod.InputOnChangeData
 import typingsJapgolly.semanticUiReact.inputInputMod.InputProps
+import typingsJapgolly.semanticUiReact.inputInputMod.StrictInputProps
 import typingsJapgolly.semanticUiReact.inputMod.default
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`left corner`
 import typingsJapgolly.semanticUiReact.semanticUiReactStrings.`right corner`
@@ -300,7 +301,7 @@ object Input {
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
-  ): UnmountedWithRoot[InputProps, default, Unit, InputProps] = {
+  ): UnmountedWithRoot[StrictInputProps, default, Unit, StrictInputProps] = {
     val __obj = js.Dynamic.literal()
   
       if (about != null) __obj.updateDynamic("about")(about.asInstanceOf[js.Any])
@@ -523,10 +524,10 @@ object Input {
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
   
     val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.semanticUiReact.inputInputMod.InputProps, 
+  typingsJapgolly.semanticUiReact.inputInputMod.StrictInputProps, 
   japgolly.scalajs.react.Children.Varargs, 
   typingsJapgolly.semanticUiReact.inputMod.default](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.inputInputMod.InputProps])(children: _*)
+    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.inputInputMod.StrictInputProps])(children: _*)
   }
   @JSImport("semantic-ui-react/dist/commonjs/elements/Input", JSImport.Default)
   @js.native

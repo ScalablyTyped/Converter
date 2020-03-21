@@ -57,7 +57,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     }
 
     go(tree, scope)
-      .filterNot(c => reactNames.isComponent(c.scalaRef.typeName))
+      .filterNot(c => reactNames.isComponent(c.scalaRef))
       .map(_.rewritten(scope, Wildcards.Remove))
   }
 
@@ -108,28 +108,26 @@ class IdentifyReactComponents(reactNames: ReactNames) {
           } yield method.name match {
             case Name.APPLY =>
               Component(
-                location         = locationFrom(scope),
-                scalaRef         = TypeRef(owner.codePath),
-                fullName         = componentName(scope, owner.annotations, owner.codePath, method.comments),
-                tparams          = method.tparams,
-                props            = propsTypeOpt,
-                isGlobal         = isGlobal(owner.annotations),
-                componentType    = ComponentType.Field,
-                isAbstractProps  = isAbstractProps,
-                componentMembers = Empty,
+                location        = locationFrom(scope),
+                scalaRef        = TypeRef(owner.codePath),
+                fullName        = componentName(scope, owner.annotations, owner.codePath, method.comments),
+                tparams         = method.tparams,
+                props           = propsTypeOpt,
+                isGlobal        = isGlobal(owner.annotations),
+                componentType   = ComponentType.Field,
+                isAbstractProps = isAbstractProps,
               )
 
             case _ =>
               Component(
-                location         = locationFrom(scope),
-                scalaRef         = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
-                fullName         = componentName(scope, owner.annotations, QualifiedName(IArray(method.name)), method.comments),
-                tparams          = method.tparams,
-                props            = propsTypeOpt,
-                isGlobal         = isGlobal(method.annotations),
-                componentType    = ComponentType.Function,
-                isAbstractProps  = isAbstractProps,
-                componentMembers = Empty,
+                location        = locationFrom(scope),
+                scalaRef        = TypeRef(method.codePath, TypeParamTree.asTypeArgs(method.tparams), NoComments),
+                fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(method.name)), method.comments),
+                tparams         = method.tparams,
+                props           = propsTypeOpt,
+                isGlobal        = isGlobal(method.annotations),
+                componentType   = ComponentType.Function,
+                isAbstractProps = isAbstractProps,
               )
 
           }
@@ -139,7 +137,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
   def maybeFieldComponent(field: FieldTree, owner: ContainerTree, scope: TreeScope): Option[Component] = {
     def pointsAtComponentType(scope: TreeScope, current: TypeRef): Option[TypeRef] =
-      if (reactNames.isComponent(current.typeName)) {
+      if (reactNames.isComponent(current)) {
         Some(current)
       } else {
         scope
@@ -161,15 +159,14 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       tr <- pointsAtComponentType(scope, field.tpe)
       props = tr.targs.head
     } yield Component(
-      location         = locationFrom(scope),
-      scalaRef         = TypeRef(field.codePath),
-      fullName         = componentName(scope, owner.annotations, QualifiedName(IArray(field.name)), field.comments),
-      tparams          = Empty,
-      props            = Some(props).filterNot(_ === TypeRef.Object),
-      isGlobal         = isGlobal(field.annotations),
-      componentType    = ComponentType.Field,
-      isAbstractProps  = scope.isAbstract(props),
-      componentMembers = Empty,
+      location        = locationFrom(scope),
+      scalaRef        = TypeRef(field.codePath),
+      fullName        = componentName(scope, owner.annotations, QualifiedName(IArray(field.name)), field.comments),
+      tparams         = Empty,
+      props           = Some(props).filterNot(_ === TypeRef.Object),
+      isGlobal        = isGlobal(field.annotations),
+      componentType   = ComponentType.Field,
+      isAbstractProps = scope.isAbstract(props),
     )
 
     def isAliasToFC: Option[Component] =
@@ -201,17 +198,16 @@ class IdentifyReactComponents(reactNames: ReactNames) {
     if (cls.classType =/= ClassType.Class) None
     else
       ParentsResolver(scope, cls).transitiveParents.collectFirst {
-        case (TypeRef(qname, IArray.first(props), _), _) if reactNames isComponent qname =>
+        case (tr @ TypeRef(_, IArray.first(props), _), _) if reactNames isComponent tr =>
           Component(
-            location         = locationFrom(scope),
-            scalaRef         = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
-            fullName         = componentName(scope, owner.annotations, cls.codePath, cls.comments),
-            tparams          = cls.tparams,
-            props            = Some(props).filterNot(_ === TypeRef.Object),
-            isGlobal         = isGlobal(cls.annotations),
-            componentType    = ComponentType.Class,
-            isAbstractProps  = scope.isAbstract(props),
-            componentMembers = cls.members.collect { case x: MemberTree => x },
+            location        = locationFrom(scope),
+            scalaRef        = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
+            fullName        = componentName(scope, owner.annotations, cls.codePath, cls.comments),
+            tparams         = cls.tparams,
+            props           = Some(props).filterNot(_ === TypeRef.Object),
+            isGlobal        = isGlobal(cls.annotations),
+            componentType   = ComponentType.Class,
+            isAbstractProps = scope.isAbstract(props),
           )
       }
 

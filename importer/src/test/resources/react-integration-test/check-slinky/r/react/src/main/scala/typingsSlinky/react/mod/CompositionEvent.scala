@@ -1,5 +1,6 @@
 package typingsSlinky.react.mod
 
+import org.scalajs.dom.raw.Event
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -22,7 +23,7 @@ object CompositionEvent {
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: NativeCompositionEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     stopPropagation: () => Unit,

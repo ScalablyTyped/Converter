@@ -25,7 +25,7 @@ object ScalaJsBundlerDepFile {
     implicit val Decoder: Decoder[NpmDependencies] = deriveDecoder[NpmDependencies]
   }
 
-  def apply(dir: os.Path, libName: TsIdentLibrary, v: LibraryVersion): Map[os.RelPath, Array[Byte]] =
+  def apply(libName: TsIdentLibrary, v: LibraryVersion): Map[os.RelPath, Array[Byte]] =
     (v.libraryVersion, v.inGit) match {
       case (Some(version), None) if libName =/= ts.TsIdent.std =>
         val deps = List(Map(libName.value -> version))

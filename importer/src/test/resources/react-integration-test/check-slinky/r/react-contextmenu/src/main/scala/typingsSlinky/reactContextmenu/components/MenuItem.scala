@@ -8,7 +8,7 @@ import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.TagMod
 import slinky.web.SyntheticMouseEvent
 import slinky.web.SyntheticTouchEvent
-import slinky.web.html.`*`.tag
+import slinky.web.html.div.tag
 import typingsSlinky.react.mod.HTMLAttributes
 import typingsSlinky.reactContextmenu.mod.MenuItemProps
 import scala.scalajs.js
@@ -22,10 +22,11 @@ object MenuItem
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: className, disabled */
+  /* The following DOM/SVG props were specified: className */
   def apply(
     attributes: HTMLAttributes[HTMLDivElement] = null,
     data: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ js.Any = null,
+    disabled: js.UndefOr[Boolean] = js.undefined,
     divider: js.UndefOr[Boolean] = js.undefined,
     onClick: (js.Function3[
       /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
@@ -39,13 +40,14 @@ object MenuItem
     val __obj = js.Dynamic.literal()
     if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
     if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
     if (!js.isUndefined(divider)) __obj.updateDynamic("divider")(divider.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props])
   }
-  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.MenuItem] = new slinky.core.BuildingComponent[slinky.web.html.`*`.tag.type, typingsSlinky.reactContextmenu.mod.MenuItem](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
+  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.MenuItem] = new slinky.core.BuildingComponent[slinky.web.html.div.tag.type, typingsSlinky.reactContextmenu.mod.MenuItem](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
   type Props = MenuItemProps
 }
 

@@ -1,7 +1,11 @@
 package org.scalablytyped.converter.internal
 package ts
 
-object TsTypeFormatter {
+object TsTypeFormatter extends TsTypeFormatter(true)
+
+class TsTypeFormatter(val keepComments: Boolean) {
+  def dropComments = new TsTypeFormatter(false)
+
   def qident(q: TsQIdent): String =
     q.parts.map(_.value).mkString(".")
 
@@ -81,10 +85,14 @@ object TsTypeFormatter {
         valueType.map(tpe => s": ${apply(tpe)}"),
       ).flatten.mkString(" ").replaceAllLiterally(" ?", "?")
 
-    case TsMemberTypeMapped(_, l, isReadOnly, key, from, optionalize, to) =>
+    case TsMemberTypeMapped(_, l, readonly, key, from, optionalize, to) =>
       List[Option[String]](
         level(l),
-        if (isReadOnly) Some("readonly") else None,
+        readonly match {
+          case ReadonlyModifier.Noop => None
+          case ReadonlyModifier.Yes  => Some("readonly")
+          case ReadonlyModifier.No   => Some("-readonly")
+        },
         Some("["),
         Some(key.value),
         Some("in"),
@@ -109,9 +117,10 @@ object TsTypeFormatter {
 
   def apply(tpe: TsType): String =
     tpe match {
-      case TsTypeRef(cs, name, ts)                  => Comments.format(cs) + qident(name) + tparams(ts)(apply).getOrElse("")
+      case TsTypeRef(cs, name, ts) =>
+        Comments.format(cs, keepComments) + qident(name) + tparams(ts)(apply).getOrElse("")
       case TsTypeLiteral(l)                         => lit(l)
-      case TsTypeObject(cs, members)                => Comments.format(cs) + s"{${members.map(member).mkString(", ")}}"
+      case TsTypeObject(cs, members)                => Comments.format(cs, keepComments) + s"{${members.map(member).mkString(", ")}}"
       case TsTypeFunction(s)                        => s"${sig(s)}"
       case TsTypeConstructor(f)                     => s"new ${apply(f)}"
       case TsTypeIs(ident, x)                       => s"${ident.value} is ${apply(x)}"
@@ -121,7 +130,7 @@ object TsTypeFormatter {
       case TsTypeKeyOf(key)                         => s"keyof ${apply(key)}"
       case TsTypeLookup(from, key)                  => s"${apply(from)}[${apply(key)}]"
       case TsTypeThis()                             => "this"
-      case TsTypeAsserts(ident)                     => "asserts " + ident.value
+      case TsTypeAsserts(ident, isOpt)              => "asserts " + ident.value + isOpt.fold("")("is " + _)
       case TsTypeUnion(types)                       => types map apply mkString " | "
       case TsTypeIntersect(types)                   => types map apply mkString " & "
       case TsTypeConditional(pred, ifTrue, ifFalse) => s"${apply(pred)} ? ${apply(ifTrue)} : ${apply(ifFalse)}"

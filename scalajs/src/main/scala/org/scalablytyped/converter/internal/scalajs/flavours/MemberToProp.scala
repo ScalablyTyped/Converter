@@ -27,6 +27,7 @@ object MemberToProp {
                   Right(obj =>
                     s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
+                  Right(f),
                 ),
               )
             case Optional(tpe) if TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, tpe))) =>
@@ -36,6 +37,7 @@ object MemberToProp {
                   Right(obj =>
                     s"""if (!js.isUndefined(${name.value})) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
+                  Right(f),
                 ),
               )
             case Optional(TypeRef.Function(paramTypes, retType)) =>
@@ -54,6 +56,7 @@ object MemberToProp {
                     Right(obj =>
                       s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)""",
                     ),
+                    Right(f),
                   ),
                 )
             case Optional(_) =>
@@ -69,6 +72,7 @@ object MemberToProp {
                   Right(obj =>
                     s"""if (${name.value} != null) $obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)""",
                   ),
+                  Right(f),
                 ),
               )
             case TypeRef.Function(paramTypes, retType) =>
@@ -89,6 +93,7 @@ object MemberToProp {
                       Left(s"""${name.value} = $convertedTarget""")
                     else
                       Right(obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})($convertedTarget)"""),
+                    Right(f),
                   ),
                 )
             case _ =>
@@ -99,6 +104,7 @@ object MemberToProp {
                     Left(s"""${name.value} = ${name.value}$Cast""")
                   else
                     Right(obj => s"""$obj.updateDynamic(${escapeIntoString(f.originalName)})(${name.value}$Cast)"""),
+                  Right(f),
                 ),
               )
           }
@@ -123,6 +129,7 @@ object MemberToProp {
                   Left(s"""${m.name.value} = $convertedTarget""")
                 else
                   Right(obj => s"""$obj.updateDynamic(${escapeIntoString(m.originalName)})($convertedTarget)"""),
+                Right(m),
               ),
             )
       }

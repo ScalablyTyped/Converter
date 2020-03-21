@@ -2,6 +2,7 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import org.scalajs.dom.raw.Event
 import typingsJapgolly.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -27,7 +28,7 @@ object AnimationEvent {
     isDefaultPrevented: CallbackTo[Boolean],
     isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
-    nativeEvent: NativeAnimationEvent,
+    nativeEvent: Event,
     persist: Callback,
     preventDefault: Callback,
     pseudoElement: String,

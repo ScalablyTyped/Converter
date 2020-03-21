@@ -12,7 +12,7 @@ object eventListenerMod extends js.Object {
   @js.native
   object default extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonCapture | AnonCaptureListener = js.native
+    var propTypes: AnonCapture | AnonListener = js.native
     def apply[T /* <: EventTypes */](props: EventListenerOptions[T]): js.Any = js.native
     @js.native
     object defaultProps extends js.Object {

@@ -27,29 +27,31 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
             memberToProp,
             FindProps.MaxParamsForMethod,
             acceptNativeTraits = false,
+            keep               = FindProps.keepAll,
+            selfRef            = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
           ) match {
             case Res.Error(_) =>
               IArray(cls)
 
             case Res.One(_, params) =>
               val modOpt: Option[ModuleTree] =
-                generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
+                generateCreator(Name.APPLY, params.yes, cls.codePath, cls.tparams)
                   .map(method =>
                     ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false),
                   )
-                  .filter(ensureNotTooManyStrings)
+                  .filter(ensureNotTooManyStrings(scope))
 
               IArray.fromOptions(Some(cls), modOpt)
 
             case Res.Many(paramsMap) =>
               val methods: IArray[MethodTree] =
                 IArray.fromTraversable(paramsMap.flatMap {
-                  case (name, params) => generateCreator(name, params, cls.codePath, cls.tparams)
+                  case (propsRef, params) => generateCreator(propsRef.name, params.yes, cls.codePath, cls.tparams)
                 })
 
               val modOpt: Option[ModuleTree] =
                 Some(ModuleTree(Empty, cls.name, Empty, methods, NoComments, cls.codePath, isOverride = false))
-                  .filter(ensureNotTooManyStrings)
+                  .filter(ensureNotTooManyStrings(scope))
 
               IArray.fromOptions(Some(cls), modOpt)
           }
@@ -63,13 +65,19 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
     * [E] [E-1] Error while emitting typingsJapgolly/csstype/csstypeMod/StandardLonghandPropertiesHyphenFallback$
     * [E]       UTF8 string too large
     */
-  def ensureNotTooManyStrings(mod: ModuleTree): Boolean = {
+  def ensureNotTooManyStrings(scope: TreeScope)(mod: ModuleTree): Boolean = {
     val MaxWeight = 32768 // an estimate. If you see the error again, decrease this
 
+    object Dealias extends TreeTransformation {
+      override def leaveTypeRef(scope: TreeScope)(s: TypeRef): TypeRef = FollowAliases(scope)(s)
+    }
+
     var stringLength = 0
-    TreeTraverse.foreach(mod) {
-      case QualifiedName(parts) => parts.foreach(p => stringLength += p.unescaped.length)
-      case _                    => ()
+
+    TreeTraverse.foreach(Dealias.visitModuleTree(scope)(mod)) {
+      case name: QualifiedName =>
+        name.parts.foreach(p => stringLength += p.unescaped.length)
+      case _ => ()
     }
 
     stringLength < MaxWeight
@@ -85,8 +93,8 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
       case Empty => None
       case props =>
         val (optionals, inLiterals, Empty) = props.partitionCollect2(
-          { case Prop(_, Right(f))  => f },
-          { case Prop(_, Left(str)) => str },
+          { case Prop(_, Right(f), _)  => f },
+          { case Prop(_, Left(str), _) => str },
         )
         val typeName = typeCp.parts.last
 
