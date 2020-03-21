@@ -353,6 +353,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
             softWrites                 = config.softWrites,
             flavour                    = flavour,
             generateScalaJsBundlerFile = true,
+            ensureSourceFilesWritten   = true,
           ),
           "build",
         )

@@ -9,11 +9,10 @@ import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsD
 import org.scalablytyped.converter.internal.importer.{Json, SharedInput}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
-import org.scalablytyped.converter.internal.{BuildInfo, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{BuildInfo, Deps, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
 import sbt._
 
-import scala.org.scalablytyped.converter.internal.Deps
 import scala.util.Try
 
 object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {

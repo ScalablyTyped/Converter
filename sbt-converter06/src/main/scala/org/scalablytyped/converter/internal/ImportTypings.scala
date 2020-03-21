@@ -98,6 +98,7 @@ object ImportTypings {
           resolve                    = fromNodeModules.libraryResolver,
           softWrites                 = true,
           generateScalaJsBundlerFile = false,
+          ensureSourceFilesWritten   = false,
         ),
         "build",
       )

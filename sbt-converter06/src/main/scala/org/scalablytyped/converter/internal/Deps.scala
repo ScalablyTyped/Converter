@@ -1,4 +1,4 @@
-package scala.org.scalablytyped.converter.internal
+package org.scalablytyped.converter.internal
 
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import sbt.librarymanagement.ModuleID

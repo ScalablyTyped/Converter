@@ -5,7 +5,7 @@ import java.io.File
 import org.portablescala.sbtplatformdeps.PlatformDepsPlugin
 import org.scalablytyped.converter
 import org.scalablytyped.converter.internal.importer.EnabledTypeMappingExpansion
-import org.scalablytyped.converter.internal.{ZincCompiler, constants}
+import org.scalablytyped.converter.internal.{constants, ZincCompiler}
 import sbt.Tags.Tag
 import sbt._
 import sbt.librarymanagement.ModuleID

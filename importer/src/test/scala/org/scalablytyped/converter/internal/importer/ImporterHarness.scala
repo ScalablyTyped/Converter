@@ -83,9 +83,10 @@ trait ImporterHarness extends AnyFunSuite {
             publishUser                = "oyvindberg",
             publishFolder              = publishFolder,
             metadataFetcher            = Npmjs.No,
-            softWrites                 = false,
+            softWrites                 = true,
             flavour                    = flavour,
             generateScalaJsBundlerFile = true,
+            ensureSourceFilesWritten   = true,
           ),
           "build",
         )

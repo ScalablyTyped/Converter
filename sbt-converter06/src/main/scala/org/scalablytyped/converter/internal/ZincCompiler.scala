@@ -19,8 +19,6 @@ import sbt.librarymanagement.DependencyResolution
 import xsbti.CompileFailed
 import xsbti.compile.{CompileOrder => _, _}
 
-import scala.org.scalablytyped.converter.internal.Deps
-
 class ZincCompiler(inputs: Inputs, logger: Logger[Unit], versions: Versions, resolve: Dep => Array[File])
     extends Compiler {
   private lazy val incCompiler: IncrementalCompiler = ZincUtil.defaultIncrementalCompiler

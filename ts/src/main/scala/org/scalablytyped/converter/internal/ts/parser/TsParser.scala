@@ -338,7 +338,18 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     comments ~ isDeclared ~ (isAbstract <~ "class") ~ (hack.? ~ tsTypeParams).? ~ parent ~ implements ~ tsMembers ^^ {
       case cs ~ decl ~ abs ~ Some(ident ~ tparams) ~ par ~ impl ~ members =>
-        TsDeclClass(cs, decl, abs, ident.getOrElse(TsIdent.default), tparams, par, impl, members, JsLocation.Zero, CodePath.NoPath)
+        TsDeclClass(
+          cs,
+          decl,
+          abs,
+          ident.getOrElse(TsIdent.default),
+          tparams,
+          par,
+          impl,
+          members,
+          JsLocation.Zero,
+          CodePath.NoPath,
+        )
       case cs ~ decl ~ abs ~ None ~ par ~ impl ~ members =>
         TsDeclClass(cs, decl, abs, TsIdent.default, Empty, par, impl, members, JsLocation.Zero, CodePath.NoPath)
     }

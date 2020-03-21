@@ -9,12 +9,11 @@ import com.olvind.logging.{Formatter, LogLevel}
 import org.scalablytyped.converter.internal.importer.{Json, SharedInput}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal.{BuildInfo, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{BuildInfo, Deps, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
 import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.{NpmUpdateTasks, PackageJsonTasks, ScalaJSBundlerPlugin}
 
-import scala.org.scalablytyped.converter.internal.Deps
 import scala.util.Try
 
 object ScalablyTypedConverterPlugin extends AutoPlugin {
