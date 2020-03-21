@@ -276,7 +276,10 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       tpe match {
         case x: TsTypeRef => apply(scope, ld)(x)
         case x: TsTypeIntersect =>
-          Res.sequence(x.types.map(forType(scope, ld))).map(_.flatten)
+          val base = Res.sequence(x.types.map(forType(scope, ld))).map(_.flatten)
+
+          if (x.types.exists(_.isInstanceOf[TsTypeObject])) base.withIsRewritten
+          else base
         case IsTypeMapping(TsMemberTypeMapped(_, _, _, _, from: TsTypeRef, _, _)) if scope.isAbstract(from.name) =>
           Problems(IArray(NotStatic(scope, from)))
 

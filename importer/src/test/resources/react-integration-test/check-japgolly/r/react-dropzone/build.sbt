@@ -1,6 +1,6 @@
 organization := "org.scalablytyped"
 name := "react-dropzone"
-version := "10.1.10-198c3a"
+version := "10.1.10-962a9b"
 scalaVersion := "2.13.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
