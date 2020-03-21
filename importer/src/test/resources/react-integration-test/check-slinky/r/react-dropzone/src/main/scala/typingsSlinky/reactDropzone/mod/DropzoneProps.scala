@@ -1,22 +1,22 @@
 package typingsSlinky.reactDropzone.mod
 
 import org.scalajs.dom.raw.HTMLElement
+import slinky.core.facade.ReactElement
 import typingsSlinky.react.mod.DragEvent
-import typingsSlinky.react.mod._Global_.JSX.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
 trait DropzoneProps extends DropzoneOptions {
-  var children: js.UndefOr[js.Function1[/* state */ DropzoneState, Element]] = js.native
+  var children: js.UndefOr[js.Function1[/* state */ DropzoneState, ReactElement]] = js.native
 }
 
 object DropzoneProps {
   @scala.inline
   def apply(
     accept: String | js.Array[String] = null,
-    children: /* state */ DropzoneState => Element = null,
+    children: /* state */ DropzoneState => ReactElement = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
     getFilesFromEvent: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
     maxSize: Int | Double = null,

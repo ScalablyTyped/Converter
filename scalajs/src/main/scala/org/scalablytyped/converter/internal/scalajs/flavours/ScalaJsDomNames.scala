@@ -6,6 +6,8 @@ import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TPar
 
 class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
 
+  val Element: QualifiedName = QualifiedName("org.scalajs.dom.raw.Element")
+
   // format: off
   val All: IArray[CastConversion] = IArray(
     CastConversion(stdNames.lib + Name("AbortController"), QualifiedName("org.scalajs.dom.experimental.AbortController")),
@@ -111,7 +113,7 @@ class ScalaJsDomNames(stdNames: QualifiedName.StdNames) {
     CastConversion(stdNames.lib + Name("EcKeyImportParams"), QualifiedName("org.scalajs.dom.crypto.EcKeyImportParams")),
     CastConversion(stdNames.lib + Name("EcdhKeyDeriveParams"), QualifiedName("org.scalajs.dom.crypto.EcdhKeyDeriveParams")),
     CastConversion(stdNames.lib + Name("EcdsaParams"), QualifiedName("org.scalajs.dom.crypto.EcdsaParams")),
-    CastConversion(stdNames.lib + Name("Element"), QualifiedName("org.scalajs.dom.raw.Element")),
+    CastConversion(stdNames.lib + Name("Element"), Element),
     CastConversion(stdNames.lib + Name("Error"), QualifiedName("scala.scalajs.js.Error")),
     CastConversion(stdNames.lib + Name("ErrorEvent"), QualifiedName("org.scalajs.dom.raw.ErrorEvent")),
     CastConversion(stdNames.lib + Name("EvalError"), QualifiedName("scala.scalajs.js.EvalError")),

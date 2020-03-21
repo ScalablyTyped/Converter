@@ -59,7 +59,7 @@ class Phase3Compile(
 
     _lib match {
       case Facade =>
-        val buildJson = Json[FacadeJson](source.path / "build.json")
+        val buildJson = Json.force[FacadeJson](source.path / "build.json")
 
         val dependencies: PhaseRes[Source, Set[Source]] =
           PhaseRes.sequenceSet(

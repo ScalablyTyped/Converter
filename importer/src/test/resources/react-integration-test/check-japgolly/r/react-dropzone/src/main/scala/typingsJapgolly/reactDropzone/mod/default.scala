@@ -1,7 +1,7 @@
 package typingsJapgolly.reactDropzone.mod
 
+import japgolly.scalajs.react.raw.React.Element
 import typingsJapgolly.react.mod.RefAttributes
-import typingsJapgolly.react.mod._Global_.JSX.Element
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

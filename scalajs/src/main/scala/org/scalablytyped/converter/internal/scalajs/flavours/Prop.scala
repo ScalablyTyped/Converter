@@ -5,7 +5,8 @@ package flavours
 final case class Prop(
     parameter: ParamTree,
     asString:  Either[String, String => String],
-    original:  Either[TypeRef, MemberTree],
+    /* should be unaffected by `CastConversion` rewrites */
+    original: Either[TypeRef, MemberTree],
 ) {
   def isOptional = parameter.default.isDefined
 }

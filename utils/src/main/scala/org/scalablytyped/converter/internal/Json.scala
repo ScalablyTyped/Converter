@@ -1,5 +1,4 @@
 package org.scalablytyped.converter.internal
-package importer
 
 import java.io.File
 import java.nio.file.{Files, Path}
@@ -8,6 +7,7 @@ import cats.data.ValidatedNel
 import io.circe._
 import io.circe.syntax._
 
+import scala.io.Source
 import scala.util.control.NonFatal
 
 object Json {
@@ -94,32 +94,44 @@ object Json {
 
   private val BOM = "\uFEFF"
 
-  def apply[T: Decoder](path: os.Path): T =
-    apply(files content InFile(path)) match {
-      case Left(error) => sys.error(s"Error while parsing: $path: $error")
-      case Right(t)    => t
-    }
+  def force[T: Decoder](path: os.Path): T =
+    force(path.toNIO)
 
-  def apply[T: Decoder](path: Path): T =
+  def force[T: Decoder](path: Path): T =
     apply(new String(Files.readAllBytes(path), constants.Utf8)) match {
       case Left(error) => sys.error(s"Error while parsing: $path: $error")
       case Right(t)    => t
     }
 
+  def forceResource[T: Decoder](resource: String): T =
+    Option(getClass.getResourceAsStream(resource)) match {
+      case Some(is) =>
+        val s = Source.fromInputStream(is, constants.Utf8.name)
+        try force[T](s.mkString)
+        finally s.close()
+      case None => sys.error(s"Couldn't find resource $resource")
+    }
+
+  def force[T: Decoder](original: String): T =
+    apply[T](original) match {
+      case Left(error) => sys.error(s"Error while parsing: $error")
+      case Right(t)    => t
+    }
+
   def apply[T: Decoder](original: String): Either[Error, T] = {
     val str = original match {
-      case withBom if withBom.startsWith(BOM) => withBom.replace(BOM, "")
-      case ok                                 => ok
+      case withBom if withBom startsWith BOM => withBom.replace(BOM, "")
+      case ok                                => ok
     }
 
     CustomJacksonParser.decode[T](str)
   }
 
   def opt[T: Decoder](path: os.Path): Option[T] =
-    if (os.exists(path)) Some(apply[T](path)) else None
+    if (os.exists(path)) Some(force[T](path)) else None
 
   def opt[T: Decoder](path: Path): Option[T] =
-    if (Files.exists(path)) Some(apply(path)) else None
+    if (Files.exists(path)) Some(force(path)) else None
 
   def persist[V: Encoder](file: os.Path)(value: V): Synced =
     persist(file.toNIO)(value)

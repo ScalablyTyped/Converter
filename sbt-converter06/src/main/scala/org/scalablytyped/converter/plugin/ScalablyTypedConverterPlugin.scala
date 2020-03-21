@@ -6,10 +6,19 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
-import org.scalablytyped.converter.internal.importer.{Json, SharedInput}
+import org.scalablytyped.converter.internal.importer.SharedInput
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
 import org.scalablytyped.converter.internal.ts.TsIdentLibrary
-import org.scalablytyped.converter.internal.{BuildInfo, Deps, Digest, IArray, ImportTypings, InFolder, WrapSbtLogger}
+import org.scalablytyped.converter.internal.{
+  BuildInfo,
+  Deps,
+  Digest,
+  IArray,
+  ImportTypings,
+  InFolder,
+  Json,
+  WrapSbtLogger,
+}
 import sbt.Keys._
 import sbt._
 import scalajsbundler.sbtplugin.{NpmUpdateTasks, PackageJsonTasks, ScalaJSBundlerPlugin}
@@ -88,7 +97,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
     type InOut = (ImportTypings.Input, ImportTypings.Output)
 
-    val result = Try(Json[InOut](runCache)).toOption match {
+    val result = Try(Json.force[InOut](runCache)).toOption match {
       case Some((`input`, output)) if output.allJars.forall(os.exists) =>
         stLogger.withContext(runCache).info(s"Using cached result :)")
         output.deps

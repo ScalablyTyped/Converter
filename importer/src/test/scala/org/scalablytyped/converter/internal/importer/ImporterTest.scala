@@ -2,13 +2,13 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs.Name
-import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
+import org.scalablytyped.converter.internal.scalajs.flavours.{FlavourImpl, SlinkyFlavour}
 import org.scalatest.ParallelTestExecution
 import org.scalatest.funsuite.AnyFunSuite
 
 class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
   val update   = !constants.isCi
-  val Slinky   = FlavourImpl.Slinky(Name("typingsSlinky"))
+  val Slinky   = SlinkyFlavour(Name("typingsSlinky"))
   val Japgolly = FlavourImpl.Japgolly(Name("typingsJapgolly"))
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))

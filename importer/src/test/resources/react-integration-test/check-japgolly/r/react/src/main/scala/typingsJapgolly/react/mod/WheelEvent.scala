@@ -2,6 +2,7 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -40,7 +41,7 @@ object WheelEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: NativeWheelEvent,
+    nativeEvent: Event,
     pageX: Double,
     pageY: Double,
     persist: Callback,

@@ -1,5 +1,6 @@
 package typingsSlinky.react.mod
 
+import org.scalajs.dom.raw.Event
 import typingsSlinky.std.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -36,7 +37,7 @@ object TouchEvent {
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
     metaKey: Boolean,
-    nativeEvent: NativeTouchEvent,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     shiftKey: Boolean,

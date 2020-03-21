@@ -6,7 +6,7 @@ import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.TagMod
 import slinky.web.SyntheticMouseEvent
-import slinky.web.html.`*`.tag
+import slinky.web.html.div.tag
 import typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.AccordionAccordionProps
 import typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.default
 import typingsSlinky.semanticUiReact.accordionPanelMod.AccordionPanelProps
@@ -44,7 +44,7 @@ object AccordionAccordion
     super.apply(__obj.asInstanceOf[Props])
   }
   def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default] = new slinky.core.BuildingComponent[
-  slinky.web.html.`*`.tag.type, 
+  slinky.web.html.div.tag.type, 
   typingsSlinky.semanticUiReact.accordionAccordionAccordionMod.default](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
   type Props = AccordionAccordionProps
 }

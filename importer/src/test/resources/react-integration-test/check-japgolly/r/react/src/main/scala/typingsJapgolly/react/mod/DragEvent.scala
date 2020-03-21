@@ -3,6 +3,7 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.DataTransfer
+import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -35,7 +36,7 @@ object DragEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: NativeDragEvent,
+    nativeEvent: Event,
     pageX: Double,
     pageY: Double,
     persist: Callback,

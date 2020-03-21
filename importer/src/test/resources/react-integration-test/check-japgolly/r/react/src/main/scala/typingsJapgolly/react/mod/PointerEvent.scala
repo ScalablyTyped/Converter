@@ -2,6 +2,7 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import org.scalajs.dom.raw.Event
 import org.scalajs.dom.raw.EventTarget
 import typingsJapgolly.react.reactStrings.mouse
 import typingsJapgolly.react.reactStrings.pen
@@ -45,7 +46,7 @@ object PointerEvent {
     metaKey: Boolean,
     movementX: Double,
     movementY: Double,
-    nativeEvent: NativePointerEvent,
+    nativeEvent: Event,
     pageX: Double,
     pageY: Double,
     persist: Callback,

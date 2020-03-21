@@ -13,7 +13,7 @@ import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, Publi
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
-import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
+import org.scalablytyped.converter.internal.scalajs.flavours.{FlavourImpl, SlinkyFlavour}
 import org.scalablytyped.converter.internal.ts._
 import org.scalatest.Assertion
 import org.scalatest.funsuite.AnyFunSuite
@@ -123,7 +123,7 @@ trait ImporterHarness extends AnyFunSuite {
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {
       case _: FlavourImpl.Normal       => "check"
-      case _: FlavourImpl.Slinky       => "check-slinky"
+      case _: SlinkyFlavour            => "check-slinky"
       case _: FlavourImpl.SlinkyNative => "check-slinky-native"
       case _: FlavourImpl.Japgolly     => "check-japgolly"
     })

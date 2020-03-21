@@ -259,7 +259,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
     val externalsFolderF: Future[InFolder] =
       dtFolderF.map { dtFolder =>
         val external: NotNeededPackages =
-          Json[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
+          Json.force[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
 
         UpToDateExternals(
           interfaceLogger,
@@ -407,7 +407,7 @@ target/
     val summaryFile = targetFolder / Summary.path
 
     val formattedDiff: String = {
-      val existingOpt = Try(Json[Summary](summaryFile)).toOption
+      val existingOpt = Try(Json.force[Summary](summaryFile)).toOption
       val diff        = Summary.diff(BuildInfo.gitSha.take(6), existingOpt, summary)
       Json.persist(summaryFile)(summary)
       Summary.formatDiff(diff)

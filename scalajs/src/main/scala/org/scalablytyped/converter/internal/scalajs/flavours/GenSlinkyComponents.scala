@@ -2,9 +2,9 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
-import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.Mode
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
+import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.Mode
+import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.TagName
 
 object GenSlinkyComponents {
   sealed trait Mode[N, W] {
@@ -19,12 +19,22 @@ object GenSlinkyComponents {
         case Native(native) => Native(native)
         case Web(web)       => Web(f(web))
       }
+
+    def webPresent[WW](implicit ev: W =:= Option[WW]): Option[Mode[N, WW]] =
+      this match {
+        case Native(native) => Some(Native(native))
+        case Web(ow) =>
+          ev(ow) match {
+            case Some(ww) => Some(Web(ww))
+            case None     => None
+          }
+      }
   }
 
-  case class Native[N, W](native: N) extends Mode[N, W]
-  case class Web[N, W](web:       W) extends Mode[N, W]
+  final case class Native[N, W](native: N) extends Mode[N, W]
+  final case class Web[N, W](web:       W) extends Mode[N, W]
 
-  case class SplitProps(props: IArray[Prop]) {
+  final case class SplitProps(props: IArray[Prop]) {
     val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
       { case Prop(ParamTree(Name("ref"), _, tpe, _, _), _, _)       => tpe },
       { case Prop(pt, _, _) if GenSlinkyComponents.shouldIgnore(pt) => null },
@@ -35,6 +45,8 @@ object GenSlinkyComponents {
 
     val noNormalProps: Boolean = _optionals.isEmpty && requireds.isEmpty
   }
+
+  final case class PropsDom(propsRef: TypeRef, splitProps: Res[SplitProps], domInfo: Mode[Unit, DomInfo])
 
   final case class DomInfo(domProps: IArray[FieldTree], domType: TypeRef)
 
@@ -68,6 +80,20 @@ object GenSlinkyComponents {
     val ReactRef                    = SlinkyCoreFacade + Name("ReactRef")
 
     val ignoredNames = Set(Name("key"), Name("children"))
+
+    val slinkyWeb     = GenSlinkyComponents.names.slinky + Name("web")
+    val slinkyWebSvg  = slinkyWeb + Name("svg")
+    val slinkyWebHtml = slinkyWeb + Name("html")
+
+    def SlinkyHtmlElement(tag: TagName): TypeRef =
+      TypeRef.Singleton(TypeRef(slinkyWebHtml + tag.asName + Name("tag"), Empty, NoComments))
+
+    def SlinkySvgElement(tag: TagName): TypeRef =
+      TypeRef.Singleton(TypeRef(slinkyWebSvg + tag.asName + Name("tag"), Empty, NoComments))
+
+    val AnyHtmlElement: TypeRef = SlinkyHtmlElement(TagName.Any)
+    val AnySvgElement:  TypeRef = SlinkySvgElement(TagName.Any)
+
   }
 
   def orNothing(modeDomInfo: Mode[Unit, DomInfo]): TypeRef =
@@ -93,7 +119,12 @@ object GenSlinkyComponents {
     TypeRef(names.TagMod, IArray(domInfo), NoComments)
   }
 
-  def shouldIgnore(paramTree: ParamTree) = names.ignoredNames(paramTree.name)
+  def shouldIgnore(paramTree: ParamTree): Boolean = {
+    val byName = names.ignoredNames(paramTree.name)
+    /* we always add our own override string dictionary to all components */
+    val byType = paramTree.tpe.typeName === QualifiedName.StringDictionary
+    byName || byType
+  }
 
   val AdditionalOptionalParams: IArray[(ParamTree, String => String)] = {
     val overridesUpdate: String => String = obj =>
@@ -179,192 +210,178 @@ object GenSlinkyComponents {
   * Generate a package with Slinky compatible react components
   */
 class GenSlinkyComponents(
-    scalaJsDomNames: ScalaJsDomNames,
-    mode:            Mode[Unit, SlinkyWeb],
-    stdNames:        QualifiedName.StdNames,
-    reactNames:      ReactNames,
-    findProps:       FindProps,
+    mode:          Mode[Unit, Option[SlinkyWeb]],
+    toSlinkyTypes: TreeTransformation,
+    memberToProp:  MemberToProp,
+    findProps:     FindProps,
 ) {
   import GenSlinkyComponents._
 
-  val conversions: IArray[CastConversion] = {
-    import CastConversion.TParam._
-    import names._
+  def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree =
+    mode.webPresent[SlinkyWeb] match {
+      case Some(mode) =>
+        /* Every tree knows it's own location (called `CodePath`).
+             It's used for a lot of things, so it's important to get right */
+        val pkgCp = tree.codePath + GenSlinkyComponents.names.components
 
-    val base = IArray(
-      CastConversion(reactNames.ReactType, ReactComponentClass, _1),
-      CastConversion(reactNames.ComponentState, QualifiedName.Object),
-      CastConversion(reactNames.ReactDOM, QualifiedName.Any),
-      CastConversion(reactNames.ReactNode, TagMod, Ref(TypeRef.ScalaAny)),
-      CastConversion(reactNames.RefObject, ReactRef, _1),
-      //        CastConversion(reactNames.Component, rawReactComponent, _1, TypeRef.Object),
-      //        CastConversion(reactNames.ComponentClass, rawReactComponentClassP, _1Object),
-      CastConversion(reactNames.ReactElement, ReactElement),
-      CastConversion(reactNames.DOMElement, ReactElement),
-      CastConversion(reactNames.ElementType, ReactElement),
-      CastConversion(reactNames.BaseSyntheticEvent, SyntheticEvent, _2, _1),
-      //        CastConversion(reactNames.ChangeEvent, SyntheticEvent, _2, _1),
-      //        CastConversion(reactNames.FormEvent, SyntheticEvent, _2, _1),
-      //        CastConversion(reactNames.InvalidEvent, SyntheticEvent, _2, _1),
-      CastConversion(reactNames.SyntheticEvent, SyntheticEvent, _2, _1),
-    )
+        /** We group components on what essentially means they have the same interface.
+          * When there is more than one they'll share some of the generated code
+          */
+        val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
+          allComponents
+            .map(_.rewritten(scope, toSlinkyTypes))
+            .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
 
-    val components: IArray[CastConversion] =
-      IArray.fromTraversable(reactNames.ComponentQNames.map(from => CastConversion(from, ReactComponentClass, _1)))
+        val generatedCode: IArray[Tree] =
+          IArray.fromTraversable(grouped).flatMap {
+            case ((propsRefOpt, hasKnownRef, tparams), components) =>
+              val PropsDom(propsRef, resProps, domInfo) =
+                findPropsAndSeparateDomProps(scope, mode, propsRefOpt, tparams)
 
-    val shared = scalaJsDomNames.AllExceptDeprecated ++ base ++ components
-    mode match {
-      case Native(())    => shared
-      case Web(webNames) => shared ++ webNames.conversions
-    }
-  }
-
-  val ToSlinkyTypes = TypeRewriterCast(conversions)
-
-  val memberToProp: MemberToProp =
-    (scope, tree) => MemberToProp.Default(scope, ToSlinkyTypes.visitMemberTree(scope)(tree))
-
-  def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree = {
-    /* for slinky/web we strip all dom props, because the user can specify them using normal slinky syntax */
-    val withDomProps: Mode[Unit, (SlinkyWeb, Map[Name, TypeRef])] =
-      mode.forWeb { slinkyWeb =>
-        def fieldsFor(scope: TreeScope, attributes: QualifiedName) =
-          scope
-            .lookup(attributes)
-            .collectFirst {
-              case (x: ClassTree, newScope) =>
-                ParentsResolver(newScope, x).directParents.flatMap(_.members) ++ x.members collect {
-                  case FieldTree(_, name, Optional(tpe), _, _, _, _, _) => name -> FollowAliases(newScope)(tpe)
-                  case FieldTree(_, name, tpe, _, _, _, _, _)           => name -> FollowAliases(newScope)(tpe)
-                }
-            }
-            .fold(Map.empty[Name, TypeRef])(_.toMap)
-            .filterKeys(slinkyWeb.attributes)
-
-        val all = fieldsFor(scope, reactNames.AllHTMLAttributes) ++
-          fieldsFor(scope, reactNames.SVGAttributes)
-        (slinkyWeb -> all)
-      }
-
-    /* Every tree knows it's own location (called `CodePath`).
-       It's used for a lot of things, so it's important to get right */
-    val pkgCp = tree.codePath + GenSlinkyComponents.names.components
-
-    /** We group components on what essentially means they have the same interface.
-      * When there is more than one they'll share some of the generated code
-      */
-    val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
-      allComponents.map(_.rewritten(scope, ToSlinkyTypes)).groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
-
-    val generatedCode: IArray[Tree] =
-      IArray.fromTraversable(grouped).flatMap {
-        case ((propsRefOpt, hasKnownRef, tparams), components) =>
-          val (propsRef, resProps, domInfo): (TypeRef, Res[SplitProps], Mode[Unit, DomInfo]) =
-            propsRefOpt match {
-              case Some(propsRef) =>
-                val resProps = findProps.forType(
-                  propsRef,
-                  tparams,
-                  scope,
-                  memberToProp,
-                  maxNum             = FindProps.MaxParamsForMethod - AdditionalOptionalParams.length,
-                  acceptNativeTraits = true,
-                )
-
-                withDomProps match {
-                  case Native(()) =>
-                    (propsRef, resProps.map(SplitProps), Native(()))
-                  case Web((slinkyWeb, domFields)) =>
-                    val (props, domInfo) = webProps(scope, resProps, slinkyWeb, domFields)
-                    (propsRef, props, Web(domInfo))
-                }
-
-              case None =>
-                (
-                  TypeRef.Object,
-                  Res.One(TypeRef.Object, SplitProps(Empty)),
-                  mode.forWeb(slinkyWeb => DomInfo(IArray.Empty, slinkyWeb.AnyHtmlElement)),
-                )
-            }
-
-          (resProps, components) match {
-            case (successProps: Res.Success[SplitProps], many)
-                if many.length > 1 &&
-                  !resProps.asMap.forall { case (_, props) => props.noNormalProps } =>
-              /** We share `apply` methods for each props type in abstract classes to limit compilation time.
-                *  References causes some trouble, so if the component knows it we thread it through a type param.
-                */
-              val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
-              val propsCls =
-                genSharedPropsClass(propsRef, scope, pkgCp, successProps, knownRefRewritten, tparams, domInfo)
-              IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
-            case (_, components) =>
-              components.map(genComponent(scope, pkgCp, propsRef, resProps, domInfo))
+              (resProps, components) match {
+                case (successProps: Res.Success[SplitProps], many)
+                    if many.length > 1 &&
+                      !resProps.asMap.forall { case (_, props) => props.noNormalProps } =>
+                  /** We share `apply` methods for each props type in abstract classes to limit compilation time.
+                    *  References causes some trouble, so if the component knows it we thread it through a type param.
+                    */
+                  val knownRefRewritten = if (hasKnownRef) Some(TypeRef(names.ComponentRef)) else None
+                  val propsCls =
+                    genSharedPropsClass(propsRef, scope, pkgCp, successProps, knownRefRewritten, tparams, domInfo)
+                  IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
+                case (_, components) =>
+                  components.map(genComponent(scope, pkgCp, propsRef, resProps, domInfo))
+              }
           }
-      }
 
-    /* Only generate the package if we have mapped any components */
-    generatedCode match {
-      case IArray.Empty => tree
-      case nonEmpty =>
-        val newPackage = setCodePath(pkgCp, PackageTree(Empty, names.components, nonEmpty, NoComments, pkgCp))
-        tree.withMembers(tree.members :+ newPackage)
+        /* Only generate the package if we have mapped any components */
+        generatedCode match {
+          case IArray.Empty => tree
+          case nonEmpty =>
+            val newPackage = setCodePath(pkgCp, PackageTree(Empty, names.components, nonEmpty, NoComments, pkgCp))
+            tree.withMembers(tree.members :+ newPackage)
+        }
+      case None => tree
     }
-  }
 
-  def webProps(
-      scope:      TreeScope,
-      resPropsIn: Res[IArray[Prop]],
-      slinkyWeb:  SlinkyWeb,
-      domFields:  Map[Name, TypeRef],
-  ): (Res[SplitProps], DomInfo) = {
-    val domPropsBuilder = IArray.Builder.empty[FieldTree]
+  def findPropsAndSeparateDomProps(
+      scope:        TreeScope,
+      withDomProps: Mode[Unit, SlinkyWeb],
+      propsRefOpt:  Option[TypeRef],
+      tparams:      IArray[TypeParamTree],
+  ): PropsDom =
+    propsRefOpt match {
+      case Some(propsRef) =>
+        val maxNumProps = FindProps.MaxParamsForMethod - AdditionalOptionalParams.length
 
-    val resPropsOut: Res[SplitProps] =
-      resPropsIn.map { props =>
-        val rewrittenProps = props
-          .filter {
-            case Prop(param, _, _) if param.tpe.typeName === QualifiedName.StringDictionary => false
-            case prop @ Prop(_, _, Right(fieldTree: FieldTree)) =>
-              val isOptionalDom: Boolean =
-                if (!prop.isOptional) false
-                else
-                  domFields.get(fieldTree.name) match {
-                    case Some(tpe) =>
-                      /* todo: refactor out a name/type check which ignores optionality */
-                      FollowAliases(scope)(fieldTree.tpe) match {
-                        case Optional(ftpe) => ftpe.typeName === tpe.typeName
-                        case ftpe           => ftpe.typeName === tpe.typeName
+        withDomProps match {
+          case Native(()) =>
+            val resProps: Res[FindProps.Filtered[Unit]] =
+              findProps.forType(
+                propsRef,
+                tparams,
+                scope,
+                memberToProp,
+                maxNumProps,
+                acceptNativeTraits = true,
+                FindProps.keepAll,
+              )
+
+            PropsDom(propsRef, resProps.map(f => SplitProps(f.yes)), Native(()))
+
+          case Web(slinkyWeb: SlinkyWeb) =>
+            /* pardon the mutability. we *need* to do this in several phases, and we *need* to infer the same each time */
+            var inferredTagNameCache = Option.empty[TagName]
+
+            def extractDomProps(props: IArray[Prop]): (IArray[Prop], IArray[FieldTree]) = {
+              val inferredTagName: TagName = inferredTagNameCache.getOrElse {
+                val i = inferSlinkyTag(props, slinkyWeb)
+                inferredTagNameCache = Some(i)
+                i
+              }
+              val tagAttrs: Map[Name, TypeRef] = slinkyWeb.tags(inferredTagName).attributes
+              val yes = IArray.Builder.empty[Prop]
+              val no  = IArray.Builder.empty[FieldTree]
+
+              props.foreach {
+                case prop @ Prop(_, _, Right(fieldTree: FieldTree)) =>
+                  val isOptionalDom: Boolean =
+                    if (!prop.isOptional) false
+                    else
+                      tagAttrs.get(fieldTree.name) match {
+                        case Some(tpe) =>
+                          /* todo: refactor out a name/type check which ignores optionality */
+                          FollowAliases(scope)(fieldTree.tpe) match {
+                            case Optional(ftpe) => ftpe === tpe
+                            case ftpe           => ftpe === tpe
+                          }
+                        case None => false
                       }
-                    case None => false
+
+                  if (isOptionalDom) {
+                    no += fieldTree
+                  } else {
+                    yes += prop
                   }
+                case prop =>
+                  yes += prop
+              }
 
-              if (isOptionalDom) {
-                domPropsBuilder += fieldTree
-                false
-              } else true
+              (yes.result(), no.result())
+            }
 
-            case _ => true
-          }
-          .take(FindProps.MaxParamsForMethod)
+            val resProps: Res[FindProps.Filtered[IArray[FieldTree]]] =
+              findProps.forType(
+                propsRef,
+                tparams,
+                scope,
+                memberToProp,
+                maxNumProps,
+                acceptNativeTraits = true,
+                extractDomProps,
+              )
 
-        SplitProps(rewrittenProps)
-      }
+            val domInfo: Web[Unit, DomInfo] = {
+              val domProps = IArray
+                .fromTraversable(resProps.asMap)
+                .flatMap { case (_, FindProps.Filtered(_, domFields)) => domFields }
+                .distinctBy(_.name)
 
-    val domProps = domPropsBuilder.result().distinct
+              Web(DomInfo(domProps, slinkyWeb.tags(inferredTagNameCache.getOrElse(TagName.Any)).slinkyTagRef))
+            }
 
-    val inferredDomType: Option[TypeRef] =
-      domProps
-        .firstDefined { f =>
-          val referencedElements = TreeTraverse.collect(f) {
-            case TypeRef(QualifiedName(IArray.exactlyThree(reactNames.outputPkg, stdNames.stdName, name)), Empty, _)
-                if name.value.endsWith("Element") =>
-              name.value
-          }
-          referencedElements.firstDefined(slinkyWeb.ElementMapping.get)
+            val resSplitProps: Res[SplitProps] =
+              resProps map { case FindProps.Filtered(props, _) => SplitProps(props) }
+
+            PropsDom(propsRef, resSplitProps, domInfo)
         }
 
-    (resPropsOut, DomInfo(domProps, inferredDomType getOrElse slinkyWeb.AnyHtmlElement))
+      case None =>
+        val domInfo: Mode[Unit, DomInfo] =
+          mode.forWeb(_ => DomInfo(IArray.Empty, names.AnyHtmlElement))
+
+        val value: Res[SplitProps] =
+          Res.One(TypeRef.Object, SplitProps(Empty))
+
+        PropsDom(TypeRef.Object, value, domInfo)
+    }
+
+  def inferSlinkyTag(props: IArray[Prop], slinkyWeb: SlinkyWeb): TagName = {
+    val successfullyMapped: IArray[TagName] =
+      props.flatMap {
+        case Prop(_, _, Left(_)) =>
+          Empty
+        case Prop(_, _, Right(tree)) =>
+          TreeTraverse.collect(tree) {
+            case tr: TypeRef if slinkyWeb.uniqueTagsByStdRef.contains(tr) =>
+              slinkyWeb.uniqueTagsByStdRef(tr).tagName
+          }
+      }
+
+    successfullyMapped match {
+      case Empty => TagName.Any
+      case some  => some.groupBy(identity).maxBy { case (_, list) => list.length }._1
+    }
   }
 
   def genSharedPropsClass(

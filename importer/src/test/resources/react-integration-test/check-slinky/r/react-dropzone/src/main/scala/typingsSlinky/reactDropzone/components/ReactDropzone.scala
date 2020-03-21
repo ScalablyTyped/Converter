@@ -1,10 +1,12 @@
 package typingsSlinky.reactDropzone.components
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.core.TagMod
 import slinky.web.html.`*`.tag
+import typingsSlinky.react.mod.DragEvent
 import typingsSlinky.react.mod.Ref
 import typingsSlinky.react.mod.RefAttributes
 import typingsSlinky.reactDropzone.mod.DropEvent
@@ -21,7 +23,7 @@ object ReactDropzone
   object componentImport extends js.Object
   
   override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: disabled, multiple, onDragEnter, onDragLeave, onDragOver */
+  /* The following DOM/SVG props were specified: disabled, multiple */
   def apply(
     accept: String | js.Array[String] = null,
     getFilesFromEvent: /* event */ DropEvent => /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Promise<Array<File | DataTransferItem>> */ _ = null,
@@ -31,6 +33,9 @@ object ReactDropzone
     noDrag: js.UndefOr[Boolean] = js.undefined,
     noDragEventsBubbling: js.UndefOr[Boolean] = js.undefined,
     noKeyboard: js.UndefOr[Boolean] = js.undefined,
+    onDragEnter: DragEvent[HTMLElement] => Unit = null,
+    onDragLeave: DragEvent[HTMLElement] => Unit = null,
+    onDragOver: DragEvent[HTMLElement] => Unit = null,
     onDrop: (/* acceptedFiles */ js.Array[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify File */ _
     ], /* rejectedFiles */ js.Array[
@@ -55,6 +60,9 @@ object ReactDropzone
     if (!js.isUndefined(noDrag)) __obj.updateDynamic("noDrag")(noDrag.asInstanceOf[js.Any])
     if (!js.isUndefined(noDragEventsBubbling)) __obj.updateDynamic("noDragEventsBubbling")(noDragEventsBubbling.asInstanceOf[js.Any])
     if (!js.isUndefined(noKeyboard)) __obj.updateDynamic("noKeyboard")(noKeyboard.asInstanceOf[js.Any])
+    if (onDragEnter != null) __obj.updateDynamic("onDragEnter")(js.Any.fromFunction1(onDragEnter))
+    if (onDragLeave != null) __obj.updateDynamic("onDragLeave")(js.Any.fromFunction1(onDragLeave))
+    if (onDragOver != null) __obj.updateDynamic("onDragOver")(js.Any.fromFunction1(onDragOver))
     if (onDrop != null) __obj.updateDynamic("onDrop")(js.Any.fromFunction3(onDrop))
     if (onDropAccepted != null) __obj.updateDynamic("onDropAccepted")(js.Any.fromFunction2(onDropAccepted))
     if (onDropRejected != null) __obj.updateDynamic("onDropRejected")(js.Any.fromFunction2(onDropRejected))

@@ -27,13 +27,15 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
             memberToProp,
             FindProps.MaxParamsForMethod,
             acceptNativeTraits = false,
+            keep               = FindProps.keepAll,
+            selfRef            = TypeRef(cls.codePath, TypeParamTree.asTypeArgs(cls.tparams), NoComments),
           ) match {
             case Res.Error(_) =>
               IArray(cls)
 
             case Res.One(_, params) =>
               val modOpt: Option[ModuleTree] =
-                generateCreator(Name.APPLY, params, cls.codePath, cls.tparams)
+                generateCreator(Name.APPLY, params.yes, cls.codePath, cls.tparams)
                   .map(method =>
                     ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false),
                   )
@@ -44,7 +46,7 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps) exte
             case Res.Many(paramsMap) =>
               val methods: IArray[MethodTree] =
                 IArray.fromTraversable(paramsMap.flatMap {
-                  case (propsRef, params) => generateCreator(propsRef.name, params, cls.codePath, cls.tparams)
+                  case (propsRef, params) => generateCreator(propsRef.name, params.yes, cls.codePath, cls.tparams)
                 })
 
               val modOpt: Option[ModuleTree] =

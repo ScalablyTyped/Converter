@@ -247,7 +247,7 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
             val (propsRef, resProps): (TypeRef, Res[IArray[Prop]]) =
               propsRefOpt match {
                 case Some(propsRef) =>
-                  val resProps: Res[IArray[Prop]] =
+                  val resProps: Res[FindProps.Filtered[Unit]] =
                     findProps.forType(
                       propsRef,
                       tparams,
@@ -255,9 +255,10 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
                       memberToProp,
                       maxNum             = FindProps.MaxParamsForMethod - additionalOptionalProps.length - /* children*/ 1,
                       acceptNativeTraits = true,
+                      keep               = FindProps.keepAll,
                     )
 
-                  propsRef -> resProps
+                  propsRef -> resProps.map(_.yes)
 
                 case None =>
                   TypeRef.Object -> Res.One(TypeRef.Object, Empty)
@@ -278,10 +279,10 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
                 }
               case Res.Error(_) =>
                 components.map { c =>
-                  val propsWithObject  = TypeRef.Intersection(IArray(propsRef, TypeRef.Object))
-                  val (_, Left(param)) = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
+                  val propsWithObject = TypeRef.Intersection(IArray(propsRef, TypeRef.Object))
+                  val (_, prop)       = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
                   val mod =
-                    genComponent(pkgCp, Res.One(propsWithObject, IArray(param)), c.knownRef, tparams, c)
+                    genComponent(pkgCp, Res.One(propsWithObject, IArray(prop)), c.knownRef, tparams, c)
                   val comment = Comment(
                     s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. */\n",
                   )
