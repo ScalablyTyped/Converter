@@ -218,7 +218,7 @@ class Phase3Compile(
         logger warn s"Using cached build $jarFile"
         PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
       } else {
-        remove(compilerPaths.classesDir)
+        files.deleteAll(compilerPaths.classesDir)
         os.makeDir.all(compilerPaths.classesDir)
         if (!ensureSourceFilesWritten) {
           files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
@@ -254,13 +254,10 @@ class Phase3Compile(
               PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
           }
 
-        remove(compilerPaths.targetDir)
+        files.deleteAll(compilerPaths.targetDir)
 
         ret
       }
     }
   }
-
-  /* don't use `os.remove` as it's much slower */
-  def remove(p: os.Path): Unit = os.remove.all(p)
 }

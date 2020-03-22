@@ -453,7 +453,7 @@ target/
 
         storeds.underlying.filter(_.metadata.logLevel === LogLevel.error) match {
           case empty if empty.isEmpty =>
-            Try(os.remove.all(failLog))
+            Try(files.deleteAll(failLog))
           case errors =>
             files.softWrite(failLog) { w1 =>
               errors.foreach { errorLog =>

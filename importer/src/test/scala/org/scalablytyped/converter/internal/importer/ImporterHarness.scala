@@ -143,7 +143,7 @@ trait ImporterHarness extends AnyFunSuite {
 
         /* we don't checkin these files, so also don't compare them */
         os.walk(targetFolder).foreach {
-          case x if x.last == ".bloop" => os.remove.all(x)
+          case x if x.last == ".bloop" => files.deleteAll(x)
           case _                       => ()
         }
 
@@ -151,7 +151,7 @@ trait ImporterHarness extends AnyFunSuite {
           if (!os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
             fail("There is nothing to copy from target into check, something failed upstream")
           }
-          os.remove.all(checkFolder)
+          files.deleteAll(checkFolder)
           os.copy(targetFolder, checkFolder)
           GitLock.synchronized(%("git", "add", checkFolder))
         }
@@ -170,7 +170,7 @@ trait ImporterHarness extends AnyFunSuite {
           if (os.isDir(targetFolder) && os.list(targetFolder).isEmpty) {
             fail("There is nothing to copy from target into check, something failed upstream")
           }
-          os.remove.all(checkFolder)
+          files.deleteAll(checkFolder)
           os.copy(targetFolder, checkFolder)
           synchronized(%("git", "add", checkFolder))
         }

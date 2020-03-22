@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal.importer
 
 import java.net.URI
 
-import org.scalablytyped.converter.internal.InFolder
+import org.scalablytyped.converter.internal.{InFolder, files}
 
 import scala.util.Try
 
@@ -26,8 +26,8 @@ object DTUpToDate {
     )
 
     // use first party definitions instead. model better if there are more cases like this
-    os.remove.all(clonedDir / "types" / "highcharts")
-    os.remove.all(clonedDir / "types" / "expo")
+    files.deleteAll(clonedDir / "types" / "highcharts")
+    files.deleteAll(clonedDir / "types" / "expo")
 
     InFolder(clonedDir / 'types)
   }

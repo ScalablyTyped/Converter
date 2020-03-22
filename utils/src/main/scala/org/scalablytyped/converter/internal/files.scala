@@ -5,6 +5,9 @@ import java.nio.file.StandardOpenOption.{CREATE, TRUNCATE_EXISTING}
 import java.nio.file.{Files, Path}
 import java.util
 
+import ammonite.ops.%
+import org.scalablytyped.converter.internal.environment.OpSystem
+
 import scala.util.Try
 
 sealed trait Synced
@@ -53,7 +56,7 @@ object files {
       folder match {
         case f if os.exists(f) =>
           os.walk(f, IgnoreProjectFiles).foreach {
-            case p if os.isFile(p) && !absolutePathFiles.contains(p) => os.remove.all(p)
+            case p if os.isFile(p) && !absolutePathFiles.contains(p) => deleteAll(p)
             case _                                                   => ()
           }
         case _ => ()
@@ -111,7 +114,37 @@ object files {
   }
 
   def existingEmpty(p: os.Path): os.Path = {
-    Try(os.remove.all(p))
+    Try(deleteAll(p))
     existing(p)
+  }
+
+  def deleteAll(p: os.Path): Unit = {
+    environment.OS match {
+      case OpSystem.WINDOWS => os.remove.all(p)
+      case _ => {
+        implicit val wd = os.home
+        % rm ("-Rf", p)
+      }
+    }
+  }
+}
+
+object environment {
+
+  val OS : OpSystem.OpSystem = getOperatingSystem()
+
+  object OpSystem extends Enumeration {
+    type OpSystem = Value
+    val WINDOWS, LINUX, MAC, UNKNOWN = Value
+  }
+
+  private def getOperatingSystem(): OpSystem.OpSystem  = {
+    // detecting the operating system using os.name System property
+    val osName = System.getProperty("os.name").toLowerCase
+
+    if (osName.contains("mac")) OpSystem.MAC
+    else if (osName.contains("win")) OpSystem.WINDOWS
+    else if (osName.contains("nix") || osName.contains("nux") || osName.contains("aix"))  OpSystem.LINUX
+    else OpSystem.UNKNOWN
   }
 }
