@@ -3,7 +3,6 @@ package importer
 
 import java.time.{Instant, ZonedDateTime}
 
-import ammonite.ops.%
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.importer.Phase2Res.{Facade, LibScalaJs}
 import org.scalablytyped.converter.internal.importer.build._
@@ -263,8 +262,5 @@ class Phase3Compile(
   }
 
   /* don't use `os.remove` as it's much slower */
-  def remove(p: os.Path): Unit = {
-    implicit val wd = os.home
-    % rm ("-Rf", p)
-  }
+  def remove(p: os.Path): Unit = os.remove.all(p)
 }
