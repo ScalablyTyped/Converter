@@ -7,10 +7,6 @@ import com.olvind.logging.Logger
 class Cmd(logger: Logger[_], maxLengthOpt: Option[Int]) {
   val runVerbose = Command(Vector.empty, Map.empty, executeStream(verbose = true))
   val run        = Command(Vector.empty, Map.empty, executeStream(verbose = false))
-  val rmVerbose = (filePath: os.Path) => {
-    logger warn s"delete: $filePath"
-    os.remove(filePath)
-  }
 
   private val MaxLength = maxLengthOpt.getOrElse(Int.MaxValue)
 

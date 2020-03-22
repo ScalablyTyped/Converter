@@ -18,7 +18,7 @@ object DTUpToDate {
           cmd.runVerbose git ("clean", "-fdX") // remove ignored files/folders
           cmd.runVerbose git ("clean", "-fd")
           cmd.runVerbose git ('reset, "--hard", "origin/master")
-          cmd.rmVerbose (clonedDir / ".git/gc.log")
+          files.delete(clonedDir / ".git/gc.log")
           cmd.runVerbose git 'prune
         }
       } else
