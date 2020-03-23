@@ -3,7 +3,6 @@ package importer
 
 import java.time.{Instant, ZonedDateTime}
 
-import ammonite.ops.%
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.internal.importer.Phase2Res.{Facade, LibScalaJs}
 import org.scalablytyped.converter.internal.importer.build._
@@ -219,7 +218,7 @@ class Phase3Compile(
         logger warn s"Using cached build $jarFile"
         PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
       } else {
-        remove(compilerPaths.classesDir)
+        files.deleteAll(compilerPaths.classesDir)
         os.makeDir.all(compilerPaths.classesDir)
         if (!ensureSourceFilesWritten) {
           files.sync(allFilesProperVersion.all, compilerPaths.baseDir, deleteUnknownFiles, softWrites)
@@ -255,16 +254,10 @@ class Phase3Compile(
               PhaseRes.Failure(Map(source -> Right(s"Compilation failed")))
           }
 
-        remove(compilerPaths.targetDir)
+        files.deleteAll(compilerPaths.targetDir)
 
         ret
       }
     }
-  }
-
-  /* don't use `os.remove` as it's much slower */
-  def remove(p: os.Path): Unit = {
-    implicit val wd = os.home
-    % rm ("-Rf", p)
   }
 }

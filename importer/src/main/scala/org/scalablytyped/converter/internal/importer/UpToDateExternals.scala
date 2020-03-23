@@ -60,7 +60,7 @@ object UpToDateExternals {
 
       /* because of course *cough* somebody distributes their whole history, and `npm` refuses to update when that happens */
       os.walk.stream(folder).foreach {
-        case dir if os.isDir(dir) && dir.last === ".git" => os.remove.all(dir)
+        case dir if os.isDir(dir) && dir.last === ".git" => files.deleteAll(dir)
         case _                                           => ()
       }
 
@@ -94,9 +94,9 @@ object UpToDateExternals {
       logger.warn(s"Trimming $nodeModulesPath")
 
       os.walk.stream(folder).foreach {
-        case link if os.isLink(link)                              => os.remove.all(link)
-        case file if os.isFile(file) && !KeepExtensions(file.ext) => os.remove.all(file)
-        case dir if os.isDir(dir) && dir.last === ".git"          => os.remove.all(dir)
+        case link if os.isLink(link)                              => files.deleteAll(link)
+        case file if os.isFile(file) && !KeepExtensions(file.ext) => files.deleteAll(file)
+        case dir if os.isDir(dir) && dir.last === ".git"          => files.deleteAll(dir)
         case _                                                    => ()
       }
     }

@@ -195,7 +195,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
           Try(interfaceCmd.runVerbose git ("clean", "-fdX")) // remove ignored files/folders
           Try(interfaceCmd.runVerbose git ("clean", "-fd"))
           Try(interfaceCmd.runVerbose git ('reset, "--hard", "origin/master"))
-          Try(interfaceCmd.runVerbose rm ("-f", ".git/gc.log"))
+          Try(files.deleteAll(projectFolder / ".git/gc.log"))
           Try(interfaceCmd.runVerbose git 'prune)
         }
       } else
@@ -453,7 +453,7 @@ target/
 
         storeds.underlying.filter(_.metadata.logLevel === LogLevel.error) match {
           case empty if empty.isEmpty =>
-            Try(os.remove.all(failLog))
+            Try(files.deleteAll(failLog))
           case errors =>
             files.softWrite(failLog) { w1 =>
               errors.foreach { errorLog =>

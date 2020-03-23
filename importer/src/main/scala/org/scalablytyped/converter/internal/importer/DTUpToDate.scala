@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal.importer
 
 import java.net.URI
 
-import org.scalablytyped.converter.internal.InFolder
+import org.scalablytyped.converter.internal.{InFolder, files}
 
 import scala.util.Try
 
@@ -18,7 +18,7 @@ object DTUpToDate {
           cmd.runVerbose git ("clean", "-fdX") // remove ignored files/folders
           cmd.runVerbose git ("clean", "-fd")
           cmd.runVerbose git ('reset, "--hard", "origin/master")
-          cmd.runVerbose rm ("-f", ".git/gc.log")
+          files.deleteAll(clonedDir / ".git/gc.log")
           cmd.runVerbose git 'prune
         }
       } else
@@ -26,11 +26,9 @@ object DTUpToDate {
     )
 
     // use first party definitions instead. model better if there are more cases like this
-    {
-      implicit val wd = clonedDir
-      cmd.runVerbose rm ("-Rf", "types/highcharts")
-      cmd.runVerbose rm ("-Rf", "types/expo")
-    }
+    files.deleteAll(clonedDir / "types" / "highcharts")
+    files.deleteAll(clonedDir / "types" / "expo")
+
     InFolder(clonedDir / 'types)
   }
 }
