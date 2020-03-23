@@ -195,7 +195,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
           Try(interfaceCmd.runVerbose git ("clean", "-fdX")) // remove ignored files/folders
           Try(interfaceCmd.runVerbose git ("clean", "-fd"))
           Try(interfaceCmd.runVerbose git ('reset, "--hard", "origin/master"))
-          Try(files.delete(projectFolder / ".git/gc.log"))
+          Try(files.deleteAll(projectFolder / ".git/gc.log"))
           Try(interfaceCmd.runVerbose git 'prune)
         }
       } else

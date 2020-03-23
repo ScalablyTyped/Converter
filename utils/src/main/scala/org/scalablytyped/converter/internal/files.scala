@@ -127,14 +127,4 @@ object files {
       }
     }
   }
-
-  def delete(p: os.Path): Unit = {
-    environment.OS match {
-      case OpSystem.WINDOWS => os.remove(p)
-      case _ => {
-        implicit val wd = os.home
-        % rm ("-f", p)
-      }
-    }
-  }
 }
