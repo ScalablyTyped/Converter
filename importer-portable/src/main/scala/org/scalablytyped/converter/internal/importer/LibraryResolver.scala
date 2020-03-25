@@ -51,12 +51,11 @@ object LibraryResolver {
       } else None
 
     val longName: TsIdentModule = {
-      val keepIndexPath = file.path.segments.toList.reverse match {
-        case "index.d.ts" :: path :: rest =>
-          val patchedSegments = rest.reverse :+ (path + ".d.ts")
-          os.exists(os.Path(patchedSegments.mkString("/", "/", "")))
-        case _ => false
-      }
+      val keepIndexPath = if(file.path.endsWith(os.RelPath("index.d.ts"))) {
+        val folder = file.path / os.up
+        val parent = folder / os.up
+        os.exists(parent / (folder.baseName ++ ".d.ts"))
+      } else false
 
       ModuleNameParser(
         source.libName.`__value` +: file.path.relativeTo(source.folder.path).segments.to[List],
