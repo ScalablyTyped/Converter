@@ -3,7 +3,7 @@ package importer
 
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource, TsSource}
 import org.scalablytyped.converter.internal.ts._
-
+import os._
 class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], facadesFolder: Option[InFolder]) {
   import LibraryResolver._
 
@@ -51,10 +51,8 @@ object LibraryResolver {
       } else None
 
     val longName: TsIdentModule = {
-      val keepIndexPath = file.path.segments.toList.reverse match {
-        case "index.d.ts" :: path :: rest =>
-          val patchedSegments = rest.reverse :+ (path + ".d.ts")
-          os.exists(os.Path(patchedSegments.mkString("/", "/", "")))
+      val keepIndexPath = file.path match {
+        case base / segment /  "index.d.ts" => os.exists(base / segment.concat(".d.ts"))
         case _ => false
       }
 
