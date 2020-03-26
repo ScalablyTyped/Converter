@@ -3,11 +3,21 @@ id: changelog
 title: Changelog
 ---
 
+## 1.0.0-beta7
+[Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta6...v1.0.0-beta7)
+
+Support running the plugin and CI build on windows.
+If you see any further issues please file an [issue](https://github.com/ScalablyTyped/Converter/issues/new)
+
+### Contributors
+     7  Mykola Khoroshevskyi
+     2  Øyvind Raddum Berg
+
 ## 1.0.0-beta6
 
 [Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta5...v1.0.0-beta6)
 
-This is a big release because we finally enable expansion of [type mappings](http://typescript) for most static cases.
+This is a big release because we finally enable expansion of [mapped types](https://www.typescriptlang.org/docs/handbook/advanced-types.html#mapped-types) for most static cases.
 
 Given the following typescript definition:
 

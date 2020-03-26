@@ -220,7 +220,7 @@ Do you find the debug output tiring?
 Global / stQuiet := true
 ```
 
-By default we store caches and built artifacts in `~/.cache/scalablytyped`.
+By default we store caches and built artifacts in `~/.cache/scalablytyped` or a similar directory for your operating system.
 
 If that doesn't suit you, you can specify another directory 
 
