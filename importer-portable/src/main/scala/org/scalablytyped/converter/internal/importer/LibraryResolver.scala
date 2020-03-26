@@ -4,6 +4,7 @@ package importer
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource, TsSource}
 import org.scalablytyped.converter.internal.ts._
 import os._
+
 class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], facadesFolder: Option[InFolder]) {
   import LibraryResolver._
 
