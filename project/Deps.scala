@@ -13,5 +13,5 @@ object Deps {
   val scalaXml          = "org.scala-lang.modules" %% "scala-xml" % "1.3.0"
 
   val circe: Seq[ModuleID] =
-    Seq("core", "generic", "parser", "jackson29").map(s => "io.circe" %% s"circe-$s" % "0.13.0")
+    Seq("core", "generic", "parser", "jackson29").map(s => "io.circe" %% s"circe-$s" % "0.11.1")
 }
