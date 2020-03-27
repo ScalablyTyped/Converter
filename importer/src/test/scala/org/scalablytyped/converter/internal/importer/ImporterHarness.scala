@@ -103,6 +103,15 @@ trait ImporterHarness extends AnyFunSuite {
     )
   }
 
+  def findTestFolder(testName: String): InFolder = {
+    def go(p: os.Path): os.Path =
+      if (os.exists(p / "build.sbt")) p / "tests" / testName
+      else if (p == os.root) sys.error("couldnt find test folder")
+      else go(p / os.up)
+
+    InFolder(go(os.pwd))
+  }
+
   def assertImportsOk(
       testName: String,
       pedantic: Boolean,
@@ -113,12 +122,7 @@ trait ImporterHarness extends AnyFunSuite {
         Name.typings,
       ),
   ): Assertion = {
-    val testFolder = getClass.getClassLoader.getResource(testName) match {
-      case null  => sys.error(s"Could not find test resource folder $testName")
-      case other =>
-        // The test can be run from various working directories, so find the correct directory this way :/
-        InFolder(os.Path(other.getFile) / os.up / os.up / os.up / os.up / 'src / 'test / 'resources / testName)
-    }
+    val testFolder   = findTestFolder(testName)
     val source       = InFolder(testFolder.path / 'in)
     val targetFolder = os.Path(Files.createTempDirectory("scalablytyped-test-"))
     val checkFolder = testFolder.path / (flavour match {

@@ -1,31 +1,40 @@
-package org.scalablytyped.converter.internal.ts.parser
+package org.scalablytyped.converter.internal
+package ts
+
+import java.io.StringWriter
 
 import com.olvind.logging
+import com.olvind.logging.Logger
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Phase1ReadTypescript
-import org.scalablytyped.converter.internal.ts._
+import org.scalablytyped.converter.internal.ts.parser.TsParser
 import org.scalablytyped.converter.internal.ts.transforms.SetCodePath
 
 import scala.reflect.ClassTag
+import scala.util.control.NonFatal
 
 trait TypeExpansionHarness {
   val parser  = new TsParser(None)
   val libName = TsIdentLibrarySimple("testing")
 
-  val Transformations: List[TsParsedFile => TsParsedFile] = {
+  def Transformations(logger: Logger[Unit]): List[TsParsedFile => TsParsedFile] =
     Phase1ReadTypescript.Pipeline(
-      scope              = TsTreeScope(libName, pedantic = true, Map(), logging.stdout),
+      scope              = TsTreeScope(libName, pedantic = true, Map(), logger),
       libName            = libName,
       expandTypeMappings = Selection.All,
       involvesReact      = true,
     )
-  }
 
   def run(input: String): TsParsedFile = {
     val parsed       = parser(input).get
+    val logger       = logging.stringWriter()
     val withCodePath = SetCodePath.visitTsParsedFile(CodePath.HasPath(libName, TsQIdent.empty))(parsed)
 
-    Transformations.foldLeft(withCodePath) { case (acc, f) => f(acc) }
+    try Transformations(logger.void).foldLeft(withCodePath) { case (acc, f) => f(acc) } catch {
+      case NonFatal(th) =>
+        println(logger.underlying.toString)
+        throw th
+    }
   }
 
   implicit class Extractor(x: TsParsedFile) {

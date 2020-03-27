@@ -1,7 +1,6 @@
-package org.scalablytyped.converter.internal
-package ts
-package parser
+package org.scalablytyped.converter.internal.ts
 
+import org.scalablytyped.converter.internal.{IArray, NoComments, ProtectionLevel}
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should.Matchers
 

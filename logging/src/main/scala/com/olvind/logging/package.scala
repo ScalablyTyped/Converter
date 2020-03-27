@@ -1,6 +1,6 @@
 package com.olvind
 
-import java.io.Writer
+import java.io.{StringWriter, Writer}
 
 import com.olvind.logging.Logger.{AppendableLogger, Stored, StoringLogger, WriterLogger}
 import fansi.Str
@@ -26,6 +26,9 @@ package object logging {
       ctx:     Ctx     = emptyContext,
   ): Logger[W] =
     new WriterLogger(new AppendableLogger(writer, pattern, ctx))
+
+  def stringWriter(pattern: Pattern = Pattern.default, ctx: Ctx = emptyContext): Logger[StringWriter] =
+    writer(new StringWriter)
 
   def storing(ctx: Ctx = emptyContext): Logger[Array[Stored]] =
     new StoringLogger(new Logger.Store, ctx)
