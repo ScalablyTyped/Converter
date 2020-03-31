@@ -3,7 +3,7 @@ package importer
 
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource, TsSource}
 import org.scalablytyped.converter.internal.ts._
-import os._
+import os./
 
 class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], facadesFolder: Option[InFolder]) {
   import LibraryResolver._
@@ -53,8 +53,8 @@ object LibraryResolver {
 
     val longName: TsIdentModule = {
       val keepIndexPath = file.path match {
-        case base / segment /  "index.d.ts" => os.exists(base / segment.concat(".d.ts"))
-        case _ => false
+        case base / segment / "index.d.ts" => os.exists(base / segment.concat(".d.ts"))
+        case _                             => false
       }
 
       ModuleNameParser(
