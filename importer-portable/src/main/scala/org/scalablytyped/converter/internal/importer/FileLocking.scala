@@ -85,11 +85,12 @@ object FileLocking {
           else Array(StandardOpenOption.CREATE_NEW, StandardOpenOption.WRITE, StandardOpenOption.READ)
 
         val channel = FileChannel.open(path, flags: _*)
-        val lock    = channel.lock()
-        ret = f(channel)
-
-        lock.release()
-        channel.close()
+        try {
+          val lock = channel.lock()
+          try {
+            ret = f(channel)
+          } finally lock.release()
+        } finally channel.close()
         continue = false
       } catch {
         case _: OverlappingFileLockException => Try(Thread.sleep(10))
