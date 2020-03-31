@@ -3,6 +3,17 @@ id: changelog
 title: Changelog
 ---
 
+## 1.0.0-beta8
+[Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta7...v1.0.0-beta8)
+
+Improve plugin behaviour and performance by only instantiating compiler and installing npm deps when needed
+Further contributions towards a working windows version. 
+
+### Contributors
+     7  Øyvind Raddum Berg
+     2  Mykola Khoroshevskyi
+     1  Anthony Cerruti
+
 ## 1.0.0-beta7
 [Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta6...v1.0.0-beta7)
 
