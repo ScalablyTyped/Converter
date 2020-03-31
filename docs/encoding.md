@@ -476,10 +476,22 @@ const record: Record<"a" | "b", number> = {a: 1, b: 2}
 ```
 
 As you might imagine, converting these to Scala is not straightforward.
-For static cases we can evaluate them and generate interfaces (though it's not implemented yet!),
-but for generic cases (say `Partial<T>`) there isn't much we can do for now.
+For static cases we evaluate them and generate interfaces,
+but for generic cases (say `Partial<T>`) there isn't much we can do.
 
-Just to get things working, we mostly ignore the effects of the type mappings in Scala for now,
+In this case we'll get for instance this:
+```scala
+/* Inlined std.Partial<type-mappings.Person> */
+@js.native
+trait PartialPerson extends js.Object {
+  var age: js.UndefOr[Double] = js.native
+  var name: js.UndefOr[String] = js.native
+}
+
+```
+
+As a fallback mechanism for all the cases we don't expand yet, 
+ we mostly ignore the effects of the type mappings in Scala for now
  and keep the transformation in a comment:
 
 ```scala
@@ -496,11 +508,9 @@ get exactly the data the type system indicates.
 When you produce such a value, you need to cast yourself:
 
 ```scala
+// if PartialPerson couldnt be generated
 val partialPerson: Partial[Person] = js.Dynamic.literal(name = "dsa").asInstanceOf[Partial[Person]]
 ```
-
-Also notice that for `Record` the transformation is such that we cannot just ignore it,
-so we fall back to `js.Any`.
 
 ### Whatsup with interface augmentation?
 Another awesome feature of typescript is how you can describe that a library or a module augments
@@ -526,5 +536,5 @@ The converter has some internal support for detecting this,
 but we haven't experimented with outputting anything yet.
 That means that you have to detect this yourself and cast.
 Have a look at the `jquery`/`jquery-ui`
-[demo](https://github.com/oyvindberg/ScalablyTypedDemos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala)
+[demo](https://github.com/ScalablyTyped/Demos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala)
 to see how it's done.
