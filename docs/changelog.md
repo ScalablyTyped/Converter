@@ -6,7 +6,9 @@ title: Changelog
 ## 1.0.0-beta8
 [Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta7...v1.0.0-beta8)
 
-Improve plugin behaviour and performance by only instantiating compiler and installing npm deps when needed
+Improve plugin behaviour and performance by only instantiating compiler, and only installing npm deps when needed, 
+and not leaking file handles
+
 Further contributions towards a working windows version. 
 
 ### Contributors
