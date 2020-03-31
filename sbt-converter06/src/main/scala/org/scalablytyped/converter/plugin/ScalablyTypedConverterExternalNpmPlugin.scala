@@ -36,10 +36,11 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
   override def requires = ScalablyTypedPluginBase
 
-  lazy val stImportTask = Def.task {
+  lazy val stImportTask = Def.taskDyn {
     val projectName     = name.value
     val folder          = os.Path(externalNpm.value)
     val packageJsonFile = folder / "package.json"
+    val nodeModules     = InFolder(folder / "node_modules")
     val ignored         = stIgnore.value.to[Set]
     val sbtLog          = streams.value.log
     val outputDir       = os.Path(streams.value.cacheDirectory)
@@ -60,7 +61,6 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       ),
       Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
-    val compiler = ScalablyTypedPluginBase.stInternalZincCompiler.value
 
     val shared = SharedInput(
       shouldUseScalaJsDomTypes = stUseScalaJsDom.value,
@@ -75,13 +75,11 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       versions                 = versions,
     )
 
-    val fromFolder = InFolder(folder / "node_modules")
-
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
       packageJsonHash  = Digest.of(List(os.read.bytes(packageJsonFile))).hexString,
       shared           = shared,
-      fromFolder       = fromFolder,
+      fromFolder       = nodeModules,
       targetFolder     = outputDir / "sources",
     )
 
@@ -89,23 +87,25 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
     type InOut = (ImportTypings.Input, ImportTypings.Output)
 
-    val result: Set[Dep] =
-      Try(Json.force[InOut](runCache)).toOption match {
-        case Some((`input`, output)) if output.allJars.forall(os.exists) =>
+    Try(Json.force[InOut](runCache)).toOption match {
+      case Some((`input`, output)) if output.allJars.forall(os.exists) =>
+        Def.task {
           stLogger.withContext(runCache).info(s"Using cached result :)")
-          output.deps
-        case _ =>
-          val ran = ImportTypings(
+          output.deps.map(Deps.asModuleID(versions))
+        }
+
+      case _ =>
+        Def.task {
+          ImportTypings(
             input            = input,
             logger           = stLogger,
             parseCacheDirOpt = Some(cacheDir.toPath resolve "parse"),
-            compiler         = compiler,
+            compiler         = ScalablyTypedPluginBase.stInternalZincCompiler.value,
             publishFolder    = os.home / ".ivy2" / "local",
-          )
-          ran match {
+          ) match {
             case Right(output) =>
               Json.persist[InOut](runCache)((input, output))
-              output.deps
+              output.deps.map(Deps.asModuleID(versions))
             case Left(errors) =>
               errors.foreach {
                 case (_, Left(th)) => throw th
@@ -114,9 +114,8 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
 
               sys.error(errors.mkString("\n").take(2000))
           }
-      }
-
-    result.map(Deps.asModuleID(versions))
+        }
+    }
   }
 
   override lazy val projectSettings =

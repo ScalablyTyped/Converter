@@ -42,14 +42,12 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     */
   private val stInternalNpmInstallDependencies = taskKey[File]("Install deps from npm")
 
-  val stImportTask = Def.task[Set[ModuleID]] {
-
-    val projectName     = name.value
-    val packageJsonFile = (npmUpdate / crossTarget).value / "package.json"
-    val ignored         = stIgnore.value.to[Set]
-    val sbtLog          = streams.value.log
-    val cacheDir        = (Global / stDir).value
-    val outputPackage   = Name(stOutputPackage.value)
+  val stImportTask = Def.taskDyn[Set[ModuleID]] {
+    val projectName   = name.value
+    val ignored       = stIgnore.value.to[Set]
+    val sbtLog        = streams.value.log
+    val cacheDir      = (Global / stDir).value
+    val outputPackage = Name(stOutputPackage.value)
 
     val stLogger: logging.Logger[Unit] =
       if ((Global / stQuiet).value) logging.Logger.DevNull
@@ -68,7 +66,6 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     val ScalaJsVersion = Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion)
 
     val versions = Versions(ScalaVersion, ScalaJsVersion)
-    val compiler = ScalablyTypedPluginBase.stInternalZincCompiler.value
 
     val shared = SharedInput(
       shouldUseScalaJsDomTypes = stUseScalaJsDom.value,
@@ -83,11 +80,11 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       versions                 = versions,
     )
 
-    val fromFolder = InFolder(os.Path(stInternalNpmInstallDependencies.value / "node_modules"))
+    val fromFolder = InFolder(os.Path((Compile / npmUpdate / crossTarget).value / "node_modules"))
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
-      packageJsonHash  = Digest.of(List(os.read.bytes(os.Path(packageJsonFile)))).hexString,
+      packageJsonHash  = Digest.of(wantedLibs.toSeq.map(_.value).sorted).hexString,
       shared           = shared,
       fromFolder       = fromFolder,
       targetFolder     = os.Path(streams.value.cacheDirectory) / "sources",
@@ -97,43 +94,47 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
     type InOut = (ImportTypings.Input, ImportTypings.Output)
 
-    val result = Try(Json.force[InOut](runCache)).toOption match {
+    Try(Json.force[InOut](runCache)).toOption match {
       case Some((`input`, output)) if output.allJars.forall(os.exists) =>
-        stLogger.withContext(runCache).info(s"Using cached result :)")
-        output.deps
-      case _ =>
-        val ran = ImportTypings(
-          input            = input,
-          logger           = stLogger,
-          parseCacheDirOpt = Some(cacheDir.toPath resolve "parse"),
-          compiler         = compiler,
-          publishFolder    = os.home / ".ivy2" / "local",
-        )
-        ran match {
-          case Right(output) =>
-            Json.persist[InOut](runCache)((input, output))
-            output.deps
-          case Left(errors) =>
-            errors.foreach {
-              case (_, Left(th)) => throw th
-              case _             => ()
-            }
-
-            sys.error(errors.mkString("\n").take(2000))
+        Def.task {
+          stLogger.withContext(runCache).info(s"Using cached result :)")
+          output.deps.map(Deps.asModuleID(versions))
         }
 
+      case _ =>
+        Def.task {
+          stInternalNpmInstallDependencies.value
+
+          ImportTypings(
+            input            = input,
+            logger           = stLogger,
+            parseCacheDirOpt = Some(cacheDir.toPath resolve "parse"),
+            compiler         = ScalablyTypedPluginBase.stInternalZincCompiler.value,
+            publishFolder    = os.home / ".ivy2" / "local",
+          ) match {
+            case Right(output) =>
+              Json.persist[InOut](runCache)((input, output))
+              output.deps.map(Deps.asModuleID(versions))
+            case Left(errors) =>
+              errors.foreach {
+                case (_, Left(th)) => throw th
+                case _             => ()
+              }
+
+              sys.error(errors.mkString("\n").take(2000))
+          }
+        }
     }
-    result.map(Deps.asModuleID(versions))
   }
 
   val stInternalNpmInstallDependenciesTask = Def.task[File] {
     val packageJson = PackageJsonTasks.writePackageJson(
-      (crossTarget in npmUpdate).value,
+      (Compile / npmUpdate / crossTarget).value,
       (Compile / npmDependencies).value,
       (Compile / npmDevDependencies).value,
       (Compile / npmResolutions).value,
       (Compile / additionalNpmConfig).value,
-      Nil,
+      fullClasspath = Nil, // changed
       Compile,
       (version in webpack).value,
       (version in startWebpackDevServer).value,
@@ -143,7 +144,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
     NpmUpdateTasks.npmInstallDependencies(
       baseDirectory.value,
-      (crossTarget in npmUpdate).value,
+      (Compile / npmUpdate / crossTarget).value,
       packageJson.file,
       useYarn.value,
       streams.value,
