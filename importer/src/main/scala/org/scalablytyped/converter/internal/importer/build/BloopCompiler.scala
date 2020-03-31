@@ -13,7 +13,7 @@ import bloop.io.AbsolutePath
 import bloop.logging.{DebugFilter, Logger => BloopLogger}
 import com.olvind.logging.{Formatter, Logger}
 import coursier.cache.ArtifactError
-import coursier.error.FetchError
+import coursier.error.{FetchError, ResolutionError}
 import coursier.util.Task
 import coursier.{Attributes, Dependency, Fetch, Module}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
@@ -56,6 +56,8 @@ object BloopCompiler {
         .future()
         .map(files => files.map(f => AbsolutePath(f)).toArray)
         .recoverWith {
+          case x: ResolutionError.CantDownloadModule if remainingAttempts > 0 && x.perRepositoryErrors.exists(_.contains("concurrent download")) =>
+            go(remainingAttempts - 1)
           case x: FetchError.DownloadingArtifacts if remainingAttempts > 0 && x.errors.exists {
                 case (_, artifactError) => artifactError.isInstanceOf[ArtifactError.Recoverable]
               } =>
