@@ -430,9 +430,19 @@ Based on using 0.01% of the libraries it hasn't been a problem so far.</p>
 <span class="hljs-keyword">const</span> record: Record&lt;<span class="hljs-string">"a"</span> | <span class="hljs-string">"b"</span>, <span class="hljs-built_in">number</span>&gt; = {a: <span class="hljs-number">1</span>, b: <span class="hljs-number">2</span>}
 </code></pre>
 <p>As you might imagine, converting these to Scala is not straightforward.
-For static cases we can evaluate them and generate interfaces (though it's not implemented yet!),
-but for generic cases (say <code>Partial&lt;T&gt;</code>) there isn't much we can do for now.</p>
-<p>Just to get things working, we mostly ignore the effects of the type mappings in Scala for now,
+For static cases we evaluate them and generate interfaces,
+but for generic cases (say <code>Partial&lt;T&gt;</code>) there isn't much we can do.</p>
+<p>In this case we'll get for instance this:</p>
+<pre><code class="hljs css language-scala"><span class="hljs-comment">/* Inlined std.Partial&lt;type-mappings.Person&gt; */</span>
+<span class="hljs-meta">@js</span>.native
+<span class="hljs-class"><span class="hljs-keyword">trait</span> <span class="hljs-title">PartialPerson</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">js</span>.<span class="hljs-title">Object</span> </span>{
+  <span class="hljs-keyword">var</span> age: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">Double</span>] = js.native
+  <span class="hljs-keyword">var</span> name: js.<span class="hljs-type">UndefOr</span>[<span class="hljs-type">String</span>] = js.native
+}
+
+</code></pre>
+<p>As a fallback mechanism for all the cases we don't expand yet,
+we mostly ignore the effects of the type mappings in Scala for now
 and keep the transformation in a comment:</p>
 <pre><code class="hljs css language-scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">Partial</span>[<span class="hljs-type">T</span>] </span>= <span class="hljs-comment">/* import warning: ImportType.apply c Unsupported type mapping:
   {[ P in keyof T ]:? T[P]}
@@ -443,10 +453,9 @@ and keep the transformation in a comment:</p>
 <p>When you consume a structure like this it acts like a (subtle) red flag to indicate that you might not
 get exactly the data the type system indicates.
 When you produce such a value, you need to cast yourself:</p>
-<pre><code class="hljs css language-scala"><span class="hljs-keyword">val</span> partialPerson: <span class="hljs-type">Partial</span>[<span class="hljs-type">Person</span>] = js.<span class="hljs-type">Dynamic</span>.literal(name = <span class="hljs-string">"dsa"</span>).asInstanceOf[<span class="hljs-type">Partial</span>[<span class="hljs-type">Person</span>]]
+<pre><code class="hljs css language-scala"><span class="hljs-comment">// if PartialPerson couldnt be generated</span>
+<span class="hljs-keyword">val</span> partialPerson: <span class="hljs-type">Partial</span>[<span class="hljs-type">Person</span>] = js.<span class="hljs-type">Dynamic</span>.literal(name = <span class="hljs-string">"dsa"</span>).asInstanceOf[<span class="hljs-type">Partial</span>[<span class="hljs-type">Person</span>]]
 </code></pre>
-<p>Also notice that for <code>Record</code> the transformation is such that we cannot just ignore it,
-so we fall back to <code>js.Any</code>.</p>
 <h3><a class="anchor" aria-hidden="true" id="whatsup-with-interface-augmentation"></a><a href="#whatsup-with-interface-augmentation" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Whatsup with interface augmentation?</h3>
 <p>Another awesome feature of typescript is how you can describe that a library or a module augments
 an existing structure.</p>
@@ -468,6 +477,6 @@ foo.sayGoodbye();
 but we haven't experimented with outputting anything yet.
 That means that you have to detect this yourself and cast.
 Have a look at the <code>jquery</code>/<code>jquery-ui</code>
-<a href="https://github.com/oyvindberg/ScalablyTypedDemos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala">demo</a>
+<a href="https://github.com/ScalablyTyped/Demos/blob/master/jquery/src/main/scala/demo/JQueryDemo.scala">demo</a>
 to see how it's done.</p>
 </span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/flavour"><span class="arrow-prev">← </span><span>Flavour</span></a><a class="docs-next button" href="/docs/devel/about"><span>Development</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/oyvindberg/ScalablyTypedConverter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
