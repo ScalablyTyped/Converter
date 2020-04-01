@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal.importer
 
 import java.net.URI
 
-import org.scalablytyped.converter.internal.{InFolder, files}
+import org.scalablytyped.converter.internal.{files, InFolder}
 
 import scala.util.Try
 

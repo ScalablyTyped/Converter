@@ -118,7 +118,7 @@ object files {
     existing(p)
   }
 
-  def deleteAll(p: os.Path): Unit = {
+  def deleteAll(p: os.Path): Unit =
     environment.OS match {
       case OpSystem.WINDOWS => os.remove.all(p)
       case _ => {
@@ -126,5 +126,4 @@ object files {
         % rm ("-Rf", p)
       }
     }
-  }
 }

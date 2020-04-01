@@ -11,11 +11,11 @@ import scala.io.Codec
 
 object constants {
   val defaultCacheFolder: os.Path = environment.OS match {
-      case OpSystem.MAC     => os.home / "Library" / "Caches" / "ScalablyTyped"
-      case OpSystem.WINDOWS => os.home / "AppData" / "Local" / "ScalablyTyped"
-      case OpSystem.LINUX   =>  os.home / ".cache" / "scalablytyped"
-      case OpSystem.UNKNOWN =>  os.home / ".cache" / "scalablytyped" // By default, Linux cache folder
-    }
+    case OpSystem.MAC     => os.home / "Library" / "Caches" / "ScalablyTyped"
+    case OpSystem.WINDOWS => os.home / "AppData" / "Local" / "ScalablyTyped"
+    case OpSystem.LINUX   => os.home / ".cache" / "scalablytyped"
+    case OpSystem.UNKNOWN => os.home / ".cache" / "scalablytyped" // By default, Linux cache folder
+  }
 
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
   val ConverterRepo       = new URI("https://github.com/ScalablyTyped/Converter.git")

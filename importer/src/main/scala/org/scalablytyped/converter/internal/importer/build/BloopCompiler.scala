@@ -56,7 +56,8 @@ object BloopCompiler {
         .future()
         .map(files => files.map(f => AbsolutePath(f)).toArray)
         .recoverWith {
-          case x: ResolutionError.CantDownloadModule if remainingAttempts > 0 && x.perRepositoryErrors.exists(_.contains("concurrent download")) =>
+          case x: ResolutionError.CantDownloadModule
+              if remainingAttempts > 0 && x.perRepositoryErrors.exists(_.contains("concurrent download")) =>
             go(remainingAttempts - 1)
           case x: FetchError.DownloadingArtifacts if remainingAttempts > 0 && x.errors.exists {
                 case (_, artifactError) => artifactError.isInstanceOf[ArtifactError.Recoverable]

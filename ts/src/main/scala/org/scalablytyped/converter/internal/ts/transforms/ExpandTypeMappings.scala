@@ -224,20 +224,20 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       case tr: TsTypeRef =>
         val res: Option[Res[Set[TsLiteral]]] =
           scope.lookupInternal(Picker.Types, tr.name.parts, LoopDetector.initial) collectFirst {
-          case (x: TsDeclTypeAlias, _) =>
-            evaluateKeys(scope, ld)(FillInTParams(x, tr.tparams).alias)
-          case (x: TsDeclInterface, _) =>
-            val names = FillInTParams(x, tr.tparams).members.collect {
-              case TsMemberProperty(_, _, name, _, _, _, _, _) => TsLiteralString(name.value)
-              case TsMemberFunction(_, _, name, _, _, _, _)    => TsLiteralString(name.value)
-            }
-            Ok(names.toSet, wasRewritten = false)
-          case (x: TsDeclEnum, _) if x.isConst =>
-            val names = x.members.collect {
-              case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) => lit
-            }
-            Ok(names.toSet, wasRewritten = false)
-        }
+            case (x: TsDeclTypeAlias, _) =>
+              evaluateKeys(scope, ld)(FillInTParams(x, tr.tparams).alias)
+            case (x: TsDeclInterface, _) =>
+              val names = FillInTParams(x, tr.tparams).members.collect {
+                case TsMemberProperty(_, _, name, _, _, _, _, _) => TsLiteralString(name.value)
+                case TsMemberFunction(_, _, name, _, _, _, _)    => TsLiteralString(name.value)
+              }
+              Ok(names.toSet, wasRewritten = false)
+            case (x: TsDeclEnum, _) if x.isConst =>
+              val names = x.members.collect {
+                case TsEnumMember(_, _, Some(TsExpr.Literal(lit))) => lit
+              }
+              Ok(names.toSet, wasRewritten = false)
+          }
 
         res.getOrElse(Problems(IArray(TypeNotFound(scope, tr))))
 
@@ -270,7 +270,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
       case lookup: TsTypeLookup =>
         ResolveTypeLookups.expandLookupType(scope, lookup) match {
           case Some(keyType) => evaluateKeys(scope, ld)(keyType).withIsRewritten
-          case None => Problems(IArray(NotKeysFromTarget(scope, lookup)))
+          case None          => Problems(IArray(NotKeysFromTarget(scope, lookup)))
         }
 
       case x => Problems(IArray(NotKeysFromTarget(scope, x)))
