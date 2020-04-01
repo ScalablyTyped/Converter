@@ -222,7 +222,8 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
     val res: Res[Set[TsLiteral]] = FollowAliases(scope)(keys) match {
       case tr: TsTypeRef if scope.isAbstract(tr.name) => Problems(IArray(NotStatic(scope, tr)))
       case tr: TsTypeRef =>
-        val res: Option[Res[Set[TsLiteral]]] = scope.lookupInternal(Picker.Types, tr.name.parts, LoopDetector.initial) collectFirst {
+        val res: Option[Res[Set[TsLiteral]]] =
+          scope.lookupInternal(Picker.Types, tr.name.parts, LoopDetector.initial) collectFirst {
           case (x: TsDeclTypeAlias, _) =>
             evaluateKeys(scope, ld)(FillInTParams(x, tr.tparams).alias)
           case (x: TsDeclInterface, _) =>
@@ -266,6 +267,12 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
         } yield kt.intersect(ku)
 
         ret.withIsRewritten
+      case lookup: TsTypeLookup =>
+        ResolveTypeLookups.expandLookupType(scope, lookup) match {
+          case Some(keyType) => evaluateKeys(scope, ld)(keyType).withIsRewritten
+          case None => Problems(IArray(NotKeysFromTarget(scope, lookup)))
+        }
+
       case x => Problems(IArray(NotKeysFromTarget(scope, x)))
     }
     res

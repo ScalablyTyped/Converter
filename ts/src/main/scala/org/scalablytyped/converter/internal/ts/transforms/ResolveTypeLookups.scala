@@ -23,15 +23,22 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
   def expandLookupType(scope: TsTreeScope, lookup: TsTypeLookup): Option[TsType] =
     ExpandTypeMappings.evaluateKeys(scope, LoopDetector.initial)(lookup.key) match {
       case ExpandTypeMappings.Ok(keys, _) =>
-        FollowAliases(scope)(lookup.from) match {
-          case TsTypeRef(_, name, _) if scope isAbstract name => None
-          case fromTypeRef: TsTypeRef =>
-            val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
-            pick(members, keys)
+        def go(tpe: TsType): Option[TsType] =
+          FollowAliases(scope)(tpe) match {
+            case TsTypeRef(_, name, _) if scope isAbstract name => None
+            case fromTypeRef: TsTypeRef =>
+              val members = AllMembersFor(scope, LoopDetector.initial)(fromTypeRef)
+              pick(members, keys)
 
-          case TsTypeObject(_, members) => pick(members, keys)
-          case _                        => None
-        }
+            case TsTypeObject(_, members) => pick(members, keys)
+            case TsTypeUnion(types) =>
+              types.map(go).partitionCollect2({ case None => null }, { case Some(tpe) => tpe }) match {
+                case (Empty, ok, Empty) => Some(TsTypeUnion(ok))
+                case _                  => None
+              }
+            case _ => None
+          }
+        go(lookup.from)
       case _ => None
     }
 

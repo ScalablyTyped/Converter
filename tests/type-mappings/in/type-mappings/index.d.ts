@@ -48,3 +48,16 @@ type TypographyStyleOptions = Partial<TypographyStyle>
 type Omit<T, K extends keyof any> = T extends any ? Pick<T, Exclude<keyof T, K>> : never;
 
 type Excluded = Omit<CSSProperties, 'color'>
+
+interface TextMark{
+    type: 'text';
+}
+interface TrailMark {
+    type: 'trail';
+}
+
+type Mark =
+    | TextMark
+    | TrailMark;
+
+type Marking = Record<Mark['type'], string>
