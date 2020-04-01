@@ -8,8 +8,8 @@ object CanBeScalaJsDefined {
   def apply(interface: WithParents[TsDeclInterface]): Boolean =
     pred(interface.value) && (interface.parents forall pred)
 
-  def legalName(name: TsIdent) =
-    name =/= TsIdent.Apply && name =/= TsIdent.namespaced && !name.value.startsWith("$")
+  def legalName(name: TsIdent): Boolean =
+    name =/= TsIdent.Apply && name =/= TsIdent.namespaced
 
   def pred(x: HasClassMembers): Boolean =
     x match {
