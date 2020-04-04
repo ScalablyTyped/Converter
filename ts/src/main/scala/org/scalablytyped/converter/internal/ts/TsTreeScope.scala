@@ -217,16 +217,7 @@ object TsTreeScope {
       val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
       depScopes.values.foreach {
         case (_, dep: TsParsedFile, depScope: Scoped) =>
-          dep.modules.foreach {
-            case (modName, mod) =>
-              val modScope = depScope / mod
-              ret += (modName -> modScope)
-              mod.comments.cs.foreach {
-                case CommentData(ModuleAliases(aliases)) =>
-                  aliases.foreach(alias => ret += ((alias, modScope)))
-                case _ => ()
-              }
-          }
+          dep.modules.foreach { case (_, mod) => addModuleScope(ret, mod, depScope) }
       }
       ret.toMap
     }
@@ -311,13 +302,15 @@ object TsTreeScope {
         case _ => Empty
       }
 
-    override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
-      val ret = outer.moduleScopes ++ (current match {
-        case x: TsContainer => x.modules.mapValues(mod => this / mod)
-        case _ => Map.empty
-      })
-      ret
-    }
+    override lazy val moduleScopes: Map[TsIdentModule, TsTreeScope.Scoped] =
+      current match {
+        case x: TsContainer if x.modules.nonEmpty =>
+          val ret = mutable.Map.empty[TsIdentModule, TsTreeScope.Scoped]
+          ret ++= outer.moduleScopes
+          x.modules.foreach { case (_, mod) => addModuleScope(ret, mod, this) }
+          ret.toMap
+        case _ => outer.moduleScopes
+      }
 
     override lazy val moduleAuxScopes: Map[TsIdentModule, TsTreeScope.Scoped] = {
       val ret = outer.moduleAuxScopes ++ (current match {
@@ -512,6 +505,35 @@ object TsTreeScope {
           case _ => Empty
         }
     }
+
+  private def addModuleScope(
+      ret:           mutable.Map[TsIdentModule, TsTreeScope.Scoped],
+      mod:           TsDeclModule,
+      outsideModule: TsTreeScope,
+  ): Unit = {
+    def addAlternative(modName: TsIdentModule, modScope: TsTreeScope.Scoped) = {
+      val alternative = modName.copy(fragments =
+        if (modName.fragments.endsWith("index")) modName.fragments.dropRight(1) else modName.fragments :+ "index",
+      )
+
+      if (!ret.contains(alternative)) {
+        ret += (alternative -> modScope)
+      }
+    }
+
+    val modScope = outsideModule / mod
+    addAlternative(mod.name, modScope)
+    ret += (mod.name -> modScope)
+    mod.comments.cs.foreach {
+      case CommentData(ModuleAliases(aliases)) =>
+        aliases.foreach { alias =>
+          ret += ((alias, modScope))
+          addAlternative(alias, modScope)
+        }
+      case _ => ()
+    }
+  }
+
 }
 
 /**

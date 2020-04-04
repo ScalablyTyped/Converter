@@ -13,7 +13,7 @@ class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], fac
       case LocalPath(localPath) =>
         file(current.folder, localPath).map(Source.helperFile(current.inLibrary)).map(h => (h, h.moduleNames.head))
       case globalRef =>
-        val modName = ModuleNameParser(globalRef.split("/").to[List], keepIndexFragment = false)
+        val modName = ModuleNameParser(globalRef.split("/").to[List], keepIndexFragment = true)
         library(modName.inLibrary).map(source => (source, modName))
     }
 

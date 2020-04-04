@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 
 object ModuleNameParser {
-  def apply(lit: TsLiteralString): TsIdentModule = apply(lit.value.split("/").toList, keepIndexFragment = false)
+  def apply(lit: TsLiteralString): TsIdentModule = apply(lit.value.split("/").toList, keepIndexFragment = true)
 
   def apply(fragments: List[String], keepIndexFragment: Boolean): TsIdentModule = {
     val rewritten: List[String] =
