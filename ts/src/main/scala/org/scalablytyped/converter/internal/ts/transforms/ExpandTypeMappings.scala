@@ -180,7 +180,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
   case class NoMembers(scope: TsTreeScope, tm: TsMemberTypeMapped) extends Problem
 
-  case class UnsupportedTM(scope:    TsTreeScope, tm:   TsMemberTypeMapped) extends Problem
+  case class UnsupportedTM(scope:    TsTreeScope, tm: TsMemberTypeMapped) extends Problem
   case class CouldNotPickKeys(scope: TsTreeScope, keys: Set[String]) extends Problem
   case class UnsupportedPredicate(e: TsType) extends Problem
 
@@ -289,7 +289,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
   def evaluatePredicate(x: TsType): Res[Boolean] =
     x match {
       case TsTypeExtends(_, TsTypeRef.any) => Ok(true, false)
-      case other => Problems(IArray(UnsupportedPredicate(other)))
+      case other                           => Problems(IArray(UnsupportedPredicate(other)))
     }
 
   object AllMembersFor {

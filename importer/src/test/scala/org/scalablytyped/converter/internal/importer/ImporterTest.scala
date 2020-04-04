@@ -14,7 +14,7 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))
   test("export-as-namespace")(assertImportsOk("export-as-namespace", pedantic       = true, update  = update))
-  test("babylon")(assertImportsOk("babylon", pedantic                               = false, update  = update))
+  test("babylon")(assertImportsOk("babylon", pedantic                               = true, update  = update))
   test("bigint")(assertImportsOk("bigint", pedantic                                 = true, update  = update))
   test("react-icons")(assertImportsOk("react-icons", pedantic                       = true, update  = update))
   test("vue")(assertImportsOk("vue", pedantic                                       = true, update  = update))
