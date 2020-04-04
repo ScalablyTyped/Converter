@@ -14,13 +14,17 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
     }
 
     override def enterTsType(scope: TsTreeScope)(x: TsType): TsType = {
-      def tooDeep = {
-        val numTypeObjects = scope.stack.count {
-          case TsTypeObject(_, _) => true;
-          case _                  => false
+      val nameHint = TsTypeFormatter.dropComments(Unqualify.visitTsType(())(x)).filter(_.isLetterOrDigit)
+
+      def repeated =
+        scope.stack.exists {
+          case TsTypeObject(Comments(cs), _) =>
+            cs.exists {
+              case CommentData(Markers.NameHint(`nameHint`)) => true
+              case _                                         => false
+            }
+          case _ => false
         }
-        numTypeObjects > 2
-      }
 
       def refersAbstract =
         TsTreeTraverse
@@ -29,7 +33,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
           }
           .nonEmpty
 
-      if (tooDeep || refersAbstract) return x
+      if (repeated || refersAbstract) return x
 
       AllMembersFor.forType(scope, LoopDetector.initial)(x) match {
         case Problems(_) =>
