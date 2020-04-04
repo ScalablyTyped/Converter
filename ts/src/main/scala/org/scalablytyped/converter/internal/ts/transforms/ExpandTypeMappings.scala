@@ -178,6 +178,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
   case class UnsupportedTM(scope:    TsTreeScope, tm:   TsMemberTypeMapped) extends Problem
   case class CouldNotPickKeys(scope: TsTreeScope, keys: Set[String]) extends Problem
+  case class UnsupportedPredicate(e: TsType) extends Problem
 
   final case class Replace(key: TsType, name: TsLiteral, ld: LoopDetector) extends TreeTransformationScopedChanges {
     override def enterTsType(scope: TsTreeScope)(x: TsType): TsType =
@@ -281,12 +282,10 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
   /**
     * This is obviously not much of an implementation, just enough to get @material-ui/core running
     */
-  def evaluatePredicate(x: TsType): Boolean =
+  def evaluatePredicate(x: TsType): Res[Boolean] =
     x match {
-      case TsTypeExtends(_, extended) =>
-        if (extended === TsTypeRef.any) true
-        else false
-      case _ => false
+      case TsTypeExtends(_, TsTypeRef.any) => Ok(true, false)
+      case other => Problems(IArray(UnsupportedPredicate(other)))
     }
 
   object AllMembersFor {
@@ -352,8 +351,10 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 //          } yield picked
 //          foo
         case TsTypeConditional(pred, ifTrue, ifFalse) =>
-          if (evaluatePredicate(pred)) forType(scope, ld)(ifTrue)
-          else forType(scope, ld)(ifFalse)
+          for {
+            conforms <- evaluatePredicate(pred)
+            ret <- forType(scope, ld)(if (conforms) ifTrue else ifFalse)
+          } yield ret
 
         case x: TsTypeExtends     => Problems(IArray(InvalidType(scope, x)))
         case x: TsTypeInfer       => Problems(IArray(InvalidType(scope, x)))
