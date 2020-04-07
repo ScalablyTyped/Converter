@@ -17,6 +17,10 @@ Then check out the demo projects:
 
 # Setup
 
+## Note
+Scalajs-bundler has some functionality where it picks up `npmDependencies` from your classpath.
+This plugin generates parts of the classpath, so to avoid a circular dependency that functionality is disabled.
+
 ## Requirements
 
 Due to conflicting scala library dependencies **this plugin needs sbt 1.3.0 or newer**.

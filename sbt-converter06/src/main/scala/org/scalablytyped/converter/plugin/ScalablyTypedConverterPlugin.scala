@@ -21,7 +21,7 @@ import org.scalablytyped.converter.internal.{
 }
 import sbt.Keys._
 import sbt._
-import scalajsbundler.sbtplugin.{NpmUpdateTasks, PackageJsonTasks, ScalaJSBundlerPlugin}
+import scalajsbundler.sbtplugin.{PackageJsonTasks, ScalaJSBundlerPlugin}
 
 import scala.util.Try
 
@@ -32,15 +32,6 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
   import ScalablyTypedPluginBase.autoImport._
   import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
-
-  /** This is duplicated/inlined from scalajs-bundler.
-    *
-    *  The point is that we need to deactivate the scalajs-bundler feature of looking for npm libs
-    *  from special files on the classpath.
-    *
-    * Why? Because it would be a cyclic dependency, since we generate part of the classpath
-    */
-  private val stInternalNpmInstallDependencies = taskKey[File]("Install deps from npm")
 
   val stImportTask = Def.taskDyn[Set[ModuleID]] {
     val projectName   = name.value
@@ -53,11 +44,10 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       if ((Global / stQuiet).value) logging.Logger.DevNull
       else WrapSbtLogger(sbtLog, Instant.now).filter(LogLevel.warn).void.withContext("project", projectName)
 
+    val allDeps = (Compile / npmDependencies).value ++ (Test / npmDependencies).value
+
     val wantedLibs: Set[TsIdentLibrary] =
-      ((Compile / npmDependencies).value ++ (Test / npmDependencies).value)
-        .map(_._1)
-        .to[Set]
-        .map(TsIdentLibrary.apply)
+      allDeps.map(_._1).to[Set].map(TsIdentLibrary.apply)
 
     val ScalaVersion = Versions.Scala(
       scalaVersion = (Compile / Keys.scalaVersion).value,
@@ -84,7 +74,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
-      packageJsonHash  = Digest.of(wantedLibs.toSeq.map(_.value).sorted).hexString,
+      packageJsonHash  = Digest.of(allDeps.map { case (name, v) => s"$name $v" }.sorted).hexString,
       shared           = shared,
       fromFolder       = fromFolder,
       targetFolder     = os.Path(streams.value.cacheDirectory) / "sources",
@@ -103,7 +93,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
 
       case _ =>
         Def.task {
-          stInternalNpmInstallDependencies.value
+          (Compile / npmInstallDependencies).value
 
           ImportTypings(
             input            = input,
@@ -127,41 +117,38 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
     }
   }
 
-  val stInternalNpmInstallDependenciesTask = Def.task[File] {
-    val packageJson = PackageJsonTasks.writePackageJson(
-      (Compile / npmUpdate / crossTarget).value,
-      (Compile / npmDependencies).value,
-      (Compile / npmDevDependencies).value,
-      (Compile / npmResolutions).value,
-      (Compile / additionalNpmConfig).value,
-      fullClasspath = Nil, // changed
-      Compile,
-      (version in webpack).value,
-      (version in startWebpackDevServer).value,
-      webpackCliVersion.value,
-      streams.value,
-    )
+  override lazy val projectSettings = {
+    /* workaround private definition */
+    val scalaJSBundlerPackageJson =
+      TaskKey[BundlerFile.PackageJson](
+        "scalaJSBundlerPackageJson",
+        "Write a package.json file defining the NPM dependencies of project",
+        KeyRanks.Invisible,
+      )
 
-    NpmUpdateTasks.npmInstallDependencies(
-      baseDirectory.value,
-      (Compile / npmUpdate / crossTarget).value,
-      packageJson.file,
-      useYarn.value,
-      streams.value,
-      npmExtraArgs.value,
-      yarnExtraArgs.value,
-    )
-  }
-
-  override lazy val projectSettings =
     Seq(
-      stInternalNpmInstallDependencies := stInternalNpmInstallDependenciesTask.value,
       stImport := stImportTask.tag(Tags.Compile, Tags.CPU, Tags.Disk, ScalablyTypedTag).value,
-      /* Make sure we always include typescript for the stdlib if it wasnt already added */
-      Compile / npmDependencies ++= {
-        (Compile / npmDependencies).value
-          .find(_._1 == "typescript")
-          .fold(Seq("typescript" -> stTypescriptVersion.value))(_ => Nil)
+      Compile / scalaJSBundlerPackageJson := {
+        val deps = (Compile / npmDependencies).value
+        /* Make sure we always include typescript for the stdlib if it wasnt already added */
+        val withTypescript: Seq[(String, String)] =
+          if (deps.exists { case (lib, _) => lib == "typescript" }) deps
+          else deps :+ ("typescript" -> stTypescriptVersion.value)
+
+        PackageJsonTasks.writePackageJson(
+          (Compile / npmUpdate / crossTarget).value,
+          withTypescript,
+          (Compile / npmDevDependencies).value,
+          (Compile / npmResolutions).value,
+          (Compile / additionalNpmConfig).value,
+          fullClasspath = Nil,
+          Compile,
+          (Compile / webpack / version).value,
+          (Compile / startWebpackDevServer / version).value,
+          (Compile / webpackCliVersion).value,
+          (Compile / scalaJSBundlerPackageJson / streams).value,
+        )
       },
     )
+  }
 }
