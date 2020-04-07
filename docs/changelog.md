@@ -3,6 +3,17 @@ id: changelog
 title: Changelog
 ---
 
+## 1.0.0-beta9
+[Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta8...v1.0.0-beta9)
+
+- Improved integration with scalajs-bundler, hopefully for the last time.
+- Fixed handling of modules with explicit `/index` in the module name. This fixes babylonjs and probably other libraries.
+- Generate `@ScalaJSDefined` traits in the presence of a member starting with `$`.
+
+### Contributors
+    11  Øyvind Raddum Berg
+     2  Ben Hutchison
+
 ## 1.0.0-beta8
 [Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta7...v1.0.0-beta8)
 

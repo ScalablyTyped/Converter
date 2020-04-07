@@ -1,11 +1,10 @@
 ---
 id: import-problems
-title: If you hit problems importing libraries
+title: What if I hit problems importing libraries?
 ---
 
-# What if you hit problems importing libraries? 
-
-The goal of Scalably Typed is to enable conversion of 100% of valid Typescript to ScalaJS. However, Typescript is a complex and evolving language, and inevitably there will be corner cases that it doesn't *yet* handle.
+The goal of ScalablyTyped is to enable conversion of 100% of valid Typescript type definition files to Scala.js. 
+However, Typescript is a complex and evolving language, and inevitably there will be corner cases that it doesn't *yet* handle.
 
 If you try the converter on a Typescript library and it doesn't terminate, runs out of memory on a large heap, or throws an exception, here's the process for diagnosing and fixing the problem:
 
@@ -15,7 +14,8 @@ If you try the converter on a Typescript library and it doesn't terminate, runs 
 
    It's advisable to check the `package.json` of the library being imported to verify exactly which TS file is published to NPM.
 
-3. Register the new TS directory in the `org.scalablytyped.converter.internal.importer.ImporterTest`. You can try setting the `pedantic` flag to false initially. See [dev guidelines](devel/about.md) for further info.
+3. Register the new TS directory in the [ImporterTest](https://github.com/ScalablyTyped/Converter/blob/master/importer/src/test/scala/org/scalablytyped/converter/internal/importer/ImporterTest.scala). 
+You can try setting the `pedantic` flag to false initially. See [dev guidelines](devel/about.md) for further info.
 
 4. Start `sbt`. Run the import tests `testOnly org.scalablytyped.converter.internal.importer.ImporterTest`. Does the unit test run show the same failure that you saw during import? It should.
 
