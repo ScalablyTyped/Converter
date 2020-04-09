@@ -386,4 +386,30 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
       ),
     )
   }
+
+  test("export type edge case") {
+    val content = """declare module "esri/renderers/smartMapping/creators/type" {
+  import type = __esri.type;
+  export = type;
+}
+"""
+    shouldParseAs(content, TsParser.tsDeclModule) {
+      TsDeclModule(
+        NoComments,
+        declared = true,
+        TsIdentModule(None, List("esri", "renderers", "smartMapping", "creators", "type")),
+        IArray(
+          TsImport(typeOnly = true, IArray(), TsImporteeLocal(TsQIdent(IArray(TsIdentSimple("__esri"), TsIdentSimple("type"))))),
+          TsExport(
+            NoComments,
+            typeOnly = false,
+            ExportType.Namespaced,
+            TsExporteeNames(IArray((TsQIdent(IArray(TsIdentSimple("type"))), None)), None),
+          ),
+        ),
+        CodePath.NoPath,
+        Zero,
+      )
+    }
+  }
 }

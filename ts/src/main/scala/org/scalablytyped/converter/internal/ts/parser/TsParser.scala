@@ -257,7 +257,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
         val one  = maybeRenamedName.map(IArray(_))
         val many = "{" ~>! (maybeRenamedName <~! (";" | ",").?).** <~ comments.? <~ "}"
 
-        "type".isDefined ~ ((one | many) ~ from.? ^^ TsExporteeNames)
+        val base = (one | many) ~ from.? ^^ TsExporteeNames
+        ("type".isDefined ~ base) | (success(false) ~ base)
       }
 
       val exporteeStar: Parser[Boolean ~ TsExporteeStar] =
