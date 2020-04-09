@@ -677,7 +677,7 @@ final case class TsImporteeFrom(from: TsIdentModule) extends TsImportee
 
 final case class TsImporteeLocal(qident: TsQIdent) extends TsImportee
 
-final case class TsImport(imported: IArray[TsImported], from: TsImportee) extends TsDecl with TsTree
+final case class TsImport(typeOnly: Boolean, imported: IArray[TsImported], from: TsImportee) extends TsDecl with TsTree
 
 //exports
 

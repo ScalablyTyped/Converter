@@ -18,8 +18,8 @@ object ResolveExternalReferences {
   def apply(resolve: LibraryResolver, source: TsSource, tsParsedFile: TsParsedFile, logger: Logger[Unit]): Result = {
     val imported: Set[TsIdentModule] = {
       val fromImports = tsParsedFile.imports.collect {
-        case TsImport(_, TsImporteeFrom(from))     => from
-        case TsImport(_, TsImporteeRequired(from)) => from
+        case TsImport(_, _, TsImporteeFrom(from))     => from
+        case TsImport(_, _, TsImporteeRequired(from)) => from
       }
       val fromExports = tsParsedFile.exports.collect {
         case TsExport(_, _, TsExporteeNames(_, Some(from))) => from
@@ -46,7 +46,8 @@ object ResolveExternalReferences {
 
     val newImports: IArray[TsImport] =
       IArray.fromTraversable(v.importTypes map {
-        case (TsIdentImport(from), name) => TsImport(IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
+        case (TsIdentImport(from), name) =>
+          TsImport(typeOnly = false, IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
       })
 
     Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])

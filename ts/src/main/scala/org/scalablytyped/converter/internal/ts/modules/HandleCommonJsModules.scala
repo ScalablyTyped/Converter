@@ -123,6 +123,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   ExportType.Named,
                   TsExporteeTree(
                     TsImport(
+                      _,
                       IArray.exactlyOne(TsImportedIdent(newName)),
                       TsImporteeLocal(TsQIdent(IArray.exactlyOne(name))),
                     ),

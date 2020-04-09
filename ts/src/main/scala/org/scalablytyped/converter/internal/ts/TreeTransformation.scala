@@ -273,7 +273,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsImport(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsImport(_1, _2) => TsImport(_1 map visitTsImported(tt), visitTsImportee(tt)(_2))
+      case TsImport(_1, _2, _3) => TsImport(_1, _2 map visitTsImported(tt), visitTsImportee(tt)(_3))
     }
   }
   final def visitTsLiteralBoolean(t: T)(x: TsLiteralBoolean): TsLiteralBoolean =

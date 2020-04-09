@@ -21,7 +21,7 @@ trait MemberCache {
 
   lazy val isModule: Boolean =
     exports.nonEmpty || imports.exists {
-      case TsImport(_, _: TsImporteeLocal) => false
+      case TsImport(_, _, _: TsImporteeLocal) => false
       case _ => true
     }
 

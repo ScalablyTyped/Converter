@@ -102,13 +102,18 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("import require") {
     shouldParseAs("import http = require('http')", TsParser.tsImport)(
-      TsImport(IArray(TsImportedIdent(TsIdent("http"))), TsImporteeRequired(TsIdentModule.simple("http"))),
+      TsImport(
+        typeOnly = false,
+        IArray(TsImportedIdent(TsIdent("http"))),
+        TsImporteeRequired(TsIdentModule.simple("http")),
+      ),
     )
   }
 
   test("import destructure") {
     shouldParseAs("""import {EventEmitter} from "events"""", TsParser.tsImport)(
       TsImport(
+        typeOnly = false,
         IArray(TsImportedDestructured(IArray((TsIdent("EventEmitter"), None)))),
         TsImporteeFrom(TsIdentModule.simple("events")),
       ),
@@ -117,13 +122,18 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("import * from ") {
     shouldParseAs("""import * as e from 'express'""", TsParser.tsImport)(
-      TsImport(IArray(TsImportedStar(Some(TsIdent("e")))), TsImporteeFrom(TsIdentModule.simple("express"))),
+      TsImport(
+        typeOnly = false,
+        IArray(TsImportedStar(Some(TsIdent("e")))),
+        TsImporteeFrom(TsIdentModule.simple("express")),
+      ),
     )
   }
 
   test("import qualifiedIdent") {
     shouldParseAs("""import ng = angular.dynamicLocale""", TsParser.tsImport)(
       TsImport(
+        typeOnly = false,
         IArray(TsImportedIdent(TsIdent("ng"))),
         TsImporteeLocal(TsQIdent(IArray(TsIdent("angular"), TsIdent("dynamicLocale")))),
       ),
@@ -133,6 +143,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
   test("import ident") {
     shouldParseAs("""import ng = angular""", TsParser.tsImport)(
       TsImport(
+        typeOnly = false,
         IArray(TsImportedIdent(TsIdent("ng"))),
         TsImporteeLocal(TsQIdent(IArray(TsIdent("angular")))),
       ),
@@ -142,6 +153,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
   test("import various") {
     shouldParseAs("""import traverse, {Visitor} from "babel-traverse"""", TsParser.tsImport)(
       TsImport(
+        typeOnly = false,
         IArray(TsImportedIdent(TsIdent("traverse")), TsImportedDestructured(IArray((TsIdent("Visitor"), None)))),
         TsImporteeFrom(TsIdentModule.simple("babel-traverse")),
       ),
@@ -155,6 +167,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         ExportType.Named,
         TsExporteeTree(
           TsImport(
+            typeOnly = false,
             IArray(TsImportedIdent(TsIdent("AppBar"))),
             TsImporteeLocal(TsQIdent(IArray(TsIdent("__MaterialUI"), TsIdent("AppBar")))),
           ),
@@ -172,6 +185,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
   test("import renamed default") {
     shouldParseAs("""import { default as SidebarPushable } from './SidebarPushable'""", TsParser.tsImport)(
       TsImport(
+        typeOnly = false,
         IArray(TsImportedDestructured(IArray((TsIdent("default"), Some(TsIdent("SidebarPushable")))))),
         TsImporteeFrom(TsIdentModule(None, "." :: "SidebarPushable" :: Nil)),
       ),
@@ -187,6 +201,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 """
     shouldParseAs(content, TsParser.tsImport)(
       TsImport(
+        typeOnly = false,
         IArray(
           TsImportedDestructured(
             IArray(
@@ -254,10 +269,14 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("import 'foo'") {
     shouldParseAs("""import 'jquery'""", TsParser.tsImport)(
-      TsImport(IArray(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("jquery"))),
+      TsImport(typeOnly = false, IArray(TsImportedStar(None)), TsImporteeFrom(TsIdentModule.simple("jquery"))),
     )
     shouldParseAs("""import "../index"""", TsParser.tsImport)(
-      TsImport(IArray(TsImportedStar(None)), TsImporteeFrom(TsIdentModule(None, ".." :: "index" :: Nil))),
+      TsImport(
+        typeOnly = false,
+        IArray(TsImportedStar(None)),
+        TsImporteeFrom(TsIdentModule(None, ".." :: "index" :: Nil)),
+      ),
     )
   }
 
@@ -315,7 +334,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
         TsExporteeTree(
           TsDeclClass(
             NoComments,
-            declared = false,
+            declared   = false,
             isAbstract = false,
             TsIdent("default"),
             IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
@@ -324,9 +343,9 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
             IArray(),
             Zero,
             CodePath.NoPath,
-          )
-        )
-      )
+          ),
+        ),
+      ),
     )
   }
 }

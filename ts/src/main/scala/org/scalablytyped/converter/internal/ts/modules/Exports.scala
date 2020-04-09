@@ -28,7 +28,7 @@ object Exports {
           case decl: TsNamedDecl =>
             export(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
 
-          case i @ TsImport(IArray.exactlyOne(TsImportedIdent(ident)), _) =>
+          case i @ TsImport(_, IArray.exactlyOne(TsImportedIdent(ident)), _) =>
             Imports.expandImportee(i.from, scope, loopDetector) match {
               case founds if founds.nonEmpty =>
                 founds match {

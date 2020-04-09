@@ -2688,4 +2688,18 @@ export {};
       ),
     )
   }
+
+  test("import type") {
+    shouldParseAs("""import type { DiffOptions, DiffOptionsNormalized } from './types'""", TsParser.tsImport)(
+      TsImport(
+        typeOnly = true,
+        IArray(
+          TsImportedDestructured(
+            IArray((TsIdentSimple("DiffOptions"), None), (TsIdentSimple("DiffOptionsNormalized"), None)),
+          ),
+        ),
+        TsImporteeFrom(TsIdentModule(None, List(".", "types"))),
+      ),
+    )
+  }
 }
