@@ -246,6 +246,7 @@ final class CommentTests extends AnyFunSuite with Matchers {
     shouldParseAs(content, TsParser.tsContainerOrDecl)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Named,
         TsExporteeTree(
           TsDeclFunction(

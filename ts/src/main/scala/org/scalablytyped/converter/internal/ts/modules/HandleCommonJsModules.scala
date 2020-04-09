@@ -48,7 +48,12 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
   object EqualsExport {
     def unapply(x: TsDeclModule): Option[((TsExport, IArray[TsIdent]), IArray[TsContainerOrDecl])] = {
       val (es, rest) = x.members.partitionCollect {
-        case e @ TsExport(_, ExportType.Namespaced, TsExporteeNames(IArray.exactlyOne((TsQIdent(qident), None)), _)) =>
+        case e @ TsExport(
+              _,
+              _,
+              ExportType.Namespaced,
+              TsExporteeNames(IArray.exactlyOne((TsQIdent(qident), None)), _),
+            ) =>
           e -> qident
       }
       es.headOption.map(e => e -> rest)
@@ -93,7 +98,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
           val flattened = namespaces
             .flatMap(_.members)
             .map {
-              case x: TsNamedDecl => TsExport(NoComments, ExportType.Named, TsExporteeTree(x))
+              case x: TsNamedDecl => TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeTree(x))
               case other => other
             }
             .map(x => SetCodePath.visitTsContainerOrDecl(mod.codePath.forceHasPath)(x))
@@ -120,6 +125,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
             newMembers.map {
               case TsExport(
                   _,
+                  _,
                   ExportType.Named,
                   TsExporteeTree(
                     TsImport(
@@ -131,6 +137,7 @@ object HandleCommonJsModules extends TreeTransformationScopedChanges {
                   ) if name.value === target.value =>
                 TsExport(
                   NoComments,
+                  typeOnly = false,
                   ExportType.Named,
                   TsExporteeTree(
                     TsDeclVar(

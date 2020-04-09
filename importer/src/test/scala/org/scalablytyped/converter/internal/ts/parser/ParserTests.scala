@@ -52,6 +52,7 @@ final class ParserTests extends AnyFunSuite {
                 ),
                 TsExport(
                   NoComments,
+                  typeOnly = false,
                   ExportType.Namespaced,
                   TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("pathCase"))), None)), None),
                 ),
@@ -441,6 +442,7 @@ final class ParserTests extends AnyFunSuite {
     shouldParseAs(content, TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Named,
         TsExporteeTree(
           TsDeclFunction(
@@ -503,6 +505,7 @@ final class ParserTests extends AnyFunSuite {
 
     val expected = TsExport(
       NoComments,
+      typeOnly = false,
       ExportType.Named,
       TsExporteeTree(
         TsDeclTypeAlias(
@@ -2437,7 +2440,7 @@ export {};
       TsParsedFile(
         NoComments,
         Empty,
-        IArray(TsExport(NoComments, ExportType.Named, TsExporteeNames(Empty, None))),
+        IArray(TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeNames(Empty, None))),
         CodePath.NoPath,
       ),
     )
@@ -2600,6 +2603,7 @@ export {};
     )(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Named,
         TsExporteeTree(
           TsDeclVar(
@@ -2685,20 +2689,6 @@ export {};
         TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("0x000FFFFF")), "+", TsExpr.Literal(TsLiteralNumber("1"))),
         ">>",
         TsExpr.Literal(TsLiteralNumber("2")),
-      ),
-    )
-  }
-
-  test("import type") {
-    shouldParseAs("""import type { DiffOptions, DiffOptionsNormalized } from './types'""", TsParser.tsImport)(
-      TsImport(
-        typeOnly = true,
-        IArray(
-          TsImportedDestructured(
-            IArray((TsIdentSimple("DiffOptions"), None), (TsIdentSimple("DiffOptionsNormalized"), None)),
-          ),
-        ),
-        TsImporteeFrom(TsIdentModule(None, List(".", "types"))),
       ),
     )
   }

@@ -34,6 +34,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("export = { AuthenticationContext, Logging, }", TsParser.tsExport) {
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Namespaced,
         TsExporteeNames(
           IArray(
@@ -50,6 +51,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("export default Abs", TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Defaulted,
         TsExporteeNames(IArray((TsQIdent(IArray(TsIdent("Abs"))), None)), None),
       ),
@@ -60,6 +62,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""export {Pool, PoolConfig} from "pg"""", TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Named,
         TsExporteeNames(
           IArray(
@@ -74,7 +77,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
 
   test("export alias") {
     shouldParseAs("""export * from "aphrodite"""", TsParser.tsExport)(
-      TsExport(NoComments, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"))),
+      TsExport(NoComments, typeOnly = false, ExportType.Named, TsExporteeStar(TsIdentModule.simple("aphrodite"))),
     )
   }
 
@@ -82,6 +85,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""export const enum RoundingMode{}""", TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Named,
         TsExporteeTree(
           TsDeclEnum(
@@ -164,6 +168,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""export import AppBar = __MaterialUI.AppBar""", TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Named,
         TsExporteeTree(
           TsImport(
@@ -222,6 +227,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs(content, TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Defaulted,
         TsExporteeTree(
           TsDeclFunction(
@@ -284,6 +290,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("""export default class extends React.Component<{statusCode: number}, {}> {}""", TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Defaulted,
         TsExporteeTree(
           TsDeclClass(
@@ -330,6 +337,7 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
     shouldParseAs("export default class <T> {}", TsParser.tsExport)(
       TsExport(
         NoComments,
+        typeOnly = false,
         ExportType.Defaulted,
         TsExporteeTree(
           TsDeclClass(
@@ -344,6 +352,36 @@ final class ImportExportParseTests extends AnyFunSuite with Matchers {
             Zero,
             CodePath.NoPath,
           ),
+        ),
+      ),
+    )
+  }
+
+  test("import type") {
+    shouldParseAs("""import type { DiffOptions, DiffOptionsNormalized } from './types'""", TsParser.tsImport)(
+      TsImport(
+        typeOnly = true,
+        IArray(
+          TsImportedDestructured(
+            IArray((TsIdentSimple("DiffOptions"), None), (TsIdentSimple("DiffOptionsNormalized"), None)),
+          ),
+        ),
+        TsImporteeFrom(TsIdentModule(None, List(".", "types"))),
+      ),
+    )
+  }
+  test("export type") {
+    shouldParseAs("""export type { DiffOptions, DiffOptionsColor } from './types'""", TsParser.tsExport)(
+      TsExport(
+        NoComments,
+        typeOnly = true,
+        tpe      = ExportType.Named,
+        exported = TsExporteeNames(
+          IArray(
+            (TsQIdent(IArray(TsIdentSimple("DiffOptions"))), None),
+            (TsQIdent(IArray(TsIdentSimple("DiffOptionsColor"))), None),
+          ),
+          Some(TsIdentModule(None, List(".", "types"))),
         ),
       ),
     )

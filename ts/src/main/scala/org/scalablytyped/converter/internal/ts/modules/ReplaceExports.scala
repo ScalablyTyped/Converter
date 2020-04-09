@@ -27,7 +27,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     if (x.exports.isEmpty && x.imports.isEmpty) x
     else {
       val newMembers: IArray[TsContainerOrDecl] = x.members.flatMap {
-        case TsExport(_, ExportType.Named, TsExporteeTree(tree)) =>
+        case TsExport(_, _, ExportType.Named, TsExporteeTree(tree)) =>
           tree match {
             case namedExport: TsNamedDecl =>
               export(
@@ -84,8 +84,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   override def leaveTsParsedFile(t: TsTreeScope)(x: TsParsedFile): TsParsedFile =
     x.copy(members = x.members.mapNotNone {
       case _: TsImport => None
-      case TsExport(_, _, TsExporteeTree(x)) => Some(x)
-      case other                             => Some(other)
+      case TsExport(_, _, _, TsExporteeTree(x)) => Some(x)
+      case other                                => Some(other)
     })
 
   def ensureTypesPresent[T <: TsContainer](old: T, `new`: T): T = {
@@ -95,8 +95,9 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     val missingTypes: IArray[TsContainerOrDecl] =
       old.members
         .collect {
-          case TsExport(_, _, TsExporteeTree(Picker.Types(tpe))) if !newTypes.contains(tpe.name) => KeepTypesOnly(tpe)
-          case Picker.Types(tpe) if !newTypes.contains(tpe.name)                                 => KeepTypesOnly(tpe)
+          case TsExport(_, _, _, TsExporteeTree(Picker.Types(tpe))) if !newTypes.contains(tpe.name) =>
+            KeepTypesOnly(tpe)
+          case Picker.Types(tpe) if !newTypes.contains(tpe.name) => KeepTypesOnly(tpe)
         }
         .mapNotNone(identity)
 
@@ -108,21 +109,21 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   ): IArray[TsContainerOrDecl] = {
     lazy val hasExportedValues: Boolean =
       owner.exports.exists {
-        case TsExport(_, _, TsExporteeTree(_: TsDeclInterface | _: TsDeclTypeAlias)) => false
+        case TsExport(_, _, _, TsExporteeTree(_: TsDeclInterface | _: TsDeclTypeAlias)) => false
         case _: TsExport => true
         case _ => false
       }
 
     decl match {
       /* fix for @angular/core */
-      case TsExport(NoComments, _, TsExporteeStar(name)) if owner.name === name => Empty
+      case TsExport(NoComments, _, _, TsExporteeStar(name)) if owner.name === name => Empty
       case e: TsExport =>
         val ret = Exports.expandExport(scope, jsLocation, e, loopDetector, owner)
         if (ret.isEmpty && scope.root.pedantic) {
           e match {
             /* OF COURSE somebody had to export an empty object */
-            case TsExport(_, ExportType.Named, TsExporteeNames(names, None)) if names.isEmpty => ()
-            case other                                                                        =>
+            case TsExport(_, _, ExportType.Named, TsExporteeNames(names, None)) if names.isEmpty => ()
+            case other                                                                           =>
               // for debugging
               Exports.expandExport(scope, jsLocation, other, loopDetector, owner: TsDeclNamespaceOrModule)
 
@@ -135,7 +136,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
         val ret: IArray[TsNamedDecl] =
           ms collect {
             case x: TsNamedDecl => x
-            case TsExport(_, _, TsExporteeTree(x: TsNamedDecl)) => x
+            case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) => x
           } map (x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))
 
         IArray(g.copy(members = ret))

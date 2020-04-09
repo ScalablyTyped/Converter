@@ -5,7 +5,7 @@ package modules
 object KeepTypesOnly {
   def apply(x: TsContainerOrDecl): Option[TsContainerOrDecl] =
     x match {
-      case e @ TsExport(_, _, TsExporteeTree(decl)) =>
+      case e @ TsExport(_, _, _, TsExporteeTree(decl)) =>
         apply(decl) flatMap {
           case d: TsNamedDecl => Some(e.copy(exported = TsExporteeTree(d)))
           case _ => Some(e)

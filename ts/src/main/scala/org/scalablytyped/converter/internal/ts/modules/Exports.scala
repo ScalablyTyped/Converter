@@ -23,7 +23,7 @@ object Exports {
     val codePath = owner.codePath.forceHasPath
 
     val ret: IArray[TsNamedDecl] = e match {
-      case TsExport(_, exportType, TsExporteeTree(exported)) =>
+      case TsExport(_, _, exportType, TsExporteeTree(exported)) =>
         exported match {
           case decl: TsNamedDecl =>
             export(codePath, jsLocation, scope, exportType, decl, None, loopDetector)
@@ -60,7 +60,7 @@ object Exports {
             }
         }
 
-      case TsExport(_, exportType, TsExporteeNames(idents, fromOpt)) =>
+      case TsExport(_, _, exportType, TsExporteeNames(idents, fromOpt)) =>
         val newScope = fromOpt match {
           case Some(from) =>
             scope.moduleScopes.get(from) match {
@@ -86,7 +86,7 @@ object Exports {
             }
         }
 
-      case TsExport(_, exportType, TsExporteeStar(from)) =>
+      case TsExport(_, _, exportType, TsExporteeStar(from)) =>
         scope.moduleScopes get from match {
           case Some(TsTreeScope.Scoped(newScope, mod: TsDeclModule)) =>
             val resolvedModule: TsDeclModule =
@@ -165,14 +165,14 @@ object Exports {
     */
   def pickExports(exports: IArray[TsExport], wanted: IArray[TsIdent]): IArray[PickedExport] =
     exports.mapNotNone {
-      case e @ TsExport(_, ExportType.Namespaced, _) =>
+      case e @ TsExport(_, _, ExportType.Namespaced, _) =>
         Some(PickedExport(e, wanted))
 
-      case e @ TsExport(_, ExportType.Defaulted, _) =>
+      case e @ TsExport(_, _, ExportType.Defaulted, _) =>
         if (wanted.headOption.contains(TsIdent.default)) Some(PickedExport(e, wanted.tail))
         else None
 
-      case e @ TsExport(_, ExportType.Named, exported) =>
+      case e @ TsExport(_, _, ExportType.Named, exported) =>
         exported match {
           case exported @ TsExporteeNames(idents, _) => //
             idents.collectFirst {

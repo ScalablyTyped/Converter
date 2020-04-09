@@ -243,33 +243,35 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
         case _               => ExportType.Named
       }
 
-    val exportee: Parser[TsExportee] = {
+    val exportee: Parser[Boolean ~ TsExportee] = {
       val from: Parser[TsIdentModule] =
         "from" ~> tsIdentModule
 
       val asNameOpt: Parser[Option[TsIdentSimple]] =
         ("as" ~> tsIdent).?
 
-      val exportedNames: Parser[TsExporteeNames] = {
+      val exportedNames: Parser[Boolean ~ TsExporteeNames] = {
         val maybeRenamedName: Parser[(TsQIdent, Option[TsIdentSimple])] =
           qualifiedIdent ~ asNameOpt ^^ tuple2
 
         val one  = maybeRenamedName.map(IArray(_))
         val many = "{" ~>! (maybeRenamedName <~! (";" | ",").?).** <~ comments.? <~ "}"
 
-        (one | many) ~ from.? ^^ TsExporteeNames
+        "type".isDefined ~ ((one | many) ~ from.? ^^ TsExporteeNames)
       }
 
-      val exporteeStar: Parser[TsExporteeStar] =
-        "*" ~> from ^^ TsExporteeStar
+      val exporteeStar: Parser[Boolean ~ TsExporteeStar] =
+        success(false) ~ ("*" ~> from ^^ TsExporteeStar)
 
-      val exporteeTree: Parser[TsExporteeTree] =
-        tsDecl ^^ TsExporteeTree
+      val exporteeTree: Parser[Boolean ~ TsExporteeTree] =
+        success(false) ~ (tsDecl ^^ TsExporteeTree)
 
       exporteeTree | exportedNames | exporteeStar
     }
 
-    (comments <~ "export") ~ exportType ~! exportee ^^ TsExport
+    (comments <~ "export") ~ exportType ~! exportee ^^ {
+      case cs ~ exportType ~ (typeOnly ~ exportee) => TsExport(cs, typeOnly, exportType, exportee)
+    }
   }
 
   lazy val exportAsNamespace: Parser[TsExportAsNamespace] =

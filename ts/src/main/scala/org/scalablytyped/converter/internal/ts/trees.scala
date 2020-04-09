@@ -702,6 +702,6 @@ object ExportType {
   case object Namespaced extends ExportType
 }
 
-final case class TsExport(comments: Comments, tpe: ExportType, exported: TsExportee) extends TsDecl
+final case class TsExport(comments: Comments, typeOnly: Boolean, tpe: ExportType, exported: TsExportee) extends TsDecl
 
 final case class TsExportAsNamespace(ident: TsIdent) extends TsDecl

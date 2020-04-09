@@ -22,7 +22,7 @@ object ResolveExternalReferences {
         case TsImport(_, _, TsImporteeRequired(from)) => from
       }
       val fromExports = tsParsedFile.exports.collect {
-        case TsExport(_, _, TsExporteeNames(_, Some(from))) => from
+        case TsExport(_, _, _, TsExporteeNames(_, Some(from))) => from
       }
       fromImports.toSet ++ fromExports.toSet
     }

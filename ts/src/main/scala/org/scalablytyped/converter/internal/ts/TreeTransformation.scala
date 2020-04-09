@@ -230,7 +230,7 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsExport(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsExport(_1, _2, _3) => TsExport(_1, _2, visitTsExportee(tt)(_3))
+      case TsExport(_1, _2, _3, _4) => TsExport(_1, _2, _3, visitTsExportee(tt)(_4))
     }
   }
   final def visitTsFunParam(t: T)(x: TsFunParam): TsFunParam = {

@@ -45,7 +45,7 @@ trait MemberCache {
         }
       case x: TsNamedDecl =>
         ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
-      case TsExport(_, _, TsExporteeTree(x: TsNamedDecl)) =>
+      case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) =>
         ret(x.name) = x :: ret.getOrElseUpdate(x.name, Nil)
       case _ => ()
     }
