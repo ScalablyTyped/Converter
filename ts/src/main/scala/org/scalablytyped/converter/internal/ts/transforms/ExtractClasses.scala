@@ -111,11 +111,14 @@ object ExtractClasses extends TransformLeaveMembers {
       sameName: IArray[TsNamedDecl],
       findName: FindAvailableName,
   ): Option[IArray[TsNamedDecl]] = {
-    val (vars, namespaces, rest: IArray[TsNamedDecl]) =
-      sameName.partitionCollect2({ case x: TsDeclVar => x }, { case x: TsDeclNamespace => x })
+    val (vars, namespaces, classes, rest: IArray[TsNamedDecl]) =
+      sameName.partitionCollect3({ case x: TsDeclVar   => x }, { case x: TsDeclNamespace => x }, {
+        case x:                            TsDeclClass => x
+      })
 
     vars match {
-      case IArray.headTail(v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false), restVars) =>
+      case IArray.headTail(v @ TsDeclVar(cs, declared, _, name, Some(tpe), None, jsLocation, cp, false), restVars)
+          if classes.isEmpty =>
         val allMembers = AllMembersFor.forType(scope, LoopDetector.initial)(tpe)
 
         /* extract named constructors inside the value into proper classes in a namespace, if possible */
