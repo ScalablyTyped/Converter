@@ -1,13 +1,13 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait TransitionEvent[T] extends BaseSyntheticEvent[NativeTransitionEvent, EventTarget with T, EventTarget] {
+trait TransitionEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   var elapsedTime: Double = js.native
   var propertyName: String = js.native
   var pseudoElement: String = js.native
@@ -18,7 +18,7 @@ object TransitionEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     elapsedTime: Double,
     eventPhase: Double,
@@ -31,7 +31,7 @@ object TransitionEvent {
     propertyName: String,
     pseudoElement: String,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     timeStamp: Double,
     `type`: String
   ): TransitionEvent[T] = {

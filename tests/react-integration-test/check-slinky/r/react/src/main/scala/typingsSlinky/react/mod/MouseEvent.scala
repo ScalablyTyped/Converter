@@ -1,6 +1,6 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -18,7 +18,7 @@ trait MouseEvent[T, E] extends BaseSyntheticEvent[E, EventTarget with T, EventTa
   var movementY: Double = js.native
   var pageX: Double = js.native
   var pageY: Double = js.native
-  var relatedTarget: org.scalajs.dom.raw.EventTarget = js.native
+  var relatedTarget: EventTarget = js.native
   var screenX: Double = js.native
   var screenY: Double = js.native
   var shiftKey: Boolean = js.native
@@ -39,7 +39,7 @@ object MouseEvent {
     clientX: Double,
     clientY: Double,
     ctrlKey: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -54,12 +54,12 @@ object MouseEvent {
     pageY: Double,
     persist: () => Unit,
     preventDefault: () => Unit,
-    relatedTarget: org.scalajs.dom.raw.EventTarget,
+    relatedTarget: EventTarget,
     screenX: Double,
     screenY: Double,
     shiftKey: Boolean,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     timeStamp: Double,
     `type`: String
   ): MouseEvent[T, E] = {

@@ -14,6 +14,11 @@ sealed abstract class TreeScope { outer =>
   def pedantic: Boolean
   val outputPkg: Name
 
+  final def `..` : TreeScope =
+    this match {
+      case root:   TreeScope.Root[_] => root
+      case scoped: TreeScope.Scoped  => scoped.outer
+    }
   final def root: TreeScope.Root[_] =
     this match {
       case root: TreeScope.Root[_] => root

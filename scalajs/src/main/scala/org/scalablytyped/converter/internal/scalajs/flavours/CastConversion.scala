@@ -60,13 +60,13 @@ object CastConversion {
         }
     }
 
-    def isRisky(scope: TreeScope): Boolean =
+    def isRisky(scope: TreeScope, inheritanceIsRisky: Boolean): Boolean =
       scope match {
         case _: TreeScope.Root[_] => false
         case Scoped(outer, current) =>
           current match {
             /* changing inheritance to classes we haven't had the chance to inspect will often fail */
-            case _: InheritanceTree => true
+            case _: InheritanceTree => inheritanceIsRisky
             case p: ParamTree =>
               outer match {
                 case Scoped(mouter, m: MethodTree) =>
@@ -91,13 +91,14 @@ object CastConversion {
                   }
                 case _ => false
               }
-            case _: TypeRef => isRisky(outer)
+            case tr: TypeRef =>
+              isRisky(outer, inheritanceIsRisky = inheritanceIsRisky && Name.Internal(tr.name))
             case _ => false
           }
       }
 
     override def leaveTypeRef(scope: TreeScope)(original: TypeRef): TypeRef = UndoDamage(
-      if (isRisky(scope)) original
+      if (isRisky(scope.`..`, inheritanceIsRisky = true)) original
       else
         mapped(original, scope).orElse(mapped(FollowAliases(scope)(original), scope)) match {
           case Some(TypeRef.Intersection(types)) => TypeRef.Intersection(types)
@@ -110,7 +111,7 @@ object CastConversion {
 
   /**
     * Fix needless intersection type arising from using a constrained type in a type alias,
-    *  then replacing the type parameter with something that actually comforms.
+    *  then replacing the type parameter with something that actually conforms.
     */
   object UndoDamage {
     case class WasDefaulted(among: Set[QualifiedName]) extends Comment.Data

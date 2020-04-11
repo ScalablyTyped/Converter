@@ -1,13 +1,13 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait KeyboardEvent[T] extends BaseSyntheticEvent[NativeKeyboardEvent, EventTarget with T, EventTarget] {
+trait KeyboardEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   var altKey: Boolean = js.native
   var charCode: Double = js.native
   var ctrlKey: Boolean = js.native
@@ -36,7 +36,7 @@ object KeyboardEvent {
     cancelable: Boolean,
     charCode: Double,
     ctrlKey: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -54,7 +54,7 @@ object KeyboardEvent {
     repeat: Boolean,
     shiftKey: Boolean,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     timeStamp: Double,
     `type`: String,
     which: Double

@@ -2,6 +2,7 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.Instantiable1
 import org.scalablytyped.runtime.Instantiable2
+import slinky.core.ReactComponentClass
 import typingsSlinky.std.Partial
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -10,8 +11,8 @@ import scala.scalajs.js.annotation._
 @js.native
 trait ComponentClass[P]
   extends ComponentType[P]
-     with Instantiable1[/* props */ P, Component[P, ComponentState]]
-     with Instantiable2[/* props */ P, /* context */ js.Any, Component[P, ComponentState]] {
+     with Instantiable1[/* props */ P, ReactComponentClass[P]]
+     with Instantiable2[/* props */ P, /* context */ js.Any, ReactComponentClass[P]] {
   var defaultProps: js.UndefOr[Partial[P]] = js.native
   var displayName: js.UndefOr[String] = js.native
 }

@@ -1,13 +1,13 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait TouchEvent[T] extends BaseSyntheticEvent[NativeTouchEvent, EventTarget with T, EventTarget] {
+trait TouchEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   var altKey: Boolean = js.native
   var changedTouches: TouchList = js.native
   var ctrlKey: Boolean = js.native
@@ -29,7 +29,7 @@ object TouchEvent {
     cancelable: Boolean,
     changedTouches: TouchList,
     ctrlKey: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     getModifierState: String => Boolean,
@@ -42,7 +42,7 @@ object TouchEvent {
     preventDefault: () => Unit,
     shiftKey: Boolean,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     targetTouches: TouchList,
     timeStamp: Double,
     touches: TouchList,

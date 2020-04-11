@@ -1,13 +1,13 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait AnimationEvent[T] extends BaseSyntheticEvent[NativeAnimationEvent, EventTarget with T, EventTarget] {
+trait AnimationEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   var animationName: String = js.native
   var elapsedTime: Double = js.native
   var pseudoElement: String = js.native
@@ -19,7 +19,7 @@ object AnimationEvent {
     animationName: String,
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     elapsedTime: Double,
     eventPhase: Double,
@@ -31,7 +31,7 @@ object AnimationEvent {
     preventDefault: () => Unit,
     pseudoElement: String,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     timeStamp: Double,
     `type`: String
   ): AnimationEvent[T] = {

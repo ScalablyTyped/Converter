@@ -1,9 +1,8 @@
 package typingsJapgolly.semanticUiReact.accordionAccordionAccordionMod
 
+import japgolly.scalajs.react.raw.React.ComponentClassP
 import org.scalablytyped.runtime.TopLevel
 import typingsJapgolly.react.mod.Component
-import typingsJapgolly.react.mod.ComponentClass
-import typingsJapgolly.react.mod.ComponentState
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,12 +10,13 @@ import scala.scalajs.js.annotation._
 @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
 @js.native
 class default protected ()
-  extends Component[AccordionAccordionProps, ComponentState, js.Any] {
+  extends Component[AccordionAccordionProps, js.Object, js.Any] {
   def this(props: AccordionAccordionProps) = this()
   def this(props: AccordionAccordionProps, context: js.Any) = this()
 }
 
 @JSImport("semantic-ui-react/dist/commonjs/modules/Accordion/AccordionAccordion", JSImport.Default)
 @js.native
-object default extends TopLevel[ComponentClass[AccordionAccordionProps, ComponentState]]
+object default
+  extends TopLevel[ComponentClassP[AccordionAccordionProps with js.Object]]
 

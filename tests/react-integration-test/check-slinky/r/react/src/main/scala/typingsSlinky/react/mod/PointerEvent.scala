@@ -10,7 +10,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait PointerEvent[T] extends MouseEvent[T, NativePointerEvent] {
+trait PointerEvent[T] extends MouseEvent[T, Event] {
   var height: Double = js.native
   var isPrimary: Boolean = js.native
   var pointerId: Double = js.native

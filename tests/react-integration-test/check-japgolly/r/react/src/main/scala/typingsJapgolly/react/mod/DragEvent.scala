@@ -10,7 +10,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait DragEvent[T] extends MouseEvent[T, NativeDragEvent] {
+trait DragEvent[T] extends MouseEvent[T, Event] {
   var dataTransfer: DataTransfer = js.native
 }
 

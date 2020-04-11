@@ -2,8 +2,8 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
-import typingsJapgolly.std.Event
-import typingsJapgolly.std.EventTarget
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +11,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait InvalidEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   @JSName("target")
-  var target_InvalidEvent: org.scalajs.dom.raw.EventTarget with T = js.native
+  var target_InvalidEvent: EventTarget with T = js.native
 }
 
 object InvalidEvent {
@@ -19,17 +19,17 @@ object InvalidEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: CallbackTo[Boolean],
     isPropagationStopped: CallbackTo[Boolean],
     isTrusted: Boolean,
-    nativeEvent: org.scalajs.dom.raw.Event,
+    nativeEvent: Event,
     persist: Callback,
     preventDefault: Callback,
     stopPropagation: Callback,
-    target: org.scalajs.dom.raw.EventTarget with T,
+    target: EventTarget with T,
     timeStamp: Double,
     `type`: String
   ): InvalidEvent[T] = {

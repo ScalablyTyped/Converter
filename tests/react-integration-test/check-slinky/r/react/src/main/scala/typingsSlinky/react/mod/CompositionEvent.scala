@@ -1,13 +1,13 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait CompositionEvent[T] extends BaseSyntheticEvent[NativeCompositionEvent, EventTarget with T, EventTarget] {
+trait CompositionEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   var data: String = js.native
 }
 
@@ -16,7 +16,7 @@ object CompositionEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     data: String,
     defaultPrevented: Boolean,
     eventPhase: Double,
@@ -27,7 +27,7 @@ object CompositionEvent {
     persist: () => Unit,
     preventDefault: () => Unit,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     timeStamp: Double,
     `type`: String
   ): CompositionEvent[T] = {

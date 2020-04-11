@@ -9,7 +9,7 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait WheelEvent[T] extends MouseEvent[T, NativeWheelEvent] {
+trait WheelEvent[T] extends MouseEvent[T, Event] {
   var deltaMode: Double = js.native
   var deltaX: Double = js.native
   var deltaY: Double = js.native

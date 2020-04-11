@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "material-ui"
-version := "0.0-unknown-2ae586"
+version := "0.0-unknown-5c1f8c"
 scalaVersion := "2.13.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalajs-react" %%% "core" % "1.5.0",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-965b10",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-8db76c",
   "org.scalablytyped" %%% "std" % "0.0-unknown-5a59ff")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")

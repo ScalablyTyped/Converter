@@ -4,13 +4,13 @@ import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
 import org.scalajs.dom.raw.DataTransfer
 import org.scalajs.dom.raw.Event
-import typingsJapgolly.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait ClipboardEvent[T] extends BaseSyntheticEvent[NativeClipboardEvent, EventTarget with T, EventTarget] {
+trait ClipboardEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   var clipboardData: DataTransfer = js.native
 }
 
@@ -20,7 +20,7 @@ object ClipboardEvent {
     bubbles: Boolean,
     cancelable: Boolean,
     clipboardData: DataTransfer,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: CallbackTo[Boolean],
@@ -30,7 +30,7 @@ object ClipboardEvent {
     persist: Callback,
     preventDefault: Callback,
     stopPropagation: Callback,
-    target: org.scalajs.dom.raw.EventTarget,
+    target: EventTarget,
     timeStamp: Double,
     `type`: String
   ): ClipboardEvent[T] = {

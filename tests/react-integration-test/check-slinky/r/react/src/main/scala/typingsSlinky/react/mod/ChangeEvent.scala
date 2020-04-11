@@ -1,7 +1,7 @@
 package typingsSlinky.react.mod
 
-import typingsSlinky.std.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.Event
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait ChangeEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
   @JSName("target")
-  var target_ChangeEvent: org.scalajs.dom.raw.EventTarget with T = js.native
+  var target_ChangeEvent: EventTarget with T = js.native
 }
 
 object ChangeEvent {
@@ -17,17 +17,17 @@ object ChangeEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
     isPropagationStopped: () => Boolean,
     isTrusted: Boolean,
-    nativeEvent: org.scalajs.dom.raw.Event,
+    nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget with T,
+    target: EventTarget with T,
     timeStamp: Double,
     `type`: String
   ): ChangeEvent[T] = {

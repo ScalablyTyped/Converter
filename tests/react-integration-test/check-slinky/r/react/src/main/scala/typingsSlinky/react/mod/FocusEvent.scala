@@ -1,16 +1,16 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Event
-import typingsSlinky.std.EventTarget
+import org.scalajs.dom.raw.EventTarget
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait FocusEvent[T] extends BaseSyntheticEvent[NativeFocusEvent, EventTarget with T, EventTarget] {
-  var relatedTarget: org.scalajs.dom.raw.EventTarget = js.native
+trait FocusEvent[T] extends BaseSyntheticEvent[Event, EventTarget with T, EventTarget] {
+  var relatedTarget: EventTarget = js.native
   @JSName("target")
-  var target_FocusEvent: org.scalajs.dom.raw.EventTarget with T = js.native
+  var target_FocusEvent: EventTarget with T = js.native
 }
 
 object FocusEvent {
@@ -18,7 +18,7 @@ object FocusEvent {
   def apply[T](
     bubbles: Boolean,
     cancelable: Boolean,
-    currentTarget: org.scalajs.dom.raw.EventTarget with T,
+    currentTarget: EventTarget with T,
     defaultPrevented: Boolean,
     eventPhase: Double,
     isDefaultPrevented: () => Boolean,
@@ -27,9 +27,9 @@ object FocusEvent {
     nativeEvent: Event,
     persist: () => Unit,
     preventDefault: () => Unit,
-    relatedTarget: org.scalajs.dom.raw.EventTarget,
+    relatedTarget: EventTarget,
     stopPropagation: () => Unit,
-    target: org.scalajs.dom.raw.EventTarget with T,
+    target: EventTarget with T,
     timeStamp: Double,
     `type`: String
   ): FocusEvent[T] = {
