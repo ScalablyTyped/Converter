@@ -49,7 +49,7 @@ object SlinkyTypeConversions {
       CastConversion(reactNames.WheelEvent, slinkyWeb + Name("SyntheticWheelEvent"), _1),
     )
 
-    val shared = scalaJsDomNames.AllExceptDeprecated ++ react ++ components
+    val shared = scalaJsDomNames.All ++ react ++ components
 
     val conversions: IArray[CastConversion] = if (isWeb) shared ++ web else shared
 
