@@ -71,10 +71,7 @@ object ZincCompiler {
     val sbtLogger = new ZincCompiler.WrapLogger(logger)
 
     val v = Versions(
-      Versions.Scala(
-        scalaVersion = (Compile / scalaVersion).value,
-        binVersion   = (Compile / scalaBinaryVersion).value,
-      ),
+      Versions.Scala(scalaVersion = (Compile / scalaVersion).value),
       Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
 

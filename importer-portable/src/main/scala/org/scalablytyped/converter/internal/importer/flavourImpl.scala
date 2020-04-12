@@ -25,6 +25,6 @@ object flavourImpl {
         FlavourImpl.Japgolly(outputPkg = outputPackage)
     }
 
-  def fromInput(i: SharedInput): FlavourImpl =
-    apply(i.flavour, i.shouldUseScalaJsDomTypes, i.outputPackage)
+  def forConversion(co: ConversionOptions): FlavourImpl =
+    apply(co.flavour, co.useScalaJsDomTypes, co.outputPackage)
 }

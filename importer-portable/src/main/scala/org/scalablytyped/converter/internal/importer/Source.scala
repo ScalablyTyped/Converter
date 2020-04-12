@@ -27,22 +27,26 @@ object Source {
       stdLibSource:    StdLibSource,
   )
 
-  def fromNodeModules(fromFolder: InFolder, input: SharedInput): FromNodeModules = {
+  def fromNodeModules(
+      fromFolder: InFolder,
+      conversion: ConversionOptions,
+      wantedLibs: Set[ts.TsIdentLibrary],
+  ): FromNodeModules = {
     val stdLibSource = {
       val folder = fromFolder.path / "typescript" / "lib"
 
       require(os.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
-      require(!input.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
+      require(!conversion.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
 
       StdLibSource(
         InFolder(folder),
-        input.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
+        conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
         TsIdent.std,
       )
     }
 
     val inputFolders: IArray[InFolder] = IArray(InFolder(fromFolder.path / "@types"), fromFolder)
-    val sources:      Set[Source]      = findSources(inputFolders, IArray.fromTraversable(input.wantedLibs)) + stdLibSource
+    val sources:      Set[Source]      = findSources(inputFolders, IArray.fromTraversable(wantedLibs)) + stdLibSource
 
     FromNodeModules(
       sources         = sources,

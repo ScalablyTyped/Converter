@@ -9,7 +9,7 @@ import com.olvind.logging
 import com.olvind.logging.{LogLevel, LogRegistry}
 import org.scalablytyped.converter.Selection
 import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLibSource}
-import org.scalablytyped.converter.internal.importer.build.{BloopCompiler, PublishedSbtProject}
+import org.scalablytyped.converter.internal.importer.build.{BinTrayPublisher, BloopCompiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
 import org.scalablytyped.converter.internal.phases.{PhaseListener, PhaseRes, PhaseRunner, RecPhase}
 import org.scalablytyped.converter.internal.scalajs.{Name, Versions}
@@ -39,12 +39,12 @@ trait ImporterHarness extends AnyFunSuite {
   )
 
   private def runImport(
-      source:        InFolder,
-      targetFolder:  os.Path,
-      pedantic:      Boolean,
-      logRegistry:   LogRegistry[Source, TsIdentLibrary, StringWriter],
-      publishFolder: os.Path,
-      flavour:       FlavourImpl,
+      source:             InFolder,
+      targetFolder:       os.Path,
+      pedantic:           Boolean,
+      logRegistry:        LogRegistry[Source, TsIdentLibrary, StringWriter],
+      publishLocalFolder: os.Path,
+      flavour:            FlavourImpl,
   ): PhaseRes[Source, SortedMap[Source, PublishedSbtProject]] = {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
@@ -78,10 +78,9 @@ trait ImporterHarness extends AnyFunSuite {
             versions                   = version,
             compiler                   = bloop,
             targetFolder               = targetFolder,
-            projectName                = "ScalablyTyped",
             organization               = "org.scalablytyped",
-            publishUser                = "oyvindberg",
-            publishFolder              = publishFolder,
+            publisherOpt             = Some(BinTrayPublisher.Dummy),
+            publishLocalFolder         = publishLocalFolder,
             metadataFetcher            = Npmjs.No,
             softWrites                 = true,
             flavour                    = flavour,

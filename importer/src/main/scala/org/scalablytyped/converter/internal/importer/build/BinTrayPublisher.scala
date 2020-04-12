@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 package build
 
+import java.net.URI
 import java.nio.file.{Files, Path}
 import java.util.concurrent.TimeUnit
 
@@ -11,21 +12,38 @@ import com.ning.http.client.listenable.AbstractListenableFuture
 import dispatch.{FunctionHandler, Http, StatusCode}
 import gigahorse.Status
 import io.circe.{Decoder, Encoder}
+import org.scalablytyped.converter.internal.scalajs.Dep
+import org.scalablytyped.converter.internal.stringUtils.quote
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 import scala.util.control.NonFatal
 
-case class BinTrayPublisher(cachePath: Path, repoPublic: String, user: String, password: String, repoName: String)(
-    implicit ec:                       ExecutionContext,
-) {
+class BinTrayPublisher private (
+    cachePathOpt: Option[Path],
+    repoPublic:   URI,
+    user:         String,
+    password:     String,
+    repoName:     ProjectName,
+)(
+    implicit ec: ExecutionContext,
+) extends Publisher {
+
+  override val sbtPublishTo = s"bintrayRepository := ${quote(repoName.value)}"
+  override val sbtResolver  = s"Resolver.bintrayRepo(${quote(user)}, ${quote(repoName.value)})"
+  override val sbtPlugin    = BinTrayPublisher.sbtPlugin
 
   private def builder =
     new AsyncHttpClientConfig.Builder()
       .setRequestTimeout(-1)
 
-  private lazy val http   = new Http(Caching.Client(cachePath, builder.build()))
+  private lazy val http = cachePathOpt match {
+    case Some(cachePath) => new Http(Caching.Client(cachePath, builder.build()))
+    case None            => new Http(new AsyncHttpClient(builder.build()))
+  }
+
   private lazy val client = Client(user, password, http)
-  private lazy val repo   = client.repo(user, repoName)
+  private lazy val repo   = client.repo(user, repoName.value)
 
   object Handle {
     val createOrConflictUncached = new FunctionHandler({
@@ -47,7 +65,7 @@ case class BinTrayPublisher(cachePath: Path, repoPublic: String, user: String, p
   private def ensurePackage(
       packageName: String,
       desc:        String,
-      vcs:         String,
+      vcs:         URI,
       lics:        Seq[String],
       labels:      Seq[String],
   ): Future[repo.Package] = {
@@ -59,7 +77,7 @@ case class BinTrayPublisher(cachePath: Path, repoPublic: String, user: String, p
         repo
           .createPackage(packageName)
           .desc(desc)
-          .vcs(vcs)
+          .vcs(vcs.toString)
           .licenses(lics: _*)
           .labels(labels: _*)
           .apply(Handle.createOrConflictUncached)
@@ -77,19 +95,61 @@ case class BinTrayPublisher(cachePath: Path, repoPublic: String, user: String, p
       case NonFatal(_) if n > 0 => retry(n - 1)(thunk)
     }
 
-  def publish(p: SbtProject, layout: Layout[os.RelPath, os.Path]): Future[Unit] = {
-    def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
-      layout.all.map {
-        case (relPath, src) =>
-          retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).exploded(true)(Handle.createOrConflict))
-      }
+  object isEnabled extends Publisher.Enabled {
+    override def publish(p: SbtProject, layout: Layout[os.RelPath, os.Path]): Future[Unit] = {
+      def uploadFiles(pkg: repo.Package): Iterable[Future[Boolean]] =
+        layout.all.map {
+          case (relPath, src) =>
+            retry(2)(pkg.mvnUpload(relPath.toString(), src.toIO).exploded(true)(Handle.createOrConflict))
+        }
+
+      for {
+        pkg <- retry(2)(ensurePackage(p.name, p.name, repoPublic, List("MIT"), Nil))
+        v <- retry(2)(ensureVersion(pkg, p.reference.version))
+        _ <- Future.sequence(uploadFiles(pkg))
+        _ <- retry(2)(v.publish(Handle.createOrConflict))
+      } yield ()
+    }
+  }
+  val enabled = Some(isEnabled)
+}
+
+object BinTrayPublisher {
+  val sbtPlugin: Dep = Dep.Java("org.foundweekends", "sbt-bintray", "0.5.4")
+
+  val bintrayCredentialsFile = os.home / ".bintray" / ".credentials"
+
+  object Dummy extends Publisher {
+    val repoName              = "ScalablyTyped"
+    override val sbtPublishTo = s"bintrayRepository := ${quote(repoName)}"
+    override val sbtResolver  = s"Resolver.bintrayRepo(${quote("oyvindberg")}, ${quote(repoName)})"
+    override val sbtPlugin    = BinTrayPublisher.sbtPlugin
+    override val enabled      = None
+  }
+
+  def apply(
+      cachePathOpt:   Option[Path],
+      bintryRepoName: ProjectName,
+      repoPublicOpt:  Option[URI],
+      ec:             ExecutionContext,
+  ): Either[String, BinTrayPublisher] = {
+    def values(content: String): Map[String, String] =
+      content
+        .split("\n")
+        .map(_.split("=").map(_.trim).filter(_.nonEmpty).toList)
+        .collect { case List(k, v) => (k, v) }
+        .toMap
 
     for {
-      pkg <- retry(2)(ensurePackage(p.name, p.name, repoPublic, List("MIT"), Nil))
-      v <- retry(2)(ensureVersion(pkg, p.reference.version))
-      _ <- Future.sequence(uploadFiles(pkg))
-      _ <- retry(2)(v.publish(Handle.createOrConflict))
-    } yield ()
+      repoPublic <- repoPublicOpt.toRight(
+        "Must supply a public git repository url since published artifacts must be open source",
+      )
+      file <- Option(bintrayCredentialsFile).filter(os.exists).toRight(s"$bintrayCredentialsFile doesnt exist")
+      content <- Try(files.content(InFile(file))).toEither.left.map(th => s"Couldn't read $file: ${th.getMessage}")
+      map = values(content)
+      user <- map.get("user").toRight(s"""didnt find a line with `user=...` in $file""")
+      password <- map.get("password").toRight(s"""didnt find a line with `password=...` in $file""")
+    } yield new BinTrayPublisher(cachePathOpt, repoPublic, user, password, bintryRepoName)(ec)
   }
 }
 

@@ -14,7 +14,7 @@ import scala.concurrent.duration.Duration
   *
   * @param publisher
   */
-case class Phase4Publish(publisher: BinTrayPublisher) extends Phase[Source, PublishedSbtProject, PublishedSbtProject] {
+case class Phase4Publish(publisher: Publisher.Enabled) extends Phase[Source, PublishedSbtProject, PublishedSbtProject] {
   override def apply(
       source:  Source,
       lib:     PublishedSbtProject,

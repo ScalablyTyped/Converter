@@ -21,7 +21,7 @@ sealed trait Dep {
         s"${artifact}_${versions.scala.scalaVersion}"
     }
 
-  def asSbt(versions: Versions): String =
+  def asSbt: String =
     this match {
       case Dep.Java(_, artifact, _) =>
         s"${quote(org)} % ${quote(artifact)} % ${quote(version)}"

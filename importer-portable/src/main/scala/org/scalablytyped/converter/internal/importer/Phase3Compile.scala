@@ -26,10 +26,9 @@ class Phase3Compile(
     versions:                   Versions,
     compiler:                   Compiler,
     targetFolder:               os.Path,
-    projectName:                String,
     organization:               String,
-    publishUser:                String,
-    publishFolder:              os.Path,
+    publisherOpt:               Option[Publisher],
+    publishLocalFolder:         os.Path,
     metadataFetcher:            Npmjs,
     softWrites:                 Boolean,
     flavour:                    FlavourImpl,
@@ -95,17 +94,16 @@ class Phase3Compile(
             val externalDeps: Set[Dep] = buildJson.dependencies ++ flavour.dependencies
 
             val sbtLayout = ContentSbtProject(
-              v               = versions,
+              versions        = versions,
               comments        = NoComments,
               organization    = organization,
               name            = source.libName.value,
               version         = VersionHack.TemplateValue,
-              publishUser     = publishUser,
+              publisherOpt    = publisherOpt,
               localDeps       = IArray.fromTraversable(deps.values),
               deps            = externalDeps,
               scalaFiles      = sourceFiles,
               resources       = Map(),
-              projectName     = projectName,
               metadataOpt     = None,
               declaredVersion = None,
             )
@@ -147,17 +145,16 @@ class Phase3Compile(
               else Map()
 
             val sbtLayout = ContentSbtProject(
-              v               = versions,
+              versions        = versions,
               comments        = lib.packageTree.comments,
               organization    = organization,
               name            = lib.libName,
               version         = VersionHack.TemplateValue,
-              publishUser     = publishUser,
+              publisherOpt    = publisherOpt,
               localDeps       = IArray.fromTraversable(deps.values),
               deps            = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },
-              projectName     = projectName,
               metadataOpt     = metadataOpt,
               declaredVersion = Some(lib.libVersion),
             )
@@ -208,7 +205,7 @@ class Phase3Compile(
     )(compilerPaths.baseDir, deps, metadataOpt)
 
     val existing: IvyLayout[os.Path, Unit] =
-      IvyLayout(sbtProject, (), (), (), ()).mapFiles(publishFolder / _)
+      IvyLayout(sbtProject, (), (), (), ()).mapFiles(publishLocalFolder / _)
 
     val jarFile  = existing.jarFile._1
     val lockFile = jarFile / os.up / ".lock"
@@ -242,7 +239,7 @@ class Phase3Compile(
                   sbtProject,
                   ZonedDateTime.now(),
                   externalDeps,
-                ).mapFiles(p => publishFolder / p).mapValues(files.softWriteBytes)
+                ).mapFiles(p => publishLocalFolder / p).mapValues(files.softWriteBytes)
 
               val elapsed = System.currentTimeMillis - t0
               logger warn s"Built $jarFile in $elapsed ms"

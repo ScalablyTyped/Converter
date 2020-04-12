@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import java.io.FileWriter
+import java.net.URI
 import java.nio.file.Path
 import java.time.LocalDateTime
 import java.util.concurrent._
@@ -29,16 +30,16 @@ object Ci {
   case class TargetDirs(targetFolder: os.Path, facadeFolder: os.Path)
 
   case class Paths(
-      bintray:       Path,
-      npmjs:         Path,
-      parseCache:    Option[Path],
-      cacheFolder:   os.Path,
-      publishFolder: os.Path,
+      npmjs:              Path,
+      parseCache:         Option[Path],
+      cacheFolder:        os.Path,
+      publishLocalFolder: os.Path,
   )
 
   case class Config(
-      shared:           SharedInput,
-      publish:          Option[PublishConfig],
+      conversion:       ConversionOptions,
+      wantedLibs:       Set[ts.TsIdentLibrary],
+      enablePublish:    Boolean,
       offline:          Boolean,
       pedantic:         Boolean,
       parallel:         Boolean,
@@ -48,9 +49,8 @@ object Ci {
       dontCleanProject: Boolean,
       softWrites:       Boolean, // only overwrite changed files to play better with tooling like intellij
       debugMode:        Boolean,
-      projectName:      String,
-      repo:             String,
-      organization:     String,
+      projectName:      ProjectName,
+      repo:             URI,
   ) {
     // change in source code for now, lazy...
     val parallelLibraries = 20
@@ -61,55 +61,42 @@ object Ci {
     def unapply(args: Array[String]): Some[Config] =
       args partition (_ startsWith "-") match {
         case (flags, rest) =>
-          val publish: Option[PublishConfig] = if (flags contains "-publish") {
-            val values: Map[String, String] =
-              files
-                .content(InFile(os.home / ".bintray" / ".credentials"))
-                .split("\n")
-                .map(_.split("=").map(_.trim).filter(_.nonEmpty).toList)
-                .collect { case List(k, v) => (k, v) }
-                .toMap
-
-            Some(PublishConfig(values("user"), values("password")))
-          } else None
-
-          val wantedLibNames
-              : Set[TsIdentLibrary] = (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest
-            .map(TsIdentLibrary.apply)
+          val wantedLibNames: Set[TsIdentLibrary] =
+            (if (flags contains "-demoSet") Libraries.DemoSet else Set()) ++ rest.map(TsIdentLibrary.apply)
 
           val shouldUseScalaJsDomTypes = flags contains "-useScalaJsDomTypes"
 
-          val (flavour: Flavour, outputPackage: Name, projectName: String, repo: String, organization: String) =
+          val (flavour: Flavour, outputPackage: Name, projectName, repo, organization: String) =
             if (flags.contains("-flavourSlinky"))
               (
                 Flavour.Slinky,
                 Name("typingsSlinky"),
-                "SlinkyTyped",
-                "https://github.com/ScalablyTyped/SlinkyTyped.git",
+                ProjectName("SlinkyTyped"),
+                new URI("https://github.com/ScalablyTyped/SlinkyTyped.git"),
                 "org.scalablytyped.slinky",
               )
             else if (flags.contains("-flavourSlinkyNative"))
               (
                 Flavour.SlinkyNative,
                 Name("typingsSlinky"),
-                "SlinkyNativeTyped",
-                "https://github.com/ScalablyTyped/SlinkyNativeTypes.git",
+                ProjectName("SlinkyNativeTyped"),
+                new URI("https://github.com/ScalablyTyped/SlinkyNativeTypes.git"),
                 "org.scalablytyped.slinkynative",
               )
             else if (flags.contains("-flavourJapgolly"))
               (
                 Flavour.Japgolly,
                 Name("typingsJapgolly"),
-                "ScalajsReactTyped",
-                "https://github.com/ScalablyTyped/ScalajsReactTyped.git",
+                ProjectName("ScalajsReactTyped"),
+                new URI("https://github.com/ScalablyTyped/ScalajsReactTyped.git"),
                 "org.scalablytyped.japgolly",
               )
             else
               (
                 Flavour.Normal,
                 Name.typings,
-                "ScalablyTyped",
-                "https://github.com/oyvindberg/ScalablyTyped.git",
+                ProjectName("ScalablyTyped"),
+                new URI("https://github.com/oyvindberg/ScalablyTyped.git"),
                 "org.scalablytyped",
               )
 
@@ -125,22 +112,23 @@ object Ci {
 
           Some(
             Config(
-              shared = SharedInput(
-                shouldUseScalaJsDomTypes = shouldUseScalaJsDomTypes,
-                outputPackage            = outputPackage,
-                enableScalaJsDefined     = enableScalaJsDefined,
-                flavour                  = flavour,
-                wantedLibs               = wantedLibNames,
-                ignoredLibs              = ignoredLibs,
-                ignoredModulePrefixes    = Set(),
-                stdLibs                  = IArray("esnext.full"),
-                expandTypeMappings       = EnabledTypeMappingExpansion.DefaultSelection,
+              conversion = ConversionOptions(
+                useScalaJsDomTypes    = shouldUseScalaJsDomTypes,
+                outputPackage         = outputPackage,
+                enableScalaJsDefined  = enableScalaJsDefined,
+                flavour               = flavour,
+                ignoredLibs           = ignoredLibs,
+                ignoredModulePrefixes = Set(),
+                stdLibs               = IArray("esnext.full"),
+                expandTypeMappings    = EnabledTypeMappingExpansion.DefaultSelection,
                 versions = Versions(
                   if (flags contains "-scala212") Versions.Scala212 else Versions.Scala213,
                   if (flags contains ("-scalajs1")) Versions.ScalaJs1 else Versions.ScalaJs06,
                 ),
+                organization = organization,
               ),
-              publish          = publish,
+              wantedLibs       = wantedLibNames,
+              enablePublish    = flags contains "-publish",
               offline          = flags contains "-offline",
               pedantic         = flags contains "-pedantic",
               parallel         = isParallel,
@@ -152,18 +140,15 @@ object Ci {
               debugMode        = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
               projectName      = projectName,
               repo             = repo,
-              organization     = organization,
             ),
           )
       }
   }
 }
 
-class Ci(config: Ci.Config, paths: Ci.Paths) {
+class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoinPool, ec: ExecutionContext) {
   val RunId                      = constants.DateTimePattern format LocalDateTime.now
   val t0                         = System.currentTimeMillis
-  private val pool               = new ForkJoinPool(config.parallelLibraries)
-  private val ec                 = ExecutionContext.fromExecutorService(pool)
   private val storingErrorLogger = logging.storing()
   private val logsFolder         = files.existing(paths.cacheFolder / 'logs)
 
@@ -185,7 +170,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
 
   def updatedTargetDir(): Future[Ci.TargetDirs] =
     Future {
-      val projectFolder = paths.cacheFolder / config.projectName
+      val projectFolder = paths.cacheFolder / config.projectName.value
       if (os.exists(projectFolder)) {
         implicit val wd = projectFolder
         if (!config.offline) {
@@ -201,23 +186,18 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
       } else
         Try {
           implicit val wd = paths.cacheFolder
-          interfaceCmd.runVerbose git ('clone, config.repo)
+          interfaceCmd.runVerbose git ('clone, config.repo.toString)
         } recover {
           case _ =>
             os.makeDir(projectFolder)
 
             implicit val wd = projectFolder
             interfaceCmd.runVerbose git 'init
-            interfaceCmd.runVerbose git ("remote", "add", "origin", config.repo)
+            interfaceCmd.runVerbose git ("remote", "add", "origin", config.repo.toString)
         }
 
       Ci.TargetDirs(targetFolder = projectFolder, facadeFolder = files.existing(projectFolder / 'facades))
     }(ec)
-
-  def bintrayFor(projectName: String, repo: String, cachePath: Path): Option[BinTrayPublisher] =
-    config.publish.map {
-      case PublishConfig(user, password) => BinTrayPublisher(cachePath, repo, user, password, projectName)(ec)
-    }
 
   def tsSourcesF(
       externalsFolderF:  Future[InFolder],
@@ -234,8 +214,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
         os.list(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
 
       (
-        TypescriptSources(externalsFolder, dtFolder, config.shared.ignoredLibs).sorted ++ facadeSources,
-        config.shared.wantedLibs,
+        TypescriptSources(externalsFolder, dtFolder, config.conversion.ignoredLibs).sorted ++ facadeSources,
+        config.wantedLibs,
       ) match {
         case (sources, sets.EmptySet()) => sources
         case (sources, wantedLibs)      => sources.filter(s => wantedLibs(s.libName))
@@ -247,7 +227,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
     val compilerF: Future[BloopCompiler] =
       BloopCompiler(
         logger                = logger.filter(LogLevel.debug).void,
-        v                     = config.shared.versions,
+        v                     = config.conversion.versions,
         failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
       )(ec)
 
@@ -268,7 +248,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
           external.packages
             .map(_.typingsPackageName)
             .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
-          config.shared.ignoredLibs,
+          config.conversion.ignoredLibs,
           config.conserveSpace,
           config.offline,
         )
@@ -282,8 +262,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
 
     val localCleaningF = Future {
       if (config.conserveSpace) {
-        interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishFolder}")
-        LocalCleanup(paths.publishFolder, config.organization, keepNum = 1)
+        interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalFolder}")
+        LocalCleanup(paths.publishLocalFolder, config.conversion.organization, keepNum = 1)
       }
     }(ec)
 
@@ -302,18 +282,16 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
       val folder = externalsFolder.path / "typescript" / "lib"
 
       require(os.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
-      require(!config.shared.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
+      require(!config.conversion.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
 
       StdLibSource(
         InFolder(folder),
-        config.shared.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
+        config.conversion.stdLibs.map(s => InFile(folder / s"lib.$s.d.ts")),
         TsIdent.std,
       )
     }
 
-    val bintray     = bintrayFor(config.projectName, config.repo, paths.bintray)
-    val publishUser = bintray.fold("oyvindberg")(_.user)
-    val flavour     = flavourImpl.fromInput(config.shared)
+    val flavour = flavourImpl.forConversion(config.conversion)
 
     val Pipeline: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
@@ -321,20 +299,20 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
           new Phase1ReadTypescript(
             calculateLibraryVersion = new DTVersions(lastChangedIndex),
             resolve                 = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), None),
-            ignored                 = config.shared.ignoredLibs,
-            ignoredModulePrefixes   = config.shared.ignoredModulePrefixes,
+            ignored                 = config.conversion.ignoredLibs,
+            ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
             stdlibSource            = stdLibSource,
             pedantic                = config.pedantic,
             parser                  = PersistingParser(paths.parseCache, IArray(externalsFolder, dtFolder), logger.void),
-            expandTypeMappings      = config.shared.expandTypeMappings,
+            expandTypeMappings      = config.conversion.expandTypeMappings,
           ),
           "typescript",
         )
         .next(
           new Phase2ToScalaJs(
             config.pedantic,
-            enableScalaJsDefined = config.shared.enableScalaJsDefined,
-            outputPkg            = config.shared.outputPackage,
+            enableScalaJsDefined = config.conversion.enableScalaJsDefined,
+            outputPkg            = config.conversion.outputPackage,
           ),
           "scala.js",
         )
@@ -342,13 +320,12 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
         .next(
           new Phase3Compile(
             resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
-            versions                   = config.shared.versions,
+            versions                   = config.conversion.versions,
             compiler                   = compiler,
             targetFolder               = targetFolder,
-            projectName                = config.projectName,
-            organization               = config.organization,
-            publishUser                = publishUser,
-            publishFolder              = paths.publishFolder,
+            organization               = config.conversion.organization,
+            publisherOpt               = Some(publisher),
+            publishLocalFolder         = paths.publishLocalFolder,
             metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
             softWrites                 = config.softWrites,
             flavour                    = flavour,
@@ -357,7 +334,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths) {
           ),
           "build",
         )
-        .nextOpt(bintray.map(Phase4Publish), "publish")
+        .nextOpt(publisher.enabled.map(Phase4Publish), "publish")
 
     val results: Map[Source, PhaseRes[Source, PublishedSbtProject]] =
       Interface(config.debugMode, storingErrorLogger) {
@@ -417,21 +394,21 @@ target/
     interfaceLogger warn td
 
     if (config.debugMode && !config.forceCommit) {
-      interfaceLogger warn s"Not committing because of non-empty args ${config.shared.wantedLibs.mkString(", ")}"
+      interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibs.mkString(", ")}"
     } else {
       interfaceLogger warn "Generating sbt plugin..."
 
       val sbtProjectDir = targetFolder / s"sbt-${config.projectName}"
 
       GenerateSbtPlugin(
-        versions      = config.shared.versions,
-        organization  = config.organization,
+        versions      = config.conversion.versions,
+        organization  = config.conversion.organization,
         projectName   = config.projectName,
         projectDir    = sbtProjectDir,
         projects      = successes.values.to[Set],
         pluginVersion = RunId,
-        publishUser   = publishUser,
-        action        = if (bintray.isDefined) "^publish" else "publishLocal",
+        publisherOpt  = Some(publisher),
+        action        = if (publisher.enabled.isDefined) "^publish" else "publishLocal",
       )
 
       CommitChanges(

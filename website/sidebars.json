@@ -1,6 +1,6 @@
 {
   "docs": {
-    "ScalablyTyped": ["readme", "changelog", "plugin", "plugin-no-bundler", "flavour", "encoding", "import-problems"],
+    "ScalablyTyped": ["readme", "changelog", "plugin", "plugin-no-bundler", "cli", "flavour", "encoding", "import-problems"],
     "Development": ["devel/about", "devel/running"]
   }
 }
