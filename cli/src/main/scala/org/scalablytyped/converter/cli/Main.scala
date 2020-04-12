@@ -57,6 +57,7 @@ object Main {
       publishGitUrl:      Option[URI],
       inDirectory:        os.Path,
       includeDev:         Boolean,
+      includeProject:     Boolean,
   ) {
     lazy val paths = new Paths(inDirectory)
     def mapConversion(f: ConversionOptions => ConversionOptions) = copy(conversion = f(conversion))
@@ -69,6 +70,7 @@ object Main {
     publishGitUrl      = None,
     inDirectory        = os.pwd,
     includeDev         = false,
+    includeProject     = false,
   )
 
   val parseCachePath = Some(files.existing(constants.defaultCacheFolder / 'parse).toNIO)
@@ -123,9 +125,12 @@ object Main {
       opt[os.Path]('d', "directory")
         .action((x, c) => c.copy(inDirectory = x))
         .text("Specify another directory instead of the current directory where your package.json and node_modules is"),
-      opt[Boolean]("dev")
+      opt[Boolean]("includeDev")
         .action((x, c) => c.copy(includeDev = x))
         .text("Include dev dependencies"),
+      opt[Boolean]("includeProject")
+        .action((x, c) => c.copy(includeProject = x))
+        .text("Include project in current directory"),
       opt[Boolean]("useScalaJsDomTypes")
         .action((x, c) => c.mapConversion(_.copy(useScalaJsDomTypes = x)))
         .text(
@@ -183,12 +188,25 @@ object Main {
 
   def main(args: Array[String]): Unit =
     OParser.parse(ParseConversionOptions, args, DefaultConfig) match {
-      case Some(c @ Config(conversion, libsFromCmdLine, publishBintrayRepoOpt, publishGitUrlOpt, inDir, includeDev)) =>
+      case Some(
+          c @ Config(
+            conversion,
+            libsFromCmdLine,
+            publishBintrayRepoOpt,
+            publishGitUrlOpt,
+            inDir,
+            includeDev,
+            includeProject,
+          ),
+          ) =>
         val packageJsonPath = c.paths.packageJson.getOrElse(sys.error(s"$inDir does not contain package.json"))
         val nodeModulesPath = c.paths.node_modules.getOrElse(sys.error(s"$inDir does not contain node_modules"))
         require(files.exists(nodeModulesPath / "typescript" / "lib"), "must install typescript")
 
         val packageJson = Json.force[PackageJsonDeps](packageJsonPath)
+
+        val projectSource =
+          if (includeProject) Some(Source.FromFolder(InFolder(inDir), TsIdentLibrary(inDir.last))) else None
 
         val wantedLibs: Set[TsIdentLibrary] =
           libsFromCmdLine match {
@@ -212,6 +230,8 @@ object Main {
         println(
           table(fansi.Color.LightBlue)(
             "directory" -> inDir.toString,
+            "includeDev" -> includeDev.toString,
+            "includeProject" -> includeProject.toString,
             "wantedLibs" -> wantedLibs.map(_.value).mkString(", "),
             "useScalaJsDomTypes" -> conversion.useScalaJsDomTypes.toString,
             "flavour" -> conversion.flavour.toString,
@@ -231,9 +251,10 @@ object Main {
           Duration.Inf,
         )
 
-        val Source.FromNodeModules(sources, folders, libraryResolver, stdLibSource) =
+        val Source.FromNodeModules(_sources, folders, libraryResolver, stdLibSource) =
           Source.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
 
+        val sources = _sources ++ projectSource
         val flavour = flavourImpl.forConversion(conversion)
 
         val Pipeline: RecPhase[Source, PublishedSbtProject] =
