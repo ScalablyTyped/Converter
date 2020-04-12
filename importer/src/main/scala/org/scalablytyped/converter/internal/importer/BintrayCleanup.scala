@@ -21,7 +21,7 @@ object BintrayCleanup extends App {
   private val password = values("password")
 
   private lazy val client = Client(user, password)
-  private lazy val repo   = client.repo(user, config.projectName)
+  private lazy val repo   = client.repo(user, config.projectName.value)
 
   val deleted = AtomicLong(0)
 

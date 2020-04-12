@@ -10,7 +10,6 @@ import bloop.cli.{CliOptions, Commands, CommonOptions, ExitStatus}
 import bloop.config.{Config => BloopConfig}
 import bloop.engine.NoPool
 import bloop.io.AbsolutePath
-import bloop.logging.{DebugFilter, Logger => BloopLogger}
 import com.olvind.logging.{Formatter, Logger}
 import coursier.cache.ArtifactError
 import coursier.error.{FetchError, ResolutionError}
@@ -22,23 +21,6 @@ import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionContext, Future}
 
 object BloopCompiler {
-  class LoggerAdapter(logger: Logger[Unit]) extends BloopLogger {
-    override def name: String = "bloop-scala-logger"
-    override def asVerbose  = this
-    override def asDiscrete = this
-    override def ansiCodesSupported(): Boolean = false
-    override def error(msg: String): Unit = logger.error(msg)
-    override def warn(msg:  String): Unit = logger.warn(msg)
-    override def info(msg:  String): Unit = logger.info(msg)
-    override def debug(msg: String): Unit = logger.debug(msg)
-    override def debug(msg: String)(implicit ctx: DebugFilter): Unit = logger.debug(msg)
-    override def trace(t:   Throwable): Unit = logger.debug(t.getMessage)
-    override def isVerbose:   Boolean     = true
-    override def debugFilter: DebugFilter = DebugFilter.All
-    override def printDebug(line:       String):         Unit        = logger.debug(line)
-    override def withOriginId(originId: Option[String]): BloopLogger = this
-  }
-
   implicit val AbsolutePathFormatter: Formatter[AbsolutePath] = x => x.syntax
 
   def toCoursier(versions: Versions)(dep: Dep): Dependency =
@@ -82,8 +64,6 @@ object BloopCompiler {
       globalClasspathBase <- globalClasspathBaseF
       scalaJsCompilerBase <- scalaJsCompilerBaseF
     } yield {
-      val bloopLogger: BloopLogger = new LoggerAdapter(logger)
-
       logger.warn(s"Initializing scala compiler ${v.scala.scalaVersion} with scala.js ${v.scalaJs.scalaJsVersion}")
 
       val globalClasspath: Array[AbsolutePath] =
@@ -95,7 +75,7 @@ object BloopCompiler {
       logger.warn(globalClasspath)
       logger.warn(scalaJsCompiler)
 
-      new BloopCompiler(ec, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler, bloopLogger)
+      new BloopCompiler(ec, failureCacheFolderOpt, v, globalClasspath, scalaCompiler, scalaJsCompiler)
     }
   }
 }
@@ -107,7 +87,6 @@ class BloopCompiler private (
     globalClassPath:       Array[AbsolutePath],
     scalaJars:             Array[AbsolutePath],
     scalaJsCompiler:       AbsolutePath,
-    bloopLogger:           BloopLogger,
 ) extends Compiler {
   override def compile(
       name:          String,

@@ -28,7 +28,7 @@ object FlavourImpl {
 
     val conversions: Option[IArray[CastConversion]] =
       if (shouldUseScalaJsDomTypes)
-        Some(scalaJsDomNames.AllExceptDeprecated)
+        Some(scalaJsDomNames.All)
       else None
 
     override val dependencies: Set[Dep] =

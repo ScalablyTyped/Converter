@@ -16,6 +16,7 @@ object constants {
     case OpSystem.LINUX   => os.home / ".cache" / "scalablytyped"
     case OpSystem.UNKNOWN => os.home / ".cache" / "scalablytyped" // By default, Linux cache folder
   }
+  val defaultLocalPublishFolder: os.Path = os.home / ".ivy2" / "local"
 
   val DefinitelyTypedRepo = new URI("https://github.com/DefinitelyTyped/DefinitelyTyped.git")
   val ConverterRepo       = new URI("https://github.com/ScalablyTyped/Converter.git")

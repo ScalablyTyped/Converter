@@ -36,6 +36,8 @@ trait Layout[F, V] {
 }
 
 object files {
+  // os.exists is too slow because it throws exceptions behind the scenes
+  def exists(path: os.Path): Boolean = path.toIO.exists()
 
   def content(file: InFile): String =
     new String(os.read.bytes(file.path), constants.Utf8)
@@ -54,7 +56,7 @@ object files {
 
     if (deleteUnknowns)
       folder match {
-        case f if os.exists(f) =>
+        case f if files.exists(f) =>
           os.walk(f, IgnoreProjectFiles).foreach {
             case p if os.isFile(p) && !absolutePathFiles.contains(p) => deleteAll(p)
             case _                                                   => ()

@@ -67,8 +67,7 @@ object QualifiedName {
   val SINGLETON:        QualifiedName = QualifiedName(IArray(Name.SINGLETON))
 
   class StdNames(outputPkg: Name) {
-    val stdName:               Name          = Name("std")
-    val lib:                   QualifiedName = QualifiedName(IArray(outputPkg, stdName))
+    val lib:                   QualifiedName = QualifiedName(IArray(outputPkg, Name.std))
     val Array:                 QualifiedName = lib + Name.Array
     val Boolean:               QualifiedName = lib + Name.Boolean
     val BigInt:                QualifiedName = lib + Name("BigInt")

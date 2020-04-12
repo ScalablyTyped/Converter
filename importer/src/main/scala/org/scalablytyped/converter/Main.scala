@@ -1,10 +1,14 @@
 package org.scalablytyped.converter
 
 import java.nio.file.Path
+import java.util.concurrent.ForkJoinPool
 
 import org.scalablytyped.converter.internal.constants.defaultCacheFolder
-import org.scalablytyped.converter.internal.files
-import org.scalablytyped.converter.internal.importer.{withZipFs, Ci}
+import org.scalablytyped.converter.internal.importer.build.BinTrayPublisher
+import org.scalablytyped.converter.internal.importer.{withZipFs, Ci, Publisher}
+import org.scalablytyped.converter.internal.{constants, files}
+
+import scala.concurrent.ExecutionContext
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -12,21 +16,33 @@ object Main {
     /* I havent found a way to configure bloop to customize the global ExecutionContext, so this is it */
     System.setProperty("scala.concurrent.context.numThreads", config.parallelScalas.toString)
 
-    val publishFolder = os.home / ".ivy2" / "local"
+    val publishFolder = constants.defaultLocalPublishFolder
 
-    withZipFs(files.existing(defaultCacheFolder) / "bintray.zip") { bintrayPath =>
+    val pool = new ForkJoinPool(config.parallelLibraries)
+    val ec   = ExecutionContext.fromExecutorService(pool)
+
+    withZipFs.maybe(files.existing(defaultCacheFolder) / "bintray.zip", config.enablePublish) { bintrayPathOpt =>
+      val publisher: Publisher =
+        if (config.enablePublish)
+          BinTrayPublisher(bintrayPathOpt, config.projectName, Some(config.repo), ec) match {
+            case Left(err)    => sys.error(err)
+            case Right(value) => value
+          }
+        else BinTrayPublisher.Dummy
+
       withZipFs(defaultCacheFolder / "npmjs.zip") { npmjsPath =>
         withZipFs.maybe(defaultCacheFolder / "parseCache.zip", config.enableParseCache && config.conserveSpace) {
           parseCachePathOpt =>
             val parseCacheOpt: Option[Path] = parseCachePathOpt orElse {
               if (config.enableParseCache) Some((defaultCacheFolder / "parse").toNIO) else None
             }
-            val paths = Ci.Paths(bintrayPath, npmjsPath, parseCacheOpt, defaultCacheFolder, publishFolder)
-            new Ci(config, paths).run()
+            val paths = Ci.Paths(npmjsPath, parseCacheOpt, defaultCacheFolder, publishFolder)
+            new Ci(config, paths, publisher, pool, ec).run()
         }
       }
     }
 
+    pool.shutdown()
     System.exit(0)
   }
 }

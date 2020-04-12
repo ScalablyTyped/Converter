@@ -4,25 +4,29 @@ object Versions {
   val sbtVersion = "1.3.8"
 
   val runtime      = Dep.ScalaJs("com.olvind", "scalablytyped-runtime", "2.1.0")
-  val sbtBintray   = Dep.Java("org.foundweekends", "sbt-bintray", "0.5.4")
   val scalaJsDom   = Dep.ScalaJs("org.scala-js", "scalajs-dom", "1.0.0")
   val slinkyWeb    = Dep.ScalaJs("me.shadaj", "slinky-web", "0.6.4")
   val slinkyNative = Dep.ScalaJs("me.shadaj", "slinky-native", "0.6.4")
   val scalajsReact = Dep.ScalaJs("com.github.japgolly.scalajs-react", "core", "1.5.0")
 
-  case class Scala(scalaVersion: String, binVersion: String) {
-    val scalaOrganization = "org.scala-lang"
-    val compiler          = Dep.Java(scalaOrganization, "scala-compiler", scalaVersion)
-    val library           = Dep.Java(scalaOrganization, "scala-library", scalaVersion)
+  private val StableVersion = "(\\d+).(\\d+).(\\d+)".r
+
+  case class Scala(scalaVersion: String) {
+    val scalaOrganization: String   = "org.scala-lang"
+    val compiler:          Dep.Java = Dep.Java(scalaOrganization, "scala-compiler", scalaVersion)
+    val library:           Dep.Java = Dep.Java(scalaOrganization, "scala-library", scalaVersion)
+
+    val binVersion: String = scalaVersion match {
+      case StableVersion(major, minor, _) => s"$major.$minor"
+      case other                          => other
+    }
   }
 
-  val Scala212 = Scala("2.12.10", "2.12")
+  val Scala212 = Scala("2.12.10")
 
-  val Scala213 = Scala("2.13.1", "2.13")
+  val Scala213 = Scala("2.13.1")
 
   case class ScalaJs(scalaJsVersion: String) {
-    private val StableVersion = "(\\d+).(\\d+).(\\d+)".r
-
     val scalaJsBinVersion: String =
       scalaJsVersion match {
         case StableVersion("1", _, _)   => "1"
@@ -31,6 +35,7 @@ object Versions {
       }
 
     val scalaJsOrganization = "org.scala-js"
+
     def scalacOptions: List[String] = {
       val base = List("-encoding", "utf-8", "-g:notailcalls")
       if (scalaJsVersion.startsWith("0.6")) base :+ "-P:scalajs:sjsDefinedByDefault"

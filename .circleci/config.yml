@@ -37,6 +37,7 @@ jobs:
             - ~/.sbt
             - ~/.m2
             - ~/.ivy2/cache
+            - ~/.ivy2/local
           key: v1-dependencies--{{ checksum "build.sbt" }}
 
       # run tests!

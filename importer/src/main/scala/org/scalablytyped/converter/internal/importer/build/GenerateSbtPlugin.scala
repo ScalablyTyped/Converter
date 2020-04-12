@@ -10,15 +10,15 @@ object GenerateSbtPlugin {
   def apply(
       versions:      Versions,
       organization:  String,
-      projectName:   String,
+      projectName:   ProjectName,
       projectDir:    os.Path,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-      publishUser:   String,
+      publisherOpt:  Option[Publisher],
       action:        String,
   ): Unit = {
     files.sync(
-      contents(versions, organization, projectName, projects, pluginVersion, publishUser),
+      contents(versions, organization, projectName, projects, pluginVersion, publisherOpt),
       projectDir,
       deleteUnknowns = true,
       soft           = true,
@@ -36,21 +36,20 @@ object GenerateSbtPlugin {
   def contents(
       v:             Versions,
       organization:  String,
-      projectName:   String,
+      projectName:   ProjectName,
       projects:      Set[PublishedSbtProject],
       pluginVersion: String,
-      publishUser:   String,
+      publisherOpt:  Option[Publisher],
   ): Map[os.RelPath, Array[Byte]] = {
 
-    val buildSbt = s"""name := "sbt-$projectName"
+    val buildSbt = s"""name := "sbt-${projectName.value}"
       |organization := ${quote(organization)}
       |version := ${quote(pluginVersion)}
       |sbtPlugin := true
-      |bintrayRepository := ${quote(projectName)}
       |licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
       |publishMavenStyle := true
       |crossSbtVersions := Vector("0.13.16", ${quote(Versions.sbtVersion)})
-      |""".stripMargin
+      |""".stripMargin + publisherOpt.fold("")(_.sbtPublishTo + "\n")
 
     /* we have at least a `clone` and a `notify` library - of course */
     def fix(name: String): String =
@@ -78,21 +77,24 @@ object GenerateSbtPlugin {
         }
         .mkString("\n")
 
+    val resolvers = publisherOpt match {
+      case Some(publisher) => s"\n    resolvers += ${publisher.sbtResolver}"
+      case None            => ""
+    }
     val pluginSource = s"""
       |package $organization.sbt
       |
       |import sbt._
       |import sbt.Keys._
       |
-      |object ${projectName}Plugin extends AutoPlugin {
+      |object ${projectName.value}Plugin extends AutoPlugin {
       |  override def trigger = allRequirements
       |  override def requires = sbt.plugins.JvmPlugin
-      |  override def globalSettings = List(
-      |    resolvers += Resolver.bintrayRepo(${quote(publishUser)}, ${quote(projectName)})
+      |  override def globalSettings = List($resolvers
       |  )
       |
       |  object autoImport {
-      |    object $projectName {
+      |    object ${projectName.value} {
       |$projectsByLetter
       |    }
       |  }
@@ -100,12 +102,15 @@ object GenerateSbtPlugin {
 
     val pluginSourcePath = os.RelPath("src") / 'main / 'scala / 'com / 'olvind / 'sbt / "ScalablytypedPlugin.scala"
 
+    val pluginsSbt = publisherOpt.map(_.sbtPlugin).map(dep => s"addSbtPlugin(${dep.asSbt})").mkString("\n")
+
     Map(
-      os.RelPath("build.sbt") -> buildSbt.getBytes(constants.Utf8),
-      os.RelPath("project") / "plugins.sbt" -> s"""addSbtPlugin(${Versions.sbtBintray.asSbt(v)})"""
-        .getBytes(constants.Utf8),
-      os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}".getBytes(constants.Utf8),
-      pluginSourcePath -> pluginSource.getBytes(constants.Utf8),
-    )
+      os.RelPath("build.sbt") -> buildSbt,
+      os.RelPath("project") / "plugins.sbt" -> pluginsSbt,
+      os.RelPath("project") / "build.properties" -> s"sbt.version=${Versions.sbtVersion}",
+      pluginSourcePath -> pluginSource,
+    ).map {
+      case (relPath, str) => relPath -> str.getBytes(constants.Utf8)
+    }
   }
 }

@@ -53,7 +53,7 @@ object LibraryResolver {
 
     val longName: TsIdentModule = {
       val keepIndexPath = file.path match {
-        case base / segment / "index.d.ts" => os.exists(base / segment.concat(".d.ts"))
+        case base / segment / "index.d.ts" => files.exists(base / segment.concat(".d.ts"))
         case _                             => false
       }
 
@@ -75,7 +75,7 @@ object LibraryResolver {
     resolve(folder.path, fragment) collectFirst { case dir if os.isDir(dir) => InFolder(dir) }
 
   private def resolve(path: os.Path, frags: String*): IArray[os.Path] =
-    IArray(frags: _*).mapNotNone(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter os.exists)
+    IArray(frags: _*).mapNotNone(frag => Option(path / os.RelPath(frag.dropWhile(_ === '/'))) filter files.exists)
 
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None

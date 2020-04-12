@@ -5,11 +5,13 @@ import java.time.Instant
 
 import com.olvind.logging
 import com.olvind.logging.{Formatter, LogLevel}
+import org.scalablytyped.converter.internal.importer.ConversionOptions
 import org.scalablytyped.converter.internal.importer.jsonCodecs.PackageJsonDepsDecoder
-import org.scalablytyped.converter.internal.importer.SharedInput
 import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalablytyped.converter.internal.{
+  constants,
+  files,
   BuildInfo,
   Deps,
   Digest,
@@ -55,32 +57,30 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       Json.force[PackageJsonDeps](packageJsonFile).dependencies.getOrElse(Map()).keys.to[Set].map(TsIdentLibrary.apply)
 
     val versions = Versions(
-      Versions.Scala(
-        scalaVersion = (Compile / Keys.scalaVersion).value,
-        binVersion   = (Compile / Keys.scalaBinaryVersion).value,
-      ),
+      Versions.Scala(scalaVersion = (Compile / Keys.scalaVersion).value),
       Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
 
-    val shared = SharedInput(
-      shouldUseScalaJsDomTypes = stUseScalaJsDom.value,
-      wantedLibs               = wantedLibs,
-      flavour                  = stFlavour.value,
-      outputPackage            = outputPackage,
-      enableScalaJsDefined     = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
-      stdLibs                  = IArray.fromTraversable(stStdlib.value),
-      expandTypeMappings       = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
-      ignoredLibs              = ignored.map(TsIdentLibrary.apply),
-      ignoredModulePrefixes    = ignored.map(_.split("/").toList),
-      versions                 = versions,
+    val conversion = ConversionOptions(
+      useScalaJsDomTypes    = stUseScalaJsDom.value,
+      flavour               = stFlavour.value,
+      outputPackage         = outputPackage,
+      enableScalaJsDefined  = stEnableScalaJsDefined.value.map(TsIdentLibrary.apply),
+      stdLibs               = IArray.fromTraversable(stStdlib.value),
+      expandTypeMappings    = stInternalExpandTypeMappings.value.map(TsIdentLibrary.apply),
+      ignoredLibs           = ignored.map(TsIdentLibrary.apply),
+      ignoredModulePrefixes = ignored.map(_.split("/").toList),
+      versions              = versions,
+      organization          = "org.scalablytyped",
     )
 
     val input = ImportTypings.Input(
       converterVersion = BuildInfo.version,
       packageJsonHash  = Digest.of(List(os.read.bytes(packageJsonFile))).hexString,
-      shared           = shared,
+      conversion       = conversion,
       fromFolder       = nodeModules,
       targetFolder     = outputDir / "sources",
+      wantedLibs       = wantedLibs,
     )
 
     val runCache = (cacheDir / "runs" / s"${input.hashCode}.json").toPath
@@ -88,7 +88,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     type InOut = (ImportTypings.Input, ImportTypings.Output)
 
     Try(Json.force[InOut](runCache)).toOption match {
-      case Some((`input`, output)) if output.allJars.forall(os.exists) =>
+      case Some((`input`, output)) if output.allJars.forall(files.exists) =>
         Def.task {
           stLogger.withContext(runCache).info(s"Using cached result :)")
           output.deps.map(Deps.asModuleID(versions))
@@ -97,11 +97,11 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
       case _ =>
         Def.task {
           ImportTypings(
-            input            = input,
-            logger           = stLogger,
-            parseCacheDirOpt = Some(cacheDir.toPath resolve "parse"),
-            compiler         = ScalablyTypedPluginBase.stInternalZincCompiler.value,
-            publishFolder    = os.home / ".ivy2" / "local",
+            input              = input,
+            logger             = stLogger,
+            parseCacheDirOpt   = Some(cacheDir.toPath resolve "parse"),
+            compiler           = ScalablyTypedPluginBase.stInternalZincCompiler.value,
+            publishLocalFolder = constants.defaultLocalPublishFolder,
           ) match {
             case Right(output) =>
               Json.persist[InOut](runCache)((input, output))

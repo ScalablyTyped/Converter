@@ -128,7 +128,7 @@ object Json {
   }
 
   def opt[T: Decoder](path: os.Path): Option[T] =
-    if (os.exists(path)) Some(force[T](path)) else None
+    if (files.exists(path)) Some(force[T](path)) else None
 
   def opt[T: Decoder](path: Path): Option[T] =
     if (Files.exists(path)) Some(force(path)) else None
