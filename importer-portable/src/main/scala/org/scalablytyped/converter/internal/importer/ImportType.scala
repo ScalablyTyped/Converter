@@ -127,13 +127,13 @@ class ImportType(stdNames: QualifiedName.StdNames) {
         } getOrElse base.withComments(c)
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
-        val (strings, numbers, Empty) = ms.partitionCollect2(
-          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.string), _, _) => x },
+        val (numbers, strings, Empty) = ms.partitionCollect2(
           { case x @ TsMemberIndex(_, _, _, IndexingDict(_, TsTypeRef.number), _, _) => x },
+          { case x @ TsMemberIndex(_, _, _, IndexingDict(_, _), _, _)                => x },
         )
 
         val translatedStrings = strings.collect {
-          case TsMemberIndex(cs, _, _, IndexingDict(_, TsTypeRef.string), isOptional, valueType) =>
+          case TsMemberIndex(cs, _, _, IndexingDict(_, _), isOptional, valueType) =>
             (cs, orAny(wildcards, scope, importName)(valueType).withOptional(isOptional))
         }
         val stringDict = translatedStrings match {
