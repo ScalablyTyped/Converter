@@ -211,7 +211,7 @@ class Phase3Compile(
     val lockFile = jarFile / os.up / ".lock"
 
     FileLocking.withLock(lockFile.toNIO) { _ =>
-      if (existing.all.keys forall os.exists) {
+      if (existing.all.keys forall files.exists) {
         logger warn s"Using cached build $jarFile"
         PhaseRes.Ok(PublishedSbtProject(sbtProject)(compilerPaths.classesDir, existing, None))
       } else {
@@ -224,7 +224,7 @@ class Phase3Compile(
         val jarDeps: Set[Compiler.InternalDep] =
           deps.values.to[Set].map(x => Compiler.InternalDepJar(x.localIvyFiles.jarFile._1))
 
-        if (os.exists(compilerPaths.resourcesDir))
+        if (files.exists(compilerPaths.resourcesDir))
           os.copy.over(from = compilerPaths.resourcesDir, to = compilerPaths.classesDir, replaceExisting = true)
 
         logger warn s"Building $jarFile..."

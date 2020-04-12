@@ -11,7 +11,7 @@ object DTUpToDate {
     val clonedDir: os.Path = cacheFolder / 'DefinitelyTyped
 
     Try(
-      if (os.exists(clonedDir)) {
+      if (files.exists(clonedDir)) {
         if (!offline) {
           implicit val wd = clonedDir
           cmd.runVerbose git 'fetch

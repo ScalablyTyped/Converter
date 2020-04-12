@@ -35,7 +35,7 @@ object Source {
     val stdLibSource = {
       val folder = fromFolder.path / "typescript" / "lib"
 
-      require(os.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
+      require(files.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
       require(!conversion.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
 
       StdLibSource(
@@ -61,7 +61,7 @@ object Source {
       .flatMap(name =>
         fromFolders.mapNotNone { fromFolder =>
           val potential = fromFolder.path / os.RelPath(name.value)
-          if (os.exists(potential)) Some[Source](Source.FromFolder(InFolder(potential), name))
+          if (files.exists(potential)) Some[Source](Source.FromFolder(InFolder(potential), name))
           else None
         },
       )

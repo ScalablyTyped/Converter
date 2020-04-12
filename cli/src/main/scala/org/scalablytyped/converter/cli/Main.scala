@@ -32,9 +32,9 @@ object Main {
     lazy val out: os.Path =
       files.existing(base / 'out)
     val node_modules: Option[os.Path] =
-      Option(base / 'node_modules) filter os.exists
+      Option(base / 'node_modules) filter files.exists
     val packageJson: Option[os.Path] =
-      Option(base / "package.json") filter os.exists
+      Option(base / "package.json") filter files.exists
   }
 
   val DefaultOptions = ConversionOptions(
@@ -186,7 +186,7 @@ object Main {
       case Some(c @ Config(conversion, libsFromCmdLine, publishBintrayRepoOpt, publishGitUrlOpt, inDir, includeDev)) =>
         val packageJsonPath = c.paths.packageJson.getOrElse(sys.error(s"$inDir does not contain package.json"))
         val nodeModulesPath = c.paths.node_modules.getOrElse(sys.error(s"$inDir does not contain node_modules"))
-        require(os.exists(nodeModulesPath / "typescript" / "lib"), "must install typescript")
+        require(files.exists(nodeModulesPath / "typescript" / "lib"), "must install typescript")
 
         val packageJson = Json.force[PackageJsonDeps](packageJsonPath)
 

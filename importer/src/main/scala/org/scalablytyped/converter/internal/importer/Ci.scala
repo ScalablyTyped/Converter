@@ -171,7 +171,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
   def updatedTargetDir(): Future[Ci.TargetDirs] =
     Future {
       val projectFolder = paths.cacheFolder / config.projectName.value
-      if (os.exists(projectFolder)) {
+      if (files.exists(projectFolder)) {
         implicit val wd = projectFolder
         if (!config.offline) {
           Try(interfaceCmd.runVerbose git 'fetch)
@@ -281,7 +281,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     val stdLibSource: StdLibSource = {
       val folder = externalsFolder.path / "typescript" / "lib"
 
-      require(os.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
+      require(files.exists(folder), s"You must add typescript as a dependency. $folder must exist.")
       require(!config.conversion.ignoredLibs.contains(TsIdent.std), "You cannot ignore std")
 
       StdLibSource(

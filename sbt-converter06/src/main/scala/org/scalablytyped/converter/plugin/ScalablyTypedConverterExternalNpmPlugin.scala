@@ -11,6 +11,7 @@ import org.scalablytyped.converter.internal.scalajs.{Dep, Name, Versions}
 import org.scalablytyped.converter.internal.ts.{PackageJsonDeps, TsIdentLibrary}
 import org.scalablytyped.converter.internal.{
   constants,
+  files,
   BuildInfo,
   Deps,
   Digest,
@@ -87,7 +88,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
     type InOut = (ImportTypings.Input, ImportTypings.Output)
 
     Try(Json.force[InOut](runCache)).toOption match {
-      case Some((`input`, output)) if output.allJars.forall(os.exists) =>
+      case Some((`input`, output)) if output.allJars.forall(files.exists) =>
         Def.task {
           stLogger.withContext(runCache).info(s"Using cached result :)")
           output.deps.map(Deps.asModuleID(versions))

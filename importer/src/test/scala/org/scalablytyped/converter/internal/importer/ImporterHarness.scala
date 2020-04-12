@@ -104,7 +104,7 @@ trait ImporterHarness extends AnyFunSuite {
 
   def findTestFolder(testName: String): InFolder = {
     def go(p: os.Path): os.Path =
-      if (os.exists(p / "build.sbt")) p / "tests" / testName
+      if (files.exists(p / "build.sbt")) p / "tests" / testName
       else if (p == os.root) sys.error("couldnt find test folder")
       else go(p / os.up)
 

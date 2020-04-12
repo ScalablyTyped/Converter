@@ -87,7 +87,7 @@ object UpToDateExternals {
       )(folder)
     }
 
-    if (conserveSpace && os.exists(folder)) {
+    if (conserveSpace && files.exists(folder)) {
       /* only keep some files within npm folder*/
       val KeepExtensions = Set("json", "ts", "lock")
 

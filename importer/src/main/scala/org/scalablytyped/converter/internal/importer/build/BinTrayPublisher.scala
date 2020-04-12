@@ -144,7 +144,7 @@ object BinTrayPublisher {
       repoPublic <- repoPublicOpt.toRight(
         "Must supply a public git repository url since published artifacts must be open source",
       )
-      file <- Option(bintrayCredentialsFile).filter(os.exists).toRight(s"$bintrayCredentialsFile doesnt exist")
+      file <- Option(bintrayCredentialsFile).filter(files.exists).toRight(s"$bintrayCredentialsFile doesnt exist")
       content <- Try(files.content(InFile(file))).toEither.left.map(th => s"Couldn't read $file: ${th.getMessage}")
       map = values(content)
       user <- map.get("user").toRight(s"""didnt find a line with `user=...` in $file""")
