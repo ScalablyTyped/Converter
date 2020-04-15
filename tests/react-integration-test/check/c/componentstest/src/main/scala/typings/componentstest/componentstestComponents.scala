@@ -7,6 +7,6 @@ import scala.scalajs.js.annotation._
 
 object componentstestComponents extends componentstestProps {
   @scala.inline
-  def Component: ComponentType[ComponentProps] = js.constructorOf[typings.componentstest.mod.Component].asInstanceOf[typings.react.mod.ComponentType[ComponentProps]]
+  def Component: ComponentType[ComponentProps] = js.constructorOf[typings.componentstest.mod.Component].asInstanceOf[ComponentType[ComponentProps]]
 }
 

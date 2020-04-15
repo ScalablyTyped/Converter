@@ -15,7 +15,6 @@ object Story {
   @scala.inline
   def apply(add: (String, StoryFunction) => Story, addDecorator: StoryDecorator => Story, kind: String): Story = {
     val __obj = js.Dynamic.literal(add = js.Any.fromFunction2(add), addDecorator = js.Any.fromFunction1(addDecorator), kind = kind.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[Story]
   }
 }

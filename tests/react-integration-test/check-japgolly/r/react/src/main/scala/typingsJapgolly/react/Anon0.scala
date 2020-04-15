@@ -15,7 +15,6 @@ object Anon0 {
     defaultProps: /* import warning: importer.ImportType#apply Failed type conversion: infer D */ js.Any
   ): Anon0 = {
     val __obj = js.Dynamic.literal(defaultProps = defaultProps.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[Anon0]
   }
 }

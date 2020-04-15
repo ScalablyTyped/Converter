@@ -16,7 +16,6 @@ object ElementClass {
   @scala.inline
   def apply(render: () => TagMod[Any]): ElementClass = {
     val __obj = js.Dynamic.literal(render = js.Any.fromFunction0(render))
-  
     __obj.asInstanceOf[ElementClass]
   }
 }

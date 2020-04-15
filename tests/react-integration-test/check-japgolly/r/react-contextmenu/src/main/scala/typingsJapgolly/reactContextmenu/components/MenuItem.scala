@@ -1,6 +1,8 @@
 package typingsJapgolly.reactContextmenu.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsForwardRefComponent.force
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
@@ -34,8 +36,7 @@ object MenuItem {
     children: ChildArg*
   ): UnmountedWithRoot[MenuItemProps, typingsJapgolly.reactContextmenu.mod.MenuItem, Unit, MenuItemProps] = {
     val __obj = js.Dynamic.literal()
-  
-      if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
+    if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
     if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
     if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
@@ -44,12 +45,8 @@ object MenuItem {
     if (!js.isUndefined(preventClose)) __obj.updateDynamic("preventClose")(preventClose.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.reactContextmenu.mod.MenuItemProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactContextmenu.mod.MenuItem](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.reactContextmenu.mod.MenuItemProps])(children: _*)
+    val f = force[MenuItemProps, Varargs, typingsJapgolly.reactContextmenu.mod.MenuItem](this.componentImport)
+    f(__obj.asInstanceOf[MenuItemProps])(children :_*)
   }
   @JSImport("react-contextmenu", "MenuItem")
   @js.native

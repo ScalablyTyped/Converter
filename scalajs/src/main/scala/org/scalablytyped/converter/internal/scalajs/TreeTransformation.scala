@@ -6,7 +6,10 @@ class TreeTransformation { self =>
   def leaveClassTree(scope:     TreeScope)(s: ClassTree):     ClassTree     = s
   def leaveContainerTree(scope: TreeScope)(s: ContainerTree): ContainerTree = s
   def leaveCtorTree(scope:      TreeScope)(s: CtorTree):      CtorTree      = s
+  def leaveExprTree(scope:      TreeScope)(s: ExprTree):      ExprTree      = s
+  def leaveExprRefTree(scope:   TreeScope)(s: ExprTree.Ref):  ExprTree.Ref  = s
   def leaveFieldTree(scope:     TreeScope)(s: FieldTree):     FieldTree     = s
+  def leaveImplTree(scope:      TreeScope)(s: ImplTree):      ImplTree      = s
   def leaveMemberTree(scope:    TreeScope)(s: MemberTree):    MemberTree    = s
   def leaveMethodTree(scope:    TreeScope)(s: MethodTree):    MethodTree    = s
   def leaveModuleTree(scope:    TreeScope)(s: ModuleTree):    ModuleTree    = s
@@ -47,9 +50,71 @@ class TreeTransformation { self =>
       scope / s
 
     val updatedChildren =
-      s.copy(tpe = visitTypeRef(childrenScope)(s.tpe))
+      s.copy(
+        tpe  = visitTypeRef(childrenScope)(s.tpe),
+        impl = visitImplTree(childrenScope)(s.impl),
+      )
 
     leaveFieldTree(scope / updatedChildren)(updatedChildren)
+  }
+
+  final def visitExprTree(scope: TreeScope)(s: ExprTree): ExprTree = {
+    val childrenScope =
+      scope / s
+
+    val updatedChildren =
+      s match {
+        case ExprTree.Null =>
+          ExprTree.Null
+        case ExprTree.Val(name, value) =>
+          ExprTree.Val(name, visitExprTree(childrenScope)(value))
+        case ExprTree.TApply(ref, targs) =>
+          ExprTree.TApply(
+            visitExprRefTree(childrenScope)(ref),
+            targs map visitTypeRef(childrenScope),
+          )
+        case ExprTree.If(pred, ifTrue, ifFalse) =>
+          ExprTree.If(
+            visitExprTree(childrenScope)(pred),
+            visitExprTree(childrenScope)(ifTrue),
+            ifFalse map visitExprTree(childrenScope),
+          )
+        case ExprTree.Block(expressions) => ExprTree.Block(expressions map visitExprTree(childrenScope))
+        case ExprTree.Select(from, path) => ExprTree.Select(visitExprTree(childrenScope)(from), path)
+        case ExprTree.Cast(one, as)      => ExprTree.Cast(visitExprTree(childrenScope)(one), visitTypeRef(childrenScope)(as))
+        case ExprTree.Call(function, params) =>
+          ExprTree.Call(
+            visitExprTree(childrenScope)(function),
+            params.map(_.map(visitExprTree(childrenScope))),
+          )
+        case ExprTree.Unary(op, expr) =>
+          ExprTree.Unary(op, visitExprTree(childrenScope)(expr))
+        case ExprTree.BinaryOp(one, op, two) =>
+          ExprTree.BinaryOp(visitExprTree(childrenScope)(one), op, visitExprTree(childrenScope)(two))
+        case ExprTree.New(expr, params) =>
+          ExprTree.New(visitTypeRef(childrenScope)(expr), params map visitExprTree(childrenScope))
+        case ExprTree.Lambda(params, body) =>
+          ExprTree.Lambda(params map visitParamTree(childrenScope), visitExprTree(childrenScope)(body))
+        case ExprTree.Arg.Named(name, expr) =>
+          ExprTree.Arg.Named(name, visitExprTree(childrenScope)(expr))
+        case ExprTree.Arg.Pos(expr) =>
+          ExprTree.Arg.Pos(visitExprTree(childrenScope)(expr))
+        case ExprTree.Arg.Variable(expr) =>
+          ExprTree.Arg.Variable(visitExprTree(childrenScope)(expr))
+        case x: ExprTree.Custom     => x
+        case x: ExprTree.Ref        => x
+        case x: ExprTree.NumberLit  => x
+        case x: ExprTree.StringLit  => x
+        case x: ExprTree.BooleanLit => x
+
+      }
+
+    leaveExprTree(scope)(updatedChildren)
+  }
+
+  final def visitExprRefTree(scope: TreeScope)(s: ExprTree.Ref): ExprTree.Ref = {
+    val childrenScope = scope / s
+    leaveExprRefTree(childrenScope)(s)
   }
 
   final def visitMethodTree(scope: TreeScope)(s: MethodTree): MethodTree = {
@@ -60,8 +125,8 @@ class TreeTransformation { self =>
       s.copy(
         tparams    = s.tparams map visitTypeParamTree(childrenScope),
         params     = s.params.map(_.map(visitParamTree(childrenScope))),
+        impl       = visitImplTree(childrenScope)(s.impl),
         resultType = visitTypeRef(childrenScope)(s.resultType),
-        comments   = s.comments,
       )
 
     leaveMethodTree(scope / updatedChildren)(updatedChildren)
@@ -85,7 +150,9 @@ class TreeTransformation { self =>
       scope / s
 
     val updatedChildren =
-      s.copy(members = s.members map visitTree(childrenScope))
+      s.copy(
+        members = s.members map visitTree(childrenScope),
+      )
 
     leavePackageTree(scope / updatedChildren)(updatedChildren)
   }
@@ -94,7 +161,11 @@ class TreeTransformation { self =>
     val childrenScope =
       scope / s
 
-    val updatedChildren = s.copy(tpe = visitTypeRef(childrenScope)(s.tpe))
+    val updatedChildren =
+      s.copy(
+        tpe     = visitTypeRef(childrenScope)(s.tpe),
+        default = visitImplTree(childrenScope)(s.default),
+      )
 
     leaveParamTree(scope / updatedChildren)(updatedChildren)
   }
@@ -119,7 +190,6 @@ class TreeTransformation { self =>
     val updatedChildren =
       s.copy(
         upperBound = s.upperBound map visitTypeRef(childrenScope),
-        comments   = s.comments,
       )
 
     leaveTypeParamTree(scope / updatedChildren)(updatedChildren)
@@ -143,6 +213,12 @@ class TreeTransformation { self =>
       },
     )
 
+  final def visitImplTree(scope: TreeScope)(s: ImplTree): ImplTree =
+    leaveImplTree(scope)(s match {
+      case NotImplemented => NotImplemented
+      case expr: ExprTree => visitExprTree(scope)(expr)
+    })
+
   final def visitMemberTree(scope: TreeScope)(s: MemberTree): MemberTree =
     leaveMemberTree(scope / s)(s match {
       case x: MethodTree => visitMethodTree(scope)(x)
@@ -155,6 +231,7 @@ class TreeTransformation { self =>
         case x: ContainerTree => visitContainerTree(scope)(x)
         case x: ClassTree     => visitClassTree(scope)(x)
         case x: CtorTree      => visitCtorTree(scope)(x)
+        case x: ImplTree      => visitImplTree(scope)(x)
         case x: MemberTree    => visitMemberTree(scope)(x)
         case x: ParamTree     => visitParamTree(scope)(x)
         case x: TypeAliasTree => visitTypeAliasTree(scope)(x)
@@ -171,8 +248,12 @@ class TreeTransformation { self =>
         that.leaveContainerTree(scope)(self.leaveContainerTree(scope)(s))
       override def leaveCtorTree(scope: TreeScope)(s: CtorTree): CtorTree =
         that.leaveCtorTree(scope)(self.leaveCtorTree(scope)(s))
+      override def leaveExprTree(scope: TreeScope)(s: ExprTree): ExprTree =
+        that.leaveExprTree(scope)(self.leaveExprTree(scope)(s))
       override def leaveFieldTree(scope: TreeScope)(s: FieldTree): FieldTree =
         that.leaveFieldTree(scope)(self.leaveFieldTree(scope)(s))
+      override def leaveImplTree(scope: TreeScope)(s: ImplTree): ImplTree =
+        that.leaveImplTree(scope)(self.leaveImplTree(scope)(s))
       override def leaveMemberTree(scope: TreeScope)(s: MemberTree): MemberTree =
         that.leaveMemberTree(scope)(self.leaveMemberTree(scope)(s))
       override def leaveMethodTree(scope: TreeScope)(s: MethodTree): MethodTree =

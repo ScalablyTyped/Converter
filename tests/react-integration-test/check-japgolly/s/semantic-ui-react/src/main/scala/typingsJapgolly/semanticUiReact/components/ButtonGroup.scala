@@ -1,6 +1,8 @@
 package typingsJapgolly.semanticUiReact.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsComponent
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
@@ -55,8 +57,7 @@ object ButtonGroup {
     MountedWithRawType[ButtonGroupProps, js.Object, RawMounted[ButtonGroupProps, js.Object]]
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
     if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic.asInstanceOf[js.Any])
@@ -80,12 +81,8 @@ object ButtonGroup {
     if (widths != null) __obj.updateDynamic("widths")(widths.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.semanticUiReact.buttonGroupMod.ButtonGroupProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.buttonGroupMod.ButtonGroupProps])(children: _*)
+    val f = JsComponent[ButtonGroupProps, Varargs, js.Object](this.componentImport)
+    f(__obj.asInstanceOf[ButtonGroupProps])(children :_*)
   }
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonGroup", JSImport.Default)
   @js.native

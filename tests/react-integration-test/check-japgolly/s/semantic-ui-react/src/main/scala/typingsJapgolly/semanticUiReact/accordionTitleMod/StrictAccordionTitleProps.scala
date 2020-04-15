@@ -68,7 +68,7 @@ object StrictAccordionTitleProps {
     if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
     if (icon != null) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
     if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ japgolly.scalajs.react.ReactMouseEventFrom[org.scalajs.dom.raw.HTMLDivElement], t1: /* data */ typingsJapgolly.semanticUiReact.accordionTitleMod.AccordionTitleProps) => onClick(t0, t1).runNow()))
+    if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => onClick(t0, t1).runNow()))
     __obj.asInstanceOf[StrictAccordionTitleProps]
   }
 }

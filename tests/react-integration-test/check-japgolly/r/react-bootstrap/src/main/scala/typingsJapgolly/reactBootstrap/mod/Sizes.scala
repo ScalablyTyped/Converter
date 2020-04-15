@@ -17,20 +17,18 @@ trait Sizes extends js.Object
 
 object Sizes {
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def large: typingsJapgolly.reactBootstrap.reactBootstrapStrings.large = "large".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.large]
   @scala.inline
-  def large: typingsJapgolly.reactBootstrap.reactBootstrapStrings.large = this.cast("large")
+  def lg: typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg = "lg".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg]
   @scala.inline
-  def lg: typingsJapgolly.reactBootstrap.reactBootstrapStrings.lg = this.cast("lg")
+  def medium: typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium = "medium".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium]
   @scala.inline
-  def medium: typingsJapgolly.reactBootstrap.reactBootstrapStrings.medium = this.cast("medium")
+  def sm: typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm = "sm".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm]
   @scala.inline
-  def sm: typingsJapgolly.reactBootstrap.reactBootstrapStrings.sm = this.cast("sm")
+  def small: typingsJapgolly.reactBootstrap.reactBootstrapStrings.small = "small".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.small]
   @scala.inline
-  def small: typingsJapgolly.reactBootstrap.reactBootstrapStrings.small = this.cast("small")
+  def xs: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs = "xs".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs]
   @scala.inline
-  def xs: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xs = this.cast("xs")
-  @scala.inline
-  def xsmall: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall = this.cast("xsmall")
+  def xsmall: typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall = "xsmall".asInstanceOf[typingsJapgolly.reactBootstrap.reactBootstrapStrings.xsmall]
 }
 

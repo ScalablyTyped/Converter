@@ -26,7 +26,6 @@ object VNodeDirective {
     value: js.Any
   ): VNodeDirective = {
     val __obj = js.Dynamic.literal(arg = arg.asInstanceOf[js.Any], expression = expression.asInstanceOf[js.Any], modifiers = modifiers.asInstanceOf[js.Any], name = name.asInstanceOf[js.Any], oldValue = oldValue.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[VNodeDirective]
   }
 }

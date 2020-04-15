@@ -147,6 +147,7 @@ object ContainerPolicy extends TreeTransformation {
         case Annotation.JsName(_)      => false
         case Annotation.JsImport(_, _) => false
         case Annotation.JsGlobal(_)    => false
+        case Annotation.Inline         => false
       }
 
     tree match {

@@ -23,32 +23,30 @@ trait SemanticCOLORS extends js.Object
 
 object SemanticCOLORS {
   @scala.inline
-  def black: typingsSlinky.semanticUiReact.semanticUiReactStrings.black = this.cast("black")
+  def black: typingsSlinky.semanticUiReact.semanticUiReactStrings.black = "black".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.black]
   @scala.inline
-  def blue: typingsSlinky.semanticUiReact.semanticUiReactStrings.blue = this.cast("blue")
+  def blue: typingsSlinky.semanticUiReact.semanticUiReactStrings.blue = "blue".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.blue]
   @scala.inline
-  def brown: typingsSlinky.semanticUiReact.semanticUiReactStrings.brown = this.cast("brown")
+  def brown: typingsSlinky.semanticUiReact.semanticUiReactStrings.brown = "brown".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.brown]
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def green: typingsSlinky.semanticUiReact.semanticUiReactStrings.green = "green".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.green]
   @scala.inline
-  def green: typingsSlinky.semanticUiReact.semanticUiReactStrings.green = this.cast("green")
+  def grey: typingsSlinky.semanticUiReact.semanticUiReactStrings.grey = "grey".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.grey]
   @scala.inline
-  def grey: typingsSlinky.semanticUiReact.semanticUiReactStrings.grey = this.cast("grey")
+  def olive: typingsSlinky.semanticUiReact.semanticUiReactStrings.olive = "olive".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.olive]
   @scala.inline
-  def olive: typingsSlinky.semanticUiReact.semanticUiReactStrings.olive = this.cast("olive")
+  def orange: typingsSlinky.semanticUiReact.semanticUiReactStrings.orange = "orange".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.orange]
   @scala.inline
-  def orange: typingsSlinky.semanticUiReact.semanticUiReactStrings.orange = this.cast("orange")
+  def pink: typingsSlinky.semanticUiReact.semanticUiReactStrings.pink = "pink".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pink]
   @scala.inline
-  def pink: typingsSlinky.semanticUiReact.semanticUiReactStrings.pink = this.cast("pink")
+  def purple: typingsSlinky.semanticUiReact.semanticUiReactStrings.purple = "purple".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.purple]
   @scala.inline
-  def purple: typingsSlinky.semanticUiReact.semanticUiReactStrings.purple = this.cast("purple")
+  def red: typingsSlinky.semanticUiReact.semanticUiReactStrings.red = "red".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.red]
   @scala.inline
-  def red: typingsSlinky.semanticUiReact.semanticUiReactStrings.red = this.cast("red")
+  def teal: typingsSlinky.semanticUiReact.semanticUiReactStrings.teal = "teal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.teal]
   @scala.inline
-  def teal: typingsSlinky.semanticUiReact.semanticUiReactStrings.teal = this.cast("teal")
+  def violet: typingsSlinky.semanticUiReact.semanticUiReactStrings.violet = "violet".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.violet]
   @scala.inline
-  def violet: typingsSlinky.semanticUiReact.semanticUiReactStrings.violet = this.cast("violet")
-  @scala.inline
-  def yellow: typingsSlinky.semanticUiReact.semanticUiReactStrings.yellow = this.cast("yellow")
+  def yellow: typingsSlinky.semanticUiReact.semanticUiReactStrings.yellow = "yellow".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.yellow]
 }
 

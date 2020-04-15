@@ -9,7 +9,7 @@ object AvoidMacroParadiseBug extends TreeTransformation {
       mod.members.map {
         case f: FieldTree if mod.index(f.name).exists(sameName => sameName.isInstanceOf[ClassTree]) =>
           f.impl match {
-            case MemberImpl.Native =>
+            case ExprTree.native =>
               ModuleTree(
                 annotations = IArray(Annotation.JsNative),
                 name        = f.name,

@@ -62,17 +62,10 @@ object FlavourImpl {
     override val dependencies: Set[Dep] =
       Set(Versions.runtime, Versions.slinkyNative, Versions.scalaJsDom)
 
-    val ToSlinkyTypes = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false)
-    val memberToProp: MemberToProp =
-      (scope, tree) =>
-        MemberToProp
-          .Default(scope, ToSlinkyTypes.visitMemberTree(scope)(tree))
-          .map(prop => prop.copy(original = Right(tree)))
-
-    val gen = new GenSlinkyComponents(GenSlinkyComponents.Native(()), ToSlinkyTypes, memberToProp, findProps)
+    val gen = new GenSlinkyComponents(GenSlinkyComponents.Native(()), MemberToProp.Default, findProps)
 
     val genCompanions: GenCompanions =
-      new GenCompanions(memberToProp, findProps)
+      new GenCompanions(MemberToProp.Default, findProps)
 
     final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
       val withCompanions = genCompanions.visitPackageTree(scope)(tree)
@@ -84,15 +77,13 @@ object FlavourImpl {
           Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
         } else withCompanions
 
-      ToSlinkyTypes.visitPackageTree(scope)(withComponents)
+      SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false).visitPackageTree(scope)(withComponents)
     }
   }
 
   case class Japgolly(outputPkg: Name) extends ReactFlavourImpl {
     val gen = new GenJapgollyComponents(reactNames, scalaJsDomNames, findProps)
 
-    val conversions: Option[IArray[CastConversion]] =
-      Some(gen.conversions)
     override val dependencies: Set[Dep] =
       Set(Versions.runtime, Versions.scalajsReact)
     val genCompanions: GenCompanions =
@@ -108,10 +99,7 @@ object FlavourImpl {
           Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
         } else withCompanions
 
-      conversions match {
-        case Some(conversions) => TypeRewriterCast(conversions).visitPackageTree(scope)(withComponents)
-        case _                 => withComponents
-      }
+      gen.ToJapgollyTypes.visitPackageTree(scope)(withComponents)
     }
   }
 }

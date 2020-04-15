@@ -22,9 +22,9 @@ object ReactSelect
     val __obj = js.Dynamic.literal()
     if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props]).asInstanceOf[slinky.core.BuildingComponent[slinky.web.html.`*`.tag.type, typingsSlinky.reactSelect.mod.default[js.Any]]]
+    super.apply(__obj.asInstanceOf[Props]).asInstanceOf[BuildingComponent[tag.type, default[js.Any]]]
   }
-  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default[js.Any]] = new slinky.core.BuildingComponent[slinky.web.html.`*`.tag.type, typingsSlinky.reactSelect.mod.default[js.Any]](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)
+  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default[js.Any]] = new BuildingComponent(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods :_*)
   type Props = ReactSelectProps[js.Any]
 }
 

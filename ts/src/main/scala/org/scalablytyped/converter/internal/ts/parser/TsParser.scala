@@ -326,11 +326,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       "abstract".isDefined
 
     val functionCall: Parser[TsTypeRef] =
-      expr ^^ {
-        case TsExpr.Ref(ref) => ref
-        case other =>
-          val str = s"${TsExpr.format(other)}"
-          TsTypeRef.any.copy(Comments(Comment.warning(s"class extends from : $str")))
+      expr.filter(!_.isInstanceOf[TsExpr.Ref]) ^^ { notRef =>
+        val str = s"${TsExpr.format(notRef)}"
+        TsTypeRef.any.copy(Comments(Comment.warning(s"class extends from : $str")))
       }
 
     val parent: Parser[Option[TsTypeRef]] =
@@ -433,8 +431,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
   lazy val expr: Parser[TsExpr] = {
 
     val lit:   Parser[TsExpr.Literal] = tsLiteral ^^ TsExpr.Literal
-    val ref:   Parser[TsExpr.Ref]     = tsTypeRefNoParens ^^ TsExpr.Ref
-    val call:  Parser[TsExpr.Call]    = ref ~ ("(" ~> repsep(expr, ",") <~ ")") ^^ TsExpr.Call
+    val ref:   Parser[TsExpr.Ref]     = qualifiedIdent ^^ TsExpr.Ref
+    val call:  Parser[TsExpr.Call]    = ref ~ ("(" ~> upgrade(repsep(expr, ",")) <~ ")") ^^ TsExpr.Call
     val unary: Parser[TsExpr.Unary]   = (operator ~ expr) ^^ TsExpr.Unary
 
     val base: Parser[TsExpr] = perhapsParens(lit | call | unary | ref)
@@ -513,7 +511,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     "[" ~>! ((tsTypeRepeated | normal) <~ delimMaybeComment(',').?).** <~ "]" ^^ TsTypeTuple
   }
 
-  lazy val tsTypeRefNoParens: Parser[TsTypeRef] = {
+  lazy val tsTypeRef: Parser[TsTypeRef] = {
     val typeArgs: Parser[IArray[TsType]] =
       ("<" ~> rep1_(tsType <~ delimMaybeComment(',').?) <~ ">") | success(IArray.Empty)
 
@@ -521,10 +519,8 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
     val empty = "{" ~> "}" ^^ (_ => TsTypeRef.`object`)
 
-    base | empty
+    perhapsParens(base | empty)
   }
-
-  lazy val tsTypeRef: Parser[TsTypeRef] = perhapsParens(tsTypeRefNoParens)
 
   lazy val tsMembers: Parser[IArray[TsMember]] =
     memo("{" ~>! ";".? ~> (tsMember <~! (";" | ",").*).** <~ comments.? <~ "}")

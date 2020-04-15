@@ -13,7 +13,6 @@ object EmitterInterface {
   @scala.inline
   def apply(on: (js.Any, js.Any) => js.Any): EmitterInterface = {
     val __obj = js.Dynamic.literal(on = js.Any.fromFunction2(on))
-  
     __obj.asInstanceOf[EmitterInterface]
   }
 }

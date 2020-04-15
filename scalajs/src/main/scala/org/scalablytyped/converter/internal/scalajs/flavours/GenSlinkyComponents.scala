@@ -36,10 +36,10 @@ object GenSlinkyComponents {
 
   final case class SplitProps(props: IArray[Prop]) {
     val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
-      { case Prop(ParamTree(Name("ref"), _, tpe, _, _), _, _)       => tpe },
-      { case Prop(pt, _, _) if GenSlinkyComponents.shouldIgnore(pt) => null },
-      { case Prop(p, Right(f), _)                                   => p -> f },
-      { case Prop(p, Left(str), _)                                  => p -> str },
+      { case Prop(Prop.Variant(ParamTree(Name("ref"), _, _, tpe, _, _), _), _, _) => tpe },
+      { case Prop(pt, _, _) if GenSlinkyComponents.shouldIgnore(pt.tree)          => null },
+      { case Prop(Prop.Variant(p, Right(f)), _, _)                                => p -> f },
+      { case Prop(Prop.Variant(p, Left(expr)), _, _)                              => p -> expr },
     )
     val optionals = _optionals ++ AdditionalOptionalParams
 
@@ -126,14 +126,22 @@ object GenSlinkyComponents {
     byName || byType
   }
 
-  val AdditionalOptionalParams: IArray[(ParamTree, String => String)] = {
-    val overridesUpdate: String => String = obj =>
-      s"if (_overrides != null) js.Dynamic.global.Object.assign($obj, _overrides)"
+  val AdditionalOptionalParams: IArray[(ParamTree, Name => ExprTree)] = {
+    import ExprTree._
+    val _overrides = Name("_overrides")
+    val overridesUpdate: Name => ExprTree = obj =>
+      If(
+        BinaryOp(Ref(_overrides), "!=", Null),
+        Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(Ref(obj), Ref(_overrides)))),
+        None,
+      )
+
     val overridesParam = ParamTree(
-      name       = Name("_overrides"),
+      name       = _overrides,
       isImplicit = false,
+      isVal      = false,
       tpe        = TypeRef.StringDictionary(TypeRef.Any, NoComments),
-      default    = Some(TypeRef.`null`),
+      default    = ExprTree.Null,
       comments   = NoComments,
     )
     IArray(overridesParam -> overridesUpdate)
@@ -142,11 +150,12 @@ object GenSlinkyComponents {
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
   object classDefs {
     val ExternalComponentPropsCls = ClassTree(
+      isImplicit = false,
       Empty,
       names.ExternalComponentProps.parts.last,
       IArray(
-        TypeParamTree(Name("E"), Some(TypeRef(names.TagElement)), NoComments),
-        TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
+        TypeParamTree(Name("E"), Empty, Some(TypeRef(names.TagElement)), NoComments),
+        TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments),
       ),
       Empty,
       Empty,
@@ -174,11 +183,12 @@ object GenSlinkyComponents {
     )
 
     val ExternalComponentNoPropsCls = ClassTree(
+      isImplicit = false,
       Empty,
       names.ExternalComponentNoProps.parts.last,
       IArray(
-        TypeParamTree(Name("E"), Some(TypeRef(names.TagElement)), NoComments),
-        TypeParamTree(Name("R"), Some(TypeRef.Object), NoComments),
+        TypeParamTree(Name("E"), Empty, Some(TypeRef(names.TagElement)), NoComments),
+        TypeParamTree(Name("R"), Empty, Some(TypeRef.Object), NoComments),
       ),
       Empty,
       Empty,
@@ -210,10 +220,9 @@ object GenSlinkyComponents {
   * Generate a package with Slinky compatible react components
   */
 class GenSlinkyComponents(
-    mode:          Mode[Unit, Option[SlinkyWeb]],
-    toSlinkyTypes: TreeTransformation,
-    memberToProp:  MemberToProp,
-    findProps:     FindProps,
+    mode:         Mode[Unit, Option[SlinkyWeb]],
+    memberToProp: MemberToProp,
+    findProps:    FindProps,
 ) {
   import GenSlinkyComponents._
 
@@ -229,7 +238,6 @@ class GenSlinkyComponents(
           */
         val grouped: Map[(Option[TypeRef], Boolean, IArray[TypeParamTree]), IArray[Component]] =
           allComponents
-            .map(_.rewritten(scope, toSlinkyTypes))
             .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
 
         val generatedCode: IArray[Tree] =
@@ -404,9 +412,12 @@ class GenSlinkyComponents(
       genContent(scope, propsRef, resProps, tparams, knownRefRewritten, domType, classCp)
 
     val refInTParams =
-      IArray.fromOption(knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, Some(TypeRef.Object), NoComments)))
+      IArray.fromOption(
+        knownRefRewritten.map(_ => TypeParamTree(names.ComponentRef, Empty, Some(TypeRef.Object), NoComments)),
+      )
 
     ClassTree(
+      isImplicit = false,
       Empty,
       name,
       refInTParams,
@@ -415,7 +426,14 @@ class GenSlinkyComponents(
         CtorTree(
           ProtectionLevel.Default,
           IArray(
-            ParamTree(Name("pw"), isImplicit = true, TypeRef(names.ExternalPropsWriterProvider), None, NoComments),
+            ParamTree(
+              Name("pw"),
+              isImplicit = true,
+              isVal      = false,
+              TypeRef(names.ExternalPropsWriterProvider),
+              NotImplemented,
+              NoComments,
+            ),
           ),
           NoComments,
         ),
@@ -518,58 +536,81 @@ class GenSlinkyComponents(
         *  a case class and suffer macro execution time.
         */
       def applyMethod(name: Name, props: SplitProps): MethodTree = {
-        val cast = if (tparams.nonEmpty) s".asInstanceOf[${Printer.formatTypeRef(0)(buildingComponent)}]" else ""
 
+        val impl = {
+          import ExprTree._
+          val __obj        = Name("__obj")
+          val requiredArgs = IArray(props.requireds.map { case (_, expr) => expr })
+          Block.flatten(
+            IArray(Val(__obj, Call(Ref(QualifiedName.DynamicLiteral), requiredArgs))),
+            props.optionals.map { case (_, f) => f(__obj) },
+            Call(
+              Ref(QualifiedName(IArray(Name.SUPER, Name.APPLY))),
+              IArray(IArray(Cast(Ref(__obj), TypeRef(names.Props)))),
+            ) match {
+              case call if tparams.nonEmpty => IArray(Cast(call, buildingComponent))
+              case call                     => IArray(call)
+            },
+          )
+        }
         MethodTree(
           annotations = Empty,
           level       = ProtectionLevel.Default,
           name        = name,
           tparams     = tparams,
           params      = IArray(props.requireds.map(_._1) ++ props.optionals.map(_._1)),
-          impl = MemberImpl.Custom(
-            s"""{
-               |  val __obj = js.Dynamic.literal(${props.requireds.map(_._2).mkString(", ")})
-               |${props.optionals.map { case (_, f) => "  " + f("__obj") }.mkString("\n")}
-               |  super.apply(__obj.asInstanceOf[Props])$cast
-               |}""".stripMargin,
-          ),
-          resultType = buildingComponent,
-          isOverride = false,
-          comments   = genDomWarning(domInfo),
-          codePath   = ownerCp + name,
+          impl        = impl,
+          resultType  = buildingComponent,
+          isOverride  = false,
+          comments    = genDomWarning(domInfo),
+          codePath    = ownerCp + name,
         )
       }
 
       /* directly accept slinky attributes/children if there are no required props */
       def noPropsApplyOpt =
-        if (resProps.asMap.exists(_._2.requireds.isEmpty))
+        if (resProps.asMap.exists(_._2.requireds.isEmpty)) {
+          val modsName = Name("mods")
+
+          val impl = {
+            import ExprTree._
+            val newed = New(
+              buildingComponent.copy(targs = Empty),
+              IArray(
+                Call(
+                  Ref(QualifiedName.Array),
+                  IArray(IArray(Cast(Ref(names.component), TypeRef.Any), Ref(QualifiedName.DictionaryEmpty))),
+                ),
+              ),
+            )
+            Call(Select(newed, Name.APPLY), IArray(IArray(Arg.Variable(Ref(modsName)))))
+          }
           Some(
             MethodTree(
-              Empty,
-              ProtectionLevel.Default,
-              Name.APPLY,
-              Empty,
-              IArray(
+              annotations = Empty,
+              level       = ProtectionLevel.Default,
+              name        = Name.APPLY,
+              tparams     = Empty,
+              params = IArray(
                 IArray(
                   ParamTree(
-                    Name("mods"),
+                    modsName,
                     isImplicit = false,
+                    isVal      = false,
                     TypeRef.Repeated(TagMod(domInfo), NoComments),
-                    None,
+                    NotImplemented,
                     NoComments,
                   ),
                 ),
               ),
-              MemberImpl.Custom(
-                s"new ${Printer.formatTypeRef(0)(buildingComponent)}(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods: _*)",
-              ),
-              buildingComponent,
+              impl       = impl,
+              resultType = buildingComponent,
               isOverride = false,
-              NoComments,
-              ownerCp + Name.APPLY,
+              comments   = NoComments,
+              codePath   = ownerCp + Name.APPLY,
             ),
           )
-        else None
+        } else None
 
       val methods: IArray[MethodTree] =
         resProps match {
@@ -599,23 +640,23 @@ class GenSlinkyComponents(
   def genComponentField(c: Component, componentCp: QualifiedName): IArray[Tree with HasCodePath] =
     IArray(
       ModuleTree(
-        IArray(Annotation.JsNative, c.location),
-        names.componentImport,
-        Empty,
-        Empty,
-        NoComments,
-        componentCp + names.componentImport,
-        isOverride = false,
+        annotations = IArray(Annotation.JsNative, c.location),
+        name        = names.componentImport,
+        parents     = Empty,
+        members     = Empty,
+        comments    = NoComments,
+        codePath    = componentCp + names.componentImport,
+        isOverride  = false,
       ),
       FieldTree(
-        Empty,
-        names.component,
-        TypeRef.Union(IArray(TypeRef.String, TypeRef.Object), sort = false),
-        MemberImpl.Custom(s"this.${names.componentImport.value}"),
-        isReadOnly = true,
-        isOverride = true,
-        Keep,
-        componentCp + names.component,
+        annotations = Empty,
+        name        = names.component,
+        tpe         = TypeRef.Union(IArray(TypeRef.String, TypeRef.Object), sort = false),
+        impl        = ExprTree.Ref(QualifiedName(IArray(Name.THIS, names.componentImport))),
+        isReadOnly  = true,
+        isOverride  = true,
+        comments    = Keep,
+        codePath    = componentCp + names.component,
       ),
     )
 }

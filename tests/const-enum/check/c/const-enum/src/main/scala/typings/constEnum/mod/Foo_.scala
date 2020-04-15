@@ -15,12 +15,10 @@ trait Foo_ extends js.Object
 
 object Foo_ {
   @scala.inline
-  def A: `1` = this.cast(1)
+  def A: `1` = 1.asInstanceOf[`1`]
   @scala.inline
-  def B: `22` = this.cast(22)
+  def B: `22` = 22.asInstanceOf[`22`]
   @scala.inline
-  def C: typings.constEnum.constEnumStrings.C = this.cast("C")
-  @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def C: typings.constEnum.constEnumStrings.C = "C".asInstanceOf[typings.constEnum.constEnumStrings.C]
 }
 

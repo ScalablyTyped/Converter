@@ -29,7 +29,7 @@ object DefaultedTypeArguments extends TreeTransformationScopedChanges {
           expectedTparams.zipWithIndex map {
             case (current, idx) if idx < providedTypeArgs.length =>
               val provided = providedTypeArgs(idx)
-              instantiated(TsTypeRef of current.name) = provided
+              instantiated(TsTypeRef(current.name)) = provided
               provided
 
             case (current, _) =>
@@ -41,7 +41,7 @@ object DefaultedTypeArguments extends TreeTransformationScopedChanges {
 
               /* a defaulted tparam may refer to earlier tparams by name, so handle that here */
               val nextRewritten = new TypeRewriter(next).visitTsType(instantiated)(next)
-              instantiated(TsTypeRef of current.name) = nextRewritten
+              instantiated(TsTypeRef(current.name)) = nextRewritten
               nextRewritten
           }
 

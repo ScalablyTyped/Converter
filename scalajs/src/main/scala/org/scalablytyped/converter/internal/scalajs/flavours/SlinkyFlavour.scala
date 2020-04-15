@@ -24,25 +24,18 @@ case class SlinkyFlavour(outputPkg: Name) extends ReactFlavourImpl {
           slinkyWeb
       }
 
-    val toSlinkyTypes = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true)
+    val withCompanions =
+      new GenCompanions(MemberToProp.Default, findProps).visitPackageTree(scope)(tree)
 
-    val memberToProp: MemberToProp =
-      (scope, tree) =>
-        MemberToProp
-          .Default(scope, toSlinkyTypes.visitMemberTree(scope)(tree))
-          .map(prop => prop.copy(original = Right(tree)))
-
-    val withCompanions = new GenCompanions(memberToProp, findProps).visitPackageTree(scope)(tree)
-
-    val foo = if (involvesReact(scope)) {
+    val withComponents = if (involvesReact(scope)) {
       val components: IArray[Component] =
         identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
 
-      val gen = new GenSlinkyComponents(GenSlinkyComponents.Web(slinkyWebOpt), toSlinkyTypes, memberToProp, findProps)
+      val gen = new GenSlinkyComponents(GenSlinkyComponents.Web(slinkyWebOpt), MemberToProp.Default, findProps)
 
       Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
     } else withCompanions
 
-    toSlinkyTypes.visitPackageTree(scope)(foo)
+    SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true).visitPackageTree(scope)(withComponents)
   }
 }

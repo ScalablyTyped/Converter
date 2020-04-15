@@ -17,8 +17,8 @@ object RemoveMultipleInheritance extends TreeTransformation {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)
     val patchedNewMembers =
       if (cls.annotations.contains(Annotation.JsNative)) newMembers.map {
-        case x: MethodTree => x.copy(impl = MemberImpl.Native)
-        case x: FieldTree  => x.copy(impl = MemberImpl.Native)
+        case x: MethodTree => x.copy(impl = ExprTree.native, isOverride = false)
+        case x: FieldTree  => x.copy(impl = ExprTree.native, isOverride = false)
         case other => other
       }
       else newMembers

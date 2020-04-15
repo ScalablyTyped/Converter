@@ -41,21 +41,22 @@ object FakeLiterals {
       }
 
     val StringModuleName   = Name(tree.name.unescaped + "Strings")
-    val collectedStrings   = mutable.HashMap.empty[String, Name]
+    val collectedStrings   = mutable.HashMap.empty[ExprTree.Lit, Name]
     val NumbersModuleName  = Name(tree.name.unescaped + "Numbers")
-    val collectedNumbers   = mutable.HashMap.empty[String, Name]
+    val collectedNumbers   = mutable.HashMap.empty[ExprTree.Lit, Name]
     val BooleansModuleName = Name(tree.name.unescaped + "Booleans")
-    val collectedBooleans  = mutable.HashMap.empty[String, Name]
+    val collectedBooleans  = mutable.HashMap.empty[ExprTree.Lit, Name]
 
-    def module(collected: mutable.HashMap[String, Name], moduleName: Name): Option[ModuleTree] =
+    def module(collected: mutable.HashMap[ExprTree.Lit, Name], moduleName: Name): Option[ModuleTree] =
       if (collected.isEmpty) None
       else {
         val members =
           collected.flatMap {
-            case (underlying: String, name) =>
+            case (underlying: ExprTree.Lit, name) =>
               val codePath = tree.codePath + moduleName + name
               val `trait` =
                 ClassTree(
+                  isImplicit = false,
                   IArray(Annotation.JsNative),
                   name,
                   Empty,
@@ -75,7 +76,7 @@ object FakeLiterals {
                   name,
                   Empty,
                   Empty,
-                  MemberImpl.Custom(s"$underlying.asInstanceOf[${name.value}]"),
+                  ExprTree.Cast(underlying, TypeRef(name)),
                   TypeRef(QualifiedName(IArray(name)), Empty, NoComments),
                   isOverride = false,
                   comments   = NoComments,
@@ -101,12 +102,12 @@ object FakeLiterals {
       s match {
         case TypeRef.StringLiteral(underlying) =>
           val name = calculateName(underlying)
-          collectedStrings(stringUtils.quote(underlying)) = name
+          collectedStrings(ExprTree.StringLit(underlying)) = name
           TypeRef(QualifiedName(IArray(outputPkg, tree.name, StringModuleName, name)), Empty, LiteralTokenComment)
 
         case TypeRef.BooleanLiteral(underlying) =>
           val name = Name(underlying)
-          collectedBooleans(underlying) = name
+          collectedBooleans(ExprTree.BooleanLit(underlying.toBoolean)) = name
           TypeRef(QualifiedName(IArray(outputPkg, tree.name, BooleansModuleName, name)), Empty, LiteralTokenComment)
 
         case TypeRef.NumberLiteral(underlying) =>
@@ -117,7 +118,7 @@ object FakeLiterals {
               case (baseName, _) => (underlying, Name(baseName))
             }
 
-          collectedNumbers(newUnderlying) = name
+          collectedNumbers(ExprTree.NumberLit(newUnderlying)) = name
           TypeRef(QualifiedName(IArray(outputPkg, tree.name, NumbersModuleName, name)), Empty, LiteralTokenComment)
 
         case other =>

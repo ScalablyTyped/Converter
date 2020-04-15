@@ -40,7 +40,7 @@ object FillInTParams {
       sig.tparams
         .zip(defaulted)
         .map {
-          case (TsTypeParam(_, name, _, _), tpe) => TsTypeRef.of(name) -> tpe
+          case (TsTypeParam(_, name, _, _), tpe) => TsTypeRef(name) -> tpe
         }
         .toMap
 
@@ -62,7 +62,7 @@ object FillInTParams {
               if (providedTParams.lengthCompare(idx) > 0) providedTParams(idx)
               else default getOrElse sys.error("Type parameter not provided")
 
-            TsTypeRef.of(expected) -> provided
+            TsTypeRef(expected) -> provided
         }.toMap
 
       Some(rewrites)

@@ -1,6 +1,8 @@
 package typingsJapgolly.materialUi.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsForwardRefComponent.force
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -17,12 +19,10 @@ abstract class SharedApply_Object_1928072692[ComponentRef] () {
     children: ChildArg*
   ): UnmountedWithRoot[js.Object, ComponentRef, Unit, js.Object] = {
     val __obj = js.Dynamic.literal()
-  
-      key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[js.Object, japgolly.scalajs.react.Children.Varargs, ComponentRef](this.componentImport)
-    f(__obj.asInstanceOf[js.Object])(children: _*)
+    val f = force[js.Object, Varargs, ComponentRef](this.componentImport)
+    f(__obj.asInstanceOf[js.Object])(children :_*)
   }
 }
 

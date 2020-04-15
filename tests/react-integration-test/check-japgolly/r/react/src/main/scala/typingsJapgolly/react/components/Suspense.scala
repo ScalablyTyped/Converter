@@ -1,6 +1,8 @@
 package typingsJapgolly.react.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsComponent
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
@@ -23,16 +25,11 @@ object Suspense {
     MountedWithRawType[SuspenseProps, js.Object, RawMounted[SuspenseProps, js.Object]]
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      if (fallback != null) __obj.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
+    if (fallback != null) __obj.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.react.mod.SuspenseProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.react.mod.SuspenseProps])(children: _*)
+    val f = JsComponent[SuspenseProps, Varargs, js.Object](this.componentImport)
+    f(__obj.asInstanceOf[SuspenseProps])(children :_*)
   }
   @JSImport("react", "Suspense")
   @js.native

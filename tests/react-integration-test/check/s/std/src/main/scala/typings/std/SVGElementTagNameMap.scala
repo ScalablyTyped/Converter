@@ -15,7 +15,6 @@ object SVGElementTagNameMap {
   @scala.inline
   def apply(circle: SVGCircleElement, clipPath: SVGClipPathElement, defs: SVGDefsElement): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any], clipPath = clipPath.asInstanceOf[js.Any], defs = defs.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[SVGElementTagNameMap]
   }
 }

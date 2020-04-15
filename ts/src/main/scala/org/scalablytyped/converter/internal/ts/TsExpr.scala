@@ -6,15 +6,15 @@ sealed trait TsExpr
 object TsExpr {
   val Default = TsTypeUnion.simplified(IArray(TsTypeRef.string, TsTypeRef.number))
 
-  case class Ref(value:     TsTypeRef) extends TsExpr
+  case class Ref(value:     TsQIdent) extends TsExpr
   case class Literal(value: TsLiteral) extends TsExpr
-  case class Call(function: TsExpr, params: List[TsExpr]) extends TsExpr
+  case class Call(function: TsExpr, params: IArray[TsExpr]) extends TsExpr
   case class Unary(op:      String, expr: TsExpr) extends TsExpr
   case class BinaryOp(one:  TsExpr, op: String, two: TsExpr) extends TsExpr
 
   def format(expr: TsExpr): String =
     expr match {
-      case Ref(value)                      => TsTypeFormatter(value)
+      case Ref(value)                      => TsTypeFormatter.qident(value)
       case Literal(TsLiteralString(value)) => stringUtils.quote(value)
       case Literal(Num.Long(long)) =>
         if (long > Int.MaxValue) long + ".0" // long's wont work in scala.js, so we'll just YOLO this

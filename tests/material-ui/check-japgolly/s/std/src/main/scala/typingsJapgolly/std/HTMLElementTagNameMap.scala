@@ -27,7 +27,6 @@ object HTMLElementTagNameMap {
     audio: org.scalajs.dom.raw.HTMLAudioElement
   ): HTMLElementTagNameMap = {
     val __obj = js.Dynamic.literal(a = a.asInstanceOf[js.Any], abbr = abbr.asInstanceOf[js.Any], address = address.asInstanceOf[js.Any], area = area.asInstanceOf[js.Any], article = article.asInstanceOf[js.Any], aside = aside.asInstanceOf[js.Any], audio = audio.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[HTMLElementTagNameMap]
   }
 }

@@ -1,7 +1,9 @@
 package typingsJapgolly.react.components
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsComponent
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
@@ -27,16 +29,11 @@ object Profiler {
     MountedWithRawType[ProfilerProps, js.Object, RawMounted[ProfilerProps, js.Object]]
   ] = {
     val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
-  
-      __obj.updateDynamic("onRender")(js.Any.fromFunction7((t0: /* id */ java.lang.String, t1: /* phase */ typingsJapgolly.react.reactStrings.mount | typingsJapgolly.react.reactStrings.update, t2: /* actualDuration */ scala.Double, t3: /* baseDuration */ scala.Double, t4: /* startTime */ scala.Double, t5: /* commitTime */ scala.Double, t6: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow()))
+    __obj.updateDynamic("onRender")(js.Any.fromFunction7((t0: /* id */ String, t1: /* phase */ mount | update, t2: /* actualDuration */ Double, t3: /* baseDuration */ Double, t4: /* startTime */ Double, t5: /* commitTime */ Double, t6: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Set<SchedulerInteraction> */ /* interactions */ js.Any) => onRender(t0, t1, t2, t3, t4, t5, t6).runNow()))
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.react.mod.ProfilerProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.react.mod.ProfilerProps])(children: _*)
+    val f = JsComponent[ProfilerProps, Varargs, js.Object](this.componentImport)
+    f(__obj.asInstanceOf[ProfilerProps])(children :_*)
   }
   @JSImport("react", "Profiler")
   @js.native

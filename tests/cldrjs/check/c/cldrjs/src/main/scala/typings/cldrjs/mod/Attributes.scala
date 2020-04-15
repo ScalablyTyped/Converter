@@ -13,7 +13,6 @@ object Attributes {
   @scala.inline
   def apply(language: js.Any): Attributes = {
     val __obj = js.Dynamic.literal(language = language.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[Attributes]
   }
 }

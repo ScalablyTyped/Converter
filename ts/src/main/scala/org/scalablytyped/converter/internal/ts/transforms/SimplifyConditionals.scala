@@ -22,7 +22,7 @@ object SimplifyConditionals extends TreeTransformationScopedChanges {
 
           lazy val inferAny: TsType => TsType = {
             val rewrites: Map[TsType, TsType] =
-              inferredNames.map(ident => TsTypeRef.of(ident) -> TsTypeRef.any).toMap
+              inferredNames.map(ident => TsTypeRef(ident) -> TsTypeRef.any).toMap
 
             new ts.transforms.TypeRewriter(x).visitTsType(rewrites)
           }

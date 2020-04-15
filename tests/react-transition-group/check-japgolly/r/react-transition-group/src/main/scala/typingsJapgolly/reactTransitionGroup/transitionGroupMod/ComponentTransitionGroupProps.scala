@@ -14,7 +14,6 @@ object ComponentTransitionGroupProps {
   @scala.inline
   def apply[T /* <: ReactType[_] */](component: T): ComponentTransitionGroupProps[T] = {
     val __obj = js.Dynamic.literal(component = component.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[ComponentTransitionGroupProps[T]]
   }
 }

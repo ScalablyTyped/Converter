@@ -107,6 +107,7 @@ object UnionToInheritance {
         indexedRewrites(ta.codePath) match {
           case Rewrite(_, asInheritance, Empty) =>
             val cls = ClassTree(
+              isImplicit = false,
               IArray(Annotation.ScalaJSDefined),
               ta.name,
               ta.tparams,
@@ -124,6 +125,7 @@ object UnionToInheritance {
           case Rewrite(_, asInheritance, noRewrites) =>
             val patchedTa = patchCodePath(ta)
             val cls = ClassTree(
+              isImplicit = false,
               IArray(Annotation.ScalaJSDefined),
               patchedTa.name,
               ta.tparams,

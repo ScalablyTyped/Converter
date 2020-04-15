@@ -13,7 +13,6 @@ object IOptions {
   @scala.inline
   def apply(trackingCode: String): IOptions = {
     val __obj = js.Dynamic.literal(trackingCode = trackingCode.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[IOptions]
   }
 }

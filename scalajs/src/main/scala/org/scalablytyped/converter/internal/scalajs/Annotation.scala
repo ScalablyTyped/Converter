@@ -19,7 +19,7 @@ object Annotation {
   case object JsNative extends ClassAnnotation
   case object ScalaJSDefined extends ClassAnnotation
   case object JsGlobalScope extends LocationAnnotation
-  case object Inline extends MemberAnnotation
+  case object Inline extends MemberAnnotation with ClassAnnotation
 
   case class JsName(name:       Name) extends MemberAnnotation with ClassAnnotation
   case class JsNameSymbol(name: QualifiedName) extends MemberAnnotation

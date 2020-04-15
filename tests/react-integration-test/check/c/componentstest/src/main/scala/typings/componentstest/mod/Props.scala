@@ -14,7 +14,6 @@ object Props {
   @scala.inline
   def A(aCallback: () => Double, aMember: Double): Props = {
     val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[Props]
   }
   @scala.inline

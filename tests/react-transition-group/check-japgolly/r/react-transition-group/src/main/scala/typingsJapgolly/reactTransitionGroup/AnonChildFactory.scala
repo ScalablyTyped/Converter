@@ -15,7 +15,7 @@ object AnonChildFactory {
   @scala.inline
   def apply(childFactory: /* child */ Element => CallbackTo[Element] = null): AnonChildFactory = {
     val __obj = js.Dynamic.literal()
-    if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ japgolly.scalajs.react.raw.React.Element) => childFactory(t0).runNow()))
+    if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ Element) => childFactory(t0).runNow()))
     __obj.asInstanceOf[AnonChildFactory]
   }
 }

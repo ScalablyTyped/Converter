@@ -18,22 +18,20 @@ trait SemanticSIZES extends js.Object
 
 object SemanticSIZES {
   @scala.inline
-  def big: typingsJapgolly.semanticUiReact.semanticUiReactStrings.big = this.cast("big")
+  def big: typingsJapgolly.semanticUiReact.semanticUiReactStrings.big = "big".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.big]
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def huge: typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge = "huge".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge]
   @scala.inline
-  def huge: typingsJapgolly.semanticUiReact.semanticUiReactStrings.huge = this.cast("huge")
+  def large: typingsJapgolly.semanticUiReact.semanticUiReactStrings.large = "large".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.large]
   @scala.inline
-  def large: typingsJapgolly.semanticUiReact.semanticUiReactStrings.large = this.cast("large")
+  def massive: typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive = "massive".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive]
   @scala.inline
-  def massive: typingsJapgolly.semanticUiReact.semanticUiReactStrings.massive = this.cast("massive")
+  def medium: typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium = "medium".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium]
   @scala.inline
-  def medium: typingsJapgolly.semanticUiReact.semanticUiReactStrings.medium = this.cast("medium")
+  def mini: typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini = "mini".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini]
   @scala.inline
-  def mini: typingsJapgolly.semanticUiReact.semanticUiReactStrings.mini = this.cast("mini")
+  def small: typingsJapgolly.semanticUiReact.semanticUiReactStrings.small = "small".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.small]
   @scala.inline
-  def small: typingsJapgolly.semanticUiReact.semanticUiReactStrings.small = this.cast("small")
-  @scala.inline
-  def tiny: typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny = this.cast("tiny")
+  def tiny: typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny = "tiny".asInstanceOf[typingsJapgolly.semanticUiReact.semanticUiReactStrings.tiny]
 }
 

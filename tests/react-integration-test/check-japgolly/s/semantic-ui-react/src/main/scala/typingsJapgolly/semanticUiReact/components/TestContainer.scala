@@ -2,7 +2,9 @@ package typingsJapgolly.semanticUiReact.components
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsComponent
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
@@ -41,11 +43,10 @@ object TestContainer {
     MountedWithRawType[TestContainerProps, js.Object, RawMounted[TestContainerProps, js.Object]]
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      __obj.updateDynamic("requiredFn0Number")(requiredFn0Number.toJsFn)
+    __obj.updateDynamic("requiredFn0Number")(requiredFn0Number.toJsFn)
     __obj.updateDynamic("requiredFn0Void")(requiredFn0Void.toJsFn)
-    __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1((t0: scala.Double) => requiredFn1Number(t0).runNow()))
-    __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1((t0: scala.Double) => requiredFn1Void(t0).runNow()))
+    __obj.updateDynamic("requiredFn1Number")(js.Any.fromFunction1((t0: Double) => requiredFn1Number(t0).runNow()))
+    __obj.updateDynamic("requiredFn1Void")(js.Any.fromFunction1((t0: Double) => requiredFn1Void(t0).runNow()))
     if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
@@ -53,18 +54,14 @@ object TestContainer {
     if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
     optFn0Number.foreach(p => __obj.updateDynamic("optFn0Number")(p.toJsFn))
     optFn0Void.foreach(p => __obj.updateDynamic("optFn0Void")(p.toJsFn))
-    if (optFn1Number != null) __obj.updateDynamic("optFn1Number")(js.Any.fromFunction1((t0: /* x */ scala.Double) => optFn1Number(t0).runNow()))
-    if (optFn1Void != null) __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1((t0: /* x */ scala.Double) => optFn1Void(t0).runNow()))
+    if (optFn1Number != null) __obj.updateDynamic("optFn1Number")(js.Any.fromFunction1((t0: /* x */ Double) => optFn1Number(t0).runNow()))
+    if (optFn1Void != null) __obj.updateDynamic("optFn1Void")(js.Any.fromFunction1((t0: /* x */ Double) => optFn1Void(t0).runNow()))
     if (!js.isUndefined(text)) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
     if (textAlign != null) __obj.updateDynamic("textAlign")(textAlign.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.semanticUiReact.testContainerTestContainerMod.TestContainerProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.testContainerTestContainerMod.TestContainerProps])(children: _*)
+    val f = JsComponent[TestContainerProps, Varargs, js.Object](this.componentImport)
+    f(__obj.asInstanceOf[TestContainerProps])(children :_*)
   }
   @JSImport("semantic-ui-react/dist/commonjs/elements/TestContainer", JSImport.Default)
   @js.native

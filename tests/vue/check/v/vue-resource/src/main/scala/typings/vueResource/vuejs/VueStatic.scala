@@ -14,7 +14,6 @@ object VueStatic {
   @scala.inline
   def apply(http: Http_, resource: Resource_): VueStatic = {
     val __obj = js.Dynamic.literal(http = http.asInstanceOf[js.Any], resource = resource.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[VueStatic]
   }
 }

@@ -17,20 +17,18 @@ trait SemanticSTATICTRANSITIONS extends js.Object
 
 object SemanticSTATICTRANSITIONS {
   @scala.inline
-  def bounce: typingsSlinky.semanticUiReact.semanticUiReactStrings.bounce = this.cast("bounce")
+  def bounce: typingsSlinky.semanticUiReact.semanticUiReactStrings.bounce = "bounce".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bounce]
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def flash: typingsSlinky.semanticUiReact.semanticUiReactStrings.flash = "flash".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.flash]
   @scala.inline
-  def flash: typingsSlinky.semanticUiReact.semanticUiReactStrings.flash = this.cast("flash")
+  def glow: typingsSlinky.semanticUiReact.semanticUiReactStrings.glow = "glow".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.glow]
   @scala.inline
-  def glow: typingsSlinky.semanticUiReact.semanticUiReactStrings.glow = this.cast("glow")
+  def jiggle: typingsSlinky.semanticUiReact.semanticUiReactStrings.jiggle = "jiggle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.jiggle]
   @scala.inline
-  def jiggle: typingsSlinky.semanticUiReact.semanticUiReactStrings.jiggle = this.cast("jiggle")
+  def pulse: typingsSlinky.semanticUiReact.semanticUiReactStrings.pulse = "pulse".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pulse]
   @scala.inline
-  def pulse: typingsSlinky.semanticUiReact.semanticUiReactStrings.pulse = this.cast("pulse")
+  def shake: typingsSlinky.semanticUiReact.semanticUiReactStrings.shake = "shake".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shake]
   @scala.inline
-  def shake: typingsSlinky.semanticUiReact.semanticUiReactStrings.shake = this.cast("shake")
-  @scala.inline
-  def tada: typingsSlinky.semanticUiReact.semanticUiReactStrings.tada = this.cast("tada")
+  def tada: typingsSlinky.semanticUiReact.semanticUiReactStrings.tada = "tada".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tada]
 }
 

@@ -1,6 +1,8 @@
 package typingsJapgolly.stardustUiReactComponentRef.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsForwardRefComponent.force
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -19,16 +21,11 @@ abstract class SharedApply_RefProps50138403[ComponentRef] () {
     children: ChildArg*
   ): UnmountedWithRoot[RefProps, ComponentRef, Unit, RefProps] = {
     val __obj = js.Dynamic.literal()
-  
-      if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
+    if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.stardustUiReactComponentRef.typesMod.RefProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  ComponentRef](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.stardustUiReactComponentRef.typesMod.RefProps])(children: _*)
+    val f = force[RefProps, Varargs, ComponentRef](this.componentImport)
+    f(__obj.asInstanceOf[RefProps])(children :_*)
   }
 }
 

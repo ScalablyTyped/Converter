@@ -1,6 +1,8 @@
 package typingsJapgolly.reactBootstrap.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsForwardRefComponent.force
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -32,8 +34,7 @@ object ButtonGroup {
     ButtonGroupProps
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      if (AllHTMLAttributes != null) js.Dynamic.global.Object.assign(__obj, AllHTMLAttributes)
+    if (AllHTMLAttributes != null) js.Dynamic.global.Object.assign(__obj, AllHTMLAttributes)
     if (ClassAttributes != null) js.Dynamic.global.Object.assign(__obj, ClassAttributes)
     if (!js.isUndefined(block)) __obj.updateDynamic("block")(block.asInstanceOf[js.Any])
     if (bsSize != null) __obj.updateDynamic("bsSize")(bsSize.asInstanceOf[js.Any])
@@ -42,12 +43,8 @@ object ButtonGroup {
     if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactBootstrap.mod.ButtonGroup](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.reactBootstrap.buttonGroupMod.ButtonGroupProps])(children: _*)
+    val f = force[ButtonGroupProps, Varargs, typingsJapgolly.reactBootstrap.mod.ButtonGroup](this.componentImport)
+    f(__obj.asInstanceOf[ButtonGroupProps])(children :_*)
   }
   @JSImport("react-bootstrap", "ButtonGroup")
   @js.native

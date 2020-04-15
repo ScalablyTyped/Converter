@@ -1260,2503 +1260,2501 @@ trait SemanticICONS extends js.Object
 
 object SemanticICONS {
   @scala.inline
-  def `500px`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px` = this.cast("500px")
+  def `500px`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px` = "500px".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`500px`]
   @scala.inline
-  def accessible: typingsSlinky.semanticUiReact.semanticUiReactStrings.accessible = this.cast("accessible")
+  def accessible: typingsSlinky.semanticUiReact.semanticUiReactStrings.accessible = "accessible".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.accessible]
   @scala.inline
-  def accusoft: typingsSlinky.semanticUiReact.semanticUiReactStrings.accusoft = this.cast("accusoft")
+  def accusoft: typingsSlinky.semanticUiReact.semanticUiReactStrings.accusoft = "accusoft".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.accusoft]
   @scala.inline
-  def add: typingsSlinky.semanticUiReact.semanticUiReactStrings.add = this.cast("add")
+  def add: typingsSlinky.semanticUiReact.semanticUiReactStrings.add = "add".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.add]
   @scala.inline
-  def `add circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add circle` = this.cast("add circle")
+  def `add circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add circle` = ("add circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`add circle`]
   @scala.inline
-  def `add square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add square` = this.cast("add square")
+  def `add square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add square` = ("add square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`add square`]
   @scala.inline
-  def `add to calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to calendar` = this.cast("add to calendar")
+  def `add to calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to calendar` = ("add to calendar").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to calendar`]
   @scala.inline
-  def `add to cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to cart` = this.cast("add to cart")
+  def `add to cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to cart` = ("add to cart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`add to cart`]
   @scala.inline
-  def `add user`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add user` = this.cast("add user")
+  def `add user`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`add user` = ("add user").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`add user`]
   @scala.inline
-  def `address book`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book` = this.cast("address book")
+  def `address book`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book` = ("address book").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book`]
   @scala.inline
-  def `address book outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book outline` = this.cast("address book outline")
+  def `address book outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book outline` = ("address book outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`address book outline`]
   @scala.inline
-  def `address card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card` = this.cast("address card")
+  def `address card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card` = ("address card").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card`]
   @scala.inline
-  def `address card outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card outline` = this.cast("address card outline")
+  def `address card outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card outline` = ("address card outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`address card outline`]
   @scala.inline
-  def adjust: typingsSlinky.semanticUiReact.semanticUiReactStrings.adjust = this.cast("adjust")
+  def adjust: typingsSlinky.semanticUiReact.semanticUiReactStrings.adjust = "adjust".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.adjust]
   @scala.inline
-  def adn: typingsSlinky.semanticUiReact.semanticUiReactStrings.adn = this.cast("adn")
+  def adn: typingsSlinky.semanticUiReact.semanticUiReactStrings.adn = "adn".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.adn]
   @scala.inline
-  def adversal: typingsSlinky.semanticUiReact.semanticUiReactStrings.adversal = this.cast("adversal")
+  def adversal: typingsSlinky.semanticUiReact.semanticUiReactStrings.adversal = "adversal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.adversal]
   @scala.inline
-  def affiliatetheme: typingsSlinky.semanticUiReact.semanticUiReactStrings.affiliatetheme = this.cast("affiliatetheme")
+  def affiliatetheme: typingsSlinky.semanticUiReact.semanticUiReactStrings.affiliatetheme = "affiliatetheme".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.affiliatetheme]
   @scala.inline
-  def alarm: typingsSlinky.semanticUiReact.semanticUiReactStrings.alarm = this.cast("alarm")
+  def alarm: typingsSlinky.semanticUiReact.semanticUiReactStrings.alarm = "alarm".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.alarm]
   @scala.inline
-  def `alarm mute`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`alarm mute` = this.cast("alarm mute")
+  def `alarm mute`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`alarm mute` = ("alarm mute").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`alarm mute`]
   @scala.inline
-  def ald: typingsSlinky.semanticUiReact.semanticUiReactStrings.ald = this.cast("ald")
+  def ald: typingsSlinky.semanticUiReact.semanticUiReactStrings.ald = "ald".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ald]
   @scala.inline
-  def algolia: typingsSlinky.semanticUiReact.semanticUiReactStrings.algolia = this.cast("algolia")
+  def algolia: typingsSlinky.semanticUiReact.semanticUiReactStrings.algolia = "algolia".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.algolia]
   @scala.inline
-  def `align center`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align center` = this.cast("align center")
+  def `align center`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align center` = ("align center").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`align center`]
   @scala.inline
-  def `align justify`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align justify` = this.cast("align justify")
+  def `align justify`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align justify` = ("align justify").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`align justify`]
   @scala.inline
-  def `align left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align left` = this.cast("align left")
+  def `align left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align left` = ("align left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`align left`]
   @scala.inline
-  def `align right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align right` = this.cast("align right")
+  def `align right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`align right` = ("align right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`align right`]
   @scala.inline
-  def als: typingsSlinky.semanticUiReact.semanticUiReactStrings.als = this.cast("als")
+  def als: typingsSlinky.semanticUiReact.semanticUiReactStrings.als = "als".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.als]
   @scala.inline
-  def amazon: typingsSlinky.semanticUiReact.semanticUiReactStrings.amazon = this.cast("amazon")
+  def amazon: typingsSlinky.semanticUiReact.semanticUiReactStrings.amazon = "amazon".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.amazon]
   @scala.inline
-  def `amazon pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`amazon pay` = this.cast("amazon pay")
+  def `amazon pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`amazon pay` = ("amazon pay").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`amazon pay`]
   @scala.inline
-  def ambulance: typingsSlinky.semanticUiReact.semanticUiReactStrings.ambulance = this.cast("ambulance")
+  def ambulance: typingsSlinky.semanticUiReact.semanticUiReactStrings.ambulance = "ambulance".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ambulance]
   @scala.inline
-  def `american sign language interpreting`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`american sign language interpreting` = this.cast("american sign language interpreting")
+  def `american sign language interpreting`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`american sign language interpreting` = ("american sign language interpreting").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`american sign language interpreting`]
   @scala.inline
-  def amilia: typingsSlinky.semanticUiReact.semanticUiReactStrings.amilia = this.cast("amilia")
+  def amilia: typingsSlinky.semanticUiReact.semanticUiReactStrings.amilia = "amilia".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.amilia]
   @scala.inline
-  def anchor: typingsSlinky.semanticUiReact.semanticUiReactStrings.anchor = this.cast("anchor")
+  def anchor: typingsSlinky.semanticUiReact.semanticUiReactStrings.anchor = "anchor".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.anchor]
   @scala.inline
-  def android: typingsSlinky.semanticUiReact.semanticUiReactStrings.android = this.cast("android")
+  def android: typingsSlinky.semanticUiReact.semanticUiReactStrings.android = "android".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.android]
   @scala.inline
-  def angellist: typingsSlinky.semanticUiReact.semanticUiReactStrings.angellist = this.cast("angellist")
+  def angellist: typingsSlinky.semanticUiReact.semanticUiReactStrings.angellist = "angellist".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.angellist]
   @scala.inline
-  def `angle double down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double down` = this.cast("angle double down")
+  def `angle double down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double down` = ("angle double down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double down`]
   @scala.inline
-  def `angle double left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double left` = this.cast("angle double left")
+  def `angle double left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double left` = ("angle double left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double left`]
   @scala.inline
-  def `angle double right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double right` = this.cast("angle double right")
+  def `angle double right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double right` = ("angle double right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double right`]
   @scala.inline
-  def `angle double up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double up` = this.cast("angle double up")
+  def `angle double up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double up` = ("angle double up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle double up`]
   @scala.inline
-  def `angle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle down` = this.cast("angle down")
+  def `angle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle down` = ("angle down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle down`]
   @scala.inline
-  def `angle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle left` = this.cast("angle left")
+  def `angle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle left` = ("angle left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle left`]
   @scala.inline
-  def `angle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle right` = this.cast("angle right")
+  def `angle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle right` = ("angle right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle right`]
   @scala.inline
-  def `angle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle up` = this.cast("angle up")
+  def `angle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle up` = ("angle up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`angle up`]
   @scala.inline
-  def angrycreative: typingsSlinky.semanticUiReact.semanticUiReactStrings.angrycreative = this.cast("angrycreative")
+  def angrycreative: typingsSlinky.semanticUiReact.semanticUiReactStrings.angrycreative = "angrycreative".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.angrycreative]
   @scala.inline
-  def angular: typingsSlinky.semanticUiReact.semanticUiReactStrings.angular = this.cast("angular")
+  def angular: typingsSlinky.semanticUiReact.semanticUiReactStrings.angular = "angular".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.angular]
   @scala.inline
-  def announcement: typingsSlinky.semanticUiReact.semanticUiReactStrings.announcement = this.cast("announcement")
+  def announcement: typingsSlinky.semanticUiReact.semanticUiReactStrings.announcement = "announcement".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.announcement]
   @scala.inline
-  def `app store`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store` = this.cast("app store")
+  def `app store`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store` = ("app store").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store`]
   @scala.inline
-  def `app store ios`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store ios` = this.cast("app store ios")
+  def `app store ios`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store ios` = ("app store ios").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`app store ios`]
   @scala.inline
-  def apper: typingsSlinky.semanticUiReact.semanticUiReactStrings.apper = this.cast("apper")
+  def apper: typingsSlinky.semanticUiReact.semanticUiReactStrings.apper = "apper".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.apper]
   @scala.inline
-  def apple: typingsSlinky.semanticUiReact.semanticUiReactStrings.apple = this.cast("apple")
+  def apple: typingsSlinky.semanticUiReact.semanticUiReactStrings.apple = "apple".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.apple]
   @scala.inline
-  def `apple pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`apple pay` = this.cast("apple pay")
+  def `apple pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`apple pay` = ("apple pay").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`apple pay`]
   @scala.inline
-  def archive: typingsSlinky.semanticUiReact.semanticUiReactStrings.archive = this.cast("archive")
+  def archive: typingsSlinky.semanticUiReact.semanticUiReactStrings.archive = "archive".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.archive]
   @scala.inline
-  def `area chart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`area chart` = this.cast("area chart")
+  def `area chart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`area chart` = ("area chart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`area chart`]
   @scala.inline
-  def `area graph`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`area graph` = this.cast("area graph")
+  def `area graph`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`area graph` = ("area graph").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`area graph`]
   @scala.inline
-  def `arrow alternate circle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down` = this.cast("arrow alternate circle down")
+  def `arrow alternate circle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down` = ("arrow alternate circle down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down`]
   @scala.inline
-  def `arrow alternate circle down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down outline` = this.cast("arrow alternate circle down outline")
+  def `arrow alternate circle down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down outline` = ("arrow alternate circle down outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle down outline`]
   @scala.inline
-  def `arrow alternate circle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left` = this.cast("arrow alternate circle left")
+  def `arrow alternate circle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left` = ("arrow alternate circle left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left`]
   @scala.inline
-  def `arrow alternate circle left outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left outline` = this.cast("arrow alternate circle left outline")
+  def `arrow alternate circle left outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left outline` = ("arrow alternate circle left outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle left outline`]
   @scala.inline
-  def `arrow alternate circle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right` = this.cast("arrow alternate circle right")
+  def `arrow alternate circle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right` = ("arrow alternate circle right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right`]
   @scala.inline
-  def `arrow alternate circle right outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right outline` = this.cast("arrow alternate circle right outline")
+  def `arrow alternate circle right outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right outline` = ("arrow alternate circle right outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle right outline`]
   @scala.inline
-  def `arrow alternate circle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up` = this.cast("arrow alternate circle up")
+  def `arrow alternate circle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up` = ("arrow alternate circle up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up`]
   @scala.inline
-  def `arrow alternate circle up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up outline` = this.cast("arrow alternate circle up outline")
+  def `arrow alternate circle up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up outline` = ("arrow alternate circle up outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow alternate circle up outline`]
   @scala.inline
-  def `arrow circle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle down` = this.cast("arrow circle down")
+  def `arrow circle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle down` = ("arrow circle down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle down`]
   @scala.inline
-  def `arrow circle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle left` = this.cast("arrow circle left")
+  def `arrow circle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle left` = ("arrow circle left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle left`]
   @scala.inline
-  def `arrow circle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle right` = this.cast("arrow circle right")
+  def `arrow circle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle right` = ("arrow circle right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle right`]
   @scala.inline
-  def `arrow circle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle up` = this.cast("arrow circle up")
+  def `arrow circle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle up` = ("arrow circle up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow circle up`]
   @scala.inline
-  def `arrow down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down` = this.cast("arrow down")
+  def `arrow down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down` = ("arrow down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down`]
   @scala.inline
-  def `arrow down cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down cart` = this.cast("arrow down cart")
+  def `arrow down cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down cart` = ("arrow down cart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow down cart`]
   @scala.inline
-  def `arrow left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow left` = this.cast("arrow left")
+  def `arrow left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow left` = ("arrow left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow left`]
   @scala.inline
-  def `arrow right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow right` = this.cast("arrow right")
+  def `arrow right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow right` = ("arrow right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow right`]
   @scala.inline
-  def `arrow up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow up` = this.cast("arrow up")
+  def `arrow up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow up` = ("arrow up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrow up`]
   @scala.inline
-  def `arrows alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate` = this.cast("arrows alternate")
+  def `arrows alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate` = ("arrows alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate`]
   @scala.inline
-  def `arrows alternate horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate horizontal` = this.cast("arrows alternate horizontal")
+  def `arrows alternate horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate horizontal` = ("arrows alternate horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate horizontal`]
   @scala.inline
-  def `arrows alternate vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate vertical` = this.cast("arrows alternate vertical")
+  def `arrows alternate vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate vertical` = ("arrows alternate vertical").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`arrows alternate vertical`]
   @scala.inline
-  def asexual: typingsSlinky.semanticUiReact.semanticUiReactStrings.asexual = this.cast("asexual")
+  def asexual: typingsSlinky.semanticUiReact.semanticUiReactStrings.asexual = "asexual".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.asexual]
   @scala.inline
-  def asl: typingsSlinky.semanticUiReact.semanticUiReactStrings.asl = this.cast("asl")
+  def asl: typingsSlinky.semanticUiReact.semanticUiReactStrings.asl = "asl".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.asl]
   @scala.inline
-  def `asl interpreting`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`asl interpreting` = this.cast("asl interpreting")
+  def `asl interpreting`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`asl interpreting` = ("asl interpreting").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`asl interpreting`]
   @scala.inline
-  def `assistive listening devices`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening devices` = this.cast("assistive listening devices")
+  def `assistive listening devices`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening devices` = ("assistive listening devices").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening devices`]
   @scala.inline
-  def `assistive listening systems`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening systems` = this.cast("assistive listening systems")
+  def `assistive listening systems`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening systems` = ("assistive listening systems").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`assistive listening systems`]
   @scala.inline
-  def asterisk: typingsSlinky.semanticUiReact.semanticUiReactStrings.asterisk = this.cast("asterisk")
+  def asterisk: typingsSlinky.semanticUiReact.semanticUiReactStrings.asterisk = "asterisk".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.asterisk]
   @scala.inline
-  def asymmetrik: typingsSlinky.semanticUiReact.semanticUiReactStrings.asymmetrik = this.cast("asymmetrik")
+  def asymmetrik: typingsSlinky.semanticUiReact.semanticUiReactStrings.asymmetrik = "asymmetrik".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.asymmetrik]
   @scala.inline
-  def at: typingsSlinky.semanticUiReact.semanticUiReactStrings.at = this.cast("at")
+  def at: typingsSlinky.semanticUiReact.semanticUiReactStrings.at = "at".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.at]
   @scala.inline
-  def attach: typingsSlinky.semanticUiReact.semanticUiReactStrings.attach = this.cast("attach")
+  def attach: typingsSlinky.semanticUiReact.semanticUiReactStrings.attach = "attach".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.attach]
   @scala.inline
-  def attention: typingsSlinky.semanticUiReact.semanticUiReactStrings.attention = this.cast("attention")
+  def attention: typingsSlinky.semanticUiReact.semanticUiReactStrings.attention = "attention".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.attention]
   @scala.inline
-  def audible: typingsSlinky.semanticUiReact.semanticUiReactStrings.audible = this.cast("audible")
+  def audible: typingsSlinky.semanticUiReact.semanticUiReactStrings.audible = "audible".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.audible]
   @scala.inline
-  def `audio description`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`audio description` = this.cast("audio description")
+  def `audio description`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`audio description` = ("audio description").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`audio description`]
   @scala.inline
-  def autoprefixer: typingsSlinky.semanticUiReact.semanticUiReactStrings.autoprefixer = this.cast("autoprefixer")
+  def autoprefixer: typingsSlinky.semanticUiReact.semanticUiReactStrings.autoprefixer = "autoprefixer".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.autoprefixer]
   @scala.inline
-  def avianex: typingsSlinky.semanticUiReact.semanticUiReactStrings.avianex = this.cast("avianex")
+  def avianex: typingsSlinky.semanticUiReact.semanticUiReactStrings.avianex = "avianex".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.avianex]
   @scala.inline
-  def aviato: typingsSlinky.semanticUiReact.semanticUiReactStrings.aviato = this.cast("aviato")
+  def aviato: typingsSlinky.semanticUiReact.semanticUiReactStrings.aviato = "aviato".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.aviato]
   @scala.inline
-  def aws: typingsSlinky.semanticUiReact.semanticUiReactStrings.aws = this.cast("aws")
+  def aws: typingsSlinky.semanticUiReact.semanticUiReactStrings.aws = "aws".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.aws]
   @scala.inline
-  def backward: typingsSlinky.semanticUiReact.semanticUiReactStrings.backward = this.cast("backward")
+  def backward: typingsSlinky.semanticUiReact.semanticUiReactStrings.backward = "backward".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.backward]
   @scala.inline
-  def balance: typingsSlinky.semanticUiReact.semanticUiReactStrings.balance = this.cast("balance")
+  def balance: typingsSlinky.semanticUiReact.semanticUiReactStrings.balance = "balance".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.balance]
   @scala.inline
-  def `balance scale`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`balance scale` = this.cast("balance scale")
+  def `balance scale`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`balance scale` = ("balance scale").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`balance scale`]
   @scala.inline
-  def ban: typingsSlinky.semanticUiReact.semanticUiReactStrings.ban = this.cast("ban")
+  def ban: typingsSlinky.semanticUiReact.semanticUiReactStrings.ban = "ban".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ban]
   @scala.inline
-  def `band aid`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`band aid` = this.cast("band aid")
+  def `band aid`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`band aid` = ("band aid").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`band aid`]
   @scala.inline
-  def bandcamp: typingsSlinky.semanticUiReact.semanticUiReactStrings.bandcamp = this.cast("bandcamp")
+  def bandcamp: typingsSlinky.semanticUiReact.semanticUiReactStrings.bandcamp = "bandcamp".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bandcamp]
   @scala.inline
-  def bar: typingsSlinky.semanticUiReact.semanticUiReactStrings.bar = this.cast("bar")
+  def bar: typingsSlinky.semanticUiReact.semanticUiReactStrings.bar = "bar".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bar]
   @scala.inline
-  def barcode: typingsSlinky.semanticUiReact.semanticUiReactStrings.barcode = this.cast("barcode")
+  def barcode: typingsSlinky.semanticUiReact.semanticUiReactStrings.barcode = "barcode".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.barcode]
   @scala.inline
-  def bars: typingsSlinky.semanticUiReact.semanticUiReactStrings.bars = this.cast("bars")
+  def bars: typingsSlinky.semanticUiReact.semanticUiReactStrings.bars = "bars".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bars]
   @scala.inline
-  def `baseball ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`baseball ball` = this.cast("baseball ball")
+  def `baseball ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`baseball ball` = ("baseball ball").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`baseball ball`]
   @scala.inline
-  def `basketball ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`basketball ball` = this.cast("basketball ball")
+  def `basketball ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`basketball ball` = ("basketball ball").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`basketball ball`]
   @scala.inline
-  def bath: typingsSlinky.semanticUiReact.semanticUiReactStrings.bath = this.cast("bath")
+  def bath: typingsSlinky.semanticUiReact.semanticUiReactStrings.bath = "bath".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bath]
   @scala.inline
-  def bathtub: typingsSlinky.semanticUiReact.semanticUiReactStrings.bathtub = this.cast("bathtub")
+  def bathtub: typingsSlinky.semanticUiReact.semanticUiReactStrings.bathtub = "bathtub".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bathtub]
   @scala.inline
-  def `battery empty`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery empty` = this.cast("battery empty")
+  def `battery empty`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery empty` = ("battery empty").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery empty`]
   @scala.inline
-  def `battery four`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery four` = this.cast("battery four")
+  def `battery four`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery four` = ("battery four").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery four`]
   @scala.inline
-  def `battery full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery full` = this.cast("battery full")
+  def `battery full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery full` = ("battery full").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery full`]
   @scala.inline
-  def `battery half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery half` = this.cast("battery half")
+  def `battery half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery half` = ("battery half").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery half`]
   @scala.inline
-  def `battery high`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery high` = this.cast("battery high")
+  def `battery high`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery high` = ("battery high").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery high`]
   @scala.inline
-  def `battery low`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery low` = this.cast("battery low")
+  def `battery low`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery low` = ("battery low").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery low`]
   @scala.inline
-  def `battery one`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery one` = this.cast("battery one")
+  def `battery one`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery one` = ("battery one").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery one`]
   @scala.inline
-  def `battery quarter`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery quarter` = this.cast("battery quarter")
+  def `battery quarter`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery quarter` = ("battery quarter").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery quarter`]
   @scala.inline
-  def `battery three`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three` = this.cast("battery three")
+  def `battery three`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three` = ("battery three").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three`]
   @scala.inline
-  def `battery three quarters`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three quarters` = this.cast("battery three quarters")
+  def `battery three quarters`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three quarters` = ("battery three quarters").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery three quarters`]
   @scala.inline
-  def `battery two`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery two` = this.cast("battery two")
+  def `battery two`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery two` = ("battery two").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery two`]
   @scala.inline
-  def `battery zero`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery zero` = this.cast("battery zero")
+  def `battery zero`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery zero` = ("battery zero").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`battery zero`]
   @scala.inline
-  def bed: typingsSlinky.semanticUiReact.semanticUiReactStrings.bed = this.cast("bed")
+  def bed: typingsSlinky.semanticUiReact.semanticUiReactStrings.bed = "bed".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bed]
   @scala.inline
-  def beer: typingsSlinky.semanticUiReact.semanticUiReactStrings.beer = this.cast("beer")
+  def beer: typingsSlinky.semanticUiReact.semanticUiReactStrings.beer = "beer".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.beer]
   @scala.inline
-  def behance: typingsSlinky.semanticUiReact.semanticUiReactStrings.behance = this.cast("behance")
+  def behance: typingsSlinky.semanticUiReact.semanticUiReactStrings.behance = "behance".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.behance]
   @scala.inline
-  def `behance square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`behance square` = this.cast("behance square")
+  def `behance square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`behance square` = ("behance square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`behance square`]
   @scala.inline
-  def bell: typingsSlinky.semanticUiReact.semanticUiReactStrings.bell = this.cast("bell")
+  def bell: typingsSlinky.semanticUiReact.semanticUiReactStrings.bell = "bell".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bell]
   @scala.inline
-  def `bell outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell outline` = this.cast("bell outline")
+  def `bell outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell outline` = ("bell outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell outline`]
   @scala.inline
-  def `bell slash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash` = this.cast("bell slash")
+  def `bell slash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash` = ("bell slash").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash`]
   @scala.inline
-  def `bell slash outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash outline` = this.cast("bell slash outline")
+  def `bell slash outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash outline` = ("bell slash outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bell slash outline`]
   @scala.inline
-  def bicycle: typingsSlinky.semanticUiReact.semanticUiReactStrings.bicycle = this.cast("bicycle")
+  def bicycle: typingsSlinky.semanticUiReact.semanticUiReactStrings.bicycle = "bicycle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bicycle]
   @scala.inline
-  def bimobject: typingsSlinky.semanticUiReact.semanticUiReactStrings.bimobject = this.cast("bimobject")
+  def bimobject: typingsSlinky.semanticUiReact.semanticUiReactStrings.bimobject = "bimobject".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bimobject]
   @scala.inline
-  def binoculars: typingsSlinky.semanticUiReact.semanticUiReactStrings.binoculars = this.cast("binoculars")
+  def binoculars: typingsSlinky.semanticUiReact.semanticUiReactStrings.binoculars = "binoculars".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.binoculars]
   @scala.inline
-  def birthday: typingsSlinky.semanticUiReact.semanticUiReactStrings.birthday = this.cast("birthday")
+  def birthday: typingsSlinky.semanticUiReact.semanticUiReactStrings.birthday = "birthday".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.birthday]
   @scala.inline
-  def `birthday cake`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`birthday cake` = this.cast("birthday cake")
+  def `birthday cake`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`birthday cake` = ("birthday cake").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`birthday cake`]
   @scala.inline
-  def bitbucket: typingsSlinky.semanticUiReact.semanticUiReactStrings.bitbucket = this.cast("bitbucket")
+  def bitbucket: typingsSlinky.semanticUiReact.semanticUiReactStrings.bitbucket = "bitbucket".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bitbucket]
   @scala.inline
-  def `bitbucket square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bitbucket square` = this.cast("bitbucket square")
+  def `bitbucket square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bitbucket square` = ("bitbucket square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bitbucket square`]
   @scala.inline
-  def bitcoin: typingsSlinky.semanticUiReact.semanticUiReactStrings.bitcoin = this.cast("bitcoin")
+  def bitcoin: typingsSlinky.semanticUiReact.semanticUiReactStrings.bitcoin = "bitcoin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bitcoin]
   @scala.inline
-  def bity: typingsSlinky.semanticUiReact.semanticUiReactStrings.bity = this.cast("bity")
+  def bity: typingsSlinky.semanticUiReact.semanticUiReactStrings.bity = "bity".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bity]
   @scala.inline
-  def `black tie`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`black tie` = this.cast("black tie")
+  def `black tie`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`black tie` = ("black tie").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`black tie`]
   @scala.inline
-  def blackberry: typingsSlinky.semanticUiReact.semanticUiReactStrings.blackberry = this.cast("blackberry")
+  def blackberry: typingsSlinky.semanticUiReact.semanticUiReactStrings.blackberry = "blackberry".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.blackberry]
   @scala.inline
-  def blind: typingsSlinky.semanticUiReact.semanticUiReactStrings.blind = this.cast("blind")
+  def blind: typingsSlinky.semanticUiReact.semanticUiReactStrings.blind = "blind".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.blind]
   @scala.inline
-  def `block layout`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`block layout` = this.cast("block layout")
+  def `block layout`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`block layout` = ("block layout").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`block layout`]
   @scala.inline
-  def blogger: typingsSlinky.semanticUiReact.semanticUiReactStrings.blogger = this.cast("blogger")
+  def blogger: typingsSlinky.semanticUiReact.semanticUiReactStrings.blogger = "blogger".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.blogger]
   @scala.inline
-  def `blogger b`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`blogger b` = this.cast("blogger b")
+  def `blogger b`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`blogger b` = ("blogger b").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`blogger b`]
   @scala.inline
-  def bluetooth: typingsSlinky.semanticUiReact.semanticUiReactStrings.bluetooth = this.cast("bluetooth")
+  def bluetooth: typingsSlinky.semanticUiReact.semanticUiReactStrings.bluetooth = "bluetooth".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bluetooth]
   @scala.inline
-  def `bluetooth alternative`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth alternative` = this.cast("bluetooth alternative")
+  def `bluetooth alternative`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth alternative` = ("bluetooth alternative").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth alternative`]
   @scala.inline
-  def `bluetooth b`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth b` = this.cast("bluetooth b")
+  def `bluetooth b`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth b` = ("bluetooth b").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bluetooth b`]
   @scala.inline
-  def bold: typingsSlinky.semanticUiReact.semanticUiReactStrings.bold = this.cast("bold")
+  def bold: typingsSlinky.semanticUiReact.semanticUiReactStrings.bold = "bold".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bold]
   @scala.inline
-  def bolt: typingsSlinky.semanticUiReact.semanticUiReactStrings.bolt = this.cast("bolt")
+  def bolt: typingsSlinky.semanticUiReact.semanticUiReactStrings.bolt = "bolt".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bolt]
   @scala.inline
-  def bomb: typingsSlinky.semanticUiReact.semanticUiReactStrings.bomb = this.cast("bomb")
+  def bomb: typingsSlinky.semanticUiReact.semanticUiReactStrings.bomb = "bomb".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bomb]
   @scala.inline
-  def book: typingsSlinky.semanticUiReact.semanticUiReactStrings.book = this.cast("book")
+  def book: typingsSlinky.semanticUiReact.semanticUiReactStrings.book = "book".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.book]
   @scala.inline
-  def bookmark: typingsSlinky.semanticUiReact.semanticUiReactStrings.bookmark = this.cast("bookmark")
+  def bookmark: typingsSlinky.semanticUiReact.semanticUiReactStrings.bookmark = "bookmark".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bookmark]
   @scala.inline
-  def `bookmark outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bookmark outline` = this.cast("bookmark outline")
+  def `bookmark outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bookmark outline` = ("bookmark outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bookmark outline`]
   @scala.inline
-  def `bowling ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bowling ball` = this.cast("bowling ball")
+  def `bowling ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`bowling ball` = ("bowling ball").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`bowling ball`]
   @scala.inline
-  def box: typingsSlinky.semanticUiReact.semanticUiReactStrings.box = this.cast("box")
+  def box: typingsSlinky.semanticUiReact.semanticUiReactStrings.box = "box".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.box]
   @scala.inline
-  def boxes: typingsSlinky.semanticUiReact.semanticUiReactStrings.boxes = this.cast("boxes")
+  def boxes: typingsSlinky.semanticUiReact.semanticUiReactStrings.boxes = "boxes".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.boxes]
   @scala.inline
-  def braille: typingsSlinky.semanticUiReact.semanticUiReactStrings.braille = this.cast("braille")
+  def braille: typingsSlinky.semanticUiReact.semanticUiReactStrings.braille = "braille".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.braille]
   @scala.inline
-  def briefcase: typingsSlinky.semanticUiReact.semanticUiReactStrings.briefcase = this.cast("briefcase")
+  def briefcase: typingsSlinky.semanticUiReact.semanticUiReactStrings.briefcase = "briefcase".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.briefcase]
   @scala.inline
-  def `broken chain`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`broken chain` = this.cast("broken chain")
+  def `broken chain`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`broken chain` = ("broken chain").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`broken chain`]
   @scala.inline
-  def browser: typingsSlinky.semanticUiReact.semanticUiReactStrings.browser = this.cast("browser")
+  def browser: typingsSlinky.semanticUiReact.semanticUiReactStrings.browser = "browser".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.browser]
   @scala.inline
-  def btc: typingsSlinky.semanticUiReact.semanticUiReactStrings.btc = this.cast("btc")
+  def btc: typingsSlinky.semanticUiReact.semanticUiReactStrings.btc = "btc".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.btc]
   @scala.inline
-  def bug: typingsSlinky.semanticUiReact.semanticUiReactStrings.bug = this.cast("bug")
+  def bug: typingsSlinky.semanticUiReact.semanticUiReactStrings.bug = "bug".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bug]
   @scala.inline
-  def building: typingsSlinky.semanticUiReact.semanticUiReactStrings.building = this.cast("building")
+  def building: typingsSlinky.semanticUiReact.semanticUiReactStrings.building = "building".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.building]
   @scala.inline
-  def `building outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`building outline` = this.cast("building outline")
+  def `building outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`building outline` = ("building outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`building outline`]
   @scala.inline
-  def bullhorn: typingsSlinky.semanticUiReact.semanticUiReactStrings.bullhorn = this.cast("bullhorn")
+  def bullhorn: typingsSlinky.semanticUiReact.semanticUiReactStrings.bullhorn = "bullhorn".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bullhorn]
   @scala.inline
-  def bullseye: typingsSlinky.semanticUiReact.semanticUiReactStrings.bullseye = this.cast("bullseye")
+  def bullseye: typingsSlinky.semanticUiReact.semanticUiReactStrings.bullseye = "bullseye".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bullseye]
   @scala.inline
-  def buromobelexperte: typingsSlinky.semanticUiReact.semanticUiReactStrings.buromobelexperte = this.cast("buromobelexperte")
+  def buromobelexperte: typingsSlinky.semanticUiReact.semanticUiReactStrings.buromobelexperte = "buromobelexperte".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.buromobelexperte]
   @scala.inline
-  def bus: typingsSlinky.semanticUiReact.semanticUiReactStrings.bus = this.cast("bus")
+  def bus: typingsSlinky.semanticUiReact.semanticUiReactStrings.bus = "bus".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bus]
   @scala.inline
-  def buysellads: typingsSlinky.semanticUiReact.semanticUiReactStrings.buysellads = this.cast("buysellads")
+  def buysellads: typingsSlinky.semanticUiReact.semanticUiReactStrings.buysellads = "buysellads".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.buysellads]
   @scala.inline
-  def calculator: typingsSlinky.semanticUiReact.semanticUiReactStrings.calculator = this.cast("calculator")
+  def calculator: typingsSlinky.semanticUiReact.semanticUiReactStrings.calculator = "calculator".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.calculator]
   @scala.inline
-  def calendar: typingsSlinky.semanticUiReact.semanticUiReactStrings.calendar = this.cast("calendar")
+  def calendar: typingsSlinky.semanticUiReact.semanticUiReactStrings.calendar = "calendar".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.calendar]
   @scala.inline
-  def `calendar alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate` = this.cast("calendar alternate")
+  def `calendar alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate` = ("calendar alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate`]
   @scala.inline
-  def `calendar alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate outline` = this.cast("calendar alternate outline")
+  def `calendar alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate outline` = ("calendar alternate outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar alternate outline`]
   @scala.inline
-  def `calendar check`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check` = this.cast("calendar check")
+  def `calendar check`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check` = ("calendar check").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check`]
   @scala.inline
-  def `calendar check outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check outline` = this.cast("calendar check outline")
+  def `calendar check outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check outline` = ("calendar check outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar check outline`]
   @scala.inline
-  def `calendar minus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus` = this.cast("calendar minus")
+  def `calendar minus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus` = ("calendar minus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus`]
   @scala.inline
-  def `calendar minus outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus outline` = this.cast("calendar minus outline")
+  def `calendar minus outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus outline` = ("calendar minus outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar minus outline`]
   @scala.inline
-  def `calendar outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar outline` = this.cast("calendar outline")
+  def `calendar outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar outline` = ("calendar outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar outline`]
   @scala.inline
-  def `calendar plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus` = this.cast("calendar plus")
+  def `calendar plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus` = ("calendar plus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus`]
   @scala.inline
-  def `calendar plus outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus outline` = this.cast("calendar plus outline")
+  def `calendar plus outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus outline` = ("calendar plus outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar plus outline`]
   @scala.inline
-  def `calendar times`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times` = this.cast("calendar times")
+  def `calendar times`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times` = ("calendar times").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times`]
   @scala.inline
-  def `calendar times outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times outline` = this.cast("calendar times outline")
+  def `calendar times outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times outline` = ("calendar times outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`calendar times outline`]
   @scala.inline
-  def call: typingsSlinky.semanticUiReact.semanticUiReactStrings.call = this.cast("call")
+  def call: typingsSlinky.semanticUiReact.semanticUiReactStrings.call = "call".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.call]
   @scala.inline
-  def `call square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`call square` = this.cast("call square")
+  def `call square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`call square` = ("call square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`call square`]
   @scala.inline
-  def camera: typingsSlinky.semanticUiReact.semanticUiReactStrings.camera = this.cast("camera")
+  def camera: typingsSlinky.semanticUiReact.semanticUiReactStrings.camera = "camera".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.camera]
   @scala.inline
-  def `camera retro`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`camera retro` = this.cast("camera retro")
+  def `camera retro`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`camera retro` = ("camera retro").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`camera retro`]
   @scala.inline
-  def cancel: typingsSlinky.semanticUiReact.semanticUiReactStrings.cancel = this.cast("cancel")
+  def cancel: typingsSlinky.semanticUiReact.semanticUiReactStrings.cancel = "cancel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cancel]
   @scala.inline
-  def car: typingsSlinky.semanticUiReact.semanticUiReactStrings.car = this.cast("car")
+  def car: typingsSlinky.semanticUiReact.semanticUiReactStrings.car = "car".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.car]
   @scala.inline
-  def `caret down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret down` = this.cast("caret down")
+  def `caret down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret down` = ("caret down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret down`]
   @scala.inline
-  def `caret left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret left` = this.cast("caret left")
+  def `caret left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret left` = ("caret left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret left`]
   @scala.inline
-  def `caret right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret right` = this.cast("caret right")
+  def `caret right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret right` = ("caret right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret right`]
   @scala.inline
-  def `caret square down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down` = this.cast("caret square down")
+  def `caret square down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down` = ("caret square down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down`]
   @scala.inline
-  def `caret square down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down outline` = this.cast("caret square down outline")
+  def `caret square down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down outline` = ("caret square down outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square down outline`]
   @scala.inline
-  def `caret square left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left` = this.cast("caret square left")
+  def `caret square left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left` = ("caret square left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left`]
   @scala.inline
-  def `caret square left outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left outline` = this.cast("caret square left outline")
+  def `caret square left outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left outline` = ("caret square left outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square left outline`]
   @scala.inline
-  def `caret square right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right` = this.cast("caret square right")
+  def `caret square right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right` = ("caret square right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right`]
   @scala.inline
-  def `caret square right outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right outline` = this.cast("caret square right outline")
+  def `caret square right outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right outline` = ("caret square right outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square right outline`]
   @scala.inline
-  def `caret square up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up` = this.cast("caret square up")
+  def `caret square up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up` = ("caret square up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up`]
   @scala.inline
-  def `caret square up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up outline` = this.cast("caret square up outline")
+  def `caret square up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up outline` = ("caret square up outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret square up outline`]
   @scala.inline
-  def `caret up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret up` = this.cast("caret up")
+  def `caret up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret up` = ("caret up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`caret up`]
   @scala.inline
-  def cart: typingsSlinky.semanticUiReact.semanticUiReactStrings.cart = this.cast("cart")
+  def cart: typingsSlinky.semanticUiReact.semanticUiReactStrings.cart = "cart".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cart]
   @scala.inline
-  def `cart arrow down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart arrow down` = this.cast("cart arrow down")
+  def `cart arrow down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart arrow down` = ("cart arrow down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart arrow down`]
   @scala.inline
-  def `cart plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart plus` = this.cast("cart plus")
+  def `cart plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart plus` = ("cart plus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cart plus`]
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def cc: typingsSlinky.semanticUiReact.semanticUiReactStrings.cc = "cc".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cc]
   @scala.inline
-  def cc: typingsSlinky.semanticUiReact.semanticUiReactStrings.cc = this.cast("cc")
+  def `cc amazon pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amazon pay` = ("cc amazon pay").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amazon pay`]
   @scala.inline
-  def `cc amazon pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amazon pay` = this.cast("cc amazon pay")
+  def `cc amex`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amex` = ("cc amex").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amex`]
   @scala.inline
-  def `cc amex`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc amex` = this.cast("cc amex")
+  def `cc apple pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc apple pay` = ("cc apple pay").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc apple pay`]
   @scala.inline
-  def `cc apple pay`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc apple pay` = this.cast("cc apple pay")
+  def `cc diners club`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc diners club` = ("cc diners club").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc diners club`]
   @scala.inline
-  def `cc diners club`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc diners club` = this.cast("cc diners club")
+  def `cc discover`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc discover` = ("cc discover").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc discover`]
   @scala.inline
-  def `cc discover`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc discover` = this.cast("cc discover")
+  def `cc jcb`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc jcb` = ("cc jcb").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc jcb`]
   @scala.inline
-  def `cc jcb`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc jcb` = this.cast("cc jcb")
+  def `cc mastercard`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc mastercard` = ("cc mastercard").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc mastercard`]
   @scala.inline
-  def `cc mastercard`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc mastercard` = this.cast("cc mastercard")
+  def `cc paypal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc paypal` = ("cc paypal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc paypal`]
   @scala.inline
-  def `cc paypal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc paypal` = this.cast("cc paypal")
+  def `cc stripe`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc stripe` = ("cc stripe").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc stripe`]
   @scala.inline
-  def `cc stripe`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc stripe` = this.cast("cc stripe")
+  def `cc visa`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc visa` = ("cc visa").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc visa`]
   @scala.inline
-  def `cc visa`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cc visa` = this.cast("cc visa")
+  def centercode: typingsSlinky.semanticUiReact.semanticUiReactStrings.centercode = "centercode".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.centercode]
   @scala.inline
-  def centercode: typingsSlinky.semanticUiReact.semanticUiReactStrings.centercode = this.cast("centercode")
+  def certificate: typingsSlinky.semanticUiReact.semanticUiReactStrings.certificate = "certificate".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.certificate]
   @scala.inline
-  def certificate: typingsSlinky.semanticUiReact.semanticUiReactStrings.certificate = this.cast("certificate")
+  def chain: typingsSlinky.semanticUiReact.semanticUiReactStrings.chain = "chain".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.chain]
   @scala.inline
-  def chain: typingsSlinky.semanticUiReact.semanticUiReactStrings.chain = this.cast("chain")
+  def `chart area`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart area` = ("chart area").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart area`]
   @scala.inline
-  def `chart area`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart area` = this.cast("chart area")
+  def `chart bar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar` = ("chart bar").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar`]
   @scala.inline
-  def `chart bar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar` = this.cast("chart bar")
+  def `chart bar outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar outline` = ("chart bar outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar outline`]
   @scala.inline
-  def `chart bar outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart bar outline` = this.cast("chart bar outline")
+  def `chart line`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart line` = ("chart line").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart line`]
   @scala.inline
-  def `chart line`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart line` = this.cast("chart line")
+  def `chart pie`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart pie` = ("chart pie").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart pie`]
   @scala.inline
-  def `chart pie`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chart pie` = this.cast("chart pie")
+  def chat: typingsSlinky.semanticUiReact.semanticUiReactStrings.chat = "chat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.chat]
   @scala.inline
-  def chat: typingsSlinky.semanticUiReact.semanticUiReactStrings.chat = this.cast("chat")
+  def check: typingsSlinky.semanticUiReact.semanticUiReactStrings.check = "check".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.check]
   @scala.inline
-  def check: typingsSlinky.semanticUiReact.semanticUiReactStrings.check = this.cast("check")
+  def `check circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle` = ("check circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle`]
   @scala.inline
-  def `check circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle` = this.cast("check circle")
+  def `check circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle outline` = ("check circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle outline`]
   @scala.inline
-  def `check circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check circle outline` = this.cast("check circle outline")
+  def `check square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square` = ("check square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square`]
   @scala.inline
-  def `check square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square` = this.cast("check square")
+  def `check square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square outline` = ("check square outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square outline`]
   @scala.inline
-  def `check square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`check square outline` = this.cast("check square outline")
+  def `checked calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`checked calendar` = ("checked calendar").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`checked calendar`]
   @scala.inline
-  def `checked calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`checked calendar` = this.cast("checked calendar")
+  def checkmark: typingsSlinky.semanticUiReact.semanticUiReactStrings.checkmark = "checkmark".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.checkmark]
   @scala.inline
-  def checkmark: typingsSlinky.semanticUiReact.semanticUiReactStrings.checkmark = this.cast("checkmark")
+  def `checkmark box`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`checkmark box` = ("checkmark box").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`checkmark box`]
   @scala.inline
-  def `checkmark box`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`checkmark box` = this.cast("checkmark box")
+  def chess: typingsSlinky.semanticUiReact.semanticUiReactStrings.chess = "chess".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.chess]
   @scala.inline
-  def chess: typingsSlinky.semanticUiReact.semanticUiReactStrings.chess = this.cast("chess")
+  def `chess bishop`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess bishop` = ("chess bishop").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess bishop`]
   @scala.inline
-  def `chess bishop`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess bishop` = this.cast("chess bishop")
+  def `chess board`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess board` = ("chess board").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess board`]
   @scala.inline
-  def `chess board`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess board` = this.cast("chess board")
+  def `chess king`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess king` = ("chess king").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess king`]
   @scala.inline
-  def `chess king`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess king` = this.cast("chess king")
+  def `chess knight`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess knight` = ("chess knight").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess knight`]
   @scala.inline
-  def `chess knight`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess knight` = this.cast("chess knight")
+  def `chess pawn`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess pawn` = ("chess pawn").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess pawn`]
   @scala.inline
-  def `chess pawn`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess pawn` = this.cast("chess pawn")
+  def `chess queen`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess queen` = ("chess queen").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess queen`]
   @scala.inline
-  def `chess queen`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess queen` = this.cast("chess queen")
+  def `chess rock`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rock` = ("chess rock").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rock`]
   @scala.inline
-  def `chess rock`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rock` = this.cast("chess rock")
+  def `chess rook`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rook` = ("chess rook").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rook`]
   @scala.inline
-  def `chess rook`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chess rook` = this.cast("chess rook")
+  def `chevron circle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle down` = ("chevron circle down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle down`]
   @scala.inline
-  def `chevron circle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle down` = this.cast("chevron circle down")
+  def `chevron circle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle left` = ("chevron circle left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle left`]
   @scala.inline
-  def `chevron circle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle left` = this.cast("chevron circle left")
+  def `chevron circle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle right` = ("chevron circle right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle right`]
   @scala.inline
-  def `chevron circle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle right` = this.cast("chevron circle right")
+  def `chevron circle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle up` = ("chevron circle up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle up`]
   @scala.inline
-  def `chevron circle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron circle up` = this.cast("chevron circle up")
+  def `chevron down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron down` = ("chevron down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron down`]
   @scala.inline
-  def `chevron down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron down` = this.cast("chevron down")
+  def `chevron left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron left` = ("chevron left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron left`]
   @scala.inline
-  def `chevron left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron left` = this.cast("chevron left")
+  def `chevron right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron right` = ("chevron right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron right`]
   @scala.inline
-  def `chevron right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron right` = this.cast("chevron right")
+  def `chevron up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron up` = ("chevron up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron up`]
   @scala.inline
-  def `chevron up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`chevron up` = this.cast("chevron up")
+  def child: typingsSlinky.semanticUiReact.semanticUiReactStrings.child = "child".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.child]
   @scala.inline
-  def child: typingsSlinky.semanticUiReact.semanticUiReactStrings.child = this.cast("child")
+  def chrome: typingsSlinky.semanticUiReact.semanticUiReactStrings.chrome = "chrome".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.chrome]
   @scala.inline
-  def chrome: typingsSlinky.semanticUiReact.semanticUiReactStrings.chrome = this.cast("chrome")
+  def circle: typingsSlinky.semanticUiReact.semanticUiReactStrings.circle = "circle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.circle]
   @scala.inline
-  def circle: typingsSlinky.semanticUiReact.semanticUiReactStrings.circle = this.cast("circle")
+  def `circle notch`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notch` = ("circle notch").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notch`]
   @scala.inline
-  def `circle notch`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notch` = this.cast("circle notch")
+  def `circle notched`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notched` = ("circle notched").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notched`]
   @scala.inline
-  def `circle notched`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle notched` = this.cast("circle notched")
+  def `circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle outline` = ("circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle outline`]
   @scala.inline
-  def `circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle outline` = this.cast("circle outline")
+  def `circle thin`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle thin` = ("circle thin").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle thin`]
   @scala.inline
-  def `circle thin`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`circle thin` = this.cast("circle thin")
+  def clipboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.clipboard = "clipboard".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.clipboard]
   @scala.inline
-  def clipboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.clipboard = this.cast("clipboard")
+  def `clipboard check`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard check` = ("clipboard check").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard check`]
   @scala.inline
-  def `clipboard check`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard check` = this.cast("clipboard check")
+  def `clipboard list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard list` = ("clipboard list").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard list`]
   @scala.inline
-  def `clipboard list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard list` = this.cast("clipboard list")
+  def `clipboard outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard outline` = ("clipboard outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard outline`]
   @scala.inline
-  def `clipboard outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clipboard outline` = this.cast("clipboard outline")
+  def clock: typingsSlinky.semanticUiReact.semanticUiReactStrings.clock = "clock".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.clock]
   @scala.inline
-  def clock: typingsSlinky.semanticUiReact.semanticUiReactStrings.clock = this.cast("clock")
+  def `clock outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clock outline` = ("clock outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`clock outline`]
   @scala.inline
-  def `clock outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clock outline` = this.cast("clock outline")
+  def `clone outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clone outline` = ("clone outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`clone outline`]
   @scala.inline
-  def `clone outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`clone outline` = this.cast("clone outline")
+  def close: typingsSlinky.semanticUiReact.semanticUiReactStrings.close = "close".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.close]
   @scala.inline
-  def close: typingsSlinky.semanticUiReact.semanticUiReactStrings.close = this.cast("close")
+  def `closed captioning`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning` = ("closed captioning").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning`]
   @scala.inline
-  def `closed captioning`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning` = this.cast("closed captioning")
+  def `closed captioning outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning outline` = ("closed captioning outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning outline`]
   @scala.inline
-  def `closed captioning outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`closed captioning outline` = this.cast("closed captioning outline")
+  def cloud: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloud = "cloud".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cloud]
   @scala.inline
-  def cloud: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloud = this.cast("cloud")
+  def `cloud download`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud download` = ("cloud download").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud download`]
   @scala.inline
-  def `cloud download`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud download` = this.cast("cloud download")
+  def `cloud upload`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud upload` = ("cloud upload").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud upload`]
   @scala.inline
-  def `cloud upload`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`cloud upload` = this.cast("cloud upload")
+  def cloudscale: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudscale = "cloudscale".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudscale]
   @scala.inline
-  def cloudscale: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudscale = this.cast("cloudscale")
+  def cloudsmith: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudsmith = "cloudsmith".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudsmith]
   @scala.inline
-  def cloudsmith: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudsmith = this.cast("cloudsmith")
+  def cloudversify: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudversify = "cloudversify".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudversify]
   @scala.inline
-  def cloudversify: typingsSlinky.semanticUiReact.semanticUiReactStrings.cloudversify = this.cast("cloudversify")
+  def cny: typingsSlinky.semanticUiReact.semanticUiReactStrings.cny = "cny".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cny]
   @scala.inline
-  def cny: typingsSlinky.semanticUiReact.semanticUiReactStrings.cny = this.cast("cny")
+  def cocktail: typingsSlinky.semanticUiReact.semanticUiReactStrings.cocktail = "cocktail".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cocktail]
   @scala.inline
-  def cocktail: typingsSlinky.semanticUiReact.semanticUiReactStrings.cocktail = this.cast("cocktail")
+  def code: typingsSlinky.semanticUiReact.semanticUiReactStrings.code = "code".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.code]
   @scala.inline
-  def code: typingsSlinky.semanticUiReact.semanticUiReactStrings.code = this.cast("code")
+  def `code branch`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`code branch` = ("code branch").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`code branch`]
   @scala.inline
-  def `code branch`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`code branch` = this.cast("code branch")
+  def codepen: typingsSlinky.semanticUiReact.semanticUiReactStrings.codepen = "codepen".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.codepen]
   @scala.inline
-  def codepen: typingsSlinky.semanticUiReact.semanticUiReactStrings.codepen = this.cast("codepen")
+  def codiepie: typingsSlinky.semanticUiReact.semanticUiReactStrings.codiepie = "codiepie".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.codiepie]
   @scala.inline
-  def codiepie: typingsSlinky.semanticUiReact.semanticUiReactStrings.codiepie = this.cast("codiepie")
+  def coffee: typingsSlinky.semanticUiReact.semanticUiReactStrings.coffee = "coffee".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.coffee]
   @scala.inline
-  def coffee: typingsSlinky.semanticUiReact.semanticUiReactStrings.coffee = this.cast("coffee")
+  def cog: typingsSlinky.semanticUiReact.semanticUiReactStrings.cog = "cog".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cog]
   @scala.inline
-  def cog: typingsSlinky.semanticUiReact.semanticUiReactStrings.cog = this.cast("cog")
+  def cogs: typingsSlinky.semanticUiReact.semanticUiReactStrings.cogs = "cogs".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cogs]
   @scala.inline
-  def cogs: typingsSlinky.semanticUiReact.semanticUiReactStrings.cogs = this.cast("cogs")
+  def columns: typingsSlinky.semanticUiReact.semanticUiReactStrings.columns = "columns".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.columns]
   @scala.inline
-  def columns: typingsSlinky.semanticUiReact.semanticUiReactStrings.columns = this.cast("columns")
+  def comment: typingsSlinky.semanticUiReact.semanticUiReactStrings.comment = "comment".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.comment]
   @scala.inline
-  def comment: typingsSlinky.semanticUiReact.semanticUiReactStrings.comment = this.cast("comment")
+  def `comment alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate` = ("comment alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate`]
   @scala.inline
-  def `comment alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate` = this.cast("comment alternate")
+  def `comment alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate outline` = ("comment alternate outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate outline`]
   @scala.inline
-  def `comment alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment alternate outline` = this.cast("comment alternate outline")
+  def `comment outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment outline` = ("comment outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment outline`]
   @scala.inline
-  def `comment outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comment outline` = this.cast("comment outline")
+  def commenting: typingsSlinky.semanticUiReact.semanticUiReactStrings.commenting = "commenting".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.commenting]
   @scala.inline
-  def commenting: typingsSlinky.semanticUiReact.semanticUiReactStrings.commenting = this.cast("commenting")
+  def comments: typingsSlinky.semanticUiReact.semanticUiReactStrings.comments = "comments".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.comments]
   @scala.inline
-  def comments: typingsSlinky.semanticUiReact.semanticUiReactStrings.comments = this.cast("comments")
+  def `comments outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comments outline` = ("comments outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`comments outline`]
   @scala.inline
-  def `comments outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`comments outline` = this.cast("comments outline")
+  def compass: typingsSlinky.semanticUiReact.semanticUiReactStrings.compass = "compass".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.compass]
   @scala.inline
-  def compass: typingsSlinky.semanticUiReact.semanticUiReactStrings.compass = this.cast("compass")
+  def `compass outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`compass outline` = ("compass outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`compass outline`]
   @scala.inline
-  def `compass outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`compass outline` = this.cast("compass outline")
+  def compose: typingsSlinky.semanticUiReact.semanticUiReactStrings.compose = "compose".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.compose]
   @scala.inline
-  def compose: typingsSlinky.semanticUiReact.semanticUiReactStrings.compose = this.cast("compose")
+  def compress: typingsSlinky.semanticUiReact.semanticUiReactStrings.compress = "compress".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.compress]
   @scala.inline
-  def compress: typingsSlinky.semanticUiReact.semanticUiReactStrings.compress = this.cast("compress")
+  def computer: typingsSlinky.semanticUiReact.semanticUiReactStrings.computer = "computer".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.computer]
   @scala.inline
-  def computer: typingsSlinky.semanticUiReact.semanticUiReactStrings.computer = this.cast("computer")
+  def configure: typingsSlinky.semanticUiReact.semanticUiReactStrings.configure = "configure".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.configure]
   @scala.inline
-  def configure: typingsSlinky.semanticUiReact.semanticUiReactStrings.configure = this.cast("configure")
+  def connectdevelop: typingsSlinky.semanticUiReact.semanticUiReactStrings.connectdevelop = "connectdevelop".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.connectdevelop]
   @scala.inline
-  def connectdevelop: typingsSlinky.semanticUiReact.semanticUiReactStrings.connectdevelop = this.cast("connectdevelop")
+  def contao: typingsSlinky.semanticUiReact.semanticUiReactStrings.contao = "contao".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.contao]
   @scala.inline
-  def contao: typingsSlinky.semanticUiReact.semanticUiReactStrings.contao = this.cast("contao")
+  def content: typingsSlinky.semanticUiReact.semanticUiReactStrings.content = "content".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.content]
   @scala.inline
-  def content: typingsSlinky.semanticUiReact.semanticUiReactStrings.content = this.cast("content")
+  def conversation: typingsSlinky.semanticUiReact.semanticUiReactStrings.conversation = "conversation".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.conversation]
   @scala.inline
-  def conversation: typingsSlinky.semanticUiReact.semanticUiReactStrings.conversation = this.cast("conversation")
+  def copy: typingsSlinky.semanticUiReact.semanticUiReactStrings.copy = "copy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.copy]
   @scala.inline
-  def copy: typingsSlinky.semanticUiReact.semanticUiReactStrings.copy = this.cast("copy")
+  def `copy outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`copy outline` = ("copy outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`copy outline`]
   @scala.inline
-  def `copy outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`copy outline` = this.cast("copy outline")
+  def copyright: typingsSlinky.semanticUiReact.semanticUiReactStrings.copyright = "copyright".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.copyright]
   @scala.inline
-  def copyright: typingsSlinky.semanticUiReact.semanticUiReactStrings.copyright = this.cast("copyright")
+  def `copyright outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`copyright outline` = ("copyright outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`copyright outline`]
   @scala.inline
-  def `copyright outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`copyright outline` = this.cast("copyright outline")
+  def cpanel: typingsSlinky.semanticUiReact.semanticUiReactStrings.cpanel = "cpanel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cpanel]
   @scala.inline
-  def cpanel: typingsSlinky.semanticUiReact.semanticUiReactStrings.cpanel = this.cast("cpanel")
+  def `creative commons`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`creative commons` = ("creative commons").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`creative commons`]
   @scala.inline
-  def `creative commons`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`creative commons` = this.cast("creative commons")
+  def `credit card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card` = ("credit card").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card`]
   @scala.inline
-  def `credit card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card` = this.cast("credit card")
+  def `credit card alternative`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card alternative` = ("credit card alternative").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card alternative`]
   @scala.inline
-  def `credit card alternative`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card alternative` = this.cast("credit card alternative")
+  def `credit card outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card outline` = ("credit card outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card outline`]
   @scala.inline
-  def `credit card outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`credit card outline` = this.cast("credit card outline")
+  def crop: typingsSlinky.semanticUiReact.semanticUiReactStrings.crop = "crop".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.crop]
   @scala.inline
-  def crop: typingsSlinky.semanticUiReact.semanticUiReactStrings.crop = this.cast("crop")
+  def crosshairs: typingsSlinky.semanticUiReact.semanticUiReactStrings.crosshairs = "crosshairs".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.crosshairs]
   @scala.inline
-  def crosshairs: typingsSlinky.semanticUiReact.semanticUiReactStrings.crosshairs = this.cast("crosshairs")
+  def css3: typingsSlinky.semanticUiReact.semanticUiReactStrings.css3 = "css3".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.css3]
   @scala.inline
-  def css3: typingsSlinky.semanticUiReact.semanticUiReactStrings.css3 = this.cast("css3")
+  def `css3 alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`css3 alternate` = ("css3 alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`css3 alternate`]
   @scala.inline
-  def `css3 alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`css3 alternate` = this.cast("css3 alternate")
+  def cube: typingsSlinky.semanticUiReact.semanticUiReactStrings.cube = "cube".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cube]
   @scala.inline
-  def cube: typingsSlinky.semanticUiReact.semanticUiReactStrings.cube = this.cast("cube")
+  def cubes: typingsSlinky.semanticUiReact.semanticUiReactStrings.cubes = "cubes".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cubes]
   @scala.inline
-  def cubes: typingsSlinky.semanticUiReact.semanticUiReactStrings.cubes = this.cast("cubes")
+  def currency: typingsSlinky.semanticUiReact.semanticUiReactStrings.currency = "currency".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.currency]
   @scala.inline
-  def currency: typingsSlinky.semanticUiReact.semanticUiReactStrings.currency = this.cast("currency")
+  def cut: typingsSlinky.semanticUiReact.semanticUiReactStrings.cut = "cut".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cut]
   @scala.inline
-  def cut: typingsSlinky.semanticUiReact.semanticUiReactStrings.cut = this.cast("cut")
+  def cuttlefish: typingsSlinky.semanticUiReact.semanticUiReactStrings.cuttlefish = "cuttlefish".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.cuttlefish]
   @scala.inline
-  def cuttlefish: typingsSlinky.semanticUiReact.semanticUiReactStrings.cuttlefish = this.cast("cuttlefish")
+  def `d and d`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`d and d` = ("d and d").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`d and d`]
   @scala.inline
-  def `d and d`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`d and d` = this.cast("d and d")
+  def dashboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.dashboard = "dashboard".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dashboard]
   @scala.inline
-  def dashboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.dashboard = this.cast("dashboard")
+  def dashcube: typingsSlinky.semanticUiReact.semanticUiReactStrings.dashcube = "dashcube".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dashcube]
   @scala.inline
-  def dashcube: typingsSlinky.semanticUiReact.semanticUiReactStrings.dashcube = this.cast("dashcube")
+  def database: typingsSlinky.semanticUiReact.semanticUiReactStrings.database = "database".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.database]
   @scala.inline
-  def database: typingsSlinky.semanticUiReact.semanticUiReactStrings.database = this.cast("database")
+  def deaf: typingsSlinky.semanticUiReact.semanticUiReactStrings.deaf = "deaf".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.deaf]
   @scala.inline
-  def deaf: typingsSlinky.semanticUiReact.semanticUiReactStrings.deaf = this.cast("deaf")
+  def deafness: typingsSlinky.semanticUiReact.semanticUiReactStrings.deafness = "deafness".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.deafness]
   @scala.inline
-  def deafness: typingsSlinky.semanticUiReact.semanticUiReactStrings.deafness = this.cast("deafness")
+  def delete: typingsSlinky.semanticUiReact.semanticUiReactStrings.delete = "delete".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.delete]
   @scala.inline
-  def delete: typingsSlinky.semanticUiReact.semanticUiReactStrings.delete = this.cast("delete")
+  def `delete calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`delete calendar` = ("delete calendar").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`delete calendar`]
   @scala.inline
-  def `delete calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`delete calendar` = this.cast("delete calendar")
+  def delicious: typingsSlinky.semanticUiReact.semanticUiReactStrings.delicious = "delicious".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.delicious]
   @scala.inline
-  def delicious: typingsSlinky.semanticUiReact.semanticUiReactStrings.delicious = this.cast("delicious")
+  def deploydog: typingsSlinky.semanticUiReact.semanticUiReactStrings.deploydog = "deploydog".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.deploydog]
   @scala.inline
-  def deploydog: typingsSlinky.semanticUiReact.semanticUiReactStrings.deploydog = this.cast("deploydog")
+  def deskpro: typingsSlinky.semanticUiReact.semanticUiReactStrings.deskpro = "deskpro".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.deskpro]
   @scala.inline
-  def deskpro: typingsSlinky.semanticUiReact.semanticUiReactStrings.deskpro = this.cast("deskpro")
+  def desktop: typingsSlinky.semanticUiReact.semanticUiReactStrings.desktop = "desktop".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.desktop]
   @scala.inline
-  def desktop: typingsSlinky.semanticUiReact.semanticUiReactStrings.desktop = this.cast("desktop")
+  def detective: typingsSlinky.semanticUiReact.semanticUiReactStrings.detective = "detective".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.detective]
   @scala.inline
-  def detective: typingsSlinky.semanticUiReact.semanticUiReactStrings.detective = this.cast("detective")
+  def deviantart: typingsSlinky.semanticUiReact.semanticUiReactStrings.deviantart = "deviantart".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.deviantart]
   @scala.inline
-  def deviantart: typingsSlinky.semanticUiReact.semanticUiReactStrings.deviantart = this.cast("deviantart")
+  def diamond: typingsSlinky.semanticUiReact.semanticUiReactStrings.diamond = "diamond".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.diamond]
   @scala.inline
-  def diamond: typingsSlinky.semanticUiReact.semanticUiReactStrings.diamond = this.cast("diamond")
+  def digg: typingsSlinky.semanticUiReact.semanticUiReactStrings.digg = "digg".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.digg]
   @scala.inline
-  def digg: typingsSlinky.semanticUiReact.semanticUiReactStrings.digg = this.cast("digg")
+  def `digital ocean`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`digital ocean` = ("digital ocean").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`digital ocean`]
   @scala.inline
-  def `digital ocean`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`digital ocean` = this.cast("digital ocean")
+  def discord: typingsSlinky.semanticUiReact.semanticUiReactStrings.discord = "discord".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.discord]
   @scala.inline
-  def discord: typingsSlinky.semanticUiReact.semanticUiReactStrings.discord = this.cast("discord")
+  def discourse: typingsSlinky.semanticUiReact.semanticUiReactStrings.discourse = "discourse".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.discourse]
   @scala.inline
-  def discourse: typingsSlinky.semanticUiReact.semanticUiReactStrings.discourse = this.cast("discourse")
+  def discussions: typingsSlinky.semanticUiReact.semanticUiReactStrings.discussions = "discussions".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.discussions]
   @scala.inline
-  def discussions: typingsSlinky.semanticUiReact.semanticUiReactStrings.discussions = this.cast("discussions")
+  def disk: typingsSlinky.semanticUiReact.semanticUiReactStrings.disk = "disk".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.disk]
   @scala.inline
-  def disk: typingsSlinky.semanticUiReact.semanticUiReactStrings.disk = this.cast("disk")
+  def dna: typingsSlinky.semanticUiReact.semanticUiReactStrings.dna = "dna".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dna]
   @scala.inline
-  def dna: typingsSlinky.semanticUiReact.semanticUiReactStrings.dna = this.cast("dna")
+  def dochub: typingsSlinky.semanticUiReact.semanticUiReactStrings.dochub = "dochub".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dochub]
   @scala.inline
-  def dochub: typingsSlinky.semanticUiReact.semanticUiReactStrings.dochub = this.cast("dochub")
+  def docker: typingsSlinky.semanticUiReact.semanticUiReactStrings.docker = "docker".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.docker]
   @scala.inline
-  def docker: typingsSlinky.semanticUiReact.semanticUiReactStrings.docker = this.cast("docker")
+  def doctor: typingsSlinky.semanticUiReact.semanticUiReactStrings.doctor = "doctor".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.doctor]
   @scala.inline
-  def doctor: typingsSlinky.semanticUiReact.semanticUiReactStrings.doctor = this.cast("doctor")
+  def dollar: typingsSlinky.semanticUiReact.semanticUiReactStrings.dollar = "dollar".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dollar]
   @scala.inline
-  def dollar: typingsSlinky.semanticUiReact.semanticUiReactStrings.dollar = this.cast("dollar")
+  def `dollar sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dollar sign` = ("dollar sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`dollar sign`]
   @scala.inline
-  def `dollar sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dollar sign` = this.cast("dollar sign")
+  def dolly: typingsSlinky.semanticUiReact.semanticUiReactStrings.dolly = "dolly".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dolly]
   @scala.inline
-  def dolly: typingsSlinky.semanticUiReact.semanticUiReactStrings.dolly = this.cast("dolly")
+  def `dolly flatbed`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dolly flatbed` = ("dolly flatbed").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`dolly flatbed`]
   @scala.inline
-  def `dolly flatbed`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dolly flatbed` = this.cast("dolly flatbed")
+  def dont: typingsSlinky.semanticUiReact.semanticUiReactStrings.dont = "dont".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dont]
   @scala.inline
-  def dont: typingsSlinky.semanticUiReact.semanticUiReactStrings.dont = this.cast("dont")
+  def `dot circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle` = ("dot circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle`]
   @scala.inline
-  def `dot circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle` = this.cast("dot circle")
+  def `dot circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle outline` = ("dot circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle outline`]
   @scala.inline
-  def `dot circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dot circle outline` = this.cast("dot circle outline")
+  def download: typingsSlinky.semanticUiReact.semanticUiReactStrings.download = "download".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.download]
   @scala.inline
-  def download: typingsSlinky.semanticUiReact.semanticUiReactStrings.download = this.cast("download")
+  def draft2digital: typingsSlinky.semanticUiReact.semanticUiReactStrings.draft2digital = "draft2digital".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.draft2digital]
   @scala.inline
-  def draft2digital: typingsSlinky.semanticUiReact.semanticUiReactStrings.draft2digital = this.cast("draft2digital")
+  def dribbble: typingsSlinky.semanticUiReact.semanticUiReactStrings.dribbble = "dribbble".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dribbble]
   @scala.inline
-  def dribbble: typingsSlinky.semanticUiReact.semanticUiReactStrings.dribbble = this.cast("dribbble")
+  def `dribbble square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dribbble square` = ("dribbble square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`dribbble square`]
   @scala.inline
-  def `dribbble square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`dribbble square` = this.cast("dribbble square")
+  def `drivers license`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`drivers license` = ("drivers license").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`drivers license`]
   @scala.inline
-  def `drivers license`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`drivers license` = this.cast("drivers license")
+  def dropbox: typingsSlinky.semanticUiReact.semanticUiReactStrings.dropbox = "dropbox".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dropbox]
   @scala.inline
-  def dropbox: typingsSlinky.semanticUiReact.semanticUiReactStrings.dropbox = this.cast("dropbox")
+  def dropdown: typingsSlinky.semanticUiReact.semanticUiReactStrings.dropdown = "dropdown".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dropdown]
   @scala.inline
-  def dropdown: typingsSlinky.semanticUiReact.semanticUiReactStrings.dropdown = this.cast("dropdown")
+  def drupal: typingsSlinky.semanticUiReact.semanticUiReactStrings.drupal = "drupal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.drupal]
   @scala.inline
-  def drupal: typingsSlinky.semanticUiReact.semanticUiReactStrings.drupal = this.cast("drupal")
+  def dyalog: typingsSlinky.semanticUiReact.semanticUiReactStrings.dyalog = "dyalog".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.dyalog]
   @scala.inline
-  def dyalog: typingsSlinky.semanticUiReact.semanticUiReactStrings.dyalog = this.cast("dyalog")
+  def earlybirds: typingsSlinky.semanticUiReact.semanticUiReactStrings.earlybirds = "earlybirds".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.earlybirds]
   @scala.inline
-  def earlybirds: typingsSlinky.semanticUiReact.semanticUiReactStrings.earlybirds = this.cast("earlybirds")
+  def edge: typingsSlinky.semanticUiReact.semanticUiReactStrings.edge = "edge".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.edge]
   @scala.inline
-  def edge: typingsSlinky.semanticUiReact.semanticUiReactStrings.edge = this.cast("edge")
+  def edit: typingsSlinky.semanticUiReact.semanticUiReactStrings.edit = "edit".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.edit]
   @scala.inline
-  def edit: typingsSlinky.semanticUiReact.semanticUiReactStrings.edit = this.cast("edit")
+  def `edit outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`edit outline` = ("edit outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`edit outline`]
   @scala.inline
-  def `edit outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`edit outline` = this.cast("edit outline")
+  def eject: typingsSlinky.semanticUiReact.semanticUiReactStrings.eject = "eject".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eject]
   @scala.inline
-  def eject: typingsSlinky.semanticUiReact.semanticUiReactStrings.eject = this.cast("eject")
+  def elementor: typingsSlinky.semanticUiReact.semanticUiReactStrings.elementor = "elementor".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.elementor]
   @scala.inline
-  def elementor: typingsSlinky.semanticUiReact.semanticUiReactStrings.elementor = this.cast("elementor")
+  def `ellipsis horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis horizontal` = ("ellipsis horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis horizontal`]
   @scala.inline
-  def `ellipsis horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis horizontal` = this.cast("ellipsis horizontal")
+  def `ellipsis vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis vertical` = ("ellipsis vertical").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis vertical`]
   @scala.inline
-  def `ellipsis vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ellipsis vertical` = this.cast("ellipsis vertical")
+  def ember: typingsSlinky.semanticUiReact.semanticUiReactStrings.ember = "ember".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ember]
   @scala.inline
-  def ember: typingsSlinky.semanticUiReact.semanticUiReactStrings.ember = this.cast("ember")
+  def emergency: typingsSlinky.semanticUiReact.semanticUiReactStrings.emergency = "emergency".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.emergency]
   @scala.inline
-  def emergency: typingsSlinky.semanticUiReact.semanticUiReactStrings.emergency = this.cast("emergency")
+  def empire: typingsSlinky.semanticUiReact.semanticUiReactStrings.empire = "empire".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.empire]
   @scala.inline
-  def empire: typingsSlinky.semanticUiReact.semanticUiReactStrings.empire = this.cast("empire")
+  def envelope: typingsSlinky.semanticUiReact.semanticUiReactStrings.envelope = "envelope".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.envelope]
   @scala.inline
-  def envelope: typingsSlinky.semanticUiReact.semanticUiReactStrings.envelope = this.cast("envelope")
+  def `envelope open`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open` = ("envelope open").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open`]
   @scala.inline
-  def `envelope open`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open` = this.cast("envelope open")
+  def `envelope open outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open outline` = ("envelope open outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open outline`]
   @scala.inline
-  def `envelope open outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope open outline` = this.cast("envelope open outline")
+  def `envelope outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope outline` = ("envelope outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope outline`]
   @scala.inline
-  def `envelope outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope outline` = this.cast("envelope outline")
+  def `envelope square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope square` = ("envelope square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope square`]
   @scala.inline
-  def `envelope square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envelope square` = this.cast("envelope square")
+  def envira: typingsSlinky.semanticUiReact.semanticUiReactStrings.envira = "envira".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.envira]
   @scala.inline
-  def envira: typingsSlinky.semanticUiReact.semanticUiReactStrings.envira = this.cast("envira")
+  def `envira gallery`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envira gallery` = ("envira gallery").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`envira gallery`]
   @scala.inline
-  def `envira gallery`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`envira gallery` = this.cast("envira gallery")
+  def erase: typingsSlinky.semanticUiReact.semanticUiReactStrings.erase = "erase".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.erase]
   @scala.inline
-  def erase: typingsSlinky.semanticUiReact.semanticUiReactStrings.erase = this.cast("erase")
+  def eraser: typingsSlinky.semanticUiReact.semanticUiReactStrings.eraser = "eraser".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eraser]
   @scala.inline
-  def eraser: typingsSlinky.semanticUiReact.semanticUiReactStrings.eraser = this.cast("eraser")
+  def erlang: typingsSlinky.semanticUiReact.semanticUiReactStrings.erlang = "erlang".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.erlang]
   @scala.inline
-  def erlang: typingsSlinky.semanticUiReact.semanticUiReactStrings.erlang = this.cast("erlang")
+  def ethereum: typingsSlinky.semanticUiReact.semanticUiReactStrings.ethereum = "ethereum".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ethereum]
   @scala.inline
-  def ethereum: typingsSlinky.semanticUiReact.semanticUiReactStrings.ethereum = this.cast("ethereum")
+  def etsy: typingsSlinky.semanticUiReact.semanticUiReactStrings.etsy = "etsy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.etsy]
   @scala.inline
-  def etsy: typingsSlinky.semanticUiReact.semanticUiReactStrings.etsy = this.cast("etsy")
+  def eur: typingsSlinky.semanticUiReact.semanticUiReactStrings.eur = "eur".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eur]
   @scala.inline
-  def eur: typingsSlinky.semanticUiReact.semanticUiReactStrings.eur = this.cast("eur")
+  def euro: typingsSlinky.semanticUiReact.semanticUiReactStrings.euro = "euro".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.euro]
   @scala.inline
-  def euro: typingsSlinky.semanticUiReact.semanticUiReactStrings.euro = this.cast("euro")
+  def `euro sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`euro sign` = ("euro sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`euro sign`]
   @scala.inline
-  def `euro sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`euro sign` = this.cast("euro sign")
+  def exchange: typingsSlinky.semanticUiReact.semanticUiReactStrings.exchange = "exchange".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.exchange]
   @scala.inline
-  def exchange: typingsSlinky.semanticUiReact.semanticUiReactStrings.exchange = this.cast("exchange")
+  def exclamation: typingsSlinky.semanticUiReact.semanticUiReactStrings.exclamation = "exclamation".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.exclamation]
   @scala.inline
-  def exclamation: typingsSlinky.semanticUiReact.semanticUiReactStrings.exclamation = this.cast("exclamation")
+  def `exclamation circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation circle` = ("exclamation circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation circle`]
   @scala.inline
-  def `exclamation circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation circle` = this.cast("exclamation circle")
+  def `exclamation triangle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation triangle` = ("exclamation triangle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation triangle`]
   @scala.inline
-  def `exclamation triangle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`exclamation triangle` = this.cast("exclamation triangle")
+  def expand: typingsSlinky.semanticUiReact.semanticUiReactStrings.expand = "expand".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.expand]
   @scala.inline
-  def expand: typingsSlinky.semanticUiReact.semanticUiReactStrings.expand = this.cast("expand")
+  def `expand arrows alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`expand arrows alternate` = ("expand arrows alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`expand arrows alternate`]
   @scala.inline
-  def `expand arrows alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`expand arrows alternate` = this.cast("expand arrows alternate")
+  def expeditedssl: typingsSlinky.semanticUiReact.semanticUiReactStrings.expeditedssl = "expeditedssl".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.expeditedssl]
   @scala.inline
-  def expeditedssl: typingsSlinky.semanticUiReact.semanticUiReactStrings.expeditedssl = this.cast("expeditedssl")
+  def external: typingsSlinky.semanticUiReact.semanticUiReactStrings.external = "external".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.external]
   @scala.inline
-  def external: typingsSlinky.semanticUiReact.semanticUiReactStrings.external = this.cast("external")
+  def `external alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external alternate` = ("external alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`external alternate`]
   @scala.inline
-  def `external alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external alternate` = this.cast("external alternate")
+  def `external share`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external share` = ("external share").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`external share`]
   @scala.inline
-  def `external share`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external share` = this.cast("external share")
+  def `external square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square` = ("external square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square`]
   @scala.inline
-  def `external square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square` = this.cast("external square")
+  def `external square alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square alternate` = ("external square alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square alternate`]
   @scala.inline
-  def `external square alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`external square alternate` = this.cast("external square alternate")
+  def eye: typingsSlinky.semanticUiReact.semanticUiReactStrings.eye = "eye".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eye]
   @scala.inline
-  def eye: typingsSlinky.semanticUiReact.semanticUiReactStrings.eye = this.cast("eye")
+  def `eye dropper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye dropper` = ("eye dropper").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye dropper`]
   @scala.inline
-  def `eye dropper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye dropper` = this.cast("eye dropper")
+  def `eye slash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash` = ("eye slash").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash`]
   @scala.inline
-  def `eye slash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash` = this.cast("eye slash")
+  def `eye slash outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash outline` = ("eye slash outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash outline`]
   @scala.inline
-  def `eye slash outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`eye slash outline` = this.cast("eye slash outline")
+  def eyedropper: typingsSlinky.semanticUiReact.semanticUiReactStrings.eyedropper = "eyedropper".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eyedropper]
   @scala.inline
-  def eyedropper: typingsSlinky.semanticUiReact.semanticUiReactStrings.eyedropper = this.cast("eyedropper")
+  def facebook: typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook = "facebook".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook]
   @scala.inline
-  def facebook: typingsSlinky.semanticUiReact.semanticUiReactStrings.facebook = this.cast("facebook")
+  def `facebook f`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook f` = ("facebook f").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook f`]
   @scala.inline
-  def `facebook f`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook f` = this.cast("facebook f")
+  def `facebook messenger`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook messenger` = ("facebook messenger").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook messenger`]
   @scala.inline
-  def `facebook messenger`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook messenger` = this.cast("facebook messenger")
+  def `facebook official`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook official` = ("facebook official").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook official`]
   @scala.inline
-  def `facebook official`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook official` = this.cast("facebook official")
+  def `facebook square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook square` = ("facebook square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook square`]
   @scala.inline
-  def `facebook square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`facebook square` = this.cast("facebook square")
+  def factory: typingsSlinky.semanticUiReact.semanticUiReactStrings.factory = "factory".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.factory]
   @scala.inline
-  def factory: typingsSlinky.semanticUiReact.semanticUiReactStrings.factory = this.cast("factory")
+  def `fast backward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast backward` = ("fast backward").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast backward`]
   @scala.inline
-  def `fast backward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast backward` = this.cast("fast backward")
+  def `fast forward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast forward` = ("fast forward").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast forward`]
   @scala.inline
-  def `fast forward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fast forward` = this.cast("fast forward")
+  def favorite: typingsSlinky.semanticUiReact.semanticUiReactStrings.favorite = "favorite".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.favorite]
   @scala.inline
-  def favorite: typingsSlinky.semanticUiReact.semanticUiReactStrings.favorite = this.cast("favorite")
+  def fax: typingsSlinky.semanticUiReact.semanticUiReactStrings.fax = "fax".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fax]
   @scala.inline
-  def fax: typingsSlinky.semanticUiReact.semanticUiReactStrings.fax = this.cast("fax")
+  def feed: typingsSlinky.semanticUiReact.semanticUiReactStrings.feed = "feed".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.feed]
   @scala.inline
-  def feed: typingsSlinky.semanticUiReact.semanticUiReactStrings.feed = this.cast("feed")
+  def female: typingsSlinky.semanticUiReact.semanticUiReactStrings.female = "female".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.female]
   @scala.inline
-  def female: typingsSlinky.semanticUiReact.semanticUiReactStrings.female = this.cast("female")
+  def `female homosexual`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`female homosexual` = ("female homosexual").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`female homosexual`]
   @scala.inline
-  def `female homosexual`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`female homosexual` = this.cast("female homosexual")
+  def `fighter jet`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fighter jet` = ("fighter jet").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fighter jet`]
   @scala.inline
-  def `fighter jet`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fighter jet` = this.cast("fighter jet")
+  def file: typingsSlinky.semanticUiReact.semanticUiReactStrings.file = "file".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.file]
   @scala.inline
-  def file: typingsSlinky.semanticUiReact.semanticUiReactStrings.file = this.cast("file")
+  def `file alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate` = ("file alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate`]
   @scala.inline
-  def `file alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate` = this.cast("file alternate")
+  def `file alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate outline` = ("file alternate outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate outline`]
   @scala.inline
-  def `file alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file alternate outline` = this.cast("file alternate outline")
+  def `file archive`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive` = ("file archive").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive`]
   @scala.inline
-  def `file archive`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive` = this.cast("file archive")
+  def `file archive outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive outline` = ("file archive outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive outline`]
   @scala.inline
-  def `file archive outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file archive outline` = this.cast("file archive outline")
+  def `file audio`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio` = ("file audio").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio`]
   @scala.inline
-  def `file audio`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio` = this.cast("file audio")
+  def `file audio outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio outline` = ("file audio outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio outline`]
   @scala.inline
-  def `file audio outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file audio outline` = this.cast("file audio outline")
+  def `file code`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code` = ("file code").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code`]
   @scala.inline
-  def `file code`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code` = this.cast("file code")
+  def `file code outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code outline` = ("file code outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code outline`]
   @scala.inline
-  def `file code outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file code outline` = this.cast("file code outline")
+  def `file excel`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel` = ("file excel").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel`]
   @scala.inline
-  def `file excel`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel` = this.cast("file excel")
+  def `file excel outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel outline` = ("file excel outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel outline`]
   @scala.inline
-  def `file excel outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file excel outline` = this.cast("file excel outline")
+  def `file image`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image` = ("file image").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image`]
   @scala.inline
-  def `file image`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image` = this.cast("file image")
+  def `file image outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image outline` = ("file image outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image outline`]
   @scala.inline
-  def `file image outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file image outline` = this.cast("file image outline")
+  def `file outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file outline` = ("file outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file outline`]
   @scala.inline
-  def `file outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file outline` = this.cast("file outline")
+  def `file pdf`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf` = ("file pdf").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf`]
   @scala.inline
-  def `file pdf`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf` = this.cast("file pdf")
+  def `file pdf outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf outline` = ("file pdf outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf outline`]
   @scala.inline
-  def `file pdf outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file pdf outline` = this.cast("file pdf outline")
+  def `file powerpoint`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint` = ("file powerpoint").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint`]
   @scala.inline
-  def `file powerpoint`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint` = this.cast("file powerpoint")
+  def `file powerpoint outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint outline` = ("file powerpoint outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint outline`]
   @scala.inline
-  def `file powerpoint outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file powerpoint outline` = this.cast("file powerpoint outline")
+  def `file text`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text` = ("file text").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text`]
   @scala.inline
-  def `file text`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text` = this.cast("file text")
+  def `file text outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text outline` = ("file text outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text outline`]
   @scala.inline
-  def `file text outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file text outline` = this.cast("file text outline")
+  def `file video`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video` = ("file video").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video`]
   @scala.inline
-  def `file video`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video` = this.cast("file video")
+  def `file video outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video outline` = ("file video outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video outline`]
   @scala.inline
-  def `file video outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file video outline` = this.cast("file video outline")
+  def `file word`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word` = ("file word").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word`]
   @scala.inline
-  def `file word`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word` = this.cast("file word")
+  def `file word outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word outline` = ("file word outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word outline`]
   @scala.inline
-  def `file word outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`file word outline` = this.cast("file word outline")
+  def film: typingsSlinky.semanticUiReact.semanticUiReactStrings.film = "film".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.film]
   @scala.inline
-  def film: typingsSlinky.semanticUiReact.semanticUiReactStrings.film = this.cast("film")
+  def filter: typingsSlinky.semanticUiReact.semanticUiReactStrings.filter = "filter".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.filter]
   @scala.inline
-  def filter: typingsSlinky.semanticUiReact.semanticUiReactStrings.filter = this.cast("filter")
+  def find: typingsSlinky.semanticUiReact.semanticUiReactStrings.find = "find".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.find]
   @scala.inline
-  def find: typingsSlinky.semanticUiReact.semanticUiReactStrings.find = this.cast("find")
+  def fire: typingsSlinky.semanticUiReact.semanticUiReactStrings.fire = "fire".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fire]
   @scala.inline
-  def fire: typingsSlinky.semanticUiReact.semanticUiReactStrings.fire = this.cast("fire")
+  def `fire extinguisher`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fire extinguisher` = ("fire extinguisher").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fire extinguisher`]
   @scala.inline
-  def `fire extinguisher`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fire extinguisher` = this.cast("fire extinguisher")
+  def firefox: typingsSlinky.semanticUiReact.semanticUiReactStrings.firefox = "firefox".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.firefox]
   @scala.inline
-  def firefox: typingsSlinky.semanticUiReact.semanticUiReactStrings.firefox = this.cast("firefox")
+  def `first aid`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`first aid` = ("first aid").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`first aid`]
   @scala.inline
-  def `first aid`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`first aid` = this.cast("first aid")
+  def `first order`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`first order` = ("first order").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`first order`]
   @scala.inline
-  def `first order`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`first order` = this.cast("first order")
+  def firstdraft: typingsSlinky.semanticUiReact.semanticUiReactStrings.firstdraft = "firstdraft".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.firstdraft]
   @scala.inline
-  def firstdraft: typingsSlinky.semanticUiReact.semanticUiReactStrings.firstdraft = this.cast("firstdraft")
+  def flag: typingsSlinky.semanticUiReact.semanticUiReactStrings.flag = "flag".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.flag]
   @scala.inline
-  def flag: typingsSlinky.semanticUiReact.semanticUiReactStrings.flag = this.cast("flag")
+  def `flag checkered`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag checkered` = ("flag checkered").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag checkered`]
   @scala.inline
-  def `flag checkered`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag checkered` = this.cast("flag checkered")
+  def `flag outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag outline` = ("flag outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag outline`]
   @scala.inline
-  def `flag outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`flag outline` = this.cast("flag outline")
+  def flask: typingsSlinky.semanticUiReact.semanticUiReactStrings.flask = "flask".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.flask]
   @scala.inline
-  def flask: typingsSlinky.semanticUiReact.semanticUiReactStrings.flask = this.cast("flask")
+  def flickr: typingsSlinky.semanticUiReact.semanticUiReactStrings.flickr = "flickr".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.flickr]
   @scala.inline
-  def flickr: typingsSlinky.semanticUiReact.semanticUiReactStrings.flickr = this.cast("flickr")
+  def flipboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.flipboard = "flipboard".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.flipboard]
   @scala.inline
-  def flipboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.flipboard = this.cast("flipboard")
+  def fly: typingsSlinky.semanticUiReact.semanticUiReactStrings.fly = "fly".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fly]
   @scala.inline
-  def fly: typingsSlinky.semanticUiReact.semanticUiReactStrings.fly = this.cast("fly")
+  def folder: typingsSlinky.semanticUiReact.semanticUiReactStrings.folder = "folder".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.folder]
   @scala.inline
-  def folder: typingsSlinky.semanticUiReact.semanticUiReactStrings.folder = this.cast("folder")
+  def `folder open`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open` = ("folder open").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open`]
   @scala.inline
-  def `folder open`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open` = this.cast("folder open")
+  def `folder open outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open outline` = ("folder open outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open outline`]
   @scala.inline
-  def `folder open outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder open outline` = this.cast("folder open outline")
+  def `folder outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder outline` = ("folder outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder outline`]
   @scala.inline
-  def `folder outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`folder outline` = this.cast("folder outline")
+  def font: typingsSlinky.semanticUiReact.semanticUiReactStrings.font = "font".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.font]
   @scala.inline
-  def font: typingsSlinky.semanticUiReact.semanticUiReactStrings.font = this.cast("font")
+  def `font awesome`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome` = ("font awesome").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome`]
   @scala.inline
-  def `font awesome`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome` = this.cast("font awesome")
+  def `font awesome alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome alternate` = ("font awesome alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome alternate`]
   @scala.inline
-  def `font awesome alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome alternate` = this.cast("font awesome alternate")
+  def `font awesome flag`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome flag` = ("font awesome flag").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome flag`]
   @scala.inline
-  def `font awesome flag`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`font awesome flag` = this.cast("font awesome flag")
+  def fonticons: typingsSlinky.semanticUiReact.semanticUiReactStrings.fonticons = "fonticons".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fonticons]
   @scala.inline
-  def fonticons: typingsSlinky.semanticUiReact.semanticUiReactStrings.fonticons = this.cast("fonticons")
+  def `fonticons fi`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fonticons fi` = ("fonticons fi").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fonticons fi`]
   @scala.inline
-  def `fonticons fi`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fonticons fi` = this.cast("fonticons fi")
+  def food: typingsSlinky.semanticUiReact.semanticUiReactStrings.food = "food".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.food]
   @scala.inline
-  def food: typingsSlinky.semanticUiReact.semanticUiReactStrings.food = this.cast("food")
+  def `football ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`football ball` = ("football ball").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`football ball`]
   @scala.inline
-  def `football ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`football ball` = this.cast("football ball")
+  def fork: typingsSlinky.semanticUiReact.semanticUiReactStrings.fork = "fork".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fork]
   @scala.inline
-  def fork: typingsSlinky.semanticUiReact.semanticUiReactStrings.fork = this.cast("fork")
+  def `fort awesome`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome` = ("fort awesome").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome`]
   @scala.inline
-  def `fort awesome`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome` = this.cast("fort awesome")
+  def `fort awesome alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome alternate` = ("fort awesome alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome alternate`]
   @scala.inline
-  def `fort awesome alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`fort awesome alternate` = this.cast("fort awesome alternate")
+  def forumbee: typingsSlinky.semanticUiReact.semanticUiReactStrings.forumbee = "forumbee".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.forumbee]
   @scala.inline
-  def forumbee: typingsSlinky.semanticUiReact.semanticUiReactStrings.forumbee = this.cast("forumbee")
+  def forward: typingsSlinky.semanticUiReact.semanticUiReactStrings.forward = "forward".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.forward]
   @scala.inline
-  def forward: typingsSlinky.semanticUiReact.semanticUiReactStrings.forward = this.cast("forward")
+  def foursquare: typingsSlinky.semanticUiReact.semanticUiReactStrings.foursquare = "foursquare".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.foursquare]
   @scala.inline
-  def foursquare: typingsSlinky.semanticUiReact.semanticUiReactStrings.foursquare = this.cast("foursquare")
+  def `free code camp`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`free code camp` = ("free code camp").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`free code camp`]
   @scala.inline
-  def `free code camp`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`free code camp` = this.cast("free code camp")
+  def freebsd: typingsSlinky.semanticUiReact.semanticUiReactStrings.freebsd = "freebsd".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.freebsd]
   @scala.inline
-  def freebsd: typingsSlinky.semanticUiReact.semanticUiReactStrings.freebsd = this.cast("freebsd")
+  def frown: typingsSlinky.semanticUiReact.semanticUiReactStrings.frown = "frown".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.frown]
   @scala.inline
-  def frown: typingsSlinky.semanticUiReact.semanticUiReactStrings.frown = this.cast("frown")
+  def `frown outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`frown outline` = ("frown outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`frown outline`]
   @scala.inline
-  def `frown outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`frown outline` = this.cast("frown outline")
+  def futbol: typingsSlinky.semanticUiReact.semanticUiReactStrings.futbol = "futbol".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.futbol]
   @scala.inline
-  def futbol: typingsSlinky.semanticUiReact.semanticUiReactStrings.futbol = this.cast("futbol")
+  def `futbol outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`futbol outline` = ("futbol outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`futbol outline`]
   @scala.inline
-  def `futbol outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`futbol outline` = this.cast("futbol outline")
+  def game: typingsSlinky.semanticUiReact.semanticUiReactStrings.game = "game".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.game]
   @scala.inline
-  def game: typingsSlinky.semanticUiReact.semanticUiReactStrings.game = this.cast("game")
+  def gamepad: typingsSlinky.semanticUiReact.semanticUiReactStrings.gamepad = "gamepad".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gamepad]
   @scala.inline
-  def gamepad: typingsSlinky.semanticUiReact.semanticUiReactStrings.gamepad = this.cast("gamepad")
+  def gavel: typingsSlinky.semanticUiReact.semanticUiReactStrings.gavel = "gavel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gavel]
   @scala.inline
-  def gavel: typingsSlinky.semanticUiReact.semanticUiReactStrings.gavel = this.cast("gavel")
+  def gay: typingsSlinky.semanticUiReact.semanticUiReactStrings.gay = "gay".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gay]
   @scala.inline
-  def gay: typingsSlinky.semanticUiReact.semanticUiReactStrings.gay = this.cast("gay")
+  def gbp: typingsSlinky.semanticUiReact.semanticUiReactStrings.gbp = "gbp".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gbp]
   @scala.inline
-  def gbp: typingsSlinky.semanticUiReact.semanticUiReactStrings.gbp = this.cast("gbp")
+  def gem: typingsSlinky.semanticUiReact.semanticUiReactStrings.gem = "gem".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gem]
   @scala.inline
-  def gem: typingsSlinky.semanticUiReact.semanticUiReactStrings.gem = this.cast("gem")
+  def `gem outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`gem outline` = ("gem outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`gem outline`]
   @scala.inline
-  def `gem outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`gem outline` = this.cast("gem outline")
+  def genderless: typingsSlinky.semanticUiReact.semanticUiReactStrings.genderless = "genderless".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.genderless]
   @scala.inline
-  def genderless: typingsSlinky.semanticUiReact.semanticUiReactStrings.genderless = this.cast("genderless")
+  def `get pocket`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`get pocket` = ("get pocket").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`get pocket`]
   @scala.inline
-  def `get pocket`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`get pocket` = this.cast("get pocket")
+  def gg: typingsSlinky.semanticUiReact.semanticUiReactStrings.gg = "gg".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gg]
   @scala.inline
-  def gg: typingsSlinky.semanticUiReact.semanticUiReactStrings.gg = this.cast("gg")
+  def `gg circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`gg circle` = ("gg circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`gg circle`]
   @scala.inline
-  def `gg circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`gg circle` = this.cast("gg circle")
+  def gift: typingsSlinky.semanticUiReact.semanticUiReactStrings.gift = "gift".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gift]
   @scala.inline
-  def gift: typingsSlinky.semanticUiReact.semanticUiReactStrings.gift = this.cast("gift")
+  def git: typingsSlinky.semanticUiReact.semanticUiReactStrings.git = "git".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.git]
   @scala.inline
-  def git: typingsSlinky.semanticUiReact.semanticUiReactStrings.git = this.cast("git")
+  def `git square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`git square` = ("git square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`git square`]
   @scala.inline
-  def `git square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`git square` = this.cast("git square")
+  def github: typingsSlinky.semanticUiReact.semanticUiReactStrings.github = "github".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.github]
   @scala.inline
-  def github: typingsSlinky.semanticUiReact.semanticUiReactStrings.github = this.cast("github")
+  def `github alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`github alternate` = ("github alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`github alternate`]
   @scala.inline
-  def `github alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`github alternate` = this.cast("github alternate")
+  def `github square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`github square` = ("github square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`github square`]
   @scala.inline
-  def `github square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`github square` = this.cast("github square")
+  def gitkraken: typingsSlinky.semanticUiReact.semanticUiReactStrings.gitkraken = "gitkraken".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gitkraken]
   @scala.inline
-  def gitkraken: typingsSlinky.semanticUiReact.semanticUiReactStrings.gitkraken = this.cast("gitkraken")
+  def gitlab: typingsSlinky.semanticUiReact.semanticUiReactStrings.gitlab = "gitlab".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gitlab]
   @scala.inline
-  def gitlab: typingsSlinky.semanticUiReact.semanticUiReactStrings.gitlab = this.cast("gitlab")
+  def gitter: typingsSlinky.semanticUiReact.semanticUiReactStrings.gitter = "gitter".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gitter]
   @scala.inline
-  def gitter: typingsSlinky.semanticUiReact.semanticUiReactStrings.gitter = this.cast("gitter")
+  def `glass martini`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`glass martini` = ("glass martini").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`glass martini`]
   @scala.inline
-  def `glass martini`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`glass martini` = this.cast("glass martini")
+  def glide: typingsSlinky.semanticUiReact.semanticUiReactStrings.glide = "glide".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.glide]
   @scala.inline
-  def glide: typingsSlinky.semanticUiReact.semanticUiReactStrings.glide = this.cast("glide")
+  def `glide g`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`glide g` = ("glide g").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`glide g`]
   @scala.inline
-  def `glide g`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`glide g` = this.cast("glide g")
+  def globe: typingsSlinky.semanticUiReact.semanticUiReactStrings.globe = "globe".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.globe]
   @scala.inline
-  def globe: typingsSlinky.semanticUiReact.semanticUiReactStrings.globe = this.cast("globe")
+  def gofore: typingsSlinky.semanticUiReact.semanticUiReactStrings.gofore = "gofore".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gofore]
   @scala.inline
-  def gofore: typingsSlinky.semanticUiReact.semanticUiReactStrings.gofore = this.cast("gofore")
+  def `golf ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`golf ball` = ("golf ball").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`golf ball`]
   @scala.inline
-  def `golf ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`golf ball` = this.cast("golf ball")
+  def goodreads: typingsSlinky.semanticUiReact.semanticUiReactStrings.goodreads = "goodreads".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.goodreads]
   @scala.inline
-  def goodreads: typingsSlinky.semanticUiReact.semanticUiReactStrings.goodreads = this.cast("goodreads")
+  def `goodreads g`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`goodreads g` = ("goodreads g").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`goodreads g`]
   @scala.inline
-  def `goodreads g`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`goodreads g` = this.cast("goodreads g")
+  def google: typingsSlinky.semanticUiReact.semanticUiReactStrings.google = "google".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.google]
   @scala.inline
-  def google: typingsSlinky.semanticUiReact.semanticUiReactStrings.google = this.cast("google")
+  def `google drive`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google drive` = ("google drive").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google drive`]
   @scala.inline
-  def `google drive`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google drive` = this.cast("google drive")
+  def `google play`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google play` = ("google play").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google play`]
   @scala.inline
-  def `google play`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google play` = this.cast("google play")
+  def `google plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus` = ("google plus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus`]
   @scala.inline
-  def `google plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus` = this.cast("google plus")
+  def `google plus circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus circle` = ("google plus circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus circle`]
   @scala.inline
-  def `google plus circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus circle` = this.cast("google plus circle")
+  def `google plus g`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus g` = ("google plus g").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus g`]
   @scala.inline
-  def `google plus g`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus g` = this.cast("google plus g")
+  def `google plus official`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus official` = ("google plus official").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus official`]
   @scala.inline
-  def `google plus official`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus official` = this.cast("google plus official")
+  def `google plus square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus square` = ("google plus square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus square`]
   @scala.inline
-  def `google plus square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google plus square` = this.cast("google plus square")
+  def `google wallet`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google wallet` = ("google wallet").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`google wallet`]
   @scala.inline
-  def `google wallet`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`google wallet` = this.cast("google wallet")
+  def grab: typingsSlinky.semanticUiReact.semanticUiReactStrings.grab = "grab".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.grab]
   @scala.inline
-  def grab: typingsSlinky.semanticUiReact.semanticUiReactStrings.grab = this.cast("grab")
+  def graduation: typingsSlinky.semanticUiReact.semanticUiReactStrings.graduation = "graduation".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.graduation]
   @scala.inline
-  def graduation: typingsSlinky.semanticUiReact.semanticUiReactStrings.graduation = this.cast("graduation")
+  def `graduation cap`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`graduation cap` = ("graduation cap").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`graduation cap`]
   @scala.inline
-  def `graduation cap`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`graduation cap` = this.cast("graduation cap")
+  def gratipay: typingsSlinky.semanticUiReact.semanticUiReactStrings.gratipay = "gratipay".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gratipay]
   @scala.inline
-  def gratipay: typingsSlinky.semanticUiReact.semanticUiReactStrings.gratipay = this.cast("gratipay")
+  def grav: typingsSlinky.semanticUiReact.semanticUiReactStrings.grav = "grav".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.grav]
   @scala.inline
-  def grav: typingsSlinky.semanticUiReact.semanticUiReactStrings.grav = this.cast("grav")
+  def `grid layout`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`grid layout` = ("grid layout").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`grid layout`]
   @scala.inline
-  def `grid layout`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`grid layout` = this.cast("grid layout")
+  def gripfire: typingsSlinky.semanticUiReact.semanticUiReactStrings.gripfire = "gripfire".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gripfire]
   @scala.inline
-  def gripfire: typingsSlinky.semanticUiReact.semanticUiReactStrings.gripfire = this.cast("gripfire")
+  def group: typingsSlinky.semanticUiReact.semanticUiReactStrings.group = "group".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.group]
   @scala.inline
-  def group: typingsSlinky.semanticUiReact.semanticUiReactStrings.group = this.cast("group")
+  def grunt: typingsSlinky.semanticUiReact.semanticUiReactStrings.grunt = "grunt".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.grunt]
   @scala.inline
-  def grunt: typingsSlinky.semanticUiReact.semanticUiReactStrings.grunt = this.cast("grunt")
+  def gulp: typingsSlinky.semanticUiReact.semanticUiReactStrings.gulp = "gulp".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.gulp]
   @scala.inline
-  def gulp: typingsSlinky.semanticUiReact.semanticUiReactStrings.gulp = this.cast("gulp")
+  def h: typingsSlinky.semanticUiReact.semanticUiReactStrings.h = "h".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.h]
   @scala.inline
-  def h: typingsSlinky.semanticUiReact.semanticUiReactStrings.h = this.cast("h")
+  def `h square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`h square` = ("h square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`h square`]
   @scala.inline
-  def `h square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`h square` = this.cast("h square")
+  def `hacker news`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news` = ("hacker news").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news`]
   @scala.inline
-  def `hacker news`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news` = this.cast("hacker news")
+  def `hacker news square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news square` = ("hacker news square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news square`]
   @scala.inline
-  def `hacker news square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hacker news square` = this.cast("hacker news square")
+  def `hand lizard`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard` = ("hand lizard").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard`]
   @scala.inline
-  def `hand lizard`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard` = this.cast("hand lizard")
+  def `hand lizard outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard outline` = ("hand lizard outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard outline`]
   @scala.inline
-  def `hand lizard outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand lizard outline` = this.cast("hand lizard outline")
+  def `hand paper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper` = ("hand paper").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper`]
   @scala.inline
-  def `hand paper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper` = this.cast("hand paper")
+  def `hand paper outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper outline` = ("hand paper outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper outline`]
   @scala.inline
-  def `hand paper outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand paper outline` = this.cast("hand paper outline")
+  def `hand peace`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace` = ("hand peace").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace`]
   @scala.inline
-  def `hand peace`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace` = this.cast("hand peace")
+  def `hand peace outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace outline` = ("hand peace outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace outline`]
   @scala.inline
-  def `hand peace outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand peace outline` = this.cast("hand peace outline")
+  def `hand point down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down` = ("hand point down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down`]
   @scala.inline
-  def `hand point down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down` = this.cast("hand point down")
+  def `hand point down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down outline` = ("hand point down outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down outline`]
   @scala.inline
-  def `hand point down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point down outline` = this.cast("hand point down outline")
+  def `hand point left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left` = ("hand point left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left`]
   @scala.inline
-  def `hand point left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left` = this.cast("hand point left")
+  def `hand point left outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left outline` = ("hand point left outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left outline`]
   @scala.inline
-  def `hand point left outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point left outline` = this.cast("hand point left outline")
+  def `hand point right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right` = ("hand point right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right`]
   @scala.inline
-  def `hand point right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right` = this.cast("hand point right")
+  def `hand point right outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right outline` = ("hand point right outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right outline`]
   @scala.inline
-  def `hand point right outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point right outline` = this.cast("hand point right outline")
+  def `hand point up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up` = ("hand point up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up`]
   @scala.inline
-  def `hand point up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up` = this.cast("hand point up")
+  def `hand point up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up outline` = ("hand point up outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up outline`]
   @scala.inline
-  def `hand point up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand point up outline` = this.cast("hand point up outline")
+  def `hand pointer`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer` = ("hand pointer").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer`]
   @scala.inline
-  def `hand pointer`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer` = this.cast("hand pointer")
+  def `hand pointer outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer outline` = ("hand pointer outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer outline`]
   @scala.inline
-  def `hand pointer outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand pointer outline` = this.cast("hand pointer outline")
+  def `hand rock`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock` = ("hand rock").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock`]
   @scala.inline
-  def `hand rock`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock` = this.cast("hand rock")
+  def `hand rock outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock outline` = ("hand rock outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock outline`]
   @scala.inline
-  def `hand rock outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand rock outline` = this.cast("hand rock outline")
+  def `hand scissors`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors` = ("hand scissors").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors`]
   @scala.inline
-  def `hand scissors`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors` = this.cast("hand scissors")
+  def `hand scissors outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors outline` = ("hand scissors outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors outline`]
   @scala.inline
-  def `hand scissors outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand scissors outline` = this.cast("hand scissors outline")
+  def `hand spock`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock` = ("hand spock").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock`]
   @scala.inline
-  def `hand spock`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock` = this.cast("hand spock")
+  def `hand spock outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock outline` = ("hand spock outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock outline`]
   @scala.inline
-  def `hand spock outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand spock outline` = this.cast("hand spock outline")
+  def `hand victory`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand victory` = ("hand victory").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand victory`]
   @scala.inline
-  def `hand victory`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hand victory` = this.cast("hand victory")
+  def handicap: typingsSlinky.semanticUiReact.semanticUiReactStrings.handicap = "handicap".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.handicap]
   @scala.inline
-  def handicap: typingsSlinky.semanticUiReact.semanticUiReactStrings.handicap = this.cast("handicap")
+  def handshake: typingsSlinky.semanticUiReact.semanticUiReactStrings.handshake = "handshake".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.handshake]
   @scala.inline
-  def handshake: typingsSlinky.semanticUiReact.semanticUiReactStrings.handshake = this.cast("handshake")
+  def `handshake outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`handshake outline` = ("handshake outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`handshake outline`]
   @scala.inline
-  def `handshake outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`handshake outline` = this.cast("handshake outline")
+  def `hard of hearing`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hard of hearing` = ("hard of hearing").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hard of hearing`]
   @scala.inline
-  def `hard of hearing`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hard of hearing` = this.cast("hard of hearing")
+  def hashtag: typingsSlinky.semanticUiReact.semanticUiReactStrings.hashtag = "hashtag".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hashtag]
   @scala.inline
-  def hashtag: typingsSlinky.semanticUiReact.semanticUiReactStrings.hashtag = this.cast("hashtag")
+  def hdd: typingsSlinky.semanticUiReact.semanticUiReactStrings.hdd = "hdd".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hdd]
   @scala.inline
-  def hdd: typingsSlinky.semanticUiReact.semanticUiReactStrings.hdd = this.cast("hdd")
+  def `hdd outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hdd outline` = ("hdd outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hdd outline`]
   @scala.inline
-  def `hdd outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hdd outline` = this.cast("hdd outline")
+  def header: typingsSlinky.semanticUiReact.semanticUiReactStrings.header = "header".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.header]
   @scala.inline
-  def header: typingsSlinky.semanticUiReact.semanticUiReactStrings.header = this.cast("header")
+  def heading: typingsSlinky.semanticUiReact.semanticUiReactStrings.heading = "heading".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.heading]
   @scala.inline
-  def heading: typingsSlinky.semanticUiReact.semanticUiReactStrings.heading = this.cast("heading")
+  def headphones: typingsSlinky.semanticUiReact.semanticUiReactStrings.headphones = "headphones".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.headphones]
   @scala.inline
-  def headphones: typingsSlinky.semanticUiReact.semanticUiReactStrings.headphones = this.cast("headphones")
+  def heart: typingsSlinky.semanticUiReact.semanticUiReactStrings.heart = "heart".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.heart]
   @scala.inline
-  def heart: typingsSlinky.semanticUiReact.semanticUiReactStrings.heart = this.cast("heart")
+  def `heart outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`heart outline` = ("heart outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`heart outline`]
   @scala.inline
-  def `heart outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`heart outline` = this.cast("heart outline")
+  def heartbeat: typingsSlinky.semanticUiReact.semanticUiReactStrings.heartbeat = "heartbeat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.heartbeat]
   @scala.inline
-  def heartbeat: typingsSlinky.semanticUiReact.semanticUiReactStrings.heartbeat = this.cast("heartbeat")
+  def help: typingsSlinky.semanticUiReact.semanticUiReactStrings.help = "help".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.help]
   @scala.inline
-  def help: typingsSlinky.semanticUiReact.semanticUiReactStrings.help = this.cast("help")
+  def `help circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`help circle` = ("help circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`help circle`]
   @scala.inline
-  def `help circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`help circle` = this.cast("help circle")
+  def heterosexual: typingsSlinky.semanticUiReact.semanticUiReactStrings.heterosexual = "heterosexual".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.heterosexual]
   @scala.inline
-  def heterosexual: typingsSlinky.semanticUiReact.semanticUiReactStrings.heterosexual = this.cast("heterosexual")
+  def hide: typingsSlinky.semanticUiReact.semanticUiReactStrings.hide = "hide".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hide]
   @scala.inline
-  def hide: typingsSlinky.semanticUiReact.semanticUiReactStrings.hide = this.cast("hide")
+  def hips: typingsSlinky.semanticUiReact.semanticUiReactStrings.hips = "hips".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hips]
   @scala.inline
-  def hips: typingsSlinky.semanticUiReact.semanticUiReactStrings.hips = this.cast("hips")
+  def `hire a helper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hire a helper` = ("hire a helper").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hire a helper`]
   @scala.inline
-  def `hire a helper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hire a helper` = this.cast("hire a helper")
+  def history: typingsSlinky.semanticUiReact.semanticUiReactStrings.history = "history".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.history]
   @scala.inline
-  def history: typingsSlinky.semanticUiReact.semanticUiReactStrings.history = this.cast("history")
+  def `hockey puck`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hockey puck` = ("hockey puck").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hockey puck`]
   @scala.inline
-  def `hockey puck`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hockey puck` = this.cast("hockey puck")
+  def home: typingsSlinky.semanticUiReact.semanticUiReactStrings.home = "home".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.home]
   @scala.inline
-  def home: typingsSlinky.semanticUiReact.semanticUiReactStrings.home = this.cast("home")
+  def hooli: typingsSlinky.semanticUiReact.semanticUiReactStrings.hooli = "hooli".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hooli]
   @scala.inline
-  def hooli: typingsSlinky.semanticUiReact.semanticUiReactStrings.hooli = this.cast("hooli")
+  def hospital: typingsSlinky.semanticUiReact.semanticUiReactStrings.hospital = "hospital".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hospital]
   @scala.inline
-  def hospital: typingsSlinky.semanticUiReact.semanticUiReactStrings.hospital = this.cast("hospital")
+  def `hospital outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital outline` = ("hospital outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital outline`]
   @scala.inline
-  def `hospital outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital outline` = this.cast("hospital outline")
+  def `hospital symbol`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital symbol` = ("hospital symbol").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital symbol`]
   @scala.inline
-  def `hospital symbol`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hospital symbol` = this.cast("hospital symbol")
+  def hotel: typingsSlinky.semanticUiReact.semanticUiReactStrings.hotel = "hotel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hotel]
   @scala.inline
-  def hotel: typingsSlinky.semanticUiReact.semanticUiReactStrings.hotel = this.cast("hotel")
+  def hotjar: typingsSlinky.semanticUiReact.semanticUiReactStrings.hotjar = "hotjar".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hotjar]
   @scala.inline
-  def hotjar: typingsSlinky.semanticUiReact.semanticUiReactStrings.hotjar = this.cast("hotjar")
+  def hourglass: typingsSlinky.semanticUiReact.semanticUiReactStrings.hourglass = "hourglass".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hourglass]
   @scala.inline
-  def hourglass: typingsSlinky.semanticUiReact.semanticUiReactStrings.hourglass = this.cast("hourglass")
+  def `hourglass end`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass end` = ("hourglass end").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass end`]
   @scala.inline
-  def `hourglass end`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass end` = this.cast("hourglass end")
+  def `hourglass four`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass four` = ("hourglass four").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass four`]
   @scala.inline
-  def `hourglass four`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass four` = this.cast("hourglass four")
+  def `hourglass full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass full` = ("hourglass full").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass full`]
   @scala.inline
-  def `hourglass full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass full` = this.cast("hourglass full")
+  def `hourglass half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass half` = ("hourglass half").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass half`]
   @scala.inline
-  def `hourglass half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass half` = this.cast("hourglass half")
+  def `hourglass one`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass one` = ("hourglass one").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass one`]
   @scala.inline
-  def `hourglass one`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass one` = this.cast("hourglass one")
+  def `hourglass outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass outline` = ("hourglass outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass outline`]
   @scala.inline
-  def `hourglass outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass outline` = this.cast("hourglass outline")
+  def `hourglass start`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass start` = ("hourglass start").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass start`]
   @scala.inline
-  def `hourglass start`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass start` = this.cast("hourglass start")
+  def `hourglass three`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass three` = ("hourglass three").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass three`]
   @scala.inline
-  def `hourglass three`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass three` = this.cast("hourglass three")
+  def `hourglass two`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass two` = ("hourglass two").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass two`]
   @scala.inline
-  def `hourglass two`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass two` = this.cast("hourglass two")
+  def `hourglass zero`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass zero` = ("hourglass zero").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass zero`]
   @scala.inline
-  def `hourglass zero`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`hourglass zero` = this.cast("hourglass zero")
+  def houzz: typingsSlinky.semanticUiReact.semanticUiReactStrings.houzz = "houzz".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.houzz]
   @scala.inline
-  def houzz: typingsSlinky.semanticUiReact.semanticUiReactStrings.houzz = this.cast("houzz")
+  def html5: typingsSlinky.semanticUiReact.semanticUiReactStrings.html5 = "html5".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.html5]
   @scala.inline
-  def html5: typingsSlinky.semanticUiReact.semanticUiReactStrings.html5 = this.cast("html5")
+  def hubspot: typingsSlinky.semanticUiReact.semanticUiReactStrings.hubspot = "hubspot".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.hubspot]
   @scala.inline
-  def hubspot: typingsSlinky.semanticUiReact.semanticUiReactStrings.hubspot = this.cast("hubspot")
+  def `i cursor`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`i cursor` = ("i cursor").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`i cursor`]
   @scala.inline
-  def `i cursor`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`i cursor` = this.cast("i cursor")
+  def `id badge`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge` = ("id badge").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge`]
   @scala.inline
-  def `id badge`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge` = this.cast("id badge")
+  def `id badge outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge outline` = ("id badge outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge outline`]
   @scala.inline
-  def `id badge outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id badge outline` = this.cast("id badge outline")
+  def `id card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card` = ("id card").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card`]
   @scala.inline
-  def `id card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card` = this.cast("id card")
+  def `id card outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card outline` = ("id card outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card outline`]
   @scala.inline
-  def `id card outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`id card outline` = this.cast("id card outline")
+  def idea: typingsSlinky.semanticUiReact.semanticUiReactStrings.idea = "idea".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.idea]
   @scala.inline
-  def idea: typingsSlinky.semanticUiReact.semanticUiReactStrings.idea = this.cast("idea")
+  def ils: typingsSlinky.semanticUiReact.semanticUiReactStrings.ils = "ils".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ils]
   @scala.inline
-  def ils: typingsSlinky.semanticUiReact.semanticUiReactStrings.ils = this.cast("ils")
+  def image: typingsSlinky.semanticUiReact.semanticUiReactStrings.image = "image".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.image]
   @scala.inline
-  def image: typingsSlinky.semanticUiReact.semanticUiReactStrings.image = this.cast("image")
+  def `image outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`image outline` = ("image outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`image outline`]
   @scala.inline
-  def `image outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`image outline` = this.cast("image outline")
+  def images: typingsSlinky.semanticUiReact.semanticUiReactStrings.images = "images".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.images]
   @scala.inline
-  def images: typingsSlinky.semanticUiReact.semanticUiReactStrings.images = this.cast("images")
+  def `images outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`images outline` = ("images outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`images outline`]
   @scala.inline
-  def `images outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`images outline` = this.cast("images outline")
+  def imdb: typingsSlinky.semanticUiReact.semanticUiReactStrings.imdb = "imdb".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.imdb]
   @scala.inline
-  def imdb: typingsSlinky.semanticUiReact.semanticUiReactStrings.imdb = this.cast("imdb")
+  def `in cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`in cart` = ("in cart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`in cart`]
   @scala.inline
-  def `in cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`in cart` = this.cast("in cart")
+  def inbox: typingsSlinky.semanticUiReact.semanticUiReactStrings.inbox = "inbox".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.inbox]
   @scala.inline
-  def inbox: typingsSlinky.semanticUiReact.semanticUiReactStrings.inbox = this.cast("inbox")
+  def indent: typingsSlinky.semanticUiReact.semanticUiReactStrings.indent = "indent".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.indent]
   @scala.inline
-  def indent: typingsSlinky.semanticUiReact.semanticUiReactStrings.indent = this.cast("indent")
+  def industry: typingsSlinky.semanticUiReact.semanticUiReactStrings.industry = "industry".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.industry]
   @scala.inline
-  def industry: typingsSlinky.semanticUiReact.semanticUiReactStrings.industry = this.cast("industry")
+  def info: typingsSlinky.semanticUiReact.semanticUiReactStrings.info = "info".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.info]
   @scala.inline
-  def info: typingsSlinky.semanticUiReact.semanticUiReactStrings.info = this.cast("info")
+  def `info circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`info circle` = ("info circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`info circle`]
   @scala.inline
-  def `info circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`info circle` = this.cast("info circle")
+  def inr: typingsSlinky.semanticUiReact.semanticUiReactStrings.inr = "inr".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.inr]
   @scala.inline
-  def inr: typingsSlinky.semanticUiReact.semanticUiReactStrings.inr = this.cast("inr")
+  def instagram: typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram = "instagram".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram]
   @scala.inline
-  def instagram: typingsSlinky.semanticUiReact.semanticUiReactStrings.instagram = this.cast("instagram")
+  def intergender: typingsSlinky.semanticUiReact.semanticUiReactStrings.intergender = "intergender".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.intergender]
   @scala.inline
-  def intergender: typingsSlinky.semanticUiReact.semanticUiReactStrings.intergender = this.cast("intergender")
+  def `internet explorer`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`internet explorer` = ("internet explorer").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`internet explorer`]
   @scala.inline
-  def `internet explorer`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`internet explorer` = this.cast("internet explorer")
+  def intersex: typingsSlinky.semanticUiReact.semanticUiReactStrings.intersex = "intersex".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.intersex]
   @scala.inline
-  def intersex: typingsSlinky.semanticUiReact.semanticUiReactStrings.intersex = this.cast("intersex")
+  def ioxhost: typingsSlinky.semanticUiReact.semanticUiReactStrings.ioxhost = "ioxhost".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ioxhost]
   @scala.inline
-  def ioxhost: typingsSlinky.semanticUiReact.semanticUiReactStrings.ioxhost = this.cast("ioxhost")
+  def italic: typingsSlinky.semanticUiReact.semanticUiReactStrings.italic = "italic".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.italic]
   @scala.inline
-  def italic: typingsSlinky.semanticUiReact.semanticUiReactStrings.italic = this.cast("italic")
+  def itunes: typingsSlinky.semanticUiReact.semanticUiReactStrings.itunes = "itunes".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.itunes]
   @scala.inline
-  def itunes: typingsSlinky.semanticUiReact.semanticUiReactStrings.itunes = this.cast("itunes")
+  def `itunes note`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`itunes note` = ("itunes note").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`itunes note`]
   @scala.inline
-  def `itunes note`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`itunes note` = this.cast("itunes note")
+  def jenkins: typingsSlinky.semanticUiReact.semanticUiReactStrings.jenkins = "jenkins".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.jenkins]
   @scala.inline
-  def jenkins: typingsSlinky.semanticUiReact.semanticUiReactStrings.jenkins = this.cast("jenkins")
+  def joget: typingsSlinky.semanticUiReact.semanticUiReactStrings.joget = "joget".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.joget]
   @scala.inline
-  def joget: typingsSlinky.semanticUiReact.semanticUiReactStrings.joget = this.cast("joget")
+  def joomla: typingsSlinky.semanticUiReact.semanticUiReactStrings.joomla = "joomla".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.joomla]
   @scala.inline
-  def joomla: typingsSlinky.semanticUiReact.semanticUiReactStrings.joomla = this.cast("joomla")
+  def jpy: typingsSlinky.semanticUiReact.semanticUiReactStrings.jpy = "jpy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.jpy]
   @scala.inline
-  def jpy: typingsSlinky.semanticUiReact.semanticUiReactStrings.jpy = this.cast("jpy")
-  @scala.inline
-  def `js square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`js square` = this.cast("js square")
+  def `js square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`js square` = ("js square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`js square`]
   @JSName("js")
   @scala.inline
-  def js_ : typingsSlinky.semanticUiReact.semanticUiReactStrings.js_ = this.cast("js")
+  def js_ : typingsSlinky.semanticUiReact.semanticUiReactStrings.js_ = "js".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.js_]
   @scala.inline
-  def jsfiddle: typingsSlinky.semanticUiReact.semanticUiReactStrings.jsfiddle = this.cast("jsfiddle")
+  def jsfiddle: typingsSlinky.semanticUiReact.semanticUiReactStrings.jsfiddle = "jsfiddle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.jsfiddle]
   @scala.inline
-  def key: typingsSlinky.semanticUiReact.semanticUiReactStrings.key = this.cast("key")
+  def key: typingsSlinky.semanticUiReact.semanticUiReactStrings.key = "key".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.key]
   @scala.inline
-  def keyboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.keyboard = this.cast("keyboard")
+  def keyboard: typingsSlinky.semanticUiReact.semanticUiReactStrings.keyboard = "keyboard".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.keyboard]
   @scala.inline
-  def `keyboard outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`keyboard outline` = this.cast("keyboard outline")
+  def `keyboard outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`keyboard outline` = ("keyboard outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`keyboard outline`]
   @scala.inline
-  def keycdn: typingsSlinky.semanticUiReact.semanticUiReactStrings.keycdn = this.cast("keycdn")
+  def keycdn: typingsSlinky.semanticUiReact.semanticUiReactStrings.keycdn = "keycdn".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.keycdn]
   @scala.inline
-  def kickstarter: typingsSlinky.semanticUiReact.semanticUiReactStrings.kickstarter = this.cast("kickstarter")
+  def kickstarter: typingsSlinky.semanticUiReact.semanticUiReactStrings.kickstarter = "kickstarter".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.kickstarter]
   @scala.inline
-  def `kickstarter k`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`kickstarter k` = this.cast("kickstarter k")
+  def `kickstarter k`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`kickstarter k` = ("kickstarter k").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`kickstarter k`]
   @scala.inline
-  def korvue: typingsSlinky.semanticUiReact.semanticUiReactStrings.korvue = this.cast("korvue")
+  def korvue: typingsSlinky.semanticUiReact.semanticUiReactStrings.korvue = "korvue".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.korvue]
   @scala.inline
-  def krw: typingsSlinky.semanticUiReact.semanticUiReactStrings.krw = this.cast("krw")
+  def krw: typingsSlinky.semanticUiReact.semanticUiReactStrings.krw = "krw".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.krw]
   @scala.inline
-  def lab: typingsSlinky.semanticUiReact.semanticUiReactStrings.lab = this.cast("lab")
+  def lab: typingsSlinky.semanticUiReact.semanticUiReactStrings.lab = "lab".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lab]
   @scala.inline
-  def language: typingsSlinky.semanticUiReact.semanticUiReactStrings.language = this.cast("language")
+  def language: typingsSlinky.semanticUiReact.semanticUiReactStrings.language = "language".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.language]
   @scala.inline
-  def laptop: typingsSlinky.semanticUiReact.semanticUiReactStrings.laptop = this.cast("laptop")
+  def laptop: typingsSlinky.semanticUiReact.semanticUiReactStrings.laptop = "laptop".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.laptop]
   @scala.inline
-  def laravel: typingsSlinky.semanticUiReact.semanticUiReactStrings.laravel = this.cast("laravel")
+  def laravel: typingsSlinky.semanticUiReact.semanticUiReactStrings.laravel = "laravel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.laravel]
   @scala.inline
-  def lastfm: typingsSlinky.semanticUiReact.semanticUiReactStrings.lastfm = this.cast("lastfm")
+  def lastfm: typingsSlinky.semanticUiReact.semanticUiReactStrings.lastfm = "lastfm".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lastfm]
   @scala.inline
-  def `lastfm square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lastfm square` = this.cast("lastfm square")
+  def `lastfm square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lastfm square` = ("lastfm square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`lastfm square`]
   @scala.inline
-  def law: typingsSlinky.semanticUiReact.semanticUiReactStrings.law = this.cast("law")
+  def law: typingsSlinky.semanticUiReact.semanticUiReactStrings.law = "law".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.law]
   @scala.inline
-  def leaf: typingsSlinky.semanticUiReact.semanticUiReactStrings.leaf = this.cast("leaf")
+  def leaf: typingsSlinky.semanticUiReact.semanticUiReactStrings.leaf = "leaf".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.leaf]
   @scala.inline
-  def leanpub: typingsSlinky.semanticUiReact.semanticUiReactStrings.leanpub = this.cast("leanpub")
+  def leanpub: typingsSlinky.semanticUiReact.semanticUiReactStrings.leanpub = "leanpub".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.leanpub]
   @scala.inline
-  def legal: typingsSlinky.semanticUiReact.semanticUiReactStrings.legal = this.cast("legal")
+  def legal: typingsSlinky.semanticUiReact.semanticUiReactStrings.legal = "legal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.legal]
   @scala.inline
-  def lemon: typingsSlinky.semanticUiReact.semanticUiReactStrings.lemon = this.cast("lemon")
+  def lemon: typingsSlinky.semanticUiReact.semanticUiReactStrings.lemon = "lemon".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lemon]
   @scala.inline
-  def `lemon outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lemon outline` = this.cast("lemon outline")
+  def `lemon outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lemon outline` = ("lemon outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`lemon outline`]
   @scala.inline
-  def lesbian: typingsSlinky.semanticUiReact.semanticUiReactStrings.lesbian = this.cast("lesbian")
+  def lesbian: typingsSlinky.semanticUiReact.semanticUiReactStrings.lesbian = "lesbian".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lesbian]
   @scala.inline
-  def less: typingsSlinky.semanticUiReact.semanticUiReactStrings.less = this.cast("less")
+  def less: typingsSlinky.semanticUiReact.semanticUiReactStrings.less = "less".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.less]
   @scala.inline
-  def `level down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down` = this.cast("level down")
+  def `level down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down` = ("level down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down`]
   @scala.inline
-  def `level down alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down alternate` = this.cast("level down alternate")
+  def `level down alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down alternate` = ("level down alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`level down alternate`]
   @scala.inline
-  def `level up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up` = this.cast("level up")
+  def `level up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up` = ("level up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up`]
   @scala.inline
-  def `level up alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up alternate` = this.cast("level up alternate")
+  def `level up alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up alternate` = ("level up alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`level up alternate`]
   @scala.inline
-  def `life ring`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring` = this.cast("life ring")
+  def `life ring`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring` = ("life ring").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring`]
   @scala.inline
-  def `life ring outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring outline` = this.cast("life ring outline")
+  def `life ring outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring outline` = ("life ring outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`life ring outline`]
   @scala.inline
-  def lightbulb: typingsSlinky.semanticUiReact.semanticUiReactStrings.lightbulb = this.cast("lightbulb")
+  def lightbulb: typingsSlinky.semanticUiReact.semanticUiReactStrings.lightbulb = "lightbulb".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lightbulb]
   @scala.inline
-  def `lightbulb outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lightbulb outline` = this.cast("lightbulb outline")
+  def `lightbulb outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lightbulb outline` = ("lightbulb outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`lightbulb outline`]
   @scala.inline
-  def lightning: typingsSlinky.semanticUiReact.semanticUiReactStrings.lightning = this.cast("lightning")
+  def lightning: typingsSlinky.semanticUiReact.semanticUiReactStrings.lightning = "lightning".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lightning]
   @scala.inline
-  def like: typingsSlinky.semanticUiReact.semanticUiReactStrings.like = this.cast("like")
+  def like: typingsSlinky.semanticUiReact.semanticUiReactStrings.like = "like".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.like]
   @scala.inline
-  def `line graph`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`line graph` = this.cast("line graph")
+  def `line graph`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`line graph` = ("line graph").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`line graph`]
   @scala.inline
-  def linechat: typingsSlinky.semanticUiReact.semanticUiReactStrings.linechat = this.cast("linechat")
+  def linechat: typingsSlinky.semanticUiReact.semanticUiReactStrings.linechat = "linechat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.linechat]
   @scala.inline
-  def linkedin: typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin = this.cast("linkedin")
+  def linkedin: typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin = "linkedin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.linkedin]
   @scala.inline
-  def `linkedin alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin alternate` = this.cast("linkedin alternate")
+  def `linkedin alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin alternate` = ("linkedin alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin alternate`]
   @scala.inline
-  def `linkedin square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin square` = this.cast("linkedin square")
+  def `linkedin square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin square` = ("linkedin square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`linkedin square`]
   @scala.inline
-  def linkify: typingsSlinky.semanticUiReact.semanticUiReactStrings.linkify = this.cast("linkify")
+  def linkify: typingsSlinky.semanticUiReact.semanticUiReactStrings.linkify = "linkify".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.linkify]
   @scala.inline
-  def linode: typingsSlinky.semanticUiReact.semanticUiReactStrings.linode = this.cast("linode")
+  def linode: typingsSlinky.semanticUiReact.semanticUiReactStrings.linode = "linode".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.linode]
   @scala.inline
-  def linux: typingsSlinky.semanticUiReact.semanticUiReactStrings.linux = this.cast("linux")
+  def linux: typingsSlinky.semanticUiReact.semanticUiReactStrings.linux = "linux".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.linux]
   @scala.inline
-  def lira: typingsSlinky.semanticUiReact.semanticUiReactStrings.lira = this.cast("lira")
+  def lira: typingsSlinky.semanticUiReact.semanticUiReactStrings.lira = "lira".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lira]
   @scala.inline
-  def `lira sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lira sign` = this.cast("lira sign")
+  def `lira sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lira sign` = ("lira sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`lira sign`]
   @scala.inline
-  def list: typingsSlinky.semanticUiReact.semanticUiReactStrings.list = this.cast("list")
+  def list: typingsSlinky.semanticUiReact.semanticUiReactStrings.list = "list".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.list]
   @scala.inline
-  def `list alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate` = this.cast("list alternate")
+  def `list alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate` = ("list alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate`]
   @scala.inline
-  def `list alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate outline` = this.cast("list alternate outline")
+  def `list alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate outline` = ("list alternate outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`list alternate outline`]
   @scala.inline
-  def `list layout`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list layout` = this.cast("list layout")
+  def `list layout`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list layout` = ("list layout").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`list layout`]
   @scala.inline
-  def `list ol`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ol` = this.cast("list ol")
+  def `list ol`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ol` = ("list ol").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ol`]
   @scala.inline
-  def `list ul`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ul` = this.cast("list ul")
+  def `list ul`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ul` = ("list ul").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`list ul`]
   @scala.inline
-  def `location arrow`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`location arrow` = this.cast("location arrow")
+  def `location arrow`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`location arrow` = ("location arrow").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`location arrow`]
   @scala.inline
-  def lock: typingsSlinky.semanticUiReact.semanticUiReactStrings.lock = this.cast("lock")
+  def lock: typingsSlinky.semanticUiReact.semanticUiReactStrings.lock = "lock".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lock]
   @scala.inline
-  def `lock open`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lock open` = this.cast("lock open")
+  def `lock open`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`lock open` = ("lock open").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`lock open`]
   @scala.inline
-  def `log out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`log out` = this.cast("log out")
+  def `log out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`log out` = ("log out").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`log out`]
   @scala.inline
-  def `long arrow alternate down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate down` = this.cast("long arrow alternate down")
+  def `long arrow alternate down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate down` = ("long arrow alternate down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate down`]
   @scala.inline
-  def `long arrow alternate left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate left` = this.cast("long arrow alternate left")
+  def `long arrow alternate left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate left` = ("long arrow alternate left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate left`]
   @scala.inline
-  def `long arrow alternate right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate right` = this.cast("long arrow alternate right")
+  def `long arrow alternate right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate right` = ("long arrow alternate right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate right`]
   @scala.inline
-  def `long arrow alternate up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate up` = this.cast("long arrow alternate up")
+  def `long arrow alternate up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate up` = ("long arrow alternate up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`long arrow alternate up`]
   @scala.inline
-  def `low vision`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`low vision` = this.cast("low vision")
+  def `low vision`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`low vision` = ("low vision").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`low vision`]
   @scala.inline
-  def lyft: typingsSlinky.semanticUiReact.semanticUiReactStrings.lyft = this.cast("lyft")
+  def lyft: typingsSlinky.semanticUiReact.semanticUiReactStrings.lyft = "lyft".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.lyft]
   @scala.inline
-  def magento: typingsSlinky.semanticUiReact.semanticUiReactStrings.magento = this.cast("magento")
+  def magento: typingsSlinky.semanticUiReact.semanticUiReactStrings.magento = "magento".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.magento]
   @scala.inline
-  def magic: typingsSlinky.semanticUiReact.semanticUiReactStrings.magic = this.cast("magic")
+  def magic: typingsSlinky.semanticUiReact.semanticUiReactStrings.magic = "magic".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.magic]
   @scala.inline
-  def magnet: typingsSlinky.semanticUiReact.semanticUiReactStrings.magnet = this.cast("magnet")
+  def magnet: typingsSlinky.semanticUiReact.semanticUiReactStrings.magnet = "magnet".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.magnet]
   @scala.inline
-  def magnify: typingsSlinky.semanticUiReact.semanticUiReactStrings.magnify = this.cast("magnify")
+  def magnify: typingsSlinky.semanticUiReact.semanticUiReactStrings.magnify = "magnify".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.magnify]
   @scala.inline
-  def mail: typingsSlinky.semanticUiReact.semanticUiReactStrings.mail = this.cast("mail")
+  def mail: typingsSlinky.semanticUiReact.semanticUiReactStrings.mail = "mail".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mail]
   @scala.inline
-  def `mail forward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail forward` = this.cast("mail forward")
+  def `mail forward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail forward` = ("mail forward").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail forward`]
   @scala.inline
-  def `mail outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail outline` = this.cast("mail outline")
+  def `mail outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail outline` = ("mail outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail outline`]
   @scala.inline
-  def `mail square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail square` = this.cast("mail square")
+  def `mail square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail square` = ("mail square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mail square`]
   @scala.inline
-  def male: typingsSlinky.semanticUiReact.semanticUiReactStrings.male = this.cast("male")
+  def male: typingsSlinky.semanticUiReact.semanticUiReactStrings.male = "male".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.male]
   @scala.inline
-  def `male homosexual`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`male homosexual` = this.cast("male homosexual")
+  def `male homosexual`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`male homosexual` = ("male homosexual").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`male homosexual`]
   @scala.inline
-  def man: typingsSlinky.semanticUiReact.semanticUiReactStrings.man = this.cast("man")
+  def man: typingsSlinky.semanticUiReact.semanticUiReactStrings.man = "man".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.man]
   @scala.inline
-  def map: typingsSlinky.semanticUiReact.semanticUiReactStrings.map = this.cast("map")
+  def map: typingsSlinky.semanticUiReact.semanticUiReactStrings.map = "map".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.map]
   @scala.inline
-  def `map marker`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker` = this.cast("map marker")
+  def `map marker`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker` = ("map marker").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker`]
   @scala.inline
-  def `map marker alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker alternate` = this.cast("map marker alternate")
+  def `map marker alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker alternate` = ("map marker alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`map marker alternate`]
   @scala.inline
-  def `map outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map outline` = this.cast("map outline")
+  def `map outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map outline` = ("map outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`map outline`]
   @scala.inline
-  def `map pin`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map pin` = this.cast("map pin")
+  def `map pin`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map pin` = ("map pin").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`map pin`]
   @scala.inline
-  def `map signs`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map signs` = this.cast("map signs")
+  def `map signs`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`map signs` = ("map signs").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`map signs`]
   @scala.inline
-  def marker: typingsSlinky.semanticUiReact.semanticUiReactStrings.marker = this.cast("marker")
+  def marker: typingsSlinky.semanticUiReact.semanticUiReactStrings.marker = "marker".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.marker]
   @scala.inline
-  def mars: typingsSlinky.semanticUiReact.semanticUiReactStrings.mars = this.cast("mars")
+  def mars: typingsSlinky.semanticUiReact.semanticUiReactStrings.mars = "mars".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mars]
   @scala.inline
-  def `mars alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars alternate` = this.cast("mars alternate")
+  def `mars alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars alternate` = ("mars alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars alternate`]
   @scala.inline
-  def `mars double`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars double` = this.cast("mars double")
+  def `mars double`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars double` = ("mars double").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars double`]
   @scala.inline
-  def `mars horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars horizontal` = this.cast("mars horizontal")
+  def `mars horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars horizontal` = ("mars horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars horizontal`]
   @scala.inline
-  def `mars stroke`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke` = this.cast("mars stroke")
+  def `mars stroke`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke` = ("mars stroke").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke`]
   @scala.inline
-  def `mars stroke horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke horizontal` = this.cast("mars stroke horizontal")
+  def `mars stroke horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke horizontal` = ("mars stroke horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke horizontal`]
   @scala.inline
-  def `mars stroke vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke vertical` = this.cast("mars stroke vertical")
+  def `mars stroke vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke vertical` = ("mars stroke vertical").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars stroke vertical`]
   @scala.inline
-  def `mars vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars vertical` = this.cast("mars vertical")
+  def `mars vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars vertical` = ("mars vertical").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mars vertical`]
   @scala.inline
-  def maxcdn: typingsSlinky.semanticUiReact.semanticUiReactStrings.maxcdn = this.cast("maxcdn")
+  def maxcdn: typingsSlinky.semanticUiReact.semanticUiReactStrings.maxcdn = "maxcdn".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.maxcdn]
   @scala.inline
-  def meanpath: typingsSlinky.semanticUiReact.semanticUiReactStrings.meanpath = this.cast("meanpath")
+  def meanpath: typingsSlinky.semanticUiReact.semanticUiReactStrings.meanpath = "meanpath".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.meanpath]
   @scala.inline
-  def medapps: typingsSlinky.semanticUiReact.semanticUiReactStrings.medapps = this.cast("medapps")
+  def medapps: typingsSlinky.semanticUiReact.semanticUiReactStrings.medapps = "medapps".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.medapps]
   @scala.inline
-  def medium: typingsSlinky.semanticUiReact.semanticUiReactStrings.medium = this.cast("medium")
+  def medium: typingsSlinky.semanticUiReact.semanticUiReactStrings.medium = "medium".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.medium]
   @scala.inline
-  def `medium m`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`medium m` = this.cast("medium m")
+  def `medium m`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`medium m` = ("medium m").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`medium m`]
   @scala.inline
-  def medkit: typingsSlinky.semanticUiReact.semanticUiReactStrings.medkit = this.cast("medkit")
+  def medkit: typingsSlinky.semanticUiReact.semanticUiReactStrings.medkit = "medkit".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.medkit]
   @scala.inline
-  def medrt: typingsSlinky.semanticUiReact.semanticUiReactStrings.medrt = this.cast("medrt")
+  def medrt: typingsSlinky.semanticUiReact.semanticUiReactStrings.medrt = "medrt".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.medrt]
   @scala.inline
-  def meetup: typingsSlinky.semanticUiReact.semanticUiReactStrings.meetup = this.cast("meetup")
+  def meetup: typingsSlinky.semanticUiReact.semanticUiReactStrings.meetup = "meetup".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.meetup]
   @scala.inline
-  def meh: typingsSlinky.semanticUiReact.semanticUiReactStrings.meh = this.cast("meh")
+  def meh: typingsSlinky.semanticUiReact.semanticUiReactStrings.meh = "meh".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.meh]
   @scala.inline
-  def `meh outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`meh outline` = this.cast("meh outline")
+  def `meh outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`meh outline` = ("meh outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`meh outline`]
   @scala.inline
-  def mercury: typingsSlinky.semanticUiReact.semanticUiReactStrings.mercury = this.cast("mercury")
+  def mercury: typingsSlinky.semanticUiReact.semanticUiReactStrings.mercury = "mercury".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mercury]
   @scala.inline
-  def microchip: typingsSlinky.semanticUiReact.semanticUiReactStrings.microchip = this.cast("microchip")
+  def microchip: typingsSlinky.semanticUiReact.semanticUiReactStrings.microchip = "microchip".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.microchip]
   @scala.inline
-  def microphone: typingsSlinky.semanticUiReact.semanticUiReactStrings.microphone = this.cast("microphone")
+  def microphone: typingsSlinky.semanticUiReact.semanticUiReactStrings.microphone = "microphone".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.microphone]
   @scala.inline
-  def `microphone slash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`microphone slash` = this.cast("microphone slash")
+  def `microphone slash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`microphone slash` = ("microphone slash").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`microphone slash`]
   @scala.inline
-  def microsoft: typingsSlinky.semanticUiReact.semanticUiReactStrings.microsoft = this.cast("microsoft")
+  def microsoft: typingsSlinky.semanticUiReact.semanticUiReactStrings.microsoft = "microsoft".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.microsoft]
   @scala.inline
-  def `microsoft edge`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`microsoft edge` = this.cast("microsoft edge")
+  def `microsoft edge`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`microsoft edge` = ("microsoft edge").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`microsoft edge`]
   @scala.inline
-  def military: typingsSlinky.semanticUiReact.semanticUiReactStrings.military = this.cast("military")
+  def military: typingsSlinky.semanticUiReact.semanticUiReactStrings.military = "military".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.military]
   @scala.inline
-  def minus: typingsSlinky.semanticUiReact.semanticUiReactStrings.minus = this.cast("minus")
+  def minus: typingsSlinky.semanticUiReact.semanticUiReactStrings.minus = "minus".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.minus]
   @scala.inline
-  def `minus circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus circle` = this.cast("minus circle")
+  def `minus circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus circle` = ("minus circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus circle`]
   @scala.inline
-  def `minus square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square` = this.cast("minus square")
+  def `minus square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square` = ("minus square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square`]
   @scala.inline
-  def `minus square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square outline` = this.cast("minus square outline")
+  def `minus square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square outline` = ("minus square outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`minus square outline`]
   @scala.inline
-  def mix: typingsSlinky.semanticUiReact.semanticUiReactStrings.mix = this.cast("mix")
+  def mix: typingsSlinky.semanticUiReact.semanticUiReactStrings.mix = "mix".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mix]
   @scala.inline
-  def mixcloud: typingsSlinky.semanticUiReact.semanticUiReactStrings.mixcloud = this.cast("mixcloud")
+  def mixcloud: typingsSlinky.semanticUiReact.semanticUiReactStrings.mixcloud = "mixcloud".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mixcloud]
   @scala.inline
-  def mizuni: typingsSlinky.semanticUiReact.semanticUiReactStrings.mizuni = this.cast("mizuni")
+  def mizuni: typingsSlinky.semanticUiReact.semanticUiReactStrings.mizuni = "mizuni".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mizuni]
   @scala.inline
-  def mobile: typingsSlinky.semanticUiReact.semanticUiReactStrings.mobile = this.cast("mobile")
+  def mobile: typingsSlinky.semanticUiReact.semanticUiReactStrings.mobile = "mobile".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mobile]
   @scala.inline
-  def `mobile alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mobile alternate` = this.cast("mobile alternate")
+  def `mobile alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mobile alternate` = ("mobile alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mobile alternate`]
   @scala.inline
-  def modx: typingsSlinky.semanticUiReact.semanticUiReactStrings.modx = this.cast("modx")
+  def modx: typingsSlinky.semanticUiReact.semanticUiReactStrings.modx = "modx".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.modx]
   @scala.inline
-  def monero: typingsSlinky.semanticUiReact.semanticUiReactStrings.monero = this.cast("monero")
+  def monero: typingsSlinky.semanticUiReact.semanticUiReactStrings.monero = "monero".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.monero]
   @scala.inline
-  def money: typingsSlinky.semanticUiReact.semanticUiReactStrings.money = this.cast("money")
+  def money: typingsSlinky.semanticUiReact.semanticUiReactStrings.money = "money".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.money]
   @scala.inline
-  def `money bill alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate` = this.cast("money bill alternate")
+  def `money bill alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate` = ("money bill alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate`]
   @scala.inline
-  def `money bill alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate outline` = this.cast("money bill alternate outline")
+  def `money bill alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate outline` = ("money bill alternate outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`money bill alternate outline`]
   @scala.inline
-  def moon: typingsSlinky.semanticUiReact.semanticUiReactStrings.moon = this.cast("moon")
+  def moon: typingsSlinky.semanticUiReact.semanticUiReactStrings.moon = "moon".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.moon]
   @scala.inline
-  def `moon outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`moon outline` = this.cast("moon outline")
+  def `moon outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`moon outline` = ("moon outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`moon outline`]
   @scala.inline
-  def motorcycle: typingsSlinky.semanticUiReact.semanticUiReactStrings.motorcycle = this.cast("motorcycle")
+  def motorcycle: typingsSlinky.semanticUiReact.semanticUiReactStrings.motorcycle = "motorcycle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.motorcycle]
   @scala.inline
-  def `mouse pointer`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mouse pointer` = this.cast("mouse pointer")
+  def `mouse pointer`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`mouse pointer` = ("mouse pointer").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`mouse pointer`]
   @scala.inline
-  def move: typingsSlinky.semanticUiReact.semanticUiReactStrings.move = this.cast("move")
+  def move: typingsSlinky.semanticUiReact.semanticUiReactStrings.move = "move".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.move]
   @scala.inline
-  def `ms edge`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ms edge` = this.cast("ms edge")
+  def `ms edge`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ms edge` = ("ms edge").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`ms edge`]
   @scala.inline
-  def music: typingsSlinky.semanticUiReact.semanticUiReactStrings.music = this.cast("music")
+  def music: typingsSlinky.semanticUiReact.semanticUiReactStrings.music = "music".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.music]
   @scala.inline
-  def mute: typingsSlinky.semanticUiReact.semanticUiReactStrings.mute = this.cast("mute")
+  def mute: typingsSlinky.semanticUiReact.semanticUiReactStrings.mute = "mute".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.mute]
   @scala.inline
-  def napster: typingsSlinky.semanticUiReact.semanticUiReactStrings.napster = this.cast("napster")
+  def napster: typingsSlinky.semanticUiReact.semanticUiReactStrings.napster = "napster".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.napster]
   @scala.inline
-  def neuter: typingsSlinky.semanticUiReact.semanticUiReactStrings.neuter = this.cast("neuter")
+  def neuter: typingsSlinky.semanticUiReact.semanticUiReactStrings.neuter = "neuter".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.neuter]
   @scala.inline
-  def `new pied piper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`new pied piper` = this.cast("new pied piper")
+  def `new pied piper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`new pied piper` = ("new pied piper").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`new pied piper`]
   @scala.inline
-  def newspaper: typingsSlinky.semanticUiReact.semanticUiReactStrings.newspaper = this.cast("newspaper")
+  def newspaper: typingsSlinky.semanticUiReact.semanticUiReactStrings.newspaper = "newspaper".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.newspaper]
   @scala.inline
-  def `newspaper outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`newspaper outline` = this.cast("newspaper outline")
+  def `newspaper outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`newspaper outline` = ("newspaper outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`newspaper outline`]
   @scala.inline
-  def `nintendo switch`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`nintendo switch` = this.cast("nintendo switch")
+  def `nintendo switch`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`nintendo switch` = ("nintendo switch").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`nintendo switch`]
   @scala.inline
-  def node: typingsSlinky.semanticUiReact.semanticUiReactStrings.node = this.cast("node")
+  def node: typingsSlinky.semanticUiReact.semanticUiReactStrings.node = "node".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.node]
   @scala.inline
-  def `node js`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`node js` = this.cast("node js")
+  def `node js`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`node js` = ("node js").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`node js`]
   @scala.inline
-  def `non binary transgender`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`non binary transgender` = this.cast("non binary transgender")
+  def `non binary transgender`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`non binary transgender` = ("non binary transgender").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`non binary transgender`]
   @scala.inline
-  def npm: typingsSlinky.semanticUiReact.semanticUiReactStrings.npm = this.cast("npm")
+  def npm: typingsSlinky.semanticUiReact.semanticUiReactStrings.npm = "npm".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.npm]
   @scala.inline
-  def ns8: typingsSlinky.semanticUiReact.semanticUiReactStrings.ns8 = this.cast("ns8")
+  def ns8: typingsSlinky.semanticUiReact.semanticUiReactStrings.ns8 = "ns8".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ns8]
   @scala.inline
-  def `numbered list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`numbered list` = this.cast("numbered list")
+  def `numbered list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`numbered list` = ("numbered list").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`numbered list`]
   @scala.inline
-  def nutritionix: typingsSlinky.semanticUiReact.semanticUiReactStrings.nutritionix = this.cast("nutritionix")
+  def nutritionix: typingsSlinky.semanticUiReact.semanticUiReactStrings.nutritionix = "nutritionix".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.nutritionix]
   @scala.inline
-  def `object group`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group` = this.cast("object group")
+  def `object group`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group` = ("object group").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group`]
   @scala.inline
-  def `object group outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group outline` = this.cast("object group outline")
+  def `object group outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group outline` = ("object group outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`object group outline`]
   @scala.inline
-  def `object ungroup`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup` = this.cast("object ungroup")
+  def `object ungroup`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup` = ("object ungroup").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup`]
   @scala.inline
-  def `object ungroup outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup outline` = this.cast("object ungroup outline")
+  def `object ungroup outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup outline` = ("object ungroup outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`object ungroup outline`]
   @scala.inline
-  def odnoklassniki: typingsSlinky.semanticUiReact.semanticUiReactStrings.odnoklassniki = this.cast("odnoklassniki")
+  def odnoklassniki: typingsSlinky.semanticUiReact.semanticUiReactStrings.odnoklassniki = "odnoklassniki".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.odnoklassniki]
   @scala.inline
-  def `odnoklassniki square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`odnoklassniki square` = this.cast("odnoklassniki square")
+  def `odnoklassniki square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`odnoklassniki square` = ("odnoklassniki square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`odnoklassniki square`]
   @scala.inline
-  def opencart: typingsSlinky.semanticUiReact.semanticUiReactStrings.opencart = this.cast("opencart")
+  def opencart: typingsSlinky.semanticUiReact.semanticUiReactStrings.opencart = "opencart".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.opencart]
   @scala.inline
-  def openid: typingsSlinky.semanticUiReact.semanticUiReactStrings.openid = this.cast("openid")
+  def openid: typingsSlinky.semanticUiReact.semanticUiReactStrings.openid = "openid".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.openid]
   @scala.inline
-  def opera: typingsSlinky.semanticUiReact.semanticUiReactStrings.opera = this.cast("opera")
+  def opera: typingsSlinky.semanticUiReact.semanticUiReactStrings.opera = "opera".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.opera]
   @scala.inline
-  def `optin monster`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`optin monster` = this.cast("optin monster")
+  def `optin monster`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`optin monster` = ("optin monster").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`optin monster`]
   @scala.inline
-  def options: typingsSlinky.semanticUiReact.semanticUiReactStrings.options = this.cast("options")
+  def options: typingsSlinky.semanticUiReact.semanticUiReactStrings.options = "options".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.options]
   @scala.inline
-  def `ordered list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ordered list` = this.cast("ordered list")
+  def `ordered list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ordered list` = ("ordered list").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`ordered list`]
   @scala.inline
-  def osi: typingsSlinky.semanticUiReact.semanticUiReactStrings.osi = this.cast("osi")
+  def osi: typingsSlinky.semanticUiReact.semanticUiReactStrings.osi = "osi".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.osi]
   @scala.inline
-  def `other gender`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender` = this.cast("other gender")
+  def `other gender`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender` = ("other gender").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender`]
   @scala.inline
-  def `other gender horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender horizontal` = this.cast("other gender horizontal")
+  def `other gender horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender horizontal` = ("other gender horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender horizontal`]
   @scala.inline
-  def `other gender vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender vertical` = this.cast("other gender vertical")
+  def `other gender vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender vertical` = ("other gender vertical").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`other gender vertical`]
   @scala.inline
-  def outdent: typingsSlinky.semanticUiReact.semanticUiReactStrings.outdent = this.cast("outdent")
+  def outdent: typingsSlinky.semanticUiReact.semanticUiReactStrings.outdent = "outdent".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.outdent]
   @scala.inline
-  def page4: typingsSlinky.semanticUiReact.semanticUiReactStrings.page4 = this.cast("page4")
+  def page4: typingsSlinky.semanticUiReact.semanticUiReactStrings.page4 = "page4".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.page4]
   @scala.inline
-  def pagelines: typingsSlinky.semanticUiReact.semanticUiReactStrings.pagelines = this.cast("pagelines")
+  def pagelines: typingsSlinky.semanticUiReact.semanticUiReactStrings.pagelines = "pagelines".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pagelines]
   @scala.inline
-  def `paint brush`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paint brush` = this.cast("paint brush")
+  def `paint brush`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paint brush` = ("paint brush").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`paint brush`]
   @scala.inline
-  def palfed: typingsSlinky.semanticUiReact.semanticUiReactStrings.palfed = this.cast("palfed")
+  def palfed: typingsSlinky.semanticUiReact.semanticUiReactStrings.palfed = "palfed".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.palfed]
   @scala.inline
-  def pallet: typingsSlinky.semanticUiReact.semanticUiReactStrings.pallet = this.cast("pallet")
+  def pallet: typingsSlinky.semanticUiReact.semanticUiReactStrings.pallet = "pallet".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pallet]
   @scala.inline
-  def `paper plane`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane` = this.cast("paper plane")
+  def `paper plane`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane` = ("paper plane").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane`]
   @scala.inline
-  def `paper plane outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane outline` = this.cast("paper plane outline")
+  def `paper plane outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane outline` = ("paper plane outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`paper plane outline`]
   @scala.inline
-  def paperclip: typingsSlinky.semanticUiReact.semanticUiReactStrings.paperclip = this.cast("paperclip")
+  def paperclip: typingsSlinky.semanticUiReact.semanticUiReactStrings.paperclip = "paperclip".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.paperclip]
   @scala.inline
-  def paragraph: typingsSlinky.semanticUiReact.semanticUiReactStrings.paragraph = this.cast("paragraph")
+  def paragraph: typingsSlinky.semanticUiReact.semanticUiReactStrings.paragraph = "paragraph".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.paragraph]
   @scala.inline
-  def paste: typingsSlinky.semanticUiReact.semanticUiReactStrings.paste = this.cast("paste")
+  def paste: typingsSlinky.semanticUiReact.semanticUiReactStrings.paste = "paste".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.paste]
   @scala.inline
-  def patreon: typingsSlinky.semanticUiReact.semanticUiReactStrings.patreon = this.cast("patreon")
+  def patreon: typingsSlinky.semanticUiReact.semanticUiReactStrings.patreon = "patreon".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.patreon]
   @scala.inline
-  def pause: typingsSlinky.semanticUiReact.semanticUiReactStrings.pause = this.cast("pause")
+  def pause: typingsSlinky.semanticUiReact.semanticUiReactStrings.pause = "pause".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pause]
   @scala.inline
-  def `pause circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle` = this.cast("pause circle")
+  def `pause circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle` = ("pause circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle`]
   @scala.inline
-  def `pause circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle outline` = this.cast("pause circle outline")
+  def `pause circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle outline` = ("pause circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pause circle outline`]
   @scala.inline
-  def paw: typingsSlinky.semanticUiReact.semanticUiReactStrings.paw = this.cast("paw")
+  def paw: typingsSlinky.semanticUiReact.semanticUiReactStrings.paw = "paw".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.paw]
   @scala.inline
-  def payment: typingsSlinky.semanticUiReact.semanticUiReactStrings.payment = this.cast("payment")
+  def payment: typingsSlinky.semanticUiReact.semanticUiReactStrings.payment = "payment".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.payment]
   @scala.inline
-  def paypal: typingsSlinky.semanticUiReact.semanticUiReactStrings.paypal = this.cast("paypal")
+  def paypal: typingsSlinky.semanticUiReact.semanticUiReactStrings.paypal = "paypal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.paypal]
   @scala.inline
-  def `paypal card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paypal card` = this.cast("paypal card")
+  def `paypal card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`paypal card` = ("paypal card").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`paypal card`]
   @scala.inline
-  def `pen square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pen square` = this.cast("pen square")
+  def `pen square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pen square` = ("pen square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pen square`]
   @scala.inline
-  def pencil: typingsSlinky.semanticUiReact.semanticUiReactStrings.pencil = this.cast("pencil")
+  def pencil: typingsSlinky.semanticUiReact.semanticUiReactStrings.pencil = "pencil".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pencil]
   @scala.inline
-  def `pencil alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil alternate` = this.cast("pencil alternate")
+  def `pencil alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil alternate` = ("pencil alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil alternate`]
   @scala.inline
-  def `pencil square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil square` = this.cast("pencil square")
+  def `pencil square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil square` = ("pencil square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pencil square`]
   @scala.inline
-  def percent: typingsSlinky.semanticUiReact.semanticUiReactStrings.percent = this.cast("percent")
+  def percent: typingsSlinky.semanticUiReact.semanticUiReactStrings.percent = "percent".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.percent]
   @scala.inline
-  def periscope: typingsSlinky.semanticUiReact.semanticUiReactStrings.periscope = this.cast("periscope")
+  def periscope: typingsSlinky.semanticUiReact.semanticUiReactStrings.periscope = "periscope".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.periscope]
   @scala.inline
-  def phabricator: typingsSlinky.semanticUiReact.semanticUiReactStrings.phabricator = this.cast("phabricator")
+  def phabricator: typingsSlinky.semanticUiReact.semanticUiReactStrings.phabricator = "phabricator".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.phabricator]
   @scala.inline
-  def `phoenix framework`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`phoenix framework` = this.cast("phoenix framework")
+  def `phoenix framework`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`phoenix framework` = ("phoenix framework").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`phoenix framework`]
   @scala.inline
-  def phone: typingsSlinky.semanticUiReact.semanticUiReactStrings.phone = this.cast("phone")
+  def phone: typingsSlinky.semanticUiReact.semanticUiReactStrings.phone = "phone".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.phone]
   @scala.inline
-  def `phone square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone square` = this.cast("phone square")
+  def `phone square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone square` = ("phone square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone square`]
   @scala.inline
-  def `phone volume`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone volume` = this.cast("phone volume")
+  def `phone volume`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone volume` = ("phone volume").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`phone volume`]
   @scala.inline
-  def photo: typingsSlinky.semanticUiReact.semanticUiReactStrings.photo = this.cast("photo")
+  def photo: typingsSlinky.semanticUiReact.semanticUiReactStrings.photo = "photo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.photo]
   @scala.inline
-  def php: typingsSlinky.semanticUiReact.semanticUiReactStrings.php = this.cast("php")
+  def php: typingsSlinky.semanticUiReact.semanticUiReactStrings.php = "php".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.php]
   @scala.inline
-  def picture: typingsSlinky.semanticUiReact.semanticUiReactStrings.picture = this.cast("picture")
+  def picture: typingsSlinky.semanticUiReact.semanticUiReactStrings.picture = "picture".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.picture]
   @scala.inline
-  def `pie chart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie chart` = this.cast("pie chart")
+  def `pie chart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie chart` = ("pie chart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie chart`]
   @scala.inline
-  def `pie graph`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie graph` = this.cast("pie graph")
+  def `pie graph`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie graph` = ("pie graph").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pie graph`]
   @scala.inline
-  def `pied piper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper` = this.cast("pied piper")
+  def `pied piper`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper` = ("pied piper").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper`]
   @scala.inline
-  def `pied piper alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper alternate` = this.cast("pied piper alternate")
+  def `pied piper alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper alternate` = ("pied piper alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper alternate`]
   @scala.inline
-  def `pied piper hat`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper hat` = this.cast("pied piper hat")
+  def `pied piper hat`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper hat` = ("pied piper hat").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper hat`]
   @scala.inline
-  def `pied piper pp`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper pp` = this.cast("pied piper pp")
+  def `pied piper pp`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper pp` = ("pied piper pp").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pied piper pp`]
   @scala.inline
-  def pills: typingsSlinky.semanticUiReact.semanticUiReactStrings.pills = this.cast("pills")
+  def pills: typingsSlinky.semanticUiReact.semanticUiReactStrings.pills = "pills".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pills]
   @scala.inline
-  def pin: typingsSlinky.semanticUiReact.semanticUiReactStrings.pin = this.cast("pin")
+  def pin: typingsSlinky.semanticUiReact.semanticUiReactStrings.pin = "pin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pin]
   @scala.inline
-  def pinterest: typingsSlinky.semanticUiReact.semanticUiReactStrings.pinterest = this.cast("pinterest")
+  def pinterest: typingsSlinky.semanticUiReact.semanticUiReactStrings.pinterest = "pinterest".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pinterest]
   @scala.inline
-  def `pinterest p`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest p` = this.cast("pinterest p")
+  def `pinterest p`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest p` = ("pinterest p").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest p`]
   @scala.inline
-  def `pinterest square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest square` = this.cast("pinterest square")
+  def `pinterest square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest square` = ("pinterest square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pinterest square`]
   @scala.inline
-  def plane: typingsSlinky.semanticUiReact.semanticUiReactStrings.plane = this.cast("plane")
+  def plane: typingsSlinky.semanticUiReact.semanticUiReactStrings.plane = "plane".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.plane]
   @scala.inline
-  def play: typingsSlinky.semanticUiReact.semanticUiReactStrings.play = this.cast("play")
+  def play: typingsSlinky.semanticUiReact.semanticUiReactStrings.play = "play".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.play]
   @scala.inline
-  def `play circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle` = this.cast("play circle")
+  def `play circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle` = ("play circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle`]
   @scala.inline
-  def `play circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle outline` = this.cast("play circle outline")
+  def `play circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle outline` = ("play circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`play circle outline`]
   @scala.inline
-  def playstation: typingsSlinky.semanticUiReact.semanticUiReactStrings.playstation = this.cast("playstation")
+  def playstation: typingsSlinky.semanticUiReact.semanticUiReactStrings.playstation = "playstation".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.playstation]
   @scala.inline
-  def plug: typingsSlinky.semanticUiReact.semanticUiReactStrings.plug = this.cast("plug")
+  def plug: typingsSlinky.semanticUiReact.semanticUiReactStrings.plug = "plug".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.plug]
   @scala.inline
-  def plus: typingsSlinky.semanticUiReact.semanticUiReactStrings.plus = this.cast("plus")
+  def plus: typingsSlinky.semanticUiReact.semanticUiReactStrings.plus = "plus".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.plus]
   @scala.inline
-  def `plus cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus cart` = this.cast("plus cart")
+  def `plus cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus cart` = ("plus cart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus cart`]
   @scala.inline
-  def `plus circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus circle` = this.cast("plus circle")
+  def `plus circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus circle` = ("plus circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus circle`]
   @scala.inline
-  def `plus square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square` = this.cast("plus square")
+  def `plus square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square` = ("plus square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square`]
   @scala.inline
-  def `plus square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square outline` = this.cast("plus square outline")
+  def `plus square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square outline` = ("plus square outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`plus square outline`]
   @scala.inline
-  def podcast: typingsSlinky.semanticUiReact.semanticUiReactStrings.podcast = this.cast("podcast")
+  def podcast: typingsSlinky.semanticUiReact.semanticUiReactStrings.podcast = "podcast".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.podcast]
   @scala.inline
-  def point: typingsSlinky.semanticUiReact.semanticUiReactStrings.point = this.cast("point")
+  def point: typingsSlinky.semanticUiReact.semanticUiReactStrings.point = "point".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.point]
   @scala.inline
-  def `pointing down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing down` = this.cast("pointing down")
+  def `pointing down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing down` = ("pointing down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing down`]
   @scala.inline
-  def `pointing left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing left` = this.cast("pointing left")
+  def `pointing left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing left` = ("pointing left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing left`]
   @scala.inline
-  def `pointing right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing right` = this.cast("pointing right")
+  def `pointing right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing right` = ("pointing right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing right`]
   @scala.inline
-  def `pointing up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing up` = this.cast("pointing up")
+  def `pointing up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing up` = ("pointing up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pointing up`]
   @scala.inline
-  def pound: typingsSlinky.semanticUiReact.semanticUiReactStrings.pound = this.cast("pound")
+  def pound: typingsSlinky.semanticUiReact.semanticUiReactStrings.pound = "pound".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pound]
   @scala.inline
-  def `pound sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pound sign` = this.cast("pound sign")
+  def `pound sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`pound sign` = ("pound sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`pound sign`]
   @scala.inline
-  def power: typingsSlinky.semanticUiReact.semanticUiReactStrings.power = this.cast("power")
+  def power: typingsSlinky.semanticUiReact.semanticUiReactStrings.power = "power".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.power]
   @scala.inline
-  def `power cord`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`power cord` = this.cast("power cord")
+  def `power cord`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`power cord` = ("power cord").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`power cord`]
   @scala.inline
-  def `power off`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`power off` = this.cast("power off")
+  def `power off`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`power off` = ("power off").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`power off`]
   @scala.inline
-  def print: typingsSlinky.semanticUiReact.semanticUiReactStrings.print = this.cast("print")
+  def print: typingsSlinky.semanticUiReact.semanticUiReactStrings.print = "print".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.print]
   @scala.inline
-  def privacy: typingsSlinky.semanticUiReact.semanticUiReactStrings.privacy = this.cast("privacy")
+  def privacy: typingsSlinky.semanticUiReact.semanticUiReactStrings.privacy = "privacy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.privacy]
   @scala.inline
-  def `product hunt`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`product hunt` = this.cast("product hunt")
+  def `product hunt`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`product hunt` = ("product hunt").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`product hunt`]
   @scala.inline
-  def protect: typingsSlinky.semanticUiReact.semanticUiReactStrings.protect = this.cast("protect")
+  def protect: typingsSlinky.semanticUiReact.semanticUiReactStrings.protect = "protect".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.protect]
   @scala.inline
-  def pushed: typingsSlinky.semanticUiReact.semanticUiReactStrings.pushed = this.cast("pushed")
+  def pushed: typingsSlinky.semanticUiReact.semanticUiReactStrings.pushed = "pushed".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.pushed]
   @scala.inline
-  def puzzle: typingsSlinky.semanticUiReact.semanticUiReactStrings.puzzle = this.cast("puzzle")
+  def puzzle: typingsSlinky.semanticUiReact.semanticUiReactStrings.puzzle = "puzzle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.puzzle]
   @scala.inline
-  def `puzzle piece`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`puzzle piece` = this.cast("puzzle piece")
+  def `puzzle piece`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`puzzle piece` = ("puzzle piece").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`puzzle piece`]
   @scala.inline
-  def python: typingsSlinky.semanticUiReact.semanticUiReactStrings.python = this.cast("python")
+  def python: typingsSlinky.semanticUiReact.semanticUiReactStrings.python = "python".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.python]
   @scala.inline
-  def qq: typingsSlinky.semanticUiReact.semanticUiReactStrings.qq = this.cast("qq")
+  def qq: typingsSlinky.semanticUiReact.semanticUiReactStrings.qq = "qq".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.qq]
   @scala.inline
-  def qrcode: typingsSlinky.semanticUiReact.semanticUiReactStrings.qrcode = this.cast("qrcode")
+  def qrcode: typingsSlinky.semanticUiReact.semanticUiReactStrings.qrcode = "qrcode".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.qrcode]
   @scala.inline
-  def question: typingsSlinky.semanticUiReact.semanticUiReactStrings.question = this.cast("question")
+  def question: typingsSlinky.semanticUiReact.semanticUiReactStrings.question = "question".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.question]
   @scala.inline
-  def `question circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle` = this.cast("question circle")
+  def `question circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle` = ("question circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle`]
   @scala.inline
-  def `question circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle outline` = this.cast("question circle outline")
+  def `question circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle outline` = ("question circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`question circle outline`]
   @scala.inline
-  def quidditch: typingsSlinky.semanticUiReact.semanticUiReactStrings.quidditch = this.cast("quidditch")
+  def quidditch: typingsSlinky.semanticUiReact.semanticUiReactStrings.quidditch = "quidditch".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.quidditch]
   @scala.inline
-  def quinscape: typingsSlinky.semanticUiReact.semanticUiReactStrings.quinscape = this.cast("quinscape")
+  def quinscape: typingsSlinky.semanticUiReact.semanticUiReactStrings.quinscape = "quinscape".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.quinscape]
   @scala.inline
-  def quora: typingsSlinky.semanticUiReact.semanticUiReactStrings.quora = this.cast("quora")
+  def quora: typingsSlinky.semanticUiReact.semanticUiReactStrings.quora = "quora".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.quora]
   @scala.inline
-  def `quote left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote left` = this.cast("quote left")
+  def `quote left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote left` = ("quote left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote left`]
   @scala.inline
-  def `quote right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote right` = this.cast("quote right")
+  def `quote right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote right` = ("quote right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`quote right`]
   @scala.inline
-  def `r circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`r circle` = this.cast("r circle")
+  def `r circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`r circle` = ("r circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`r circle`]
   @scala.inline
-  def radio: typingsSlinky.semanticUiReact.semanticUiReactStrings.radio = this.cast("radio")
+  def radio: typingsSlinky.semanticUiReact.semanticUiReactStrings.radio = "radio".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.radio]
   @scala.inline
-  def rain: typingsSlinky.semanticUiReact.semanticUiReactStrings.rain = this.cast("rain")
+  def rain: typingsSlinky.semanticUiReact.semanticUiReactStrings.rain = "rain".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rain]
   @scala.inline
-  def random: typingsSlinky.semanticUiReact.semanticUiReactStrings.random = this.cast("random")
+  def random: typingsSlinky.semanticUiReact.semanticUiReactStrings.random = "random".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.random]
   @scala.inline
-  def ravelry: typingsSlinky.semanticUiReact.semanticUiReactStrings.ravelry = this.cast("ravelry")
+  def ravelry: typingsSlinky.semanticUiReact.semanticUiReactStrings.ravelry = "ravelry".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ravelry]
   @scala.inline
-  def react: typingsSlinky.semanticUiReact.semanticUiReactStrings.react = this.cast("react")
+  def react: typingsSlinky.semanticUiReact.semanticUiReactStrings.react = "react".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.react]
   @scala.inline
-  def rebel: typingsSlinky.semanticUiReact.semanticUiReactStrings.rebel = this.cast("rebel")
+  def rebel: typingsSlinky.semanticUiReact.semanticUiReactStrings.rebel = "rebel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rebel]
   @scala.inline
-  def record: typingsSlinky.semanticUiReact.semanticUiReactStrings.record = this.cast("record")
+  def record: typingsSlinky.semanticUiReact.semanticUiReactStrings.record = "record".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.record]
   @scala.inline
-  def recycle: typingsSlinky.semanticUiReact.semanticUiReactStrings.recycle = this.cast("recycle")
+  def recycle: typingsSlinky.semanticUiReact.semanticUiReactStrings.recycle = "recycle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.recycle]
   @scala.inline
-  def reddit: typingsSlinky.semanticUiReact.semanticUiReactStrings.reddit = this.cast("reddit")
+  def reddit: typingsSlinky.semanticUiReact.semanticUiReactStrings.reddit = "reddit".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.reddit]
   @scala.inline
-  def `reddit alien`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit alien` = this.cast("reddit alien")
+  def `reddit alien`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit alien` = ("reddit alien").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit alien`]
   @scala.inline
-  def `reddit square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit square` = this.cast("reddit square")
+  def `reddit square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit square` = ("reddit square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`reddit square`]
   @scala.inline
-  def redo: typingsSlinky.semanticUiReact.semanticUiReactStrings.redo = this.cast("redo")
+  def redo: typingsSlinky.semanticUiReact.semanticUiReactStrings.redo = "redo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.redo]
   @scala.inline
-  def `redo alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`redo alternate` = this.cast("redo alternate")
+  def `redo alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`redo alternate` = ("redo alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`redo alternate`]
   @scala.inline
-  def redriver: typingsSlinky.semanticUiReact.semanticUiReactStrings.redriver = this.cast("redriver")
+  def redriver: typingsSlinky.semanticUiReact.semanticUiReactStrings.redriver = "redriver".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.redriver]
   @scala.inline
-  def refresh: typingsSlinky.semanticUiReact.semanticUiReactStrings.refresh = this.cast("refresh")
+  def refresh: typingsSlinky.semanticUiReact.semanticUiReactStrings.refresh = "refresh".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.refresh]
   @scala.inline
-  def registered: typingsSlinky.semanticUiReact.semanticUiReactStrings.registered = this.cast("registered")
+  def registered: typingsSlinky.semanticUiReact.semanticUiReactStrings.registered = "registered".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.registered]
   @scala.inline
-  def `registered outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`registered outline` = this.cast("registered outline")
+  def `registered outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`registered outline` = ("registered outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`registered outline`]
   @scala.inline
-  def remove: typingsSlinky.semanticUiReact.semanticUiReactStrings.remove = this.cast("remove")
+  def remove: typingsSlinky.semanticUiReact.semanticUiReactStrings.remove = "remove".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.remove]
   @scala.inline
-  def `remove bookmark`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove bookmark` = this.cast("remove bookmark")
+  def `remove bookmark`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove bookmark` = ("remove bookmark").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove bookmark`]
   @scala.inline
-  def `remove circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove circle` = this.cast("remove circle")
+  def `remove circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove circle` = ("remove circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove circle`]
   @scala.inline
-  def `remove from calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove from calendar` = this.cast("remove from calendar")
+  def `remove from calendar`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove from calendar` = ("remove from calendar").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove from calendar`]
   @scala.inline
-  def `remove user`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove user` = this.cast("remove user")
+  def `remove user`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove user` = ("remove user").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`remove user`]
   @scala.inline
-  def rendact: typingsSlinky.semanticUiReact.semanticUiReactStrings.rendact = this.cast("rendact")
+  def rendact: typingsSlinky.semanticUiReact.semanticUiReactStrings.rendact = "rendact".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rendact]
   @scala.inline
-  def renren: typingsSlinky.semanticUiReact.semanticUiReactStrings.renren = this.cast("renren")
+  def renren: typingsSlinky.semanticUiReact.semanticUiReactStrings.renren = "renren".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.renren]
   @scala.inline
-  def repeat: typingsSlinky.semanticUiReact.semanticUiReactStrings.repeat = this.cast("repeat")
+  def repeat: typingsSlinky.semanticUiReact.semanticUiReactStrings.repeat = "repeat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.repeat]
   @scala.inline
-  def reply: typingsSlinky.semanticUiReact.semanticUiReactStrings.reply = this.cast("reply")
+  def reply: typingsSlinky.semanticUiReact.semanticUiReactStrings.reply = "reply".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.reply]
   @scala.inline
-  def `reply all`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`reply all` = this.cast("reply all")
+  def `reply all`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`reply all` = ("reply all").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`reply all`]
   @scala.inline
-  def replyd: typingsSlinky.semanticUiReact.semanticUiReactStrings.replyd = this.cast("replyd")
+  def replyd: typingsSlinky.semanticUiReact.semanticUiReactStrings.replyd = "replyd".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.replyd]
   @scala.inline
-  def `resize horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize horizontal` = this.cast("resize horizontal")
+  def `resize horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize horizontal` = ("resize horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize horizontal`]
   @scala.inline
-  def `resize vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize vertical` = this.cast("resize vertical")
+  def `resize vertical`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize vertical` = ("resize vertical").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`resize vertical`]
   @scala.inline
-  def resolving: typingsSlinky.semanticUiReact.semanticUiReactStrings.resolving = this.cast("resolving")
+  def resolving: typingsSlinky.semanticUiReact.semanticUiReactStrings.resolving = "resolving".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.resolving]
   @scala.inline
-  def retweet: typingsSlinky.semanticUiReact.semanticUiReactStrings.retweet = this.cast("retweet")
+  def retweet: typingsSlinky.semanticUiReact.semanticUiReactStrings.retweet = "retweet".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.retweet]
   @scala.inline
-  def rmb: typingsSlinky.semanticUiReact.semanticUiReactStrings.rmb = this.cast("rmb")
+  def rmb: typingsSlinky.semanticUiReact.semanticUiReactStrings.rmb = "rmb".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rmb]
   @scala.inline
-  def road: typingsSlinky.semanticUiReact.semanticUiReactStrings.road = this.cast("road")
+  def road: typingsSlinky.semanticUiReact.semanticUiReactStrings.road = "road".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.road]
   @scala.inline
-  def rocket: typingsSlinky.semanticUiReact.semanticUiReactStrings.rocket = this.cast("rocket")
+  def rocket: typingsSlinky.semanticUiReact.semanticUiReactStrings.rocket = "rocket".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rocket]
   @scala.inline
-  def rocketchat: typingsSlinky.semanticUiReact.semanticUiReactStrings.rocketchat = this.cast("rocketchat")
+  def rocketchat: typingsSlinky.semanticUiReact.semanticUiReactStrings.rocketchat = "rocketchat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rocketchat]
   @scala.inline
-  def rockrms: typingsSlinky.semanticUiReact.semanticUiReactStrings.rockrms = this.cast("rockrms")
+  def rockrms: typingsSlinky.semanticUiReact.semanticUiReactStrings.rockrms = "rockrms".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rockrms]
   @scala.inline
-  def rouble: typingsSlinky.semanticUiReact.semanticUiReactStrings.rouble = this.cast("rouble")
+  def rouble: typingsSlinky.semanticUiReact.semanticUiReactStrings.rouble = "rouble".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rouble]
   @scala.inline
-  def rss: typingsSlinky.semanticUiReact.semanticUiReactStrings.rss = this.cast("rss")
+  def rss: typingsSlinky.semanticUiReact.semanticUiReactStrings.rss = "rss".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rss]
   @scala.inline
-  def `rss square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`rss square` = this.cast("rss square")
+  def `rss square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`rss square` = ("rss square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`rss square`]
   @scala.inline
-  def rub: typingsSlinky.semanticUiReact.semanticUiReactStrings.rub = this.cast("rub")
+  def rub: typingsSlinky.semanticUiReact.semanticUiReactStrings.rub = "rub".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rub]
   @scala.inline
-  def ruble: typingsSlinky.semanticUiReact.semanticUiReactStrings.ruble = this.cast("ruble")
+  def ruble: typingsSlinky.semanticUiReact.semanticUiReactStrings.ruble = "ruble".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ruble]
   @scala.inline
-  def `ruble sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ruble sign` = this.cast("ruble sign")
+  def `ruble sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ruble sign` = ("ruble sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`ruble sign`]
   @scala.inline
-  def rupee: typingsSlinky.semanticUiReact.semanticUiReactStrings.rupee = this.cast("rupee")
+  def rupee: typingsSlinky.semanticUiReact.semanticUiReactStrings.rupee = "rupee".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.rupee]
   @scala.inline
-  def `rupee sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`rupee sign` = this.cast("rupee sign")
+  def `rupee sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`rupee sign` = ("rupee sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`rupee sign`]
   @scala.inline
-  def s15: typingsSlinky.semanticUiReact.semanticUiReactStrings.s15 = this.cast("s15")
+  def s15: typingsSlinky.semanticUiReact.semanticUiReactStrings.s15 = "s15".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.s15]
   @scala.inline
-  def safari: typingsSlinky.semanticUiReact.semanticUiReactStrings.safari = this.cast("safari")
+  def safari: typingsSlinky.semanticUiReact.semanticUiReactStrings.safari = "safari".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.safari]
   @scala.inline
-  def sass: typingsSlinky.semanticUiReact.semanticUiReactStrings.sass = this.cast("sass")
+  def sass: typingsSlinky.semanticUiReact.semanticUiReactStrings.sass = "sass".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sass]
   @scala.inline
-  def save: typingsSlinky.semanticUiReact.semanticUiReactStrings.save = this.cast("save")
+  def save: typingsSlinky.semanticUiReact.semanticUiReactStrings.save = "save".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.save]
   @scala.inline
-  def `save outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`save outline` = this.cast("save outline")
+  def `save outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`save outline` = ("save outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`save outline`]
   @scala.inline
-  def schlix: typingsSlinky.semanticUiReact.semanticUiReactStrings.schlix = this.cast("schlix")
+  def schlix: typingsSlinky.semanticUiReact.semanticUiReactStrings.schlix = "schlix".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.schlix]
   @scala.inline
-  def scribd: typingsSlinky.semanticUiReact.semanticUiReactStrings.scribd = this.cast("scribd")
+  def scribd: typingsSlinky.semanticUiReact.semanticUiReactStrings.scribd = "scribd".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.scribd]
   @scala.inline
-  def search: typingsSlinky.semanticUiReact.semanticUiReactStrings.search = this.cast("search")
+  def search: typingsSlinky.semanticUiReact.semanticUiReactStrings.search = "search".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.search]
   @scala.inline
-  def `search minus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`search minus` = this.cast("search minus")
+  def `search minus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`search minus` = ("search minus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`search minus`]
   @scala.inline
-  def `search plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`search plus` = this.cast("search plus")
+  def `search plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`search plus` = ("search plus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`search plus`]
   @scala.inline
-  def searchengin: typingsSlinky.semanticUiReact.semanticUiReactStrings.searchengin = this.cast("searchengin")
+  def searchengin: typingsSlinky.semanticUiReact.semanticUiReactStrings.searchengin = "searchengin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.searchengin]
   @scala.inline
-  def `selected radio`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`selected radio` = this.cast("selected radio")
+  def `selected radio`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`selected radio` = ("selected radio").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`selected radio`]
   @scala.inline
-  def sellcast: typingsSlinky.semanticUiReact.semanticUiReactStrings.sellcast = this.cast("sellcast")
+  def sellcast: typingsSlinky.semanticUiReact.semanticUiReactStrings.sellcast = "sellcast".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sellcast]
   @scala.inline
-  def sellsy: typingsSlinky.semanticUiReact.semanticUiReactStrings.sellsy = this.cast("sellsy")
+  def sellsy: typingsSlinky.semanticUiReact.semanticUiReactStrings.sellsy = "sellsy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sellsy]
   @scala.inline
-  def send: typingsSlinky.semanticUiReact.semanticUiReactStrings.send = this.cast("send")
+  def send: typingsSlinky.semanticUiReact.semanticUiReactStrings.send = "send".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.send]
   @scala.inline
-  def server: typingsSlinky.semanticUiReact.semanticUiReactStrings.server = this.cast("server")
+  def server: typingsSlinky.semanticUiReact.semanticUiReactStrings.server = "server".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.server]
   @scala.inline
-  def servicestack: typingsSlinky.semanticUiReact.semanticUiReactStrings.servicestack = this.cast("servicestack")
+  def servicestack: typingsSlinky.semanticUiReact.semanticUiReactStrings.servicestack = "servicestack".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.servicestack]
   @scala.inline
-  def setting: typingsSlinky.semanticUiReact.semanticUiReactStrings.setting = this.cast("setting")
+  def setting: typingsSlinky.semanticUiReact.semanticUiReactStrings.setting = "setting".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.setting]
   @scala.inline
-  def settings: typingsSlinky.semanticUiReact.semanticUiReactStrings.settings = this.cast("settings")
+  def settings: typingsSlinky.semanticUiReact.semanticUiReactStrings.settings = "settings".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.settings]
   @scala.inline
-  def share: typingsSlinky.semanticUiReact.semanticUiReactStrings.share = this.cast("share")
+  def share: typingsSlinky.semanticUiReact.semanticUiReactStrings.share = "share".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.share]
   @scala.inline
-  def `share alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate` = this.cast("share alternate")
+  def `share alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate` = ("share alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate`]
   @scala.inline
-  def `share alternate square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate square` = this.cast("share alternate square")
+  def `share alternate square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate square` = ("share alternate square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`share alternate square`]
   @scala.inline
-  def `share square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square` = this.cast("share square")
+  def `share square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square` = ("share square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square`]
   @scala.inline
-  def `share square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square outline` = this.cast("share square outline")
+  def `share square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square outline` = ("share square outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`share square outline`]
   @scala.inline
-  def shekel: typingsSlinky.semanticUiReact.semanticUiReactStrings.shekel = this.cast("shekel")
+  def shekel: typingsSlinky.semanticUiReact.semanticUiReactStrings.shekel = "shekel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shekel]
   @scala.inline
-  def `shekel sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shekel sign` = this.cast("shekel sign")
+  def `shekel sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shekel sign` = ("shekel sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`shekel sign`]
   @scala.inline
-  def sheqel: typingsSlinky.semanticUiReact.semanticUiReactStrings.sheqel = this.cast("sheqel")
+  def sheqel: typingsSlinky.semanticUiReact.semanticUiReactStrings.sheqel = "sheqel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sheqel]
   @scala.inline
-  def shield: typingsSlinky.semanticUiReact.semanticUiReactStrings.shield = this.cast("shield")
+  def shield: typingsSlinky.semanticUiReact.semanticUiReactStrings.shield = "shield".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shield]
   @scala.inline
-  def `shield alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shield alternate` = this.cast("shield alternate")
+  def `shield alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shield alternate` = ("shield alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`shield alternate`]
   @scala.inline
-  def ship: typingsSlinky.semanticUiReact.semanticUiReactStrings.ship = this.cast("ship")
+  def ship: typingsSlinky.semanticUiReact.semanticUiReactStrings.ship = "ship".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ship]
   @scala.inline
-  def shipping: typingsSlinky.semanticUiReact.semanticUiReactStrings.shipping = this.cast("shipping")
+  def shipping: typingsSlinky.semanticUiReact.semanticUiReactStrings.shipping = "shipping".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shipping]
   @scala.inline
-  def `shipping fast`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shipping fast` = this.cast("shipping fast")
+  def `shipping fast`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shipping fast` = ("shipping fast").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`shipping fast`]
   @scala.inline
-  def shirtsinbulk: typingsSlinky.semanticUiReact.semanticUiReactStrings.shirtsinbulk = this.cast("shirtsinbulk")
+  def shirtsinbulk: typingsSlinky.semanticUiReact.semanticUiReactStrings.shirtsinbulk = "shirtsinbulk".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shirtsinbulk]
   @scala.inline
-  def shop: typingsSlinky.semanticUiReact.semanticUiReactStrings.shop = this.cast("shop")
+  def shop: typingsSlinky.semanticUiReact.semanticUiReactStrings.shop = "shop".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shop]
   @scala.inline
-  def `shopping bag`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping bag` = this.cast("shopping bag")
+  def `shopping bag`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping bag` = ("shopping bag").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping bag`]
   @scala.inline
-  def `shopping basket`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping basket` = this.cast("shopping basket")
+  def `shopping basket`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping basket` = ("shopping basket").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping basket`]
   @scala.inline
-  def `shopping cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping cart` = this.cast("shopping cart")
+  def `shopping cart`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping cart` = ("shopping cart").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`shopping cart`]
   @scala.inline
-  def shower: typingsSlinky.semanticUiReact.semanticUiReactStrings.shower = this.cast("shower")
+  def shower: typingsSlinky.semanticUiReact.semanticUiReactStrings.shower = "shower".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shower]
   @scala.inline
-  def shuffle: typingsSlinky.semanticUiReact.semanticUiReactStrings.shuffle = this.cast("shuffle")
+  def shuffle: typingsSlinky.semanticUiReact.semanticUiReactStrings.shuffle = "shuffle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shuffle]
   @scala.inline
-  def shutdown: typingsSlinky.semanticUiReact.semanticUiReactStrings.shutdown = this.cast("shutdown")
+  def shutdown: typingsSlinky.semanticUiReact.semanticUiReactStrings.shutdown = "shutdown".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.shutdown]
   @scala.inline
-  def sidebar: typingsSlinky.semanticUiReact.semanticUiReactStrings.sidebar = this.cast("sidebar")
+  def sidebar: typingsSlinky.semanticUiReact.semanticUiReactStrings.sidebar = "sidebar".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sidebar]
   @scala.inline
-  def `sign in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in` = this.cast("sign in")
+  def `sign in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in` = ("sign in").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in`]
   @scala.inline
-  def `sign in alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in alternate` = this.cast("sign in alternate")
+  def `sign in alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in alternate` = ("sign in alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign in alternate`]
   @scala.inline
-  def `sign language`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign language` = this.cast("sign language")
+  def `sign language`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign language` = ("sign language").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign language`]
   @scala.inline
-  def `sign out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out` = this.cast("sign out")
+  def `sign out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out` = ("sign out").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out`]
   @scala.inline
-  def `sign out alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out alternate` = this.cast("sign out alternate")
+  def `sign out alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out alternate` = ("sign out alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign out alternate`]
   @scala.inline
-  def `sign-in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in` = this.cast("sign-in")
+  def `sign-in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in` = "sign-in".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in`]
   @scala.inline
-  def `sign-in alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in alternate` = this.cast("sign-in alternate")
+  def `sign-in alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in alternate` = ("sign-in alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-in alternate`]
   @scala.inline
-  def `sign-out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out` = this.cast("sign-out")
+  def `sign-out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out` = "sign-out".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out`]
   @scala.inline
-  def `sign-out alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out alternate` = this.cast("sign-out alternate")
+  def `sign-out alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out alternate` = ("sign-out alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sign-out alternate`]
   @scala.inline
-  def signal: typingsSlinky.semanticUiReact.semanticUiReactStrings.signal = this.cast("signal")
+  def signal: typingsSlinky.semanticUiReact.semanticUiReactStrings.signal = "signal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.signal]
   @scala.inline
-  def signing: typingsSlinky.semanticUiReact.semanticUiReactStrings.signing = this.cast("signing")
+  def signing: typingsSlinky.semanticUiReact.semanticUiReactStrings.signing = "signing".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.signing]
   @scala.inline
-  def signup: typingsSlinky.semanticUiReact.semanticUiReactStrings.signup = this.cast("signup")
+  def signup: typingsSlinky.semanticUiReact.semanticUiReactStrings.signup = "signup".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.signup]
   @scala.inline
-  def simplybuilt: typingsSlinky.semanticUiReact.semanticUiReactStrings.simplybuilt = this.cast("simplybuilt")
+  def simplybuilt: typingsSlinky.semanticUiReact.semanticUiReactStrings.simplybuilt = "simplybuilt".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.simplybuilt]
   @scala.inline
-  def sistrix: typingsSlinky.semanticUiReact.semanticUiReactStrings.sistrix = this.cast("sistrix")
+  def sistrix: typingsSlinky.semanticUiReact.semanticUiReactStrings.sistrix = "sistrix".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sistrix]
   @scala.inline
-  def sitemap: typingsSlinky.semanticUiReact.semanticUiReactStrings.sitemap = this.cast("sitemap")
+  def sitemap: typingsSlinky.semanticUiReact.semanticUiReactStrings.sitemap = "sitemap".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sitemap]
   @scala.inline
-  def skyatlas: typingsSlinky.semanticUiReact.semanticUiReactStrings.skyatlas = this.cast("skyatlas")
+  def skyatlas: typingsSlinky.semanticUiReact.semanticUiReactStrings.skyatlas = "skyatlas".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.skyatlas]
   @scala.inline
-  def skype: typingsSlinky.semanticUiReact.semanticUiReactStrings.skype = this.cast("skype")
+  def skype: typingsSlinky.semanticUiReact.semanticUiReactStrings.skype = "skype".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.skype]
   @scala.inline
-  def slack: typingsSlinky.semanticUiReact.semanticUiReactStrings.slack = this.cast("slack")
+  def slack: typingsSlinky.semanticUiReact.semanticUiReactStrings.slack = "slack".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.slack]
   @scala.inline
-  def `slack hash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`slack hash` = this.cast("slack hash")
+  def `slack hash`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`slack hash` = ("slack hash").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`slack hash`]
   @scala.inline
-  def sliders: typingsSlinky.semanticUiReact.semanticUiReactStrings.sliders = this.cast("sliders")
+  def sliders: typingsSlinky.semanticUiReact.semanticUiReactStrings.sliders = "sliders".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sliders]
   @scala.inline
-  def `sliders horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sliders horizontal` = this.cast("sliders horizontal")
+  def `sliders horizontal`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sliders horizontal` = ("sliders horizontal").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sliders horizontal`]
   @scala.inline
-  def slideshare: typingsSlinky.semanticUiReact.semanticUiReactStrings.slideshare = this.cast("slideshare")
+  def slideshare: typingsSlinky.semanticUiReact.semanticUiReactStrings.slideshare = "slideshare".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.slideshare]
   @scala.inline
-  def smile: typingsSlinky.semanticUiReact.semanticUiReactStrings.smile = this.cast("smile")
+  def smile: typingsSlinky.semanticUiReact.semanticUiReactStrings.smile = "smile".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.smile]
   @scala.inline
-  def `smile outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`smile outline` = this.cast("smile outline")
+  def `smile outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`smile outline` = ("smile outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`smile outline`]
   @scala.inline
-  def snapchat: typingsSlinky.semanticUiReact.semanticUiReactStrings.snapchat = this.cast("snapchat")
+  def snapchat: typingsSlinky.semanticUiReact.semanticUiReactStrings.snapchat = "snapchat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.snapchat]
   @scala.inline
-  def `snapchat ghost`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat ghost` = this.cast("snapchat ghost")
+  def `snapchat ghost`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat ghost` = ("snapchat ghost").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat ghost`]
   @scala.inline
-  def `snapchat square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat square` = this.cast("snapchat square")
+  def `snapchat square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat square` = ("snapchat square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`snapchat square`]
   @scala.inline
-  def snowflake: typingsSlinky.semanticUiReact.semanticUiReactStrings.snowflake = this.cast("snowflake")
+  def snowflake: typingsSlinky.semanticUiReact.semanticUiReactStrings.snowflake = "snowflake".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.snowflake]
   @scala.inline
-  def `snowflake outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`snowflake outline` = this.cast("snowflake outline")
+  def `snowflake outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`snowflake outline` = ("snowflake outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`snowflake outline`]
   @scala.inline
-  def soccer: typingsSlinky.semanticUiReact.semanticUiReactStrings.soccer = this.cast("soccer")
+  def soccer: typingsSlinky.semanticUiReact.semanticUiReactStrings.soccer = "soccer".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.soccer]
   @scala.inline
-  def sort: typingsSlinky.semanticUiReact.semanticUiReactStrings.sort = this.cast("sort")
+  def sort: typingsSlinky.semanticUiReact.semanticUiReactStrings.sort = "sort".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sort]
   @scala.inline
-  def `sort alphabet ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet ascending` = this.cast("sort alphabet ascending")
+  def `sort alphabet ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet ascending` = ("sort alphabet ascending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet ascending`]
   @scala.inline
-  def `sort alphabet descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet descending` = this.cast("sort alphabet descending")
+  def `sort alphabet descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet descending` = ("sort alphabet descending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet descending`]
   @scala.inline
-  def `sort alphabet down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet down` = this.cast("sort alphabet down")
+  def `sort alphabet down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet down` = ("sort alphabet down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet down`]
   @scala.inline
-  def `sort alphabet up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet up` = this.cast("sort alphabet up")
+  def `sort alphabet up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet up` = ("sort alphabet up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort alphabet up`]
   @scala.inline
-  def `sort amount down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount down` = this.cast("sort amount down")
+  def `sort amount down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount down` = ("sort amount down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount down`]
   @scala.inline
-  def `sort amount up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount up` = this.cast("sort amount up")
+  def `sort amount up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount up` = ("sort amount up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort amount up`]
   @scala.inline
-  def `sort ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort ascending` = this.cast("sort ascending")
+  def `sort ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort ascending` = ("sort ascending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort ascending`]
   @scala.inline
-  def `sort content ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content ascending` = this.cast("sort content ascending")
+  def `sort content ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content ascending` = ("sort content ascending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content ascending`]
   @scala.inline
-  def `sort content descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content descending` = this.cast("sort content descending")
+  def `sort content descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content descending` = ("sort content descending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort content descending`]
   @scala.inline
-  def `sort descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort descending` = this.cast("sort descending")
+  def `sort descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort descending` = ("sort descending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort descending`]
   @scala.inline
-  def `sort down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort down` = this.cast("sort down")
+  def `sort down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort down` = ("sort down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort down`]
   @scala.inline
-  def `sort numeric ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric ascending` = this.cast("sort numeric ascending")
+  def `sort numeric ascending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric ascending` = ("sort numeric ascending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric ascending`]
   @scala.inline
-  def `sort numeric descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric descending` = this.cast("sort numeric descending")
+  def `sort numeric descending`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric descending` = ("sort numeric descending").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric descending`]
   @scala.inline
-  def `sort numeric down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric down` = this.cast("sort numeric down")
+  def `sort numeric down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric down` = ("sort numeric down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric down`]
   @scala.inline
-  def `sort numeric up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric up` = this.cast("sort numeric up")
+  def `sort numeric up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric up` = ("sort numeric up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort numeric up`]
   @scala.inline
-  def `sort up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort up` = this.cast("sort up")
+  def `sort up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort up` = ("sort up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sort up`]
   @scala.inline
-  def sound: typingsSlinky.semanticUiReact.semanticUiReactStrings.sound = this.cast("sound")
+  def sound: typingsSlinky.semanticUiReact.semanticUiReactStrings.sound = "sound".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sound]
   @scala.inline
-  def soundcloud: typingsSlinky.semanticUiReact.semanticUiReactStrings.soundcloud = this.cast("soundcloud")
+  def soundcloud: typingsSlinky.semanticUiReact.semanticUiReactStrings.soundcloud = "soundcloud".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.soundcloud]
   @scala.inline
-  def `space shuttle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`space shuttle` = this.cast("space shuttle")
+  def `space shuttle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`space shuttle` = ("space shuttle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`space shuttle`]
   @scala.inline
-  def speakap: typingsSlinky.semanticUiReact.semanticUiReactStrings.speakap = this.cast("speakap")
+  def speakap: typingsSlinky.semanticUiReact.semanticUiReactStrings.speakap = "speakap".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.speakap]
   @scala.inline
-  def spinner: typingsSlinky.semanticUiReact.semanticUiReactStrings.spinner = this.cast("spinner")
+  def spinner: typingsSlinky.semanticUiReact.semanticUiReactStrings.spinner = "spinner".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.spinner]
   @scala.inline
-  def spoon: typingsSlinky.semanticUiReact.semanticUiReactStrings.spoon = this.cast("spoon")
+  def spoon: typingsSlinky.semanticUiReact.semanticUiReactStrings.spoon = "spoon".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.spoon]
   @scala.inline
-  def spotify: typingsSlinky.semanticUiReact.semanticUiReactStrings.spotify = this.cast("spotify")
+  def spotify: typingsSlinky.semanticUiReact.semanticUiReactStrings.spotify = "spotify".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.spotify]
   @scala.inline
-  def spy: typingsSlinky.semanticUiReact.semanticUiReactStrings.spy = this.cast("spy")
+  def spy: typingsSlinky.semanticUiReact.semanticUiReactStrings.spy = "spy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.spy]
   @scala.inline
-  def square: typingsSlinky.semanticUiReact.semanticUiReactStrings.square = this.cast("square")
+  def square: typingsSlinky.semanticUiReact.semanticUiReactStrings.square = "square".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.square]
   @scala.inline
-  def `square full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`square full` = this.cast("square full")
+  def `square full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`square full` = ("square full").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`square full`]
   @scala.inline
-  def `square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`square outline` = this.cast("square outline")
+  def `square outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`square outline` = ("square outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`square outline`]
   @scala.inline
-  def `stack exchange`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack exchange` = this.cast("stack exchange")
+  def `stack exchange`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack exchange` = ("stack exchange").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack exchange`]
   @scala.inline
-  def `stack overflow`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack overflow` = this.cast("stack overflow")
+  def `stack overflow`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack overflow` = ("stack overflow").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stack overflow`]
   @scala.inline
-  def star: typingsSlinky.semanticUiReact.semanticUiReactStrings.star = this.cast("star")
+  def star: typingsSlinky.semanticUiReact.semanticUiReactStrings.star = "star".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.star]
   @scala.inline
-  def `star half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half` = this.cast("star half")
+  def `star half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half` = ("star half").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half`]
   @scala.inline
-  def `star half empty`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half empty` = this.cast("star half empty")
+  def `star half empty`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half empty` = ("star half empty").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half empty`]
   @scala.inline
-  def `star half full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half full` = this.cast("star half full")
+  def `star half full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half full` = ("star half full").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half full`]
   @scala.inline
-  def `star half outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half outline` = this.cast("star half outline")
+  def `star half outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half outline` = ("star half outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`star half outline`]
   @scala.inline
-  def `star outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star outline` = this.cast("star outline")
+  def `star outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`star outline` = ("star outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`star outline`]
   @scala.inline
-  def staylinked: typingsSlinky.semanticUiReact.semanticUiReactStrings.staylinked = this.cast("staylinked")
+  def staylinked: typingsSlinky.semanticUiReact.semanticUiReactStrings.staylinked = "staylinked".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.staylinked]
   @scala.inline
-  def steam: typingsSlinky.semanticUiReact.semanticUiReactStrings.steam = this.cast("steam")
+  def steam: typingsSlinky.semanticUiReact.semanticUiReactStrings.steam = "steam".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.steam]
   @scala.inline
-  def `steam square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam square` = this.cast("steam square")
+  def `steam square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam square` = ("steam square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam square`]
   @scala.inline
-  def `steam symbol`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam symbol` = this.cast("steam symbol")
+  def `steam symbol`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam symbol` = ("steam symbol").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`steam symbol`]
   @scala.inline
-  def `step backward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`step backward` = this.cast("step backward")
+  def `step backward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`step backward` = ("step backward").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`step backward`]
   @scala.inline
-  def `step forward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`step forward` = this.cast("step forward")
+  def `step forward`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`step forward` = ("step forward").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`step forward`]
   @scala.inline
-  def stethoscope: typingsSlinky.semanticUiReact.semanticUiReactStrings.stethoscope = this.cast("stethoscope")
+  def stethoscope: typingsSlinky.semanticUiReact.semanticUiReactStrings.stethoscope = "stethoscope".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.stethoscope]
   @scala.inline
-  def `sticker mule`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticker mule` = this.cast("sticker mule")
+  def `sticker mule`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticker mule` = ("sticker mule").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticker mule`]
   @scala.inline
-  def `sticky note`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note` = this.cast("sticky note")
+  def `sticky note`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note` = ("sticky note").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note`]
   @scala.inline
-  def `sticky note outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note outline` = this.cast("sticky note outline")
+  def `sticky note outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note outline` = ("sticky note outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sticky note outline`]
   @scala.inline
-  def stop: typingsSlinky.semanticUiReact.semanticUiReactStrings.stop = this.cast("stop")
+  def stop: typingsSlinky.semanticUiReact.semanticUiReactStrings.stop = "stop".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.stop]
   @scala.inline
-  def `stop circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle` = this.cast("stop circle")
+  def `stop circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle` = ("stop circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle`]
   @scala.inline
-  def `stop circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle outline` = this.cast("stop circle outline")
+  def `stop circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle outline` = ("stop circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stop circle outline`]
   @scala.inline
-  def stopwatch: typingsSlinky.semanticUiReact.semanticUiReactStrings.stopwatch = this.cast("stopwatch")
+  def stopwatch: typingsSlinky.semanticUiReact.semanticUiReactStrings.stopwatch = "stopwatch".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.stopwatch]
   @scala.inline
-  def strava: typingsSlinky.semanticUiReact.semanticUiReactStrings.strava = this.cast("strava")
+  def strava: typingsSlinky.semanticUiReact.semanticUiReactStrings.strava = "strava".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.strava]
   @scala.inline
-  def `street view`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`street view` = this.cast("street view")
+  def `street view`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`street view` = ("street view").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`street view`]
   @scala.inline
-  def strikethrough: typingsSlinky.semanticUiReact.semanticUiReactStrings.strikethrough = this.cast("strikethrough")
+  def strikethrough: typingsSlinky.semanticUiReact.semanticUiReactStrings.strikethrough = "strikethrough".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.strikethrough]
   @scala.inline
-  def stripe: typingsSlinky.semanticUiReact.semanticUiReactStrings.stripe = this.cast("stripe")
+  def stripe: typingsSlinky.semanticUiReact.semanticUiReactStrings.stripe = "stripe".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.stripe]
   @scala.inline
-  def `stripe card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe card` = this.cast("stripe card")
+  def `stripe card`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe card` = ("stripe card").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe card`]
   @scala.inline
-  def `stripe s`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe s` = this.cast("stripe s")
+  def `stripe s`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe s` = ("stripe s").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stripe s`]
   @scala.inline
-  def student: typingsSlinky.semanticUiReact.semanticUiReactStrings.student = this.cast("student")
+  def student: typingsSlinky.semanticUiReact.semanticUiReactStrings.student = "student".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.student]
   @scala.inline
-  def studiovinari: typingsSlinky.semanticUiReact.semanticUiReactStrings.studiovinari = this.cast("studiovinari")
+  def studiovinari: typingsSlinky.semanticUiReact.semanticUiReactStrings.studiovinari = "studiovinari".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.studiovinari]
   @scala.inline
-  def stumbleupon: typingsSlinky.semanticUiReact.semanticUiReactStrings.stumbleupon = this.cast("stumbleupon")
+  def stumbleupon: typingsSlinky.semanticUiReact.semanticUiReactStrings.stumbleupon = "stumbleupon".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.stumbleupon]
   @scala.inline
-  def `stumbleupon circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stumbleupon circle` = this.cast("stumbleupon circle")
+  def `stumbleupon circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`stumbleupon circle` = ("stumbleupon circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`stumbleupon circle`]
   @scala.inline
-  def subscript: typingsSlinky.semanticUiReact.semanticUiReactStrings.subscript = this.cast("subscript")
+  def subscript: typingsSlinky.semanticUiReact.semanticUiReactStrings.subscript = "subscript".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.subscript]
   @scala.inline
-  def subway: typingsSlinky.semanticUiReact.semanticUiReactStrings.subway = this.cast("subway")
+  def subway: typingsSlinky.semanticUiReact.semanticUiReactStrings.subway = "subway".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.subway]
   @scala.inline
-  def suitcase: typingsSlinky.semanticUiReact.semanticUiReactStrings.suitcase = this.cast("suitcase")
+  def suitcase: typingsSlinky.semanticUiReact.semanticUiReactStrings.suitcase = "suitcase".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.suitcase]
   @scala.inline
-  def sun: typingsSlinky.semanticUiReact.semanticUiReactStrings.sun = this.cast("sun")
+  def sun: typingsSlinky.semanticUiReact.semanticUiReactStrings.sun = "sun".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sun]
   @scala.inline
-  def `sun outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sun outline` = this.cast("sun outline")
+  def `sun outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sun outline` = ("sun outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sun outline`]
   @scala.inline
-  def superpowers: typingsSlinky.semanticUiReact.semanticUiReactStrings.superpowers = this.cast("superpowers")
+  def superpowers: typingsSlinky.semanticUiReact.semanticUiReactStrings.superpowers = "superpowers".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.superpowers]
   @scala.inline
-  def superscript: typingsSlinky.semanticUiReact.semanticUiReactStrings.superscript = this.cast("superscript")
+  def superscript: typingsSlinky.semanticUiReact.semanticUiReactStrings.superscript = "superscript".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.superscript]
   @scala.inline
-  def supple: typingsSlinky.semanticUiReact.semanticUiReactStrings.supple = this.cast("supple")
+  def supple: typingsSlinky.semanticUiReact.semanticUiReactStrings.supple = "supple".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.supple]
   @scala.inline
-  def sync: typingsSlinky.semanticUiReact.semanticUiReactStrings.sync = this.cast("sync")
+  def sync: typingsSlinky.semanticUiReact.semanticUiReactStrings.sync = "sync".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sync]
   @scala.inline
-  def `sync alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sync alternate` = this.cast("sync alternate")
+  def `sync alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`sync alternate` = ("sync alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`sync alternate`]
   @scala.inline
-  def syringe: typingsSlinky.semanticUiReact.semanticUiReactStrings.syringe = this.cast("syringe")
+  def syringe: typingsSlinky.semanticUiReact.semanticUiReactStrings.syringe = "syringe".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.syringe]
   @scala.inline
-  def table: typingsSlinky.semanticUiReact.semanticUiReactStrings.table = this.cast("table")
+  def table: typingsSlinky.semanticUiReact.semanticUiReactStrings.table = "table".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.table]
   @scala.inline
-  def `table tennis`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`table tennis` = this.cast("table tennis")
+  def `table tennis`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`table tennis` = ("table tennis").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`table tennis`]
   @scala.inline
-  def tablet: typingsSlinky.semanticUiReact.semanticUiReactStrings.tablet = this.cast("tablet")
+  def tablet: typingsSlinky.semanticUiReact.semanticUiReactStrings.tablet = "tablet".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tablet]
   @scala.inline
-  def `tablet alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tablet alternate` = this.cast("tablet alternate")
+  def `tablet alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tablet alternate` = ("tablet alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`tablet alternate`]
   @scala.inline
-  def `tachometer alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tachometer alternate` = this.cast("tachometer alternate")
+  def `tachometer alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tachometer alternate` = ("tachometer alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`tachometer alternate`]
   @scala.inline
-  def tag: typingsSlinky.semanticUiReact.semanticUiReactStrings.tag = this.cast("tag")
+  def tag: typingsSlinky.semanticUiReact.semanticUiReactStrings.tag = "tag".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tag]
   @scala.inline
-  def tags: typingsSlinky.semanticUiReact.semanticUiReactStrings.tags = this.cast("tags")
+  def tags: typingsSlinky.semanticUiReact.semanticUiReactStrings.tags = "tags".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tags]
   @scala.inline
-  def talk: typingsSlinky.semanticUiReact.semanticUiReactStrings.talk = this.cast("talk")
+  def talk: typingsSlinky.semanticUiReact.semanticUiReactStrings.talk = "talk".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.talk]
   @scala.inline
-  def target: typingsSlinky.semanticUiReact.semanticUiReactStrings.target = this.cast("target")
+  def target: typingsSlinky.semanticUiReact.semanticUiReactStrings.target = "target".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.target]
   @scala.inline
-  def tasks: typingsSlinky.semanticUiReact.semanticUiReactStrings.tasks = this.cast("tasks")
+  def tasks: typingsSlinky.semanticUiReact.semanticUiReactStrings.tasks = "tasks".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tasks]
   @scala.inline
-  def taxi: typingsSlinky.semanticUiReact.semanticUiReactStrings.taxi = this.cast("taxi")
+  def taxi: typingsSlinky.semanticUiReact.semanticUiReactStrings.taxi = "taxi".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.taxi]
   @scala.inline
-  def telegram: typingsSlinky.semanticUiReact.semanticUiReactStrings.telegram = this.cast("telegram")
+  def telegram: typingsSlinky.semanticUiReact.semanticUiReactStrings.telegram = "telegram".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.telegram]
   @scala.inline
-  def `telegram plane`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`telegram plane` = this.cast("telegram plane")
+  def `telegram plane`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`telegram plane` = ("telegram plane").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`telegram plane`]
   @scala.inline
-  def teletype: typingsSlinky.semanticUiReact.semanticUiReactStrings.teletype = this.cast("teletype")
+  def teletype: typingsSlinky.semanticUiReact.semanticUiReactStrings.teletype = "teletype".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.teletype]
   @scala.inline
-  def television: typingsSlinky.semanticUiReact.semanticUiReactStrings.television = this.cast("television")
+  def television: typingsSlinky.semanticUiReact.semanticUiReactStrings.television = "television".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.television]
   @scala.inline
-  def `tencent weibo`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tencent weibo` = this.cast("tencent weibo")
+  def `tencent weibo`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tencent weibo` = ("tencent weibo").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`tencent weibo`]
   @scala.inline
-  def terminal: typingsSlinky.semanticUiReact.semanticUiReactStrings.terminal = this.cast("terminal")
+  def terminal: typingsSlinky.semanticUiReact.semanticUiReactStrings.terminal = "terminal".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.terminal]
   @scala.inline
-  def `text cursor`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text cursor` = this.cast("text cursor")
+  def `text cursor`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text cursor` = ("text cursor").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`text cursor`]
   @scala.inline
-  def `text height`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text height` = this.cast("text height")
+  def `text height`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text height` = ("text height").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`text height`]
   @scala.inline
-  def `text telephone`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text telephone` = this.cast("text telephone")
+  def `text telephone`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text telephone` = ("text telephone").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`text telephone`]
   @scala.inline
-  def `text width`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text width` = this.cast("text width")
+  def `text width`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`text width` = ("text width").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`text width`]
   @scala.inline
-  def th: typingsSlinky.semanticUiReact.semanticUiReactStrings.th = this.cast("th")
+  def th: typingsSlinky.semanticUiReact.semanticUiReactStrings.th = "th".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.th]
   @scala.inline
-  def `th large`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`th large` = this.cast("th large")
+  def `th large`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`th large` = ("th large").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`th large`]
   @scala.inline
-  def `th list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`th list` = this.cast("th list")
+  def `th list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`th list` = ("th list").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`th list`]
   @scala.inline
-  def theme: typingsSlinky.semanticUiReact.semanticUiReactStrings.theme = this.cast("theme")
+  def theme: typingsSlinky.semanticUiReact.semanticUiReactStrings.theme = "theme".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.theme]
   @scala.inline
-  def themeisle: typingsSlinky.semanticUiReact.semanticUiReactStrings.themeisle = this.cast("themeisle")
+  def themeisle: typingsSlinky.semanticUiReact.semanticUiReactStrings.themeisle = "themeisle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.themeisle]
   @scala.inline
-  def thermometer: typingsSlinky.semanticUiReact.semanticUiReactStrings.thermometer = this.cast("thermometer")
+  def thermometer: typingsSlinky.semanticUiReact.semanticUiReactStrings.thermometer = "thermometer".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.thermometer]
   @scala.inline
-  def `thermometer empty`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer empty` = this.cast("thermometer empty")
+  def `thermometer empty`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer empty` = ("thermometer empty").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer empty`]
   @scala.inline
-  def `thermometer full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer full` = this.cast("thermometer full")
+  def `thermometer full`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer full` = ("thermometer full").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer full`]
   @scala.inline
-  def `thermometer half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer half` = this.cast("thermometer half")
+  def `thermometer half`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer half` = ("thermometer half").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer half`]
   @scala.inline
-  def `thermometer quarter`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer quarter` = this.cast("thermometer quarter")
+  def `thermometer quarter`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer quarter` = ("thermometer quarter").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer quarter`]
   @scala.inline
-  def `thermometer three quarters`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer three quarters` = this.cast("thermometer three quarters")
+  def `thermometer three quarters`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer three quarters` = ("thermometer three quarters").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thermometer three quarters`]
   @scala.inline
-  def `thumb tack`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumb tack` = this.cast("thumb tack")
+  def `thumb tack`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumb tack` = ("thumb tack").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumb tack`]
   @scala.inline
-  def `thumbs down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down` = this.cast("thumbs down")
+  def `thumbs down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down` = ("thumbs down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down`]
   @scala.inline
-  def `thumbs down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down outline` = this.cast("thumbs down outline")
+  def `thumbs down outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down outline` = ("thumbs down outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs down outline`]
   @scala.inline
-  def `thumbs up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up` = this.cast("thumbs up")
+  def `thumbs up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up` = ("thumbs up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up`]
   @scala.inline
-  def `thumbs up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up outline` = this.cast("thumbs up outline")
+  def `thumbs up outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up outline` = ("thumbs up outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`thumbs up outline`]
   @scala.inline
-  def thumbtack: typingsSlinky.semanticUiReact.semanticUiReactStrings.thumbtack = this.cast("thumbtack")
+  def thumbtack: typingsSlinky.semanticUiReact.semanticUiReactStrings.thumbtack = "thumbtack".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.thumbtack]
   @scala.inline
-  def ticket: typingsSlinky.semanticUiReact.semanticUiReactStrings.ticket = this.cast("ticket")
+  def ticket: typingsSlinky.semanticUiReact.semanticUiReactStrings.ticket = "ticket".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ticket]
   @scala.inline
-  def `ticket alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ticket alternate` = this.cast("ticket alternate")
+  def `ticket alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`ticket alternate` = ("ticket alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`ticket alternate`]
   @scala.inline
-  def time: typingsSlinky.semanticUiReact.semanticUiReactStrings.time = this.cast("time")
+  def time: typingsSlinky.semanticUiReact.semanticUiReactStrings.time = "time".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.time]
   @scala.inline
-  def times: typingsSlinky.semanticUiReact.semanticUiReactStrings.times = this.cast("times")
+  def times: typingsSlinky.semanticUiReact.semanticUiReactStrings.times = "times".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.times]
   @scala.inline
-  def `times circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle` = this.cast("times circle")
+  def `times circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle` = ("times circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle`]
   @scala.inline
-  def `times circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle outline` = this.cast("times circle outline")
+  def `times circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle outline` = ("times circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`times circle outline`]
   @scala.inline
-  def `times rectangle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`times rectangle` = this.cast("times rectangle")
+  def `times rectangle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`times rectangle` = ("times rectangle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`times rectangle`]
   @scala.inline
-  def tint: typingsSlinky.semanticUiReact.semanticUiReactStrings.tint = this.cast("tint")
+  def tint: typingsSlinky.semanticUiReact.semanticUiReactStrings.tint = "tint".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tint]
   @scala.inline
-  def tm: typingsSlinky.semanticUiReact.semanticUiReactStrings.tm = this.cast("tm")
+  def tm: typingsSlinky.semanticUiReact.semanticUiReactStrings.tm = "tm".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tm]
   @scala.inline
-  def `toggle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle down` = this.cast("toggle down")
+  def `toggle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle down` = ("toggle down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle down`]
   @scala.inline
-  def `toggle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle left` = this.cast("toggle left")
+  def `toggle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle left` = ("toggle left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle left`]
   @scala.inline
-  def `toggle off`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle off` = this.cast("toggle off")
+  def `toggle off`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle off` = ("toggle off").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle off`]
   @scala.inline
-  def `toggle on`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle on` = this.cast("toggle on")
+  def `toggle on`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle on` = ("toggle on").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle on`]
   @scala.inline
-  def `toggle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle right` = this.cast("toggle right")
+  def `toggle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle right` = ("toggle right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle right`]
   @scala.inline
-  def `toggle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle up` = this.cast("toggle up")
+  def `toggle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle up` = ("toggle up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`toggle up`]
   @scala.inline
-  def trademark: typingsSlinky.semanticUiReact.semanticUiReactStrings.trademark = this.cast("trademark")
+  def trademark: typingsSlinky.semanticUiReact.semanticUiReactStrings.trademark = "trademark".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.trademark]
   @scala.inline
-  def train: typingsSlinky.semanticUiReact.semanticUiReactStrings.train = this.cast("train")
+  def train: typingsSlinky.semanticUiReact.semanticUiReactStrings.train = "train".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.train]
   @scala.inline
-  def transgender: typingsSlinky.semanticUiReact.semanticUiReactStrings.transgender = this.cast("transgender")
+  def transgender: typingsSlinky.semanticUiReact.semanticUiReactStrings.transgender = "transgender".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.transgender]
   @scala.inline
-  def `transgender alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`transgender alternate` = this.cast("transgender alternate")
+  def `transgender alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`transgender alternate` = ("transgender alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`transgender alternate`]
   @scala.inline
-  def translate: typingsSlinky.semanticUiReact.semanticUiReactStrings.translate = this.cast("translate")
+  def translate: typingsSlinky.semanticUiReact.semanticUiReactStrings.translate = "translate".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.translate]
   @scala.inline
-  def trash: typingsSlinky.semanticUiReact.semanticUiReactStrings.trash = this.cast("trash")
+  def trash: typingsSlinky.semanticUiReact.semanticUiReactStrings.trash = "trash".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.trash]
   @scala.inline
-  def `trash alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate` = this.cast("trash alternate")
+  def `trash alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate` = ("trash alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate`]
   @scala.inline
-  def `trash alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate outline` = this.cast("trash alternate outline")
+  def `trash alternate outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate outline` = ("trash alternate outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`trash alternate outline`]
   @scala.inline
-  def travel: typingsSlinky.semanticUiReact.semanticUiReactStrings.travel = this.cast("travel")
+  def travel: typingsSlinky.semanticUiReact.semanticUiReactStrings.travel = "travel".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.travel]
   @scala.inline
-  def treatment: typingsSlinky.semanticUiReact.semanticUiReactStrings.treatment = this.cast("treatment")
+  def treatment: typingsSlinky.semanticUiReact.semanticUiReactStrings.treatment = "treatment".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.treatment]
   @scala.inline
-  def tree: typingsSlinky.semanticUiReact.semanticUiReactStrings.tree = this.cast("tree")
+  def tree: typingsSlinky.semanticUiReact.semanticUiReactStrings.tree = "tree".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tree]
   @scala.inline
-  def trello: typingsSlinky.semanticUiReact.semanticUiReactStrings.trello = this.cast("trello")
+  def trello: typingsSlinky.semanticUiReact.semanticUiReactStrings.trello = "trello".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.trello]
   @scala.inline
-  def `triangle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle down` = this.cast("triangle down")
+  def `triangle down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle down` = ("triangle down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle down`]
   @scala.inline
-  def `triangle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle left` = this.cast("triangle left")
+  def `triangle left`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle left` = ("triangle left").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle left`]
   @scala.inline
-  def `triangle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle right` = this.cast("triangle right")
+  def `triangle right`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle right` = ("triangle right").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle right`]
   @scala.inline
-  def `triangle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle up` = this.cast("triangle up")
+  def `triangle up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle up` = ("triangle up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`triangle up`]
   @scala.inline
-  def tripadvisor: typingsSlinky.semanticUiReact.semanticUiReactStrings.tripadvisor = this.cast("tripadvisor")
+  def tripadvisor: typingsSlinky.semanticUiReact.semanticUiReactStrings.tripadvisor = "tripadvisor".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tripadvisor]
   @scala.inline
-  def trophy: typingsSlinky.semanticUiReact.semanticUiReactStrings.trophy = this.cast("trophy")
+  def trophy: typingsSlinky.semanticUiReact.semanticUiReactStrings.trophy = "trophy".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.trophy]
   @scala.inline
-  def truck: typingsSlinky.semanticUiReact.semanticUiReactStrings.truck = this.cast("truck")
+  def truck: typingsSlinky.semanticUiReact.semanticUiReactStrings.truck = "truck".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.truck]
   @scala.inline
-  def `try`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`try` = this.cast("try")
+  def `try`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`try` = "try".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`try`]
   @scala.inline
-  def tty: typingsSlinky.semanticUiReact.semanticUiReactStrings.tty = this.cast("tty")
+  def tty: typingsSlinky.semanticUiReact.semanticUiReactStrings.tty = "tty".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tty]
   @scala.inline
-  def tumblr: typingsSlinky.semanticUiReact.semanticUiReactStrings.tumblr = this.cast("tumblr")
+  def tumblr: typingsSlinky.semanticUiReact.semanticUiReactStrings.tumblr = "tumblr".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tumblr]
   @scala.inline
-  def `tumblr square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tumblr square` = this.cast("tumblr square")
+  def `tumblr square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`tumblr square` = ("tumblr square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`tumblr square`]
   @scala.inline
-  def tv: typingsSlinky.semanticUiReact.semanticUiReactStrings.tv = this.cast("tv")
+  def tv: typingsSlinky.semanticUiReact.semanticUiReactStrings.tv = "tv".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.tv]
   @scala.inline
-  def twitch: typingsSlinky.semanticUiReact.semanticUiReactStrings.twitch = this.cast("twitch")
+  def twitch: typingsSlinky.semanticUiReact.semanticUiReactStrings.twitch = "twitch".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.twitch]
   @scala.inline
-  def twitter: typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter = this.cast("twitter")
+  def twitter: typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter = "twitter".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.twitter]
   @scala.inline
-  def `twitter square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`twitter square` = this.cast("twitter square")
+  def `twitter square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`twitter square` = ("twitter square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`twitter square`]
   @scala.inline
-  def typo3: typingsSlinky.semanticUiReact.semanticUiReactStrings.typo3 = this.cast("typo3")
+  def typo3: typingsSlinky.semanticUiReact.semanticUiReactStrings.typo3 = "typo3".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.typo3]
   @scala.inline
-  def uber: typingsSlinky.semanticUiReact.semanticUiReactStrings.uber = this.cast("uber")
+  def uber: typingsSlinky.semanticUiReact.semanticUiReactStrings.uber = "uber".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.uber]
   @scala.inline
-  def uikit: typingsSlinky.semanticUiReact.semanticUiReactStrings.uikit = this.cast("uikit")
+  def uikit: typingsSlinky.semanticUiReact.semanticUiReactStrings.uikit = "uikit".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.uikit]
   @scala.inline
-  def umbrella: typingsSlinky.semanticUiReact.semanticUiReactStrings.umbrella = this.cast("umbrella")
+  def umbrella: typingsSlinky.semanticUiReact.semanticUiReactStrings.umbrella = "umbrella".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.umbrella]
   @scala.inline
-  def underline: typingsSlinky.semanticUiReact.semanticUiReactStrings.underline = this.cast("underline")
+  def underline: typingsSlinky.semanticUiReact.semanticUiReactStrings.underline = "underline".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.underline]
   @scala.inline
-  def undo: typingsSlinky.semanticUiReact.semanticUiReactStrings.undo = this.cast("undo")
+  def undo: typingsSlinky.semanticUiReact.semanticUiReactStrings.undo = "undo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.undo]
   @scala.inline
-  def `undo alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`undo alternate` = this.cast("undo alternate")
+  def `undo alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`undo alternate` = ("undo alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`undo alternate`]
   @scala.inline
-  def unhide: typingsSlinky.semanticUiReact.semanticUiReactStrings.unhide = this.cast("unhide")
+  def unhide: typingsSlinky.semanticUiReact.semanticUiReactStrings.unhide = "unhide".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.unhide]
   @scala.inline
-  def uniregistry: typingsSlinky.semanticUiReact.semanticUiReactStrings.uniregistry = this.cast("uniregistry")
+  def uniregistry: typingsSlinky.semanticUiReact.semanticUiReactStrings.uniregistry = "uniregistry".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.uniregistry]
   @scala.inline
-  def `universal access`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`universal access` = this.cast("universal access")
+  def `universal access`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`universal access` = ("universal access").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`universal access`]
   @scala.inline
-  def university: typingsSlinky.semanticUiReact.semanticUiReactStrings.university = this.cast("university")
+  def university: typingsSlinky.semanticUiReact.semanticUiReactStrings.university = "university".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.university]
   @scala.inline
-  def unlink: typingsSlinky.semanticUiReact.semanticUiReactStrings.unlink = this.cast("unlink")
+  def unlink: typingsSlinky.semanticUiReact.semanticUiReactStrings.unlink = "unlink".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.unlink]
   @scala.inline
-  def unlinkify: typingsSlinky.semanticUiReact.semanticUiReactStrings.unlinkify = this.cast("unlinkify")
+  def unlinkify: typingsSlinky.semanticUiReact.semanticUiReactStrings.unlinkify = "unlinkify".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.unlinkify]
   @scala.inline
-  def unlock: typingsSlinky.semanticUiReact.semanticUiReactStrings.unlock = this.cast("unlock")
+  def unlock: typingsSlinky.semanticUiReact.semanticUiReactStrings.unlock = "unlock".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.unlock]
   @scala.inline
-  def `unlock alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`unlock alternate` = this.cast("unlock alternate")
+  def `unlock alternate`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`unlock alternate` = ("unlock alternate").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`unlock alternate`]
   @scala.inline
-  def unmute: typingsSlinky.semanticUiReact.semanticUiReactStrings.unmute = this.cast("unmute")
+  def unmute: typingsSlinky.semanticUiReact.semanticUiReactStrings.unmute = "unmute".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.unmute]
   @scala.inline
-  def `unordered list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`unordered list` = this.cast("unordered list")
+  def `unordered list`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`unordered list` = ("unordered list").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`unordered list`]
   @scala.inline
-  def untappd: typingsSlinky.semanticUiReact.semanticUiReactStrings.untappd = this.cast("untappd")
+  def untappd: typingsSlinky.semanticUiReact.semanticUiReactStrings.untappd = "untappd".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.untappd]
   @scala.inline
-  def upload: typingsSlinky.semanticUiReact.semanticUiReactStrings.upload = this.cast("upload")
+  def upload: typingsSlinky.semanticUiReact.semanticUiReactStrings.upload = "upload".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.upload]
   @scala.inline
-  def usb: typingsSlinky.semanticUiReact.semanticUiReactStrings.usb = this.cast("usb")
+  def usb: typingsSlinky.semanticUiReact.semanticUiReactStrings.usb = "usb".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.usb]
   @scala.inline
-  def usd: typingsSlinky.semanticUiReact.semanticUiReactStrings.usd = this.cast("usd")
+  def usd: typingsSlinky.semanticUiReact.semanticUiReactStrings.usd = "usd".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.usd]
   @scala.inline
-  def user: typingsSlinky.semanticUiReact.semanticUiReactStrings.user = this.cast("user")
+  def user: typingsSlinky.semanticUiReact.semanticUiReactStrings.user = "user".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.user]
   @scala.inline
-  def `user cancel`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user cancel` = this.cast("user cancel")
+  def `user cancel`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user cancel` = ("user cancel").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user cancel`]
   @scala.inline
-  def `user circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle` = this.cast("user circle")
+  def `user circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle` = ("user circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle`]
   @scala.inline
-  def `user circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle outline` = this.cast("user circle outline")
+  def `user circle outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle outline` = ("user circle outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user circle outline`]
   @scala.inline
-  def `user close`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user close` = this.cast("user close")
+  def `user close`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user close` = ("user close").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user close`]
   @scala.inline
-  def `user delete`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user delete` = this.cast("user delete")
+  def `user delete`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user delete` = ("user delete").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user delete`]
   @scala.inline
-  def `user doctor`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user doctor` = this.cast("user doctor")
+  def `user doctor`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user doctor` = ("user doctor").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user doctor`]
   @scala.inline
-  def `user md`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user md` = this.cast("user md")
+  def `user md`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user md` = ("user md").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user md`]
   @scala.inline
-  def `user outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user outline` = this.cast("user outline")
+  def `user outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user outline` = ("user outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user outline`]
   @scala.inline
-  def `user plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user plus` = this.cast("user plus")
+  def `user plus`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user plus` = ("user plus").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user plus`]
   @scala.inline
-  def `user secret`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user secret` = this.cast("user secret")
+  def `user secret`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user secret` = ("user secret").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user secret`]
   @scala.inline
-  def `user times`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user times` = this.cast("user times")
+  def `user times`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user times` = ("user times").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user times`]
   @scala.inline
-  def `user x`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user x` = this.cast("user x")
+  def `user x`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`user x` = ("user x").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`user x`]
   @scala.inline
-  def users: typingsSlinky.semanticUiReact.semanticUiReactStrings.users = this.cast("users")
+  def users: typingsSlinky.semanticUiReact.semanticUiReactStrings.users = "users".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.users]
   @scala.inline
-  def ussunnah: typingsSlinky.semanticUiReact.semanticUiReactStrings.ussunnah = this.cast("ussunnah")
+  def ussunnah: typingsSlinky.semanticUiReact.semanticUiReactStrings.ussunnah = "ussunnah".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ussunnah]
   @scala.inline
-  def `utensil spoon`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`utensil spoon` = this.cast("utensil spoon")
+  def `utensil spoon`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`utensil spoon` = ("utensil spoon").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`utensil spoon`]
   @scala.inline
-  def utensils: typingsSlinky.semanticUiReact.semanticUiReactStrings.utensils = this.cast("utensils")
+  def utensils: typingsSlinky.semanticUiReact.semanticUiReactStrings.utensils = "utensils".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.utensils]
   @scala.inline
-  def vaadin: typingsSlinky.semanticUiReact.semanticUiReactStrings.vaadin = this.cast("vaadin")
+  def vaadin: typingsSlinky.semanticUiReact.semanticUiReactStrings.vaadin = "vaadin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vaadin]
   @scala.inline
-  def vcard: typingsSlinky.semanticUiReact.semanticUiReactStrings.vcard = this.cast("vcard")
+  def vcard: typingsSlinky.semanticUiReact.semanticUiReactStrings.vcard = "vcard".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vcard]
   @scala.inline
-  def venus: typingsSlinky.semanticUiReact.semanticUiReactStrings.venus = this.cast("venus")
+  def venus: typingsSlinky.semanticUiReact.semanticUiReactStrings.venus = "venus".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.venus]
   @scala.inline
-  def `venus double`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus double` = this.cast("venus double")
+  def `venus double`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus double` = ("venus double").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus double`]
   @scala.inline
-  def `venus mars`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus mars` = this.cast("venus mars")
+  def `venus mars`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus mars` = ("venus mars").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`venus mars`]
   @scala.inline
-  def viacoin: typingsSlinky.semanticUiReact.semanticUiReactStrings.viacoin = this.cast("viacoin")
+  def viacoin: typingsSlinky.semanticUiReact.semanticUiReactStrings.viacoin = "viacoin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.viacoin]
   @scala.inline
-  def viadeo: typingsSlinky.semanticUiReact.semanticUiReactStrings.viadeo = this.cast("viadeo")
+  def viadeo: typingsSlinky.semanticUiReact.semanticUiReactStrings.viadeo = "viadeo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.viadeo]
   @scala.inline
-  def `viadeo square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`viadeo square` = this.cast("viadeo square")
+  def `viadeo square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`viadeo square` = ("viadeo square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`viadeo square`]
   @scala.inline
-  def viber: typingsSlinky.semanticUiReact.semanticUiReactStrings.viber = this.cast("viber")
+  def viber: typingsSlinky.semanticUiReact.semanticUiReactStrings.viber = "viber".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.viber]
   @scala.inline
-  def video: typingsSlinky.semanticUiReact.semanticUiReactStrings.video = this.cast("video")
+  def video: typingsSlinky.semanticUiReact.semanticUiReactStrings.video = "video".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.video]
   @scala.inline
-  def `video camera`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`video camera` = this.cast("video camera")
+  def `video camera`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`video camera` = ("video camera").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`video camera`]
   @scala.inline
-  def `video play`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`video play` = this.cast("video play")
+  def `video play`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`video play` = ("video play").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`video play`]
   @scala.inline
-  def vimeo: typingsSlinky.semanticUiReact.semanticUiReactStrings.vimeo = this.cast("vimeo")
+  def vimeo: typingsSlinky.semanticUiReact.semanticUiReactStrings.vimeo = "vimeo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vimeo]
   @scala.inline
-  def `vimeo square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo square` = this.cast("vimeo square")
+  def `vimeo square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo square` = ("vimeo square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo square`]
   @scala.inline
-  def `vimeo v`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo v` = this.cast("vimeo v")
+  def `vimeo v`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo v` = ("vimeo v").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`vimeo v`]
   @scala.inline
-  def vine: typingsSlinky.semanticUiReact.semanticUiReactStrings.vine = this.cast("vine")
+  def vine: typingsSlinky.semanticUiReact.semanticUiReactStrings.vine = "vine".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vine]
   @scala.inline
-  def vk: typingsSlinky.semanticUiReact.semanticUiReactStrings.vk = this.cast("vk")
+  def vk: typingsSlinky.semanticUiReact.semanticUiReactStrings.vk = "vk".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vk]
   @scala.inline
-  def vnv: typingsSlinky.semanticUiReact.semanticUiReactStrings.vnv = this.cast("vnv")
+  def vnv: typingsSlinky.semanticUiReact.semanticUiReactStrings.vnv = "vnv".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vnv]
   @scala.inline
-  def `volleyball ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volleyball ball` = this.cast("volleyball ball")
+  def `volleyball ball`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volleyball ball` = ("volleyball ball").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`volleyball ball`]
   @scala.inline
-  def `volume control phone`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume control phone` = this.cast("volume control phone")
+  def `volume control phone`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume control phone` = ("volume control phone").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume control phone`]
   @scala.inline
-  def `volume down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume down` = this.cast("volume down")
+  def `volume down`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume down` = ("volume down").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume down`]
   @scala.inline
-  def `volume off`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume off` = this.cast("volume off")
+  def `volume off`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume off` = ("volume off").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume off`]
   @scala.inline
-  def `volume up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume up` = this.cast("volume up")
+  def `volume up`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume up` = ("volume up").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`volume up`]
   @scala.inline
-  def vuejs: typingsSlinky.semanticUiReact.semanticUiReactStrings.vuejs = this.cast("vuejs")
+  def vuejs: typingsSlinky.semanticUiReact.semanticUiReactStrings.vuejs = "vuejs".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.vuejs]
   @scala.inline
-  def warehouse: typingsSlinky.semanticUiReact.semanticUiReactStrings.warehouse = this.cast("warehouse")
+  def warehouse: typingsSlinky.semanticUiReact.semanticUiReactStrings.warehouse = "warehouse".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.warehouse]
   @scala.inline
-  def warning: typingsSlinky.semanticUiReact.semanticUiReactStrings.warning = this.cast("warning")
+  def warning: typingsSlinky.semanticUiReact.semanticUiReactStrings.warning = "warning".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.warning]
   @scala.inline
-  def `warning circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning circle` = this.cast("warning circle")
+  def `warning circle`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning circle` = ("warning circle").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning circle`]
   @scala.inline
-  def `warning sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning sign` = this.cast("warning sign")
+  def `warning sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning sign` = ("warning sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`warning sign`]
   @scala.inline
-  def wechat: typingsSlinky.semanticUiReact.semanticUiReactStrings.wechat = this.cast("wechat")
+  def wechat: typingsSlinky.semanticUiReact.semanticUiReactStrings.wechat = "wechat".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wechat]
   @scala.inline
-  def weibo: typingsSlinky.semanticUiReact.semanticUiReactStrings.weibo = this.cast("weibo")
+  def weibo: typingsSlinky.semanticUiReact.semanticUiReactStrings.weibo = "weibo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.weibo]
   @scala.inline
-  def weight: typingsSlinky.semanticUiReact.semanticUiReactStrings.weight = this.cast("weight")
+  def weight: typingsSlinky.semanticUiReact.semanticUiReactStrings.weight = "weight".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.weight]
   @scala.inline
-  def weixin: typingsSlinky.semanticUiReact.semanticUiReactStrings.weixin = this.cast("weixin")
+  def weixin: typingsSlinky.semanticUiReact.semanticUiReactStrings.weixin = "weixin".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.weixin]
   @scala.inline
-  def whatsapp: typingsSlinky.semanticUiReact.semanticUiReactStrings.whatsapp = this.cast("whatsapp")
+  def whatsapp: typingsSlinky.semanticUiReact.semanticUiReactStrings.whatsapp = "whatsapp".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.whatsapp]
   @scala.inline
-  def `whatsapp square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`whatsapp square` = this.cast("whatsapp square")
+  def `whatsapp square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`whatsapp square` = ("whatsapp square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`whatsapp square`]
   @scala.inline
-  def wheelchair: typingsSlinky.semanticUiReact.semanticUiReactStrings.wheelchair = this.cast("wheelchair")
+  def wheelchair: typingsSlinky.semanticUiReact.semanticUiReactStrings.wheelchair = "wheelchair".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wheelchair]
   @scala.inline
-  def whmcs: typingsSlinky.semanticUiReact.semanticUiReactStrings.whmcs = this.cast("whmcs")
+  def whmcs: typingsSlinky.semanticUiReact.semanticUiReactStrings.whmcs = "whmcs".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.whmcs]
   @scala.inline
-  def `wi-fi`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wi-fi` = this.cast("wi-fi")
+  def `wi-fi`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wi-fi` = "wi-fi".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`wi-fi`]
   @scala.inline
-  def wifi: typingsSlinky.semanticUiReact.semanticUiReactStrings.wifi = this.cast("wifi")
+  def wifi: typingsSlinky.semanticUiReact.semanticUiReactStrings.wifi = "wifi".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wifi]
   @scala.inline
-  def `wikipedia w`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wikipedia w` = this.cast("wikipedia w")
+  def `wikipedia w`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wikipedia w` = ("wikipedia w").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`wikipedia w`]
   @scala.inline
-  def `window close`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close` = this.cast("window close")
+  def `window close`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close` = ("window close").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close`]
   @scala.inline
-  def `window close outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close outline` = this.cast("window close outline")
+  def `window close outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close outline` = ("window close outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window close outline`]
   @scala.inline
-  def `window maximize`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize` = this.cast("window maximize")
+  def `window maximize`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize` = ("window maximize").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize`]
   @scala.inline
-  def `window maximize outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize outline` = this.cast("window maximize outline")
+  def `window maximize outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize outline` = ("window maximize outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window maximize outline`]
   @scala.inline
-  def `window minimize`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize` = this.cast("window minimize")
+  def `window minimize`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize` = ("window minimize").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize`]
   @scala.inline
-  def `window minimize outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize outline` = this.cast("window minimize outline")
+  def `window minimize outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize outline` = ("window minimize outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window minimize outline`]
   @scala.inline
-  def `window restore`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore` = this.cast("window restore")
+  def `window restore`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore` = ("window restore").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore`]
   @scala.inline
-  def `window restore outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore outline` = this.cast("window restore outline")
+  def `window restore outline`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore outline` = ("window restore outline").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`window restore outline`]
   @scala.inline
-  def windows: typingsSlinky.semanticUiReact.semanticUiReactStrings.windows = this.cast("windows")
+  def windows: typingsSlinky.semanticUiReact.semanticUiReactStrings.windows = "windows".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.windows]
   @scala.inline
-  def winner: typingsSlinky.semanticUiReact.semanticUiReactStrings.winner = this.cast("winner")
+  def winner: typingsSlinky.semanticUiReact.semanticUiReactStrings.winner = "winner".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.winner]
   @scala.inline
-  def wizard: typingsSlinky.semanticUiReact.semanticUiReactStrings.wizard = this.cast("wizard")
+  def wizard: typingsSlinky.semanticUiReact.semanticUiReactStrings.wizard = "wizard".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wizard]
   @scala.inline
-  def woman: typingsSlinky.semanticUiReact.semanticUiReactStrings.woman = this.cast("woman")
+  def woman: typingsSlinky.semanticUiReact.semanticUiReactStrings.woman = "woman".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.woman]
   @scala.inline
-  def won: typingsSlinky.semanticUiReact.semanticUiReactStrings.won = this.cast("won")
+  def won: typingsSlinky.semanticUiReact.semanticUiReactStrings.won = "won".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.won]
   @scala.inline
-  def `won sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`won sign` = this.cast("won sign")
+  def `won sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`won sign` = ("won sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`won sign`]
   @scala.inline
-  def wordpress: typingsSlinky.semanticUiReact.semanticUiReactStrings.wordpress = this.cast("wordpress")
+  def wordpress: typingsSlinky.semanticUiReact.semanticUiReactStrings.wordpress = "wordpress".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wordpress]
   @scala.inline
-  def `wordpress beginner`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress beginner` = this.cast("wordpress beginner")
+  def `wordpress beginner`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress beginner` = ("wordpress beginner").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress beginner`]
   @scala.inline
-  def `wordpress forms`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress forms` = this.cast("wordpress forms")
+  def `wordpress forms`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress forms` = ("wordpress forms").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress forms`]
   @scala.inline
-  def `wordpress simple`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress simple` = this.cast("wordpress simple")
+  def `wordpress simple`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress simple` = ("wordpress simple").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`wordpress simple`]
   @scala.inline
-  def world: typingsSlinky.semanticUiReact.semanticUiReactStrings.world = this.cast("world")
+  def world: typingsSlinky.semanticUiReact.semanticUiReactStrings.world = "world".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.world]
   @scala.inline
-  def wpbeginner: typingsSlinky.semanticUiReact.semanticUiReactStrings.wpbeginner = this.cast("wpbeginner")
+  def wpbeginner: typingsSlinky.semanticUiReact.semanticUiReactStrings.wpbeginner = "wpbeginner".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wpbeginner]
   @scala.inline
-  def wpexplorer: typingsSlinky.semanticUiReact.semanticUiReactStrings.wpexplorer = this.cast("wpexplorer")
+  def wpexplorer: typingsSlinky.semanticUiReact.semanticUiReactStrings.wpexplorer = "wpexplorer".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wpexplorer]
   @scala.inline
-  def wpforms: typingsSlinky.semanticUiReact.semanticUiReactStrings.wpforms = this.cast("wpforms")
+  def wpforms: typingsSlinky.semanticUiReact.semanticUiReactStrings.wpforms = "wpforms".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wpforms]
   @scala.inline
-  def wrench: typingsSlinky.semanticUiReact.semanticUiReactStrings.wrench = this.cast("wrench")
+  def wrench: typingsSlinky.semanticUiReact.semanticUiReactStrings.wrench = "wrench".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.wrench]
   @scala.inline
-  def write: typingsSlinky.semanticUiReact.semanticUiReactStrings.write = this.cast("write")
+  def write: typingsSlinky.semanticUiReact.semanticUiReactStrings.write = "write".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.write]
   @scala.inline
-  def `write square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`write square` = this.cast("write square")
+  def `write square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`write square` = ("write square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`write square`]
   @scala.inline
-  def x: typingsSlinky.semanticUiReact.semanticUiReactStrings.x = this.cast("x")
+  def x: typingsSlinky.semanticUiReact.semanticUiReactStrings.x = "x".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.x]
   @scala.inline
-  def xbox: typingsSlinky.semanticUiReact.semanticUiReactStrings.xbox = this.cast("xbox")
+  def xbox: typingsSlinky.semanticUiReact.semanticUiReactStrings.xbox = "xbox".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.xbox]
   @scala.inline
-  def xing: typingsSlinky.semanticUiReact.semanticUiReactStrings.xing = this.cast("xing")
+  def xing: typingsSlinky.semanticUiReact.semanticUiReactStrings.xing = "xing".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.xing]
   @scala.inline
-  def `xing square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`xing square` = this.cast("xing square")
+  def `xing square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`xing square` = ("xing square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`xing square`]
   @scala.inline
-  def `y combinator`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`y combinator` = this.cast("y combinator")
+  def `y combinator`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`y combinator` = ("y combinator").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`y combinator`]
   @scala.inline
-  def yahoo: typingsSlinky.semanticUiReact.semanticUiReactStrings.yahoo = this.cast("yahoo")
+  def yahoo: typingsSlinky.semanticUiReact.semanticUiReactStrings.yahoo = "yahoo".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.yahoo]
   @scala.inline
-  def yandex: typingsSlinky.semanticUiReact.semanticUiReactStrings.yandex = this.cast("yandex")
+  def yandex: typingsSlinky.semanticUiReact.semanticUiReactStrings.yandex = "yandex".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.yandex]
   @scala.inline
-  def `yandex international`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`yandex international` = this.cast("yandex international")
+  def `yandex international`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`yandex international` = ("yandex international").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`yandex international`]
   @scala.inline
-  def yelp: typingsSlinky.semanticUiReact.semanticUiReactStrings.yelp = this.cast("yelp")
+  def yelp: typingsSlinky.semanticUiReact.semanticUiReactStrings.yelp = "yelp".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.yelp]
   @scala.inline
-  def yen: typingsSlinky.semanticUiReact.semanticUiReactStrings.yen = this.cast("yen")
+  def yen: typingsSlinky.semanticUiReact.semanticUiReactStrings.yen = "yen".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.yen]
   @scala.inline
-  def `yen sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`yen sign` = this.cast("yen sign")
+  def `yen sign`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`yen sign` = ("yen sign").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`yen sign`]
   @scala.inline
-  def yoast: typingsSlinky.semanticUiReact.semanticUiReactStrings.yoast = this.cast("yoast")
+  def yoast: typingsSlinky.semanticUiReact.semanticUiReactStrings.yoast = "yoast".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.yoast]
   @scala.inline
-  def youtube: typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube = this.cast("youtube")
+  def youtube: typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube = "youtube".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.youtube]
   @scala.inline
-  def `youtube play`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube play` = this.cast("youtube play")
+  def `youtube play`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube play` = ("youtube play").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube play`]
   @scala.inline
-  def `youtube square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube square` = this.cast("youtube square")
+  def `youtube square`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube square` = ("youtube square").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`youtube square`]
   @scala.inline
-  def zip: typingsSlinky.semanticUiReact.semanticUiReactStrings.zip = this.cast("zip")
+  def zip: typingsSlinky.semanticUiReact.semanticUiReactStrings.zip = "zip".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.zip]
   @scala.inline
-  def zoom: typingsSlinky.semanticUiReact.semanticUiReactStrings.zoom = this.cast("zoom")
+  def zoom: typingsSlinky.semanticUiReact.semanticUiReactStrings.zoom = "zoom".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.zoom]
   @scala.inline
-  def `zoom in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom in` = this.cast("zoom in")
+  def `zoom in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom in` = ("zoom in").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom in`]
   @scala.inline
-  def `zoom out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom out` = this.cast("zoom out")
+  def `zoom out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom out` = ("zoom out").asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom out`]
   @scala.inline
-  def `zoom-in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-in` = this.cast("zoom-in")
+  def `zoom-in`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-in` = "zoom-in".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-in`]
   @scala.inline
-  def `zoom-out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out` = this.cast("zoom-out")
+  def `zoom-out`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out` = "zoom-out".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`zoom-out`]
 }
 

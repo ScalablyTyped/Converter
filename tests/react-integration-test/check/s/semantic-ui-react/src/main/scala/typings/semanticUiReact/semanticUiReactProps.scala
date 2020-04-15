@@ -23,7 +23,7 @@ trait semanticUiReactProps {
   def AccordionTitleProps: typings.semanticUiReact.accordionTitleMod.AccordionTitleProps.type = typings.semanticUiReact.accordionTitleMod.AccordionTitleProps
   type AccordionTitleProps = typings.semanticUiReact.accordionTitleMod.AccordionTitleProps
   @scala.inline
-  def ButtonProps: StrictButtonProps.type = typings.semanticUiReact.buttonMod.StrictButtonProps
+  def ButtonProps: StrictButtonProps.type = StrictButtonProps
   type ButtonProps = typings.semanticUiReact.buttonMod.ButtonProps
   @scala.inline
   def ButtonContentProps: typings.semanticUiReact.buttonContentMod.ButtonContentProps.type = typings.semanticUiReact.buttonContentMod.ButtonContentProps
@@ -38,7 +38,7 @@ trait semanticUiReactProps {
   def ContainerProps: typings.semanticUiReact.containerContainerMod.ContainerProps.type = typings.semanticUiReact.containerContainerMod.ContainerProps
   type ContainerProps = typings.semanticUiReact.containerContainerMod.ContainerProps
   @scala.inline
-  def InputProps: StrictInputProps.type = typings.semanticUiReact.inputInputMod.StrictInputProps
+  def InputProps: StrictInputProps.type = StrictInputProps
   type InputProps = typings.semanticUiReact.inputInputMod.InputProps
   @scala.inline
   def TestContainerProps: typings.semanticUiReact.testContainerTestContainerMod.TestContainerProps.type = typings.semanticUiReact.testContainerTestContainerMod.TestContainerProps
