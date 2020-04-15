@@ -8,6 +8,7 @@ import org.scalablytyped.converter.internal.stringUtils.quote
 
 object GenerateSbtPlugin {
   def apply(
+      isDeprecated:  Boolean,
       versions:      Versions,
       organization:  String,
       projectName:   ProjectName,
@@ -18,7 +19,7 @@ object GenerateSbtPlugin {
       action:        String,
   ): Unit = {
     files.sync(
-      contents(versions, organization, projectName, projects, pluginVersion, publisherOpt),
+      contents(isDeprecated, versions, organization, projectName, projects, pluginVersion, publisherOpt),
       projectDir,
       deleteUnknowns = true,
       soft           = true,
@@ -34,6 +35,7 @@ object GenerateSbtPlugin {
   }
 
   def contents(
+      isDeprecated:  Boolean,
       v:             Versions,
       organization:  String,
       projectName:   ProjectName,
@@ -81,12 +83,18 @@ object GenerateSbtPlugin {
       case Some(publisher) => s"\n    resolvers += ${publisher.sbtResolver}"
       case None            => ""
     }
+
+    val deprecationNotice =
+      if (isDeprecated)
+        """@deprecated("The pre-built distribution you're using of ScalablyTyped is deprecated. Please see https://www.scalablytyped.org for the new sbt plugin")\n"""
+      else ""
+
     val pluginSource = s"""
       |package $organization.sbt
       |
       |import sbt._
       |import sbt.Keys._
-      |
+      |$deprecationNotice
       |object ${projectName.value}Plugin extends AutoPlugin {
       |  override def trigger = allRequirements
       |  override def requires = sbt.plugins.JvmPlugin

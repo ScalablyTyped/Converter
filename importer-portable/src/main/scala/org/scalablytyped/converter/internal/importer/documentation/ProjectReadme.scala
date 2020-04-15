@@ -18,9 +18,8 @@ ${declaredVersion.fold("")(renderVersion)}
 ${dataOpt.fold("")(renderData)}
 
 ## Note
-This library has been generated from typescript code from ${if (declaredVersion.exists(
-                                                                  _.inGit.exists(_.isDefinitelyTyped),
-                                                                ))
+This library has been generated from typescript code from 
+${if (declaredVersion.exists(_.inGit.exists(_.isDefinitelyTyped)))
       link("DefinitelyTyped", "https://definitelytyped.org")
     else "first party type definitions"}.
 
