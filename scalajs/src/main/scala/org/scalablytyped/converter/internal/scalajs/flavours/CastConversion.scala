@@ -75,16 +75,20 @@ object CastConversion {
                     case Scoped(_, owner: InheritanceTree) =>
                       owner.index.get(m.name) match {
                         case Some(membersSameName) if membersSameName.length > 1 =>
-                          val paramIdx = m.params.flatten.indexOf(p)
-                          /* but not if all overloads have the same type (or none) for the same parameter number */
-                          val sameInAllOverloads = membersSameName.forall {
+                          val flattenedParams = m.params.flatten
+                          val paramIdx        = flattenedParams.indexOf(p)
+
+                          /* the heuristics so far is another method with same number of params and different type in same position might collide */
+                          val mightClash = membersSameName.exists {
+                            case `m` => false
                             case mm: MethodTree =>
-                              val mmParams = mm.params.flatten
-                              if (mmParams.length < paramIdx + 1) true
-                              else mmParams(paramIdx).tpe === p.tpe
+                              val mmFlattenedParams = mm.params.flatten
+                              if (mmFlattenedParams.length === flattenedParams.length) {
+                                mmFlattenedParams(paramIdx).tpe =/= p.tpe
+                              } else false
                             case _ => false
                           }
-                          !sameInAllOverloads
+                          mightClash
                         case _ => false
                       }
                     case _ => false

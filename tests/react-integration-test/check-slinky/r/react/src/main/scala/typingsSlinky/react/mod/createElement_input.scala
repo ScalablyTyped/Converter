@@ -13,10 +13,10 @@ object createElement_input extends js.Object {
   // DOM Elements
   // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
   def apply(`type`: input): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
-  def apply(`type`: input, children: ReactNode*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
+  def apply(`type`: input, children: TagMod[Any]*): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
   def apply(
     `type`: input,
-    props: InputHTMLAttributes[typingsSlinky.std.HTMLInputElement] with ClassAttributes[typingsSlinky.std.HTMLInputElement],
+    props: InputHTMLAttributes[HTMLInputElement] with ClassAttributes[HTMLInputElement],
     children: TagMod[Any]*
   ): DetailedReactHTMLElement[InputHTMLAttributes[HTMLInputElement], HTMLInputElement] = js.native
 }

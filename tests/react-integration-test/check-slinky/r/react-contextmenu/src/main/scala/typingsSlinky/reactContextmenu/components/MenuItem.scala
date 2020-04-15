@@ -1,6 +1,7 @@
 package typingsSlinky.reactContextmenu.components
 
 import org.scalablytyped.runtime.StringDictionary
+import org.scalajs.dom.raw.HTMLDivElement
 import org.scalajs.dom.raw.HTMLElement
 import slinky.core.BuildingComponent
 import slinky.core.ExternalComponentWithAttributesWithRefType
@@ -10,7 +11,6 @@ import slinky.web.SyntheticTouchEvent
 import slinky.web.html.div.tag
 import typingsSlinky.react.mod.HTMLAttributes
 import typingsSlinky.reactContextmenu.mod.MenuItemProps
-import typingsSlinky.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -29,7 +29,7 @@ object MenuItem
     disabled: js.UndefOr[Boolean] = js.undefined,
     divider: js.UndefOr[Boolean] = js.undefined,
     onClick: (js.Function3[
-      /* event */ SyntheticTouchEvent[org.scalajs.dom.raw.HTMLDivElement] | SyntheticMouseEvent[org.scalajs.dom.raw.HTMLDivElement], 
+      /* event */ SyntheticTouchEvent[HTMLDivElement] | SyntheticMouseEvent[HTMLDivElement], 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
       /* target */ HTMLElement, 
       Unit
