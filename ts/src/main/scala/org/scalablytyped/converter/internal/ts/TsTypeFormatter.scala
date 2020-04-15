@@ -51,9 +51,14 @@ class TsTypeFormatter(val keepComments: Boolean) {
       s"${level(l)} ${sig(s)}"
     case TsMemberCtor(_, _, s) =>
       s"new ${sig(s)}"
-    case TsMemberFunction(_, l, name, s, isStatic, isReadOnly, isOptional) =>
+    case TsMemberFunction(_, l, name, methodType, s, isStatic, isReadOnly, isOptional) =>
       List[Option[String]](
         level(l),
+        methodType match {
+          case MethodType.Normal => None
+          case MethodType.Getter => Some("get")
+          case MethodType.Setter => Some("set")
+        },
         if (isStatic) Some("static") else None,
         if (isReadOnly) Some("readonly") else None,
         Some(name.value),

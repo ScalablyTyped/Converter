@@ -172,8 +172,9 @@ final class ParserTests extends AnyFunSuite {
         members = IArray(
           TsMemberFunction(
             NoComments,
-            level = ProtectionLevel.Default,
-            name  = TsIdent.constructor,
+            level      = ProtectionLevel.Default,
+            name       = TsIdent.constructor,
+            methodType = MethodType.Normal,
             signature = TsFunSig(
               NoComments,
               Empty,
@@ -209,6 +210,7 @@ final class ParserTests extends AnyFunSuite {
             NoComments,
             level      = ProtectionLevel.Default,
             name       = TsIdent("destroy"),
+            methodType = MethodType.Normal,
             signature  = TsFunSig(NoComments, tparams = Empty, params = Empty, resultType = Some(TsTypeRef.void)),
             isStatic   = false,
             isReadOnly = false,
@@ -338,7 +340,7 @@ final class ParserTests extends AnyFunSuite {
 
     TsTreeTraverse.collect(tree) {
       case TsMemberProperty(_, level, _, _, _, false, _, _)                => level
-      case TsMemberFunction(_, level, TsIdent.constructor, _, false, _, _) => level
+      case TsMemberFunction(_, level, TsIdent.constructor, _, _, false, _, _) => level
     } should be(IArray(ProtectionLevel.Protected, ProtectionLevel.Private, ProtectionLevel.Default))
 
     TsTreeTraverse
@@ -463,6 +465,7 @@ final class ParserTests extends AnyFunSuite {
                           NoComments,
                           level = ProtectionLevel.Default,
                           name  = TsIdent("toString"),
+                          methodType = MethodType.Normal,
                           signature =
                             TsFunSig(NoComments, tparams = Empty, params = Empty, resultType = Some(TsTypeRef.string)),
                           isStatic   = false,
@@ -627,6 +630,7 @@ final class ParserTests extends AnyFunSuite {
         NoComments,
         ProtectionLevel.Default,
         TsIdent("useBasicAuth"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -753,6 +757,7 @@ final class ParserTests extends AnyFunSuite {
         NoComments,
         ProtectionLevel.Default,
         TsIdent("when"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           IArray(TsTypeParam(NoComments, TsIdent("T"), None, None)),
@@ -1123,6 +1128,7 @@ final class ParserTests extends AnyFunSuite {
         NoComments,
         ProtectionLevel.Default,
         TsIdent("addEventListener"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           IArray(
@@ -1282,6 +1288,7 @@ final class ParserTests extends AnyFunSuite {
                     NoComments,
                     level = ProtectionLevel.Default,
                     name  = TsIdent("get"),
+                    methodType = MethodType.Normal,
                     signature = TsFunSig(
                       NoComments,
                       Empty,
@@ -1296,6 +1303,7 @@ final class ParserTests extends AnyFunSuite {
                     NoComments,
                     ProtectionLevel.Default,
                     TsIdent("set"),
+                    MethodType.Normal,
                     TsFunSig(
                       NoComments,
                       Empty,
@@ -1389,6 +1397,7 @@ type Readonly<T> = {
         NoComments,
         ProtectionLevel.Default,
         TsIdentSimple("@@transducer/init"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -1497,6 +1506,7 @@ type Readonly<T> = {
         NoComments,
         ProtectionLevel.Default,
         TsIdent("delegating"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -1549,6 +1559,7 @@ type Readonly<T> = {
         NoComments,
         ProtectionLevel.Default,
         TsIdent("isEmptyObject"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -1760,6 +1771,7 @@ type Readonly<T> = {
         NoComments,
         ProtectionLevel.Default,
         TsIdentSimple("searchForFacetValues"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -1833,6 +1845,7 @@ type Readonly<T> = {
             NoComments,
             ProtectionLevel.Default,
             TsIdentSimple("apply"),
+            MethodType.Normal,
             TsFunSig(
               NoComments,
               Empty,
@@ -1884,6 +1897,7 @@ type Readonly<T> = {
                 NoComments,
                 ProtectionLevel.Default,
                 TsIdentSimple("bivarianceHack"),
+                MethodType.Normal,
                 TsFunSig(
                   NoComments,
                   Empty,
@@ -2167,6 +2181,7 @@ type Readonly<T> = {
         NoComments,
         ProtectionLevel.Default,
         TsIdentSimple("mutate"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           IArray(TsTypeParam(NoComments, TsIdentSimple("T"), None, None)),
@@ -2495,6 +2510,7 @@ export {};
         NoComments,
         ProtectionLevel.Protected,
         TsIdentSimple("_Handle_insert"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -2646,6 +2662,7 @@ export {};
         NoComments,
         ProtectionLevel.Default,
         TsIdentSimple("expire"),
+        MethodType.Normal,
         TsFunSig(
           NoComments,
           Empty,
@@ -2689,7 +2706,7 @@ export {};
     shouldParseAs("declare type AsyncFunction<> = () => Promise<any>", TsParser.tsDeclTypeAlias)(
       TsDeclTypeAlias(
         NoComments,
-        true,
+        declared = true,
         TsIdentSimple("AsyncFunction"),
         Empty,
         TsTypeFunction(
@@ -2712,6 +2729,72 @@ export {};
         IArray(
           TsExpr.Cast(TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("MutableArray")))), TsTypeObject(NoComments, Empty)),
         ),
+      ),
+    )
+  }
+
+  test("properties") {
+    val content = """declare class Test {
+    _prop: number;
+    get prop(): number;
+    set prop(v: number);
+}
+"""
+    shouldParseAs(content, TsParser.tsDeclClass)(
+      TsDeclClass(
+        NoComments,
+        declared = true,
+        isAbstract = false,
+        TsIdentSimple("Test"),
+        IArray(),
+        None,
+        IArray(),
+        IArray(
+          TsMemberProperty(
+            NoComments,
+            ProtectionLevel.Default,
+            TsIdentSimple("_prop"),
+            Some(TsTypeRef.number),
+            None,
+            isStatic = false,
+            isReadOnly = false,
+            isOptional = false,
+          ),
+          TsMemberFunction(
+            NoComments,
+            ProtectionLevel.Default,
+            TsIdentSimple("prop"),
+            MethodType.Getter,
+            TsFunSig(NoComments, IArray(), IArray(), Some(TsTypeRef.number)),
+            isStatic = false,
+            isReadOnly = false,
+            isOptional = false,
+          ),
+          TsMemberFunction(
+            NoComments,
+            ProtectionLevel.Default,
+            TsIdentSimple("prop"),
+            MethodType.Setter,
+            TsFunSig(
+              NoComments,
+              IArray(),
+              IArray(
+                TsFunParam(
+                  NoComments,
+                  TsIdentSimple("v"),
+                  Some(TsTypeRef.number),
+                  isOptional = false,
+                ),
+              ),
+              None,
+            ),
+            isStatic = false,
+            isReadOnly = false,
+            isOptional = false,
+          ),
+        ),
+        Zero,
+        CodePath.NoPath,
       ),
     )
   }

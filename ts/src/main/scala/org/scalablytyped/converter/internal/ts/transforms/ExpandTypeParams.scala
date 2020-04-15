@@ -53,7 +53,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
             RemoveComment.keepFirstOnly(nonEmpty.map(newSig => m.copy(signature = newSig)))
         }
 
-      case m @ TsMemberFunction(_, _, name, sig, _, _, _) =>
+      case m @ TsMemberFunction(_, _, name, MethodType.Normal, sig, _, _, _) =>
         expandTParams(scope / m, sig) match {
           case None => IArray(m)
           case Some(nonEmpty) =>

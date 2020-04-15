@@ -18,7 +18,6 @@ class ImportExpr(importType: ImportType, importName: AdaptiveNamingImport) {
               case Some(long) => ExprTree.NumberLit(long.toString + ".0")
               case None       => ExprTree.NumberLit(value)
             }
-          case TsLiteralNumber(value)  => ExprTree.NumberLit(value)
           case TsLiteralString(value)  => ExprTree.StringLit(value)
           case TsLiteralBoolean(value) => ExprTree.BooleanLit(value)
         }

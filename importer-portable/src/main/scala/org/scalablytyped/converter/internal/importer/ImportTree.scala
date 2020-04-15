@@ -266,6 +266,7 @@ class ImportTree(
             name           = name,
             annOpt         = annOpt,
             cs             = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
+            methodType     = MethodType.Normal,
             sig            = sig,
             scalaJsDefined = false,
             ownerCP        = codePath,
@@ -339,14 +340,28 @@ class ImportTree(
       case TsMemberCall(cs, level, signature) =>
         IArray(
           MemberRet(
-            tsMethod(scope, importName, level, Name.APPLY, None, cs, signature, scalaJsDefined, ownerCP),
+            tsMethod(
+              scope          = scope,
+              importName     = importName,
+              level          = level,
+              name           = Name.APPLY,
+              annOpt         = None,
+              cs             = cs,
+              methodType     = MethodType.Normal,
+              sig            = signature,
+              scalaJsDefined = scalaJsDefined,
+              ownerCP        = ownerCP,
+            ),
             isStatic = false,
           ),
         )
       case TsMemberCtor(cs, _, _sig) =>
         IArray(MemberRet.Inheritance(importType.newableFunction(scope, importName, _sig, cs)))
 
-      case TsMemberFunction(cs, level, TsIdent.constructor, sig, false, _, _) =>
+      case f @ TsMemberFunction(cs, level, TsIdent.constructor, methodType, sig, false, _, _) =>
+        if (methodType =/= MethodType.Normal) {
+          sys.error(s"unexpected $f")
+        }
         IArray(
           MemberRet.Ctor(
             CtorTree(level, tsFunParams(scope / sig, importName, params = sig.params), cs ++ sig.comments),
@@ -356,8 +371,11 @@ class ImportTree(
       case m: TsMemberProperty =>
         tsMemberProperty(scope, scalaJsDefined, importName, ownerCP)(m)
 
-      case TsMemberFunction(cs, level, name, signature, isStatic, isReadOnly, isOptional) =>
+      case f @ TsMemberFunction(cs, level, name, methodType, signature, isStatic, isReadOnly, isOptional) =>
         if (isOptional) {
+          if (methodType =/= MethodType.Normal) {
+            sys.error(s"unexpected $f")
+          }
           val asFunction =
             TsMemberProperty(cs, level, name, Some(TsTypeFunction(signature)), None, isStatic, isReadOnly, isOptional)
 
@@ -366,7 +384,7 @@ class ImportTree(
           val (newName, annOpt) = ImportName.withJsNameAnnotation(name)
           IArray(
             MemberRet(
-              tsMethod(scope, importName, level, newName, annOpt, cs, signature, scalaJsDefined, ownerCP),
+              tsMethod(scope, importName, level, newName, annOpt, cs, methodType, signature, scalaJsDefined, ownerCP),
               isStatic,
             ),
           )
@@ -456,15 +474,16 @@ class ImportTree(
             call =>
               MemberRet(
                 tsMethod(
-                  scope / call,
-                  importName,
-                  call.level,
-                  name,
-                  annOpt,
-                  call.comments,
-                  call.signature,
-                  scalaJsDefined,
-                  ownerCP,
+                  scope          = scope / call,
+                  importName     = importName,
+                  level          = call.level,
+                  name           = name,
+                  annOpt         = annOpt,
+                  cs             = call.comments,
+                  methodType     = MethodType.Normal,
+                  sig            = call.signature,
+                  scalaJsDefined = scalaJsDefined,
+                  ownerCP        = ownerCP,
                 ),
                 m.isStatic,
               ),
@@ -530,12 +549,13 @@ class ImportTree(
       name:           Name,
       annOpt:         Option[Annotation.JsName],
       cs:             Comments,
+      methodType:     MethodType,
       sig:            TsFunSig,
       scalaJsDefined: Boolean,
       ownerCP:        QualifiedName,
   ): MethodTree = {
 
-    val fieldType: ImplTree =
+    val impl: ImplTree =
       if (scalaJsDefined) NotImplemented else ExprTree.native
 
     val resultType: TypeRef = (
@@ -551,13 +571,19 @@ class ImportTree(
     val trimmedParams =
       if (sig.params.headOption.exists(_.name === TsIdent.`this`)) sig.params.drop(1) else sig.params
 
+    val params =
+      methodType match {
+        case MethodType.Getter => Empty
+        case _                 => IArray(tsFunParams(scope, importName, trimmedParams))
+      }
+
     val ret = MethodTree(
       annotations = IArray.fromOption(annOpt),
       level       = level,
       name        = name,
       tparams     = sig.tparams map typeParam(scope, importName),
-      params      = IArray(tsFunParams(scope, importName, trimmedParams)),
-      impl        = fieldType,
+      params      = params,
+      impl        = impl,
       resultType  = resultType,
       isOverride  = false,
       comments    = cs ++ sig.comments,

@@ -41,7 +41,16 @@ object ExpandCallables extends TransformClassMembers {
               callables.map {
                 case (comments, sig) =>
                   val newCs = comments ++ cs
-                  TsMemberFunction(newCs, level, name, sig, isStatic, isReadOnly = true, isOptional = false)
+                  TsMemberFunction(
+                    newCs,
+                    level,
+                    name,
+                    MethodType.Normal,
+                    sig,
+                    isStatic,
+                    isReadOnly = true,
+                    isOptional = false,
+                  )
               }
 
             scope.logger.info(s"Expanded ${name.value} into ${fs.length} methods")

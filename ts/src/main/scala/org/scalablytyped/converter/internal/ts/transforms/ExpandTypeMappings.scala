@@ -206,7 +206,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
                       tpeOpt.fold[TsType](TsTypeRef.any)(visitTsType(scope)),
                       isOptional,
                     )
-                  case TsMemberFunction(_, _, TsIdent(name.literal), signature, false, _, isOptional) =>
+                  case TsMemberFunction(_, _, TsIdent(name.literal), _, signature, false, _, isOptional) =>
                     ResolveTypeLookups.optional(
                       visitTsType(scope)(TsTypeFunction(signature)),
                       isOptional,
@@ -242,7 +242,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
             case (x: TsDeclInterface, _) =>
               val names = FillInTParams(x, tr.tparams).members.collect {
                 case TsMemberProperty(_, _, name, _, _, _, _, _) => TsLiteralString(name.value)
-                case TsMemberFunction(_, _, name, _, _, _, _)    => TsLiteralString(name.value)
+                case TsMemberFunction(_, _, name, _, _, _, _, _) => TsLiteralString(name.value)
               }
               Ok(names.toSet, wasRewritten = false)
             case (x: TsDeclEnum, _) if x.isConst =>

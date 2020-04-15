@@ -58,10 +58,11 @@ object ResolveTypeLookups extends TreeTransformationScopedChanges {
 
   def pick(members: IArray[TsMember], wanted: TsLiteral): TsType = {
     val (functions, fields, _) = members.partitionCollect2(
-      { case TsMemberFunction(_, _, TsIdent(wanted.literal), sig, NonStatic, _, false) => sig }, {
+      { case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _, false) => sig }, {
         case TsMemberProperty(_, _, TsIdent(wanted.literal), tpeOpt, _, NonStatic, _, isOptional) =>
           optional(tpeOpt getOrElse TsTypeRef.any, isOptional)
-        case TsMemberFunction(_, _, TsIdent(wanted.literal), sig, NonStatic, _, _) => TsTypeFunction(sig)
+        case TsMemberFunction(_, _, TsIdent(wanted.literal), MethodType.Normal, sig, NonStatic, _, _) =>
+          TsTypeFunction(sig)
       },
     )
     val combinedFunctions: Option[TsType] = functions.distinct match {

@@ -50,7 +50,7 @@ object DeriveCopy {
                 name = name,
                 members = x.members.collect {
                   case c: TsMemberCtor => c
-                  case c @ TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _) => c
+                  case c @ TsMemberFunction(_, _, TsIdent.constructor, _, _, _, _, _) => c
                   case x: TsMemberProperty if x.isStatic => x
                   case x: TsMemberFunction if x.isStatic => x
                 },

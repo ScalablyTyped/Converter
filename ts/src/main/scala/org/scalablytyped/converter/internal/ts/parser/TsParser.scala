@@ -529,7 +529,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
   lazy val tsMemberNamed: Parser[TsMember] = {
 
-    val intro: Parser[(ProtectionLevel, TsIdentSimple, Boolean, Boolean)] =
+    val intro: Parser[(ProtectionLevel, TsIdentSimple, Boolean, Boolean, MethodType)] =
       tsIdentLiberal.+ ^^ {
         case mods :+ name =>
           val level: ProtectionLevel =
@@ -539,18 +539,22 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
 
           val static   = mods.contains(TsIdent("static"))
           val readonly = mods.contains(TsIdent("readonly"))
-          (level, name, static, readonly)
+          val methodType =
+            if (mods.contains(TsIdent("get"))) MethodType.Getter
+            else if (mods.contains(TsIdent("set"))) MethodType.Setter
+            else MethodType.Normal
+          (level, name, static, readonly, methodType)
       }
 
     val function: Parser[TsMemberFunction] =
       comments ~ intro ~ "?".isDefined ~ functionSignature ^^ {
-        case cs ~ ((level, name, static, readOnly)) ~ isOptional ~ sig =>
-          TsMemberFunction(cs, level, name, sig, static, readOnly, isOptional)
+        case cs ~ ((level, name, static, readOnly, methodType)) ~ isOptional ~ sig =>
+          TsMemberFunction(cs, level, name, methodType, sig, static, readOnly, isOptional)
       }
 
     val field: Parser[TsMemberProperty] =
       comments ~ intro ~ "?".isDefined ~ typeAnnotationOpt ~ ("=" ~> expr).? ^^ {
-        case cs ~ ((level, name, static, readonly)) ~ optional ~ tpe ~ expr =>
+        case cs ~ ((level, name, static, readonly, _)) ~ optional ~ tpe ~ expr =>
           TsMemberProperty(cs, level, name, tpe, expr, static, readonly, optional)
       }
 

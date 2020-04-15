@@ -38,7 +38,7 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
 
   override def newClassMembers(scope: TsTreeScope, x: HasClassMembers): IArray[TsMember] =
     x.members.flatMap {
-      case m @ TsMemberFunction(comments, level, name, signature, isStatic, _, true) =>
+      case m @ TsMemberFunction(comments, level, name, MethodType.Normal, signature, isStatic, _, true) =>
         IArray(
           TsMemberProperty(
             comments,
@@ -52,7 +52,7 @@ object NormalizeFunctions extends TransformMembers with TransformClassMembers {
           ),
         )
       case TsMemberProperty(cs, level, name, Some(ToRewrite(sigs)), None, isStatic, isReadOnly, isOptional) =>
-        sigs.map(sig => TsMemberFunction(cs, level, name, sig, isStatic, isReadOnly, isOptional))
+        sigs.map(sig => TsMemberFunction(cs, level, name, MethodType.Normal, sig, isStatic, isReadOnly, isOptional))
       case other => IArray(other)
     }
 

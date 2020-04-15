@@ -300,8 +300,8 @@ trait TreeTransformation[T] { self =>
     val xx = enterTsMemberFunction(withTree(t, x))(x)
     val tt = withTree(t, xx)
     xx match {
-      case TsMemberFunction(_1, _2, _3, _4, _5, _6, _7) =>
-        TsMemberFunction(_1, _2, _3, visitTsFunSig(tt)(_4), _5, _6, _7)
+      case TsMemberFunction(_1, _2, _3, _4, _5, _6, _7, _8) =>
+        TsMemberFunction(_1, _2, _3, _4, visitTsFunSig(tt)(_5), _6, _7, _8)
     }
   }
   final def visitTsMemberIndex(t: T)(x: TsMemberIndex): TsMemberIndex = {

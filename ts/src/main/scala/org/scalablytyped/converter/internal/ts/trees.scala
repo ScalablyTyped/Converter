@@ -14,7 +14,7 @@ sealed trait TsTree extends Serializable with Product {
     val name = this match {
       case named: TsNamedDecl => named.name.value
       case TsMemberProperty(_, _, TsIdent(str), _, _, _, _, _) => str
-      case TsMemberFunction(_, _, TsIdent(str), _, _, _, _)    => str
+      case TsMemberFunction(_, _, TsIdent(str), _, _, _, _, _) => str
       case _                                                   => ""
     }
     s"${getClass.getSimpleName}($name)"
@@ -591,6 +591,7 @@ final case class TsMemberFunction(
     comments:   Comments,
     level:      ProtectionLevel,
     name:       TsIdentSimple,
+    methodType: MethodType,
     signature:  TsFunSig,
     isStatic:   Boolean,
     isReadOnly: Boolean,
@@ -707,3 +708,10 @@ object ExportType {
 final case class TsExport(comments: Comments, typeOnly: Boolean, tpe: ExportType, exported: TsExportee) extends TsDecl
 
 final case class TsExportAsNamespace(ident: TsIdent) extends TsDecl
+
+sealed trait MethodType
+object MethodType {
+  case object Normal extends MethodType
+  case object Getter extends MethodType
+  case object Setter extends MethodType
+}

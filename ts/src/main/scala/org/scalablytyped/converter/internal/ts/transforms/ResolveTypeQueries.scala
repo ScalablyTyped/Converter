@@ -24,7 +24,16 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
             case (found: TsDeclVar, _) =>
               target.copy(comments = cs ++ found.comments, tpe = found.tpe)
             case (found: TsDeclFunction, _) =>
-              TsMemberFunction(cs ++ found.comments, level, name, found.signature, isStatic, isReadOnly, isOptional)
+              TsMemberFunction(
+                cs ++ found.comments,
+                level,
+                name,
+                MethodType.Normal,
+                found.signature,
+                isStatic,
+                isReadOnly,
+                isOptional,
+              )
             case (found, newScope) =>
               target.copy(tpe = typeOf(found, newScope, LoopDetector.initial))
           }
@@ -122,7 +131,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           val existingCtorOpt: Option[TsTypeConstructor] =
             cls.members collectFirst {
               case TsMemberCtor(cs, _, sig) => asTypeCtor(cls, sig.comments ++ cs, sig.params)
-              case TsMemberFunction(cs, _, TsIdent.constructor, sig, _, _, _) =>
+              case TsMemberFunction(cs, _, TsIdent.constructor, MethodType.Normal, sig, _, _, _) =>
                 asTypeCtor(cls, sig.comments ++ cs, sig.params)
             }
 
@@ -234,6 +243,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           cs,
           ProtectionLevel.Default,
           name,
+          MethodType.Normal,
           sig,
           isStatic   = false,
           isReadOnly = true,

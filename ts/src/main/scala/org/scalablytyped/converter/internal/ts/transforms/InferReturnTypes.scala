@@ -16,8 +16,16 @@ object InferReturnTypes extends TreeTransformationScopedChanges {
           ParentsResolver(scope, owner).parents firstDefined { descendant =>
             descendant.membersByName get x.name flatMap { sameNames =>
               sameNames collectFirst {
-                case TsMemberFunction(_, _, _, TsFunSig(_, _, thoseParams, Some(resultType)), _, _, _)
-                    if thoseParams.length === params.length =>
+                case TsMemberFunction(
+                    _,
+                    _,
+                    _,
+                    MethodType.Normal,
+                    TsFunSig(_, _, thoseParams, Some(resultType)),
+                    _,
+                    _,
+                    _,
+                    ) if thoseParams.length === params.length =>
                   x.copy(signature = x.signature.copy(resultType = Some(resultType)))
               }
             }
