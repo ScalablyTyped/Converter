@@ -27,12 +27,9 @@ You can try setting the `pedantic` flag to false initially. See [dev guidelines]
 
 It is possible to run the converter, and the converter unit tests, in a debugger, which may yield clues to what's going wrong.
 
-1. Start sbt with `sbt -jvm-debug 5005`
+1. The easiest is to run the [CLI tool](cli.md) directly from your IDE. 
+Install the libraries as described and start it in a debugger.
 
-2. Open the Converter codebase in Intellij.
+2. Set breakpoints or Pause debug to understand what the converter is doing when it fails. Eg if it is running out of memory, where is it executing when doing so?
 
-3. In Intellij, start a Remote Debug session on port 5005. It should connect to the SBT process.
-
-4. Set breakpoints or Pause debug to understand what the converter is doing when it fails. Eg if it is running out of memory, where is it excuting when doing so?
-
-5. One useful technique can be adding `println`s via the debugger. Set a Breakpoint, then uncheck **Suspend**, and instead check **Evaluate and Log**. You can enter an expression referring data in scope at the point. 
+3. One useful technique can be adding `println`s via the debugger. Set a Breakpoint, then uncheck **Suspend**, and instead check **Evaluate and Log**. You can enter an expression referring data in scope at the point. 

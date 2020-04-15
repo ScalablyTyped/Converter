@@ -3,11 +3,8 @@ id: plugin-no-bundler
 title: SBT plugin without scalajs-bundler
 ---
 
-[I want to use scalajs-bundler (recommended)](plugin-no-bundler.md)
-[I can't/won't use sbt](cli.md)
-
-Don't want to use scalajs-bundler? 
-That's fine, you just need a tiny bit of config to get it working anyway.
+- [I want to use scalajs-bundler (recommended)](plugin.md)
+- [I can't/won't use sbt](cli.md)
 
 ## Ensure you use the correct plugin
 

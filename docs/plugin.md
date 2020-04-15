@@ -6,8 +6,8 @@ title: Getting started - SBT plugin
 The plugin uses [scalajs-bundler](https://scalacenter.github.io/scalajs-bundler/)
 to download NPM packages, and translates typescript type definitions into Scala.js jars before your project compiles.
 
-[I can't/won't use scalajs-bundler](plugin-no-bundler.md)
-[I can't/won't use sbt](cli.md)
+- [I can't/won't use scalajs-bundler](plugin-no-bundler.md)
+- [I can't/won't use sbt](cli.md)
 
 # I just want to see how it works
 

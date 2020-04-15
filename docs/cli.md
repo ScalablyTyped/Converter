@@ -3,8 +3,8 @@ id: cli
 title: Getting started - command line tool
 ---
 
-[I want to use sbt with scalajs-bundler (recommended)](plugin-no-bundler.md)
-[I want to use sbt without scalajs-bundler](cli.md)
+- [I want to use sbt with scalajs-bundler (recommended)](plugin-no-bundler.md)
+- [I want to use sbt without scalajs-bundler](cli.md)
 
 The command line is the same functionality as the sbt plugin just without sbt.
 You provide a directory with a package.json and a node_modules, optionally
