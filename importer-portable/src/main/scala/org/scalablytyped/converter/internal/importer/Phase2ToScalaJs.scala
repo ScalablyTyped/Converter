@@ -56,7 +56,6 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               S.RemoveDuplicateInheritance >>
                 S.CleanupTypeAliases >>
                 cleanIllegalNames >>
-                S.InlineNestedIdentityAlias >>
                 S.Deduplicator visitPackageTree scope,
               Adapter(scope)((tree, s) => S.FakeLiterals(outputPkg, s, cleanIllegalNames)(tree)),
               Adapter(scope)((tree, s) => S.UnionToInheritance(s, tree, scalaName)), // after FakeLiterals

@@ -254,8 +254,16 @@ object TypeRef {
   def NumberDictionary(typeParam: TypeRef, comments: Comments): TypeRef =
     TypeRef(QualifiedName.NumberDictionary, IArray(typeParam), comments)
 
-  def TopLevel(typeParam: TypeRef): TypeRef =
-    TypeRef(QualifiedName.TopLevel, IArray(typeParam), NoComments)
+  object TopLevel {
+    def apply(tr: TypeRef): TypeRef =
+      TypeRef(QualifiedName.TopLevel, IArray(tr), NoComments)
+
+    def unapply(tr: TypeRef): Option[TypeRef] =
+      tr match {
+        case TypeRef(QualifiedName.TopLevel, IArray.exactlyOne(typeParam), NoComments) => Some(typeParam)
+        case _                                                                         => None
+      }
+  }
 
   object Function {
     def apply(thisType: Option[TypeRef], typeParams: IArray[TypeRef], resType: TypeRef, comments: Comments): TypeRef = {

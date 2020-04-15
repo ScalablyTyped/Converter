@@ -61,3 +61,5 @@ type Mark =
     | TrailMark;
 
 type Marking = Record<Mark['type'], string>
+
+type Double<T> = Partial<Partial<T>>

@@ -75,20 +75,20 @@ package object std {
     */
   type Partial[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ P in keyof T ]:? T[P]}
-    */ typings.std.stdStrings.Partial with T
+    */ typings.std.stdStrings.Partial with org.scalablytyped.runtime.TopLevel[T]
   /**
     * From T pick a set of properties K
     */
   type Pick[T, K /* <: java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ P in K ]: T[P]}
-    */ typings.std.stdStrings.Pick with T
+    */ typings.std.stdStrings.Pick with org.scalablytyped.runtime.TopLevel[T]
   type PointerEvent = typings.std.Event
   /**
     * Make all properties in T readonly
     */
   type Readonly[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {readonly [ P in keyof T ]: T[P]}
-    */ typings.std.stdStrings.Readonly with T
+    */ typings.std.stdStrings.Readonly with org.scalablytyped.runtime.TopLevel[T]
   /**
     * Construct a type with a set of properties K of type T
     */

@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "void-elements"
-version := "3.1-b6d9a3"
+version := "3.1-63dbad"
 scalaVersion := "2.13.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-e2f8ec")
+  "org.scalablytyped" %%% "std" % "0.0-unknown-e8c109")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

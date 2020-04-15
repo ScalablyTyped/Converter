@@ -123,7 +123,7 @@ class ImportType(stdNames: QualifiedName.StdNames) {
           case x: TsDeclTypeAlias if x.codePath.forceHasPath.codePath === TsQIdent.Std.Record =>
             TypeRef.StringDictionary(TypeRef(ImportName(x.tparams(1).name)), NoComments)
           case x: TsNamedDecl =>
-            TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), base)).withComments(c)
+            TypeRef.Intersection(IArray(TypeRef.StringLiteral(x.name.value), TypeRef.TopLevel(base))).withComments(c)
         } getOrElse base.withComments(c)
 
       case TsTypeObject(_, ms) if ExtractInterfaces.isDictionary(ms) =>
