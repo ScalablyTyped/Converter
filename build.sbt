@@ -1,5 +1,7 @@
 import scala.sys.process.stringToProcess
 
+lazy val latestTag = "git tag -l".!!.linesIterator.toVector.last.drop(/* 'v' */ 1)
+
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
   .settings(libraryDependencies ++= Seq(Deps.ammoniteOps, Deps.osLib, Deps.sourcecode) ++ Deps.circe)
@@ -16,7 +18,7 @@ lazy val ts = project
 lazy val docs = project
   .in(file("tso-docs"))
   .settings(
-    mdocVariables := Map("VERSION" -> version.value),
+    mdocVariables := Map("VERSION" -> latestTag),
     moduleName := "tso-docs",
   )
   .configure(preventPublication)
