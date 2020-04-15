@@ -1,6 +1,8 @@
 package typingsJapgolly.reactTransitionGroup.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsForwardRefComponent.force
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -25,16 +27,11 @@ object TransitionGroup {
     (TransitionGroupProps[abbr, js.Any]) with js.Object
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      js.Dynamic.global.Object.assign(__obj, props)
+    js.Dynamic.global.Object.assign(__obj, props)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  (typingsJapgolly.reactTransitionGroup.transitionGroupMod.TransitionGroupProps[typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr, js.Any]) with js.Object, 
-  japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactTransitionGroup.mod.TransitionGroup](this.componentImport)
-    f(__obj.asInstanceOf[(typingsJapgolly.reactTransitionGroup.transitionGroupMod.TransitionGroupProps[typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr, js.Any]) with js.Object])(children: _*)
+    val f = force[(TransitionGroupProps[abbr, js.Any]) with js.Object, Varargs, typingsJapgolly.reactTransitionGroup.mod.TransitionGroup](this.componentImport)
+    f(__obj.asInstanceOf[(TransitionGroupProps[abbr, js.Any]) with js.Object])(children :_*)
   }
   @JSImport("react-transition-group", "TransitionGroup")
   @js.native

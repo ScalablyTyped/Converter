@@ -1,22 +1,23 @@
 package typings.reactIcons
 
 import typings.react.mod.ComponentType
+import typings.reactIcons.`500pxMod`.default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object reactIconsComponents extends reactIconsProps {
   @scala.inline
-  def `500px`: ComponentType[`500pxProps`] = js.constructorOf[typings.reactIcons.`500pxMod`.default].asInstanceOf[typings.react.mod.ComponentType[`500pxProps`]]
+  def `500px`: ComponentType[`500pxProps`] = js.constructorOf[default].asInstanceOf[ComponentType[`500pxProps`]]
   @scala.inline
-  def Adjust: ComponentType[AdjustProps] = js.constructorOf[typings.reactIcons.adjustMod.default].asInstanceOf[typings.react.mod.ComponentType[AdjustProps]]
+  def Adjust: ComponentType[AdjustProps] = js.constructorOf[typings.reactIcons.adjustMod.default].asInstanceOf[ComponentType[AdjustProps]]
   @scala.inline
-  def Adn: ComponentType[AdnProps] = js.constructorOf[typings.reactIcons.adnMod.default].asInstanceOf[typings.react.mod.ComponentType[AdnProps]]
+  def Adn: ComponentType[AdnProps] = js.constructorOf[typings.reactIcons.adnMod.default].asInstanceOf[ComponentType[AdnProps]]
   @scala.inline
-  def Fa500px: ComponentType[Fa500pxProps] = js.constructorOf[typings.reactIcons.mod.Fa500px].asInstanceOf[typings.react.mod.ComponentType[Fa500pxProps]]
+  def Fa500px: ComponentType[Fa500pxProps] = js.constructorOf[typings.reactIcons.mod.Fa500px].asInstanceOf[ComponentType[Fa500pxProps]]
   @scala.inline
-  def FaAdjust: ComponentType[FaAdjustProps] = js.constructorOf[typings.reactIcons.mod.FaAdjust].asInstanceOf[typings.react.mod.ComponentType[FaAdjustProps]]
+  def FaAdjust: ComponentType[FaAdjustProps] = js.constructorOf[typings.reactIcons.mod.FaAdjust].asInstanceOf[ComponentType[FaAdjustProps]]
   @scala.inline
-  def FaAdn: ComponentType[FaAdnProps] = js.constructorOf[typings.reactIcons.mod.FaAdn].asInstanceOf[typings.react.mod.ComponentType[FaAdnProps]]
+  def FaAdn: ComponentType[FaAdnProps] = js.constructorOf[typings.reactIcons.mod.FaAdn].asInstanceOf[ComponentType[FaAdnProps]]
 }
 

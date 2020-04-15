@@ -1,6 +1,8 @@
 package typingsJapgolly.reactBootstrap.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsForwardRefComponent.force
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
@@ -24,16 +26,11 @@ object ToggleButtonGroup {
     ToggleButtonGroupProps with js.Object
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      js.Dynamic.global.Object.assign(__obj, props)
+    js.Dynamic.global.Object.assign(__obj, props)
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsForwardRefComponent.force[
-  typingsJapgolly.reactBootstrap.toggleButtonGroupMod.ToggleButtonGroupProps with js.Object, 
-  japgolly.scalajs.react.Children.Varargs, 
-  typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.reactBootstrap.toggleButtonGroupMod.ToggleButtonGroupProps with js.Object])(children: _*)
+    val f = force[ToggleButtonGroupProps with js.Object, Varargs, typingsJapgolly.reactBootstrap.mod.ToggleButtonGroup](this.componentImport)
+    f(__obj.asInstanceOf[ToggleButtonGroupProps with js.Object])(children :_*)
   }
   @JSImport("react-bootstrap", "ToggleButtonGroup")
   @js.native

@@ -12,6 +12,7 @@ class ImportTree(
     importName:           AdaptiveNamingImport,
     importType:           ImportType,
     illegalNames:         CleanIllegalNames,
+    importExpr:           ImportExpr,
     enableScalaJsDefined: Boolean,
 ) {
   def apply(lib: LibTs, logger: Logger[Unit]): PackageTree = {
@@ -162,7 +163,7 @@ class ImportTree(
               annotations = IArray.fromOption(annOpt),
               name        = name,
               tpe         = tpe,
-              impl        = MemberImpl.Native,
+              impl        = ExprTree.native,
               isReadOnly  = readOnly,
               isOverride  = false,
               comments    = cs +? nameHint(name, jsLocation) + annotationComment(jsLocation),
@@ -171,7 +172,7 @@ class ImportTree(
           )
 
       case e: TsDeclEnum =>
-        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType, illegalNames)
+        ImportEnum(e, ImportJsLocation(e.jsLocation), scope, importName, importType, illegalNames, importExpr)
 
       case TsDeclClass(cs, _, isAbstract, _, tparams, parent, implements, members, location, codePath) =>
         val newCodePath = importName(codePath)
@@ -183,6 +184,7 @@ class ImportTree(
 
         val classType = if (isAbstract) ClassType.AbstractClass else ClassType.Class
         val cls = ClassTree(
+          isImplicit  = false,
           annotations = anns,
           name        = newCodePath.parts.last,
           tparams     = tparams map typeParam(scope, importName),
@@ -228,6 +230,7 @@ class ImportTree(
 
         IArray(
           ClassTree(
+            isImplicit  = false,
             annotations = anns,
             name        = newCodePath.parts.last,
             tparams     = tparams map typeParam(scope, importName),
@@ -402,11 +405,11 @@ class ImportTree(
                 val symName = ImportName.skipConversion(sym)
                 val a       = Annotation.JsNameSymbol(QualifiedName.Symbol + symName)
 
-                val fieldType: MemberImpl =
+                val fieldType: ImplTree =
                   (scalaJsDefined, m.isOptional) match {
-                    case (true, true)  => MemberImpl.Undefined
-                    case (true, false) => MemberImpl.NotImplemented
-                    case _             => MemberImpl.Native
+                    case (true, true)  => ExprTree.undefined
+                    case (true, false) => NotImplemented
+                    case _             => ExprTree.native
                   }
 
                 IArray(
@@ -469,11 +472,11 @@ class ImportTree(
 
       case (ImportName.withJsNameAnnotation(name, annOpt), tpeOpt: Option[TsType]) =>
         val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
-        val impl: MemberImpl =
+        val impl: ImplTree =
           (scalaJsDefined, importedType) match {
-            case (true, TypeRef.UndefOr(_)) => MemberImpl.Undefined
-            case (true, _)                  => MemberImpl.NotImplemented
-            case (false, _)                 => MemberImpl.Native
+            case (true, TypeRef.UndefOr(_)) => ExprTree.undefined
+            case (true, _)                  => NotImplemented
+            case (false, _)                 => ExprTree.native
           }
 
         IArray
@@ -508,6 +511,7 @@ class ImportTree(
   def typeParam(scope: TsTreeScope, importName: AdaptiveNamingImport)(tp: TsTypeParam): TypeParamTree =
     TypeParamTree(
       name       = ImportName(tp.name),
+      params     = Empty,
       upperBound = tp.upperBound map importType(Wildcards.No, scope / tp, importName),
       comments   = tp.comments,
     )
@@ -516,7 +520,7 @@ class ImportTree(
     params map { param =>
       val tpe       = importType.orAny(Wildcards.No, scope / param, importName)(param.tpe)
       val undefType = tpe.withOptional(param.isOptional)
-      ParamTree(ImportName(param.name), false, undefType, None, param.comments)
+      ParamTree(ImportName(param.name), isImplicit = false, isVal = false, undefType, NotImplemented, param.comments)
     }
 
   def tsMethod(
@@ -531,8 +535,8 @@ class ImportTree(
       ownerCP:        QualifiedName,
   ): MethodTree = {
 
-    val fieldType: MemberImpl =
-      if (scalaJsDefined) MemberImpl.NotImplemented else MemberImpl.Native
+    val fieldType: ImplTree =
+      if (scalaJsDefined) NotImplemented else ExprTree.native
 
     val resultType: TypeRef = (
       sig.resultType filter (_ =/= TsTypeRef.any)

@@ -74,118 +74,116 @@ trait SemanticWIDTHS extends js.Object
 
 object SemanticWIDTHS {
   @scala.inline
-  def `1`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`1` = this.cast("1")
+  def `1`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`1` = "1".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`1`]
   @scala.inline
-  def `10`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10` = this.cast(10)
+  def `10`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10` = 10.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`10`]
   @JSName("10")
   @scala.inline
-  def `10_10`: `10` = this.cast("10")
+  def `10_10`: `10` = "10".asInstanceOf[`10`]
   @scala.inline
-  def `11`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`11` = this.cast("11")
+  def `11`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`11` = "11".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`11`]
   @JSName("11")
   @scala.inline
-  def `11_11`: `11` = this.cast(11)
+  def `11_11`: `11` = 11.asInstanceOf[`11`]
   @scala.inline
-  def `12`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`12` = this.cast("12")
+  def `12`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`12` = "12".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`12`]
   @JSName("12")
   @scala.inline
-  def `12_12`: `12` = this.cast(12)
+  def `12_12`: `12` = 12.asInstanceOf[`12`]
   @scala.inline
-  def `13`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13` = this.cast(13)
+  def `13`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13` = 13.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`13`]
   @JSName("13")
   @scala.inline
-  def `13_13`: `13` = this.cast("13")
+  def `13_13`: `13` = "13".asInstanceOf[`13`]
   @scala.inline
-  def `14`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14` = this.cast(14)
+  def `14`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14` = 14.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`14`]
   @JSName("14")
   @scala.inline
-  def `14_14`: `14` = this.cast("14")
+  def `14_14`: `14` = "14".asInstanceOf[`14`]
   @scala.inline
-  def `15`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`15` = this.cast("15")
+  def `15`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`15` = "15".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`15`]
   @JSName("15")
   @scala.inline
-  def `15_15`: `15` = this.cast(15)
+  def `15_15`: `15` = 15.asInstanceOf[`15`]
   @scala.inline
-  def `16`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`16` = this.cast("16")
+  def `16`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`16` = "16".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`16`]
   @JSName("16")
   @scala.inline
-  def `16_16`: `16` = this.cast(16)
+  def `16_16`: `16` = 16.asInstanceOf[`16`]
   @JSName("1")
   @scala.inline
-  def `1_1`: `1` = this.cast(1)
+  def `1_1`: `1` = 1.asInstanceOf[`1`]
   @scala.inline
-  def `2`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2` = this.cast(2)
+  def `2`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2` = 2.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`2`]
   @JSName("2")
   @scala.inline
-  def `2_2`: `2` = this.cast("2")
+  def `2_2`: `2` = "2".asInstanceOf[`2`]
   @scala.inline
-  def `3`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3` = this.cast(3)
+  def `3`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3` = 3.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`3`]
   @JSName("3")
   @scala.inline
-  def `3_3`: `3` = this.cast("3")
+  def `3_3`: `3` = "3".asInstanceOf[`3`]
   @scala.inline
-  def `4`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`4` = this.cast("4")
+  def `4`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`4` = "4".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`4`]
   @JSName("4")
   @scala.inline
-  def `4_4`: `4` = this.cast(4)
+  def `4_4`: `4` = 4.asInstanceOf[`4`]
   @scala.inline
-  def `5`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`5` = this.cast("5")
+  def `5`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`5` = "5".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`5`]
   @JSName("5")
   @scala.inline
-  def `5_5`: `5` = this.cast(5)
+  def `5_5`: `5` = 5.asInstanceOf[`5`]
   @scala.inline
-  def `6`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6` = this.cast(6)
+  def `6`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6` = 6.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`6`]
   @JSName("6")
   @scala.inline
-  def `6_6`: `6` = this.cast("6")
+  def `6_6`: `6` = "6".asInstanceOf[`6`]
   @scala.inline
-  def `7`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7` = this.cast(7)
+  def `7`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7` = 7.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`7`]
   @JSName("7")
   @scala.inline
-  def `7_7`: `7` = this.cast("7")
+  def `7_7`: `7` = "7".asInstanceOf[`7`]
   @scala.inline
-  def `8`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`8` = this.cast("8")
+  def `8`: typingsSlinky.semanticUiReact.semanticUiReactStrings.`8` = "8".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.`8`]
   @JSName("8")
   @scala.inline
-  def `8_8`: `8` = this.cast(8)
+  def `8_8`: `8` = 8.asInstanceOf[`8`]
   @scala.inline
-  def `9`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9` = this.cast(9)
+  def `9`: typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9` = 9.asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactNumbers.`9`]
   @JSName("9")
   @scala.inline
-  def `9_9`: `9` = this.cast("9")
+  def `9_9`: `9` = "9".asInstanceOf[`9`]
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def eight: typingsSlinky.semanticUiReact.semanticUiReactStrings.eight = "eight".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eight]
   @scala.inline
-  def eight: typingsSlinky.semanticUiReact.semanticUiReactStrings.eight = this.cast("eight")
+  def eleven: typingsSlinky.semanticUiReact.semanticUiReactStrings.eleven = "eleven".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.eleven]
   @scala.inline
-  def eleven: typingsSlinky.semanticUiReact.semanticUiReactStrings.eleven = this.cast("eleven")
+  def fifteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.fifteen = "fifteen".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fifteen]
   @scala.inline
-  def fifteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.fifteen = this.cast("fifteen")
+  def five: typingsSlinky.semanticUiReact.semanticUiReactStrings.five = "five".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.five]
   @scala.inline
-  def five: typingsSlinky.semanticUiReact.semanticUiReactStrings.five = this.cast("five")
+  def four: typingsSlinky.semanticUiReact.semanticUiReactStrings.four = "four".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.four]
   @scala.inline
-  def four: typingsSlinky.semanticUiReact.semanticUiReactStrings.four = this.cast("four")
+  def fourteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.fourteen = "fourteen".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.fourteen]
   @scala.inline
-  def fourteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.fourteen = this.cast("fourteen")
+  def nine: typingsSlinky.semanticUiReact.semanticUiReactStrings.nine = "nine".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.nine]
   @scala.inline
-  def nine: typingsSlinky.semanticUiReact.semanticUiReactStrings.nine = this.cast("nine")
+  def one: typingsSlinky.semanticUiReact.semanticUiReactStrings.one = "one".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.one]
   @scala.inline
-  def one: typingsSlinky.semanticUiReact.semanticUiReactStrings.one = this.cast("one")
+  def seven: typingsSlinky.semanticUiReact.semanticUiReactStrings.seven = "seven".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.seven]
   @scala.inline
-  def seven: typingsSlinky.semanticUiReact.semanticUiReactStrings.seven = this.cast("seven")
+  def six: typingsSlinky.semanticUiReact.semanticUiReactStrings.six = "six".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.six]
   @scala.inline
-  def six: typingsSlinky.semanticUiReact.semanticUiReactStrings.six = this.cast("six")
+  def sixteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.sixteen = "sixteen".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.sixteen]
   @scala.inline
-  def sixteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.sixteen = this.cast("sixteen")
+  def ten: typingsSlinky.semanticUiReact.semanticUiReactStrings.ten = "ten".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.ten]
   @scala.inline
-  def ten: typingsSlinky.semanticUiReact.semanticUiReactStrings.ten = this.cast("ten")
+  def thirteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.thirteen = "thirteen".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.thirteen]
   @scala.inline
-  def thirteen: typingsSlinky.semanticUiReact.semanticUiReactStrings.thirteen = this.cast("thirteen")
+  def three: typingsSlinky.semanticUiReact.semanticUiReactStrings.three = "three".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.three]
   @scala.inline
-  def three: typingsSlinky.semanticUiReact.semanticUiReactStrings.three = this.cast("three")
+  def twelve: typingsSlinky.semanticUiReact.semanticUiReactStrings.twelve = "twelve".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.twelve]
   @scala.inline
-  def twelve: typingsSlinky.semanticUiReact.semanticUiReactStrings.twelve = this.cast("twelve")
-  @scala.inline
-  def two: typingsSlinky.semanticUiReact.semanticUiReactStrings.two = this.cast("two")
+  def two: typingsSlinky.semanticUiReact.semanticUiReactStrings.two = "two".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.two]
 }
 

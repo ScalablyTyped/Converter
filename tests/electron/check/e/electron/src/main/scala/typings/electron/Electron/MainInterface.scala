@@ -13,7 +13,6 @@ object MainInterface {
   @scala.inline
   def apply(app: App_): MainInterface = {
     val __obj = js.Dynamic.literal(app = app.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[MainInterface]
   }
 }

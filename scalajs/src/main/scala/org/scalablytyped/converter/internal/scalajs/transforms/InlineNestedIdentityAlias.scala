@@ -31,7 +31,7 @@ object InlineNestedIdentityAlias extends TreeTransformation {
   private def simplify(scope: TreeScope, ref: TypeRef): Option[TypeRef] = ref match {
     case TypeRef(maybeIdentityWrapper, IArray.exactlyOne(realType), cs) =>
       scope.lookup(maybeIdentityWrapper) collectFirst {
-        case (TypeAliasTree(_, IArray.exactlyOne(TypeParamTree(tparam, _, _)), alias, _, _), _)
+        case (TypeAliasTree(_, IArray.exactlyOne(TypeParamTree(tparam, _, _, _)), alias, _, _), _)
             if isIdentityFor(tparam)(alias) =>
           // at this point we know that the referenced type is identity, now consider if the only type param references the same wrapper
 

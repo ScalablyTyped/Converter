@@ -21,7 +21,6 @@ object JQuery {
   @scala.inline
   def apply(addClass: String => JQuery, injector: () => IInjectorService): JQuery = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
-  
     __obj.asInstanceOf[JQuery]
   }
 }

@@ -8,7 +8,6 @@ import scala.scalajs.js.annotation._
 
 object reactTransitionGroupComponents extends reactTransitionGroupProps {
   @scala.inline
-  def TransitionGroup: ComponentType[TransitionGroupProps[abbr, js.Any]] = js.constructorOf[typings.reactTransitionGroup.mod.TransitionGroup].asInstanceOf[typings.react.mod.ComponentType[
-  TransitionGroupProps[typings.reactTransitionGroup.reactTransitionGroupStrings.abbr, js.Any]]]
+  def TransitionGroup: ComponentType[TransitionGroupProps[abbr, js.Any]] = js.constructorOf[typings.reactTransitionGroup.mod.TransitionGroup].asInstanceOf[ComponentType[TransitionGroupProps[abbr, js.Any]]]
 }
 

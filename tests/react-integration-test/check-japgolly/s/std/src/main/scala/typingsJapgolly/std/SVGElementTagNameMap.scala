@@ -19,7 +19,6 @@ object SVGElementTagNameMap {
     defs: org.scalajs.dom.raw.SVGDefsElement
   ): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any], clipPath = clipPath.asInstanceOf[js.Any], defs = defs.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[SVGElementTagNameMap]
   }
 }

@@ -13,7 +13,6 @@ object SVGElementTagNameMap {
   @scala.inline
   def apply(circle: SVGCircleElement): SVGElementTagNameMap = {
     val __obj = js.Dynamic.literal(circle = circle.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[SVGElementTagNameMap]
   }
 }

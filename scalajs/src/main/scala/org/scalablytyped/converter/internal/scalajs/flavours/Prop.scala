@@ -3,15 +3,19 @@ package scalajs
 package flavours
 
 final case class Prop(
-    parameter: ParamTree,
-    asString:  Either[String, String => String],
-    /* should be unaffected by `CastConversion` rewrites */
-    original: Either[TypeRef, MemberTree],
+    main:        Prop.Variant,
+    isInherited: Boolean,
+    original:    Either[TypeRef, MemberTree],
 ) {
-  def isOptional = parameter.default.isDefined
+  def rewrite(f: Prop.Variant => Prop.Variant): Prop =
+    copy(main = f(main))
+
+  def isOptional: Boolean = main.tree.default =/= NotImplemented
 }
 
 object Prop {
+  case class Variant(tree: ParamTree, asExpr: Either[ExprTree.Arg.Named, Name => ExprTree])
+
   implicit val PropOrdering: Ordering[Prop] =
-    Ordering.by((p: Prop) => (p.isOptional, p.parameter.name))
+    Ordering.by((p: Prop) => (p.isOptional, p.main.tree.name))
 }

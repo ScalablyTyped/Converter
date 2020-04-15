@@ -152,7 +152,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     val expanded = exp.toExpand.flatMap {
       case Left(tr) =>
         val rewrites = Map[TsType, TsType](
-          TsTypeRef.of(exp.typeParam) -> clearCircularRef(exp.typeParam, tr),
+          TsTypeRef(exp.typeParam) -> clearCircularRef(exp.typeParam, tr),
         )
 
         IArray(new TypeRewriter(sigCleaned).visitTsFunSig(rewrites)(sigCleaned))
@@ -163,7 +163,7 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
         members.collect {
           case TsMemberProperty(_, _, TsIdentSimple(n), Some(tpe), _, false, _, _) =>
             val rewrites = Map[TsType, TsType](
-              TsTypeRef.of(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
+              TsTypeRef(exp.typeParam) -> TsTypeLiteral(TsLiteralString(n)),
               TsTypeLookup(ref, TsTypeLiteral(TsLiteralString(n))) -> tpe,
             )
 
@@ -185,5 +185,5 @@ object ExpandTypeParams extends TransformMembers with TransformClassMembers {
     * <T extends (Array<T> | number)>(t: T): T`
     */
   def clearCircularRef(self: TsIdent, tr: TsTypeRef): TsTypeRef =
-    new TypeRewriter(tr).visitTsTypeRef(Map(TsTypeRef.of(self) -> TsTypeRef.any))(tr)
+    new TypeRewriter(tr).visitTsTypeRef(Map(TsTypeRef(self) -> TsTypeRef.any))(tr)
 }

@@ -37,18 +37,20 @@ final case class Component(
 }
 
 object Component {
-  def formatReferenceTo(ref: TypeRef, componentType: ComponentType): String = {
-    val loc = Printer.formatTypeRef(0)(ref)
-
+  import ExprTree._
+  def formatReferenceTo(ref: TypeRef, componentType: ComponentType): ExprTree =
     componentType match {
-      case ComponentType.Class => s"js.constructorOf[$loc]"
-      case ComponentType.Field => loc
+      case ComponentType.Class =>
+        TApply(Ref(QualifiedName.constructorOf), IArray(ref))
+      case ComponentType.Field =>
+        Ref(ref)
       case ComponentType.Function =>
         ref.typeName.parts match {
           case IArray.initLast(ownerQName, name) =>
-            val owner = Printer.formatQN(QualifiedName(ownerQName))
-            s"""$owner.asInstanceOf[js.Dynamic].selectDynamic("${name.unescaped}")"""
+            Call(
+              Select(Cast(Ref(QualifiedName(ownerQName)), TypeRef.Dynamic), Name("selectDynamic")),
+              IArray(IArray(StringLit(name.unescaped))),
+            )
         }
     }
-  }
 }

@@ -14,7 +14,6 @@ object EsModuleComponent {
   @scala.inline
   def apply(default: Component[DefaultData[Vue], DefaultMethods[Vue], DefaultComputed, DefaultProps]): EsModuleComponent = {
     val __obj = js.Dynamic.literal(default = default.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[EsModuleComponent]
   }
 }

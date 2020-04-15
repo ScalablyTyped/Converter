@@ -15,7 +15,6 @@ object Marking {
   @scala.inline
   def apply(text: String, trail: String): Marking = {
     val __obj = js.Dynamic.literal(text = text.asInstanceOf[js.Any], trail = trail.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[Marking]
   }
 }

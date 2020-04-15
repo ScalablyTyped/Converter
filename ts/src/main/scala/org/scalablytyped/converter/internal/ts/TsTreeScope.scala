@@ -511,7 +511,7 @@ object TsTreeScope {
       mod:           TsDeclModule,
       outsideModule: TsTreeScope,
   ): Unit = {
-    def addAlternative(modName: TsIdentModule, modScope: TsTreeScope.Scoped) = {
+    def addAlternative(modName: TsIdentModule, modScope: TsTreeScope.Scoped): Unit = {
       val alternative = modName.copy(fragments =
         if (modName.fragments.endsWith("index")) modName.fragments.dropRight(1) else modName.fragments :+ "index",
       )

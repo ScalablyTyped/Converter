@@ -57,16 +57,25 @@ object FindProps {
       }
   }
 
-  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Prop) =
-    name ->
-      Prop(
-        ParamTree(name, isImplicit = false, ref, if (isRequired) None else Some(TypeRef.`null`), NoComments),
-        Right(obj =>
-          if (!isRequired) s"if (${name.value} != null) js.Dynamic.global.Object.assign($obj, ${name.value})"
-          else s"js.Dynamic.global.Object.assign($obj, ${name.value})",
-        ),
-        Left(ref),
-      )
+  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Prop) = {
+    val param = ParamTree(
+      name       = name,
+      isImplicit = false,
+      isVal      = false,
+      tpe        = ref,
+      default    = if (isRequired) NotImplemented else ExprTree.Null,
+      comments   = NoComments,
+    )
+    import ExprTree._
+
+    def fn(obj: Name): ExprTree = {
+      val assign = Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(Ref(obj), Ref(name))))
+      if (isRequired) assign else If(BinaryOp(Ref(name), "!=", Null), assign, None)
+    }
+
+    val main = Prop.Variant(param, Right(fn))
+    name -> Prop(main, isInherited = true, Left(ref))
+  }
 
   case class Filtered[No](yes: IArray[Prop], no: No)
 
@@ -93,7 +102,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
           case x @ Res.One(_, _)                          => x
         }) match {
           case (Empty, Empty, ones, _) =>
-            val yes = ones.flatMap(_.value.yes).sorted.distinctBy(_.parameter.name)
+            val yes = ones.flatMap(_.value.yes).sorted.distinctBy(_.main.tree.name)
             val no  = ones.head.value.no
             Res.One(typeRef, FindProps.Filtered(yes, no))
           case (Empty, _, _, _) =>
@@ -177,7 +186,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
               }
 
           val ownProps: Map[Name, Prop] =
-            membersFrom(cls).mapNotNone(member => memberToProp(scope, member))
+            membersFrom(cls).mapNotNone(member => memberToProp(scope, member, isInherited = false))
 
           /** The total number of props might be too large, so we gradually try to limit it by "compressing" props,
             *   and taking the best option (or truncating variant with the fewest props)
@@ -193,7 +202,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
                 def go(p: ParentsResolver.Parent): Map[Name, MemberTree] =
                   maps.smash(p.parents.map(go)) ++ membersFrom(p.classTree)
 
-                maps.smash(inlineParents.map(go)).mapNotNone(member => memberToProp(scope, member))
+                maps.smash(inlineParents.map(go)).mapNotNone(member => memberToProp(scope, member, isInherited = true))
               }
 
               val compressedProps: Map[Name, Prop] =

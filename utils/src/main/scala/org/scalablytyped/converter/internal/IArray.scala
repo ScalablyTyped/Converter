@@ -140,6 +140,28 @@ object IArray {
       }
     }
   }
+
+  @inline implicit final class IArrayOps[A <: AnyRef](val as: IArray[Option[A]]) extends AnyRef {
+    def sequenceOption: Option[IArray[A]] = {
+      if (as.isEmpty) {
+        return Some(IArray.Empty)
+      }
+
+      val newArray = Array.ofDim[AnyRef](as.length)
+      var i        = 0
+      while (i < as.length) {
+        as(i) match {
+          case Some(value) => newArray(i) = value
+          case None        => return None
+        }
+
+        i += 1
+      }
+
+      Some(fromArrayAndSize[A](newArray, as.length))
+    }
+
+  }
 }
 
 final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: Int) extends Serializable {
@@ -441,6 +463,15 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
     if (newLength == 0) return IArray.Empty
     val ret = Array.ofDim[AnyRef](newLength)
     System.arraycopy(array, 0, ret, 0, newLength)
+    fromArrayAndSize[A](ret, newLength)
+  }
+
+  def takeRight(n: Int): IArray[A] = {
+    require(n >= 0)
+    val newLength = math.min(length, n)
+    if (newLength == 0) return IArray.Empty
+    val ret = Array.ofDim[AnyRef](newLength)
+    System.arraycopy(array, length - newLength, ret, 0, newLength)
     fromArrayAndSize[A](ret, newLength)
   }
 

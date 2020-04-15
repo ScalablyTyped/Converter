@@ -28,7 +28,6 @@ object RenderContext {
     slots: () => js.Any
   ): RenderContext[Props] = {
     val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any], data = data.asInstanceOf[js.Any], injections = injections.asInstanceOf[js.Any], parent = parent.asInstanceOf[js.Any], props = props.asInstanceOf[js.Any], slots = js.Any.fromFunction0(slots))
-  
     __obj.asInstanceOf[RenderContext[Props]]
   }
 }

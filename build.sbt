@@ -158,7 +158,6 @@ lazy val publicationSettings: Project => Project = _.settings(
       </developers>
   ),
   bintrayRepository := "converter",
-  resolvers += Resolver.bintrayRepo("oyvindberg", "not-quite-public"),
 )
 
 lazy val preventPublication: Project => Project =

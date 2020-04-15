@@ -1161,7 +1161,7 @@ final class ParserTests extends AnyFunSuite {
                         Some(
                           TsTypeLookup(
                             TsTypeRef(NoComments, TsQIdent.of("MSBaseReaderEventMap"), Empty),
-                            TsTypeRef.of(TsIdent("K")),
+                            TsTypeRef(TsIdent("K")),
                           ),
                         ),
                         isOptional = false,
@@ -1209,7 +1209,7 @@ final class ParserTests extends AnyFunSuite {
               key         = TsIdent("P"),
               from        = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent.of("T"), Empty)),
               optionalize = OptionalModifier.Optionalize,
-              to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef.of(TsIdent("P"))),
+              to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef(TsIdent("P"))),
             ),
           ),
         ),
@@ -1246,7 +1246,7 @@ final class ParserTests extends AnyFunSuite {
               key         = TsIdent("P"),
               from        = TsTypeRef(NoComments, TsQIdent.of("K"), Empty),
               optionalize = OptionalModifier.Noop,
-              to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef.of(TsIdent("P"))),
+              to          = TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef(TsIdent("P"))),
             ),
           ),
         ),
@@ -1286,7 +1286,7 @@ final class ParserTests extends AnyFunSuite {
                       NoComments,
                       Empty,
                       Empty,
-                      Some(TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef.of(TsIdent("P")))),
+                      Some(TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef(TsIdent("P")))),
                     ),
                     isStatic   = false,
                     isReadOnly = false,
@@ -1304,7 +1304,7 @@ final class ParserTests extends AnyFunSuite {
                           NoComments,
                           TsIdent("v"),
                           Some(
-                            TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef.of(TsIdent("P"))),
+                            TsTypeLookup(TsTypeRef(NoComments, TsQIdent.of("T"), Empty), TsTypeRef(TsIdent("P"))),
                           ),
                           isOptional = false,
                         ),
@@ -1344,7 +1344,7 @@ type Readonly<T> = {
               key         = TsIdentSimple("P"),
               from        = TsTypeKeyOf(T),
               optionalize = Noop,
-              to          = TsTypeLookup(T, TsTypeRef.of(TsIdentSimple("P"))),
+              to          = TsTypeLookup(T, TsTypeRef(TsIdentSimple("P"))),
             ),
           ),
         ),
@@ -1939,7 +1939,7 @@ type Readonly<T> = {
         TsIdentSimple("Button"),
         IArray(
           TsEnumMember(NoComments, TsIdentSimple("MINUS"), Some(TsExpr.Literal(TsLiteralNumber("0x00000004")))),
-          TsEnumMember(NoComments, TsIdentSimple("SELECT"), Some(TsExpr.Ref(TsTypeRef.of(TsIdentSimple("MINUS"))))),
+          TsEnumMember(NoComments, TsIdentSimple("SELECT"), Some(TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("MINUS")))))),
         ),
         isValue      = true,
         exportedFrom = None,
@@ -2149,7 +2149,7 @@ type Readonly<T> = {
               TsIdentSimple("P"),
               TsTypeKeyOf(T),
               OptionalModifier.Deoptionalize,
-              TsTypeLookup(T, TsTypeRef.of(TsIdentSimple("P"))),
+              TsTypeLookup(T, TsTypeRef(TsIdentSimple("P"))),
             ),
           ),
         ),
@@ -2553,7 +2553,7 @@ export {};
 
   test("[string, ...PrimitiveArray]") {
     shouldParseAs("""[string, ...PrimitiveArray]""", TsParser.tsTypeTuple)(
-      TsTypeTuple(IArray(TsTypeRef.string, TsTypeRepeated(TsTypeRef.of(TsIdentSimple("PrimitiveArray"))))),
+      TsTypeTuple(IArray(TsTypeRef.string, TsTypeRepeated(TsTypeRef(TsIdentSimple("PrimitiveArray"))))),
     )
   }
 
@@ -2612,12 +2612,7 @@ export {};
             readOnly = true,
             TsIdentSimple("start"),
             None,
-            Some(
-              TsExpr
-                .Ref(
-                  TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("ActionTypes"), TsIdentSimple("Start"))), Empty),
-                ),
-            ),
+            Some(TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("ActionTypes"), TsIdentSimple("Start"))))),
             Zero,
             CodePath.NoPath,
             isOptional = false,
@@ -2627,25 +2622,22 @@ export {};
     )
 
     shouldParseAs("""(LoggingLevel.ERROR)""", TsParser.expr)(
-      TsExpr.Ref(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR"))), Empty)),
+      TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR")))),
     )
     shouldParseAs("""WARNING""", TsParser.expr)(
-      TsExpr.Ref(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("WARNING"))), Empty)),
+      TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("WARNING")))),
     )
     shouldParseAs("""LoggingLevel.ERROR | WARNING""", TsParser.expr)(
       TsExpr.BinaryOp(
-        TsExpr
-          .Ref(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR"))), Empty)),
+        TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR")))),
         "|",
-        TsExpr.Ref(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("WARNING"))), Empty)),
+        TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("WARNING")))),
       ),
     )
     shouldParseAs("""LoggingLevel.ERROR(6 + 7)""", TsParser.expr)(
       TsExpr.Call(
-        TsExpr.Ref(
-          TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR"))), Empty),
-        ),
-        List(TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("6")), "+", TsExpr.Literal(TsLiteralNumber("7")))),
+        TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("LoggingLevel"), TsIdentSimple("ERROR")))),
+        IArray(TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("6")), "+", TsExpr.Literal(TsLiteralNumber("7")))),
       ),
     )
 

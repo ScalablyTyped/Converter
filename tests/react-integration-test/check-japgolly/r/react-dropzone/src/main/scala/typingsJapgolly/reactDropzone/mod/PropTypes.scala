@@ -14,14 +14,12 @@ trait PropTypes extends js.Object
 
 object PropTypes {
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def multiple: typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple = "multiple".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple]
   @scala.inline
-  def multiple: typingsJapgolly.reactDropzone.reactDropzoneStrings.multiple = this.cast("multiple")
+  def onDragEnter: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter = "onDragEnter".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter]
   @scala.inline
-  def onDragEnter: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragEnter = this.cast("onDragEnter")
+  def onDragLeave: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave = "onDragLeave".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave]
   @scala.inline
-  def onDragLeave: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragLeave = this.cast("onDragLeave")
-  @scala.inline
-  def onDragOver: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver = this.cast("onDragOver")
+  def onDragOver: typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver = "onDragOver".asInstanceOf[typingsJapgolly.reactDropzone.reactDropzoneStrings.onDragOver]
 }
 

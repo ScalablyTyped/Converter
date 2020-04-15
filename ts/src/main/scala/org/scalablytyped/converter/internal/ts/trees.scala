@@ -300,7 +300,7 @@ final case class TsTypeParam(
 
 object TsTypeParam {
   def asTypeArgs(tps: IArray[TsTypeParam]): IArray[TsTypeRef] =
-    tps.map(tp => TsTypeRef.of(tp.name))
+    tps.map(tp => TsTypeRef(tp.name))
 }
 // terms
 
@@ -471,8 +471,10 @@ sealed abstract class TsType extends TsTree
 final case class TsTypeRef(comments: Comments, name: TsQIdent, tparams: IArray[TsType]) extends TsType
 
 object TsTypeRef {
-  def of(tsIdent: TsIdent): TsTypeRef =
-    TsTypeRef(NoComments, TsQIdent.of(tsIdent), Empty)
+  def apply(tsIdent: TsIdent): TsTypeRef =
+    apply(TsQIdent.of(tsIdent))
+  def apply(tsQIdent: TsQIdent): TsTypeRef =
+    TsTypeRef(NoComments, tsQIdent, Empty)
 
   val any       = TsTypeRef(NoComments, TsQIdent.any, Empty)
   val boolean   = TsTypeRef(NoComments, TsQIdent.boolean, Empty)

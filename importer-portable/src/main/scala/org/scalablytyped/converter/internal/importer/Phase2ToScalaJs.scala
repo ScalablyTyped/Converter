@@ -2,7 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.Logger
-import org.scalablytyped.converter.Selection
+import org.scalablytyped.converter.{internal, Selection}
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
 import org.scalablytyped.converter.internal.importer.Phase2Res.LibScalaJs
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
@@ -75,11 +75,13 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               IArray.fromTraversable(scalaDeps.map { case (_, lib) => lib.names }),
             )
 
+            val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))
             val importTree = new ImportTree(
               outputPkg,
               importName,
-              new ImportType(new QualifiedName.StdNames(outputPkg)),
+              importType,
               cleanIllegalNames,
+              new ImportExpr(importType, importName),
               enableScalaJsDefined(lib.name),
             )
             val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }

@@ -18,7 +18,6 @@ object EitherT {
     chain: (js.Function1[js.Any, HKT[F, Either[js.Any, js.Any]]], HKT[F, Either[js.Any, js.Any]]) => HKT[F, Either[js.Any, js.Any]]
   ): EitherT[F] = {
     val __obj = js.Dynamic.literal(chain = js.Any.fromFunction2(chain))
-  
     __obj.asInstanceOf[EitherT[F]]
   }
 }

@@ -16,12 +16,10 @@ trait Foo2_ extends js.Object
 
 object Foo2_ {
   @scala.inline
-  def A: `0` = this.cast(0)
+  def A: `0` = 0.asInstanceOf[`0`]
   @scala.inline
-  def B: `22` = this.cast(22)
+  def B: `22` = 22.asInstanceOf[`22`]
   @scala.inline
-  def C: `1` = this.cast(0 + 1)
-  @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def C: `1` = (0 + 1).asInstanceOf[`1`]
 }
 

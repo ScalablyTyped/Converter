@@ -17,6 +17,7 @@ object Name {
   val typings:    Name = Name("typings")
   val dummy:      Name = Name("dummy")
   val Any:        Name = Name("Any")
+  val AnyVal:     Name = Name("AnyVal")
   val Double:     Name = Name("Double")
   val Int:        Name = Name("Int")
   val Long:       Name = Name("Long")
@@ -53,7 +54,8 @@ object Name {
   val STRING_LITERAL:  Name = Name("<string_literal>")
   val NUMBER_LITERAL:  Name = Name("<number_literal>")
   val BOOLEAN_LITERAL: Name = Name("<boolean_literal>")
-  val THIS_TYPE:       Name = Name("<this>")
+  val THIS:            Name = Name("<this>")
+  val SUPER:           Name = Name("<super>")
   val WILDCARD:        Name = Name("<wildcard>")
   val REPEATED:        Name = Name("*")
 
@@ -67,7 +69,8 @@ object Name {
     STRING_LITERAL,
     NUMBER_LITERAL,
     BOOLEAN_LITERAL,
-    THIS_TYPE,
+    THIS,
+    SUPER,
     WILDCARD,
     REPEATED,
     APPLY,
@@ -80,7 +83,7 @@ object Name {
     case BOOLEAN_LITERAL => Suffix("Boolean")
     case NUMBER_LITERAL  => Suffix("Number")
     case STRING_LITERAL  => Suffix("String")
-    case THIS_TYPE       => Suffix("This")
+    case THIS            => Suffix("This")
     case WILDCARD        => Suffix("Wildcard")
     case REPEATED        => Suffix("Repeated")
     case APPLY           => Suffix("Apply")

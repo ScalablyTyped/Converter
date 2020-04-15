@@ -113,7 +113,7 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
           val cls = new TypeRewriter(_cls).visitTsDeclClass(
             _cls.tparams
               .map(tp =>
-                TsTypeRef.of(tp.name) -> TsTypeRef.any
+                TsTypeRef(tp.name) -> TsTypeRef.any
                   .copy(comments = Comments(Comment.warning(s"was tparam ${tp.name.value}"))),
               )
               .toMap,

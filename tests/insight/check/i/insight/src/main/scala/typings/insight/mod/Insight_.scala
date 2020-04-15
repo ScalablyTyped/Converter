@@ -17,7 +17,6 @@ object Insight_ {
   @scala.inline
   def apply(clientId: String, config: IConfigstore, optOut: Boolean, track: /* repeated */ String => Unit): Insight_ = {
     val __obj = js.Dynamic.literal(clientId = clientId.asInstanceOf[js.Any], config = config.asInstanceOf[js.Any], optOut = optOut.asInstanceOf[js.Any], track = js.Any.fromFunction1(track))
-  
     __obj.asInstanceOf[Insight_]
   }
 }

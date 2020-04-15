@@ -40,7 +40,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
             isOverride,
             ) =>
           maybeFieldComponent(
-            FieldTree(Empty, name, tpe, MemberImpl.Native, true, isOverride, comments, codePath),
+            FieldTree(Empty, name, tpe, ExprTree.native, true, isOverride, comments, codePath),
             p,
             scope,
           )
@@ -178,12 +178,15 @@ class IdentifyReactComponents(reactNames: ReactNames) {
               level       = ProtectionLevel.Default,
               name        = field.name,
               tparams     = Empty,
-              params      = IArray(params.map(p => ParamTree(Name.dummy, false, p, None, NoComments))),
-              impl        = field.impl,
-              resultType  = ret,
-              isOverride  = false,
-              comments    = field.comments,
-              codePath    = field.codePath,
+              params = IArray(
+                params
+                  .map(p => ParamTree(Name.dummy, isImplicit = false, isVal = false, p, NotImplemented, NoComments)),
+              ),
+              impl       = field.impl,
+              resultType = ret,
+              isOverride = false,
+              comments   = field.comments,
+              codePath   = field.codePath,
             ),
             owner,
             scope,
@@ -319,10 +322,10 @@ class IdentifyReactComponents(reactNames: ReactNames) {
       val current = scope.stack(idx)
       val base: Option[LocationAnnotation] =
         current match {
-          case ClassTree(Location(loc), _, _, _, _, _, _, _, _, _) => Some(loc)
-          case ModuleTree(Location(loc), _, _, _, _, _, _)         => Some(loc)
-          case PackageTree(Location(loc), _, _, _, _)              => Some(loc)
-          case _                                                   => None
+          case ClassTree(_, Location(loc), _, _, _, _, _, _, _, _, _) => Some(loc)
+          case ModuleTree(Location(loc), _, _, _, _, _, _)            => Some(loc)
+          case PackageTree(Location(loc), _, _, _, _)                 => Some(loc)
+          case _                                                      => None
         }
 
       if (base.isEmpty) {

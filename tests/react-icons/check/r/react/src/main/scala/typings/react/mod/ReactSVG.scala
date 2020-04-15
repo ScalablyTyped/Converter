@@ -15,7 +15,6 @@ object ReactSVG {
   @scala.inline
   def apply(animate: SVGFactory, circle: SVGFactory, clipPath: SVGFactory): ReactSVG = {
     val __obj = js.Dynamic.literal(animate = animate.asInstanceOf[js.Any], circle = circle.asInstanceOf[js.Any], clipPath = clipPath.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[ReactSVG]
   }
 }

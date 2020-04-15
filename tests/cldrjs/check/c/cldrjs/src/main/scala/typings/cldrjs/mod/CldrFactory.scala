@@ -21,7 +21,6 @@ object CldrFactory {
     once: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit
   ): CldrFactory = {
     val __obj = js.Dynamic.literal(load = js.Any.fromFunction2(load), off = js.Any.fromFunction2(off), on = js.Any.fromFunction2(on), once = js.Any.fromFunction2(once))
-  
     __obj.asInstanceOf[CldrFactory]
   }
 }

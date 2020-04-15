@@ -13,12 +13,10 @@ trait SemanticVERTICALALIGNMENTS extends js.Object
 
 object SemanticVERTICALALIGNMENTS {
   @scala.inline
-  def bottom: typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom = this.cast("bottom")
+  def bottom: typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom = "bottom".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.bottom]
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def middle: typingsSlinky.semanticUiReact.semanticUiReactStrings.middle = "middle".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.middle]
   @scala.inline
-  def middle: typingsSlinky.semanticUiReact.semanticUiReactStrings.middle = this.cast("middle")
-  @scala.inline
-  def top: typingsSlinky.semanticUiReact.semanticUiReactStrings.top = this.cast("top")
+  def top: typingsSlinky.semanticUiReact.semanticUiReactStrings.top = "top".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.top]
 }
 

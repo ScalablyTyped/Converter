@@ -59,6 +59,7 @@ object PackageTree {
 }
 
 final case class ClassTree(
+    isImplicit:  Boolean,
     annotations: IArray[ClassAnnotation],
     name:        Name,
     tparams:     IArray[TypeParamTree],
@@ -118,19 +119,11 @@ sealed trait MemberTree extends Tree with HasCodePath {
   def renamed(newName:          Name):          MemberTree
 }
 
-sealed trait MemberImpl
-object MemberImpl {
-  case object Native extends MemberImpl
-  case object NotImplemented extends MemberImpl
-  case object Undefined extends MemberImpl
-  final case class Custom(impl: String) extends MemberImpl
-}
-
 final case class FieldTree(
     annotations: IArray[MemberAnnotation],
     name:        Name,
     tpe:         TypeRef,
-    impl:        MemberImpl,
+    impl:        ImplTree,
     isReadOnly:  Boolean,
     isOverride:  Boolean,
     comments:    Comments,
@@ -160,7 +153,7 @@ final case class MethodTree(
     name:        Name,
     tparams:     IArray[TypeParamTree],
     params:      IArray[IArray[ParamTree]],
-    impl:        MemberImpl,
+    impl:        ImplTree,
     resultType:  TypeRef,
     isOverride:  Boolean,
     comments:    Comments,
@@ -192,7 +185,12 @@ object CtorTree {
   val defaultProtected = CtorTree(ProtectionLevel.Protected, IArray(), NoComments)
 }
 
-final case class TypeParamTree(name: Name, upperBound: Option[TypeRef], comments: Comments) extends Tree
+final case class TypeParamTree(
+    name:       Name,
+    params:     IArray[TypeParamTree],
+    upperBound: Option[TypeRef],
+    comments:   Comments,
+) extends Tree
 
 object TypeParamTree {
   def asTypeArgs(tps: IArray[TypeParamTree]): IArray[TypeRef] =
@@ -201,8 +199,14 @@ object TypeParamTree {
   implicit val TypeParamToSuffix: ToSuffix[TypeParamTree] = tp => ToSuffix(tp.name) +? tp.upperBound
 }
 
-final case class ParamTree(name: Name, isImplicit: Boolean, tpe: TypeRef, default: Option[TypeRef], comments: Comments)
-    extends Tree
+final case class ParamTree(
+    name:       Name,
+    isImplicit: Boolean,
+    isVal:      Boolean,
+    tpe:        TypeRef,
+    default:    ImplTree,
+    comments:   Comments,
+) extends Tree
 
 final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], comments: Comments) extends Tree {
   override val name: Name = typeName.parts.last
@@ -225,6 +229,7 @@ object TypeRef {
   val Wildcard     = TypeRef(QualifiedName.WILDCARD, Empty, NoComments)
   val ScalaAny     = TypeRef(QualifiedName.ScalaAny, Empty, NoComments)
   val Any          = TypeRef(QualifiedName.Any, Empty, NoComments)
+  val AnyVal       = TypeRef(QualifiedName.AnyVal, Empty, NoComments)
   val Boolean      = TypeRef(QualifiedName.Boolean, Empty, NoComments)
   val Double       = TypeRef(QualifiedName.Double, Empty, NoComments)
   val Dynamic      = TypeRef(QualifiedName.Dynamic, Empty, NoComments)
@@ -305,6 +310,16 @@ object TypeRef {
             case _    => None
           }
         case _ => None
+      }
+
+    def is(qn: QualifiedName): Boolean =
+      qn.parts match {
+        case IArray.exactlyTwo(Name.scala, f) =>
+          f.unescaped match {
+            case F(_) => true
+            case _    => false
+          }
+        case _ => false
       }
   }
 
@@ -473,4 +488,61 @@ object TypeRef {
 
   implicit val TypeRefOrdering: Ordering[TypeRef] =
     Ordering.by[TypeRef, String](Printer.formatTypeRef(0))
+}
+
+sealed trait ImplTree extends Tree {
+  override val name:     Name     = Name("ImplTree")
+  override val comments: Comments = NoComments
+}
+
+case object NotImplemented extends ImplTree
+sealed trait ExprTree extends ImplTree
+
+object ExprTree {
+
+  val undefined = Ref(QualifiedName.scala_js + Name("undefined"))
+  val native    = Ref(QualifiedName.scala_js + Name("native"))
+
+  case object Null extends ExprTree
+  case class BinaryOp(one:          ExprTree, op: String, two: ExprTree) extends ExprTree
+  case class Block(expressions:     IArray[ExprTree]) extends ExprTree
+  case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
+  case class Cast(one:              ExprTree, as: TypeRef) extends ExprTree
+  case class Custom(impl:           String) extends ExprTree
+  case class If(pred:               ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
+  case class Lambda(params:         IArray[ParamTree], body: ExprTree) extends ExprTree
+  case class New(expr:              TypeRef, params: IArray[ExprTree]) extends ExprTree
+  case class Ref(value:             QualifiedName) extends ExprTree
+  case class Select(from:           ExprTree, path: Name) extends ExprTree
+  case class TApply(ref:            Ref, targs: IArray[TypeRef]) extends ExprTree
+  case class Unary(op:              String, expr: ExprTree) extends ExprTree
+  case class Val(override val name: Name, value: ExprTree) extends ExprTree
+
+  sealed trait Lit extends ExprTree
+  case class BooleanLit(value: Boolean) extends Lit
+  case class NumberLit(value:  String) extends Lit
+  case class StringLit(value:  String) extends Lit
+
+  sealed trait Arg extends ExprTree
+  object Arg {
+    case class Named(override val name: Name, expr: ExprTree) extends Arg
+    case class Pos(expr:                ExprTree) extends Arg
+    case class Variable(expr:           ExprTree) extends Arg
+    implicit def fromExpr(expr: ExprTree):         Arg = Pos(expr)
+    implicit def fromTuple(t:   (Name, ExprTree)): Arg = Named(t._1, t._2)
+  }
+
+  object Block {
+    def apply(es:   ExprTree*)         = new Block(IArray.fromTraversable(es))
+    def flatten(es: IArray[ExprTree]*) = new Block(IArray.fromTraversable(es).flatten)
+  }
+
+  object Ref {
+    def apply(name: Name): Ref =
+      apply(QualifiedName(IArray(name)))
+
+    def apply(tr: TypeRef): ExprTree =
+      if (tr.targs.isEmpty) apply(tr.typeName)
+      else TApply(Ref(tr.typeName), tr.targs)
+  }
 }

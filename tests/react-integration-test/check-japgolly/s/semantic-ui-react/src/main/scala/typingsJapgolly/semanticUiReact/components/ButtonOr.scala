@@ -1,6 +1,8 @@
 package typingsJapgolly.semanticUiReact.components
 
+import japgolly.scalajs.react.Children.Varargs
 import japgolly.scalajs.react.CtorType.ChildArg
+import japgolly.scalajs.react.JsComponent
 import japgolly.scalajs.react.Key
 import japgolly.scalajs.react.component.Js.MountedWithRawType
 import japgolly.scalajs.react.component.Js.RawMounted
@@ -26,19 +28,14 @@ object ButtonOr {
     MountedWithRawType[ButtonOrProps, js.Object, RawMounted[ButtonOrProps, js.Object]]
   ] = {
     val __obj = js.Dynamic.literal()
-  
-      if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
+    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
     if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
     key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-  
-    val f = japgolly.scalajs.react.JsComponent[
-  typingsJapgolly.semanticUiReact.buttonOrMod.ButtonOrProps, 
-  japgolly.scalajs.react.Children.Varargs, 
-  js.Object](this.componentImport)
-    f(__obj.asInstanceOf[typingsJapgolly.semanticUiReact.buttonOrMod.ButtonOrProps])(children: _*)
+    val f = JsComponent[ButtonOrProps, Varargs, js.Object](this.componentImport)
+    f(__obj.asInstanceOf[ButtonOrProps])(children :_*)
   }
   @JSImport("semantic-ui-react/dist/commonjs/elements/Button/ButtonOr", JSImport.Default)
   @js.native

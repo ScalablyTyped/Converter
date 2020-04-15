@@ -14,7 +14,6 @@ object V {
   @scala.inline
   def apply(age: Double): V = {
     val __obj = js.Dynamic.literal(age = age.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[V]
   }
 }

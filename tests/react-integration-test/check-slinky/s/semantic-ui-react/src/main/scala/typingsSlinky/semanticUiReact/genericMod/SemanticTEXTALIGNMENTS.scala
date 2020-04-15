@@ -14,14 +14,12 @@ trait SemanticTEXTALIGNMENTS extends js.Object
 
 object SemanticTEXTALIGNMENTS {
   @scala.inline
-  /* private */ def cast[T](in: js.Any): T = in.asInstanceOf[T]
+  def center: typingsSlinky.semanticUiReact.semanticUiReactStrings.center = "center".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.center]
   @scala.inline
-  def center: typingsSlinky.semanticUiReact.semanticUiReactStrings.center = this.cast("center")
+  def justified: typingsSlinky.semanticUiReact.semanticUiReactStrings.justified = "justified".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.justified]
   @scala.inline
-  def justified: typingsSlinky.semanticUiReact.semanticUiReactStrings.justified = this.cast("justified")
+  def left: typingsSlinky.semanticUiReact.semanticUiReactStrings.left = "left".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.left]
   @scala.inline
-  def left: typingsSlinky.semanticUiReact.semanticUiReactStrings.left = this.cast("left")
-  @scala.inline
-  def right: typingsSlinky.semanticUiReact.semanticUiReactStrings.right = this.cast("right")
+  def right: typingsSlinky.semanticUiReact.semanticUiReactStrings.right = "right".asInstanceOf[typingsSlinky.semanticUiReact.semanticUiReactStrings.right]
 }
 

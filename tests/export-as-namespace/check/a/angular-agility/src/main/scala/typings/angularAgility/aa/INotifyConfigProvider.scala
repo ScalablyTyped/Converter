@@ -21,7 +21,6 @@ object INotifyConfigProvider {
     notifyConfigs: js.Any
   ): INotifyConfigProvider = {
     val __obj = js.Dynamic.literal($get = $get.asInstanceOf[js.Any], defaultNotifyConfig = defaultNotifyConfig.asInstanceOf[js.Any], defaultTargetContainerName = defaultTargetContainerName.asInstanceOf[js.Any], notifyConfigs = notifyConfigs.asInstanceOf[js.Any])
-  
     __obj.asInstanceOf[INotifyConfigProvider]
   }
 }
