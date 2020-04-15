@@ -2421,8 +2421,8 @@ type Readonly<T> = {
         IArray(
           TsTypeTuple(
             IArray(
-              TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), IArray()),
-              TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("V"))), IArray()),
+              TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("K"))), Empty),
+              TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("V"))), Empty),
             ),
           ),
         ),
@@ -2499,8 +2499,8 @@ export {};
           NoComments,
           Empty,
           IArray(
-            TsFunParam(NoComments, TsIdentSimple("has0"), Some(TsTypeObject(NoComments, IArray())), isOptional = false),
-            TsFunParam(NoComments, TsIdentSimple("has1"), Some(TsTypeObject(NoComments, IArray())), isOptional = false),
+            TsFunParam(NoComments, TsIdentSimple("has0"), Some(TsTypeObject(NoComments, Empty)), isOptional = false),
+            TsFunParam(NoComments, TsIdentSimple("has1"), Some(TsTypeObject(NoComments, Empty)), isOptional = false),
           ),
           Some(TsTypeRef.void),
         ),
@@ -2512,8 +2512,8 @@ export {};
   }
 
   test("[...]+?:") {
-    val key = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("key"))), IArray())
-    val T   = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), IArray()))
+    val key = TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("key"))), Empty)
+    val T   = TsTypeKeyOf(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty))
 
     shouldParseAs("""[key in keyof T]+?: T[key]""", TsParser.tsMemberTypeMapped)(
       TsMemberTypeMapped(
@@ -2523,7 +2523,7 @@ export {};
         TsIdentSimple("key"),
         T,
         OptionalModifier.Optionalize,
-        TsTypeLookup(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), IArray()), key),
+        TsTypeLookup(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("T"))), Empty), key),
       ),
     )
   }
@@ -2576,15 +2576,15 @@ export {};
         declared   = false,
         isAbstract = false,
         TsIdentSimple("A"),
-        IArray(),
+        Empty,
         None,
-        IArray(),
+        Empty,
         IArray(
           TsMemberProperty(
             NoComments,
             ProtectionLevel.Default,
             TsIdentSimple("operator"),
-            Some(TsTypeRef(NoComments, TsQIdent.string, IArray())),
+            Some(TsTypeRef.string),
             None,
             isStatic   = false,
             isReadOnly = false,
@@ -2681,6 +2681,37 @@ export {};
         TsExpr.BinaryOp(TsExpr.Literal(TsLiteralNumber("0x000FFFFF")), "+", TsExpr.Literal(TsLiteralNumber("1"))),
         ">>",
         TsExpr.Literal(TsLiteralNumber("2")),
+      ),
+    )
+  }
+
+  test("empty tparams") {
+    shouldParseAs("declare type AsyncFunction<> = () => Promise<any>", TsParser.tsDeclTypeAlias)(
+      TsDeclTypeAlias(
+        NoComments,
+        true,
+        TsIdentSimple("AsyncFunction"),
+        Empty,
+        TsTypeFunction(
+          TsFunSig(
+            NoComments,
+            Empty,
+            Empty,
+            Some(TsTypeRef(NoComments, TsQIdent(IArray(TsIdentSimple("Promise"))), IArray(TsTypeRef.any))),
+          ),
+        ),
+        CodePath.NoPath,
+      ),
+    )
+  }
+
+  test("extends function call with cast") {
+    shouldParseAs("EmberObject.extend(MutableArray as {})", TsParser.expr)(
+      TsExpr.Call(
+        TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("EmberObject"), TsIdentSimple("extend")))),
+        IArray(
+          TsExpr.Cast(TsExpr.Ref(TsQIdent(IArray(TsIdentSimple("MutableArray")))), TsTypeObject(NoComments, Empty)),
+        ),
       ),
     )
   }

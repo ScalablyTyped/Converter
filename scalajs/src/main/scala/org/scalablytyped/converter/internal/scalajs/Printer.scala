@@ -248,7 +248,7 @@ object Printer {
           if (isOverride) "override " else "",
           if (isReadOnly) "val" else "var",
           " ",
-          typeAnnotation(formatName(name), indent, tpe, name),
+          typeAnnotation(formatName(name), indent, tpe),
         )
 
         println(formatImpl(indent)(impl))
@@ -271,7 +271,7 @@ object Printer {
         }
 
         print(
-          typeAnnotation(formatName(name) + tparamString + paramString.mkString, indent, resultType, name),
+          typeAnnotation(formatName(name) + tparamString + paramString.mkString, indent, resultType),
         )
         println(formatImpl(indent)(impl))
 
@@ -327,7 +327,7 @@ object Printer {
       Comments.format(tree.comments),
       if (tree.isImplicit) "implicit " else "",
       if (tree.isVal) "val " else "",
-      typeAnnotation(formatName(tree.name), indent + 2, tree.tpe, Name.WILDCARD),
+      typeAnnotation(formatName(tree.name), indent + 2, tree.tpe),
       formatImpl(indent)(tree.default),
     ).mkString
 
@@ -352,12 +352,13 @@ object Printer {
 
   val StringOrdering: Ordering[String] = Ordering[String]
 
-  def typeAnnotation(preceding: String, indent: Int, tpe: TypeRef, owner: Name): String = {
-    /* for instance `val foo: Type_: Int` needs a space between `_` and `:` */
-    val colon = if (preceding.last === '_' || preceding.last === '^') " : " else ": "
+  /* for instance `val foo: Type_: Int` needs a space between `_` and `:` */
+  def maybeSpace(tpe: String): String =
+    if (tpe.last === '_' || tpe.last === '^') tpe |+| " "
+    else tpe
 
-    preceding + colon + formatTypeRef(indent)(tpe)
-  }
+  def typeAnnotation(preceding: String, indent: Int, tpe: TypeRef): String =
+    maybeSpace(preceding) + ": " + formatTypeRef(indent)(tpe)
 
   def formatTypeRef(indent: Int)(t1: TypeRef): String = {
     val ret: String =
@@ -391,7 +392,7 @@ object Printer {
         case TypeRef.BooleanLiteral(underlying) => underlying
 
         case TypeRef.Repeated(underlying: TypeRef, _) =>
-          paramsIfNeeded(formatTypeRef(indent)(underlying)) |+| "*"
+          maybeSpace(paramsIfNeeded(formatTypeRef(indent)(underlying))) + "*"
 
         case TypeRef(typeName, targs, _) =>
           val targsStr = targs match {

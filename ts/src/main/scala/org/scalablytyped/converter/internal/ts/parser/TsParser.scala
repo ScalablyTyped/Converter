@@ -71,7 +71,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     )
 
   val operator: Parser[String] = {
-    val ops = List("+", "-", "^", "|", "*", "/", "%", "as")
+    val ops = List("+", "-", "^", "|", "*", "/", "%")
 
     /* handle specially, since they will occur as two separate tokens */
     val `<<`  = "<" ~> "<" ^^ (_ => "<<")
@@ -377,7 +377,7 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
     comments ~ tsIdent ~ ("extends" ~>! perhapsParens(tsType)).? ~ ("=" ~>! tsType).? ^^ TsTypeParam.apply
 
   lazy val tsTypeParams: Parser[IArray[TsTypeParam]] =
-    "<" ~>! rep1sep_(typeParam, ",") <~! ",".? <~! ">" | success(Empty)
+    "<" ~>! repsep_(typeParam, ",") <~! ",".? <~! ">" | success(Empty)
 
   val tsFunctionParams: Parser[IArray[TsFunParam]] = functionParam.** ^^ {
 
@@ -442,7 +442,9 @@ class TsParser(path: Option[(os.Path, Int)]) extends StdTokenParsers with Parser
       (first ~ operator ~ expr) ^^ TsExpr.BinaryOp
     }
 
-    perhapsParens(binaryOp) | base
+    val cast: Parser[TsExpr.Cast] = (base <~ "as") ~ tsType ^^ TsExpr.Cast
+
+    perhapsParens(binaryOp | cast) | base
   }
 
   lazy val baseTypeDesc: Parser[TsType] = {

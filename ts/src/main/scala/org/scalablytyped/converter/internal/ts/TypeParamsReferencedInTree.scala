@@ -14,12 +14,21 @@ object TypeParamsReferencedInTree {
 
     val referencedInTree: IArray[TsIdent] =
       TsTreeTraverse
-        .collectIArray(IArray(tree) ++ IArray.fromOptions(inScope.map(_._2.upperBound).toSeq: _*)) {
+        .collect(tree) {
           case TsTypeRef(_, TsQIdent(IArray.exactlyOne(unprefixedName)), _) if inScope.contains(unprefixedName) =>
             unprefixedName
         }
         .distinct
 
-    referencedInTree.filterNot(locallyDefined).map(inScope)
+    /* the bound of one of the referenced tparams might refer to other tparams */
+    val fromBounds: IArray[TsIdent] =
+      TsTreeTraverse.collectIArray(IArray.fromOptions(inScope.collect {
+        case (k, v) if referencedInTree.contains(k) => v.upperBound
+      }.toSeq: _*)) {
+        case TsTypeRef(_, TsQIdent(IArray.exactlyOne(unprefixedName)), _) if inScope.contains(unprefixedName) =>
+          unprefixedName
+      }
+
+    (referencedInTree ++ fromBounds).distinct.filterNot(locallyDefined).map(inScope)
   }
 }

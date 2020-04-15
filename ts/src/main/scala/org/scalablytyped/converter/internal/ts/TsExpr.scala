@@ -11,6 +11,7 @@ object TsExpr {
   case class Call(function: TsExpr, params: IArray[TsExpr]) extends TsExpr
   case class Unary(op:      String, expr: TsExpr) extends TsExpr
   case class BinaryOp(one:  TsExpr, op: String, two: TsExpr) extends TsExpr
+  case class Cast(expr:     TsExpr, tpe: TsType) extends TsExpr
 
   def format(expr: TsExpr): String =
     expr match {
@@ -24,6 +25,7 @@ object TsExpr {
       case Call(function, params)           => s"${format(function)}(${params map format mkString ", "})"
       case Unary(op, expr)                  => s"$op${format(expr)}"
       case BinaryOp(one, op, two)           => s"${format(one)} $op ${format(two)}"
+      case Cast(expr, tpe)                  => s"${format(expr)} as ${TsTypeFormatter(tpe)}"
     }
 
   object Num {
@@ -59,6 +61,7 @@ object TsExpr {
       case Literal(lit) => TsTypeLiteral(lit)
       case Call(_, _)   => TsTypeRef.any
       case Unary(_, e)  => widen(typeOf(e))
+      case Cast(_, tpe) => tpe
       case BinaryOp(e1, op, e2) =>
         (typeOf(e1), op, typeOf(e2)) match {
           case (Num(n1), "+", Num(n2)) =>
@@ -93,6 +96,7 @@ object TsExpr {
     f(e match {
       case x: Ref     => x
       case x: Literal => x
+      case Cast(expr, tpe)        => Cast(visit(expr)(f), tpe)
       case Call(function, params) => Call(visit(function)(f), params.map(p => visit(p)(f)))
       case Unary(op, expr)        => Unary(op, visit(expr)(f))
       case BinaryOp(one, op, two) => BinaryOp(visit(one)(f), op, visit(two)(f))
