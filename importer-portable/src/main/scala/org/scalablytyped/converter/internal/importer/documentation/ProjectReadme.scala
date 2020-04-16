@@ -10,7 +10,12 @@ object ProjectReadme {
       declaredVersion: Option[LibraryVersion],
       dataOpt:         Option[Npmjs.Data],
       comments:        Comments,
-  ): String =
+  ): String = {
+    val source =
+      if (declaredVersion.exists(_.inGit.exists(_.isDefinitelyTyped)))
+        link("DefinitelyTyped", "https://definitelytyped.org")
+      else "first party type definitions"
+
     s"""
 # Scala.js typings for $name
 
@@ -18,10 +23,7 @@ ${declaredVersion.fold("")(renderVersion)}
 ${dataOpt.fold("")(renderData)}
 
 ## Note
-This library has been generated from typescript code from 
-${if (declaredVersion.exists(_.inGit.exists(_.isDefinitelyTyped)))
-      link("DefinitelyTyped", "https://definitelytyped.org")
-    else "first party type definitions"}.
+This library has been generated from typescript code from $source.
 
 Provided with :purple_heart: from ${link("ScalablyTyped", "https://github.com/oyvindberg/ScalablyTyped")}
 
@@ -30,6 +32,7 @@ See ${link("the main readme", "../../readme.md")} for instructions.
 
 ${renderComments(comments)}
 """
+  }
 
   def renderComments(comments: Comments): String =
     comments.rawCs.distinct match {
