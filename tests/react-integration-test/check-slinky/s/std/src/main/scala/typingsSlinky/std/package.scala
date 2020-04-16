@@ -79,7 +79,7 @@ package object std {
   /**
     * From T pick a set of properties K
     */
-  type Pick[T, K /* <: java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
+  type Pick[T, K /* <: /* keyof T */ java.lang.String */] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ P in K ]: T[P]}
     */ typingsSlinky.std.stdStrings.Pick with org.scalablytyped.runtime.TopLevel[T]
   type PointerEvent = org.scalajs.dom.raw.Event
@@ -92,7 +92,7 @@ package object std {
   /**
     * Construct a type with a set of properties K of type T
     */
-  type Record[K /* <: java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[T]
+  type Record[K /* <: /* keyof any */ java.lang.String */, T] = org.scalablytyped.runtime.StringDictionary[T]
   type SVGCircleElement = org.scalajs.dom.raw.SVGElement
   type SVGClipPathElement = org.scalajs.dom.raw.SVGElement
   type SVGDefsElement = org.scalajs.dom.raw.SVGElement

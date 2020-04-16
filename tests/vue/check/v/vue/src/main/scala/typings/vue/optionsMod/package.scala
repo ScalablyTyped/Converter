@@ -8,7 +8,7 @@ package object optionsMod {
   type Accessors[T] = /* import warning: importer.ImportType#apply c Unsupported type mapping: 
   {[ K in keyof T ]: (): T[K] | vue.vue/types/options.ComputedOptions<T[K]>}
     */ typings.vue.vueStrings.Accessors with org.scalablytyped.runtime.TopLevel[js.Any]
-  type ArrayPropsDefinition[T] = js.Array[java.lang.String]
+  type ArrayPropsDefinition[T] = js.Array[/* keyof T */ java.lang.String]
   type AsyncComponent[Data, Methods, Computed, Props] = js.Function2[
     /* resolve */ js.Function1[
       /* component */ typings.vue.optionsMod.Component[Data, Methods, Computed, Props], 

@@ -47,7 +47,8 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("expand-type-parameters")(assertImportsOk("expand-type-parameters", pedantic = true, update  = update))
   test("const-enum")(assertImportsOk("const-enum", pedantic                         = true, update  = update))
   test("firebase-admin")(assertImportsOk("firebase-admin", pedantic                 = true, update  = update))
-  test("properties")(assertImportsOk("properties", pedantic                 = true, update  = update))
+  test("properties")(assertImportsOk("properties", pedantic                         = true, update  = update))
+  test("keyof")(assertImportsOk("keyof", pedantic                                   = true, update  = update))
 
   test("material-ui")(
     assertImportsOk("material-ui", pedantic = true, update = update),

@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import org.scalablytyped.converter.internal.scalajs._
+import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts._
 import org.scalablytyped.converter.internal.ts.transforms.ExtractInterfaces
 
@@ -202,8 +203,14 @@ class ImportType(stdNames: QualifiedName.StdNames) {
       case TsTypeConstructor(TsTypeFunction(sig)) =>
         newableFunction(scope, importName, sig, NoComments)
 
-      case TsTypeKeyOf(_) =>
-        TypeRef.String
+      case keyof @ TsTypeKeyOf(of) =>
+        AllMembersFor.forType(scope, LoopDetector.initial)(of).collect {
+          case x: TsMemberFunction => x.name
+          case x: TsMemberProperty => x.name
+        } match {
+          case Empty => TypeRef.String.withComments(Comments(Comment(s"/* ${TsTypeFormatter(keyof)} */")))
+          case names => TypeRef.Union(names.map(n => TypeRef.StringLiteral(n.value)), sort = true)
+        }
 
       case TsTypeTuple(targs) =>
         targs match {
