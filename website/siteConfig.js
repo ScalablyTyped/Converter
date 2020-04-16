@@ -103,7 +103,7 @@ const siteConfig = {
     // template. For example, if you need your repo's URL...
     repoUrl: 'https://github.com/ScalablyTyped/Converter/',
 
-    customDocsPath: "tso-docs/target/mdoc"
+    customDocsPath: "converter-docs/target/mdoc"
 };
 
 module.exports = siteConfig;

@@ -16,10 +16,10 @@ lazy val ts = project
   .settings(libraryDependencies += Deps.parserCombinators)
 
 lazy val docs = project
-  .in(file("tso-docs"))
+  .in(file("converter-docs"))
   .settings(
     mdocVariables := Map("VERSION" -> latestTag),
-    moduleName := "tso-docs",
+    moduleName := "converter-docs",
   )
   .configure(preventPublication)
   .enablePlugins(MdocPlugin, DocusaurusPlugin)
@@ -27,9 +27,7 @@ lazy val docs = project
 lazy val scalajs = project
   .dependsOn(utils, logging)
   .configure(baseSettings, publicationSettings)
-  .settings(
-    libraryDependencies ++= Seq(Deps.scalaXml),
-  )
+  .settings(libraryDependencies ++= Seq(Deps.scalaXml))
 
 lazy val phases = project
   .dependsOn(utils, logging)
@@ -70,16 +68,7 @@ lazy val importer = project
 lazy val cli = project
   .dependsOn(importer)
   .configure(baseSettings, publicationSettings)
-  .settings(
-    libraryDependencies += Deps.scopt,
-    test in assembly := {},
-    mainClass := Some("org.scalablytyped.converter.cli.Main"),
-    assemblyMergeStrategy in assembly := {
-      case foo if foo.contains("io/github/soc/directories/") => MergeStrategy.first
-      case foo if foo.endsWith("module-info.class")          => MergeStrategy.discard
-      case other                                             => (assembly / assemblyMergeStrategy).value(other)
-    },
-  )
+  .settings(libraryDependencies += Deps.scopt)
 
 lazy val `sbt-converter06` = project
   .configure(pluginSettings, baseSettings, publicationSettings)
@@ -98,6 +87,7 @@ lazy val `sbt-converter` = project
 
 lazy val root = project
   .in(file("."))
+  .settings(name := "converter-root")
   .configure(baseSettings, preventPublication)
   .aggregate(logging, utils, phases, ts, scalajs, `importer-portable`, `sbt-converter06`, `sbt-converter`, importer, cli)
 
@@ -115,7 +105,7 @@ lazy val pluginSettings: Project => Project =
 lazy val baseSettings: Project => Project =
   _.settings(
     licenses += ("GPL-3.0", url("https://opensource.org/licenses/GPL-3.0")),
-    scalaVersion := "2.12.10",
+    scalaVersion := "2.12.11",
     organization := "org.scalablytyped.converter",
     scalacOptions ~= (_.filterNot(
       Set(
@@ -124,19 +114,6 @@ lazy val baseSettings: Project => Project =
         "-Xfatal-warnings",
       ),
     )),
-//    scalacOptions ++= Seq(
-//      "-opt:l:inline",
-//      "-opt:l:method",
-//      "-opt:simplify-jumps",
-//      "-opt:compact-locals",
-//      "-opt:copy-propagation",
-//      "-opt:redundant-casts",
-//      "-opt:box-unbox",
-//      "-opt:nullness-tracking",
-//      "-opt:closure-invocations",
-//      "-opt-inline-from:**",
-//      "-opt-warnings",
-//    ),
     /* disable scaladoc */
     sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
