@@ -40,7 +40,7 @@ object Main {
   val DefaultOptions = ConversionOptions(
     useScalaJsDomTypes    = true,
     outputPackage         = Name.typings,
-    enableScalaJsDefined  = Selection.AllExcept(Libraries.Slow.to[Seq]: _*),
+    enableScalaJsDefined  = Selection.None,
     flavour               = Flavour.Normal,
     ignoredLibs           = Set(TsIdentLibrary("typescript")),
     ignoredModulePrefixes = Set(),
