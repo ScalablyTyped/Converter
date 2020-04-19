@@ -14,19 +14,16 @@ object createElement extends js.Object {
   def apply[P /* <: js.Object */](`type`: String): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: js.Object */](`type`: String, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
   def apply[P /* <: js.Object */](`type`: String, props: Attributes with P, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
-  def apply[P /* <: js.Object */](`type`: ClassType[P, ClassicComponent[P, ComponentState], ClassicComponentClass[P]]): CElement[P, ReactComponentClass[P]] = js.native
+  def apply[P /* <: js.Object */](`type`: ClassType[P, ReactComponentClass[P], ReactComponentClass[P]]): CElement[P, ReactComponentClass[P]] = js.native
+  def apply[P /* <: js.Object */](`type`: ClassType[P, ReactComponentClass[P], ReactComponentClass[P]], children: TagMod[Any]*): CElement[P, ReactComponentClass[P]] = js.native
   def apply[P /* <: js.Object */](
-    `type`: ClassType[P, ClassicComponent[P, ComponentState], ClassicComponentClass[P]],
+    `type`: ClassType[P, ReactComponentClass[P], ReactComponentClass[P]],
+    props: ClassAttributes[ReactComponentClass[P]] with P,
     children: TagMod[Any]*
   ): CElement[P, ReactComponentClass[P]] = js.native
-  def apply[P /* <: js.Object */](
-    `type`: ClassType[P, ClassicComponent[P, ComponentState], ClassicComponentClass[P]],
-    props: (ClassAttributes[ClassicComponent[P, ComponentState]]) with P,
-    children: TagMod[Any]*
-  ): CElement[P, ReactComponentClass[P]] = js.native
-  def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState]): slinky.core.facade.ReactElement = js.native
-  def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState], children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
-  def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState], props: Attributes with P, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
+  def apply[P /* <: js.Object */](`type`: ComponentClass[P, js.Object]): slinky.core.facade.ReactElement = js.native
+  def apply[P /* <: js.Object */](`type`: ComponentClass[P, js.Object], children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
+  def apply[P /* <: js.Object */](`type`: ComponentClass[P, js.Object], props: Attributes with P, children: TagMod[Any]*): slinky.core.facade.ReactElement = js.native
   // Custom components
   def apply[P /* <: js.Object */](`type`: FunctionComponent[P]): FunctionComponentElement[P] = js.native
   def apply[P /* <: js.Object */](`type`: FunctionComponent[P], children: TagMod[Any]*): FunctionComponentElement[P] = js.native

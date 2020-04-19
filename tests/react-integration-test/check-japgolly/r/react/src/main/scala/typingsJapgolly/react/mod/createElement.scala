@@ -15,19 +15,16 @@ object createElement extends js.Object {
   def apply[P /* <: js.Object */](`type`: String): Element = js.native
   def apply[P /* <: js.Object */](`type`: String, children: Node*): Element = js.native
   def apply[P /* <: js.Object */](`type`: String, props: Attributes with P, children: Node*): Element = js.native
-  def apply[P /* <: js.Object */](`type`: ClassType[P, ClassicComponent[P, ComponentState], ClassicComponentClass[P]]): CElement[P, ClassicComponent[P, js.Object]] = js.native
+  def apply[P /* <: js.Object */](`type`: ClassType[P, ClassicComponent[P, js.Object], ClassicComponentClass[P]]): CElement[P, ClassicComponent[P, js.Object]] = js.native
+  def apply[P /* <: js.Object */](`type`: ClassType[P, ClassicComponent[P, js.Object], ClassicComponentClass[P]], children: Node*): CElement[P, ClassicComponent[P, js.Object]] = js.native
   def apply[P /* <: js.Object */](
-    `type`: ClassType[P, ClassicComponent[P, ComponentState], ClassicComponentClass[P]],
+    `type`: ClassType[P, ClassicComponent[P, js.Object], ClassicComponentClass[P]],
+    props: (ClassAttributes[ClassicComponent[P, js.Object]]) with P,
     children: Node*
   ): CElement[P, ClassicComponent[P, js.Object]] = js.native
-  def apply[P /* <: js.Object */](
-    `type`: ClassType[P, ClassicComponent[P, ComponentState], ClassicComponentClass[P]],
-    props: (ClassAttributes[ClassicComponent[P, ComponentState]]) with P,
-    children: Node*
-  ): CElement[P, ClassicComponent[P, js.Object]] = js.native
-  def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState]): Element = js.native
-  def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState], children: Node*): Element = js.native
-  def apply[P /* <: js.Object */](`type`: ComponentClass[P, ComponentState], props: Attributes with P, children: Node*): Element = js.native
+  def apply[P /* <: js.Object */](`type`: ComponentClassP[P with js.Object]): Element = js.native
+  def apply[P /* <: js.Object */](`type`: ComponentClassP[P with js.Object], children: Node*): Element = js.native
+  def apply[P /* <: js.Object */](`type`: ComponentClassP[P with js.Object], props: Attributes with P, children: Node*): Element = js.native
   def apply[P /* <: js.Object */](`type`: FunctionComponent[P]): Element = js.native
   def apply[P /* <: js.Object */](`type`: FunctionComponent[P], children: Node*): Element = js.native
   def apply[P /* <: js.Object */](`type`: FunctionComponent[P], props: Attributes with P, children: Node*): Element = js.native
