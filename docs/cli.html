@@ -1,0 +1,129 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><title>Getting started - command line tool · ScalablyTyped</title><meta name="viewport" content="width=device-width"/><meta name="generator" content="Docusaurus"/><meta name="description" content="- [I want to use sbt with scalajs-bundler (recommended)](/docs/plugin-no-bundler)"/><meta name="docsearch:language" content="en"/><meta property="og:title" content="Getting started - command line tool · ScalablyTyped"/><meta property="og:type" content="website"/><meta property="og:url" content="https://scalablytyped.org/"/><meta property="og:description" content="- [I want to use sbt with scalajs-bundler (recommended)](/docs/plugin-no-bundler)"/><meta property="og:image" content="https://scalablytyped.org/img/undraw_online.svg"/><meta name="twitter:card" content="summary"/><meta name="twitter:image" content="https://scalablytyped.org/img/undraw_tweetstorm.svg"/><link rel="shortcut icon" href="/undefined"/><link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css"/><script type="text/javascript" src="https://buttons.github.io/buttons.js"></script><script src="/js/scrollSpy.js"></script><link rel="stylesheet" href="/css/main.css"/><script src="/js/codetabs.js"></script></head><body class="sideNavVisible separateOnPageNav"><div class="fixedHeaderContainer"><div class="headerWrapper wrapper"><header><a href="/"><h2 class="headerTitle">ScalablyTyped</h2></a><div class="navigationWrapper navigationSlider"><nav class="slidingNav"><ul class="nav-site nav-site-internal"><li class=""><a href="https://github.com/ScalablyTyped/Converter" target="_self">Github</a></li></ul></nav></div></header></div></div><div class="navPusher"><div class="docMainWrapper wrapper"><div class="docsNavContainer" id="docsNav"><nav class="toc"><div class="toggleNav"><section class="navWrapper wrapper"><div class="navBreadcrumb wrapper"><div class="navToggle" id="navToggler"><div class="hamburger-menu"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div></div><h2><i>›</i><span>ScalablyTyped</span></h2><div class="tocToggler" id="tocToggler"><i class="icon-toc"></i></div></div><div class="navGroups"><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">ScalablyTyped<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/readme">The Javascript ecosystem for Scala.js!</a></li><li class="navListItem"><a class="navItem" href="/docs/changelog">Changelog</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin">Getting started - SBT plugin</a></li><li class="navListItem"><a class="navItem" href="/docs/plugin-no-bundler">SBT plugin without scalajs-bundler</a></li><li class="navListItem navListItemActive"><a class="navItem" href="/docs/cli">Getting started - command line tool</a></li><li class="navListItem"><a class="navItem" href="/docs/flavour">Flavour</a></li><li class="navListItem"><a class="navItem" href="/docs/encoding">Anticipated questions about encoding</a></li><li class="navListItem"><a class="navItem" href="/docs/import-problems">What if I hit problems importing libraries?</a></li><li class="navListItem"><a class="navItem" href="/docs/release-announcement">Beta release announcement!</a></li></ul></div><div class="navGroup"><h3 class="navGroupCategoryTitle collapsible">Development<span class="arrow"><svg width="24" height="24" viewBox="0 0 24 24"><path fill="#565656" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg></span></h3><ul class="hide"><li class="navListItem"><a class="navItem" href="/docs/devel/about">Development</a></li><li class="navListItem"><a class="navItem" href="/docs/devel/running">Running</a></li></ul></div></div></section></div><script>
+            var coll = document.getElementsByClassName('collapsible');
+            var checkActiveCategory = true;
+            for (var i = 0; i < coll.length; i++) {
+              var links = coll[i].nextElementSibling.getElementsByTagName('*');
+              if (checkActiveCategory){
+                for (var j = 0; j < links.length; j++) {
+                  if (links[j].classList.contains('navListItemActive')){
+                    coll[i].nextElementSibling.classList.toggle('hide');
+                    coll[i].childNodes[1].classList.toggle('rotate');
+                    checkActiveCategory = false;
+                    break;
+                  }
+                }
+              }
+
+              coll[i].addEventListener('click', function() {
+                var arrow = this.childNodes[1];
+                arrow.classList.toggle('rotate');
+                var content = this.nextElementSibling;
+                content.classList.toggle('hide');
+              });
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+              createToggler('#navToggler', '#docsNav', 'docsSliderActive');
+              createToggler('#tocToggler', 'body', 'tocActive');
+
+              var headings = document.querySelector('.toc-headings');
+              headings && headings.addEventListener('click', function(event) {
+                var el = event.target;
+                while(el !== headings){
+                  if (el.tagName === 'A') {
+                    document.body.classList.remove('tocActive');
+                    break;
+                  } else{
+                    el = el.parentNode;
+                  }
+                }
+              }, false);
+
+              function createToggler(togglerSelector, targetSelector, className) {
+                var toggler = document.querySelector(togglerSelector);
+                var target = document.querySelector(targetSelector);
+
+                if (!toggler) {
+                  return;
+                }
+
+                toggler.onclick = function(event) {
+                  event.preventDefault();
+
+                  target.classList.toggle(className);
+                };
+              }
+            });
+        </script></nav></div><div class="container mainContainer docsContainer"><div class="wrapper"><div class="post"><header class="postHeader"><h1 id="__docusaurus" class="postHeaderTitle">Getting started - command line tool</h1></header><article><div><span><ul>
+<li><a href="/docs/plugin-no-bundler">I want to use sbt with scalajs-bundler (recommended)</a></li>
+<li><a href="/docs/cli">I want to use sbt without scalajs-bundler</a></li>
+</ul>
+<p>The command line is the same functionality as the sbt plugin just without sbt.
+You provide a directory with a package.json and a node_modules, optionally
+change some conversion options, and then start the conversion.</p>
+<p>The output is a set of locally publishes jar files which you can paste into sbt
+or your build tool of choice.</p>
+<p>You can also use the tool to publish directly to a bintray repository if you
+want to share the artifacats.</p>
+<h2><a class="anchor" aria-hidden="true" id="running"></a><a href="#running" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Running</h2>
+<p>The easiest way to run is with coursier's excellent runner.</p>
+<ol>
+<li>Install the <code>cs</code> command with these instructions <a href="https://get-coursier.io/docs/cli-overview">https://get-coursier.io/docs/cli-overview</a></li>
+<li>run it</li>
+</ol>
+<pre><code class="hljs"># note the -- 
+$ <span class="hljs-keyword">cs</span> launch -r http<span class="hljs-variable">s:</span>//<span class="hljs-keyword">dl</span>.bintray.<span class="hljs-keyword">com</span>/oyvindberg/converter org.scalablytyped.converter:cli_2.<span class="hljs-number">12</span>:<span class="hljs-number">1.0</span>.<span class="hljs-number">0</span>-beta10 --  --<span class="hljs-keyword">help</span>
+</code></pre>
+<h2><a class="anchor" aria-hidden="true" id="configuration"></a><a href="#configuration" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Configuration</h2>
+<pre><code class="hljs"><span class="hljs-attribute">Usage</span>: stc [options] [libs]
+
+<span class="pgsql">  -h, <span class="hljs-comment">--help</span>
+  -v, <span class="hljs-comment">--version</span>
+  -d, <span class="hljs-comment">--directory &lt;value&gt;  Specify another directory instead of the current directory where your package.json and node_modules is</span>
+  <span class="hljs-comment">--includeDev &lt;value&gt;     Include dev dependencies</span>
+  <span class="hljs-comment">--includeProject &lt;value&gt;</span>
+                           <span class="hljs-keyword">Include</span> project <span class="hljs-keyword">in</span> <span class="hljs-keyword">current</span> directory
+  <span class="hljs-comment">--useScalaJsDomTypes &lt;value&gt;</span>
+                           <span class="hljs-keyword">When</span> <span class="hljs-keyword">true</span> (which <span class="hljs-keyword">is</span> the <span class="hljs-keyword">default</span>) uses scala-js-dom <span class="hljs-keyword">types</span> <span class="hljs-keyword">when</span> possible <span class="hljs-keyword">instead</span> <span class="hljs-keyword">of</span> <span class="hljs-keyword">types</span> we translate <span class="hljs-keyword">from</span> typescript <span class="hljs-keyword">in</span> std
+  -f, <span class="hljs-comment">--flavour &lt;value&gt;    One of normal, japgolly, slinky, slinky-native. See https://scalablytyped.org/docs/flavour</span>
+  <span class="hljs-comment">--scalajs &lt;value&gt;        Scala.js version</span>
+  <span class="hljs-comment">--scala &lt;value&gt;          Scala version</span>
+  <span class="hljs-comment">--outputPackage &lt;value&gt;  Output package</span>
+  <span class="hljs-comment">--enableScalaJSDefined &lt;value&gt;</span>
+                           Libraries you want <span class="hljs-keyword">to</span> <span class="hljs-keyword">enable</span> @ScalaJSDefined traits <span class="hljs-keyword">for</span>.
+  -s, <span class="hljs-comment">--stdlib &lt;value&gt;     Which parts of typescript stdlib you want to enable</span>
+  <span class="hljs-comment">--organization &lt;value&gt;   Organization used (locally) publish artifacts</span>
+  <span class="hljs-comment">--ignoredLibs &lt;value&gt;    Libraries you want to ignore</span>
+  <span class="hljs-comment">--publish-to-bintray-repo &lt;value&gt;</span>
+                           <span class="hljs-keyword">Enable</span> publishing <span class="hljs-keyword">to</span> your bintray repo. You must <span class="hljs-keyword">also</span> provide ~/.bintray/.credentials <span class="hljs-keyword">with</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">password</span>, <span class="hljs-keyword">and</span> <span class="hljs-keyword">set</span> publish-git-repo-link 
+  <span class="hljs-comment">--publish-git-repo-link &lt;value&gt;</span>
+                           Must <span class="hljs-keyword">set</span> a <span class="hljs-built_in">public</span> git repo uri since published artifacts must be <span class="hljs-keyword">open</span> source
+  libs                     Libraries you want <span class="hljs-keyword">to</span> convert <span class="hljs-keyword">from</span> node_modules
+</span></code></pre>
+<h2><a class="anchor" aria-hidden="true" id="publishing"></a><a href="#publishing" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Publishing</h2>
+<p>Only publishing to bintray is supported for now</p>
+<ol>
+<li>register at bintray.com and create a maven repo</li>
+<li>provide Bintray credentials (user name and API key) in <code>~/.bintray/.credentials</code>:</li>
+</ol>
+<pre><code class="hljs"><span class="hljs-attr">user</span> = username
+<span class="hljs-attr">password</span> = token
+</code></pre>
+<ol start="3">
+<li>Run the cli tool with at least the following parameters:
+<code>--publish-to-bintray-repo=mymavenreponame</code>
+<code>--publish-git-repo-link=https://github.com/foo</code>
+<code>--organization my.org</code></li>
+</ol>
+<h2><a class="anchor" aria-hidden="true" id="convert-your-typescript-project"></a><a href="#convert-your-typescript-project" aria-hidden="true" class="hash-link"><svg class="hash-link-icon" aria-hidden="true" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Convert your Typescript project</h2>
+<p>If you happen to have a Typescript project, and you want to reuse parts of it for a Scala.js app
+without going through npm we've got you covered.</p>
+<p>This can enable all sorts of cool use cases where you can gradually migrate to or test Scala.js.</p>
+<ol>
+<li>Build your Typescript project with --declaration so that it generates <code>.d.ts</code> files</li>
+<li>Run the cli tool from the project directory with <code>--includeProject=true</code></li>
+</ol>
+<p>Note, we use the name of the current directory as the library name.
+You might have to <a href="https://webpack.js.org/configuration/resolve/#resolvealias">tell webpack</a>
+where to actually find it.</p>
+</span></div></article></div><div class="docs-prevnext"><a class="docs-prev button" href="/docs/plugin-no-bundler"><span class="arrow-prev">← </span><span>SBT plugin without scalajs-bundler</span></a><a class="docs-next button" href="/docs/flavour"><span>Flavour</span><span class="arrow-next"> →</span></a></div></div></div><nav class="onPageNav"><ul class="toc-headings"><li><a href="#running">Running</a></li><li><a href="#configuration">Configuration</a></li><li><a href="#publishing">Publishing</a></li><li><a href="#convert-your-typescript-project">Convert your Typescript project</a></li></ul></nav></div><footer class="nav-footer" id="footer"><section class="sitemap"><a href="/" class="nav-home"></a><div><h5>Community</h5><a href="https://gitter.im/ScalablyTyped/community/">Project Chat</a></div><div><h5>More</h5><a href="https://github.com/oyvindberg/ScalablyTypedConverter/">GitHub</a><a class="github-button" href="https://github.com/ScalablyTyped/Converter/" data-icon="octicon-star" data-count-href="/facebook/docusaurus/stargazers" data-show-count="true" data-count-aria-label="# stargazers on GitHub" aria-label="Star this project on GitHub">Star</a></div></section><section class="copyright">Copyright © 2020 Øyvind Raddum Berg</section></footer></div></body></html>
