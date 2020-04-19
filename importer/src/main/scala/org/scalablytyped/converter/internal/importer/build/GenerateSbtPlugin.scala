@@ -86,7 +86,8 @@ object GenerateSbtPlugin {
 
     val deprecationNotice =
       if (isDeprecated)
-        """@deprecated("The pre-built distribution you're using of ScalablyTyped is deprecated. Please see https://www.scalablytyped.org for the new sbt plugin")\n"""
+        """
+          |@deprecated("The pre-built distribution you're using of ScalablyTyped is deprecated. Please see https://www.scalablytyped.org for the new sbt plugin", "2020-04-19")""".stripMargin
       else ""
 
     val pluginSource = s"""

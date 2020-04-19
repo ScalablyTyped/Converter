@@ -398,7 +398,7 @@ target/
     } else {
       interfaceLogger warn "Generating sbt plugin..."
 
-      val sbtProjectDir = targetFolder / s"sbt-${config.projectName}"
+      val sbtProjectDir = targetFolder / s"sbt-${config.projectName.value}"
 
       GenerateSbtPlugin(
         isDeprecated  = true,
