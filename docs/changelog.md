@@ -3,6 +3,15 @@ id: changelog
 title: Changelog
 ---
 
+## 1.0.0-beta10
+[Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta9...v1.0.0-beta10)
+- Added [CLI version](cli.md)
+- Added ability for CLI version to convert type definitions for a [local Typescript project](cli.md#convert-your-typescript-project), including all dependencies, so that you can experiment with or start migrating to Scala.js without starting over if you already have a typescript project. This feature is experimental.
+- Loads of bugfixes and more supported Typescript syntax 
+
+### Contributors
+     26  Øyvind Raddum Berg
+
 ## 1.0.0-beta9
 [Full changelog](https://github.com/ScalablyTyped/Converter/compare/v1.0.0-beta8...v1.0.0-beta9)
 

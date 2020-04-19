@@ -1,6 +1,6 @@
 import scala.sys.process.stringToProcess
 
-lazy val latestTag = "git tag -l".!!.linesIterator.toVector.last.drop(/* 'v' */ 1)
+lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop(/* 'v' */ 1)
 
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
