@@ -7,6 +7,5 @@ import scala.scalajs.js.annotation._
 
 @JSImport("fp-ts/lib/Const", "URI")
 @js.native
-object URI
-  extends TopLevel[typings.fpTs.fpTsStrings.Const]
+object URI extends TopLevel[/* "Const" */ String]
 
