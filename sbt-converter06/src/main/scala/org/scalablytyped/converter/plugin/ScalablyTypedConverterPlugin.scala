@@ -94,7 +94,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
         }
 
       case _ =>
-        Def.task {
+        val t = Def.task {
           (Compile / npmInstallDependencies).value
 
           ImportTypings(
@@ -116,6 +116,8 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
               sys.error(errors.mkString("\n").take(2000))
           }
         }
+
+        t.tag(Tags.Compile, Tags.CPU, Tags.Disk, ScalablyTypedTag)
     }
   }
 
@@ -129,7 +131,7 @@ object ScalablyTypedConverterPlugin extends AutoPlugin {
       )
 
     Seq(
-      stImport := stImportTask.tag(Tags.Compile, Tags.CPU, Tags.Disk, ScalablyTypedTag).value,
+      stImport := stImportTask.value,
       Compile / scalaJSBundlerPackageJson := {
         val deps = (Compile / npmDependencies).value
         /* Make sure we always include typescript for the stdlib if it wasnt already added */

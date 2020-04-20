@@ -95,7 +95,7 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
         }
 
       case _ =>
-        Def.task {
+        val t = Def.task {
           ImportTypings(
             input              = input,
             logger             = stLogger,
@@ -115,11 +115,11 @@ object ScalablyTypedConverterExternalNpmPlugin extends AutoPlugin {
               sys.error(errors.mkString("\n").take(2000))
           }
         }
+
+        t.tag(Tags.Compile, Tags.CPU, Tags.Disk, ScalablyTypedTag)
     }
   }
 
   override lazy val projectSettings =
-    Seq(
-      stImport := stImportTask.tag(Tags.Compile, Tags.CPU, Tags.Disk, ScalablyTypedTag).value,
-    )
+    Seq(stImport := stImportTask.value)
 }
