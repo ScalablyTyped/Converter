@@ -575,7 +575,7 @@ class GenSlinkyComponents(
           val impl = {
             import ExprTree._
             val newed = New(
-              buildingComponent.copy(targs = Empty),
+              buildingComponent,
               IArray(
                 Call(
                   Ref(QualifiedName.Array),

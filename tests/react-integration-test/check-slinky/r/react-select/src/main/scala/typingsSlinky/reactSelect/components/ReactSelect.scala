@@ -24,7 +24,7 @@ object ReactSelect
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     super.apply(__obj.asInstanceOf[Props]).asInstanceOf[BuildingComponent[tag.type, default[js.Any]]]
   }
-  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default[js.Any]] = new BuildingComponent(js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods :_*)
+  def apply(mods: TagMod[tag.type]*): BuildingComponent[tag.type, default[js.Any]] = new BuildingComponent[tag.type, default[js.Any]](js.Array(component.asInstanceOf[js.Any], js.Dictionary.empty)).apply(mods :_*)
   type Props = ReactSelectProps[js.Any]
 }
 
