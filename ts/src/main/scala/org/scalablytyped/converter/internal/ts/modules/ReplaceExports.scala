@@ -49,6 +49,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
             case other =>
               scope.logger.fatal(s"Unexpected $other")
           }
+        case TsExport(NoComments, _, ExportType.Named, TsExporteeNames(Empty, None)) =>
+          Empty
         case e: TsExport =>
           scope.fatalMaybe(s"Dropping unexpected export in namespace $e")
           Empty

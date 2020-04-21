@@ -6,6 +6,8 @@ import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
 import org.scalablytyped.converter.internal.ts.modules.{DeriveCopy, ReplaceExports}
 
 object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClassMembers {
+  val GlobalThis = TsQIdent.of("globalThis")
+
   def newClassMembersLeaving(scope: TsTreeScope, tree: HasClassMembers): IArray[TsMember] =
     tree.members.flatMap {
       case target @ TsMemberProperty(
@@ -192,6 +194,9 @@ object ResolveTypeQueries extends TransformLeaveMembers with TransformLeaveClass
 
       case Right(loopDetector) =>
         target.expr match {
+          case GlobalThis =>
+            TsTypeRef.any.copy(comments = Comments(Comment("/* globalThis */ ")))
+
           case wanted if TsQIdent.Primitive(wanted) => TsTypeRef(NoComments, wanted, Empty)
           case wanted =>
             val found = scope
