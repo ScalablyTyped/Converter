@@ -64,7 +64,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     if (scope.root.cache.isDefined && scope.root.cache.get.exports.contains(x.name)) {
       return scope.root.cache.get.exports(x.name)
     }
-    val _1 = x.copy(members = x.members flatMap newMember(scope, x, spec => JsLocation.Module(x.name, spec)))
+    val _1 = x.copy(members = newMembers(scope, x, spec => JsLocation.Module(x.name, spec), x.members))
     val _2 = ensureTypesPresent(x, _1)
     val _3 = FlattenTrees.mergeModule(_2, _2.copy(members = Empty))
 
@@ -76,7 +76,7 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
   }
 
   override def enterTsAugmentedModule(t: TsTreeScope)(x: TsAugmentedModule): TsAugmentedModule = {
-    val _1 = x.copy(members = x.members flatMap newMember(t, x, spec => JsLocation.Module(x.name, spec)))
+    val _1 = x.copy(members = newMembers(t, x, spec => JsLocation.Module(x.name, spec), x.members))
     val _2 = ensureTypesPresent(x, _1)
     FlattenTrees.mergeAugmentedModule(_2, _2.copy(members = Empty))
   }
@@ -104,9 +104,29 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
     `new`.withMembers(`new`.members ++ missingTypes).asInstanceOf[T]
   }
 
+  case class CanBeShadowed(maybe: Boolean, trees: IArray[TsContainerOrDecl])
+
+  def newMembers(
+      scope:      TsTreeScope,
+      owner:      TsDeclNamespaceOrModule,
+      jsLocation: ModuleSpec => JsLocation,
+      trees:      IArray[TsContainerOrDecl],
+  ): IArray[TsContainerOrDecl] = {
+    val (canBeShadowed, canNotBe) = trees.map(newMember(scope, owner, jsLocation)).partition(_.maybe)
+    val keep                      = canNotBe.flatMap(_.trees)
+    val keepMaybe = {
+      val takenName = keep.collect { case x: TsNamedDecl => x.name }.toSet
+      canBeShadowed.flatMap(_.trees.filter {
+        case x: TsNamedDecl => !takenName(x.name)
+        case _ => true
+      })
+    }
+    keepMaybe ++ keep
+  }
+
   def newMember(scope: TsTreeScope, owner: TsDeclNamespaceOrModule, jsLocation: ModuleSpec => JsLocation)(
       decl:            TsContainerOrDecl,
-  ): IArray[TsContainerOrDecl] = {
+  ): CanBeShadowed = {
     lazy val hasExportedValues: Boolean =
       owner.exports.exists {
         case TsExport(_, _, _, TsExporteeTree(_: TsDeclInterface | _: TsDeclTypeAlias)) => false
@@ -116,7 +136,8 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
 
     decl match {
       /* fix for @angular/core */
-      case TsExport(NoComments, _, _, TsExporteeStar(name)) if owner.name === name => Empty
+      case TsExport(NoComments, _, _, TsExporteeStar(name)) if owner.name === name =>
+        CanBeShadowed(maybe = false, Empty)
       case e: TsExport =>
         val ret = Exports.expandExport(scope, jsLocation, e, loopDetector, owner)
         if (ret.isEmpty && scope.root.pedantic) {
@@ -130,7 +151,11 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
               scope.logger.fatal(("didn't expand to anything", other.toString))
           }
         }
-        ret
+        val canBeShadowed = e match {
+          case TsExport(_, _, ExportType.Named, TsExporteeStar(_)) => true
+          case _                                                   => false
+        }
+        CanBeShadowed(canBeShadowed, ret)
 
       case g @ TsGlobal(_, _, ms, _) =>
         val ret: IArray[TsNamedDecl] =
@@ -139,13 +164,15 @@ class ReplaceExports(loopDetector: LoopDetector) extends TreeTransformationScope
             case TsExport(_, _, _, TsExporteeTree(x: TsNamedDecl)) => x
           } map (x => Utils.withJsLocation(x, JsLocation.Global(TsQIdent.of(x.name))))
 
-        IArray(g.copy(members = ret))
+        CanBeShadowed(maybe = false, IArray(g.copy(members = ret)))
 
-      case x: TsDeclModule      => IArray(x)
-      case x: TsAugmentedModule => IArray(x)
-      case x: TsNamedValueDecl  => if (hasExportedValues) IArray.fromOption(KeepTypesOnly(x)) else IArray(x)
+      case x: TsDeclModule => CanBeShadowed(maybe = false, IArray(x))
+      case x: TsAugmentedModule => CanBeShadowed(maybe = false, IArray(x))
+      case x: TsNamedValueDecl =>
+        if (hasExportedValues) CanBeShadowed(maybe = false, IArray.fromOption(KeepTypesOnly(x)))
+        else CanBeShadowed(maybe                   = false, IArray(x))
 //      case _: TsImport          => Empty
-      case x => IArray(x)
+      case x => CanBeShadowed(maybe = false, IArray(x))
     }
   }
 }
