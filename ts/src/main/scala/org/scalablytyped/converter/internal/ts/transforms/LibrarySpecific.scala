@@ -7,6 +7,17 @@ object LibrarySpecific {
     val libName: TsIdentLibrary
   }
 
+  object std extends Named {
+    override val libName = TsIdentLibrarySimple("std")
+
+    override def enterTsDecl(t: TsTreeScope)(x: TsDecl): TsDecl =
+      x match {
+        case i @ TsDeclInterface(_, _, TsIdentSimple("HTMLCollectionOf"), _, _, _, _) =>
+          i.copy(inheritance = Empty)
+        case other => other
+      }
+  }
+
   object styledComponents extends Named {
     override val libName = TsIdentLibrarySimple("styled-components")
 
@@ -197,7 +208,7 @@ object LibrarySpecific {
   }
 
   val patches: Map[TsIdentLibrary, Named] =
-    IArray(atUifabricFoundation, aMap, emberPolyfills, emotion, react, semanticUiReact, styledComponents)
+    IArray(atUifabricFoundation, aMap, emberPolyfills, emotion, react, semanticUiReact, std, styledComponents)
       .map(x => x.libName -> x)
       .toMap
 
