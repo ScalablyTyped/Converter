@@ -13,6 +13,7 @@ import lmcoursier.{CoursierConfiguration, CoursierDependencyResolution}
 import org.scalablytyped.converter.internal.importer.build.{Compiler, CompilerPaths}
 import org.scalablytyped.converter.internal.scalajs.{Dep, Versions}
 import sbt._
+import sbt.coursierint.CoursierRepositoriesTasks.coursierResolversTask
 import sbt.internal.inc.classpath.ClassLoaderCache
 import sbt.internal.inc.{AnalyzingCompiler, LoggedReporter, ScalaInstance, ZincLmUtil, ZincUtil}
 import sbt.librarymanagement.DependencyResolution
@@ -75,8 +76,12 @@ object ZincCompiler {
       Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
 
-    val resolvers = sbt.coursierint.CoursierRepositoriesTasks.coursierResolversTask.value.toVector
-    val resolver = DependencyResolution(new CoursierDependencyResolution(CoursierConfiguration().withResolvers(resolvers)))
+    val resolver = DependencyResolution(
+      new CoursierDependencyResolution(
+        CoursierConfiguration()
+          .withResolvers(coursierResolversTask.value.toVector),
+      ),
+    )
 
     def resolve(dep: Dep): Array[File] =
       resolver.retrieve(
