@@ -44,7 +44,11 @@ object CastConversion {
   }
 
   case class TypeRewriterCast(conversions: IArray[CastConversion]) extends TreeTransformation {
-    val map = conversions.map(x => x.from -> x).toMap
+    val map: Map[QualifiedName, CastConversion] =
+      conversions.map(x => x.from -> x).toMap
+
+    val existsConflicts: Boolean =
+      conversions.groupBy(_.to).exists { case (_, froms) => froms.length > 1 }
 
     def mapped(x: TypeRef, scope: TreeScope): Option[TypeRef] =
       map.get(x.typeName).map { conv =>
@@ -52,57 +56,46 @@ object CastConversion {
         x.copy(typeName = conv.to, targs = targs)
       }
 
-    object Scoped {
-      def unapply(ts: TreeScope): Option[(TreeScope, Tree)] =
-        ts match {
-          case x: TreeScope.Scoped => Some((x.outer, x.current))
-          case _ => None
-        }
-    }
+    def isRisky(scope: TreeScope): Boolean =
+      scope.stack match {
+        case (_:       TypeRef) :: (_:     InheritanceTree) :: _ => true
+        case (_:       TypeRef) :: (int:   TypeRef) :: (_: InheritanceTree) :: _ if Name.Internal(int.name) => true
+        case (current: TypeRef) :: (param: ParamTree) :: (m: MethodTree) :: (owner: InheritanceTree) :: _
+            if existsConflicts =>
+          owner.index.get(m.name) match {
+            case Some(membersSameName) if membersSameName.length > 1 =>
+              val flattenedParams = m.params.flatten
+              val paramIdx        = flattenedParams.indexOf(param)
 
-    def isRisky(scope: TreeScope, inheritanceIsRisky: Boolean): Boolean =
-      scope match {
-        case _: TreeScope.Root[_] => false
-        case Scoped(outer, current) =>
-          current match {
-            /* changing inheritance to classes we haven't had the chance to inspect will often fail */
-            case _: InheritanceTree => inheritanceIsRisky
-            case p: ParamTree =>
-              outer match {
-                case Scoped(mouter, m: MethodTree) =>
-                  /* if this is an overloaded method we might break compilation if we translate both to the same type */
-                  mouter match {
-                    case Scoped(_, owner: InheritanceTree) =>
-                      owner.index.get(m.name) match {
-                        case Some(membersSameName) if membersSameName.length > 1 =>
-                          val flattenedParams = m.params.flatten
-                          val paramIdx        = flattenedParams.indexOf(p)
+              /* Heuristics to determine risk of clash between method overloads:
+               - An overloaded method with same number of params
+               - different type for parameter at same index which is translated into the same type as this would
+               */
+              val mightClash = membersSameName.exists {
+                case `m` => false
+                case mm: MethodTree =>
+                  val mmFlattenedParams = mm.params.flatten
+                  if (mmFlattenedParams.length === flattenedParams.length) {
+                    val otherType = mmFlattenedParams(paramIdx).tpe
 
-                          /* the heuristics so far is another method with same number of params and different type in same position might collide */
-                          val mightClash = membersSameName.exists {
-                            case `m` => false
-                            case mm: MethodTree =>
-                              val mmFlattenedParams = mm.params.flatten
-                              if (mmFlattenedParams.length === flattenedParams.length) {
-                                mmFlattenedParams(paramIdx).tpe =/= p.tpe
-                              } else false
-                            case _ => false
-                          }
-                          mightClash
-                        case _ => false
-                      }
-                    case _ => false
-                  }
+                    def translatedToSameType =
+                      for {
+                        otherConversion <- map.get(otherType.typeName)
+                        currentConversion <- map.get(current.typeName)
+                      } yield otherConversion.to === currentConversion.to
+
+                    otherType =/= param.tpe && translatedToSameType.getOrElse(false)
+                  } else false
                 case _ => false
               }
-            case tr: TypeRef =>
-              isRisky(outer, inheritanceIsRisky = inheritanceIsRisky && Name.Internal(tr.name))
+              mightClash
             case _ => false
           }
+        case _ => false
       }
 
     override def leaveTypeRef(scope: TreeScope)(original: TypeRef): TypeRef = UndoDamage(
-      if (isRisky(scope.`..`, inheritanceIsRisky = true)) original
+      if (isRisky(scope)) original
       else
         mapped(original, scope).orElse(mapped(FollowAliases(scope)(original), scope)) match {
           case Some(TypeRef.Intersection(types)) => TypeRef.Intersection(types)

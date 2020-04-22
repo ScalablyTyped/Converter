@@ -13,9 +13,9 @@ object memo extends js.Object {
     Component: T,
     propsAreEqual: js.Function2[/* prevProps */ ComponentProps[T], /* nextProps */ ComponentProps[T], Boolean]
   ): ReactComponentClass[T] = js.native
-  def apply[P /* <: js.Object */](Component: SFC[P]): ReactComponentClass[P] = js.native
+  def apply[P /* <: js.Object */](Component: ReactComponentClass[P]): ReactComponentClass[P] = js.native
   def apply[P /* <: js.Object */](
-    Component: SFC[P],
+    Component: ReactComponentClass[P],
     propsAreEqual: js.Function2[/* prevProps */ PropsWithChildren[P], /* nextProps */ PropsWithChildren[P], Boolean]
   ): ReactComponentClass[P] = js.native
 }
