@@ -75,7 +75,8 @@ object ZincCompiler {
       Versions.ScalaJs(org.scalajs.sbtplugin.ScalaJSPlugin.autoImport.scalaJSVersion),
     )
 
-    val resolver = DependencyResolution(new CoursierDependencyResolution(CoursierConfiguration()))
+    val resolvers = sbt.coursierint.CoursierRepositoriesTasks.coursierResolversTask.value.toVector
+    val resolver = DependencyResolution(new CoursierDependencyResolution(CoursierConfiguration().withResolvers(resolvers)))
 
     def resolve(dep: Dep): Array[File] =
       resolver.retrieve(
