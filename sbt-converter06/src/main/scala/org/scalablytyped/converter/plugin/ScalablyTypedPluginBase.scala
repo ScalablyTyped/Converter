@@ -133,5 +133,11 @@ object ScalablyTypedPluginBase extends AutoPlugin {
     Seq(
       stQuiet := false,
       stDir := constants.defaultCacheFolder.toIO,
+      // don't OOM memory constrained environments like IDE build imports or CI
+      Global / Keys.concurrentRestrictions += {
+        val gigabytes   = (java.lang.Runtime.getRuntime.maxMemory) / (1000 * 1000 * 1000)
+        val numParallel = Math.max(1, gigabytes.toInt)
+        Tags.limit(ScalablyTypedTag, numParallel)
+      },
     )
 }
