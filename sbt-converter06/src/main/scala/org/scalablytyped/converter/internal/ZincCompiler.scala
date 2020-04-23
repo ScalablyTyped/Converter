@@ -49,7 +49,10 @@ class ZincCompiler(inputs: Inputs, logger: Logger[Unit], versions: Versions, res
       )
 
     try {
-      incCompiler.compile(updatedInputs, sbtLogger)
+      val result: CompileResult = incCompiler.compile(updatedInputs, sbtLogger)
+      if (!result.hasModified) {
+        throw new InterruptedException("Compilation result: false == result.hasModified")
+      }
       Right(())
     } catch {
       case x: CompileFailed =>
