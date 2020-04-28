@@ -20,12 +20,9 @@ You can also use the tool to publish directly to a bintray repository if you
 The easiest way to run is with coursier's excellent runner.
 
 1) Install the `cs` command with these instructions https://get-coursier.io/docs/cli-overview
-2) run it 
+2) Install the ScalablyTyped Converter (stc) `cs install stc`
+3) Run `stc` (in a directory with package.json and node_modules) 
 
-```
-# note the -- 
-$ cs launch -r https://dl.bintray.com/oyvindberg/converter org.scalablytyped.converter:cli_2.12:@VERSION@ --  --help
-```
 
 ## Configuration
 ```
