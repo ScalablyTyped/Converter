@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal
-package scalajs.transforms
-
-import org.scalablytyped.converter.internal.scalajs._
+package scalajs
+package transforms
 
 /**
   * With @ScalaJSDefined traits we don't implement members.
@@ -43,6 +42,20 @@ object CompleteClass extends TreeTransformation {
     }
   }
 
+  implicit class Ops(private val ms: IArray[MemberTree]) extends AnyVal {
+    def carefulDistinct: IArray[MemberTree] = {
+      val ret = IArray.Builder.empty[MemberTree]
+
+      ms.groupBy(_.name)
+        .foreach {
+          case (_, IArray.exactlyOne(one)) => ret += one
+          case (_, sameName)               => ret ++= sameName.distinctBy(_.withCodePath(QualifiedName.Any))
+        }
+
+      ret.result()
+    }
+  }
+
   private def implementations(
       scope:   TreeScope,
       c:       InheritanceTree,
@@ -58,7 +71,7 @@ object CompleteClass extends TreeTransformation {
         case x: MethodTree if x.impl === NotImplemented && !isAlreadyImplemented(scope, x, c.index.get(x.name)) =>
           x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))
       }
-      .distinct
+      .carefulDistinct
 
     if (ret.nonEmpty)
       scope.logger.info(s"Completed implementations ${ret.map(_.name.value)}")
