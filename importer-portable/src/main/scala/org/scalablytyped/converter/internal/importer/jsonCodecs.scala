@@ -5,7 +5,7 @@ import java.io.File
 import java.net.URI
 
 import org.scalablytyped.converter.internal.ts._
-import io.circe._
+import io.circe013._
 
 object jsonCodecs {
   implicit def IArrayEncoder[T <: AnyRef: Encoder]: Encoder[IArray[T]] =
@@ -31,7 +31,7 @@ object jsonCodecs {
   implicit val TsIdentLibraryMapEncoder: Encoder[Map[TsIdentLibrary, String]] =
     Encoder[Map[String, String]].contramap[Map[TsIdentLibrary, String]](_.map { case (k, v) => k.value -> v })
 
-  import io.circe.generic.semiauto._
+  import io.circe013.generic.semiauto._
 
   implicit val CompilerOptionsEncoder:   Encoder[CompilerOptions]   = deriveEncoder[CompilerOptions]
   implicit val CompilerOptionsDecoder:   Decoder[CompilerOptions]   = deriveDecoder[CompilerOptions]

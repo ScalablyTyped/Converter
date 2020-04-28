@@ -14,5 +14,5 @@ object Deps {
   val scopt             = "com.github.scopt" %% "scopt" % "4.0.0-RC2"
 
   val circe: Seq[ModuleID] =
-    Seq("core", "generic", "parser", "jackson29").map(s => "io.circe" %% s"circe-$s" % "0.11.1")
+    Seq("core", "generic", "parser", "jackson29").map(s => "io.circe013" %% s"circe-$s" % "0.13.0")
 }

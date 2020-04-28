@@ -1,8 +1,8 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import io.circe.Decoder
-import io.circe.generic.semiauto.deriveDecoder
+import io.circe013.Decoder
+import io.circe013.generic.semiauto.deriveDecoder
 import org.scalablytyped.converter.internal.scalajs.Dep
 
 final case class FacadeJson(typings: Set[String], dependencies: Set[Dep.ScalaJs])

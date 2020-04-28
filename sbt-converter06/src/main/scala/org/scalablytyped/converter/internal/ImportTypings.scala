@@ -4,7 +4,7 @@ package internal
 import java.nio.file.Path
 
 import com.olvind.logging.Logger
-import io.circe.{Decoder, Encoder}
+import io.circe013.{Decoder, Encoder}
 import org.scalablytyped.converter.internal.importer._
 import org.scalablytyped.converter.internal.importer.build.{Compiler, PublishedSbtProject}
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
@@ -27,7 +27,7 @@ object ImportTypings {
   )
 
   object Input {
-    import io.circe.generic.auto._
+    import io.circe013.generic.auto._
     import jsonCodecs._
 
     implicit val InputEncoder: Encoder[Input] = exportEncoder[Input].instance
@@ -37,7 +37,7 @@ object ImportTypings {
   case class Output(deps: Set[Dep], allJars: Set[os.Path])
 
   object Output {
-    import io.circe.generic.auto._
+    import io.circe013.generic.auto._
     import jsonCodecs._
     implicit val OutputEncoder: Encoder[Output] = exportEncoder[Output].instance
     implicit val OutputDecoder: Decoder[Output] = exportDecoder[Output].instance
