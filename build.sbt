@@ -117,6 +117,7 @@ lazy val baseSettings: Project => Project =
     /* disable scaladoc */
     sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
+    resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
   )
 
 lazy val publicationSettings: Project => Project = _.settings(
