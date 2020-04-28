@@ -177,6 +177,9 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   @inline def apply(n: Int): A =
     array(n).asInstanceOf[A]
 
+  @inline def applyOrElse[AA >: A](x: Int, default: Int => AA): AA =
+    if (isDefinedAt(x)) apply(x) else default(x)
+
   @inline def isDefinedAt(n: Int): Boolean =
     n < length
 
