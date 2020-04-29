@@ -141,7 +141,282 @@ object IArray {
     }
   }
 
-  @inline implicit final class IArrayOps[A <: AnyRef](val as: IArray[Option[A]]) extends AnyRef {
+  @inline implicit final class IArrayOps[A <: AnyRef](val as: IArray[A]) extends AnyRef {
+    // invariant contains!
+    def contains(a: A): Boolean = {
+      var idx = 0
+      while (idx < as.length) {
+        if (as.array(idx) == a) {
+          return true
+        }
+        idx += 1
+      }
+      false
+    }
+
+    // custom extensions below
+
+    @inline def mapNotNone[B <: AnyRef](f: A => Option[B]): IArray[B] = {
+      if (as.isEmpty) {
+        return IArray.Empty
+      }
+
+      val newArray = Array.ofDim[AnyRef](as.length)
+      var i        = 0
+      var o        = 0
+      while (i < as.length) {
+        f(as(i)) match {
+          case Some(b) =>
+            newArray(o) = b
+            o += 1
+          case None => ()
+        }
+        i += 1
+      }
+      fromArrayAndSize[B](newArray, o)
+    }
+
+    def partitionCollect[A1 <: AnyRef](t1: PartialFunction[A, A1]): (IArray[A1], IArray[A]) = {
+      val a1s     = Array.ofDim[AnyRef](as.length)
+      var a1num   = 0
+      val rest    = Array.ofDim[AnyRef](as.length)
+      var restnum = 0
+
+      var idx = 0
+      while (idx < as.length) {
+        as(idx) match {
+          case t if t1.isDefinedAt(t) =>
+            a1s(a1num) = t1(t)
+            a1num += 1
+          case t =>
+            rest(restnum) = t
+            restnum += 1
+        }
+        idx += 1
+      }
+
+      (
+        fromArrayAndSize[A1](a1s, a1num),
+        fromArrayAndSize[A](rest, restnum),
+      )
+    }
+
+    def partitionCollect2[A1 <: AnyRef, A2 <: AnyRef](
+        t1: PartialFunction[A, A1],
+        t2: PartialFunction[A, A2],
+    ): (IArray[A1], IArray[A2], IArray[A]) = {
+      val a1s     = Array.ofDim[AnyRef](as.length)
+      var a1num   = 0
+      val a2s     = Array.ofDim[AnyRef](as.length)
+      var a2num   = 0
+      val rest    = Array.ofDim[AnyRef](as.length)
+      var restnum = 0
+
+      var idx = 0
+      while (idx < as.length) {
+        as(idx) match {
+          case t if t1.isDefinedAt(t) =>
+            a1s(a1num) = t1(t)
+            a1num += 1
+          case t if t2.isDefinedAt(t) =>
+            a2s(a2num) = t2(t)
+            a2num += 1
+          case t =>
+            rest(restnum) = t
+            restnum += 1
+        }
+        idx += 1
+      }
+
+      (
+        fromArrayAndSize[A1](a1s, a1num),
+        fromArrayAndSize[A2](a2s, a2num),
+        fromArrayAndSize[A](rest, restnum),
+      )
+    }
+
+    def partitionCollect3[A1 <: AnyRef, A2 <: AnyRef, A3 <: AnyRef](
+        t1: PartialFunction[A, A1],
+        t2: PartialFunction[A, A2],
+        t3: PartialFunction[A, A3],
+    ): (IArray[A1], IArray[A2], IArray[A3], IArray[A]) = {
+      val a1s     = Array.ofDim[AnyRef](as.length)
+      var a1num   = 0
+      val a2s     = Array.ofDim[AnyRef](as.length)
+      var a2num   = 0
+      val a3s     = Array.ofDim[AnyRef](as.length)
+      var a3num   = 0
+      val rest    = Array.ofDim[AnyRef](as.length)
+      var restnum = 0
+
+      var idx = 0
+      while (idx < as.length) {
+        as(idx) match {
+          case t if t1.isDefinedAt(t) =>
+            a1s(a1num) = t1(t)
+            a1num += 1
+          case t if t2.isDefinedAt(t) =>
+            a2s(a2num) = t2(t)
+            a2num += 1
+          case t if t3.isDefinedAt(t) =>
+            a3s(a3num) = t3(t)
+            a3num += 1
+          case t =>
+            rest(restnum) = t
+            restnum += 1
+        }
+        idx += 1
+      }
+
+      (
+        fromArrayAndSize[A1](a1s, a1num),
+        fromArrayAndSize[A2](a2s, a2num),
+        fromArrayAndSize[A3](a3s, a3num),
+        fromArrayAndSize[A](rest, restnum),
+      )
+    }
+
+    def partitionCollect4[A1 <: AnyRef, A2 <: AnyRef, A3 <: AnyRef, A4 <: AnyRef](
+        t1: PartialFunction[A, A1],
+        t2: PartialFunction[A, A2],
+        t3: PartialFunction[A, A3],
+        t4: PartialFunction[A, A4],
+    ): (IArray[A1], IArray[A2], IArray[A3], IArray[A4], IArray[A]) = {
+      val a1s     = Array.ofDim[AnyRef](as.length)
+      var a1num   = 0
+      val a2s     = Array.ofDim[AnyRef](as.length)
+      var a2num   = 0
+      val a3s     = Array.ofDim[AnyRef](as.length)
+      var a3num   = 0
+      val a4s     = Array.ofDim[AnyRef](as.length)
+      var a4num   = 0
+      val rest    = Array.ofDim[AnyRef](as.length)
+      var restnum = 0
+
+      var idx = 0
+      while (idx < as.length) {
+        as(idx) match {
+          case t if t1.isDefinedAt(t) =>
+            a1s(a1num) = t1(t)
+            a1num += 1
+          case t if t2.isDefinedAt(t) =>
+            a2s(a2num) = t2(t)
+            a2num += 1
+          case t if t3.isDefinedAt(t) =>
+            a3s(a3num) = t3(t)
+            a3num += 1
+          case t if t4.isDefinedAt(t) =>
+            a4s(a4num) = t4(t)
+            a4num += 1
+          case t =>
+            rest(restnum) = t
+            restnum += 1
+        }
+        idx += 1
+      }
+
+      (
+        fromArrayAndSize[A1](a1s, a1num),
+        fromArrayAndSize[A2](a2s, a2num),
+        fromArrayAndSize[A3](a3s, a3num),
+        fromArrayAndSize[A4](a4s, a4num),
+        fromArrayAndSize[A](rest, restnum),
+      )
+    }
+
+    def partitionCollect5[A1 <: AnyRef, A2 <: AnyRef, A3 <: AnyRef, A4 <: AnyRef, A5 <: AnyRef](
+        t1: PartialFunction[A, A1],
+        t2: PartialFunction[A, A2],
+        t3: PartialFunction[A, A3],
+        t4: PartialFunction[A, A4],
+        t5: PartialFunction[A, A5],
+    ): (IArray[A1], IArray[A2], IArray[A3], IArray[A4], IArray[A5], IArray[A]) = {
+      val a1s     = Array.ofDim[AnyRef](as.length)
+      var a1num   = 0
+      val a2s     = Array.ofDim[AnyRef](as.length)
+      var a2num   = 0
+      val a3s     = Array.ofDim[AnyRef](as.length)
+      var a3num   = 0
+      val a4s     = Array.ofDim[AnyRef](as.length)
+      var a4num   = 0
+      val a5s     = Array.ofDim[AnyRef](as.length)
+      var a5num   = 0
+      val rest    = Array.ofDim[AnyRef](as.length)
+      var restnum = 0
+
+      var idx = 0
+      while (idx < as.length) {
+        as(idx) match {
+          case t if t1.isDefinedAt(t) =>
+            a1s(a1num) = t1(t)
+            a1num += 1
+          case t if t2.isDefinedAt(t) =>
+            a2s(a2num) = t2(t)
+            a2num += 1
+          case t if t3.isDefinedAt(t) =>
+            a3s(a3num) = t3(t)
+            a3num += 1
+          case t if t4.isDefinedAt(t) =>
+            a4s(a4num) = t4(t)
+            a4num += 1
+          case t if t5.isDefinedAt(t) =>
+            a5s(a5num) = t5(t)
+            a5num += 1
+          case t =>
+            rest(restnum) = t
+            restnum += 1
+        }
+        idx += 1
+      }
+
+      (
+        fromArrayAndSize[A1](a1s, a1num),
+        fromArrayAndSize[A2](a2s, a2num),
+        fromArrayAndSize[A3](a3s, a3num),
+        fromArrayAndSize[A4](a4s, a4num),
+        fromArrayAndSize[A5](a5s, a5num),
+        fromArrayAndSize[A](rest, restnum),
+      )
+    }
+
+    def firstDefined[U](f: A => Option[U]): Option[U] = {
+      var idx = 0
+      while (idx < as.length) {
+        val res = f(as(idx))
+        if (res.isDefined) return res
+        idx += 1
+      }
+      None
+    }
+
+    def nonEmptyOpt: Option[IArray[A]] =
+      if (as.isEmpty) None else Some(as)
+
+    @inline def distinctBy[B](f: A => B): IArray[A] = {
+      if (as.isEmpty) {
+        return as
+      }
+
+      val set = mutable.Set.empty[B]
+      val ret = as.array.clone()
+      var i   = 0
+      var o   = 0
+      while (i < as.length) {
+        val a = as(i)
+        val b = f(a)
+        if (!set(b)) {
+          set.add(b)
+          ret(o) = a
+          o += 1
+        }
+        i += 1
+      }
+
+      fromArrayAndSize[A](ret, o)
+    }
+  }
+
+  @inline implicit final class IArrayOptionOps[A <: AnyRef](val as: IArray[Option[A]]) extends AnyRef {
     def sequenceOption: Option[IArray[A]] = {
       if (as.isEmpty) {
         return Some(IArray.Empty)
@@ -319,17 +594,6 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
     var idx = 0
     while (idx < length) {
       if (p(apply(idx))) {
-        return true
-      }
-      idx += 1
-    }
-    false
-  }
-
-  def contains[AA >: A <: AnyRef](a: AA): Boolean = {
-    var idx = 0
-    while (idx < length) {
-      if (array(idx) == a) {
         return true
       }
       idx += 1
@@ -751,265 +1015,4 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
         true
       case _ => false
     }
-
-  // extensions under here
-
-  @inline def mapNotNone[B <: AnyRef](f: A => Option[B]): IArray[B] = {
-    if (isEmpty) {
-      return IArray.Empty
-    }
-
-    val newArray = Array.ofDim[AnyRef](length)
-    var i        = 0
-    var o        = 0
-    while (i < length) {
-      f(apply(i)) match {
-        case Some(b) =>
-          newArray(o) = b
-          o += 1
-        case None => ()
-      }
-      i += 1
-    }
-    fromArrayAndSize[B](newArray, o)
-  }
-
-  def partitionCollect[A1 <: AnyRef](t1: PartialFunction[A, A1]): (IArray[A1], IArray[A]) = {
-    val a1s     = Array.ofDim[AnyRef](length)
-    var a1num   = 0
-    val rest    = Array.ofDim[AnyRef](length)
-    var restnum = 0
-
-    var idx = 0
-    while (idx < length) {
-      apply(idx) match {
-        case t if t1.isDefinedAt(t) =>
-          a1s(a1num) = t1(t)
-          a1num += 1
-        case t =>
-          rest(restnum) = t
-          restnum += 1
-      }
-      idx += 1
-    }
-
-    (
-      fromArrayAndSize[A1](a1s, a1num),
-      fromArrayAndSize[A](rest, restnum),
-    )
-  }
-
-  def partitionCollect2[A1 <: AnyRef, A2 <: AnyRef](
-      t1: PartialFunction[A, A1],
-      t2: PartialFunction[A, A2],
-  ): (IArray[A1], IArray[A2], IArray[A]) = {
-    val a1s     = Array.ofDim[AnyRef](length)
-    var a1num   = 0
-    val a2s     = Array.ofDim[AnyRef](length)
-    var a2num   = 0
-    val rest    = Array.ofDim[AnyRef](length)
-    var restnum = 0
-
-    var idx = 0
-    while (idx < length) {
-      apply(idx) match {
-        case t if t1.isDefinedAt(t) =>
-          a1s(a1num) = t1(t)
-          a1num += 1
-        case t if t2.isDefinedAt(t) =>
-          a2s(a2num) = t2(t)
-          a2num += 1
-        case t =>
-          rest(restnum) = t
-          restnum += 1
-      }
-      idx += 1
-    }
-
-    (
-      fromArrayAndSize[A1](a1s, a1num),
-      fromArrayAndSize[A2](a2s, a2num),
-      fromArrayAndSize[A](rest, restnum),
-    )
-  }
-
-  def partitionCollect3[A1 <: AnyRef, A2 <: AnyRef, A3 <: AnyRef](
-      t1: PartialFunction[A, A1],
-      t2: PartialFunction[A, A2],
-      t3: PartialFunction[A, A3],
-  ): (IArray[A1], IArray[A2], IArray[A3], IArray[A]) = {
-    val a1s     = Array.ofDim[AnyRef](length)
-    var a1num   = 0
-    val a2s     = Array.ofDim[AnyRef](length)
-    var a2num   = 0
-    val a3s     = Array.ofDim[AnyRef](length)
-    var a3num   = 0
-    val rest    = Array.ofDim[AnyRef](length)
-    var restnum = 0
-
-    var idx = 0
-    while (idx < length) {
-      apply(idx) match {
-        case t if t1.isDefinedAt(t) =>
-          a1s(a1num) = t1(t)
-          a1num += 1
-        case t if t2.isDefinedAt(t) =>
-          a2s(a2num) = t2(t)
-          a2num += 1
-        case t if t3.isDefinedAt(t) =>
-          a3s(a3num) = t3(t)
-          a3num += 1
-        case t =>
-          rest(restnum) = t
-          restnum += 1
-      }
-      idx += 1
-    }
-
-    (
-      fromArrayAndSize[A1](a1s, a1num),
-      fromArrayAndSize[A2](a2s, a2num),
-      fromArrayAndSize[A3](a3s, a3num),
-      fromArrayAndSize[A](rest, restnum),
-    )
-  }
-
-  def partitionCollect4[A1 <: AnyRef, A2 <: AnyRef, A3 <: AnyRef, A4 <: AnyRef](
-      t1: PartialFunction[A, A1],
-      t2: PartialFunction[A, A2],
-      t3: PartialFunction[A, A3],
-      t4: PartialFunction[A, A4],
-  ): (IArray[A1], IArray[A2], IArray[A3], IArray[A4], IArray[A]) = {
-    val a1s     = Array.ofDim[AnyRef](length)
-    var a1num   = 0
-    val a2s     = Array.ofDim[AnyRef](length)
-    var a2num   = 0
-    val a3s     = Array.ofDim[AnyRef](length)
-    var a3num   = 0
-    val a4s     = Array.ofDim[AnyRef](length)
-    var a4num   = 0
-    val rest    = Array.ofDim[AnyRef](length)
-    var restnum = 0
-
-    var idx = 0
-    while (idx < length) {
-      apply(idx) match {
-        case t if t1.isDefinedAt(t) =>
-          a1s(a1num) = t1(t)
-          a1num += 1
-        case t if t2.isDefinedAt(t) =>
-          a2s(a2num) = t2(t)
-          a2num += 1
-        case t if t3.isDefinedAt(t) =>
-          a3s(a3num) = t3(t)
-          a3num += 1
-        case t if t4.isDefinedAt(t) =>
-          a4s(a4num) = t4(t)
-          a4num += 1
-        case t =>
-          rest(restnum) = t
-          restnum += 1
-      }
-      idx += 1
-    }
-
-    (
-      fromArrayAndSize[A1](a1s, a1num),
-      fromArrayAndSize[A2](a2s, a2num),
-      fromArrayAndSize[A3](a3s, a3num),
-      fromArrayAndSize[A4](a4s, a4num),
-      fromArrayAndSize[A](rest, restnum),
-    )
-  }
-
-  def partitionCollect5[A1 <: AnyRef, A2 <: AnyRef, A3 <: AnyRef, A4 <: AnyRef, A5 <: AnyRef](
-      t1: PartialFunction[A, A1],
-      t2: PartialFunction[A, A2],
-      t3: PartialFunction[A, A3],
-      t4: PartialFunction[A, A4],
-      t5: PartialFunction[A, A5],
-  ): (IArray[A1], IArray[A2], IArray[A3], IArray[A4], IArray[A5], IArray[A]) = {
-    val a1s     = Array.ofDim[AnyRef](length)
-    var a1num   = 0
-    val a2s     = Array.ofDim[AnyRef](length)
-    var a2num   = 0
-    val a3s     = Array.ofDim[AnyRef](length)
-    var a3num   = 0
-    val a4s     = Array.ofDim[AnyRef](length)
-    var a4num   = 0
-    val a5s     = Array.ofDim[AnyRef](length)
-    var a5num   = 0
-    val rest    = Array.ofDim[AnyRef](length)
-    var restnum = 0
-
-    var idx = 0
-    while (idx < length) {
-      apply(idx) match {
-        case t if t1.isDefinedAt(t) =>
-          a1s(a1num) = t1(t)
-          a1num += 1
-        case t if t2.isDefinedAt(t) =>
-          a2s(a2num) = t2(t)
-          a2num += 1
-        case t if t3.isDefinedAt(t) =>
-          a3s(a3num) = t3(t)
-          a3num += 1
-        case t if t4.isDefinedAt(t) =>
-          a4s(a4num) = t4(t)
-          a4num += 1
-        case t if t5.isDefinedAt(t) =>
-          a5s(a5num) = t5(t)
-          a5num += 1
-        case t =>
-          rest(restnum) = t
-          restnum += 1
-      }
-      idx += 1
-    }
-
-    (
-      fromArrayAndSize[A1](a1s, a1num),
-      fromArrayAndSize[A2](a2s, a2num),
-      fromArrayAndSize[A3](a3s, a3num),
-      fromArrayAndSize[A4](a4s, a4num),
-      fromArrayAndSize[A5](a5s, a5num),
-      fromArrayAndSize[A](rest, restnum),
-    )
-  }
-
-  def firstDefined[U](f: A => Option[U]): Option[U] = {
-    var idx = 0
-    while (idx < length) {
-      val res = f(apply(idx))
-      if (res.isDefined) return res
-      idx += 1
-    }
-    None
-  }
-
-  def nonEmptyOpt: Option[IArray[A]] =
-    if (isEmpty) None else Some(this)
-
-  @inline def distinctBy[B](f: A => B): IArray[A] = {
-    if (isEmpty) {
-      return this
-    }
-
-    val set = mutable.Set.empty[B]
-    val ret = array.clone()
-    var i   = 0
-    var o   = 0
-    while (i < length) {
-      val a = apply(i)
-      val b = f(a)
-      if (!set(b)) {
-        set.add(b)
-        ret(o) = a
-        o += 1
-      }
-      i += 1
-    }
-
-    fromArrayAndSize[A](ret, o)
-  }
 }
