@@ -6,6 +6,7 @@ import java.util
 import org.scalablytyped.converter.internal.phases.PhaseCache.Ref
 
 import scala.concurrent.{ExecutionException, Future, Promise}
+import scala.util.control.NonFatal
 
 class PhaseCache[Id, U](initialCapacity: Int = 1000) {
   private val m: util.Map[Ref[(Id, IsCircular)], Ref[Future[PhaseRes[Id, U]]]] =
@@ -40,11 +41,11 @@ class PhaseCache[Id, U](initialCapacity: Int = 1000) {
     op.foreach { p =>
       try compute(p)
       catch {
-        case x:  FileLockInterruptionException            => throw x
-        case x:  InterruptedException                     => throw x
-        case x:  ClosedByInterruptException               => throw x
-        case x:  ExecutionException if x.getCause != null => p.failure(x.getCause)
-        case th: Throwable                                => p.failure(th)
+        case x: FileLockInterruptionException            => throw x
+        case x: InterruptedException                     => throw x
+        case x: ClosedByInterruptException               => throw x
+        case x: ExecutionException if x.getCause != null => p.failure(x.getCause)
+        case NonFatal(th) => p.failure(th)
       }
     }
 

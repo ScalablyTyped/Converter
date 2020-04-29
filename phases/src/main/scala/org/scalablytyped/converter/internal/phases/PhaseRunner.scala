@@ -8,6 +8,7 @@ import com.olvind.logging.{Formatter, Logger}
 import scala.collection.immutable.{SortedMap, SortedSet}
 import scala.concurrent.duration._
 import scala.concurrent.{Await, ExecutionException}
+import scala.util.control.NonFatal
 
 /**
   * Runs a computation given a sequence of input ids.
@@ -104,7 +105,7 @@ object PhaseRunner {
             logger.error(("Failure", e))
             p.success(PhaseRes.Failure(Map(id -> Left(e))))
 
-          case e: Throwable =>
+          case NonFatal(e) =>
             listener.on(next.name, id, PhaseListener.Failure(next.name))
             logger.error(("Failure", e))
             p.success(PhaseRes.Failure(Map(id -> Left(e))))
