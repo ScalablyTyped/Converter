@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="CI All sequential Japgolly" type="Application" factoryName="Application" singleton="false">
+    <option name="ALTERNATIVE_JRE_PATH" value="graalvm 1.8" />
+    <option name="MAIN_CLASS_NAME" value="org.scalablytyped.converter.Main" />
+    <module name="importer" />
+    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline  -dontCleanProject2 -flavourJapgolly -enableScalaJsDefined" />
+    <option name="VM_PARAMETERS" value="-Xmx10G" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.olvind.tso.importer.build.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
