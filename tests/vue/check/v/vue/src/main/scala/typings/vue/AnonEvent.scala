@@ -12,10 +12,8 @@ trait AnonEvent extends js.Object {
 
 object AnonEvent {
   @scala.inline
-  def apply(event: String = null, prop: String = null): AnonEvent = {
+  def apply(): AnonEvent = {
     val __obj = js.Dynamic.literal()
-    if (event != null) __obj.updateDynamic("event")(event.asInstanceOf[js.Any])
-    if (prop != null) __obj.updateDynamic("prop")(prop.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonEvent]
   }
   @scala.inline
@@ -25,28 +23,28 @@ object AnonEvent {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withEvent(event: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (event != null) ret.updateDynamic("event")(event.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withEvent(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("event")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEvent: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "event")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("event")(js.undefined)
+        ret
     }
     @scala.inline
-    def withProp(prop: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (prop != null) ret.updateDynamic("prop")(prop.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withProp(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("prop")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutProp: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "prop")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("prop")(js.undefined)
+        ret
     }
   }
   

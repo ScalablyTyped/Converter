@@ -23,16 +23,16 @@ object AnonRender {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withRender(render: js.Function): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("render")(render.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withRender(value: js.Function): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("render")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withStaticRenderFns(staticRenderFns: js.Array[js.Function]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("staticRenderFns")(staticRenderFns.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStaticRenderFns(value: js.Array[js.Function]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("staticRenderFns")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

@@ -22,10 +22,10 @@ object MutableRefObject {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withCurrent(current: T): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("current")(current.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCurrent(value: T): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("current")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

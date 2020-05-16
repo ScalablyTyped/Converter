@@ -12,9 +12,8 @@ trait ConfigurationServiceApiVersions extends js.Object {
 
 object ConfigurationServiceApiVersions {
   @scala.inline
-  def apply(dynamodb: apiVersion = null): ConfigurationServiceApiVersions = {
+  def apply(): ConfigurationServiceApiVersions = {
     val __obj = js.Dynamic.literal()
-    if (dynamodb != null) __obj.updateDynamic("dynamodb")(dynamodb.asInstanceOf[js.Any])
     __obj.asInstanceOf[ConfigurationServiceApiVersions]
   }
   @scala.inline
@@ -24,16 +23,16 @@ object ConfigurationServiceApiVersions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDynamodb(dynamodb: apiVersion): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (dynamodb != null) ret.updateDynamic("dynamodb")(dynamodb.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDynamodb(value: apiVersion): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dynamodb")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDynamodb: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "dynamodb")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dynamodb")(js.undefined)
+        ret
     }
   }
   

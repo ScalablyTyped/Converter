@@ -12,10 +12,8 @@ trait CommandOptions extends js.Object {
 
 object CommandOptions {
   @scala.inline
-  def apply(isDefault: js.UndefOr[Boolean] = js.undefined, noHelp: js.UndefOr[Boolean] = js.undefined): CommandOptions = {
+  def apply(): CommandOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(isDefault)) __obj.updateDynamic("isDefault")(isDefault.asInstanceOf[js.Any])
-    if (!js.isUndefined(noHelp)) __obj.updateDynamic("noHelp")(noHelp.asInstanceOf[js.Any])
     __obj.asInstanceOf[CommandOptions]
   }
   @scala.inline
@@ -25,28 +23,28 @@ object CommandOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withIsDefault(isDefault: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(isDefault)) ret.updateDynamic("isDefault")(isDefault.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIsDefault(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isDefault")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIsDefault: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "isDefault")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isDefault")(js.undefined)
+        ret
     }
     @scala.inline
-    def withNoHelp(noHelp: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(noHelp)) ret.updateDynamic("noHelp")(noHelp.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withNoHelp(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("noHelp")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutNoHelp: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "noHelp")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("noHelp")(js.undefined)
+        ret
     }
   }
   

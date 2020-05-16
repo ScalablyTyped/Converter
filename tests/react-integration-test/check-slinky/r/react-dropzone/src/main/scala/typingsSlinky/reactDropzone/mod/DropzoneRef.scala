@@ -22,10 +22,10 @@ object DropzoneRef {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withOpen(open: () => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("open")(js.Any.fromFunction0(open))
-        ret.asInstanceOf[Self]
+    def withOpen(value: () => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("open")(js.Any.fromFunction0(value))
+        ret
     }
   }
   

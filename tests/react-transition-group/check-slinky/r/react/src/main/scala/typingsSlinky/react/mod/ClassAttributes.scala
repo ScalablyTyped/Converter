@@ -11,10 +11,8 @@ trait ClassAttributes[T] extends Attributes {
 
 object ClassAttributes {
   @scala.inline
-  def apply[T](key: Key = null, ref: Ref[T] = null): ClassAttributes[T] = {
+  def apply[T](): ClassAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
     __obj.asInstanceOf[ClassAttributes[T]]
   }
   @scala.inline
@@ -24,22 +22,22 @@ object ClassAttributes {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withRefFunction1(ref: /* instance */ T | Null => js.Any): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ref")(js.Any.fromFunction1(ref))
-        ret.asInstanceOf[Self[T]]
+    def withRefFunction1(value: /* instance */ T | Null => js.Any): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withRef(ref: Ref[T]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (ref != null) ret.updateDynamic("ref")(ref.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRef(value: Ref[T]): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRef: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "ref")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.undefined)
+        ret
     }
   }
   

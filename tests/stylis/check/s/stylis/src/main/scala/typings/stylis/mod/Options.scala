@@ -19,23 +19,8 @@ trait Options extends js.Object {
 
 object Options {
   @scala.inline
-  def apply(
-    cascade: js.UndefOr[Boolean] = js.undefined,
-    compress: js.UndefOr[Boolean] = js.undefined,
-    global: js.UndefOr[Boolean] = js.undefined,
-    keyframe: js.UndefOr[Boolean] = js.undefined,
-    prefix: Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean]) = null,
-    preserve: js.UndefOr[Boolean] = js.undefined,
-    semicolon: js.UndefOr[Boolean] = js.undefined
-  ): Options = {
+  def apply(): Options = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(cascade)) __obj.updateDynamic("cascade")(cascade.asInstanceOf[js.Any])
-    if (!js.isUndefined(compress)) __obj.updateDynamic("compress")(compress.asInstanceOf[js.Any])
-    if (!js.isUndefined(global)) __obj.updateDynamic("global")(global.asInstanceOf[js.Any])
-    if (!js.isUndefined(keyframe)) __obj.updateDynamic("keyframe")(keyframe.asInstanceOf[js.Any])
-    if (prefix != null) __obj.updateDynamic("prefix")(prefix.asInstanceOf[js.Any])
-    if (!js.isUndefined(preserve)) __obj.updateDynamic("preserve")(preserve.asInstanceOf[js.Any])
-    if (!js.isUndefined(semicolon)) __obj.updateDynamic("semicolon")(semicolon.asInstanceOf[js.Any])
     __obj.asInstanceOf[Options]
   }
   @scala.inline
@@ -45,96 +30,96 @@ object Options {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCascade(cascade: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(cascade)) ret.updateDynamic("cascade")(cascade.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCascade(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cascade")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCascade: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "cascade")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cascade")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCompress(compress: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(compress)) ret.updateDynamic("compress")(compress.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCompress(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("compress")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCompress: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "compress")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("compress")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGlobal(global: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(global)) ret.updateDynamic("global")(global.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withGlobal(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("global")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGlobal: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "global")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("global")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKeyframe(keyframe: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(keyframe)) ret.updateDynamic("keyframe")(keyframe.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withKeyframe(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyframe")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKeyframe: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "keyframe")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyframe")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPrefixFunction3(prefix: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("prefix")(js.Any.fromFunction3(prefix))
-        ret.asInstanceOf[Self]
+    def withPrefixFunction3(value: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("prefix")(js.Any.fromFunction3(value))
+        ret
     }
     @scala.inline
     def withPrefix(
-      prefix: Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
+      value: Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
     ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (prefix != null) ret.updateDynamic("prefix")(prefix.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("prefix")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPrefix: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "prefix")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("prefix")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPreserve(preserve: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(preserve)) ret.updateDynamic("preserve")(preserve.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPreserve(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preserve")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPreserve: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "preserve")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preserve")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSemicolon(semicolon: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(semicolon)) ret.updateDynamic("semicolon")(semicolon.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withSemicolon(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("semicolon")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSemicolon: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "semicolon")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("semicolon")(js.undefined)
+        ret
     }
   }
   

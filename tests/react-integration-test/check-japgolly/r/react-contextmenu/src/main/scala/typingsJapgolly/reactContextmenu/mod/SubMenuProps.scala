@@ -1,7 +1,6 @@
 package typingsJapgolly.reactContextmenu.mod
 
 import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
 import japgolly.scalajs.react.ReactTouchEventFrom
 import japgolly.scalajs.react.raw.React.Element
@@ -33,27 +32,8 @@ trait SubMenuProps extends js.Object {
 
 object SubMenuProps {
   @scala.inline
-  def apply(
-    title: Element | ReactText,
-    className: String = null,
-    disabled: js.UndefOr[Boolean] = js.undefined,
-    hoverDelay: Int | Double = null,
-    onClick: (js.Function3[
-      /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
-      /* target */ HTMLElement, 
-      Unit
-    ]) | js.Function = null,
-    preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
-    rtl: js.UndefOr[Boolean] = js.undefined
-  ): SubMenuProps = {
+  def apply(title: Element | ReactText): SubMenuProps = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
-    if (hoverDelay != null) __obj.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
-    if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
-    if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick.asInstanceOf[js.Any])
-    if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
     __obj.asInstanceOf[SubMenuProps]
   }
   @scala.inline
@@ -63,103 +43,103 @@ object SubMenuProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withTitleVdomElement(title: VdomElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (title != null) ret.updateDynamic("title")(title.rawElement.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTitleVdomElement(value: VdomElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(value.rawElement.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTitle(title: Element | ReactText): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("title")(title.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTitle(value: Element | ReactText): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withClassName(className: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClassName(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClassName: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "className")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDisabled(disabled: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(disabled)) ret.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDisabled(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("disabled")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDisabled: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "disabled")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("disabled")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHoverDelay(hoverDelay: Int | Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (hoverDelay != null) ret.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withHoverDelay(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("hoverDelay")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHoverDelay: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "hoverDelay")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("hoverDelay")(js.undefined)
+        ret
     }
     @scala.inline
     def withOnClickFunction3(
-      onClick: (/* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => CallbackTo[Callback]
+      value: (/* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Callback
     ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("onClick")(js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => onClick(t0, t1, t2).runNow()))
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction3((t0: /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => value(t0, t1, t2).runNow()))
+        ret
     }
     @scala.inline
     def withOnClick(
-      onClick: (js.Function3[
+      value: (js.Function3[
           /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
     ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (onClick != null) ret.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOnClick: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "onClick")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPreventCloseOnClick(preventCloseOnClick: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(preventCloseOnClick)) ret.updateDynamic("preventCloseOnClick")(preventCloseOnClick.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPreventCloseOnClick(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preventCloseOnClick")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPreventCloseOnClick: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "preventCloseOnClick")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preventCloseOnClick")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRtl(rtl: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(rtl)) ret.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withRtl(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("rtl")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRtl: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "rtl")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("rtl")(js.undefined)
+        ret
     }
   }
   

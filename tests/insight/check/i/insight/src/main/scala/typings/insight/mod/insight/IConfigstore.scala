@@ -32,34 +32,34 @@ object IConfigstore {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAll(all: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("all")(all.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAll(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("all")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withDel(del: String => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("del")(js.Any.fromFunction1(del))
-        ret.asInstanceOf[Self]
+    def withDel(value: String => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("del")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withGet(get: String => js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("get")(js.Any.fromFunction1(get))
-        ret.asInstanceOf[Self]
+    def withGet(value: String => js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withPath(path: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("path")(path.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPath(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("path")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withSet(set: (String, js.Any) => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("set")(js.Any.fromFunction2(set))
-        ret.asInstanceOf[Self]
+    def withSet(value: (String, js.Any) => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("set")(js.Any.fromFunction2(value))
+        ret
     }
   }
   

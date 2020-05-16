@@ -3,6 +3,8 @@ package org.scalablytyped.converter.internal
 import scala.collection.mutable
 import seqs._
 
+import scala.reflect.ClassTag
+
 sealed trait Comment
 final case class CommentRaw(raw:   String) extends Comment
 final case class CommentData(data: Comment.Data) extends Comment
@@ -28,10 +30,10 @@ sealed class Comments(val cs: List[Comment]) extends Serializable {
       case (some, rest) => Some((some.head, Comments(rest)))
     }
 
-  def has[T](data: Comment.Data): Boolean =
+  def has[T <: Comment.Data: ClassTag]: Boolean =
     cs.exists {
-      case CommentData(`data`) => true
-      case _                   => false
+      case CommentData(_: T) => true
+      case _ => false
     }
 
   override val hashCode: Int = 0

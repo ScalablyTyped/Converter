@@ -1,13 +1,6 @@
 package typings.semanticUiReact.accordionAccordionMod
 
-import typings.react.mod.MouseEvent
-import typings.react.mod.NativeMouseEvent
-import typings.react.mod.ReactNode
 import typings.semanticUiReact.accordionAccordionAccordionMod.StrictAccordionAccordionProps
-import typings.semanticUiReact.accordionPanelMod.AccordionPanelProps
-import typings.semanticUiReact.accordionTitleMod.AccordionTitleProps
-import typings.semanticUiReact.genericMod.SemanticShorthandCollection
-import typings.std.HTMLDivElement
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -24,31 +17,8 @@ trait StrictAccordionProps extends StrictAccordionAccordionProps {
 
 object StrictAccordionProps {
   @scala.inline
-  def apply(
-    activeIndex: Double | js.Array[Double] = null,
-    as: js.Any = null,
-    children: ReactNode = null,
-    className: String = null,
-    defaultActiveIndex: Double | js.Array[Double] = null,
-    exclusive: js.UndefOr[Boolean] = js.undefined,
-    fluid: js.UndefOr[Boolean] = js.undefined,
-    inverted: js.UndefOr[Boolean] = js.undefined,
-    onTitleClick: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit = null,
-    panels: SemanticShorthandCollection[AccordionPanelProps] = null,
-    styled: js.UndefOr[Boolean] = js.undefined
-  ): StrictAccordionProps = {
+  def apply(): StrictAccordionProps = {
     val __obj = js.Dynamic.literal()
-    if (activeIndex != null) __obj.updateDynamic("activeIndex")(activeIndex.asInstanceOf[js.Any])
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (defaultActiveIndex != null) __obj.updateDynamic("defaultActiveIndex")(defaultActiveIndex.asInstanceOf[js.Any])
-    if (!js.isUndefined(exclusive)) __obj.updateDynamic("exclusive")(exclusive.asInstanceOf[js.Any])
-    if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
-    if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
-    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
-    if (panels != null) __obj.updateDynamic("panels")(panels.asInstanceOf[js.Any])
-    if (!js.isUndefined(styled)) __obj.updateDynamic("styled")(styled.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictAccordionProps]
   }
   @scala.inline
@@ -58,40 +28,40 @@ object StrictAccordionProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFluid(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFluid: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "fluid")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(js.undefined)
+        ret
     }
     @scala.inline
-    def withInverted(inverted: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(inverted)) ret.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withInverted(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("inverted")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutInverted: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "inverted")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("inverted")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStyled(styled: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(styled)) ret.updateDynamic("styled")(styled.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStyled(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("styled")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStyled: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "styled")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("styled")(js.undefined)
+        ret
     }
   }
   

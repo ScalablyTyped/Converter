@@ -35,6 +35,8 @@ For development you'll always use "debug mode".
 | `-flavourSlinky`      | Use slinky flavour, integrate with scala-js-dom, and generate slinky components 
 | `-flavourJapgolly`    | Use scalajs-react flavour, integrate with scala-js-dom, and generate scalajs-react components 
 | `-useScalaJsDomTypes` | Rewrite types to use scala-js-dom types when using `-flavourNormal`  
+| `-benchmark`          | Run a benchmark run. Typically use with `-demoSet`. Let it first run once to build/parsecache everything  
+| `-enableImplicitOps`  | Enable implicit ops  
 
 ### Directories
 By default, all files will be written to `~/.cache/scalablytyped`. The only exception is the ivy artifacts, which are local-published

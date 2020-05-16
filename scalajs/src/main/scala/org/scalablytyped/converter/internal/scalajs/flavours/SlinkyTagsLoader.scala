@@ -2,8 +2,8 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.maps._
 import io.circe013.Decoder
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names.{
   AnyHtmlElement,

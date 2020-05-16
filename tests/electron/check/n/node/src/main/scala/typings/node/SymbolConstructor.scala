@@ -23,16 +23,16 @@ object SymbolConstructor {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAsyncIterator(asyncIterator: js.Symbol): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("asyncIterator")(asyncIterator.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAsyncIterator(value: js.Symbol): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("asyncIterator")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withIterator(iterator: js.Symbol): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("iterator")(iterator.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIterator(value: js.Symbol): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("iterator")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

@@ -30,28 +30,28 @@ object CldrFactory {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withLoad(load: (js.Any, /* repeated */ js.Any) => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("load")(js.Any.fromFunction2(load))
-        ret.asInstanceOf[Self]
+    def withLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("load")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
-    def withOff(off: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("off")(js.Any.fromFunction2(off))
-        ret.asInstanceOf[Self]
+    def withOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("off")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
-    def withOn(on: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("on")(js.Any.fromFunction2(on))
-        ret.asInstanceOf[Self]
+    def withOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("on")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
-    def withOnce(once: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("once")(js.Any.fromFunction2(once))
-        ret.asInstanceOf[Self]
+    def withOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("once")(js.Any.fromFunction2(value))
+        ret
     }
   }
   

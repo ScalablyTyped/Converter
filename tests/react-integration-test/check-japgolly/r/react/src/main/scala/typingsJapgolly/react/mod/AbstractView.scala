@@ -29,16 +29,16 @@ object AbstractView {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDocument(document: Document): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("document")(document.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDocument(value: Document): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("document")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withStyleMedia(styleMedia: StyleMedia): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("styleMedia")(styleMedia.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStyleMedia(value: StyleMedia): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("styleMedia")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

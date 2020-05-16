@@ -24,31 +24,8 @@ trait headersHttpHeaderskeystri
 
 object headersHttpHeaderskeystri {
   @scala.inline
-  def apply(
-    StringDictionary: /* key */ StringDictionary[js.Any] = null,
-    before: /* request */ js.Any => _ = null,
-    body: js.Any = null,
-    credentials: js.UndefOr[Boolean] = js.undefined,
-    emulateHTTP: js.UndefOr[Boolean] = js.undefined,
-    emulateJSON: js.UndefOr[Boolean] = js.undefined,
-    headers: HttpHeaders with js.Any = null,
-    method: String = null,
-    params: js.Any = null,
-    progress: /* event */ js.Any => _ = null,
-    url: String = null
-  ): headersHttpHeaderskeystri = {
+  def apply(): headersHttpHeaderskeystri = {
     val __obj = js.Dynamic.literal()
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
-    if (before != null) __obj.updateDynamic("before")(js.Any.fromFunction1(before))
-    if (body != null) __obj.updateDynamic("body")(body.asInstanceOf[js.Any])
-    if (!js.isUndefined(credentials)) __obj.updateDynamic("credentials")(credentials.asInstanceOf[js.Any])
-    if (!js.isUndefined(emulateHTTP)) __obj.updateDynamic("emulateHTTP")(emulateHTTP.asInstanceOf[js.Any])
-    if (!js.isUndefined(emulateJSON)) __obj.updateDynamic("emulateJSON")(emulateJSON.asInstanceOf[js.Any])
-    if (headers != null) __obj.updateDynamic("headers")(headers.asInstanceOf[js.Any])
-    if (method != null) __obj.updateDynamic("method")(method.asInstanceOf[js.Any])
-    if (params != null) __obj.updateDynamic("params")(params.asInstanceOf[js.Any])
-    if (progress != null) __obj.updateDynamic("progress")(js.Any.fromFunction1(progress))
-    if (url != null) __obj.updateDynamic("url")(url.asInstanceOf[js.Any])
     __obj.asInstanceOf[headersHttpHeaderskeystri]
   }
   @scala.inline
@@ -58,124 +35,124 @@ object headersHttpHeaderskeystri {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBefore(before: /* request */ js.Any => _): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (before != null) ret.updateDynamic("before")(js.Any.fromFunction1(before))
-        ret.asInstanceOf[Self]
+    def withBefore(value: /* request */ js.Any => _): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("before")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutBefore: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "before")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("before")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBody(body: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (body != null) ret.updateDynamic("body")(body.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withBody(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("body")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBody: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "body")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("body")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCredentials(credentials: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(credentials)) ret.updateDynamic("credentials")(credentials.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCredentials(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("credentials")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCredentials: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "credentials")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("credentials")(js.undefined)
+        ret
     }
     @scala.inline
-    def withEmulateHTTP(emulateHTTP: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(emulateHTTP)) ret.updateDynamic("emulateHTTP")(emulateHTTP.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withEmulateHTTP(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("emulateHTTP")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEmulateHTTP: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "emulateHTTP")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("emulateHTTP")(js.undefined)
+        ret
     }
     @scala.inline
-    def withEmulateJSON(emulateJSON: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(emulateJSON)) ret.updateDynamic("emulateJSON")(emulateJSON.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withEmulateJSON(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("emulateJSON")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEmulateJSON: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "emulateJSON")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("emulateJSON")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHeaders(headers: HttpHeaders with js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (headers != null) ret.updateDynamic("headers")(headers.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withHeaders(value: HttpHeaders with js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("headers")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHeaders: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "headers")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("headers")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMethod(method: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (method != null) ret.updateDynamic("method")(method.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withMethod(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("method")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMethod: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "method")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("method")(js.undefined)
+        ret
     }
     @scala.inline
-    def withParams(params: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (params != null) ret.updateDynamic("params")(params.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withParams(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("params")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutParams: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "params")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("params")(js.undefined)
+        ret
     }
     @scala.inline
-    def withProgress(progress: /* event */ js.Any => _): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (progress != null) ret.updateDynamic("progress")(js.Any.fromFunction1(progress))
-        ret.asInstanceOf[Self]
+    def withProgress(value: /* event */ js.Any => _): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("progress")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutProgress: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "progress")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("progress")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUrl(url: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (url != null) ret.updateDynamic("url")(url.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withUrl(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("url")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUrl: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "url")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("url")(js.undefined)
+        ret
     }
   }
   

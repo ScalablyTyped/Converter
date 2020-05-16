@@ -14,14 +14,14 @@ import scala.scalajs.js.annotation._
 object BottomNavigationItem {
   def apply(
     className: String = null,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: Double
   ): UnmountedWithRoot[BottomNavigationItemProps, default, Unit, BottomNavigationItemProps] = {
     val __obj = js.Dynamic.literal(children = children.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = force[BottomNavigationItemProps, None, default](this.componentImport)
     f(__obj.asInstanceOf[BottomNavigationItemProps])

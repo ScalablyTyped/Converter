@@ -129,7 +129,7 @@ object ContainerPolicy extends TreeTransformation {
             case (n, _) => n
           }
 
-        if (mod.comments.has(Markers.EnumObject)) false
+        if (mod.comments.has[Markers.EnumObject.type]) false
         else countClasses(mod) > 20
       }
 

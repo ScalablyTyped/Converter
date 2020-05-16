@@ -58,10 +58,10 @@ object DragEvent {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withDataTransfer(dataTransfer: DataTransfer): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("dataTransfer")(dataTransfer.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDataTransfer(value: DataTransfer): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dataTransfer")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

@@ -14,14 +14,8 @@ trait Observer[T] extends js.Object {
 
 object Observer {
   @scala.inline
-  def apply[T](
-    complete: () => Unit,
-    error: js.Any => Unit,
-    next: T => Unit,
-    closed: js.UndefOr[Boolean] = js.undefined
-  ): Observer[T] = {
+  def apply[T](complete: () => Unit, error: js.Any => Unit, next: T => Unit): Observer[T] = {
     val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete), error = js.Any.fromFunction1(error), next = js.Any.fromFunction1(next))
-    if (!js.isUndefined(closed)) __obj.updateDynamic("closed")(closed.asInstanceOf[js.Any])
     __obj.asInstanceOf[Observer[T]]
   }
   @scala.inline
@@ -31,34 +25,34 @@ object Observer {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withComplete(complete: () => Unit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("complete")(js.Any.fromFunction0(complete))
-        ret.asInstanceOf[Self[T]]
+    def withComplete(value: () => Unit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("complete")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
-    def withError(error: js.Any => Unit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("error")(js.Any.fromFunction1(error))
-        ret.asInstanceOf[Self[T]]
+    def withError(value: js.Any => Unit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("error")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withNext(next: T => Unit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("next")(js.Any.fromFunction1(next))
-        ret.asInstanceOf[Self[T]]
+    def withNext(value: T => Unit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("next")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withClosed(closed: js.UndefOr[Boolean]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(closed)) ret.updateDynamic("closed")(closed.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClosed(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("closed")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClosed: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "closed")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("closed")(js.undefined)
+        ret
     }
   }
   

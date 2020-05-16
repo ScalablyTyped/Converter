@@ -12,9 +12,8 @@ trait LoggerOptions extends js.Object {
 
 object LoggerOptions {
   @scala.inline
-  def apply(levels: AbstractConfigSetLevels = null): LoggerOptions = {
+  def apply(): LoggerOptions = {
     val __obj = js.Dynamic.literal()
-    if (levels != null) __obj.updateDynamic("levels")(levels.asInstanceOf[js.Any])
     __obj.asInstanceOf[LoggerOptions]
   }
   @scala.inline
@@ -24,16 +23,16 @@ object LoggerOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withLevels(levels: AbstractConfigSetLevels): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (levels != null) ret.updateDynamic("levels")(levels.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLevels(value: AbstractConfigSetLevels): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("levels")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLevels: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "levels")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("levels")(js.undefined)
+        ret
     }
   }
   

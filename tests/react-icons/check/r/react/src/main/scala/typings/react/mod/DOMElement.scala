@@ -15,35 +15,34 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 
 object DOMElement {
   @scala.inline
-  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, ref: Ref[T], `type`: String, key: Key = null): DOMElement[P, T] = {
+  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, ref: Ref[T], `type`: String): DOMElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any], ref = ref.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     __obj.asInstanceOf[DOMElement[P, T]]
   }
   @scala.inline
-  implicit class DOMElementOps[Self[p /* <: typings.react.mod.HTMLAttributes[T] | typings.react.mod.SVGAttributes[T] */, t /* <: typings.std.Element */] <: DOMElement[p, t], P <: HTMLAttributes[T] | SVGAttributes[T], T <: Element] (val x: Self[P, T]) extends AnyVal {
+  implicit class DOMElementOps[Self[p /* <: typings.react.mod.HTMLAttributes[T] | typings.react.mod.SVGAttributes[T] */, t /* <: typings.std.Element */] <: DOMElement[p, t], P, T] (val x: Self[P, T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[P, T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, T]]
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
     @scala.inline
-    def withRefFunction1(ref: /* instance */ T | Null => js.Any): Self[P, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ref")(js.Any.fromFunction1(ref))
-        ret.asInstanceOf[Self[P, T]]
+    def withRefFunction1(value: /* instance */ T | Null => js.Any): Self[P, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withRef(ref: Ref[T]): Self[P, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ref")(ref.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[P, T]]
+    def withRef(value: Ref[T]): Self[P, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withType(`type`: String): Self[P, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[P, T]]
+    def withType(value: String): Self[P, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

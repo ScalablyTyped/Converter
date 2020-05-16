@@ -1,9 +1,9 @@
-package org.scalablytyped.converter.internal.scalajs.flavours
+package org.scalablytyped.converter.internal
+package scalajs
+package flavours
 
-import org.scalablytyped.converter.internal.IArray
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
-import org.scalablytyped.converter.internal.scalajs._
 
 case class SlinkyNativeFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends FlavourImplReact {
 

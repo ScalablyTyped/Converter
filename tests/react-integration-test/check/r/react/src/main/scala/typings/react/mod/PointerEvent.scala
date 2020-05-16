@@ -74,52 +74,52 @@ object PointerEvent {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withHeight(height: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("height")(height.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHeight(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withIsPrimary(isPrimary: Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("isPrimary")(isPrimary.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withIsPrimary(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isPrimary")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withPointerId(pointerId: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("pointerId")(pointerId.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPointerId(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointerId")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withPointerType(pointerType: mouse | pen | touch): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("pointerType")(pointerType.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPointerType(value: mouse | pen | touch): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointerType")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withPressure(pressure: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("pressure")(pressure.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPressure(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pressure")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTiltX(tiltX: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("tiltX")(tiltX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTiltX(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tiltX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTiltY(tiltY: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("tiltY")(tiltY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTiltY(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tiltY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withWidth(width: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("width")(width.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withWidth(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("width")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

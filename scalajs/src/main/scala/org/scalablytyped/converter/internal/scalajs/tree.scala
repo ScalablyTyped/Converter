@@ -30,9 +30,8 @@ sealed trait ContainerTree extends Tree with HasCodePath {
 
 sealed trait InheritanceTree extends Tree with HasCodePath {
   def annotations: IArray[ClassAnnotation]
-  def isScalaJsDefined: Boolean = annotations contains Annotation.ScalaJSDefined
-  def receivesCompanion: Boolean =
-    isScalaJsDefined || comments.extract { case Markers.CouldBeScalaJsDefined => () }.nonEmpty
+  def isScalaJsDefined:  Boolean = annotations contains Annotation.ScalaJSDefined
+  def receivesCompanion: Boolean = isScalaJsDefined || comments.has[Markers.CouldBeScalaJsDefined.type]
   val index: Map[Name, IArray[Tree]]
 
   def isNative: Boolean =
@@ -117,6 +116,7 @@ sealed trait MemberTree extends Tree with HasCodePath {
   val annotations: IArray[MemberAnnotation]
   def withCodePath(newCodePath: QualifiedName): MemberTree
   def renamed(newName:          Name):          MemberTree
+  def originalName: Name
 }
 
 final case class FieldTree(
@@ -243,8 +243,8 @@ object TypeRef {
   val Unit         = TypeRef(QualifiedName.Unit, Empty, NoComments)
   val FunctionBase = TypeRef(QualifiedName.Function, Empty, NoComments)
 
-  val `null`    = TypeRef(QualifiedName(IArray(Name("null"))), Empty, NoComments)
-  val undefined = TypeRef(QualifiedName(IArray(Name("js.undefined"))), Empty, NoComments)
+  /* we represent `js.UndefOr` as this fake type ref inside a union type. Note that t can also appear on it's own */
+  val undefined = TypeRef(QualifiedName.UNDEFINED, Empty, NoComments)
 
   val Primitive = Set(Double, Int, Long, Boolean, Unit, Nothing)
 
@@ -520,7 +520,6 @@ object ExprTree {
   case class Block(expressions:     IArray[ExprTree]) extends ExprTree
   case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
   case class Cast(one:              ExprTree, as: TypeRef) extends ExprTree
-  case class Custom(impl:           String) extends ExprTree
   case class If(pred:               ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
   case class Lambda(params:         IArray[ParamTree], body: ExprTree) extends ExprTree
   case class New(expr:              TypeRef, params: IArray[ExprTree]) extends ExprTree

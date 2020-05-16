@@ -13,10 +13,9 @@ trait ReactElement extends js.Object {
 
 object ReactElement {
   @scala.inline
-  def apply(props: js.Any, `type`: String | ComponentClass[_] | SFC[_], key: Key = null): ReactElement = {
+  def apply(props: js.Any, `type`: String | ComponentClass[_] | SFC[_]): ReactElement = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactElement]
   }
   @scala.inline
@@ -26,28 +25,28 @@ object ReactElement {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withProps(props: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("props")(props.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
-    }
-    @scala.inline
-    def withType(`type`: String | ComponentClass[_] | SFC[_]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
-    }
-    @scala.inline
-    def withKey(key: Key): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (key != null) ret.updateDynamic("key")(key.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
-    }
-    @scala.inline
-    def withoutKey: Self = {
+    def withProps(value: js.Any): Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "key")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(value.asInstanceOf[js.Any])
+        ret
+    }
+    @scala.inline
+    def withType(value: String | ComponentClass[_] | SFC[_]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
+    }
+    @scala.inline
+    def withKey(value: Key): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(value.asInstanceOf[js.Any])
+        ret
+    }
+    @scala.inline
+    def withKeyNull: Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(null)
+        ret
     }
   }
   

@@ -14,13 +14,8 @@ trait JQLite
 
 object JQLite {
   @scala.inline
-  def apply(
-    addClass: String => JQLite,
-    injector: () => IInjectorService,
-    NumberDictionary: /* index */ NumberDictionary[HTMLElement] = null
-  ): JQLite = {
+  def apply(addClass: String => JQLite, injector: () => IInjectorService): JQLite = {
     val __obj = js.Dynamic.literal(addClass = js.Any.fromFunction1(addClass), injector = js.Any.fromFunction0(injector))
-    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[JQLite]
   }
 }

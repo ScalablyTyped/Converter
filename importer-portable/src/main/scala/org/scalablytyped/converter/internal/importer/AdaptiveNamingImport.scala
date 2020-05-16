@@ -1,6 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
+import org.scalablytyped.converter.internal.scalajs.transforms.CleanIllegalNames
 import org.scalablytyped.converter.internal.scalajs.{Annotation, Name, QualifiedName}
 import org.scalablytyped.converter.internal.stringUtils.{joinCamelCase, toCamelCase}
 import org.scalablytyped.converter.internal.ts._
@@ -43,7 +44,12 @@ final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], Qual
 }
 
 object AdaptiveNamingImport {
-  def apply(outputPkg: Name, tree: TsTree, depsRewrites: IArray[AdaptiveNamingImport]): AdaptiveNamingImport = {
+  def apply(
+      outputPkg:         Name,
+      tree:              TsTree,
+      depsRewrites:      IArray[AdaptiveNamingImport],
+      cleanIllegalNames: CleanIllegalNames,
+  ): AdaptiveNamingImport = {
     val allReferences: IArray[IArray[TsIdent]] =
       TsTreeTraverse
         .collect(tree) {

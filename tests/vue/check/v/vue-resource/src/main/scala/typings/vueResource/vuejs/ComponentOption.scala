@@ -12,9 +12,8 @@ trait ComponentOption extends js.Object {
 
 object ComponentOption {
   @scala.inline
-  def apply(http: headersHttpHeaderskeystri = null): ComponentOption = {
+  def apply(): ComponentOption = {
     val __obj = js.Dynamic.literal()
-    if (http != null) __obj.updateDynamic("http")(http.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentOption]
   }
   @scala.inline
@@ -24,16 +23,16 @@ object ComponentOption {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withHttp(http: headersHttpHeaderskeystri): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (http != null) ret.updateDynamic("http")(http.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withHttp(value: headersHttpHeaderskeystri): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("http")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHttp: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "http")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("http")(js.undefined)
+        ret
     }
   }
   

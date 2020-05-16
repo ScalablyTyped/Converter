@@ -23,16 +23,16 @@ object VueStatic {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withHttp(http: Http_): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("http")(http.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withHttp(value: Http_): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("http")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withResource(resource: Resource_): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("resource")(resource.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withResource(value: Resource_): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("resource")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

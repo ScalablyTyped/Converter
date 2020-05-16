@@ -13,10 +13,8 @@ trait AnonDefault extends js.Object {
 
 object AnonDefault {
   @scala.inline
-  def apply(default: js.Any = null, from: InjectKey = null): AnonDefault = {
+  def apply(): AnonDefault = {
     val __obj = js.Dynamic.literal()
-    if (default != null) __obj.updateDynamic("default")(default.asInstanceOf[js.Any])
-    if (from != null) __obj.updateDynamic("from")(from.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonDefault]
   }
   @scala.inline
@@ -26,28 +24,28 @@ object AnonDefault {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefault(default: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (default != null) ret.updateDynamic("default")(default.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDefault(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDefault: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "default")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFrom(from: InjectKey): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (from != null) ret.updateDynamic("from")(from.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFrom(value: InjectKey): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("from")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFrom: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "from")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("from")(js.undefined)
+        ret
     }
   }
   

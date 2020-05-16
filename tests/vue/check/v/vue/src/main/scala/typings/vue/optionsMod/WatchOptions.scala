@@ -12,10 +12,8 @@ trait WatchOptions extends js.Object {
 
 object WatchOptions {
   @scala.inline
-  def apply(deep: js.UndefOr[Boolean] = js.undefined, immediate: js.UndefOr[Boolean] = js.undefined): WatchOptions = {
+  def apply(): WatchOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(deep)) __obj.updateDynamic("deep")(deep.asInstanceOf[js.Any])
-    if (!js.isUndefined(immediate)) __obj.updateDynamic("immediate")(immediate.asInstanceOf[js.Any])
     __obj.asInstanceOf[WatchOptions]
   }
   @scala.inline
@@ -25,28 +23,28 @@ object WatchOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDeep(deep: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(deep)) ret.updateDynamic("deep")(deep.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDeep(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("deep")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDeep: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "deep")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("deep")(js.undefined)
+        ret
     }
     @scala.inline
-    def withImmediate(immediate: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(immediate)) ret.updateDynamic("immediate")(immediate.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withImmediate(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("immediate")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutImmediate: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "immediate")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("immediate")(js.undefined)
+        ret
     }
   }
   

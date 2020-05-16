@@ -35,40 +35,40 @@ object VNodeDirective {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withArg(arg: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("arg")(arg.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withArg(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("arg")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withExpression(expression: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("expression")(expression.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withExpression(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("expression")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withModifiers(modifiers: StringDictionary[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("modifiers")(modifiers.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withModifiers(value: StringDictionary[Boolean]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("modifiers")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withName(name: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("name")(name.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withName(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withOldValue(oldValue: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("oldValue")(oldValue.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withOldValue(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("oldValue")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withValue(value: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("value")(value.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

@@ -16,7 +16,7 @@ import scala.scalajs.js.annotation._
 object Suspense {
   def apply(
     fallback: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify NonNullable<ReactNode> */ js.Any = null,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
@@ -24,9 +24,8 @@ object Suspense {
     SuspenseProps, 
     MountedWithRawType[SuspenseProps, js.Object, RawMounted[SuspenseProps, js.Object]]
   ] = {
-    val __obj = js.Dynamic.literal()
-    if (fallback != null) __obj.updateDynamic("fallback")(fallback.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    val __obj = js.Dynamic.literal(fallback = fallback.asInstanceOf[js.Any])
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = JsComponent[SuspenseProps, Varargs, js.Object](this.componentImport)
     f(__obj.asInstanceOf[SuspenseProps])(children :_*)

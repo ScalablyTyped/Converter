@@ -30,16 +30,16 @@ object JQuery {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAddClass(addClass: String => JQuery): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("addClass")(js.Any.fromFunction1(addClass))
-        ret.asInstanceOf[Self]
+    def withAddClass(value: String => JQuery): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("addClass")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withInjector(injector: () => IInjectorService): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("injector")(js.Any.fromFunction0(injector))
-        ret.asInstanceOf[Self]
+    def withInjector(value: () => IInjectorService): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("injector")(js.Any.fromFunction0(value))
+        ret
     }
   }
   

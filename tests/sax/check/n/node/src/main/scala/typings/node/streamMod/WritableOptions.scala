@@ -14,9 +14,8 @@ trait WritableOptions extends js.Object {
 
 object WritableOptions {
   @scala.inline
-  def apply(`final`: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit = null): WritableOptions = {
+  def apply(): WritableOptions = {
     val __obj = js.Dynamic.literal()
-    if (`final` != null) __obj.updateDynamic("final")(js.Any.fromFunction1(`final`))
     __obj.asInstanceOf[WritableOptions]
   }
   @scala.inline
@@ -26,16 +25,16 @@ object WritableOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFinal(`final`: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (`final` != null) ret.updateDynamic("final")(js.Any.fromFunction1(`final`))
-        ret.asInstanceOf[Self]
+    def withFinal(value: /* callback */ js.Function1[/* error */ js.UndefOr[Error], Unit] => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("final")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutFinal: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "final")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("final")(js.undefined)
+        ret
     }
   }
   

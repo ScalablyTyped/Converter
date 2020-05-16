@@ -15,14 +15,13 @@ abstract class SharedApply_RefProps50138403[ComponentRef] () {
   val componentImport: js.Any
   def apply(
     innerRef: japgolly.scalajs.react.raw.React.Ref = null,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[RefProps, ComponentRef, Unit, RefProps] = {
-    val __obj = js.Dynamic.literal()
-    if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    val __obj = js.Dynamic.literal(innerRef = innerRef.asInstanceOf[js.Any])
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = force[RefProps, Varargs, ComponentRef](this.componentImport)
     f(__obj.asInstanceOf[RefProps])(children :_*)

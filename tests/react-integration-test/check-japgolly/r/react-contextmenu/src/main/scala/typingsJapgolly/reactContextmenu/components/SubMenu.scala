@@ -22,7 +22,7 @@ object SubMenu {
     title: Element | ReactText,
     className: String = null,
     disabled: js.UndefOr[Boolean] = js.undefined,
-    hoverDelay: Int | Double = null,
+    hoverDelay: js.UndefOr[Double] = js.undefined,
     onClick: (js.Function3[
       /* event */ ReactTouchEventFrom[HTMLDivElement] | ReactMouseEventFrom[HTMLDivElement], 
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
@@ -31,19 +31,19 @@ object SubMenu {
     ]) | js.Function = null,
     preventCloseOnClick: js.UndefOr[Boolean] = js.undefined,
     rtl: js.UndefOr[Boolean] = js.undefined,
-    key: js.UndefOr[Key] = js.undefined,
+    key: Key = null,
     _overrides: StringDictionary[js.Any] = null
   )(
     children: ChildArg*
   ): UnmountedWithRoot[SubMenuProps, typingsJapgolly.reactContextmenu.mod.SubMenu, Unit, SubMenuProps] = {
     val __obj = js.Dynamic.literal(title = title.asInstanceOf[js.Any])
     if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
-    if (hoverDelay != null) __obj.updateDynamic("hoverDelay")(hoverDelay.asInstanceOf[js.Any])
+    if (!js.isUndefined(disabled)) __obj.updateDynamic("disabled")(disabled.get.asInstanceOf[js.Any])
+    if (!js.isUndefined(hoverDelay)) __obj.updateDynamic("hoverDelay")(hoverDelay.get.asInstanceOf[js.Any])
     if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
-    if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick.asInstanceOf[js.Any])
-    if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
-    key.foreach(k => __obj.updateDynamic("key")(k.asInstanceOf[js.Any]))
+    if (!js.isUndefined(preventCloseOnClick)) __obj.updateDynamic("preventCloseOnClick")(preventCloseOnClick.get.asInstanceOf[js.Any])
+    if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.get.asInstanceOf[js.Any])
+    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
     val f = force[SubMenuProps, Varargs, typingsJapgolly.reactContextmenu.mod.SubMenu](this.componentImport)
     f(__obj.asInstanceOf[SubMenuProps])(children :_*)

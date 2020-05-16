@@ -68,53 +68,8 @@ trait StrictButtonGroupProps extends js.Object {
 
 object StrictButtonGroupProps {
   @scala.inline
-  def apply(
-    as: js.Any = null,
-    attached: Boolean | left | right | top | bottom = null,
-    basic: js.UndefOr[Boolean] = js.undefined,
-    buttons: SemanticShorthandCollection[ButtonProps] = null,
-    children: VdomNode = null,
-    className: String = null,
-    color: SemanticCOLORS = null,
-    compact: js.UndefOr[Boolean] = js.undefined,
-    content: SemanticShorthandContent = null,
-    floated: SemanticFLOATS = null,
-    fluid: js.UndefOr[Boolean] = js.undefined,
-    icon: js.UndefOr[Boolean] = js.undefined,
-    inverted: js.UndefOr[Boolean] = js.undefined,
-    labeled: js.UndefOr[Boolean] = js.undefined,
-    negative: js.UndefOr[Boolean] = js.undefined,
-    positive: js.UndefOr[Boolean] = js.undefined,
-    primary: js.UndefOr[Boolean] = js.undefined,
-    secondary: js.UndefOr[Boolean] = js.undefined,
-    size: SemanticSIZES = null,
-    toggle: js.UndefOr[Boolean] = js.undefined,
-    vertical: js.UndefOr[Boolean] = js.undefined,
-    widths: SemanticWIDTHS = null
-  ): StrictButtonGroupProps = {
+  def apply(): StrictButtonGroupProps = {
     val __obj = js.Dynamic.literal()
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (attached != null) __obj.updateDynamic("attached")(attached.asInstanceOf[js.Any])
-    if (!js.isUndefined(basic)) __obj.updateDynamic("basic")(basic.asInstanceOf[js.Any])
-    if (buttons != null) __obj.updateDynamic("buttons")(buttons.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])
-    if (!js.isUndefined(compact)) __obj.updateDynamic("compact")(compact.asInstanceOf[js.Any])
-    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-    if (floated != null) __obj.updateDynamic("floated")(floated.asInstanceOf[js.Any])
-    if (!js.isUndefined(fluid)) __obj.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
-    if (!js.isUndefined(icon)) __obj.updateDynamic("icon")(icon.asInstanceOf[js.Any])
-    if (!js.isUndefined(inverted)) __obj.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
-    if (!js.isUndefined(labeled)) __obj.updateDynamic("labeled")(labeled.asInstanceOf[js.Any])
-    if (!js.isUndefined(negative)) __obj.updateDynamic("negative")(negative.asInstanceOf[js.Any])
-    if (!js.isUndefined(positive)) __obj.updateDynamic("positive")(positive.asInstanceOf[js.Any])
-    if (!js.isUndefined(primary)) __obj.updateDynamic("primary")(primary.asInstanceOf[js.Any])
-    if (!js.isUndefined(secondary)) __obj.updateDynamic("secondary")(secondary.asInstanceOf[js.Any])
-    if (size != null) __obj.updateDynamic("size")(size.asInstanceOf[js.Any])
-    if (!js.isUndefined(toggle)) __obj.updateDynamic("toggle")(toggle.asInstanceOf[js.Any])
-    if (!js.isUndefined(vertical)) __obj.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
-    if (widths != null) __obj.updateDynamic("widths")(widths.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictButtonGroupProps]
   }
   @scala.inline
@@ -124,280 +79,280 @@ object StrictButtonGroupProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAs(as: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAs(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAs: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "as")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAttached(attached: Boolean | left | right | top | bottom): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (attached != null) ret.updateDynamic("attached")(attached.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAttached(value: Boolean | left | right | top | bottom): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attached")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAttached: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "attached")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attached")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBasic(basic: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(basic)) ret.updateDynamic("basic")(basic.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withBasic(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("basic")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBasic: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "basic")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("basic")(js.undefined)
+        ret
     }
     @scala.inline
-    def withButtons(buttons: SemanticShorthandCollection[ButtonProps]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (buttons != null) ret.updateDynamic("buttons")(buttons.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withButtons(value: SemanticShorthandCollection[ButtonProps]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("buttons")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutButtons: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "buttons")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("buttons")(js.undefined)
+        ret
     }
     @scala.inline
-    def withChildrenVdomElement(children: VdomElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (children != null) ret.updateDynamic("children")(children.rawElement.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withChildrenVdomElement(value: VdomElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withChildren(children: VdomNode): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (children != null) ret.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withChildren(value: VdomNode): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawNode.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutChildren: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "children")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClassName(className: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClassName(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClassName: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "className")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColor(color: SemanticCOLORS): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (color != null) ret.updateDynamic("color")(color.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withColor(value: SemanticCOLORS): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColor: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "color")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCompact(compact: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(compact)) ret.updateDynamic("compact")(compact.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCompact(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("compact")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCompact: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "compact")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("compact")(js.undefined)
+        ret
     }
     @scala.inline
-    def withContentVdomElement(content: VdomElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (content != null) ret.updateDynamic("content")(content.rawElement.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withContentVdomElement(value: VdomElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.rawElement.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withContent(content: SemanticShorthandContent): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withContent(value: SemanticShorthandContent): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutContent: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "content")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFloated(floated: SemanticFLOATS): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (floated != null) ret.updateDynamic("floated")(floated.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFloated(value: SemanticFLOATS): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("floated")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFloated: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "floated")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("floated")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFluid(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFluid: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "fluid")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIcon(icon: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(icon)) ret.updateDynamic("icon")(icon.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIcon(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIcon: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "icon")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(js.undefined)
+        ret
     }
     @scala.inline
-    def withInverted(inverted: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(inverted)) ret.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withInverted(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("inverted")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutInverted: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "inverted")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("inverted")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLabeled(labeled: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(labeled)) ret.updateDynamic("labeled")(labeled.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLabeled(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("labeled")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLabeled: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "labeled")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("labeled")(js.undefined)
+        ret
     }
     @scala.inline
-    def withNegative(negative: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(negative)) ret.updateDynamic("negative")(negative.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withNegative(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("negative")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutNegative: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "negative")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("negative")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPositive(positive: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(positive)) ret.updateDynamic("positive")(positive.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPositive(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("positive")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPositive: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "positive")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("positive")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPrimary(primary: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(primary)) ret.updateDynamic("primary")(primary.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPrimary(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("primary")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPrimary: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "primary")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("primary")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSecondary(secondary: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(secondary)) ret.updateDynamic("secondary")(secondary.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withSecondary(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("secondary")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSecondary: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "secondary")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("secondary")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSize(size: SemanticSIZES): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (size != null) ret.updateDynamic("size")(size.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withSize(value: SemanticSIZES): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("size")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSize: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "size")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("size")(js.undefined)
+        ret
     }
     @scala.inline
-    def withToggle(toggle: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(toggle)) ret.updateDynamic("toggle")(toggle.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withToggle(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("toggle")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutToggle: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "toggle")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("toggle")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVertical(vertical: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(vertical)) ret.updateDynamic("vertical")(vertical.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withVertical(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertical")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVertical: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "vertical")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertical")(js.undefined)
+        ret
     }
     @scala.inline
-    def withWidths(widths: SemanticWIDTHS): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (widths != null) ret.updateDynamic("widths")(widths.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withWidths(value: SemanticWIDTHS): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("widths")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutWidths: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "widths")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("widths")(js.undefined)
+        ret
     }
   }
   

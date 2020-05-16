@@ -11,9 +11,8 @@ trait StrictHtmlInputrops extends js.Object {
 
 object StrictHtmlInputrops {
   @scala.inline
-  def apply(`type`: String = null): StrictHtmlInputrops = {
+  def apply(): StrictHtmlInputrops = {
     val __obj = js.Dynamic.literal()
-    if (`type` != null) __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictHtmlInputrops]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object StrictHtmlInputrops {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withType(`type`: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (`type` != null) ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withType(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutType: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "type")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
+        ret
     }
   }
   

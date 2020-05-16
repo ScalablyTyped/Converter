@@ -23,16 +23,16 @@ object A {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withACallback(aCallback: () => Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("aCallback")(js.Any.fromFunction0(aCallback))
-        ret.asInstanceOf[Self]
+    def withACallback(value: () => Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("aCallback")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
-    def withAMember(aMember: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("aMember")(aMember.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAMember(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("aMember")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

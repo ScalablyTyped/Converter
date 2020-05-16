@@ -39,52 +39,52 @@ object Touch {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withClientX(clientX: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("clientX")(clientX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClientX(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clientX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withClientY(clientY: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("clientY")(clientY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClientY(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clientY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withIdentifier(identifier: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("identifier")(identifier.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIdentifier(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("identifier")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withPageX(pageX: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("pageX")(pageX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPageX(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pageX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withPageY(pageY: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("pageY")(pageY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPageY(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pageY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withScreenX(screenX: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("screenX")(screenX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withScreenX(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("screenX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withScreenY(screenY: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("screenY")(screenY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withScreenY(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("screenY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTarget(target: EventTarget): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("target")(target.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTarget(value: EventTarget): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("target")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

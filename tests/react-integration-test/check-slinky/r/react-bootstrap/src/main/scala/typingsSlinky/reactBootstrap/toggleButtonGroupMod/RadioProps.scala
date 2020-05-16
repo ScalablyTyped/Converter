@@ -15,10 +15,9 @@ trait RadioProps extends js.Object {
 
 object RadioProps {
   @scala.inline
-  def apply(name: String, `type`: radio, onChange: /* value */ js.Any => Unit = null): RadioProps = {
+  def apply(name: String, `type`: radio): RadioProps = {
     val __obj = js.Dynamic.literal(name = name.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction1(onChange))
     __obj.asInstanceOf[RadioProps]
   }
   @scala.inline
@@ -28,28 +27,28 @@ object RadioProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withName(name: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("name")(name.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withName(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withType(`type`: radio): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withType(value: radio): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withOnChange(onChange: /* value */ js.Any => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (onChange != null) ret.updateDynamic("onChange")(js.Any.fromFunction1(onChange))
-        ret.asInstanceOf[Self]
+    def withOnChange(value: /* value */ js.Any => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutOnChange: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "onChange")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(js.undefined)
+        ret
     }
   }
   

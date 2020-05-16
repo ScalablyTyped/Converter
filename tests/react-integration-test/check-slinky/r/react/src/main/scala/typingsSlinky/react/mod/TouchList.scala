@@ -14,14 +14,8 @@ trait TouchList extends /* index */ NumberDictionary[Touch] {
 
 object TouchList {
   @scala.inline
-  def apply(
-    identifiedTouch: Double => Touch,
-    item: Double => Touch,
-    length: Double,
-    NumberDictionary: /* index */ NumberDictionary[Touch] = null
-  ): TouchList = {
+  def apply(identifiedTouch: Double => Touch, item: Double => Touch, length: Double): TouchList = {
     val __obj = js.Dynamic.literal(identifiedTouch = js.Any.fromFunction1(identifiedTouch), item = js.Any.fromFunction1(item), length = length.asInstanceOf[js.Any])
-    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
     __obj.asInstanceOf[TouchList]
   }
   @scala.inline
@@ -31,22 +25,22 @@ object TouchList {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withIdentifiedTouch(identifiedTouch: Double => Touch): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("identifiedTouch")(js.Any.fromFunction1(identifiedTouch))
-        ret.asInstanceOf[Self]
+    def withIdentifiedTouch(value: Double => Touch): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("identifiedTouch")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withItem(item: Double => Touch): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("item")(js.Any.fromFunction1(item))
-        ret.asInstanceOf[Self]
+    def withItem(value: Double => Touch): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("item")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withLength(length: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("length")(length.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLength(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("length")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

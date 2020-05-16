@@ -101,7 +101,6 @@ class TreeTransformation { self =>
           ExprTree.Arg.Pos(visitExprTree(childrenScope)(expr))
         case ExprTree.Arg.Variable(expr) =>
           ExprTree.Arg.Variable(visitExprTree(childrenScope)(expr))
-        case x: ExprTree.Custom     => x
         case x: ExprTree.Ref        => x
         case x: ExprTree.NumberLit  => x
         case x: ExprTree.StringLit  => x

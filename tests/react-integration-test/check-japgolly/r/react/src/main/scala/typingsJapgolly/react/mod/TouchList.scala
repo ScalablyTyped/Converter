@@ -15,16 +15,8 @@ trait TouchList extends /* index */ NumberDictionary[Touch] {
 
 object TouchList {
   @scala.inline
-  def apply(
-    identifiedTouch: Double => CallbackTo[Touch],
-    item: Double => CallbackTo[Touch],
-    length: Double,
-    NumberDictionary: /* index */ NumberDictionary[Touch] = null
-  ): TouchList = {
-    val __obj = js.Dynamic.literal(length = length.asInstanceOf[js.Any])
-    __obj.updateDynamic("identifiedTouch")(js.Any.fromFunction1((t0: Double) => identifiedTouch(t0).runNow()))
-    __obj.updateDynamic("item")(js.Any.fromFunction1((t0: Double) => item(t0).runNow()))
-    if (NumberDictionary != null) js.Dynamic.global.Object.assign(__obj, NumberDictionary)
+  def apply(identifiedTouch: Double => CallbackTo[Touch], item: Double => CallbackTo[Touch], length: Double): TouchList = {
+    val __obj = js.Dynamic.literal(identifiedTouch = js.Any.fromFunction1((t0: Double) => identifiedTouch(t0).runNow()), item = js.Any.fromFunction1((t0: Double) => item(t0).runNow()), length = length.asInstanceOf[js.Any])
     __obj.asInstanceOf[TouchList]
   }
   @scala.inline
@@ -34,22 +26,22 @@ object TouchList {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withIdentifiedTouch(identifiedTouch: Double => CallbackTo[Touch]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("identifiedTouch")(js.Any.fromFunction1((t0: Double) => identifiedTouch(t0).runNow()))
-        ret.asInstanceOf[Self]
+    def withIdentifiedTouch(value: Double => CallbackTo[Touch]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("identifiedTouch")(js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+        ret
     }
     @scala.inline
-    def withItem(item: Double => CallbackTo[Touch]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("item")(js.Any.fromFunction1((t0: Double) => item(t0).runNow()))
-        ret.asInstanceOf[Self]
+    def withItem(value: Double => CallbackTo[Touch]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("item")(js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
+        ret
     }
     @scala.inline
-    def withLength(length: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("length")(length.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLength(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("length")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

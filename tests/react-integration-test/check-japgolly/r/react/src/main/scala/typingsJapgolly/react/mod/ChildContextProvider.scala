@@ -13,8 +13,7 @@ trait ChildContextProvider[CC] extends js.Object {
 object ChildContextProvider {
   @scala.inline
   def apply[CC](getChildContext: CallbackTo[CC]): ChildContextProvider[CC] = {
-    val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("getChildContext")(getChildContext.toJsFn)
+    val __obj = js.Dynamic.literal(getChildContext = getChildContext.toJsFn)
     __obj.asInstanceOf[ChildContextProvider[CC]]
   }
   @scala.inline
@@ -24,10 +23,10 @@ object ChildContextProvider {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[CC] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[CC] with Other]
     @scala.inline
-    def withGetChildContext(getChildContext: CallbackTo[CC]): Self[CC] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("getChildContext")(getChildContext.toJsFn)
-        ret.asInstanceOf[Self[CC]]
+    def withGetChildContext(value: CallbackTo[CC]): Self[CC] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getChildContext")(value.toJsFn)
+        ret
     }
   }
   

@@ -26,9 +26,9 @@ object Either {
     def combineWith[Other /* <: js.Any */](other: Other): (Self[L, R]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[L, R]) with Other]
     @scala.inline
     def withValue(value: R): Self[L, R] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("value")(value.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[L, R]]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

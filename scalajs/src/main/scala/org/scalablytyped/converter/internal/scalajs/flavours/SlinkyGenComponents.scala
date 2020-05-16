@@ -36,15 +36,24 @@ object SlinkyGenComponents {
   final case class Web[N, W](web:       W) extends Mode[N, W]
 
   final case class SplitProps(props: IArray[Prop]) {
-    val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
-      { case Prop(Prop.Variant(ParamTree(Name("ref"), _, _, tpe, _, _), _, _), _, _, _) => tpe },
-      { case Prop(pt, _, _, _) if SlinkyGenComponents.shouldIgnore(pt.tree)             => null },
-      { case Prop(Prop.Variant(p, Right(f), _), _, _, _)                                => p -> f },
-      { case Prop(Prop.Variant(p, Left(expr), _), _, _, _)                              => p -> expr },
-    )
-    val optionals = _optionals ++ AdditionalOptionalParams
+    val (refTypes, _, _mutators, initializers, Empty) = {
+      props
+        .map(defaultInterpretation.apply)
+        .partitionCollect4(
+          //refTypes
+          { case (_, ParamTree(Name("ref"), _, _, tpe, _, _)) => tpe },
+          // ignored
+          { case (_, paramTree) if SlinkyGenComponents.shouldIgnore(paramTree) => null },
+          // mutators
+          { case (x: Mutator, p) => p -> x },
+          // initializers
+          { case (x: Initializer, p) => p -> x },
+        )
+    }
 
-    val noNormalProps: Boolean = _optionals.isEmpty && requireds.isEmpty
+    val mutators: IArray[(ParamTree, Mutator)] = _mutators ++ AdditionalOptionalParams
+
+    val noNormalProps: Boolean = _mutators.isEmpty && initializers.isEmpty
   }
 
   final case class PropsDom(propsRef: TypeRef, splitProps: Res[SplitProps], domInfo: Mode[Unit, DomInfo])
@@ -127,15 +136,16 @@ object SlinkyGenComponents {
     byName || byType
   }
 
-  val AdditionalOptionalParams: IArray[(ParamTree, Name => ExprTree)] = {
+  val AdditionalOptionalParams: IArray[(ParamTree, Mutator)] = {
     import ExprTree._
     val _overrides = Name("_overrides")
-    val overridesUpdate: Name => ExprTree = obj =>
+    val updater = Mutator(ref =>
       If(
         BinaryOp(Ref(_overrides), "!=", Null),
-        Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(Ref(obj), Ref(_overrides)))),
+        Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(ref, Ref(_overrides)))),
         None,
-      )
+      ),
+    )
 
     val overridesParam = ParamTree(
       name       = _overrides,
@@ -145,7 +155,7 @@ object SlinkyGenComponents {
       default    = ExprTree.Null,
       comments   = NoComments,
     )
-    IArray(overridesParam -> overridesUpdate)
+    IArray(overridesParam -> updater)
   }
 
   /* These definitions are here to make `ShortenNames` work in the presence of inherited names. */
@@ -308,9 +318,9 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
               val no  = IArray.Builder.empty[FieldTree]
 
               props.foreach {
-                case prop @ Prop(_, _, _, Right(fieldTree: FieldTree)) =>
+                case prop @ Prop.Normal(Prop.Variant(_, _, _, _), _, optionality, _, fieldTree: FieldTree) =>
                   val isOptionalDom: Boolean =
-                    if (!prop.isOptional) false
+                    if (optionality === Optionality.No) false
                     else
                       tagAttrs.get(fieldTree.name) match {
                         case Some(tpe) =>
@@ -372,13 +382,13 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
   def inferSlinkyTag(props: IArray[Prop], slinkyWeb: SlinkyWeb): TagName = {
     val successfullyMapped: IArray[TagName] =
       props.flatMap {
-        case Prop(_, _, _, Left(_)) =>
-          Empty
-        case Prop(_, _, _, Right(tree)) =>
+        case Prop.Normal(_, _, _, _, tree) =>
           TreeTraverse.collect(tree) {
             case tr: TypeRef if slinkyWeb.uniqueTagsByStdRef.contains(tr) =>
               slinkyWeb.uniqueTagsByStdRef(tr).tagName
           }
+        case Prop.CompressedProp(_, _, _, _) =>
+          Empty
       }
 
     successfullyMapped match {
@@ -535,10 +545,10 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
         val impl = {
           import ExprTree._
           val __obj        = Name("__obj")
-          val requiredArgs = IArray(props.requireds.map { case (_, expr) => expr })
+          val initializers = IArray(props.initializers.map { case (_, expr) => expr.value })
           Block.flatten(
-            IArray(Val(__obj, Call(Ref(QualifiedName.DynamicLiteral), requiredArgs))),
-            props.optionals.map { case (_, f) => f(__obj) },
+            IArray(Val(__obj, Call(Ref(QualifiedName.DynamicLiteral), initializers))),
+            props.mutators.map { case (_, f) => f.value(Ref(__obj)) },
             Call(
               Ref(QualifiedName(IArray(Name.SUPER, Name.APPLY))),
               IArray(IArray(Cast(Ref(__obj), TypeRef(names.Props)))),
@@ -553,7 +563,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
           level       = ProtectionLevel.Default,
           name        = name,
           tparams     = tparams,
-          params      = IArray(props.requireds.map(_._1) ++ props.optionals.map(_._1)),
+          params      = IArray(props.initializers.map(_._1) ++ props.mutators.map(_._1)),
           impl        = impl,
           resultType  = buildingComponent,
           isOverride  = false,
@@ -564,7 +574,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
 
       /* directly accept slinky attributes/children if there are no required props */
       def noPropsApplyOpt =
-        if (resProps.asMap.exists(_._2.requireds.isEmpty)) {
+        if (resProps.asMap.exists(_._2.initializers.isEmpty)) {
           val modsName = Name("mods")
 
           val impl = {

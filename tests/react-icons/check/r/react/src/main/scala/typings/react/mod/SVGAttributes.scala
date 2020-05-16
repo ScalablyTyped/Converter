@@ -1,6 +1,5 @@
 package typings.react.mod
 
-import typings.react.AnonHtml
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -16,19 +15,8 @@ trait SVGAttributes[T] extends DOMAttributes[T] {
 
 object SVGAttributes {
   @scala.inline
-  def apply[T](
-    children: ReactNode = null,
-    className: String = null,
-    color: String = null,
-    dangerouslySetInnerHTML: AnonHtml = null,
-    height: Double | String = null
-  ): SVGAttributes[T] = {
+  def apply[T](): SVGAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])
-    if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
-    if (height != null) __obj.updateDynamic("height")(height.asInstanceOf[js.Any])
     __obj.asInstanceOf[SVGAttributes[T]]
   }
   @scala.inline
@@ -38,40 +26,40 @@ object SVGAttributes {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withClassName(className: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClassName(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClassName: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "className")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColor(color: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (color != null) ret.updateDynamic("color")(color.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withColor(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "color")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHeight(height: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (height != null) ret.updateDynamic("height")(height.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "height")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(js.undefined)
+        ret
     }
   }
   

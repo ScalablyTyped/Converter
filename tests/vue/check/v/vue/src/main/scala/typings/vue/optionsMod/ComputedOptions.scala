@@ -13,11 +13,8 @@ trait ComputedOptions[T] extends js.Object {
 
 object ComputedOptions {
   @scala.inline
-  def apply[T](cache: js.UndefOr[Boolean] = js.undefined, get: () => T = null, set: /* value */ T => Unit = null): ComputedOptions[T] = {
+  def apply[T](): ComputedOptions[T] = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(cache)) __obj.updateDynamic("cache")(cache.asInstanceOf[js.Any])
-    if (get != null) __obj.updateDynamic("get")(js.Any.fromFunction0(get))
-    if (set != null) __obj.updateDynamic("set")(js.Any.fromFunction1(set))
     __obj.asInstanceOf[ComputedOptions[T]]
   }
   @scala.inline
@@ -27,40 +24,40 @@ object ComputedOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withCache(cache: js.UndefOr[Boolean]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(cache)) ret.updateDynamic("cache")(cache.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCache(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cache")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCache: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "cache")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cache")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGet(get: () => T): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (get != null) ret.updateDynamic("get")(js.Any.fromFunction0(get))
-        ret.asInstanceOf[Self[T]]
+    def withGet(value: () => T): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
     def withoutGet: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "get")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSet(set: /* value */ T => Unit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (set != null) ret.updateDynamic("set")(js.Any.fromFunction1(set))
-        ret.asInstanceOf[Self[T]]
+    def withSet(value: /* value */ T => Unit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("set")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutSet: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "set")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("set")(js.undefined)
+        ret
     }
   }
   

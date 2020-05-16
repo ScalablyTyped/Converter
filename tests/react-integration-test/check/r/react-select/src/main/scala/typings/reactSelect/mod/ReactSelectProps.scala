@@ -1,9 +1,6 @@
 package typings.reactSelect.mod
 
-import typings.react.mod.Key
-import typings.react.mod.LegacyRef
 import typings.react.mod.Props
-import typings.react.mod.ReactNode
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -19,17 +16,8 @@ trait ReactSelectProps[TValue] extends Props[ReactSelectClass[TValue]] {
 
 object ReactSelectProps {
   @scala.inline
-  def apply[TValue](
-    addLabelText: String = null,
-    children: ReactNode = null,
-    key: Key = null,
-    ref: LegacyRef[ReactSelectClass[TValue]] = null
-  ): ReactSelectProps[TValue] = {
+  def apply[TValue](): ReactSelectProps[TValue] = {
     val __obj = js.Dynamic.literal()
-    if (addLabelText != null) __obj.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
-    if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
     __obj.asInstanceOf[ReactSelectProps[TValue]]
   }
   @scala.inline
@@ -39,16 +27,16 @@ object ReactSelectProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[TValue] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[TValue] with Other]
     @scala.inline
-    def withAddLabelText(addLabelText: String): Self[TValue] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (addLabelText != null) ret.updateDynamic("addLabelText")(addLabelText.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[TValue]]
+    def withAddLabelText(value: String): Self[TValue] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("addLabelText")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAddLabelText: Self[TValue] = {
         val ret = this.duplicate
-        js.special.delete(ret, "addLabelText")
-        ret.asInstanceOf[Self[TValue]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("addLabelText")(js.undefined)
+        ret
     }
   }
   

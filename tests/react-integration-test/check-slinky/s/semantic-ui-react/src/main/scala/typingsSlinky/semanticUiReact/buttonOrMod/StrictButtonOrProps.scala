@@ -16,11 +16,8 @@ trait StrictButtonOrProps extends js.Object {
 
 object StrictButtonOrProps {
   @scala.inline
-  def apply(as: js.Any = null, className: String = null, text: Double | String = null): StrictButtonOrProps = {
+  def apply(): StrictButtonOrProps = {
     val __obj = js.Dynamic.literal()
-    if (as != null) __obj.updateDynamic("as")(as.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (text != null) __obj.updateDynamic("text")(text.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictButtonOrProps]
   }
   @scala.inline
@@ -30,40 +27,40 @@ object StrictButtonOrProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAs(as: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAs(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAs: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "as")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClassName(className: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClassName(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClassName: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "className")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
+        ret
     }
     @scala.inline
-    def withText(text: Double | String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (text != null) ret.updateDynamic("text")(text.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withText(value: Double | String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutText: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "text")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(js.undefined)
+        ret
     }
   }
   

@@ -128,7 +128,7 @@ object Minimization {
 
   private final class FilteringTransformation(keep: KeepIndex) extends TreeTransformation {
     override def leaveModuleTree(scope: TreeScope)(s: ModuleTree): ModuleTree =
-      if (s.comments.extract { case Keep(_) => () }.nonEmpty) s
+      if (s.comments.has[Keep]) s
       else
         s.copy(
           parents = s.parents.filter(tr => keep.contains(tr.typeName)),

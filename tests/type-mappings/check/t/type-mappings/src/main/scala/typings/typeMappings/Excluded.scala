@@ -35,40 +35,40 @@ object Excluded {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFontFamily(fontFamily: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("fontFamily")(fontFamily.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFontFamily(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withFontSize(fontSize: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("fontSize")(fontSize.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFontSize(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withFontWeight(fontWeight: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("fontWeight")(fontWeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFontWeight(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withLetterSpacing(letterSpacing: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("letterSpacing")(letterSpacing.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLetterSpacing(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withLineHeight(lineHeight: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("lineHeight")(lineHeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLineHeight(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lineHeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTextTransform(textTransform: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("textTransform")(textTransform.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTextTransform(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textTransform")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

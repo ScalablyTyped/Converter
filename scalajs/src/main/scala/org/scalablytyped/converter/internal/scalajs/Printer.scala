@@ -5,7 +5,6 @@ import java.io._
 
 import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
-import maps._
 import scala.collection.mutable
 
 object Printer {
@@ -336,13 +335,6 @@ object Printer {
       formatImpl(indent)(tree.default),
     ).mkString
 
-  def formatDefaultedTypeRef(indent: Int)(ref: TypeRef): String =
-    ref match {
-      case TypeRef.`null`    => "null"
-      case TypeRef.undefined => "js.undefined"
-      case other             => formatTypeRef(indent + 2)(other)
-    }
-
   def formatQN(q: QualifiedName): String =
     if (q.startsWith(QualifiedName.scala_js))
       formatQN(QualifiedName(q.parts.drop(QualifiedName.scala_js.parts.length - 1)))
@@ -384,6 +376,9 @@ object Printer {
 
         case TypeRef.UndefOr(tpe, _) =>
           formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(tpe), NoComments))
+
+        case TypeRef.undefined => // keep this line after TypeRef.UndefOr. This line covers if it appears outside a union type
+          formatTypeRef(indent)(TypeRef(QualifiedName.UndefOr, IArray(TypeRef.Nothing), NoComments))
 
         case TypeRef.Union(types, _) =>
           types map formatTypeRef(indent) map paramsIfNeeded mkString " | "
@@ -505,8 +500,6 @@ object Printer {
         formatExpr(indent)(expr)
       case ExprTree.Arg.Variable(expr) =>
         s"${formatExpr(indent)(expr)} :_*"
-      case ExprTree.Custom(impl) =>
-        impl
     }
 
   def formatImpl(indent: Int)(e: ImplTree): String =

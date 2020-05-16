@@ -11,9 +11,8 @@ trait Error extends js.Object {
 
 object Error {
   @scala.inline
-  def apply(stack: String = null): Error = {
+  def apply(): Error = {
     val __obj = js.Dynamic.literal()
-    if (stack != null) __obj.updateDynamic("stack")(stack.asInstanceOf[js.Any])
     __obj.asInstanceOf[Error]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object Error {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withStack(stack: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stack != null) ret.updateDynamic("stack")(stack.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStack(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stack")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStack: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "stack")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stack")(js.undefined)
+        ret
     }
   }
   

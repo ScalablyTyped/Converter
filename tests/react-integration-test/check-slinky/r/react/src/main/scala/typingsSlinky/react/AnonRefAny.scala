@@ -13,11 +13,8 @@ trait AnonRefAny extends js.Object {
 
 object AnonRefAny {
   @scala.inline
-  def apply(
-    ref: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any = null
-  ): AnonRefAny = {
+  def apply(): AnonRefAny = {
     val __obj = js.Dynamic.literal()
-    if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonRefAny]
   }
   @scala.inline
@@ -28,17 +25,17 @@ object AnonRefAny {
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
     def withRef(
-      ref: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any
+      value: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<R, string> */ js.Any
     ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (ref != null) ret.updateDynamic("ref")(ref.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRef: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "ref")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.undefined)
+        ret
     }
   }
   

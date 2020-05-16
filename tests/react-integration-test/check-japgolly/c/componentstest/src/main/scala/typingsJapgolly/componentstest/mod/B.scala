@@ -13,9 +13,8 @@ trait B extends Props {
 
 object B {
   @scala.inline
-  def apply(bMember: String, bCallback: js.UndefOr[CallbackTo[String]] = js.undefined): B = {
+  def apply(bMember: String): B = {
     val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-    bCallback.foreach(p => __obj.updateDynamic("bCallback")(p.toJsFn))
     __obj.asInstanceOf[B]
   }
   @scala.inline
@@ -25,22 +24,22 @@ object B {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBMember(bMember: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("bMember")(bMember.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withBMember(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bMember")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withBCallback(bCallback: js.UndefOr[CallbackTo[String]]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        bCallback.foreach(p => ret.updateDynamic("bCallback")(p.toJsFn))
-        ret.asInstanceOf[Self]
+    def withBCallback(value: CallbackTo[String]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bCallback")(value.toJsFn)
+        ret
     }
     @scala.inline
     def withoutBCallback: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "bCallback")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bCallback")(js.undefined)
+        ret
     }
   }
   

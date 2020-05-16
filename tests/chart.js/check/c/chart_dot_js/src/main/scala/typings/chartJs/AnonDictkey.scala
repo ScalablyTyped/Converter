@@ -15,12 +15,8 @@ trait AnonDictkey
 
 object AnonDictkey {
   @scala.inline
-  def apply(
-    global: ChartOptions with ChartFontOptions,
-    StringDictionary: /* key */ StringDictionary[js.Any] = null
-  ): AnonDictkey = {
+  def apply(global: ChartOptions with ChartFontOptions): AnonDictkey = {
     val __obj = js.Dynamic.literal(global = global.asInstanceOf[js.Any])
-    if (StringDictionary != null) js.Dynamic.global.Object.assign(__obj, StringDictionary)
     __obj.asInstanceOf[AnonDictkey]
   }
   @scala.inline
@@ -30,10 +26,10 @@ object AnonDictkey {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withGlobal(global: ChartOptions with ChartFontOptions): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("global")(global.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withGlobal(value: ChartOptions with ChartFontOptions): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("global")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

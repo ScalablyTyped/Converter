@@ -163,7 +163,7 @@ object Main {
       opt[Seq[TsIdentLibrary]]("ignoredLibs")
         .action((x, c) => c.mapConversion(_.copy(ignoredLibs = x.toSet)))
         .text(s"Libraries you want to ignore"),
-      opt[Boolean]("experimentalEnableImplicitOps.value")
+      opt[Boolean]("experimentalEnableImplicitOps")
         .action((x, c) => c.mapConversion(_.copy(enableImplicitOps = x)))
         .text(s"Enable implicit ops"),
       opt[ProjectName]("publish-to-bintray-repo")
@@ -247,6 +247,7 @@ object Main {
 //            "ignoredModulePrefixes" -> conversion.ignoredModulePrefixes.toString,
             "versions" -> conversion.versions.toString,
             "organization" -> conversion.organization,
+            "experimentalEnableImplicitOps" -> conversion.enableImplicitOps.toString,
           ),
         )
 

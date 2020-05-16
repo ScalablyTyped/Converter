@@ -22,10 +22,10 @@ object IOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withTrackingCode(trackingCode: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("trackingCode")(trackingCode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTrackingCode(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("trackingCode")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

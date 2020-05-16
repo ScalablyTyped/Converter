@@ -37,8 +37,14 @@ object GenImplicitOpsClass {
         upperBound = Some(TypeRef(original.codePath, asTypeArgs(higherKindedParams), NoComments)),
         comments   = NoComments,
       )
-      selfTParam +: original.tparams
+
+      /* We have a hack in the printer which comments out bounds for javascript types.
+       * Here we generate a scala class, so just imitate same behaviour
+       */
+      val withoutBounds = original.tparams.map(_.copy(upperBound = None))
+      selfTParam +: withoutBounds
     }
+
     val selfRef = TypeRef(QualifiedName(IArray(SelfName)), asTypeArgs(original.tparams), NoComments)
 
     val combineWithMember =
@@ -47,98 +53,122 @@ object GenImplicitOpsClass {
     val duplicateMember =
       genDuplicateMember(Name("duplicate"), target, clsCodePath, selfRef)
 
-    /* ignore inherited props, there will already be implicit sugar for those */
-    val applicableMembers = props.yes.filter(_.isInherited === false)
-
     val sugarMembers: IArray[MethodTree] =
-      applicableMembers.flatMap {
-        case Prop(main @ Prop.Variant(ParamTree(propName, _, _, _, _, _), _, _), _, variants, _) =>
-          val variantsForProp: Map[Name, Prop.VariantLike] = {
-            def nameFor(tpe: TypeRef): String =
-              tpe match {
-                case tr if Name.Internal(tr.name) => tr.targs.map(nameFor).mkString("")
-                case other                        => other.name.unescaped
-              }
+      props.yes.flatMap {
+        /* ignore inherited props, there will already be implicit sugar for those */
+        case prop: Prop.Normal if prop.isInherited === false =>
+          val variantsForProp: Map[Name, Prop.Variant] = {
 
-            val (renamedUndefined, definedAlternatives, _) = variants.partitionCollect2(
-              { case Prop.Undefined => Name(s"without${propName.unescaped.capitalize}") -> Prop.Undefined },
-              { case v: Prop.Variant if v.isRewritten => v },
-            )
-
-            val renamedDefined: Map[Name, Prop.Variant] =
-              definedAlternatives.groupBy(param => nameFor(param.tree.tpe)).map {
+            val fromVariants: Map[Name, Prop.Variant] =
+              prop.variants.filter(_.isRewritten).groupBy(param => nameFor(param.tpe)).map {
                 case (alternativeName, IArray.first(one)) =>
-                  Name(s"with${propName.unescaped.capitalize}${alternativeName.capitalize}") -> one
+                  Name(s"with${prop.name.unescaped.capitalize}${alternativeName.capitalize}") -> one
               }
 
-            val withMain = renamedDefined.updated(Name(s"with${propName.unescaped.capitalize}"), main)
-            withMain ++ renamedUndefined.toMap
+            fromVariants.updated(Name(s"with${prop.name.unescaped.capitalize}"), prop.main)
           }
 
-          val ret = if (propName.value === "ret") Name("ret_") else Name("ret")
+          val paramName = Name("value")
+          val ret       = Name("ret")
 
-          variantsForProp.mapToIArray {
-            case (name, Prop.Undefined) =>
+          val variantsMethods: IArray[MethodTree] = variantsForProp.mapToIArray {
+            case (methodName, Prop.Variant(tpe, asExpr, _, _)) =>
               val impl = {
                 import ExprTree._
                 Block(
                   Val(ret, Ref(QualifiedName(IArray(Name.THIS, duplicateMember.name)))),
-                  Call(Ref(QualifiedName.specialDelete), IArray(IArray(Ref(ret), StringLit(propName.unescaped)))),
-                  Cast(Ref(ret), selfRef),
+                  Call(
+                    Select(Cast(Ref(ret), TypeRef.Dynamic), Name("updateDynamic")),
+                    IArray(
+                      IArray(StringLit(prop.originalName.unescaped)),
+                      IArray(asExpr(Ref(paramName))),
+                    ),
+                  ),
+                  Ref(ret),
                 )
               }
               MethodTree(
                 annotations = IArray(Annotation.Inline),
                 level       = ProtectionLevel.Default,
-                name        = name,
+                name        = methodName,
                 tparams     = Empty,
-                params      = Empty,
-                impl        = impl,
-                resultType  = selfRef,
-                isOverride  = false,
-                comments    = NoComments,
-                codePath    = clsCodePath + name,
-              )
-
-            case (name, Prop.Variant(_param, asExpr, _)) =>
-              val param = _param.copy(default = NotImplemented)
-
-              val impl = {
-                import ExprTree._
-                asExpr match {
-                  case Left(Arg.Named(name, expr)) =>
-                    Block(
-                      Val(ret, Cast(Ref(QualifiedName(IArray(Name.THIS, duplicateMember.name))), TypeRef.Dynamic)),
-                      Call(
-                        Select(Ref(ret), Name("updateDynamic")),
-                        IArray(
-                          IArray(StringLit(name.unescaped)),
-                          IArray(expr),
-                        ),
-                      ),
-                      Cast(Ref(ret), selfRef),
-                    )
-                  case Right(mutateObject) =>
-                    Block(
-                      Val(ret, Cast(Ref(QualifiedName(IArray(Name.THIS, duplicateMember.name))), TypeRef.Dynamic)),
-                      mutateObject(ret),
-                      Cast(Ref(ret), selfRef),
-                    )
-                }
-              }
-              MethodTree(
-                annotations = IArray(Annotation.Inline),
-                level       = ProtectionLevel.Default,
-                name        = name,
-                tparams     = Empty,
-                params      = IArray(IArray(param)),
-                impl        = impl,
-                resultType  = selfRef,
-                isOverride  = false,
-                comments    = NoComments,
-                codePath    = clsCodePath + name,
+                params = IArray(
+                  IArray(ParamTree(paramName, isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)),
+                ),
+                impl       = impl,
+                resultType = selfRef,
+                isOverride = false,
+                comments   = NoComments,
+                codePath   = clsCodePath + methodName,
               )
           }
+
+          val undefinedCaseOpt: Option[MethodTree] = prop.optionality match {
+            case Optionality.Undef | Optionality.NullOrUndef =>
+              val impl = {
+                import ExprTree._
+                Block(
+                  Val(ret, Ref(QualifiedName(IArray(Name.THIS, duplicateMember.name)))),
+                  Call(
+                    Select(Cast(Ref(ret), TypeRef.Dynamic), Name("updateDynamic")),
+                    IArray(IArray(StringLit(prop.originalName.unescaped)), IArray(undefined)),
+                  ),
+                  Ref(ret),
+                )
+              }
+              val name = Name(s"without${prop.name.unescaped.capitalize}")
+              Some(
+                MethodTree(
+                  annotations = IArray(Annotation.Inline),
+                  level       = ProtectionLevel.Default,
+                  name        = name,
+                  tparams     = Empty,
+                  params      = Empty,
+                  impl        = impl,
+                  resultType  = selfRef,
+                  isOverride  = false,
+                  comments    = NoComments,
+                  codePath    = clsCodePath + name,
+                ),
+              )
+
+            case _ => None
+          }
+
+          val nullCaseOpt: Option[MethodTree] = prop.optionality match {
+            case Optionality.Null | Optionality.NullOrUndef =>
+              val impl = {
+                import ExprTree._
+                Block(
+                  Val(ret, Ref(QualifiedName(IArray(Name.THIS, duplicateMember.name)))),
+                  Call(
+                    Select(Cast(Ref(ret), TypeRef.Dynamic), Name("updateDynamic")),
+                    IArray(IArray(StringLit(prop.originalName.unescaped)), IArray(Null)),
+                  ),
+                  Ref(ret),
+                )
+              }
+              val name = Name(s"with${prop.name.unescaped.capitalize}Null")
+              Some(
+                MethodTree(
+                  annotations = IArray(Annotation.Inline),
+                  level       = ProtectionLevel.Default,
+                  name        = name,
+                  tparams     = Empty,
+                  params      = Empty,
+                  impl        = impl,
+                  resultType  = selfRef,
+                  isOverride  = false,
+                  comments    = NoComments,
+                  codePath    = clsCodePath + name,
+                ),
+              )
+
+            case _ => None
+          }
+
+          variantsMethods ++ IArray.fromOptions(undefinedCaseOpt, nullCaseOpt)
+        case _ => Empty
       }
 
     val sugarCtor = CtorTree(
@@ -169,6 +199,12 @@ object GenImplicitOpsClass {
       )
     else None
   }
+
+  def nameFor(tpe: TypeRef): String =
+    tpe match {
+      case tr if Name.Internal(tr.name) => tr.targs.map(nameFor).mkString("")
+      case other                        => other.name.unescaped
+    }
 
   def genDuplicateMember(duplicateName: Name, target: Name, ownerCp: QualifiedName, clsRef: TypeRef): MethodTree = {
 

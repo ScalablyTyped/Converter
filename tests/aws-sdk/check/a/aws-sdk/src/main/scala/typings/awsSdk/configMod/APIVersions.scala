@@ -20,10 +20,8 @@ trait APIVersions extends js.Object {
 
 object APIVersions {
   @scala.inline
-  def apply(apiVersion: latest | String = null, apiVersions: ConfigurationServiceApiVersions = null): APIVersions = {
+  def apply(): APIVersions = {
     val __obj = js.Dynamic.literal()
-    if (apiVersion != null) __obj.updateDynamic("apiVersion")(apiVersion.asInstanceOf[js.Any])
-    if (apiVersions != null) __obj.updateDynamic("apiVersions")(apiVersions.asInstanceOf[js.Any])
     __obj.asInstanceOf[APIVersions]
   }
   @scala.inline
@@ -33,28 +31,28 @@ object APIVersions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withApiVersion(apiVersion: latest | String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (apiVersion != null) ret.updateDynamic("apiVersion")(apiVersion.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withApiVersion(value: latest | String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersion")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutApiVersion: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "apiVersion")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersion")(js.undefined)
+        ret
     }
     @scala.inline
-    def withApiVersions(apiVersions: ConfigurationServiceApiVersions): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (apiVersions != null) ret.updateDynamic("apiVersions")(apiVersions.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withApiVersions(value: ConfigurationServiceApiVersions): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersions")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutApiVersions: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "apiVersions")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersions")(js.undefined)
+        ret
     }
   }
   

@@ -17,18 +17,8 @@ trait VNodeComponentOptions extends js.Object {
 
 object VNodeComponentOptions {
   @scala.inline
-  def apply(
-    Ctor: VueConstructor[Vue],
-    children: VNodeChildren = null,
-    listeners: js.Object = null,
-    propsData: js.Object = null,
-    tag: String = null
-  ): VNodeComponentOptions = {
+  def apply(Ctor: VueConstructor[Vue]): VNodeComponentOptions = {
     val __obj = js.Dynamic.literal(Ctor = Ctor.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (listeners != null) __obj.updateDynamic("listeners")(listeners.asInstanceOf[js.Any])
-    if (propsData != null) __obj.updateDynamic("propsData")(propsData.asInstanceOf[js.Any])
-    if (tag != null) __obj.updateDynamic("tag")(tag.asInstanceOf[js.Any])
     __obj.asInstanceOf[VNodeComponentOptions]
   }
   @scala.inline
@@ -38,58 +28,58 @@ object VNodeComponentOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCtor(Ctor: VueConstructor[Vue]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("Ctor")(Ctor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCtor(value: VueConstructor[Vue]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("Ctor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withChildren(children: VNodeChildren): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (children != null) ret.updateDynamic("children")(children.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withChildren(value: VNodeChildren): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutChildren: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "children")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
+        ret
     }
     @scala.inline
-    def withListeners(listeners: js.Object): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (listeners != null) ret.updateDynamic("listeners")(listeners.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withListeners(value: js.Object): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("listeners")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutListeners: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "listeners")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("listeners")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPropsData(propsData: js.Object): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (propsData != null) ret.updateDynamic("propsData")(propsData.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPropsData(value: js.Object): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("propsData")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPropsData: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "propsData")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("propsData")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTag(tag: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (tag != null) ret.updateDynamic("tag")(tag.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTag(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tag")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTag: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "tag")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tag")(js.undefined)
+        ret
     }
   }
   
