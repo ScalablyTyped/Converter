@@ -36,7 +36,7 @@ package object mod {
   ]))
   type ComponentPropsWithoutRef[T /* <: slinky.core.facade.ReactElement */] = typingsSlinky.react.mod.PropsWithoutRef[typingsSlinky.react.mod.ComponentProps[T]]
   type ComponentState = js.Any
-  type ComponentType[P] = slinky.core.ReactComponentClass[P] | slinky.core.ReactComponentClass[P]
+  type ComponentType[P] = slinky.core.ReactComponentClass[P]
   type CompositionEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticCompositionEvent[T]]
   type Consumer[T] = slinky.core.ReactComponentClass[typingsSlinky.react.mod.ConsumerProps[T]]
   type ContextType[C /* <: typingsSlinky.react.mod.Context[_] */] = js.Any

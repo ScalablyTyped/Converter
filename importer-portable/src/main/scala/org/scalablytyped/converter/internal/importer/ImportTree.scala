@@ -493,9 +493,9 @@ class ImportTree(
         val importedType = importType.orAny(Wildcards.No, scope, importName)(tpeOpt).withOptional(m.isOptional)
         val impl: ImplTree =
           (scalaJsDefined, importedType) match {
-            case (true, TypeRef.UndefOr(_)) => ExprTree.undefined
-            case (true, _)                  => NotImplemented
-            case (false, _)                 => ExprTree.native
+            case (true, TypeRef.UndefOr(_, _)) => ExprTree.undefined
+            case (true, _)                     => NotImplemented
+            case (false, _)                    => ExprTree.native
           }
 
         IArray

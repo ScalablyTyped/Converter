@@ -103,16 +103,20 @@ object CombineOverloads extends TreeTransformation {
         val typeName = sameTypeName.head.typeName
 
         if (typeName === QualifiedName.UNION)
-          TypeRef.Union(sameTypeName.flatMap(_.targs), sort = true)
+          TypeRef.Union(sameTypeName.flatMap(_.targs), NoComments, sort = true)
         else if (typeName === QualifiedName.INTERSECTION)
-          TypeRef.Intersection(sameTypeName.flatMap(_.targs))
+          TypeRef.Intersection(sameTypeName.flatMap(_.targs), NoComments)
         else {
           val combinedTArgs: IArray[TypeRef] = sameTypeName.map(_.targs).transpose.map(asUnionType)
           TypeRef(typeName, combinedTArgs, Comments.flatten(sameTypeName)(_.comments))
         }
 
       case types =>
-        TypeRef.Union(IArray.fromTraversable(types.groupBy(_.typeName).values).map(asUnionType), sort = true)
+        TypeRef.Union(
+          IArray.fromTraversable(types.groupBy(_.typeName).values).map(asUnionType),
+          NoComments,
+          sort = true,
+        )
     }
 
   def combineOverloads(scope: TreeScope, methods: IArray[MethodTree]): IArray[MethodTree] = {

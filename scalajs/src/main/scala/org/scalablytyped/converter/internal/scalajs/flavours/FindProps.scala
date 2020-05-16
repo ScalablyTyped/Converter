@@ -93,7 +93,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: Member
       keep:               IArray[Prop] => (IArray[Prop], No),
   ): Res[FindProps.Filtered[No]] =
     FollowAliases(scope)(typeRef) match {
-      case TypeRef.Intersection(types) =>
+      case TypeRef.Intersection(types, _) =>
         val results: IArray[Res[FindProps.Filtered[No]]] =
           types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits, keep))
 
@@ -109,7 +109,8 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: Member
           case (errors, _, _, _) =>
             Res.Error(s"Couldn't find props for $typeRef because: ${errors.map(_.msg).mkString(", ")}")
         }
-      case TypeRef.Union(types) =>
+
+      case TypeRef.Union(types, _) =>
         Res.combine(types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits, keep)))
 
       case other =>
@@ -246,13 +247,13 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: Member
               paramsForMethods.map(paramsForMethod =>
                 if (paramsForMethod.isDefinedAt(idx)) paramsForMethod(idx).tpe else TypeRef.undefined,
               )
-            param.copy(tpe = TypeRef.Union(forIdx, sort = true))
+            param.copy(tpe = TypeRef.Union(forIdx, NoComments, sort = true))
         }
-        val resultType = TypeRef.Union(methods.map(_.resultType), sort = true)
+        val resultType = TypeRef.Union(methods.map(_.resultType), NoComments, sort = true)
         methods.head.copy(tparams = tparams, params = IArray(params), resultType = resultType)
       case (IArray.exactlyOne(field), _, IArray.Empty) => field
       case (fields, _, IArray.Empty) if fields.nonEmpty =>
-        fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), sort = true))
+        fields.head.copy(tpe = TypeRef.Union(fields.map(_.tpe), NoComments, sort = true))
 
       case other => sys.error(s"Unexpected: ${other}")
     }

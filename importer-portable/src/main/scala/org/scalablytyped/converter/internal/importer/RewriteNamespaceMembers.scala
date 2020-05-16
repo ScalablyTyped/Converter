@@ -35,7 +35,7 @@ object RewriteNamespaceMembers {
           (fromFields ++ fromContainers).distinct match {
             case Empty => Empty
             /* This is a shortcut so we don't have to implement the members */
-            case more => IArray(TypeRef.TopLevel(TypeRef.Intersection(more)))
+            case more => IArray(TypeRef.TopLevel(TypeRef.Intersection(more, NoComments)))
           }
         }
 

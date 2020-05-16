@@ -224,7 +224,7 @@ object ImplicitOpsClass {
             ),
           ),
         ),
-        TypeRef.Intersection(IArray(clsRef, otherType)),
+        TypeRef.Intersection(IArray(clsRef, otherType), NoComments),
       )
     }
 
@@ -239,7 +239,7 @@ object ImplicitOpsClass {
       tparams     = IArray(TypeParamTree(otherTypeName, Empty, Some(TypeRef.Any), NoComments)),
       params      = otherParam,
       impl        = impl,
-      resultType  = TypeRef.Intersection(IArray(clsRef, otherType)),
+      resultType  = TypeRef.Intersection(IArray(clsRef, otherType), NoComments),
       isOverride  = false,
       comments    = NoComments,
       codePath    = ownerCp + combineName,

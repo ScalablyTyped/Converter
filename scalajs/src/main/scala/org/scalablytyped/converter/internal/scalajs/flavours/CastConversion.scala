@@ -21,8 +21,10 @@ object CastConversion {
         case TParam.Ref(typeRef) => typeRef
         case TParam.Constrained(outer, among, default) =>
           outer.eval(provided) match {
-            case tr @ TypeRef(x, _, _) if among(x) => tr
-            case tr                                => TypeRef.Intersection(IArray(tr, TypeRef(default, Empty, UndoDamage.comment(among))))
+            case tr @ TypeRef(x, _, _) if among(x) =>
+              tr
+            case tr =>
+              TypeRef.Intersection(IArray(tr, TypeRef(default, Empty, NoComments)), UndoDamage.comment(among))
           }
       }
     def among(among: Set[QualifiedName], default: QualifiedName): TParam =
@@ -43,17 +45,18 @@ object CastConversion {
     case class Constrained(outer: TParam, among: Set[QualifiedName], default: QualifiedName) extends TParam
   }
 
-  case class TypeRewriterCast(conversions: IArray[CastConversion]) extends TreeTransformation {
-    val map: Map[QualifiedName, CastConversion] =
+  final case class TypeRewriterCast(conversions: IArray[CastConversion]) extends TreeTransformation {
+    val conversionsForTypeName: Map[QualifiedName, CastConversion] =
       conversions.map(x => x.from -> x).toMap
 
     val existsConflicts: Boolean =
       conversions.groupBy(_.to).exists { case (_, froms) => froms.length > 1 }
 
-    def mapped(x: TypeRef, scope: TreeScope): Option[TypeRef] =
-      map.get(x.typeName).map { conv =>
-        val targs = IArray.apply(conv.tparams.map(tp => visitTypeRef(scope)(tp.eval(x.targs))): _*)
-        x.copy(typeName = conv.to, targs = targs)
+    def maybeRewrite(original: TypeRef, scope: TreeScope): Option[TypeRef] =
+      conversionsForTypeName get original.typeName map {
+        case CastConversion(_, to, tparams @ _*) =>
+          val targs = IArray(tparams.map(tp => visitTypeRef(scope)(tp.eval(original.targs))): _*)
+          original.copy(typeName = to, targs = targs)
       }
 
     def isRisky(scope: TreeScope): Boolean =
@@ -80,8 +83,8 @@ object CastConversion {
 
                     def translatedToSameType =
                       for {
-                        otherConversion <- map.get(otherType.typeName)
-                        currentConversion <- map.get(current.typeName)
+                        otherConversion <- conversionsForTypeName.get(otherType.typeName)
+                        currentConversion <- conversionsForTypeName.get(current.typeName)
                       } yield otherConversion.to === currentConversion.to
 
                     otherType =/= param.tpe && translatedToSameType.getOrElse(false)
@@ -97,11 +100,14 @@ object CastConversion {
     override def leaveTypeRef(scope: TreeScope)(original: TypeRef): TypeRef = UndoDamage(
       if (isRisky(scope)) original
       else
-        mapped(original, scope).orElse(mapped(FollowAliases(scope)(original), scope)) match {
-          case Some(TypeRef.Intersection(types)) => TypeRef.Intersection(types)
-          case Some(TypeRef.Union(types))        => TypeRef.Union(types, sort = false)
-          case Some(rewritten)                   => rewritten
-          case None                              => original
+        maybeRewrite(original, scope) orElse maybeRewrite(FollowAliases(scope)(original), scope) match {
+          case Some(rewritten) => rewritten
+          case None =>
+            original match {
+              case TypeRef.Intersection(types, cs) => TypeRef.Intersection(types, cs)
+              case TypeRef.Union(types, cs)        => TypeRef.Union(types, cs, sort = false)
+              case other                           => other
+            }
         },
     )
   }
@@ -117,7 +123,7 @@ object CastConversion {
       Comments(CommentData(WasDefaulted(among)))
 
     def apply(x: TypeRef): TypeRef = x match {
-      case TypeRef.Intersection(IArray.exactlyTwo(original, TypeRef(bound @ _, Empty, comments))) =>
+      case TypeRef.Intersection(IArray.exactlyTwo(original, _), comments: Comments) =>
         comments.extract { case WasDefaulted(among) => among } match {
           case Some((among, _)) if among.contains(original.typeName) => original
           case _                                                     => x

@@ -148,7 +148,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
                 }
               case Res.Error(_) =>
                 components.map { c =>
-                  val propsWithObject = TypeRef.Intersection(IArray(propsRef, TypeRef.Object))
+                  val propsWithObject = TypeRef.Intersection(IArray(propsRef, TypeRef.Object), NoComments)
                   val (_, prop)       = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
                   val mod =
                     genComponent(pkgCp, Res.One(propsWithObject, IArray(prop)), c.knownRef, tparams, c)

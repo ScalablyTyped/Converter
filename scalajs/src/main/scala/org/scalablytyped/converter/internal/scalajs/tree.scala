@@ -215,7 +215,7 @@ final case class TypeRef(typeName: QualifiedName, targs: IArray[TypeRef], commen
     if (optional) TypeRef.UndefOr(this) else this
 
   def withComments(cs: Comments): TypeRef =
-    TypeRef(typeName, targs, comments ++ cs)
+    if (cs.cs.isEmpty) this else TypeRef(typeName, targs, comments ++ cs)
 }
 
 object TypeRef {
@@ -270,7 +270,7 @@ object TypeRef {
       val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
           case Some(Repeated(underlying, _)) =>
-            val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+            val commented = underlying.withComments(Comments(Comment("/* repeated */")))
             typeParams.dropRight(1) :+ commented
           case _ =>
             typeParams
@@ -297,7 +297,7 @@ object TypeRef {
       val rewriteRepeated: IArray[TypeRef] =
         typeParams.lastOption match {
           case Some(Repeated(underlying, _)) =>
-            val commented = underlying.withComments(underlying.comments + Comment("/* repeated */"))
+            val commented = underlying.withComments(Comments(Comment("/* repeated */")))
             typeParams.dropRight(1) :+ commented
           case _ =>
             typeParams
@@ -342,11 +342,11 @@ object TypeRef {
   object Intersection {
     private def flattened(types: IArray[TypeRef]): IArray[TypeRef] =
       types flatMap {
-        case Intersection(inner) => inner
-        case other               => IArray(other)
+        case Intersection(inner, _) => inner
+        case other                  => IArray(other)
       }
 
-    def apply(types: IArray[TypeRef]): TypeRef = {
+    def apply(types: IArray[TypeRef], comments: Comments): TypeRef = {
       val base: IArray[TypeRef] =
         flattened(types).distinct.partitionCollect { case TypeRef.Wildcard => TypeRef.Wildcard } match {
           // keep wildcard only if there is nothing else
@@ -354,17 +354,19 @@ object TypeRef {
           case (_, rest)          => rest
         }
 
-      base match {
+      val ret = base match {
         case IArray.Empty           => TypeRef.Nothing
         case IArray.exactlyOne(one) => one
         case more                   => TypeRef(QualifiedName.INTERSECTION, more, NoComments)
       }
+
+      ret.withComments(comments)
     }
 
-    def unapply(typeRef: TypeRef): Option[IArray[TypeRef]] =
+    def unapply(typeRef: TypeRef): Option[(IArray[TypeRef], Comments)] =
       typeRef match {
-        case TypeRef(QualifiedName.INTERSECTION, types, _) =>
-          Some(types)
+        case TypeRef(QualifiedName.INTERSECTION, types, cs) =>
+          Some((types, cs))
 
         case _ => None
       }
@@ -372,17 +374,17 @@ object TypeRef {
 
   object UndefOr {
     def apply(tpe: TypeRef): TypeRef =
-      Union(IArray(undefined, tpe), sort = false)
+      Union(IArray(undefined, tpe), NoComments, sort = false)
 
-    def unapply(typeRef: TypeRef): Option[TypeRef] =
+    def unapply(typeRef: TypeRef): Option[(TypeRef, Comments)] =
       typeRef match {
-        case Union(types) if types.contains(undefined) =>
+        case Union(types, cs) if types.contains(undefined) =>
           val rest = types.filterNot(x => x === undefined || x === TypeRef.Nothing) match {
             case IArray.Empty           => TypeRef.Nothing
             case IArray.exactlyOne(one) => one
-            case more                   => Union(more, sort = false)
+            case more                   => Union(more, NoComments, sort = false)
           }
-          Some(rest)
+          Some((rest, cs))
         case _ => None
       }
   }
@@ -400,39 +402,41 @@ object TypeRef {
       * What we do for now is that when we construct a union type it's sorted (for consistent builds),
       *  and when we encounter an existing we don't change it
       */
-    def apply(types: IArray[TypeRef], sort: Boolean): TypeRef = {
-      val flattened = flatten(types) match {
-        case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
-        case otherwise      => otherwise
-      }
+    def apply(types: IArray[TypeRef], comments: Comments, sort: Boolean): TypeRef = {
+      val flattened: IArray[TypeRef] =
+        flatten(types) match {
+          case toSort if sort => toSort.sortBy(_.typeName.parts.last.unescaped)
+          case otherwise      => otherwise
+        }
 
       /* "a" | "a" | Foo[A] | Foo[B] => "a" | Foo[A | B] */
       val compressed: IArray[TypeRef] = {
         val byName = flattened.filterNot(tr => Name.Internal(tr.name)).groupBy(_.typeName)
 
-        flattened.zipWithIndex.flatMap {
+        flattened.zipWithIndex.mapNotNone {
           case (tr, idx) =>
             byName.get(tr.typeName) match {
               case Some(more) if more.length > 1 =>
                 val isFirst = flattened.indexWhere(_.typeName === tr.typeName) === idx
-                if (isFirst) IArray(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, sort = true))))
-                else Empty
-              case _ => IArray(tr)
+                if (isFirst) Some(tr.copy(targs = more.map(_.targs).transpose.map(Union(_, NoComments, sort = true))))
+                else None
+              case _ => Some(tr)
             }
         }.distinct
       }
 
-      compressed match {
+      val ret = compressed match {
         case Empty                  => TypeRef.Nothing
         case IArray.exactlyOne(one) => one
         case more                   => TypeRef(QualifiedName.UNION, more, NoComments)
       }
+      ret.withComments(comments)
     }
 
-    def unapply(typeRef: TypeRef): Option[IArray[TypeRef]] =
+    def unapply(typeRef: TypeRef): Option[(IArray[TypeRef], Comments)] =
       typeRef match {
-        case TypeRef(QualifiedName.UNION, types, _) =>
-          Some(types)
+        case TypeRef(QualifiedName.UNION, types, comments) =>
+          Some((types, comments))
 
         case _ => None
       }
