@@ -11,7 +11,7 @@ lazy val logging = project
   .settings(libraryDependencies ++= Seq(Deps.sourcecode, Deps.fansi))
 
 lazy val ts = project
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .dependsOn(utils, logging)
   .settings(libraryDependencies += Deps.parserCombinators)
 
@@ -26,15 +26,15 @@ lazy val docs = project
 
 lazy val scalajs = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .settings(libraryDependencies ++= Seq(Deps.scalaXml))
 
 lazy val phases = project
   .dependsOn(utils, logging)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
 
 lazy val `importer-portable` = project
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .dependsOn(ts, scalajs, phases)
   .enablePlugins(BuildInfoPlugin)
   .settings(
@@ -47,7 +47,7 @@ lazy val `importer-portable` = project
 
 lazy val importer = project
   .dependsOn(`importer-portable`)
-  .configure(baseSettings, publicationSettings)
+  .configure(baseSettings, publicationSettings, optimize)
   .settings(
     libraryDependencies ++= Seq(
       Deps.bloop,
@@ -129,6 +129,23 @@ lazy val baseSettings: Project => Project =
     sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
     resolvers += Resolver.bintrayRepo("oyvindberg", "converter"),
+  )
+
+lazy val optimize: Project => Project =
+  _.settings(
+    scalacOptions ++= Seq(
+      "-opt:l:inline",
+      "-opt:l:method",
+      "-opt:simplify-jumps",
+      "-opt:compact-locals",
+      "-opt:copy-propagation",
+      "-opt:redundant-casts",
+      "-opt:box-unbox",
+      "-opt:nullness-tracking",
+      //      "-opt:closure-invocations",
+      "-opt-inline-from:**",
+      "-opt-warnings",
+    ),
   )
 
 lazy val publicationSettings: Project => Project = _.settings(

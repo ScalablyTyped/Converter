@@ -174,7 +174,7 @@ object ZincCompiler {
       PreviousResult.create(Optional.empty(), Optional.empty()),
     )
 
-    new ZincCompiler(inputs, logger, v, dep => resolve(dep))
+    new ZincCompiler(inputs, logger, dep => resolve(dep))
   }
 
   def mkScalaInstance(

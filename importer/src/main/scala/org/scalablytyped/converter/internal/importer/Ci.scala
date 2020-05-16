@@ -51,6 +51,7 @@ object Ci {
       debugMode:        Boolean,
       projectName:      ProjectName,
       repo:             URI,
+      benchmark:        Boolean,
   ) {
     // change in source code for now, lazy...
     val parallelLibraries = 20
@@ -140,6 +141,7 @@ object Ci {
               debugMode        = wantedLibNames.nonEmpty || (flags contains "-debugMode"),
               projectName      = projectName,
               repo             = repo,
+              benchmark        = flags contains "-benchmark",
             ),
           )
       }
@@ -223,53 +225,53 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     }
   }
 
-  def run(): Unit = {
-    val compilerF: Future[BloopCompiler] =
-      BloopCompiler(
-        logger                = logger.filter(LogLevel.debug).void,
-        v                     = config.conversion.versions,
-        failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
-      )(ec)
+  val compilerF: Future[BloopCompiler] =
+    BloopCompiler(
+      logger                = logger.filter(LogLevel.debug).void,
+      v                     = config.conversion.versions,
+      failureCacheFolderOpt = Some((paths.cacheFolder / 'compileFailures).toNIO),
+    )(ec)
 
-    val dtFolderF: Future[InFolder] =
-      Future(
-        DTUpToDate(interfaceCmd, config.offline, paths.cacheFolder, constants.DefinitelyTypedRepo),
-      )(ec)
+  val dtFolderF: Future[InFolder] =
+    Future(
+      DTUpToDate(interfaceCmd, config.offline, paths.cacheFolder, constants.DefinitelyTypedRepo),
+    )(ec)
 
-    val externalsFolderF: Future[InFolder] =
-      dtFolderF.map { dtFolder =>
-        val external: NotNeededPackages =
-          Json.force[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
+  val externalsFolderF: Future[InFolder] =
+    dtFolderF.map { dtFolder =>
+      val external: NotNeededPackages =
+        Json.force[NotNeededPackages](dtFolder.path / os.up / "notNeededPackages.json")
 
-        UpToDateExternals(
-          interfaceLogger,
-          interfaceCmd,
-          files.existing(paths.cacheFolder / 'npm),
-          external.packages
-            .map(_.typingsPackageName)
-            .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
-          config.conversion.ignoredLibs,
-          config.conserveSpace,
-          config.offline,
-        )
-      }(ec)
-
-    val lastChangedIndexF: Future[DTLastChangedIndex] =
-      dtFolderF.map { dtFolder =>
-        interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
-        DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
-      }(ec)
-
-    val localCleaningF = Future {
-      if (config.conserveSpace) {
-        interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalFolder}")
-        LocalCleanup(paths.publishLocalFolder, config.conversion.organization, keepNum = 1)
-      }
+      UpToDateExternals(
+        interfaceLogger,
+        interfaceCmd,
+        files.existing(paths.cacheFolder / 'npm),
+        external.packages
+          .map(_.typingsPackageName)
+          .toSet + TsIdentLibrary("typescript") ++ Libraries.extraExternals,
+        config.conversion.ignoredLibs,
+        config.conserveSpace,
+        config.offline,
+      )
     }(ec)
 
-    val updatedTargetDirF = updatedTargetDir()
-    val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF, updatedTargetDirF)
+  val lastChangedIndexF: Future[DTLastChangedIndex] =
+    dtFolderF.map { dtFolder =>
+      interfaceLogger.warn(s"Indexing ${dtFolder.path / os.up}")
+      DTLastChangedIndex(interfaceCmd, dtFolder.path / os.up)
+    }(ec)
 
+  val localCleaningF = Future {
+    if (config.conserveSpace) {
+      interfaceLogger.warn(s"Cleaning old artifacts in ${paths.publishLocalFolder}")
+      LocalCleanup(paths.publishLocalFolder, config.conversion.organization, keepNum = 1)
+    }
+  }(ec)
+
+  val updatedTargetDirF = updatedTargetDir()
+  val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF, updatedTargetDirF)
+
+  def run(): Option[Long] = {
     val externalsFolder                           = Await.result(externalsFolderF, Duration.Inf)
     val dtFolder                                  = Await.result(dtFolderF, Duration.Inf)
     val lastChangedIndex                          = Await.result(lastChangedIndexF, Duration.Inf)
@@ -352,6 +354,10 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             .toMap
       }
 
+    if (config.benchmark) {
+      return Some(System.currentTimeMillis - t0)
+    }
+
     val successes: Map[Source, PublishedSbtProject] = {
       def go(source: Source, p: PublishedSbtProject): Map[Source, PublishedSbtProject] =
         Map(source -> p) ++ p.project.deps.flatMap { case (k, v) => go(k, v) }
@@ -390,8 +396,6 @@ target/
       Summary.formatDiff(diff)
     }
     interfaceLogger.warn(formattedDiff)
-    val td = System.currentTimeMillis - t0
-    interfaceLogger warn td
 
     if (config.debugMode && !config.forceCommit) {
       interfaceLogger warn s"Not committing because of non-empty args ${config.wantedLibs.mkString(", ")}"
@@ -451,5 +455,6 @@ target/
             }
         }
     }
+    None
   }
 }
