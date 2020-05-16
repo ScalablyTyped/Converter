@@ -339,7 +339,7 @@ final class ParserTests extends AnyFunSuite {
       .size should be(3)
 
     TsTreeTraverse.collect(tree) {
-      case TsMemberProperty(_, level, _, _, _, false, _, _)                => level
+      case TsMemberProperty(_, level, _, _, _, false, _, _)                   => level
       case TsMemberFunction(_, level, TsIdent.constructor, _, _, false, _, _) => level
     } should be(IArray(ProtectionLevel.Protected, ProtectionLevel.Private, ProtectionLevel.Default))
 
@@ -463,8 +463,8 @@ final class ParserTests extends AnyFunSuite {
                       members = IArray(
                         TsMemberFunction(
                           NoComments,
-                          level = ProtectionLevel.Default,
-                          name  = TsIdent("toString"),
+                          level      = ProtectionLevel.Default,
+                          name       = TsIdent("toString"),
                           methodType = MethodType.Normal,
                           signature =
                             TsFunSig(NoComments, tparams = Empty, params = Empty, resultType = Some(TsTypeRef.string)),
@@ -1286,8 +1286,8 @@ final class ParserTests extends AnyFunSuite {
                 IArray(
                   TsMemberFunction(
                     NoComments,
-                    level = ProtectionLevel.Default,
-                    name  = TsIdent("get"),
+                    level      = ProtectionLevel.Default,
+                    name       = TsIdent("get"),
                     methodType = MethodType.Normal,
                     signature = TsFunSig(
                       NoComments,
@@ -2743,7 +2743,7 @@ export {};
     shouldParseAs(content, TsParser.tsDeclClass)(
       TsDeclClass(
         NoComments,
-        declared = true,
+        declared   = true,
         isAbstract = false,
         TsIdentSimple("Test"),
         IArray(),
@@ -2756,7 +2756,7 @@ export {};
             TsIdentSimple("_prop"),
             Some(TsTypeRef.number),
             None,
-            isStatic = false,
+            isStatic   = false,
             isReadOnly = false,
             isOptional = false,
           ),
@@ -2766,7 +2766,7 @@ export {};
             TsIdentSimple("prop"),
             MethodType.Getter,
             TsFunSig(NoComments, IArray(), IArray(), Some(TsTypeRef.number)),
-            isStatic = false,
+            isStatic   = false,
             isReadOnly = false,
             isOptional = false,
           ),
@@ -2788,7 +2788,7 @@ export {};
               ),
               None,
             ),
-            isStatic = false,
+            isStatic   = false,
             isReadOnly = false,
             isOptional = false,
           ),

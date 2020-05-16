@@ -1,6 +1,6 @@
 import scala.sys.process.stringToProcess
 
-lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop(/* 'v' */ 1)
+lazy val latestTag = "git tag -l --sort=committerdate".!!.linesIterator.toVector.last.drop( /* 'v' */ 1)
 
 lazy val utils = project
   .configure(baseSettings, publicationSettings)
@@ -89,7 +89,18 @@ lazy val root = project
   .in(file("."))
   .settings(name := "converter-root")
   .configure(baseSettings, preventPublication)
-  .aggregate(logging, utils, phases, ts, scalajs, `importer-portable`, `sbt-converter06`, `sbt-converter`, importer, cli)
+  .aggregate(
+    logging,
+    utils,
+    phases,
+    ts,
+    scalajs,
+    `importer-portable`,
+    `sbt-converter06`,
+    `sbt-converter`,
+    importer,
+    cli,
+  )
 
 lazy val pluginSettings: Project => Project =
   _.dependsOn(`importer-portable`)
@@ -117,7 +128,7 @@ lazy val baseSettings: Project => Project =
     /* disable scaladoc */
     sources in (Compile, doc) := Nil,
     publishArtifact in (Compile, packageDoc) := false,
-    resolvers += Resolver.bintrayRepo("oyvindberg", "converter")
+    resolvers += Resolver.bintrayRepo("oyvindberg", "converter"),
   )
 
 lazy val publicationSettings: Project => Project = _.settings(
