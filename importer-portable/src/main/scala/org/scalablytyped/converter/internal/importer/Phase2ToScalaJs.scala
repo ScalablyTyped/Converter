@@ -3,6 +3,7 @@ package importer
 
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.{internal, Selection}
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
 import org.scalablytyped.converter.internal.importer.Phase2Res.LibScalaJs
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
@@ -71,7 +72,7 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
             val importName = AdaptiveNamingImport(
               outputPkg,
               lib.parsed,
-              IArray.fromTraversable(scalaDeps.map { case (_, lib) => lib.names }),
+              scalaDeps.mapToIArray { case (_, v) => v.names },
             )
 
             val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))

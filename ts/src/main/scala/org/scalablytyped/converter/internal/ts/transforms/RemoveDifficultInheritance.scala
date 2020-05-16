@@ -2,6 +2,8 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
+
 /**
   * In typescript we can inherit from type references pointing to a pretty much arbitrary shape.
   *
@@ -22,7 +24,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
           parent     = keep.headOption,
           implements = keep.drop(1),
           comments   = s.comments +? summarizeChanges(drop, lifted),
-          members    = FlattenTrees.newClassMembers(s.members, IArray.fromTraversable(lifted).flatMap(_._2)),
+          members    = FlattenTrees.newClassMembers(s.members, lifted.flatMapToIArray { case (_, v) => v }),
         )
     }
   }
@@ -33,7 +35,7 @@ object RemoveDifficultInheritance extends TreeTransformationScopedChanges {
         s.copy(
           inheritance = keep,
           comments    = s.comments +? summarizeChanges(drop, lifted),
-          members     = FlattenTrees.newClassMembers(s.members, IArray.fromTraversable(lifted).flatMap(_._2)),
+          members     = FlattenTrees.newClassMembers(s.members, lifted.flatMapToIArray { case (_, v) => v }),
         )
     }
 

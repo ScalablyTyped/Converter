@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package ts
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import scala.collection.mutable
 
 object ExtractInterfaces {
@@ -11,7 +12,7 @@ object ExtractInterfaces {
     val V     = new LiftTypeObjects(store)
     val asd   = V.visitTsParsedFile(scope)(file)
 
-    asd.copy(members = asd.members ++ IArray.fromTraversable(store.interfaces.values))
+    asd.copy(members = asd.members ++ store.interfaces.toIArrayValues)
   }
 
   class ConflictHandlingStore(inLibrary: TsIdent) {

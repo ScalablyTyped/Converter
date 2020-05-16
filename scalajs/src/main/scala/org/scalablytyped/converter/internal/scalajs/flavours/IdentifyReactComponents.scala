@@ -2,6 +2,8 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.maps._
+
 class IdentifyReactComponents(reactNames: ReactNames) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldLeft(0)(_ + _.unescaped.length)
@@ -63,12 +65,9 @@ class IdentifyReactComponents(reactNames: ReactNames) {
 
   /* just one of each component (determined by name), which one is chosen by the `Ordering` implicit above */
   def oneOfEach(scope: TreeScope, tree: ContainerTree): IArray[Component] =
-    IArray
-      .fromTraversable(
-        all(scope, tree)
-          .groupBy(_.fullName)
-          .map { case (_, sameName) => sameName.max },
-      )
+    all(scope, tree)
+      .groupBy(_.fullName)
+      .mapToIArray { case (_, sameName) => sameName.max }
       .sortBy(_.fullName)
 
   val Unnamed = Set(Name.Default, Name.namespaced, Name.APPLY)

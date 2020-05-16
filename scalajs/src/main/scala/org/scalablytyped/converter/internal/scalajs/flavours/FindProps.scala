@@ -218,7 +218,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: Member
                 *  but has the nice property that it keeps the closest/most specific definition of a member
                 * */
               val all       = inlinedPropsFromParent ++ unresolvedProps ++ compressedProps ++ ownProps
-              val (yes, no) = keep(IArray.fromTraversable(all).map(_._2))
+              val (yes, no) = keep(all.toIArrayValues)
 
               FindProps.Filtered(yes.sorted, no)
             }

@@ -5,7 +5,7 @@ import java.io._
 
 import org.scalablytyped.converter.internal.scalajs.transforms.ShortenNames
 import org.scalablytyped.converter.internal.stringUtils.quote
-
+import maps._
 import scala.collection.mutable
 
 object Printer {
@@ -56,16 +56,19 @@ object Printer {
       targetFolder: os.RelPath,
       tree:         ContainerTree,
   ): Unit = {
-    val files: Map[ScalaOutput, IArray[Tree]] = tree match {
-      case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
-      case other => Map(ScalaOutput.File(other.name) -> IArray(other))
-    }
+    val files: IArray[(ScalaOutput, IArray[Tree])] =
+      tree match {
+        case _: PackageTree => tree.members.groupBy(ScalaOutput.outputAs).asIArray
+        case other => IArray(ScalaOutput.File(other.name) -> IArray(other))
+      }
     val scope = _scope / tree
 
     val packageScalaFileName: String = {
       val normal  = "package"
       val escaped = "package_"
+
       def toEscape(name: String) = name.toLowerCase() == normal
+
       val shouldBeEscaped = files.exists {
         case (scalaOutput, _) =>
           scalaOutput match {

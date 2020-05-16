@@ -2,6 +2,8 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
+
 /**
   * With @ScalaJSDefined traits we don't implement members.
   * Scalac complains about that for classes, so we provide implementations.
@@ -62,9 +64,8 @@ object CompleteClass extends TreeTransformation {
       parents: ParentsResolver.Parents,
   ): IArray[MemberTree] = {
 
-    val ret = IArray
-      .fromTraversable(parents.pruneClasses.transitiveParents)
-      .flatMap(_._2.members)
+    val ret = parents.pruneClasses.transitiveParents
+      .flatMapToIArray { case (_, v) => v.members }
       .collect {
         case x: FieldTree if x.impl === NotImplemented && !c.index.contains(x.name) =>
           x.copy(isOverride = true, impl = ExprTree.native, comments = x.comments + Comment("/* CompleteClass */\n"))

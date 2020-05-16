@@ -3,6 +3,7 @@ package importer
 
 import com.olvind.logging.{Formatter, Logger}
 import org.scalablytyped.converter.Selection
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Phase1Res._
 import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
@@ -154,12 +155,11 @@ class Phase1ReadTypescript(
                 TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
 
               val preprocessed: IArray[TsParsedFile] =
-                IArray.fromTraversable(libParts) map {
+                libParts.mapToIArray {
                   case (helperSource, file) =>
                     logger.info(s"Preprocessing $helperSource")
                     val _1 = modules.InferredDefaultModule(file.file, helperSource.moduleNames.head, logger)
-                    val _2 =
-                      FlattenTrees(_1 +: IArray.fromTraversable(file.toInline).filterNot(_._2.isModule).map(_._2))
+                    val _2 = FlattenTrees(_1 +: file.toInline.toIArrayValues(keep = !_.isModule))
 
                     val _3 = helperSource.moduleNames match {
                       case IArray.exactlyOne(_) => _2

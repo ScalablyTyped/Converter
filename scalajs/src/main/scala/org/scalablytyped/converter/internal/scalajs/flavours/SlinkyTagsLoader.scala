@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.maps._
 import io.circe013.Decoder
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names.{
@@ -36,9 +37,7 @@ object SlinkyTagsLoader {
         val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
 
         val parentMembers: IArray[Tree] =
-          IArray
-            .fromTraversable(ParentsResolver(newScope, x).transitiveParents.values)
-            .flatMap(_.members)
+          ParentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
         val attrs = parentMembers ++ x.members collect {
           case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
@@ -97,9 +96,7 @@ object SlinkyTagsLoader {
             val (_, attrs)       = slinkyAttrsByTag(tagName)
 
             val parentMembers: IArray[Tree] =
-              IArray
-                .fromTraversable(ParentsResolver(newnewScope, tagInterface).transitiveParents.values)
-                .flatMap(_.members)
+              ParentsResolver(newnewScope, tagInterface).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
             val members: IArray[(Name, TypeRef)] =
               parentMembers ++ tagInterface.members collect {

@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.maps.sum
 
 /**
@@ -45,22 +46,25 @@ object InferMemberOverrides extends TreeTransformation {
       }
 
     val addedFields: IArray[FieldTree] =
-      IArray.fromTraversable(inheritedFields) collect {
-        case (name, fs) if !fieldsByName.contains(name) =>
-          val head    = fs.head._1
-          val newType = TypeRef.Intersection(fs.map(_._1.tpe), NoComments)
+      inheritedFields.mapToIArray(
+        {
+          case (name, fs) if !fieldsByName.contains(name) =>
+            val head    = fs.head._1
+            val newType = TypeRef.Intersection(fs.map(_._1.tpe), NoComments)
 
-          head.copy(
-            isOverride = true,
-            tpe        = newType,
-            isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
-            impl       = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
-            comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
-          )
-      }
+            head.copy(
+              isOverride = true,
+              tpe        = newType,
+              isReadOnly = fs.forall { case (f, _) => f.isReadOnly },
+              impl       = updatedImpl(fs.map(_._1.impl), Some(newType), tree.isScalaJsDefined),
+              comments   = head.comments + Comment("/* InferMemberOverrides */\n"),
+            )
+        },
+        keep = { case (name, _) => !fieldsByName.contains(name) },
+      )
 
     val inheritedMethods: IArray[MethodTree] =
-      IArray.fromTraversable(root.transitiveParents.values) flatMap (_.members collect { case c: MethodTree => c })
+      root.transitiveParents.flatMapToIArray { case (_, v) => v.members collect { case c: MethodTree => c } }
 
     val addedMethods: IArray[MethodTree] =
       IArray.fromTraversable(inheritedMethods groupBy Erasure.base(scope)) collect {
