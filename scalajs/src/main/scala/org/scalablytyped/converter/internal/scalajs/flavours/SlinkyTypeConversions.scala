@@ -4,7 +4,7 @@ package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TParam.{_1, _}
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
-import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.names._
+import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names._
 
 object SlinkyTypeConversions {
   def apply(

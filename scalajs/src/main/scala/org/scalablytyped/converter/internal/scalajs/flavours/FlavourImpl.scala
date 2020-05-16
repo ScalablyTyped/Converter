@@ -8,10 +8,10 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIl
 object FlavourImpl {
 
   trait ReactFlavourImpl extends FlavourImpl {
-    lazy val reactNames =
-      new ReactNames(outputPkg)
-    lazy val identifyComponents =
-      new IdentifyReactComponents(reactNames)
+    val stdNames           = new QualifiedName.StdNames(outputPkg)
+    val scalaJsDomNames    = new ScalaJsDomNames(stdNames)
+    val reactNames         = new ReactNames(outputPkg)
+    val identifyComponents = new IdentifyReactComponents(reactNames)
 
     def involvesReact(scope: TreeScope): Boolean = {
       val react = Name("react")
@@ -25,20 +25,13 @@ object FlavourImpl {
       enableImplicitOps:        Boolean,
       outputPkg:                Name,
   ) extends ReactFlavourImpl {
+    override val dependencies =
+      if (shouldUseScalaJsDomTypes) Set(Versions.scalaJsDom, Versions.runtime) else Set(Versions.runtime)
     val genComponentsOpt = if (shouldGenerateComponents) Some(new GenReactFacadeComponents(reactNames)) else None
-
-    val rewriterOpt: Option[TypeRewriterCast] =
-      if (shouldUseScalaJsDomTypes)
-        Some(TypeRewriterCast(scalaJsDomNames.All))
-      else None
-
-    override val dependencies: Set[Dep] =
-      Set(Versions.runtime) ++ (if (shouldUseScalaJsDomTypes) Set(Versions.scalaJsDom) else Set.empty)
-
-    val memberToProps = new MemberToProp.Default(rewriterOpt)
-
-    val genCompanions: GenCompanions =
-      new GenCompanions(memberToProps, findProps, enableImplicitOps)
+    val rewriterOpt      = if (shouldUseScalaJsDomTypes) Some(TypeRewriterCast(scalaJsDomNames.All)) else None
+    val memberToProp     = new MemberToProp.Default(rewriterOpt)
+    val findProps        = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
+    val genCompanions    = new GenCompanions(findProps, enableImplicitOps)
 
     final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
       val withCompanions = genCompanions.visitPackageTree(scope)(tree)
@@ -67,8 +60,9 @@ object FlavourImpl {
 
     val rewriter      = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false)
     val memberToProp  = new MemberToProp.Default(Some(rewriter))
-    val gen           = new GenSlinkyComponents(GenSlinkyComponents.Native(()), memberToProp, findProps)
-    val genCompanions = new GenCompanions(memberToProp, findProps, enableImplicitOps)
+    val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
+    val gen           = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps)
+    val genCompanions = new GenCompanions(findProps, enableImplicitOps)
 
     final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
       val withCompanions = genCompanions.visitPackageTree(scope)(tree)
@@ -85,12 +79,12 @@ object FlavourImpl {
   }
 
   case class Japgolly(outputPkg: Name, enableImplicitOps: Boolean) extends ReactFlavourImpl {
-    val gen = new GenJapgollyComponents(reactNames, scalaJsDomNames, findProps)
-
-    override val dependencies: Set[Dep] =
-      Set(Versions.runtime, Versions.scalajsReact)
-    val genCompanions: GenCompanions =
-      new GenCompanions(gen.memberToProp, findProps, enableImplicitOps)
+    override val dependencies = Set(Versions.runtime, Versions.scalajsReact)
+    val rewriter              = JapgollyTypeConversions(reactNames, scalaJsDomNames)
+    val memberToProp          = new JapgollyMemberToProp(reactNames, rewriter)
+    val findProps             = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
+    val gen                   = new JapgollyGenComponents(reactNames, findProps)
+    val genCompanions         = new GenCompanions(findProps, enableImplicitOps)
 
     final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
       val withCompanions = genCompanions.visitPackageTree(scope)(tree)
@@ -102,7 +96,7 @@ object FlavourImpl {
           Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
         } else withCompanions
 
-      gen.ToJapgollyTypes.visitPackageTree(scope)(withComponents)
+      rewriter.visitPackageTree(scope)(withComponents)
     }
   }
 }
@@ -111,13 +105,6 @@ sealed trait FlavourImpl {
   def rewrittenTree(s: TreeScope, tree: PackageTree): PackageTree
   def dependencies: Set[Dep]
   val outputPkg: Name
-
-  lazy val stdNames =
-    new QualifiedName.StdNames(outputPkg)
-  lazy val scalaJsDomNames =
-    new ScalaJsDomNames(stdNames)
-  lazy val findProps =
-    new FindProps(new CleanIllegalNames(outputPkg))
 
   override val toString = getClass.getSimpleName
 }

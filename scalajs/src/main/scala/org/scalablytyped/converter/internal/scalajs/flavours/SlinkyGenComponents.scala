@@ -3,10 +3,10 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
-import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.Mode
+import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.Mode
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.TagName
 
-object GenSlinkyComponents {
+object SlinkyGenComponents {
   sealed trait Mode[N, W] {
     def forNative[NN](f: N => NN): Mode[NN, W] =
       this match {
@@ -37,7 +37,7 @@ object GenSlinkyComponents {
   final case class SplitProps(props: IArray[Prop]) {
     val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
       { case Prop(Prop.Variant(ParamTree(Name("ref"), _, _, tpe, _, _), _, _), _, _, _) => tpe },
-      { case Prop(pt, _, _, _) if GenSlinkyComponents.shouldIgnore(pt.tree)             => null },
+      { case Prop(pt, _, _, _) if SlinkyGenComponents.shouldIgnore(pt.tree)             => null },
       { case Prop(Prop.Variant(p, Right(f), _), _, _, _)                                => p -> f },
       { case Prop(Prop.Variant(p, Left(expr), _), _, _, _)                              => p -> expr },
     )
@@ -65,7 +65,7 @@ object GenSlinkyComponents {
     val ComponentRef    = Name("ComponentRef")
 
     /* Fully qualified references to slinky types */
-    val slinky                      = QualifiedName(IArray(GenSlinkyComponents.slinkyName))
+    val slinky                      = QualifiedName(IArray(SlinkyGenComponents.slinkyName))
     val slinkyCore                  = slinky + Name("core")
     val ReactComponentClass         = slinkyCore + Name("ReactComponentClass")
     val TagMod                      = slinkyCore + Name("TagMod")
@@ -81,7 +81,7 @@ object GenSlinkyComponents {
 
     val ignoredNames = Set(Name("key"), Name("children"))
 
-    val slinkyWeb     = GenSlinkyComponents.names.slinky + Name("web")
+    val slinkyWeb     = SlinkyGenComponents.names.slinky + Name("web")
     val slinkyWebSvg  = slinkyWeb + Name("svg")
     val slinkyWebHtml = slinkyWeb + Name("html")
 
@@ -219,19 +219,15 @@ object GenSlinkyComponents {
 /**
   * Generate a package with Slinky compatible react components
   */
-class GenSlinkyComponents(
-    mode:         Mode[Unit, Option[SlinkyWeb]],
-    memberToProp: MemberToProp,
-    findProps:    FindProps,
-) {
-  import GenSlinkyComponents._
+class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindProps) {
+  import SlinkyGenComponents._
 
   def apply(scope: TreeScope, tree: ContainerTree, allComponents: IArray[Component]): ContainerTree =
     mode.webPresent[SlinkyWeb] match {
       case Some(mode) =>
         /* Every tree knows it's own location (called `CodePath`).
              It's used for a lot of things, so it's important to get right */
-        val pkgCp = tree.codePath + GenSlinkyComponents.names.components
+        val pkgCp = tree.codePath + SlinkyGenComponents.names.components
 
         /** We group components on what essentially means they have the same interface.
           * When there is more than one they'll share some of the generated code
@@ -289,7 +285,6 @@ class GenSlinkyComponents(
                 propsRef,
                 tparams,
                 scope,
-                memberToProp,
                 maxNumProps,
                 acceptNativeTraits = true,
                 FindProps.keepAll,
@@ -343,7 +338,6 @@ class GenSlinkyComponents(
                 propsRef,
                 tparams,
                 scope,
-                memberToProp,
                 maxNumProps,
                 acceptNativeTraits = true,
                 extractDomProps,

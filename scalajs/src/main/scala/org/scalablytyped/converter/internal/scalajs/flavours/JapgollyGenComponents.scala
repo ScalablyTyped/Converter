@@ -2,13 +2,12 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
 /**
   * Generate a package with japgolly's scalajs-react compatible react components
   */
-object GenJapgollyComponents {
+object JapgollyGenComponents {
 
   object names {
     val japgolly        = Name("japgolly")
@@ -66,62 +65,10 @@ object GenJapgollyComponents {
     val rawReactRefFn:                   QualifiedName = rawReact + Name("RefFn")
     val reactKey:                        QualifiedName = react + Name("Key")
   }
-
-  /**
-    *- If the method return value is Unit, then convert it to Callback
-    *- If the method return value is TYPE, then convert it to Callback[Type]
-    */
-  def CallbackTo(ref: TypeRef): TypeRef =
-    ref match {
-      case TypeRef.Unit => TypeRef(japgolly.reactCallback)
-      case other        => TypeRef(japgolly.reactCallbackTo, IArray(other), NoComments)
-    }
 }
 
-final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: ScalaJsDomNames, findProps: FindProps) {
-  import GenJapgollyComponents._
-
-  val conversions: IArray[CastConversion] = {
-    import CastConversion.TParam._
-    import japgolly._
-
-    val _1Element = _1.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
-    val _2Element = _2.among(scalaJsDomNames.AllElements, QualifiedName("org.scalajs.dom.raw.Element"))
-    val _1Object  = _1.among(Set.empty, QualifiedName.Object)
-
-    scalaJsDomNames.All ++ IArray(
-      CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
-      CastConversion(reactNames.ComponentState, QualifiedName.Object),
-      CastConversion(reactNames.ReactDOM, QualifiedName.Any),
-      CastConversion(reactNames.ReactNode, rawReactNode),
-      CastConversion(reactNames.Ref, rawReactRef),
-      CastConversion(reactNames.RefObject, rawReactRefHandle, _1),
-      CastConversion(reactNames.Component, rawReactComponent, _1Object, TypeRef.Object),
-      CastConversion(reactNames.ComponentClass, rawReactComponentClassP, _1Object),
-      CastConversion(reactNames.ReactElement, rawReactElement),
-      CastConversion(reactNames.DOMElement, rawReactDOMElement),
-      CastConversion(reactNames.ElementType, rawReactElementType),
-      CastConversion(reactNames.BaseSyntheticEvent, reactReactEventFrom, _2Element),
-      CastConversion(reactNames.ChangeEvent, reactReactEventFrom, _1Element),
-      CastConversion(reactNames.FormEvent, reactReactEventFrom, _1Element),
-      CastConversion(reactNames.InvalidEvent, reactReactEventFrom, _1Element),
-      CastConversion(reactNames.SyntheticEvent, reactReactEventFrom, _1Element),
-      CastConversion(reactNames.AnimationEvent, react + Name("ReactAnimationEventFrom"), _1Element),
-      CastConversion(reactNames.ClipboardEvent, react + Name("ReactClipboardEventFrom"), _1Element),
-      CastConversion(reactNames.CompositionEvent, react + Name("ReactCompositionEventFrom"), _1Element),
-      CastConversion(reactNames.DragEvent, react + Name("ReactDragEventFrom"), _1Element),
-      CastConversion(reactNames.FocusEvent, react + Name("ReactFocusEventFrom"), _1Element),
-      CastConversion(reactNames.KeyboardEvent, react + Name("ReactKeyboardEventFrom"), _1Element),
-      CastConversion(reactNames.MouseEvent, react + Name("ReactMouseEventFrom"), _1Element),
-      CastConversion(reactNames.PointerEvent, react + Name("ReactPointerEventFrom"), _1Element),
-      CastConversion(reactNames.TouchEvent, react + Name("ReactTouchEventFrom"), _1Element),
-      CastConversion(reactNames.TransitionEvent, react + Name("ReactTransitionEventFrom"), _1Element),
-      CastConversion(reactNames.UIEvent, react + Name("ReactUIEventFrom"), _1Element),
-      CastConversion(reactNames.WheelEvent, react + Name("ReactWheelEventFrom"), _1Element),
-    )
-  }
-
-  val ToJapgollyTypes = TypeRewriterCast(conversions)
+final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) {
+  import JapgollyGenComponents._
 
   val additionalOptionalProps: IArray[(ParamTree, Name => ExprTree)] = {
     import ExprTree._
@@ -159,106 +106,6 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
     IArray(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
   }
 
-  object memberToProp extends MemberToProp.Default(Some(ToJapgollyTypes)) {
-    override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
-      default(scope, x, isInherited)
-        .map(_.rewrite(toScalaJsReact(scope)))
-
-    def toScalaJsReact(scope: TreeScope)(param: Prop.Variant): Prop.Variant = {
-      object StripWildcards {
-        def unapply(tr: TypeRef): Some[TypeRef] =
-          Some(Wildcards.Remove.visitTypeRef(scope)(tr))
-
-        def unapply(trs: IArray[TypeRef]): Some[IArray[TypeRef]] =
-          Some(trs.map(Wildcards.Remove.visitTypeRef(scope)))
-      }
-
-      param.tree match {
-        /* rewrite functions returning a Callback so that javascript land can call them */
-        case pt @ ParamTree(name, _, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), default, _)
-            if default =/= NotImplemented =>
-          /* wrap optional `Callback` in `js.UndefOr` because it's an `AnyVal` */
-          def fn(obj: Name): ExprTree =
-            ExprTree.Custom(
-              s"""${name.value}.foreach(p => ${obj.value}.updateDynamic("${name.unescaped}")(p.toJsFn))""",
-            )
-          Prop.Variant(
-            tree        = pt.copy(tpe = TypeRef.UndefOr(CallbackTo(retType)), default = ExprTree.undefined),
-            asExpr      = Right(fn),
-            isRewritten = true,
-          )
-
-        case pt @ ParamTree(name, _, _, TypeRef.ScalaFunction(Empty, StripWildcards(retType)), NotImplemented, _) =>
-          def fn(obj: Name): ExprTree =
-            ExprTree.Custom(s"""${obj.value}.updateDynamic("${name.unescaped}")(${name.value}.toJsFn)""")
-
-          Prop.Variant(tree = pt.copy(tpe = CallbackTo(retType)), asExpr = Right(fn), isRewritten = true)
-
-        case pt @ ParamTree(
-              name,
-              _,
-              _,
-              TypeRef.ScalaFunction(StripWildcards(paramTypes), StripWildcards(retType)),
-              defaultValue,
-              _,
-            ) =>
-          def fn(obj: Name): ExprTree = {
-            import ExprTree._
-            val params = paramTypes.zipWithIndex.map {
-              case (tpe, i) =>
-                ParamTree(Name(s"t$i"), isImplicit = false, isVal = false, tpe, NotImplemented, NoComments)
-            }
-            val body =
-              Call(Select(Call(Ref(name), IArray(params.map(p => Ref(p.name)))), Name("runNow")), IArray(IArray()))
-            val asJsFunction =
-              Call(Ref(QualifiedName.Any + Name(s"fromFunction${params.length}")), IArray(IArray(Lambda(params, body))))
-            val mutateObject = Call(
-              Select(Ref(obj), Name("updateDynamic")),
-              IArray(IArray(StringLit(name.unescaped)), IArray(asJsFunction)),
-            )
-
-            defaultValue match {
-              case NotImplemented => mutateObject
-              case _              => If(BinaryOp(Ref(name), "!=", Null), mutateObject, None)
-            }
-          }
-
-          val newRetType = TypeRef.ScalaFunction(paramTypes, CallbackTo(retType), NoComments)
-
-          Prop.Variant(
-            tree = pt
-              .copy(tpe = newRetType, default = if (defaultValue === NotImplemented) NotImplemented else ExprTree.Null),
-            asExpr      = Right(fn),
-            isRewritten = true,
-          )
-
-        case pt @ ParamTree(name, _, _, TypeRef(reactNames.ReactElement, _, _), _, _) =>
-          def fn(obj: Name): ExprTree =
-            ExprTree.Custom(
-              s"""if (${name.value} != null) ${obj.unescaped}.updateDynamic("${name.unescaped}")(${name.value}.rawElement.asInstanceOf[js.Any])""",
-            )
-          Prop.Variant(
-            tree        = pt.copy(tpe = TypeRef(japgolly.vdomReactElement)),
-            asExpr      = Right(fn),
-            isRewritten = true,
-          )
-
-        case pt @ ParamTree(name, _, _, TypeRef(reactNames.ReactNode, _, _), _, _) =>
-          def fn(obj: Name) =
-            ExprTree.Custom(
-              s"""if (${name.value} != null) ${obj.unescaped}.updateDynamic("${name.unescaped}")(${name.value}.rawNode.asInstanceOf[js.Any])""",
-            )
-          Prop.Variant(
-            tree        = pt.copy(tpe = TypeRef(japgolly.vdomVdomNode)),
-            asExpr      = Right(fn),
-            isRewritten = true,
-          )
-
-        case _ => param
-      }
-    }
-  }
-
   def apply(scope: TreeScope, tree: ContainerTree, components: IArray[Component]): ContainerTree = {
     val pkgCp = tree.codePath + names.components
 
@@ -275,7 +122,6 @@ final class GenJapgollyComponents(reactNames: ReactNames, scalaJsDomNames: Scala
                       propsRef,
                       tparams,
                       scope,
-                      memberToProp,
                       maxNum             = FindProps.MaxParamsForMethod - additionalOptionalProps.length - /* children*/ 1,
                       acceptNativeTraits = true,
                       keep               = FindProps.keepAll,

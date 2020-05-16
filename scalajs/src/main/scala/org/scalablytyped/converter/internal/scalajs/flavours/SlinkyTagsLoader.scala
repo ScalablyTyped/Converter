@@ -4,7 +4,7 @@ package flavours
 
 import io.circe013.Decoder
 import org.scalablytyped.converter.internal.scalajs.QualifiedName.StdNames
-import org.scalablytyped.converter.internal.scalajs.flavours.GenSlinkyComponents.names.{
+import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names.{
   AnyHtmlElement,
   SlinkyHtmlElement,
   SlinkySvgElement,

@@ -137,7 +137,7 @@ object ScalaJsClasses {
       ObjectMembers.ScalaObject,
       StringDictionary,
       NumberDictionary,
-      flavours.GenSlinkyComponents.classDefs.ExternalComponentNoPropsCls,
-      flavours.GenSlinkyComponents.classDefs.ExternalComponentPropsCls,
+      flavours.SlinkyGenComponents.classDefs.ExternalComponentNoPropsCls,
+      flavours.SlinkyGenComponents.classDefs.ExternalComponentPropsCls,
     )).map(x => x.codePath -> x).toMap
 }
