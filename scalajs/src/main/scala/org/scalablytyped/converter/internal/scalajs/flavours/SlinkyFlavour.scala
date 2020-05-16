@@ -10,7 +10,7 @@ case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends Fl
   override val dependencies = Set(Versions.runtime, Versions.slinkyWeb)
   val rewriter              = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
   val memberToProp          = new MemberToProp.Default(Some(rewriter))
-  val findProps             = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
+  val findProps             = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genCompanions         = new GenCompanions(findProps, enableImplicitOps)
 
   /* we need the actual typescript react definitions at runtime to compute this lazily */
@@ -22,7 +22,7 @@ case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends Fl
         case _ if !involvesReact(scope) => None
         case existing @ Some(_)         => existing
         case None =>
-          val tags      = SlinkyTagsLoader(stdNames, reactNames, scalaJsDomNames, scope / tree)
+          val tags      = SlinkyTagsLoader(stdNames, reactNames, scalaJsDomNames, scope / tree, parentsResolver)
           val slinkyWeb = Some(new SlinkyWeb(reactNames, tags))
           cached = slinkyWeb
           slinkyWeb

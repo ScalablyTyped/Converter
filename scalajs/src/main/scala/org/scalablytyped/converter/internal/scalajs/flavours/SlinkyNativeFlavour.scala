@@ -12,7 +12,7 @@ case class SlinkyNativeFlavour(outputPkg: Name, enableImplicitOps: Boolean) exte
 
   val rewriter      = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = false))
   val memberToProp  = new MemberToProp.Default(Some(rewriter))
-  val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
+  val findProps     = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val gen           = new SlinkyGenComponents(SlinkyGenComponents.Native(()), findProps)
   val genCompanions = new GenCompanions(findProps, enableImplicitOps)
 

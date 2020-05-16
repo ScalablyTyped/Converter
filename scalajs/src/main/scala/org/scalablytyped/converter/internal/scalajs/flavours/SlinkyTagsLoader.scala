@@ -19,6 +19,7 @@ object SlinkyTagsLoader {
       reactNames:      ReactNames,
       scalaJsDomNames: ScalaJsDomNames,
       scope:           TreeScope,
+      parentsResolver: ParentsResolver,
   ): Map[TagName, CombinedTag] = {
 
     val stdHtmlTags: Map[TagName, TypeRef] = extractStdTags(scope, stdNames.HTMLElementTagNameMap)
@@ -28,6 +29,7 @@ object SlinkyTagsLoader {
       scope                = scope,
       jsxIntrinsicElements = reactNames.JsxIntrinsicElements,
       stdRefByTag          = stdSvgTags ++ stdHtmlTags,
+      parentsResolver,
     )
 
     val ret = html.groupBy(_.tagName) map { case (name, IArray.first(ct)) => name -> ct }
@@ -37,7 +39,7 @@ object SlinkyTagsLoader {
         val x = FillInTParams(_x, newScope, IArray(TypeRef(stdNames.Element)), Empty)
 
         val parentMembers: IArray[Tree] =
-          ParentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
+          parentsResolver(newScope, x).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
         val attrs = parentMembers ++ x.members collect {
           case FieldTree(_, name, Optional(tpe), _, _, _, _, _) if AttrsByTag.AllHtmlAttrs(name.unescaped) =>
@@ -72,6 +74,7 @@ object SlinkyTagsLoader {
       scope:                TreeScope,
       jsxIntrinsicElements: QualifiedName,
       stdRefByTag:          Map[TagName, TypeRef],
+      parentsResolver:      ParentsResolver,
   ): IArray[CombinedTag] = {
     def go(newScope: TreeScope, tagName: TagName.Concrete, tagInterfaceRef: TypeRef): Option[CombinedTag] =
       newScope
@@ -96,7 +99,7 @@ object SlinkyTagsLoader {
             val (_, attrs)       = slinkyAttrsByTag(tagName)
 
             val parentMembers: IArray[Tree] =
-              ParentsResolver(newnewScope, tagInterface).transitiveParents.flatMapToIArray { case (_, v) => v.members }
+              parentsResolver(newnewScope, tagInterface).transitiveParents.flatMapToIArray { case (_, v) => v.members }
 
             val members: IArray[(Name, TypeRef)] =
               parentMembers ++ tagInterface.members collect {

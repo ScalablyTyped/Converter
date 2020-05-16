@@ -4,7 +4,7 @@ package flavours
 
 import org.scalablytyped.converter.internal.maps._
 
-class IdentifyReactComponents(reactNames: ReactNames) {
+class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsResolver) {
   def length(qualifiedName: QualifiedName): Int =
     qualifiedName.parts.foldLeft(0)(_ + _.unescaped.length)
 
@@ -144,7 +144,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
           .firstDefined {
             case (x: ClassTree, newScope) =>
               val rewritten = FillInTParams(x, newScope, current.targs, Empty)
-              ParentsResolver(newScope, rewritten).transitiveParents.collectFirst {
+              parentsResolver(newScope, rewritten).transitiveParents.collectFirst {
                 case (tr, _) => pointsAtComponentType(newScope, tr)
               }.flatten
             case (x: TypeAliasTree, newScope) =>
@@ -199,7 +199,7 @@ class IdentifyReactComponents(reactNames: ReactNames) {
   def maybeClassComponent(cls: ClassTree, owner: ContainerTree, scope: TreeScope): Option[Component] =
     if (cls.classType =/= ClassType.Class) None
     else
-      ParentsResolver(scope, cls).transitiveParents.collectFirst {
+      parentsResolver(scope, cls).transitiveParents.collectFirst {
         case (tr @ TypeRef(_, IArray.first(props), _), _) if reactNames isComponent tr =>
           Component(
             location        = locationFrom(scope),

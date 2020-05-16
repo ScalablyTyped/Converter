@@ -7,12 +7,12 @@ import scala.collection.mutable
 
 /**
   * Scala is again more strict with inheritance with differing type parameters,
-  *  and we only augment the problem by freely tagging things as instantiatable and
-  *  dictionaries in the import.
+  * and we only augment the problem by freely tagging things as instantiatable and
+  * dictionaries in the import.
   *
-  *  todo: merge with `RemoveMultipleInheritance`?
+  * todo: merge with `RemoveMultipleInheritance`?
   */
-object RemoveDuplicateInheritance extends TreeTransformation {
+class RemoveDuplicateInheritance(parentsResolver: ParentsResolver) extends TreeTransformation {
   override def leaveClassTree(scope: TreeScope)(_s: ClassTree): ClassTree = {
     val s = dropInheritedConflicts(scope, _s)
     conflicts(s.parents).fold(s)(conflicts => s.copy(parents = resolved(s.parents, conflicts)))
@@ -65,7 +65,7 @@ object RemoveDuplicateInheritance extends TreeTransformation {
     */
   def dropInheritedConflicts(scope: TreeScope, cls: ClassTree): ClassTree = {
     val allParentRefs: Set[TypeRef] =
-      ParentsResolver(scope, cls).transitiveParents
+      parentsResolver(scope, cls).transitiveParents
         .foldLeft(Set.empty[TypeRef])(_ ++ _._2.parents.map(_.copy(targs = Empty)).toSet)
 
     cls.parents.partition(p => allParentRefs(p.copy(targs = Empty))) match {

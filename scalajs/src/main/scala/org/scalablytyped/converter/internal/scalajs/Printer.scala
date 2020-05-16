@@ -30,15 +30,16 @@ object Printer {
       fs.toMap
   }
 
-  def apply(scope: TreeScope, tree: ContainerTree): Map[os.RelPath, Array[Byte]] = {
+  def apply(scope: TreeScope, parentsResolver: ParentsResolver, tree: ContainerTree): Map[os.RelPath, Array[Byte]] = {
     val reg = new Registry()
 
     apply(
-      _scope       = scope,
-      reg          = reg,
-      packages     = IArray(tree.name),
-      targetFolder = os.RelPath(tree.name.value),
-      tree         = tree,
+      _scope          = scope,
+      parentsResolver = parentsResolver,
+      reg             = reg,
+      packages        = IArray(tree.name),
+      targetFolder    = os.RelPath(tree.name.value),
+      tree            = tree,
     )
 
     reg.result
@@ -50,17 +51,17 @@ object Printer {
        |import scala.scalajs.js.annotation._""".stripMargin
 
   def apply(
-      _scope:       TreeScope,
-      reg:          Registry,
-      packages:     IArray[Name],
-      targetFolder: os.RelPath,
-      tree:         ContainerTree,
+      _scope:          TreeScope,
+      parentsResolver: ParentsResolver,
+      reg:             Registry,
+      packages:        IArray[Name],
+      targetFolder:    os.RelPath,
+      tree:            ContainerTree,
   ): Unit = {
-    val files: IArray[(ScalaOutput, IArray[Tree])] =
-      tree match {
-        case _: PackageTree => tree.members.groupBy(ScalaOutput.outputAs).asIArray
-        case other => IArray(ScalaOutput.File(other.name) -> IArray(other))
-      }
+    val files: Map[ScalaOutput, IArray[Tree]] = tree match {
+      case _: PackageTree => tree.members groupBy ScalaOutput.outputAs
+      case other => Map(ScalaOutput.File(other.name) -> IArray(other))
+    }
     val scope = _scope / tree
 
     val packageScalaFileName: String = {
@@ -84,19 +85,19 @@ object Printer {
     files foreach {
       case (ScalaOutput.File(name), members: IArray[Tree]) =>
         reg.write(targetFolder / os.RelPath(s"${name.unescaped}.scala")) { writer =>
-          val (imports, shortenedMembers) = ShortenNames(tree, scope)(members)
+          val (imports, shortenedMembers) = ShortenNames(tree, scope, parentsResolver)(members)
           writer println s"package ${formatQN(QualifiedName(packages))}"
           writer.println("")
           imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
           writer.println(Imports)
           writer.println("")
-          shortenedMembers foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 0)
+          shortenedMembers foreach printTree(scope, parentsResolver, reg, Indenter(writer), packages, targetFolder, 0)
         }
 
       case (ScalaOutput.Package(name), pkgs) =>
         pkgs foreach {
           case pkg: PackageTree =>
-            apply(scope, reg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
+            apply(scope, parentsResolver, reg, packages :+ name, targetFolder / os.RelPath(name.unescaped), pkg)
           case _ => sys.error("i was too lazy to prove this with types")
         }
 
@@ -112,7 +113,7 @@ object Printer {
           writer.println(Imports)
           writer.println("")
           writer.println("package object " + formatName(tree.name) + " {")
-          members foreach printTree(scope, reg, Indenter(writer), packages, targetFolder, 2)
+          members foreach printTree(scope, parentsResolver, reg, Indenter(writer), packages, targetFolder, 2)
           writer.println("}")
         }
     }
@@ -145,19 +146,20 @@ object Printer {
   }
 
   def printTree(
-      _scope:       TreeScope,
-      reg:          Registry,
-      w:            Indenter,
-      packageNames: IArray[Name],
-      folder:       os.RelPath,
-      indent:       Int,
+      _scope:          TreeScope,
+      parentsResolver: ParentsResolver,
+      reg:             Registry,
+      w:               Indenter,
+      packageNames:    IArray[Name],
+      folder:          os.RelPath,
+      indent:          Int,
   )(
       tree: Tree,
   ): Unit = {
     val scope = _scope / tree
 
     val printSym: Tree => Unit =
-      printTree(scope, reg, w, packageNames, folder, indent + 2)
+      printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2)
 
     def print(ss: String*): Unit =
       ss foreach w.print(indent)
@@ -169,7 +171,7 @@ object Printer {
 
     tree match {
       case tree: PackageTree =>
-        apply(scope, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
+        apply(scope, parentsResolver, reg, packageNames :+ tree.name, folder / os.RelPath(tree.name.value), tree)
 
       case c @ ClassTree(isImplicit, anns, name, tparams, parents, ctors, members, classType, isSealed, comments, _) =>
         print(Comments.format(comments))
@@ -228,7 +230,7 @@ object Printer {
         if (members.nonEmpty) {
           println(" {")
 
-          members foreach printTree(scope, reg, w, packageNames, folder, indent + 2)
+          members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2)
           println("}")
         } else
           println()
