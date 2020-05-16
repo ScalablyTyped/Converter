@@ -26,7 +26,8 @@ object HTMLProps {
     acceptCharset: String = null,
     children: VdomNode = null,
     dangerouslySetInnerHTML: AnonHtml = null,
-    defaultChecked: js.UndefOr[Boolean] = js.undefined
+    defaultChecked: js.UndefOr[Boolean] = js.undefined,
+    onClick: Double | (js.Function1[/* x */ String, Unit]) = null
   ): HTMLProps[T] = {
     val __obj = js.Dynamic.literal(defaultValue = defaultValue.asInstanceOf[js.Any], onChange = onChange.asInstanceOf[js.Any], value = value.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
@@ -35,7 +36,40 @@ object HTMLProps {
     if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     if (dangerouslySetInnerHTML != null) __obj.updateDynamic("dangerouslySetInnerHTML")(dangerouslySetInnerHTML.asInstanceOf[js.Any])
     if (!js.isUndefined(defaultChecked)) __obj.updateDynamic("defaultChecked")(defaultChecked.asInstanceOf[js.Any])
+    if (onClick != null) __obj.updateDynamic("onClick")(onClick.asInstanceOf[js.Any])
     __obj.asInstanceOf[HTMLProps[T]]
   }
+  @scala.inline
+  implicit class HTMLPropsOps[Self[t] <: HTMLProps[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withDefaultValue(defaultValue: foo): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("defaultValue")(defaultValue.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withOnChange(onChange: foo): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("onChange")(onChange.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withType(`type`: foo): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withValue(value: foo): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

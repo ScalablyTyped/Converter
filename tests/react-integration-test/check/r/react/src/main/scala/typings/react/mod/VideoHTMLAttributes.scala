@@ -432,5 +432,73 @@ object VideoHTMLAttributes {
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
     __obj.asInstanceOf[VideoHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class VideoHTMLAttributesOps[Self[t] <: VideoHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withDisablePictureInPicture(disablePictureInPicture: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(disablePictureInPicture)) ret.updateDynamic("disablePictureInPicture")(disablePictureInPicture.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutDisablePictureInPicture: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "disablePictureInPicture")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHeight(height: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (height != null) ret.updateDynamic("height")(height.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHeight: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "height")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withPlaysInline(playsInline: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(playsInline)) ret.updateDynamic("playsInline")(playsInline.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutPlaysInline: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "playsInline")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withPoster(poster: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (poster != null) ret.updateDynamic("poster")(poster.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutPoster: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "poster")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withWidth(width: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (width != null) ret.updateDynamic("width")(width.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutWidth: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "width")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

@@ -1,6 +1,7 @@
 package typingsJapgolly.reactContextmenu.mod
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
 import org.scalajs.dom.raw.HTMLElement
 import scala.scalajs.js
@@ -53,5 +54,118 @@ object ContextMenuProps {
     if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
     __obj.asInstanceOf[ContextMenuProps]
   }
+  @scala.inline
+  implicit class ContextMenuPropsOps[Self <: ContextMenuProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withId(id: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("id")(id.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClassName(className: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutClassName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "className")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withData(data: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (data != null) ret.updateDynamic("data")(data.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutData: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "data")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withHideOnLeave(hideOnLeave: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(hideOnLeave)) ret.updateDynamic("hideOnLeave")(hideOnLeave.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutHideOnLeave: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "hideOnLeave")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnHide(onHide: /* event */ js.Any => Callback): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onHide != null) ret.updateDynamic("onHide")(js.Any.fromFunction1((t0: /* event */ js.Any) => onHide(t0).runNow()))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnHide: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onHide")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnMouseLeaveFunction3(
+      onMouseLeave: (/* event */ ReactMouseEventFrom[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => CallbackTo[Callback]
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("onMouseLeave")(js.Any.fromFunction3((t0: /* event */ ReactMouseEventFrom[HTMLElement], t1: /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, t2: /* target */ HTMLElement) => onMouseLeave(t0, t1, t2).runNow()))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnMouseLeave(
+      onMouseLeave: (js.Function3[
+          /* event */ ReactMouseEventFrom[HTMLElement], 
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+          /* target */ HTMLElement, 
+          Unit
+        ]) | js.Function
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onMouseLeave != null) ret.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnMouseLeave: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onMouseLeave")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnShow(onShow: /* event */ js.Any => Callback): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onShow != null) ret.updateDynamic("onShow")(js.Any.fromFunction1((t0: /* event */ js.Any) => onShow(t0).runNow()))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnShow: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onShow")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withRtl(rtl: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(rtl)) ret.updateDynamic("rtl")(rtl.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutRtl: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "rtl")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

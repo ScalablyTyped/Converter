@@ -415,5 +415,25 @@ object MapHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[MapHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class MapHTMLAttributesOps[Self[t] <: MapHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withName(name: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (name != null) ret.updateDynamic("name")(name.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutName: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "name")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

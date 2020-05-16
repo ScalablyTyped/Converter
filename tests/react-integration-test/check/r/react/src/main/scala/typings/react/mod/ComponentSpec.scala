@@ -62,5 +62,19 @@ object ComponentSpec {
     if (statics != null) __obj.updateDynamic("statics")(statics.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentSpec[P, S]]
   }
+  @scala.inline
+  implicit class ComponentSpecOps[Self[p, s] <: ComponentSpec[p, s], P, S] (val x: Self[P, S]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    @scala.inline
+    def withRender(render: () => ReactNode): Self[P, S] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("render")(js.Any.fromFunction0(render))
+        ret.asInstanceOf[Self[P, S]]
+    }
+  }
+  
 }
 

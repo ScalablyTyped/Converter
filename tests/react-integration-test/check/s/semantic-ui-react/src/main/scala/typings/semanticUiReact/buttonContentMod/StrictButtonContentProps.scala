@@ -41,5 +41,85 @@ object StrictButtonContentProps {
     if (!js.isUndefined(visible)) __obj.updateDynamic("visible")(visible.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictButtonContentProps]
   }
+  @scala.inline
+  implicit class StrictButtonContentPropsOps[Self <: StrictButtonContentProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withAs(as: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAs: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildren(children: ReactNode): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutChildren: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "children")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClassName(className: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutClassName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "className")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContent(content: SemanticShorthandContent): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContent: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withHidden(hidden: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(hidden)) ret.updateDynamic("hidden")(hidden.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutHidden: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "hidden")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withVisible(visible: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(visible)) ret.updateDynamic("visible")(visible.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutVisible: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "visible")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

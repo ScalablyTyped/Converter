@@ -51,5 +51,49 @@ object StrictAccordionProps {
     if (!js.isUndefined(styled)) __obj.updateDynamic("styled")(styled.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictAccordionProps]
   }
+  @scala.inline
+  implicit class StrictAccordionPropsOps[Self <: StrictAccordionProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFluid: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fluid")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withInverted(inverted: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(inverted)) ret.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutInverted: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "inverted")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withStyled(styled: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(styled)) ret.updateDynamic("styled")(styled.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutStyled: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "styled")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

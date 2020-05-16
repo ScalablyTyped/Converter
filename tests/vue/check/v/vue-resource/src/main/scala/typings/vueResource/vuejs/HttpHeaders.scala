@@ -37,5 +37,85 @@ object HttpHeaders {
     if (put != null) __obj.updateDynamic("put")(put.asInstanceOf[js.Any])
     __obj.asInstanceOf[HttpHeaders]
   }
+  @scala.inline
+  implicit class HttpHeadersOps[Self <: HttpHeaders] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withCommon(common: StringDictionary[String]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (common != null) ret.updateDynamic("common")(common.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutCommon: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "common")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withCustom(custom: StringDictionary[String]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (custom != null) ret.updateDynamic("custom")(custom.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutCustom: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "custom")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withDelete(delete: StringDictionary[String]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (delete != null) ret.updateDynamic("delete")(delete.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutDelete: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "delete")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPatch(patch: StringDictionary[String]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (patch != null) ret.updateDynamic("patch")(patch.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPatch: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "patch")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPost(post: StringDictionary[String]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (post != null) ret.updateDynamic("post")(post.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPost: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "post")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPut(put: StringDictionary[String]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (put != null) ret.updateDynamic("put")(put.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPut: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "put")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

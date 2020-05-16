@@ -13,7 +13,10 @@ import typings.react.mod.KeyboardEvent
 import typings.react.mod.MouseEvent
 import typings.react.mod.NativeMouseEvent
 import typings.react.mod.PointerEvent
+import typings.react.mod.ReactElement
 import typings.react.mod.ReactNode
+import typings.react.mod.ReactNodeArray
+import typings.react.mod.ReactType
 import typings.react.mod.SyntheticEvent
 import typings.react.mod.TouchEvent
 import typings.react.mod.TransitionEvent
@@ -575,5 +578,331 @@ object StrictButtonProps {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictButtonProps]
   }
+  @scala.inline
+  implicit class StrictButtonPropsOps[Self <: StrictButtonProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withActive(active: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(active)) ret.updateDynamic("active")(active.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutActive: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "active")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAnimated(animated: Boolean | fade | vertical): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (animated != null) ret.updateDynamic("animated")(animated.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAnimated: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "animated")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAs(as: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAs: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAttached(attached: Boolean | left | right | top | bottom): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (attached != null) ret.updateDynamic("attached")(attached.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAttached: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "attached")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withBasic(basic: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(basic)) ret.updateDynamic("basic")(basic.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutBasic: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "basic")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withCircular(circular: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(circular)) ret.updateDynamic("circular")(circular.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutCircular: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "circular")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withColor(color: SemanticCOLORS | facebook | (`google plus`) | vk | twitter | linkedin | instagram | youtube): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (color != null) ret.updateDynamic("color")(color.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutColor: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "color")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withCompact(compact: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(compact)) ret.updateDynamic("compact")(compact.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutCompact: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "compact")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContent(content: SemanticShorthandContent): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContent: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFloated(floated: SemanticFLOATS): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (floated != null) ret.updateDynamic("floated")(floated.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFloated: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "floated")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withFluid(fluid: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(fluid)) ret.updateDynamic("fluid")(fluid.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutFluid: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "fluid")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIconFunction3(
+      icon: (/* component */ ReactType[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[ReactNode | ReactNodeArray]) => ReactElement | Null
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("icon")(js.Any.fromFunction3(icon))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIcon(
+      icon: Boolean | (SemanticShorthandItem[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+        ])
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (icon != null) ret.updateDynamic("icon")(icon.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutIcon: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "icon")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withInverted(inverted: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(inverted)) ret.updateDynamic("inverted")(inverted.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutInverted: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "inverted")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withLabelFunction3(
+      label: (/* component */ ReactType[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+        ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _, /* children */ js.UndefOr[ReactNode | ReactNodeArray]) => ReactElement | Null
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("label")(js.Any.fromFunction3(label))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withLabel(
+      label: SemanticShorthandItem[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify LabelProps */ _
+        ]
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (label != null) ret.updateDynamic("label")(label.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutLabel: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "label")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withLabelPosition(labelPosition: right | left): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (labelPosition != null) ret.updateDynamic("labelPosition")(labelPosition.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutLabelPosition: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "labelPosition")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withLoading(loading: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(loading)) ret.updateDynamic("loading")(loading.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutLoading: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "loading")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withNegative(negative: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(negative)) ret.updateDynamic("negative")(negative.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutNegative: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "negative")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnClick(
+      onClick: (/* event */ MouseEvent[HTMLButtonElement, NativeMouseEvent], /* data */ ButtonProps) => Unit
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onClick != null) ret.updateDynamic("onClick")(js.Any.fromFunction2(onClick))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnClick: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onClick")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPositive(positive: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(positive)) ret.updateDynamic("positive")(positive.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPositive: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "positive")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withPrimary(primary: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(primary)) ret.updateDynamic("primary")(primary.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutPrimary: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "primary")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withSecondary(secondary: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(secondary)) ret.updateDynamic("secondary")(secondary.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutSecondary: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "secondary")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withSize(size: SemanticSIZES): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (size != null) ret.updateDynamic("size")(size.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutSize: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "size")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withTabIndex(tabIndex: Double | String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (tabIndex != null) ret.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutTabIndex: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "tabIndex")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withToggle(toggle: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(toggle)) ret.updateDynamic("toggle")(toggle.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutToggle: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "toggle")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

@@ -19,5 +19,25 @@ object NodeProcess {
     if (env != null) __obj.updateDynamic("env")(env.asInstanceOf[js.Any])
     __obj.asInstanceOf[NodeProcess]
   }
+  @scala.inline
+  implicit class NodeProcessOps[Self <: NodeProcess] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withEnv(env: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (env != null) ret.updateDynamic("env")(env.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutEnv: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "env")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

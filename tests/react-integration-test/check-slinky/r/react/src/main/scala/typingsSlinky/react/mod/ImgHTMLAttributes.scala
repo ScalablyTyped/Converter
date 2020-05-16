@@ -443,5 +443,121 @@ object ImgHTMLAttributes {
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
     __obj.asInstanceOf[ImgHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class ImgHTMLAttributesOps[Self[t] <: ImgHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withAlt(alt: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (alt != null) ret.updateDynamic("alt")(alt.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutAlt: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "alt")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withCrossOrigin(crossOrigin: anonymous | `use-credentials` | _empty): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (crossOrigin != null) ret.updateDynamic("crossOrigin")(crossOrigin.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutCrossOrigin: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "crossOrigin")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withDecoding(decoding: async | auto | sync): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (decoding != null) ret.updateDynamic("decoding")(decoding.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutDecoding: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "decoding")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHeight(height: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (height != null) ret.updateDynamic("height")(height.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHeight: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "height")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSizes(sizes: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (sizes != null) ret.updateDynamic("sizes")(sizes.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSizes: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "sizes")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrc(src: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (src != null) ret.updateDynamic("src")(src.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrc: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "src")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrcSet(srcSet: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (srcSet != null) ret.updateDynamic("srcSet")(srcSet.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrcSet: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "srcSet")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withUseMap(useMap: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (useMap != null) ret.updateDynamic("useMap")(useMap.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutUseMap: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "useMap")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withWidth(width: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (width != null) ret.updateDynamic("width")(width.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutWidth: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "width")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

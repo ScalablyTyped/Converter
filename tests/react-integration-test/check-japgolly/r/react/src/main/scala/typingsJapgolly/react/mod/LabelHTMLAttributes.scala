@@ -418,5 +418,37 @@ object LabelHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[LabelHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class LabelHTMLAttributesOps[Self[t] <: LabelHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withForm(form: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (form != null) ret.updateDynamic("form")(form.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutForm: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "form")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withHtmlFor(htmlFor: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (htmlFor != null) ret.updateDynamic("htmlFor")(htmlFor.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHtmlFor: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "htmlFor")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

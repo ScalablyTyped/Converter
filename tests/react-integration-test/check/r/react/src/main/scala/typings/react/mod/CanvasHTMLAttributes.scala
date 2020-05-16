@@ -403,5 +403,37 @@ object CanvasHTMLAttributes {
     if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
     __obj.asInstanceOf[CanvasHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class CanvasHTMLAttributesOps[Self[t] <: CanvasHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withHeight(height: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (height != null) ret.updateDynamic("height")(height.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutHeight: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "height")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withWidth(width: Double | String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (width != null) ret.updateDynamic("width")(width.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutWidth: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "width")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

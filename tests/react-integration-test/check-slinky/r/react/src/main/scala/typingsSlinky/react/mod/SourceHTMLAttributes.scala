@@ -425,5 +425,73 @@ object SourceHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[SourceHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class SourceHTMLAttributesOps[Self[t] <: SourceHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withMedia(media: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (media != null) ret.updateDynamic("media")(media.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutMedia: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "media")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSizes(sizes: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (sizes != null) ret.updateDynamic("sizes")(sizes.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSizes: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "sizes")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrc(src: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (src != null) ret.updateDynamic("src")(src.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrc: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "src")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrcSet(srcSet: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (srcSet != null) ret.updateDynamic("srcSet")(srcSet.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrcSet: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "srcSet")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withType(`type`: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (`type` != null) ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutType: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "type")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

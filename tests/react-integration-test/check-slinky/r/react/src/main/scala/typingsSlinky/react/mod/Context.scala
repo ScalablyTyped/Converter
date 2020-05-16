@@ -23,5 +23,37 @@ object Context {
     if (displayName != null) __obj.updateDynamic("displayName")(displayName.asInstanceOf[js.Any])
     __obj.asInstanceOf[Context[T]]
   }
+  @scala.inline
+  implicit class ContextOps[Self[t] <: Context[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withConsumer(Consumer: ReactComponentClass[ConsumerProps[T]]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("Consumer")(Consumer.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withProvider(Provider: ReactComponentClass[ProviderProps[T]]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("Provider")(Provider.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withDisplayName(displayName: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (displayName != null) ret.updateDynamic("displayName")(displayName.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutDisplayName: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "displayName")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

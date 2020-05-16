@@ -61,5 +61,157 @@ object Options {
     if (!js.isUndefined(y)) __obj.updateDynamic("y")(y.asInstanceOf[js.Any])
     __obj.asInstanceOf[Options]
   }
+  @scala.inline
+  implicit class OptionsOps[Self <: Options] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withCancelable(cancelable: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(cancelable)) ret.updateDynamic("cancelable")(cancelable.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutCancelable: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "cancelable")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContainer(container: String | Element): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (container != null) ret.updateDynamic("container")(container.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContainer: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "container")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withDuration(duration: Int | Double): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (duration != null) ret.updateDynamic("duration")(duration.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutDuration: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "duration")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withEasing(easing: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (easing != null) ret.updateDynamic("easing")(easing.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutEasing: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "easing")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withEl(el: String | Element): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (el != null) ret.updateDynamic("el")(el.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutEl: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "el")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withElement(element: String | Element): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (element != null) ret.updateDynamic("element")(element.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutElement: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "element")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOffset(offset: Int | Double): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (offset != null) ret.updateDynamic("offset")(offset.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOffset: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "offset")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnCancelFunction0(onCancel: () => Unit): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("onCancel")(js.Any.fromFunction0(onCancel))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnCancel(onCancel: js.Function0[Unit] | `false`): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onCancel != null) ret.updateDynamic("onCancel")(onCancel.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnCancel: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onCancel")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnDoneFunction0(onDone: () => Unit): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("onDone")(js.Any.fromFunction0(onDone))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnDone(onDone: js.Function0[Unit] | `false`): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onDone != null) ret.updateDynamic("onDone")(onDone.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnDone: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onDone")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withX(x: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(x)) ret.updateDynamic("x")(x.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutX: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "x")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withY(y: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(y)) ret.updateDynamic("y")(y.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutY: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "y")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

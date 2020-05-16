@@ -73,8 +73,8 @@ object FindProps {
       if (isRequired) assign else If(BinaryOp(Ref(name), "!=", Null), assign, None)
     }
 
-    val main = Prop.Variant(param, Right(fn))
-    name -> Prop(main, isInherited = true, Left(ref))
+    val main = Prop.Variant(param, Right(fn), false)
+    name -> Prop(main, isInherited = true, variants = Empty, Left(ref))
   }
 
   case class Filtered[No](yes: IArray[Prop], no: No)

@@ -412,5 +412,73 @@ object TrackHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[TrackHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class TrackHTMLAttributesOps[Self[t] <: TrackHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withDefault(default: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(default)) ret.updateDynamic("default")(default.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutDefault: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "default")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withKind(kind: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (kind != null) ret.updateDynamic("kind")(kind.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutKind: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "kind")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withLabel(label: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (label != null) ret.updateDynamic("label")(label.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutLabel: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "label")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrc(src: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (src != null) ret.updateDynamic("src")(src.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrc: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "src")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSrcLang(srcLang: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (srcLang != null) ret.updateDynamic("srcLang")(srcLang.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSrcLang: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "srcLang")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

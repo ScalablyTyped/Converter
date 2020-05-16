@@ -1,10 +1,15 @@
 package typingsJapgolly.semanticUiReact.accordionTitleMod
 
 import japgolly.scalajs.react.Callback
+import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.ReactMouseEventFrom
+import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import org.scalajs.dom.raw.HTMLDivElement
+import typingsJapgolly.react.mod.ReactNodeArray
+import typingsJapgolly.react.mod.ReactType
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandContent
 import typingsJapgolly.semanticUiReact.genericMod.SemanticShorthandItem
 import scala.scalajs.js
@@ -71,5 +76,141 @@ object StrictAccordionTitleProps {
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => onClick(t0, t1).runNow()))
     __obj.asInstanceOf[StrictAccordionTitleProps]
   }
+  @scala.inline
+  implicit class StrictAccordionTitlePropsOps[Self <: StrictAccordionTitleProps] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withActive(active: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(active)) ret.updateDynamic("active")(active.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutActive: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "active")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withAs(as: js.Any): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (as != null) ret.updateDynamic("as")(as.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAs: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "as")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildrenVdomElement(children: VdomElement): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.rawElement.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withChildren(children: VdomNode): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (children != null) ret.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutChildren: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "children")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withClassName(className: String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutClassName: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "className")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContentVdomElement(content: VdomElement): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.rawElement.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withContent(content: SemanticShorthandContent): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutContent: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "content")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIconVdomElement(icon: VdomElement): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (icon != null) ret.updateDynamic("icon")(icon.rawElement.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIconFunction3(
+      icon: (/* component */ ReactType[js.Any], js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[CallbackTo[Element | Null]]
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("icon")(js.Any.fromFunction3((t0: /* component */ ReactType[js.Any], t1: js.Any, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => icon(t0, t1, t2).runNow()))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIcon(
+      icon: SemanticShorthandItem[
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
+        ]
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (icon != null) ret.updateDynamic("icon")(icon.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutIcon: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "icon")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withIndex(index: Double | String): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (index != null) ret.updateDynamic("index")(index.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutIndex: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "index")
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withOnClick(
+      onClick: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
+    ): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onClick != null) ret.updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => onClick(t0, t1).runNow()))
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutOnClick: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onClick")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

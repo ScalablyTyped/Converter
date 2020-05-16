@@ -36,10 +36,10 @@ object GenSlinkyComponents {
 
   final case class SplitProps(props: IArray[Prop]) {
     val (refTypes, _, _optionals, requireds, Empty) = props.partitionCollect4(
-      { case Prop(Prop.Variant(ParamTree(Name("ref"), _, _, tpe, _, _), _), _, _) => tpe },
-      { case Prop(pt, _, _) if GenSlinkyComponents.shouldIgnore(pt.tree)          => null },
-      { case Prop(Prop.Variant(p, Right(f)), _, _)                                => p -> f },
-      { case Prop(Prop.Variant(p, Left(expr)), _, _)                              => p -> expr },
+      { case Prop(Prop.Variant(ParamTree(Name("ref"), _, _, tpe, _, _), _, _), _, _, _) => tpe },
+      { case Prop(pt, _, _, _) if GenSlinkyComponents.shouldIgnore(pt.tree)             => null },
+      { case Prop(Prop.Variant(p, Right(f), _), _, _, _)                                => p -> f },
+      { case Prop(Prop.Variant(p, Left(expr), _), _, _, _)                              => p -> expr },
     )
     val optionals = _optionals ++ AdditionalOptionalParams
 
@@ -312,7 +312,7 @@ class GenSlinkyComponents(
               val no  = IArray.Builder.empty[FieldTree]
 
               props.foreach {
-                case prop @ Prop(_, _, Right(fieldTree: FieldTree)) =>
+                case prop @ Prop(_, _, _, Right(fieldTree: FieldTree)) =>
                   val isOptionalDom: Boolean =
                     if (!prop.isOptional) false
                     else
@@ -377,9 +377,9 @@ class GenSlinkyComponents(
   def inferSlinkyTag(props: IArray[Prop], slinkyWeb: SlinkyWeb): TagName = {
     val successfullyMapped: IArray[TagName] =
       props.flatMap {
-        case Prop(_, _, Left(_)) =>
+        case Prop(_, _, _, Left(_)) =>
           Empty
-        case Prop(_, _, Right(tree)) =>
+        case Prop(_, _, _, Right(tree)) =>
           TreeTraverse.collect(tree) {
             case tr: TypeRef if slinkyWeb.uniqueTagsByStdRef.contains(tr) =>
               slinkyWeb.uniqueTagsByStdRef(tr).tagName

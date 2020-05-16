@@ -33,5 +33,25 @@ object DuplexOptions {
     if (read != null) __obj.updateDynamic("read")(read.asInstanceOf[js.Any])
     __obj.asInstanceOf[DuplexOptions]
   }
+  @scala.inline
+  implicit class DuplexOptionsOps[Self <: DuplexOptions] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withAllowHalfOpen(allowHalfOpen: js.UndefOr[Boolean]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(allowHalfOpen)) ret.updateDynamic("allowHalfOpen")(allowHalfOpen.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self]
+    }
+    @scala.inline
+    def withoutAllowHalfOpen: Self = {
+        val ret = this.duplicate
+        js.special.delete(ret, "allowHalfOpen")
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

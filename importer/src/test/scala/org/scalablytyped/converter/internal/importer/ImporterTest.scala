@@ -8,8 +8,8 @@ import org.scalatest.funsuite.AnyFunSuite
 
 class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExecution {
   val update   = !constants.isCi
-  val Slinky   = SlinkyFlavour(Name("typingsSlinky"))
-  val Japgolly = FlavourImpl.Japgolly(Name("typingsJapgolly"))
+  val Slinky   = SlinkyFlavour(Name("typingsSlinky"), enableImplicitOps = true)
+  val Japgolly = FlavourImpl.Japgolly(Name("typingsJapgolly"), enableImplicitOps = true)
 
   test("augment-module")(assertImportsOk("augment-module", pedantic                 = false, update = update))
   test("typings-json")(assertImportsOk("typings-json", pedantic                     = true, update  = update))

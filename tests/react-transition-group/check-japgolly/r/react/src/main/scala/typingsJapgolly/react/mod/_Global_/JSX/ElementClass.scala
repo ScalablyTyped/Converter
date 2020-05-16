@@ -20,5 +20,19 @@ object ElementClass {
     __obj.updateDynamic("render")(render.toJsFn)
     __obj.asInstanceOf[ElementClass]
   }
+  @scala.inline
+  implicit class ElementClassOps[Self <: ElementClass] (val x: Self) extends AnyVal {
+    @scala.inline
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    @scala.inline
+    def withRender(render: CallbackTo[Node]): Self = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("render")(render.toJsFn)
+        ret.asInstanceOf[Self]
+    }
+  }
+  
 }
 

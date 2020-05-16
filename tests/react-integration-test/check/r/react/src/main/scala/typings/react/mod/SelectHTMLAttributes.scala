@@ -426,5 +426,133 @@ object SelectHTMLAttributes {
     if (vocab != null) __obj.updateDynamic("vocab")(vocab.asInstanceOf[js.Any])
     __obj.asInstanceOf[SelectHTMLAttributes[T]]
   }
+  @scala.inline
+  implicit class SelectHTMLAttributesOps[Self[t] <: SelectHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withAutoComplete(autoComplete: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (autoComplete != null) ret.updateDynamic("autoComplete")(autoComplete.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutAutoComplete: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "autoComplete")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withAutoFocus(autoFocus: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(autoFocus)) ret.updateDynamic("autoFocus")(autoFocus.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutAutoFocus: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "autoFocus")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withDisabled(disabled: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(disabled)) ret.updateDynamic("disabled")(disabled.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutDisabled: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "disabled")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withForm(form: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (form != null) ret.updateDynamic("form")(form.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutForm: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "form")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withMultiple(multiple: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(multiple)) ret.updateDynamic("multiple")(multiple.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutMultiple: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "multiple")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withName(name: String): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (name != null) ret.updateDynamic("name")(name.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutName: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "name")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withOnChange(onChange: ChangeEvent[T] => Unit): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (onChange != null) ret.updateDynamic("onChange")(js.Any.fromFunction1(onChange))
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutOnChange: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "onChange")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withRequired(required: js.UndefOr[Boolean]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (!js.isUndefined(required)) ret.updateDynamic("required")(required.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutRequired: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "required")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withSize(size: Int | Double): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (size != null) ret.updateDynamic("size")(size.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutSize: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "size")
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withValue(value: String | js.Array[String] | Double): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (value != null) ret.updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutValue: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "value")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

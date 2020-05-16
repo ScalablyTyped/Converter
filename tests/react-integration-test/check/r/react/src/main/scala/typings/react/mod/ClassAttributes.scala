@@ -17,5 +17,31 @@ object ClassAttributes {
     if (ref != null) __obj.updateDynamic("ref")(ref.asInstanceOf[js.Any])
     __obj.asInstanceOf[ClassAttributes[T]]
   }
+  @scala.inline
+  implicit class ClassAttributesOps[Self[t] <: ClassAttributes[t], T] (val x: Self[T]) extends AnyVal {
+    @scala.inline
+    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    @scala.inline
+    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    @scala.inline
+    def withRefFunction1(ref: /* instance */ T | Null => Unit): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        ret.updateDynamic("ref")(js.Any.fromFunction1(ref))
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withRef(ref: LegacyRef[T]): Self[T] = {
+        val ret = this.duplicate.asInstanceOf[js.Dynamic]
+        if (ref != null) ret.updateDynamic("ref")(ref.asInstanceOf[js.Any])
+        ret.asInstanceOf[Self[T]]
+    }
+    @scala.inline
+    def withoutRef: Self[T] = {
+        val ret = this.duplicate
+        js.special.delete(ret, "ref")
+        ret.asInstanceOf[Self[T]]
+    }
+  }
+  
 }
 

@@ -16,6 +16,7 @@ case class ConversionOptions(
     ignoredModulePrefixes: Set[List[String]],
     versions:              Versions,
     organization:          String,
+    enableImplicitOps:     Boolean,
 )
 
 object ConversionOptions {
