@@ -4,7 +4,9 @@ package flavours
 
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 
-object ImplicitOpsClass {
+import scala.collection.mutable
+
+object GenImplicitOpsClass {
   def apply(
       original: ClassTree,
       props:    FindProps.Filtered[Unit],
@@ -244,5 +246,23 @@ object ImplicitOpsClass {
       comments    = NoComments,
       codePath    = ownerCp + combineName,
     )
+  }
+
+  object AvailableName {
+    def apply(usedNames: IArray[Name]): AvailableName = {
+      val m = mutable.HashSet.empty[Name]
+      usedNames.foreach(m += _)
+      new AvailableName(m)
+    }
+  }
+
+  class AvailableName(private val usedNames: mutable.Set[Name]) {
+    def apply(wanted: Name): Name =
+      if (usedNames(wanted)) {
+        apply(Name(wanted.unescaped + "_"))
+      } else {
+        usedNames += wanted
+        wanted
+      }
   }
 }

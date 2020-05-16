@@ -5,26 +5,6 @@ package flavours
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
-import scala.collection.mutable
-
-class AvailableName(private val usedNames: mutable.Set[Name]) {
-  def apply(wanted: Name): Name =
-    usedNames(wanted) match {
-      case true => apply(Name(wanted.unescaped + "_"))
-      case false =>
-        usedNames += wanted
-        wanted
-    }
-}
-
-object AvailableName {
-  def apply(usedNames: IArray[Name]): AvailableName = {
-    val m = mutable.HashSet.empty[Name]
-    usedNames.foreach(m += _)
-    new AvailableName(m)
-  }
-}
-
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
@@ -64,7 +44,7 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
                   .filter(ensureNotTooManyStrings(scope))
                   .map {
                     case mod if enableImplicitOps =>
-                      ImplicitOpsClass(cls, props, mod.codePath, scope) match {
+                      GenImplicitOpsClass(cls, props, mod.codePath, scope) match {
                         case Some(opsClass) =>
                           mod.copy(members = mod.members :+ opsClass)
                         case None => mod

@@ -3,16 +3,13 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
+import ExprTree._
 
 trait MemberToProp {
-  def rewriterOpt: Option[TypeRewriterCast]
-
   def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop]
 }
 
 object MemberToProp {
-  import ExprTree._
-
   /* yeah, i know. We'll refactor if we'll do many more rewrites */
   class Default(val rewriterOpt: Option[TypeRewriterCast]) extends MemberToProp {
     override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
