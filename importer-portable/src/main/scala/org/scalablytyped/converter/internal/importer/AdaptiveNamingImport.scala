@@ -48,8 +48,8 @@ object AdaptiveNamingImport {
       TsTreeTraverse
         .collect(tree) {
           /* we won't output these, so ignore the name collision */
-          case x: TsDeclTypeAlias if x.comments.extract { case Markers.IsTrivial => () }.nonEmpty => IArray.Empty
-          case x: HasCodePath => x.codePath.forceHasPath.codePath.parts
+          case x: TsDeclTypeAlias if x.comments.has[Markers.IsTrivial.type] => IArray.Empty
+          case x: HasCodePath                                               => x.codePath.forceHasPath.codePath.parts
         }
         .distinct
         .sorted(ShortestAndLowercaseFirst)
@@ -59,11 +59,13 @@ object AdaptiveNamingImport {
 
     val lowercaseIndex = mutable.Map.empty[String, IArray[TsIdent]]
 
+    val illegalNames = cleanIllegalNames.Illegal.map(_.value)
+
     allReferences.foreach {
       case IArray.Empty => ()
       case whole @ IArray.initLast(parent, current) =>
         val parentTranslated = registeredReferences(parent)
-        val variants         = variantsFor(current, parent.exists(_.isInstanceOf[TsIdentModule]))
+        val variants         = variantsFor(current, parent.exists(_.isInstanceOf[TsIdentModule]), illegalNames)
         var continue         = true
         val iter             = variants.iterator
         while (continue && iter.hasNext) {
@@ -89,12 +91,13 @@ object AdaptiveNamingImport {
     new AdaptiveNamingImport(registeredReferences.toMap)
   }
 
-  def variantsFor(tsIdent: TsIdent, hasModuleParent: Boolean): Stream[String] = {
+  def variantsFor(tsIdent: TsIdent, hasModuleParent: Boolean, illegalNames: Set[String]): Stream[String] = {
     val base = tsIdent match {
-      case TsIdent.namespaced   => Stream(Name.namespaced.unescaped)
-      case TsIdent.Apply        => Stream(Name.APPLY.unescaped)
-      case TsIdent.Global       => Stream(TsIdent.Global.value)
-      case TsIdentSimple(value) => nameVariants(value)
+      case TsIdent.namespaced                          => Stream(Name.namespaced.unescaped)
+      case TsIdent.Apply                               => Stream(Name.APPLY.unescaped)
+      case TsIdent.Global                              => Stream(TsIdent.Global.value)
+      case TsIdentSimple(value) if illegalNames(value) => Stream(value + "_")
+      case TsIdentSimple(value)                        => nameVariants(value)
 
       case m: TsIdentModule if hasModuleParent => // if this is an augmented module
         /* todo: We should look up what the augmented module is called and reuse it. I don't care enough to do it now */

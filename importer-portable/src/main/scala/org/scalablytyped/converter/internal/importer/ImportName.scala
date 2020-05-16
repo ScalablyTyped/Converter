@@ -15,7 +15,7 @@ object ImportName {
     Name.necessaryRewrite(Name(i.value))
 
   def apply(i: TsIdentLibrary): Name =
-    Name.necessaryRewrite(Name(AdaptiveNamingImport.variantsFor(i, hasModuleParent = false).head))
+    Name.necessaryRewrite(Name(AdaptiveNamingImport.variantsFor(i, hasModuleParent = false, Set()).head))
 
   object withJsNameAnnotation {
     def apply(original: TsIdentSimple): (Name, Option[Annotation.JsName]) = {
