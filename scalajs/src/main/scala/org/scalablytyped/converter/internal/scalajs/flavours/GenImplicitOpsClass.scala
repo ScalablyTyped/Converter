@@ -10,7 +10,7 @@ import scala.collection.mutable
 object GenImplicitOpsClass {
   def apply(
       original: ClassTree,
-      props:    FindProps.Filtered[Unit],
+      props:    IArray[Prop],
       ownerCp:  QualifiedName,
       scope:    TreeScope,
   ): Option[ClassTree] = {
@@ -28,8 +28,10 @@ object GenImplicitOpsClass {
       */
     val SelfName = mutableAllocateTypeName(Name("Self"))
     val tparams = {
+      val withoutBounds = stripBounds(original.tparams)
+
       val higherKindedParams =
-        original.tparams.map(tp => tp.copy(name = mutableAllocateTypeName(Name(tp.name.unescaped.toLowerCase))))
+        withoutBounds.map(tp => tp.copy(name = mutableAllocateTypeName(Name(tp.name.unescaped.toLowerCase))))
 
       val selfTParam = TypeParamTree(
         name       = SelfName,
@@ -38,10 +40,6 @@ object GenImplicitOpsClass {
         comments   = NoComments,
       )
 
-      /* We have a hack in the printer which comments out bounds for javascript types.
-       * Here we generate a scala class, so just imitate same behaviour
-       */
-      val withoutBounds = original.tparams.map(_.copy(upperBound = None))
       selfTParam +: withoutBounds
     }
 
@@ -54,7 +52,7 @@ object GenImplicitOpsClass {
       genDuplicateMember(Name("duplicate"), target, clsCodePath, selfRef)
 
     val sugarMembers: IArray[MethodTree] =
-      props.yes.flatMap {
+      props.flatMap {
         /* ignore inherited props, there will already be implicit sugar for those */
         case prop: Prop.Normal if prop.isInherited === false =>
           val variantsForProp: Map[Name, Prop.Variant] = {
@@ -100,6 +98,7 @@ object GenImplicitOpsClass {
                 isOverride = false,
                 comments   = NoComments,
                 codePath   = clsCodePath + methodName,
+                isImplicit = false,
               )
           }
 
@@ -129,6 +128,7 @@ object GenImplicitOpsClass {
                   isOverride  = false,
                   comments    = NoComments,
                   codePath    = clsCodePath + name,
+                  isImplicit  = false,
                 ),
               )
 
@@ -161,6 +161,7 @@ object GenImplicitOpsClass {
                   isOverride  = false,
                   comments    = NoComments,
                   codePath    = clsCodePath + name,
+                  isImplicit  = false,
                 ),
               )
 
@@ -200,12 +201,6 @@ object GenImplicitOpsClass {
     else None
   }
 
-  def nameFor(tpe: TypeRef): String =
-    tpe match {
-      case tr if Name.Internal(tr.name) => tr.targs.map(nameFor).mkString("")
-      case other                        => other.name.unescaped
-    }
-
   def genDuplicateMember(duplicateName: Name, target: Name, ownerCp: QualifiedName, clsRef: TypeRef): MethodTree = {
 
     val impl = {
@@ -235,6 +230,7 @@ object GenImplicitOpsClass {
       isOverride  = false,
       comments    = NoComments,
       codePath    = ownerCp + duplicateName,
+      isImplicit  = false,
     )
 
   }
@@ -280,6 +276,7 @@ object GenImplicitOpsClass {
       isOverride  = false,
       comments    = NoComments,
       codePath    = ownerCp + combineName,
+      isImplicit  = false,
     )
   }
 

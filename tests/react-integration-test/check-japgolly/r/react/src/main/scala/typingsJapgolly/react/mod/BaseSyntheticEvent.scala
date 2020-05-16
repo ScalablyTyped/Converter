@@ -59,7 +59,7 @@ object BaseSyntheticEvent {
     @scala.inline
     def duplicate: Self[E, C, T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[E, C, T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[E, C, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[E, C, T]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[E, C, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[E, C, T]) with Other]
     @scala.inline
     def withBubbles(value: Boolean): Self[E, C, T] = {
         val ret = this.duplicate

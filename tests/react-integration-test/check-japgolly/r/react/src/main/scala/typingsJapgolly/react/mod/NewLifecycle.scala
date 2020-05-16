@@ -39,11 +39,11 @@ object NewLifecycle {
     @scala.inline
     def duplicate: Self[P, S, SS] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S, SS]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S, SS]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S, SS]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[P, S, SS]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S, SS]) with Other]
     @scala.inline
     def withComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Callback): Self[P, S, SS] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: /* prevProps */ P, t1: /* prevState */ S, t2: /* snapshot */ js.UndefOr[SS]) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: /* prevProps */ P, t1: /* prevState */ S, t2: /* snapshot */ js.UndefOr[SS]) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline
@@ -55,7 +55,7 @@ object NewLifecycle {
     @scala.inline
     def withGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => CallbackTo[SS | Null]): Self[P, S, SS] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2((t0: /* prevProps */ P, t1: /* prevState */ S) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2((t0: /* prevProps */ P, t1: /* prevState */ S) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline

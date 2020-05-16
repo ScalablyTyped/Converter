@@ -21,7 +21,7 @@ object FunctionComponentElement {
     @scala.inline
     def duplicate: Self[P] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self[P] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[P] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self[P] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[P] with Other]
     @scala.inline
     def withRef(value: js.Any): Self[P] = {
         val ret = this.duplicate

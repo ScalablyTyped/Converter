@@ -26,7 +26,7 @@ object FunctionalComponentOptions {
     @scala.inline
     def duplicate: Self[Props, PropDefs] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[Props, PropDefs]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[Props, PropDefs]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[Props, PropDefs]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[Props, PropDefs]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[Props, PropDefs]) with Other]
     @scala.inline
     def withFunctional(value: Boolean): Self[Props, PropDefs] = {
         val ret = this.duplicate

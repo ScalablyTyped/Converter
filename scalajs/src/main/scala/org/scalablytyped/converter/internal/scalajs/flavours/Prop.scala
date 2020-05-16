@@ -5,6 +5,7 @@ package flavours
 sealed trait Prop {
   val name:        Name
   val optionality: Optionality
+  val isRequired:  Boolean
 }
 
 object Prop {
@@ -22,6 +23,8 @@ object Prop {
     lazy val canBeInitializer: Boolean = !name.isEscaped && name === originalName
 
     lazy val allVariants: IArray[Variant] = main +: variants
+
+    override val isRequired: Boolean = optionality === Optionality.No
 
     def rewrite(f: Variant => Variant): Prop =
       copy(main = f(main), variants = variants.map(f))

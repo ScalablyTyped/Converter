@@ -1,6 +1,7 @@
 package typingsJapgolly.reactContextmenu.mod
 
 import japgolly.scalajs.react.CallbackTo
+import japgolly.scalajs.react.raw.React.ComponentClassP
 import typingsJapgolly.react.mod.HTMLAttributes
 import typingsJapgolly.react.mod.ReactType
 import scala.scalajs.js
@@ -28,7 +29,7 @@ object ContextMenuTriggerProps {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
     def withId(value: String): Self = {
         val ret = this.duplicate
@@ -81,6 +82,12 @@ object ContextMenuTriggerProps {
     def withoutHoldToDisplay: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("holdToDisplay")(js.undefined)
+        ret
+    }
+    @scala.inline
+    def withRenderTagComponentClass(value: ComponentClassP[js.Object]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("renderTag")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline

@@ -52,7 +52,7 @@ object StrictAccordionPanelProps {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
     def withActive(value: Boolean): Self = {
         val ret = this.duplicate
@@ -76,7 +76,7 @@ object StrictAccordionPanelProps {
       value: (/* component */ ReactType[AccordionContentProps], AccordionContentProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
     ): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.Any.fromFunction3((t0: /* component */ ReactType[AccordionContentProps], t1: AccordionContentProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.Any.fromFunction3((t0: /* component */ ReactType[AccordionContentProps], t1: AccordionContentProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline
@@ -108,7 +108,7 @@ object StrictAccordionPanelProps {
       value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
     ): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline
@@ -128,7 +128,7 @@ object StrictAccordionPanelProps {
       value: (/* component */ ReactType[AccordionTitleProps], AccordionTitleProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
     ): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(js.Any.fromFunction3((t0: /* component */ ReactType[AccordionTitleProps], t1: AccordionTitleProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(js.Any.fromFunction3((t0: /* component */ ReactType[AccordionTitleProps], t1: AccordionTitleProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline

@@ -16,23 +16,22 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
 
     val generatedCode: IArray[Tree] =
       components
-        .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
+        .groupBy(c => (c.props, c.referenceTo.isDefined, stripBounds(c.tparams)))
         .mapToIArray {
           case ((propsRefOpt, hasKnownRef, tparams), components) =>
-            val (propsRef, resProps): (TypeRef, Res[IArray[Prop]]) =
+            val (propsRef, resProps): (TypeRef, Res[IArray[String], IArray[Prop]]) =
               propsRefOpt match {
                 case Some(propsRef) =>
-                  val resProps: Res[FindProps.Filtered[Unit]] =
+                  val resProps: Res[IArray[String], IArray[Prop]] =
                     findProps.forType(
                       propsRef,
                       tparams,
                       scope,
                       maxNum             = FindProps.MaxParamsForMethod - 2 /* withAdditionalProps.length */ - /* children*/ 1,
                       acceptNativeTraits = true,
-                      keep               = FindProps.keepAll,
                     )
 
-                  propsRef -> resProps.map(_.yes)
+                  propsRef -> resProps
 
                 case None =>
                   TypeRef.Object -> Res.One(TypeRef.Object, Empty)
@@ -42,7 +41,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
               case Res.Success(props) =>
                 components match {
                   case IArray.exactlyOne(one) =>
-                    IArray(genComponent(pkgCp, props, one.knownRef, tparams, one))
+                    IArray(genComponent(pkgCp, props, one.referenceTo, tparams, one))
                   case many =>
                     /** We share `apply` methods for each props type in abstract classes to limit compilation time.
                       *  References causes some trouble, so if the component knows it we thread it through a type param.
@@ -51,14 +50,15 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
                     val propsCls          = genSharedPropsClass(pkgCp, propsRef, props, knownRefRewritten, tparams)
                     IArray(propsCls) ++ many.map(genComponentForSharedProps(pkgCp, propsCls))
                 }
-              case Res.Error(_) =>
+              case Res.Error(es) =>
                 components.map { c =>
                   val propsWithObject = TypeRef.Intersection(IArray(propsRef, TypeRef.Object), NoComments)
                   val (_, prop)       = FindProps.parentParameter(Name("props"), propsWithObject, isRequired = true)
                   val mod =
-                    genComponent(pkgCp, Res.One(propsWithObject, IArray(prop)), c.knownRef, tparams, c)
+                    genComponent(pkgCp, Res.One(propsWithObject, IArray(prop)), c.referenceTo, tparams, c)
                   val comment = Comment(
-                    s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. */\n",
+                    s"/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar: ${es
+                      .mkString(", ")}. */\n",
                   )
                   mod.copy(comments = mod.comments + comment)
                 }
@@ -184,11 +184,12 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
     ModuleTree(
       annotations = Empty,
       name        = c.fullName,
-      parents     = IArray(TypeRef(propsClass.codePath, IArray.fromOption(c.knownRef.map(TypeRef.stripTargs)), NoComments)),
-      members     = IArray(componentRef),
-      comments    = Comments(CommentData(Minimization.Keep(Empty))),
-      codePath    = componentCp,
-      isOverride  = false,
+      parents =
+        IArray(TypeRef(propsClass.codePath, IArray.fromOption(c.referenceTo.map(TypeRef.stripTargs)), NoComments)),
+      members    = IArray(componentRef),
+      comments   = Comments(CommentData(Minimization.Keep(Empty))),
+      codePath   = componentCp,
+      isOverride = false,
     )
   }
 
@@ -326,6 +327,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
       isOverride  = false,
       comments    = NoComments,
       codePath    = ownerCp + name,
+      isImplicit  = false,
     )
   }
 }

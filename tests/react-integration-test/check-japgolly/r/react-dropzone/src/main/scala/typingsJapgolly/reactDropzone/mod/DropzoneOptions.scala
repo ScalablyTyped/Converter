@@ -75,7 +75,7 @@ object DropzoneOptions {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
     def withAccept(value: String | js.Array[String]): Self = {
         val ret = this.duplicate
@@ -237,7 +237,7 @@ object DropzoneOptions {
       value: (/* acceptedFiles */ js.Array[js.Any], /* rejectedFiles */ js.Array[js.Any], /* event */ DropEvent) => Callback
     ): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDrop")(js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[js.Any], t1: /* rejectedFiles */ js.Array[js.Any], t2: /* event */ DropEvent) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onDrop")(js.Any.fromFunction3((t0: /* acceptedFiles */ js.Array[js.Any], t1: /* rejectedFiles */ js.Array[js.Any], t2: /* event */ DropEvent) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline
@@ -249,7 +249,7 @@ object DropzoneOptions {
     @scala.inline
     def withOnDropAccepted(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDropAccepted")(js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onDropAccepted")(js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline
@@ -261,7 +261,7 @@ object DropzoneOptions {
     @scala.inline
     def withOnDropRejected(value: (/* files */ js.Array[js.Any], /* event */ DropEvent) => Callback): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDropRejected")(js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onDropRejected")(js.Any.fromFunction2((t0: /* files */ js.Array[js.Any], t1: /* event */ DropEvent) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline

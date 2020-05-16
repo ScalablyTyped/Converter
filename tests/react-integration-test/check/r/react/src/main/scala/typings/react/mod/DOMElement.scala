@@ -13,17 +13,17 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 
 object DOMElement {
   @scala.inline
-  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): DOMElement[P, T] = {
+  def apply[P, T](props: js.Any, `type`: js.Any): DOMElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[DOMElement[P, T]]
   }
   @scala.inline
-  implicit class DOMElementOps[Self[p /* <: typings.react.mod.HTMLAttributes[T] | typings.react.mod.SVGAttributes[T] */, t /* <: typings.std.Element */] <: DOMElement[p, t], P, T] (val x: Self[P, T]) extends AnyVal {
+  implicit class DOMElementOps[Self[p, t] <: DOMElement[p, t], P, T] (val x: Self[P, T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[P, T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
     @scala.inline
     def withRefFunction1(value: /* instance */ T | Null => Unit): Self[P, T] = {
         val ret = this.duplicate

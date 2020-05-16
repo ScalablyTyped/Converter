@@ -23,7 +23,9 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
 
       container.withMembers(container.members.flatMap {
         case cls: ClassTree if !nameConflict(cls.name) =>
-          val clsRef = TypeRef(cls.codePath, asTypeArgs(cls.tparams), NoComments)
+          val unboundedTParams = stripBounds(cls.tparams)
+
+          val clsRef = TypeRef(cls.codePath, asTypeArgs(unboundedTParams), NoComments)
 
           val generatedMembers: IArray[Tree] =
             findProps.forClassTree(
@@ -31,24 +33,23 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
               scope              = scope / cls,
               maxNum             = FindProps.MaxParamsForMethod,
               acceptNativeTraits = false,
-              keep               = FindProps.keepAll,
               selfRef            = clsRef,
             ) match {
               case Res.Error(_) =>
                 Empty
 
-              case Res.One(_, props) if props.yes.isEmpty => Empty
+              case Res.One(_, props) if props.isEmpty => Empty
               case Res.One(_, props) =>
                 if (enableImplicitOps) {
-                  val requiredProps = props.yes.filter(_.optionality === Optionality.No)
+                  val requiredProps = props.filter(_.optionality === Optionality.No)
                   IArray.fromOptions(
-                    Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, cls.tparams))
+                    Some(generateCreator(Name.APPLY, requiredProps, cls.codePath, unboundedTParams))
                       .filter(ensureNotTooManyStrings(scope)),
                     GenImplicitOpsClass(cls, props, cls.codePath, scope),
                   )
                 } else {
                   IArray.fromOptions(
-                    Some(generateCreator(Name.APPLY, props.yes, cls.codePath, cls.tparams))
+                    Some(generateCreator(Name.APPLY, props, cls.codePath, unboundedTParams))
                       .filter(_.params.nonEmpty)
                       .filter(ensureNotTooManyStrings(scope)),
                   )
@@ -56,14 +57,14 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
 
               case Res.Many(propsMap) =>
                 propsMap.toIArray.mapNotNone {
-                  case (_, props) if props.yes.isEmpty => None
+                  case (_, props) if props.isEmpty => None
                   case (propsRef, props) =>
                     if (enableImplicitOps) {
-                      val requiredProps = props.yes.filter(_.optionality === Optionality.No)
-                      Some(generateCreator(propsRef.name, requiredProps, cls.codePath, cls.tparams))
+                      val requiredProps = props.filter(_.optionality === Optionality.No)
+                      Some(generateCreator(propsRef.name, requiredProps, cls.codePath, unboundedTParams))
                         .filter(ensureNotTooManyStrings(scope))
                     } else {
-                      Some(generateCreator(propsRef.name, props.yes, cls.codePath, cls.tparams))
+                      Some(generateCreator(propsRef.name, props, cls.codePath, unboundedTParams))
                         .filter(_.params.nonEmpty)
                         .filter(ensureNotTooManyStrings(scope))
                     }
@@ -145,6 +146,7 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
       isOverride  = false,
       comments    = NoComments,
       codePath    = typeCp + name,
+      isImplicit  = false,
     )
   }
 }

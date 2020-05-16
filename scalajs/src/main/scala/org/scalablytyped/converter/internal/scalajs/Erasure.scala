@@ -25,10 +25,11 @@ object Erasure {
 
   def simplify(scope: TreeScope, tpe: TypeRef): QualifiedName =
     tpe.typeName match {
+      case QualifiedName.UNDEFINED => QualifiedName.`|`
       case QualifiedName.UndefOr   => QualifiedName.`|`
-      case QualifiedName.WILDCARD  => QualifiedName.ScalaAny
-      case QualifiedName.THIS_TYPE => QualifiedName.THIS_TYPE
       case QualifiedName.UNION     => QualifiedName.`|`
+      case QualifiedName.WILDCARD  => QualifiedName.ScalaAny
+      case QualifiedName.THIS      => QualifiedName.THIS
       case QualifiedName.REPEATED  => QualifiedName.JArray
       // the way we fake literal means these are true enough
       case QualifiedName.STRING_LITERAL  => tpe.targs.head.typeName

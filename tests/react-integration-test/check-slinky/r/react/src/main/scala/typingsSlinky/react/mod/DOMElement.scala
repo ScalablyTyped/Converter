@@ -1,6 +1,7 @@
 package typingsSlinky.react.mod
 
 import org.scalajs.dom.raw.Element
+import slinky.core.facade.ReactRef
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,17 +14,23 @@ trait DOMElement[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Elemen
 
 object DOMElement {
   @scala.inline
-  def apply[P /* <: HTMLAttributes[T] | SVGAttributes[T] */, T /* <: Element */](props: js.Any, `type`: js.Any): DOMElement[P, T] = {
+  def apply[P, T](props: js.Any, `type`: js.Any): DOMElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[DOMElement[P, T]]
   }
   @scala.inline
-  implicit class DOMElementOps[Self[p /* <: typingsSlinky.react.mod.HTMLAttributes[T] | typingsSlinky.react.mod.SVGAttributes[T] */, t /* <: typingsSlinky.std.Element */] <: slinky.core.facade.ReactElement, P, T] (val x: Self[P, T]) extends AnyVal {
+  implicit class DOMElementOps[Self[p, t] <: slinky.core.facade.ReactElement, P, T] (val x: Self[P, T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[P, T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
+    @scala.inline
+    def withRefRefObject(value: ReactRef[T]): Self[P, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
+        ret
+    }
     @scala.inline
     def withRefFunction1(value: /* instance */ T | Null => Unit): Self[P, T] = {
         val ret = this.duplicate

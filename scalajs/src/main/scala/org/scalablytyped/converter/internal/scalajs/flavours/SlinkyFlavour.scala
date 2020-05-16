@@ -7,11 +7,12 @@ import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIl
 
 case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends FlavourImplReact {
 
-  override val dependencies = Set(Versions.runtime, Versions.slinkyWeb)
-  val rewriter              = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
-  val memberToProp          = new MemberToProp.Default(Some(rewriter))
-  val findProps             = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
-  val genCompanions         = new GenCompanions(findProps, enableImplicitOps)
+  override val dependencies  = Set(Versions.runtime, Versions.slinkyWeb)
+  val rewriter               = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
+  val memberToProp           = new MemberToProp.Default(Some(rewriter))
+  val findProps              = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
+  val genCompanions          = new GenCompanions(findProps, enableImplicitOps)
+  val genStBuildingComponent = new SlinkyGenStBuildingComponent(outputPkg)
 
   /* we need the actual typescript react definitions at runtime to compute this lazily */
   private var cached = Option.empty[SlinkyWeb]
@@ -34,9 +35,14 @@ case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends Fl
       val components: IArray[Component] =
         identifyComponents.oneOfEach(scope / withCompanions, withCompanions)
 
-      val gen = new SlinkyGenComponents(SlinkyGenComponents.Web(slinkyWebOpt), findProps)
+      val gen = new SlinkyGenComponents(SlinkyGenComponents.Web(slinkyWebOpt), findProps, genStBuildingComponent)
 
-      Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
+      val ret = Adapter(scope)((t, s) => gen(s, t, components))(withCompanions)
+
+      if (isReact(scope))
+        ret.copy(members = ret.members ++ IArray(genStBuildingComponent.Trait, genStBuildingComponent.Object))
+      else ret
+
     } else withCompanions
 
     rewriter.visitPackageTree(scope)(withComponents)

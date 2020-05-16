@@ -21,4 +21,7 @@ trait FlavourImplReact extends FlavourImpl {
     val react = Name("react")
     scope.libName === react || scope.root.dependencies.contains(react)
   }
+
+  def isReact(scope: TreeScope): Boolean =
+    scope.libName === Name("react")
 }

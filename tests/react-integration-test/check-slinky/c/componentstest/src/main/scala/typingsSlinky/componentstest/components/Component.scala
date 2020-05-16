@@ -1,31 +1,46 @@
 package typingsSlinky.componentstest.components
 
-import org.scalablytyped.runtime.StringDictionary
-import slinky.core.BuildingComponent
-import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.html.`*`.tag
+import typingsSlinky.StBuildingComponent
+import typingsSlinky.StBuildingComponent.Default
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object Component
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.componentstest.mod.Component] {
-  @JSImport("componentstest", "Component")
-  @js.native
-  object componentImport extends js.Object
+object Component {
+  object A {
+    @JSImport("componentstest", "Component")
+    @js.native
+    object component extends js.Object
+    
+    def withProps(p: typingsSlinky.componentstest.mod.A): Default[tag.type, typingsSlinky.componentstest.mod.Component] = new Default[tag.type, typingsSlinky.componentstest.mod.Component](js.Array(this.component, p.asInstanceOf[js.Any]))
+    @scala.inline
+    def apply(aCallback: () => Double, aMember: Double): Default[tag.type, typingsSlinky.componentstest.mod.Component] = {
+        val __props = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
+        new Default[tag.type, typingsSlinky.componentstest.mod.Component](js.Array(this.component, __props.asInstanceOf[typingsSlinky.componentstest.mod.A]))
+    }
+  }
   
-  override val component: String | js.Object = this.componentImport
-  def A(aCallback: () => Double, aMember: Double, _overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, typingsSlinky.componentstest.mod.Component] = {
-    val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props])
+  object B {
+    @JSImport("componentstest", "Component")
+    @js.native
+    object component extends js.Object
+    
+    @scala.inline
+    class Builder (val args: js.Array[js.Any])
+      extends AnyVal
+         with StBuildingComponent[tag.type, typingsSlinky.componentstest.mod.Component] {
+      @scala.inline
+      def bCallback(value: () => String): this.type = set("bCallback", js.Any.fromFunction0(value))
+    }
+    
+    def withProps(p: typingsSlinky.componentstest.mod.B): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+    @scala.inline
+    def apply(bMember: String): Builder = {
+        val __props = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
+        new Builder(js.Array(this.component, __props.asInstanceOf[typingsSlinky.componentstest.mod.B]))
+    }
   }
-  def B(bMember: String, bCallback: () => String = null, _overrides: StringDictionary[js.Any] = null): BuildingComponent[tag.type, typingsSlinky.componentstest.mod.Component] = {
-    val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-    if (bCallback != null) __obj.updateDynamic("bCallback")(js.Any.fromFunction0(bCallback))
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props])
-  }
-  type Props = typingsSlinky.componentstest.mod.Props
+  
 }
 

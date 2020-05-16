@@ -1,49 +1,55 @@
 package typingsSlinky.reactContextmenu.components
 
-import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLElement
-import slinky.core.BuildingComponent
-import slinky.core.ExternalComponentWithAttributesWithRefType
 import slinky.web.SyntheticMouseEvent
 import slinky.web.html.`*`.tag
+import typingsSlinky.StBuildingComponent
 import typingsSlinky.reactContextmenu.mod.ContextMenuProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object ContextMenu
-  extends ExternalComponentWithAttributesWithRefType[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenu] {
+object ContextMenu {
   @JSImport("react-contextmenu", "ContextMenu")
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
-  override val component: String | js.Object = this.componentImport
-  /* The following DOM/SVG props were specified: className */
-  def apply(
-    id: String,
-    data: js.Any = null,
-    hideOnLeave: js.UndefOr[Boolean] = js.undefined,
-    onHide: /* event */ js.Any => Unit = null,
-    onMouseLeave: (js.Function3[
-      /* event */ SyntheticMouseEvent[HTMLElement], 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
-      /* target */ HTMLElement, 
-      Unit
-    ]) | js.Function = null,
-    onShow: /* event */ js.Any => Unit = null,
-    rtl: js.UndefOr[Boolean] = js.undefined,
-    _overrides: StringDictionary[js.Any] = null
-  ): BuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenu] = {
-    val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
-    if (data != null) __obj.updateDynamic("data")(data.asInstanceOf[js.Any])
-    if (!js.isUndefined(hideOnLeave)) __obj.updateDynamic("hideOnLeave")(hideOnLeave.get.asInstanceOf[js.Any])
-    if (onHide != null) __obj.updateDynamic("onHide")(js.Any.fromFunction1(onHide))
-    if (onMouseLeave != null) __obj.updateDynamic("onMouseLeave")(onMouseLeave.asInstanceOf[js.Any])
-    if (onShow != null) __obj.updateDynamic("onShow")(js.Any.fromFunction1(onShow))
-    if (!js.isUndefined(rtl)) __obj.updateDynamic("rtl")(rtl.get.asInstanceOf[js.Any])
-    if (_overrides != null) js.Dynamic.global.Object.assign(__obj, _overrides)
-    super.apply(__obj.asInstanceOf[Props])
+  @scala.inline
+  class Builder (val args: js.Array[js.Any])
+    extends AnyVal
+       with StBuildingComponent[tag.type, typingsSlinky.reactContextmenu.mod.ContextMenu] {
+    @scala.inline
+    def className(value: String): this.type = set("className", value.asInstanceOf[js.Any])
+    @scala.inline
+    def data(value: js.Any): this.type = set("data", value.asInstanceOf[js.Any])
+    @scala.inline
+    def hideOnLeave(value: Boolean): this.type = set("hideOnLeave", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onHide(value: /* event */ js.Any => Unit): this.type = set("onHide", js.Any.fromFunction1(value))
+    @scala.inline
+    def onMouseLeaveFunction3(
+      value: (/* event */ SyntheticMouseEvent[HTMLElement], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
+    ): this.type = set("onMouseLeave", js.Any.fromFunction3(value))
+    @scala.inline
+    def onMouseLeave(
+      value: (js.Function3[
+          /* event */ SyntheticMouseEvent[HTMLElement], 
+          /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
+          /* target */ HTMLElement, 
+          Unit
+        ]) | js.Function
+    ): this.type = set("onMouseLeave", value.asInstanceOf[js.Any])
+    @scala.inline
+    def onShow(value: /* event */ js.Any => Unit): this.type = set("onShow", js.Any.fromFunction1(value))
+    @scala.inline
+    def rtl(value: Boolean): this.type = set("rtl", value.asInstanceOf[js.Any])
   }
-  type Props = ContextMenuProps
+  
+  def withProps(p: ContextMenuProps): Builder = new Builder(js.Array(this.component, p.asInstanceOf[js.Any]))
+  @scala.inline
+  def apply(id: String): Builder = {
+    val __props = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
+    new Builder(js.Array(this.component, __props.asInstanceOf[ContextMenuProps]))
+  }
 }
 

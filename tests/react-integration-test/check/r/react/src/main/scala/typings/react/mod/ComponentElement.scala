@@ -11,17 +11,17 @@ trait ComponentElement[P, T /* <: Component[P, ComponentState, _] */] extends Re
 
 object ComponentElement {
   @scala.inline
-  def apply[P, T /* <: Component[P, ComponentState, _] */](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
+  def apply[P, T](props: js.Any, `type`: js.Any): ComponentElement[P, T] = {
     val __obj = js.Dynamic.literal(props = props.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[ComponentElement[P, T]]
   }
   @scala.inline
-  implicit class ComponentElementOps[Self[p, t /* <: typings.react.mod.Component[P, typings.react.mod.ComponentState, _] */] <: ComponentElement[p, t], P, T] (val x: Self[P, T]) extends AnyVal {
+  implicit class ComponentElementOps[Self[p, t] <: ComponentElement[p, t], P, T] (val x: Self[P, T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[P, T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
     @scala.inline
     def withRefFunction1(value: /* instance */ T | Null => Unit): Self[P, T] = {
         val ret = this.duplicate

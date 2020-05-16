@@ -1,17 +1,15 @@
 package typingsSlinky.materialUi.components
 
-import slinky.core.ExternalComponentNoPropsWithAttributesWithRefType
-import slinky.web.html.`*`.tag
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-object SvgIcon
-  extends ExternalComponentNoPropsWithAttributesWithRefType[tag.type, typingsSlinky.materialUi.MaterialUI.SvgIcon] {
+object SvgIcon {
   @JSGlobal("__MaterialUI.SvgIcon")
   @js.native
-  object componentImport extends js.Object
+  object component extends js.Object
   
-  override val component: String | js.Object = this.componentImport
+  def withProps(p: js.Object): SharedBuilder_Object_159303587[typingsSlinky.materialUi.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[typingsSlinky.materialUi.MaterialUI.SvgIcon](js.Array(this.component, p.asInstanceOf[js.Any]))
+  implicit def make(companion: SvgIcon.type): SharedBuilder_Object_159303587[typingsSlinky.materialUi.MaterialUI.SvgIcon] = new SharedBuilder_Object_159303587[typingsSlinky.materialUi.MaterialUI.SvgIcon](js.Array(this.component, js.Dictionary.empty))()
 }
 

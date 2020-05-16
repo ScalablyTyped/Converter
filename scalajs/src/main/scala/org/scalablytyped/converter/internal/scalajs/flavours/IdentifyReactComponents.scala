@@ -186,6 +186,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
               isOverride = false,
               comments   = field.comments,
               codePath   = field.codePath,
+              isImplicit = false,
             ),
             owner,
             scope,

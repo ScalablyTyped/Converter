@@ -168,14 +168,15 @@ object CombineOverloads extends TreeTransformation {
           IArray(ctor.params),
           ExprTree.native,
           TypeRef.Nothing,
-          false,
+          isOverride = false,
           ctor.comments,
           QualifiedName(IArray.Empty),
+          isImplicit = false,
         ),
       )
     val ret = combineOverloads(scope, asMethods)
     ret.map {
-      case MethodTree(_, level, _, _, params, _, _, _, comments, _) =>
+      case MethodTree(_, level, _, _, params, _, _, _, comments, _, _) =>
         CtorTree(level, params.head, comments)
     }
   }
