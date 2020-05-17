@@ -76,9 +76,15 @@ object ContainerPolicy extends TreeTransformation {
         case _ => false
       }
 
+      /* these might receive a scala companion, which we cannot put inside a javascript object */
       def containsIllegal = mod.members.exists {
         case x: ClassTree =>
           x.receivesCompanion
+        case x: TypeAliasTree if !x.comments.has[Markers.IsTrivial.type] =>
+          FollowAliases(scope)(x.alias) match {
+            case TypeRef.Union(_, _) => true
+            case _                   => false
+          }
         case x: ModuleTree =>
           x.annotations.isEmpty
         case _ => false

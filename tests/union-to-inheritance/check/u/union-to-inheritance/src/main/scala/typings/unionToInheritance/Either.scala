@@ -7,8 +7,8 @@ import scala.scalajs.js.annotation._
 @js.native
 trait Either[L, R]
   extends Legal3[js.Any, L, R]
-     with _Test[js.Any, L, R]
-     with _Test2[R, L] {
+     with Test[js.Any, L, R]
+     with Test2[R, L] {
   var value: R = js.native
 }
 

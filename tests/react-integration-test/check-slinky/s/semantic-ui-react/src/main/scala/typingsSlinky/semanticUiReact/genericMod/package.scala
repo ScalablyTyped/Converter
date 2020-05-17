@@ -7,7 +7,6 @@ import scala.scalajs.js.annotation._
 package object genericMod {
   type SemanticShorthandCollection[TProps] = js.Array[typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItem[TProps]]
   type SemanticShorthandContent = slinky.core.facade.ReactElement
-  type SemanticShorthandItem[TProps] = slinky.core.facade.ReactElement | TProps | typingsSlinky.semanticUiReact.genericMod.SemanticShorthandItemFunc[TProps]
   type SemanticShorthandItemFunc[TProps] = js.Function3[
     /* component */ typingsSlinky.react.mod.ReactType[TProps], 
     /* props */ TProps, 

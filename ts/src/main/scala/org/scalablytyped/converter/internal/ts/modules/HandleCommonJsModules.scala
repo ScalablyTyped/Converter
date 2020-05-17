@@ -22,7 +22,7 @@ import org.scalablytyped.converter.internal.ts.transforms.{QualifyReferences, Se
   * export = A;
   * ```
   *
-  * The exportees (`class A` here) outside the namespace is handled ok, and end up named `TsIdent.namespaced`
+  * The exportees (`class A` here) outside the namespace is handled ok, and end up named [[TsIdent.namespaced]]
   *  after we resolve everything.
   *
   * For the namespace we need to flatten it, and rewrite all references to it.
@@ -31,7 +31,7 @@ import org.scalablytyped.converter.internal.ts.transforms.{QualifyReferences, Se
   *
   * ```typescript
   * export interface A {}
-  * export declare class namespaced implements A {}
+  * export declare class ^ implements A {}
   * export interface B {
   *   nested: B;
   *   edgeCase: B;

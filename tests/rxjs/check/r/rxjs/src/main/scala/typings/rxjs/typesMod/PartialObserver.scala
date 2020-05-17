@@ -13,19 +13,10 @@ trait PartialObserver[T] extends js.Object
 
 object PartialObserver {
   @scala.inline
-  def NextObserver[T](next: T => Unit): PartialObserver[T] = {
-    val __obj = js.Dynamic.literal(next = js.Any.fromFunction1(next))
-    __obj.asInstanceOf[PartialObserver[T]]
-  }
+  implicit def apply[T](value: CompletionObserver[T]): PartialObserver[T] = value.asInstanceOf[PartialObserver[T]]
   @scala.inline
-  def ErrorObserver[T](error: js.Any => Unit): PartialObserver[T] = {
-    val __obj = js.Dynamic.literal(error = js.Any.fromFunction1(error))
-    __obj.asInstanceOf[PartialObserver[T]]
-  }
+  implicit def apply[T](value: ErrorObserver[T]): PartialObserver[T] = value.asInstanceOf[PartialObserver[T]]
   @scala.inline
-  def CompletionObserver[T](complete: () => Unit): PartialObserver[T] = {
-    val __obj = js.Dynamic.literal(complete = js.Any.fromFunction0(complete))
-    __obj.asInstanceOf[PartialObserver[T]]
-  }
+  implicit def apply[T](value: NextObserver[T]): PartialObserver[T] = value.asInstanceOf[PartialObserver[T]]
 }
 

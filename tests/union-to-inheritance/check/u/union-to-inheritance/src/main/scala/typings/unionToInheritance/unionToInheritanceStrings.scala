@@ -6,36 +6,36 @@ import scala.scalajs.js.annotation._
 
 object unionToInheritanceStrings {
   @js.native
-  sealed trait a1 extends _A
+  sealed trait a1 extends A
   
   @js.native
-  sealed trait a2 extends _A
+  sealed trait a2 extends A
   
   @js.native
-  sealed trait b1 extends _B
+  sealed trait b1 extends B
   
   @js.native
-  sealed trait b2 extends _B
+  sealed trait b2 extends B
   
   @js.native
   sealed trait bar
     extends Legal1[js.Any]
+       with Illegal1
+       with Illegal2
+       with Illegal3[js.Any]
        with Legal2[js.Any, js.Any]
        with Legal3[js.Any, js.Any, js.Any]
-       with _Illegal1
-       with _Illegal2
-       with _Illegal3[js.Any]
-       with _Test[js.Any, js.Any, js.Any]
+       with Test[js.Any, js.Any, js.Any]
   
   @js.native
   sealed trait foo
     extends Legal1[js.Any]
+       with Illegal1
+       with Illegal2
+       with Illegal3[js.Any]
        with Legal2[js.Any, js.Any]
        with Legal3[js.Any, js.Any, js.Any]
-       with _Illegal1
-       with _Illegal2
-       with _Illegal3[js.Any]
-       with _Test[js.Any, js.Any, js.Any]
+       with Test[js.Any, js.Any, js.Any]
   
   @scala.inline
   def a1: a1 = "a1".asInstanceOf[a1]

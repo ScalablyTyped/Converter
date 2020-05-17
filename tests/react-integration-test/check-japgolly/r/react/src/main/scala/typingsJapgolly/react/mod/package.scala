@@ -30,17 +30,8 @@ package object mod {
     /* repeated */ japgolly.scalajs.react.raw.React.Node, 
     typingsJapgolly.react.mod.CElement[P, T]
   ]
-  /**
-    * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
-    * or ComponentPropsWithoutRef when refs are not supported.
-    */
-  type ComponentProps[T /* <: typingsJapgolly.react.reactStrings.a_ | typingsJapgolly.react.reactStrings.abbr | typingsJapgolly.react.reactStrings.address | typingsJapgolly.react.reactStrings.area | typingsJapgolly.react.reactStrings.article | typingsJapgolly.react.reactStrings.aside | typingsJapgolly.react.reactStrings.audio | typingsJapgolly.react.reactStrings.b | typingsJapgolly.react.reactStrings.base | typingsJapgolly.react.reactStrings.bdi | typingsJapgolly.react.reactStrings.bdo | typingsJapgolly.react.reactStrings.big | typingsJapgolly.react.reactStrings.view | typingsJapgolly.react.mod.JSXElementConstructor[_] */] = js.Object | (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
-  type ComponentPropsWithRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = typingsJapgolly.react.mod.PropsWithRef[typingsJapgolly.react.mod.ComponentProps[T]] | (typingsJapgolly.react.mod.PropsWithoutRef[_] with (typingsJapgolly.react.mod.RefAttributes[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify InstanceType<T> */ _
-  ]))
   type ComponentPropsWithoutRef[T /* <: japgolly.scalajs.react.raw.React.ElementType */] = typingsJapgolly.react.mod.PropsWithoutRef[typingsJapgolly.react.mod.ComponentProps[T]]
   type ComponentState = js.Any
-  type ComponentType[P] = (japgolly.scalajs.react.raw.React.ComponentClassP[P with js.Object]) | typingsJapgolly.react.mod.FunctionComponent[P]
   type CompositionEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
     japgolly.scalajs.react.ReactCompositionEventFrom[T with org.scalajs.dom.raw.Element]
   ]
@@ -51,24 +42,6 @@ package object mod {
     /* repeated */ japgolly.scalajs.react.raw.React.Node, 
     japgolly.scalajs.react.raw.React.DomElement
   ]
-  // Any prop that has a default prop becomes optional, but its type is unchanged
-  // Undeclared default props are augmented into the resulting allowable attributes
-  // If declared props have indexed properties, ignore default props entirely as keyof gets widened
-  // Wrap in an outer-level conditional type to allow distribution over props that are unions
-  type Defaultize[P, D] = ((typingsJapgolly.std.Pick[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
-  ]) with (typingsJapgolly.std.Partial[
-    typingsJapgolly.std.Pick[
-      P, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
-    ]
-  ]) with (typingsJapgolly.std.Partial[
-    typingsJapgolly.std.Pick[
-      D, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
-    ]
-  ])) | P
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
   type DependencyList = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify ReadonlyArray<any> */ js.Any
@@ -80,10 +53,6 @@ package object mod {
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
   type EffectCallback = js.Function0[scala.Unit | js.Function0[js.UndefOr[scala.Unit]]]
-  //
-  // React Elements
-  // ----------------------------------------------------------------------
-  type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type conversion: {[ K in 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'view' ]: P extends react.react.<global>.JSX.IntrinsicElements[K]? K : never}['a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'view'] */ js.Any) | typingsJapgolly.react.mod.ComponentType[P]
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
@@ -122,27 +91,13 @@ package object mod {
   js.Function2[/* nextProps */ P, /* prevState */ S, typingsJapgolly.std.Partial[S] | scala.Null]
   // tslint:disable-next-line:no-empty-interface
   type HTMLFactory[T /* <: org.scalajs.dom.raw.HTMLElement */] = typingsJapgolly.react.mod.DetailedHTMLFactory[typingsJapgolly.react.mod.AllHTMLAttributes[T], T]
-  type JSXElementConstructor[P] = (js.Function1[/* props */ P, japgolly.scalajs.react.raw.React.Element | scala.Null]) | (org.scalablytyped.runtime.Instantiable1[
-    /* props */ P, 
-    japgolly.scalajs.react.raw.React.Component[P with js.Object, js.Object]
-  ])
-  type Key = java.lang.String | scala.Double
   type KeyboardEventHandler[T] = typingsJapgolly.react.mod.EventHandler[
     japgolly.scalajs.react.ReactKeyboardEventFrom[T with org.scalajs.dom.raw.Element]
   ]
   type LazyExoticComponent[T /* <: typingsJapgolly.react.mod.ComponentType[_] */] = typingsJapgolly.react.mod.ExoticComponent[typingsJapgolly.react.mod.ComponentPropsWithRef[T]] with typingsJapgolly.react.anon.Result[T]
-  type LegacyRef[T] = java.lang.String | japgolly.scalajs.react.raw.React.Ref
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name
   type MemoExoticComponent[T /* <: typingsJapgolly.react.mod.ComponentType[_] */] = typingsJapgolly.react.mod.NamedExoticComponent[typingsJapgolly.react.mod.ComponentPropsWithRef[T]] with typingsJapgolly.react.anon.Type[T]
-  // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-  type MergePropTypes[P, T] = ((typingsJapgolly.std.Pick[P, typingsJapgolly.react.mod.NotExactlyAnyPropertyKeys[P]]) with (typingsJapgolly.std.Pick[
-    T, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
-  ]) with (typingsJapgolly.std.Pick[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
-  ])) | P | T
   type MouseEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactMouseEventFrom[T with org.scalajs.dom.raw.Element]]
   type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent
   type NativeClipboardEvent = org.scalajs.dom.raw.ClipboardEvent
@@ -172,45 +127,14 @@ package object mod {
     scala.Unit
   ]
   type PropsWithChildren[P] = P with typingsJapgolly.react.anon.Children
-  /** Ensures that the props do not include string ref, which cannot be forwarded */
-  type PropsWithRef[P] = P | (typingsJapgolly.react.mod.PropsWithoutRef[P] with typingsJapgolly.react.anon.`0`)
-  /** Ensures that the props do not include ref at all */
-  type PropsWithoutRef[P] = P | (typingsJapgolly.std.Pick[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
-  ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
   type Provider[T] = typingsJapgolly.react.mod.ProviderExoticComponent[typingsJapgolly.react.mod.ProviderProps[T]]
-  type ReactChild = japgolly.scalajs.react.raw.React.Element | typingsJapgolly.react.mod.ReactText
   type ReactComponentElement[T /* <: typingsJapgolly.react.reactStrings.a_ | typingsJapgolly.react.reactStrings.abbr | typingsJapgolly.react.reactStrings.address | typingsJapgolly.react.reactStrings.area | typingsJapgolly.react.reactStrings.article | typingsJapgolly.react.reactStrings.aside | typingsJapgolly.react.reactStrings.audio | typingsJapgolly.react.reactStrings.b | typingsJapgolly.react.reactStrings.base | typingsJapgolly.react.reactStrings.bdi | typingsJapgolly.react.reactStrings.bdo | typingsJapgolly.react.reactStrings.big | typingsJapgolly.react.reactStrings.view | typingsJapgolly.react.mod.JSXElementConstructor[_] */, P] = japgolly.scalajs.react.raw.React.Element
   type ReactEventHandler[T] = typingsJapgolly.react.mod.EventHandler[japgolly.scalajs.react.ReactEventFrom[T with org.scalajs.dom.raw.Element]]
-  type ReactFragment = js.Object | typingsJapgolly.react.mod.ReactNodeArray
   // ReactHTML for ReactHTMLElement
   // tslint:disable-next-line:no-empty-interface
   type ReactHTMLElement[T /* <: org.scalajs.dom.raw.HTMLElement */] = typingsJapgolly.react.mod.DetailedReactHTMLElement[typingsJapgolly.react.mod.AllHTMLAttributes[T], T]
-  //
-  // Component API
-  // ----------------------------------------------------------------------
-  type ReactInstance = (japgolly.scalajs.react.raw.React.Component[js.Any with js.Object, js.Object]) | org.scalajs.dom.raw.Element
-  type ReactManagedAttributes[C, P] = P | (typingsJapgolly.react.mod.Defaultize[
-    (typingsJapgolly.react.mod.MergePropTypes[
-      P, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
-    ]) | P, 
-    js.Any
-  ]) | (typingsJapgolly.react.mod.MergePropTypes[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
-  ])
-  type ReactNode = js.UndefOr[
-    typingsJapgolly.react.mod.ReactChild | typingsJapgolly.react.mod.ReactFragment | typingsJapgolly.react.mod.ReactPortal | scala.Boolean
-  ]
-  //
-  // React Nodes
-  // http://facebook.github.io/react/docs/glossary.html
-  // ----------------------------------------------------------------------
-  type ReactText = java.lang.String | scala.Double
   /**
     * @deprecated Please use `ElementType`
     */
@@ -221,7 +145,6 @@ package object mod {
   // types used to try and prevent the compiler from reducing S
   // to a supertype common with the second argument to useReducer()
   type ReducerState[R /* <: typingsJapgolly.react.mod.Reducer[_, _] */] = js.Any
-  type Ref[T] = (js.Function1[/* instance */ T | scala.Null, scala.Unit]) | japgolly.scalajs.react.raw.React.RefHandle[T] | scala.Null
   type Requireable[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
   //
   // Class Interfaces
@@ -241,12 +164,6 @@ package object mod {
     * @deprecated Please use `FunctionComponentFactory`
     */
   type SFCFactory[P] = typingsJapgolly.react.mod.FunctionComponentFactory[P]
-  //
-  // React Hooks
-  // ----------------------------------------------------------------------
-  // based on the code in https://github.com/facebook/react/pull/13968
-  // Unlike the class component setState, the updates are not allowed to be partial
-  type SetStateAction[S] = S | (js.Function1[/* prevState */ S, S])
   /**
     * @deprecated as of recent React versions, function components can no
     * longer be considered 'stateless'. Please use `FunctionComponent` instead.

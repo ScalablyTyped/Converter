@@ -11,9 +11,6 @@ package object mod {
     /* repeated */ typings.react.mod.ReactNode, 
     typings.react.mod.DOMElement[P, T]
   ]
-  type Key = java.lang.String | scala.Double
-  type ReactNode = js.UndefOr[java.lang.String | scala.Double | scala.Boolean]
-  type Ref[T] = java.lang.String | (js.Function1[/* instance */ T | scala.Null, js.Any])
   type SFC[P] = typings.react.mod.StatelessComponent[P]
   type SVGProps[T] = typings.react.mod.ClassAttributes[T]
 }

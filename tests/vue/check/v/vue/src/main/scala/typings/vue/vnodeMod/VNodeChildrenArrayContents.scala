@@ -6,7 +6,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait VNodeChildrenArrayContents extends /* x */ NumberDictionary[VNode | String | VNodeChildren]
+trait VNodeChildrenArrayContents
+  extends /* x */ NumberDictionary[VNode | String | VNodeChildren]
+     with VNodeChildren
 
 object VNodeChildrenArrayContents {
   @scala.inline

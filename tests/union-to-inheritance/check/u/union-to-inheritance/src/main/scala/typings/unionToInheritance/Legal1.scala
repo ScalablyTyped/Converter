@@ -10,5 +10,14 @@ import scala.scalajs.js.annotation._
   - typings.unionToInheritance.Foo[T]
 */
 trait Legal1[T]
-  extends _Test2[js.Any, T]
+  extends Test2[js.Any, T]
+
+object Legal1 {
+  @scala.inline
+  def foo[T]: typings.unionToInheritance.unionToInheritanceStrings.foo = "foo".asInstanceOf[typings.unionToInheritance.unionToInheritanceStrings.foo]
+  @scala.inline
+  def bar[T]: typings.unionToInheritance.unionToInheritanceStrings.bar = "bar".asInstanceOf[typings.unionToInheritance.unionToInheritanceStrings.bar]
+  @scala.inline
+  implicit def apply[T](value: Foo[T]): Legal1[T] = value.asInstanceOf[Legal1[T]]
+}
 

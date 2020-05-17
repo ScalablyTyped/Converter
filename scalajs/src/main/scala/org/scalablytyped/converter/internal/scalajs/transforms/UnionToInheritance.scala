@@ -28,19 +28,17 @@ package transforms
   * }
   * package thisLib {
   *   trait Foo
-  *   trait Bar
   *   trait WithTypeParams[T]
-  *   type A[T] = thisLib.Foo | thisLib.Bar | thisLib.WithTypeParams[T] | otherLib.FooBar
+  *   type A[T] = thisLib.Foo | thisLib.WithTypeParams[T] | otherLib.FooBar
   * }
   *
   * // ->
   *
   * package thisLib {
-  *   trait ABase
-  *   trait Foo extends thisLib.ABase
-  *   trait Bar extends thisLib.ABase
-  *   trait WithTypeParams[T]
-  *   type A[T] = ABase | WithTypeParams[T] | otherLib.FooBar
+  *   trait A_[T]
+  *   trait Foo extends thisLib.A_[js.Any]
+  *   trait WithTypeParams[T] extends A_[T]
+  *   type A[T] = A_ | WithTypeParams[T] | otherLib.FooBar
   * }
   * ```
   *
@@ -67,7 +65,42 @@ package transforms
   * ```
   */
 object UnionToInheritance {
-  final case class WasUnion(related: IArray[TypeRef]) extends Comment.Data
+
+  /* used to reconstruct a rewritten type alias in phases *after* this rewrite has finished */
+  case class RewrittenTypeUnion(
+      codePath:      QualifiedName,
+      tparams:       IArray[TypeParamTree],
+      asInheritance: IArray[TypeRef],
+      noRewrites:    IArray[TypeRef],
+  ) {
+    def all = asInheritance ++ noRewrites
+  }
+
+  object RewrittenTypeUnion {
+    def unapply(tree: Tree): Option[RewrittenTypeUnion] =
+      tree match {
+        case cls: ClassTree =>
+          cls.comments.extract { case x: UnionToInheritance.WasUnion => x } map {
+            case (UnionToInheritance.WasUnion(asInheritance, noRewrites), _) =>
+              RewrittenTypeUnion(cls.codePath, cls.tparams, asInheritance, noRewrites)
+
+          }
+
+        case ta: TypeAliasTree =>
+          ta.comments.extract { case x: UnionToInheritance.WasUnion => x } map {
+            case (UnionToInheritance.WasUnion(asInheritance, noRewrites), _) =>
+              RewrittenTypeUnion(ta.codePath, ta.tparams, asInheritance, noRewrites)
+          } orElse {
+            ta.alias match {
+              case TypeRef.Union(types, _) => Some(RewrittenTypeUnion(ta.codePath, ta.tparams, Empty, types))
+              case _                       => None
+            }
+          }
+        case _ => None
+      }
+  }
+
+  final case class WasUnion(asInheritance: IArray[TypeRef], noRewrites: IArray[TypeRef]) extends Comment.Data
 
   def apply(
       scope:               TreeScope,
@@ -109,60 +142,29 @@ object UnionToInheritance {
           case _ => None
         }
 
-        indexedRewrites(ta.codePath) match {
-          case Rewrite(_, asInheritance, Empty) =>
-            val cls = ClassTree(
-              isImplicit = false,
-              IArray(Annotation.ScalaJSDefined),
-              ta.name,
-              ta.tparams,
-              Empty,
-              Empty,
-              Empty,
-              ClassType.Trait,
-              isSealed = false,
-              ta.comments ++? commentsOpt + CommentData(Minimization.Related(asInheritance)) +
-                CommentData(WasUnion(asInheritance)),
-              ta.codePath,
-            )
+        val Rewrite(_, asInheritance, noRewrites) = indexedRewrites(ta.codePath)
 
-            IArray(cls)
-          case Rewrite(_, asInheritance, noRewrites) =>
-            val patchedTa = patchCodePath(ta)
-            val cls = ClassTree(
-              isImplicit = false,
-              IArray(Annotation.ScalaJSDefined),
-              patchedTa.name,
-              ta.tparams,
-              newParentsByCodePath.getOrElse(ta.codePath, Empty).map(_.instantiate(ta.tparams)),
-              Empty,
-              Empty,
-              ClassType.Trait,
-              isSealed = false,
-              Comments(
-                List(CommentData(Minimization.Related(asInheritance)), CommentData(WasUnion(asInheritance))),
-              ),
-              patchedTa.codePath,
-            )
-            val newTa = ta.copy(
-              alias = TypeRef.Union(
-                TypeRef(patchedTa.codePath, TypeParamTree.asTypeArgs(patchedTa.tparams), NoComments) +: noRewrites,
-                NoComments,
-                sort = false,
-              ),
-              comments = ta.comments ++? commentsOpt,
-            )
-            IArray(cls, newTa)
-        }
+        val cls = ClassTree(
+          isImplicit = false,
+          IArray(Annotation.ScalaJSDefined),
+          ta.name,
+          ta.tparams,
+          Empty,
+          Empty,
+          Empty,
+          ClassType.Trait,
+          isSealed = false,
+          ta.comments ++? commentsOpt + CommentData(Minimization.Related(asInheritance)) +
+            CommentData(WasUnion(asInheritance, noRewrites)),
+          ta.codePath,
+        )
+
+        IArray(cls)
+
       case other => IArray(other)
     }
 
     c.withMembers(newMembers)
-  }
-
-  def patchCodePath(ta: TypeAliasTree): TypeAliasTree = {
-    val newName = Name("_" + ta.name.unescaped)
-    ta.copy(name = newName, codePath = QualifiedName(ta.codePath.parts.init :+ newName))
   }
 
   def addedInheritance(
@@ -183,7 +185,9 @@ object UnionToInheritance {
       case other => other
     })
 
-  final case class Rewrite(original: TypeAliasTree, asInheritance: IArray[TypeRef], unchanged: IArray[TypeRef])
+  final case class Rewrite(original: TypeAliasTree, asInheritance: IArray[TypeRef], unchanged: IArray[TypeRef]) {
+    def all = asInheritance ++ unchanged
+  }
 
   object Rewrite {
     def identify(
@@ -198,6 +202,7 @@ object UnionToInheritance {
             case _: PackageTree => false
             case _ => true
           }
+
         p.members.flatMap {
           case p:  ContainerTree => identify(inLib, p, scope / p, willBeExternalTypes)
           case ta: TypeAliasTree if legalClassName(ta.name) =>
@@ -206,22 +211,7 @@ object UnionToInheritance {
         }
       }
 
-      val all = go(p, scope)
-
-      includeUnchangeds(all)
-    }
-
-    private def includeUnchangeds(all: IArray[Rewrite]): IArray[Rewrite] = {
-      val allIndexed = all.groupBy(_.original.codePath).mapValues(_.head)
-
-      def go(name: QualifiedName): IArray[TypeRef] =
-        allIndexed.get(name) match {
-          case None => Empty
-          case Some(Rewrite(_, asInheritance, unchanged)) =>
-            unchanged ++ asInheritance.flatMap(u => go(u.typeName))
-        }
-
-      all.map(r => r.copy(unchanged = r.unchanged ++ r.asInheritance.map(_.typeName).flatMap(go).distinct))
+      go(p, scope)
     }
 
     def canRewrite(
@@ -253,42 +243,33 @@ object UnionToInheritance {
               tr
           }
 
-          types.partitionCollect2(HasIllegalTypeParams, InLibrary) match {
-            case (_, inLibrary, _) if inLibrary.length <= 1 => None
-            case (illegalTParams, inLibrary, outsideLib) =>
-              Some(Rewrite(ta, inLibrary, illegalTParams ++ outsideLib))
-          }
+          val (illegalTParams, inLibrary, outsideLib) = types.partitionCollect2(HasIllegalTypeParams, InLibrary)
+          Some(Rewrite(ta, asInheritance = inLibrary, unchanged = illegalTParams ++ outsideLib))
 
         case _ => None
       }
   }
 
   case class InvertingTypeParamRef(codePath: QualifiedName, tParamRefs: IArray[(TypeParamTree, Option[Int])]) {
-    def instantiate(tparams: IArray[TypeParamTree]): TypeRef =
-      TypeRef(
-        codePath,
-        tParamRefs.map {
-          case (_, Some(idx)) => TypeRef(tparams(idx).name)
-          case (_, None)      => TypeRef.Any
-        },
-        NoComments,
-      )
+    def instantiate(tparams: IArray[TypeParamTree]): TypeRef = {
+      val targs = tParamRefs.map {
+        case (_, Some(idx)) => TypeRef(tparams(idx).name)
+        case (_, None)      => TypeRef.Any
+      }
+      TypeRef(codePath, targs, NoComments)
+    }
   }
 
   object InvertingTypeParamRef {
-    def apply(r: Rewrite): IArray[(QualifiedName, InvertingTypeParamRef)] = {
-      val parentType: TypeAliasTree =
-        if (r.unchanged.isEmpty) r.original else patchCodePath(r.original)
-
+    def apply(r: Rewrite): IArray[(QualifiedName, InvertingTypeParamRef)] =
       r.asInheritance.map { (newParent: TypeRef) =>
         val tParamReferencedAt: IArray[(TypeParamTree, Option[Int])] =
-          parentType.tparams.map(tparam =>
+          r.original.tparams.map(tparam =>
             tparam -> newParent.targs.zipWithIndex.collectFirst {
               case (x, idx) if x.name === tparam.name => idx
             },
           )
-        newParent.typeName -> InvertingTypeParamRef(parentType.codePath, tParamReferencedAt)
+        newParent.typeName -> InvertingTypeParamRef(r.original.codePath, tParamReferencedAt)
       }
-    }
   }
 }

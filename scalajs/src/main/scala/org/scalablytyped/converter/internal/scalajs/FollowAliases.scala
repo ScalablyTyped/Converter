@@ -18,14 +18,15 @@ object FollowAliases {
         scope
           ._lookup(ref.typeName.parts)
           .collectFirst {
+            case (UnionToInheritance.RewrittenTypeUnion(x), newScope) =>
+              val rewriter = TypeRewriter(TypeParamTree.asTypeArgs(x.tparams).zip(ref.targs).toMap)
+              TypeRef.Union(
+                x.all.map(tr => FollowAliases(newScope)(rewriter.visitTypeRef(newScope)(tr))),
+                NoComments,
+                sort = false,
+              )
             case (ta: TypeAliasTree, newScope) =>
               apply(newScope)(FillInTParams(ta, scope, ref.targs, Empty).alias)
-            case (_cls: ClassTree, newScope) if _cls.comments.has[UnionToInheritance.WasUnion] =>
-              val cls = FillInTParams(_cls, newScope, ref.targs, Empty)
-              cls.comments.extract { case UnionToInheritance.WasUnion(types) => types } match {
-                case Some((types, _)) => TypeRef.Union(types, NoComments, sort = true)
-                case None             => ref
-              }
           }
           .getOrElse(ref)
     }

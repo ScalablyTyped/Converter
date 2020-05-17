@@ -141,7 +141,7 @@ final class FindProps(
       acceptNativeTraits: Boolean,
       selfRef:            TypeRef,
   ): Res[IArray[String], IArray[Prop]] =
-    cls.comments.extract { case UnionToInheritance.WasUnion(subclassRefs) => subclassRefs } match {
+    cls.comments.extract { case UnionToInheritance.WasUnion(x, y) => x ++ y } match {
       case Some((subclassRefs, _)) =>
         Res.combine(subclassRefs.map { subClsRef =>
           scope

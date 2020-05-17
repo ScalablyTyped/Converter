@@ -20,6 +20,8 @@ class PhaseFlavour(flavour: FlavourImpl) extends Phase[Source, LibScalaJs, LibSc
 
     getDeps((lib.dependencies.keys: Iterable[Source]).to[SortedSet]).map {
       case LibScalaJs.Unpack(deps) =>
+        logger.warn(s"Applying flavour")
+
         val originalScope = new TreeScope.Root(
           libName       = lib.scalaName,
           _dependencies = lib.dependencies.map { case (_, lib) => lib.scalaName -> lib.packageTree },

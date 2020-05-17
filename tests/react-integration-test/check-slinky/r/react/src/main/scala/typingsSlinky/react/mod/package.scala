@@ -26,17 +26,8 @@ package object mod {
     /* repeated */ slinky.core.facade.ReactElement, 
     typingsSlinky.react.mod.CElement[P, T]
   ]
-  /**
-    * NOTE: prefer ComponentPropsWithRef, if the ref is forwarded,
-    * or ComponentPropsWithoutRef when refs are not supported.
-    */
-  type ComponentProps[T /* <: typingsSlinky.react.reactStrings.a_ | typingsSlinky.react.reactStrings.abbr | typingsSlinky.react.reactStrings.address | typingsSlinky.react.reactStrings.area | typingsSlinky.react.reactStrings.article | typingsSlinky.react.reactStrings.aside | typingsSlinky.react.reactStrings.audio | typingsSlinky.react.reactStrings.b | typingsSlinky.react.reactStrings.base | typingsSlinky.react.reactStrings.bdi | typingsSlinky.react.reactStrings.bdo | typingsSlinky.react.reactStrings.big | typingsSlinky.react.reactStrings.view | typingsSlinky.react.mod.JSXElementConstructor[_] */] = js.Object | (/* import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] */ js.Any)
-  type ComponentPropsWithRef[T /* <: slinky.core.facade.ReactElement */] = typingsSlinky.react.mod.PropsWithRef[typingsSlinky.react.mod.ComponentProps[T]] | (typingsSlinky.react.mod.PropsWithoutRef[_] with (typingsSlinky.react.mod.RefAttributes[
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify InstanceType<T> */ _
-  ]))
   type ComponentPropsWithoutRef[T /* <: slinky.core.facade.ReactElement */] = typingsSlinky.react.mod.PropsWithoutRef[typingsSlinky.react.mod.ComponentProps[T]]
   type ComponentState = js.Any
-  type ComponentType[P] = slinky.core.ReactComponentClass[P]
   type CompositionEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticCompositionEvent[T]]
   type Consumer[T] = slinky.core.ReactComponentClass[typingsSlinky.react.mod.ConsumerProps[T]]
   type ContextType[C /* <: typingsSlinky.react.mod.Context[_] */] = js.Any
@@ -45,24 +36,6 @@ package object mod {
     /* repeated */ slinky.core.facade.ReactElement, 
     slinky.core.facade.ReactElement
   ]
-  // Any prop that has a default prop becomes optional, but its type is unchanged
-  // Undeclared default props are augmented into the resulting allowable attributes
-  // If declared props have indexed properties, ignore default props entirely as keyof gets widened
-  // Wrap in an outer-level conditional type to allow distribution over props that are unions
-  type Defaultize[P, D] = ((typingsSlinky.std.Pick[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof D> */ _
-  ]) with (typingsSlinky.std.Partial[
-    typingsSlinky.std.Pick[
-      P, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Extract<keyof P, keyof D> */ _
-    ]
-  ]) with (typingsSlinky.std.Partial[
-    typingsSlinky.std.Pick[
-      D, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof D, keyof P> */ _
-    ]
-  ])) | P
   // The identity check is done with the SameValue algorithm (Object.is), which is stricter than ===
   // TODO (TypeScript 3.0): ReadonlyArray<unknown>
   type DependencyList = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify ReadonlyArray<any> */ js.Any
@@ -74,10 +47,6 @@ package object mod {
   // NOTE: callbacks are _only_ allowed to return either void, or a destructor.
   // The destructor is itself only allowed to return void.
   type EffectCallback = js.Function0[scala.Unit | js.Function0[js.UndefOr[scala.Unit]]]
-  //
-  // React Elements
-  // ----------------------------------------------------------------------
-  type ElementType[P] = (/* import warning: importer.ImportType#apply Failed type conversion: {[ K in 'a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'view' ]: P extends react.react.<global>.JSX.IntrinsicElements[K]? K : never}['a' | 'abbr' | 'address' | 'area' | 'article' | 'aside' | 'audio' | 'b' | 'base' | 'bdi' | 'bdo' | 'big' | 'view'] */ js.Any) | slinky.core.ReactComponentClass[P]
   //
   // Event Handler Types
   // ----------------------------------------------------------------------
@@ -118,22 +87,11 @@ package object mod {
   js.Function2[/* nextProps */ P, /* prevState */ S, typingsSlinky.std.Partial[S] | scala.Null]
   // tslint:disable-next-line:no-empty-interface
   type HTMLFactory[T /* <: org.scalajs.dom.raw.HTMLElement */] = typingsSlinky.react.mod.DetailedHTMLFactory[typingsSlinky.react.mod.AllHTMLAttributes[T], T]
-  type JSXElementConstructor[P] = (js.Function1[/* props */ P, slinky.core.facade.ReactElement | scala.Null]) | (org.scalablytyped.runtime.Instantiable1[/* props */ P, slinky.core.ReactComponentClass[P]])
-  type Key = java.lang.String | scala.Double
   type KeyboardEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticKeyboardEvent[T]]
   type LazyExoticComponent[T /* <: slinky.core.ReactComponentClass[_] */] = slinky.core.ReactComponentClass[typingsSlinky.react.mod.ComponentPropsWithRef[T]] with typingsSlinky.react.anon.Result[T]
-  type LegacyRef[T] = java.lang.String | typingsSlinky.react.mod.Ref[T]
   // will show `Memo(${Component.displayName || Component.name})` in devtools by default,
   // but can be given its own specific name
   type MemoExoticComponent[T /* <: slinky.core.ReactComponentClass[_] */] = slinky.core.ReactComponentClass[typingsSlinky.react.mod.ComponentPropsWithRef[T]] with typingsSlinky.react.anon.Type[T]
-  // Try to resolve ill-defined props like for JS users: props can be any, or sometimes objects with properties of type any
-  type MergePropTypes[P, T] = ((typingsSlinky.std.Pick[P, typingsSlinky.react.mod.NotExactlyAnyPropertyKeys[P]]) with (typingsSlinky.std.Pick[
-    T, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof T, NotExactlyAnyPropertyKeys<P>> */ _
-  ]) with (typingsSlinky.std.Pick[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, keyof T> */ _
-  ])) | P | T
   type MouseEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.web.SyntheticMouseEvent[T]]
   type NativeAnimationEvent = org.scalajs.dom.raw.AnimationEvent
   type NativeClipboardEvent = org.scalajs.dom.raw.ClipboardEvent
@@ -163,45 +121,14 @@ package object mod {
     scala.Unit
   ]
   type PropsWithChildren[P] = P with typingsSlinky.react.anon.Children
-  /** Ensures that the props do not include string ref, which cannot be forwarded */
-  type PropsWithRef[P] = P | (typingsSlinky.react.mod.PropsWithoutRef[P] with typingsSlinky.react.anon.`0`)
-  /** Ensures that the props do not include ref at all */
-  type PropsWithoutRef[P] = P | (typingsSlinky.std.Pick[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Exclude<keyof P, 'ref'> */ js.Any
-  ])
   // NOTE: only the Context object itself can get a displayName
   // https://github.com/facebook/react-devtools/blob/e0b854e4c/backend/attachRendererFiber.js#L310-L325
   type Provider[T] = slinky.core.ReactComponentClass[typingsSlinky.react.mod.ProviderProps[T]]
-  type ReactChild = slinky.core.facade.ReactElement | typingsSlinky.react.mod.ReactText
   type ReactComponentElement[T /* <: typingsSlinky.react.reactStrings.a_ | typingsSlinky.react.reactStrings.abbr | typingsSlinky.react.reactStrings.address | typingsSlinky.react.reactStrings.area | typingsSlinky.react.reactStrings.article | typingsSlinky.react.reactStrings.aside | typingsSlinky.react.reactStrings.audio | typingsSlinky.react.reactStrings.b | typingsSlinky.react.reactStrings.base | typingsSlinky.react.reactStrings.bdi | typingsSlinky.react.reactStrings.bdo | typingsSlinky.react.reactStrings.big | typingsSlinky.react.reactStrings.view | typingsSlinky.react.mod.JSXElementConstructor[_] */, P] = slinky.core.facade.ReactElement
   type ReactEventHandler[T] = typingsSlinky.react.mod.EventHandler[slinky.core.SyntheticEvent[org.scalajs.dom.raw.Event, T]]
-  type ReactFragment = js.Object | typingsSlinky.react.mod.ReactNodeArray
   // ReactHTML for ReactHTMLElement
   // tslint:disable-next-line:no-empty-interface
   type ReactHTMLElement[T /* <: org.scalajs.dom.raw.HTMLElement */] = typingsSlinky.react.mod.DetailedReactHTMLElement[typingsSlinky.react.mod.AllHTMLAttributes[T], T]
-  //
-  // Component API
-  // ----------------------------------------------------------------------
-  type ReactInstance = slinky.core.ReactComponentClass[js.Any] | org.scalajs.dom.raw.Element
-  type ReactManagedAttributes[C, P] = P | (typingsSlinky.react.mod.Defaultize[
-    (typingsSlinky.react.mod.MergePropTypes[
-      P, 
-      /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
-    ]) | P, 
-    js.Any
-  ]) | (typingsSlinky.react.mod.MergePropTypes[
-    P, 
-    /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.InferProps<T> */ js.Any
-  ])
-  type ReactNode = js.UndefOr[
-    typingsSlinky.react.mod.ReactChild | typingsSlinky.react.mod.ReactFragment | typingsSlinky.react.mod.ReactPortal | scala.Boolean
-  ]
-  //
-  // React Nodes
-  // http://facebook.github.io/react/docs/glossary.html
-  // ----------------------------------------------------------------------
-  type ReactText = java.lang.String | scala.Double
   /**
     * @deprecated Please use `ElementType`
     */
@@ -212,7 +139,6 @@ package object mod {
   // types used to try and prevent the compiler from reducing S
   // to a supertype common with the second argument to useReducer()
   type ReducerState[R /* <: typingsSlinky.react.mod.Reducer[_, _] */] = js.Any
-  type Ref[T] = (js.Function1[/* instance */ T | scala.Null, scala.Unit]) | slinky.core.facade.ReactRef[T] | scala.Null
   type Requireable[T] = /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify PropTypes.Requireable<T> */ js.Any
   //
   // Class Interfaces
@@ -232,12 +158,6 @@ package object mod {
     * @deprecated Please use `FunctionComponentFactory`
     */
   type SFCFactory[P] = typingsSlinky.react.mod.FunctionComponentFactory[P]
-  //
-  // React Hooks
-  // ----------------------------------------------------------------------
-  // based on the code in https://github.com/facebook/react/pull/13968
-  // Unlike the class component setState, the updates are not allowed to be partial
-  type SetStateAction[S] = S | (js.Function1[/* prevState */ S, S])
   /**
     * @deprecated as of recent React versions, function components can no
     * longer be considered 'stateless'. Please use `FunctionComponent` instead.

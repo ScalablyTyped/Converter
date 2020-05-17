@@ -9,5 +9,4 @@ package object vnodeMod {
     /* props */ js.Any, 
     typings.vue.vnodeMod.VNodeChildrenArrayContents | java.lang.String
   ]
-  type VNodeChildren = typings.vue.vnodeMod.VNodeChildrenArrayContents | js.Array[typings.vue.vnodeMod.ScopedSlot] | java.lang.String
 }

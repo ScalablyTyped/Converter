@@ -10,3 +10,10 @@ import scala.scalajs.js.annotation._
 */
 trait ComponentType[P] extends js.Object
 
+object ComponentType {
+  @scala.inline
+  implicit def apply[P](value: ComponentClass[P]): ComponentType[P] = value.asInstanceOf[ComponentType[P]]
+  @scala.inline
+  implicit def apply[P](value: StatelessComponent[P]): ComponentType[P] = value.asInstanceOf[ComponentType[P]]
+}
+

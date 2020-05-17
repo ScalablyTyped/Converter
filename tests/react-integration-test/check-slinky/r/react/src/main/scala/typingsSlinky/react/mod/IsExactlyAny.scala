@@ -12,3 +12,10 @@ import scala.scalajs.js.annotation._
 */
 trait IsExactlyAny[T] extends js.Object
 
+object IsExactlyAny {
+  @scala.inline
+  def `false`[T]: typingsSlinky.react.reactBooleans.`false` = false.asInstanceOf[typingsSlinky.react.reactBooleans.`false`]
+  @scala.inline
+  def `true`[T]: typingsSlinky.react.reactBooleans.`true` = true.asInstanceOf[typingsSlinky.react.reactBooleans.`true`]
+}
+

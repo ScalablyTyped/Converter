@@ -7,7 +7,9 @@ import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 @js.native
-trait ReactPortal extends ReactElement {
+trait ReactPortal
+  extends ReactElement
+     with ReactNode {
   var children: Node = js.native
 }
 

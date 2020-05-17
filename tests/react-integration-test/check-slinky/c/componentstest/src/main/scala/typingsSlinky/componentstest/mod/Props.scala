@@ -12,14 +12,8 @@ trait Props extends js.Object
 
 object Props {
   @scala.inline
-  def A(aCallback: () => Double, aMember: Double): Props = {
-    val __obj = js.Dynamic.literal(aCallback = js.Any.fromFunction0(aCallback), aMember = aMember.asInstanceOf[js.Any])
-    __obj.asInstanceOf[Props]
-  }
+  implicit def apply(value: A): Props = value.asInstanceOf[Props]
   @scala.inline
-  def B(bMember: String): Props = {
-    val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-    __obj.asInstanceOf[Props]
-  }
+  implicit def apply(value: B): Props = value.asInstanceOf[Props]
 }
 

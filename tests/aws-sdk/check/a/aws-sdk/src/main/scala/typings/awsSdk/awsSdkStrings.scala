@@ -1,19 +1,19 @@
 package typings.awsSdk
 
-import typings.awsSdk.documentClientMod.DocumentClient._AttributeAction
+import typings.awsSdk.documentClientMod.DocumentClient.AttributeAction
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
 object awsSdkStrings {
   @js.native
-  sealed trait ADD extends _AttributeAction
+  sealed trait ADD extends AttributeAction
   
   @js.native
-  sealed trait DELETE extends _AttributeAction
+  sealed trait DELETE extends AttributeAction
   
   @js.native
-  sealed trait PUT extends _AttributeAction
+  sealed trait PUT extends AttributeAction
   
   @js.native
   sealed trait latest extends js.Object
