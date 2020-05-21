@@ -26,29 +26,18 @@ object Insight_ {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withClientId(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("clientId")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withConfig(value: IConfigstore): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("config")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setClientId(value: String): Self = this.set("clientId", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOptOut(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optOut")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setConfig(value: IConfigstore): Self = this.set("config", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTrack(value: /* repeated */ String => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("track")(js.Any.fromFunction1(value))
-        ret
-    }
+    def setOptOut(value: Boolean): Self = this.set("optOut", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setTrack(value: /* repeated */ String => Unit): Self = this.set("track", js.Any.fromFunction1(value))
   }
   
 }

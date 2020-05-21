@@ -23,29 +23,18 @@ object WatchOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDeep(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deep")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutDeep: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deep")(js.undefined)
-        ret
-    }
+    def setDeep(value: Boolean): Self = this.set("deep", value.asInstanceOf[js.Any])
     @scala.inline
-    def withImmediate(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("immediate")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDeep: Self = this.set("deep", js.undefined)
     @scala.inline
-    def withoutImmediate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("immediate")(js.undefined)
-        ret
-    }
+    def setImmediate(value: Boolean): Self = this.set("immediate", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteImmediate: Self = this.set("immediate", js.undefined)
   }
   
 }

@@ -23,29 +23,18 @@ object HttpInterceptor {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withRequest(value: /* request */ HttpOptions => HttpOptions): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("request")(js.Any.fromFunction1(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutRequest: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("request")(js.undefined)
-        ret
-    }
+    def setRequest(value: /* request */ HttpOptions => HttpOptions): Self = this.set("request", js.Any.fromFunction1(value))
     @scala.inline
-    def withResponse(value: /* response */ HttpResponse => HttpResponse): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("response")(js.Any.fromFunction1(value))
-        ret
-    }
+    def deleteRequest: Self = this.set("request", js.undefined)
     @scala.inline
-    def withoutResponse: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("response")(js.undefined)
-        ret
-    }
+    def setResponse(value: /* response */ HttpResponse => HttpResponse): Self = this.set("response", js.Any.fromFunction1(value))
+    @scala.inline
+    def deleteResponse: Self = this.set("response", js.undefined)
   }
   
 }

@@ -38,173 +38,66 @@ object VNode {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withIsComment(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isComment")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withIsRootInsert(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isRootInsert")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIsComment(value: Boolean): Self = this.set("isComment", value.asInstanceOf[js.Any])
     @scala.inline
-    def withChildren(value: js.Array[VNode]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIsRootInsert(value: Boolean): Self = this.set("isRootInsert", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutChildren: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
-        ret
-    }
+    def setChildren(value: js.Array[VNode]): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
-    def withComponentInstance(value: Vue): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentInstance")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline
-    def withoutComponentInstance: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentInstance")(js.undefined)
-        ret
-    }
+    def setComponentInstance(value: Vue): Self = this.set("componentInstance", value.asInstanceOf[js.Any])
     @scala.inline
-    def withComponentOptions(value: VNodeComponentOptions): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentOptions")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteComponentInstance: Self = this.set("componentInstance", js.undefined)
     @scala.inline
-    def withoutComponentOptions: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentOptions")(js.undefined)
-        ret
-    }
+    def setComponentOptions(value: VNodeComponentOptions): Self = this.set("componentOptions", value.asInstanceOf[js.Any])
     @scala.inline
-    def withContext(value: Vue): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("context")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteComponentOptions: Self = this.set("componentOptions", js.undefined)
     @scala.inline
-    def withoutContext: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("context")(js.undefined)
-        ret
-    }
+    def setContext(value: Vue): Self = this.set("context", value.asInstanceOf[js.Any])
     @scala.inline
-    def withData(value: VNodeData): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteContext: Self = this.set("context", js.undefined)
     @scala.inline
-    def withoutData: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(js.undefined)
-        ret
-    }
+    def setData(value: VNodeData): Self = this.set("data", value.asInstanceOf[js.Any])
     @scala.inline
-    def withElm(value: Node): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("elm")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteData: Self = this.set("data", js.undefined)
     @scala.inline
-    def withoutElm: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("elm")(js.undefined)
-        ret
-    }
+    def setElm(value: Node): Self = this.set("elm", value.asInstanceOf[js.Any])
     @scala.inline
-    def withIsStatic(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isStatic")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteElm: Self = this.set("elm", js.undefined)
     @scala.inline
-    def withoutIsStatic: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isStatic")(js.undefined)
-        ret
-    }
+    def setIsStatic(value: Boolean): Self = this.set("isStatic", value.asInstanceOf[js.Any])
     @scala.inline
-    def withKey(value: String | Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteIsStatic: Self = this.set("isStatic", js.undefined)
     @scala.inline
-    def withoutKey: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(js.undefined)
-        ret
-    }
+    def setKey(value: String | Double): Self = this.set("key", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNs(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ns")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteKey: Self = this.set("key", js.undefined)
     @scala.inline
-    def withoutNs: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ns")(js.undefined)
-        ret
-    }
+    def setNs(value: String): Self = this.set("ns", value.asInstanceOf[js.Any])
     @scala.inline
-    def withParent(value: VNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("parent")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteNs: Self = this.set("ns", js.undefined)
     @scala.inline
-    def withoutParent: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("parent")(js.undefined)
-        ret
-    }
+    def setParent(value: VNode): Self = this.set("parent", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRaw(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("raw")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteParent: Self = this.set("parent", js.undefined)
     @scala.inline
-    def withoutRaw: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("raw")(js.undefined)
-        ret
-    }
+    def setRaw(value: Boolean): Self = this.set("raw", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTag(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("tag")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteRaw: Self = this.set("raw", js.undefined)
     @scala.inline
-    def withoutTag: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("tag")(js.undefined)
-        ret
-    }
+    def setTag(value: String): Self = this.set("tag", value.asInstanceOf[js.Any])
     @scala.inline
-    def withText(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteTag: Self = this.set("tag", js.undefined)
     @scala.inline
-    def withoutText: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(js.undefined)
-        ret
-    }
+    def setText(value: String): Self = this.set("text", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteText: Self = this.set("text", js.undefined)
   }
   
 }

@@ -39,110 +39,51 @@ object ContextMenuProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withId(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("id")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withClassName(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setId(value: String): Self = this.set("id", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutClassName: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
-        ret
-    }
+    def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
     @scala.inline
-    def withData(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteClassName: Self = this.set("className", js.undefined)
     @scala.inline
-    def withoutData: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(js.undefined)
-        ret
-    }
+    def setData(value: js.Any): Self = this.set("data", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHideOnLeave(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("hideOnLeave")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteData: Self = this.set("data", js.undefined)
     @scala.inline
-    def withoutHideOnLeave: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("hideOnLeave")(js.undefined)
-        ret
-    }
+    def setHideOnLeave(value: Boolean): Self = this.set("hideOnLeave", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOnHide(value: /* event */ js.Any => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onHide")(js.Any.fromFunction1(value))
-        ret
-    }
+    def deleteHideOnLeave: Self = this.set("hideOnLeave", js.undefined)
     @scala.inline
-    def withoutOnHide: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onHide")(js.undefined)
-        ret
-    }
+    def setOnHide(value: /* event */ js.Any => Unit): Self = this.set("onHide", js.Any.fromFunction1(value))
     @scala.inline
-    def withOnMouseLeaveFunction3(
+    def deleteOnHide: Self = this.set("onHide", js.undefined)
+    @scala.inline
+    def setOnMouseLeaveFunction3(
       value: (/* event */ MouseEvent[HTMLElement, NativeMouseEvent], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, /* target */ HTMLElement) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(js.Any.fromFunction3(value))
-        ret
-    }
+    ): Self = this.set("onMouseLeave", js.Any.fromFunction3(value))
     @scala.inline
-    def withOnMouseLeave(
+    def setOnMouseLeave(
       value: (js.Function3[
           /* event */ MouseEvent[HTMLElement, NativeMouseEvent], 
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Object */ /* data */ js.Any, 
           /* target */ HTMLElement, 
           Unit
         ]) | js.Function
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("onMouseLeave", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutOnMouseLeave: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(js.undefined)
-        ret
-    }
+    def deleteOnMouseLeave: Self = this.set("onMouseLeave", js.undefined)
     @scala.inline
-    def withOnShow(value: /* event */ js.Any => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onShow")(js.Any.fromFunction1(value))
-        ret
-    }
+    def setOnShow(value: /* event */ js.Any => Unit): Self = this.set("onShow", js.Any.fromFunction1(value))
     @scala.inline
-    def withoutOnShow: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onShow")(js.undefined)
-        ret
-    }
+    def deleteOnShow: Self = this.set("onShow", js.undefined)
     @scala.inline
-    def withRtl(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rtl")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRtl(value: Boolean): Self = this.set("rtl", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutRtl: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rtl")(js.undefined)
-        ret
-    }
+    def deleteRtl: Self = this.set("rtl", js.undefined)
   }
   
 }

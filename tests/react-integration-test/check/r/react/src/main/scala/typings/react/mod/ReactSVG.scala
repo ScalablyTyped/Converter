@@ -132,335 +132,120 @@ object ReactSVG {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAnimate(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("animate")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withCircle(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("circle")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAnimate(value: SVGFactory): Self = this.set("animate", value.asInstanceOf[js.Any])
     @scala.inline
-    def withClipPath(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setCircle(value: SVGFactory): Self = this.set("circle", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDefs(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("defs")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setClipPath(value: SVGFactory): Self = this.set("clipPath", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDesc(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("desc")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDefs(value: SVGFactory): Self = this.set("defs", value.asInstanceOf[js.Any])
     @scala.inline
-    def withEllipse(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ellipse")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDesc(value: SVGFactory): Self = this.set("desc", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeBlend(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feBlend")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setEllipse(value: SVGFactory): Self = this.set("ellipse", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeColorMatrix(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feColorMatrix")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeBlend(value: SVGFactory): Self = this.set("feBlend", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeComponentTransfer(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feComponentTransfer")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeColorMatrix(value: SVGFactory): Self = this.set("feColorMatrix", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeComposite(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feComposite")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeComponentTransfer(value: SVGFactory): Self = this.set("feComponentTransfer", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeConvolveMatrix(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feConvolveMatrix")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeComposite(value: SVGFactory): Self = this.set("feComposite", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeDiffuseLighting(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feDiffuseLighting")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeConvolveMatrix(value: SVGFactory): Self = this.set("feConvolveMatrix", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeDisplacementMap(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feDisplacementMap")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeDiffuseLighting(value: SVGFactory): Self = this.set("feDiffuseLighting", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeDistantLight(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feDistantLight")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeDisplacementMap(value: SVGFactory): Self = this.set("feDisplacementMap", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeDropShadow(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feDropShadow")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeDistantLight(value: SVGFactory): Self = this.set("feDistantLight", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeFlood(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feFlood")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeDropShadow(value: SVGFactory): Self = this.set("feDropShadow", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeFuncA(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feFuncA")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeFlood(value: SVGFactory): Self = this.set("feFlood", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeFuncB(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feFuncB")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeFuncA(value: SVGFactory): Self = this.set("feFuncA", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeFuncG(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feFuncG")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeFuncB(value: SVGFactory): Self = this.set("feFuncB", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeFuncR(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feFuncR")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeFuncG(value: SVGFactory): Self = this.set("feFuncG", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeGaussianBlur(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feGaussianBlur")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeFuncR(value: SVGFactory): Self = this.set("feFuncR", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeImage(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feImage")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeGaussianBlur(value: SVGFactory): Self = this.set("feGaussianBlur", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeMerge(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feMerge")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeImage(value: SVGFactory): Self = this.set("feImage", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeMergeNode(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feMergeNode")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeMerge(value: SVGFactory): Self = this.set("feMerge", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeMorphology(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feMorphology")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeMergeNode(value: SVGFactory): Self = this.set("feMergeNode", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeOffset(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feOffset")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeMorphology(value: SVGFactory): Self = this.set("feMorphology", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFePointLight(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("fePointLight")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeOffset(value: SVGFactory): Self = this.set("feOffset", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeSpecularLighting(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feSpecularLighting")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFePointLight(value: SVGFactory): Self = this.set("fePointLight", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeSpotLight(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feSpotLight")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeSpecularLighting(value: SVGFactory): Self = this.set("feSpecularLighting", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeTile(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feTile")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeSpotLight(value: SVGFactory): Self = this.set("feSpotLight", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFeTurbulence(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("feTurbulence")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeTile(value: SVGFactory): Self = this.set("feTile", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFilter(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("filter")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFeTurbulence(value: SVGFactory): Self = this.set("feTurbulence", value.asInstanceOf[js.Any])
     @scala.inline
-    def withForeignObject(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("foreignObject")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFilter(value: SVGFactory): Self = this.set("filter", value.asInstanceOf[js.Any])
     @scala.inline
-    def withG(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("g")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setForeignObject(value: SVGFactory): Self = this.set("foreignObject", value.asInstanceOf[js.Any])
     @scala.inline
-    def withImage(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("image")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setG(value: SVGFactory): Self = this.set("g", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLine(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("line")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setImage(value: SVGFactory): Self = this.set("image", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLinearGradient(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("linearGradient")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLine(value: SVGFactory): Self = this.set("line", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMarker(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("marker")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLinearGradient(value: SVGFactory): Self = this.set("linearGradient", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMask(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("mask")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMarker(value: SVGFactory): Self = this.set("marker", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMetadata(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("metadata")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMask(value: SVGFactory): Self = this.set("mask", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPath(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("path")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMetadata(value: SVGFactory): Self = this.set("metadata", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPattern(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("pattern")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPath(value: SVGFactory): Self = this.set("path", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPolygon(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("polygon")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPattern(value: SVGFactory): Self = this.set("pattern", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPolyline(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("polyline")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPolygon(value: SVGFactory): Self = this.set("polygon", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRadialGradient(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("radialGradient")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPolyline(value: SVGFactory): Self = this.set("polyline", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRect(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rect")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRadialGradient(value: SVGFactory): Self = this.set("radialGradient", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStop(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("stop")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRect(value: SVGFactory): Self = this.set("rect", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSvg(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("svg")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setStop(value: SVGFactory): Self = this.set("stop", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSwitch(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("switch")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSvg(value: SVGFactory): Self = this.set("svg", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSymbol(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("symbol")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSwitch(value: SVGFactory): Self = this.set("switch", value.asInstanceOf[js.Any])
     @scala.inline
-    def withText(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSymbol(value: SVGFactory): Self = this.set("symbol", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTextPath(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("textPath")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setText(value: SVGFactory): Self = this.set("text", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTspan(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("tspan")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTextPath(value: SVGFactory): Self = this.set("textPath", value.asInstanceOf[js.Any])
     @scala.inline
-    def withUse(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("use")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTspan(value: SVGFactory): Self = this.set("tspan", value.asInstanceOf[js.Any])
     @scala.inline
-    def withView(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("view")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setUse(value: SVGFactory): Self = this.set("use", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setView(value: SVGFactory): Self = this.set("view", value.asInstanceOf[js.Any])
   }
   
 }

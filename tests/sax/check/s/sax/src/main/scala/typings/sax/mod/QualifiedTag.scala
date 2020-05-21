@@ -34,23 +34,16 @@ object QualifiedTag {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAttributes(value: StringDictionary[QualifiedAttribute]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("attributes")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withIsSelfClosing(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isSelfClosing")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAttributes(value: StringDictionary[QualifiedAttribute]): Self = this.set("attributes", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNs(value: StringDictionary[String]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ns")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIsSelfClosing(value: Boolean): Self = this.set("isSelfClosing", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setNs(value: StringDictionary[String]): Self = this.set("ns", value.asInstanceOf[js.Any])
   }
   
 }

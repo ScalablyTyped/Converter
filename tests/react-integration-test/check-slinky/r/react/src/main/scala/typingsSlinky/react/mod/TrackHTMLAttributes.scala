@@ -26,65 +26,30 @@ object TrackHTMLAttributes {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefault(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutDefault: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(js.undefined)
-        ret
-    }
+    def setDefault(value: Boolean): Self = this.set("default", value.asInstanceOf[js.Any])
     @scala.inline
-    def withKind(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("kind")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDefault: Self = this.set("default", js.undefined)
     @scala.inline
-    def withoutKind: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("kind")(js.undefined)
-        ret
-    }
+    def setKind(value: String): Self = this.set("kind", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLabel(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("label")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteKind: Self = this.set("kind", js.undefined)
     @scala.inline
-    def withoutLabel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("label")(js.undefined)
-        ret
-    }
+    def setLabel(value: String): Self = this.set("label", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSrc(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("src")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteLabel: Self = this.set("label", js.undefined)
     @scala.inline
-    def withoutSrc: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("src")(js.undefined)
-        ret
-    }
+    def setSrc(value: String): Self = this.set("src", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSrcLang(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("srcLang")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteSrc: Self = this.set("src", js.undefined)
     @scala.inline
-    def withoutSrcLang: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("srcLang")(js.undefined)
-        ret
-    }
+    def setSrcLang(value: String): Self = this.set("srcLang", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteSrcLang: Self = this.set("srcLang", js.undefined)
   }
   
 }

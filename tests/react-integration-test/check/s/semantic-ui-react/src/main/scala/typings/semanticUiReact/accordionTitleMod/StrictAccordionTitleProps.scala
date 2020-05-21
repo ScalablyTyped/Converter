@@ -61,117 +61,54 @@ object StrictAccordionTitleProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withActive(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("active")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutActive: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("active")(js.undefined)
-        ret
-    }
+    def setActive(value: Boolean): Self = this.set("active", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAs(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteActive: Self = this.set("active", js.undefined)
     @scala.inline
-    def withoutAs: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(js.undefined)
-        ret
-    }
+    def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
     @scala.inline
-    def withChildren(value: ReactNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteAs: Self = this.set("as", js.undefined)
     @scala.inline
-    def withoutChildren: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
-        ret
-    }
+    def setChildren(value: ReactNode): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
-    def withClassName(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline
-    def withoutClassName: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
-        ret
-    }
+    def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
     @scala.inline
-    def withContent(value: SemanticShorthandContent): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteClassName: Self = this.set("className", js.undefined)
     @scala.inline
-    def withoutContent: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.undefined)
-        ret
-    }
+    def setContent(value: SemanticShorthandContent): Self = this.set("content", value.asInstanceOf[js.Any])
     @scala.inline
-    def withIconFunction3(
+    def deleteContent: Self = this.set("content", js.undefined)
+    @scala.inline
+    def setIconFunction3(
       value: (/* component */ ReactType[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
         ], /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _, /* children */ js.UndefOr[ReactNode | ReactNodeArray]) => ReactElement | Null
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(js.Any.fromFunction3(value))
-        ret
-    }
+    ): Self = this.set("icon", js.Any.fromFunction3(value))
     @scala.inline
-    def withIcon(
+    def setIcon(
       value: SemanticShorthandItem[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify IconProps */ _
         ]
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("icon", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutIcon: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(js.undefined)
-        ret
-    }
+    def deleteIcon: Self = this.set("icon", js.undefined)
     @scala.inline
-    def withIndex(value: Double | String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("index")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIndex(value: Double | String): Self = this.set("index", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutIndex: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("index")(js.undefined)
-        ret
-    }
+    def deleteIndex: Self = this.set("index", js.undefined)
     @scala.inline
-    def withOnClick(
+    def setOnClick(
       value: (/* event */ MouseEvent[HTMLDivElement, NativeMouseEvent], /* data */ AccordionTitleProps) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction2(value))
-        ret
-    }
+    ): Self = this.set("onClick", js.Any.fromFunction2(value))
     @scala.inline
-    def withoutOnClick: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.undefined)
-        ret
-    }
+    def deleteOnClick: Self = this.set("onClick", js.undefined)
   }
   
 }

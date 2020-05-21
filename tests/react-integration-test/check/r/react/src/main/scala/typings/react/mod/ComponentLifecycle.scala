@@ -62,55 +62,28 @@ object ComponentLifecycle {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withComponentDidCatch(
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setComponentDidCatch(
       value: (/* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Error */ /* error */ js.Any, /* errorInfo */ ErrorInfo) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidCatch")(js.Any.fromFunction2(value))
-        ret
-    }
+    ): Self = this.set("componentDidCatch", js.Any.fromFunction2(value))
     @scala.inline
-    def withoutComponentDidCatch: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidCatch")(js.undefined)
-        ret
-    }
+    def deleteComponentDidCatch: Self = this.set("componentDidCatch", js.undefined)
     @scala.inline
-    def withComponentDidMount(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidMount")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setComponentDidMount(value: () => Unit): Self = this.set("componentDidMount", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutComponentDidMount: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidMount")(js.undefined)
-        ret
-    }
+    def deleteComponentDidMount: Self = this.set("componentDidMount", js.undefined)
     @scala.inline
-    def withComponentWillUnmount(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillUnmount")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setComponentWillUnmount(value: () => Unit): Self = this.set("componentWillUnmount", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutComponentWillUnmount: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillUnmount")(js.undefined)
-        ret
-    }
+    def deleteComponentWillUnmount: Self = this.set("componentWillUnmount", js.undefined)
     @scala.inline
-    def withShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("shouldComponentUpdate")(js.Any.fromFunction3(value))
-        ret
-    }
+    def setShouldComponentUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Boolean): Self = this.set("shouldComponentUpdate", js.Any.fromFunction3(value))
     @scala.inline
-    def withoutShouldComponentUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("shouldComponentUpdate")(js.undefined)
-        ret
-    }
+    def deleteShouldComponentUpdate: Self = this.set("shouldComponentUpdate", js.undefined)
   }
   
 }

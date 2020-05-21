@@ -31,65 +31,30 @@ object ButtonGroupProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBlock(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("block")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutBlock: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("block")(js.undefined)
-        ret
-    }
+    def setBlock(value: Boolean): Self = this.set("block", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBsSize(value: Sizes): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bsSize")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteBlock: Self = this.set("block", js.undefined)
     @scala.inline
-    def withoutBsSize: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bsSize")(js.undefined)
-        ret
-    }
+    def setBsSize(value: Sizes): Self = this.set("bsSize", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBsStyle(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bsStyle")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteBsSize: Self = this.set("bsSize", js.undefined)
     @scala.inline
-    def withoutBsStyle: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bsStyle")(js.undefined)
-        ret
-    }
+    def setBsStyle(value: String): Self = this.set("bsStyle", value.asInstanceOf[js.Any])
     @scala.inline
-    def withJustified(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("justified")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteBsStyle: Self = this.set("bsStyle", js.undefined)
     @scala.inline
-    def withoutJustified: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("justified")(js.undefined)
-        ret
-    }
+    def setJustified(value: Boolean): Self = this.set("justified", value.asInstanceOf[js.Any])
     @scala.inline
-    def withVertical(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("vertical")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteJustified: Self = this.set("justified", js.undefined)
     @scala.inline
-    def withoutVertical: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("vertical")(js.undefined)
-        ret
-    }
+    def setVertical(value: Boolean): Self = this.set("vertical", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteVertical: Self = this.set("vertical", js.undefined)
   }
   
 }

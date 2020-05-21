@@ -24,23 +24,16 @@ object ReactSVG {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAnimate(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("animate")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withCircle(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("circle")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAnimate(value: SVGFactory): Self = this.set("animate", value.asInstanceOf[js.Any])
     @scala.inline
-    def withClipPath(value: SVGFactory): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setCircle(value: SVGFactory): Self = this.set("circle", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setClipPath(value: SVGFactory): Self = this.set("clipPath", value.asInstanceOf[js.Any])
   }
   
 }

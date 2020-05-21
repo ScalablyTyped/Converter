@@ -23,29 +23,18 @@ object CommandOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withIsDefault(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isDefault")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutIsDefault: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("isDefault")(js.undefined)
-        ret
-    }
+    def setIsDefault(value: Boolean): Self = this.set("isDefault", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNoHelp(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("noHelp")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteIsDefault: Self = this.set("isDefault", js.undefined)
     @scala.inline
-    def withoutNoHelp: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("noHelp")(js.undefined)
-        ret
-    }
+    def setNoHelp(value: Boolean): Self = this.set("noHelp", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteNoHelp: Self = this.set("noHelp", js.undefined)
   }
   
 }

@@ -37,41 +37,22 @@ object RenderContext {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildren(value: js.Array[VNode]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withData(value: VNodeData): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setChildren(value: js.Array[VNode]): Self = this.set("children", value.asInstanceOf[js.Any])
     @scala.inline
-    def withInjections(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("injections")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setData(value: VNodeData): Self = this.set("data", value.asInstanceOf[js.Any])
     @scala.inline
-    def withParent(value: Vue): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("parent")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setInjections(value: js.Any): Self = this.set("injections", value.asInstanceOf[js.Any])
     @scala.inline
-    def withProps(value: Props): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setParent(value: Vue): Self = this.set("parent", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSlots(value: () => js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("slots")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setProps(value: Props): Self = this.set("props", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setSlots(value: () => js.Any): Self = this.set("slots", js.Any.fromFunction0(value))
   }
   
 }

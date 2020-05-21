@@ -23,29 +23,18 @@ object Event {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withEvent(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("event")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutEvent: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("event")(js.undefined)
-        ret
-    }
+    def setEvent(value: String): Self = this.set("event", value.asInstanceOf[js.Any])
     @scala.inline
-    def withProp(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("prop")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteEvent: Self = this.set("event", js.undefined)
     @scala.inline
-    def withoutProp: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("prop")(js.undefined)
-        ret
-    }
+    def setProp(value: String): Self = this.set("prop", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteProp: Self = this.set("prop", js.undefined)
   }
   
 }

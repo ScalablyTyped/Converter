@@ -137,983 +137,336 @@ object DOMAttributes {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildrenVdomElement(value: VdomElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withChildren(value: VdomNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawNode.asInstanceOf[js.Any])
-        ret
-    }
+    def setChildrenVdomElement(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
-    def withoutChildren: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
-        ret
-    }
+    def setChildren(value: VdomNode): Self = this.set("children", value.rawNode.asInstanceOf[js.Any])
     @scala.inline
-    def withDangerouslySetInnerHTML(value: Html): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline
-    def withoutDangerouslySetInnerHTML: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(js.undefined)
-        ret
-    }
+    def setDangerouslySetInnerHTML(value: Html): Self = this.set("dangerouslySetInnerHTML", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOnAbort(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAbort")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteDangerouslySetInnerHTML: Self = this.set("dangerouslySetInnerHTML", js.undefined)
     @scala.inline
-    def withoutOnAbort: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAbort")(js.undefined)
-        ret
-    }
+    def setOnAbort(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onAbort", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnAnimationEnd(value: ReactAnimationEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationEnd")(js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnAbort: Self = this.set("onAbort", js.undefined)
     @scala.inline
-    def withoutOnAnimationEnd: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationEnd")(js.undefined)
-        ret
-    }
+    def setOnAnimationEnd(value: ReactAnimationEventFrom[T with Element] => Callback): Self = this.set("onAnimationEnd", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnAnimationIteration(value: ReactAnimationEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationIteration")(js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnAnimationEnd: Self = this.set("onAnimationEnd", js.undefined)
     @scala.inline
-    def withoutOnAnimationIteration: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationIteration")(js.undefined)
-        ret
-    }
+    def setOnAnimationIteration(value: ReactAnimationEventFrom[T with Element] => Callback): Self = this.set("onAnimationIteration", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnAnimationStart(value: ReactAnimationEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationStart")(js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnAnimationIteration: Self = this.set("onAnimationIteration", js.undefined)
     @scala.inline
-    def withoutOnAnimationStart: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationStart")(js.undefined)
-        ret
-    }
+    def setOnAnimationStart(value: ReactAnimationEventFrom[T with Element] => Callback): Self = this.set("onAnimationStart", js.Any.fromFunction1((t0: ReactAnimationEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnAuxClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAuxClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnAnimationStart: Self = this.set("onAnimationStart", js.undefined)
     @scala.inline
-    def withoutOnAuxClick: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onAuxClick")(js.undefined)
-        ret
-    }
+    def setOnAuxClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onAuxClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnBeforeInput(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onBeforeInput")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnAuxClick: Self = this.set("onAuxClick", js.undefined)
     @scala.inline
-    def withoutOnBeforeInput: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onBeforeInput")(js.undefined)
-        ret
-    }
+    def setOnBeforeInput(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onBeforeInput", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnBlur(value: ReactFocusEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onBlur")(js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnBeforeInput: Self = this.set("onBeforeInput", js.undefined)
     @scala.inline
-    def withoutOnBlur: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onBlur")(js.undefined)
-        ret
-    }
+    def setOnBlur(value: ReactFocusEventFrom[T with Element] => Callback): Self = this.set("onBlur", js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCanPlay(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlay")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnBlur: Self = this.set("onBlur", js.undefined)
     @scala.inline
-    def withoutOnCanPlay: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlay")(js.undefined)
-        ret
-    }
+    def setOnCanPlay(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onCanPlay", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCanPlayThrough(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlayThrough")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCanPlay: Self = this.set("onCanPlay", js.undefined)
     @scala.inline
-    def withoutOnCanPlayThrough: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlayThrough")(js.undefined)
-        ret
-    }
+    def setOnCanPlayThrough(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onCanPlayThrough", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnChange(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCanPlayThrough: Self = this.set("onCanPlayThrough", js.undefined)
     @scala.inline
-    def withoutOnChange: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(js.undefined)
-        ret
-    }
+    def setOnChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnChange: Self = this.set("onChange", js.undefined)
     @scala.inline
-    def withoutOnClick: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.undefined)
-        ret
-    }
+    def setOnClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCompositionEnd(value: ReactCompositionEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionEnd")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnClick: Self = this.set("onClick", js.undefined)
     @scala.inline
-    def withoutOnCompositionEnd: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionEnd")(js.undefined)
-        ret
-    }
+    def setOnCompositionEnd(value: ReactCompositionEventFrom[T with Element] => Callback): Self = this.set("onCompositionEnd", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCompositionStart(value: ReactCompositionEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionStart")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCompositionEnd: Self = this.set("onCompositionEnd", js.undefined)
     @scala.inline
-    def withoutOnCompositionStart: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionStart")(js.undefined)
-        ret
-    }
+    def setOnCompositionStart(value: ReactCompositionEventFrom[T with Element] => Callback): Self = this.set("onCompositionStart", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCompositionUpdate(value: ReactCompositionEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionUpdate")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCompositionStart: Self = this.set("onCompositionStart", js.undefined)
     @scala.inline
-    def withoutOnCompositionUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionUpdate")(js.undefined)
-        ret
-    }
+    def setOnCompositionUpdate(value: ReactCompositionEventFrom[T with Element] => Callback): Self = this.set("onCompositionUpdate", js.Any.fromFunction1((t0: ReactCompositionEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnContextMenu(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onContextMenu")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCompositionUpdate: Self = this.set("onCompositionUpdate", js.undefined)
     @scala.inline
-    def withoutOnContextMenu: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onContextMenu")(js.undefined)
-        ret
-    }
+    def setOnContextMenu(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onContextMenu", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCopy(value: ReactClipboardEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCopy")(js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnContextMenu: Self = this.set("onContextMenu", js.undefined)
     @scala.inline
-    def withoutOnCopy: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCopy")(js.undefined)
-        ret
-    }
+    def setOnCopy(value: ReactClipboardEventFrom[T with Element] => Callback): Self = this.set("onCopy", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnCut(value: ReactClipboardEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCut")(js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCopy: Self = this.set("onCopy", js.undefined)
     @scala.inline
-    def withoutOnCut: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCut")(js.undefined)
-        ret
-    }
+    def setOnCut(value: ReactClipboardEventFrom[T with Element] => Callback): Self = this.set("onCut", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDoubleClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDoubleClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnCut: Self = this.set("onCut", js.undefined)
     @scala.inline
-    def withoutOnDoubleClick: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDoubleClick")(js.undefined)
-        ret
-    }
+    def setOnDoubleClick(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onDoubleClick", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDrag(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDrag")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDoubleClick: Self = this.set("onDoubleClick", js.undefined)
     @scala.inline
-    def withoutOnDrag: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDrag")(js.undefined)
-        ret
-    }
+    def setOnDrag(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDrag", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDragEnd(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnd")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDrag: Self = this.set("onDrag", js.undefined)
     @scala.inline
-    def withoutOnDragEnd: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnd")(js.undefined)
-        ret
-    }
+    def setOnDragEnd(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragEnd", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDragEnter(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnter")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDragEnd: Self = this.set("onDragEnd", js.undefined)
     @scala.inline
-    def withoutOnDragEnter: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnter")(js.undefined)
-        ret
-    }
+    def setOnDragEnter(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragEnter", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDragExit(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragExit")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDragEnter: Self = this.set("onDragEnter", js.undefined)
     @scala.inline
-    def withoutOnDragExit: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragExit")(js.undefined)
-        ret
-    }
+    def setOnDragExit(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragExit", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDragLeave(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragLeave")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDragExit: Self = this.set("onDragExit", js.undefined)
     @scala.inline
-    def withoutOnDragLeave: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragLeave")(js.undefined)
-        ret
-    }
+    def setOnDragLeave(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragLeave", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDragOver(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragOver")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDragLeave: Self = this.set("onDragLeave", js.undefined)
     @scala.inline
-    def withoutOnDragOver: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragOver")(js.undefined)
-        ret
-    }
+    def setOnDragOver(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragOver", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDragStart(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragStart")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDragOver: Self = this.set("onDragOver", js.undefined)
     @scala.inline
-    def withoutOnDragStart: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDragStart")(js.undefined)
-        ret
-    }
+    def setOnDragStart(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDragStart", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDrop(value: ReactDragEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDrop")(js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDragStart: Self = this.set("onDragStart", js.undefined)
     @scala.inline
-    def withoutOnDrop: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDrop")(js.undefined)
-        ret
-    }
+    def setOnDrop(value: ReactDragEventFrom[T with Element] => Callback): Self = this.set("onDrop", js.Any.fromFunction1((t0: ReactDragEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnDurationChange(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDurationChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDrop: Self = this.set("onDrop", js.undefined)
     @scala.inline
-    def withoutOnDurationChange: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDurationChange")(js.undefined)
-        ret
-    }
+    def setOnDurationChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onDurationChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnEmptied(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onEmptied")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnDurationChange: Self = this.set("onDurationChange", js.undefined)
     @scala.inline
-    def withoutOnEmptied: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onEmptied")(js.undefined)
-        ret
-    }
+    def setOnEmptied(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onEmptied", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnEncrypted(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onEncrypted")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnEmptied: Self = this.set("onEmptied", js.undefined)
     @scala.inline
-    def withoutOnEncrypted: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onEncrypted")(js.undefined)
-        ret
-    }
+    def setOnEncrypted(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onEncrypted", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnEnded(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onEnded")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnEncrypted: Self = this.set("onEncrypted", js.undefined)
     @scala.inline
-    def withoutOnEnded: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onEnded")(js.undefined)
-        ret
-    }
+    def setOnEnded(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onEnded", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnError(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onError")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnEnded: Self = this.set("onEnded", js.undefined)
     @scala.inline
-    def withoutOnError: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onError")(js.undefined)
-        ret
-    }
+    def setOnError(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onError", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnFocus(value: ReactFocusEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onFocus")(js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnError: Self = this.set("onError", js.undefined)
     @scala.inline
-    def withoutOnFocus: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onFocus")(js.undefined)
-        ret
-    }
+    def setOnFocus(value: ReactFocusEventFrom[T with Element] => Callback): Self = this.set("onFocus", js.Any.fromFunction1((t0: ReactFocusEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnInput(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onInput")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnFocus: Self = this.set("onFocus", js.undefined)
     @scala.inline
-    def withoutOnInput: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onInput")(js.undefined)
-        ret
-    }
+    def setOnInput(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onInput", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnInvalid(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onInvalid")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnInput: Self = this.set("onInput", js.undefined)
     @scala.inline
-    def withoutOnInvalid: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onInvalid")(js.undefined)
-        ret
-    }
+    def setOnInvalid(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onInvalid", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnKeyDown(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyDown")(js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnInvalid: Self = this.set("onInvalid", js.undefined)
     @scala.inline
-    def withoutOnKeyDown: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyDown")(js.undefined)
-        ret
-    }
+    def setOnKeyDown(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = this.set("onKeyDown", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnKeyPress(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyPress")(js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnKeyDown: Self = this.set("onKeyDown", js.undefined)
     @scala.inline
-    def withoutOnKeyPress: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyPress")(js.undefined)
-        ret
-    }
+    def setOnKeyPress(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = this.set("onKeyPress", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnKeyUp(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyUp")(js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnKeyPress: Self = this.set("onKeyPress", js.undefined)
     @scala.inline
-    def withoutOnKeyUp: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyUp")(js.undefined)
-        ret
-    }
+    def setOnKeyUp(value: ReactKeyboardEventFrom[T with Element] => Callback): Self = this.set("onKeyUp", js.Any.fromFunction1((t0: ReactKeyboardEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnLoad(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoad")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnKeyUp: Self = this.set("onKeyUp", js.undefined)
     @scala.inline
-    def withoutOnLoad: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoad")(js.undefined)
-        ret
-    }
+    def setOnLoad(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoad", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnLoadStart(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadStart")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnLoad: Self = this.set("onLoad", js.undefined)
     @scala.inline
-    def withoutOnLoadStart: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadStart")(js.undefined)
-        ret
-    }
+    def setOnLoadStart(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoadStart", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnLoadedData(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedData")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnLoadStart: Self = this.set("onLoadStart", js.undefined)
     @scala.inline
-    def withoutOnLoadedData: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedData")(js.undefined)
-        ret
-    }
+    def setOnLoadedData(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoadedData", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnLoadedMetadata(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedMetadata")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnLoadedData: Self = this.set("onLoadedData", js.undefined)
     @scala.inline
-    def withoutOnLoadedMetadata: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedMetadata")(js.undefined)
-        ret
-    }
+    def setOnLoadedMetadata(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onLoadedMetadata", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseDown(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseDown")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnLoadedMetadata: Self = this.set("onLoadedMetadata", js.undefined)
     @scala.inline
-    def withoutOnMouseDown: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseDown")(js.undefined)
-        ret
-    }
+    def setOnMouseDown(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseDown", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseEnter(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseEnter")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseDown: Self = this.set("onMouseDown", js.undefined)
     @scala.inline
-    def withoutOnMouseEnter: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseEnter")(js.undefined)
-        ret
-    }
+    def setOnMouseEnter(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseEnter", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseLeave(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseEnter: Self = this.set("onMouseEnter", js.undefined)
     @scala.inline
-    def withoutOnMouseLeave: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(js.undefined)
-        ret
-    }
+    def setOnMouseLeave(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseLeave", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseMove(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseMove")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseLeave: Self = this.set("onMouseLeave", js.undefined)
     @scala.inline
-    def withoutOnMouseMove: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseMove")(js.undefined)
-        ret
-    }
+    def setOnMouseMove(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseMove", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseOut(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOut")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseMove: Self = this.set("onMouseMove", js.undefined)
     @scala.inline
-    def withoutOnMouseOut: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOut")(js.undefined)
-        ret
-    }
+    def setOnMouseOut(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseOut", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseOver(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOver")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseOut: Self = this.set("onMouseOut", js.undefined)
     @scala.inline
-    def withoutOnMouseOver: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOver")(js.undefined)
-        ret
-    }
+    def setOnMouseOver(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseOver", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnMouseUp(value: ReactMouseEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseUp")(js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseOver: Self = this.set("onMouseOver", js.undefined)
     @scala.inline
-    def withoutOnMouseUp: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseUp")(js.undefined)
-        ret
-    }
+    def setOnMouseUp(value: ReactMouseEventFrom[T with Element] => Callback): Self = this.set("onMouseUp", js.Any.fromFunction1((t0: ReactMouseEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPaste(value: ReactClipboardEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPaste")(js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnMouseUp: Self = this.set("onMouseUp", js.undefined)
     @scala.inline
-    def withoutOnPaste: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPaste")(js.undefined)
-        ret
-    }
+    def setOnPaste(value: ReactClipboardEventFrom[T with Element] => Callback): Self = this.set("onPaste", js.Any.fromFunction1((t0: ReactClipboardEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPause(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPause")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPaste: Self = this.set("onPaste", js.undefined)
     @scala.inline
-    def withoutOnPause: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPause")(js.undefined)
-        ret
-    }
+    def setOnPause(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onPause", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPlay(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPlay")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPause: Self = this.set("onPause", js.undefined)
     @scala.inline
-    def withoutOnPlay: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPlay")(js.undefined)
-        ret
-    }
+    def setOnPlay(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onPlay", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPlaying(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPlaying")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPlay: Self = this.set("onPlay", js.undefined)
     @scala.inline
-    def withoutOnPlaying: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPlaying")(js.undefined)
-        ret
-    }
+    def setOnPlaying(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onPlaying", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerCancel(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerCancel")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPlaying: Self = this.set("onPlaying", js.undefined)
     @scala.inline
-    def withoutOnPointerCancel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerCancel")(js.undefined)
-        ret
-    }
+    def setOnPointerCancel(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerCancel", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerDown(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerDown")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerCancel: Self = this.set("onPointerCancel", js.undefined)
     @scala.inline
-    def withoutOnPointerDown: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerDown")(js.undefined)
-        ret
-    }
+    def setOnPointerDown(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerDown", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerEnter(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerEnter")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerDown: Self = this.set("onPointerDown", js.undefined)
     @scala.inline
-    def withoutOnPointerEnter: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerEnter")(js.undefined)
-        ret
-    }
+    def setOnPointerEnter(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerEnter", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerLeave(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerLeave")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerEnter: Self = this.set("onPointerEnter", js.undefined)
     @scala.inline
-    def withoutOnPointerLeave: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerLeave")(js.undefined)
-        ret
-    }
+    def setOnPointerLeave(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerLeave", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerMove(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerMove")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerLeave: Self = this.set("onPointerLeave", js.undefined)
     @scala.inline
-    def withoutOnPointerMove: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerMove")(js.undefined)
-        ret
-    }
+    def setOnPointerMove(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerMove", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerOut(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOut")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerMove: Self = this.set("onPointerMove", js.undefined)
     @scala.inline
-    def withoutOnPointerOut: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOut")(js.undefined)
-        ret
-    }
+    def setOnPointerOut(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerOut", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerOver(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOver")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerOut: Self = this.set("onPointerOut", js.undefined)
     @scala.inline
-    def withoutOnPointerOver: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOver")(js.undefined)
-        ret
-    }
+    def setOnPointerOver(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerOver", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnPointerUp(value: ReactPointerEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerUp")(js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerOver: Self = this.set("onPointerOver", js.undefined)
     @scala.inline
-    def withoutOnPointerUp: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerUp")(js.undefined)
-        ret
-    }
+    def setOnPointerUp(value: ReactPointerEventFrom[T with Element] => Callback): Self = this.set("onPointerUp", js.Any.fromFunction1((t0: ReactPointerEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnProgress(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onProgress")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnPointerUp: Self = this.set("onPointerUp", js.undefined)
     @scala.inline
-    def withoutOnProgress: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onProgress")(js.undefined)
-        ret
-    }
+    def setOnProgress(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onProgress", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnRateChange(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onRateChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnProgress: Self = this.set("onProgress", js.undefined)
     @scala.inline
-    def withoutOnRateChange: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onRateChange")(js.undefined)
-        ret
-    }
+    def setOnRateChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onRateChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnReset(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onReset")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnRateChange: Self = this.set("onRateChange", js.undefined)
     @scala.inline
-    def withoutOnReset: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onReset")(js.undefined)
-        ret
-    }
+    def setOnReset(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onReset", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnScroll(value: ReactUIEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onScroll")(js.Any.fromFunction1((t0: ReactUIEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnReset: Self = this.set("onReset", js.undefined)
     @scala.inline
-    def withoutOnScroll: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onScroll")(js.undefined)
-        ret
-    }
+    def setOnScroll(value: ReactUIEventFrom[T with Element] => Callback): Self = this.set("onScroll", js.Any.fromFunction1((t0: ReactUIEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnSeeked(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeked")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnScroll: Self = this.set("onScroll", js.undefined)
     @scala.inline
-    def withoutOnSeeked: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeked")(js.undefined)
-        ret
-    }
+    def setOnSeeked(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSeeked", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnSeeking(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeking")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnSeeked: Self = this.set("onSeeked", js.undefined)
     @scala.inline
-    def withoutOnSeeking: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeking")(js.undefined)
-        ret
-    }
+    def setOnSeeking(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSeeking", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnSelect(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSelect")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnSeeking: Self = this.set("onSeeking", js.undefined)
     @scala.inline
-    def withoutOnSelect: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSelect")(js.undefined)
-        ret
-    }
+    def setOnSelect(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSelect", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnStalled(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onStalled")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnSelect: Self = this.set("onSelect", js.undefined)
     @scala.inline
-    def withoutOnStalled: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onStalled")(js.undefined)
-        ret
-    }
+    def setOnStalled(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onStalled", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnSubmit(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSubmit")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnStalled: Self = this.set("onStalled", js.undefined)
     @scala.inline
-    def withoutOnSubmit: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSubmit")(js.undefined)
-        ret
-    }
+    def setOnSubmit(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSubmit", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnSuspend(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSuspend")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnSubmit: Self = this.set("onSubmit", js.undefined)
     @scala.inline
-    def withoutOnSuspend: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onSuspend")(js.undefined)
-        ret
-    }
+    def setOnSuspend(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onSuspend", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnTimeUpdate(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTimeUpdate")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnSuspend: Self = this.set("onSuspend", js.undefined)
     @scala.inline
-    def withoutOnTimeUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTimeUpdate")(js.undefined)
-        ret
-    }
+    def setOnTimeUpdate(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onTimeUpdate", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnTouchCancel(value: ReactTouchEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchCancel")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnTimeUpdate: Self = this.set("onTimeUpdate", js.undefined)
     @scala.inline
-    def withoutOnTouchCancel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchCancel")(js.undefined)
-        ret
-    }
+    def setOnTouchCancel(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchCancel", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnTouchEnd(value: ReactTouchEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchEnd")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnTouchCancel: Self = this.set("onTouchCancel", js.undefined)
     @scala.inline
-    def withoutOnTouchEnd: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchEnd")(js.undefined)
-        ret
-    }
+    def setOnTouchEnd(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchEnd", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnTouchMove(value: ReactTouchEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchMove")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnTouchEnd: Self = this.set("onTouchEnd", js.undefined)
     @scala.inline
-    def withoutOnTouchMove: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchMove")(js.undefined)
-        ret
-    }
+    def setOnTouchMove(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchMove", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnTouchStart(value: ReactTouchEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchStart")(js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnTouchMove: Self = this.set("onTouchMove", js.undefined)
     @scala.inline
-    def withoutOnTouchStart: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchStart")(js.undefined)
-        ret
-    }
+    def setOnTouchStart(value: ReactTouchEventFrom[T with Element] => Callback): Self = this.set("onTouchStart", js.Any.fromFunction1((t0: ReactTouchEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnTransitionEnd(value: ReactTransitionEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTransitionEnd")(js.Any.fromFunction1((t0: ReactTransitionEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnTouchStart: Self = this.set("onTouchStart", js.undefined)
     @scala.inline
-    def withoutOnTransitionEnd: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTransitionEnd")(js.undefined)
-        ret
-    }
+    def setOnTransitionEnd(value: ReactTransitionEventFrom[T with Element] => Callback): Self = this.set("onTransitionEnd", js.Any.fromFunction1((t0: ReactTransitionEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnVolumeChange(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onVolumeChange")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnTransitionEnd: Self = this.set("onTransitionEnd", js.undefined)
     @scala.inline
-    def withoutOnVolumeChange: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onVolumeChange")(js.undefined)
-        ret
-    }
+    def setOnVolumeChange(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onVolumeChange", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnWaiting(value: ReactEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onWaiting")(js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnVolumeChange: Self = this.set("onVolumeChange", js.undefined)
     @scala.inline
-    def withoutOnWaiting: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onWaiting")(js.undefined)
-        ret
-    }
+    def setOnWaiting(value: ReactEventFrom[T with Element] => Callback): Self = this.set("onWaiting", js.Any.fromFunction1((t0: ReactEventFrom[T with Element]) => value(t0).runNow()))
     @scala.inline
-    def withOnWheel(value: ReactWheelEventFrom[T with Element] => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onWheel")(js.Any.fromFunction1((t0: ReactWheelEventFrom[T with Element]) => value(t0).runNow()))
-        ret
-    }
+    def deleteOnWaiting: Self = this.set("onWaiting", js.undefined)
     @scala.inline
-    def withoutOnWheel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onWheel")(js.undefined)
-        ret
-    }
+    def setOnWheel(value: ReactWheelEventFrom[T with Element] => Callback): Self = this.set("onWheel", js.Any.fromFunction1((t0: ReactWheelEventFrom[T with Element]) => value(t0).runNow()))
+    @scala.inline
+    def deleteOnWheel: Self = this.set("onWheel", js.undefined)
   }
   
 }

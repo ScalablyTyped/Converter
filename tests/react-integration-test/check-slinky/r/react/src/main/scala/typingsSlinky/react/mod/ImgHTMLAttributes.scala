@@ -36,113 +36,46 @@ object ImgHTMLAttributes {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAlt(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("alt")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutAlt: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("alt")(js.undefined)
-        ret
-    }
+    def setAlt(value: String): Self = this.set("alt", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCrossOrigin(value: anonymous | `use-credentials` | _empty): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("crossOrigin")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteAlt: Self = this.set("alt", js.undefined)
     @scala.inline
-    def withoutCrossOrigin: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("crossOrigin")(js.undefined)
-        ret
-    }
+    def setCrossOrigin(value: anonymous | `use-credentials` | _empty): Self = this.set("crossOrigin", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDecoding(value: async | auto | sync): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("decoding")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCrossOrigin: Self = this.set("crossOrigin", js.undefined)
     @scala.inline
-    def withoutDecoding: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("decoding")(js.undefined)
-        ret
-    }
+    def setDecoding(value: async | auto | sync): Self = this.set("decoding", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHeight(value: Double | String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDecoding: Self = this.set("decoding", js.undefined)
     @scala.inline
-    def withoutHeight: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(js.undefined)
-        ret
-    }
+    def setHeight(value: Double | String): Self = this.set("height", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSizes(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("sizes")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteHeight: Self = this.set("height", js.undefined)
     @scala.inline
-    def withoutSizes: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("sizes")(js.undefined)
-        ret
-    }
+    def setSizes(value: String): Self = this.set("sizes", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSrc(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("src")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteSizes: Self = this.set("sizes", js.undefined)
     @scala.inline
-    def withoutSrc: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("src")(js.undefined)
-        ret
-    }
+    def setSrc(value: String): Self = this.set("src", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSrcSet(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("srcSet")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteSrc: Self = this.set("src", js.undefined)
     @scala.inline
-    def withoutSrcSet: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("srcSet")(js.undefined)
-        ret
-    }
+    def setSrcSet(value: String): Self = this.set("srcSet", value.asInstanceOf[js.Any])
     @scala.inline
-    def withUseMap(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("useMap")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteSrcSet: Self = this.set("srcSet", js.undefined)
     @scala.inline
-    def withoutUseMap: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("useMap")(js.undefined)
-        ret
-    }
+    def setUseMap(value: String): Self = this.set("useMap", value.asInstanceOf[js.Any])
     @scala.inline
-    def withWidth(value: Double | String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("width")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteUseMap: Self = this.set("useMap", js.undefined)
     @scala.inline
-    def withoutWidth: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("width")(js.undefined)
-        ret
-    }
+    def setWidth(value: Double | String): Self = this.set("width", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteWidth: Self = this.set("width", js.undefined)
   }
   
 }

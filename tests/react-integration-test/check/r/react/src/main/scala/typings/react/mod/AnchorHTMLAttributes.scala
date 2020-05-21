@@ -30,113 +30,46 @@ object AnchorHTMLAttributes {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDownload(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("download")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutDownload: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("download")(js.undefined)
-        ret
-    }
+    def setDownload(value: js.Any): Self = this.set("download", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHref(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("href")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDownload: Self = this.set("download", js.undefined)
     @scala.inline
-    def withoutHref: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("href")(js.undefined)
-        ret
-    }
+    def setHref(value: String): Self = this.set("href", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHrefLang(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("hrefLang")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteHref: Self = this.set("href", js.undefined)
     @scala.inline
-    def withoutHrefLang: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("hrefLang")(js.undefined)
-        ret
-    }
+    def setHrefLang(value: String): Self = this.set("hrefLang", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMedia(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("media")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteHrefLang: Self = this.set("hrefLang", js.undefined)
     @scala.inline
-    def withoutMedia: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("media")(js.undefined)
-        ret
-    }
+    def setMedia(value: String): Self = this.set("media", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPing(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ping")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteMedia: Self = this.set("media", js.undefined)
     @scala.inline
-    def withoutPing: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ping")(js.undefined)
-        ret
-    }
+    def setPing(value: String): Self = this.set("ping", value.asInstanceOf[js.Any])
     @scala.inline
-    def withReferrerPolicy(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("referrerPolicy")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deletePing: Self = this.set("ping", js.undefined)
     @scala.inline
-    def withoutReferrerPolicy: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("referrerPolicy")(js.undefined)
-        ret
-    }
+    def setReferrerPolicy(value: String): Self = this.set("referrerPolicy", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRel(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rel")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteReferrerPolicy: Self = this.set("referrerPolicy", js.undefined)
     @scala.inline
-    def withoutRel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rel")(js.undefined)
-        ret
-    }
+    def setRel(value: String): Self = this.set("rel", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTarget(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("target")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteRel: Self = this.set("rel", js.undefined)
     @scala.inline
-    def withoutTarget: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("target")(js.undefined)
-        ret
-    }
+    def setTarget(value: String): Self = this.set("target", value.asInstanceOf[js.Any])
     @scala.inline
-    def withType(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteTarget: Self = this.set("target", js.undefined)
     @scala.inline
-    def withoutType: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
-        ret
-    }
+    def setType(value: String): Self = this.set("type", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteType: Self = this.set("type", js.undefined)
   }
   
 }

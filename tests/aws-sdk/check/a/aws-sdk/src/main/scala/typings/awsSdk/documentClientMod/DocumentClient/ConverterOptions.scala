@@ -32,29 +32,18 @@ object ConverterOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withConvertEmptyValues(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("convertEmptyValues")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutConvertEmptyValues: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("convertEmptyValues")(js.undefined)
-        ret
-    }
+    def setConvertEmptyValues(value: Boolean): Self = this.set("convertEmptyValues", value.asInstanceOf[js.Any])
     @scala.inline
-    def withWrapNumbers(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("wrapNumbers")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteConvertEmptyValues: Self = this.set("convertEmptyValues", js.undefined)
     @scala.inline
-    def withoutWrapNumbers: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("wrapNumbers")(js.undefined)
-        ret
-    }
+    def setWrapNumbers(value: Boolean): Self = this.set("wrapNumbers", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteWrapNumbers: Self = this.set("wrapNumbers", js.undefined)
   }
   
 }

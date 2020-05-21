@@ -28,53 +28,26 @@ object FunctionalComponentOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFunctional(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("functional")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withRender(value: (CreateElement, RenderContext[Props]) => VNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("render")(js.Any.fromFunction2(value))
-        ret
-    }
+    def setFunctional(value: Boolean): Self = this.set("functional", value.asInstanceOf[js.Any])
     @scala.inline
-    def withInject(value: InjectOptions): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inject")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRender(value: (CreateElement, RenderContext[Props]) => VNode): Self = this.set("render", js.Any.fromFunction2(value))
     @scala.inline
-    def withoutInject: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inject")(js.undefined)
-        ret
-    }
+    def setInject(value: InjectOptions): Self = this.set("inject", value.asInstanceOf[js.Any])
     @scala.inline
-    def withName(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteInject: Self = this.set("inject", js.undefined)
     @scala.inline
-    def withoutName: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
-        ret
-    }
+    def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
     @scala.inline
-    def withProps(value: PropDefs): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteName: Self = this.set("name", js.undefined)
     @scala.inline
-    def withoutProps: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(js.undefined)
-        ret
-    }
+    def setProps(value: PropDefs): Self = this.set("props", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteProps: Self = this.set("props", js.undefined)
   }
   
 }

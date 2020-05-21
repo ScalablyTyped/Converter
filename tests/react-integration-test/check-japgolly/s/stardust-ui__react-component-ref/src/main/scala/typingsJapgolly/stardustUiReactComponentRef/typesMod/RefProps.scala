@@ -31,23 +31,16 @@ object RefProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildren(value: VdomElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withInnerRef(value: Ref): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setChildren(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
-    def withInnerRefNull: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(null)
-        ret
-    }
+    def setInnerRef(value: Ref): Self = this.set("innerRef", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setInnerRefNull: Self = this.set("innerRef", null)
   }
   
 }

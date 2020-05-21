@@ -27,29 +27,18 @@ object HTMLProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefaultValue(value: foo): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("defaultValue")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withOnChange(value: foo): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDefaultValue(value: foo): Self = this.set("defaultValue", value.asInstanceOf[js.Any])
     @scala.inline
-    def withType(value: foo): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOnChange(value: foo): Self = this.set("onChange", value.asInstanceOf[js.Any])
     @scala.inline
-    def withValue(value: foo): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setType(value: foo): Self = this.set("type", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setValue(value: foo): Self = this.set("value", value.asInstanceOf[js.Any])
   }
   
 }

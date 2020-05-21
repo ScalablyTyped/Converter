@@ -55,133 +55,74 @@ object ReactPropTypes {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAny(
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setAny(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.any */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("any")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("any", value.asInstanceOf[js.Any])
     @scala.inline
-    def withArray(
+    def setArray(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.array */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("array")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("array", value.asInstanceOf[js.Any])
     @scala.inline
-    def withArrayOf(
+    def setArrayOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.arrayOf */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("arrayOf")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("arrayOf", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBool(
+    def setBool(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.bool */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bool")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("bool", value.asInstanceOf[js.Any])
     @scala.inline
-    def withElement(
+    def setElement(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.element */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("element")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("element", value.asInstanceOf[js.Any])
     @scala.inline
-    def withExact(
+    def setExact(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.exact */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("exact")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("exact", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFunc(
+    def setFunc(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.func */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("func")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("func", value.asInstanceOf[js.Any])
     @scala.inline
-    def withInstanceOf(
+    def setInstanceOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.instanceOf */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("instanceOf")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("instanceOf", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNode(
+    def setNode(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.node */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("node")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("node", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNumber(
+    def setNumber(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.number */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("number")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("number", value.asInstanceOf[js.Any])
     @scala.inline
-    def withObject(
+    def setObject(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.object */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("object")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("object", value.asInstanceOf[js.Any])
     @scala.inline
-    def withObjectOf(
+    def setObjectOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.objectOf */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("objectOf")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("objectOf", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOneOf(
+    def setOneOf(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.oneOf */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("oneOf")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("oneOf", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOneOfType(
+    def setOneOfType(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.oneOfType */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("oneOfType")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("oneOfType", value.asInstanceOf[js.Any])
     @scala.inline
-    def withShape(
+    def setShape(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.shape */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("shape")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("shape", value.asInstanceOf[js.Any])
     @scala.inline
-    def withString(
+    def setString(
       value: /* import warning: ResolveTypeQueries.resolve Couldn't resolve typeof PropTypes.string */ js.Any
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("string")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("string", value.asInstanceOf[js.Any])
   }
   
 }

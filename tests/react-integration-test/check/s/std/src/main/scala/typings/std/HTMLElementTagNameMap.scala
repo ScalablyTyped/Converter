@@ -232,629 +232,218 @@ object HTMLElementTagNameMap {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withA(value: HTMLAnchorElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("a")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withAbbr(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("abbr")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setA(value: HTMLAnchorElement): Self = this.set("a", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAddress(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("address")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAbbr(value: HTMLElement): Self = this.set("abbr", value.asInstanceOf[js.Any])
     @scala.inline
-    def withArea(value: HTMLAreaElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("area")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAddress(value: HTMLElement): Self = this.set("address", value.asInstanceOf[js.Any])
     @scala.inline
-    def withArticle(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("article")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setArea(value: HTMLAreaElement): Self = this.set("area", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAside(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("aside")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setArticle(value: HTMLElement): Self = this.set("article", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAudio(value: HTMLAudioElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("audio")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAside(value: HTMLElement): Self = this.set("aside", value.asInstanceOf[js.Any])
     @scala.inline
-    def withB(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("b")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAudio(value: HTMLAudioElement): Self = this.set("audio", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBase(value: HTMLBaseElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("base")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setB(value: HTMLElement): Self = this.set("b", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBdi(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bdi")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBase(value: HTMLBaseElement): Self = this.set("base", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBdo(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bdo")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBdi(value: HTMLElement): Self = this.set("bdi", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBlockquote(value: HTMLQuoteElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("blockquote")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBdo(value: HTMLElement): Self = this.set("bdo", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBody(value: HTMLBodyElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("body")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBlockquote(value: HTMLQuoteElement): Self = this.set("blockquote", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBr(value: HTMLBRElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("br")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBody(value: HTMLBodyElement): Self = this.set("body", value.asInstanceOf[js.Any])
     @scala.inline
-    def withButton(value: HTMLButtonElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("button")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBr(value: HTMLBRElement): Self = this.set("br", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCanvas(value: HTMLCanvasElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("canvas")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setButton(value: HTMLButtonElement): Self = this.set("button", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCite(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cite")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setCanvas(value: HTMLCanvasElement): Self = this.set("canvas", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCode(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("code")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setCite(value: HTMLElement): Self = this.set("cite", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCol(value: HTMLTableColElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("col")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setCode(value: HTMLElement): Self = this.set("code", value.asInstanceOf[js.Any])
     @scala.inline
-    def withColgroup(value: HTMLTableColElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("colgroup")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setCol(value: HTMLTableColElement): Self = this.set("col", value.asInstanceOf[js.Any])
     @scala.inline
-    def withData(value: HTMLDataElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setColgroup(value: HTMLTableColElement): Self = this.set("colgroup", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDatalist(value: HTMLDataListElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("datalist")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setData(value: HTMLDataElement): Self = this.set("data", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDd(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dd")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDatalist(value: HTMLDataListElement): Self = this.set("datalist", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDel(value: HTMLModElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("del")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDd(value: HTMLElement): Self = this.set("dd", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDfn(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dfn")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDel(value: HTMLModElement): Self = this.set("del", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDialog(value: HTMLDialogElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dialog")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDfn(value: HTMLElement): Self = this.set("dfn", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDiv(value: HTMLDivElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("div")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDialog(value: HTMLDialogElement): Self = this.set("dialog", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDl(value: HTMLDListElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dl")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDiv(value: HTMLDivElement): Self = this.set("div", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDt(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("dt")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDl(value: HTMLDListElement): Self = this.set("dl", value.asInstanceOf[js.Any])
     @scala.inline
-    def withEm(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("em")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDt(value: HTMLElement): Self = this.set("dt", value.asInstanceOf[js.Any])
     @scala.inline
-    def withEmbed(value: HTMLEmbedElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("embed")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setEm(value: HTMLElement): Self = this.set("em", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFieldset(value: HTMLFieldSetElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("fieldset")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setEmbed(value: HTMLEmbedElement): Self = this.set("embed", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFigcaption(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("figcaption")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFieldset(value: HTMLFieldSetElement): Self = this.set("fieldset", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFigure(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("figure")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFigcaption(value: HTMLElement): Self = this.set("figcaption", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFooter(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("footer")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFigure(value: HTMLElement): Self = this.set("figure", value.asInstanceOf[js.Any])
     @scala.inline
-    def withForm(value: HTMLFormElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("form")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFooter(value: HTMLElement): Self = this.set("footer", value.asInstanceOf[js.Any])
     @scala.inline
-    def withH1(value: HTMLHeadingElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("h1")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setForm(value: HTMLFormElement): Self = this.set("form", value.asInstanceOf[js.Any])
     @scala.inline
-    def withH2(value: HTMLHeadingElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("h2")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setH1(value: HTMLHeadingElement): Self = this.set("h1", value.asInstanceOf[js.Any])
     @scala.inline
-    def withH3(value: HTMLHeadingElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("h3")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setH2(value: HTMLHeadingElement): Self = this.set("h2", value.asInstanceOf[js.Any])
     @scala.inline
-    def withH4(value: HTMLHeadingElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("h4")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setH3(value: HTMLHeadingElement): Self = this.set("h3", value.asInstanceOf[js.Any])
     @scala.inline
-    def withH5(value: HTMLHeadingElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("h5")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setH4(value: HTMLHeadingElement): Self = this.set("h4", value.asInstanceOf[js.Any])
     @scala.inline
-    def withH6(value: HTMLHeadingElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("h6")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setH5(value: HTMLHeadingElement): Self = this.set("h5", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHead(value: HTMLHeadElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("head")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setH6(value: HTMLHeadingElement): Self = this.set("h6", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHeader(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("header")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setHead(value: HTMLHeadElement): Self = this.set("head", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHgroup(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("hgroup")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setHeader(value: HTMLElement): Self = this.set("header", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHr(value: HTMLHRElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("hr")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setHgroup(value: HTMLElement): Self = this.set("hgroup", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHtml(value: HTMLHtmlElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("html")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setHr(value: HTMLHRElement): Self = this.set("hr", value.asInstanceOf[js.Any])
     @scala.inline
-    def withI(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("i")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setHtml(value: HTMLHtmlElement): Self = this.set("html", value.asInstanceOf[js.Any])
     @scala.inline
-    def withIframe(value: HTMLIFrameElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("iframe")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setI(value: HTMLElement): Self = this.set("i", value.asInstanceOf[js.Any])
     @scala.inline
-    def withImg(value: HTMLImageElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("img")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIframe(value: HTMLIFrameElement): Self = this.set("iframe", value.asInstanceOf[js.Any])
     @scala.inline
-    def withInput(value: HTMLInputElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("input")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setImg(value: HTMLImageElement): Self = this.set("img", value.asInstanceOf[js.Any])
     @scala.inline
-    def withIns(value: HTMLModElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ins")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setInput(value: HTMLInputElement): Self = this.set("input", value.asInstanceOf[js.Any])
     @scala.inline
-    def withKbd(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("kbd")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIns(value: HTMLModElement): Self = this.set("ins", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLabel(value: HTMLLabelElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("label")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setKbd(value: HTMLElement): Self = this.set("kbd", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLegend(value: HTMLLegendElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("legend")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLabel(value: HTMLLabelElement): Self = this.set("label", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLi(value: HTMLLIElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("li")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLegend(value: HTMLLegendElement): Self = this.set("legend", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLink(value: HTMLLinkElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("link")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLi(value: HTMLLIElement): Self = this.set("li", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMain(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("main")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLink(value: HTMLLinkElement): Self = this.set("link", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMap(value: HTMLMapElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("map")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMain(value: HTMLElement): Self = this.set("main", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMark(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("mark")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMap(value: HTMLMapElement): Self = this.set("map", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMeta(value: HTMLMetaElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("meta")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMark(value: HTMLElement): Self = this.set("mark", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNav(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("nav")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMeta(value: HTMLMetaElement): Self = this.set("meta", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNoscript(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("noscript")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setNav(value: HTMLElement): Self = this.set("nav", value.asInstanceOf[js.Any])
     @scala.inline
-    def withObject(value: HTMLObjectElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("object")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setNoscript(value: HTMLElement): Self = this.set("noscript", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOl(value: HTMLOListElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ol")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setObject(value: HTMLObjectElement): Self = this.set("object", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOptgroup(value: HTMLOptGroupElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optgroup")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOl(value: HTMLOListElement): Self = this.set("ol", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOption(value: HTMLOptionElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("option")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOptgroup(value: HTMLOptGroupElement): Self = this.set("optgroup", value.asInstanceOf[js.Any])
     @scala.inline
-    def withP(value: HTMLParagraphElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("p")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOption(value: HTMLOptionElement): Self = this.set("option", value.asInstanceOf[js.Any])
     @scala.inline
-    def withParam(value: HTMLParamElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("param")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setP(value: HTMLParagraphElement): Self = this.set("p", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPre(value: HTMLPreElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("pre")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setParam(value: HTMLParamElement): Self = this.set("param", value.asInstanceOf[js.Any])
     @scala.inline
-    def withProgress(value: HTMLProgressElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("progress")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPre(value: HTMLPreElement): Self = this.set("pre", value.asInstanceOf[js.Any])
     @scala.inline
-    def withQ(value: HTMLQuoteElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("q")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setProgress(value: HTMLProgressElement): Self = this.set("progress", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRp(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rp")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setQ(value: HTMLQuoteElement): Self = this.set("q", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRt(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("rt")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRp(value: HTMLElement): Self = this.set("rp", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRuby(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ruby")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRt(value: HTMLElement): Self = this.set("rt", value.asInstanceOf[js.Any])
     @scala.inline
-    def withS(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("s")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRuby(value: HTMLElement): Self = this.set("ruby", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSamp(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("samp")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setS(value: HTMLElement): Self = this.set("s", value.asInstanceOf[js.Any])
     @scala.inline
-    def withScript(value: HTMLScriptElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("script")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSamp(value: HTMLElement): Self = this.set("samp", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSection(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("section")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setScript(value: HTMLScriptElement): Self = this.set("script", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSelect(value: HTMLSelectElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("select")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSection(value: HTMLElement): Self = this.set("section", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSmall(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("small")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSelect(value: HTMLSelectElement): Self = this.set("select", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSource(value: HTMLSourceElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("source")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSmall(value: HTMLElement): Self = this.set("small", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSpan(value: HTMLSpanElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("span")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSource(value: HTMLSourceElement): Self = this.set("source", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStrong(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("strong")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSpan(value: HTMLSpanElement): Self = this.set("span", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStyle(value: HTMLStyleElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("style")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setStrong(value: HTMLElement): Self = this.set("strong", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSub(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("sub")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setStyle(value: HTMLStyleElement): Self = this.set("style", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSummary(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("summary")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSub(value: HTMLElement): Self = this.set("sub", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSup(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("sup")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSummary(value: HTMLElement): Self = this.set("summary", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTable(value: HTMLTableElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("table")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSup(value: HTMLElement): Self = this.set("sup", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTbody(value: HTMLTableSectionElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("tbody")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTable(value: HTMLTableElement): Self = this.set("table", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTd(value: HTMLTableDataCellElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("td")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTbody(value: HTMLTableSectionElement): Self = this.set("tbody", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTemplate(value: HTMLTemplateElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("template")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTd(value: HTMLTableDataCellElement): Self = this.set("td", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTextarea(value: HTMLTextAreaElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("textarea")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTemplate(value: HTMLTemplateElement): Self = this.set("template", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTfoot(value: HTMLTableSectionElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("tfoot")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTextarea(value: HTMLTextAreaElement): Self = this.set("textarea", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTh(value: HTMLTableHeaderCellElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("th")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTfoot(value: HTMLTableSectionElement): Self = this.set("tfoot", value.asInstanceOf[js.Any])
     @scala.inline
-    def withThead(value: HTMLTableSectionElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("thead")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTh(value: HTMLTableHeaderCellElement): Self = this.set("th", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTitle(value: HTMLTitleElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setThead(value: HTMLTableSectionElement): Self = this.set("thead", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTr(value: HTMLTableRowElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("tr")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTitle(value: HTMLTitleElement): Self = this.set("title", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTrack(value: HTMLTrackElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("track")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTr(value: HTMLTableRowElement): Self = this.set("tr", value.asInstanceOf[js.Any])
     @scala.inline
-    def withU(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("u")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTrack(value: HTMLTrackElement): Self = this.set("track", value.asInstanceOf[js.Any])
     @scala.inline
-    def withUl(value: HTMLUListElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ul")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setU(value: HTMLElement): Self = this.set("u", value.asInstanceOf[js.Any])
     @scala.inline
-    def withVar(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("var")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setUl(value: HTMLUListElement): Self = this.set("ul", value.asInstanceOf[js.Any])
     @scala.inline
-    def withVideo(value: HTMLVideoElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("video")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setVar(value: HTMLElement): Self = this.set("var", value.asInstanceOf[js.Any])
     @scala.inline
-    def withWbr(value: HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("wbr")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setVideo(value: HTMLVideoElement): Self = this.set("video", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setWbr(value: HTMLElement): Self = this.set("wbr", value.asInstanceOf[js.Any])
   }
   
 }

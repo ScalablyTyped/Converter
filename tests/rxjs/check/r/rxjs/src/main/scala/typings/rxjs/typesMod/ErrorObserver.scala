@@ -25,47 +25,24 @@ object ErrorObserver {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withError(value: js.Any => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("error")(js.Any.fromFunction1(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withClosed(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("closed")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setError(value: js.Any => Unit): Self = this.set("error", js.Any.fromFunction1(value))
     @scala.inline
-    def withoutClosed: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("closed")(js.undefined)
-        ret
-    }
+    def setClosed(value: Boolean): Self = this.set("closed", value.asInstanceOf[js.Any])
     @scala.inline
-    def withComplete(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("complete")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteClosed: Self = this.set("closed", js.undefined)
     @scala.inline
-    def withoutComplete: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("complete")(js.undefined)
-        ret
-    }
+    def setComplete(value: () => Unit): Self = this.set("complete", js.Any.fromFunction0(value))
     @scala.inline
-    def withNext(value: /* value */ T => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("next")(js.Any.fromFunction1(value))
-        ret
-    }
+    def deleteComplete: Self = this.set("complete", js.undefined)
     @scala.inline
-    def withoutNext: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("next")(js.undefined)
-        ret
-    }
+    def setNext(value: /* value */ T => Unit): Self = this.set("next", js.Any.fromFunction1(value))
+    @scala.inline
+    def deleteNext: Self = this.set("next", js.undefined)
   }
   
 }

@@ -63,173 +63,66 @@ object StrictTestContainerProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withRequiredFn0Number(value: CallbackTo[Double]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFn0Number")(value.toJsFn)
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withRequiredFn0Void(value: Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFn0Void")(value.toJsFn)
-        ret
-    }
+    def setRequiredFn0Number(value: CallbackTo[Double]): Self = this.set("requiredFn0Number", value.toJsFn)
     @scala.inline
-    def withRequiredFn1Number(value: Double => CallbackTo[Double]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFn1Number")(js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
-        ret
-    }
+    def setRequiredFn0Void(value: Callback): Self = this.set("requiredFn0Void", value.toJsFn)
     @scala.inline
-    def withRequiredFn1Void(value: Double => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFn1Void")(js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
-        ret
-    }
+    def setRequiredFn1Number(value: Double => CallbackTo[Double]): Self = this.set("requiredFn1Number", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
     @scala.inline
-    def withAs(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRequiredFn1Void(value: Double => Callback): Self = this.set("requiredFn1Void", js.Any.fromFunction1((t0: Double) => value(t0).runNow()))
     @scala.inline
-    def withoutAs: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("as")(js.undefined)
-        ret
-    }
+    def setAs(value: js.Any): Self = this.set("as", value.asInstanceOf[js.Any])
     @scala.inline
-    def withChildrenVdomElement(value: VdomElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteAs: Self = this.set("as", js.undefined)
     @scala.inline
-    def withChildren(value: VdomNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawNode.asInstanceOf[js.Any])
-        ret
-    }
+    def setChildrenVdomElement(value: VdomElement): Self = this.set("children", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
-    def withoutChildren: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
-        ret
-    }
+    def setChildren(value: VdomNode): Self = this.set("children", value.rawNode.asInstanceOf[js.Any])
     @scala.inline
-    def withClassName(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteChildren: Self = this.set("children", js.undefined)
     @scala.inline
-    def withoutClassName: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
-        ret
-    }
+    def setClassName(value: String): Self = this.set("className", value.asInstanceOf[js.Any])
     @scala.inline
-    def withContentVdomElement(value: VdomElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.rawElement.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteClassName: Self = this.set("className", js.undefined)
     @scala.inline
-    def withContent(value: SemanticShorthandContent): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setContentVdomElement(value: VdomElement): Self = this.set("content", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
-    def withoutContent: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.undefined)
-        ret
-    }
+    def setContent(value: SemanticShorthandContent): Self = this.set("content", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFluid(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteContent: Self = this.set("content", js.undefined)
     @scala.inline
-    def withoutFluid: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(js.undefined)
-        ret
-    }
+    def setFluid(value: Boolean): Self = this.set("fluid", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOptFn0Number(value: CallbackTo[Double]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn0Number")(value.toJsFn)
-        ret
-    }
+    def deleteFluid: Self = this.set("fluid", js.undefined)
     @scala.inline
-    def withoutOptFn0Number: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn0Number")(js.undefined)
-        ret
-    }
+    def setOptFn0Number(value: CallbackTo[Double]): Self = this.set("optFn0Number", value.toJsFn)
     @scala.inline
-    def withOptFn0Void(value: Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn0Void")(value.toJsFn)
-        ret
-    }
+    def deleteOptFn0Number: Self = this.set("optFn0Number", js.undefined)
     @scala.inline
-    def withoutOptFn0Void: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn0Void")(js.undefined)
-        ret
-    }
+    def setOptFn0Void(value: Callback): Self = this.set("optFn0Void", value.toJsFn)
     @scala.inline
-    def withOptFn1Number(value: /* x */ Double => CallbackTo[Double]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn1Number")(js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
-        ret
-    }
+    def deleteOptFn0Void: Self = this.set("optFn0Void", js.undefined)
     @scala.inline
-    def withoutOptFn1Number: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn1Number")(js.undefined)
-        ret
-    }
+    def setOptFn1Number(value: /* x */ Double => CallbackTo[Double]): Self = this.set("optFn1Number", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
     @scala.inline
-    def withOptFn1Void(value: /* x */ Double => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn1Void")(js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
-        ret
-    }
+    def deleteOptFn1Number: Self = this.set("optFn1Number", js.undefined)
     @scala.inline
-    def withoutOptFn1Void: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optFn1Void")(js.undefined)
-        ret
-    }
+    def setOptFn1Void(value: /* x */ Double => Callback): Self = this.set("optFn1Void", js.Any.fromFunction1((t0: /* x */ Double) => value(t0).runNow()))
     @scala.inline
-    def withText(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteOptFn1Void: Self = this.set("optFn1Void", js.undefined)
     @scala.inline
-    def withoutText: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(js.undefined)
-        ret
-    }
+    def setText(value: Boolean): Self = this.set("text", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTextAlign(value: SemanticTEXTALIGNMENTS): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("textAlign")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteText: Self = this.set("text", js.undefined)
     @scala.inline
-    def withoutTextAlign: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("textAlign")(js.undefined)
-        ret
-    }
+    def setTextAlign(value: SemanticTEXTALIGNMENTS): Self = this.set("textAlign", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteTextAlign: Self = this.set("textAlign", js.undefined)
   }
   
 }

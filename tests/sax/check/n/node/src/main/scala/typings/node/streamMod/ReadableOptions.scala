@@ -27,65 +27,30 @@ object ReadableOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDestroy(value: /* error */ js.UndefOr[Error] => _): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("destroy")(js.Any.fromFunction1(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutDestroy: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("destroy")(js.undefined)
-        ret
-    }
+    def setDestroy(value: /* error */ js.UndefOr[Error] => _): Self = this.set("destroy", js.Any.fromFunction1(value))
     @scala.inline
-    def withEncoding(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("encoding")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDestroy: Self = this.set("destroy", js.undefined)
     @scala.inline
-    def withoutEncoding: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("encoding")(js.undefined)
-        ret
-    }
+    def setEncoding(value: String): Self = this.set("encoding", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHighWaterMark(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("highWaterMark")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteEncoding: Self = this.set("encoding", js.undefined)
     @scala.inline
-    def withoutHighWaterMark: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("highWaterMark")(js.undefined)
-        ret
-    }
+    def setHighWaterMark(value: Double): Self = this.set("highWaterMark", value.asInstanceOf[js.Any])
     @scala.inline
-    def withObjectMode(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("objectMode")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteHighWaterMark: Self = this.set("highWaterMark", js.undefined)
     @scala.inline
-    def withoutObjectMode: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("objectMode")(js.undefined)
-        ret
-    }
+    def setObjectMode(value: Boolean): Self = this.set("objectMode", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("read")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteObjectMode: Self = this.set("objectMode", js.undefined)
     @scala.inline
-    def withoutRead: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("read")(js.undefined)
-        ret
-    }
+    def setRead(value: js.ThisFunction1[/* this */ Readable, /* size */ js.UndefOr[Double], _]): Self = this.set("read", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteRead: Self = this.set("read", js.undefined)
   }
   
 }

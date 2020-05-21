@@ -28,65 +28,30 @@ object Event {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withPreventDefault(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("preventDefault")(js.Any.fromFunction0(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withReturnValue(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("returnValue")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPreventDefault(value: () => Unit): Self = this.set("preventDefault", js.Any.fromFunction0(value))
     @scala.inline
-    def withAltKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("altKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setReturnValue(value: js.Any): Self = this.set("returnValue", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutAltKey: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("altKey")(js.undefined)
-        ret
-    }
+    def setAltKey(value: Boolean): Self = this.set("altKey", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCtrlKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ctrlKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteAltKey: Self = this.set("altKey", js.undefined)
     @scala.inline
-    def withoutCtrlKey: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ctrlKey")(js.undefined)
-        ret
-    }
+    def setCtrlKey(value: Boolean): Self = this.set("ctrlKey", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMetaKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("metaKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCtrlKey: Self = this.set("ctrlKey", js.undefined)
     @scala.inline
-    def withoutMetaKey: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("metaKey")(js.undefined)
-        ret
-    }
+    def setMetaKey(value: Boolean): Self = this.set("metaKey", value.asInstanceOf[js.Any])
     @scala.inline
-    def withShiftKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("shiftKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteMetaKey: Self = this.set("metaKey", js.undefined)
     @scala.inline
-    def withoutShiftKey: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("shiftKey")(js.undefined)
-        ret
-    }
+    def setShiftKey(value: Boolean): Self = this.set("shiftKey", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteShiftKey: Self = this.set("shiftKey", js.undefined)
   }
   
 }

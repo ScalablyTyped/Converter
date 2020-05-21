@@ -30,97 +30,42 @@ object Options {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCascade(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cascade")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutCascade: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cascade")(js.undefined)
-        ret
-    }
+    def setCascade(value: Boolean): Self = this.set("cascade", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCompress(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("compress")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCascade: Self = this.set("cascade", js.undefined)
     @scala.inline
-    def withoutCompress: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("compress")(js.undefined)
-        ret
-    }
+    def setCompress(value: Boolean): Self = this.set("compress", value.asInstanceOf[js.Any])
     @scala.inline
-    def withGlobal(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("global")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCompress: Self = this.set("compress", js.undefined)
     @scala.inline
-    def withoutGlobal: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("global")(js.undefined)
-        ret
-    }
+    def setGlobal(value: Boolean): Self = this.set("global", value.asInstanceOf[js.Any])
     @scala.inline
-    def withKeyframe(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("keyframe")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteGlobal: Self = this.set("global", js.undefined)
     @scala.inline
-    def withoutKeyframe: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("keyframe")(js.undefined)
-        ret
-    }
+    def setKeyframe(value: Boolean): Self = this.set("keyframe", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPrefixFunction3(value: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("prefix")(js.Any.fromFunction3(value))
-        ret
-    }
+    def deleteKeyframe: Self = this.set("keyframe", js.undefined)
     @scala.inline
-    def withPrefix(
+    def setPrefixFunction3(value: (/* key */ String, /* value */ String, /* context */ Double) => Boolean): Self = this.set("prefix", js.Any.fromFunction3(value))
+    @scala.inline
+    def setPrefix(
       value: Boolean | (js.Function3[/* key */ String, /* value */ String, /* context */ Double, Boolean])
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("prefix")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("prefix", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutPrefix: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("prefix")(js.undefined)
-        ret
-    }
+    def deletePrefix: Self = this.set("prefix", js.undefined)
     @scala.inline
-    def withPreserve(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("preserve")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPreserve(value: Boolean): Self = this.set("preserve", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutPreserve: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("preserve")(js.undefined)
-        ret
-    }
+    def deletePreserve: Self = this.set("preserve", js.undefined)
     @scala.inline
-    def withSemicolon(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("semicolon")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSemicolon(value: Boolean): Self = this.set("semicolon", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutSemicolon: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("semicolon")(js.undefined)
-        ret
-    }
+    def deleteSemicolon: Self = this.set("semicolon", js.undefined)
   }
   
 }

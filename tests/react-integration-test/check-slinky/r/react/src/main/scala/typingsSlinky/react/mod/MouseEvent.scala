@@ -75,101 +75,42 @@ object MouseEvent {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAltKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("altKey")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withButton(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("button")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAltKey(value: Boolean): Self = this.set("altKey", value.asInstanceOf[js.Any])
     @scala.inline
-    def withButtons(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("buttons")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setButton(value: Double): Self = this.set("button", value.asInstanceOf[js.Any])
     @scala.inline
-    def withClientX(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("clientX")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setButtons(value: Double): Self = this.set("buttons", value.asInstanceOf[js.Any])
     @scala.inline
-    def withClientY(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("clientY")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setClientX(value: Double): Self = this.set("clientX", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCtrlKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ctrlKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setClientY(value: Double): Self = this.set("clientY", value.asInstanceOf[js.Any])
     @scala.inline
-    def withGetModifierState(value: String => Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getModifierState")(js.Any.fromFunction1(value))
-        ret
-    }
+    def setCtrlKey(value: Boolean): Self = this.set("ctrlKey", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMetaKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("metaKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setGetModifierState(value: String => Boolean): Self = this.set("getModifierState", js.Any.fromFunction1(value))
     @scala.inline
-    def withMovementX(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("movementX")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMetaKey(value: Boolean): Self = this.set("metaKey", value.asInstanceOf[js.Any])
     @scala.inline
-    def withMovementY(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("movementY")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMovementX(value: Double): Self = this.set("movementX", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPageX(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("pageX")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMovementY(value: Double): Self = this.set("movementY", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPageY(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("pageY")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPageX(value: Double): Self = this.set("pageX", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRelatedTarget(value: EventTarget): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("relatedTarget")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPageY(value: Double): Self = this.set("pageY", value.asInstanceOf[js.Any])
     @scala.inline
-    def withScreenX(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("screenX")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRelatedTarget(value: EventTarget): Self = this.set("relatedTarget", value.asInstanceOf[js.Any])
     @scala.inline
-    def withScreenY(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("screenY")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setScreenX(value: Double): Self = this.set("screenX", value.asInstanceOf[js.Any])
     @scala.inline
-    def withShiftKey(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("shiftKey")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setScreenY(value: Double): Self = this.set("screenY", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setShiftKey(value: Boolean): Self = this.set("shiftKey", value.asInstanceOf[js.Any])
   }
   
 }

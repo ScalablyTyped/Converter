@@ -31,29 +31,18 @@ object APIVersions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withApiVersion(value: latest | String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersion")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutApiVersion: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersion")(js.undefined)
-        ret
-    }
+    def setApiVersion(value: latest | String): Self = this.set("apiVersion", value.asInstanceOf[js.Any])
     @scala.inline
-    def withApiVersions(value: ConfigurationServiceApiVersions): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersions")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteApiVersion: Self = this.set("apiVersion", js.undefined)
     @scala.inline
-    def withoutApiVersions: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("apiVersions")(js.undefined)
-        ret
-    }
+    def setApiVersions(value: ConfigurationServiceApiVersions): Self = this.set("apiVersions", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteApiVersions: Self = this.set("apiVersions", js.undefined)
   }
   
 }

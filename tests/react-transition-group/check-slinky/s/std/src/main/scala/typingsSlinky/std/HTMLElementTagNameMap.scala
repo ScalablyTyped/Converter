@@ -36,47 +36,24 @@ object HTMLElementTagNameMap {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("a")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("abbr")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setA(value: org.scalajs.dom.raw.HTMLAnchorElement): Self = this.set("a", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAddress(value: org.scalajs.dom.raw.HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("address")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAbbr(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("abbr", value.asInstanceOf[js.Any])
     @scala.inline
-    def withArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("area")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAddress(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("address", value.asInstanceOf[js.Any])
     @scala.inline
-    def withArticle(value: org.scalajs.dom.raw.HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("article")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setArea(value: org.scalajs.dom.raw.HTMLAreaElement): Self = this.set("area", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAside(value: org.scalajs.dom.raw.HTMLElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("aside")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setArticle(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("article", value.asInstanceOf[js.Any])
     @scala.inline
-    def withAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("audio")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setAside(value: org.scalajs.dom.raw.HTMLElement): Self = this.set("aside", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setAudio(value: org.scalajs.dom.raw.HTMLAudioElement): Self = this.set("audio", value.asInstanceOf[js.Any])
   }
   
 }

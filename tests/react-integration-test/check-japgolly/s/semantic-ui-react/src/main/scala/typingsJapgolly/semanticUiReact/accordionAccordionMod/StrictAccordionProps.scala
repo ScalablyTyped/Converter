@@ -28,41 +28,22 @@ object StrictAccordionProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFluid(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutFluid: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("fluid")(js.undefined)
-        ret
-    }
+    def setFluid(value: Boolean): Self = this.set("fluid", value.asInstanceOf[js.Any])
     @scala.inline
-    def withInverted(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inverted")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteFluid: Self = this.set("fluid", js.undefined)
     @scala.inline
-    def withoutInverted: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inverted")(js.undefined)
-        ret
-    }
+    def setInverted(value: Boolean): Self = this.set("inverted", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStyled(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("styled")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteInverted: Self = this.set("inverted", js.undefined)
     @scala.inline
-    def withoutStyled: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("styled")(js.undefined)
-        ret
-    }
+    def setStyled(value: Boolean): Self = this.set("styled", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteStyled: Self = this.set("styled", js.undefined)
   }
   
 }

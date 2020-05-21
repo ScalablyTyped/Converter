@@ -31,77 +31,34 @@ object ContextMenuTriggerProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withId(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("id")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withAttributes(value: HTMLAttributes[_]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("attributes")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setId(value: String): Self = this.set("id", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutAttributes: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("attributes")(js.undefined)
-        ret
-    }
+    def setAttributes(value: HTMLAttributes[_]): Self = this.set("attributes", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCollect(value: /* data */ js.Any => CallbackTo[js.Any]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("collect")(js.Any.fromFunction1((t0: /* data */ js.Any) => value(t0).runNow()))
-        ret
-    }
+    def deleteAttributes: Self = this.set("attributes", js.undefined)
     @scala.inline
-    def withoutCollect: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("collect")(js.undefined)
-        ret
-    }
+    def setCollect(value: /* data */ js.Any => CallbackTo[js.Any]): Self = this.set("collect", js.Any.fromFunction1((t0: /* data */ js.Any) => value(t0).runNow()))
     @scala.inline
-    def withDisable(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("disable")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCollect: Self = this.set("collect", js.undefined)
     @scala.inline
-    def withoutDisable: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("disable")(js.undefined)
-        ret
-    }
+    def setDisable(value: Boolean): Self = this.set("disable", value.asInstanceOf[js.Any])
     @scala.inline
-    def withHoldToDisplay(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("holdToDisplay")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDisable: Self = this.set("disable", js.undefined)
     @scala.inline
-    def withoutHoldToDisplay: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("holdToDisplay")(js.undefined)
-        ret
-    }
+    def setHoldToDisplay(value: Double): Self = this.set("holdToDisplay", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRenderTagComponentClass(value: ComponentClassP[js.Object]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("renderTag")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteHoldToDisplay: Self = this.set("holdToDisplay", js.undefined)
     @scala.inline
-    def withRenderTag(value: ReactType[_]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("renderTag")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRenderTagComponentClass(value: ComponentClassP[js.Object]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutRenderTag: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("renderTag")(js.undefined)
-        ret
-    }
+    def setRenderTag(value: ReactType[_]): Self = this.set("renderTag", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteRenderTag: Self = this.set("renderTag", js.undefined)
   }
   
 }

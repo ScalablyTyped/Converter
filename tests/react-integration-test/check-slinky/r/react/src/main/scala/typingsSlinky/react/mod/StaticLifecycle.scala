@@ -25,29 +25,18 @@ object StaticLifecycle {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutGetDerivedStateFromError: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromError")(js.undefined)
-        ret
-    }
+    def setGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self = this.set("getDerivedStateFromError", js.Any.fromFunction1(value))
     @scala.inline
-    def withGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(value))
-        ret
-    }
+    def deleteGetDerivedStateFromError: Self = this.set("getDerivedStateFromError", js.undefined)
     @scala.inline
-    def withoutGetDerivedStateFromProps: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.undefined)
-        ret
-    }
+    def setGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self = this.set("getDerivedStateFromProps", js.Any.fromFunction2(value))
+    @scala.inline
+    def deleteGetDerivedStateFromProps: Self = this.set("getDerivedStateFromProps", js.undefined)
   }
   
 }

@@ -54,95 +54,44 @@ object StrictAccordionPanelProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withActive(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("active")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutActive: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("active")(js.undefined)
-        ret
-    }
+    def setActive(value: Boolean): Self = this.set("active", value.asInstanceOf[js.Any])
     @scala.inline
-    def withContentVdomElement(value: VdomElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.rawElement.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteActive: Self = this.set("active", js.undefined)
     @scala.inline
-    def withContentFunction3(
+    def setContentVdomElement(value: VdomElement): Self = this.set("content", value.rawElement.asInstanceOf[js.Any])
+    @scala.inline
+    def setContentFunction3(
       value: (/* component */ ReactType[AccordionContentProps], AccordionContentProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.Any.fromFunction3((t0: /* component */ ReactType[AccordionContentProps], t1: AccordionContentProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
-        ret
-    }
+    ): Self = this.set("content", js.Any.fromFunction3((t0: /* component */ ReactType[AccordionContentProps], t1: AccordionContentProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
     @scala.inline
-    def withContent(value: SemanticShorthandItem[AccordionContentProps]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setContent(value: SemanticShorthandItem[AccordionContentProps]): Self = this.set("content", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutContent: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.undefined)
-        ret
-    }
+    def deleteContent: Self = this.set("content", js.undefined)
     @scala.inline
-    def withIndex(value: Double | String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("index")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIndex(value: Double | String): Self = this.set("index", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutIndex: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("index")(js.undefined)
-        ret
-    }
+    def deleteIndex: Self = this.set("index", js.undefined)
     @scala.inline
-    def withOnTitleClick(
+    def setOnTitleClick(
       value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTitleClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
-        ret
-    }
+    ): Self = this.set("onTitleClick", js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
     @scala.inline
-    def withoutOnTitleClick: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onTitleClick")(js.undefined)
-        ret
-    }
+    def deleteOnTitleClick: Self = this.set("onTitleClick", js.undefined)
     @scala.inline
-    def withTitleVdomElement(value: VdomElement): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(value.rawElement.asInstanceOf[js.Any])
-        ret
-    }
+    def setTitleVdomElement(value: VdomElement): Self = this.set("title", value.rawElement.asInstanceOf[js.Any])
     @scala.inline
-    def withTitleFunction3(
+    def setTitleFunction3(
       value: (/* component */ ReactType[AccordionTitleProps], AccordionTitleProps, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(js.Any.fromFunction3((t0: /* component */ ReactType[AccordionTitleProps], t1: AccordionTitleProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
-        ret
-    }
+    ): Self = this.set("title", js.Any.fromFunction3((t0: /* component */ ReactType[AccordionTitleProps], t1: AccordionTitleProps, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
     @scala.inline
-    def withTitle(value: SemanticShorthandItem[AccordionTitleProps]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTitle(value: SemanticShorthandItem[AccordionTitleProps]): Self = this.set("title", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutTitle: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(js.undefined)
-        ret
-    }
+    def deleteTitle: Self = this.set("title", js.undefined)
   }
   
 }

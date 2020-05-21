@@ -85,199 +85,76 @@ object ComponentOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withActivated(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("activated")(js.Any.fromFunction0(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutActivated: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("activated")(js.undefined)
-        ret
-    }
+    def setActivated(value: () => Unit): Self = this.set("activated", js.Any.fromFunction0(value))
     @scala.inline
-    def withBeforeCreate(value: js.ThisFunction0[/* this */ V, Unit]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeCreate")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteActivated: Self = this.set("activated", js.undefined)
     @scala.inline
-    def withoutBeforeCreate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeCreate")(js.undefined)
-        ret
-    }
+    def setBeforeCreate(value: js.ThisFunction0[/* this */ V, Unit]): Self = this.set("beforeCreate", value.asInstanceOf[js.Any])
     @scala.inline
-    def withBeforeDestroy(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeDestroy")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteBeforeCreate: Self = this.set("beforeCreate", js.undefined)
     @scala.inline
-    def withoutBeforeDestroy: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeDestroy")(js.undefined)
-        ret
-    }
+    def setBeforeDestroy(value: () => Unit): Self = this.set("beforeDestroy", js.Any.fromFunction0(value))
     @scala.inline
-    def withBeforeMount(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeMount")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteBeforeDestroy: Self = this.set("beforeDestroy", js.undefined)
     @scala.inline
-    def withoutBeforeMount: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeMount")(js.undefined)
-        ret
-    }
+    def setBeforeMount(value: () => Unit): Self = this.set("beforeMount", js.Any.fromFunction0(value))
     @scala.inline
-    def withBeforeUpdate(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeUpdate")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteBeforeMount: Self = this.set("beforeMount", js.undefined)
     @scala.inline
-    def withoutBeforeUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("beforeUpdate")(js.undefined)
-        ret
-    }
+    def setBeforeUpdate(value: () => Unit): Self = this.set("beforeUpdate", js.Any.fromFunction0(value))
     @scala.inline
-    def withComments(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("comments")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteBeforeUpdate: Self = this.set("beforeUpdate", js.undefined)
     @scala.inline
-    def withoutComments: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("comments")(js.undefined)
-        ret
-    }
+    def setComments(value: Boolean): Self = this.set("comments", value.asInstanceOf[js.Any])
     @scala.inline
-    def withComponents(value: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("components")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteComments: Self = this.set("comments", js.undefined)
     @scala.inline
-    def withoutComponents: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("components")(js.undefined)
-        ret
-    }
+    def setComponents(value: StringDictionary[(Component[_, _, _, _]) | (AsyncComponent[_, _, _, _])]): Self = this.set("components", value.asInstanceOf[js.Any])
     @scala.inline
-    def withComputed(value: Accessors[Computed]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("computed")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteComponents: Self = this.set("components", js.undefined)
     @scala.inline
-    def withoutComputed: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("computed")(js.undefined)
-        ret
-    }
+    def setComputed(value: Accessors[Computed]): Self = this.set("computed", value.asInstanceOf[js.Any])
     @scala.inline
-    def withCreated(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("created")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteComputed: Self = this.set("computed", js.undefined)
     @scala.inline
-    def withoutCreated: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("created")(js.undefined)
-        ret
-    }
+    def setCreated(value: () => Unit): Self = this.set("created", js.Any.fromFunction0(value))
     @scala.inline
-    def withData(value: Data): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCreated: Self = this.set("created", js.undefined)
     @scala.inline
-    def withoutData: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(js.undefined)
-        ret
-    }
+    def setData(value: Data): Self = this.set("data", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDeactivated(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deactivated")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteData: Self = this.set("data", js.undefined)
     @scala.inline
-    def withoutDeactivated: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deactivated")(js.undefined)
-        ret
-    }
+    def setDeactivated(value: () => Unit): Self = this.set("deactivated", js.Any.fromFunction0(value))
     @scala.inline
-    def withDelimiters(value: js.Tuple2[String, String]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("delimiters")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDeactivated: Self = this.set("deactivated", js.undefined)
     @scala.inline
-    def withoutDelimiters: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("delimiters")(js.undefined)
-        ret
-    }
+    def setDelimiters(value: js.Tuple2[String, String]): Self = this.set("delimiters", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDestroyed(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("destroyed")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteDelimiters: Self = this.set("delimiters", js.undefined)
     @scala.inline
-    def withoutDestroyed: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("destroyed")(js.undefined)
-        ret
-    }
+    def setDestroyed(value: () => Unit): Self = this.set("destroyed", js.Any.fromFunction0(value))
     @scala.inline
-    def withDirectives(value: StringDictionary[DirectiveFunction | DirectiveOptions]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("directives")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDestroyed: Self = this.set("destroyed", js.undefined)
     @scala.inline
-    def withoutDirectives: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("directives")(js.undefined)
-        ret
-    }
+    def setDirectives(value: StringDictionary[DirectiveFunction | DirectiveOptions]): Self = this.set("directives", value.asInstanceOf[js.Any])
     @scala.inline
-    def withEl(value: Element | String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("el")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDirectives: Self = this.set("directives", js.undefined)
     @scala.inline
-    def withoutEl: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("el")(js.undefined)
-        ret
-    }
+    def setEl(value: Element | String): Self = this.set("el", value.asInstanceOf[js.Any])
     @scala.inline
-    def withErrorCaptured(value: () => Boolean | Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("errorCaptured")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteEl: Self = this.set("el", js.undefined)
     @scala.inline
-    def withoutErrorCaptured: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("errorCaptured")(js.undefined)
-        ret
-    }
+    def setErrorCaptured(value: () => Boolean | Unit): Self = this.set("errorCaptured", js.Any.fromFunction0(value))
     @scala.inline
-    def withExtends(
+    def deleteErrorCaptured: Self = this.set("errorCaptured", js.undefined)
+    @scala.inline
+    def setExtends(
       value: (ComponentOptions[
           Vue, 
           DefaultData[Vue], 
@@ -285,67 +162,27 @@ object ComponentOptions {
           DefaultComputed, 
           PropsDefinition[DefaultProps]
         ]) | VueConstructor[Vue]
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("extends")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("extends", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutExtends: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("extends")(js.undefined)
-        ret
-    }
+    def deleteExtends: Self = this.set("extends", js.undefined)
     @scala.inline
-    def withFilters(value: StringDictionary[js.Function]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("filters")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFilters(value: StringDictionary[js.Function]): Self = this.set("filters", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutFilters: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("filters")(js.undefined)
-        ret
-    }
+    def deleteFilters: Self = this.set("filters", js.undefined)
     @scala.inline
-    def withInheritAttrs(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inheritAttrs")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setInheritAttrs(value: Boolean): Self = this.set("inheritAttrs", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutInheritAttrs: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inheritAttrs")(js.undefined)
-        ret
-    }
+    def deleteInheritAttrs: Self = this.set("inheritAttrs", js.undefined)
     @scala.inline
-    def withInject(value: InjectOptions): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inject")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setInject(value: InjectOptions): Self = this.set("inject", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutInject: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inject")(js.undefined)
-        ret
-    }
+    def deleteInject: Self = this.set("inject", js.undefined)
     @scala.inline
-    def withMethods(value: Methods): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("methods")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setMethods(value: Methods): Self = this.set("methods", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutMethods: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("methods")(js.undefined)
-        ret
-    }
+    def deleteMethods: Self = this.set("methods", js.undefined)
     @scala.inline
-    def withMixins(
+    def setMixins(
       value: js.Array[
           (ComponentOptions[
             Vue, 
@@ -355,191 +192,67 @@ object ComponentOptions {
             PropsDefinition[DefaultProps]
           ]) | VueConstructor[Vue]
         ]
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("mixins")(value.asInstanceOf[js.Any])
-        ret
-    }
+    ): Self = this.set("mixins", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutMixins: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("mixins")(js.undefined)
-        ret
-    }
+    def deleteMixins: Self = this.set("mixins", js.undefined)
     @scala.inline
-    def withModel(value: Event): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("model")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setModel(value: Event): Self = this.set("model", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutModel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("model")(js.undefined)
-        ret
-    }
+    def deleteModel: Self = this.set("model", js.undefined)
     @scala.inline
-    def withMounted(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("mounted")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setMounted(value: () => Unit): Self = this.set("mounted", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutMounted: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("mounted")(js.undefined)
-        ret
-    }
+    def deleteMounted: Self = this.set("mounted", js.undefined)
     @scala.inline
-    def withName(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setName(value: String): Self = this.set("name", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutName: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
-        ret
-    }
+    def deleteName: Self = this.set("name", js.undefined)
     @scala.inline
-    def withParent(value: Vue): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("parent")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setParent(value: Vue): Self = this.set("parent", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutParent: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("parent")(js.undefined)
-        ret
-    }
+    def deleteParent: Self = this.set("parent", js.undefined)
     @scala.inline
-    def withProps(value: PropsDef): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setProps(value: PropsDef): Self = this.set("props", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutProps: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(js.undefined)
-        ret
-    }
+    def deleteProps: Self = this.set("props", js.undefined)
     @scala.inline
-    def withPropsData(value: js.Object): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("propsData")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPropsData(value: js.Object): Self = this.set("propsData", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutPropsData: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("propsData")(js.undefined)
-        ret
-    }
+    def deletePropsData: Self = this.set("propsData", js.undefined)
     @scala.inline
-    def withProvideFunction0(value: () => js.Object): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("provide")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setProvideFunction0(value: () => js.Object): Self = this.set("provide", js.Any.fromFunction0(value))
     @scala.inline
-    def withProvide(value: js.Object | js.Function0[js.Object]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("provide")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setProvide(value: js.Object | js.Function0[js.Object]): Self = this.set("provide", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutProvide: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("provide")(js.undefined)
-        ret
-    }
+    def deleteProvide: Self = this.set("provide", js.undefined)
     @scala.inline
-    def withRender(value: /* createElement */ CreateElement => VNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("render")(js.Any.fromFunction1(value))
-        ret
-    }
+    def setRender(value: /* createElement */ CreateElement => VNode): Self = this.set("render", js.Any.fromFunction1(value))
     @scala.inline
-    def withoutRender: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("render")(js.undefined)
-        ret
-    }
+    def deleteRender: Self = this.set("render", js.undefined)
     @scala.inline
-    def withRenderError(value: (/* h */ js.Function0[VNode], /* err */ Error) => VNode): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("renderError")(js.Any.fromFunction2(value))
-        ret
-    }
+    def setRenderError(value: (/* h */ js.Function0[VNode], /* err */ Error) => VNode): Self = this.set("renderError", js.Any.fromFunction2(value))
     @scala.inline
-    def withoutRenderError: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("renderError")(js.undefined)
-        ret
-    }
+    def deleteRenderError: Self = this.set("renderError", js.undefined)
     @scala.inline
-    def withStaticRenderFns(value: js.Array[js.Function1[/* createElement */ CreateElement, VNode]]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("staticRenderFns")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setStaticRenderFns(value: js.Array[js.Function1[/* createElement */ CreateElement, VNode]]): Self = this.set("staticRenderFns", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutStaticRenderFns: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("staticRenderFns")(js.undefined)
-        ret
-    }
+    def deleteStaticRenderFns: Self = this.set("staticRenderFns", js.undefined)
     @scala.inline
-    def withTemplate(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("template")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTemplate(value: String): Self = this.set("template", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutTemplate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("template")(js.undefined)
-        ret
-    }
+    def deleteTemplate: Self = this.set("template", js.undefined)
     @scala.inline
-    def withTransitions(value: StringDictionary[js.Object]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("transitions")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTransitions(value: StringDictionary[js.Object]): Self = this.set("transitions", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutTransitions: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("transitions")(js.undefined)
-        ret
-    }
+    def deleteTransitions: Self = this.set("transitions", js.undefined)
     @scala.inline
-    def withUpdated(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("updated")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setUpdated(value: () => Unit): Self = this.set("updated", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutUpdated: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("updated")(js.undefined)
-        ret
-    }
+    def deleteUpdated: Self = this.set("updated", js.undefined)
     @scala.inline
-    def withWatch(value: Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("watch")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setWatch(value: Record[String, WatchOptionsWithHandler[_] | WatchHandler[_] | String]): Self = this.set("watch", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutWatch: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("watch")(js.undefined)
-        ret
-    }
+    def deleteWatch: Self = this.set("watch", js.undefined)
   }
   
 }

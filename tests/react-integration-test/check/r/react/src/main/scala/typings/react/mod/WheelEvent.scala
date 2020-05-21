@@ -63,29 +63,18 @@ object WheelEvent {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDeltaMode(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deltaMode")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withDeltaX(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deltaX")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDeltaMode(value: Double): Self = this.set("deltaMode", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDeltaY(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deltaY")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDeltaX(value: Double): Self = this.set("deltaX", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDeltaZ(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("deltaZ")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDeltaY(value: Double): Self = this.set("deltaY", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setDeltaZ(value: Double): Self = this.set("deltaZ", value.asInstanceOf[js.Any])
   }
   
 }

@@ -41,35 +41,20 @@ object Queue {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withEmpty(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("empty")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withFull(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("full")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setEmpty(value: Boolean): Self = this.set("empty", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLength(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("length")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFull(value: Boolean): Self = this.set("full", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPop(value: () => js.UndefOr[T]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("pop")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setLength(value: Double): Self = this.set("length", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPush(value: S => Queue[S, T]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("push")(js.Any.fromFunction1(value))
-        ret
-    }
+    def setPop(value: () => js.UndefOr[T]): Self = this.set("pop", js.Any.fromFunction0(value))
+    @scala.inline
+    def setPush(value: S => Queue[S, T]): Self = this.set("push", js.Any.fromFunction1(value))
   }
   
 }

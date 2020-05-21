@@ -30,23 +30,16 @@ object INotifyConfigProvider {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefaultNotifyConfig(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("defaultNotifyConfig")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withDefaultTargetContainerName(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("defaultTargetContainerName")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDefaultNotifyConfig(value: String): Self = this.set("defaultNotifyConfig", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNotifyConfigs(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("notifyConfigs")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDefaultTargetContainerName(value: String): Self = this.set("defaultTargetContainerName", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setNotifyConfigs(value: js.Any): Self = this.set("notifyConfigs", value.asInstanceOf[js.Any])
   }
   
 }

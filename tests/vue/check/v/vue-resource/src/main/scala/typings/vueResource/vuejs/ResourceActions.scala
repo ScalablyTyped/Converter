@@ -28,41 +28,22 @@ object ResourceActions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDelete(value: Method): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("delete")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withGet(value: Method): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDelete(value: Method): Self = this.set("delete", value.asInstanceOf[js.Any])
     @scala.inline
-    def withQuery(value: Method): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("query")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setGet(value: Method): Self = this.set("get", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRemove(value: Method): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("remove")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setQuery(value: Method): Self = this.set("query", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSave(value: Method): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("save")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRemove(value: Method): Self = this.set("remove", value.asInstanceOf[js.Any])
     @scala.inline
-    def withUpdate(value: Method): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("update")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setSave(value: Method): Self = this.set("save", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setUpdate(value: Method): Self = this.set("update", value.asInstanceOf[js.Any])
   }
   
 }

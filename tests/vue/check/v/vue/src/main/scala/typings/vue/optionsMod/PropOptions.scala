@@ -25,71 +25,32 @@ object PropOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefaultFunction0(value: () => js.Object): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(js.Any.fromFunction0(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withDefault(value: T | js.Function0[js.Object]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDefaultFunction0(value: () => js.Object): Self = this.set("default", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutDefault: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(js.undefined)
-        ret
-    }
+    def setDefault(value: T | js.Function0[js.Object]): Self = this.set("default", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDefaultNull: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("default")(null)
-        ret
-    }
+    def deleteDefault: Self = this.set("default", js.undefined)
     @scala.inline
-    def withRequired(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("required")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDefaultNull: Self = this.set("default", null)
     @scala.inline
-    def withoutRequired: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("required")(js.undefined)
-        ret
-    }
+    def setRequired(value: Boolean): Self = this.set("required", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTypeFunction0(value: () => T): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteRequired: Self = this.set("required", js.undefined)
     @scala.inline
-    def withType(value: Prop[T] | js.Array[Prop[T]]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setTypeFunction0(value: () => T): Self = this.set("type", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutType: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
-        ret
-    }
+    def setType(value: Prop[T] | js.Array[Prop[T]]): Self = this.set("type", value.asInstanceOf[js.Any])
     @scala.inline
-    def withValidator(value: /* value */ T => Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("validator")(js.Any.fromFunction1(value))
-        ret
-    }
+    def deleteType: Self = this.set("type", js.undefined)
     @scala.inline
-    def withoutValidator: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("validator")(js.undefined)
-        ret
-    }
+    def setValidator(value: /* value */ T => Boolean): Self = this.set("validator", js.Any.fromFunction1(value))
+    @scala.inline
+    def deleteValidator: Self = this.set("validator", js.undefined)
   }
   
 }

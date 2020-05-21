@@ -23,29 +23,18 @@ object LowerBound {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withLowerBound(value: js.Array[Double]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("lowerBound")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutLowerBound: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("lowerBound")(js.undefined)
-        ret
-    }
+    def setLowerBound(value: js.Array[Double]): Self = this.set("lowerBound", value.asInstanceOf[js.Any])
     @scala.inline
-    def withUpperBound(value: js.Array[Double]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("upperBound")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteLowerBound: Self = this.set("lowerBound", js.undefined)
     @scala.inline
-    def withoutUpperBound: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("upperBound")(js.undefined)
-        ret
-    }
+    def setUpperBound(value: js.Array[Double]): Self = this.set("upperBound", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteUpperBound: Self = this.set("upperBound", js.undefined)
   }
   
 }

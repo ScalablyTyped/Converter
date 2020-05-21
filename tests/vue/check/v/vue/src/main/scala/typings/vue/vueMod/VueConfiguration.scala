@@ -43,59 +43,28 @@ object VueConfiguration {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDevtools(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("devtools")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withErrorHandler(value: (Error, Vue, String) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("errorHandler")(js.Any.fromFunction3(value))
-        ret
-    }
+    def setDevtools(value: Boolean): Self = this.set("devtools", value.asInstanceOf[js.Any])
     @scala.inline
-    def withIgnoredElements(value: js.Array[String | RegExp]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ignoredElements")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setErrorHandler(value: (Error, Vue, String) => Unit): Self = this.set("errorHandler", js.Any.fromFunction3(value))
     @scala.inline
-    def withKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("keyCodes")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setIgnoredElements(value: js.Array[String | RegExp]): Self = this.set("ignoredElements", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOptionMergeStrategies(value: js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optionMergeStrategies")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setKeyCodes(value: StringDictionary[Double | js.Array[Double]]): Self = this.set("keyCodes", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPerformance(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("performance")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOptionMergeStrategies(value: js.Any): Self = this.set("optionMergeStrategies", value.asInstanceOf[js.Any])
     @scala.inline
-    def withProductionTip(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("productionTip")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setPerformance(value: Boolean): Self = this.set("performance", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSilent(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("silent")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setProductionTip(value: Boolean): Self = this.set("productionTip", value.asInstanceOf[js.Any])
     @scala.inline
-    def withWarnHandler(value: (String, Vue, String) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("warnHandler")(js.Any.fromFunction3(value))
-        ret
-    }
+    def setSilent(value: Boolean): Self = this.set("silent", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setWarnHandler(value: (String, Vue, String) => Unit): Self = this.set("warnHandler", js.Any.fromFunction3(value))
   }
   
 }

@@ -39,53 +39,26 @@ object HttpResponse {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBlob(value: () => Blob): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("blob")(js.Any.fromFunction0(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withData(value: js.Object): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBlob(value: () => Blob): Self = this.set("blob", js.Any.fromFunction0(value))
     @scala.inline
-    def withHeaders(value: js.Function): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("headers")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setData(value: js.Object): Self = this.set("data", value.asInstanceOf[js.Any])
     @scala.inline
-    def withJson(value: () => js.Any): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("json")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setHeaders(value: js.Function): Self = this.set("headers", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOk(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("ok")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setJson(value: () => js.Any): Self = this.set("json", js.Any.fromFunction0(value))
     @scala.inline
-    def withStatus(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("status")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOk(value: Boolean): Self = this.set("ok", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStatusText(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("statusText")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setStatus(value: Double): Self = this.set("status", value.asInstanceOf[js.Any])
     @scala.inline
-    def withText(value: () => String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(js.Any.fromFunction0(value))
-        ret
-    }
+    def setStatusText(value: String): Self = this.set("statusText", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setText(value: () => String): Self = this.set("text", js.Any.fromFunction0(value))
   }
   
 }

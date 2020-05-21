@@ -45,149 +45,58 @@ object Options {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCancelable(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cancelable")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutCancelable: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cancelable")(js.undefined)
-        ret
-    }
+    def setCancelable(value: Boolean): Self = this.set("cancelable", value.asInstanceOf[js.Any])
     @scala.inline
-    def withContainer(value: String | Element): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("container")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCancelable: Self = this.set("cancelable", js.undefined)
     @scala.inline
-    def withoutContainer: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("container")(js.undefined)
-        ret
-    }
+    def setContainer(value: String | Element): Self = this.set("container", value.asInstanceOf[js.Any])
     @scala.inline
-    def withDuration(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("duration")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteContainer: Self = this.set("container", js.undefined)
     @scala.inline
-    def withoutDuration: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("duration")(js.undefined)
-        ret
-    }
+    def setDuration(value: Double): Self = this.set("duration", value.asInstanceOf[js.Any])
     @scala.inline
-    def withEasing(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("easing")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteDuration: Self = this.set("duration", js.undefined)
     @scala.inline
-    def withoutEasing: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("easing")(js.undefined)
-        ret
-    }
+    def setEasing(value: String): Self = this.set("easing", value.asInstanceOf[js.Any])
     @scala.inline
-    def withEl(value: String | Element): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("el")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteEasing: Self = this.set("easing", js.undefined)
     @scala.inline
-    def withoutEl: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("el")(js.undefined)
-        ret
-    }
+    def setEl(value: String | Element): Self = this.set("el", value.asInstanceOf[js.Any])
     @scala.inline
-    def withElement(value: String | Element): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("element")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteEl: Self = this.set("el", js.undefined)
     @scala.inline
-    def withoutElement: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("element")(js.undefined)
-        ret
-    }
+    def setElement(value: String | Element): Self = this.set("element", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOffset(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("offset")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteElement: Self = this.set("element", js.undefined)
     @scala.inline
-    def withoutOffset: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("offset")(js.undefined)
-        ret
-    }
+    def setOffset(value: Double): Self = this.set("offset", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOnCancelFunction0(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCancel")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteOffset: Self = this.set("offset", js.undefined)
     @scala.inline
-    def withOnCancel(value: js.Function0[Unit] | `false`): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCancel")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOnCancelFunction0(value: () => Unit): Self = this.set("onCancel", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutOnCancel: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onCancel")(js.undefined)
-        ret
-    }
+    def setOnCancel(value: js.Function0[Unit] | `false`): Self = this.set("onCancel", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOnDoneFunction0(value: () => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDone")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteOnCancel: Self = this.set("onCancel", js.undefined)
     @scala.inline
-    def withOnDone(value: js.Function0[Unit] | `false`): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDone")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOnDoneFunction0(value: () => Unit): Self = this.set("onDone", js.Any.fromFunction0(value))
     @scala.inline
-    def withoutOnDone: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onDone")(js.undefined)
-        ret
-    }
+    def setOnDone(value: js.Function0[Unit] | `false`): Self = this.set("onDone", value.asInstanceOf[js.Any])
     @scala.inline
-    def withX(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("x")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteOnDone: Self = this.set("onDone", js.undefined)
     @scala.inline
-    def withoutX: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("x")(js.undefined)
-        ret
-    }
+    def setX(value: Boolean): Self = this.set("x", value.asInstanceOf[js.Any])
     @scala.inline
-    def withY(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("y")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteX: Self = this.set("x", js.undefined)
     @scala.inline
-    def withoutY: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("y")(js.undefined)
-        ret
-    }
+    def setY(value: Boolean): Self = this.set("y", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteY: Self = this.set("y", js.undefined)
   }
   
 }

@@ -39,29 +39,18 @@ object NewLifecycle {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.Any.fromFunction3(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutComponentDidUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.undefined)
-        ret
-    }
+    def setComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit): Self = this.set("componentDidUpdate", js.Any.fromFunction3(value))
     @scala.inline
-    def withGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => SS | Null): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(value))
-        ret
-    }
+    def deleteComponentDidUpdate: Self = this.set("componentDidUpdate", js.undefined)
     @scala.inline
-    def withoutGetSnapshotBeforeUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.undefined)
-        ret
-    }
+    def setGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => SS | Null): Self = this.set("getSnapshotBeforeUpdate", js.Any.fromFunction2(value))
+    @scala.inline
+    def deleteGetSnapshotBeforeUpdate: Self = this.set("getSnapshotBeforeUpdate", js.undefined)
   }
   
 }

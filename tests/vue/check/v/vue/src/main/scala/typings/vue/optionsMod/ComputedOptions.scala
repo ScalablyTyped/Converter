@@ -24,41 +24,22 @@ object ComputedOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCache(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cache")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutCache: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("cache")(js.undefined)
-        ret
-    }
+    def setCache(value: Boolean): Self = this.set("cache", value.asInstanceOf[js.Any])
     @scala.inline
-    def withGet(value: () => T): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(js.Any.fromFunction0(value))
-        ret
-    }
+    def deleteCache: Self = this.set("cache", js.undefined)
     @scala.inline
-    def withoutGet: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(js.undefined)
-        ret
-    }
+    def setGet(value: () => T): Self = this.set("get", js.Any.fromFunction0(value))
     @scala.inline
-    def withSet(value: /* value */ T => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("set")(js.Any.fromFunction1(value))
-        ret
-    }
+    def deleteGet: Self = this.set("get", js.undefined)
     @scala.inline
-    def withoutSet: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("set")(js.undefined)
-        ret
-    }
+    def setSet(value: /* value */ T => Unit): Self = this.set("set", js.Any.fromFunction1(value))
+    @scala.inline
+    def deleteSet: Self = this.set("set", js.undefined)
   }
   
 }

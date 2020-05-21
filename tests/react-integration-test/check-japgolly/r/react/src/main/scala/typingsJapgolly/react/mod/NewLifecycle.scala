@@ -41,29 +41,18 @@ object NewLifecycle {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Callback): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.Any.fromFunction3((t0: /* prevProps */ P, t1: /* prevState */ S, t2: /* snapshot */ js.UndefOr[SS]) => (value(t0, t1, t2)).runNow()))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutComponentDidUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.undefined)
-        ret
-    }
+    def setComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Callback): Self = this.set("componentDidUpdate", js.Any.fromFunction3((t0: /* prevProps */ P, t1: /* prevState */ S, t2: /* snapshot */ js.UndefOr[SS]) => (value(t0, t1, t2)).runNow()))
     @scala.inline
-    def withGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => CallbackTo[SS | Null]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2((t0: /* prevProps */ P, t1: /* prevState */ S) => (value(t0, t1)).runNow()))
-        ret
-    }
+    def deleteComponentDidUpdate: Self = this.set("componentDidUpdate", js.undefined)
     @scala.inline
-    def withoutGetSnapshotBeforeUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.undefined)
-        ret
-    }
+    def setGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => CallbackTo[SS | Null]): Self = this.set("getSnapshotBeforeUpdate", js.Any.fromFunction2((t0: /* prevProps */ P, t1: /* prevState */ S) => (value(t0, t1)).runNow()))
+    @scala.inline
+    def deleteGetSnapshotBeforeUpdate: Self = this.set("getSnapshotBeforeUpdate", js.undefined)
   }
   
 }

@@ -35,53 +35,26 @@ object Option {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBool(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bool")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withDescription(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("description")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setBool(value: Boolean): Self = this.set("bool", value.asInstanceOf[js.Any])
     @scala.inline
-    def withFlags(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("flags")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setDescription(value: String): Self = this.set("description", value.asInstanceOf[js.Any])
     @scala.inline
-    def withLong(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("long")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setFlags(value: String): Self = this.set("flags", value.asInstanceOf[js.Any])
     @scala.inline
-    def withOptional(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("optional")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setLong(value: String): Self = this.set("long", value.asInstanceOf[js.Any])
     @scala.inline
-    def withRequired(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("required")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setOptional(value: Boolean): Self = this.set("optional", value.asInstanceOf[js.Any])
     @scala.inline
-    def withShort(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("short")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setRequired(value: Boolean): Self = this.set("required", value.asInstanceOf[js.Any])
     @scala.inline
-    def withoutShort: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("short")(js.undefined)
-        ret
-    }
+    def setShort(value: String): Self = this.set("short", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteShort: Self = this.set("short", js.undefined)
   }
   
 }

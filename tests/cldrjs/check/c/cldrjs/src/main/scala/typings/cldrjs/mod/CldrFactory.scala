@@ -30,29 +30,18 @@ object CldrFactory {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("load")(js.Any.fromFunction2(value))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("off")(js.Any.fromFunction2(value))
-        ret
-    }
+    def setLoad(value: (js.Any, /* repeated */ js.Any) => Unit): Self = this.set("load", js.Any.fromFunction2(value))
     @scala.inline
-    def withOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("on")(js.Any.fromFunction2(value))
-        ret
-    }
+    def setOff(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = this.set("off", js.Any.fromFunction2(value))
     @scala.inline
-    def withOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("once")(js.Any.fromFunction2(value))
-        ret
-    }
+    def setOn(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = this.set("on", js.Any.fromFunction2(value))
+    @scala.inline
+    def setOnce(value: (String, js.Function2[/* path */ String, /* value */ js.Any, Unit]) => Unit): Self = this.set("once", js.Any.fromFunction2(value))
   }
   
 }

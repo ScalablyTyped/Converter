@@ -24,41 +24,22 @@ object ISwizOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFor(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("for")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutFor: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("for")(js.undefined)
-        ret
-    }
+    def setFor(value: String): Self = this.set("for", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStripNulls(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("stripNulls")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteFor: Self = this.set("for", js.undefined)
     @scala.inline
-    def withoutStripNulls: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("stripNulls")(js.undefined)
-        ret
-    }
+    def setStripNulls(value: Boolean): Self = this.set("stripNulls", value.asInstanceOf[js.Any])
     @scala.inline
-    def withStripSerializerType(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("stripSerializerType")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteStripNulls: Self = this.set("stripNulls", js.undefined)
     @scala.inline
-    def withoutStripSerializerType: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("stripSerializerType")(js.undefined)
-        ret
-    }
+    def setStripSerializerType(value: Boolean): Self = this.set("stripSerializerType", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteStripSerializerType: Self = this.set("stripSerializerType", js.undefined)
   }
   
 }

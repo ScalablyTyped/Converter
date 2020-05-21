@@ -27,17 +27,14 @@ object ReactSelectProps {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAddLabelText(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("addLabelText")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutAddLabelText: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("addLabelText")(js.undefined)
-        ret
-    }
+    def setAddLabelText(value: String): Self = this.set("addLabelText", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteAddLabelText: Self = this.set("addLabelText", js.undefined)
   }
   
 }

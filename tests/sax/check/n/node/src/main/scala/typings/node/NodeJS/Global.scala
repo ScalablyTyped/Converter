@@ -24,17 +24,14 @@ object Global {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withArray(value: ArrayConstrucor): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("Array")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withGlobal(value: Global): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("global")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def setArray(value: ArrayConstrucor): Self = this.set("Array", value.asInstanceOf[js.Any])
+    @scala.inline
+    def setGlobal(value: Global): Self = this.set("global", value.asInstanceOf[js.Any])
   }
   
 }

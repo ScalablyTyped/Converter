@@ -26,53 +26,26 @@ object ErrnoException {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCode(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("code")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutCode: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("code")(js.undefined)
-        ret
-    }
+    def setCode(value: String): Self = this.set("code", value.asInstanceOf[js.Any])
     @scala.inline
-    def withErrno(value: Double): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("errno")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteCode: Self = this.set("code", js.undefined)
     @scala.inline
-    def withoutErrno: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("errno")(js.undefined)
-        ret
-    }
+    def setErrno(value: Double): Self = this.set("errno", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPath(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("path")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteErrno: Self = this.set("errno", js.undefined)
     @scala.inline
-    def withoutPath: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("path")(js.undefined)
-        ret
-    }
+    def setPath(value: String): Self = this.set("path", value.asInstanceOf[js.Any])
     @scala.inline
-    def withSyscall(value: String): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("syscall")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deletePath: Self = this.set("path", js.undefined)
     @scala.inline
-    def withoutSyscall: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("syscall")(js.undefined)
-        ret
-    }
+    def setSyscall(value: String): Self = this.set("syscall", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteSyscall: Self = this.set("syscall", js.undefined)
   }
   
 }

@@ -24,17 +24,14 @@ object ChildFactory {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildFactory(value: /* child */ Element => CallbackTo[Element]): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ Element) => value(t0).runNow()))
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutChildFactory: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("childFactory")(js.undefined)
-        ret
-    }
+    def setChildFactory(value: /* child */ Element => CallbackTo[Element]): Self = this.set("childFactory", js.Any.fromFunction1((t0: /* child */ Element) => value(t0).runNow()))
+    @scala.inline
+    def deleteChildFactory: Self = this.set("childFactory", js.undefined)
   }
   
 }

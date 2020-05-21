@@ -27,77 +27,34 @@ object SAXOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withLowercase(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("lowercase")(value.asInstanceOf[js.Any])
-        ret
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
     }
     @scala.inline
-    def withoutLowercase: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("lowercase")(js.undefined)
-        ret
-    }
+    def setLowercase(value: Boolean): Self = this.set("lowercase", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNormalize(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("normalize")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteLowercase: Self = this.set("lowercase", js.undefined)
     @scala.inline
-    def withoutNormalize: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("normalize")(js.undefined)
-        ret
-    }
+    def setNormalize(value: Boolean): Self = this.set("normalize", value.asInstanceOf[js.Any])
     @scala.inline
-    def withNoscript(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("noscript")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteNormalize: Self = this.set("normalize", js.undefined)
     @scala.inline
-    def withoutNoscript: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("noscript")(js.undefined)
-        ret
-    }
+    def setNoscript(value: Boolean): Self = this.set("noscript", value.asInstanceOf[js.Any])
     @scala.inline
-    def withPosition(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("position")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteNoscript: Self = this.set("noscript", js.undefined)
     @scala.inline
-    def withoutPosition: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("position")(js.undefined)
-        ret
-    }
+    def setPosition(value: Boolean): Self = this.set("position", value.asInstanceOf[js.Any])
     @scala.inline
-    def withTrim(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("trim")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deletePosition: Self = this.set("position", js.undefined)
     @scala.inline
-    def withoutTrim: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("trim")(js.undefined)
-        ret
-    }
+    def setTrim(value: Boolean): Self = this.set("trim", value.asInstanceOf[js.Any])
     @scala.inline
-    def withXmlns(value: Boolean): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlns")(value.asInstanceOf[js.Any])
-        ret
-    }
+    def deleteTrim: Self = this.set("trim", js.undefined)
     @scala.inline
-    def withoutXmlns: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlns")(js.undefined)
-        ret
-    }
+    def setXmlns(value: Boolean): Self = this.set("xmlns", value.asInstanceOf[js.Any])
+    @scala.inline
+    def deleteXmlns: Self = this.set("xmlns", js.undefined)
   }
   
 }

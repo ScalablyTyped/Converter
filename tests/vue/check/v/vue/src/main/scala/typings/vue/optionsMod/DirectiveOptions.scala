@@ -29,75 +29,40 @@ object DirectiveOptions {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBind(
+    def set(key: String, value: js.Any): Self = {
+        x.asInstanceOf[js.Dynamic].updateDynamic(key)(value)
+        x
+    }
+    @scala.inline
+    def setBind(
       value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bind")(js.Any.fromFunction4(value))
-        ret
-    }
+    ): Self = this.set("bind", js.Any.fromFunction4(value))
     @scala.inline
-    def withoutBind: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("bind")(js.undefined)
-        ret
-    }
+    def deleteBind: Self = this.set("bind", js.undefined)
     @scala.inline
-    def withComponentUpdated(
+    def setComponentUpdated(
       value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentUpdated")(js.Any.fromFunction4(value))
-        ret
-    }
+    ): Self = this.set("componentUpdated", js.Any.fromFunction4(value))
     @scala.inline
-    def withoutComponentUpdated: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentUpdated")(js.undefined)
-        ret
-    }
+    def deleteComponentUpdated: Self = this.set("componentUpdated", js.undefined)
     @scala.inline
-    def withInserted(
+    def setInserted(
       value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inserted")(js.Any.fromFunction4(value))
-        ret
-    }
+    ): Self = this.set("inserted", js.Any.fromFunction4(value))
     @scala.inline
-    def withoutInserted: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("inserted")(js.undefined)
-        ret
-    }
+    def deleteInserted: Self = this.set("inserted", js.undefined)
     @scala.inline
-    def withUnbind(
+    def setUnbind(
       value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("unbind")(js.Any.fromFunction4(value))
-        ret
-    }
+    ): Self = this.set("unbind", js.Any.fromFunction4(value))
     @scala.inline
-    def withoutUnbind: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("unbind")(js.undefined)
-        ret
-    }
+    def deleteUnbind: Self = this.set("unbind", js.undefined)
     @scala.inline
-    def withUpdate(
+    def setUpdate(
       value: (/* el */ HTMLElement, /* binding */ VNodeDirective, /* vnode */ VNode, /* oldVnode */ VNode) => Unit
-    ): Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("update")(js.Any.fromFunction4(value))
-        ret
-    }
+    ): Self = this.set("update", js.Any.fromFunction4(value))
     @scala.inline
-    def withoutUpdate: Self = {
-        val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("update")(js.undefined)
-        ret
-    }
+    def deleteUpdate: Self = this.set("update", js.undefined)
   }
   
 }
