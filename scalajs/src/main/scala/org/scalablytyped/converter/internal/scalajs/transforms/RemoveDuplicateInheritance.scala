@@ -1,7 +1,6 @@
 package org.scalablytyped.converter.internal
-package scalajs.transforms
-
-import org.scalablytyped.converter.internal.scalajs._
+package scalajs
+package transforms
 
 import scala.collection.mutable
 

@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "stardust-ui__react-component-event-listener"
-version := "0.38.0-8d43f6"
+version := "0.38.0-f6fa9a"
 scalaVersion := "2.13.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
   "me.shadaj" %%% "slinky-web" % "0.6.5",
-  "org.scalablytyped" %%% "react" % "16.9.2-94c43c",
+  "org.scalablytyped" %%% "react" % "16.9.2-efc64f",
   "org.scalablytyped" %%% "std" % "0.0-unknown-428c64")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")

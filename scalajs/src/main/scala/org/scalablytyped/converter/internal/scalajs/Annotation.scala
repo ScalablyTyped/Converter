@@ -23,7 +23,7 @@ object Annotation {
 
   case class JsName(name:       Name) extends MemberAnnotation with ClassAnnotation
   case class JsNameSymbol(name: QualifiedName) extends MemberAnnotation
-  case class JsImport(module:   String, imported: Imported) extends LocationAnnotation
+  case class JsImport(module:   String, imported: Imported, global: Option[JsGlobal]) extends LocationAnnotation
   case class JsGlobal(name:     QualifiedName) extends LocationAnnotation
 
   def renamedFrom(newName: Name)(oldAnnotations: IArray[MemberAnnotation]): IArray[MemberAnnotation] = {

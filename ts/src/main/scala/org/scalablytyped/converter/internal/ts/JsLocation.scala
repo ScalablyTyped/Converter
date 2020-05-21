@@ -16,6 +16,11 @@ sealed trait JsLocation {
         case JsLocation.Zero              => JsLocation.Zero
         case JsLocation.Module(mod, spec) => JsLocation.Module(mod, spec + tsIdent)
         case JsLocation.Global(jsPath)    => JsLocation.Global(jsPath + tsIdent)
+        case JsLocation.Both(mod, global) =>
+          JsLocation.Both(
+            (mod + tsIdent).asInstanceOf[JsLocation.Module],
+            (global + tsIdent).asInstanceOf[JsLocation.Global],
+          )
       }
 }
 
@@ -66,12 +71,20 @@ object JsLocation {
   }
 
   case class Module private (module: TsIdentModule, spec: ModuleSpec) extends JsLocation {
-    override def /(tree: TsTree): JsLocation =
+    override def /(tree: TsTree): Module =
       tree match {
         case x: TsDeclModule      => Module(x.name, ModuleSpec.Namespaced)
         case x: TsAugmentedModule => Module(x.name, ModuleSpec.Namespaced)
         case x: TsNamedDecl       => Module(module, spec + x.name)
         case _ => this
+      }
+  }
+
+  case class Both private (module: Module, global: Global) extends JsLocation {
+    override def /(tree: TsTree): JsLocation =
+      global / tree match {
+        case g: Global => Both(module / tree, g)
+        case other => other
       }
   }
 }

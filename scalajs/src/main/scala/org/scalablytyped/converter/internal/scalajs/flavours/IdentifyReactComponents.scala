@@ -21,9 +21,9 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
     val preferDefault = c.scalaRef.name === Name.Default
     /* because some libraries expect you to use top-level imports. shame for the tree shakers */
     val preferShortModuleName = c.location match {
-      case Annotation.JsGlobalScope       => 0
-      case Annotation.JsImport(module, _) => -module.length
-      case Annotation.JsGlobal(name)      => -length(name)
+      case Annotation.JsGlobalScope          => 0
+      case Annotation.JsImport(module, _, _) => -module.length
+      case Annotation.JsGlobal(name)         => -length(name)
     }
 
     (preferNotSrc, preferModule, preferPropsMatchesName, preferDefault, preferShortModuleName)
@@ -288,9 +288,9 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
 
     def fromAnnotations(anns: IArray[Annotation]): Option[Name] =
       anns collectFirst {
-        case Annotation.JsName(name)                                               => name
-        case Annotation.JsImport(_, Imported.Named(names)) if !Unnamed(names.last) => names.last
-        case Annotation.JsImport(mod, _) =>
+        case Annotation.JsName(name)                                                  => name
+        case Annotation.JsImport(_, Imported.Named(names), _) if !Unnamed(names.last) => names.last
+        case Annotation.JsImport(mod, _, _) =>
           Name.necessaryRewrite(Name(mod.split("/").filterNot(x => Unnamed(Name(x))).last))
         case Annotation.JsGlobal(qname) => qname.parts.last
       }
@@ -337,27 +337,33 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       idx += 1
     }
 
-    val ret = baseLocationOpt match {
-      case Some(baseLocation) =>
-        after.foldLeft(baseLocation) {
-          case (ann, tree) if tree.name === Name.APPLY => ann
-          case (Annotation.JsImport(mod, imported), tree) =>
-            val newImported: Imported =
-              imported match {
-                case Imported.Namespace =>
-                  tree.name match {
-                    case Name.Default => Imported.Default
-                    case other        => Imported.Named(IArray(other))
-                  }
-                case Imported.Default     => Imported.Named(IArray(Name.Default, tree.name))
-                case Imported.Named(name) => Imported.Named(name :+ tree.name)
-              }
-            Annotation.JsImport(mod, newImported)
-          case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
-          case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(tree.name)))
+    def addTreeToImport(`import`: LocationAnnotation, tree: Tree): LocationAnnotation =
+      (`import`, tree) match {
+        case (ann, tree) if tree.name === Name.APPLY => ann
+        case (Annotation.JsImport(mod, imported, globalOpt), tree) =>
+          val newImported: Imported =
+            imported match {
+              case Imported.Namespace =>
+                tree.name match {
+                  case Name.Default => Imported.Default
+                  case other        => Imported.Named(IArray(other))
+                }
+              case Imported.Default     => Imported.Named(IArray(Name.Default, tree.name))
+              case Imported.Named(name) => Imported.Named(name :+ tree.name)
+            }
 
-        }
-      case None => sys.error("Couldnt find base location for component")
+          val newGlobal = globalOpt map {
+            case Annotation.JsGlobal(old) => Annotation.JsGlobal(old + tree.name)
+          }
+
+          Annotation.JsImport(mod, newImported, newGlobal)
+        case (Annotation.JsGlobal(name), tree) => Annotation.JsGlobal(name + tree.name)
+        case (Annotation.JsGlobalScope, tree)  => Annotation.JsGlobal(QualifiedName(IArray(tree.name)))
+
+      }
+    val ret = baseLocationOpt match {
+      case Some(baseLocation) => after.foldLeft(baseLocation)(addTreeToImport)
+      case None               => sys.error("Couldnt find base location for component")
     }
     ret
   }

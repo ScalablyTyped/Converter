@@ -35,7 +35,7 @@ class ImportTree(
       val libName = ImportName(lib.name)
       val name    = Name(libName.unescaped + "Require")
       ModuleTree(
-        IArray(Annotation.JsImport(lib.name.value, Imported.Namespace), Annotation.JsNative),
+        IArray(Annotation.JsImport(lib.name.value, Imported.Namespace, None), Annotation.JsNative),
         name,
         Empty,
         Empty,

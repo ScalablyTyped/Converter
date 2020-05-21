@@ -266,9 +266,9 @@ final class FindProps(
   private def realNameFrom(anns: IArray[Annotation], fallback: Name): Name =
     anns
       .collectFirst {
-        case Annotation.JsName(name)                       => name
-        case Annotation.JsImport(_, Imported.Named(names)) => names.last
-        case Annotation.JsGlobal(qname)                    => qname.parts.last
+        case Annotation.JsName(name)                          => name
+        case Annotation.JsImport(_, Imported.Named(names), _) => names.last
+        case Annotation.JsGlobal(qname)                       => qname.parts.last
       }
       .filterNot(cleanIllegalNames.Illegal)
       .map(Name.necessaryRewrite)

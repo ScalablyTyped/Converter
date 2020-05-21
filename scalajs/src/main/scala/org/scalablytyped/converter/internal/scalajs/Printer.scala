@@ -456,13 +456,14 @@ object Printer {
         s"@JSName(${quote(name.unescaped)})"
       case Annotation.JsNameSymbol(name) =>
         s"@JSName(${formatQN(name)})"
-      case Annotation.JsImport(module, imported) =>
+      case Annotation.JsImport(module, imported, globalOpt) =>
         val importedString = imported match {
           case Imported.Namespace    => "JSImport.Namespace"
           case Imported.Default      => "JSImport.Default"
           case Imported.Named(names) => quote(names.map(_.unescaped).mkString("."))
         }
-        s"@JSImport(${quote(module)}, $importedString)"
+        val global = globalOpt.fold("")(g => ", " + quote(g.name.parts.map(_.unescaped).mkString(".")))
+        s"@JSImport(${quote(module)}, $importedString$global)"
       case Annotation.ScalaJSDefined =>
         "" //"@ScalaJSDefined"
       case Annotation.JsGlobal(name: QualifiedName) =>

@@ -37,7 +37,7 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
 }
 
 object StBuildingComponent {
-  @JSImport("react", JSImport.Namespace)
+  @JSImport("react", JSImport.Namespace, "React")
   @js.native
   object ReactRaw
     extends js.Object {

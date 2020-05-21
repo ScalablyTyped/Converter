@@ -23,6 +23,8 @@ object FlattenTrees {
 
   def mergeJsLocation(one: JsLocation, two: JsLocation): JsLocation =
     (one, two) match {
+      case (g:   JsLocation.Global, mod: JsLocation.Module) => JsLocation.Both(mod, g)
+      case (mod: JsLocation.Module, g:   JsLocation.Global) => JsLocation.Both(mod, g)
       case (JsLocation.Zero, other) => other
       case (other, _)               => other
     }

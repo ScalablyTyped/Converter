@@ -282,7 +282,10 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
         codePath    = ReactRawCp + createElement,
       )
       ModuleTree(
-        IArray(Annotation.JsImport("react", Imported.Namespace), Annotation.JsNative), // todo global
+        IArray(
+          Annotation.JsImport("react", Imported.Namespace, Some(Annotation.JsGlobal(QualifiedName("React")))),
+          Annotation.JsNative,
+        ), // todo global
         name,
         IArray(TypeRef.Object),
         IArray(createElementField),

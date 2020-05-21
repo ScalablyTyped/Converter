@@ -98,8 +98,9 @@ object ContainerPolicy extends TreeTransformation {
       def requiresCustomImport = {
         def check(anns: IArray[Annotation], name: Name) =
           anns exists {
-            case Annotation.JsGlobalScope => true
-            case Annotation.JsImport(_, i) =>
+            case Annotation.JsGlobalScope           => true
+            case Annotation.JsImport(_, _, Some(_)) => true
+            case Annotation.JsImport(_, i, _) =>
               i match {
                 case Imported.Namespace => true
                 case Imported.Default   => name =/= Name.Default
@@ -139,13 +140,13 @@ object ContainerPolicy extends TreeTransformation {
   def stripLocationAnns(tree: Tree): Tree = {
     def filterAnns(anns: IArray[ClassAnnotation]): IArray[ClassAnnotation] =
       anns.filter {
-        case Annotation.JsNative       => true
-        case Annotation.ScalaJSDefined => true
-        case Annotation.JsGlobalScope  => false
-        case Annotation.JsName(_)      => false
-        case Annotation.JsImport(_, _) => false
-        case Annotation.JsGlobal(_)    => false
-        case Annotation.Inline         => false
+        case Annotation.JsNative          => true
+        case Annotation.ScalaJSDefined    => true
+        case Annotation.JsGlobalScope     => false
+        case Annotation.JsName(_)         => false
+        case Annotation.JsImport(_, _, _) => false
+        case Annotation.JsGlobal(_)       => false
+        case Annotation.Inline            => false
       }
 
     tree match {
