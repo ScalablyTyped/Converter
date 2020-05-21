@@ -18,6 +18,11 @@ trait StBuildingComponent[E, R <: js.Object] extends Any {
     this
   }
   @scala.inline
+  def withComponent(f: js.Any => js.Any): this.type = {
+    args.update(0, f(args(0)))
+    this
+  }
+  @scala.inline
   def apply(mods: TagMod[E]*): this.type = {
     mods.foreach((mod: TagMod[E]) => if (mod.isInstanceOf[AttrPair[_]]) {
       val a = mod.asInstanceOf[AttrPair[_]]

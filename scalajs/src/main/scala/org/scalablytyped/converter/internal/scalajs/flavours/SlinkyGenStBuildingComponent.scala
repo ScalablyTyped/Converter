@@ -67,6 +67,50 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
     )
   }
 
+  //  @inline final def withComponent(f: js.Any => js.Any): this.type = {
+  //    args.update(0, f(args(0))
+  //    this
+  //  }
+  val withComponent: MethodTree = {
+    val fParam =
+      ParamTree(
+        Name("f"),
+        isImplicit = false,
+        isVal      = false,
+        TypeRef.ScalaFunction(IArray(TypeRef.Any), TypeRef.Any, NoComments),
+        NotImplemented,
+        NoComments,
+      )
+
+    val impl = Block(
+      Call(
+        Select(Ref(args.name), Name("update")),
+        IArray(
+          IArray(
+            NumberLit("0"),
+            Call(Ref(fParam.name), IArray(IArray(Call(Ref(args.name), IArray(IArray(NumberLit("0"))))))),
+          ),
+        ),
+      ),
+      Ref(QualifiedName.THIS),
+    )
+    val name: Name = Name("withComponent")
+
+    MethodTree(
+      IArray(Annotation.Inline),
+      ProtectionLevel.Default,
+      name,
+      Empty,
+      IArray(IArray(fParam)),
+      impl,
+      TypeRef(QualifiedName.THIS),
+      isOverride = false,
+      NoComments,
+      builderCp + name,
+      isImplicit = false,
+    )
+  }
+
   val Trait = {
 
 //  @inline final def apply(mods: slinky.core.TagMod[E]*): this.type = {
@@ -221,7 +265,7 @@ class SlinkyGenStBuildingComponent(val outputPkg: Name) {
       tparams     = builderTparams,
       parents     = IArray(TypeRef.ScalaAny),
       ctors       = Empty,
-      members     = IArray(args, set, apply, withKey, withRef1, withRef2),
+      members     = IArray(args, set, withComponent, apply, withKey, withRef1, withRef2),
       classType   = ClassType.Trait,
       isSealed    = false,
       comments    = NoComments,
