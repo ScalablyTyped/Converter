@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "react-transition-group"
-version := "2.0-764414"
+version := "2.0-2cf1bc"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-08689e",
+  "org.scalablytyped" %%% "react" % "0.0-unknown-c472fd",
   "org.scalablytyped" %%% "std" % "0.0-unknown-fac071")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls")

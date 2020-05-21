@@ -20,43 +20,43 @@ object SVGAttributes {
     __obj.asInstanceOf[SVGAttributes[T]]
   }
   @scala.inline
-  implicit class SVGAttributesOps[Self[t] <: SVGAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class SVGAttributesOps[Self <: SVGAttributes[_], T] (val x: Self with SVGAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withClassName(value: String): Self[T] = {
+    def withClassName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutClassName: Self[T] = {
+    def withoutClassName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
         ret
     }
     @scala.inline
-    def withColor(value: String): Self[T] = {
+    def withColor(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("color")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutColor: Self[T] = {
+    def withoutColor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("color")(js.undefined)
         ret
     }
     @scala.inline
-    def withHeight(value: Double | String): Self[T] = {
+    def withHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHeight: Self[T] = {
+    def withoutHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("height")(js.undefined)
         ret

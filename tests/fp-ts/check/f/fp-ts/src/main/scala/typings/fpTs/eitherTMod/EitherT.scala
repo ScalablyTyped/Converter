@@ -21,15 +21,15 @@ object EitherT {
     __obj.asInstanceOf[EitherT[F]]
   }
   @scala.inline
-  implicit class EitherTOps[Self[f] <: EitherT[f], F] (val x: Self[F]) extends AnyVal {
+  implicit class EitherTOps[Self <: EitherT[_], F] (val x: Self with EitherT[F]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[F] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[F]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[F] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[F] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
     def withChain(
       value: (js.Function1[js.Any, HKT[F, Either[js.Any, js.Any]]], HKT[F, Either[js.Any, js.Any]]) => HKT[F, Either[js.Any, js.Any]]
-    ): Self[F] = {
+    ): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("chain")(js.Any.fromFunction2(value))
         ret

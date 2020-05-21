@@ -18,43 +18,43 @@ object FieldsetHTMLAttributes {
     __obj.asInstanceOf[FieldsetHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class FieldsetHTMLAttributesOps[Self[t] <: FieldsetHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class FieldsetHTMLAttributesOps[Self <: FieldsetHTMLAttributes[_], T] (val x: Self with FieldsetHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDisabled(value: Boolean): Self[T] = {
+    def withDisabled(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("disabled")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDisabled: Self[T] = {
+    def withoutDisabled: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("disabled")(js.undefined)
         ret
     }
     @scala.inline
-    def withForm(value: String): Self[T] = {
+    def withForm(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("form")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutForm: Self[T] = {
+    def withoutForm: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("form")(js.undefined)
         ret
     }
     @scala.inline
-    def withName(value: String): Self[T] = {
+    def withName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutName: Self[T] = {
+    def withoutName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
         ret

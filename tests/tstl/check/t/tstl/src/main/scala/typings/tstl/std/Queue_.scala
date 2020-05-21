@@ -17,19 +17,19 @@ object Queue_ {
     __obj.asInstanceOf[Queue_[T]]
   }
   @scala.inline
-  implicit class Queue_Ops[Self[t] <: Queue_[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class Queue_Ops[Self <: Queue_[_], T] (val x: Self with Queue_[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withContainer_(value: js.Any): Self[T] = {
+    def withContainer_(value: js.Any): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("container_")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withEmpty(value: () => Boolean): Self[T] = {
+    def withEmpty(value: () => Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("empty")(js.Any.fromFunction0(value))
         ret

@@ -16,19 +16,19 @@ object RefObject {
     __obj.asInstanceOf[RefObject[T]]
   }
   @scala.inline
-  implicit class RefObjectOps[Self[t] <: RefObject[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class RefObjectOps[Self <: RefObject[_], T] (val x: Self with RefObject[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCurrent(value: T): Self[T] = {
+    def withCurrent(value: T): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("current")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withCurrentNull: Self[T] = {
+    def withCurrentNull: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("current")(null)
         ret

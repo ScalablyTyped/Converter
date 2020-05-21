@@ -16,19 +16,19 @@ object TimeHTMLAttributes {
     __obj.asInstanceOf[TimeHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class TimeHTMLAttributesOps[Self[t] <: TimeHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class TimeHTMLAttributesOps[Self <: TimeHTMLAttributes[_], T] (val x: Self with TimeHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDateTime(value: String): Self[T] = {
+    def withDateTime(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dateTime")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDateTime: Self[T] = {
+    def withoutDateTime: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dateTime")(js.undefined)
         ret

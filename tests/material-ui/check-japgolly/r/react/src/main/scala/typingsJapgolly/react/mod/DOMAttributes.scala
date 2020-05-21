@@ -22,49 +22,49 @@ object DOMAttributes {
     __obj.asInstanceOf[DOMAttributes[T]]
   }
   @scala.inline
-  implicit class DOMAttributesOps[Self[t] <: DOMAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class DOMAttributesOps[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildren(value: VdomNode): Self[T] = {
+    def withChildren(value: VdomNode): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawNode.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutChildren: Self[T] = {
+    def withoutChildren: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
         ret
     }
     @scala.inline
-    def withDangerouslySetInnerHTML(value: Html): Self[T] = {
+    def withDangerouslySetInnerHTML(value: Html): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDangerouslySetInnerHTML: Self[T] = {
+    def withoutDangerouslySetInnerHTML: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnClickFunction1(value: /* x */ String => Callback): Self[T] = {
+    def withOnClickFunction1(value: /* x */ String => Callback): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction1((t0: /* x */ String) => value(t0).runNow()))
         ret
     }
     @scala.inline
-    def withOnClick(value: Double | (js.Function1[/* x */ String, Unit])): Self[T] = {
+    def withOnClick(value: Double | (js.Function1[/* x */ String, Unit])): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOnClick: Self[T] = {
+    def withoutOnClick: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.undefined)
         ret

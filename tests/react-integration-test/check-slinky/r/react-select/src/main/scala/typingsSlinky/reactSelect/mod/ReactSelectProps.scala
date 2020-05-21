@@ -21,19 +21,19 @@ object ReactSelectProps {
     __obj.asInstanceOf[ReactSelectProps[TValue]]
   }
   @scala.inline
-  implicit class ReactSelectPropsOps[Self[tvalue] <: ReactSelectProps[tvalue], TValue] (val x: Self[TValue]) extends AnyVal {
+  implicit class ReactSelectPropsOps[Self <: ReactSelectProps[_], TValue] (val x: Self with ReactSelectProps[TValue]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[TValue] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[TValue]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[TValue] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[TValue] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAddLabelText(value: String): Self[TValue] = {
+    def withAddLabelText(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("addLabelText")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAddLabelText: Self[TValue] = {
+    def withoutAddLabelText: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("addLabelText")(js.undefined)
         ret

@@ -446,7 +446,7 @@ class ImportTree(
                   ),
                 )
               case other =>
-                scope.logger.warn(s"Dropping $other")
+                scope.logger.info(s"Dropping $other")
                 Empty
             }
         }

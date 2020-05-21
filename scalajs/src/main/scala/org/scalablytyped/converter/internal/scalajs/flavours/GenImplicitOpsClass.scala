@@ -30,20 +30,17 @@ object GenImplicitOpsClass {
     val tparams = {
       val withoutBounds = stripBounds(original.tparams)
 
-      val higherKindedParams =
-        withoutBounds.map(tp => tp.copy(name = mutableAllocateTypeName(Name(tp.name.unescaped.toLowerCase))))
-
       val selfTParam = TypeParamTree(
         name       = SelfName,
-        params     = higherKindedParams,
-        upperBound = Some(TypeRef(original.codePath, asTypeArgs(higherKindedParams), NoComments)),
+        params     = Empty,
+        upperBound = Some(TypeRef(original.codePath, original.tparams.map(_ => TypeRef.Wildcard), NoComments)),
         comments   = NoComments,
       )
 
       selfTParam +: withoutBounds
     }
 
-    val selfRef = TypeRef(QualifiedName(IArray(SelfName)), asTypeArgs(original.tparams), NoComments)
+    val selfRef = TypeRef(QualifiedName(IArray(SelfName)), Empty, NoComments)
 
     val combineWithMember =
       genCombineWith(Name("combineWith"), mutableAllocateTypeName(Name("Other")), target, clsCodePath, selfRef)
@@ -172,11 +169,29 @@ object GenImplicitOpsClass {
         case _ => Empty
       }
 
-    val sugarCtor = CtorTree(
-      ProtectionLevel.Default,
-      IArray(ParamTree(target, isImplicit = false, isVal = true, selfRef, NotImplemented, NoComments)),
-      NoComments,
-    )
+    val sugarCtor = {
+      // append an intersection type to bind otherwise free type parameters to `Self`
+      val paramType = original.tparams match {
+        case Empty => selfRef
+        case _ =>
+          TypeRef.Intersection(IArray(selfRef, TypeRef(ownerCp, asTypeArgs(original.tparams), NoComments)), NoComments)
+      }
+
+      CtorTree(
+        ProtectionLevel.Default,
+        IArray(
+          ParamTree(
+            target,
+            isImplicit = false,
+            isVal      = true,
+            tpe        = paramType,
+            default    = NotImplemented,
+            comments   = NoComments,
+          ),
+        ),
+        NoComments,
+      )
+    }
 
     val generalMembers = IArray(duplicateMember, combineWithMember)
 

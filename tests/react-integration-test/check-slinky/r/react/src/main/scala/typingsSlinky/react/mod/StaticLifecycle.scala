@@ -19,31 +19,31 @@ object StaticLifecycle {
     __obj.asInstanceOf[StaticLifecycle[P, S]]
   }
   @scala.inline
-  implicit class StaticLifecycleOps[Self[p, s] <: StaticLifecycle[p, s], P, S] (val x: Self[P, S]) extends AnyVal {
+  implicit class StaticLifecycleOps[Self <: StaticLifecycle[_, _], P, S] (val x: Self with (StaticLifecycle[P, S])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self[P, S] = {
+    def withGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutGetDerivedStateFromError: Self[P, S] = {
+    def withoutGetDerivedStateFromError: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromError")(js.undefined)
         ret
     }
     @scala.inline
-    def withGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self[P, S] = {
+    def withGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(value))
         ret
     }
     @scala.inline
-    def withoutGetDerivedStateFromProps: Self[P, S] = {
+    def withoutGetDerivedStateFromProps: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.undefined)
         ret

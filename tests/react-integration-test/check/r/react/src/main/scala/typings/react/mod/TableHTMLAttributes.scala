@@ -18,43 +18,43 @@ object TableHTMLAttributes {
     __obj.asInstanceOf[TableHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class TableHTMLAttributesOps[Self[t] <: TableHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class TableHTMLAttributesOps[Self <: TableHTMLAttributes[_], T] (val x: Self with TableHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCellPadding(value: Double | String): Self[T] = {
+    def withCellPadding(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cellPadding")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCellPadding: Self[T] = {
+    def withoutCellPadding: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cellPadding")(js.undefined)
         ret
     }
     @scala.inline
-    def withCellSpacing(value: Double | String): Self[T] = {
+    def withCellSpacing(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cellSpacing")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCellSpacing: Self[T] = {
+    def withoutCellSpacing: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cellSpacing")(js.undefined)
         ret
     }
     @scala.inline
-    def withSummary(value: String): Self[T] = {
+    def withSummary(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("summary")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSummary: Self[T] = {
+    def withoutSummary: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("summary")(js.undefined)
         ret

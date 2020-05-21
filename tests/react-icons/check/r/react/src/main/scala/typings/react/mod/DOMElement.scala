@@ -21,25 +21,25 @@ object DOMElement {
     __obj.asInstanceOf[DOMElement[P, T]]
   }
   @scala.inline
-  implicit class DOMElementOps[Self[p, t] <: DOMElement[p, t], P, T] (val x: Self[P, T]) extends AnyVal {
+  implicit class DOMElementOps[Self <: DOMElement[_, _], P, T] (val x: Self with (DOMElement[P, T])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[P, T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[P, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, T]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withRefFunction1(value: /* instance */ T | Null => js.Any): Self[P, T] = {
+    def withRefFunction1(value: /* instance */ T | Null => js.Any): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withRef(value: Ref[T]): Self[P, T] = {
+    def withRef(value: Ref[T]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withType(value: String): Self[P, T] = {
+    def withType(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
         ret

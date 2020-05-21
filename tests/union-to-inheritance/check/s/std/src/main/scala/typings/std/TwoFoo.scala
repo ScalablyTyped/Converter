@@ -17,13 +17,13 @@ object TwoFoo {
     __obj.asInstanceOf[TwoFoo[Foo1, Foo2]]
   }
   @scala.inline
-  implicit class TwoFooOps[Self[foo1, foo2] <: TwoFoo[foo1, foo2], Foo1, Foo2] (val x: Self[Foo1, Foo2]) extends AnyVal {
+  implicit class TwoFooOps[Self <: TwoFoo[_, _], Foo1, Foo2] (val x: Self with (TwoFoo[Foo1, Foo2])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[Foo1, Foo2] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[Foo1, Foo2]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[Foo1, Foo2]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[Foo1, Foo2]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withValue(value: Foo1): Self[Foo1, Foo2] = {
+    def withValue(value: Foo1): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
         ret

@@ -16,13 +16,13 @@ object ChildContextProvider {
     __obj.asInstanceOf[ChildContextProvider[CC]]
   }
   @scala.inline
-  implicit class ChildContextProviderOps[Self[cc] <: ChildContextProvider[cc], CC] (val x: Self[CC]) extends AnyVal {
+  implicit class ChildContextProviderOps[Self <: ChildContextProvider[_], CC] (val x: Self with ChildContextProvider[CC]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[CC] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[CC]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[CC] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[CC] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withGetChildContext(value: () => CC): Self[CC] = {
+    def withGetChildContext(value: () => CC): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getChildContext")(js.Any.fromFunction0(value))
         ret

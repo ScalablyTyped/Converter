@@ -17,19 +17,19 @@ object ndarray {
     __obj.asInstanceOf[ndarray[T]]
   }
   @scala.inline
-  implicit class ndarrayOps[Self[t] <: ndarray[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class ndarrayOps[Self <: ndarray[_], T] (val x: Self with ndarray[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withT(value: ndarray[T]): Self[T] = {
+    def withT(value: ndarray[T]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("T")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withData(value: Data[T]): Self[T] = {
+    def withData(value: Data[T]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
         ret

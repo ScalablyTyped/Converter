@@ -57,31 +57,31 @@ object WheelEvent {
     __obj.asInstanceOf[WheelEvent[T]]
   }
   @scala.inline
-  implicit class WheelEventOps[Self[t] <: WheelEvent[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class WheelEventOps[Self <: WheelEvent[_], T] (val x: Self with WheelEvent[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDeltaMode(value: Double): Self[T] = {
+    def withDeltaMode(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("deltaMode")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withDeltaX(value: Double): Self[T] = {
+    def withDeltaX(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("deltaX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withDeltaY(value: Double): Self[T] = {
+    def withDeltaY(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("deltaY")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withDeltaZ(value: Double): Self[T] = {
+    def withDeltaZ(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("deltaZ")(value.asInstanceOf[js.Any])
         ret

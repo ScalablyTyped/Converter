@@ -37,19 +37,19 @@ object UIEvent {
     __obj.asInstanceOf[UIEvent[T]]
   }
   @scala.inline
-  implicit class UIEventOps[Self[t] <: UIEvent[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class UIEventOps[Self <: UIEvent[_], T] (val x: Self with UIEvent[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDetail(value: Double): Self[T] = {
+    def withDetail(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("detail")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withView(value: AbstractView): Self[T] = {
+    def withView(value: AbstractView): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("view")(value.asInstanceOf[js.Any])
         ret

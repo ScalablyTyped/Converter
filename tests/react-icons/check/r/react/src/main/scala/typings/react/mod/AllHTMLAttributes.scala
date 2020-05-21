@@ -17,31 +17,31 @@ object AllHTMLAttributes {
     __obj.asInstanceOf[AllHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class AllHTMLAttributesOps[Self[t] <: AllHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class AllHTMLAttributesOps[Self <: AllHTMLAttributes[_], T] (val x: Self with AllHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAccept(value: String): Self[T] = {
+    def withAccept(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("accept")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAccept: Self[T] = {
+    def withoutAccept: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("accept")(js.undefined)
         ret
     }
     @scala.inline
-    def withAcceptCharset(value: String): Self[T] = {
+    def withAcceptCharset(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("acceptCharset")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAcceptCharset: Self[T] = {
+    def withoutAcceptCharset: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("acceptCharset")(js.undefined)
         ret

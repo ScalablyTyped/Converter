@@ -19,73 +19,73 @@ object PropOptions {
     __obj.asInstanceOf[PropOptions[T]]
   }
   @scala.inline
-  implicit class PropOptionsOps[Self[t] <: PropOptions[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class PropOptionsOps[Self <: PropOptions[_], T] (val x: Self with PropOptions[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefaultFunction0(value: () => js.Object): Self[T] = {
+    def withDefaultFunction0(value: () => js.Object): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("default")(js.Any.fromFunction0(value))
         ret
     }
     @scala.inline
-    def withDefault(value: T | js.Function0[js.Object]): Self[T] = {
+    def withDefault(value: T | js.Function0[js.Object]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("default")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDefault: Self[T] = {
+    def withoutDefault: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("default")(js.undefined)
         ret
     }
     @scala.inline
-    def withDefaultNull: Self[T] = {
+    def withDefaultNull: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("default")(null)
         ret
     }
     @scala.inline
-    def withRequired(value: Boolean): Self[T] = {
+    def withRequired(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("required")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRequired: Self[T] = {
+    def withoutRequired: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("required")(js.undefined)
         ret
     }
     @scala.inline
-    def withTypeFunction0(value: () => T): Self[T] = {
+    def withTypeFunction0(value: () => T): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.Any.fromFunction0(value))
         ret
     }
     @scala.inline
-    def withType(value: Prop[T] | js.Array[Prop[T]]): Self[T] = {
+    def withType(value: Prop[T] | js.Array[Prop[T]]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutType: Self[T] = {
+    def withoutType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
         ret
     }
     @scala.inline
-    def withValidator(value: /* value */ T => Boolean): Self[T] = {
+    def withValidator(value: /* value */ T => Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("validator")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutValidator: Self[T] = {
+    def withoutValidator: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("validator")(js.undefined)
         ret

@@ -17,31 +17,31 @@ object ParamHTMLAttributes {
     __obj.asInstanceOf[ParamHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class ParamHTMLAttributesOps[Self[t] <: ParamHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class ParamHTMLAttributesOps[Self <: ParamHTMLAttributes[_], T] (val x: Self with ParamHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withName(value: String): Self[T] = {
+    def withName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutName: Self[T] = {
+    def withoutName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
         ret
     }
     @scala.inline
-    def withValue(value: String | js.Array[String] | Double): Self[T] = {
+    def withValue(value: String | js.Array[String] | Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutValue: Self[T] = {
+    def withoutValue: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("value")(js.undefined)
         ret

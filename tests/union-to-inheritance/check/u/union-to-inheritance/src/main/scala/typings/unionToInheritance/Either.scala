@@ -19,13 +19,13 @@ object Either {
     __obj.asInstanceOf[Either[L, R]]
   }
   @scala.inline
-  implicit class EitherOps[Self[l, r] <: Either[l, r], L, R] (val x: Self[L, R]) extends AnyVal {
+  implicit class EitherOps[Self <: Either[_, _], L, R] (val x: Self with (Either[L, R])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[L, R] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[L, R]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[L, R]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[L, R]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withValue(value: R): Self[L, R] = {
+    def withValue(value: R): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
         ret

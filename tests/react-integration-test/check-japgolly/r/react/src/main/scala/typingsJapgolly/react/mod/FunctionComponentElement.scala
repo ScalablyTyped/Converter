@@ -17,19 +17,19 @@ object FunctionComponentElement {
     __obj.asInstanceOf[FunctionComponentElement[P]]
   }
   @scala.inline
-  implicit class FunctionComponentElementOps[Self[p] <: FunctionComponentElement[p], P] (val x: Self[P]) extends AnyVal {
+  implicit class FunctionComponentElementOps[Self <: FunctionComponentElement[_], P] (val x: Self with FunctionComponentElement[P]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[P] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[P] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[P] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withRef(value: js.Any): Self[P] = {
+    def withRef(value: js.Any): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRef: Self[P] = {
+    def withoutRef: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.undefined)
         ret

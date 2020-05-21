@@ -16,19 +16,19 @@ object HtmlHTMLAttributes {
     __obj.asInstanceOf[HtmlHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class HtmlHTMLAttributesOps[Self[t] <: HtmlHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class HtmlHTMLAttributesOps[Self <: HtmlHTMLAttributes[_], T] (val x: Self with HtmlHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withManifest(value: String): Self[T] = {
+    def withManifest(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("manifest")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutManifest: Self[T] = {
+    def withoutManifest: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("manifest")(js.undefined)
         ret

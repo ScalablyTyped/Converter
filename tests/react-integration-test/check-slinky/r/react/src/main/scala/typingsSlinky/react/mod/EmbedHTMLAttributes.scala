@@ -19,55 +19,55 @@ object EmbedHTMLAttributes {
     __obj.asInstanceOf[EmbedHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class EmbedHTMLAttributesOps[Self[t] <: EmbedHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class EmbedHTMLAttributesOps[Self <: EmbedHTMLAttributes[_], T] (val x: Self with EmbedHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withHeight(value: Double | String): Self[T] = {
+    def withHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHeight: Self[T] = {
+    def withoutHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("height")(js.undefined)
         ret
     }
     @scala.inline
-    def withSrc(value: String): Self[T] = {
+    def withSrc(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("src")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSrc: Self[T] = {
+    def withoutSrc: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("src")(js.undefined)
         ret
     }
     @scala.inline
-    def withType(value: String): Self[T] = {
+    def withType(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutType: Self[T] = {
+    def withoutType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
         ret
     }
     @scala.inline
-    def withWidth(value: Double | String): Self[T] = {
+    def withWidth(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("width")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutWidth: Self[T] = {
+    def withoutWidth: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("width")(js.undefined)
         ret

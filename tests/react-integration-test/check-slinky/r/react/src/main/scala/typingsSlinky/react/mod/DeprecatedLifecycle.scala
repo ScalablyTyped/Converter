@@ -105,79 +105,79 @@ object DeprecatedLifecycle {
     __obj.asInstanceOf[DeprecatedLifecycle[P, S]]
   }
   @scala.inline
-  implicit class DeprecatedLifecycleOps[Self[p, s] <: DeprecatedLifecycle[p, s], P, S] (val x: Self[P, S]) extends AnyVal {
+  implicit class DeprecatedLifecycleOps[Self <: DeprecatedLifecycle[_, _], P, S] (val x: Self with (DeprecatedLifecycle[P, S])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withUNSAFE_componentWillMount(value: () => Unit): Self[P, S] = {
+    def withUNSAFE_componentWillMount(value: () => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillMount")(js.Any.fromFunction0(value))
         ret
     }
     @scala.inline
-    def withoutUNSAFE_componentWillMount: Self[P, S] = {
+    def withoutUNSAFE_componentWillMount: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillMount")(js.undefined)
         ret
     }
     @scala.inline
-    def withUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Unit): Self[P, S] = {
+    def withUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2(value))
         ret
     }
     @scala.inline
-    def withoutUNSAFE_componentWillReceiveProps: Self[P, S] = {
+    def withoutUNSAFE_componentWillReceiveProps: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillReceiveProps")(js.undefined)
         ret
     }
     @scala.inline
-    def withUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit): Self[P, S] = {
+    def withUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3(value))
         ret
     }
     @scala.inline
-    def withoutUNSAFE_componentWillUpdate: Self[P, S] = {
+    def withoutUNSAFE_componentWillUpdate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillUpdate")(js.undefined)
         ret
     }
     @scala.inline
-    def withComponentWillMount(value: () => Unit): Self[P, S] = {
+    def withComponentWillMount(value: () => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillMount")(js.Any.fromFunction0(value))
         ret
     }
     @scala.inline
-    def withoutComponentWillMount: Self[P, S] = {
+    def withoutComponentWillMount: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillMount")(js.undefined)
         ret
     }
     @scala.inline
-    def withComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Unit): Self[P, S] = {
+    def withComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2(value))
         ret
     }
     @scala.inline
-    def withoutComponentWillReceiveProps: Self[P, S] = {
+    def withoutComponentWillReceiveProps: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillReceiveProps")(js.undefined)
         ret
     }
     @scala.inline
-    def withComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit): Self[P, S] = {
+    def withComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillUpdate")(js.Any.fromFunction3(value))
         ret
     }
     @scala.inline
-    def withoutComponentWillUpdate: Self[P, S] = {
+    def withoutComponentWillUpdate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillUpdate")(js.undefined)
         ret

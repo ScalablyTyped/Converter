@@ -40,67 +40,67 @@ object Props {
     __obj.asInstanceOf[Props[T]]
   }
   @scala.inline
-  implicit class PropsOps[Self[t] <: Props[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class PropsOps[Self <: Props[_], T] (val x: Self with Props[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildrenVdomElement(value: VdomElement): Self[T] = {
+    def withChildrenVdomElement(value: VdomElement): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withChildren(value: VdomNode): Self[T] = {
+    def withChildren(value: VdomNode): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawNode.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutChildren: Self[T] = {
+    def withoutChildren: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
         ret
     }
     @scala.inline
-    def withKey(value: Key): Self[T] = {
+    def withKey(value: Key): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("key")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKey: Self[T] = {
+    def withoutKey: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("key")(js.undefined)
         ret
     }
     @scala.inline
-    def withRefRefObject(value: RefHandle[T]): Self[T] = {
+    def withRefRefObject(value: RefHandle[T]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withRefFunction1(value: /* instance */ T | Null => Callback): Self[T] = {
+    def withRefFunction1(value: /* instance */ T | Null => Callback): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.Any.fromFunction1((t0: /* instance */ T | Null) => value(t0).runNow()))
         ret
     }
     @scala.inline
-    def withRef(value: LegacyRef[T]): Self[T] = {
+    def withRef(value: LegacyRef[T]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRef: Self[T] = {
+    def withoutRef: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(js.undefined)
         ret
     }
     @scala.inline
-    def withRefNull: Self[T] = {
+    def withRefNull: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(null)
         ret

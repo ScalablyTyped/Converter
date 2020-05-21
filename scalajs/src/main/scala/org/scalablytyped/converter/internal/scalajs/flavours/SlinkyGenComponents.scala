@@ -449,59 +449,64 @@ class SlinkyGenComponents(
       splitProps: SplitProps,
       tparams:    IArray[TypeParamTree],
       builderRef: TypeRef,
-  ): Option[MethodTree] =
-    if (!splitProps.hasRequiredProps) None
-    else {
-      val props = splitProps.props.filter(_.isRequired)
+  ): Option[MethodTree] = {
+    val props = splitProps.props.filter(_.isRequired)
 
-      val interpretedProps = props.map(defaultInterpretation.apply)
+    val interpretedProps = props.map(defaultInterpretation.apply)
 
-      val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
-        { case (x: Mutator, _)     => x },
-        { case (x: Initializer, _) => x },
-      )
+    val (mutators, initializers, Empty) = interpretedProps.partitionCollect2(
+      { case (x: Mutator, _)     => x },
+      { case (x: Initializer, _) => x },
+    )
 
-      val impl: ExprTree = {
-        val objName = Name("__props")
+    val impl: ExprTree = {
+      val objName = Name("__props")
 
-        val newed = New(
-          builderRef,
-          IArray(
-            Call(
-              Ref(QualifiedName.Array),
+      val newed = New(
+        builderRef,
+        IArray(
+          Call(
+            Ref(QualifiedName.Array),
+            IArray(
               IArray(
-                IArray(
-                  Ref(QualifiedName(IArray(Name.THIS, names.component))),
-                  Cast(Ref(QualifiedName(IArray(objName))), propsRef),
-                ),
+                Ref(QualifiedName(IArray(Name.THIS, names.component))),
+                Cast(Ref(QualifiedName(IArray(objName))), propsRef),
               ),
             ),
           ),
-        )
-
-        Block.flatten(
-          IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
-          mutators.map(f => f.value(Ref(objName))),
-          IArray(newed),
-        )
-      }
-
-      Some(
-        MethodTree(
-          annotations = IArray(Annotation.Inline),
-          level       = ProtectionLevel.Default,
-          name        = name,
-          tparams     = tparams,
-          params      = IArray(interpretedProps.map(_._2)),
-          impl        = impl,
-          resultType  = builderRef,
-          isOverride  = false,
-          comments    = NoComments,
-          codePath    = ownerCp + name,
-          isImplicit  = false,
         ),
       )
+
+      Block.flatten(
+        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers.map(_.value))))),
+        mutators.map(f => f.value(Ref(objName))),
+        IArray(newed),
+      )
     }
+
+    val paramsOpt: Option[IArray[IArray[ParamTree]]] =
+      interpretedProps.map(_._2) match {
+        case Empty if tparams.nonEmpty => Some(IArray(IArray())) // allow nullary apply if there are type parameters
+        case Empty                     => None
+        case nonEmpty                  => Some(IArray(nonEmpty))
+      }
+
+    paramsOpt.map(params =>
+      MethodTree(
+        annotations = IArray(Annotation.Inline),
+        level       = ProtectionLevel.Default,
+        name        = name,
+        tparams     = tparams,
+        params      = params,
+        impl        = impl,
+        resultType  = builderRef,
+        isOverride  = false,
+        comments    = NoComments,
+        codePath    = ownerCp + name,
+        isImplicit  = false,
+      ),
+    )
+  }
 
   /* support directly using the companion as a builder if no required props */
   def genImplicitConversionOpt(

@@ -17,13 +17,13 @@ object URI2HKT2 {
     __obj.asInstanceOf[URI2HKT2[L, A]]
   }
   @scala.inline
-  implicit class URI2HKT2Ops[Self[l, a] <: URI2HKT2[l, a], L, A] (val x: Self[L, A]) extends AnyVal {
+  implicit class URI2HKT2Ops[Self <: URI2HKT2[_, _], L, A] (val x: Self with (URI2HKT2[L, A])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[L, A] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[L, A]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[L, A]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[L, A]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withConst(value: Const[L, A]): Self[L, A] = {
+    def withConst(value: Const[L, A]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("Const")(value.asInstanceOf[js.Any])
         ret

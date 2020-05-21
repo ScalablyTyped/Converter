@@ -127,985 +127,985 @@ object DOMAttributes {
     __obj.asInstanceOf[DOMAttributes[T]]
   }
   @scala.inline
-  implicit class DOMAttributesOps[Self[t] <: DOMAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class DOMAttributesOps[Self <: DOMAttributes[_], T] (val x: Self with DOMAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildrenReactElement(value: slinky.core.facade.ReactElement): Self[T] = {
+    def withChildrenReactElement(value: slinky.core.facade.ReactElement): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withChildren(value: TagMod[Any]): Self[T] = {
+    def withChildren(value: TagMod[Any]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutChildren: Self[T] = {
+    def withoutChildren: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
         ret
     }
     @scala.inline
-    def withDangerouslySetInnerHTML(value: Html): Self[T] = {
+    def withDangerouslySetInnerHTML(value: Html): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDangerouslySetInnerHTML: Self[T] = {
+    def withoutDangerouslySetInnerHTML: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnAbort(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnAbort(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAbort")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnAbort: Self[T] = {
+    def withoutOnAbort: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAbort")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnAnimationEnd(value: SyntheticAnimationEvent[T] => Unit): Self[T] = {
+    def withOnAnimationEnd(value: SyntheticAnimationEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationEnd")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnAnimationEnd: Self[T] = {
+    def withoutOnAnimationEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationEnd")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnAnimationIteration(value: SyntheticAnimationEvent[T] => Unit): Self[T] = {
+    def withOnAnimationIteration(value: SyntheticAnimationEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationIteration")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnAnimationIteration: Self[T] = {
+    def withoutOnAnimationIteration: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationIteration")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnAnimationStart(value: SyntheticAnimationEvent[T] => Unit): Self[T] = {
+    def withOnAnimationStart(value: SyntheticAnimationEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationStart")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnAnimationStart: Self[T] = {
+    def withoutOnAnimationStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAnimationStart")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnAuxClick(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnAuxClick(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAuxClick")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnAuxClick: Self[T] = {
+    def withoutOnAuxClick: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onAuxClick")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnBeforeInput(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self[T] = {
+    def withOnBeforeInput(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onBeforeInput")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnBeforeInput: Self[T] = {
+    def withoutOnBeforeInput: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onBeforeInput")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnBlur(value: SyntheticFocusEvent[T] => Unit): Self[T] = {
+    def withOnBlur(value: SyntheticFocusEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onBlur")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnBlur: Self[T] = {
+    def withoutOnBlur: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onBlur")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCanPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnCanPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlay")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCanPlay: Self[T] = {
+    def withoutOnCanPlay: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlay")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCanPlayThrough(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnCanPlayThrough(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlayThrough")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCanPlayThrough: Self[T] = {
+    def withoutOnCanPlayThrough: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCanPlayThrough")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnChange(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self[T] = {
+    def withOnChange(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnChange: Self[T] = {
+    def withoutOnChange: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onChange")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnClick(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnClick(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnClick: Self[T] = {
+    def withoutOnClick: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCompositionEnd(value: SyntheticCompositionEvent[T] => Unit): Self[T] = {
+    def withOnCompositionEnd(value: SyntheticCompositionEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionEnd")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCompositionEnd: Self[T] = {
+    def withoutOnCompositionEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionEnd")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCompositionStart(value: SyntheticCompositionEvent[T] => Unit): Self[T] = {
+    def withOnCompositionStart(value: SyntheticCompositionEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionStart")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCompositionStart: Self[T] = {
+    def withoutOnCompositionStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionStart")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCompositionUpdate(value: SyntheticCompositionEvent[T] => Unit): Self[T] = {
+    def withOnCompositionUpdate(value: SyntheticCompositionEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionUpdate")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCompositionUpdate: Self[T] = {
+    def withoutOnCompositionUpdate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCompositionUpdate")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnContextMenu(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnContextMenu(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onContextMenu")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnContextMenu: Self[T] = {
+    def withoutOnContextMenu: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onContextMenu")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCopy(value: SyntheticClipboardEvent[T] => Unit): Self[T] = {
+    def withOnCopy(value: SyntheticClipboardEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCopy")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCopy: Self[T] = {
+    def withoutOnCopy: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCopy")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnCut(value: SyntheticClipboardEvent[T] => Unit): Self[T] = {
+    def withOnCut(value: SyntheticClipboardEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCut")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnCut: Self[T] = {
+    def withoutOnCut: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onCut")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDoubleClick(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnDoubleClick(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDoubleClick")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDoubleClick: Self[T] = {
+    def withoutOnDoubleClick: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDoubleClick")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDrag(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDrag(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDrag")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDrag: Self[T] = {
+    def withoutOnDrag: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDrag")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDragEnd(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDragEnd(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnd")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDragEnd: Self[T] = {
+    def withoutOnDragEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnd")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDragEnter(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDragEnter(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnter")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDragEnter: Self[T] = {
+    def withoutOnDragEnter: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragEnter")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDragExit(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDragExit(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragExit")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDragExit: Self[T] = {
+    def withoutOnDragExit: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragExit")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDragLeave(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDragLeave(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragLeave")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDragLeave: Self[T] = {
+    def withoutOnDragLeave: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragLeave")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDragOver(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDragOver(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragOver")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDragOver: Self[T] = {
+    def withoutOnDragOver: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragOver")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDragStart(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDragStart(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragStart")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDragStart: Self[T] = {
+    def withoutOnDragStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDragStart")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDrop(value: DragEvent[T] => Unit): Self[T] = {
+    def withOnDrop(value: DragEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDrop")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDrop: Self[T] = {
+    def withoutOnDrop: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDrop")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnDurationChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnDurationChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDurationChange")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnDurationChange: Self[T] = {
+    def withoutOnDurationChange: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onDurationChange")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnEmptied(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnEmptied(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onEmptied")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnEmptied: Self[T] = {
+    def withoutOnEmptied: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onEmptied")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnEncrypted(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnEncrypted(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onEncrypted")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnEncrypted: Self[T] = {
+    def withoutOnEncrypted: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onEncrypted")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnEnded(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnEnded(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onEnded")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnEnded: Self[T] = {
+    def withoutOnEnded: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onEnded")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnError(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnError(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onError")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnError: Self[T] = {
+    def withoutOnError: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onError")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnFocus(value: SyntheticFocusEvent[T] => Unit): Self[T] = {
+    def withOnFocus(value: SyntheticFocusEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onFocus")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnFocus: Self[T] = {
+    def withoutOnFocus: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onFocus")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnInput(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self[T] = {
+    def withOnInput(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onInput")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnInput: Self[T] = {
+    def withoutOnInput: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onInput")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnInvalid(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self[T] = {
+    def withOnInvalid(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onInvalid")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnInvalid: Self[T] = {
+    def withoutOnInvalid: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onInvalid")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnKeyDown(value: SyntheticKeyboardEvent[T] => Unit): Self[T] = {
+    def withOnKeyDown(value: SyntheticKeyboardEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyDown")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnKeyDown: Self[T] = {
+    def withoutOnKeyDown: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyDown")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnKeyPress(value: SyntheticKeyboardEvent[T] => Unit): Self[T] = {
+    def withOnKeyPress(value: SyntheticKeyboardEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyPress")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnKeyPress: Self[T] = {
+    def withoutOnKeyPress: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyPress")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnKeyUp(value: SyntheticKeyboardEvent[T] => Unit): Self[T] = {
+    def withOnKeyUp(value: SyntheticKeyboardEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyUp")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnKeyUp: Self[T] = {
+    def withoutOnKeyUp: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onKeyUp")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnLoad(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnLoad(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoad")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnLoad: Self[T] = {
+    def withoutOnLoad: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoad")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnLoadStart(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnLoadStart(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadStart")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnLoadStart: Self[T] = {
+    def withoutOnLoadStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadStart")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnLoadedData(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnLoadedData(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedData")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnLoadedData: Self[T] = {
+    def withoutOnLoadedData: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedData")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnLoadedMetadata(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnLoadedMetadata(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedMetadata")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnLoadedMetadata: Self[T] = {
+    def withoutOnLoadedMetadata: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onLoadedMetadata")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseDown(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseDown(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseDown")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseDown: Self[T] = {
+    def withoutOnMouseDown: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseDown")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseEnter(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseEnter(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseEnter")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseEnter: Self[T] = {
+    def withoutOnMouseEnter: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseEnter")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseLeave(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseLeave(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseLeave: Self[T] = {
+    def withoutOnMouseLeave: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseLeave")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseMove(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseMove(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseMove")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseMove: Self[T] = {
+    def withoutOnMouseMove: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseMove")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseOut(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseOut(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOut")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseOut: Self[T] = {
+    def withoutOnMouseOut: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOut")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseOver(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseOver(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOver")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseOver: Self[T] = {
+    def withoutOnMouseOver: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseOver")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnMouseUp(value: SyntheticMouseEvent[T] => Unit): Self[T] = {
+    def withOnMouseUp(value: SyntheticMouseEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseUp")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnMouseUp: Self[T] = {
+    def withoutOnMouseUp: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onMouseUp")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPaste(value: SyntheticClipboardEvent[T] => Unit): Self[T] = {
+    def withOnPaste(value: SyntheticClipboardEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPaste")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPaste: Self[T] = {
+    def withoutOnPaste: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPaste")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPause(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnPause(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPause")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPause: Self[T] = {
+    def withoutOnPause: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPause")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnPlay(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPlay")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPlay: Self[T] = {
+    def withoutOnPlay: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPlay")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPlaying(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnPlaying(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPlaying")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPlaying: Self[T] = {
+    def withoutOnPlaying: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPlaying")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerCancel(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerCancel(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerCancel")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerCancel: Self[T] = {
+    def withoutOnPointerCancel: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerCancel")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerDown(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerDown(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerDown")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerDown: Self[T] = {
+    def withoutOnPointerDown: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerDown")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerEnter(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerEnter(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerEnter")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerEnter: Self[T] = {
+    def withoutOnPointerEnter: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerEnter")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerLeave(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerLeave(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerLeave")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerLeave: Self[T] = {
+    def withoutOnPointerLeave: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerLeave")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerMove(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerMove(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerMove")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerMove: Self[T] = {
+    def withoutOnPointerMove: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerMove")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerOut(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerOut(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOut")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerOut: Self[T] = {
+    def withoutOnPointerOut: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOut")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerOver(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerOver(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOver")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerOver: Self[T] = {
+    def withoutOnPointerOver: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerOver")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnPointerUp(value: SyntheticPointerEvent[T] => Unit): Self[T] = {
+    def withOnPointerUp(value: SyntheticPointerEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerUp")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnPointerUp: Self[T] = {
+    def withoutOnPointerUp: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onPointerUp")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnProgress(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnProgress(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onProgress")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnProgress: Self[T] = {
+    def withoutOnProgress: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onProgress")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnRateChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnRateChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onRateChange")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnRateChange: Self[T] = {
+    def withoutOnRateChange: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onRateChange")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnReset(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self[T] = {
+    def withOnReset(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onReset")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnReset: Self[T] = {
+    def withoutOnReset: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onReset")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnScroll(value: SyntheticUIEvent[T] => Unit): Self[T] = {
+    def withOnScroll(value: SyntheticUIEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onScroll")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnScroll: Self[T] = {
+    def withoutOnScroll: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onScroll")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnSeeked(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnSeeked(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeked")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnSeeked: Self[T] = {
+    def withoutOnSeeked: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeked")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnSeeking(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnSeeking(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeking")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnSeeking: Self[T] = {
+    def withoutOnSeeking: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSeeking")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnSelect(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnSelect(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSelect")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnSelect: Self[T] = {
+    def withoutOnSelect: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSelect")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnStalled(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnStalled(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onStalled")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnStalled: Self[T] = {
+    def withoutOnStalled: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onStalled")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnSubmit(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self[T] = {
+    def withOnSubmit(value: slinky.core.SyntheticEvent[EventTarget with T, Event] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSubmit")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnSubmit: Self[T] = {
+    def withoutOnSubmit: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSubmit")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnSuspend(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnSuspend(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSuspend")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnSuspend: Self[T] = {
+    def withoutOnSuspend: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onSuspend")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnTimeUpdate(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnTimeUpdate(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTimeUpdate")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnTimeUpdate: Self[T] = {
+    def withoutOnTimeUpdate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTimeUpdate")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnTouchCancel(value: SyntheticTouchEvent[T] => Unit): Self[T] = {
+    def withOnTouchCancel(value: SyntheticTouchEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchCancel")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnTouchCancel: Self[T] = {
+    def withoutOnTouchCancel: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchCancel")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnTouchEnd(value: SyntheticTouchEvent[T] => Unit): Self[T] = {
+    def withOnTouchEnd(value: SyntheticTouchEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchEnd")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnTouchEnd: Self[T] = {
+    def withoutOnTouchEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchEnd")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnTouchMove(value: SyntheticTouchEvent[T] => Unit): Self[T] = {
+    def withOnTouchMove(value: SyntheticTouchEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchMove")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnTouchMove: Self[T] = {
+    def withoutOnTouchMove: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchMove")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnTouchStart(value: SyntheticTouchEvent[T] => Unit): Self[T] = {
+    def withOnTouchStart(value: SyntheticTouchEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchStart")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnTouchStart: Self[T] = {
+    def withoutOnTouchStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTouchStart")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnTransitionEnd(value: SyntheticTransitionEvent[T] => Unit): Self[T] = {
+    def withOnTransitionEnd(value: SyntheticTransitionEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTransitionEnd")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnTransitionEnd: Self[T] = {
+    def withoutOnTransitionEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onTransitionEnd")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnVolumeChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnVolumeChange(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onVolumeChange")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnVolumeChange: Self[T] = {
+    def withoutOnVolumeChange: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onVolumeChange")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnWaiting(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self[T] = {
+    def withOnWaiting(value: slinky.core.SyntheticEvent[Event, T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onWaiting")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnWaiting: Self[T] = {
+    def withoutOnWaiting: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onWaiting")(js.undefined)
         ret
     }
     @scala.inline
-    def withOnWheel(value: SyntheticWheelEvent[T] => Unit): Self[T] = {
+    def withOnWheel(value: SyntheticWheelEvent[T] => Unit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onWheel")(js.Any.fromFunction1(value))
         ret
     }
     @scala.inline
-    def withoutOnWheel: Self[T] = {
+    def withoutOnWheel: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("onWheel")(js.undefined)
         ret

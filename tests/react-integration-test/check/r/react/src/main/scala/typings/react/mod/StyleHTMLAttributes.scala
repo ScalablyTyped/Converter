@@ -19,55 +19,55 @@ object StyleHTMLAttributes {
     __obj.asInstanceOf[StyleHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class StyleHTMLAttributesOps[Self[t] <: StyleHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class StyleHTMLAttributesOps[Self <: StyleHTMLAttributes[_], T] (val x: Self with StyleHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withMedia(value: String): Self[T] = {
+    def withMedia(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("media")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMedia: Self[T] = {
+    def withoutMedia: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("media")(js.undefined)
         ret
     }
     @scala.inline
-    def withNonce(value: String): Self[T] = {
+    def withNonce(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("nonce")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutNonce: Self[T] = {
+    def withoutNonce: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("nonce")(js.undefined)
         ret
     }
     @scala.inline
-    def withScoped(value: Boolean): Self[T] = {
+    def withScoped(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("scoped")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutScoped: Self[T] = {
+    def withoutScoped: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("scoped")(js.undefined)
         ret
     }
     @scala.inline
-    def withType(value: String): Self[T] = {
+    def withType(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutType: Self[T] = {
+    def withoutType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
         ret

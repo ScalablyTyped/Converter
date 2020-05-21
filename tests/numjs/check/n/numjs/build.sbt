@@ -1,11 +1,11 @@
 organization := "org.scalablytyped"
 name := "numjs"
-version := "0.0-unknown-017797"
+version := "0.0-unknown-42ca14"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "ndarray" % "0.0-unknown-1e4a64",
+  "org.scalablytyped" %%% "ndarray" % "0.0-unknown-c6ed9c",
   "org.scalablytyped" %%% "std" % "0.0-unknown-3e814e")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls")

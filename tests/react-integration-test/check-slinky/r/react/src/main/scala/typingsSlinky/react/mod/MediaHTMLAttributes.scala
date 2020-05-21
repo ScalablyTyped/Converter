@@ -25,127 +25,127 @@ object MediaHTMLAttributes {
     __obj.asInstanceOf[MediaHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class MediaHTMLAttributesOps[Self[t] <: MediaHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class MediaHTMLAttributesOps[Self <: MediaHTMLAttributes[_], T] (val x: Self with MediaHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAutoPlay(value: Boolean): Self[T] = {
+    def withAutoPlay(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("autoPlay")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAutoPlay: Self[T] = {
+    def withoutAutoPlay: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("autoPlay")(js.undefined)
         ret
     }
     @scala.inline
-    def withControls(value: Boolean): Self[T] = {
+    def withControls(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("controls")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutControls: Self[T] = {
+    def withoutControls: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("controls")(js.undefined)
         ret
     }
     @scala.inline
-    def withControlsList(value: String): Self[T] = {
+    def withControlsList(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("controlsList")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutControlsList: Self[T] = {
+    def withoutControlsList: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("controlsList")(js.undefined)
         ret
     }
     @scala.inline
-    def withCrossOrigin(value: String): Self[T] = {
+    def withCrossOrigin(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("crossOrigin")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCrossOrigin: Self[T] = {
+    def withoutCrossOrigin: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("crossOrigin")(js.undefined)
         ret
     }
     @scala.inline
-    def withLoop(value: Boolean): Self[T] = {
+    def withLoop(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("loop")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLoop: Self[T] = {
+    def withoutLoop: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("loop")(js.undefined)
         ret
     }
     @scala.inline
-    def withMediaGroup(value: String): Self[T] = {
+    def withMediaGroup(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mediaGroup")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMediaGroup: Self[T] = {
+    def withoutMediaGroup: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mediaGroup")(js.undefined)
         ret
     }
     @scala.inline
-    def withMuted(value: Boolean): Self[T] = {
+    def withMuted(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("muted")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMuted: Self[T] = {
+    def withoutMuted: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("muted")(js.undefined)
         ret
     }
     @scala.inline
-    def withPlaysinline(value: Boolean): Self[T] = {
+    def withPlaysinline(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("playsinline")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPlaysinline: Self[T] = {
+    def withoutPlaysinline: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("playsinline")(js.undefined)
         ret
     }
     @scala.inline
-    def withPreload(value: String): Self[T] = {
+    def withPreload(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("preload")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPreload: Self[T] = {
+    def withoutPreload: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("preload")(js.undefined)
         ret
     }
     @scala.inline
-    def withSrc(value: String): Self[T] = {
+    def withSrc(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("src")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSrc: Self[T] = {
+    def withoutSrc: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("src")(js.undefined)
         ret

@@ -318,43 +318,43 @@ object SVGAttributes {
     __obj.asInstanceOf[SVGAttributes[T]]
   }
   @scala.inline
-  implicit class SVGAttributesOps[Self[t] <: SVGAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class SVGAttributesOps[Self <: SVGAttributes[_], T] (val x: Self with SVGAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAccentHeight(value: Double | String): Self[T] = {
+    def withAccentHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("accentHeight")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAccentHeight: Self[T] = {
+    def withoutAccentHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("accentHeight")(js.undefined)
         ret
     }
     @scala.inline
-    def withAccumulate(value: none | sum): Self[T] = {
+    def withAccumulate(value: none | sum): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("accumulate")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAccumulate: Self[T] = {
+    def withoutAccumulate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("accumulate")(js.undefined)
         ret
     }
     @scala.inline
-    def withAdditive(value: replace | sum): Self[T] = {
+    def withAdditive(value: replace | sum): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("additive")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAdditive: Self[T] = {
+    def withoutAdditive: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("additive")(js.undefined)
         ret
@@ -362,2989 +362,2989 @@ object SVGAttributes {
     @scala.inline
     def withAlignmentBaseline(
       value: auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit
-    ): Self[T] = {
+    ): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("alignmentBaseline")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAlignmentBaseline: Self[T] = {
+    def withoutAlignmentBaseline: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("alignmentBaseline")(js.undefined)
         ret
     }
     @scala.inline
-    def withAllowReorder(value: no | yes): Self[T] = {
+    def withAllowReorder(value: no | yes): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("allowReorder")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAllowReorder: Self[T] = {
+    def withoutAllowReorder: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("allowReorder")(js.undefined)
         ret
     }
     @scala.inline
-    def withAlphabetic(value: Double | String): Self[T] = {
+    def withAlphabetic(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("alphabetic")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAlphabetic: Self[T] = {
+    def withoutAlphabetic: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("alphabetic")(js.undefined)
         ret
     }
     @scala.inline
-    def withAmplitude(value: Double | String): Self[T] = {
+    def withAmplitude(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("amplitude")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAmplitude: Self[T] = {
+    def withoutAmplitude: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("amplitude")(js.undefined)
         ret
     }
     @scala.inline
-    def withArabicForm(value: initial | medial | terminal | isolated): Self[T] = {
+    def withArabicForm(value: initial | medial | terminal | isolated): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("arabicForm")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutArabicForm: Self[T] = {
+    def withoutArabicForm: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("arabicForm")(js.undefined)
         ret
     }
     @scala.inline
-    def withAscent(value: Double | String): Self[T] = {
+    def withAscent(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ascent")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAscent: Self[T] = {
+    def withoutAscent: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ascent")(js.undefined)
         ret
     }
     @scala.inline
-    def withAttributeName(value: String): Self[T] = {
+    def withAttributeName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("attributeName")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAttributeName: Self[T] = {
+    def withoutAttributeName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("attributeName")(js.undefined)
         ret
     }
     @scala.inline
-    def withAttributeType(value: String): Self[T] = {
+    def withAttributeType(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("attributeType")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAttributeType: Self[T] = {
+    def withoutAttributeType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("attributeType")(js.undefined)
         ret
     }
     @scala.inline
-    def withAutoReverse(value: Double | String): Self[T] = {
+    def withAutoReverse(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("autoReverse")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAutoReverse: Self[T] = {
+    def withoutAutoReverse: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("autoReverse")(js.undefined)
         ret
     }
     @scala.inline
-    def withAzimuth(value: Double | String): Self[T] = {
+    def withAzimuth(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("azimuth")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutAzimuth: Self[T] = {
+    def withoutAzimuth: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("azimuth")(js.undefined)
         ret
     }
     @scala.inline
-    def withBaseFrequency(value: Double | String): Self[T] = {
+    def withBaseFrequency(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("baseFrequency")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBaseFrequency: Self[T] = {
+    def withoutBaseFrequency: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("baseFrequency")(js.undefined)
         ret
     }
     @scala.inline
-    def withBaseProfile(value: Double | String): Self[T] = {
+    def withBaseProfile(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("baseProfile")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBaseProfile: Self[T] = {
+    def withoutBaseProfile: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("baseProfile")(js.undefined)
         ret
     }
     @scala.inline
-    def withBaselineShift(value: Double | String): Self[T] = {
+    def withBaselineShift(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("baselineShift")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBaselineShift: Self[T] = {
+    def withoutBaselineShift: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("baselineShift")(js.undefined)
         ret
     }
     @scala.inline
-    def withBbox(value: Double | String): Self[T] = {
+    def withBbox(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("bbox")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBbox: Self[T] = {
+    def withoutBbox: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("bbox")(js.undefined)
         ret
     }
     @scala.inline
-    def withBegin(value: Double | String): Self[T] = {
+    def withBegin(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("begin")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBegin: Self[T] = {
+    def withoutBegin: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("begin")(js.undefined)
         ret
     }
     @scala.inline
-    def withBias(value: Double | String): Self[T] = {
+    def withBias(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("bias")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBias: Self[T] = {
+    def withoutBias: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("bias")(js.undefined)
         ret
     }
     @scala.inline
-    def withBy(value: Double | String): Self[T] = {
+    def withBy(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("by")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutBy: Self[T] = {
+    def withoutBy: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("by")(js.undefined)
         ret
     }
     @scala.inline
-    def withCalcMode(value: Double | String): Self[T] = {
+    def withCalcMode(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("calcMode")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCalcMode: Self[T] = {
+    def withoutCalcMode: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("calcMode")(js.undefined)
         ret
     }
     @scala.inline
-    def withCapHeight(value: Double | String): Self[T] = {
+    def withCapHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("capHeight")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCapHeight: Self[T] = {
+    def withoutCapHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("capHeight")(js.undefined)
         ret
     }
     @scala.inline
-    def withClassName(value: String): Self[T] = {
+    def withClassName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutClassName: Self[T] = {
+    def withoutClassName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
         ret
     }
     @scala.inline
-    def withClip(value: Double | String): Self[T] = {
+    def withClip(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clip")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutClip: Self[T] = {
+    def withoutClip: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clip")(js.undefined)
         ret
     }
     @scala.inline
-    def withClipPath(value: String): Self[T] = {
+    def withClipPath(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutClipPath: Self[T] = {
+    def withoutClipPath: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(js.undefined)
         ret
     }
     @scala.inline
-    def withClipPathUnits(value: Double | String): Self[T] = {
+    def withClipPathUnits(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clipPathUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutClipPathUnits: Self[T] = {
+    def withoutClipPathUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clipPathUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withClipRule(value: Double | String): Self[T] = {
+    def withClipRule(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clipRule")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutClipRule: Self[T] = {
+    def withoutClipRule: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("clipRule")(js.undefined)
         ret
     }
     @scala.inline
-    def withColor(value: String): Self[T] = {
+    def withColor(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("color")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutColor: Self[T] = {
+    def withoutColor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("color")(js.undefined)
         ret
     }
     @scala.inline
-    def withColorInterpolation(value: Double | String): Self[T] = {
+    def withColorInterpolation(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolation")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutColorInterpolation: Self[T] = {
+    def withoutColorInterpolation: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolation")(js.undefined)
         ret
     }
     @scala.inline
-    def withColorInterpolationFilters(value: auto | sRGB | linearRGB | inherit): Self[T] = {
+    def withColorInterpolationFilters(value: auto | sRGB | linearRGB | inherit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolationFilters")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutColorInterpolationFilters: Self[T] = {
+    def withoutColorInterpolationFilters: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolationFilters")(js.undefined)
         ret
     }
     @scala.inline
-    def withColorProfile(value: Double | String): Self[T] = {
+    def withColorProfile(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorProfile")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutColorProfile: Self[T] = {
+    def withoutColorProfile: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorProfile")(js.undefined)
         ret
     }
     @scala.inline
-    def withColorRendering(value: Double | String): Self[T] = {
+    def withColorRendering(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorRendering")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutColorRendering: Self[T] = {
+    def withoutColorRendering: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("colorRendering")(js.undefined)
         ret
     }
     @scala.inline
-    def withContentScriptType(value: Double | String): Self[T] = {
+    def withContentScriptType(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("contentScriptType")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutContentScriptType: Self[T] = {
+    def withoutContentScriptType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("contentScriptType")(js.undefined)
         ret
     }
     @scala.inline
-    def withContentStyleType(value: Double | String): Self[T] = {
+    def withContentStyleType(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("contentStyleType")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutContentStyleType: Self[T] = {
+    def withoutContentStyleType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("contentStyleType")(js.undefined)
         ret
     }
     @scala.inline
-    def withCursor(value: Double | String): Self[T] = {
+    def withCursor(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cursor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCursor: Self[T] = {
+    def withoutCursor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cursor")(js.undefined)
         ret
     }
     @scala.inline
-    def withCx(value: Double | String): Self[T] = {
+    def withCx(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cx")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCx: Self[T] = {
+    def withoutCx: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cx")(js.undefined)
         ret
     }
     @scala.inline
-    def withCy(value: Double | String): Self[T] = {
+    def withCy(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cy")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutCy: Self[T] = {
+    def withoutCy: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("cy")(js.undefined)
         ret
     }
     @scala.inline
-    def withD(value: String): Self[T] = {
+    def withD(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("d")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutD: Self[T] = {
+    def withoutD: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("d")(js.undefined)
         ret
     }
     @scala.inline
-    def withDecelerate(value: Double | String): Self[T] = {
+    def withDecelerate(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("decelerate")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDecelerate: Self[T] = {
+    def withoutDecelerate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("decelerate")(js.undefined)
         ret
     }
     @scala.inline
-    def withDescent(value: Double | String): Self[T] = {
+    def withDescent(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("descent")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDescent: Self[T] = {
+    def withoutDescent: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("descent")(js.undefined)
         ret
     }
     @scala.inline
-    def withDiffuseConstant(value: Double | String): Self[T] = {
+    def withDiffuseConstant(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("diffuseConstant")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDiffuseConstant: Self[T] = {
+    def withoutDiffuseConstant: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("diffuseConstant")(js.undefined)
         ret
     }
     @scala.inline
-    def withDirection(value: Double | String): Self[T] = {
+    def withDirection(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("direction")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDirection: Self[T] = {
+    def withoutDirection: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("direction")(js.undefined)
         ret
     }
     @scala.inline
-    def withDisplay(value: Double | String): Self[T] = {
+    def withDisplay(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("display")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDisplay: Self[T] = {
+    def withoutDisplay: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("display")(js.undefined)
         ret
     }
     @scala.inline
-    def withDivisor(value: Double | String): Self[T] = {
+    def withDivisor(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("divisor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDivisor: Self[T] = {
+    def withoutDivisor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("divisor")(js.undefined)
         ret
     }
     @scala.inline
-    def withDominantBaseline(value: Double | String): Self[T] = {
+    def withDominantBaseline(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dominantBaseline")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDominantBaseline: Self[T] = {
+    def withoutDominantBaseline: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dominantBaseline")(js.undefined)
         ret
     }
     @scala.inline
-    def withDur(value: Double | String): Self[T] = {
+    def withDur(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dur")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDur: Self[T] = {
+    def withoutDur: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dur")(js.undefined)
         ret
     }
     @scala.inline
-    def withDx(value: Double | String): Self[T] = {
+    def withDx(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dx")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDx: Self[T] = {
+    def withoutDx: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dx")(js.undefined)
         ret
     }
     @scala.inline
-    def withDy(value: Double | String): Self[T] = {
+    def withDy(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dy")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDy: Self[T] = {
+    def withoutDy: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dy")(js.undefined)
         ret
     }
     @scala.inline
-    def withEdgeMode(value: Double | String): Self[T] = {
+    def withEdgeMode(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("edgeMode")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutEdgeMode: Self[T] = {
+    def withoutEdgeMode: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("edgeMode")(js.undefined)
         ret
     }
     @scala.inline
-    def withElevation(value: Double | String): Self[T] = {
+    def withElevation(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("elevation")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutElevation: Self[T] = {
+    def withoutElevation: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("elevation")(js.undefined)
         ret
     }
     @scala.inline
-    def withEnableBackground(value: Double | String): Self[T] = {
+    def withEnableBackground(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("enableBackground")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutEnableBackground: Self[T] = {
+    def withoutEnableBackground: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("enableBackground")(js.undefined)
         ret
     }
     @scala.inline
-    def withEnd(value: Double | String): Self[T] = {
+    def withEnd(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("end")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutEnd: Self[T] = {
+    def withoutEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("end")(js.undefined)
         ret
     }
     @scala.inline
-    def withExponent(value: Double | String): Self[T] = {
+    def withExponent(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("exponent")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutExponent: Self[T] = {
+    def withoutExponent: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("exponent")(js.undefined)
         ret
     }
     @scala.inline
-    def withExternalResourcesRequired(value: Double | String): Self[T] = {
+    def withExternalResourcesRequired(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("externalResourcesRequired")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutExternalResourcesRequired: Self[T] = {
+    def withoutExternalResourcesRequired: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("externalResourcesRequired")(js.undefined)
         ret
     }
     @scala.inline
-    def withFill(value: String): Self[T] = {
+    def withFill(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fill")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFill: Self[T] = {
+    def withoutFill: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fill")(js.undefined)
         ret
     }
     @scala.inline
-    def withFillOpacity(value: Double | String): Self[T] = {
+    def withFillOpacity(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fillOpacity")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFillOpacity: Self[T] = {
+    def withoutFillOpacity: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fillOpacity")(js.undefined)
         ret
     }
     @scala.inline
-    def withFillRule(value: nonzero | evenodd | inherit): Self[T] = {
+    def withFillRule(value: nonzero | evenodd | inherit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fillRule")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFillRule: Self[T] = {
+    def withoutFillRule: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fillRule")(js.undefined)
         ret
     }
     @scala.inline
-    def withFilter(value: String): Self[T] = {
+    def withFilter(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("filter")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFilter: Self[T] = {
+    def withoutFilter: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("filter")(js.undefined)
         ret
     }
     @scala.inline
-    def withFilterRes(value: Double | String): Self[T] = {
+    def withFilterRes(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("filterRes")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFilterRes: Self[T] = {
+    def withoutFilterRes: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("filterRes")(js.undefined)
         ret
     }
     @scala.inline
-    def withFilterUnits(value: Double | String): Self[T] = {
+    def withFilterUnits(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("filterUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFilterUnits: Self[T] = {
+    def withoutFilterUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("filterUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withFloodColor(value: Double | String): Self[T] = {
+    def withFloodColor(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("floodColor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFloodColor: Self[T] = {
+    def withoutFloodColor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("floodColor")(js.undefined)
         ret
     }
     @scala.inline
-    def withFloodOpacity(value: Double | String): Self[T] = {
+    def withFloodOpacity(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("floodOpacity")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFloodOpacity: Self[T] = {
+    def withoutFloodOpacity: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("floodOpacity")(js.undefined)
         ret
     }
     @scala.inline
-    def withFocusable(value: Double | String): Self[T] = {
+    def withFocusable(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("focusable")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFocusable: Self[T] = {
+    def withoutFocusable: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("focusable")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontFamily(value: String): Self[T] = {
+    def withFontFamily(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontFamily: Self[T] = {
+    def withoutFontFamily: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontSize(value: Double | String): Self[T] = {
+    def withFontSize(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontSize: Self[T] = {
+    def withoutFontSize: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontSizeAdjust(value: Double | String): Self[T] = {
+    def withFontSizeAdjust(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontSizeAdjust")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontSizeAdjust: Self[T] = {
+    def withoutFontSizeAdjust: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontSizeAdjust")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontStretch(value: Double | String): Self[T] = {
+    def withFontStretch(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontStretch")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontStretch: Self[T] = {
+    def withoutFontStretch: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontStretch")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontStyle(value: Double | String): Self[T] = {
+    def withFontStyle(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontStyle")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontStyle: Self[T] = {
+    def withoutFontStyle: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontStyle")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontVariant(value: Double | String): Self[T] = {
+    def withFontVariant(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontVariant")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontVariant: Self[T] = {
+    def withoutFontVariant: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontVariant")(js.undefined)
         ret
     }
     @scala.inline
-    def withFontWeight(value: Double | String): Self[T] = {
+    def withFontWeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFontWeight: Self[T] = {
+    def withoutFontWeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(js.undefined)
         ret
     }
     @scala.inline
-    def withFormat(value: Double | String): Self[T] = {
+    def withFormat(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("format")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFormat: Self[T] = {
+    def withoutFormat: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("format")(js.undefined)
         ret
     }
     @scala.inline
-    def withFrom(value: Double | String): Self[T] = {
+    def withFrom(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("from")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFrom: Self[T] = {
+    def withoutFrom: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("from")(js.undefined)
         ret
     }
     @scala.inline
-    def withFx(value: Double | String): Self[T] = {
+    def withFx(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fx")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFx: Self[T] = {
+    def withoutFx: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fx")(js.undefined)
         ret
     }
     @scala.inline
-    def withFy(value: Double | String): Self[T] = {
+    def withFy(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fy")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutFy: Self[T] = {
+    def withoutFy: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("fy")(js.undefined)
         ret
     }
     @scala.inline
-    def withG1(value: Double | String): Self[T] = {
+    def withG1(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("g1")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutG1: Self[T] = {
+    def withoutG1: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("g1")(js.undefined)
         ret
     }
     @scala.inline
-    def withG2(value: Double | String): Self[T] = {
+    def withG2(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("g2")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutG2: Self[T] = {
+    def withoutG2: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("g2")(js.undefined)
         ret
     }
     @scala.inline
-    def withGlyphName(value: Double | String): Self[T] = {
+    def withGlyphName(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphName")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutGlyphName: Self[T] = {
+    def withoutGlyphName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphName")(js.undefined)
         ret
     }
     @scala.inline
-    def withGlyphOrientationHorizontal(value: Double | String): Self[T] = {
+    def withGlyphOrientationHorizontal(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationHorizontal")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutGlyphOrientationHorizontal: Self[T] = {
+    def withoutGlyphOrientationHorizontal: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationHorizontal")(js.undefined)
         ret
     }
     @scala.inline
-    def withGlyphOrientationVertical(value: Double | String): Self[T] = {
+    def withGlyphOrientationVertical(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationVertical")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutGlyphOrientationVertical: Self[T] = {
+    def withoutGlyphOrientationVertical: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationVertical")(js.undefined)
         ret
     }
     @scala.inline
-    def withGlyphRef(value: Double | String): Self[T] = {
+    def withGlyphRef(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphRef")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutGlyphRef: Self[T] = {
+    def withoutGlyphRef: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("glyphRef")(js.undefined)
         ret
     }
     @scala.inline
-    def withGradientTransform(value: String): Self[T] = {
+    def withGradientTransform(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("gradientTransform")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutGradientTransform: Self[T] = {
+    def withoutGradientTransform: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("gradientTransform")(js.undefined)
         ret
     }
     @scala.inline
-    def withGradientUnits(value: String): Self[T] = {
+    def withGradientUnits(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("gradientUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutGradientUnits: Self[T] = {
+    def withoutGradientUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("gradientUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withHanging(value: Double | String): Self[T] = {
+    def withHanging(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("hanging")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHanging: Self[T] = {
+    def withoutHanging: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("hanging")(js.undefined)
         ret
     }
     @scala.inline
-    def withHeight(value: Double | String): Self[T] = {
+    def withHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHeight: Self[T] = {
+    def withoutHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("height")(js.undefined)
         ret
     }
     @scala.inline
-    def withHorizAdvX(value: Double | String): Self[T] = {
+    def withHorizAdvX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("horizAdvX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHorizAdvX: Self[T] = {
+    def withoutHorizAdvX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("horizAdvX")(js.undefined)
         ret
     }
     @scala.inline
-    def withHorizOriginX(value: Double | String): Self[T] = {
+    def withHorizOriginX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("horizOriginX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHorizOriginX: Self[T] = {
+    def withoutHorizOriginX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("horizOriginX")(js.undefined)
         ret
     }
     @scala.inline
-    def withHref(value: String): Self[T] = {
+    def withHref(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("href")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHref: Self[T] = {
+    def withoutHref: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("href")(js.undefined)
         ret
     }
     @scala.inline
-    def withId(value: String): Self[T] = {
+    def withId(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("id")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutId: Self[T] = {
+    def withoutId: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("id")(js.undefined)
         ret
     }
     @scala.inline
-    def withIdeographic(value: Double | String): Self[T] = {
+    def withIdeographic(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ideographic")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutIdeographic: Self[T] = {
+    def withoutIdeographic: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ideographic")(js.undefined)
         ret
     }
     @scala.inline
-    def withImageRendering(value: Double | String): Self[T] = {
+    def withImageRendering(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("imageRendering")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutImageRendering: Self[T] = {
+    def withoutImageRendering: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("imageRendering")(js.undefined)
         ret
     }
     @scala.inline
-    def withIn(value: String): Self[T] = {
+    def withIn(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("in")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutIn: Self[T] = {
+    def withoutIn: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("in")(js.undefined)
         ret
     }
     @scala.inline
-    def withIn2(value: Double | String): Self[T] = {
+    def withIn2(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("in2")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutIn2: Self[T] = {
+    def withoutIn2: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("in2")(js.undefined)
         ret
     }
     @scala.inline
-    def withIntercept(value: Double | String): Self[T] = {
+    def withIntercept(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("intercept")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutIntercept: Self[T] = {
+    def withoutIntercept: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("intercept")(js.undefined)
         ret
     }
     @scala.inline
-    def withK(value: Double | String): Self[T] = {
+    def withK(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutK: Self[T] = {
+    def withoutK: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k")(js.undefined)
         ret
     }
     @scala.inline
-    def withK1(value: Double | String): Self[T] = {
+    def withK1(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k1")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutK1: Self[T] = {
+    def withoutK1: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k1")(js.undefined)
         ret
     }
     @scala.inline
-    def withK2(value: Double | String): Self[T] = {
+    def withK2(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k2")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutK2: Self[T] = {
+    def withoutK2: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k2")(js.undefined)
         ret
     }
     @scala.inline
-    def withK3(value: Double | String): Self[T] = {
+    def withK3(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k3")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutK3: Self[T] = {
+    def withoutK3: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k3")(js.undefined)
         ret
     }
     @scala.inline
-    def withK4(value: Double | String): Self[T] = {
+    def withK4(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k4")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutK4: Self[T] = {
+    def withoutK4: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("k4")(js.undefined)
         ret
     }
     @scala.inline
-    def withKernelMatrix(value: Double | String): Self[T] = {
+    def withKernelMatrix(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("kernelMatrix")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKernelMatrix: Self[T] = {
+    def withoutKernelMatrix: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("kernelMatrix")(js.undefined)
         ret
     }
     @scala.inline
-    def withKernelUnitLength(value: Double | String): Self[T] = {
+    def withKernelUnitLength(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("kernelUnitLength")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKernelUnitLength: Self[T] = {
+    def withoutKernelUnitLength: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("kernelUnitLength")(js.undefined)
         ret
     }
     @scala.inline
-    def withKerning(value: Double | String): Self[T] = {
+    def withKerning(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("kerning")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKerning: Self[T] = {
+    def withoutKerning: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("kerning")(js.undefined)
         ret
     }
     @scala.inline
-    def withKeyPoints(value: Double | String): Self[T] = {
+    def withKeyPoints(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("keyPoints")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKeyPoints: Self[T] = {
+    def withoutKeyPoints: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("keyPoints")(js.undefined)
         ret
     }
     @scala.inline
-    def withKeySplines(value: Double | String): Self[T] = {
+    def withKeySplines(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("keySplines")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKeySplines: Self[T] = {
+    def withoutKeySplines: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("keySplines")(js.undefined)
         ret
     }
     @scala.inline
-    def withKeyTimes(value: Double | String): Self[T] = {
+    def withKeyTimes(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("keyTimes")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutKeyTimes: Self[T] = {
+    def withoutKeyTimes: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("keyTimes")(js.undefined)
         ret
     }
     @scala.inline
-    def withLang(value: String): Self[T] = {
+    def withLang(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("lang")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLang: Self[T] = {
+    def withoutLang: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("lang")(js.undefined)
         ret
     }
     @scala.inline
-    def withLengthAdjust(value: Double | String): Self[T] = {
+    def withLengthAdjust(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("lengthAdjust")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLengthAdjust: Self[T] = {
+    def withoutLengthAdjust: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("lengthAdjust")(js.undefined)
         ret
     }
     @scala.inline
-    def withLetterSpacing(value: Double | String): Self[T] = {
+    def withLetterSpacing(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLetterSpacing: Self[T] = {
+    def withoutLetterSpacing: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(js.undefined)
         ret
     }
     @scala.inline
-    def withLightingColor(value: Double | String): Self[T] = {
+    def withLightingColor(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("lightingColor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLightingColor: Self[T] = {
+    def withoutLightingColor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("lightingColor")(js.undefined)
         ret
     }
     @scala.inline
-    def withLimitingConeAngle(value: Double | String): Self[T] = {
+    def withLimitingConeAngle(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("limitingConeAngle")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLimitingConeAngle: Self[T] = {
+    def withoutLimitingConeAngle: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("limitingConeAngle")(js.undefined)
         ret
     }
     @scala.inline
-    def withLocal(value: Double | String): Self[T] = {
+    def withLocal(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("local")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutLocal: Self[T] = {
+    def withoutLocal: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("local")(js.undefined)
         ret
     }
     @scala.inline
-    def withMarkerEnd(value: String): Self[T] = {
+    def withMarkerEnd(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerEnd")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMarkerEnd: Self[T] = {
+    def withoutMarkerEnd: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerEnd")(js.undefined)
         ret
     }
     @scala.inline
-    def withMarkerHeight(value: Double | String): Self[T] = {
+    def withMarkerHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerHeight")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMarkerHeight: Self[T] = {
+    def withoutMarkerHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerHeight")(js.undefined)
         ret
     }
     @scala.inline
-    def withMarkerMid(value: String): Self[T] = {
+    def withMarkerMid(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerMid")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMarkerMid: Self[T] = {
+    def withoutMarkerMid: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerMid")(js.undefined)
         ret
     }
     @scala.inline
-    def withMarkerStart(value: String): Self[T] = {
+    def withMarkerStart(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerStart")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMarkerStart: Self[T] = {
+    def withoutMarkerStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerStart")(js.undefined)
         ret
     }
     @scala.inline
-    def withMarkerUnits(value: Double | String): Self[T] = {
+    def withMarkerUnits(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMarkerUnits: Self[T] = {
+    def withoutMarkerUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withMarkerWidth(value: Double | String): Self[T] = {
+    def withMarkerWidth(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerWidth")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMarkerWidth: Self[T] = {
+    def withoutMarkerWidth: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("markerWidth")(js.undefined)
         ret
     }
     @scala.inline
-    def withMask(value: String): Self[T] = {
+    def withMask(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mask")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMask: Self[T] = {
+    def withoutMask: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mask")(js.undefined)
         ret
     }
     @scala.inline
-    def withMaskContentUnits(value: Double | String): Self[T] = {
+    def withMaskContentUnits(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("maskContentUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMaskContentUnits: Self[T] = {
+    def withoutMaskContentUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("maskContentUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withMaskUnits(value: Double | String): Self[T] = {
+    def withMaskUnits(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("maskUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMaskUnits: Self[T] = {
+    def withoutMaskUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("maskUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withMathematical(value: Double | String): Self[T] = {
+    def withMathematical(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mathematical")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMathematical: Self[T] = {
+    def withoutMathematical: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mathematical")(js.undefined)
         ret
     }
     @scala.inline
-    def withMax(value: Double | String): Self[T] = {
+    def withMax(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("max")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMax: Self[T] = {
+    def withoutMax: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("max")(js.undefined)
         ret
     }
     @scala.inline
-    def withMedia(value: String): Self[T] = {
+    def withMedia(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("media")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMedia: Self[T] = {
+    def withoutMedia: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("media")(js.undefined)
         ret
     }
     @scala.inline
-    def withMethod(value: String): Self[T] = {
+    def withMethod(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("method")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMethod: Self[T] = {
+    def withoutMethod: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("method")(js.undefined)
         ret
     }
     @scala.inline
-    def withMin(value: Double | String): Self[T] = {
+    def withMin(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("min")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMin: Self[T] = {
+    def withoutMin: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("min")(js.undefined)
         ret
     }
     @scala.inline
-    def withMode(value: Double | String): Self[T] = {
+    def withMode(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mode")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMode: Self[T] = {
+    def withoutMode: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mode")(js.undefined)
         ret
     }
     @scala.inline
-    def withName(value: String): Self[T] = {
+    def withName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutName: Self[T] = {
+    def withoutName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
         ret
     }
     @scala.inline
-    def withNumOctaves(value: Double | String): Self[T] = {
+    def withNumOctaves(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("numOctaves")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutNumOctaves: Self[T] = {
+    def withoutNumOctaves: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("numOctaves")(js.undefined)
         ret
     }
     @scala.inline
-    def withOffset(value: Double | String): Self[T] = {
+    def withOffset(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("offset")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOffset: Self[T] = {
+    def withoutOffset: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("offset")(js.undefined)
         ret
     }
     @scala.inline
-    def withOpacity(value: Double | String): Self[T] = {
+    def withOpacity(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("opacity")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOpacity: Self[T] = {
+    def withoutOpacity: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("opacity")(js.undefined)
         ret
     }
     @scala.inline
-    def withOperator(value: Double | String): Self[T] = {
+    def withOperator(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("operator")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOperator: Self[T] = {
+    def withoutOperator: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("operator")(js.undefined)
         ret
     }
     @scala.inline
-    def withOrder(value: Double | String): Self[T] = {
+    def withOrder(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("order")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOrder: Self[T] = {
+    def withoutOrder: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("order")(js.undefined)
         ret
     }
     @scala.inline
-    def withOrient(value: Double | String): Self[T] = {
+    def withOrient(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("orient")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOrient: Self[T] = {
+    def withoutOrient: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("orient")(js.undefined)
         ret
     }
     @scala.inline
-    def withOrientation(value: Double | String): Self[T] = {
+    def withOrientation(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("orientation")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOrientation: Self[T] = {
+    def withoutOrientation: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("orientation")(js.undefined)
         ret
     }
     @scala.inline
-    def withOrigin(value: Double | String): Self[T] = {
+    def withOrigin(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("origin")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOrigin: Self[T] = {
+    def withoutOrigin: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("origin")(js.undefined)
         ret
     }
     @scala.inline
-    def withOverflow(value: Double | String): Self[T] = {
+    def withOverflow(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("overflow")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOverflow: Self[T] = {
+    def withoutOverflow: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("overflow")(js.undefined)
         ret
     }
     @scala.inline
-    def withOverlinePosition(value: Double | String): Self[T] = {
+    def withOverlinePosition(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("overlinePosition")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOverlinePosition: Self[T] = {
+    def withoutOverlinePosition: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("overlinePosition")(js.undefined)
         ret
     }
     @scala.inline
-    def withOverlineThickness(value: Double | String): Self[T] = {
+    def withOverlineThickness(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("overlineThickness")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutOverlineThickness: Self[T] = {
+    def withoutOverlineThickness: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("overlineThickness")(js.undefined)
         ret
     }
     @scala.inline
-    def withPaintOrder(value: Double | String): Self[T] = {
+    def withPaintOrder(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("paintOrder")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPaintOrder: Self[T] = {
+    def withoutPaintOrder: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("paintOrder")(js.undefined)
         ret
     }
     @scala.inline
-    def withPanose1(value: Double | String): Self[T] = {
+    def withPanose1(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("panose1")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPanose1: Self[T] = {
+    def withoutPanose1: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("panose1")(js.undefined)
         ret
     }
     @scala.inline
-    def withPathLength(value: Double | String): Self[T] = {
+    def withPathLength(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pathLength")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPathLength: Self[T] = {
+    def withoutPathLength: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pathLength")(js.undefined)
         ret
     }
     @scala.inline
-    def withPatternContentUnits(value: String): Self[T] = {
+    def withPatternContentUnits(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("patternContentUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPatternContentUnits: Self[T] = {
+    def withoutPatternContentUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("patternContentUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withPatternTransform(value: Double | String): Self[T] = {
+    def withPatternTransform(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("patternTransform")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPatternTransform: Self[T] = {
+    def withoutPatternTransform: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("patternTransform")(js.undefined)
         ret
     }
     @scala.inline
-    def withPatternUnits(value: String): Self[T] = {
+    def withPatternUnits(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("patternUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPatternUnits: Self[T] = {
+    def withoutPatternUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("patternUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withPointerEvents(value: Double | String): Self[T] = {
+    def withPointerEvents(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointerEvents")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPointerEvents: Self[T] = {
+    def withoutPointerEvents: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointerEvents")(js.undefined)
         ret
     }
     @scala.inline
-    def withPoints(value: String): Self[T] = {
+    def withPoints(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("points")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPoints: Self[T] = {
+    def withoutPoints: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("points")(js.undefined)
         ret
     }
     @scala.inline
-    def withPointsAtX(value: Double | String): Self[T] = {
+    def withPointsAtX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPointsAtX: Self[T] = {
+    def withoutPointsAtX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtX")(js.undefined)
         ret
     }
     @scala.inline
-    def withPointsAtY(value: Double | String): Self[T] = {
+    def withPointsAtY(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtY")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPointsAtY: Self[T] = {
+    def withoutPointsAtY: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtY")(js.undefined)
         ret
     }
     @scala.inline
-    def withPointsAtZ(value: Double | String): Self[T] = {
+    def withPointsAtZ(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtZ")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPointsAtZ: Self[T] = {
+    def withoutPointsAtZ: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtZ")(js.undefined)
         ret
     }
     @scala.inline
-    def withPreserveAlpha(value: Double | String): Self[T] = {
+    def withPreserveAlpha(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAlpha")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPreserveAlpha: Self[T] = {
+    def withoutPreserveAlpha: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAlpha")(js.undefined)
         ret
     }
     @scala.inline
-    def withPreserveAspectRatio(value: String): Self[T] = {
+    def withPreserveAspectRatio(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAspectRatio")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPreserveAspectRatio: Self[T] = {
+    def withoutPreserveAspectRatio: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAspectRatio")(js.undefined)
         ret
     }
     @scala.inline
-    def withPrimitiveUnits(value: Double | String): Self[T] = {
+    def withPrimitiveUnits(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("primitiveUnits")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPrimitiveUnits: Self[T] = {
+    def withoutPrimitiveUnits: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("primitiveUnits")(js.undefined)
         ret
     }
     @scala.inline
-    def withR(value: Double | String): Self[T] = {
+    def withR(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("r")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutR: Self[T] = {
+    def withoutR: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("r")(js.undefined)
         ret
     }
     @scala.inline
-    def withRadius(value: Double | String): Self[T] = {
+    def withRadius(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("radius")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRadius: Self[T] = {
+    def withoutRadius: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("radius")(js.undefined)
         ret
     }
     @scala.inline
-    def withRefX(value: Double | String): Self[T] = {
+    def withRefX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("refX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRefX: Self[T] = {
+    def withoutRefX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("refX")(js.undefined)
         ret
     }
     @scala.inline
-    def withRefY(value: Double | String): Self[T] = {
+    def withRefY(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("refY")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRefY: Self[T] = {
+    def withoutRefY: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("refY")(js.undefined)
         ret
     }
     @scala.inline
-    def withRenderingIntent(value: Double | String): Self[T] = {
+    def withRenderingIntent(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("renderingIntent")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRenderingIntent: Self[T] = {
+    def withoutRenderingIntent: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("renderingIntent")(js.undefined)
         ret
     }
     @scala.inline
-    def withRepeatCount(value: Double | String): Self[T] = {
+    def withRepeatCount(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("repeatCount")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRepeatCount: Self[T] = {
+    def withoutRepeatCount: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("repeatCount")(js.undefined)
         ret
     }
     @scala.inline
-    def withRepeatDur(value: Double | String): Self[T] = {
+    def withRepeatDur(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("repeatDur")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRepeatDur: Self[T] = {
+    def withoutRepeatDur: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("repeatDur")(js.undefined)
         ret
     }
     @scala.inline
-    def withRequiredExtensions(value: Double | String): Self[T] = {
+    def withRequiredExtensions(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("requiredExtensions")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRequiredExtensions: Self[T] = {
+    def withoutRequiredExtensions: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("requiredExtensions")(js.undefined)
         ret
     }
     @scala.inline
-    def withRequiredFeatures(value: Double | String): Self[T] = {
+    def withRequiredFeatures(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFeatures")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRequiredFeatures: Self[T] = {
+    def withoutRequiredFeatures: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFeatures")(js.undefined)
         ret
     }
     @scala.inline
-    def withRestart(value: Double | String): Self[T] = {
+    def withRestart(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("restart")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRestart: Self[T] = {
+    def withoutRestart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("restart")(js.undefined)
         ret
     }
     @scala.inline
-    def withResult(value: String): Self[T] = {
+    def withResult(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("result")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutResult: Self[T] = {
+    def withoutResult: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("result")(js.undefined)
         ret
     }
     @scala.inline
-    def withRole(value: String): Self[T] = {
+    def withRole(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("role")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRole: Self[T] = {
+    def withoutRole: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("role")(js.undefined)
         ret
     }
     @scala.inline
-    def withRotate(value: Double | String): Self[T] = {
+    def withRotate(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("rotate")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRotate: Self[T] = {
+    def withoutRotate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("rotate")(js.undefined)
         ret
     }
     @scala.inline
-    def withRx(value: Double | String): Self[T] = {
+    def withRx(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("rx")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRx: Self[T] = {
+    def withoutRx: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("rx")(js.undefined)
         ret
     }
     @scala.inline
-    def withRy(value: Double | String): Self[T] = {
+    def withRy(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ry")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutRy: Self[T] = {
+    def withoutRy: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("ry")(js.undefined)
         ret
     }
     @scala.inline
-    def withScale(value: Double | String): Self[T] = {
+    def withScale(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("scale")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutScale: Self[T] = {
+    def withoutScale: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("scale")(js.undefined)
         ret
     }
     @scala.inline
-    def withSeed(value: Double | String): Self[T] = {
+    def withSeed(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("seed")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSeed: Self[T] = {
+    def withoutSeed: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("seed")(js.undefined)
         ret
     }
     @scala.inline
-    def withShapeRendering(value: Double | String): Self[T] = {
+    def withShapeRendering(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("shapeRendering")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutShapeRendering: Self[T] = {
+    def withoutShapeRendering: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("shapeRendering")(js.undefined)
         ret
     }
     @scala.inline
-    def withSlope(value: Double | String): Self[T] = {
+    def withSlope(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("slope")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSlope: Self[T] = {
+    def withoutSlope: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("slope")(js.undefined)
         ret
     }
     @scala.inline
-    def withSpacing(value: Double | String): Self[T] = {
+    def withSpacing(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("spacing")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSpacing: Self[T] = {
+    def withoutSpacing: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("spacing")(js.undefined)
         ret
     }
     @scala.inline
-    def withSpecularConstant(value: Double | String): Self[T] = {
+    def withSpecularConstant(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("specularConstant")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSpecularConstant: Self[T] = {
+    def withoutSpecularConstant: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("specularConstant")(js.undefined)
         ret
     }
     @scala.inline
-    def withSpecularExponent(value: Double | String): Self[T] = {
+    def withSpecularExponent(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("specularExponent")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSpecularExponent: Self[T] = {
+    def withoutSpecularExponent: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("specularExponent")(js.undefined)
         ret
     }
     @scala.inline
-    def withSpeed(value: Double | String): Self[T] = {
+    def withSpeed(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("speed")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSpeed: Self[T] = {
+    def withoutSpeed: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("speed")(js.undefined)
         ret
     }
     @scala.inline
-    def withSpreadMethod(value: String): Self[T] = {
+    def withSpreadMethod(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("spreadMethod")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSpreadMethod: Self[T] = {
+    def withoutSpreadMethod: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("spreadMethod")(js.undefined)
         ret
     }
     @scala.inline
-    def withStartOffset(value: Double | String): Self[T] = {
+    def withStartOffset(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("startOffset")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStartOffset: Self[T] = {
+    def withoutStartOffset: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("startOffset")(js.undefined)
         ret
     }
     @scala.inline
-    def withStdDeviation(value: Double | String): Self[T] = {
+    def withStdDeviation(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stdDeviation")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStdDeviation: Self[T] = {
+    def withoutStdDeviation: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stdDeviation")(js.undefined)
         ret
     }
     @scala.inline
-    def withStemh(value: Double | String): Self[T] = {
+    def withStemh(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stemh")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStemh: Self[T] = {
+    def withoutStemh: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stemh")(js.undefined)
         ret
     }
     @scala.inline
-    def withStemv(value: Double | String): Self[T] = {
+    def withStemv(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stemv")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStemv: Self[T] = {
+    def withoutStemv: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stemv")(js.undefined)
         ret
     }
     @scala.inline
-    def withStitchTiles(value: Double | String): Self[T] = {
+    def withStitchTiles(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stitchTiles")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStitchTiles: Self[T] = {
+    def withoutStitchTiles: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stitchTiles")(js.undefined)
         ret
     }
     @scala.inline
-    def withStopColor(value: String): Self[T] = {
+    def withStopColor(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stopColor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStopColor: Self[T] = {
+    def withoutStopColor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stopColor")(js.undefined)
         ret
     }
     @scala.inline
-    def withStopOpacity(value: Double | String): Self[T] = {
+    def withStopOpacity(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stopOpacity")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStopOpacity: Self[T] = {
+    def withoutStopOpacity: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stopOpacity")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrikethroughPosition(value: Double | String): Self[T] = {
+    def withStrikethroughPosition(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughPosition")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrikethroughPosition: Self[T] = {
+    def withoutStrikethroughPosition: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughPosition")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrikethroughThickness(value: Double | String): Self[T] = {
+    def withStrikethroughThickness(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughThickness")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrikethroughThickness: Self[T] = {
+    def withoutStrikethroughThickness: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughThickness")(js.undefined)
         ret
     }
     @scala.inline
-    def withString(value: Double | String): Self[T] = {
+    def withString(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("string")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutString: Self[T] = {
+    def withoutString: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("string")(js.undefined)
         ret
     }
     @scala.inline
-    def withStroke(value: String): Self[T] = {
+    def withStroke(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stroke")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStroke: Self[T] = {
+    def withoutStroke: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("stroke")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeDasharray(value: String | Double): Self[T] = {
+    def withStrokeDasharray(value: String | Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDasharray")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeDasharray: Self[T] = {
+    def withoutStrokeDasharray: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDasharray")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeDashoffset(value: String | Double): Self[T] = {
+    def withStrokeDashoffset(value: String | Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDashoffset")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeDashoffset: Self[T] = {
+    def withoutStrokeDashoffset: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDashoffset")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeLinecap(value: butt | round | square | inherit): Self[T] = {
+    def withStrokeLinecap(value: butt | round | square | inherit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinecap")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeLinecap: Self[T] = {
+    def withoutStrokeLinecap: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinecap")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeLinejoin(value: miter | round | bevel | inherit): Self[T] = {
+    def withStrokeLinejoin(value: miter | round | bevel | inherit): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinejoin")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeLinejoin: Self[T] = {
+    def withoutStrokeLinejoin: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinejoin")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeMiterlimit(value: Double | String): Self[T] = {
+    def withStrokeMiterlimit(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeMiterlimit")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeMiterlimit: Self[T] = {
+    def withoutStrokeMiterlimit: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeMiterlimit")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeOpacity(value: Double | String): Self[T] = {
+    def withStrokeOpacity(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeOpacity")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeOpacity: Self[T] = {
+    def withoutStrokeOpacity: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeOpacity")(js.undefined)
         ret
     }
     @scala.inline
-    def withStrokeWidth(value: Double | String): Self[T] = {
+    def withStrokeWidth(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeWidth")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStrokeWidth: Self[T] = {
+    def withoutStrokeWidth: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("strokeWidth")(js.undefined)
         ret
     }
     @scala.inline
-    def withStyle(value: CSSProperties): Self[T] = {
+    def withStyle(value: CSSProperties): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("style")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStyle: Self[T] = {
+    def withoutStyle: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("style")(js.undefined)
         ret
     }
     @scala.inline
-    def withSurfaceScale(value: Double | String): Self[T] = {
+    def withSurfaceScale(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("surfaceScale")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSurfaceScale: Self[T] = {
+    def withoutSurfaceScale: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("surfaceScale")(js.undefined)
         ret
     }
     @scala.inline
-    def withSystemLanguage(value: Double | String): Self[T] = {
+    def withSystemLanguage(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("systemLanguage")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutSystemLanguage: Self[T] = {
+    def withoutSystemLanguage: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("systemLanguage")(js.undefined)
         ret
     }
     @scala.inline
-    def withTabIndex(value: Double): Self[T] = {
+    def withTabIndex(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("tabIndex")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTabIndex: Self[T] = {
+    def withoutTabIndex: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("tabIndex")(js.undefined)
         ret
     }
     @scala.inline
-    def withTableValues(value: Double | String): Self[T] = {
+    def withTableValues(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("tableValues")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTableValues: Self[T] = {
+    def withoutTableValues: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("tableValues")(js.undefined)
         ret
     }
     @scala.inline
-    def withTarget(value: String): Self[T] = {
+    def withTarget(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("target")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTarget: Self[T] = {
+    def withoutTarget: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("target")(js.undefined)
         ret
     }
     @scala.inline
-    def withTargetX(value: Double | String): Self[T] = {
+    def withTargetX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("targetX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTargetX: Self[T] = {
+    def withoutTargetX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("targetX")(js.undefined)
         ret
     }
     @scala.inline
-    def withTargetY(value: Double | String): Self[T] = {
+    def withTargetY(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("targetY")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTargetY: Self[T] = {
+    def withoutTargetY: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("targetY")(js.undefined)
         ret
     }
     @scala.inline
-    def withTextAnchor(value: String): Self[T] = {
+    def withTextAnchor(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textAnchor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTextAnchor: Self[T] = {
+    def withoutTextAnchor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textAnchor")(js.undefined)
         ret
     }
     @scala.inline
-    def withTextDecoration(value: Double | String): Self[T] = {
+    def withTextDecoration(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textDecoration")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTextDecoration: Self[T] = {
+    def withoutTextDecoration: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textDecoration")(js.undefined)
         ret
     }
     @scala.inline
-    def withTextLength(value: Double | String): Self[T] = {
+    def withTextLength(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textLength")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTextLength: Self[T] = {
+    def withoutTextLength: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textLength")(js.undefined)
         ret
     }
     @scala.inline
-    def withTextRendering(value: Double | String): Self[T] = {
+    def withTextRendering(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textRendering")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTextRendering: Self[T] = {
+    def withoutTextRendering: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("textRendering")(js.undefined)
         ret
     }
     @scala.inline
-    def withTo(value: Double | String): Self[T] = {
+    def withTo(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("to")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTo: Self[T] = {
+    def withoutTo: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("to")(js.undefined)
         ret
     }
     @scala.inline
-    def withTransform(value: String): Self[T] = {
+    def withTransform(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("transform")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutTransform: Self[T] = {
+    def withoutTransform: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("transform")(js.undefined)
         ret
     }
     @scala.inline
-    def withType(value: String): Self[T] = {
+    def withType(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutType: Self[T] = {
+    def withoutType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
         ret
     }
     @scala.inline
-    def withU1(value: Double | String): Self[T] = {
+    def withU1(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("u1")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutU1: Self[T] = {
+    def withoutU1: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("u1")(js.undefined)
         ret
     }
     @scala.inline
-    def withU2(value: Double | String): Self[T] = {
+    def withU2(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("u2")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutU2: Self[T] = {
+    def withoutU2: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("u2")(js.undefined)
         ret
     }
     @scala.inline
-    def withUnderlinePosition(value: Double | String): Self[T] = {
+    def withUnderlinePosition(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("underlinePosition")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutUnderlinePosition: Self[T] = {
+    def withoutUnderlinePosition: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("underlinePosition")(js.undefined)
         ret
     }
     @scala.inline
-    def withUnderlineThickness(value: Double | String): Self[T] = {
+    def withUnderlineThickness(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("underlineThickness")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutUnderlineThickness: Self[T] = {
+    def withoutUnderlineThickness: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("underlineThickness")(js.undefined)
         ret
     }
     @scala.inline
-    def withUnicode(value: Double | String): Self[T] = {
+    def withUnicode(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unicode")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutUnicode: Self[T] = {
+    def withoutUnicode: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unicode")(js.undefined)
         ret
     }
     @scala.inline
-    def withUnicodeBidi(value: Double | String): Self[T] = {
+    def withUnicodeBidi(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeBidi")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutUnicodeBidi: Self[T] = {
+    def withoutUnicodeBidi: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeBidi")(js.undefined)
         ret
     }
     @scala.inline
-    def withUnicodeRange(value: Double | String): Self[T] = {
+    def withUnicodeRange(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeRange")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutUnicodeRange: Self[T] = {
+    def withoutUnicodeRange: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeRange")(js.undefined)
         ret
     }
     @scala.inline
-    def withUnitsPerEm(value: Double | String): Self[T] = {
+    def withUnitsPerEm(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unitsPerEm")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutUnitsPerEm: Self[T] = {
+    def withoutUnitsPerEm: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("unitsPerEm")(js.undefined)
         ret
     }
     @scala.inline
-    def withVAlphabetic(value: Double | String): Self[T] = {
+    def withVAlphabetic(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vAlphabetic")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVAlphabetic: Self[T] = {
+    def withoutVAlphabetic: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vAlphabetic")(js.undefined)
         ret
     }
     @scala.inline
-    def withVHanging(value: Double | String): Self[T] = {
+    def withVHanging(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vHanging")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVHanging: Self[T] = {
+    def withoutVHanging: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vHanging")(js.undefined)
         ret
     }
     @scala.inline
-    def withVIdeographic(value: Double | String): Self[T] = {
+    def withVIdeographic(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vIdeographic")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVIdeographic: Self[T] = {
+    def withoutVIdeographic: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vIdeographic")(js.undefined)
         ret
     }
     @scala.inline
-    def withVMathematical(value: Double | String): Self[T] = {
+    def withVMathematical(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vMathematical")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVMathematical: Self[T] = {
+    def withoutVMathematical: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vMathematical")(js.undefined)
         ret
     }
     @scala.inline
-    def withValues(value: String): Self[T] = {
+    def withValues(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("values")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutValues: Self[T] = {
+    def withoutValues: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("values")(js.undefined)
         ret
     }
     @scala.inline
-    def withVectorEffect(value: Double | String): Self[T] = {
+    def withVectorEffect(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vectorEffect")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVectorEffect: Self[T] = {
+    def withoutVectorEffect: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vectorEffect")(js.undefined)
         ret
     }
     @scala.inline
-    def withVersion(value: String): Self[T] = {
+    def withVersion(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("version")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVersion: Self[T] = {
+    def withoutVersion: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("version")(js.undefined)
         ret
     }
     @scala.inline
-    def withVertAdvY(value: Double | String): Self[T] = {
+    def withVertAdvY(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vertAdvY")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVertAdvY: Self[T] = {
+    def withoutVertAdvY: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vertAdvY")(js.undefined)
         ret
     }
     @scala.inline
-    def withVertOriginX(value: Double | String): Self[T] = {
+    def withVertOriginX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginX")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVertOriginX: Self[T] = {
+    def withoutVertOriginX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginX")(js.undefined)
         ret
     }
     @scala.inline
-    def withVertOriginY(value: Double | String): Self[T] = {
+    def withVertOriginY(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginY")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVertOriginY: Self[T] = {
+    def withoutVertOriginY: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginY")(js.undefined)
         ret
     }
     @scala.inline
-    def withViewBox(value: String): Self[T] = {
+    def withViewBox(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("viewBox")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutViewBox: Self[T] = {
+    def withoutViewBox: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("viewBox")(js.undefined)
         ret
     }
     @scala.inline
-    def withViewTarget(value: Double | String): Self[T] = {
+    def withViewTarget(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("viewTarget")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutViewTarget: Self[T] = {
+    def withoutViewTarget: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("viewTarget")(js.undefined)
         ret
     }
     @scala.inline
-    def withVisibility(value: Double | String): Self[T] = {
+    def withVisibility(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("visibility")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutVisibility: Self[T] = {
+    def withoutVisibility: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("visibility")(js.undefined)
         ret
     }
     @scala.inline
-    def withWidth(value: Double | String): Self[T] = {
+    def withWidth(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("width")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutWidth: Self[T] = {
+    def withoutWidth: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("width")(js.undefined)
         ret
     }
     @scala.inline
-    def withWidths(value: Double | String): Self[T] = {
+    def withWidths(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("widths")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutWidths: Self[T] = {
+    def withoutWidths: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("widths")(js.undefined)
         ret
     }
     @scala.inline
-    def withWordSpacing(value: Double | String): Self[T] = {
+    def withWordSpacing(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("wordSpacing")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutWordSpacing: Self[T] = {
+    def withoutWordSpacing: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("wordSpacing")(js.undefined)
         ret
     }
     @scala.inline
-    def withWritingMode(value: Double | String): Self[T] = {
+    def withWritingMode(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("writingMode")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutWritingMode: Self[T] = {
+    def withoutWritingMode: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("writingMode")(js.undefined)
         ret
     }
     @scala.inline
-    def withX(value: Double | String): Self[T] = {
+    def withX(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("x")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutX: Self[T] = {
+    def withoutX: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("x")(js.undefined)
         ret
     }
     @scala.inline
-    def withX1(value: Double | String): Self[T] = {
+    def withX1(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("x1")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutX1: Self[T] = {
+    def withoutX1: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("x1")(js.undefined)
         ret
     }
     @scala.inline
-    def withX2(value: Double | String): Self[T] = {
+    def withX2(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("x2")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutX2: Self[T] = {
+    def withoutX2: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("x2")(js.undefined)
         ret
     }
     @scala.inline
-    def withXChannelSelector(value: String): Self[T] = {
+    def withXChannelSelector(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xChannelSelector")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXChannelSelector: Self[T] = {
+    def withoutXChannelSelector: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xChannelSelector")(js.undefined)
         ret
     }
     @scala.inline
-    def withXHeight(value: Double | String): Self[T] = {
+    def withXHeight(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xHeight")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXHeight: Self[T] = {
+    def withoutXHeight: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xHeight")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkActuate(value: String): Self[T] = {
+    def withXlinkActuate(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkActuate")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkActuate: Self[T] = {
+    def withoutXlinkActuate: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkActuate")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkArcrole(value: String): Self[T] = {
+    def withXlinkArcrole(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkArcrole")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkArcrole: Self[T] = {
+    def withoutXlinkArcrole: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkArcrole")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkHref(value: String): Self[T] = {
+    def withXlinkHref(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkHref")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkHref: Self[T] = {
+    def withoutXlinkHref: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkHref")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkRole(value: String): Self[T] = {
+    def withXlinkRole(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkRole")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkRole: Self[T] = {
+    def withoutXlinkRole: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkRole")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkShow(value: String): Self[T] = {
+    def withXlinkShow(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkShow")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkShow: Self[T] = {
+    def withoutXlinkShow: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkShow")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkTitle(value: String): Self[T] = {
+    def withXlinkTitle(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkTitle")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkTitle: Self[T] = {
+    def withoutXlinkTitle: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkTitle")(js.undefined)
         ret
     }
     @scala.inline
-    def withXlinkType(value: String): Self[T] = {
+    def withXlinkType(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkType")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXlinkType: Self[T] = {
+    def withoutXlinkType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkType")(js.undefined)
         ret
     }
     @scala.inline
-    def withXmlBase(value: String): Self[T] = {
+    def withXmlBase(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlBase")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXmlBase: Self[T] = {
+    def withoutXmlBase: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlBase")(js.undefined)
         ret
     }
     @scala.inline
-    def withXmlLang(value: String): Self[T] = {
+    def withXmlLang(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlLang")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXmlLang: Self[T] = {
+    def withoutXmlLang: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlLang")(js.undefined)
         ret
     }
     @scala.inline
-    def withXmlSpace(value: String): Self[T] = {
+    def withXmlSpace(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlSpace")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXmlSpace: Self[T] = {
+    def withoutXmlSpace: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlSpace")(js.undefined)
         ret
     }
     @scala.inline
-    def withXmlns(value: String): Self[T] = {
+    def withXmlns(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlns")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXmlns: Self[T] = {
+    def withoutXmlns: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlns")(js.undefined)
         ret
     }
     @scala.inline
-    def withXmlnsXlink(value: String): Self[T] = {
+    def withXmlnsXlink(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlnsXlink")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutXmlnsXlink: Self[T] = {
+    def withoutXmlnsXlink: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("xmlnsXlink")(js.undefined)
         ret
     }
     @scala.inline
-    def withY(value: Double | String): Self[T] = {
+    def withY(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("y")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutY: Self[T] = {
+    def withoutY: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("y")(js.undefined)
         ret
     }
     @scala.inline
-    def withY1(value: Double | String): Self[T] = {
+    def withY1(value: Double | String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("y1")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutY1: Self[T] = {
+    def withoutY1: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("y1")(js.undefined)
         ret

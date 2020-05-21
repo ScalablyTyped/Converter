@@ -22,6 +22,11 @@ object ReactSelect {
   }
   
   def withProps[TValue](p: ReactSelectProps[TValue]): Builder[TValue] = new Builder[TValue](js.Array(this.component, p.asInstanceOf[js.Any]))
+  @scala.inline
+  def apply[TValue](): Builder[TValue] = {
+    val __props = js.Dynamic.literal()
+    new Builder[TValue](js.Array(this.component, __props.asInstanceOf[ReactSelectProps[TValue]]))
+  }
   implicit def make[TValue](companion: ReactSelect.type): Builder[TValue] = new Builder[TValue](js.Array(this.component, js.Dictionary.empty))()
 }
 

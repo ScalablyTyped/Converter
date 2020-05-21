@@ -25,103 +25,103 @@ object Mixin {
     __obj.asInstanceOf[Mixin[P, S]]
   }
   @scala.inline
-  implicit class MixinOps[Self[p, s] <: Mixin[p, s], P, S] (val x: Self[P, S]) extends AnyVal {
+  implicit class MixinOps[Self <: Mixin[_, _], P, S] (val x: Self with (Mixin[P, S])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildContextTypes(value: ValidationMap[_]): Self[P, S] = {
+    def withChildContextTypes(value: ValidationMap[_]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("childContextTypes")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutChildContextTypes: Self[P, S] = {
+    def withoutChildContextTypes: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("childContextTypes")(js.undefined)
         ret
     }
     @scala.inline
-    def withContextTypes(value: ValidationMap[_]): Self[P, S] = {
+    def withContextTypes(value: ValidationMap[_]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("contextTypes")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutContextTypes: Self[P, S] = {
+    def withoutContextTypes: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("contextTypes")(js.undefined)
         ret
     }
     @scala.inline
-    def withDisplayName(value: String): Self[P, S] = {
+    def withDisplayName(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("displayName")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutDisplayName: Self[P, S] = {
+    def withoutDisplayName: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("displayName")(js.undefined)
         ret
     }
     @scala.inline
-    def withGetDefaultProps(value: () => P): Self[P, S] = {
+    def withGetDefaultProps(value: () => P): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getDefaultProps")(js.Any.fromFunction0(value))
         ret
     }
     @scala.inline
-    def withoutGetDefaultProps: Self[P, S] = {
+    def withoutGetDefaultProps: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getDefaultProps")(js.undefined)
         ret
     }
     @scala.inline
-    def withGetInitialState(value: () => S): Self[P, S] = {
+    def withGetInitialState(value: () => S): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getInitialState")(js.Any.fromFunction0(value))
         ret
     }
     @scala.inline
-    def withoutGetInitialState: Self[P, S] = {
+    def withoutGetInitialState: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("getInitialState")(js.undefined)
         ret
     }
     @scala.inline
-    def withMixins(value: js.Array[Mixin[P, S]]): Self[P, S] = {
+    def withMixins(value: js.Array[Mixin[P, S]]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mixins")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutMixins: Self[P, S] = {
+    def withoutMixins: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("mixins")(js.undefined)
         ret
     }
     @scala.inline
-    def withPropTypes(value: ValidationMap[_]): Self[P, S] = {
+    def withPropTypes(value: ValidationMap[_]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutPropTypes: Self[P, S] = {
+    def withoutPropTypes: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("propTypes")(js.undefined)
         ret
     }
     @scala.inline
-    def withStatics(value: StringDictionary[js.Any]): Self[P, S] = {
+    def withStatics(value: StringDictionary[js.Any]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("statics")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStatics: Self[P, S] = {
+    def withoutStatics: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("statics")(js.undefined)
         ret

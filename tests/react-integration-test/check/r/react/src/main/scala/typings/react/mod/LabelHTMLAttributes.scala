@@ -17,31 +17,31 @@ object LabelHTMLAttributes {
     __obj.asInstanceOf[LabelHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class LabelHTMLAttributesOps[Self[t] <: LabelHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class LabelHTMLAttributesOps[Self <: LabelHTMLAttributes[_], T] (val x: Self with LabelHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withForm(value: String): Self[T] = {
+    def withForm(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("form")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutForm: Self[T] = {
+    def withoutForm: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("form")(js.undefined)
         ret
     }
     @scala.inline
-    def withHtmlFor(value: String): Self[T] = {
+    def withHtmlFor(value: String): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("htmlFor")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutHtmlFor: Self[T] = {
+    def withoutHtmlFor: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("htmlFor")(js.undefined)
         ret

@@ -21,13 +21,13 @@ object ComponentSpec {
     __obj.asInstanceOf[ComponentSpec[P, S]]
   }
   @scala.inline
-  implicit class ComponentSpecOps[Self[p, s] <: ComponentSpec[p, s], P, S] (val x: Self[P, S]) extends AnyVal {
+  implicit class ComponentSpecOps[Self <: ComponentSpec[_, _], P, S] (val x: Self with (ComponentSpec[P, S])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withRender(value: CallbackTo[Node]): Self[P, S] = {
+    def withRender(value: CallbackTo[Node]): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("render")(value.toJsFn)
         ret

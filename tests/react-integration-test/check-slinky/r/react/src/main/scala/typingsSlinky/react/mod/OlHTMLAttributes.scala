@@ -23,43 +23,43 @@ object OlHTMLAttributes {
     __obj.asInstanceOf[OlHTMLAttributes[T]]
   }
   @scala.inline
-  implicit class OlHTMLAttributesOps[Self[t] <: OlHTMLAttributes[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class OlHTMLAttributesOps[Self <: OlHTMLAttributes[_], T] (val x: Self with OlHTMLAttributes[T]) extends AnyVal {
     @scala.inline
-    def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withReversed(value: Boolean): Self[T] = {
+    def withReversed(value: Boolean): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("reversed")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutReversed: Self[T] = {
+    def withoutReversed: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("reversed")(js.undefined)
         ret
     }
     @scala.inline
-    def withStart(value: Double): Self[T] = {
+    def withStart(value: Double): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("start")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutStart: Self[T] = {
+    def withoutStart: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("start")(js.undefined)
         ret
     }
     @scala.inline
-    def withType(value: `1` | a_ | A | i_ | I): Self[T] = {
+    def withType(value: `1` | a_ | A | i_ | I): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withoutType: Self[T] = {
+    def withoutType: Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
         ret

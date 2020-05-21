@@ -20,19 +20,19 @@ object Foo2 {
     __obj.asInstanceOf[Foo2[U, V]]
   }
   @scala.inline
-  implicit class Foo2Ops[Self[u, v] <: Foo2[u, v], U, V] (val x: Self[U, V]) extends AnyVal {
+  implicit class Foo2Ops[Self <: Foo2[_, _], U, V] (val x: Self with (Foo2[U, V])) extends AnyVal {
     @scala.inline
-    def duplicate: Self[U, V] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[U, V]]
+    def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other <: js.Any](other: Other): (Self[U, V]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[U, V]) with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withU(value: U): Self[U, V] = {
+    def withU(value: U): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("u")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline
-    def withV(value: V): Self[U, V] = {
+    def withV(value: V): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("v")(value.asInstanceOf[js.Any])
         ret
