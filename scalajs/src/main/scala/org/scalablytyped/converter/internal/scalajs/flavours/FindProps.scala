@@ -82,7 +82,11 @@ object FindProps {
   def keepAll(p: IArray[Prop]): (IArray[Prop], Unit) = (p, ())
 }
 
-final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: MemberToProp) {
+final class FindProps(
+    cleanIllegalNames: CleanIllegalNames,
+    memberToProp:      MemberToProp,
+    parentsResolver:   ParentsResolver,
+) {
 
   def forType[No](
       typeRef:            TypeRef,
@@ -155,7 +159,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: Member
         if (cls.classType =/= ClassType.Trait) Res.Error("Not a trait")
         else if (!acceptNativeTraits && !cls.receivesCompanion) Res.Error("Not a @ScalaJSDefined trait")
         else {
-          val parents = ParentsResolver(scope, cls)
+          val parents = parentsResolver(scope, cls)
 
           /* treat dictionaries specially, as they have no declared members */
           val (treatAsUnresolved, keptDirectParents) =

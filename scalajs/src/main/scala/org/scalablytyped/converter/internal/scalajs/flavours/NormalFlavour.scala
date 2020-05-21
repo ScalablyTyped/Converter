@@ -17,7 +17,7 @@ case class NormalFlavour(
   val genComponentsOpt = if (shouldGenerateComponents) Some(new GenReactFacadeComponents(reactNames)) else None
   val rewriterOpt      = if (shouldUseScalaJsDomTypes) Some(new TypeRewriterCast(scalaJsDomNames.All)) else None
   val memberToProp     = new MemberToProp.Default(rewriterOpt)
-  val findProps        = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
+  val findProps        = new FindProps(new CleanIllegalNames(outputPkg), memberToProp, parentsResolver)
   val genCompanions    = new GenCompanions(findProps, enableImplicitOps)
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {

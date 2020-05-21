@@ -11,10 +11,11 @@ trait FlavourImpl {
 }
 
 trait FlavourImplReact extends FlavourImpl {
+  lazy val parentsResolver    = new ParentsResolver
   lazy val stdNames           = new QualifiedName.StdNames(outputPkg)
   lazy val scalaJsDomNames    = new ScalaJsDomNames(stdNames)
   lazy val reactNames         = new ReactNames(outputPkg)
-  lazy val identifyComponents = new IdentifyReactComponents(reactNames)
+  lazy val identifyComponents = new IdentifyReactComponents(reactNames, parentsResolver)
 
   def involvesReact(scope: TreeScope): Boolean = {
     val react = Name("react")

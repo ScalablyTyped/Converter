@@ -4,10 +4,10 @@ package importer
 import java.time.{Instant, ZonedDateTime}
 
 import com.olvind.logging.{Formatter, Logger}
-import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Phase2Res.{Facade, LibScalaJs}
 import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs._
 import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl
@@ -134,7 +134,7 @@ class Phase3Compile(
               outputPkg     = flavour.outputPkg,
             )
 
-            val scalaFiles    = Printer(scope, lib.packageTree)
+            val scalaFiles    = Printer(scope, new ParentsResolver, lib.packageTree)
             val sourcesDir    = os.RelPath("src") / 'main / 'scala
             val resourcesDir  = os.RelPath("src") / 'main / 'resources
             val metadataOpt   = Try(Await.result(metadataFetcher(lib.source, logger), 2.seconds)).toOption.flatten

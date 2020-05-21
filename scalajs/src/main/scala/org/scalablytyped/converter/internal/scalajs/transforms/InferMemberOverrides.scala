@@ -7,9 +7,9 @@ import org.scalablytyped.converter.internal.maps.sum
 
 /**
   * When a class inherits the same method/field from two ancestors,
-  *  we need to provide an override
+  * we need to provide an override
   */
-object InferMemberOverrides extends TreeTransformation {
+class InferMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveModuleTree(scope: TreeScope)(mod: ModuleTree): ModuleTree =
     if (mod.parents.length > 1 && mod.isNative)
@@ -22,7 +22,7 @@ object InferMemberOverrides extends TreeTransformation {
     else cls
 
   private def newMembers(scope: TreeScope, tree: InheritanceTree, members: IArray[Tree]): IArray[Tree] = {
-    val root = ParentsResolver(scope, tree)
+    val root = parentsResolver(scope, tree)
 
     val (methods, fields, _) = members.partitionCollect2(
       { case x: MethodTree => x },

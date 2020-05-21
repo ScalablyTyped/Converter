@@ -151,7 +151,6 @@ object Ci {
 
 class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoinPool, ec: ExecutionContext) {
   val RunId                      = constants.DateTimePattern format LocalDateTime.now
-  val t0                         = System.currentTimeMillis
   private val storingErrorLogger = logging.storing()
   private val logsFolder         = files.existing(paths.cacheFolder / 'logs)
 
@@ -293,6 +292,8 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         TsIdent.std,
       )
     }
+
+    val t0 = System.currentTimeMillis
 
     val Pipeline: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]

@@ -11,7 +11,7 @@ package transforms
   *
   * Note that no subtype calculation is done for now.
   */
-object FilterMemberOverrides extends TreeTransformation {
+class FilterMemberOverrides(parentsResolver: ParentsResolver) extends TreeTransformation {
 
   override def leaveClassTree(scope: TreeScope)(s: ClassTree): ClassTree =
     s.copy(members = newMembers(scope, s, s.members, s.parents))
@@ -41,7 +41,7 @@ object FilterMemberOverrides extends TreeTransformation {
 
     val parents: Map[TypeRef, ClassTree] =
       owner match {
-        case x: InheritanceTree => ParentsResolver(scope, x).transitiveParents
+        case x: InheritanceTree => parentsResolver(scope, x).transitiveParents
         case _ => Map.empty
       }
 

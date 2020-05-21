@@ -10,7 +10,9 @@ object ShortenNames {
 
   case class ImportTree(imported: QualifiedName)
 
-  def apply(owner: ContainerTree, scope: TreeScope)(members: IArray[Tree]): (IArray[ImportTree], IArray[Tree]) = {
+  def apply(owner: ContainerTree, scope: TreeScope, parentsResolver: ParentsResolver)(
+      members:     IArray[Tree],
+  ): (IArray[ImportTree], IArray[Tree]) = {
     val collectedImports = mutable.Map.empty[Name, QualifiedName]
 
     object V extends TreeTransformation {
@@ -65,7 +67,7 @@ object ShortenNames {
               !TypeRef.ScalaFunction.is(longName) &&
               !longName.startsWith(QualifiedName.scala_js) &&
               /* keep more expensive check last */
-              !nameCollision(scope, longName, methodsAreConflict = methodsAreConflict)) {
+              !nameCollision(scope, parentsResolver, longName, methodsAreConflict = methodsAreConflict)) {
 
             collectedImports.get(shortName) match {
               case Some(alreadyImported) =>
@@ -116,7 +118,12 @@ object ShortenNames {
     }
 
   object nameCollision {
-    def apply(scope: TreeScope, longName: QualifiedName, methodsAreConflict: Boolean): Boolean =
+    def apply(
+        scope:              TreeScope,
+        parentsResolver:    ParentsResolver,
+        longName:           QualifiedName,
+        methodsAreConflict: Boolean,
+    ): Boolean =
       dropOuterPackages(scope).exists {
         case x: InheritanceTree =>
           val ctorClash = x match {
@@ -126,7 +133,7 @@ object ShortenNames {
 
           (x.name === longName.parts.last && x.codePath =/= longName) ||
           among(x.index, longName, methodsAreConflict) ||
-          amongParents(scope, x, longName, methodsAreConflict) ||
+          amongParents(scope, parentsResolver, x, longName, methodsAreConflict) ||
           ctorClash
         case x: PackageTree =>
           (x.name === longName.parts.last && x.codePath =/= longName) || among(
@@ -151,11 +158,12 @@ object ShortenNames {
 
     private def amongParents(
         scope:              TreeScope,
+        parentsResolver:    ParentsResolver,
         x:                  InheritanceTree,
         longName:           QualifiedName,
         methodsAreConflict: Boolean,
     ): Boolean =
-      ParentsResolver(scope, x).transitiveParents.exists {
+      parentsResolver(scope, x).transitiveParents.exists {
         case (_, cls) => among(cls.index, longName, methodsAreConflict)
       }
 
