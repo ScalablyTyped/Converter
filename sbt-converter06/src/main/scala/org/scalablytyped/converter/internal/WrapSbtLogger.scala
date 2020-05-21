@@ -28,7 +28,7 @@ final class WrapSbtLogger(val underlying: ManagedLogger, ctx: Ctx, pattern: Patt
 object WrapSbtLogger {
   def apply(x: ManagedLogger, started: Instant) = new WrapSbtLogger(x, Map.empty, new WrapPattern(started))
 
-  class WrapPattern(started: Instant) extends Pattern {
+  final class WrapPattern(started: Instant) extends Pattern {
     @inline def colorFor(l: LogLevel): EscapeAttr =
       l.level match {
         case LogLevel.trace.level => Color.Reset
