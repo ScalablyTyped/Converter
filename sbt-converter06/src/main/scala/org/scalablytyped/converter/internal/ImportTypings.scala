@@ -60,8 +60,6 @@ object ImportTypings {
 
     val cachedParser = PersistingParser(parseCacheDirOpt, fromNodeModules.folders, logger)
 
-    val flavour = flavourImpl.forConversion(input.conversion)
-
     val Phases: RecPhase[Source, PublishedSbtProject] = RecPhase[Source]
       .next(
         new Phase1ReadTypescript(
@@ -84,14 +82,14 @@ object ImportTypings {
         ),
         "scala.js",
       )
-      .next(new PhaseFlavour(flavour), flavour.toString)
+      .next(new PhaseFlavour(input.conversion.flavourImpl), input.conversion.flavourImpl.toString)
       .next(
         new Phase3Compile(
           versions                   = input.conversion.versions,
           compiler                   = compiler,
           targetFolder               = input.targetFolder,
           publishLocalFolder         = publishLocalFolder,
-          flavour                    = flavour,
+          flavour                    = input.conversion.flavourImpl,
           organization               = input.conversion.organization,
           publisherOpt               = None,
           metadataFetcher            = Npmjs.No,
@@ -123,7 +121,7 @@ object ImportTypings {
     else
       Right(
         Output(
-          flavour.dependencies ++ successes.map(_._2.project.reference),
+          input.conversion.flavourImpl.dependencies ++ successes.map(_._2.project.reference),
           successes.foldLeft(Set[os.Path]()) { case (acc, (_, p)) => acc ++ p.localIvyFiles.all.keys },
         ),
       )

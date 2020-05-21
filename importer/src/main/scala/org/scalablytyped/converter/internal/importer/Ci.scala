@@ -294,8 +294,6 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
       )
     }
 
-    val flavour = flavourImpl.forConversion(config.conversion)
-
     val Pipeline: RecPhase[Source, PublishedSbtProject] =
       RecPhase[Source]
         .next(
@@ -319,7 +317,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
           ),
           "scala.js",
         )
-        .next(new PhaseFlavour(flavour), flavour.toString)
+        .next(new PhaseFlavour(config.conversion.flavourImpl), config.conversion.flavourImpl.toString)
         .next(
           new Phase3Compile(
             resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
@@ -331,7 +329,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             publishLocalFolder         = paths.publishLocalFolder,
             metadataFetcher            = NpmjsFetcher(paths.npmjs)(ec),
             softWrites                 = config.softWrites,
-            flavour                    = flavour,
+            flavour                    = config.conversion.flavourImpl,
             generateScalaJsBundlerFile = true,
             ensureSourceFilesWritten   = true,
           ),

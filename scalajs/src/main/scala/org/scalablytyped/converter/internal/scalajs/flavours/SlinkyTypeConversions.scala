@@ -3,15 +3,10 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TParam.{_1, _}
-import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.names._
 
 object SlinkyTypeConversions {
-  def apply(
-      scalaJsDomNames: ScalaJsDomNames,
-      reactNames:      ReactNames,
-      isWeb:           Boolean,
-  ): TypeRewriterCast = {
+  def apply(scalaJsDomNames: ScalaJsDomNames, reactNames: ReactNames, isWeb: Boolean): IArray[CastConversion] = {
     val react: IArray[CastConversion] =
       IArray(
         CastConversion(reactNames.ReactType, ReactComponentClass, _1),
@@ -51,8 +46,6 @@ object SlinkyTypeConversions {
 
     val shared = scalaJsDomNames.All ++ react ++ components
 
-    val conversions: IArray[CastConversion] = if (isWeb) shared ++ web else shared
-
-    TypeRewriterCast(conversions)
+    if (isWeb) shared ++ web else shared
   }
 }

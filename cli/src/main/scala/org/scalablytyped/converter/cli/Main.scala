@@ -259,8 +259,6 @@ object Main {
           Source.fromNodeModules(InFolder(nodeModulesPath), conversion, wantedLibs)
 
         val sources = _sources ++ projectSource
-        val flavour = flavourImpl.forConversion(conversion)
-
         val Pipeline: RecPhase[Source, PublishedSbtProject] =
           RecPhase[Source]
             .next(
@@ -284,7 +282,7 @@ object Main {
               ),
               "scala.js",
             )
-            .next(new PhaseFlavour(flavour), flavour.toString)
+            .next(new PhaseFlavour(conversion.flavourImpl), conversion.flavourImpl.toString)
             .next(
               new Phase3Compile(
                 resolve                    = libraryResolver,
@@ -296,7 +294,7 @@ object Main {
                 publishLocalFolder         = constants.defaultLocalPublishFolder,
                 metadataFetcher            = Npmjs.No,
                 softWrites                 = true,
-                flavour                    = flavour,
+                flavour                    = conversion.flavourImpl,
                 generateScalaJsBundlerFile = false,
                 ensureSourceFilesWritten   = true,
               ),

@@ -45,7 +45,7 @@ object CastConversion {
     case class Constrained(outer: TParam, among: Set[QualifiedName], default: QualifiedName) extends TParam
   }
 
-  final case class TypeRewriterCast(conversions: IArray[CastConversion]) extends TreeTransformation {
+  final class TypeRewriterCast(conversions: IArray[CastConversion]) extends TreeTransformation {
     val conversionsForTypeName: Map[QualifiedName, CastConversion] =
       conversions.map(x => x.from -> x).toMap
 

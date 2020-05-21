@@ -2,17 +2,18 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.FlavourImpl.ReactFlavourImpl
+import org.scalablytyped.converter.internal.scalajs.flavours.CastConversion.TypeRewriterCast
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 
-case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends ReactFlavourImpl {
+case class SlinkyFlavour(outputPkg: Name, enableImplicitOps: Boolean) extends FlavourImplReact {
 
   override val dependencies = Set(Versions.runtime, Versions.slinkyWeb)
-  val rewriter              = SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true)
+  val rewriter              = new TypeRewriterCast(SlinkyTypeConversions(scalaJsDomNames, reactNames, isWeb = true))
   val memberToProp          = new MemberToProp.Default(Some(rewriter))
   val findProps             = new FindProps(new CleanIllegalNames(outputPkg), memberToProp)
   val genCompanions         = new GenCompanions(findProps, enableImplicitOps)
 
+  /* we need the actual typescript react definitions at runtime to compute this lazily */
   private var cached = Option.empty[SlinkyWeb]
 
   final override def rewrittenTree(scope: TreeScope, tree: PackageTree): PackageTree = {
