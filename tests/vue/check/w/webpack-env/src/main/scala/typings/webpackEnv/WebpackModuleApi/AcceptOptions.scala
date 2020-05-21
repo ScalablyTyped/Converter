@@ -18,13 +18,8 @@ trait AcceptOptions extends js.Object {
 
 object AcceptOptions {
   @scala.inline
-  def apply(
-    autoApply: js.UndefOr[Boolean] = js.undefined,
-    ignoreUnaccepted: js.UndefOr[Boolean] = js.undefined
-  ): AcceptOptions = {
+  def apply(): AcceptOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(autoApply)) __obj.updateDynamic("autoApply")(autoApply.asInstanceOf[js.Any])
-    if (!js.isUndefined(ignoreUnaccepted)) __obj.updateDynamic("ignoreUnaccepted")(ignoreUnaccepted.asInstanceOf[js.Any])
     __obj.asInstanceOf[AcceptOptions]
   }
   @scala.inline
@@ -34,28 +29,28 @@ object AcceptOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAutoApply(autoApply: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(autoApply)) ret.updateDynamic("autoApply")(autoApply.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAutoApply(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("autoApply")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAutoApply: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "autoApply")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("autoApply")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIgnoreUnaccepted(ignoreUnaccepted: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(ignoreUnaccepted)) ret.updateDynamic("ignoreUnaccepted")(ignoreUnaccepted.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIgnoreUnaccepted(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ignoreUnaccepted")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIgnoreUnaccepted: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "ignoreUnaccepted")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ignoreUnaccepted")(js.undefined)
+        ret
     }
   }
   

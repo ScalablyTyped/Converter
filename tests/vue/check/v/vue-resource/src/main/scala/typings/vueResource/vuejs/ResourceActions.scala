@@ -35,40 +35,40 @@ object ResourceActions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDelete(delete: AnonMethod): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("delete")(delete.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDelete(value: AnonMethod): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("delete")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withGet(get: AnonMethod): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("get")(get.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withGet(value: AnonMethod): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("get")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withQuery(query: AnonMethod): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("query")(query.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withQuery(value: AnonMethod): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("query")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withRemove(remove: AnonMethod): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("remove")(remove.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withRemove(value: AnonMethod): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("remove")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withSave(save: AnonMethod): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("save")(save.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withSave(value: AnonMethod): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("save")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withUpdate(update: AnonMethod): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("update")(update.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withUpdate(value: AnonMethod): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("update")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

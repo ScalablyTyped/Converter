@@ -11,9 +11,8 @@ trait ChartData extends js.Object {
 
 object ChartData {
   @scala.inline
-  def apply(labels: js.Array[String | js.Array[String]] = null): ChartData = {
+  def apply(): ChartData = {
     val __obj = js.Dynamic.literal()
-    if (labels != null) __obj.updateDynamic("labels")(labels.asInstanceOf[js.Any])
     __obj.asInstanceOf[ChartData]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object ChartData {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withLabels(labels: js.Array[String | js.Array[String]]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (labels != null) ret.updateDynamic("labels")(labels.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLabels(value: js.Array[String | js.Array[String]]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("labels")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLabels: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "labels")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("labels")(js.undefined)
+        ret
     }
   }
   

@@ -50,12 +50,7 @@ object BaseSyntheticEvent {
     timeStamp: Double,
     `type`: String
   ): BaseSyntheticEvent[E, C, T] = {
-    val __obj = js.Dynamic.literal(bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any])
-    __obj.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
-    __obj.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
-    __obj.updateDynamic("persist")(persist.toJsFn)
-    __obj.updateDynamic("preventDefault")(preventDefault.toJsFn)
-    __obj.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
+    val __obj = js.Dynamic.literal(bubbles = bubbles.asInstanceOf[js.Any], cancelable = cancelable.asInstanceOf[js.Any], currentTarget = currentTarget.asInstanceOf[js.Any], defaultPrevented = defaultPrevented.asInstanceOf[js.Any], eventPhase = eventPhase.asInstanceOf[js.Any], isDefaultPrevented = isDefaultPrevented.toJsFn, isPropagationStopped = isPropagationStopped.toJsFn, isTrusted = isTrusted.asInstanceOf[js.Any], nativeEvent = nativeEvent.asInstanceOf[js.Any], persist = persist.toJsFn, preventDefault = preventDefault.toJsFn, stopPropagation = stopPropagation.toJsFn, target = target.asInstanceOf[js.Any], timeStamp = timeStamp.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[BaseSyntheticEvent[E, C, T]]
   }
@@ -66,94 +61,94 @@ object BaseSyntheticEvent {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): (Self[E, C, T]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[E, C, T]) with Other]
     @scala.inline
-    def withBubbles(bubbles: Boolean): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("bubbles")(bubbles.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withBubbles(value: Boolean): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bubbles")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withCancelable(cancelable: Boolean): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("cancelable")(cancelable.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withCancelable(value: Boolean): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cancelable")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withCurrentTarget(currentTarget: C): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("currentTarget")(currentTarget.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withCurrentTarget(value: C): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("currentTarget")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withDefaultPrevented(defaultPrevented: Boolean): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("defaultPrevented")(defaultPrevented.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withDefaultPrevented(value: Boolean): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("defaultPrevented")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withEventPhase(eventPhase: Double): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("eventPhase")(eventPhase.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withEventPhase(value: Double): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("eventPhase")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withIsDefaultPrevented(isDefaultPrevented: CallbackTo[Boolean]): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("isDefaultPrevented")(isDefaultPrevented.toJsFn)
-        ret.asInstanceOf[Self[E, C, T]]
+    def withIsDefaultPrevented(value: CallbackTo[Boolean]): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isDefaultPrevented")(value.toJsFn)
+        ret
     }
     @scala.inline
-    def withIsPropagationStopped(isPropagationStopped: CallbackTo[Boolean]): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("isPropagationStopped")(isPropagationStopped.toJsFn)
-        ret.asInstanceOf[Self[E, C, T]]
+    def withIsPropagationStopped(value: CallbackTo[Boolean]): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isPropagationStopped")(value.toJsFn)
+        ret
     }
     @scala.inline
-    def withIsTrusted(isTrusted: Boolean): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("isTrusted")(isTrusted.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withIsTrusted(value: Boolean): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isTrusted")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withNativeEvent(nativeEvent: E): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("nativeEvent")(nativeEvent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withNativeEvent(value: E): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("nativeEvent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withPersist(persist: Callback): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("persist")(persist.toJsFn)
-        ret.asInstanceOf[Self[E, C, T]]
+    def withPersist(value: Callback): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("persist")(value.toJsFn)
+        ret
     }
     @scala.inline
-    def withPreventDefault(preventDefault: Callback): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("preventDefault")(preventDefault.toJsFn)
-        ret.asInstanceOf[Self[E, C, T]]
+    def withPreventDefault(value: Callback): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preventDefault")(value.toJsFn)
+        ret
     }
     @scala.inline
-    def withStopPropagation(stopPropagation: Callback): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("stopPropagation")(stopPropagation.toJsFn)
-        ret.asInstanceOf[Self[E, C, T]]
+    def withStopPropagation(value: Callback): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stopPropagation")(value.toJsFn)
+        ret
     }
     @scala.inline
-    def withTarget(target: T): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("target")(target.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withTarget(value: T): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("target")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTimeStamp(timeStamp: Double): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("timeStamp")(timeStamp.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withTimeStamp(value: Double): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("timeStamp")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withType(`type`: String): Self[E, C, T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[E, C, T]]
+    def withType(value: String): Self[E, C, T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

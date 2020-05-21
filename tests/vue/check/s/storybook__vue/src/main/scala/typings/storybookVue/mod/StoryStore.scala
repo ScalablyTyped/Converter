@@ -13,9 +13,8 @@ trait StoryStore extends js.Object {
 
 object StoryStore {
   @scala.inline
-  def apply(kind: String, stories: js.Array[StoryObject], fileName: String = null): StoryStore = {
+  def apply(kind: String, stories: js.Array[StoryObject]): StoryStore = {
     val __obj = js.Dynamic.literal(kind = kind.asInstanceOf[js.Any], stories = stories.asInstanceOf[js.Any])
-    if (fileName != null) __obj.updateDynamic("fileName")(fileName.asInstanceOf[js.Any])
     __obj.asInstanceOf[StoryStore]
   }
   @scala.inline
@@ -25,28 +24,28 @@ object StoryStore {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withKind(kind: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("kind")(kind.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withKind(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kind")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withStories(stories: js.Array[StoryObject]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("stories")(stories.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStories(value: js.Array[StoryObject]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stories")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withFileName(fileName: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fileName != null) ret.updateDynamic("fileName")(fileName.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFileName(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fileName")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFileName: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "fileName")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fileName")(js.undefined)
+        ret
     }
   }
   

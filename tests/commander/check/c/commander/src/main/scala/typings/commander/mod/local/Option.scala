@@ -23,11 +23,9 @@ object Option {
     flags: String,
     long: String,
     optional: Boolean,
-    required: Boolean,
-    short: String = null
+    required: Boolean
   ): Option = {
     val __obj = js.Dynamic.literal(bool = bool.asInstanceOf[js.Any], description = description.asInstanceOf[js.Any], flags = flags.asInstanceOf[js.Any], long = long.asInstanceOf[js.Any], optional = optional.asInstanceOf[js.Any], required = required.asInstanceOf[js.Any])
-    if (short != null) __obj.updateDynamic("short")(short.asInstanceOf[js.Any])
     __obj.asInstanceOf[Option]
   }
   @scala.inline
@@ -37,52 +35,52 @@ object Option {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBool(bool: Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("bool")(bool.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withBool(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bool")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withDescription(description: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("description")(description.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDescription(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("description")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withFlags(flags: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("flags")(flags.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFlags(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("flags")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withLong(long: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("long")(long.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLong(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("long")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withOptional(optional: Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("optional")(optional.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withOptional(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("optional")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withRequired(required: Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("required")(required.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withRequired(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("required")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withShort(short: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (short != null) ret.updateDynamic("short")(short.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withShort(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("short")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutShort: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "short")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("short")(js.undefined)
+        ret
     }
   }
   

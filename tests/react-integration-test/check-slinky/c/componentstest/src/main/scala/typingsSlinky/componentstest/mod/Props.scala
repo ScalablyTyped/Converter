@@ -17,9 +17,8 @@ object Props {
     __obj.asInstanceOf[Props]
   }
   @scala.inline
-  def B(bMember: String, bCallback: () => String = null): Props = {
+  def B(bMember: String): Props = {
     val __obj = js.Dynamic.literal(bMember = bMember.asInstanceOf[js.Any])
-    if (bCallback != null) __obj.updateDynamic("bCallback")(js.Any.fromFunction0(bCallback))
     __obj.asInstanceOf[Props]
   }
 }

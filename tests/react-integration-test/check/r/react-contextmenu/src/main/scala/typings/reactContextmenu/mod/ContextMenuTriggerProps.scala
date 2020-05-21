@@ -18,20 +18,8 @@ trait ContextMenuTriggerProps extends js.Object {
 
 object ContextMenuTriggerProps {
   @scala.inline
-  def apply(
-    id: String,
-    attributes: HTMLAttributes[_] = null,
-    collect: /* data */ js.Any => _ = null,
-    disable: js.UndefOr[Boolean] = js.undefined,
-    holdToDisplay: Int | Double = null,
-    renderTag: ReactType[_] = null
-  ): ContextMenuTriggerProps = {
+  def apply(id: String): ContextMenuTriggerProps = {
     val __obj = js.Dynamic.literal(id = id.asInstanceOf[js.Any])
-    if (attributes != null) __obj.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
-    if (collect != null) __obj.updateDynamic("collect")(js.Any.fromFunction1(collect))
-    if (!js.isUndefined(disable)) __obj.updateDynamic("disable")(disable.asInstanceOf[js.Any])
-    if (holdToDisplay != null) __obj.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
-    if (renderTag != null) __obj.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
     __obj.asInstanceOf[ContextMenuTriggerProps]
   }
   @scala.inline
@@ -41,70 +29,70 @@ object ContextMenuTriggerProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withId(id: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("id")(id.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withId(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("id")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withAttributes(attributes: HTMLAttributes[_]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (attributes != null) ret.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAttributes(value: HTMLAttributes[_]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributes")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAttributes: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "attributes")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributes")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCollect(collect: /* data */ js.Any => _): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (collect != null) ret.updateDynamic("collect")(js.Any.fromFunction1(collect))
-        ret.asInstanceOf[Self]
+    def withCollect(value: /* data */ js.Any => _): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("collect")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutCollect: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "collect")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("collect")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDisable(disable: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(disable)) ret.updateDynamic("disable")(disable.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDisable(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("disable")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDisable: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "disable")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("disable")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHoldToDisplay(holdToDisplay: Int | Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (holdToDisplay != null) ret.updateDynamic("holdToDisplay")(holdToDisplay.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withHoldToDisplay(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("holdToDisplay")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHoldToDisplay: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "holdToDisplay")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("holdToDisplay")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRenderTag(renderTag: ReactType[_]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (renderTag != null) ret.updateDynamic("renderTag")(renderTag.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withRenderTag(value: ReactType[_]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("renderTag")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRenderTag: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "renderTag")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("renderTag")(js.undefined)
+        ret
     }
   }
   

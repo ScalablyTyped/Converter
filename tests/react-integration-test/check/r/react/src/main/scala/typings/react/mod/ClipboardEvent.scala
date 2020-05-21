@@ -42,10 +42,10 @@ object ClipboardEvent {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withClipboardData(clipboardData: DataTransfer): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("clipboardData")(clipboardData.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClipboardData(value: DataTransfer): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipboardData")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

@@ -40,19 +40,8 @@ trait StrictAccordionPanelProps extends js.Object {
 
 object StrictAccordionPanelProps {
   @scala.inline
-  def apply(
-    active: js.UndefOr[Boolean] = js.undefined,
-    content: SemanticShorthandItem[AccordionContentProps] = null,
-    index: Double | String = null,
-    onTitleClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit = null,
-    title: SemanticShorthandItem[AccordionTitleProps] = null
-  ): StrictAccordionPanelProps = {
+  def apply(): StrictAccordionPanelProps = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(active)) __obj.updateDynamic("active")(active.asInstanceOf[js.Any])
-    if (content != null) __obj.updateDynamic("content")(content.asInstanceOf[js.Any])
-    if (index != null) __obj.updateDynamic("index")(index.asInstanceOf[js.Any])
-    if (onTitleClick != null) __obj.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
-    if (title != null) __obj.updateDynamic("title")(title.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictAccordionPanelProps]
   }
   @scala.inline
@@ -62,82 +51,80 @@ object StrictAccordionPanelProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withActive(active: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(active)) ret.updateDynamic("active")(active.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withActive(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("active")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutActive: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "active")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("active")(js.undefined)
+        ret
     }
     @scala.inline
     def withContentFunction3(
-      content: (/* component */ ReactComponentClass[AccordionContentProps], AccordionContentProps, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+      value: (/* component */ ReactComponentClass[AccordionContentProps], AccordionContentProps, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
     ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("content")(js.Any.fromFunction3(content))
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.Any.fromFunction3(value))
+        ret
     }
     @scala.inline
-    def withContent(content: SemanticShorthandItem[AccordionContentProps]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (content != null) ret.updateDynamic("content")(content.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withContent(value: SemanticShorthandItem[AccordionContentProps]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutContent: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "content")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("content")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIndex(index: Double | String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (index != null) ret.updateDynamic("index")(index.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIndex(value: Double | String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("index")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIndex: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "index")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("index")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOnTitleClick(
-      onTitleClick: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit
-    ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (onTitleClick != null) ret.updateDynamic("onTitleClick")(js.Any.fromFunction2(onTitleClick))
-        ret.asInstanceOf[Self]
+    def withOnTitleClick(value: (/* event */ SyntheticMouseEvent[HTMLDivElement], /* data */ AccordionTitleProps) => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onTitleClick")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
     def withoutOnTitleClick: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "onTitleClick")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onTitleClick")(js.undefined)
+        ret
     }
     @scala.inline
     def withTitleFunction3(
-      title: (/* component */ ReactComponentClass[AccordionTitleProps], AccordionTitleProps, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
+      value: (/* component */ ReactComponentClass[AccordionTitleProps], AccordionTitleProps, /* children */ js.UndefOr[TagMod[Any] | ReactNodeArray]) => ReactElement | Null
     ): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("title")(js.Any.fromFunction3(title))
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(js.Any.fromFunction3(value))
+        ret
     }
     @scala.inline
-    def withTitle(title: SemanticShorthandItem[AccordionTitleProps]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (title != null) ret.updateDynamic("title")(title.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTitle(value: SemanticShorthandItem[AccordionTitleProps]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTitle: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "title")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("title")(js.undefined)
+        ret
     }
   }
   

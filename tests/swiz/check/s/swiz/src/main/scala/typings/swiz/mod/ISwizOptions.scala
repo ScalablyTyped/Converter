@@ -13,15 +13,8 @@ trait ISwizOptions extends js.Object {
 
 object ISwizOptions {
   @scala.inline
-  def apply(
-    `for`: String = null,
-    stripNulls: js.UndefOr[Boolean] = js.undefined,
-    stripSerializerType: js.UndefOr[Boolean] = js.undefined
-  ): ISwizOptions = {
+  def apply(): ISwizOptions = {
     val __obj = js.Dynamic.literal()
-    if (`for` != null) __obj.updateDynamic("for")(`for`.asInstanceOf[js.Any])
-    if (!js.isUndefined(stripNulls)) __obj.updateDynamic("stripNulls")(stripNulls.asInstanceOf[js.Any])
-    if (!js.isUndefined(stripSerializerType)) __obj.updateDynamic("stripSerializerType")(stripSerializerType.asInstanceOf[js.Any])
     __obj.asInstanceOf[ISwizOptions]
   }
   @scala.inline
@@ -31,40 +24,40 @@ object ISwizOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFor(`for`: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (`for` != null) ret.updateDynamic("for")(`for`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFor(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("for")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFor: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "for")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("for")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStripNulls(stripNulls: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(stripNulls)) ret.updateDynamic("stripNulls")(stripNulls.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStripNulls(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stripNulls")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStripNulls: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "stripNulls")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stripNulls")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStripSerializerType(stripSerializerType: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(stripSerializerType)) ret.updateDynamic("stripSerializerType")(stripSerializerType.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStripSerializerType(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stripSerializerType")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStripSerializerType: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "stripSerializerType")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stripSerializerType")(js.undefined)
+        ret
     }
   }
   

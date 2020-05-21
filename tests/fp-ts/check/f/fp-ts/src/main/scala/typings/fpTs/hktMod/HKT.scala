@@ -23,16 +23,16 @@ object HKT {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): (Self[URI, A]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[URI, A]) with Other]
     @scala.inline
-    def with_A(_A: A): Self[URI, A] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("_A")(_A.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[URI, A]]
+    def with_A(value: A): Self[URI, A] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("_A")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def with_URI(_URI: URI): Self[URI, A] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("_URI")(_URI.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[URI, A]]
+    def with_URI(value: URI): Self[URI, A] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("_URI")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

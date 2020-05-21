@@ -1,13 +1,13 @@
 organization := "org.scalablytyped"
 name := "semantic-ui-react"
-version := "0.0-unknown-ddfef7"
+version := "0.0-unknown-e2ee03"
 scalaVersion := "2.13.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalajs-react" %%% "core" % "1.5.0",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "16.9.2-42e717",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-53ce86")
+  "org.scalablytyped" %%% "react" % "16.9.2-8771e6",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-68da88")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

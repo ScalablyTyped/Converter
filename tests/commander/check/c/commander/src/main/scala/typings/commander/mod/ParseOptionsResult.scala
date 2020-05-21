@@ -23,16 +23,16 @@ object ParseOptionsResult {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withArgs(args: js.Array[String]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("args")(args.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withArgs(value: js.Array[String]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("args")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withUnknown(unknown: js.Array[String]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("unknown")(unknown.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withUnknown(value: js.Array[String]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unknown")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

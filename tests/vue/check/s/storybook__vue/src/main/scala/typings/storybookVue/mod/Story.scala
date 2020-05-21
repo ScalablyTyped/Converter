@@ -24,22 +24,22 @@ object Story {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAdd(add: (String, StoryFunction) => Story): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("add")(js.Any.fromFunction2(add))
-        ret.asInstanceOf[Self]
+    def withAdd(value: (String, StoryFunction) => Story): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("add")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
-    def withAddDecorator(addDecorator: StoryDecorator => Story): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("addDecorator")(js.Any.fromFunction1(addDecorator))
-        ret.asInstanceOf[Self]
+    def withAddDecorator(value: StoryDecorator => Story): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("addDecorator")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withKind(kind: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("kind")(kind.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withKind(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kind")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

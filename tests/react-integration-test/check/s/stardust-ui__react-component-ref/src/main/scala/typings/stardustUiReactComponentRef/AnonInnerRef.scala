@@ -12,13 +12,8 @@ trait AnonInnerRef extends js.Object {
 
 object AnonInnerRef {
   @scala.inline
-  def apply(
-    children: js.UndefOr[scala.Nothing] = js.undefined,
-    innerRef: js.UndefOr[scala.Nothing] = js.undefined
-  ): AnonInnerRef = {
+  def apply(): AnonInnerRef = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(children)) __obj.updateDynamic("children")(children.asInstanceOf[js.Any])
-    if (!js.isUndefined(innerRef)) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonInnerRef]
   }
   @scala.inline
@@ -28,28 +23,28 @@ object AnonInnerRef {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildren(children: js.UndefOr[scala.Nothing]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(children)) ret.updateDynamic("children")(children.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withChildren(value: scala.Nothing): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutChildren: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "children")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
+        ret
     }
     @scala.inline
-    def withInnerRef(innerRef: js.UndefOr[scala.Nothing]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(innerRef)) ret.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withInnerRef(value: scala.Nothing): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutInnerRef: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "innerRef")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(js.undefined)
+        ret
     }
   }
   

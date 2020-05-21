@@ -12,9 +12,8 @@ trait ServeStaticOptions extends js.Object {
 
 object ServeStaticOptions {
   @scala.inline
-  def apply(setHeaders: (/* res */ Response, /* path */ String, /* stat */ js.Any) => _ = null): ServeStaticOptions = {
+  def apply(): ServeStaticOptions = {
     val __obj = js.Dynamic.literal()
-    if (setHeaders != null) __obj.updateDynamic("setHeaders")(js.Any.fromFunction3(setHeaders))
     __obj.asInstanceOf[ServeStaticOptions]
   }
   @scala.inline
@@ -24,16 +23,16 @@ object ServeStaticOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withSetHeaders(setHeaders: (/* res */ Response, /* path */ String, /* stat */ js.Any) => _): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (setHeaders != null) ret.updateDynamic("setHeaders")(js.Any.fromFunction3(setHeaders))
-        ret.asInstanceOf[Self]
+    def withSetHeaders(value: (/* res */ Response, /* path */ String, /* stat */ js.Any) => _): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("setHeaders")(js.Any.fromFunction3(value))
+        ret
     }
     @scala.inline
     def withoutSetHeaders: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "setHeaders")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("setHeaders")(js.undefined)
+        ret
     }
   }
   

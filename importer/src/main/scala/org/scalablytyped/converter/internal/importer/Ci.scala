@@ -127,7 +127,7 @@ object Ci {
                   if (flags contains ("-scalajs1")) Versions.ScalaJs1 else Versions.ScalaJs06,
                 ),
                 organization      = organization,
-                enableImplicitOps = false,
+                enableImplicitOps = flags contains "-enableImplicitOps",
               ),
               wantedLibs       = wantedLibNames,
               enablePublish    = flags contains "-publish",

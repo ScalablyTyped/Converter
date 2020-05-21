@@ -23,16 +23,16 @@ object WeekDataStatic {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withFirstDay(firstDay: () => String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("firstDay")(js.Any.fromFunction0(firstDay))
-        ret.asInstanceOf[Self]
+    def withFirstDay(value: () => String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("firstDay")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
-    def withMinDays(minDays: () => Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("minDays")(js.Any.fromFunction0(minDays))
-        ret.asInstanceOf[Self]
+    def withMinDays(value: () => Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("minDays")(js.Any.fromFunction0(value))
+        ret
     }
   }
   

@@ -21,13 +21,8 @@ trait ConverterOptions extends js.Object {
 
 object ConverterOptions {
   @scala.inline
-  def apply(
-    convertEmptyValues: js.UndefOr[Boolean] = js.undefined,
-    wrapNumbers: js.UndefOr[Boolean] = js.undefined
-  ): ConverterOptions = {
+  def apply(): ConverterOptions = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(convertEmptyValues)) __obj.updateDynamic("convertEmptyValues")(convertEmptyValues.asInstanceOf[js.Any])
-    if (!js.isUndefined(wrapNumbers)) __obj.updateDynamic("wrapNumbers")(wrapNumbers.asInstanceOf[js.Any])
     __obj.asInstanceOf[ConverterOptions]
   }
   @scala.inline
@@ -37,28 +32,28 @@ object ConverterOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withConvertEmptyValues(convertEmptyValues: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(convertEmptyValues)) ret.updateDynamic("convertEmptyValues")(convertEmptyValues.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withConvertEmptyValues(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("convertEmptyValues")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutConvertEmptyValues: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "convertEmptyValues")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("convertEmptyValues")(js.undefined)
+        ret
     }
     @scala.inline
-    def withWrapNumbers(wrapNumbers: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(wrapNumbers)) ret.updateDynamic("wrapNumbers")(wrapNumbers.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withWrapNumbers(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("wrapNumbers")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutWrapNumbers: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "wrapNumbers")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("wrapNumbers")(js.undefined)
+        ret
     }
   }
   

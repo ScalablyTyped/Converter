@@ -37,11 +37,7 @@ object CleanupTypeAliases extends TreeTransformation {
             None
         }
 
-      case x: FieldTree =>
-        x.comments.extract { case Markers.IsTrivial => () } match {
-          case Some(_) => None
-          case None    => Some(x)
-        }
+      case x: FieldTree if x.comments.has[Markers.IsTrivial.type] => None
       case other => Some(other)
     }
 }

@@ -11,9 +11,8 @@ trait AnonEnd extends js.Object {
 
 object AnonEnd {
   @scala.inline
-  def apply(end: js.UndefOr[Boolean] = js.undefined): AnonEnd = {
+  def apply(): AnonEnd = {
     val __obj = js.Dynamic.literal()
-    if (!js.isUndefined(end)) __obj.updateDynamic("end")(end.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonEnd]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object AnonEnd {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withEnd(end: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(end)) ret.updateDynamic("end")(end.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withEnd(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("end")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEnd: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "end")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("end")(js.undefined)
+        ret
     }
   }
   

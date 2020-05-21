@@ -22,10 +22,10 @@ object SVGElementTagNameMap {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCircle(circle: org.scalajs.dom.raw.SVGCircleElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("circle")(circle.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("circle")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

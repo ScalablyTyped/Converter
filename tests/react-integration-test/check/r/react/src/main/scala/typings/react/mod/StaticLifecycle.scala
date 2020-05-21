@@ -14,13 +14,8 @@ trait StaticLifecycle[P, S] extends js.Object {
 
 object StaticLifecycle {
   @scala.inline
-  def apply[P, S](
-    getDerivedStateFromError: /* error */ js.Any => Partial[S] | Null = null,
-    getDerivedStateFromProps: (P, S) => Partial[S] | Null = null
-  ): StaticLifecycle[P, S] = {
+  def apply[P, S](): StaticLifecycle[P, S] = {
     val __obj = js.Dynamic.literal()
-    if (getDerivedStateFromError != null) __obj.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(getDerivedStateFromError))
-    if (getDerivedStateFromProps != null) __obj.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(getDerivedStateFromProps))
     __obj.asInstanceOf[StaticLifecycle[P, S]]
   }
   @scala.inline
@@ -30,28 +25,28 @@ object StaticLifecycle {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
     @scala.inline
-    def withGetDerivedStateFromError(getDerivedStateFromError: /* error */ js.Any => Partial[S] | Null): Self[P, S] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (getDerivedStateFromError != null) ret.updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(getDerivedStateFromError))
-        ret.asInstanceOf[Self[P, S]]
+    def withGetDerivedStateFromError(value: /* error */ js.Any => Partial[S] | Null): Self[P, S] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromError")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
     def withoutGetDerivedStateFromError: Self[P, S] = {
         val ret = this.duplicate
-        js.special.delete(ret, "getDerivedStateFromError")
-        ret.asInstanceOf[Self[P, S]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromError")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGetDerivedStateFromProps(getDerivedStateFromProps: (P, S) => Partial[S] | Null): Self[P, S] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (getDerivedStateFromProps != null) ret.updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(getDerivedStateFromProps))
-        ret.asInstanceOf[Self[P, S]]
+    def withGetDerivedStateFromProps(value: (P, S) => Partial[S] | Null): Self[P, S] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
     def withoutGetDerivedStateFromProps: Self[P, S] = {
         val ret = this.duplicate
-        js.special.delete(ret, "getDerivedStateFromProps")
-        ret.asInstanceOf[Self[P, S]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.undefined)
+        ret
     }
   }
   

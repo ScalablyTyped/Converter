@@ -14,9 +14,8 @@ trait WithTheme extends js.Object {
 
 object WithTheme {
   @scala.inline
-  def apply(theme: String, innerRef: Ref[_] | RefObject[_] = null): WithTheme = {
+  def apply(theme: String): WithTheme = {
     val __obj = js.Dynamic.literal(theme = theme.asInstanceOf[js.Any])
-    if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
     __obj.asInstanceOf[WithTheme]
   }
   @scala.inline
@@ -26,22 +25,22 @@ object WithTheme {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withTheme(theme: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("theme")(theme.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTheme(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("theme")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withInnerRef(innerRef: Ref[_] | RefObject[_]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (innerRef != null) ret.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withInnerRef(value: Ref[_] | RefObject[_]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutInnerRef: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "innerRef")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(js.undefined)
+        ret
     }
   }
   

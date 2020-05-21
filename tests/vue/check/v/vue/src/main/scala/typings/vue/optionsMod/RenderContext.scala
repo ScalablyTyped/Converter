@@ -37,40 +37,40 @@ object RenderContext {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[Props] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[Props] with Other]
     @scala.inline
-    def withChildren(children: js.Array[VNode]): Self[Props] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("children")(children.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props]]
+    def withChildren(value: js.Array[VNode]): Self[Props] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withData(data: VNodeData): Self[Props] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("data")(data.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props]]
+    def withData(value: VNodeData): Self[Props] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withInjections(injections: js.Any): Self[Props] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("injections")(injections.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props]]
+    def withInjections(value: js.Any): Self[Props] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("injections")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withParent(parent: Vue): Self[Props] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("parent")(parent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props]]
+    def withParent(value: Vue): Self[Props] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("parent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withProps(props: Props): Self[Props] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("props")(props.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props]]
+    def withProps(value: Props): Self[Props] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withSlots(slots: () => js.Any): Self[Props] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("slots")(js.Any.fromFunction0(slots))
-        ret.asInstanceOf[Self[Props]]
+    def withSlots(value: () => js.Any): Self[Props] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("slots")(js.Any.fromFunction0(value))
+        ret
     }
   }
   

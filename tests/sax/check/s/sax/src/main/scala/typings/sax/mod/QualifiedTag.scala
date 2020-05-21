@@ -5,7 +5,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* import warning: RemoveMultipleInheritance.findNewParents newComments Dropped parents 
+/* import warning: transforms.RemoveMultipleInheritance#findNewParents newComments Dropped parents 
 - typings.sax.mod.BaseTag because var conflicts: name. Inlined isSelfClosing */ @js.native
 trait QualifiedTag extends QualifiedName {
   var attributes: StringDictionary[QualifiedAttribute] = js.native
@@ -34,22 +34,22 @@ object QualifiedTag {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAttributes(attributes: StringDictionary[QualifiedAttribute]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("attributes")(attributes.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withAttributes(value: StringDictionary[QualifiedAttribute]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributes")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withIsSelfClosing(isSelfClosing: Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("isSelfClosing")(isSelfClosing.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withIsSelfClosing(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("isSelfClosing")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withNs(ns: StringDictionary[String]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ns")(ns.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withNs(value: StringDictionary[String]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ns")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

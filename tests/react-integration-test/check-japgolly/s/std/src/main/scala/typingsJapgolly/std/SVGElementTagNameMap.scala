@@ -28,22 +28,22 @@ object SVGElementTagNameMap {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withCircle(circle: org.scalajs.dom.raw.SVGCircleElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("circle")(circle.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withCircle(value: org.scalajs.dom.raw.SVGCircleElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("circle")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withClipPath(clipPath: org.scalajs.dom.raw.SVGClipPathElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("clipPath")(clipPath.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClipPath(value: org.scalajs.dom.raw.SVGClipPathElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withDefs(defs: org.scalajs.dom.raw.SVGDefsElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("defs")(defs.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDefs(value: org.scalajs.dom.raw.SVGDefsElement): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("defs")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

@@ -11,9 +11,8 @@ trait Attributes extends js.Object {
 
 object Attributes {
   @scala.inline
-  def apply(key: Key = null): Attributes = {
+  def apply(): Attributes = {
     val __obj = js.Dynamic.literal()
-    if (key != null) __obj.updateDynamic("key")(key.asInstanceOf[js.Any])
     __obj.asInstanceOf[Attributes]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object Attributes {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withKey(key: Key): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (key != null) ret.updateDynamic("key")(key.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withKey(value: Key): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKey: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "key")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(js.undefined)
+        ret
     }
   }
   

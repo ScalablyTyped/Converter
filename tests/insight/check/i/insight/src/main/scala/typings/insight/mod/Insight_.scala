@@ -26,28 +26,28 @@ object Insight_ {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withClientId(clientId: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("clientId")(clientId.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withClientId(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clientId")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withConfig(config: IConfigstore): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("config")(config.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withConfig(value: IConfigstore): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("config")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withOptOut(optOut: Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("optOut")(optOut.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withOptOut(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("optOut")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withTrack(track: /* repeated */ String => Unit): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("track")(js.Any.fromFunction1(track))
-        ret.asInstanceOf[Self]
+    def withTrack(value: /* repeated */ String => Unit): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("track")(js.Any.fromFunction1(value))
+        ret
     }
   }
   

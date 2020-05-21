@@ -13,9 +13,8 @@ trait AnonChildFactory extends js.Object {
 
 object AnonChildFactory {
   @scala.inline
-  def apply(childFactory: /* child */ Element => CallbackTo[Element] = null): AnonChildFactory = {
+  def apply(): AnonChildFactory = {
     val __obj = js.Dynamic.literal()
-    if (childFactory != null) __obj.updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ Element) => childFactory(t0).runNow()))
     __obj.asInstanceOf[AnonChildFactory]
   }
   @scala.inline
@@ -25,16 +24,16 @@ object AnonChildFactory {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildFactory(childFactory: /* child */ Element => CallbackTo[Element]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (childFactory != null) ret.updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ Element) => childFactory(t0).runNow()))
-        ret.asInstanceOf[Self]
+    def withChildFactory(value: /* child */ Element => CallbackTo[Element]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("childFactory")(js.Any.fromFunction1((t0: /* child */ Element) => value(t0).runNow()))
+        ret
     }
     @scala.inline
     def withoutChildFactory: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "childFactory")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("childFactory")(js.undefined)
+        ret
     }
   }
   

@@ -28,13 +28,8 @@ trait NewLifecycle[P, S, SS] extends js.Object {
 
 object NewLifecycle {
   @scala.inline
-  def apply[P, S, SS](
-    componentDidUpdate: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit = null,
-    getSnapshotBeforeUpdate: (/* prevProps */ P, /* prevState */ S) => SS | Null = null
-  ): NewLifecycle[P, S, SS] = {
+  def apply[P, S, SS](): NewLifecycle[P, S, SS] = {
     val __obj = js.Dynamic.literal()
-    if (componentDidUpdate != null) __obj.updateDynamic("componentDidUpdate")(js.Any.fromFunction3(componentDidUpdate))
-    if (getSnapshotBeforeUpdate != null) __obj.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(getSnapshotBeforeUpdate))
     __obj.asInstanceOf[NewLifecycle[P, S, SS]]
   }
   @scala.inline
@@ -44,28 +39,28 @@ object NewLifecycle {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S, SS]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S, SS]) with Other]
     @scala.inline
-    def withComponentDidUpdate(componentDidUpdate: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit): Self[P, S, SS] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (componentDidUpdate != null) ret.updateDynamic("componentDidUpdate")(js.Any.fromFunction3(componentDidUpdate))
-        ret.asInstanceOf[Self[P, S, SS]]
+    def withComponentDidUpdate(value: (/* prevProps */ P, /* prevState */ S, /* snapshot */ js.UndefOr[SS]) => Unit): Self[P, S, SS] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.Any.fromFunction3(value))
+        ret
     }
     @scala.inline
     def withoutComponentDidUpdate: Self[P, S, SS] = {
         val ret = this.duplicate
-        js.special.delete(ret, "componentDidUpdate")
-        ret.asInstanceOf[Self[P, S, SS]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("componentDidUpdate")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGetSnapshotBeforeUpdate(getSnapshotBeforeUpdate: (/* prevProps */ P, /* prevState */ S) => SS | Null): Self[P, S, SS] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (getSnapshotBeforeUpdate != null) ret.updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(getSnapshotBeforeUpdate))
-        ret.asInstanceOf[Self[P, S, SS]]
+    def withGetSnapshotBeforeUpdate(value: (/* prevProps */ P, /* prevState */ S) => SS | Null): Self[P, S, SS] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
     def withoutGetSnapshotBeforeUpdate: Self[P, S, SS] = {
         val ret = this.duplicate
-        js.special.delete(ret, "getSnapshotBeforeUpdate")
-        ret.asInstanceOf[Self[P, S, SS]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getSnapshotBeforeUpdate")(js.undefined)
+        ret
     }
   }
   

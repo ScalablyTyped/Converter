@@ -1,7 +1,5 @@
 package typingsJapgolly.stardustUiReactComponentRef.typesMod
 
-import japgolly.scalajs.react.Callback
-import japgolly.scalajs.react.CallbackTo
 import japgolly.scalajs.react.raw.React.Element
 import japgolly.scalajs.react.raw.React.Ref
 import japgolly.scalajs.react.vdom.VdomElement
@@ -22,10 +20,8 @@ trait RefProps extends js.Object {
 
 object RefProps {
   @scala.inline
-  def apply(children: VdomElement, innerRef: Ref = null): RefProps = {
-    val __obj = js.Dynamic.literal()
-    if (children != null) __obj.updateDynamic("children")(children.rawElement.asInstanceOf[js.Any])
-    if (innerRef != null) __obj.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
+  def apply(children: VdomElement): RefProps = {
+    val __obj = js.Dynamic.literal(children = children.rawElement.asInstanceOf[js.Any])
     __obj.asInstanceOf[RefProps]
   }
   @scala.inline
@@ -35,28 +31,22 @@ object RefProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withChildren(children: VdomElement): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (children != null) ret.updateDynamic("children")(children.rawElement.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
-    }
-    @scala.inline
-    def withInnerRefFunction1(innerRef: /* instance */ js.Any | Null => CallbackTo[Callback]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("innerRef")(js.Any.fromFunction1((t0: /* instance */ js.Any | Null) => innerRef(t0).runNow()))
-        ret.asInstanceOf[Self]
-    }
-    @scala.inline
-    def withInnerRef(innerRef: Ref): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (innerRef != null) ret.updateDynamic("innerRef")(innerRef.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
-    }
-    @scala.inline
-    def withoutInnerRef: Self = {
+    def withChildren(value: VdomElement): Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "innerRef")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
+        ret
+    }
+    @scala.inline
+    def withInnerRef(value: Ref): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(value.asInstanceOf[js.Any])
+        ret
+    }
+    @scala.inline
+    def withInnerRefNull: Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("innerRef")(null)
+        ret
     }
   }
   

@@ -20,10 +20,8 @@ trait BaseProps extends js.Object {
 
 object BaseProps {
   @scala.inline
-  def apply(defaultValue: js.Any = null, value: js.Any = null): BaseProps = {
+  def apply(): BaseProps = {
     val __obj = js.Dynamic.literal()
-    if (defaultValue != null) __obj.updateDynamic("defaultValue")(defaultValue.asInstanceOf[js.Any])
-    if (value != null) __obj.updateDynamic("value")(value.asInstanceOf[js.Any])
     __obj.asInstanceOf[BaseProps]
   }
   @scala.inline
@@ -33,28 +31,28 @@ object BaseProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withDefaultValue(defaultValue: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (defaultValue != null) ret.updateDynamic("defaultValue")(defaultValue.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withDefaultValue(value: js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("defaultValue")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDefaultValue: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "defaultValue")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("defaultValue")(js.undefined)
+        ret
     }
     @scala.inline
     def withValue(value: js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (value != null) ret.updateDynamic("value")(value.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutValue: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "value")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("value")(js.undefined)
+        ret
     }
   }
   

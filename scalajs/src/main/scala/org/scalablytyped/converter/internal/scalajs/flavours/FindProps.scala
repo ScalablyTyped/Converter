@@ -57,24 +57,14 @@ object FindProps {
       }
   }
 
-  def parentParameter(name: Name, ref: TypeRef, isRequired: Boolean): (Name, Prop) = {
-    val param = ParamTree(
-      name       = name,
-      isImplicit = false,
-      isVal      = false,
-      tpe        = ref,
-      default    = if (isRequired) NotImplemented else ExprTree.Null,
-      comments   = NoComments,
-    )
+  def parentParameter(name: Name, typeRef: TypeRef, isRequired: Boolean): (Name, Prop) = {
     import ExprTree._
-
-    def fn(obj: Name): ExprTree = {
-      val assign = Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(Ref(obj), Ref(name))))
-      if (isRequired) assign else If(BinaryOp(Ref(name), "!=", Null), assign, None)
-    }
-
-    val main = Prop.Variant(param, Right(fn), false)
-    name -> Prop(main, isInherited = true, variants = Empty, Left(ref))
+    name -> Prop.CompressedProp(
+      name,
+      typeRef,
+      ref => Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(ref, Ref(name)))),
+      isRequired,
+    )
   }
 
   case class Filtered[No](yes: IArray[Prop], no: No)
@@ -105,7 +95,7 @@ final class FindProps(
           case x @ Res.One(_, _)                          => x
         }) match {
           case (Empty, Empty, ones, _) =>
-            val yes = ones.flatMap(_.value.yes).sorted.distinctBy(_.main.tree.name)
+            val yes = ones.flatMap(_.value.yes).sorted.distinctBy(_.name)
             val no  = ones.head.value.no
             Res.One(typeRef, FindProps.Filtered(yes, no))
           case (Empty, _, _, _) =>

@@ -14,10 +14,8 @@ trait ChartOptions extends js.Object {
 
 object ChartOptions {
   @scala.inline
-  def apply(plugins: StringDictionary[js.Any] = null, responsive: js.UndefOr[Boolean] = js.undefined): ChartOptions = {
+  def apply(): ChartOptions = {
     val __obj = js.Dynamic.literal()
-    if (plugins != null) __obj.updateDynamic("plugins")(plugins.asInstanceOf[js.Any])
-    if (!js.isUndefined(responsive)) __obj.updateDynamic("responsive")(responsive.asInstanceOf[js.Any])
     __obj.asInstanceOf[ChartOptions]
   }
   @scala.inline
@@ -27,28 +25,28 @@ object ChartOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withPlugins(plugins: StringDictionary[js.Any]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (plugins != null) ret.updateDynamic("plugins")(plugins.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withPlugins(value: StringDictionary[js.Any]): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("plugins")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPlugins: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "plugins")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("plugins")(js.undefined)
+        ret
     }
     @scala.inline
-    def withResponsive(responsive: js.UndefOr[Boolean]): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(responsive)) ret.updateDynamic("responsive")(responsive.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withResponsive(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("responsive")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutResponsive: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "responsive")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("responsive")(js.undefined)
+        ret
     }
   }
   

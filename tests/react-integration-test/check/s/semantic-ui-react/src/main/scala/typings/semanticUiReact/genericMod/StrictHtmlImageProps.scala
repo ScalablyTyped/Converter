@@ -11,9 +11,8 @@ trait StrictHtmlImageProps extends js.Object {
 
 object StrictHtmlImageProps {
   @scala.inline
-  def apply(src: String = null): StrictHtmlImageProps = {
+  def apply(): StrictHtmlImageProps = {
     val __obj = js.Dynamic.literal()
-    if (src != null) __obj.updateDynamic("src")(src.asInstanceOf[js.Any])
     __obj.asInstanceOf[StrictHtmlImageProps]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object StrictHtmlImageProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withSrc(src: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (src != null) ret.updateDynamic("src")(src.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withSrc(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("src")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSrc: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "src")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("src")(js.undefined)
+        ret
     }
   }
   

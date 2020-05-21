@@ -313,517 +313,8 @@ trait SVGAttributes[T]
 
 object SVGAttributes {
   @scala.inline
-  def apply[T](
-    AriaAttributes: AriaAttributes = null,
-    DOMAttributes: DOMAttributes[T] = null,
-    accentHeight: Double | String = null,
-    accumulate: none | sum = null,
-    additive: replace | sum = null,
-    alignmentBaseline: auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit = null,
-    allowReorder: no | yes = null,
-    alphabetic: Double | String = null,
-    amplitude: Double | String = null,
-    arabicForm: initial | medial | terminal | isolated = null,
-    ascent: Double | String = null,
-    attributeName: String = null,
-    attributeType: String = null,
-    autoReverse: Double | String = null,
-    azimuth: Double | String = null,
-    baseFrequency: Double | String = null,
-    baseProfile: Double | String = null,
-    baselineShift: Double | String = null,
-    bbox: Double | String = null,
-    begin: Double | String = null,
-    bias: Double | String = null,
-    by: Double | String = null,
-    calcMode: Double | String = null,
-    capHeight: Double | String = null,
-    className: String = null,
-    clip: Double | String = null,
-    clipPath: String = null,
-    clipPathUnits: Double | String = null,
-    clipRule: Double | String = null,
-    color: String = null,
-    colorInterpolation: Double | String = null,
-    colorInterpolationFilters: auto | sRGB | linearRGB | inherit = null,
-    colorProfile: Double | String = null,
-    colorRendering: Double | String = null,
-    contentScriptType: Double | String = null,
-    contentStyleType: Double | String = null,
-    cursor: Double | String = null,
-    cx: Double | String = null,
-    cy: Double | String = null,
-    d: String = null,
-    decelerate: Double | String = null,
-    descent: Double | String = null,
-    diffuseConstant: Double | String = null,
-    direction: Double | String = null,
-    display: Double | String = null,
-    divisor: Double | String = null,
-    dominantBaseline: Double | String = null,
-    dur: Double | String = null,
-    dx: Double | String = null,
-    dy: Double | String = null,
-    edgeMode: Double | String = null,
-    elevation: Double | String = null,
-    enableBackground: Double | String = null,
-    end: Double | String = null,
-    exponent: Double | String = null,
-    externalResourcesRequired: Double | String = null,
-    fill: String = null,
-    fillOpacity: Double | String = null,
-    fillRule: nonzero | evenodd | inherit = null,
-    filter: String = null,
-    filterRes: Double | String = null,
-    filterUnits: Double | String = null,
-    floodColor: Double | String = null,
-    floodOpacity: Double | String = null,
-    focusable: Double | String = null,
-    fontFamily: String = null,
-    fontSize: Double | String = null,
-    fontSizeAdjust: Double | String = null,
-    fontStretch: Double | String = null,
-    fontStyle: Double | String = null,
-    fontVariant: Double | String = null,
-    fontWeight: Double | String = null,
-    format: Double | String = null,
-    from: Double | String = null,
-    fx: Double | String = null,
-    fy: Double | String = null,
-    g1: Double | String = null,
-    g2: Double | String = null,
-    glyphName: Double | String = null,
-    glyphOrientationHorizontal: Double | String = null,
-    glyphOrientationVertical: Double | String = null,
-    glyphRef: Double | String = null,
-    gradientTransform: String = null,
-    gradientUnits: String = null,
-    hanging: Double | String = null,
-    height: Double | String = null,
-    horizAdvX: Double | String = null,
-    horizOriginX: Double | String = null,
-    href: String = null,
-    id: String = null,
-    ideographic: Double | String = null,
-    imageRendering: Double | String = null,
-    in: String = null,
-    in2: Double | String = null,
-    intercept: Double | String = null,
-    k: Double | String = null,
-    k1: Double | String = null,
-    k2: Double | String = null,
-    k3: Double | String = null,
-    k4: Double | String = null,
-    kernelMatrix: Double | String = null,
-    kernelUnitLength: Double | String = null,
-    kerning: Double | String = null,
-    keyPoints: Double | String = null,
-    keySplines: Double | String = null,
-    keyTimes: Double | String = null,
-    lang: String = null,
-    lengthAdjust: Double | String = null,
-    letterSpacing: Double | String = null,
-    lightingColor: Double | String = null,
-    limitingConeAngle: Double | String = null,
-    local: Double | String = null,
-    markerEnd: String = null,
-    markerHeight: Double | String = null,
-    markerMid: String = null,
-    markerStart: String = null,
-    markerUnits: Double | String = null,
-    markerWidth: Double | String = null,
-    mask: String = null,
-    maskContentUnits: Double | String = null,
-    maskUnits: Double | String = null,
-    mathematical: Double | String = null,
-    max: Double | String = null,
-    media: String = null,
-    method: String = null,
-    min: Double | String = null,
-    mode: Double | String = null,
-    name: String = null,
-    numOctaves: Double | String = null,
-    offset: Double | String = null,
-    opacity: Double | String = null,
-    operator: Double | String = null,
-    order: Double | String = null,
-    orient: Double | String = null,
-    orientation: Double | String = null,
-    origin: Double | String = null,
-    overflow: Double | String = null,
-    overlinePosition: Double | String = null,
-    overlineThickness: Double | String = null,
-    paintOrder: Double | String = null,
-    panose1: Double | String = null,
-    pathLength: Double | String = null,
-    patternContentUnits: String = null,
-    patternTransform: Double | String = null,
-    patternUnits: String = null,
-    pointerEvents: Double | String = null,
-    points: String = null,
-    pointsAtX: Double | String = null,
-    pointsAtY: Double | String = null,
-    pointsAtZ: Double | String = null,
-    preserveAlpha: Double | String = null,
-    preserveAspectRatio: String = null,
-    primitiveUnits: Double | String = null,
-    r: Double | String = null,
-    radius: Double | String = null,
-    refX: Double | String = null,
-    refY: Double | String = null,
-    renderingIntent: Double | String = null,
-    repeatCount: Double | String = null,
-    repeatDur: Double | String = null,
-    requiredExtensions: Double | String = null,
-    requiredFeatures: Double | String = null,
-    restart: Double | String = null,
-    result: String = null,
-    role: String = null,
-    rotate: Double | String = null,
-    rx: Double | String = null,
-    ry: Double | String = null,
-    scale: Double | String = null,
-    seed: Double | String = null,
-    shapeRendering: Double | String = null,
-    slope: Double | String = null,
-    spacing: Double | String = null,
-    specularConstant: Double | String = null,
-    specularExponent: Double | String = null,
-    speed: Double | String = null,
-    spreadMethod: String = null,
-    startOffset: Double | String = null,
-    stdDeviation: Double | String = null,
-    stemh: Double | String = null,
-    stemv: Double | String = null,
-    stitchTiles: Double | String = null,
-    stopColor: String = null,
-    stopOpacity: Double | String = null,
-    strikethroughPosition: Double | String = null,
-    strikethroughThickness: Double | String = null,
-    string: Double | String = null,
-    stroke: String = null,
-    strokeDasharray: String | Double = null,
-    strokeDashoffset: String | Double = null,
-    strokeLinecap: butt | round | square | inherit = null,
-    strokeLinejoin: miter | round | bevel | inherit = null,
-    strokeMiterlimit: Double | String = null,
-    strokeOpacity: Double | String = null,
-    strokeWidth: Double | String = null,
-    style: CSSProperties = null,
-    surfaceScale: Double | String = null,
-    systemLanguage: Double | String = null,
-    tabIndex: Int | Double = null,
-    tableValues: Double | String = null,
-    target: String = null,
-    targetX: Double | String = null,
-    targetY: Double | String = null,
-    textAnchor: String = null,
-    textDecoration: Double | String = null,
-    textLength: Double | String = null,
-    textRendering: Double | String = null,
-    to: Double | String = null,
-    transform: String = null,
-    `type`: String = null,
-    u1: Double | String = null,
-    u2: Double | String = null,
-    underlinePosition: Double | String = null,
-    underlineThickness: Double | String = null,
-    unicode: Double | String = null,
-    unicodeBidi: Double | String = null,
-    unicodeRange: Double | String = null,
-    unitsPerEm: Double | String = null,
-    vAlphabetic: Double | String = null,
-    vHanging: Double | String = null,
-    vIdeographic: Double | String = null,
-    vMathematical: Double | String = null,
-    values: String = null,
-    vectorEffect: Double | String = null,
-    version: String = null,
-    vertAdvY: Double | String = null,
-    vertOriginX: Double | String = null,
-    vertOriginY: Double | String = null,
-    viewBox: String = null,
-    viewTarget: Double | String = null,
-    visibility: Double | String = null,
-    width: Double | String = null,
-    widths: Double | String = null,
-    wordSpacing: Double | String = null,
-    writingMode: Double | String = null,
-    x: Double | String = null,
-    x1: Double | String = null,
-    x2: Double | String = null,
-    xChannelSelector: String = null,
-    xHeight: Double | String = null,
-    xlinkActuate: String = null,
-    xlinkArcrole: String = null,
-    xlinkHref: String = null,
-    xlinkRole: String = null,
-    xlinkShow: String = null,
-    xlinkTitle: String = null,
-    xlinkType: String = null,
-    xmlBase: String = null,
-    xmlLang: String = null,
-    xmlSpace: String = null,
-    xmlns: String = null,
-    xmlnsXlink: String = null,
-    y: Double | String = null,
-    y1: Double | String = null
-  ): SVGAttributes[T] = {
+  def apply[T](): SVGAttributes[T] = {
     val __obj = js.Dynamic.literal()
-    if (AriaAttributes != null) js.Dynamic.global.Object.assign(__obj, AriaAttributes)
-    if (DOMAttributes != null) js.Dynamic.global.Object.assign(__obj, DOMAttributes)
-    if (accentHeight != null) __obj.updateDynamic("accentHeight")(accentHeight.asInstanceOf[js.Any])
-    if (accumulate != null) __obj.updateDynamic("accumulate")(accumulate.asInstanceOf[js.Any])
-    if (additive != null) __obj.updateDynamic("additive")(additive.asInstanceOf[js.Any])
-    if (alignmentBaseline != null) __obj.updateDynamic("alignmentBaseline")(alignmentBaseline.asInstanceOf[js.Any])
-    if (allowReorder != null) __obj.updateDynamic("allowReorder")(allowReorder.asInstanceOf[js.Any])
-    if (alphabetic != null) __obj.updateDynamic("alphabetic")(alphabetic.asInstanceOf[js.Any])
-    if (amplitude != null) __obj.updateDynamic("amplitude")(amplitude.asInstanceOf[js.Any])
-    if (arabicForm != null) __obj.updateDynamic("arabicForm")(arabicForm.asInstanceOf[js.Any])
-    if (ascent != null) __obj.updateDynamic("ascent")(ascent.asInstanceOf[js.Any])
-    if (attributeName != null) __obj.updateDynamic("attributeName")(attributeName.asInstanceOf[js.Any])
-    if (attributeType != null) __obj.updateDynamic("attributeType")(attributeType.asInstanceOf[js.Any])
-    if (autoReverse != null) __obj.updateDynamic("autoReverse")(autoReverse.asInstanceOf[js.Any])
-    if (azimuth != null) __obj.updateDynamic("azimuth")(azimuth.asInstanceOf[js.Any])
-    if (baseFrequency != null) __obj.updateDynamic("baseFrequency")(baseFrequency.asInstanceOf[js.Any])
-    if (baseProfile != null) __obj.updateDynamic("baseProfile")(baseProfile.asInstanceOf[js.Any])
-    if (baselineShift != null) __obj.updateDynamic("baselineShift")(baselineShift.asInstanceOf[js.Any])
-    if (bbox != null) __obj.updateDynamic("bbox")(bbox.asInstanceOf[js.Any])
-    if (begin != null) __obj.updateDynamic("begin")(begin.asInstanceOf[js.Any])
-    if (bias != null) __obj.updateDynamic("bias")(bias.asInstanceOf[js.Any])
-    if (by != null) __obj.updateDynamic("by")(by.asInstanceOf[js.Any])
-    if (calcMode != null) __obj.updateDynamic("calcMode")(calcMode.asInstanceOf[js.Any])
-    if (capHeight != null) __obj.updateDynamic("capHeight")(capHeight.asInstanceOf[js.Any])
-    if (className != null) __obj.updateDynamic("className")(className.asInstanceOf[js.Any])
-    if (clip != null) __obj.updateDynamic("clip")(clip.asInstanceOf[js.Any])
-    if (clipPath != null) __obj.updateDynamic("clipPath")(clipPath.asInstanceOf[js.Any])
-    if (clipPathUnits != null) __obj.updateDynamic("clipPathUnits")(clipPathUnits.asInstanceOf[js.Any])
-    if (clipRule != null) __obj.updateDynamic("clipRule")(clipRule.asInstanceOf[js.Any])
-    if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])
-    if (colorInterpolation != null) __obj.updateDynamic("colorInterpolation")(colorInterpolation.asInstanceOf[js.Any])
-    if (colorInterpolationFilters != null) __obj.updateDynamic("colorInterpolationFilters")(colorInterpolationFilters.asInstanceOf[js.Any])
-    if (colorProfile != null) __obj.updateDynamic("colorProfile")(colorProfile.asInstanceOf[js.Any])
-    if (colorRendering != null) __obj.updateDynamic("colorRendering")(colorRendering.asInstanceOf[js.Any])
-    if (contentScriptType != null) __obj.updateDynamic("contentScriptType")(contentScriptType.asInstanceOf[js.Any])
-    if (contentStyleType != null) __obj.updateDynamic("contentStyleType")(contentStyleType.asInstanceOf[js.Any])
-    if (cursor != null) __obj.updateDynamic("cursor")(cursor.asInstanceOf[js.Any])
-    if (cx != null) __obj.updateDynamic("cx")(cx.asInstanceOf[js.Any])
-    if (cy != null) __obj.updateDynamic("cy")(cy.asInstanceOf[js.Any])
-    if (d != null) __obj.updateDynamic("d")(d.asInstanceOf[js.Any])
-    if (decelerate != null) __obj.updateDynamic("decelerate")(decelerate.asInstanceOf[js.Any])
-    if (descent != null) __obj.updateDynamic("descent")(descent.asInstanceOf[js.Any])
-    if (diffuseConstant != null) __obj.updateDynamic("diffuseConstant")(diffuseConstant.asInstanceOf[js.Any])
-    if (direction != null) __obj.updateDynamic("direction")(direction.asInstanceOf[js.Any])
-    if (display != null) __obj.updateDynamic("display")(display.asInstanceOf[js.Any])
-    if (divisor != null) __obj.updateDynamic("divisor")(divisor.asInstanceOf[js.Any])
-    if (dominantBaseline != null) __obj.updateDynamic("dominantBaseline")(dominantBaseline.asInstanceOf[js.Any])
-    if (dur != null) __obj.updateDynamic("dur")(dur.asInstanceOf[js.Any])
-    if (dx != null) __obj.updateDynamic("dx")(dx.asInstanceOf[js.Any])
-    if (dy != null) __obj.updateDynamic("dy")(dy.asInstanceOf[js.Any])
-    if (edgeMode != null) __obj.updateDynamic("edgeMode")(edgeMode.asInstanceOf[js.Any])
-    if (elevation != null) __obj.updateDynamic("elevation")(elevation.asInstanceOf[js.Any])
-    if (enableBackground != null) __obj.updateDynamic("enableBackground")(enableBackground.asInstanceOf[js.Any])
-    if (end != null) __obj.updateDynamic("end")(end.asInstanceOf[js.Any])
-    if (exponent != null) __obj.updateDynamic("exponent")(exponent.asInstanceOf[js.Any])
-    if (externalResourcesRequired != null) __obj.updateDynamic("externalResourcesRequired")(externalResourcesRequired.asInstanceOf[js.Any])
-    if (fill != null) __obj.updateDynamic("fill")(fill.asInstanceOf[js.Any])
-    if (fillOpacity != null) __obj.updateDynamic("fillOpacity")(fillOpacity.asInstanceOf[js.Any])
-    if (fillRule != null) __obj.updateDynamic("fillRule")(fillRule.asInstanceOf[js.Any])
-    if (filter != null) __obj.updateDynamic("filter")(filter.asInstanceOf[js.Any])
-    if (filterRes != null) __obj.updateDynamic("filterRes")(filterRes.asInstanceOf[js.Any])
-    if (filterUnits != null) __obj.updateDynamic("filterUnits")(filterUnits.asInstanceOf[js.Any])
-    if (floodColor != null) __obj.updateDynamic("floodColor")(floodColor.asInstanceOf[js.Any])
-    if (floodOpacity != null) __obj.updateDynamic("floodOpacity")(floodOpacity.asInstanceOf[js.Any])
-    if (focusable != null) __obj.updateDynamic("focusable")(focusable.asInstanceOf[js.Any])
-    if (fontFamily != null) __obj.updateDynamic("fontFamily")(fontFamily.asInstanceOf[js.Any])
-    if (fontSize != null) __obj.updateDynamic("fontSize")(fontSize.asInstanceOf[js.Any])
-    if (fontSizeAdjust != null) __obj.updateDynamic("fontSizeAdjust")(fontSizeAdjust.asInstanceOf[js.Any])
-    if (fontStretch != null) __obj.updateDynamic("fontStretch")(fontStretch.asInstanceOf[js.Any])
-    if (fontStyle != null) __obj.updateDynamic("fontStyle")(fontStyle.asInstanceOf[js.Any])
-    if (fontVariant != null) __obj.updateDynamic("fontVariant")(fontVariant.asInstanceOf[js.Any])
-    if (fontWeight != null) __obj.updateDynamic("fontWeight")(fontWeight.asInstanceOf[js.Any])
-    if (format != null) __obj.updateDynamic("format")(format.asInstanceOf[js.Any])
-    if (from != null) __obj.updateDynamic("from")(from.asInstanceOf[js.Any])
-    if (fx != null) __obj.updateDynamic("fx")(fx.asInstanceOf[js.Any])
-    if (fy != null) __obj.updateDynamic("fy")(fy.asInstanceOf[js.Any])
-    if (g1 != null) __obj.updateDynamic("g1")(g1.asInstanceOf[js.Any])
-    if (g2 != null) __obj.updateDynamic("g2")(g2.asInstanceOf[js.Any])
-    if (glyphName != null) __obj.updateDynamic("glyphName")(glyphName.asInstanceOf[js.Any])
-    if (glyphOrientationHorizontal != null) __obj.updateDynamic("glyphOrientationHorizontal")(glyphOrientationHorizontal.asInstanceOf[js.Any])
-    if (glyphOrientationVertical != null) __obj.updateDynamic("glyphOrientationVertical")(glyphOrientationVertical.asInstanceOf[js.Any])
-    if (glyphRef != null) __obj.updateDynamic("glyphRef")(glyphRef.asInstanceOf[js.Any])
-    if (gradientTransform != null) __obj.updateDynamic("gradientTransform")(gradientTransform.asInstanceOf[js.Any])
-    if (gradientUnits != null) __obj.updateDynamic("gradientUnits")(gradientUnits.asInstanceOf[js.Any])
-    if (hanging != null) __obj.updateDynamic("hanging")(hanging.asInstanceOf[js.Any])
-    if (height != null) __obj.updateDynamic("height")(height.asInstanceOf[js.Any])
-    if (horizAdvX != null) __obj.updateDynamic("horizAdvX")(horizAdvX.asInstanceOf[js.Any])
-    if (horizOriginX != null) __obj.updateDynamic("horizOriginX")(horizOriginX.asInstanceOf[js.Any])
-    if (href != null) __obj.updateDynamic("href")(href.asInstanceOf[js.Any])
-    if (id != null) __obj.updateDynamic("id")(id.asInstanceOf[js.Any])
-    if (ideographic != null) __obj.updateDynamic("ideographic")(ideographic.asInstanceOf[js.Any])
-    if (imageRendering != null) __obj.updateDynamic("imageRendering")(imageRendering.asInstanceOf[js.Any])
-    if (in != null) __obj.updateDynamic("in")(in.asInstanceOf[js.Any])
-    if (in2 != null) __obj.updateDynamic("in2")(in2.asInstanceOf[js.Any])
-    if (intercept != null) __obj.updateDynamic("intercept")(intercept.asInstanceOf[js.Any])
-    if (k != null) __obj.updateDynamic("k")(k.asInstanceOf[js.Any])
-    if (k1 != null) __obj.updateDynamic("k1")(k1.asInstanceOf[js.Any])
-    if (k2 != null) __obj.updateDynamic("k2")(k2.asInstanceOf[js.Any])
-    if (k3 != null) __obj.updateDynamic("k3")(k3.asInstanceOf[js.Any])
-    if (k4 != null) __obj.updateDynamic("k4")(k4.asInstanceOf[js.Any])
-    if (kernelMatrix != null) __obj.updateDynamic("kernelMatrix")(kernelMatrix.asInstanceOf[js.Any])
-    if (kernelUnitLength != null) __obj.updateDynamic("kernelUnitLength")(kernelUnitLength.asInstanceOf[js.Any])
-    if (kerning != null) __obj.updateDynamic("kerning")(kerning.asInstanceOf[js.Any])
-    if (keyPoints != null) __obj.updateDynamic("keyPoints")(keyPoints.asInstanceOf[js.Any])
-    if (keySplines != null) __obj.updateDynamic("keySplines")(keySplines.asInstanceOf[js.Any])
-    if (keyTimes != null) __obj.updateDynamic("keyTimes")(keyTimes.asInstanceOf[js.Any])
-    if (lang != null) __obj.updateDynamic("lang")(lang.asInstanceOf[js.Any])
-    if (lengthAdjust != null) __obj.updateDynamic("lengthAdjust")(lengthAdjust.asInstanceOf[js.Any])
-    if (letterSpacing != null) __obj.updateDynamic("letterSpacing")(letterSpacing.asInstanceOf[js.Any])
-    if (lightingColor != null) __obj.updateDynamic("lightingColor")(lightingColor.asInstanceOf[js.Any])
-    if (limitingConeAngle != null) __obj.updateDynamic("limitingConeAngle")(limitingConeAngle.asInstanceOf[js.Any])
-    if (local != null) __obj.updateDynamic("local")(local.asInstanceOf[js.Any])
-    if (markerEnd != null) __obj.updateDynamic("markerEnd")(markerEnd.asInstanceOf[js.Any])
-    if (markerHeight != null) __obj.updateDynamic("markerHeight")(markerHeight.asInstanceOf[js.Any])
-    if (markerMid != null) __obj.updateDynamic("markerMid")(markerMid.asInstanceOf[js.Any])
-    if (markerStart != null) __obj.updateDynamic("markerStart")(markerStart.asInstanceOf[js.Any])
-    if (markerUnits != null) __obj.updateDynamic("markerUnits")(markerUnits.asInstanceOf[js.Any])
-    if (markerWidth != null) __obj.updateDynamic("markerWidth")(markerWidth.asInstanceOf[js.Any])
-    if (mask != null) __obj.updateDynamic("mask")(mask.asInstanceOf[js.Any])
-    if (maskContentUnits != null) __obj.updateDynamic("maskContentUnits")(maskContentUnits.asInstanceOf[js.Any])
-    if (maskUnits != null) __obj.updateDynamic("maskUnits")(maskUnits.asInstanceOf[js.Any])
-    if (mathematical != null) __obj.updateDynamic("mathematical")(mathematical.asInstanceOf[js.Any])
-    if (max != null) __obj.updateDynamic("max")(max.asInstanceOf[js.Any])
-    if (media != null) __obj.updateDynamic("media")(media.asInstanceOf[js.Any])
-    if (method != null) __obj.updateDynamic("method")(method.asInstanceOf[js.Any])
-    if (min != null) __obj.updateDynamic("min")(min.asInstanceOf[js.Any])
-    if (mode != null) __obj.updateDynamic("mode")(mode.asInstanceOf[js.Any])
-    if (name != null) __obj.updateDynamic("name")(name.asInstanceOf[js.Any])
-    if (numOctaves != null) __obj.updateDynamic("numOctaves")(numOctaves.asInstanceOf[js.Any])
-    if (offset != null) __obj.updateDynamic("offset")(offset.asInstanceOf[js.Any])
-    if (opacity != null) __obj.updateDynamic("opacity")(opacity.asInstanceOf[js.Any])
-    if (operator != null) __obj.updateDynamic("operator")(operator.asInstanceOf[js.Any])
-    if (order != null) __obj.updateDynamic("order")(order.asInstanceOf[js.Any])
-    if (orient != null) __obj.updateDynamic("orient")(orient.asInstanceOf[js.Any])
-    if (orientation != null) __obj.updateDynamic("orientation")(orientation.asInstanceOf[js.Any])
-    if (origin != null) __obj.updateDynamic("origin")(origin.asInstanceOf[js.Any])
-    if (overflow != null) __obj.updateDynamic("overflow")(overflow.asInstanceOf[js.Any])
-    if (overlinePosition != null) __obj.updateDynamic("overlinePosition")(overlinePosition.asInstanceOf[js.Any])
-    if (overlineThickness != null) __obj.updateDynamic("overlineThickness")(overlineThickness.asInstanceOf[js.Any])
-    if (paintOrder != null) __obj.updateDynamic("paintOrder")(paintOrder.asInstanceOf[js.Any])
-    if (panose1 != null) __obj.updateDynamic("panose1")(panose1.asInstanceOf[js.Any])
-    if (pathLength != null) __obj.updateDynamic("pathLength")(pathLength.asInstanceOf[js.Any])
-    if (patternContentUnits != null) __obj.updateDynamic("patternContentUnits")(patternContentUnits.asInstanceOf[js.Any])
-    if (patternTransform != null) __obj.updateDynamic("patternTransform")(patternTransform.asInstanceOf[js.Any])
-    if (patternUnits != null) __obj.updateDynamic("patternUnits")(patternUnits.asInstanceOf[js.Any])
-    if (pointerEvents != null) __obj.updateDynamic("pointerEvents")(pointerEvents.asInstanceOf[js.Any])
-    if (points != null) __obj.updateDynamic("points")(points.asInstanceOf[js.Any])
-    if (pointsAtX != null) __obj.updateDynamic("pointsAtX")(pointsAtX.asInstanceOf[js.Any])
-    if (pointsAtY != null) __obj.updateDynamic("pointsAtY")(pointsAtY.asInstanceOf[js.Any])
-    if (pointsAtZ != null) __obj.updateDynamic("pointsAtZ")(pointsAtZ.asInstanceOf[js.Any])
-    if (preserveAlpha != null) __obj.updateDynamic("preserveAlpha")(preserveAlpha.asInstanceOf[js.Any])
-    if (preserveAspectRatio != null) __obj.updateDynamic("preserveAspectRatio")(preserveAspectRatio.asInstanceOf[js.Any])
-    if (primitiveUnits != null) __obj.updateDynamic("primitiveUnits")(primitiveUnits.asInstanceOf[js.Any])
-    if (r != null) __obj.updateDynamic("r")(r.asInstanceOf[js.Any])
-    if (radius != null) __obj.updateDynamic("radius")(radius.asInstanceOf[js.Any])
-    if (refX != null) __obj.updateDynamic("refX")(refX.asInstanceOf[js.Any])
-    if (refY != null) __obj.updateDynamic("refY")(refY.asInstanceOf[js.Any])
-    if (renderingIntent != null) __obj.updateDynamic("renderingIntent")(renderingIntent.asInstanceOf[js.Any])
-    if (repeatCount != null) __obj.updateDynamic("repeatCount")(repeatCount.asInstanceOf[js.Any])
-    if (repeatDur != null) __obj.updateDynamic("repeatDur")(repeatDur.asInstanceOf[js.Any])
-    if (requiredExtensions != null) __obj.updateDynamic("requiredExtensions")(requiredExtensions.asInstanceOf[js.Any])
-    if (requiredFeatures != null) __obj.updateDynamic("requiredFeatures")(requiredFeatures.asInstanceOf[js.Any])
-    if (restart != null) __obj.updateDynamic("restart")(restart.asInstanceOf[js.Any])
-    if (result != null) __obj.updateDynamic("result")(result.asInstanceOf[js.Any])
-    if (role != null) __obj.updateDynamic("role")(role.asInstanceOf[js.Any])
-    if (rotate != null) __obj.updateDynamic("rotate")(rotate.asInstanceOf[js.Any])
-    if (rx != null) __obj.updateDynamic("rx")(rx.asInstanceOf[js.Any])
-    if (ry != null) __obj.updateDynamic("ry")(ry.asInstanceOf[js.Any])
-    if (scale != null) __obj.updateDynamic("scale")(scale.asInstanceOf[js.Any])
-    if (seed != null) __obj.updateDynamic("seed")(seed.asInstanceOf[js.Any])
-    if (shapeRendering != null) __obj.updateDynamic("shapeRendering")(shapeRendering.asInstanceOf[js.Any])
-    if (slope != null) __obj.updateDynamic("slope")(slope.asInstanceOf[js.Any])
-    if (spacing != null) __obj.updateDynamic("spacing")(spacing.asInstanceOf[js.Any])
-    if (specularConstant != null) __obj.updateDynamic("specularConstant")(specularConstant.asInstanceOf[js.Any])
-    if (specularExponent != null) __obj.updateDynamic("specularExponent")(specularExponent.asInstanceOf[js.Any])
-    if (speed != null) __obj.updateDynamic("speed")(speed.asInstanceOf[js.Any])
-    if (spreadMethod != null) __obj.updateDynamic("spreadMethod")(spreadMethod.asInstanceOf[js.Any])
-    if (startOffset != null) __obj.updateDynamic("startOffset")(startOffset.asInstanceOf[js.Any])
-    if (stdDeviation != null) __obj.updateDynamic("stdDeviation")(stdDeviation.asInstanceOf[js.Any])
-    if (stemh != null) __obj.updateDynamic("stemh")(stemh.asInstanceOf[js.Any])
-    if (stemv != null) __obj.updateDynamic("stemv")(stemv.asInstanceOf[js.Any])
-    if (stitchTiles != null) __obj.updateDynamic("stitchTiles")(stitchTiles.asInstanceOf[js.Any])
-    if (stopColor != null) __obj.updateDynamic("stopColor")(stopColor.asInstanceOf[js.Any])
-    if (stopOpacity != null) __obj.updateDynamic("stopOpacity")(stopOpacity.asInstanceOf[js.Any])
-    if (strikethroughPosition != null) __obj.updateDynamic("strikethroughPosition")(strikethroughPosition.asInstanceOf[js.Any])
-    if (strikethroughThickness != null) __obj.updateDynamic("strikethroughThickness")(strikethroughThickness.asInstanceOf[js.Any])
-    if (string != null) __obj.updateDynamic("string")(string.asInstanceOf[js.Any])
-    if (stroke != null) __obj.updateDynamic("stroke")(stroke.asInstanceOf[js.Any])
-    if (strokeDasharray != null) __obj.updateDynamic("strokeDasharray")(strokeDasharray.asInstanceOf[js.Any])
-    if (strokeDashoffset != null) __obj.updateDynamic("strokeDashoffset")(strokeDashoffset.asInstanceOf[js.Any])
-    if (strokeLinecap != null) __obj.updateDynamic("strokeLinecap")(strokeLinecap.asInstanceOf[js.Any])
-    if (strokeLinejoin != null) __obj.updateDynamic("strokeLinejoin")(strokeLinejoin.asInstanceOf[js.Any])
-    if (strokeMiterlimit != null) __obj.updateDynamic("strokeMiterlimit")(strokeMiterlimit.asInstanceOf[js.Any])
-    if (strokeOpacity != null) __obj.updateDynamic("strokeOpacity")(strokeOpacity.asInstanceOf[js.Any])
-    if (strokeWidth != null) __obj.updateDynamic("strokeWidth")(strokeWidth.asInstanceOf[js.Any])
-    if (style != null) __obj.updateDynamic("style")(style.asInstanceOf[js.Any])
-    if (surfaceScale != null) __obj.updateDynamic("surfaceScale")(surfaceScale.asInstanceOf[js.Any])
-    if (systemLanguage != null) __obj.updateDynamic("systemLanguage")(systemLanguage.asInstanceOf[js.Any])
-    if (tabIndex != null) __obj.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
-    if (tableValues != null) __obj.updateDynamic("tableValues")(tableValues.asInstanceOf[js.Any])
-    if (target != null) __obj.updateDynamic("target")(target.asInstanceOf[js.Any])
-    if (targetX != null) __obj.updateDynamic("targetX")(targetX.asInstanceOf[js.Any])
-    if (targetY != null) __obj.updateDynamic("targetY")(targetY.asInstanceOf[js.Any])
-    if (textAnchor != null) __obj.updateDynamic("textAnchor")(textAnchor.asInstanceOf[js.Any])
-    if (textDecoration != null) __obj.updateDynamic("textDecoration")(textDecoration.asInstanceOf[js.Any])
-    if (textLength != null) __obj.updateDynamic("textLength")(textLength.asInstanceOf[js.Any])
-    if (textRendering != null) __obj.updateDynamic("textRendering")(textRendering.asInstanceOf[js.Any])
-    if (to != null) __obj.updateDynamic("to")(to.asInstanceOf[js.Any])
-    if (transform != null) __obj.updateDynamic("transform")(transform.asInstanceOf[js.Any])
-    if (`type` != null) __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (u1 != null) __obj.updateDynamic("u1")(u1.asInstanceOf[js.Any])
-    if (u2 != null) __obj.updateDynamic("u2")(u2.asInstanceOf[js.Any])
-    if (underlinePosition != null) __obj.updateDynamic("underlinePosition")(underlinePosition.asInstanceOf[js.Any])
-    if (underlineThickness != null) __obj.updateDynamic("underlineThickness")(underlineThickness.asInstanceOf[js.Any])
-    if (unicode != null) __obj.updateDynamic("unicode")(unicode.asInstanceOf[js.Any])
-    if (unicodeBidi != null) __obj.updateDynamic("unicodeBidi")(unicodeBidi.asInstanceOf[js.Any])
-    if (unicodeRange != null) __obj.updateDynamic("unicodeRange")(unicodeRange.asInstanceOf[js.Any])
-    if (unitsPerEm != null) __obj.updateDynamic("unitsPerEm")(unitsPerEm.asInstanceOf[js.Any])
-    if (vAlphabetic != null) __obj.updateDynamic("vAlphabetic")(vAlphabetic.asInstanceOf[js.Any])
-    if (vHanging != null) __obj.updateDynamic("vHanging")(vHanging.asInstanceOf[js.Any])
-    if (vIdeographic != null) __obj.updateDynamic("vIdeographic")(vIdeographic.asInstanceOf[js.Any])
-    if (vMathematical != null) __obj.updateDynamic("vMathematical")(vMathematical.asInstanceOf[js.Any])
-    if (values != null) __obj.updateDynamic("values")(values.asInstanceOf[js.Any])
-    if (vectorEffect != null) __obj.updateDynamic("vectorEffect")(vectorEffect.asInstanceOf[js.Any])
-    if (version != null) __obj.updateDynamic("version")(version.asInstanceOf[js.Any])
-    if (vertAdvY != null) __obj.updateDynamic("vertAdvY")(vertAdvY.asInstanceOf[js.Any])
-    if (vertOriginX != null) __obj.updateDynamic("vertOriginX")(vertOriginX.asInstanceOf[js.Any])
-    if (vertOriginY != null) __obj.updateDynamic("vertOriginY")(vertOriginY.asInstanceOf[js.Any])
-    if (viewBox != null) __obj.updateDynamic("viewBox")(viewBox.asInstanceOf[js.Any])
-    if (viewTarget != null) __obj.updateDynamic("viewTarget")(viewTarget.asInstanceOf[js.Any])
-    if (visibility != null) __obj.updateDynamic("visibility")(visibility.asInstanceOf[js.Any])
-    if (width != null) __obj.updateDynamic("width")(width.asInstanceOf[js.Any])
-    if (widths != null) __obj.updateDynamic("widths")(widths.asInstanceOf[js.Any])
-    if (wordSpacing != null) __obj.updateDynamic("wordSpacing")(wordSpacing.asInstanceOf[js.Any])
-    if (writingMode != null) __obj.updateDynamic("writingMode")(writingMode.asInstanceOf[js.Any])
-    if (x != null) __obj.updateDynamic("x")(x.asInstanceOf[js.Any])
-    if (x1 != null) __obj.updateDynamic("x1")(x1.asInstanceOf[js.Any])
-    if (x2 != null) __obj.updateDynamic("x2")(x2.asInstanceOf[js.Any])
-    if (xChannelSelector != null) __obj.updateDynamic("xChannelSelector")(xChannelSelector.asInstanceOf[js.Any])
-    if (xHeight != null) __obj.updateDynamic("xHeight")(xHeight.asInstanceOf[js.Any])
-    if (xlinkActuate != null) __obj.updateDynamic("xlinkActuate")(xlinkActuate.asInstanceOf[js.Any])
-    if (xlinkArcrole != null) __obj.updateDynamic("xlinkArcrole")(xlinkArcrole.asInstanceOf[js.Any])
-    if (xlinkHref != null) __obj.updateDynamic("xlinkHref")(xlinkHref.asInstanceOf[js.Any])
-    if (xlinkRole != null) __obj.updateDynamic("xlinkRole")(xlinkRole.asInstanceOf[js.Any])
-    if (xlinkShow != null) __obj.updateDynamic("xlinkShow")(xlinkShow.asInstanceOf[js.Any])
-    if (xlinkTitle != null) __obj.updateDynamic("xlinkTitle")(xlinkTitle.asInstanceOf[js.Any])
-    if (xlinkType != null) __obj.updateDynamic("xlinkType")(xlinkType.asInstanceOf[js.Any])
-    if (xmlBase != null) __obj.updateDynamic("xmlBase")(xmlBase.asInstanceOf[js.Any])
-    if (xmlLang != null) __obj.updateDynamic("xmlLang")(xmlLang.asInstanceOf[js.Any])
-    if (xmlSpace != null) __obj.updateDynamic("xmlSpace")(xmlSpace.asInstanceOf[js.Any])
-    if (xmlns != null) __obj.updateDynamic("xmlns")(xmlns.asInstanceOf[js.Any])
-    if (xmlnsXlink != null) __obj.updateDynamic("xmlnsXlink")(xmlnsXlink.asInstanceOf[js.Any])
-    if (y != null) __obj.updateDynamic("y")(y.asInstanceOf[js.Any])
-    if (y1 != null) __obj.updateDynamic("y1")(y1.asInstanceOf[js.Any])
     __obj.asInstanceOf[SVGAttributes[T]]
   }
   @scala.inline
@@ -833,3030 +324,3030 @@ object SVGAttributes {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withAccentHeight(accentHeight: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (accentHeight != null) ret.updateDynamic("accentHeight")(accentHeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAccentHeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("accentHeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAccentHeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "accentHeight")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("accentHeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAccumulate(accumulate: none | sum): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (accumulate != null) ret.updateDynamic("accumulate")(accumulate.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAccumulate(value: none | sum): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("accumulate")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAccumulate: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "accumulate")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("accumulate")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAdditive(additive: replace | sum): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (additive != null) ret.updateDynamic("additive")(additive.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAdditive(value: replace | sum): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("additive")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAdditive: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "additive")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("additive")(js.undefined)
+        ret
     }
     @scala.inline
     def withAlignmentBaseline(
-      alignmentBaseline: auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit
+      value: auto | baseline | `before-edge` | `text-before-edge` | middle | central | `after-edge` | `text-after-edge` | ideographic | alphabetic | hanging | mathematical | inherit
     ): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (alignmentBaseline != null) ret.updateDynamic("alignmentBaseline")(alignmentBaseline.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("alignmentBaseline")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAlignmentBaseline: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "alignmentBaseline")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("alignmentBaseline")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAllowReorder(allowReorder: no | yes): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (allowReorder != null) ret.updateDynamic("allowReorder")(allowReorder.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAllowReorder(value: no | yes): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("allowReorder")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAllowReorder: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "allowReorder")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("allowReorder")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAlphabetic(alphabetic: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (alphabetic != null) ret.updateDynamic("alphabetic")(alphabetic.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAlphabetic(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("alphabetic")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAlphabetic: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "alphabetic")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("alphabetic")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAmplitude(amplitude: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (amplitude != null) ret.updateDynamic("amplitude")(amplitude.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAmplitude(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("amplitude")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAmplitude: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "amplitude")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("amplitude")(js.undefined)
+        ret
     }
     @scala.inline
-    def withArabicForm(arabicForm: initial | medial | terminal | isolated): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (arabicForm != null) ret.updateDynamic("arabicForm")(arabicForm.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withArabicForm(value: initial | medial | terminal | isolated): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("arabicForm")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutArabicForm: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "arabicForm")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("arabicForm")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAscent(ascent: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (ascent != null) ret.updateDynamic("ascent")(ascent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAscent(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ascent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAscent: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "ascent")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ascent")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAttributeName(attributeName: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (attributeName != null) ret.updateDynamic("attributeName")(attributeName.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAttributeName(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributeName")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAttributeName: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "attributeName")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributeName")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAttributeType(attributeType: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (attributeType != null) ret.updateDynamic("attributeType")(attributeType.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAttributeType(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributeType")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAttributeType: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "attributeType")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("attributeType")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAutoReverse(autoReverse: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (autoReverse != null) ret.updateDynamic("autoReverse")(autoReverse.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAutoReverse(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("autoReverse")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAutoReverse: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "autoReverse")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("autoReverse")(js.undefined)
+        ret
     }
     @scala.inline
-    def withAzimuth(azimuth: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (azimuth != null) ret.updateDynamic("azimuth")(azimuth.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAzimuth(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("azimuth")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutAzimuth: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "azimuth")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("azimuth")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBaseFrequency(baseFrequency: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (baseFrequency != null) ret.updateDynamic("baseFrequency")(baseFrequency.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBaseFrequency(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("baseFrequency")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBaseFrequency: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "baseFrequency")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("baseFrequency")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBaseProfile(baseProfile: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (baseProfile != null) ret.updateDynamic("baseProfile")(baseProfile.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBaseProfile(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("baseProfile")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBaseProfile: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "baseProfile")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("baseProfile")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBaselineShift(baselineShift: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (baselineShift != null) ret.updateDynamic("baselineShift")(baselineShift.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBaselineShift(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("baselineShift")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBaselineShift: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "baselineShift")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("baselineShift")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBbox(bbox: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (bbox != null) ret.updateDynamic("bbox")(bbox.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBbox(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bbox")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBbox: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "bbox")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bbox")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBegin(begin: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (begin != null) ret.updateDynamic("begin")(begin.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBegin(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("begin")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBegin: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "begin")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("begin")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBias(bias: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (bias != null) ret.updateDynamic("bias")(bias.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBias(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bias")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBias: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "bias")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("bias")(js.undefined)
+        ret
     }
     @scala.inline
-    def withBy(by: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (by != null) ret.updateDynamic("by")(by.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withBy(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("by")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutBy: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "by")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("by")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCalcMode(calcMode: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (calcMode != null) ret.updateDynamic("calcMode")(calcMode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCalcMode(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("calcMode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCalcMode: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "calcMode")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("calcMode")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCapHeight(capHeight: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (capHeight != null) ret.updateDynamic("capHeight")(capHeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCapHeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("capHeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCapHeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "capHeight")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("capHeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClassName(className: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (className != null) ret.updateDynamic("className")(className.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClassName(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClassName: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "className")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("className")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClip(clip: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (clip != null) ret.updateDynamic("clip")(clip.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClip(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clip")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClip: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "clip")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clip")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClipPath(clipPath: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (clipPath != null) ret.updateDynamic("clipPath")(clipPath.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClipPath(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClipPath: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "clipPath")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPath")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClipPathUnits(clipPathUnits: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (clipPathUnits != null) ret.updateDynamic("clipPathUnits")(clipPathUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClipPathUnits(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPathUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClipPathUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "clipPathUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipPathUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withClipRule(clipRule: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (clipRule != null) ret.updateDynamic("clipRule")(clipRule.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withClipRule(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipRule")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutClipRule: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "clipRule")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("clipRule")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColor(color: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (color != null) ret.updateDynamic("color")(color.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withColor(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "color")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColorInterpolation(colorInterpolation: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (colorInterpolation != null) ret.updateDynamic("colorInterpolation")(colorInterpolation.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withColorInterpolation(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolation")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColorInterpolation: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "colorInterpolation")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolation")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColorInterpolationFilters(colorInterpolationFilters: auto | sRGB | linearRGB | inherit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (colorInterpolationFilters != null) ret.updateDynamic("colorInterpolationFilters")(colorInterpolationFilters.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withColorInterpolationFilters(value: auto | sRGB | linearRGB | inherit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolationFilters")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColorInterpolationFilters: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "colorInterpolationFilters")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorInterpolationFilters")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColorProfile(colorProfile: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (colorProfile != null) ret.updateDynamic("colorProfile")(colorProfile.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withColorProfile(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorProfile")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColorProfile: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "colorProfile")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorProfile")(js.undefined)
+        ret
     }
     @scala.inline
-    def withColorRendering(colorRendering: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (colorRendering != null) ret.updateDynamic("colorRendering")(colorRendering.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withColorRendering(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorRendering")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColorRendering: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "colorRendering")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("colorRendering")(js.undefined)
+        ret
     }
     @scala.inline
-    def withContentScriptType(contentScriptType: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (contentScriptType != null) ret.updateDynamic("contentScriptType")(contentScriptType.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withContentScriptType(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("contentScriptType")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutContentScriptType: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "contentScriptType")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("contentScriptType")(js.undefined)
+        ret
     }
     @scala.inline
-    def withContentStyleType(contentStyleType: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (contentStyleType != null) ret.updateDynamic("contentStyleType")(contentStyleType.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withContentStyleType(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("contentStyleType")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutContentStyleType: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "contentStyleType")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("contentStyleType")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCursor(cursor: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (cursor != null) ret.updateDynamic("cursor")(cursor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCursor(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cursor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCursor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "cursor")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cursor")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCx(cx: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (cx != null) ret.updateDynamic("cx")(cx.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCx(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cx")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCx: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "cx")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cx")(js.undefined)
+        ret
     }
     @scala.inline
-    def withCy(cy: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (cy != null) ret.updateDynamic("cy")(cy.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCy(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cy")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCy: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "cy")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("cy")(js.undefined)
+        ret
     }
     @scala.inline
-    def withD(d: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (d != null) ret.updateDynamic("d")(d.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withD(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("d")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutD: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "d")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("d")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDecelerate(decelerate: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (decelerate != null) ret.updateDynamic("decelerate")(decelerate.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDecelerate(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("decelerate")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDecelerate: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "decelerate")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("decelerate")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDescent(descent: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (descent != null) ret.updateDynamic("descent")(descent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDescent(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("descent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDescent: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "descent")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("descent")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDiffuseConstant(diffuseConstant: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (diffuseConstant != null) ret.updateDynamic("diffuseConstant")(diffuseConstant.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDiffuseConstant(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("diffuseConstant")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDiffuseConstant: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "diffuseConstant")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("diffuseConstant")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDirection(direction: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (direction != null) ret.updateDynamic("direction")(direction.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDirection(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("direction")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDirection: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "direction")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("direction")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDisplay(display: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (display != null) ret.updateDynamic("display")(display.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDisplay(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("display")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDisplay: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "display")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("display")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDivisor(divisor: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (divisor != null) ret.updateDynamic("divisor")(divisor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDivisor(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("divisor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDivisor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "divisor")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("divisor")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDominantBaseline(dominantBaseline: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (dominantBaseline != null) ret.updateDynamic("dominantBaseline")(dominantBaseline.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDominantBaseline(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dominantBaseline")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDominantBaseline: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "dominantBaseline")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dominantBaseline")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDur(dur: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (dur != null) ret.updateDynamic("dur")(dur.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDur(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dur")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDur: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "dur")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dur")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDx(dx: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (dx != null) ret.updateDynamic("dx")(dx.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDx(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dx")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDx: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "dx")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dx")(js.undefined)
+        ret
     }
     @scala.inline
-    def withDy(dy: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (dy != null) ret.updateDynamic("dy")(dy.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withDy(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dy")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutDy: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "dy")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("dy")(js.undefined)
+        ret
     }
     @scala.inline
-    def withEdgeMode(edgeMode: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (edgeMode != null) ret.updateDynamic("edgeMode")(edgeMode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withEdgeMode(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("edgeMode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEdgeMode: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "edgeMode")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("edgeMode")(js.undefined)
+        ret
     }
     @scala.inline
-    def withElevation(elevation: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (elevation != null) ret.updateDynamic("elevation")(elevation.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withElevation(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("elevation")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutElevation: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "elevation")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("elevation")(js.undefined)
+        ret
     }
     @scala.inline
-    def withEnableBackground(enableBackground: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (enableBackground != null) ret.updateDynamic("enableBackground")(enableBackground.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withEnableBackground(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("enableBackground")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEnableBackground: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "enableBackground")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("enableBackground")(js.undefined)
+        ret
     }
     @scala.inline
-    def withEnd(end: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (end != null) ret.updateDynamic("end")(end.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withEnd(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("end")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutEnd: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "end")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("end")(js.undefined)
+        ret
     }
     @scala.inline
-    def withExponent(exponent: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (exponent != null) ret.updateDynamic("exponent")(exponent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withExponent(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("exponent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutExponent: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "exponent")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("exponent")(js.undefined)
+        ret
     }
     @scala.inline
-    def withExternalResourcesRequired(externalResourcesRequired: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (externalResourcesRequired != null) ret.updateDynamic("externalResourcesRequired")(externalResourcesRequired.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withExternalResourcesRequired(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("externalResourcesRequired")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutExternalResourcesRequired: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "externalResourcesRequired")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("externalResourcesRequired")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFill(fill: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fill != null) ret.updateDynamic("fill")(fill.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFill(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fill")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFill: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fill")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fill")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFillOpacity(fillOpacity: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fillOpacity != null) ret.updateDynamic("fillOpacity")(fillOpacity.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFillOpacity(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fillOpacity")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFillOpacity: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fillOpacity")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fillOpacity")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFillRule(fillRule: nonzero | evenodd | inherit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fillRule != null) ret.updateDynamic("fillRule")(fillRule.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFillRule(value: nonzero | evenodd | inherit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fillRule")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFillRule: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fillRule")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fillRule")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFilter(filter: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (filter != null) ret.updateDynamic("filter")(filter.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFilter(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("filter")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFilter: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "filter")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("filter")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFilterRes(filterRes: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (filterRes != null) ret.updateDynamic("filterRes")(filterRes.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFilterRes(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("filterRes")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFilterRes: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "filterRes")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("filterRes")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFilterUnits(filterUnits: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (filterUnits != null) ret.updateDynamic("filterUnits")(filterUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFilterUnits(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("filterUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFilterUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "filterUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("filterUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFloodColor(floodColor: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (floodColor != null) ret.updateDynamic("floodColor")(floodColor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFloodColor(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("floodColor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFloodColor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "floodColor")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("floodColor")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFloodOpacity(floodOpacity: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (floodOpacity != null) ret.updateDynamic("floodOpacity")(floodOpacity.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFloodOpacity(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("floodOpacity")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFloodOpacity: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "floodOpacity")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("floodOpacity")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFocusable(focusable: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (focusable != null) ret.updateDynamic("focusable")(focusable.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFocusable(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("focusable")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFocusable: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "focusable")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("focusable")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontFamily(fontFamily: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontFamily != null) ret.updateDynamic("fontFamily")(fontFamily.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontFamily(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontFamily: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontFamily")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontSize(fontSize: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontSize != null) ret.updateDynamic("fontSize")(fontSize.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontSize(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontSize: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontSize")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontSizeAdjust(fontSizeAdjust: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontSizeAdjust != null) ret.updateDynamic("fontSizeAdjust")(fontSizeAdjust.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontSizeAdjust(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSizeAdjust")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontSizeAdjust: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontSizeAdjust")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSizeAdjust")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontStretch(fontStretch: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontStretch != null) ret.updateDynamic("fontStretch")(fontStretch.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontStretch(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontStretch")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontStretch: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontStretch")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontStretch")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontStyle(fontStyle: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontStyle != null) ret.updateDynamic("fontStyle")(fontStyle.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontStyle(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontStyle")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontStyle: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontStyle")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontStyle")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontVariant(fontVariant: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontVariant != null) ret.updateDynamic("fontVariant")(fontVariant.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontVariant(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontVariant")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontVariant: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontVariant")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontVariant")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontWeight(fontWeight: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontWeight != null) ret.updateDynamic("fontWeight")(fontWeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFontWeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontWeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontWeight")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFormat(format: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (format != null) ret.updateDynamic("format")(format.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFormat(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("format")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFormat: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "format")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("format")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFrom(from: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (from != null) ret.updateDynamic("from")(from.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFrom(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("from")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFrom: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "from")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("from")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFx(fx: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fx != null) ret.updateDynamic("fx")(fx.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFx(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fx")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFx: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fx")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fx")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFy(fy: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fy != null) ret.updateDynamic("fy")(fy.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withFy(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fy")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFy: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "fy")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fy")(js.undefined)
+        ret
     }
     @scala.inline
-    def withG1(g1: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (g1 != null) ret.updateDynamic("g1")(g1.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withG1(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("g1")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutG1: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "g1")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("g1")(js.undefined)
+        ret
     }
     @scala.inline
-    def withG2(g2: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (g2 != null) ret.updateDynamic("g2")(g2.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withG2(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("g2")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutG2: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "g2")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("g2")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGlyphName(glyphName: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (glyphName != null) ret.updateDynamic("glyphName")(glyphName.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withGlyphName(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphName")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGlyphName: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "glyphName")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphName")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGlyphOrientationHorizontal(glyphOrientationHorizontal: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (glyphOrientationHorizontal != null) ret.updateDynamic("glyphOrientationHorizontal")(glyphOrientationHorizontal.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withGlyphOrientationHorizontal(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationHorizontal")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGlyphOrientationHorizontal: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "glyphOrientationHorizontal")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationHorizontal")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGlyphOrientationVertical(glyphOrientationVertical: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (glyphOrientationVertical != null) ret.updateDynamic("glyphOrientationVertical")(glyphOrientationVertical.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withGlyphOrientationVertical(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationVertical")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGlyphOrientationVertical: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "glyphOrientationVertical")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphOrientationVertical")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGlyphRef(glyphRef: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (glyphRef != null) ret.updateDynamic("glyphRef")(glyphRef.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withGlyphRef(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphRef")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGlyphRef: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "glyphRef")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("glyphRef")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGradientTransform(gradientTransform: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (gradientTransform != null) ret.updateDynamic("gradientTransform")(gradientTransform.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withGradientTransform(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("gradientTransform")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGradientTransform: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "gradientTransform")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("gradientTransform")(js.undefined)
+        ret
     }
     @scala.inline
-    def withGradientUnits(gradientUnits: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (gradientUnits != null) ret.updateDynamic("gradientUnits")(gradientUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withGradientUnits(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("gradientUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutGradientUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "gradientUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("gradientUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHanging(hanging: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (hanging != null) ret.updateDynamic("hanging")(hanging.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHanging(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("hanging")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHanging: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "hanging")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("hanging")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHeight(height: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (height != null) ret.updateDynamic("height")(height.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "height")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("height")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHorizAdvX(horizAdvX: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (horizAdvX != null) ret.updateDynamic("horizAdvX")(horizAdvX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHorizAdvX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("horizAdvX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHorizAdvX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "horizAdvX")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("horizAdvX")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHorizOriginX(horizOriginX: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (horizOriginX != null) ret.updateDynamic("horizOriginX")(horizOriginX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHorizOriginX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("horizOriginX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHorizOriginX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "horizOriginX")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("horizOriginX")(js.undefined)
+        ret
     }
     @scala.inline
-    def withHref(href: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (href != null) ret.updateDynamic("href")(href.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withHref(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("href")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutHref: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "href")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("href")(js.undefined)
+        ret
     }
     @scala.inline
-    def withId(id: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (id != null) ret.updateDynamic("id")(id.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withId(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("id")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutId: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "id")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("id")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIdeographic(ideographic: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (ideographic != null) ret.updateDynamic("ideographic")(ideographic.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withIdeographic(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ideographic")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIdeographic: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "ideographic")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ideographic")(js.undefined)
+        ret
     }
     @scala.inline
-    def withImageRendering(imageRendering: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (imageRendering != null) ret.updateDynamic("imageRendering")(imageRendering.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withImageRendering(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("imageRendering")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutImageRendering: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "imageRendering")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("imageRendering")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIn(in: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (in != null) ret.updateDynamic("in")(in.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withIn(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("in")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIn: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "in")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("in")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIn2(in2: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (in2 != null) ret.updateDynamic("in2")(in2.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withIn2(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("in2")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIn2: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "in2")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("in2")(js.undefined)
+        ret
     }
     @scala.inline
-    def withIntercept(intercept: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (intercept != null) ret.updateDynamic("intercept")(intercept.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withIntercept(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("intercept")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutIntercept: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "intercept")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("intercept")(js.undefined)
+        ret
     }
     @scala.inline
-    def withK(k: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (k != null) ret.updateDynamic("k")(k.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withK(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutK: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "k")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k")(js.undefined)
+        ret
     }
     @scala.inline
-    def withK1(k1: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (k1 != null) ret.updateDynamic("k1")(k1.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withK1(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k1")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutK1: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "k1")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k1")(js.undefined)
+        ret
     }
     @scala.inline
-    def withK2(k2: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (k2 != null) ret.updateDynamic("k2")(k2.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withK2(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k2")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutK2: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "k2")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k2")(js.undefined)
+        ret
     }
     @scala.inline
-    def withK3(k3: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (k3 != null) ret.updateDynamic("k3")(k3.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withK3(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k3")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutK3: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "k3")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k3")(js.undefined)
+        ret
     }
     @scala.inline
-    def withK4(k4: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (k4 != null) ret.updateDynamic("k4")(k4.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withK4(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k4")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutK4: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "k4")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("k4")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKernelMatrix(kernelMatrix: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (kernelMatrix != null) ret.updateDynamic("kernelMatrix")(kernelMatrix.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKernelMatrix(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kernelMatrix")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKernelMatrix: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "kernelMatrix")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kernelMatrix")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKernelUnitLength(kernelUnitLength: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (kernelUnitLength != null) ret.updateDynamic("kernelUnitLength")(kernelUnitLength.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKernelUnitLength(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kernelUnitLength")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKernelUnitLength: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "kernelUnitLength")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kernelUnitLength")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKerning(kerning: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (kerning != null) ret.updateDynamic("kerning")(kerning.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKerning(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kerning")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKerning: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "kerning")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("kerning")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKeyPoints(keyPoints: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (keyPoints != null) ret.updateDynamic("keyPoints")(keyPoints.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKeyPoints(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyPoints")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKeyPoints: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "keyPoints")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyPoints")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKeySplines(keySplines: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (keySplines != null) ret.updateDynamic("keySplines")(keySplines.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKeySplines(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keySplines")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKeySplines: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "keySplines")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keySplines")(js.undefined)
+        ret
     }
     @scala.inline
-    def withKeyTimes(keyTimes: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (keyTimes != null) ret.updateDynamic("keyTimes")(keyTimes.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKeyTimes(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyTimes")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutKeyTimes: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "keyTimes")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyTimes")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLang(lang: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (lang != null) ret.updateDynamic("lang")(lang.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLang(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lang")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLang: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "lang")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lang")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLengthAdjust(lengthAdjust: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (lengthAdjust != null) ret.updateDynamic("lengthAdjust")(lengthAdjust.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLengthAdjust(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lengthAdjust")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLengthAdjust: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "lengthAdjust")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lengthAdjust")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLetterSpacing(letterSpacing: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (letterSpacing != null) ret.updateDynamic("letterSpacing")(letterSpacing.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLetterSpacing(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLetterSpacing: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "letterSpacing")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLightingColor(lightingColor: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (lightingColor != null) ret.updateDynamic("lightingColor")(lightingColor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLightingColor(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lightingColor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLightingColor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "lightingColor")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lightingColor")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLimitingConeAngle(limitingConeAngle: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (limitingConeAngle != null) ret.updateDynamic("limitingConeAngle")(limitingConeAngle.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLimitingConeAngle(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("limitingConeAngle")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLimitingConeAngle: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "limitingConeAngle")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("limitingConeAngle")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLocal(local: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (local != null) ret.updateDynamic("local")(local.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLocal(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("local")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLocal: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "local")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("local")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMarkerEnd(markerEnd: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (markerEnd != null) ret.updateDynamic("markerEnd")(markerEnd.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMarkerEnd(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerEnd")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMarkerEnd: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "markerEnd")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerEnd")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMarkerHeight(markerHeight: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (markerHeight != null) ret.updateDynamic("markerHeight")(markerHeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMarkerHeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerHeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMarkerHeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "markerHeight")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerHeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMarkerMid(markerMid: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (markerMid != null) ret.updateDynamic("markerMid")(markerMid.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMarkerMid(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerMid")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMarkerMid: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "markerMid")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerMid")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMarkerStart(markerStart: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (markerStart != null) ret.updateDynamic("markerStart")(markerStart.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMarkerStart(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerStart")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMarkerStart: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "markerStart")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerStart")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMarkerUnits(markerUnits: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (markerUnits != null) ret.updateDynamic("markerUnits")(markerUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMarkerUnits(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMarkerUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "markerUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMarkerWidth(markerWidth: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (markerWidth != null) ret.updateDynamic("markerWidth")(markerWidth.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMarkerWidth(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerWidth")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMarkerWidth: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "markerWidth")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("markerWidth")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMask(mask: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (mask != null) ret.updateDynamic("mask")(mask.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMask(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("mask")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMask: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "mask")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("mask")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMaskContentUnits(maskContentUnits: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (maskContentUnits != null) ret.updateDynamic("maskContentUnits")(maskContentUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMaskContentUnits(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("maskContentUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMaskContentUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "maskContentUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("maskContentUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMaskUnits(maskUnits: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (maskUnits != null) ret.updateDynamic("maskUnits")(maskUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMaskUnits(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("maskUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMaskUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "maskUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("maskUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMathematical(mathematical: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (mathematical != null) ret.updateDynamic("mathematical")(mathematical.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMathematical(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("mathematical")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMathematical: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "mathematical")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("mathematical")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMax(max: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (max != null) ret.updateDynamic("max")(max.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMax(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("max")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMax: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "max")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("max")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMedia(media: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (media != null) ret.updateDynamic("media")(media.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMedia(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("media")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMedia: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "media")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("media")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMethod(method: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (method != null) ret.updateDynamic("method")(method.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMethod(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("method")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMethod: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "method")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("method")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMin(min: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (min != null) ret.updateDynamic("min")(min.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMin(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("min")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMin: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "min")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("min")(js.undefined)
+        ret
     }
     @scala.inline
-    def withMode(mode: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (mode != null) ret.updateDynamic("mode")(mode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMode(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("mode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutMode: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "mode")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("mode")(js.undefined)
+        ret
     }
     @scala.inline
-    def withName(name: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (name != null) ret.updateDynamic("name")(name.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withName(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutName: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "name")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
+        ret
     }
     @scala.inline
-    def withNumOctaves(numOctaves: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (numOctaves != null) ret.updateDynamic("numOctaves")(numOctaves.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withNumOctaves(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("numOctaves")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutNumOctaves: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "numOctaves")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("numOctaves")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOffset(offset: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (offset != null) ret.updateDynamic("offset")(offset.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOffset(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("offset")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOffset: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "offset")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("offset")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOpacity(opacity: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (opacity != null) ret.updateDynamic("opacity")(opacity.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOpacity(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("opacity")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOpacity: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "opacity")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("opacity")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOperator(operator: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (operator != null) ret.updateDynamic("operator")(operator.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOperator(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("operator")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOperator: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "operator")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("operator")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOrder(order: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (order != null) ret.updateDynamic("order")(order.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOrder(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("order")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOrder: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "order")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("order")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOrient(orient: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (orient != null) ret.updateDynamic("orient")(orient.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOrient(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("orient")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOrient: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "orient")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("orient")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOrientation(orientation: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (orientation != null) ret.updateDynamic("orientation")(orientation.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOrientation(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("orientation")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOrientation: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "orientation")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("orientation")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOrigin(origin: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (origin != null) ret.updateDynamic("origin")(origin.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOrigin(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("origin")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOrigin: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "origin")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("origin")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOverflow(overflow: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (overflow != null) ret.updateDynamic("overflow")(overflow.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOverflow(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("overflow")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOverflow: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "overflow")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("overflow")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOverlinePosition(overlinePosition: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (overlinePosition != null) ret.updateDynamic("overlinePosition")(overlinePosition.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOverlinePosition(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("overlinePosition")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOverlinePosition: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "overlinePosition")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("overlinePosition")(js.undefined)
+        ret
     }
     @scala.inline
-    def withOverlineThickness(overlineThickness: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (overlineThickness != null) ret.updateDynamic("overlineThickness")(overlineThickness.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withOverlineThickness(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("overlineThickness")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutOverlineThickness: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "overlineThickness")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("overlineThickness")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPaintOrder(paintOrder: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (paintOrder != null) ret.updateDynamic("paintOrder")(paintOrder.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPaintOrder(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("paintOrder")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPaintOrder: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "paintOrder")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("paintOrder")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPanose1(panose1: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (panose1 != null) ret.updateDynamic("panose1")(panose1.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPanose1(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("panose1")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPanose1: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "panose1")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("panose1")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPathLength(pathLength: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (pathLength != null) ret.updateDynamic("pathLength")(pathLength.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPathLength(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pathLength")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPathLength: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "pathLength")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pathLength")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPatternContentUnits(patternContentUnits: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (patternContentUnits != null) ret.updateDynamic("patternContentUnits")(patternContentUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPatternContentUnits(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("patternContentUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPatternContentUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "patternContentUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("patternContentUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPatternTransform(patternTransform: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (patternTransform != null) ret.updateDynamic("patternTransform")(patternTransform.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPatternTransform(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("patternTransform")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPatternTransform: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "patternTransform")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("patternTransform")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPatternUnits(patternUnits: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (patternUnits != null) ret.updateDynamic("patternUnits")(patternUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPatternUnits(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("patternUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPatternUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "patternUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("patternUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPointerEvents(pointerEvents: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (pointerEvents != null) ret.updateDynamic("pointerEvents")(pointerEvents.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPointerEvents(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointerEvents")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPointerEvents: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "pointerEvents")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointerEvents")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPoints(points: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (points != null) ret.updateDynamic("points")(points.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPoints(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("points")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPoints: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "points")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("points")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPointsAtX(pointsAtX: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (pointsAtX != null) ret.updateDynamic("pointsAtX")(pointsAtX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPointsAtX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPointsAtX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "pointsAtX")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtX")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPointsAtY(pointsAtY: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (pointsAtY != null) ret.updateDynamic("pointsAtY")(pointsAtY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPointsAtY(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPointsAtY: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "pointsAtY")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtY")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPointsAtZ(pointsAtZ: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (pointsAtZ != null) ret.updateDynamic("pointsAtZ")(pointsAtZ.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPointsAtZ(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtZ")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPointsAtZ: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "pointsAtZ")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("pointsAtZ")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPreserveAlpha(preserveAlpha: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (preserveAlpha != null) ret.updateDynamic("preserveAlpha")(preserveAlpha.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPreserveAlpha(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAlpha")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPreserveAlpha: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "preserveAlpha")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAlpha")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPreserveAspectRatio(preserveAspectRatio: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (preserveAspectRatio != null) ret.updateDynamic("preserveAspectRatio")(preserveAspectRatio.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPreserveAspectRatio(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAspectRatio")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPreserveAspectRatio: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "preserveAspectRatio")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preserveAspectRatio")(js.undefined)
+        ret
     }
     @scala.inline
-    def withPrimitiveUnits(primitiveUnits: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (primitiveUnits != null) ret.updateDynamic("primitiveUnits")(primitiveUnits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withPrimitiveUnits(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("primitiveUnits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutPrimitiveUnits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "primitiveUnits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("primitiveUnits")(js.undefined)
+        ret
     }
     @scala.inline
-    def withR(r: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (r != null) ret.updateDynamic("r")(r.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withR(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("r")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutR: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "r")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("r")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRadius(radius: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (radius != null) ret.updateDynamic("radius")(radius.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRadius(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("radius")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRadius: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "radius")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("radius")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRefX(refX: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (refX != null) ret.updateDynamic("refX")(refX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRefX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("refX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRefX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "refX")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("refX")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRefY(refY: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (refY != null) ret.updateDynamic("refY")(refY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRefY(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("refY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRefY: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "refY")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("refY")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRenderingIntent(renderingIntent: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (renderingIntent != null) ret.updateDynamic("renderingIntent")(renderingIntent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRenderingIntent(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("renderingIntent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRenderingIntent: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "renderingIntent")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("renderingIntent")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRepeatCount(repeatCount: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (repeatCount != null) ret.updateDynamic("repeatCount")(repeatCount.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRepeatCount(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("repeatCount")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRepeatCount: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "repeatCount")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("repeatCount")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRepeatDur(repeatDur: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (repeatDur != null) ret.updateDynamic("repeatDur")(repeatDur.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRepeatDur(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("repeatDur")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRepeatDur: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "repeatDur")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("repeatDur")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRequiredExtensions(requiredExtensions: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (requiredExtensions != null) ret.updateDynamic("requiredExtensions")(requiredExtensions.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRequiredExtensions(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredExtensions")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRequiredExtensions: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "requiredExtensions")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredExtensions")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRequiredFeatures(requiredFeatures: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (requiredFeatures != null) ret.updateDynamic("requiredFeatures")(requiredFeatures.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRequiredFeatures(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFeatures")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRequiredFeatures: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "requiredFeatures")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("requiredFeatures")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRestart(restart: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (restart != null) ret.updateDynamic("restart")(restart.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRestart(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("restart")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRestart: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "restart")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("restart")(js.undefined)
+        ret
     }
     @scala.inline
-    def withResult(result: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (result != null) ret.updateDynamic("result")(result.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withResult(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("result")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutResult: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "result")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("result")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRole(role: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (role != null) ret.updateDynamic("role")(role.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRole(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("role")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRole: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "role")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("role")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRotate(rotate: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (rotate != null) ret.updateDynamic("rotate")(rotate.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRotate(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("rotate")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRotate: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "rotate")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("rotate")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRx(rx: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (rx != null) ret.updateDynamic("rx")(rx.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRx(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("rx")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRx: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "rx")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("rx")(js.undefined)
+        ret
     }
     @scala.inline
-    def withRy(ry: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (ry != null) ret.updateDynamic("ry")(ry.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRy(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ry")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutRy: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "ry")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ry")(js.undefined)
+        ret
     }
     @scala.inline
-    def withScale(scale: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (scale != null) ret.updateDynamic("scale")(scale.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withScale(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("scale")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutScale: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "scale")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("scale")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSeed(seed: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (seed != null) ret.updateDynamic("seed")(seed.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSeed(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("seed")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSeed: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "seed")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("seed")(js.undefined)
+        ret
     }
     @scala.inline
-    def withShapeRendering(shapeRendering: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (shapeRendering != null) ret.updateDynamic("shapeRendering")(shapeRendering.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withShapeRendering(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("shapeRendering")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutShapeRendering: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "shapeRendering")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("shapeRendering")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSlope(slope: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (slope != null) ret.updateDynamic("slope")(slope.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSlope(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("slope")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSlope: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "slope")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("slope")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSpacing(spacing: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (spacing != null) ret.updateDynamic("spacing")(spacing.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSpacing(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("spacing")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSpacing: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "spacing")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("spacing")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSpecularConstant(specularConstant: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (specularConstant != null) ret.updateDynamic("specularConstant")(specularConstant.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSpecularConstant(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("specularConstant")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSpecularConstant: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "specularConstant")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("specularConstant")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSpecularExponent(specularExponent: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (specularExponent != null) ret.updateDynamic("specularExponent")(specularExponent.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSpecularExponent(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("specularExponent")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSpecularExponent: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "specularExponent")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("specularExponent")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSpeed(speed: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (speed != null) ret.updateDynamic("speed")(speed.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSpeed(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("speed")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSpeed: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "speed")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("speed")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSpreadMethod(spreadMethod: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (spreadMethod != null) ret.updateDynamic("spreadMethod")(spreadMethod.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSpreadMethod(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("spreadMethod")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSpreadMethod: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "spreadMethod")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("spreadMethod")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStartOffset(startOffset: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (startOffset != null) ret.updateDynamic("startOffset")(startOffset.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStartOffset(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("startOffset")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStartOffset: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "startOffset")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("startOffset")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStdDeviation(stdDeviation: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stdDeviation != null) ret.updateDynamic("stdDeviation")(stdDeviation.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStdDeviation(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stdDeviation")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStdDeviation: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stdDeviation")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stdDeviation")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStemh(stemh: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stemh != null) ret.updateDynamic("stemh")(stemh.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStemh(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stemh")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStemh: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stemh")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stemh")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStemv(stemv: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stemv != null) ret.updateDynamic("stemv")(stemv.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStemv(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stemv")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStemv: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stemv")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stemv")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStitchTiles(stitchTiles: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stitchTiles != null) ret.updateDynamic("stitchTiles")(stitchTiles.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStitchTiles(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stitchTiles")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStitchTiles: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stitchTiles")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stitchTiles")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStopColor(stopColor: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stopColor != null) ret.updateDynamic("stopColor")(stopColor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStopColor(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stopColor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStopColor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stopColor")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stopColor")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStopOpacity(stopOpacity: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stopOpacity != null) ret.updateDynamic("stopOpacity")(stopOpacity.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStopOpacity(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stopOpacity")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStopOpacity: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stopOpacity")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stopOpacity")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrikethroughPosition(strikethroughPosition: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strikethroughPosition != null) ret.updateDynamic("strikethroughPosition")(strikethroughPosition.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrikethroughPosition(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughPosition")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrikethroughPosition: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strikethroughPosition")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughPosition")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrikethroughThickness(strikethroughThickness: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strikethroughThickness != null) ret.updateDynamic("strikethroughThickness")(strikethroughThickness.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrikethroughThickness(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughThickness")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrikethroughThickness: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strikethroughThickness")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strikethroughThickness")(js.undefined)
+        ret
     }
     @scala.inline
-    def withString(string: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (string != null) ret.updateDynamic("string")(string.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withString(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("string")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutString: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "string")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("string")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStroke(stroke: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (stroke != null) ret.updateDynamic("stroke")(stroke.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStroke(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stroke")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStroke: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "stroke")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("stroke")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeDasharray(strokeDasharray: String | Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeDasharray != null) ret.updateDynamic("strokeDasharray")(strokeDasharray.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeDasharray(value: String | Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDasharray")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeDasharray: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeDasharray")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDasharray")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeDashoffset(strokeDashoffset: String | Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeDashoffset != null) ret.updateDynamic("strokeDashoffset")(strokeDashoffset.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeDashoffset(value: String | Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDashoffset")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeDashoffset: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeDashoffset")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeDashoffset")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeLinecap(strokeLinecap: butt | round | square | inherit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeLinecap != null) ret.updateDynamic("strokeLinecap")(strokeLinecap.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeLinecap(value: butt | round | square | inherit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinecap")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeLinecap: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeLinecap")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinecap")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeLinejoin(strokeLinejoin: miter | round | bevel | inherit): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeLinejoin != null) ret.updateDynamic("strokeLinejoin")(strokeLinejoin.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeLinejoin(value: miter | round | bevel | inherit): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinejoin")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeLinejoin: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeLinejoin")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeLinejoin")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeMiterlimit(strokeMiterlimit: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeMiterlimit != null) ret.updateDynamic("strokeMiterlimit")(strokeMiterlimit.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeMiterlimit(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeMiterlimit")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeMiterlimit: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeMiterlimit")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeMiterlimit")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeOpacity(strokeOpacity: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeOpacity != null) ret.updateDynamic("strokeOpacity")(strokeOpacity.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeOpacity(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeOpacity")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeOpacity: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeOpacity")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeOpacity")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStrokeWidth(strokeWidth: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (strokeWidth != null) ret.updateDynamic("strokeWidth")(strokeWidth.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStrokeWidth(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeWidth")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStrokeWidth: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "strokeWidth")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("strokeWidth")(js.undefined)
+        ret
     }
     @scala.inline
-    def withStyle(style: CSSProperties): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (style != null) ret.updateDynamic("style")(style.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withStyle(value: CSSProperties): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("style")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutStyle: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "style")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("style")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSurfaceScale(surfaceScale: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (surfaceScale != null) ret.updateDynamic("surfaceScale")(surfaceScale.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSurfaceScale(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("surfaceScale")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSurfaceScale: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "surfaceScale")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("surfaceScale")(js.undefined)
+        ret
     }
     @scala.inline
-    def withSystemLanguage(systemLanguage: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (systemLanguage != null) ret.updateDynamic("systemLanguage")(systemLanguage.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withSystemLanguage(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("systemLanguage")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutSystemLanguage: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "systemLanguage")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("systemLanguage")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTabIndex(tabIndex: Int | Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (tabIndex != null) ret.updateDynamic("tabIndex")(tabIndex.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTabIndex(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tabIndex")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTabIndex: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "tabIndex")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tabIndex")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTableValues(tableValues: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (tableValues != null) ret.updateDynamic("tableValues")(tableValues.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTableValues(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tableValues")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTableValues: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "tableValues")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("tableValues")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTarget(target: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (target != null) ret.updateDynamic("target")(target.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTarget(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("target")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTarget: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "target")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("target")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTargetX(targetX: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (targetX != null) ret.updateDynamic("targetX")(targetX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTargetX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("targetX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTargetX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "targetX")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("targetX")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTargetY(targetY: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (targetY != null) ret.updateDynamic("targetY")(targetY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTargetY(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("targetY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTargetY: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "targetY")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("targetY")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTextAnchor(textAnchor: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (textAnchor != null) ret.updateDynamic("textAnchor")(textAnchor.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTextAnchor(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textAnchor")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTextAnchor: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "textAnchor")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textAnchor")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTextDecoration(textDecoration: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (textDecoration != null) ret.updateDynamic("textDecoration")(textDecoration.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTextDecoration(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textDecoration")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTextDecoration: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "textDecoration")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textDecoration")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTextLength(textLength: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (textLength != null) ret.updateDynamic("textLength")(textLength.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTextLength(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textLength")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTextLength: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "textLength")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textLength")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTextRendering(textRendering: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (textRendering != null) ret.updateDynamic("textRendering")(textRendering.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTextRendering(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textRendering")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTextRendering: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "textRendering")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textRendering")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTo(to: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (to != null) ret.updateDynamic("to")(to.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTo(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("to")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTo: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "to")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("to")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTransform(transform: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (transform != null) ret.updateDynamic("transform")(transform.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withTransform(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("transform")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTransform: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "transform")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("transform")(js.undefined)
+        ret
     }
     @scala.inline
-    def withType(`type`: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (`type` != null) ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withType(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutType: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "type")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(js.undefined)
+        ret
     }
     @scala.inline
-    def withU1(u1: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (u1 != null) ret.updateDynamic("u1")(u1.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withU1(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("u1")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutU1: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "u1")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("u1")(js.undefined)
+        ret
     }
     @scala.inline
-    def withU2(u2: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (u2 != null) ret.updateDynamic("u2")(u2.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withU2(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("u2")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutU2: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "u2")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("u2")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUnderlinePosition(underlinePosition: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (underlinePosition != null) ret.updateDynamic("underlinePosition")(underlinePosition.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnderlinePosition(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("underlinePosition")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnderlinePosition: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "underlinePosition")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("underlinePosition")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUnderlineThickness(underlineThickness: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (underlineThickness != null) ret.updateDynamic("underlineThickness")(underlineThickness.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnderlineThickness(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("underlineThickness")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnderlineThickness: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "underlineThickness")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("underlineThickness")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUnicode(unicode: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (unicode != null) ret.updateDynamic("unicode")(unicode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnicode(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unicode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnicode: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "unicode")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unicode")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUnicodeBidi(unicodeBidi: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (unicodeBidi != null) ret.updateDynamic("unicodeBidi")(unicodeBidi.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnicodeBidi(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeBidi")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnicodeBidi: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "unicodeBidi")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeBidi")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUnicodeRange(unicodeRange: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (unicodeRange != null) ret.updateDynamic("unicodeRange")(unicodeRange.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnicodeRange(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeRange")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnicodeRange: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "unicodeRange")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unicodeRange")(js.undefined)
+        ret
     }
     @scala.inline
-    def withUnitsPerEm(unitsPerEm: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (unitsPerEm != null) ret.updateDynamic("unitsPerEm")(unitsPerEm.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnitsPerEm(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unitsPerEm")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnitsPerEm: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "unitsPerEm")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unitsPerEm")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVAlphabetic(vAlphabetic: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vAlphabetic != null) ret.updateDynamic("vAlphabetic")(vAlphabetic.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVAlphabetic(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vAlphabetic")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVAlphabetic: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vAlphabetic")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vAlphabetic")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVHanging(vHanging: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vHanging != null) ret.updateDynamic("vHanging")(vHanging.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVHanging(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vHanging")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVHanging: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vHanging")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vHanging")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVIdeographic(vIdeographic: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vIdeographic != null) ret.updateDynamic("vIdeographic")(vIdeographic.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVIdeographic(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vIdeographic")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVIdeographic: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vIdeographic")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vIdeographic")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVMathematical(vMathematical: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vMathematical != null) ret.updateDynamic("vMathematical")(vMathematical.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVMathematical(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vMathematical")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVMathematical: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vMathematical")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vMathematical")(js.undefined)
+        ret
     }
     @scala.inline
-    def withValues(values: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (values != null) ret.updateDynamic("values")(values.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withValues(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("values")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutValues: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "values")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("values")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVectorEffect(vectorEffect: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vectorEffect != null) ret.updateDynamic("vectorEffect")(vectorEffect.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVectorEffect(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vectorEffect")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVectorEffect: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vectorEffect")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vectorEffect")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVersion(version: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (version != null) ret.updateDynamic("version")(version.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVersion(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("version")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVersion: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "version")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("version")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVertAdvY(vertAdvY: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vertAdvY != null) ret.updateDynamic("vertAdvY")(vertAdvY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVertAdvY(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertAdvY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVertAdvY: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vertAdvY")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertAdvY")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVertOriginX(vertOriginX: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vertOriginX != null) ret.updateDynamic("vertOriginX")(vertOriginX.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVertOriginX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginX")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVertOriginX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vertOriginX")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginX")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVertOriginY(vertOriginY: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (vertOriginY != null) ret.updateDynamic("vertOriginY")(vertOriginY.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVertOriginY(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginY")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVertOriginY: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "vertOriginY")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("vertOriginY")(js.undefined)
+        ret
     }
     @scala.inline
-    def withViewBox(viewBox: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (viewBox != null) ret.updateDynamic("viewBox")(viewBox.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withViewBox(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("viewBox")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutViewBox: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "viewBox")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("viewBox")(js.undefined)
+        ret
     }
     @scala.inline
-    def withViewTarget(viewTarget: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (viewTarget != null) ret.updateDynamic("viewTarget")(viewTarget.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withViewTarget(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("viewTarget")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutViewTarget: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "viewTarget")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("viewTarget")(js.undefined)
+        ret
     }
     @scala.inline
-    def withVisibility(visibility: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (visibility != null) ret.updateDynamic("visibility")(visibility.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withVisibility(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("visibility")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutVisibility: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "visibility")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("visibility")(js.undefined)
+        ret
     }
     @scala.inline
-    def withWidth(width: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (width != null) ret.updateDynamic("width")(width.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withWidth(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("width")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutWidth: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "width")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("width")(js.undefined)
+        ret
     }
     @scala.inline
-    def withWidths(widths: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (widths != null) ret.updateDynamic("widths")(widths.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withWidths(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("widths")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutWidths: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "widths")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("widths")(js.undefined)
+        ret
     }
     @scala.inline
-    def withWordSpacing(wordSpacing: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (wordSpacing != null) ret.updateDynamic("wordSpacing")(wordSpacing.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withWordSpacing(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("wordSpacing")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutWordSpacing: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "wordSpacing")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("wordSpacing")(js.undefined)
+        ret
     }
     @scala.inline
-    def withWritingMode(writingMode: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (writingMode != null) ret.updateDynamic("writingMode")(writingMode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withWritingMode(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("writingMode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutWritingMode: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "writingMode")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("writingMode")(js.undefined)
+        ret
     }
     @scala.inline
-    def withX(x: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (x != null) ret.updateDynamic("x")(x.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withX(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("x")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutX: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "x")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("x")(js.undefined)
+        ret
     }
     @scala.inline
-    def withX1(x1: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (x1 != null) ret.updateDynamic("x1")(x1.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withX1(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("x1")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutX1: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "x1")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("x1")(js.undefined)
+        ret
     }
     @scala.inline
-    def withX2(x2: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (x2 != null) ret.updateDynamic("x2")(x2.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withX2(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("x2")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutX2: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "x2")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("x2")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXChannelSelector(xChannelSelector: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xChannelSelector != null) ret.updateDynamic("xChannelSelector")(xChannelSelector.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXChannelSelector(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xChannelSelector")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXChannelSelector: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xChannelSelector")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xChannelSelector")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXHeight(xHeight: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xHeight != null) ret.updateDynamic("xHeight")(xHeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXHeight(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xHeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXHeight: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xHeight")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xHeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkActuate(xlinkActuate: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkActuate != null) ret.updateDynamic("xlinkActuate")(xlinkActuate.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkActuate(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkActuate")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkActuate: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkActuate")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkActuate")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkArcrole(xlinkArcrole: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkArcrole != null) ret.updateDynamic("xlinkArcrole")(xlinkArcrole.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkArcrole(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkArcrole")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkArcrole: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkArcrole")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkArcrole")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkHref(xlinkHref: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkHref != null) ret.updateDynamic("xlinkHref")(xlinkHref.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkHref(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkHref")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkHref: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkHref")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkHref")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkRole(xlinkRole: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkRole != null) ret.updateDynamic("xlinkRole")(xlinkRole.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkRole(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkRole")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkRole: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkRole")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkRole")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkShow(xlinkShow: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkShow != null) ret.updateDynamic("xlinkShow")(xlinkShow.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkShow(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkShow")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkShow: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkShow")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkShow")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkTitle(xlinkTitle: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkTitle != null) ret.updateDynamic("xlinkTitle")(xlinkTitle.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkTitle(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkTitle")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkTitle: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkTitle")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkTitle")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXlinkType(xlinkType: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xlinkType != null) ret.updateDynamic("xlinkType")(xlinkType.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXlinkType(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkType")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXlinkType: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xlinkType")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xlinkType")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXmlBase(xmlBase: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xmlBase != null) ret.updateDynamic("xmlBase")(xmlBase.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXmlBase(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlBase")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXmlBase: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xmlBase")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlBase")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXmlLang(xmlLang: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xmlLang != null) ret.updateDynamic("xmlLang")(xmlLang.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXmlLang(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlLang")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXmlLang: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xmlLang")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlLang")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXmlSpace(xmlSpace: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xmlSpace != null) ret.updateDynamic("xmlSpace")(xmlSpace.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXmlSpace(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlSpace")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXmlSpace: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xmlSpace")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlSpace")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXmlns(xmlns: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xmlns != null) ret.updateDynamic("xmlns")(xmlns.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXmlns(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlns")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXmlns: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xmlns")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlns")(js.undefined)
+        ret
     }
     @scala.inline
-    def withXmlnsXlink(xmlnsXlink: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (xmlnsXlink != null) ret.updateDynamic("xmlnsXlink")(xmlnsXlink.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withXmlnsXlink(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlnsXlink")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutXmlnsXlink: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "xmlnsXlink")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("xmlnsXlink")(js.undefined)
+        ret
     }
     @scala.inline
-    def withY(y: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (y != null) ret.updateDynamic("y")(y.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withY(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("y")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutY: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "y")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("y")(js.undefined)
+        ret
     }
     @scala.inline
-    def withY1(y1: Double | String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (y1 != null) ret.updateDynamic("y1")(y1.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withY1(value: Double | String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("y1")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutY1: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "y1")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("y1")(js.undefined)
+        ret
     }
   }
   

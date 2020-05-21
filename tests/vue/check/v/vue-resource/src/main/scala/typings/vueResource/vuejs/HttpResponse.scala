@@ -39,52 +39,52 @@ object HttpResponse {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withBlob(blob: () => Blob): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("blob")(js.Any.fromFunction0(blob))
-        ret.asInstanceOf[Self]
+    def withBlob(value: () => Blob): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("blob")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
-    def withData(data: js.Object): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("data")(data.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withData(value: js.Object): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("data")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withHeaders(headers: js.Function): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("headers")(headers.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withHeaders(value: js.Function): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("headers")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withJson(json: () => js.Any): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("json")(js.Any.fromFunction0(json))
-        ret.asInstanceOf[Self]
+    def withJson(value: () => js.Any): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("json")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
-    def withOk(ok: Boolean): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ok")(ok.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withOk(value: Boolean): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ok")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withStatus(status: Double): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("status")(status.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStatus(value: Double): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("status")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withStatusText(statusText: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("statusText")(statusText.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withStatusText(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("statusText")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withText(text: () => String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("text")(js.Any.fromFunction0(text))
-        ret.asInstanceOf[Self]
+    def withText(value: () => String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("text")(js.Any.fromFunction0(value))
+        ret
     }
   }
   

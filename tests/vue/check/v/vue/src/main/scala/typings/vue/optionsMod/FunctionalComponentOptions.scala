@@ -17,17 +17,8 @@ trait FunctionalComponentOptions[Props, PropDefs] extends js.Object {
 
 object FunctionalComponentOptions {
   @scala.inline
-  def apply[Props, PropDefs](
-    functional: Boolean,
-    render: (CreateElement, RenderContext[Props]) => VNode,
-    inject: InjectOptions = null,
-    name: String = null,
-    props: PropDefs = null
-  ): FunctionalComponentOptions[Props, PropDefs] = {
+  def apply[Props, PropDefs](functional: Boolean, render: (CreateElement, RenderContext[Props]) => VNode): FunctionalComponentOptions[Props, PropDefs] = {
     val __obj = js.Dynamic.literal(functional = functional.asInstanceOf[js.Any], render = js.Any.fromFunction2(render))
-    if (inject != null) __obj.updateDynamic("inject")(inject.asInstanceOf[js.Any])
-    if (name != null) __obj.updateDynamic("name")(name.asInstanceOf[js.Any])
-    if (props != null) __obj.updateDynamic("props")(props.asInstanceOf[js.Any])
     __obj.asInstanceOf[FunctionalComponentOptions[Props, PropDefs]]
   }
   @scala.inline
@@ -37,52 +28,52 @@ object FunctionalComponentOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): (Self[Props, PropDefs]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[Props, PropDefs]) with Other]
     @scala.inline
-    def withFunctional(functional: Boolean): Self[Props, PropDefs] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("functional")(functional.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props, PropDefs]]
+    def withFunctional(value: Boolean): Self[Props, PropDefs] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("functional")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withRender(render: (CreateElement, RenderContext[Props]) => VNode): Self[Props, PropDefs] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("render")(js.Any.fromFunction2(render))
-        ret.asInstanceOf[Self[Props, PropDefs]]
+    def withRender(value: (CreateElement, RenderContext[Props]) => VNode): Self[Props, PropDefs] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("render")(js.Any.fromFunction2(value))
+        ret
     }
     @scala.inline
-    def withInject(inject: InjectOptions): Self[Props, PropDefs] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (inject != null) ret.updateDynamic("inject")(inject.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props, PropDefs]]
+    def withInject(value: InjectOptions): Self[Props, PropDefs] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("inject")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutInject: Self[Props, PropDefs] = {
         val ret = this.duplicate
-        js.special.delete(ret, "inject")
-        ret.asInstanceOf[Self[Props, PropDefs]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("inject")(js.undefined)
+        ret
     }
     @scala.inline
-    def withName(name: String): Self[Props, PropDefs] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (name != null) ret.updateDynamic("name")(name.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props, PropDefs]]
+    def withName(value: String): Self[Props, PropDefs] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutName: Self[Props, PropDefs] = {
         val ret = this.duplicate
-        js.special.delete(ret, "name")
-        ret.asInstanceOf[Self[Props, PropDefs]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("name")(js.undefined)
+        ret
     }
     @scala.inline
-    def withProps(props: PropDefs): Self[Props, PropDefs] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (props != null) ret.updateDynamic("props")(props.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[Props, PropDefs]]
+    def withProps(value: PropDefs): Self[Props, PropDefs] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutProps: Self[Props, PropDefs] = {
         val ret = this.duplicate
-        js.special.delete(ret, "props")
-        ret.asInstanceOf[Self[Props, PropDefs]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("props")(js.undefined)
+        ret
     }
   }
   

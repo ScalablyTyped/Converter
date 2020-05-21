@@ -16,9 +16,8 @@ trait ProviderProps[T] extends js.Object {
 
 object ProviderProps {
   @scala.inline
-  def apply[T](value: T, children: VdomNode = null): ProviderProps[T] = {
+  def apply[T](value: T): ProviderProps[T] = {
     val __obj = js.Dynamic.literal(value = value.asInstanceOf[js.Any])
-    if (children != null) __obj.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
     __obj.asInstanceOf[ProviderProps[T]]
   }
   @scala.inline
@@ -29,27 +28,27 @@ object ProviderProps {
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
     def withValue(value: T): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("value")(value.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("value")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withChildrenVdomElement(children: VdomElement): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (children != null) ret.updateDynamic("children")(children.rawElement.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withChildrenVdomElement(value: VdomElement): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawElement.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withChildren(children: VdomNode): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (children != null) ret.updateDynamic("children")(children.rawNode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withChildren(value: VdomNode): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(value.rawNode.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutChildren: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "children")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.undefined)
+        ret
     }
   }
   

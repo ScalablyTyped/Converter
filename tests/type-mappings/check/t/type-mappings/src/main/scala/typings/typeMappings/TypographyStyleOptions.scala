@@ -18,23 +18,8 @@ trait TypographyStyleOptions extends js.Object {
 
 object TypographyStyleOptions {
   @scala.inline
-  def apply(
-    color: String = null,
-    fontFamily: String = null,
-    fontSize: String = null,
-    fontWeight: String = null,
-    letterSpacing: String = null,
-    lineHeight: String = null,
-    textTransform: String = null
-  ): TypographyStyleOptions = {
+  def apply(): TypographyStyleOptions = {
     val __obj = js.Dynamic.literal()
-    if (color != null) __obj.updateDynamic("color")(color.asInstanceOf[js.Any])
-    if (fontFamily != null) __obj.updateDynamic("fontFamily")(fontFamily.asInstanceOf[js.Any])
-    if (fontSize != null) __obj.updateDynamic("fontSize")(fontSize.asInstanceOf[js.Any])
-    if (fontWeight != null) __obj.updateDynamic("fontWeight")(fontWeight.asInstanceOf[js.Any])
-    if (letterSpacing != null) __obj.updateDynamic("letterSpacing")(letterSpacing.asInstanceOf[js.Any])
-    if (lineHeight != null) __obj.updateDynamic("lineHeight")(lineHeight.asInstanceOf[js.Any])
-    if (textTransform != null) __obj.updateDynamic("textTransform")(textTransform.asInstanceOf[js.Any])
     __obj.asInstanceOf[TypographyStyleOptions]
   }
   @scala.inline
@@ -44,88 +29,88 @@ object TypographyStyleOptions {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withColor(color: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (color != null) ret.updateDynamic("color")(color.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withColor(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutColor: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "color")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("color")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontFamily(fontFamily: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontFamily != null) ret.updateDynamic("fontFamily")(fontFamily.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFontFamily(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontFamily: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontFamily")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontFamily")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontSize(fontSize: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontSize != null) ret.updateDynamic("fontSize")(fontSize.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFontSize(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontSize: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontSize")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontSize")(js.undefined)
+        ret
     }
     @scala.inline
-    def withFontWeight(fontWeight: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (fontWeight != null) ret.updateDynamic("fontWeight")(fontWeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withFontWeight(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutFontWeight: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "fontWeight")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("fontWeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLetterSpacing(letterSpacing: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (letterSpacing != null) ret.updateDynamic("letterSpacing")(letterSpacing.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLetterSpacing(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLetterSpacing: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "letterSpacing")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("letterSpacing")(js.undefined)
+        ret
     }
     @scala.inline
-    def withLineHeight(lineHeight: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (lineHeight != null) ret.updateDynamic("lineHeight")(lineHeight.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withLineHeight(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lineHeight")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutLineHeight: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "lineHeight")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("lineHeight")(js.undefined)
+        ret
     }
     @scala.inline
-    def withTextTransform(textTransform: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (textTransform != null) ret.updateDynamic("textTransform")(textTransform.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withTextTransform(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textTransform")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutTextTransform: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "textTransform")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("textTransform")(js.undefined)
+        ret
     }
   }
   

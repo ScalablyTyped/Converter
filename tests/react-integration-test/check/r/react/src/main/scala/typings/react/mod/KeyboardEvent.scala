@@ -69,76 +69,76 @@ object KeyboardEvent {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withAltKey(altKey: Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("altKey")(altKey.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withAltKey(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("altKey")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withCharCode(charCode: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("charCode")(charCode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCharCode(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("charCode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withCtrlKey(ctrlKey: Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ctrlKey")(ctrlKey.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCtrlKey(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ctrlKey")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withGetModifierState(getModifierState: String => Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("getModifierState")(js.Any.fromFunction1(getModifierState))
-        ret.asInstanceOf[Self[T]]
+    def withGetModifierState(value: String => Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getModifierState")(js.Any.fromFunction1(value))
+        ret
     }
     @scala.inline
-    def withKey(key: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("key")(key.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKey(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("key")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withKeyCode(keyCode: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("keyCode")(keyCode.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withKeyCode(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("keyCode")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withLocale(locale: String): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("locale")(locale.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLocale(value: String): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("locale")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withLocation(location: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("location")(location.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withLocation(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("location")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withMetaKey(metaKey: Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("metaKey")(metaKey.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withMetaKey(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("metaKey")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withRepeat(repeat: Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("repeat")(repeat.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withRepeat(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("repeat")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withShiftKey(shiftKey: Boolean): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("shiftKey")(shiftKey.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withShiftKey(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("shiftKey")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withWhich(which: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("which")(which.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withWhich(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("which")(value.asInstanceOf[js.Any])
+        ret
     }
   }
   

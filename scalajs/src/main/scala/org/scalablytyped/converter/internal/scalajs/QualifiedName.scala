@@ -75,6 +75,7 @@ object QualifiedName {
   val WILDCARD:                  QualifiedName = QualifiedName(IArray(Name.WILDCARD))
   val REPEATED:                  QualifiedName = QualifiedName(IArray(Name.REPEATED))
   val SINGLETON:                 QualifiedName = QualifiedName(IArray(Name.SINGLETON))
+  val UNDEFINED:                 QualifiedName = QualifiedName(IArray(Name.UNDEFINED))
 
   def AnyFromFunction(n: Int): QualifiedName = Any + Name(s"fromFunction$n")
 

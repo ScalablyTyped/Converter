@@ -13,8 +13,7 @@ trait DropzoneRef extends js.Object {
 object DropzoneRef {
   @scala.inline
   def apply(open: Callback): DropzoneRef = {
-    val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("open")(open.toJsFn)
+    val __obj = js.Dynamic.literal(open = open.toJsFn)
     __obj.asInstanceOf[DropzoneRef]
   }
   @scala.inline
@@ -24,10 +23,10 @@ object DropzoneRef {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withOpen(open: Callback): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("open")(open.toJsFn)
-        ret.asInstanceOf[Self]
+    def withOpen(value: Callback): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("open")(value.toJsFn)
+        ret
     }
   }
   

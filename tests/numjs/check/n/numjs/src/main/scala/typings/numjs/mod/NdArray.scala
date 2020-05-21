@@ -27,22 +27,22 @@ object NdArray {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withT(T: NdArray[T]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("T")(T.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withT(value: NdArray[T]): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("T")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withNdim(ndim: Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("ndim")(ndim.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withNdim(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ndim")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withSlice(slice: /* repeated */ Double => NdArray[T]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("slice")(js.Any.fromFunction1(slice))
-        ret.asInstanceOf[Self[T]]
+    def withSlice(value: /* repeated */ Double => NdArray[T]): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("slice")(js.Any.fromFunction1(value))
+        ret
     }
   }
   

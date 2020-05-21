@@ -2,8 +2,8 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
-import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.maps._
+import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
 /**
   * Generate a package with japgolly's scalajs-react compatible react components
@@ -27,7 +27,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
                       propsRef,
                       tparams,
                       scope,
-                      maxNum             = FindProps.MaxParamsForMethod - additionalOptionalProps.length - /* children*/ 1,
+                      maxNum             = FindProps.MaxParamsForMethod - 2 /* withAdditionalProps.length */ - /* children*/ 1,
                       acceptNativeTraits = true,
                       keep               = FindProps.keepAll,
                     )
@@ -38,7 +38,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
                   TypeRef.Object -> Res.One(TypeRef.Object, Empty)
               }
 
-            resProps match {
+            resProps.map(withAdditionalProps) match {
               case Res.Success(props) =>
                 components match {
                   case IArray.exactlyOne(one) =>
@@ -209,23 +209,23 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
       tparams:           IArray[TypeParamTree],
       ownerCp:           QualifiedName,
   ): MethodTree = {
+    val interpretedProps: IArray[(ObjectUpdater, ParamTree)] =
+      props.map(defaultInterpretation.apply)
 
-    val (refTypes, declaredChildren, _, _optionals, requireds, Empty) = {
-      props.partitionCollect5(
-        { case Prop(Prop.Variant(ParamTree(names.ref, _, _, tpe, _, _), _, _), _, _, _) => tpe }, //refTypes
-        // take note of declared children, but saying `ReactNode` should be a noop
-        {
-          case p @ Prop(Prop.Variant(ParamTree(names.children, _, _, tpe, _, _), _, _), _, _, _)
-              if !isVdomNode(tpe.typeName) =>
-            p
-        }, //declaredChildren
-        { case Prop(Prop.Variant(paramTree, _, _), _, _, _) if shouldIgnore(paramTree) => null },
-        { case Prop(Prop.Variant(p, Right(f), _), _, _, _)                             => p -> f }, //optionals
-        { case Prop(Prop.Variant(p, Left(expr), _), _, _, _)                           => p -> expr }, //requireds
+    val (refTypes, declaredChildren, _, optionals, requireds, Empty) = {
+      interpretedProps.partitionCollect5(
+        //refTypes
+        { case (_, ParamTree(names.ref, _, _, tpe, _, _)) => tpe },
+        // declaredChildren: take note of declared children, but saying `ReactNode` should be a noop
+        { case (either, p @ ParamTree(names.children, _, _, tpe, _, _)) if !isVdomNode(tpe.typeName) => p -> either },
+        // ignored
+        { case (_, paramTree) if shouldIgnore(paramTree) => null },
+        // optionals
+        { case (x: Mutator, p) => p -> x },
+        //requireds
+        { case (x: Initializer, p) => p -> x },
       )
     }
-
-    val optionals = _optionals ++ additionalOptionalProps
 
     /** Specified children different from react node? - Use `Children.None` and thread the value through the normal props.
       * The reason is that not all values are react nodes, and the API is limiting
@@ -271,7 +271,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
     val secondParameterList: IArray[ParamTree] = {
       IArray(
         declaredChildren.headOption match {
-          case Some(param) => param.main.tree
+          case Some((p, _)) => p
           case None =>
             ParamTree(
               name       = names.children,
@@ -288,19 +288,23 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
     val impl = {
       import ExprTree._
       /* The children value can go in one of three places, depending... */
-      val (requireds2, optionals2, varargsChildren: Option[IArray[Arg]]) =
+      val (
+        initializers2:   IArray[(ParamTree, Initializer)],
+        mutators2:       IArray[(ParamTree, Mutator)],
+        varargsChildren: Option[IArray[Arg]],
+      ) =
         declaredChildren.headOption match {
-          case Some(Prop(Prop.Variant(p, Left(expr), _), _, _, _)) => ((p -> expr) +: requireds, optionals, None)
-          case Some(Prop(Prop.Variant(p, Right(f), _), _, _, _))   => (requireds, (p -> f) +: optionals, None)
-          case None                                                => (requireds, optionals, Some(IArray(Arg.Variable(Ref(Name("children"))))))
+          case Some((p, x: Initializer)) => ((p -> x) +: requireds, optionals, None)
+          case Some((p, x: Mutator))     => (requireds, (p -> x) +: optionals, None)
+          case None => (requireds, optionals, Some(IArray(Arg.Variable(Ref(Name("children"))))))
         }
 
       val objName = Name("__obj")
       val f       = Name("f")
 
       Block.flatten(
-        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(requireds2.map(_._2))))),
-        optionals2.map { case (_, f) => f(objName) },
+        IArray(Val(objName, Call(Ref(QualifiedName.DynamicLiteral), IArray(initializers2.map(_._2.value))))),
+        mutators2.map { case (_, mut) => mut.value(Ref(objName)) },
         IArray(
           Val(
             f,
@@ -334,10 +338,11 @@ object JapgollyGenComponents {
     val children        = Name("children")
     val ref             = Name("ref")
     val key             = Name("key")
+    val overrides       = Name("_overrides")
     val componentImport = Name("componentImport")
     val ComponentRef    = Name("ComponentRef")
 
-    val ignoredNames = Set(key, children)
+    val ignoredNames = Set(children)
   }
 
   def shouldIgnore(paramTree: ParamTree): Boolean =
@@ -385,39 +390,38 @@ object JapgollyGenComponents {
     val reactKey:                        QualifiedName = react + Name("Key")
   }
 
-  val additionalOptionalProps: IArray[(ParamTree, Name => ExprTree)] = {
+  def withAdditionalProps(existing: IArray[Prop]): IArray[Prop] = {
     import ExprTree._
-    val keyName = Name("key")
 
-    def keyUpdate(obj: Name) =
-      Custom(
-        s"""${keyName.value}.foreach(k => ${obj.value}.updateDynamic("key")(k.asInstanceOf[js.Any]))""",
+    val keyProp: Prop.Normal = {
+      val keyType = TypeRef(japgolly.reactKey)
+      Prop.Normal(
+        Prop.Variant(keyType, ref => Cast(ref, TypeRef.Any), isRewritten = false, extendsAnyVal = false),
+        isInherited = false,
+        Optionality.Undef,
+        Empty,
+        FieldTree(
+          Empty,
+          names.key,
+          keyType,
+          NotImplemented,
+          isReadOnly = true,
+          isOverride = false,
+          NoComments,
+          QualifiedName(Empty),
+        ),
       )
-
-    val keyParam = ParamTree(
-      name       = keyName,
-      isImplicit = false,
-      isVal      = false,
-      tpe        = TypeRef.UndefOr(TypeRef(japgolly.reactKey)),
-      default    = ExprTree.undefined,
-      comments   = NoComments,
-    )
-    val _overrides = Name("_overrides")
-    def overridesUpdate(obj: Name) =
-      If(
-        BinaryOp(Ref(_overrides), "!=", Null),
-        Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(Ref(obj), Ref(_overrides)))),
-        None,
+    }
+    val overridesProp = {
+      Prop.CompressedProp(
+        names.overrides,
+        TypeRef.StringDictionary(TypeRef.Any, NoComments),
+        ref => Call(Ref(QualifiedName.DynamicGlobalObjectAssign), IArray(IArray(ref, Ref(names.overrides)))),
+        isRequired = false,
       )
+    }
+    val newProps = IArray(keyProp, overridesProp)
 
-    val overridesParam = ParamTree(
-      name       = _overrides,
-      isImplicit = false,
-      isVal      = false,
-      tpe        = TypeRef.StringDictionary(TypeRef.Any, NoComments),
-      default    = ExprTree.Null,
-      comments   = NoComments,
-    )
-    IArray(keyParam -> keyUpdate, overridesParam -> overridesUpdate)
+    existing.filterNot(p => newProps.exists(_.name === p.name)) ++ newProps
   }
 }

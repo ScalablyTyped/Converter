@@ -27,56 +27,53 @@ object EventListenerOptions {
     targetRef: RefHandle[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
     ],
-    `type`: T,
-    capture: js.UndefOr[Boolean] = js.undefined
+    `type`: T
   ): EventListenerOptions[T] = {
-    val __obj = js.Dynamic.literal(targetRef = targetRef.asInstanceOf[js.Any])
-    __obj.updateDynamic("listener")(js.Any.fromFunction1((t0: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => listener(t0).runNow()))
+    val __obj = js.Dynamic.literal(listener = js.Any.fromFunction1((t0: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => listener(t0).runNow()), targetRef = targetRef.asInstanceOf[js.Any])
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-    if (!js.isUndefined(capture)) __obj.updateDynamic("capture")(capture.asInstanceOf[js.Any])
     __obj.asInstanceOf[EventListenerOptions[T]]
   }
   @scala.inline
-  implicit class EventListenerOptionsOps[Self[t /* <: typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes */] <: EventListenerOptions[t], T <: EventTypes] (val x: Self[T]) extends AnyVal {
+  implicit class EventListenerOptionsOps[Self[t /* <: typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes */] <: EventListenerOptions[t], T] (val x: Self[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
     def withListener(
-      listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback
+      value: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback
     ): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("listener")(js.Any.fromFunction1((t0: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => listener(t0).runNow()))
-        ret.asInstanceOf[Self[T]]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("listener")(js.Any.fromFunction1((t0: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any) => value(t0).runNow()))
+        ret
     }
     @scala.inline
     def withTargetRef(
-      targetRef: RefHandle[
+      value: RefHandle[
           /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
         ]
     ): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("targetRef")(targetRef.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("targetRef")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withType(`type`: T): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("type")(`type`.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withType(value: T): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("type")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
-    def withCapture(capture: js.UndefOr[Boolean]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (!js.isUndefined(capture)) ret.updateDynamic("capture")(capture.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withCapture(value: Boolean): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("capture")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutCapture: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "capture")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("capture")(js.undefined)
+        ret
     }
   }
   

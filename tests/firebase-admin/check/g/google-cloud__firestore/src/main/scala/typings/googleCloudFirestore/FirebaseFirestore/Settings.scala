@@ -11,9 +11,8 @@ trait Settings extends js.Object {
 
 object Settings {
   @scala.inline
-  def apply(projectId: String = null): Settings = {
+  def apply(): Settings = {
     val __obj = js.Dynamic.literal()
-    if (projectId != null) __obj.updateDynamic("projectId")(projectId.asInstanceOf[js.Any])
     __obj.asInstanceOf[Settings]
   }
   @scala.inline
@@ -23,16 +22,16 @@ object Settings {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withProjectId(projectId: String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (projectId != null) ret.updateDynamic("projectId")(projectId.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self]
+    def withProjectId(value: String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("projectId")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutProjectId: Self = {
         val ret = this.duplicate
-        js.special.delete(ret, "projectId")
-        ret.asInstanceOf[Self]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("projectId")(js.undefined)
+        ret
     }
   }
   

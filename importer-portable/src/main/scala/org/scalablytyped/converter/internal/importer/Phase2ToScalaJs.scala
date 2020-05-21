@@ -73,6 +73,7 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               outputPkg,
               lib.parsed,
               scalaDeps.mapToIArray { case (_, v) => v.names },
+              cleanIllegalNames,
             )
 
             val importType = new ImportType(new internal.scalajs.QualifiedName.StdNames(outputPkg))

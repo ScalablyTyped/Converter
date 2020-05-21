@@ -23,16 +23,16 @@ object TimeDataStatic {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withAllowed(allowed: () => String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("allowed")(js.Any.fromFunction0(allowed))
-        ret.asInstanceOf[Self]
+    def withAllowed(value: () => String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("allowed")(js.Any.fromFunction0(value))
+        ret
     }
     @scala.inline
-    def withPreferred(preferred: () => String): Self = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("preferred")(js.Any.fromFunction0(preferred))
-        ret.asInstanceOf[Self]
+    def withPreferred(value: () => String): Self = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("preferred")(js.Any.fromFunction0(value))
+        ret
     }
   }
   

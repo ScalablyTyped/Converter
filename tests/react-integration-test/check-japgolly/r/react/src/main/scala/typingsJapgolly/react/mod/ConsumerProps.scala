@@ -14,10 +14,8 @@ trait ConsumerProps[T] extends js.Object {
 
 object ConsumerProps {
   @scala.inline
-  def apply[T](children: T => CallbackTo[Node], unstable_observedBits: Int | Double = null): ConsumerProps[T] = {
-    val __obj = js.Dynamic.literal()
-    __obj.updateDynamic("children")(js.Any.fromFunction1((t0: T) => children(t0).runNow()))
-    if (unstable_observedBits != null) __obj.updateDynamic("unstable_observedBits")(unstable_observedBits.asInstanceOf[js.Any])
+  def apply[T](children: T => CallbackTo[Node]): ConsumerProps[T] = {
+    val __obj = js.Dynamic.literal(children = js.Any.fromFunction1((t0: T) => children(t0).runNow()))
     __obj.asInstanceOf[ConsumerProps[T]]
   }
   @scala.inline
@@ -27,22 +25,22 @@ object ConsumerProps {
     @scala.inline
     def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
-    def withChildren(children: T => CallbackTo[Node]): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        ret.updateDynamic("children")(js.Any.fromFunction1((t0: T) => children(t0).runNow()))
-        ret.asInstanceOf[Self[T]]
+    def withChildren(value: T => CallbackTo[Node]): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("children")(js.Any.fromFunction1((t0: T) => value(t0).runNow()))
+        ret
     }
     @scala.inline
-    def withUnstable_observedBits(unstable_observedBits: Int | Double): Self[T] = {
-        val ret = this.duplicate.asInstanceOf[js.Dynamic]
-        if (unstable_observedBits != null) ret.updateDynamic("unstable_observedBits")(unstable_observedBits.asInstanceOf[js.Any])
-        ret.asInstanceOf[Self[T]]
+    def withUnstable_observedBits(value: Double): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unstable_observedBits")(value.asInstanceOf[js.Any])
+        ret
     }
     @scala.inline
     def withoutUnstable_observedBits: Self[T] = {
         val ret = this.duplicate
-        js.special.delete(ret, "unstable_observedBits")
-        ret.asInstanceOf[Self[T]]
+        ret.asInstanceOf[js.Dynamic].updateDynamic("unstable_observedBits")(js.undefined)
+        ret
     }
   }
   
