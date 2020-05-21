@@ -36,13 +36,27 @@ object Erasure {
       case QualifiedName.NUMBER_LITERAL  => tpe.targs.head.typeName
       case QualifiedName.BOOLEAN_LITERAL => tpe.targs.head.typeName
 
+      /* approximate intersections. scalac seems to use the first type, unless that is a supertype of a later mentioned type */
       case QualifiedName.INTERSECTION =>
         val primitive = tpe.targs.collectFirst {
           case tr @ (TypeRef.String | TypeRef.Boolean | TypeRef.Double) => tr.typeName
         }
-        primitive.getOrElse(
-          simplify(scope, tpe.targs.filterNot(_.typeName === QualifiedName.Object).head),
-        )
+
+        primitive.getOrElse {
+          simplify(scope, tpe.targs.head) match {
+            case QualifiedName.Any if tpe.targs.length > 1 =>
+              simplify(scope, tpe.targs(1)) match {
+                case QualifiedName.ScalaAny => QualifiedName.Any
+                case other                  => other
+              }
+            case QualifiedName.Object if tpe.targs.length > 1 =>
+              simplify(scope, tpe.targs(1)) match {
+                case QualifiedName.ScalaAny => QualifiedName.Object
+                case other                  => other
+              }
+            case other => other
+          }
+        }
 
       // if this is a type parameter
       case QualifiedName(IArray.exactlyOne(head)) if scope.tparams.contains(head) => QualifiedName.ScalaAny
