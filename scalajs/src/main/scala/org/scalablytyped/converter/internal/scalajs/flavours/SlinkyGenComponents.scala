@@ -175,7 +175,7 @@ class SlinkyGenComponents(
                 case splitProps if components.length > 1 =>
                   val sharedBuilder: Option[SharedBuilder] = {
                     val name = Name(
-                      s"SharedBuilder_${propsRef.name.unescaped}${(propsRef, canBeReferenced, tparams).hashCode}"
+                      s"SharedBuilder_${nameFor(propsRef)}${(propsRef, canBeReferenced, tparams).hashCode}"
                         .replaceAllLiterally("-", "_"),
                     )
                     val hasRef = canBeReferenced || refFromProps(resProps).isDefined
@@ -366,7 +366,8 @@ class SlinkyGenComponents(
       case Res.Many(values) =>
         val members = values.mapToIArray {
           case (propsRef, (splitProps, genBuilder: GenBuilder)) =>
-            componentModule(propsRef.name, c, componentCp + propsRef.name, propsRef, splitProps, genBuilder)
+            val name = Name(nameFor(propsRef))
+            componentModule(name, c, componentCp + name, propsRef, splitProps, genBuilder)
         }
 
         ModuleTree(

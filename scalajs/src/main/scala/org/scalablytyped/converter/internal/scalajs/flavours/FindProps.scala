@@ -56,9 +56,14 @@ object FindProps {
       ) match {
         case (IArray.Empty, IArray.exactlyOne((name, one)), IArray.Empty, _) => One(name, one)
         case (IArray.Empty, ones, manies, _) =>
-          val all            = ones.toMap ++ maps.smash(manies)
-          val distinctByName = all.map { case (tr, t) => tr.name -> ((tr, t)) }.map { case (_, (tr, t)) => tr -> t }
-          Many(distinctByName)
+          val all = ones.toMap ++ maps.smash(manies)
+          val distinctByName =
+            all.map { case (tr, t) => Name(nameFor(tr)) -> ((tr, t)) }.map { case (_, (tr, t)) => tr -> t }
+
+          if (distinctByName.size === 1) {
+            val (name, value) = distinctByName.head
+            One(name, value)
+          } else Many(distinctByName)
         case (errors, _, _, _) => Error(errors.flatten)
       }
   }
