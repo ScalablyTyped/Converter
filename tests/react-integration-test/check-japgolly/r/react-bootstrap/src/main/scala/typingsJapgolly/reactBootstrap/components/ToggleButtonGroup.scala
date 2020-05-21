@@ -9,7 +9,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar. */
+/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar: Support for combinations of intersection and union types not implemented. */
 object ToggleButtonGroup {
   def apply(props: ToggleButtonGroupProps with js.Object)(children: ChildArg*): UnmountedWithRoot[
     ToggleButtonGroupProps with js.Object, 

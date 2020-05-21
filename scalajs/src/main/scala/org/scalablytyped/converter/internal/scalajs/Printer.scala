@@ -90,7 +90,16 @@ object Printer {
           imports.foreach(i => writer.println(s"import ${formatQN(i.imported)}"))
           writer.println(Imports)
           writer.println("")
-          shortenedMembers foreach printTree(scope, parentsResolver, reg, Indenter(writer), packages, targetFolder, 0)
+          shortenedMembers foreach printTree(
+            scope,
+            parentsResolver,
+            reg,
+            Indenter(writer),
+            packages,
+            targetFolder,
+            0,
+            isNative = true,
+          )
         }
 
       case (ScalaOutput.Package(name), pkgs) =>
@@ -112,7 +121,16 @@ object Printer {
           writer.println(Imports)
           writer.println("")
           writer.println("package object " + formatName(tree.name) + " {")
-          members foreach printTree(scope, parentsResolver, reg, Indenter(writer), packages, targetFolder, 2)
+          members foreach printTree(
+            scope,
+            parentsResolver,
+            reg,
+            Indenter(writer),
+            packages,
+            targetFolder,
+            2,
+            isNative = true,
+          )
           writer.println("}")
         }
     }
@@ -152,13 +170,11 @@ object Printer {
       packageNames:    IArray[Name],
       folder:          os.RelPath,
       indent:          Int,
+      isNative:        Boolean,
   )(
       tree: Tree,
   ): Unit = {
     val scope = _scope / tree
-
-    val printSym: Tree => Unit =
-      printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2)
 
     def print(ss: String*): Unit =
       ss foreach w.print(indent)
@@ -176,10 +192,12 @@ object Printer {
         print(Comments.format(comments))
         print(formatAnns(anns))
 
+        val isNative = c.isNative // shadows isNative
+
         val (defaultCtor, restCtors) = ctors.sortBy(_.params.length).toList match {
-          case Nil                                                  => (CtorTree.defaultPublic, Nil)
-          case head :: tail if (head.params.isEmpty || !c.isNative) => (head, tail)
-          case all                                                  => (CtorTree.defaultProtected, all)
+          case Nil                                                => (CtorTree.defaultPublic, Nil)
+          case head :: tail if (head.params.isEmpty || !isNative) => (head, tail)
+          case all                                                => (CtorTree.defaultProtected, all)
         }
 
         print(Comments.format(defaultCtor.comments))
@@ -192,7 +210,7 @@ object Printer {
         )
 
         if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(c.isNative, indent) mkString ", ", "]")
+          print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
 
         if (classType =/= ClassType.Trait) {
           print(" ")
@@ -200,15 +218,15 @@ object Printer {
           print(formatParams(indent + 2)(defaultCtor.params))
         }
 
-        print(extendsClause(parents, isNative = c.isNative, indent))
+        print(extendsClause(parents, isNative, indent))
 
         if (members.nonEmpty || restCtors.nonEmpty) {
           println(" {")
 
           if (classType =/= ClassType.Trait)
-            restCtors foreach printSym
+            restCtors foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
 
-          members foreach printSym
+          members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
           println("}")
         } else
           println()
@@ -219,17 +237,18 @@ object Printer {
         print(Comments.format(comments))
         print(formatAnns(anns))
 
+        val isNative = m.isNative // shadows isNative
         print(
           if (isOverride) "override " else "",
           "object ",
           formatName(name),
-          extendsClause(parents, m.isNative, indent),
+          extendsClause(parents, isNative, indent),
         )
 
         if (members.nonEmpty) {
           println(" {")
 
-          members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2)
+          members foreach printTree(scope, parentsResolver, reg, w, packageNames, folder, indent + 2, isNative)
           println("}")
         } else
           println()
@@ -238,8 +257,10 @@ object Printer {
       case TypeAliasTree(name, tparams, alias, comments, _) =>
         print(Comments.format(comments))
         print("type ", formatName(name))
-        if (tparams.nonEmpty)
-          print("[", tparams map formatTypeParamTree(isNative = true, indent) mkString ", ", "]")
+        if (tparams.nonEmpty) {
+          val isNative = true // need this for compatibility with GenReactFacadeComponents. Another reason to delete it
+          print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
+        }
 
         println(s" = ", formatTypeRef(indent)(alias))
 
@@ -257,17 +278,18 @@ object Printer {
 
         println(formatImpl(indent)(impl))
 
-      case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _) =>
+      case MethodTree(anns, level, name, tparams, params, impl, resultType, isOverride, comments, _, isImplicit) =>
         print(Comments.format(comments))
         print(formatAnns(anns))
 
         print(formatProtectionLevel(level, isCtor = false))
+        print(if (isImplicit) "implicit " else "")
         print(s"${if (isOverride) "override " else ""}def ")
 
         val tparamString =
           if (tparams.isEmpty) ""
           else
-            tparams.map(formatTypeParamTree(isNative = true, indent)).mkString("[", ", ", "]")
+            tparams.map(formatTypeParamTree(isNative, indent)).mkString("[", ", ", "]")
 
         var paramString = params.map(_.map(formatParamTree(indent)).mkString("(", ", ", ")"))
         if (paramString.toList.map(_.length).sum > 100) {
@@ -314,7 +336,7 @@ object Printer {
   def formatTypeParams(isNative: Boolean, indent: Int)(tparams: IArray[TypeParamTree]): String =
     if (tparams.isEmpty) ""
     else
-      tparams.map(formatTypeParamTree(isNative = true, indent)).mkString("[", ", ", "]")
+      tparams.map(formatTypeParamTree(isNative, indent)).mkString("[", ", ", "]")
 
   def formatTypeParamTree(isNative: Boolean, indent: Int)(tree: TypeParamTree): String =
     Comments.format(tree.comments) |+|
@@ -477,8 +499,6 @@ object Printer {
         value
       case ExprTree.BooleanLit(value) =>
         value.toString
-      case ExprTree.Cast(one, as) =>
-        s"${paramsIfNeeded(formatExpr(indent)(one))}.asInstanceOf[${formatTypeRef(indent)(as)}]"
       case ExprTree.Unary(op, expr) =>
         s"$op${formatExpr(indent)(expr)}"
       case ExprTree.BinaryOp(one, op, two) =>
@@ -493,13 +513,15 @@ object Printer {
         val ps = paramss.map(params => params.map(formatExpr(indent)).mkString("(", ", ", ")")).mkString
         s"${formatExpr(indent)(function)}$ps"
       case ExprTree.Select(from, path) =>
-        s"${formatExpr(indent)(from)}.${formatName(path)}"
+        s"${paramsIfNeeded(formatExpr(indent)(from))}.${formatName(path)}"
       case ExprTree.Arg.Named(name, expr) =>
         s"${formatName(name)} = ${formatExpr(indent)(expr)}"
       case ExprTree.Arg.Pos(expr) =>
         formatExpr(indent)(expr)
       case ExprTree.Arg.Variable(expr) =>
         s"${formatExpr(indent)(expr)} :_*"
+      case ExprTree.Throw(expr) =>
+        s"throw ${formatExpr(indent)(expr)}"
     }
 
   def formatImpl(indent: Int)(e: ImplTree): String =

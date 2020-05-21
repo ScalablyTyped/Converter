@@ -21,7 +21,7 @@ object URI2HKT2 {
     @scala.inline
     def duplicate: Self[L, A] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[L, A]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[L, A]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[L, A]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[L, A]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[L, A]) with Other]
     @scala.inline
     def withConst(value: Const[L, A]): Self[L, A] = {
         val ret = this.duplicate

@@ -101,6 +101,7 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
             isOverride  = false,
             comments    = NoComments,
             codePath    = moduleCodePath + comp.shortenedPropsName,
+            isImplicit  = false,
           )
       },
     )
@@ -125,6 +126,7 @@ class GenReactFacadeComponents(reactNames: ReactNames) {
       isOverride  = false,
       comments    = NoComments,
       codePath    = moduleCodePath + comp.fullName,
+      isImplicit  = false,
     )
   }
 }

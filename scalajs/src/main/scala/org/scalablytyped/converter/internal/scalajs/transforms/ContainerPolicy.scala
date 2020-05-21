@@ -169,7 +169,7 @@ object ContainerPolicy extends TreeTransformation {
           members zip members.map(_.comments extract { case ClassAnnotations(anns) => anns }) map {
             case (f @ FieldTree(_, name, tpe, _, isReadonly, isOverride, _, codePath), extracted) =>
               extracted match {
-                case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS_TYPE =>
+                case Some((anns, restCs)) if tpe.typeName =/= QualifiedName.THIS =>
                   val mod = ModuleTree(anns, name, IArray(TypeRef.TopLevel(tpe)), Empty, restCs, codePath, isOverride)
                   if (isReadonly) Ior.Right(mod)
                   else Ior.Both(f, mod)

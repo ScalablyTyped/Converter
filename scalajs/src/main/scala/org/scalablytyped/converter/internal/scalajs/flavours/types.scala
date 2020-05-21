@@ -22,7 +22,7 @@ final case class Component(
 ) {
   val shortenedPropsName = Name(fullName.unescaped + "Props")
 
-  val knownRef: Option[TypeRef] =
+  val referenceTo: Option[TypeRef] =
     componentType match {
       case ComponentType.Class    => Some(scalaRef)
       case ComponentType.Function => None

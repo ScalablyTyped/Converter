@@ -81,6 +81,7 @@ object FakeLiterals {
                   isOverride = false,
                   comments   = NoComments,
                   codePath,
+                  isImplicit = false,
                 )
               List(`trait`, `def`)
           }

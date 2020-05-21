@@ -110,7 +110,7 @@ object DeprecatedLifecycle {
     @scala.inline
     def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
     @scala.inline
     def withUNSAFE_componentWillMount(value: Callback): Self[P, S] = {
         val ret = this.duplicate
@@ -126,7 +126,7 @@ object DeprecatedLifecycle {
     @scala.inline
     def withUNSAFE_componentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Callback): Self[P, S] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline
@@ -138,7 +138,7 @@ object DeprecatedLifecycle {
     @scala.inline
     def withUNSAFE_componentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback): Self[P, S] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("UNSAFE_componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline
@@ -162,7 +162,7 @@ object DeprecatedLifecycle {
     @scala.inline
     def withComponentWillReceiveProps(value: (/* nextProps */ P, /* nextContext */ js.Any) => Callback): Self[P, S] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillReceiveProps")(js.Any.fromFunction2((t0: /* nextProps */ P, t1: /* nextContext */ js.Any) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline
@@ -174,7 +174,7 @@ object DeprecatedLifecycle {
     @scala.inline
     def withComponentWillUpdate(value: (/* nextProps */ P, /* nextState */ S, /* nextContext */ js.Any) => Callback): Self[P, S] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("componentWillUpdate")(js.Any.fromFunction3((t0: /* nextProps */ P, t1: /* nextState */ S, t2: /* nextContext */ js.Any) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline

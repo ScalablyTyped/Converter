@@ -12,17 +12,17 @@ trait AnonType[T /* <: ReactComponentClass[_] */] extends js.Object {
 
 object AnonType {
   @scala.inline
-  def apply[T /* <: ReactComponentClass[_] */](`type`: T): AnonType[T] = {
+  def apply[T](`type`: T): AnonType[T] = {
     val __obj = js.Dynamic.literal()
     __obj.updateDynamic("type")(`type`.asInstanceOf[js.Any])
     __obj.asInstanceOf[AnonType[T]]
   }
   @scala.inline
-  implicit class AnonTypeOps[Self[t /* <: typingsSlinky.react.mod.ComponentType[_] */] <: AnonType[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class AnonTypeOps[Self[t] <: AnonType[t], T] (val x: Self[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
     def withType(value: T): Self[T] = {
         val ret = this.duplicate

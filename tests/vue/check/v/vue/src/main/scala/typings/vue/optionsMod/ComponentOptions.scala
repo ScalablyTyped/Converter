@@ -74,16 +74,16 @@ trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extend
 
 object ComponentOptions {
   @scala.inline
-  def apply[V /* <: Vue */, Data, Methods, Computed, PropsDef](): ComponentOptions[V, Data, Methods, Computed, PropsDef] = {
+  def apply[V, Data, Methods, Computed, PropsDef](): ComponentOptions[V, Data, Methods, Computed, PropsDef] = {
     val __obj = js.Dynamic.literal()
     __obj.asInstanceOf[ComponentOptions[V, Data, Methods, Computed, PropsDef]]
   }
   @scala.inline
-  implicit class ComponentOptionsOps[Self[v /* <: typings.vue.vueMod.Vue */, data, methods, computed, propsdef] <: ComponentOptions[v, data, methods, computed, propsdef], V, Data, Methods, Computed, PropsDef] (val x: Self[V, Data, Methods, Computed, PropsDef]) extends AnyVal {
+  implicit class ComponentOptionsOps[Self[v, data, methods, computed, propsdef] <: ComponentOptions[v, data, methods, computed, propsdef], V, Data, Methods, Computed, PropsDef] (val x: Self[V, Data, Methods, Computed, PropsDef]) extends AnyVal {
     @scala.inline
     def duplicate: Self[V, Data, Methods, Computed, PropsDef] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[V, Data, Methods, Computed, PropsDef]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[V, Data, Methods, Computed, PropsDef]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[V, Data, Methods, Computed, PropsDef]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[V, Data, Methods, Computed, PropsDef]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[V, Data, Methods, Computed, PropsDef]) with Other]
     @scala.inline
     def withActivated(value: () => Unit): Self[V, Data, Methods, Computed, PropsDef] = {
         val ret = this.duplicate

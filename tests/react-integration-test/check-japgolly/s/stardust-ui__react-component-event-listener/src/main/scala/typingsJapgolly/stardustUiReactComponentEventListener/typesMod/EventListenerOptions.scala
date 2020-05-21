@@ -22,7 +22,7 @@ trait EventListenerOptions[T /* <: EventTypes */] extends js.Object {
 
 object EventListenerOptions {
   @scala.inline
-  def apply[T /* <: EventTypes */](
+  def apply[T](
     listener: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback,
     targetRef: RefHandle[
       /* import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify Node */ js.Any
@@ -34,11 +34,11 @@ object EventListenerOptions {
     __obj.asInstanceOf[EventListenerOptions[T]]
   }
   @scala.inline
-  implicit class EventListenerOptionsOps[Self[t /* <: typingsJapgolly.stardustUiReactComponentEventListener.typesMod.EventTypes */] <: EventListenerOptions[t], T] (val x: Self[T]) extends AnyVal {
+  implicit class EventListenerOptionsOps[Self[t] <: EventListenerOptions[t], T] (val x: Self[T]) extends AnyVal {
     @scala.inline
     def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
     def withListener(
       value: /* import warning: importer.ImportType#apply Failed type conversion: / * import warning: transforms.QualifyReferences#resolveTypeRef many Couldn't qualify DocumentEventMap * / any[T] */ /* e */ js.Any => Callback

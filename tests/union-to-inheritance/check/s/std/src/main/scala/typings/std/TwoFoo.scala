@@ -21,7 +21,7 @@ object TwoFoo {
     @scala.inline
     def duplicate: Self[Foo1, Foo2] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[Foo1, Foo2]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[Foo1, Foo2]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[Foo1, Foo2]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[Foo1, Foo2]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[Foo1, Foo2]) with Other]
     @scala.inline
     def withValue(value: Foo1): Self[Foo1, Foo2] = {
         val ret = this.duplicate

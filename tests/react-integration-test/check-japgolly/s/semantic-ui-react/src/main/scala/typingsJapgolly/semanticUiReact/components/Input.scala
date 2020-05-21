@@ -423,7 +423,7 @@ object Input {
     if (onBlur != null) __obj.updateDynamic("onBlur")(js.Any.fromFunction1((t0: ReactFocusEventFrom[HTMLInputElement]) => onBlur(t0).runNow()))
     if (onCanPlay != null) __obj.updateDynamic("onCanPlay")(js.Any.fromFunction1((t0: ReactEventFrom[HTMLInputElement]) => onCanPlay(t0).runNow()))
     if (onCanPlayThrough != null) __obj.updateDynamic("onCanPlayThrough")(js.Any.fromFunction1((t0: ReactEventFrom[HTMLInputElement]) => onCanPlayThrough(t0).runNow()))
-    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => onChange(t0, t1).runNow()))
+    if (onChange != null) __obj.updateDynamic("onChange")(js.Any.fromFunction2((t0: /* event */ ReactEventFrom[HTMLInputElement], t1: /* data */ InputOnChangeData) => (onChange(t0, t1)).runNow()))
     if (onClick != null) __obj.updateDynamic("onClick")(js.Any.fromFunction1((t0: ReactMouseEventFrom[HTMLInputElement]) => onClick(t0).runNow()))
     if (onCompositionEnd != null) __obj.updateDynamic("onCompositionEnd")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLInputElement]) => onCompositionEnd(t0).runNow()))
     if (onCompositionStart != null) __obj.updateDynamic("onCompositionStart")(js.Any.fromFunction1((t0: ReactCompositionEventFrom[HTMLInputElement]) => onCompositionStart(t0).runNow()))

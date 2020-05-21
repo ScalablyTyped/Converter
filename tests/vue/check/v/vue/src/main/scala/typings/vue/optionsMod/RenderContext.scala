@@ -35,7 +35,7 @@ object RenderContext {
     @scala.inline
     def duplicate: Self[Props] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[Props]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self[Props] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[Props] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self[Props] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[Props] with Other]
     @scala.inline
     def withChildren(value: js.Array[VNode]): Self[Props] = {
         val ret = this.duplicate

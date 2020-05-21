@@ -588,6 +588,7 @@ class ImportTree(
       isOverride  = false,
       comments    = cs ++ sig.comments,
       codePath    = ownerCP + name,
+      isImplicit  = false,
     )
 
     if (name === Name.APPLY || name === Name.namespaced) ret

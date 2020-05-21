@@ -62,7 +62,7 @@ object StrictAccordionTitleProps {
     @scala.inline
     def duplicate: Self = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
+    def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
     def withActive(value: Boolean): Self = {
         val ret = this.duplicate
@@ -146,7 +146,7 @@ object StrictAccordionTitleProps {
       value: (/* component */ ReactType[js.Any], js.Any, /* children */ js.UndefOr[Node | ReactNodeArray]) => CallbackTo[Element | Null]
     ): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(js.Any.fromFunction3((t0: /* component */ ReactType[js.Any], t1: js.Any, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => value(t0, t1, t2).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("icon")(js.Any.fromFunction3((t0: /* component */ ReactType[js.Any], t1: js.Any, t2: /* children */ js.UndefOr[Node | ReactNodeArray]) => (value(t0, t1, t2)).runNow()))
         ret
     }
     @scala.inline
@@ -182,7 +182,7 @@ object StrictAccordionTitleProps {
       value: (/* event */ ReactMouseEventFrom[HTMLDivElement], /* data */ AccordionTitleProps) => Callback
     ): Self = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("onClick")(js.Any.fromFunction2((t0: /* event */ ReactMouseEventFrom[HTMLDivElement], t1: /* data */ AccordionTitleProps) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline

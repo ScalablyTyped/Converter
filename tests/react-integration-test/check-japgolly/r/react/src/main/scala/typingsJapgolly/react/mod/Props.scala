@@ -2,6 +2,7 @@ package typingsJapgolly.react.mod
 
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.raw.React.Node
+import japgolly.scalajs.react.raw.React.RefHandle
 import japgolly.scalajs.react.vdom.VdomElement
 import japgolly.scalajs.react.vdom.VdomNode
 import scala.scalajs.js
@@ -43,7 +44,7 @@ object Props {
     @scala.inline
     def duplicate: Self[T] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[T]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
+    def combineWith[Other <: js.Any](other: Other): Self[T] with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self[T] with Other]
     @scala.inline
     def withChildrenVdomElement(value: VdomElement): Self[T] = {
         val ret = this.duplicate
@@ -72,6 +73,12 @@ object Props {
     def withoutKey: Self[T] = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("key")(js.undefined)
+        ret
+    }
+    @scala.inline
+    def withRefRefObject(value: RefHandle[T]): Self[T] = {
+        val ret = this.duplicate
+        ret.asInstanceOf[js.Dynamic].updateDynamic("ref")(value.asInstanceOf[js.Any])
         ret
     }
     @scala.inline

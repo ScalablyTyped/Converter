@@ -158,6 +158,7 @@ final case class MethodTree(
     isOverride:  Boolean,
     comments:    Comments,
     codePath:    QualifiedName,
+    isImplicit:  Boolean,
 ) extends MemberTree {
   def withSuffix[T: ToSuffix](t: T): MethodTree =
     renamed(name withSuffix t)
@@ -485,11 +486,11 @@ object TypeRef {
 
   object ThisType {
     def apply(comments: Comments): TypeRef =
-      TypeRef(QualifiedName.THIS_TYPE, Empty, comments)
+      TypeRef(QualifiedName.THIS, Empty, comments)
 
     def unapply(typeRef: TypeRef): Option[Comments] =
       typeRef match {
-        case TypeRef(QualifiedName.THIS_TYPE, _, comments) =>
+        case TypeRef(QualifiedName.THIS, _, comments) =>
           Some(comments)
         case _ => None
       }
@@ -519,16 +520,29 @@ object ExprTree {
   case class BinaryOp(one:          ExprTree, op: String, two: ExprTree) extends ExprTree
   case class Block(expressions:     IArray[ExprTree]) extends ExprTree
   case class Call(function:         ExprTree, params: IArray[IArray[Arg]]) extends ExprTree
-  case class Cast(one:              ExprTree, as: TypeRef) extends ExprTree
   case class If(pred:               ExprTree, ifTrue: ExprTree, ifFalse: Option[ExprTree]) extends ExprTree
   case class Lambda(params:         IArray[ParamTree], body: ExprTree) extends ExprTree
   case class New(expr:              TypeRef, params: IArray[ExprTree]) extends ExprTree
   case class Ref(value:             QualifiedName) extends ExprTree
   case class Select(from:           ExprTree, path: Name) extends ExprTree
-  case class TApply(ref:            Ref, targs: IArray[TypeRef]) extends ExprTree
+  case class TApply(ref:            ExprTree, targs: IArray[TypeRef]) extends ExprTree
   case class Unary(op:              String, expr: ExprTree) extends ExprTree
   case class Val(override val name: Name, value: ExprTree) extends ExprTree
+  case class Throw(expr:            ExprTree) extends ExprTree
 
+  def InstanceOf(target: ExprTree, of: TypeRef): ExprTree =
+    TApply(Select(target, Name("isInstanceOf")), IArray(of))
+
+  object Cast {
+    def apply(target: ExprTree, of: TypeRef): ExprTree =
+      TApply(Select(target, Name("asInstanceOf")), IArray(of))
+
+    def unapply(expr: ExprTree): Option[(ExprTree, TypeRef)] =
+      expr match {
+        case TApply(Select(target, Name("asInstanceOf")), IArray.exactlyOne(of)) => Some((target, of))
+        case _                                                                   => None
+      }
+  }
   sealed trait Lit extends ExprTree
   case class BooleanLit(value: Boolean) extends Lit
   case class NumberLit(value:  String) extends Lit

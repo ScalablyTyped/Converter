@@ -61,6 +61,7 @@ object ImportEnum {
                 isOverride = false,
                 memberCs,
                 importedCodePath + memberName,
+                isImplicit = false,
               )
           }
 
@@ -134,6 +135,7 @@ object ImportEnum {
                   isOverride  = false,
                   comments    = NoComments,
                   codePath    = importedCodePath + Name.APPLY,
+                  isImplicit  = false,
                 ),
               )
             } else None

@@ -35,16 +35,16 @@ object MemberToProp {
                 case other            => other
               }
 
-              def canHaveVariants = rewriterOpt match {
+              def willBeRewritten = rewriterOpt match {
                 case Some(rewriter) =>
-                  !rewriter.conversionsForTypeName.contains(dealiased.typeName) &&
-                    !rewriter.conversionsForTypeName.contains(origTpe.typeName)
-                case None => true
+                  rewriter.conversionsForTypeName.contains(dealiased.typeName) ||
+                    rewriter.conversionsForTypeName.contains(origTpe.typeName)
+                case None => false
               }
 
               val variants: IArray[Prop.Variant] =
                 dealiased match {
-                  case TypeRef.Union(types, _) if canHaveVariants =>
+                  case TypeRef.Union(types, _) if !willBeRewritten =>
                     types
                       .mapNotNone(tpe => apply(scope, f.copy(tpe = tpe), isInherited))
                       .flatMap {
@@ -57,7 +57,7 @@ object MemberToProp {
               val main = Prop.Variant(
                 tpe           = tpe,
                 asExpr        = ref => Cast(ref, TypeRef.Any),
-                isRewritten   = false,
+                isRewritten   = willBeRewritten,
                 extendsAnyVal = TypeRef.Primitive(TypeRef(Erasure.simplify(scope / x, dealiased))),
               )
               Some(Prop.Normal(main, isInherited, optionality, variants, f))

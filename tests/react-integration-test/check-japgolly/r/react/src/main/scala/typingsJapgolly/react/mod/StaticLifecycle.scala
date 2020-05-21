@@ -24,7 +24,7 @@ object StaticLifecycle {
     @scala.inline
     def duplicate: Self[P, S] = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x)).asInstanceOf[Self[P, S]]
     @scala.inline
-    def combineWith[Other /* <: js.Any */](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
+    def combineWith[Other <: js.Any](other: Other): (Self[P, S]) with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[(Self[P, S]) with Other]
     @scala.inline
     def withGetDerivedStateFromError(value: /* error */ js.Any => CallbackTo[Partial[S] | Null]): Self[P, S] = {
         val ret = this.duplicate
@@ -40,7 +40,7 @@ object StaticLifecycle {
     @scala.inline
     def withGetDerivedStateFromProps(value: (P, S) => CallbackTo[Partial[S] | Null]): Self[P, S] = {
         val ret = this.duplicate
-        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2((t0: P, t1: S) => value(t0, t1).runNow()))
+        ret.asInstanceOf[js.Dynamic].updateDynamic("getDerivedStateFromProps")(js.Any.fromFunction2((t0: P, t1: S) => (value(t0, t1)).runNow()))
         ret
     }
     @scala.inline
