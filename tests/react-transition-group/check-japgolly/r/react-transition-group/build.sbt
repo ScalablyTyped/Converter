@@ -1,15 +1,15 @@
 organization := "org.scalablytyped"
 name := "react-transition-group"
-version := "2.0-69cb5f"
+version := "2.0-3f51bc"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalajs-react" %%% "core" % "1.7.0",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-9f9689",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-a727c8")
+  "org.scalablytyped" %%% "react" % "0.0-unknown-48c8d0",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-5a9518")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls")
+scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

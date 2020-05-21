@@ -1,15 +1,15 @@
 organization := "org.scalablytyped"
 name := "material-ui"
-version := "0.0-unknown-8549d8"
+version := "0.0-unknown-dca75d"
 scalaVersion := "2.13.2"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.github.japgolly.scalajs-react" %%% "core" % "1.7.0",
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "react" % "0.0-unknown-afe76a",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-2c0fc7")
+  "org.scalablytyped" %%% "react" % "0.0-unknown-37c361",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-ba8d47")
 publishArtifact in packageDoc := false
-scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls")
+scalacOptions ++= List("-encoding", "utf-8", "-feature", "-g:notailcalls", "-language:implicitConversions", "-language:higherKinds", "-language:existentials")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
 bintrayRepository := "ScalablyTyped"
 resolvers += Resolver.bintrayRepo("oyvindberg", "ScalablyTyped")

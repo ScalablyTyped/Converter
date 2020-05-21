@@ -37,7 +37,15 @@ object Versions {
     val scalaJsOrganization = "org.scala-js"
 
     def scalacOptions: List[String] = {
-      val base = List("-encoding", "utf-8", "-g:notailcalls")
+      val base = List(
+        "-encoding",
+        "utf-8",
+        "-feature",
+        "-g:notailcalls",
+        "-language:implicitConversions",
+        "-language:higherKinds",
+        "-language:existentials",
+      )
       if (scalaJsVersion.startsWith("0.6")) base :+ "-P:scalajs:sjsDefinedByDefault"
       else base
     }
