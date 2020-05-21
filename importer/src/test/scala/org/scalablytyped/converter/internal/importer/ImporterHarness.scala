@@ -55,7 +55,7 @@ trait ImporterHarness extends AnyFunSuite {
     val stdLibSource: StdLibSource =
       StdLibSource(InFolder(source.path), IArray(InFile(source.path / "stdlib.d.ts")), TsIdentLibrarySimple("std"))
 
-    val resolve          = new LibraryResolver(stdLibSource, IArray(source), None)
+    val resolve          = new LibraryResolver(stdLibSource, IArray(source))
     val lastChangedIndex = DTLastChangedIndex.No
 
     val phase: RecPhase[Source, PublishedSbtProject] =
@@ -122,7 +122,6 @@ trait ImporterHarness extends AnyFunSuite {
       pedantic: Boolean,
       update:   Boolean,
       flavour: FlavourImpl = NormalFlavour(
-        shouldGenerateComponents = true,
         shouldUseScalaJsDomTypes = false,
         enableImplicitOps        = true,
         outputPkg                = Name.typings,

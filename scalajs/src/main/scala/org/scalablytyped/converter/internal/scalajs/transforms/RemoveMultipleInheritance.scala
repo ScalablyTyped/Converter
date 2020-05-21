@@ -11,7 +11,7 @@ import org.scalablytyped.converter.internal.seqs._
   */
 class RemoveMultipleInheritance(parentsResolver: ParentsResolver) extends TreeTransformation {
 
-  final case class Dropped(typeRef: TypeRef, because: String, members: IArray[Tree])
+  case class Dropped(typeRef: TypeRef, because: String, members: IArray[Tree])
 
   override def leaveClassTree(scope: TreeScope)(cls: ClassTree): ClassTree = {
     val (newComments, newParents, newMembers) = findNewParents(scope, cls)

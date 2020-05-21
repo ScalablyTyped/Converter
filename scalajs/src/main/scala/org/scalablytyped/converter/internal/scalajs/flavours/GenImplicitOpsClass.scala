@@ -19,7 +19,6 @@ object GenImplicitOpsClass {
     val clsName     = Name(s"${original.name.unescaped}Ops")
     val clsCodePath = ownerCp + clsName
     val value       = Name("value")
-    val ret         = Name("ret")
 
     /* we need to add a few type parameter names into an unknown set, so this avoids collisions */
     val mutableAllocateTypeName = AvailableName(original.tparams.map(_.name), IArray(original.name))

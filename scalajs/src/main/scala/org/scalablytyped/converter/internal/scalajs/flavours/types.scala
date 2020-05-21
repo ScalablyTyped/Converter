@@ -36,21 +36,3 @@ final case class Component(
     )
 }
 
-object Component {
-  import ExprTree._
-  def formatReferenceTo(ref: TypeRef, componentType: ComponentType): ExprTree =
-    componentType match {
-      case ComponentType.Class =>
-        TApply(Ref(QualifiedName.constructorOf), IArray(ref))
-      case ComponentType.Field =>
-        Ref(ref)
-      case ComponentType.Function =>
-        ref.typeName.parts match {
-          case IArray.initLast(ownerQName, name) =>
-            Call(
-              Select(Cast(Ref(QualifiedName(ownerQName)), TypeRef.Dynamic), Name("selectDynamic")),
-              IArray(IArray(StringLit(name.unescaped))),
-            )
-        }
-    }
-}

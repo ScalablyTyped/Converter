@@ -50,7 +50,6 @@ class Phase1ReadTypescript(
   ): PhaseRes[Source, Phase1Res] = {
 
     source match {
-      case _:      Source.FacadeSource                           => PhaseRes.Ok(Facade)
       case source: Source.TsLibSource if ignored(source.libName) => PhaseRes.Ignore()
       case _ if isCircular => PhaseRes.Ignore()
       case Source.TsHelperFile(file, _, _) if !file.path.last.endsWith(".d.ts") =>
@@ -149,7 +148,6 @@ class Phase1ReadTypescript(
             case Unpack(
                 libParts: SortedMap[Source.TsHelperFile, FileAndInlinesFlat],
                 deps:     SortedMap[Source.TsLibSource, LibTs],
-                facades,
                 ) =>
               val scope: TsTreeScope.Root =
                 TsTreeScope(source.libName, pedantic, deps.map { case (source, lib) => source -> lib.parsed }, logger)
@@ -202,7 +200,7 @@ class Phase1ReadTypescript(
                 finished.comments,
               )
 
-              LibTs(source)(version, finished, deps, facades)
+              LibTs(source)(version, finished, deps)
           }
         }
     }

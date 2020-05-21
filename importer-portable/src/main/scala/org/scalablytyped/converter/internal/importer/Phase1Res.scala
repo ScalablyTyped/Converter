@@ -1,7 +1,7 @@
 package org.scalablytyped.converter.internal
 package importer
 
-import org.scalablytyped.converter.internal.importer.Source.{FacadeSource, TsHelperFile, TsLibSource}
+import org.scalablytyped.converter.internal.importer.Source.{TsHelperFile, TsLibSource}
 import org.scalablytyped.converter.internal.maps.MapOps
 import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsParsedFile}
 
@@ -15,13 +15,10 @@ sealed trait Phase1Res
   */
 object Phase1Res {
 
-  case object Facade extends Phase1Res
-
   final case class LibTs(source: TsLibSource)(
       val version:               LibraryVersion,
       val parsed:                TsParsedFile,
       val dependencies:          SortedMap[TsLibSource, LibTs],
-      val facades:               Set[FacadeSource],
   ) extends Phase1Res {
     def name: TsIdentLibrary = source.libName
   }
@@ -46,16 +43,15 @@ object Phase1Res {
   object Unpack {
     def unapply(
         _m: SortedMap[Source, Phase1Res],
-    ): Some[(SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[FacadeSource])] =
+    ): Some[(SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs])] =
       Some(apply(_m))
 
     def apply(
         _m: SortedMap[Source, Phase1Res],
-    ): (SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs], Set[FacadeSource]) = {
+    ): (SortedMap[TsHelperFile, FileAndInlinesFlat], SortedMap[TsLibSource, LibTs]) = {
 
       val libParts = mutable.HashMap.empty[TsHelperFile, FileAndInlinesFlat]
       val libs     = mutable.HashMap.empty[TsLibSource, LibTs]
-      val facades  = mutable.HashSet.empty[FacadeSource]
 
       def go(m: Map[Source, Phase1Res]): Unit =
         m foreach {
@@ -84,15 +80,13 @@ object Phase1Res {
               libs(s) = lib
               goLibs(libs, lib.dependencies)
             }
-          case (s: FacadeSource, Facade) =>
-            facades.add(s)
 
           case other => sys.error(s"Unexpected $other")
         }
 
       go(_m)
 
-      (libParts.toSorted, libs.toSorted, facades.to[Set])
+      (libParts.toSorted, libs.toSorted)
     }
 
     def goLibs(libs: mutable.Map[TsLibSource, LibTs], ds: Map[TsLibSource, LibTs]): Unit =

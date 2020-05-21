@@ -5,7 +5,7 @@ import org.scalablytyped.converter.internal.importer.Source.{StdLibSource, TsLib
 import org.scalablytyped.converter.internal.ts._
 import os./
 
-class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], facadesFolder: Option[InFolder]) {
+class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder]) {
   import LibraryResolver._
 
   def module(current: TsSource, value: String): Option[(TsSource, TsIdentModule)] =
@@ -25,15 +25,6 @@ class LibraryResolver(stdLib: StdLibSource, sourceFolders: IArray[InFolder], fac
           (folder(source, libName.value) orElse
             folder(source, libName.`__value`)).map(folder => Source.FromFolder(folder, libName)),
         )
-    }
-
-  def libraryOrFacade(libName: TsIdentLibrary): Option[Source] =
-    library(libName).orElse {
-      (libName.value, facadesFolder) match {
-        case (FacadePath(facadePath), Some(folder)) =>
-          resolve(folder.path, facadePath).headOption.map(found => Source.FacadeSource(InFolder(found)))
-        case _ => None
-      }
     }
 }
 
@@ -79,12 +70,5 @@ object LibraryResolver {
 
   private object LocalPath {
     def unapply(s: String): Option[String] = if (s.startsWith(".")) Some(s) else None
-  }
-
-  private object FacadePath {
-    private val Suffix = "-facade"
-    def unapply(s: String): Option[String] =
-      if (s.endsWith(Suffix)) Some(s.dropRight(Suffix.length))
-      else None
   }
 }

@@ -50,10 +50,6 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
   test("properties")(assertImportsOk("properties", pedantic                         = true, update  = update))
   test("keyof")(assertImportsOk("keyof", pedantic                                   = true, update  = update))
 
-  test("material-ui")(
-    assertImportsOk("material-ui", pedantic = true, update = update),
-  )
-
   test("material-ui-slinky")(
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Slinky),
   )
@@ -62,9 +58,6 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
     assertImportsOk("material-ui", pedantic = true, update = update, flavour = Japgolly),
   )
 
-  test("react-transition-group")(
-    assertImportsOk("react-transition-group", pedantic = true, update = update),
-  )
   test("react-transition-group-slinky")(
     assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Slinky),
   )
@@ -72,9 +65,6 @@ class ImporterTest extends AnyFunSuite with ImporterHarness with ParallelTestExe
     assertImportsOk("react-transition-group", pedantic = true, update = update, flavour = Japgolly),
   )
 
-  test("react-integration-test")(
-    assertImportsOk("react-integration-test", pedantic = false, update = update),
-  )
   test("react-integration-test-slinky")(
     assertImportsOk("react-integration-test", pedantic = false, update = update, flavour = Slinky),
   )

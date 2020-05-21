@@ -21,7 +21,7 @@ case class ConversionOptions(
   val flavourImpl: flavours.FlavourImpl =
     flavour match {
       case Flavour.Normal =>
-        flavours.NormalFlavour(shouldGenerateComponents = true, useScalaJsDomTypes, enableImplicitOps, outputPackage)
+        flavours.NormalFlavour(useScalaJsDomTypes, enableImplicitOps, outputPackage)
       case Flavour.Slinky =>
         flavours.SlinkyFlavour(outputPackage, enableImplicitOps)
       case Flavour.SlinkyNative =>

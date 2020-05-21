@@ -10,7 +10,6 @@ sealed trait Source {
       case Source.StdLibSource(InFolder(path), _, _) => path
       case Source.FromFolder(InFolder(path), _)      => path
       case Source.TsHelperFile(InFile(path), _, _)   => path
-      case Source.FacadeSource(InFolder(path))       => path
     }
 
   def folder:  InFolder
@@ -51,7 +50,7 @@ object Source {
     FromNodeModules(
       sources         = sources,
       folders         = inputFolders,
-      libraryResolver = new LibraryResolver(stdLibSource, inputFolders, None),
+      libraryResolver = new LibraryResolver(stdLibSource, inputFolders),
       stdLibSource    = stdLibSource,
     )
   }
@@ -105,10 +104,6 @@ object Source {
 
   def helperFile(inLib: TsLibSource)(file: InFile): TsHelperFile =
     Source.TsHelperFile(file, inLib, LibraryResolver.moduleNameFor(inLib, file))
-
-  final case class FacadeSource(folder: InFolder) extends Source {
-    override val libName = TsIdentLibrarySimple(folder.path.last + "-" + "facade")
-  }
 
   implicit val SourceKey:                   Key[Source]       = Key.of[Source, String](_.key)
   implicit def SourceOrdering[S <: Source]: Ordering[S]       = Ordering.by[S, String](_.key)

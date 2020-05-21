@@ -27,7 +27,6 @@ import scala.concurrent.{Await, ExecutionContext, Future}
 import scala.util.Try
 
 object Ci {
-  case class TargetDirs(targetFolder: os.Path, facadeFolder: os.Path)
 
   case class Paths(
       npmjs:              Path,
@@ -170,7 +169,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
     _ => logging.storing().filter(LogLevel.warn),
   )
 
-  def updatedTargetDir(): Future[Ci.TargetDirs] =
+  def updatedTargetDir(): Future[os.Path] =
     Future {
       val projectFolder = paths.cacheFolder / config.projectName.value
       if (files.exists(projectFolder)) {
@@ -198,30 +197,20 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
             interfaceCmd.runVerbose git ("remote", "add", "origin", config.repo.toString)
         }
 
-      Ci.TargetDirs(targetFolder = projectFolder, facadeFolder = files.existing(projectFolder / 'facades))
+      projectFolder
     }(ec)
 
-  def tsSourcesF(
-      externalsFolderF:  Future[InFolder],
-      dtFolderF:         Future[InFolder],
-      updatedTargetDirF: Future[Ci.TargetDirs],
-  ): Future[SortedSet[Source]] = {
+  def tsSourcesF(externalsFolderF: Future[InFolder], dtFolderF: Future[InFolder]): Future[SortedSet[Source]] = {
     implicit val s = ec
     for {
       externalsFolder <- externalsFolderF
       dtFolder <- dtFolderF
-      target <- updatedTargetDirF
-    } yield {
-      val facadeSources: Set[Source] =
-        os.list(target.facadeFolder).map(path => Source.FacadeSource(InFolder(path)): Source).to[Set]
-
-      (
-        TypescriptSources(externalsFolder, dtFolder, config.conversion.ignoredLibs).sorted ++ facadeSources,
-        config.wantedLibs,
-      ) match {
-        case (sources, sets.EmptySet()) => sources
-        case (sources, wantedLibs)      => sources.filter(s => wantedLibs(s.libName))
-      }
+    } yield (
+      TypescriptSources(externalsFolder, dtFolder, config.conversion.ignoredLibs).sorted,
+      config.wantedLibs,
+    ) match {
+      case (sources, sets.EmptySet()) => sources
+      case (sources, wantedLibs)      => sources.filter(s => wantedLibs(s.libName))
     }
   }
 
@@ -269,16 +258,16 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
   }(ec)
 
   val updatedTargetDirF = updatedTargetDir()
-  val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF, updatedTargetDirF)
+  val tsSourcesFF       = tsSourcesF(externalsFolderF, dtFolderF)
 
   def run(): Option[Long] = {
-    val externalsFolder                           = Await.result(externalsFolderF, Duration.Inf)
-    val dtFolder                                  = Await.result(dtFolderF, Duration.Inf)
-    val lastChangedIndex                          = Await.result(lastChangedIndexF, Duration.Inf)
-    val compiler                                  = Await.result(compilerF, Duration.Inf)
-    val ()                                        = Await.result(localCleaningF, Duration.Inf)
-    val Ci.TargetDirs(targetFolder, facadeFolder) = Await.result(updatedTargetDirF, Duration.Inf)
-    val tsSources                                 = Await.result(tsSourcesFF, Duration.Inf)
+    val externalsFolder  = Await.result(externalsFolderF, Duration.Inf)
+    val dtFolder         = Await.result(dtFolderF, Duration.Inf)
+    val lastChangedIndex = Await.result(lastChangedIndexF, Duration.Inf)
+    val compiler         = Await.result(compilerF, Duration.Inf)
+    val ()               = Await.result(localCleaningF, Duration.Inf)
+    val targetFolder     = Await.result(updatedTargetDirF, Duration.Inf)
+    val tsSources        = Await.result(tsSourcesFF, Duration.Inf)
 
     val stdLibSource: StdLibSource = {
       val folder = externalsFolder.path / "typescript" / "lib"
@@ -300,7 +289,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         .next(
           new Phase1ReadTypescript(
             calculateLibraryVersion = new DTVersions(lastChangedIndex),
-            resolve                 = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), None),
+            resolve                 = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder)),
             ignored                 = config.conversion.ignoredLibs,
             ignoredModulePrefixes   = config.conversion.ignoredModulePrefixes,
             stdlibSource            = stdLibSource,
@@ -321,7 +310,7 @@ class Ci(config: Ci.Config, paths: Ci.Paths, publisher: Publisher, pool: ForkJoi
         .next(new PhaseFlavour(config.conversion.flavourImpl), config.conversion.flavourImpl.toString)
         .next(
           new Phase3Compile(
-            resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder), Some(InFolder(facadeFolder))),
+            resolve                    = new LibraryResolver(stdLibSource, IArray(dtFolder, externalsFolder)),
             versions                   = config.conversion.versions,
             compiler                   = compiler,
             targetFolder               = targetFolder,

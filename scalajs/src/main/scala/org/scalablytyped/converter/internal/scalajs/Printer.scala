@@ -258,7 +258,6 @@ object Printer {
         print(Comments.format(comments))
         print("type ", formatName(name))
         if (tparams.nonEmpty) {
-          val isNative = true // need this for compatibility with GenReactFacadeComponents. Another reason to delete it
           print("[", tparams map formatTypeParamTree(isNative, indent) mkString ", ", "]")
         }
 

@@ -4,7 +4,6 @@ package importer
 
 import com.olvind.logging.Logger
 import org.scalablytyped.converter.internal.importer.Phase1Res.{LibTs, LibraryPart}
-import org.scalablytyped.converter.internal.importer.Phase2Res.LibScalaJs
 import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, PhaseRes}
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
@@ -18,18 +17,16 @@ import scala.collection.immutable.SortedSet
   * Then the phase itself implements a bunch of scala.js limitations, like ensuring no methods erase to the same signature
   */
 class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdentLibrary], outputPkg: Name)
-    extends Phase[Source, Phase1Res, Phase2Res] {
+    extends Phase[Source, Phase1Res, LibScalaJs] {
 
   override def apply(
       source:     Source,
       current:    Phase1Res,
-      getDeps:    GetDeps[Source, Phase2Res],
+      getDeps:    GetDeps[Source, LibScalaJs],
       isCircular: IsCircular,
       logger:     Logger[Unit],
-  ): PhaseRes[Source, Phase2Res] =
+  ): PhaseRes[Source, LibScalaJs] =
     current match {
-      case Phase1Res.Facade => PhaseRes.Ok(Phase2Res.Facade)
-
       case _: LibraryPart =>
         PhaseRes.Ignore()
 
@@ -37,7 +34,7 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
         val knownLibs = garbageCollectLibs(lib)
 
         getDeps(knownLibs) map {
-          case Phase2Res.Unpack(scalaDeps, facades) =>
+          case LibScalaJs.Unpack(scalaDeps) =>
             val scalaName = ImportName(lib.name)
 
             val scope = new TreeScope.Root(
@@ -96,7 +93,6 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               packageTree  = transformedScalaTree,
               dependencies = scalaDeps,
               isStdLib     = lib.parsed.isStdLib,
-              facades      = lib.facades ++ facades,
               names        = importName,
             )
         }

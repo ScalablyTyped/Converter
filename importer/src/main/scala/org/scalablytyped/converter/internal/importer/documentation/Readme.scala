@@ -92,17 +92,4 @@ $output
 """
     case None => " with millions of lines of code"
   }
-
-  def facades(summary: Summary) = {
-    object FacadeName {
-      def unapply(s: TsIdentLibrary): Option[String] =
-        if (s.value.endsWith("-facade")) Some(s.value.replaceAllLiterally("-facade", ""))
-        else None
-    }
-
-    summary.successes
-      .collect { case FacadeName(name) => name }
-      .map(x => "- " + s"[$x](facades/$x)")
-      .mkString("\n")
-  }
 }
