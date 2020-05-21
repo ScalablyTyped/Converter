@@ -76,16 +76,19 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
     def returnsElement(scope: TreeScope, current: TypeRef): Option[TypeRef] =
       if (reactNames.isElement(current.typeName)) Some(current)
       else if (scope.isAbstract(current)) None
-      else {
-        scope
-          .lookup(current.typeName)
-          .firstDefined {
-            case (x: TypeAliasTree, newScope) =>
-              val rewritten = FillInTParams(x, newScope, current.targs, Empty)
-              returnsElement(scope, rewritten.alias)
-            case _ => None
-          }
-      }
+      else
+        current match {
+          case Optionality(opt, base) if opt =/= Optionality.No => returnsElement(scope, base)
+          case _ =>
+            scope
+              .lookup(current.typeName)
+              .firstDefined {
+                case (x: TypeAliasTree, newScope) =>
+                  val rewritten = FillInTParams(x, newScope, current.targs, Empty)
+                  returnsElement(scope, rewritten.alias)
+                case _ => None
+              }
+        }
 
     val flattenedParams = method.params.flatten
 
