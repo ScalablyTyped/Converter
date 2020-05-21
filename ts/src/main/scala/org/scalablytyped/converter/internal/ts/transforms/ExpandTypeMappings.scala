@@ -219,7 +219,7 @@ object ExpandTypeMappings extends TreeTransformationScopedChanges {
 
           foundType getOrElse {
             scope.logger.info(s"Could not replace key $key = $name")
-            TsTypeRef.any
+            ResolveTypeLookups.optional(TsTypeRef.any, true)
           }
         case other => other
       }
