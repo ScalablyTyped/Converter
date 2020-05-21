@@ -18,6 +18,7 @@ object MemberToProp {
 
             case (optionality, TypeRef.Function(paramTypes, retType)) =>
               if (paramTypes.contains(TypeRef.Nothing)) None // edge case which doesnt work
+              else if (paramTypes.length > 22) None
               else {
                 val main = Prop.Variant(
                   tpe           = TypeRef.ScalaFunction(paramTypes, retType, NoComments),
@@ -68,6 +69,7 @@ object MemberToProp {
           val flattenedParams = m.params.flatten
 
           if (flattenedParams.exists(_.tpe === TypeRef.Nothing)) None // edge case which doesnt work
+          else if (flattenedParams.length > 22) None
           else {
             val main = Prop.Variant(
               tpe           = TypeRef.ScalaFunction(flattenedParams.map(p => p.tpe), m.resultType, NoComments),
