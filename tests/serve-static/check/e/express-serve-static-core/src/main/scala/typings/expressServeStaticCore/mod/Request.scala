@@ -6,7 +6,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Request
-  extends typings.expressServeStaticCore.mod._Global_.Express.Request {
+  extends typings.expressServeStaticCore.mod.global.Express.Request {
   var url: String = js.native
 }
 

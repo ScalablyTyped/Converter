@@ -3,7 +3,7 @@ package typingsJapgolly.react.mod
 import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.raw.React.Node
 import japgolly.scalajs.react.vdom.VdomNode
-import typingsJapgolly.react.AnonHtml
+import typingsJapgolly.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -11,7 +11,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait DOMAttributes[T] extends js.Object {
   var children: js.UndefOr[Node] = js.native
-  var dangerouslySetInnerHTML: js.UndefOr[AnonHtml] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
   var onClick: js.UndefOr[Double | (js.Function1[/* x */ String, Unit])] = js.native
 }
 
@@ -40,7 +40,7 @@ object DOMAttributes {
         ret
     }
     @scala.inline
-    def withDangerouslySetInnerHTML(value: AnonHtml): Self[T] = {
+    def withDangerouslySetInnerHTML(value: Html): Self[T] = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(value.asInstanceOf[js.Any])
         ret

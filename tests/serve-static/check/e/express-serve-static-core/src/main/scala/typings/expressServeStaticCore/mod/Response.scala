@@ -6,7 +6,7 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait Response
-  extends typings.expressServeStaticCore.mod._Global_.Express.Response {
+  extends typings.expressServeStaticCore.mod.global.Express.Response {
   def location(url: String): Response = js.native
 }
 

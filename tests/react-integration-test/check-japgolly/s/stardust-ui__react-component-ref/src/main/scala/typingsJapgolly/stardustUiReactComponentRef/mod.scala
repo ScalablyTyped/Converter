@@ -2,6 +2,8 @@ package typingsJapgolly.stardustUiReactComponentRef
 
 import japgolly.scalajs.react.raw.React.RefHandle
 import typingsJapgolly.react.mod.FunctionComponent
+import typingsJapgolly.stardustUiReactComponentRef.anon.Children
+import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
 import typingsJapgolly.stardustUiReactComponentRef.refFindNodeMod.default
 import typingsJapgolly.stardustUiReactComponentRef.typesMod.RefProps
 import scala.scalajs.js
@@ -35,14 +37,14 @@ object mod extends js.Object {
   @js.native
   object RefFindNode extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonChildren | AnonInnerRef = js.native
+    var propTypes: Children | InnerRef = js.native
   }
   
   /* static members */
   @js.native
   object RefForward extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonChildren | AnonInnerRef = js.native
+    var propTypes: Children | InnerRef = js.native
   }
   
 }

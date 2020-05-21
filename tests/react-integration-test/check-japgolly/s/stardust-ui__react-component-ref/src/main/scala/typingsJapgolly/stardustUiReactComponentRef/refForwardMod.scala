@@ -2,6 +2,8 @@ package typingsJapgolly.stardustUiReactComponentRef
 
 import org.scalajs.dom.raw.HTMLElement
 import typingsJapgolly.react.mod.Component
+import typingsJapgolly.stardustUiReactComponentRef.anon.Children
+import typingsJapgolly.stardustUiReactComponentRef.anon.InnerRef
 import typingsJapgolly.stardustUiReactComponentRef.typesMod.RefProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -23,7 +25,7 @@ object refForwardMod extends js.Object {
   @js.native
   object default extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonChildren | AnonInnerRef = js.native
+    var propTypes: Children | InnerRef = js.native
   }
   
 }

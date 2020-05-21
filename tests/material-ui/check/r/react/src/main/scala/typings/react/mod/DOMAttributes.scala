@@ -1,6 +1,6 @@
 package typings.react.mod
 
-import typings.react.AnonHtml
+import typings.react.anon.Html
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation._
 @js.native
 trait DOMAttributes[T] extends js.Object {
   var children: js.UndefOr[ReactNode] = js.native
-  var dangerouslySetInnerHTML: js.UndefOr[AnonHtml] = js.native
+  var dangerouslySetInnerHTML: js.UndefOr[Html] = js.native
   var onClick: js.UndefOr[Double | (js.Function1[/* x */ String, Unit])] = js.native
 }
 
@@ -37,7 +37,7 @@ object DOMAttributes {
         ret
     }
     @scala.inline
-    def withDangerouslySetInnerHTML(value: AnonHtml): Self[T] = {
+    def withDangerouslySetInnerHTML(value: Html): Self[T] = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("dangerouslySetInnerHTML")(value.asInstanceOf[js.Any])
         ret

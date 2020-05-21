@@ -21,7 +21,7 @@ import japgolly.scalajs.react.ReactWheelEventFrom
 import japgolly.scalajs.react.component.JsForwardRef.UnmountedWithRoot
 import org.scalablytyped.runtime.StringDictionary
 import org.scalajs.dom.raw.HTMLButtonElement
-import typingsJapgolly.react.AnonHtml
+import typingsJapgolly.react.anon.Html
 import typingsJapgolly.react.mod.CSSProperties
 import typingsJapgolly.react.reactStrings.`additions text`
 import typingsJapgolly.react.reactStrings.`inline`
@@ -154,7 +154,7 @@ object Button {
     content: SemanticShorthandContent = null,
     contentEditable: js.UndefOr[Boolean] = js.undefined,
     contextMenu: String = null,
-    dangerouslySetInnerHTML: AnonHtml = null,
+    dangerouslySetInnerHTML: Html = null,
     datatype: String = null,
     defaultChecked: js.UndefOr[Boolean] = js.undefined,
     defaultValue: String | js.Array[String] = null,

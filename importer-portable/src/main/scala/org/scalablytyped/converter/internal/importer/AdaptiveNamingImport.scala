@@ -46,13 +46,13 @@ final class AdaptiveNamingImport(private val rewrites: Map[IArray[TsIdent], Qual
 object AdaptiveNamingImport {
   def apply(
       outputPkg:         Name,
-      tree:              TsTree,
+      library:           TsParsedFile,
       depsRewrites:      IArray[AdaptiveNamingImport],
       cleanIllegalNames: CleanIllegalNames,
   ): AdaptiveNamingImport = {
     val allReferences: IArray[IArray[TsIdent]] =
       TsTreeTraverse
-        .collect(tree) {
+        .collect(library) {
           /* we won't output these, so ignore the name collision */
           case x: TsDeclTypeAlias if x.comments.has[Markers.IsTrivial.type] => IArray.Empty
           case x: HasCodePath                                               => x.codePath.forceHasPath.codePath.parts
@@ -101,7 +101,7 @@ object AdaptiveNamingImport {
     val base = tsIdent match {
       case TsIdent.namespaced                          => Stream(Name.namespaced.unescaped)
       case TsIdent.Apply                               => Stream(Name.APPLY.unescaped)
-      case TsIdent.Global                              => Stream(TsIdent.Global.value)
+      case TsIdent.Global                              => Stream(Name.global.unescaped, "global_", "global__")
       case TsIdentSimple(value) if illegalNames(value) => Stream(value + "_")
       case TsIdentSimple(value)                        => nameVariants(value)
 

@@ -1,12 +1,12 @@
 organization := "org.scalablytyped"
 name := "sax"
-version := "1.x-b9ed6f"
+version := "1.x-92ed2e"
 scalaVersion := "2.13.1"
 enablePlugins(ScalaJSPlugin)
 libraryDependencies ++= Seq(
   "com.olvind" %%% "scalablytyped-runtime" % "2.1.0",
-  "org.scalablytyped" %%% "node" % "9.6.x-81df46",
-  "org.scalablytyped" %%% "std" % "0.0-unknown-b1c788")
+  "org.scalablytyped" %%% "node" % "9.6.x-fd5d9a",
+  "org.scalablytyped" %%% "std" % "0.0-unknown-98ffb1")
 publishArtifact in packageDoc := false
 scalacOptions ++= List("-encoding", "utf-8", "-g:notailcalls", "-P:scalajs:sjsDefinedByDefault")
 licenses += ("MIT", url("http://opensource.org/licenses/MIT"))

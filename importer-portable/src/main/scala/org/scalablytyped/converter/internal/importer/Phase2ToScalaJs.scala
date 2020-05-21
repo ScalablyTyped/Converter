@@ -1,4 +1,5 @@
-package org.scalablytyped.converter.internal
+package org.scalablytyped.converter
+package internal
 package importer
 
 import com.olvind.logging.Logger
@@ -9,7 +10,6 @@ import org.scalablytyped.converter.internal.phases.{GetDeps, IsCircular, Phase, 
 import org.scalablytyped.converter.internal.scalajs.transforms.{Adapter, CleanIllegalNames}
 import org.scalablytyped.converter.internal.scalajs.{Name, PackageTree, ParentsResolver, TreeScope, transforms => S}
 import org.scalablytyped.converter.internal.ts.{TsIdentLibrary, TsTreeTraverse}
-import org.scalablytyped.converter.{internal, Selection}
 
 import scala.collection.immutable.SortedSet
 
@@ -85,13 +85,15 @@ class Phase2ToScalaJs(pedantic: Boolean, enableScalaJsDefined: Selection[TsIdent
               new ImportExpr(importType, importName),
               enableScalaJsDefined(lib.name),
             )
-            val rewrittenTree = ScalaTransforms.foldLeft(importTree(lib, logger)) { case (acc, f) => f(acc) }
+
+            val scalaTree            = importTree(lib, logger)
+            val transformedScalaTree = ScalaTransforms.foldLeft(scalaTree) { case (acc, f) => f(acc) }
 
             LibScalaJs(lib.source)(
               libName      = lib.name.`__value`.replaceAll("\\.", "_dot_"),
               scalaName    = scalaName,
               libVersion   = lib.version,
-              packageTree  = rewrittenTree,
+              packageTree  = transformedScalaTree,
               dependencies = scalaDeps,
               isStdLib     = lib.parsed.isStdLib,
               facades      = lib.facades ++ facades,

@@ -6,12 +6,12 @@ import scala.scalajs.js.annotation._
 
 @js.native
 trait MainInterface extends CommonInterface {
-  var app: App_ = js.native
+  var app: App = js.native
 }
 
 object MainInterface {
   @scala.inline
-  def apply(app: App_): MainInterface = {
+  def apply(app: App): MainInterface = {
     val __obj = js.Dynamic.literal(app = app.asInstanceOf[js.Any])
     __obj.asInstanceOf[MainInterface]
   }
@@ -22,7 +22,7 @@ object MainInterface {
     @scala.inline
     def combineWith[Other <: js.Any](other: Other): Self with Other = (js.Dynamic.global.Object.assign(js.Dynamic.literal(), x, other.asInstanceOf[js.Any])).asInstanceOf[Self with Other]
     @scala.inline
-    def withApp(value: App_): Self = {
+    def withApp(value: App): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("app")(value.asInstanceOf[js.Any])
         ret

@@ -1,6 +1,8 @@
 package typings.stardustUiReactComponentRef
 
 import typings.react.mod.Component
+import typings.stardustUiReactComponentRef.anon.Children
+import typings.stardustUiReactComponentRef.anon.InnerRef
 import typings.stardustUiReactComponentRef.typesMod.RefProps
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -28,7 +30,7 @@ object refFindNodeMod extends js.Object {
   @js.native
   object default extends js.Object {
     var displayName: String = js.native
-    var propTypes: AnonChildren | AnonInnerRef = js.native
+    var propTypes: Children | InnerRef = js.native
   }
   
 }

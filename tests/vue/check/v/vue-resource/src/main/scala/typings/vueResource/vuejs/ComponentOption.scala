@@ -1,6 +1,6 @@
 package typings.vueResource.vuejs
 
-import typings.vueResource.headersHttpHeaderskeystri
+import typings.vueResource.anon.headersHttpHeaderskeystri
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._

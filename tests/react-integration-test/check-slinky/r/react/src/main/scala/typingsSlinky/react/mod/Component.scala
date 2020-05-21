@@ -2,7 +2,6 @@ package typingsSlinky.react.mod
 
 import org.scalablytyped.runtime.StringDictionary
 import slinky.core.TagMod
-import typingsSlinky.react.AnonChildren
 import typingsSlinky.std.Pick
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -34,7 +33,7 @@ class Component[P, S, SS] protected () extends ComponentLifecycle[P, S, SS] {
   // always pass children as variadic arguments to `createElement`.
   // In the future, if we can define its call signature conditionally
   // on the existence of `children` in `P`, then we should remove this.
-  val props: P with AnonChildren = js.native
+  val props: P with typingsSlinky.react.anon.Children = js.native
   /**
     * @deprecated
     * https://reactjs.org/docs/refs-and-the-dom.html#legacy-api-string-refs

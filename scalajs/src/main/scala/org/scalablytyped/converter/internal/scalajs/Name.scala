@@ -15,6 +15,7 @@ final case class Name(unescaped: String) {
 object Name {
   val std:        Name = Name("std")
   val typings:    Name = Name("typings")
+  val global:     Name = Name("global")
   val dummy:      Name = Name("dummy")
   val Any:        Name = Name("Any")
   val AnyVal:     Name = Name("AnyVal")

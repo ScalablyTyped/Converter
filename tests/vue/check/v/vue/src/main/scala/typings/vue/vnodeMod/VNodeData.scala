@@ -1,7 +1,7 @@
 package typings.vue.vnodeMod
 
 import org.scalablytyped.runtime.StringDictionary
-import typings.vue.AnonRender
+import typings.vue.anon.Render
 import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
@@ -13,7 +13,7 @@ trait VNodeData extends js.Object {
   var directives: js.UndefOr[js.Array[VNodeDirective]] = js.native
   var domProps: js.UndefOr[StringDictionary[js.Any]] = js.native
   var hook: js.UndefOr[StringDictionary[js.Function]] = js.native
-  var inlineTemplate: js.UndefOr[AnonRender] = js.native
+  var inlineTemplate: js.UndefOr[Render] = js.native
   var keepAlive: js.UndefOr[Boolean] = js.native
   var key: js.UndefOr[String | Double] = js.native
   var nativeOn: js.UndefOr[StringDictionary[js.Function | js.Array[js.Function]]] = js.native
@@ -103,7 +103,7 @@ object VNodeData {
         ret
     }
     @scala.inline
-    def withInlineTemplate(value: AnonRender): Self = {
+    def withInlineTemplate(value: Render): Self = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("inlineTemplate")(value.asInstanceOf[js.Any])
         ret

@@ -7,9 +7,8 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-@JSGlobal("B")
 @js.native
-class B () extends js.Object {
+trait B extends js.Object {
   def foo2[T](p: /* keyof T */ String): String = js.native
   @JSName("foo")
   def foo_a(p: a): String = js.native

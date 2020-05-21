@@ -12,7 +12,6 @@ object JapgollyTypeConversions {
     val _1Object  = TParam._1.among(Set.empty, QualifiedName.Object)
 
     scalaJsDomNames.All ++ IArray(
-      CastConversion(QualifiedName.ScalaAny, QualifiedName.Any), // todo: is this needed?
       CastConversion(reactNames.ComponentState, QualifiedName.Object),
       CastConversion(reactNames.ReactDOM, QualifiedName.Any),
       CastConversion(reactNames.ReactNode, japgolly.rawReactNode),

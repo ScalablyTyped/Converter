@@ -4,7 +4,7 @@ import org.scalablytyped.runtime.StringDictionary
 import typings.std.Element
 import typings.std.Error
 import typings.std.Record
-import typings.vue.AnonEvent
+import typings.vue.anon.Event
 import typings.vue.vnodeMod.VNode
 import typings.vue.vueMod.CreateElement
 import typings.vue.vueMod.Vue
@@ -56,7 +56,7 @@ trait ComponentOptions[V /* <: Vue */, Data, Methods, Computed, PropsDef] extend
       ]) | VueConstructor[Vue]
     ]
   ] = js.native
-  var model: js.UndefOr[AnonEvent] = js.native
+  var model: js.UndefOr[Event] = js.native
   var mounted: js.UndefOr[js.Function0[Unit]] = js.native
   var name: js.UndefOr[String] = js.native
   var parent: js.UndefOr[Vue] = js.native
@@ -367,7 +367,7 @@ object ComponentOptions {
         ret
     }
     @scala.inline
-    def withModel(value: AnonEvent): Self[V, Data, Methods, Computed, PropsDef] = {
+    def withModel(value: Event): Self[V, Data, Methods, Computed, PropsDef] = {
         val ret = this.duplicate
         ret.asInstanceOf[js.Dynamic].updateDynamic("model")(value.asInstanceOf[js.Any])
         ret

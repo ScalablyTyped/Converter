@@ -22,7 +22,7 @@ package object mod {
         typings.vue.optionsMod.PropsDefinition[typings.vue.optionsMod.DefaultProps]
       ]
     ], 
-    /* context */ typings.storybookVue.AnonKind, 
+    /* context */ typings.storybookVue.anon.Kind, 
     (typings.vue.optionsMod.ComponentOptions[
       typings.vue.vueMod.Vue, 
       typings.vue.optionsMod.DefaultData[typings.vue.vueMod.Vue], 

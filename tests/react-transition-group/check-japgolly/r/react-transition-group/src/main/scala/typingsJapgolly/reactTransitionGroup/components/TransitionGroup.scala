@@ -10,7 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.`|`
 import scala.scalajs.js.annotation._
 
-/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar: Couldn't find props for typingsJapgolly.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps[typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr] with (/ * import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] * / js.Any) because: IArray(Could't extract props from / * import warning: importer.ImportType#apply Failed type conversion: react.react._Global_.JSX.IntrinsicElements[T] * / js.Any because couldn't resolve ClassTree.). */
+/* This component has complicated props, you'll have to assemble `props` yourself using js.Dynamic.literal(...) or similar: Couldn't find props for typingsJapgolly.reactTransitionGroup.transitionGroupMod.IntrinsicTransitionGroupProps[typingsJapgolly.reactTransitionGroup.reactTransitionGroupStrings.abbr] with (/ * import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] * / js.Any) because: IArray(Could't extract props from / * import warning: importer.ImportType#apply Failed type conversion: react.react.<global>.JSX.IntrinsicElements[T] * / js.Any because couldn't resolve ClassTree.). */
 object TransitionGroup {
   def apply(props: (TransitionGroupProps[abbr, js.Any]) with js.Object)(children: ChildArg*): UnmountedWithRoot[
     (TransitionGroupProps[abbr, js.Any]) with js.Object, 

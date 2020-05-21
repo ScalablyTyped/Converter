@@ -230,6 +230,7 @@ object Phase1ReadTypescript {
       modules.AugmentModules(scope.caching),
       T.ResolveTypeQueries.visitTsParsedFile(scope.enableUnqualifiedLookup.caching), // before ReplaceExports
       new modules.ReplaceExports(LoopDetector.initial).visitTsParsedFile(scope.enableUnqualifiedLookup.caching),
+      modules.MoveGlobals.apply,
       FlattenTrees.apply,
       T.DefaultedTypeArguments.visitTsParsedFile(scope.caching), //after FlattenTrees
       T.InlineTrivialParents.visitTsParsedFile(scope.caching), //after FlattenTrees and DefaultedTypeArguments
@@ -250,7 +251,7 @@ object Phase1ReadTypescript {
       ).visitTsParsedFile(scope.caching),
       T.ResolveTypeLookups
         .visitTsParsedFile(scope.caching), //before ExpandCallables and ExtractInterfaces, after InlineTrivialTypeAlias and ExpandKeyOfTypeParams
-      T.ExtractInterfaces(libName, scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
+      T.ExtractInterfaces(libName, TsIdent("anon"), scope.caching), // before things which break initial ordering of members, like `ExtractClasses`
       (
         if (involvesReact) T.ExtractClasses
         else T.ExtractClasses >> T.ExpandCallables

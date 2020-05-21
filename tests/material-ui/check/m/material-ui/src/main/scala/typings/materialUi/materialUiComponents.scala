@@ -1,6 +1,7 @@
 package typings.materialUi
 
 import typings.materialUi.accessibilityMod.default
+import typings.materialUi.global.MaterialUI.BottomNavigation.BottomNavigationItem
 import typings.react.mod.ComponentType
 import scala.scalajs.js
 import scala.scalajs.js.`|`
@@ -14,6 +15,8 @@ object materialUiComponents extends materialUiProps {
   @scala.inline
   def BottomNavigationItem: ComponentType[BottomNavigationItemProps] = js.constructorOf[typings.materialUi.bottomNavigationItemMod.default].asInstanceOf[ComponentType[BottomNavigationItemProps]]
   @scala.inline
-  def SvgIcon: ComponentType[js.Object] = js.constructorOf[typings.materialUi.MaterialUI.SvgIcon].asInstanceOf[ComponentType[js.Object]]
+  def MaterialUIBottomNavigationBottomNavigationItem: ComponentType[MaterialUIBottomNavigationBottomNavigationItemProps] = js.constructorOf[BottomNavigationItem].asInstanceOf[ComponentType[MaterialUIBottomNavigationBottomNavigationItemProps]]
+  @scala.inline
+  def SvgIcon: ComponentType[js.Object] = js.constructorOf[typings.materialUi.global.MaterialUI.SvgIcon].asInstanceOf[ComponentType[js.Object]]
 }
 

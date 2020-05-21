@@ -255,7 +255,7 @@ class IdentifyReactComponents(reactNames: ReactNames, parentsResolver: ParentsRe
       */
     def extractPrefix(scope: TreeScope): IArray[Name] = {
 
-      val containers  = scope.stack.dropRight(2).collect { case x: ContainerTree => x } // drop typings and lib
+      val containers  = scope.stack.dropRight(2).collect { case x: ContainerTree if x.name =/= Name.global => x } // drop typings and lib
       val kept        = IArray.Builder.empty[Name]
       var idx         = 0
       var seenUnnamed = false
