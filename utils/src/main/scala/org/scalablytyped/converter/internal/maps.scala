@@ -27,8 +27,59 @@ object maps {
     ret.toMap
   }
 
-  @inline final implicit class MapOps[M[k, v] <: scala.Traversable[(k, v)], K, V](private val m: M[K, V])
+  @inline final implicit class FromMapValuesOps[K, V <: AnyRef](private val map: scala.collection.Map[K, V])
       extends AnyVal {
+
+    @inline def toIArrayValues: IArray[V] =
+      toIArrayValues(null)
+
+    @inline def toIArrayValues(keep: V => Boolean): IArray[V] = {
+      val b    = IArray.Builder.empty[V](map.size)
+      val iter = map.values.iterator
+      while (iter.hasNext) {
+        val current = iter.next()
+        if (keep == null || keep(current)) b += current
+      }
+      b.result()
+    }
+  }
+
+  @inline final implicit class FromMapOps[K, V](private val map: scala.collection.Map[K, V]) extends AnyVal {}
+
+  @inline final implicit class MapOps[M[k, v] <: scala.Iterable[(k, v)], K, V](private val m: M[K, V]) extends AnyVal {
+
+    @inline def toIArray: IArray[(K, V)] =
+      toIArray(null)
+
+    @inline def toIArray(keep: ((K, V)) => Boolean): IArray[(K, V)] = {
+      val b    = IArray.Builder.empty[(K, V)](m.size)
+      val iter = m.iterator
+      while (iter.hasNext) {
+        val current = iter.next()
+        if (keep == null || keep(current)) b += current
+      }
+      b.result()
+    }
+
+    @inline def mapToIArray[A <: AnyRef](f: ((K, V)) => A, keep: ((K, V)) => Boolean = null): IArray[A] = {
+      val b    = IArray.Builder.empty[A](m.size)
+      val iter = m.iterator
+      while (iter.hasNext) {
+        val current = iter.next()
+        if (keep == null || keep(current)) b += f(current)
+      }
+      b.result()
+    }
+
+    @inline def flatMapToIArray[A <: AnyRef](f: ((K, V)) => IArray[A], keep: ((K, V)) => Boolean = null): IArray[A] = {
+      val b    = IArray.Builder.empty[A](m.size * 2)
+      val iter = m.iterator
+      while (iter.hasNext) {
+        val current = iter.next()
+        if (keep == null || keep(current)) b ++= f(current)
+      }
+      b.result()
+    }
 
     def mapNotNone[VV](f: V => Option[VV])(implicit cbf: CanBuildFrom[M[K, V], (K, VV), M[K, VV]]): M[K, VV] = {
       val b  = cbf()

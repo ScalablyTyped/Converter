@@ -20,8 +20,7 @@ import sbt.librarymanagement.DependencyResolution
 import xsbti.CompileFailed
 import xsbti.compile.{CompileOrder => _, _}
 
-class ZincCompiler(inputs: Inputs, logger: Logger[Unit], versions: Versions, resolve: Dep => Array[File])
-    extends Compiler {
+class ZincCompiler(inputs: Inputs, logger: Logger[Unit], resolve: Dep => Array[File]) extends Compiler {
   private lazy val incCompiler: IncrementalCompiler = ZincUtil.defaultIncrementalCompiler
 
   val sbtLogger = new ZincCompiler.WrapLogger(logger)

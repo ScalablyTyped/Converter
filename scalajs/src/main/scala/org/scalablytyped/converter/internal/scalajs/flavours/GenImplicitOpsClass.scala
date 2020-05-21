@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 
 import scala.collection.mutable
@@ -76,7 +77,7 @@ object GenImplicitOpsClass {
 
           val ret = if (propName.value === "ret") Name("ret_") else Name("ret")
 
-          val iterable = variantsForProp map {
+          variantsForProp.mapToIArray {
             case (name, Prop.Undefined) =>
               val impl = {
                 import ExprTree._
@@ -138,8 +139,6 @@ object GenImplicitOpsClass {
                 codePath    = clsCodePath + name,
               )
           }
-
-          IArray.fromTraversable(iterable)
       }
 
     val sugarCtor = CtorTree(

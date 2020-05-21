@@ -72,7 +72,7 @@ object IArray {
   }
 
   object Builder {
-    def empty[A <: AnyRef]: Builder[A] = new Builder[A](0)
+    def empty[A <: AnyRef]: Builder[A] = new Builder[A](32)
     def empty[A <: AnyRef](initialCapacity: Int): Builder[A] = new Builder[A](initialCapacity)
 
     def apply[A <: AnyRef](as: IArray[A], initialCapacity: Int): Builder[A] = {
@@ -880,8 +880,9 @@ final class IArray[+A <: AnyRef](private val array: Array[AnyRef], val length: I
   def distinct: IArray[A] =
     if (length < 2) this
     else {
-      val ret       = Array.ofDim[AnyRef](length)
-      val seen      = new mutable.HashSet[A]()
+      val ret  = Array.ofDim[AnyRef](length)
+      val seen = new mutable.HashSet[A]()
+      seen.sizeHint(length)
       var idx       = 0
       var o         = 0
       var different = false

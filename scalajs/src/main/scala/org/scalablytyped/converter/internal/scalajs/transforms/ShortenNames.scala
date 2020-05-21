@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package transforms
 
+import org.scalablytyped.converter.internal.maps._
 import scala.collection.mutable
 
 object ShortenNames {
@@ -86,12 +87,8 @@ object ShortenNames {
     val newMembers = members.map(V.visitTree(scope))
 
     val imports: IArray[ImportTree] =
-      IArray
-        .fromTraversable(
-          collectedImports.values
-            .filterNot(_.startsWith(QualifiedName.scala))
-            .filterNot(_.startsWith(QualifiedName.java_lang)),
-        )
+      collectedImports
+        .toIArrayValues(keep = qn => !qn.startsWith(QualifiedName.scala) && !qn.startsWith(QualifiedName.java_lang))
         .sortBy(Printer.formatQN)
         .map(ImportTree.apply)
 

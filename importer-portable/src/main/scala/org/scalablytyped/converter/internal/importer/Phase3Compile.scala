@@ -4,6 +4,7 @@ package importer
 import java.time.{Instant, ZonedDateTime}
 
 import com.olvind.logging.{Formatter, Logger}
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Phase2Res.{Facade, LibScalaJs}
 import org.scalablytyped.converter.internal.importer.build._
 import org.scalablytyped.converter.internal.importer.documentation.Npmjs
@@ -100,7 +101,7 @@ class Phase3Compile(
               name            = source.libName.value,
               version         = VersionHack.TemplateValue,
               publisherOpt    = publisherOpt,
-              localDeps       = IArray.fromTraversable(deps.values),
+              localDeps       = deps.toIArrayValues,
               deps            = externalDeps,
               scalaFiles      = sourceFiles,
               resources       = Map(),
@@ -151,7 +152,7 @@ class Phase3Compile(
               name            = lib.libName,
               version         = VersionHack.TemplateValue,
               publisherOpt    = publisherOpt,
-              localDeps       = IArray.fromTraversable(deps.values),
+              localDeps       = deps.toIArrayValues,
               deps            = externalDeps,
               scalaFiles      = scalaFiles.map { case (relPath, content) => sourcesDir / relPath -> content },
               resources       = resources.map { case (relPath, content) => resourcesDir / relPath -> content },

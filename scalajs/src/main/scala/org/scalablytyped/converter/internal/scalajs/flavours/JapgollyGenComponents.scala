@@ -3,6 +3,7 @@ package scalajs
 package flavours
 
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
+import org.scalablytyped.converter.internal.maps._
 
 /**
   * Generate a package with japgolly's scalajs-react compatible react components
@@ -14,9 +15,9 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
     val pkgCp = tree.codePath + names.components
 
     val generatedCode: IArray[Tree] =
-      IArray
-        .fromTraversable(components.groupBy(c => (c.props, c.knownRef.isDefined, c.tparams)))
-        .flatMap {
+      components
+        .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
+        .mapToIArray {
           case ((propsRefOpt, hasKnownRef, tparams), components) =>
             val (propsRef, resProps): (TypeRef, Res[IArray[Prop]]) =
               propsRefOpt match {
@@ -63,6 +64,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
                 }
             }
         }
+        .flatten
 
     generatedCode match {
       case IArray.Empty => tree
@@ -86,10 +88,10 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
         case Res.One(propsRef, props) =>
           IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, componentCp))
         case Res.Many(propss) =>
-          IArray.fromTraversable(propss.map {
+          propss.mapToIArray {
             case (propsRef, props) =>
               genCreator(propsRef.name, propsRef, props, knownRefRewritten, tparams, componentCp)
-          })
+          }
       }
 
     val componentRef = ModuleTree(
@@ -143,9 +145,9 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
         case Res.One(propsRef, props) =>
           IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, classCp))
         case Res.Many(propss) =>
-          IArray.fromTraversable(propss.map {
+          propss.mapToIArray {
             case (propsRef, props) => genCreator(propsRef.name, propsRef, props, knownRefRewritten, tparams, classCp)
-          })
+          }
       }
 
     val refInTParams =

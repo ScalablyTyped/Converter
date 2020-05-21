@@ -3,13 +3,14 @@ package ts
 package transforms
 
 import org.scalablytyped.converter.internal.ts.TsTreeScope.LoopDetector
+import org.scalablytyped.converter.internal.maps._
 
 object ExtractClasses extends TransformLeaveMembers {
   override def newMembers(scope: TsTreeScope, x: TsContainer): IArray[TsContainerOrDecl] = {
     val findName = FindAvailableName(x, scope)
 
-    val byNames = IArray.fromTraversable(x.membersByName).flatMap {
-      case (_, sameName: IArray[TsNamedDecl]) =>
+    val byNames = x.membersByName.flatMapToIArray {
+      case (_, sameName) =>
         extractClasses(scope, sameName, findName).getOrElse(sameName)
     }
 

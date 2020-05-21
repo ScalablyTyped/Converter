@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package importer
 
 import com.olvind.logging.Logger
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.importer.Source.TsSource
 import org.scalablytyped.converter.internal.ts._
 
@@ -45,10 +46,10 @@ object ResolveExternalReferences {
     val after = v.visitTsParsedFile(root)(tsParsedFile)
 
     val newImports: IArray[TsImport] =
-      IArray.fromTraversable(v.importTypes map {
+      v.importTypes.mapToIArray {
         case (TsIdentImport(from), name) =>
           TsImport(typeOnly = false, IArray(TsImportedStar(Some(name))), TsImporteeFrom(from))
-      })
+      }
 
     Result(after.withMembers(after.members ++ newImports), v.foundSources.to[Set], v.notFound.to[Set])
   }

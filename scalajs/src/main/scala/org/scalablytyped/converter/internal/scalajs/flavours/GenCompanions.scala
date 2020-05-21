@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.TypeParamTree.asTypeArgs
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 
@@ -38,9 +39,9 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
             case Res.One(_, props) =>
               val modOpt: Option[ModuleTree] =
                 generateCreator(Name.APPLY, props.yes, cls.codePath, cls.tparams)
-                  .map { method =>
-                    ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false)
-                  }
+                  .map(method =>
+                    ModuleTree(Empty, cls.name, Empty, IArray(method), NoComments, cls.codePath, isOverride = false),
+                  )
                   .filter(ensureNotTooManyStrings(scope))
                   .map {
                     case mod if enableImplicitOps =>
@@ -56,9 +57,9 @@ final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) exte
 
             case Res.Many(paramsMap) =>
               val methods: IArray[MethodTree] =
-                IArray.fromTraversable(paramsMap.flatMap {
+                paramsMap.toIArray.mapNotNone {
                   case (propsRef, params) => generateCreator(propsRef.name, params.yes, cls.codePath, cls.tparams)
-                })
+                }
 
               val modOpt: Option[ModuleTree] =
                 Some(ModuleTree(Empty, cls.name, Empty, methods, NoComments, cls.codePath, isOverride = false))

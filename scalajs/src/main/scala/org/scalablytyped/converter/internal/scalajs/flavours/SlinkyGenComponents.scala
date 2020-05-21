@@ -2,6 +2,7 @@ package org.scalablytyped.converter.internal
 package scalajs
 package flavours
 
+import org.scalablytyped.converter.internal.maps._
 import org.scalablytyped.converter.internal.scalajs.flavours.FindProps.Res
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyGenComponents.Mode
 import org.scalablytyped.converter.internal.scalajs.flavours.SlinkyWeb.TagName
@@ -237,7 +238,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
             .groupBy(c => (c.props, c.knownRef.isDefined, c.tparams))
 
         val generatedCode: IArray[Tree] =
-          IArray.fromTraversable(grouped).flatMap {
+          grouped.mapToIArray {
             case ((propsRefOpt, hasKnownRef, tparams), components) =>
               val PropsDom(propsRef, resProps, domInfo) =
                 findPropsAndSeparateDomProps(scope, mode, propsRefOpt, tparams)
@@ -256,7 +257,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
                 case (_, components) =>
                   components.map(genComponent(scope, pkgCp, propsRef, resProps, domInfo))
               }
-          }
+          }.flatten
 
         /* Only generate the package if we have mapped any components */
         generatedCode match {
@@ -344,9 +345,9 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
               )
 
             val domInfo: Web[Unit, DomInfo] = {
-              val domProps = IArray
-                .fromTraversable(resProps.asMap)
-                .flatMap { case (_, FindProps.Filtered(_, domFields)) => domFields }
+              val domProps = resProps.asMap
+                .mapToIArray { case (_, FindProps.Filtered(_, domFields)) => domFields }
+                .flatten
                 .distinctBy(_.name)
 
               Web(DomInfo(domProps, slinkyWeb.tags(inferredTagNameCache.getOrElse(TagName.Any)).slinkyTagRef))
@@ -495,7 +496,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
   ): (TypeRef, IArray[MethodTree], Option[TypeAliasTree]) = {
     /* Observe type bound of :< js.Object */
     val refType: TypeRef = {
-      def refFromProps = IArray.fromTraversable(resProps.asMap.values).flatMap(_.refTypes).headOption
+      def refFromProps = resProps.asMap.flatMapToIArray { case (_, v) => v.refTypes }.headOption
 
       knownRef orElse refFromProps map TypeRef.stripTargs match {
         case Some(x @ TypeRef(QualifiedName(IArray.exactlyOne(names.ComponentRef)), _, _)) => x
@@ -611,7 +612,7 @@ class SlinkyGenComponents(mode: Mode[Unit, Option[SlinkyWeb]], findProps: FindPr
           case Res.Error(_)      => Empty // we could generate something, but there is already an `apply` in the parent
           case Res.One(_, props) => IArray(applyMethod(Name.APPLY, props))
           case Res.Many(values) =>
-            IArray.fromTraversable(values.map { case (propsRef, props) => applyMethod(propsRef.name, props) })
+            values.mapToIArray { { case (propsRef, props) => applyMethod(propsRef.name, props) } }
         }
 
       (
