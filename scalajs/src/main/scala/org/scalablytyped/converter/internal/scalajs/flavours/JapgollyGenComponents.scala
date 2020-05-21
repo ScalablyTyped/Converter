@@ -124,7 +124,7 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
   ): ClassTree = {
     // todo: improve on this, but ensure unique
     val name = Name(
-      s"SharedApply_${propsRef.name.unescaped}${(propsRef, knownRefRewritten, tparams).hashCode}"
+      s"SharedApply_${nameFor(propsRef)}${(propsRef, knownRefRewritten, tparams).hashCode}"
         .replaceAllLiterally("-", "_"),
     )
     val classCp = pkgCodePath + name
@@ -146,7 +146,8 @@ final class JapgollyGenComponents(reactNames: ReactNames, findProps: FindProps) 
           IArray(genCreator(Name.APPLY, propsRef, props, knownRefRewritten, tparams, classCp))
         case Res.Many(propss) =>
           propss.mapToIArray {
-            case (propsRef, props) => genCreator(propsRef.name, propsRef, props, knownRefRewritten, tparams, classCp)
+            case (propsRef, props) =>
+              genCreator(Name(nameFor(propsRef)), propsRef, props, knownRefRewritten, tparams, classCp)
           }
       }
 

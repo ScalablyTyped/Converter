@@ -35,4 +35,3 @@ final case class Component(
       props   = props.map(t.visitTypeRef(scope)),
     )
 }
-
