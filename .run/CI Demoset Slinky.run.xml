@@ -3,7 +3,7 @@
     <option name="ALTERNATIVE_JRE_PATH" value="/usr/lib/jvm/java-8-openjdk-amd64/jre" />
     <option name="MAIN_CLASS_NAME" value="org.scalablytyped.converter.Main" />
     <module name="importer" />
-    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline -dontCleanProject -forceCommit -demoSet -flavourSlinky -publish2 -enableScalaJsDefined -useScalaJsDomTypes" />
+    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline -dontCleanProject -forceCommit -demoSet -flavourSlinky -publish2 -enableScalaJsDefined -useScalaJsDomTypes -enableImplicitOps" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.scalablytyped.converter.*" />

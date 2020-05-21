@@ -3,7 +3,7 @@
     <option name="ALTERNATIVE_JRE_PATH" value="graalvm 1.8" />
     <option name="MAIN_CLASS_NAME" value="org.scalablytyped.converter.Main" />
     <module name="importer" />
-    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline  -dontCleanProject2 -flavourJapgolly -enableScalaJsDefined" />
+    <option name="PROGRAM_PARAMETERS" value="-softWrites -enableParseCache -offline  -dontCleanProject2 -flavourJapgolly -enableScalaJsDefined -enableImplicitOps" />
     <option name="VM_PARAMETERS" value="-Xmx10G" />
     <extension name="coverage">
       <pattern>
