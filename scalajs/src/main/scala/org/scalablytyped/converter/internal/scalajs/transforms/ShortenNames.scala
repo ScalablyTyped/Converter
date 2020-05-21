@@ -52,9 +52,7 @@ object ShortenNames {
         }
 
         val shortName = longName.parts.last
-        if (longName === QualifiedName(IArray(Name("x"), Name("duplicate")))) {
-          print(1)
-        }
+
         val rewrittenOpt: Option[QualifiedName] = {
           if (!Name.Internal(shortName) &&
               longName.parts.head =/= Name.THIS &&
@@ -123,31 +121,32 @@ object ShortenNames {
         parentsResolver:    ParentsResolver,
         longName:           QualifiedName,
         methodsAreConflict: Boolean,
-    ): Boolean =
+    ): Boolean = {
+      val shortName = longName.parts.last
+
       dropOuterPackages(scope).exists {
         case x: InheritanceTree =>
-          val ctorClash = x match {
-            case c: ClassTree => c.ctors.exists(_.params.exists(_.name === longName.parts.head))
+          def ctorClash = x match {
+            case c: ClassTree => c.ctors.exists(_.params.exists(_.name === shortName))
             case _ => false
           }
-
-          (x.name === longName.parts.last && x.codePath =/= longName) ||
+          (x.name === shortName && x.codePath =/= longName) ||
           among(x.index, longName, methodsAreConflict) ||
           amongParents(scope, parentsResolver, x, longName, methodsAreConflict) ||
           ctorClash
+
         case x: PackageTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName) || among(
-            x.index,
-            longName,
-            methodsAreConflict = true,
-          )
+          (x.name === shortName && x.codePath =/= longName) ||
+            among(x.index, longName, methodsAreConflict = true)
         case x: TypeAliasTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName)
+          (x.name === shortName && x.codePath =/= longName) ||
+            x.tparams.exists(_.name === shortName)
         case x: FieldTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName)
+          (x.name === shortName && x.codePath =/= longName)
         case x: MethodTree =>
-          (x.name === longName.parts.last && x.codePath =/= longName) ||
-            (methodsAreConflict && x.params.exists(_.exists(_.name === longName.parts.last)))
+          (x.name === shortName && x.codePath =/= longName) ||
+            (methodsAreConflict && x.params.exists(_.exists(_.name === shortName))) ||
+            x.tparams.exists(_.name === shortName)
         case x: ExprTree.Block =>
           x.expressions.exists {
             case ExprTree.Val(name, _) => longName.parts.head === name
@@ -155,6 +154,7 @@ object ShortenNames {
           }
         case _ => false
       }
+    }
 
     private def amongParents(
         scope:              TreeScope,
