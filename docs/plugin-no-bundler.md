@@ -36,3 +36,7 @@ The rest of [Getting started with SBT plugin](plugin.md) applies.
 You can check out the `storybook-react` and `react-native` demos in 
 [SlinkyTypedDemos](https://github.com/oyvindberg/SlinkyTypedDemos/) 
 for complete examples.
+
+# Now what?
+
+Have a look at [Where do I start?](usage.md)

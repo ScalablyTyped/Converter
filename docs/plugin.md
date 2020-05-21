@@ -1,6 +1,6 @@
 ---
 id: plugin
-title: Getting started - SBT plugin
+title: SBT plugin
 ---
 
 The plugin uses [scalajs-bundler](https://scalacenter.github.io/scalajs-bundler/)
@@ -232,3 +232,7 @@ If that doesn't suit you, you can specify another directory
 ```scala
 Global / stDir := file("/some/other/dir")
 ```
+
+# Now what?
+
+Have a look at [Where do I start?](usage.md)
