@@ -28,8 +28,7 @@ object AvailableName {
 /**
   * Add a companion object to `@ScalaJSDefined` traits for creating instances with method syntax
   */
-final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps, enableImplicitOps: Boolean)
-    extends TreeTransformation {
+final class GenCompanions(findProps: FindProps, enableImplicitOps: Boolean) extends TreeTransformation {
   override def leaveContainerTree(scope: TreeScope)(container: ContainerTree): ContainerTree =
     // Native JS objects cannot contain inner Scala traits, classes or objects (i.e., not extending js.Any)
     if (scope.stack.exists { case mod: ModuleTree => mod.isNative; case _ => false })
@@ -48,7 +47,6 @@ final class GenCompanions(memberToProp: MemberToProp, findProps: FindProps, enab
           findProps.forClassTree(
             cls                = cls,
             scope              = scope / cls,
-            memberToProp       = memberToProp,
             maxNum             = FindProps.MaxParamsForMethod,
             acceptNativeTraits = false,
             keep               = FindProps.keepAll,

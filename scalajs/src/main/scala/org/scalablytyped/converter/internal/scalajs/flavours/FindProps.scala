@@ -82,13 +82,12 @@ object FindProps {
   def keepAll(p: IArray[Prop]): (IArray[Prop], Unit) = (p, ())
 }
 
-final class FindProps(cleanIllegalNames: CleanIllegalNames) {
+final class FindProps(cleanIllegalNames: CleanIllegalNames, memberToProp: MemberToProp) {
 
   def forType[No](
       typeRef:            TypeRef,
       tparams:            IArray[TypeParamTree],
       scope:              TreeScope,
-      memberToProp:       MemberToProp,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
       keep:               IArray[Prop] => (IArray[Prop], No),
@@ -96,7 +95,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
     FollowAliases(scope)(typeRef) match {
       case TypeRef.Intersection(types) =>
         val results: IArray[Res[FindProps.Filtered[No]]] =
-          types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits, keep))
+          types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits, keep))
 
         results.partitionCollect3({ case x @ Res.Error(_) => x }, { case x @ Res.Many(_) => x }, {
           case x @ Res.One(_, _)                          => x
@@ -111,7 +110,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             Res.Error(s"Couldn't find props for $typeRef because: ${errors.map(_.msg).mkString(", ")}")
         }
       case TypeRef.Union(types) =>
-        Res.combine(types.map(tpe => forType(tpe, tparams, scope, memberToProp, maxNum, acceptNativeTraits, keep)))
+        Res.combine(types.map(tpe => forType(tpe, tparams, scope, maxNum, acceptNativeTraits, keep)))
 
       case other =>
         val retOpt = scope lookup other.typeName collectFirst {
@@ -120,7 +119,6 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             forClassTree(
               cls,
               scope / cls,
-              memberToProp,
               maxNum             = maxNum,
               acceptNativeTraits = acceptNativeTraits,
               keep               = keep,
@@ -134,7 +132,6 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
   def forClassTree[No](
       cls:                ClassTree,
       scope:              TreeScope,
-      memberToProp:       MemberToProp,
       maxNum:             Int,
       acceptNativeTraits: Boolean,
       keep:               IArray[Prop] => (IArray[Prop], No),
@@ -148,7 +145,7 @@ final class FindProps(cleanIllegalNames: CleanIllegalNames) {
             .collectFirst {
               case (subCls: ClassTree, _) =>
                 val subCls_ = FillInTParams(subCls, scope, subClsRef.targs, cls.tparams)
-                forClassTree(subCls_, scope, memberToProp, maxNum, acceptNativeTraits, keep, subClsRef)
+                forClassTree(subCls_, scope, maxNum, acceptNativeTraits, keep, subClsRef)
             }
             .getOrElse(Res.Error(s"Could not find ${subClsRef.typeName}"))
         })

@@ -13,12 +13,9 @@ trait MemberToProp {
 object MemberToProp {
   import ExprTree._
 
+  /* yeah, i know. We'll refactor if we'll do many more rewrites */
   class Default(val rewriterOpt: Option[TypeRewriterCast]) extends MemberToProp {
     override def apply(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
-      default(scope, x, isInherited)
-
-    /* yeah, i know. We'll refactor if we'll do many more rewrites */
-    final def default(scope: TreeScope, x: MemberTree, isInherited: Boolean): Option[Prop] =
       x match {
         /* fix irritating type inference issue with `js.UndefOr[Double]` where you provide an `Int` */
         case f @ FieldTree(_, name, origTpe, _, _, _, _, _) =>
